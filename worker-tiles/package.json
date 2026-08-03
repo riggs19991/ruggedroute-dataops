@@ -1,0 +1,11 @@
+{
+  "name": "rr-tiles",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "pmtiles": "^4.3.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.118.0"
+  }
+}

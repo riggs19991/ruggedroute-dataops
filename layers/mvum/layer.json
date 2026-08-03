@@ -1,0 +1,24 @@
+{
+  "layer": "mvum",
+  "description": "USFS Motor Vehicle Use Map roads + trails — the legal-designation layer. Per-vehicle-class allowance flags and parsed season windows baked into tile attributes; open/closed evaluated client-side against device date (works offline).",
+  "sources": [
+    {
+      "name": "Trans_MVUM_Road",
+      "url": "https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Road.gdb.zip",
+      "live_check": "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_MVUM_01/MapServer/1"
+    },
+    {
+      "name": "Trans_MVUM_Trail",
+      "url": "https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Trail.gdb.zip",
+      "live_check": "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_MVUM_01/MapServer/2"
+    }
+  ],
+  "license": "US Government public domain (CC0)",
+  "attribution": "USDA Forest Service",
+  "cadence": "weekly",
+  "zooms": { "min": 4, "max": 14 },
+  "source_layers": ["mvum_roads", "mvum_trails"],
+  "stable_key": "source_id (= rte_cn; route numbers repeat across forests, CN does not)",
+  "workflow": ".github/workflows/weekly-motorized.yml",
+  "notes": "Seasonal dates are scheduled seasons, NOT live gate status. The printed MVUM PDF is the legal document of record — client must show the disclaimer."
+}

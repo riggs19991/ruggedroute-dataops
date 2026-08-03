@@ -1,0 +1,19 @@
+# rr-tiles worker. Custom domain REQUIRED before the app ships against it
+# (workers.dev never edge-caches — every request would be an R2 class-B miss).
+name = "rr-tiles"
+main = "src/index.js"
+compatibility_date = "2026-07-01"
+workers_dev = true
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "rr-tiles"
+
+[[kv_namespaces]]
+binding = "ALIASES"
+id = "f2f28315ee8f43fb8413d1bcddd20684"
+
+# Enable once DNS exists (founder action: Workers -> rr-tiles -> Settings -> Domains):
+# [[routes]]
+# pattern = "tiles.ruggedroutehq.com"
+# custom_domain = true

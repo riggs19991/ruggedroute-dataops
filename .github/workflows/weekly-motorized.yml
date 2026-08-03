@@ -1,0 +1,124 @@
+name: weekly-motorized
+# MVUM roads + trails: USFS bulk GDB -> normalize -> PMTiles -> R2 (versioned + alias flip).
+# Runs without secrets too: builds + QA + attaches artifacts, skips upload.
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays 09:17 UTC (upstream refreshes ~weekly)
+  workflow_dispatch: {}
+
+jobs:
+  mvum:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      UA: "RuggedRoute-dataops/1.0 (riggs1991@gmail.com)"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/hostedtoolcache/CodeQL || true
+
+      - name: Install GDAL
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
+
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+
+      - name: Install pmtiles CLI
+        run: |
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+
+      - name: Unit-test the normalizer
+        run: cd lib && python3 -m unittest -v
+
+      - name: Fetch MVUM GDBs (bulk = system of record)
+        run: |
+          curl -A "$UA" -fSL --retry 3 -o road.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Road.gdb.zip
+          curl -A "$UA" -fSL --retry 3 -o trail.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Trail.gdb.zip
+          unzip -q road.gdb.zip -d road_gdb && unzip -q trail.gdb.zip -d trail_gdb
+          rm -f road.gdb.zip trail.gdb.zip
+
+      - name: Normalize
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/tippecanoe-bin:$PATH"
+          ROAD_GDB=$(find road_gdb -maxdepth 2 -name '*.gdb' -type d | head -1)
+          TRAIL_GDB=$(find trail_gdb -maxdepth 2 -name '*.gdb' -type d | head -1)
+          ROAD_LAYER=$(ogrinfo -ro -q "$ROAD_GDB" | sed -n 's/^[0-9]*: \([^ ]*\).*/\1/p' | head -1)
+          TRAIL_LAYER=$(ogrinfo -ro -q "$TRAIL_GDB" | sed -n 's/^[0-9]*: \([^ ]*\).*/\1/p' | head -1)
+          echo "road layer: $ROAD_LAYER  trail layer: $TRAIL_LAYER"
+          ogr2ogr -f GeoJSONSeq /vsistdout/ "$ROAD_GDB" "$ROAD_LAYER" -t_srs EPSG:4326 -dim XY \
+            | python3 lib/normalize_mvum.py --kind road --review-out review_queue_roads.jsonl \
+            > mvum_roads.geojsonl
+          ogr2ogr -f GeoJSONSeq /vsistdout/ "$TRAIL_GDB" "$TRAIL_LAYER" -t_srs EPSG:4326 -dim XY \
+            | python3 lib/normalize_mvum.py --kind trail --review-out review_queue_trails.jsonl \
+            > mvum_trails.geojsonl
+          wc -l mvum_roads.geojsonl mvum_trails.geojsonl review_queue_*.jsonl || true
+          rm -rf road_gdb trail_gdb
+
+      - name: QA — golden bbox counts vs live EDW
+        run: python3 qa/golden_counts.py --roads mvum_roads.geojsonl --trails mvum_trails.geojsonl
+
+      - name: Tile
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/tippecanoe-bin:$PATH"
+          tippecanoe -P -o mvum.pmtiles -Z4 -z14 --drop-densest-as-needed \
+            --attribution="USDA Forest Service" --name="RuggedRoute MVUM" --force \
+            -L mvum_roads:mvum_roads.geojsonl \
+            -L mvum_trails:mvum_trails.geojsonl
+          ls -lh mvum.pmtiles
+          pmtiles show mvum.pmtiles
+
+      - name: Upload to R2 + flip alias (skips until secrets exist)
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          KV_NAMESPACE_ID: f2f28315ee8f43fb8413d1bcddd20684
+        run: |
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            echo "ARTIFACT_MODE=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          VERSION="mvum-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload mvum.pmtiles "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            npx --yes wrangler kv key put --namespace-id "$KV_NAMESPACE_ID" "layer-alias:mvum" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+
+      - name: Attach PMTiles as artifact (only in artifact mode)
+        if: env.ARTIFACT_MODE == '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: mvum-pmtiles
+          path: mvum.pmtiles
+          retention-days: 7
+
+      - name: Attach review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-queue
+          path: review_queue_*.jsonl
+          retention-days: 30
+          if-no-files-found: ignore

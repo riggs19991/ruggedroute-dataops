@@ -1,0 +1,30 @@
+name: deploy-worker
+# Deploys worker-tiles (the PMTiles tile server) to Cloudflare.
+# Requires the CLOUDFLARE_API_TOKEN secret; skips gracefully without it.
+
+on:
+  push:
+    branches: [main]
+    paths: ["worker-tiles/**", ".github/workflows/deploy-worker.yml"]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        working-directory: worker-tiles
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::notice::CLOUDFLARE_API_TOKEN not configured — skipping deploy."
+            exit 0
+          fi
+          npm install
+          npx wrangler deploy

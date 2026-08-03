@@ -1,0 +1,9 @@
+*.pmtiles
+*.gdb.zip
+*.geojsonl
+*_gdb/
+node_modules/
+__pycache__/
+.wrangler/
+review_queue*.jsonl
+dist/
