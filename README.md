@@ -29,10 +29,21 @@ Design rules (from the master plan — do not violate):
 
 ## Layers
 
-| Layer | Workflow | Status |
-|---|---|---|
-| `mvum` (USFS MVUM roads + trails, vehicle flags + season windows) | `weekly-motorized.yml` | Stage 0 proof-of-loop |
-| roads_context (RoadCore), nfs_trails, blm_routes, lands, rec_pois, … | — | Stage 1+ per master plan §11 |
+| Layer | Source | Workflow | Status |
+|---|---|---|---|
+| `mvum` (roads + trails, vehicle flags + season windows, NFS-attr enrichment) | USFS MVUM bulk GDBs | `weekly-motorized.yml` | **LIVE** (Stage 0 loop, Stage 1 enrichment) |
+| `roads_context` (full road inventory, grey context — never green) | USFS RoadCore bulk GDB | `weekly-motorized.yml` | Stage 1 — pipeline ready |
+| `nfs_trails` (trail system + managed-use seasons; feeds MVUM enrichment) | USFS Trans_Trail_NFS_Publish bulk GDB | `weekly-motorized.yml` | Stage 1 — tileset only, no client layer yet |
+| `blm_routes` (OHV designation open/limited/closed + limitation text) | BLM GTLF Public Display 0-3 (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
+| `nps_roads` (park road inventory, seasonal + surface) | NPS Public Roads FeatureServer (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
+| lands, rec_pois, parcels, … | — | — | Stage 2+ per master plan §11 |
+
+All five normalizers share `lib/route_common.py` (season parser, tolerant GeoJSONSeq
+streaming, deduped review queue). Per-layer manifests live in `layers/{layer}/layer.json`.
+QA: `qa/golden_counts.py` (per-layer golden-bbox counts vs the live services) and
+`qa/rte_cn_stability.py` (soft stable-key orphan check between consecutive runs).
+The worker is layer-name-agnostic: a new tileset goes live purely by uploading
+`{layer}-YYYYmmdd-HHMM.pmtiles` and flipping `layer-alias:{layer}` in KV.
 
 ## One-time setup (founder)
 

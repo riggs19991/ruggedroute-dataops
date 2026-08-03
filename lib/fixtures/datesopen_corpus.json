@@ -1,0 +1,10522 @@
+{
+  "generated": "2026-08-03",
+  "source": "EDW_MVUM_01 layers 1+2 distinct values",
+  "fields_queried": [
+    "atv_datesopen",
+    "bus_datesopen",
+    "e_bike_class1_dur",
+    "e_bike_class2_dur",
+    "e_bike_class3_dur",
+    "fourwd_gt50_datesopen",
+    "highclearancevehicle_datesopen",
+    "motorcycle_datesopen",
+    "motorhome_datesopen",
+    "other_ohv_gt50_datesopen",
+    "other_ohv_lt50_datesopen",
+    "otherwheeled_ohv_datesopen",
+    "passengervehicle_datesopen",
+    "tracked_ohv_gt50_datesopen",
+    "tracked_ohv_lt50_datesopen",
+    "truck_datesopen",
+    "twowd_gt50_datesopen"
+  ],
+  "field_resolution": {
+    "1": {
+      "passengervehicle_datesopen": "passengervehicle_datesopen",
+      "highclearancevehicle_datesopen": "highclearancevehicle_datesopen",
+      "truck_datesopen": "truck_datesopen",
+      "bus_datesopen": "bus_datesopen",
+      "motorhome_datesopen": "motorhome_datesopen",
+      "fourwd_gt50inches_datesopen": "fourwd_gt50_datesopen",
+      "twowd_gt50inches_datesopen": "twowd_gt50_datesopen",
+      "tracked_ohv_gt50inches_datesopen": "tracked_ohv_gt50_datesopen",
+      "tracked_ohv_lt50inches_datesopen": "tracked_ohv_lt50_datesopen",
+      "other_ohv_gt50inches_datesopen": "other_ohv_gt50_datesopen",
+      "other_ohv_lt50inches_datesopen": "other_ohv_lt50_datesopen",
+      "atv_datesopen": "atv_datesopen",
+      "motorcycle_datesopen": "motorcycle_datesopen",
+      "otherwheeled_ohv_datesopen": "otherwheeled_ohv_datesopen",
+      "e_bike_class1_datesopen": "e_bike_class1_dur",
+      "e_bike_class2_datesopen": "e_bike_class2_dur",
+      "e_bike_class3_datesopen": "e_bike_class3_dur"
+    },
+    "2": {
+      "passengervehicle_datesopen": "passengervehicle_datesopen",
+      "highclearancevehicle_datesopen": "highclearancevehicle_datesopen",
+      "truck_datesopen": "truck_datesopen",
+      "bus_datesopen": "bus_datesopen",
+      "motorhome_datesopen": "motorhome_datesopen",
+      "fourwd_gt50inches_datesopen": "fourwd_gt50_datesopen",
+      "twowd_gt50inches_datesopen": "twowd_gt50_datesopen",
+      "tracked_ohv_gt50inches_datesopen": "tracked_ohv_gt50_datesopen",
+      "tracked_ohv_lt50inches_datesopen": "tracked_ohv_lt50_datesopen",
+      "other_ohv_gt50inches_datesopen": "other_ohv_gt50_datesopen",
+      "other_ohv_lt50inches_datesopen": "other_ohv_lt50_datesopen",
+      "atv_datesopen": "atv_datesopen",
+      "motorcycle_datesopen": "motorcycle_datesopen",
+      "otherwheeled_ohv_datesopen": "otherwheeled_ohv_datesopen",
+      "e_bike_class1_datesopen": "e_bike_class1_dur",
+      "e_bike_class2_datesopen": "e_bike_class2_dur",
+      "e_bike_class3_datesopen": "e_bike_class3_dur"
+    }
+  },
+  "query_failures": [],
+  "values": [
+    {
+      "value": "01/01-01/01,04/01-04/30,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/01"
+        },
+        {
+          "open": "04/01",
+          "close": "04/30"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/01,05/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/01"
+        },
+        {
+          "open": "05/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/02"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/02,03/01-10/31,11/23-11/30,12/22-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/02"
+        },
+        {
+          "open": "03/01",
+          "close": "10/31"
+        },
+        {
+          "open": "11/23",
+          "close": "11/30"
+        },
+        {
+          "open": "12/22",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/02,03/10-10/31,11/20-11/25,12/25-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/02"
+        },
+        {
+          "open": "03/10",
+          "close": "10/31"
+        },
+        {
+          "open": "11/20",
+          "close": "11/25"
+        },
+        {
+          "open": "12/25",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/02,03/13-10/31,11/23-11/28,12/25-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/02"
+        },
+        {
+          "open": "03/13",
+          "close": "10/31"
+        },
+        {
+          "open": "11/23",
+          "close": "11/28"
+        },
+        {
+          "open": "12/25",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/02,03/31-10/31,11/23-11/28,12/25-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/02"
+        },
+        {
+          "open": "03/31",
+          "close": "10/31"
+        },
+        {
+          "open": "11/23",
+          "close": "11/28"
+        },
+        {
+          "open": "12/25",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/02,04/01-04/30,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/02"
+        },
+        {
+          "open": "04/01",
+          "close": "04/30"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/03"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/03,04/01-05/21,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/03"
+        },
+        {
+          "open": "04/01",
+          "close": "05/21"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/04,03/26-05/04,09/10-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/04"
+        },
+        {
+          "open": "03/26",
+          "close": "05/04"
+        },
+        {
+          "open": "09/10",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/04,03/30-05/02,09/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/04"
+        },
+        {
+          "open": "03/30",
+          "close": "05/02"
+        },
+        {
+          "open": "09/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/05,04/01-05/15,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/05"
+        },
+        {
+          "open": "04/01",
+          "close": "05/15"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/05,04/01-05/31,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/05"
+        },
+        {
+          "open": "04/01",
+          "close": "05/31"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/07,04/08-05/13,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/07"
+        },
+        {
+          "open": "04/08",
+          "close": "05/13"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/09,04/02-05/21,09/25-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/09"
+        },
+        {
+          "open": "04/02",
+          "close": "05/21"
+        },
+        {
+          "open": "09/25",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/09,06/21-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/09"
+        },
+        {
+          "open": "06/21",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/10,04/01-05/21,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/10"
+        },
+        {
+          "open": "04/01",
+          "close": "05/21"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/10,04/01-05/21,09/24-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/10"
+        },
+        {
+          "open": "04/01",
+          "close": "05/21"
+        },
+        {
+          "open": "09/24",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/10,04/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/10"
+        },
+        {
+          "open": "04/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/10,04/08-05/13,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/10"
+        },
+        {
+          "open": "04/08",
+          "close": "05/13"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/10,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/10"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/14,03/15-05/14,07/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/14"
+        },
+        {
+          "open": "03/15",
+          "close": "05/14"
+        },
+        {
+          "open": "07/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/15,03/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/15"
+        },
+        {
+          "open": "03/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/15,04/01-05/16,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/15"
+        },
+        {
+          "open": "04/01",
+          "close": "05/16"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/15,04/08-05/13,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/15"
+        },
+        {
+          "open": "04/08",
+          "close": "05/13"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/15,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/15"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/18,03/15-05/15,09/12-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/18"
+        },
+        {
+          "open": "03/15",
+          "close": "05/15"
+        },
+        {
+          "open": "09/12",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/19,09/05-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/19"
+        },
+        {
+          "open": "09/05",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/27,03/19-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/27"
+        },
+        {
+          "open": "03/19",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/31,02/23-04/30,09/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/31"
+        },
+        {
+          "open": "02/23",
+          "close": "04/30"
+        },
+        {
+          "open": "09/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/31,04/01-05/31,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/31"
+        },
+        {
+          "open": "04/01",
+          "close": "05/31"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/31,05/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/31"
+        },
+        {
+          "open": "05/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/31,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/31"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-01/31,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "01/31"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/11,04/08-05/13,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/11"
+        },
+        {
+          "open": "04/08",
+          "close": "05/13"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,04/01-05/31,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "04/01",
+          "close": "05/31"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,05/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "05/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,05/17-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "05/17",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,05/24-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "05/24",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,05/27-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "05/27",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,06/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "06/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,06/21-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "06/21",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-02/29,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "02/29"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/01,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/01"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/14,04/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/14"
+        },
+        {
+          "open": "04/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/14,05/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/14"
+        },
+        {
+          "open": "05/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/14,05/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/14"
+        },
+        {
+          "open": "05/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/14,06/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/14"
+        },
+        {
+          "open": "06/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/15,05/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/15"
+        },
+        {
+          "open": "05/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/15,09/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/15"
+        },
+        {
+          "open": "09/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/29,06/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/29"
+        },
+        {
+          "open": "06/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/30,07/16-09/30,12/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/30"
+        },
+        {
+          "open": "07/16",
+          "close": "09/30"
+        },
+        {
+          "open": "12/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,04/10-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "04/10",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,05/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "05/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,05/16-09/30,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "05/16",
+          "close": "09/30"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,05/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "05/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,06/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "06/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,07/01-08/14,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "07/01",
+          "close": "08/14"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,07/01-08/31,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "07/01",
+          "close": "08/31"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,07/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "07/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,07/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "07/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-03/31,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "03/31"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/01,05/25-09/30,12/20-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/01"
+        },
+        {
+          "open": "05/25",
+          "close": "09/30"
+        },
+        {
+          "open": "12/20",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/15,11/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/15"
+        },
+        {
+          "open": "11/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/20,05/25-09/30,12/20-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/20"
+        },
+        {
+          "open": "05/25",
+          "close": "09/30"
+        },
+        {
+          "open": "12/20",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/30,06/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/30"
+        },
+        {
+          "open": "06/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/30,07/01-08/14,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/30"
+        },
+        {
+          "open": "07/01",
+          "close": "08/14"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/30,07/01-09/24,10/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/30"
+        },
+        {
+          "open": "07/01",
+          "close": "09/24"
+        },
+        {
+          "open": "10/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/30,07/01-10/14,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/30"
+        },
+        {
+          "open": "07/01",
+          "close": "10/14"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-04/30,07/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "04/30"
+        },
+        {
+          "open": "07/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-05/01,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "05/01"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-05/14,07/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "05/14"
+        },
+        {
+          "open": "07/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-05/31,06/15-10/01,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "05/31"
+        },
+        {
+          "open": "06/15",
+          "close": "10/01"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-05/31,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "05/31"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-05/31,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "05/31"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-06/01,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "06/01"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-06/14,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "06/14"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-06/20,07/31-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "06/20"
+        },
+        {
+          "open": "07/31",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "01/01-08/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "08/14"
+        }
+      ]
+    },
+    {
+      "value": "01/01-08/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "08/15"
+        }
+      ]
+    },
+    {
+      "value": "01/01-08/15,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "08/15"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-08/31,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "08/31"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-09/14,11/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "09/14"
+        },
+        {
+          "open": "11/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-09/18,11/05-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "09/18"
+        },
+        {
+          "open": "11/05",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "01/01-09/30,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "09/30"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-09/30,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "09/30"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/11    10/22-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/11"
+        },
+        {
+          "open": "10/22",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/11   10/22-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/11"
+        },
+        {
+          "open": "10/22",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/12   10/23-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/12"
+        },
+        {
+          "open": "10/23",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/14,12/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/14"
+        },
+        {
+          "open": "12/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/14,12/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/14"
+        },
+        {
+          "open": "12/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/20"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/20,11/12-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/20"
+        },
+        {
+          "open": "11/12",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/30,11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/30"
+        },
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/30,11/12-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/30"
+        },
+        {
+          "open": "11/12",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/13",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/13"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/30"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/31\r\n",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/01-12/31\r\n01/01-12/31\r\n",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/10-11/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/10",
+          "close": "11/23"
+        }
+      ]
+    },
+    {
+      "value": "01/10-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/10",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/15-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/15",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "01/30-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/30",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "01/31-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "01/31",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "02/01-07/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "02/01",
+          "close": "07/06"
+        }
+      ]
+    },
+    {
+      "value": "02/10-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "02/10",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "02/15-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "02/15",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "02/15-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "02/15",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "02/16-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "02/16",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "03/01-01/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "01/05"
+        }
+      ]
+    },
+    {
+      "value": "03/01-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "03/01-04/15,09/01-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "04/15"
+        },
+        {
+          "open": "09/01",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "03/01-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "03/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "03/01-10/31,11/23-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "10/31"
+        },
+        {
+          "open": "11/23",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "03/01-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "03/01-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "03/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "03/01-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "03/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "03/02-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/02",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "03/02-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/02",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "03/05-10/17",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/05",
+          "close": "10/17"
+        }
+      ]
+    },
+    {
+      "value": "03/07-11/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/07",
+          "close": "11/24"
+        }
+      ]
+    },
+    {
+      "value": "03/10-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/10",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "03/13-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/13",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "03/13-10/31,11/23-11/28",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/13",
+          "close": "10/31"
+        },
+        {
+          "open": "11/23",
+          "close": "11/28"
+        }
+      ]
+    },
+    {
+      "value": "03/15-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "03/15-01/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "01/14"
+        }
+      ]
+    },
+    {
+      "value": "03/15-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-01/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "01/18"
+        }
+      ]
+    },
+    {
+      "value": "03/15-02/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "02/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-05/15,07/12-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "05/15"
+        },
+        {
+          "open": "07/12",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-05/15,07/13-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "05/15"
+        },
+        {
+          "open": "07/13",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "03/15-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "03/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "03/15-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "03/15-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "03/15-12/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "12/18"
+        }
+      ]
+    },
+    {
+      "value": "03/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "03/16-01/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "01/02"
+        }
+      ]
+    },
+    {
+      "value": "03/16-05/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "03/16-05/31,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "05/31"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "03/16-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "03/16-11/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "11/09"
+        }
+      ]
+    },
+    {
+      "value": "03/16-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "03/16-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "03/16-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "03/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "03/17-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/17",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "03/19-05/12",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/19",
+          "close": "05/12"
+        }
+      ]
+    },
+    {
+      "value": "03/19-05/12,09/19-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/19",
+          "close": "05/12"
+        },
+        {
+          "open": "09/19",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "03/20-05/15,07/13-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/20",
+          "close": "05/15"
+        },
+        {
+          "open": "07/13",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "03/20-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/20",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "03/20-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/20",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "03/24-01/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/24",
+          "close": "01/07"
+        }
+      ]
+    },
+    {
+      "value": "03/24-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/24",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "03/24-12/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/24",
+          "close": "12/07"
+        }
+      ]
+    },
+    {
+      "value": "03/25-01/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/25",
+          "close": "01/03"
+        }
+      ]
+    },
+    {
+      "value": "03/27-01/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/27",
+          "close": "01/04"
+        }
+      ]
+    },
+    {
+      "value": "03/27-01/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/27",
+          "close": "01/06"
+        }
+      ]
+    },
+    {
+      "value": "03/28-01/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/28",
+          "close": "01/05"
+        }
+      ]
+    },
+    {
+      "value": "03/30-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/30",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "03/30-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/30",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "03/30-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/30",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "03/31-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/31",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "04/01-01/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "01/02"
+        }
+      ]
+    },
+    {
+      "value": "04/01-01/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "01/04"
+        }
+      ]
+    },
+    {
+      "value": "04/01-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "04/01-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "04/01-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "04/01-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-04/30,10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "04/30"
+        },
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-05/15,11/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "05/15"
+        },
+        {
+          "open": "11/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/01-05/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "05/16"
+        }
+      ]
+    },
+    {
+      "value": "04/01-05/21,09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "05/21"
+        },
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-06/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "06/14"
+        }
+      ]
+    },
+    {
+      "value": "04/01-06/14,06/16-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "06/14"
+        },
+        {
+          "open": "06/16",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "04/01-07/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "07/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "04/01-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "04/01-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "04/01-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "04/01-09/27,10/14-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "09/27"
+        },
+        {
+          "open": "10/14",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "04/01-10/08,11/04-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "10/08"
+        },
+        {
+          "open": "11/04",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-10/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "10/20"
+        }
+      ]
+    },
+    {
+      "value": "04/01-10/28",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "10/28"
+        }
+      ]
+    },
+    {
+      "value": "04/01-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "04/01-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "04/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "04/01-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "04/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/02"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/07"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/10"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/18"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/25"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/30"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/31\r\n04/01-12/31\r\n",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/31"
+        },
+        {
+          "open": "04/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/01-12/33",
+      "parse_ok": false,
+      "windows": []
+    },
+    {
+      "value": "04/02-01/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "01/09"
+        }
+      ]
+    },
+    {
+      "value": "04/02-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "04/02-09/12",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "09/12"
+        }
+      ]
+    },
+    {
+      "value": "04/02-10/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "10/03"
+        }
+      ]
+    },
+    {
+      "value": "04/02-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "04/02-10/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "10/24"
+        }
+      ]
+    },
+    {
+      "value": "04/02-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "04/02-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "04/02-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/02-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "04/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/03-11/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/03",
+          "close": "11/02"
+        }
+      ]
+    },
+    {
+      "value": "04/04-12/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/04",
+          "close": "12/07"
+        }
+      ]
+    },
+    {
+      "value": "04/04-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/04",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/05-10/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/05",
+          "close": "10/05"
+        }
+      ]
+    },
+    {
+      "value": "04/05-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/05",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/11-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/11",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/11-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/11",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/13-05/05,10/12-10/14,11/09-11/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/13",
+          "close": "05/05"
+        },
+        {
+          "open": "10/12",
+          "close": "10/14"
+        },
+        {
+          "open": "11/09",
+          "close": "11/24"
+        }
+      ]
+    },
+    {
+      "value": "04/14-10/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/14",
+          "close": "10/29"
+        }
+      ]
+    },
+    {
+      "value": "04/14-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/14",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/14-12/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/14",
+          "close": "12/11"
+        }
+      ]
+    },
+    {
+      "value": "04/14-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/14",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/14-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/14",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/15-05/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "04/15-08/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "08/01"
+        }
+      ]
+    },
+    {
+      "value": "04/15-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "04/15-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "04/15-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "04/15-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "04/15-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "04/15-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "04/15-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "04/15-11/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "11/19"
+        }
+      ]
+    },
+    {
+      "value": "04/15-11/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "11/21"
+        }
+      ]
+    },
+    {
+      "value": "04/15-11/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "11/25"
+        }
+      ]
+    },
+    {
+      "value": "04/15-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "04/15-12/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "12/05"
+        }
+      ]
+    },
+    {
+      "value": "04/15-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "04/15-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/16-02/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "02/14"
+        }
+      ]
+    },
+    {
+      "value": "04/16-06/30,08/31-11/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "06/30"
+        },
+        {
+          "open": "08/31",
+          "close": "11/29"
+        }
+      ]
+    },
+    {
+      "value": "04/16-07/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "07/31"
+        }
+      ]
+    },
+    {
+      "value": "04/16-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "04/16-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "04/16-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "04/16-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/16-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "04/16-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "04/16-12/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "12/24"
+        }
+      ]
+    },
+    {
+      "value": "04/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/17-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/17",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/19-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/19",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/20-05/06,09/21-12/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/20",
+          "close": "05/06"
+        },
+        {
+          "open": "09/21",
+          "close": "12/06"
+        }
+      ]
+    },
+    {
+      "value": "04/20-10/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/20",
+          "close": "10/02"
+        }
+      ]
+    },
+    {
+      "value": "04/20-10/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/20",
+          "close": "10/23"
+        }
+      ]
+    },
+    {
+      "value": "04/20-11/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/20",
+          "close": "11/16"
+        }
+      ]
+    },
+    {
+      "value": "04/20-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/20",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "04/21-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/21",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "04/21-12/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/21",
+          "close": "12/10"
+        }
+      ]
+    },
+    {
+      "value": "04/24-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/24",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "04/24-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/24",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "04/24-10/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/24",
+          "close": "10/05"
+        }
+      ]
+    },
+    {
+      "value": "04/24-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/24",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "04/26-09/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/26",
+          "close": "09/23"
+        }
+      ]
+    },
+    {
+      "value": "04/30-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/30",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "04/30-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/30",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "04/30-12/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/30",
+          "close": "12/25"
+        }
+      ]
+    },
+    {
+      "value": "05/01-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-02/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "02/19"
+        }
+      ]
+    },
+    {
+      "value": "05/01-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "05/01-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "05/01-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "05/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-04/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "04/14"
+        }
+      ]
+    },
+    {
+      "value": "05/01-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-06/15,07/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "06/15"
+        },
+        {
+          "open": "07/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-06/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "06/30"
+        }
+      ]
+    },
+    {
+      "value": "05/01-08/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "08/29"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/20"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/21"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/01-09/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "09/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/10"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/11    10/22-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/11"
+        },
+        {
+          "open": "10/22",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/11   10/22-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/11"
+        },
+        {
+          "open": "10/22",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/16"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/20"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "05/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/05"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/07"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/19"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/01-11/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "11/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "05/01-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "05/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "05/01-12/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "12/25"
+        }
+      ]
+    },
+    {
+      "value": "05/01-12/26",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "12/26"
+        }
+      ]
+    },
+    {
+      "value": "05/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/01/-10/31",
+      "parse_ok": false,
+      "windows": []
+    },
+    {
+      "value": "05/02-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "05/02-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "05/02-09/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "09/14"
+        }
+      ]
+    },
+    {
+      "value": "05/02-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "05/02-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/02-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "05/02-11/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "11/19"
+        }
+      ]
+    },
+    {
+      "value": "05/02-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/02-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "05/02-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "05/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/03-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/03",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "05/03-09/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/03",
+          "close": "09/23"
+        }
+      ]
+    },
+    {
+      "value": "05/03-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/03",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/03-12/13",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/03",
+          "close": "12/13"
+        }
+      ]
+    },
+    {
+      "value": "05/05-03/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/05",
+          "close": "03/27"
+        }
+      ]
+    },
+    {
+      "value": "05/05-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/05",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "05/05-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/05",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/05-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/05",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/09-12/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/09",
+          "close": "12/09"
+        }
+      ]
+    },
+    {
+      "value": "05/10-09/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "09/08"
+        }
+      ]
+    },
+    {
+      "value": "05/10-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "05/10-09/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "09/23"
+        }
+      ]
+    },
+    {
+      "value": "05/10-10/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "10/07"
+        }
+      ]
+    },
+    {
+      "value": "05/10-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/10-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "05/10-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/10-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "05/10-11/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "11/24"
+        }
+      ]
+    },
+    {
+      "value": "05/10-12/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/10",
+          "close": "12/08"
+        }
+      ]
+    },
+    {
+      "value": "05/11-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/11",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/11-11/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/11",
+          "close": "11/09"
+        }
+      ]
+    },
+    {
+      "value": "05/11-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/11",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "05/11-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/11",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/12-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/12",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "05/13-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/13",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "05/13-09/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/13",
+          "close": "09/11"
+        }
+      ]
+    },
+    {
+      "value": "05/13-10/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/13",
+          "close": "10/02"
+        }
+      ]
+    },
+    {
+      "value": "05/13-10/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/13",
+          "close": "10/23"
+        }
+      ]
+    },
+    {
+      "value": "05/14-08/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/14",
+          "close": "08/21"
+        }
+      ]
+    },
+    {
+      "value": "05/14-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/14",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "05/14-10/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/14",
+          "close": "10/19"
+        }
+      ]
+    },
+    {
+      "value": "05/14-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/14",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "05/15-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "05/15-01/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "01/30"
+        }
+      ]
+    },
+    {
+      "value": "05/15-03/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "03/08"
+        }
+      ]
+    },
+    {
+      "value": "05/15-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "05/15-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "05/15-06/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "06/15"
+        }
+      ]
+    },
+    {
+      "value": "05/15-08/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "08/21"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/06"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/08"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/09"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/11"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/20"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/15-09/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/31"
+        }
+      ]
+    },
+    {
+      "value": "05/15-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "05/15-10/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "10/08"
+        }
+      ]
+    },
+    {
+      "value": "05/15-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "05/15-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "05/15-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "05/15-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/15-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "05/15-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/15-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "05/15-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "05/15-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/08"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/10"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "05/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/15-9/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/15",
+          "close": "09/11"
+        }
+      ]
+    },
+    {
+      "value": "05/16-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "05/16-02/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "02/19"
+        }
+      ]
+    },
+    {
+      "value": "05/16-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "05/16-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "05/16-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "05/16-03/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "03/19"
+        }
+      ]
+    },
+    {
+      "value": "05/16-03/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "03/21"
+        }
+      ]
+    },
+    {
+      "value": "05/16-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "05/16-04/13",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "04/13"
+        }
+      ]
+    },
+    {
+      "value": "05/16-04/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "04/14"
+        }
+      ]
+    },
+    {
+      "value": "05/16-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "05/16-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "05/16-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "05/16-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "05/16-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/16-09/30,11/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "09/30"
+        },
+        {
+          "open": "11/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/16-10/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "10/04"
+        }
+      ]
+    },
+    {
+      "value": "05/16-10/13",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "10/13"
+        }
+      ]
+    },
+    {
+      "value": "05/16-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "05/16-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "05/16-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/16-11/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "11/11"
+        }
+      ]
+    },
+    {
+      "value": "05/16-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/16-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/16-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "05/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/17-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/17",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "05/17-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/17",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "05/17-09/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/17",
+          "close": "09/29"
+        }
+      ]
+    },
+    {
+      "value": "05/19-09/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/19",
+          "close": "09/08"
+        }
+      ]
+    },
+    {
+      "value": "05/20-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "05/20-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "05/20-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "05/20-09/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "09/07"
+        }
+      ]
+    },
+    {
+      "value": "05/20-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "05/20-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "05/20-09/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "09/16"
+        }
+      ]
+    },
+    {
+      "value": "05/20-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "05/20-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "05/20-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "05/20-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "05/20-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/20",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/21-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "05/21-09/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "09/06"
+        }
+      ]
+    },
+    {
+      "value": "05/21-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/21-10/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "10/03"
+        }
+      ]
+    },
+    {
+      "value": "05/21-10/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "10/24"
+        }
+      ]
+    },
+    {
+      "value": "05/21-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/21-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/21-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "05/21-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "05/21-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/21",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "05/22-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/07"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/08"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/20"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "05/22-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/22",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/23-09/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/23",
+          "close": "09/16"
+        }
+      ]
+    },
+    {
+      "value": "05/23-09/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/23",
+          "close": "09/20"
+        }
+      ]
+    },
+    {
+      "value": "05/23-10/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/23",
+          "close": "10/04"
+        }
+      ]
+    },
+    {
+      "value": "05/23-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/23",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "05/24-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "05/24-09/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "09/03"
+        }
+      ]
+    },
+    {
+      "value": "05/24-09/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "09/08"
+        }
+      ]
+    },
+    {
+      "value": "05/24-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "05/24-09/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "09/22"
+        }
+      ]
+    },
+    {
+      "value": "05/24-09/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "09/29"
+        }
+      ]
+    },
+    {
+      "value": "05/24-10/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "10/05"
+        }
+      ]
+    },
+    {
+      "value": "05/24-10/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/24",
+          "close": "10/07"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/04"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/07"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/09"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/25"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/25-09/30,11/20-12/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "09/30"
+        },
+        {
+          "open": "11/20",
+          "close": "12/11"
+        }
+      ]
+    },
+    {
+      "value": "05/25-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/25-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/25",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/26-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/26",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "05/26-10/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/26",
+          "close": "10/10"
+        }
+      ]
+    },
+    {
+      "value": "05/26-11/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/26",
+          "close": "11/19"
+        }
+      ]
+    },
+    {
+      "value": "05/27-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "05/27-09/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "09/11"
+        }
+      ]
+    },
+    {
+      "value": "05/27-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "05/27-09/26",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "09/26"
+        }
+      ]
+    },
+    {
+      "value": "05/27-10/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "10/03"
+        }
+      ]
+    },
+    {
+      "value": "05/27-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "05/27-10/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "10/16"
+        }
+      ]
+    },
+    {
+      "value": "05/27-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/27",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "05/28-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/28",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "05/28-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/28",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "05/28-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/28",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "05/28-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/28",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/30-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "05/30-09/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "09/07"
+        }
+      ]
+    },
+    {
+      "value": "05/30-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "05/30-09/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "09/20"
+        }
+      ]
+    },
+    {
+      "value": "05/30-10/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "10/03"
+        }
+      ]
+    },
+    {
+      "value": "05/30-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "05/30-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "05/30-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "05/30-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/30",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "05/31-08/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/31",
+          "close": "08/29"
+        }
+      ]
+    },
+    {
+      "value": "05/31-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/31",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "05/31-09/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/31",
+          "close": "09/20"
+        }
+      ]
+    },
+    {
+      "value": "05/31-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/31",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "05/31-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/31",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "05/31-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "05/31",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/01 - 9/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/01-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "06/01-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-02/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "02/01"
+        }
+      ]
+    },
+    {
+      "value": "06/01-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "06/01-03/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "03/01"
+        }
+      ]
+    },
+    {
+      "value": "06/01-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "06/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-07/15,11/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "07/15"
+        },
+        {
+          "open": "11/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-08/19,11/16-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "08/19"
+        },
+        {
+          "open": "11/16",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/01-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-09/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/06"
+        }
+      ]
+    },
+    {
+      "value": "06/01-09/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/07"
+        }
+      ]
+    },
+    {
+      "value": "06/01-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "06/01-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "06/01-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "06/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/01-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "06/01-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "06/01-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "06/01-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "06/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/09"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/27"
+        }
+      ]
+    },
+    {
+      "value": "06/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "06/01-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "06/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "06/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/01-9/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/02-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "06/02-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "06/02-09/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "09/21"
+        }
+      ]
+    },
+    {
+      "value": "06/02-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/02-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/02-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/02-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/02",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/05-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/05",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "06/05-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/05",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "06/05-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/05",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "06/05-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/05",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/06-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/06",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "06/06-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/06",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/07-04/13",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/07",
+          "close": "04/13"
+        }
+      ]
+    },
+    {
+      "value": "06/07-09/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/07",
+          "close": "09/02"
+        }
+      ]
+    },
+    {
+      "value": "06/07-09/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/07",
+          "close": "09/04"
+        }
+      ]
+    },
+    {
+      "value": "06/10-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/10",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "06/10-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/10",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "06/10-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/10",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "06/10-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/10",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/10-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/10",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "06/11-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/11",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/11-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/11",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/12-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/12",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "06/12-10/12",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/12",
+          "close": "10/12"
+        }
+      ]
+    },
+    {
+      "value": "06/12-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/12",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "06/13-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/13",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "06/13-11/08",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/13",
+          "close": "11/08"
+        }
+      ]
+    },
+    {
+      "value": "06/14-10/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/14",
+          "close": "10/21"
+        }
+      ]
+    },
+    {
+      "value": "06/15-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "06/15-03/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "03/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "06/15-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-04/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "04/14"
+        }
+      ]
+    },
+    {
+      "value": "06/15-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "06/15-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "06/15-05/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "05/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-06/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "06/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-08/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "08/29"
+        }
+      ]
+    },
+    {
+      "value": "06/15-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/04,09/18-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/04"
+        },
+        {
+          "open": "09/18",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/06"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/16"
+        }
+      ]
+    },
+    {
+      "value": "06/15-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/15-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-10/12   10/20-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "10/12"
+        },
+        {
+          "open": "10/20",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/15-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "06/15-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "06/15-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "06/15-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/15-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-11/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "11/05"
+        }
+      ]
+    },
+    {
+      "value": "06/15-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "06/15-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "06/15-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "06/15-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "06/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/16-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "06/16-03/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "03/01"
+        }
+      ]
+    },
+    {
+      "value": "06/16-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-03/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "03/29"
+        }
+      ]
+    },
+    {
+      "value": "06/16-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "06/16-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "06/16-05/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "05/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "06/16-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "06/16-09/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "09/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/16-10/06,11/16-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "10/06"
+        },
+        {
+          "open": "11/16",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-10/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "10/16"
+        }
+      ]
+    },
+    {
+      "value": "06/16-10/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "10/21"
+        }
+      ]
+    },
+    {
+      "value": "06/16-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/16-11/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "11/04"
+        }
+      ]
+    },
+    {
+      "value": "06/16-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "06/16-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/16-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "06/16-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "06/16-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "06/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/17-03/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/17",
+          "close": "03/01"
+        }
+      ]
+    },
+    {
+      "value": "06/17-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/17",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/17-10/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/17",
+          "close": "10/03"
+        }
+      ]
+    },
+    {
+      "value": "06/19-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/19",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "06/20-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/20",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "06/20-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/20",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "06/21-01/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "01/09"
+        }
+      ]
+    },
+    {
+      "value": "06/21-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "06/21-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "06/21-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "06/21-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "06/21-10/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "10/09"
+        }
+      ]
+    },
+    {
+      "value": "06/21-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "06/21-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "06/21-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/21",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "06/22-10/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/22",
+          "close": "10/09"
+        }
+      ]
+    },
+    {
+      "value": "06/22-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/22",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "06/28-04/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/28",
+          "close": "04/14"
+        }
+      ]
+    },
+    {
+      "value": "06/30-05/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/30",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "06/30-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/30",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "06/30-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/30",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "06/30-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/30",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "06/30-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/30",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "06/30-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "06/30",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "07/01-01/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "01/07"
+        }
+      ]
+    },
+    {
+      "value": "07/01-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "07/01-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "07/01-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "07/01-03/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "03/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "07/01-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "07/01-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-05/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "05/14"
+        }
+      ]
+    },
+    {
+      "value": "07/01-07/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "07/21"
+        }
+      ]
+    },
+    {
+      "value": "07/01-08/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "08/25"
+        }
+      ]
+    },
+    {
+      "value": "07/01-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/01"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/02"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/07"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/09"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/09,11/16-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/09"
+        },
+        {
+          "open": "11/16",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/15"
+        }
+      ]
+    },
+    {
+      "value": "07/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/09"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/11   ",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/11   10/22-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/11"
+        },
+        {
+          "open": "10/22",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/11,10/22-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/11"
+        },
+        {
+          "open": "10/22",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/12",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/12"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/12     ",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/12"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/12      ",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/12"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/12      10/20-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/12"
+        },
+        {
+          "open": "10/20",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/12      10/23-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/12"
+        },
+        {
+          "open": "10/23",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/12,10/22-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/12"
+        },
+        {
+          "open": "10/22",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "07/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "07/01-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "07/01-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "07/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "07/01-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "07/01-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "07/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "07/01-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "07/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "07/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "07/02-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "07/02-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "07/02-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "07/02-05/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "05/14"
+        }
+      ]
+    },
+    {
+      "value": "07/02-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "07/02-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "07/02-11/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "11/14"
+        }
+      ]
+    },
+    {
+      "value": "07/02-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/02-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "07/02-12/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/02",
+          "close": "12/14"
+        }
+      ]
+    },
+    {
+      "value": "07/07-08/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/07",
+          "close": "08/29"
+        }
+      ]
+    },
+    {
+      "value": "07/09-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/09",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "07/10-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/10",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "07/10-10/12",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/10",
+          "close": "10/12"
+        }
+      ]
+    },
+    {
+      "value": "07/10-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/10",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "07/11-05/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/11",
+          "close": "05/14"
+        }
+      ]
+    },
+    {
+      "value": "07/15-05/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "05/04"
+        }
+      ]
+    },
+    {
+      "value": "07/15-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "07/15-09/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "09/05"
+        }
+      ]
+    },
+    {
+      "value": "07/15-09/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "09/14"
+        }
+      ]
+    },
+    {
+      "value": "07/15-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "07/15-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "07/15-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "07/15-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "07/15-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "07/15-11/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "11/10"
+        }
+      ]
+    },
+    {
+      "value": "07/15-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "07/15-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "07/16-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "07/16-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "07/16-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "07/16-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "07/16-09/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "09/04"
+        }
+      ]
+    },
+    {
+      "value": "07/16-09/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "09/14"
+        }
+      ]
+    },
+    {
+      "value": "07/16-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "07/16-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "07/16-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "07/16-11/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "11/09"
+        }
+      ]
+    },
+    {
+      "value": "07/16-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/16-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "07/16-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/16",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "07/22-07/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/22",
+          "close": "07/22"
+        }
+      ]
+    },
+    {
+      "value": "07/26-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/26",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "07/30-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/30",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/31-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/31",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "07/31-10/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/31",
+          "close": "10/01"
+        }
+      ]
+    },
+    {
+      "value": "07/31-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/31",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "07/31-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/31",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "08/01-01/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "01/04"
+        }
+      ]
+    },
+    {
+      "value": "08/01-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "08/01-01/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "01/14"
+        }
+      ]
+    },
+    {
+      "value": "08/01-02/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "02/15"
+        }
+      ]
+    },
+    {
+      "value": "08/01-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "08/01-07/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "07/01"
+        }
+      ]
+    },
+    {
+      "value": "08/01-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "08/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "08/01-11/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "11/01"
+        }
+      ]
+    },
+    {
+      "value": "08/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "08/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "08/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "08/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "08/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "08/02-02/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/02",
+          "close": "02/14"
+        }
+      ]
+    },
+    {
+      "value": "08/02-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/02",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "08/03-03/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/03",
+          "close": "03/30"
+        }
+      ]
+    },
+    {
+      "value": "08/15-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "08/15-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "08/15-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "08/15-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "08/15-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "08/15-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "08/15-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "08/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "08/15-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "08/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "08/16-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/16",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "08/16-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/16",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "08/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "08/21-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/21",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "08/31-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/31",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "08/31-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "08/31",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "09/01-01/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "01/02"
+        }
+      ]
+    },
+    {
+      "value": "09/01-01/05",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "01/05"
+        }
+      ]
+    },
+    {
+      "value": "09/01-01/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "01/07"
+        }
+      ]
+    },
+    {
+      "value": "09/01-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "09/01-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "09/01-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "09/01-02/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "02/15"
+        }
+      ]
+    },
+    {
+      "value": "09/01-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "09/01-03/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "03/01"
+        }
+      ]
+    },
+    {
+      "value": "09/01-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "09/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "09/01-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "09/01-05/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "05/01"
+        }
+      ]
+    },
+    {
+      "value": "09/01-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "09/01-06/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "06/30"
+        }
+      ]
+    },
+    {
+      "value": "09/01-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "09/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "09/01-10/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "10/30"
+        }
+      ]
+    },
+    {
+      "value": "09/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "09/01-11/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "11/15"
+        }
+      ]
+    },
+    {
+      "value": "09/01-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "09/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "09/01-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "09/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "09/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "09/02-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/02",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "09/02-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/02",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "09/02-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/02",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "09/05-01/19",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/05",
+          "close": "01/19"
+        }
+      ]
+    },
+    {
+      "value": "09/05-05/23",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/05",
+          "close": "05/23"
+        }
+      ]
+    },
+    {
+      "value": "09/09-05/17",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/09",
+          "close": "05/17"
+        }
+      ]
+    },
+    {
+      "value": "09/10-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/10",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "09/11-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/11",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "09/12-01/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/12",
+          "close": "01/18"
+        }
+      ]
+    },
+    {
+      "value": "09/12-12/28",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/12",
+          "close": "12/28"
+        }
+      ]
+    },
+    {
+      "value": "09/13-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/13",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "09/15-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/15",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "09/15-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/15",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "09/15-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/15",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "09/16-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/16",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "09/16-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/16",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "09/19-11/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/19",
+          "close": "11/04"
+        }
+      ]
+    },
+    {
+      "value": "09/19-12/16",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/19",
+          "close": "12/16"
+        }
+      ]
+    },
+    {
+      "value": "09/21-12/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/21",
+          "close": "12/06"
+        }
+      ]
+    },
+    {
+      "value": "09/22-11/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/22",
+          "close": "11/04"
+        }
+      ]
+    },
+    {
+      "value": "09/24-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/24",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "09/25-01/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/25",
+          "close": "01/14"
+        }
+      ]
+    },
+    {
+      "value": "09/25-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/25",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "09/25-12/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/25",
+          "close": "12/10"
+        }
+      ]
+    },
+    {
+      "value": "09/25-12/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/25",
+          "close": "12/20"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/04"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/07",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/07"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/09",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/09"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/10"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "10/01-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "10/01-02/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "02/15"
+        }
+      ]
+    },
+    {
+      "value": "10/01-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "10/01-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "10/01-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "10/01-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "10/01-05/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "10/01-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "10/01-06/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "06/01"
+        }
+      ]
+    },
+    {
+      "value": "10/01-06/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "06/14"
+        }
+      ]
+    },
+    {
+      "value": "10/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "10/01-10/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "10/22"
+        }
+      ]
+    },
+    {
+      "value": "10/01-10/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "10/31"
+        }
+      ]
+    },
+    {
+      "value": "10/01-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "10/01-12/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "12/18"
+        }
+      ]
+    },
+    {
+      "value": "10/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "10/02-02/13",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/02",
+          "close": "02/13"
+        }
+      ]
+    },
+    {
+      "value": "10/02-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/02",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "10/02-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/02",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "10/02-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/02",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "10/08-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/08",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "10/10-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/10",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "10/10-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/10",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "10/15-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "10/15-01/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "01/14"
+        }
+      ]
+    },
+    {
+      "value": "10/15-05/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "10/15-11/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "11/20"
+        }
+      ]
+    },
+    {
+      "value": "10/15-11/22",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "11/22"
+        }
+      ]
+    },
+    {
+      "value": "10/15-12/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "12/01"
+        }
+      ]
+    },
+    {
+      "value": "10/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "10/16-09/24",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/16",
+          "close": "09/24"
+        }
+      ]
+    },
+    {
+      "value": "10/31-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "10/31",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "11/01-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "11/01-01/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "01/15"
+        }
+      ]
+    },
+    {
+      "value": "11/01-01/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "01/21"
+        }
+      ]
+    },
+    {
+      "value": "11/01-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "11/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "11/01-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "11/01-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "11/01-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "11/01-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "11/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "11/01-10/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "10/06"
+        }
+      ]
+    },
+    {
+      "value": "11/01-11/21",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "11/21"
+        }
+      ]
+    },
+    {
+      "value": "11/01-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "11/01-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "11/02-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/02",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "11/02-05/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/02",
+          "close": "05/14"
+        }
+      ]
+    },
+    {
+      "value": "11/02-08/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/02",
+          "close": "08/14"
+        }
+      ]
+    },
+    {
+      "value": "11/05-05/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/05",
+          "close": "05/01"
+        }
+      ]
+    },
+    {
+      "value": "11/05-09/18",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/05",
+          "close": "09/18"
+        }
+      ]
+    },
+    {
+      "value": "11/05-12/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/05",
+          "close": "12/15"
+        }
+      ]
+    },
+    {
+      "value": "11/07-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/07",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "11/07-11/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/07",
+          "close": "11/30"
+        }
+      ]
+    },
+    {
+      "value": "11/08-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/08",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "11/12-11/25",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/12",
+          "close": "11/25"
+        }
+      ]
+    },
+    {
+      "value": "11/14-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/14",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "11/15-01/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "01/31"
+        }
+      ]
+    },
+    {
+      "value": "11/15-02/29",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "02/29"
+        }
+      ]
+    },
+    {
+      "value": "11/15-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "11/15-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "11/15-05/28",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "05/28"
+        }
+      ]
+    },
+    {
+      "value": "11/15-05/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "05/31"
+        }
+      ]
+    },
+    {
+      "value": "11/15-08/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "08/15"
+        }
+      ]
+    },
+    {
+      "value": "11/15-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/15",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "11/16-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/16",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "11/16-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/16",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "11/16-08/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/16",
+          "close": "08/14"
+        }
+      ]
+    },
+    {
+      "value": "11/16-08/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/16",
+          "close": "08/15"
+        }
+      ]
+    },
+    {
+      "value": "11/16-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/16",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "11/16-09/03",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/16",
+          "close": "09/03"
+        }
+      ]
+    },
+    {
+      "value": "11/19-01/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/19",
+          "close": "01/14"
+        }
+      ]
+    },
+    {
+      "value": "11/19-12/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/19",
+          "close": "12/10"
+        }
+      ]
+    },
+    {
+      "value": "11/20-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/20",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "11/20-12/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/20",
+          "close": "12/11"
+        }
+      ]
+    },
+    {
+      "value": "11/20-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/20",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "11/22-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/22",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "11/24-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/24",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "11/26-09/26",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/26",
+          "close": "09/26"
+        }
+      ]
+    },
+    {
+      "value": "11/29-09/27",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "11/29",
+          "close": "09/27"
+        }
+      ]
+    },
+    {
+      "value": "12/01-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "12/01-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "12/01-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "12/01-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "12/01-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "12/01-05/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "12/01-06/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "06/15"
+        }
+      ]
+    },
+    {
+      "value": "12/01-06/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "06/30"
+        }
+      ]
+    },
+    {
+      "value": "12/01-08/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "08/14"
+        }
+      ]
+    },
+    {
+      "value": "12/01-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "12/01-09/10",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "09/10"
+        }
+      ]
+    },
+    {
+      "value": "12/01-09/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "09/30"
+        }
+      ]
+    },
+    {
+      "value": "12/01-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "12/01-10/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/01",
+          "close": "10/15"
+        }
+      ]
+    },
+    {
+      "value": "12/02-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/02",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "12/02-04/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/02",
+          "close": "04/30"
+        }
+      ]
+    },
+    {
+      "value": "12/02-08/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/02",
+          "close": "08/31"
+        }
+      ]
+    },
+    {
+      "value": "12/02-10/06",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/02",
+          "close": "10/06"
+        }
+      ]
+    },
+    {
+      "value": "12/02-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/02",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "12/03-03/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/03",
+          "close": "03/14"
+        }
+      ]
+    },
+    {
+      "value": "12/03-10/14",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/03",
+          "close": "10/14"
+        }
+      ]
+    },
+    {
+      "value": "12/10-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/10",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "12/13-08/20",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/13",
+          "close": "08/20"
+        }
+      ]
+    },
+    {
+      "value": "12/15-03/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/15",
+          "close": "03/15"
+        }
+      ]
+    },
+    {
+      "value": "12/15-03/30",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/15",
+          "close": "03/30"
+        }
+      ]
+    },
+    {
+      "value": "12/15-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/15",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "12/16-03/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/16",
+          "close": "03/31"
+        }
+      ]
+    },
+    {
+      "value": "12/20-04/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/20",
+          "close": "04/01"
+        }
+      ]
+    },
+    {
+      "value": "12/20-04/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/20",
+          "close": "04/15"
+        }
+      ]
+    },
+    {
+      "value": "12/22-01/02",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/22",
+          "close": "01/02"
+        }
+      ]
+    },
+    {
+      "value": "12/31-01/01",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/31",
+          "close": "01/01"
+        }
+      ]
+    },
+    {
+      "value": "12/31-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "12/31",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "3/15-1/04",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/15",
+          "close": "01/04"
+        }
+      ]
+    },
+    {
+      "value": "3/16-1/2",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "03/16",
+          "close": "01/02"
+        }
+      ]
+    },
+    {
+      "value": "4/1-12/31",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "04/01",
+          "close": "12/31"
+        }
+      ]
+    },
+    {
+      "value": "7/01-10/11",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "07/01",
+          "close": "10/11"
+        }
+      ]
+    },
+    {
+      "value": "9/15-5/15",
+      "parse_ok": true,
+      "windows": [
+        {
+          "open": "09/15",
+          "close": "05/15"
+        }
+      ]
+    },
+    {
+      "value": "<Null>",
+      "parse_ok": false,
+      "windows": []
+    },
+    {
+      "value": "open",
+      "parse_ok": false,
+      "windows": []
+    }
+  ]
+}

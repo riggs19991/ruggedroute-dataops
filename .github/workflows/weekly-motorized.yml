@@ -1,18 +1,53 @@
 name: weekly-motorized
-# MVUM roads + trails: USFS bulk GDB -> normalize -> PMTiles -> R2 (versioned + alias flip).
-# Runs without secrets too: builds + QA + attaches artifacts, skips upload.
+# Stage 1 motorized data pipeline — one job per layer, all through the shared
+# normalizer stack (lib/route_common.py):
+#   mvum          USFS MVUM roads + trails (+ NFS Trails attr enrichment)
+#   roads_context USFS RoadCore full road inventory (grey context, never green)
+#   nfs_trails    USFS NFS Trails (tileset only; no client layer in Stage 1)
+#   blm_routes    BLM GTLF Public Display motorized layers 0-3
+#   nps_roads     NPS Public Roads
+# Each job: fetch -> normalize (review queue) -> QA -> tippecanoe -> versioned
+# PMTiles upload to R2 + KV alias flip. Runs without secrets too: builds + QA +
+# attaches artifacts, skips upload. The worker is layer-name-agnostic — new
+# tilesets go live purely by uploading + flipping layer-alias:{layer}.
 
 on:
   schedule:
     - cron: "17 9 * * 1" # Mondays 09:17 UTC (upstream refreshes ~weekly)
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      layers:
+        description: "Comma-separated subset to run: mvum,roads_context,nfs_trails,blm_routes,nps_roads (or 'all')"
+        required: false
+        default: "all"
+
+# actions: read lets the stability steps `gh run download` a previous run's
+# rtecn-ids-* artifact (actions/cache was useless here: its 7-day eviction sat
+# exactly on the weekly cron boundary, so the baseline never survived to the
+# next run and the gate never armed).
+permissions:
+  contents: read
+  actions: read
+
+env:
+  UA: "RuggedRoute-dataops/1.0 (riggs1991@gmail.com)"
+  KV_NAMESPACE_ID: f2f28315ee8f43fb8413d1bcddd20684
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit-test the normalizers
+        run: cd lib && python3 -m unittest -v
+
+  # ──────────────────────────────────────────────────────────────── mvum ──
   mvum:
+    needs: test
+    if: github.event_name != 'workflow_dispatch' || inputs.layers == 'all' || inputs.layers == '' || contains(inputs.layers, 'mvum')
     runs-on: ubuntu-latest
     timeout-minutes: 150
-    env:
-      UA: "RuggedRoute-dataops/1.0 (riggs1991@gmail.com)"
     steps:
       - uses: actions/checkout@v4
 
@@ -43,21 +78,24 @@ jobs:
           tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
           sudo mv /tmp/pmtiles /usr/local/bin/
 
-      - name: Unit-test the normalizer
-        run: cd lib && python3 -m unittest -v
-
-      - name: Fetch MVUM GDBs (bulk = system of record)
+      - name: Fetch MVUM GDBs + NFS Trails GDB (bulk = system of record)
         run: |
           curl -A "$UA" -fSL --retry 3 -o road.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Road.gdb.zip
           curl -A "$UA" -fSL --retry 3 -o trail.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Trail.gdb.zip
           unzip -q road.gdb.zip -d road_gdb && unzip -q trail.gdb.zip -d trail_gdb
           rm -f road.gdb.zip trail.gdb.zip
+          # Enrichment source is best-effort: fetch/unzip failure must not sink the MVUM build
+          if curl -A "$UA" -fSL --retry 3 -o nfspub.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip \
+             && unzip -q nfspub.gdb.zip -d nfspub_gdb; then
+            rm -f nfspub.gdb.zip
+          else
+            echo "::warning::NFS Trails GDB fetch/unzip failed — MVUM trails will build unenriched"
+            rm -rf nfspub_gdb nfspub.gdb.zip
+          fi
 
       - name: Normalize
         run: |
           set -euo pipefail
-          export PATH="$HOME/tippecanoe-bin:$PATH"
-
           # Robust GDB discovery: any depth, case-insensitive, plus a flat-extraction
           # fallback (a zip without directory entries can strand gdbtable files at the
           # extract root). Loud diagnostics on failure — never fail silently again.
@@ -85,17 +123,68 @@ jobs:
           TRAIL_LAYER=$(detect_layer "$TRAIL_GDB" Trans_MVUM_Trail)
           echo "road: $ROAD_GDB :: $ROAD_LAYER   trail: $TRAIL_GDB :: $TRAIL_LAYER"
           ogrinfo -ro -so "$ROAD_GDB" "$ROAD_LAYER" | sed -n '1,12p'
+
+          # NFS Trails enrichment sidecar (best effort — join failure => warn + unenriched)
+          NFS_FLAG=""
+          if [ -d nfspub_gdb ]; then
+            if NFS_GDB=$(locate_gdb nfspub_gdb) \
+               && NFS_LAYER=$(detect_layer "$NFS_GDB" Trans_Trail_NFS_Publish) \
+               && ogr2ogr -f GeoJSONSeq /vsistdout/ "$NFS_GDB" "$NFS_LAYER" -t_srs EPSG:4326 -dim XY \
+                  | python3 lib/normalize_nfs_trails.py --review-out review_queue_nfs_sidecar.jsonl \
+                      --attrs-out nfs_attrs.json > /dev/null \
+               && [ -s nfs_attrs.json ]; then
+              NFS_FLAG="--nfs-attrs nfs_attrs.json"
+              echo "NFS enrichment sidecar ready ($(wc -c < nfs_attrs.json) bytes)"
+            else
+              echo "::warning::NFS attrs sidecar build failed — proceeding unenriched"
+            fi
+          fi
+
           ogr2ogr -f GeoJSONSeq /vsistdout/ "$ROAD_GDB" "$ROAD_LAYER" -t_srs EPSG:4326 -dim XY \
             | python3 lib/normalize_mvum.py --kind road --review-out review_queue_roads.jsonl \
             > mvum_roads.geojsonl
           ogr2ogr -f GeoJSONSeq /vsistdout/ "$TRAIL_GDB" "$TRAIL_LAYER" -t_srs EPSG:4326 -dim XY \
-            | python3 lib/normalize_mvum.py --kind trail --review-out review_queue_trails.jsonl \
+            | python3 lib/normalize_mvum.py --kind trail --review-out review_queue_trails.jsonl $NFS_FLAG \
             > mvum_trails.geojsonl
           wc -l mvum_roads.geojsonl mvum_trails.geojsonl review_queue_*.jsonl || true
-          rm -rf road_gdb trail_gdb
+          rm -rf road_gdb trail_gdb nfspub_gdb
 
       - name: QA — golden bbox counts vs live EDW
-        run: python3 qa/golden_counts.py --roads mvum_roads.geojsonl --trails mvum_trails.geojsonl
+        run: python3 qa/golden_counts.py --layer mvum --files mvum_roads.geojsonl mvum_trails.geojsonl
+
+      - name: Restore previous source_id list (artifact of last successful run)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Newest successful run of this workflow that is not the current run;
+          # artifacts persist 35 days (vs cache's 7-day eviction == the weekly
+          # cron boundary). Missing artifact / no previous run => baseline, exit 0.
+          PREV_RUN=""
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow weekly-motorized.yml \
+              --status success --limit 20 --json databaseId --jq '.[].databaseId'); do
+            if [ "$id" != "$GITHUB_RUN_ID" ]; then PREV_RUN="$id"; break; fi
+          done
+          if [ -n "$PREV_RUN" ]; then
+            gh run download "$PREV_RUN" -R "$GITHUB_REPOSITORY" -n rtecn-ids-mvum -D .idcache || true
+          else
+            echo "::notice::no previous successful run — baseline run"
+          fi
+
+      - name: QA — source_id stability (hard gate, max 5% orphans)
+        run: |
+          mkdir -p .idcache
+          if [ -f .idcache/ids.txt ]; then mv .idcache/ids.txt prev_ids.txt; fi
+          python3 qa/rte_cn_stability.py --layer mvum \
+            --current mvum_roads.geojsonl mvum_trails.geojsonl \
+            --previous prev_ids.txt --ids-out .idcache/ids.txt \
+            --max-orphan-pct 5
+
+      - name: Save source_id list for next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtecn-ids-mvum
+          path: .idcache/ids.txt
+          retention-days: 35
 
       - name: Tile
         run: |
@@ -110,23 +199,23 @@ jobs:
 
       - name: Upload to R2 + flip alias (skips until secrets exist)
         env:
+          LAYER: mvum
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          KV_NAMESPACE_ID: f2f28315ee8f43fb8413d1bcddd20684
         run: |
           if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
             echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
             echo "ARTIFACT_MODE=1" >> "$GITHUB_ENV"
             exit 0
           fi
-          VERSION="mvum-$(date +%Y%m%d-%H%M).pmtiles"
-          pmtiles upload mvum.pmtiles "$VERSION" \
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
             --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
           if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
             # --remote is REQUIRED: wrangler v4 defaults kv writes to a local simulation
-            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:mvum" "$VERSION"
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
           fi
           echo "uploaded $VERSION and flipped alias"
 
@@ -142,7 +231,610 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: review-queue
+          name: review-queue-mvum
+          path: review_queue_*.jsonl
+          retention-days: 30
+          if-no-files-found: ignore
+
+  # ─────────────────────────────────────────────────────── roads_context ──
+  roads_context:
+    needs: test
+    if: github.event_name != 'workflow_dispatch' || inputs.layers == 'all' || inputs.layers == '' || contains(inputs.layers, 'roads_context')
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/hostedtoolcache/CodeQL || true
+
+      - name: Install GDAL
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
+
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+
+      - name: Install pmtiles CLI
+        run: |
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+
+      - name: Fetch RoadCore GDB (239 MB)
+        run: |
+          curl -A "$UA" -fSL --retry 3 -o roadcore.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_RoadCore_FS.gdb.zip
+          unzip -q roadcore.gdb.zip -d roadcore_gdb
+          rm -f roadcore.gdb.zip
+
+      - name: Normalize
+        run: |
+          set -euo pipefail
+          locate_gdb() {
+            local root="$1" hit
+            hit=$(find "$root" -type d -iname '*.gdb' -print 2>/dev/null | head -1) || true
+            if [ -z "$hit" ] && compgen -G "$root/a0000000*.gdbtable" > /dev/null; then
+              mv "$root" "${root}.gdb" && hit="${root}.gdb"
+            fi
+            if [ -z "$hit" ]; then
+              echo "::error::no FileGDB under $root — listing follows" >&2
+              find "$root" -maxdepth 3 2>/dev/null | head -40 >&2
+              return 1
+            fi
+            printf '%s\n' "$hit"
+          }
+          detect_layer() {
+            local layer
+            layer=$(ogrinfo -ro "$1" 2>/dev/null | sed -n 's/^[0-9][0-9]*: \([^ ]*\).*/\1/p' | head -1) || true
+            printf '%s\n' "${layer:-$2}"
+          }
+          GDB=$(locate_gdb roadcore_gdb)
+          LAYER_NAME=$(detect_layer "$GDB" Trans_RoadCore_FS)
+          echo "roadcore: $GDB :: $LAYER_NAME"
+          ogr2ogr -f GeoJSONSeq /vsistdout/ "$GDB" "$LAYER_NAME" -t_srs EPSG:4326 -dim XY \
+            | python3 lib/normalize_roadcore.py --review-out review_queue_roadcore.jsonl \
+            > roads_context.geojsonl
+          wc -l roads_context.geojsonl review_queue_*.jsonl || true
+          rm -rf roadcore_gdb
+
+      - name: QA — golden bbox counts vs live EDW
+        run: python3 qa/golden_counts.py --layer roadcore --files roads_context.geojsonl
+
+      - name: Restore previous source_id list (artifact of last successful run)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Newest successful run of this workflow that is not the current run;
+          # artifacts persist 35 days (vs cache's 7-day eviction == the weekly
+          # cron boundary). Missing artifact / no previous run => baseline, exit 0.
+          PREV_RUN=""
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow weekly-motorized.yml \
+              --status success --limit 20 --json databaseId --jq '.[].databaseId'); do
+            if [ "$id" != "$GITHUB_RUN_ID" ]; then PREV_RUN="$id"; break; fi
+          done
+          if [ -n "$PREV_RUN" ]; then
+            gh run download "$PREV_RUN" -R "$GITHUB_REPOSITORY" -n rtecn-ids-roads_context -D .idcache || true
+          else
+            echo "::notice::no previous successful run — baseline run"
+          fi
+
+      - name: QA — source_id stability (hard gate, max 5% orphans)
+        run: |
+          mkdir -p .idcache
+          if [ -f .idcache/ids.txt ]; then mv .idcache/ids.txt prev_ids.txt; fi
+          python3 qa/rte_cn_stability.py --layer roads_context \
+            --current roads_context.geojsonl \
+            --previous prev_ids.txt --ids-out .idcache/ids.txt \
+            --max-orphan-pct 5
+
+      - name: Save source_id list for next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtecn-ids-roads_context
+          path: .idcache/ids.txt
+          retention-days: 35
+
+      - name: Tile
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/tippecanoe-bin:$PATH"
+          # -Z6: the full road inventory is too dense to serve from z4
+          tippecanoe -P -o roads_context.pmtiles -Z6 -z14 --drop-densest-as-needed \
+            --attribution="USDA Forest Service" --name="RuggedRoute Roads Context" --force \
+            -L roads_context:roads_context.geojsonl
+          ls -lh roads_context.pmtiles
+          pmtiles show roads_context.pmtiles
+
+      - name: Upload to R2 + flip alias (skips until secrets exist)
+        env:
+          LAYER: roads_context
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            echo "ARTIFACT_MODE=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+
+      - name: Attach PMTiles as artifact (only in artifact mode)
+        if: env.ARTIFACT_MODE == '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: roads_context-pmtiles
+          path: roads_context.pmtiles
+          retention-days: 7
+
+      - name: Attach review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-queue-roads_context
+          path: review_queue_*.jsonl
+          retention-days: 30
+          if-no-files-found: ignore
+
+  # ────────────────────────────────────────────────────────── nfs_trails ──
+  nfs_trails:
+    needs: test
+    if: github.event_name != 'workflow_dispatch' || inputs.layers == 'all' || inputs.layers == '' || contains(inputs.layers, 'nfs_trails')
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/hostedtoolcache/CodeQL || true
+
+      - name: Install GDAL
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
+
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+
+      - name: Install pmtiles CLI
+        run: |
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+
+      - name: Fetch NFS Trails GDB
+        run: |
+          curl -A "$UA" -fSL --retry 3 -o trailpub.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip
+          unzip -q trailpub.gdb.zip -d trailpub_gdb
+          rm -f trailpub.gdb.zip
+
+      - name: Normalize
+        run: |
+          set -euo pipefail
+          locate_gdb() {
+            local root="$1" hit
+            hit=$(find "$root" -type d -iname '*.gdb' -print 2>/dev/null | head -1) || true
+            if [ -z "$hit" ] && compgen -G "$root/a0000000*.gdbtable" > /dev/null; then
+              mv "$root" "${root}.gdb" && hit="${root}.gdb"
+            fi
+            if [ -z "$hit" ]; then
+              echo "::error::no FileGDB under $root — listing follows" >&2
+              find "$root" -maxdepth 3 2>/dev/null | head -40 >&2
+              return 1
+            fi
+            printf '%s\n' "$hit"
+          }
+          detect_layer() {
+            local layer
+            layer=$(ogrinfo -ro "$1" 2>/dev/null | sed -n 's/^[0-9][0-9]*: \([^ ]*\).*/\1/p' | head -1) || true
+            printf '%s\n' "${layer:-$2}"
+          }
+          GDB=$(locate_gdb trailpub_gdb)
+          LAYER_NAME=$(detect_layer "$GDB" Trans_Trail_NFS_Publish)
+          echo "nfs_trails: $GDB :: $LAYER_NAME"
+          ogr2ogr -f GeoJSONSeq /vsistdout/ "$GDB" "$LAYER_NAME" -t_srs EPSG:4326 -dim XY \
+            | python3 lib/normalize_nfs_trails.py --review-out review_queue_nfs_trails.jsonl \
+            > nfs_trails.geojsonl
+          wc -l nfs_trails.geojsonl review_queue_*.jsonl || true
+          rm -rf trailpub_gdb
+
+      - name: QA — golden bbox counts vs live EDW
+        run: python3 qa/golden_counts.py --layer nfs_trails --files nfs_trails.geojsonl
+
+      - name: Restore previous source_id list (artifact of last successful run)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Newest successful run of this workflow that is not the current run;
+          # artifacts persist 35 days (vs cache's 7-day eviction == the weekly
+          # cron boundary). Missing artifact / no previous run => baseline, exit 0.
+          PREV_RUN=""
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow weekly-motorized.yml \
+              --status success --limit 20 --json databaseId --jq '.[].databaseId'); do
+            if [ "$id" != "$GITHUB_RUN_ID" ]; then PREV_RUN="$id"; break; fi
+          done
+          if [ -n "$PREV_RUN" ]; then
+            gh run download "$PREV_RUN" -R "$GITHUB_REPOSITORY" -n rtecn-ids-nfs_trails -D .idcache || true
+          else
+            echo "::notice::no previous successful run — baseline run"
+          fi
+
+      - name: QA — source_id stability (hard gate, max 5% orphans)
+        run: |
+          mkdir -p .idcache
+          if [ -f .idcache/ids.txt ]; then mv .idcache/ids.txt prev_ids.txt; fi
+          python3 qa/rte_cn_stability.py --layer nfs_trails \
+            --current nfs_trails.geojsonl \
+            --previous prev_ids.txt --ids-out .idcache/ids.txt \
+            --max-orphan-pct 5
+
+      - name: Save source_id list for next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtecn-ids-nfs_trails
+          path: .idcache/ids.txt
+          retention-days: 35
+
+      - name: Tile
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/tippecanoe-bin:$PATH"
+          tippecanoe -P -o nfs_trails.pmtiles -Z4 -z14 --drop-densest-as-needed \
+            --attribution="USDA Forest Service" --name="RuggedRoute NFS Trails" --force \
+            -L nfs_trails:nfs_trails.geojsonl
+          ls -lh nfs_trails.pmtiles
+          pmtiles show nfs_trails.pmtiles
+
+      - name: Upload to R2 + flip alias (skips until secrets exist)
+        env:
+          LAYER: nfs_trails
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            echo "ARTIFACT_MODE=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+
+      - name: Attach PMTiles as artifact (only in artifact mode)
+        if: env.ARTIFACT_MODE == '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfs_trails-pmtiles
+          path: nfs_trails.pmtiles
+          retention-days: 7
+
+      - name: Attach review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-queue-nfs_trails
+          path: review_queue_*.jsonl
+          retention-days: 30
+          if-no-files-found: ignore
+
+  # ────────────────────────────────────────────────────────── blm_routes ──
+  blm_routes:
+    needs: test
+    if: github.event_name != 'workflow_dispatch' || inputs.layers == 'all' || inputs.layers == '' || contains(inputs.layers, 'blm_routes')
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install esridump
+        run: pip install --quiet esridump
+
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+
+      - name: Install pmtiles CLI
+        run: |
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+
+      - name: Dump GTLF Public Display layers 0-3
+        run: |
+          set -euo pipefail
+          BASE="https://gis.blm.gov/arcgis/rest/services/transportation/BLM_Natl_GTLF_Public_Display/MapServer"
+          for i in 0 1 2 3; do
+            esri2geojson --jsonlines "$BASE/$i" "blm_raw_$i.geojsonl"
+            wc -l "blm_raw_$i.geojsonl"
+          done
+
+      - name: Normalize (per-layer designation hints)
+        run: |
+          set -euo pipefail
+          # layer 0: roads open · 1: roads limited · 2: trails open · 3: trails limited
+          python3 lib/normalize_gtlf.py --kind road  --designation-hint open \
+            --review-out review_queue_gtlf_0.jsonl < blm_raw_0.geojsonl > blm_norm_0.geojsonl
+          python3 lib/normalize_gtlf.py --kind road  --designation-hint limited \
+            --review-out review_queue_gtlf_1.jsonl < blm_raw_1.geojsonl > blm_norm_1.geojsonl
+          python3 lib/normalize_gtlf.py --kind trail --designation-hint open \
+            --review-out review_queue_gtlf_2.jsonl < blm_raw_2.geojsonl > blm_norm_2.geojsonl
+          python3 lib/normalize_gtlf.py --kind trail --designation-hint limited \
+            --review-out review_queue_gtlf_3.jsonl < blm_raw_3.geojsonl > blm_norm_3.geojsonl
+          cat blm_norm_0.geojsonl blm_norm_1.geojsonl blm_norm_2.geojsonl blm_norm_3.geojsonl \
+            > blm_routes.geojsonl
+          wc -l blm_routes.geojsonl review_queue_*.jsonl || true
+          rm -f blm_raw_*.geojsonl blm_norm_*.geojsonl
+
+      - name: QA — golden bbox counts vs live service
+        run: python3 qa/golden_counts.py --layer blm_routes --files blm_routes.geojsonl
+
+      - name: Restore previous source_id list (artifact of last successful run)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Newest successful run of this workflow that is not the current run;
+          # artifacts persist 35 days (vs cache's 7-day eviction == the weekly
+          # cron boundary). Missing artifact / no previous run => baseline, exit 0.
+          PREV_RUN=""
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow weekly-motorized.yml \
+              --status success --limit 20 --json databaseId --jq '.[].databaseId'); do
+            if [ "$id" != "$GITHUB_RUN_ID" ]; then PREV_RUN="$id"; break; fi
+          done
+          if [ -n "$PREV_RUN" ]; then
+            gh run download "$PREV_RUN" -R "$GITHUB_REPOSITORY" -n rtecn-ids-blm_routes -D .idcache || true
+          else
+            echo "::notice::no previous successful run — baseline run"
+          fi
+
+      - name: QA — source_id stability (soft gate)
+        run: |
+          mkdir -p .idcache
+          if [ -f .idcache/ids.txt ]; then mv .idcache/ids.txt prev_ids.txt; fi
+          # Deliberately SOFT (no --max-orphan-pct): GTLF source_ids fall back to
+          # per-layer OBJECTIDs, which churn across BLM republishes — a hard
+          # orphan gate would flap. Churn surfaces as a ::warning:: only.
+          python3 qa/rte_cn_stability.py --layer blm_routes \
+            --current blm_routes.geojsonl \
+            --previous prev_ids.txt --ids-out .idcache/ids.txt
+
+      - name: Save source_id list for next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtecn-ids-blm_routes
+          path: .idcache/ids.txt
+          retention-days: 35
+
+      - name: Tile
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/tippecanoe-bin:$PATH"
+          tippecanoe -P -o blm_routes.pmtiles -Z4 -z14 --drop-densest-as-needed \
+            --attribution="Bureau of Land Management" --name="RuggedRoute BLM Routes" --force \
+            -L blm_routes:blm_routes.geojsonl
+          ls -lh blm_routes.pmtiles
+          pmtiles show blm_routes.pmtiles
+
+      - name: Upload to R2 + flip alias (skips until secrets exist)
+        env:
+          LAYER: blm_routes
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            echo "ARTIFACT_MODE=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+
+      - name: Attach PMTiles as artifact (only in artifact mode)
+        if: env.ARTIFACT_MODE == '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blm_routes-pmtiles
+          path: blm_routes.pmtiles
+          retention-days: 7
+
+      - name: Attach review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-queue-blm_routes
+          path: review_queue_*.jsonl
+          retention-days: 30
+          if-no-files-found: ignore
+
+  # ─────────────────────────────────────────────────────────── nps_roads ──
+  nps_roads:
+    needs: test
+    if: github.event_name != 'workflow_dispatch' || inputs.layers == 'all' || inputs.layers == '' || contains(inputs.layers, 'nps_roads')
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install esridump
+        run: pip install --quiet esridump
+
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+
+      - name: Install pmtiles CLI
+        run: |
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+
+      - name: Dump NPS Public Roads
+        run: |
+          set -euo pipefail
+          esri2geojson --jsonlines \
+            "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Roads/FeatureServer/0" \
+            nps_raw.geojsonl
+          wc -l nps_raw.geojsonl
+
+      - name: Normalize
+        run: |
+          set -euo pipefail
+          python3 lib/normalize_nps_roads.py --review-out review_queue_nps_roads.jsonl \
+            < nps_raw.geojsonl > nps_roads.geojsonl
+          wc -l nps_roads.geojsonl review_queue_*.jsonl || true
+          rm -f nps_raw.geojsonl
+
+      - name: QA — golden bbox counts vs live service
+        run: python3 qa/golden_counts.py --layer nps_roads --files nps_roads.geojsonl
+
+      - name: Restore previous source_id list (artifact of last successful run)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Newest successful run of this workflow that is not the current run;
+          # artifacts persist 35 days (vs cache's 7-day eviction == the weekly
+          # cron boundary). Missing artifact / no previous run => baseline, exit 0.
+          PREV_RUN=""
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow weekly-motorized.yml \
+              --status success --limit 20 --json databaseId --jq '.[].databaseId'); do
+            if [ "$id" != "$GITHUB_RUN_ID" ]; then PREV_RUN="$id"; break; fi
+          done
+          if [ -n "$PREV_RUN" ]; then
+            gh run download "$PREV_RUN" -R "$GITHUB_REPOSITORY" -n rtecn-ids-nps_roads -D .idcache || true
+          else
+            echo "::notice::no previous successful run — baseline run"
+          fi
+
+      - name: QA — source_id stability (hard gate, max 5% orphans)
+        run: |
+          mkdir -p .idcache
+          if [ -f .idcache/ids.txt ]; then mv .idcache/ids.txt prev_ids.txt; fi
+          python3 qa/rte_cn_stability.py --layer nps_roads \
+            --current nps_roads.geojsonl \
+            --previous prev_ids.txt --ids-out .idcache/ids.txt \
+            --max-orphan-pct 5
+
+      - name: Save source_id list for next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtecn-ids-nps_roads
+          path: .idcache/ids.txt
+          retention-days: 35
+
+      - name: Tile
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/tippecanoe-bin:$PATH"
+          tippecanoe -P -o nps_roads.pmtiles -Z4 -z14 --drop-densest-as-needed \
+            --attribution="National Park Service" --name="RuggedRoute NPS Roads" --force \
+            -L nps_roads:nps_roads.geojsonl
+          ls -lh nps_roads.pmtiles
+          pmtiles show nps_roads.pmtiles
+
+      - name: Upload to R2 + flip alias (skips until secrets exist)
+        env:
+          LAYER: nps_roads
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            echo "ARTIFACT_MODE=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+
+      - name: Attach PMTiles as artifact (only in artifact mode)
+        if: env.ARTIFACT_MODE == '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: nps_roads-pmtiles
+          path: nps_roads.pmtiles
+          retention-days: 7
+
+      - name: Attach review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-queue-nps_roads
           path: review_queue_*.jsonl
           retention-days: 30
           if-no-files-found: ignore

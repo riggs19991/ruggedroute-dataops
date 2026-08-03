@@ -1,0 +1,19 @@
+{
+  "layer": "roads_context",
+  "description": "USFS RoadCore — the FULL National Forest road inventory (administrative, closed, decommissioned included). Legality-agnostic grey context under the MVUM layer: designation is 'unassessed' on every feature and the client must never render it green or imply it is drivable.",
+  "sources": [
+    {
+      "name": "Trans_RoadCore_FS",
+      "url": "https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_RoadCore_FS.gdb.zip",
+      "live_check": "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_RoadBasic_01/MapServer/0"
+    }
+  ],
+  "license": "US Government public domain (CC0)",
+  "attribution": "USDA Forest Service",
+  "cadence": "weekly",
+  "zooms": { "min": 6, "max": 14 },
+  "source_layers": ["roads_context"],
+  "stable_key": "source_id (= rte_cn)",
+  "workflow": ".github/workflows/weekly-motorized.yml",
+  "notes": "Field names verified 2026-08-03 against EDW_RoadBasic_01/0: rte_cn, id, name, symbol_code, symbol_name, surface_type, oper_maint_level, objective_maint_level, openforuseto, route_status, jurisdiction, gis_miles. admin_org/managing_org are numeric org codes and deliberately dropped. minzoom 6 (not 4) — the full inventory is too dense to serve lower. Client renders grey #8A8F98, thinner than MVUM, NEVER green (automated client test)."
+}

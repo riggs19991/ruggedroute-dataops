@@ -20,5 +20,6 @@
   "source_layers": ["mvum_roads", "mvum_trails"],
   "stable_key": "source_id (= rte_cn; route numbers repeat across forests, CN does not)",
   "workflow": ".github/workflows/weekly-motorized.yml",
-  "notes": "Seasonal dates are scheduled seasons, NOT live gate status. The printed MVUM PDF is the legal document of record — client must show the disclaimer."
+  "notes": "Seasonal dates are scheduled seasons, NOT live gate status. The printed MVUM PDF is the legal document of record — client must show the disclaimer.",
+  "enrichment": "Trail features are enriched at build time from Trans_Trail_NFS_Publish (normalize_nfs_trails.py --attrs-out sidecar joined by CN via normalize_mvum.py --nfs-attrs): missing surface/trail_class are filled from the NFS Trails inventory. Best-effort — sidecar failure warns and builds unenriched. Season-field name variants handled: the bulk/live EDW data drops 'inches' in gt50/lt50 datesopen columns and uses *_dur for e-bikes (see lib/fixtures/datesopen_corpus.json field_resolution)."
 }

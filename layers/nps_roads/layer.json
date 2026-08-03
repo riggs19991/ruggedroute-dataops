@@ -1,0 +1,20 @@
+{
+  "layer": "nps_roads",
+  "description": "NPS Public Roads — the National Park Service road inventory (park roads incl. backcountry/unpaved). An inventory, not an OHV designation system: designation is 'unassessed' unless OPENTOPUBLIC is an explicit yes (36 CFR 4.10 makes OHV rules per-park; legality is never fabricated).",
+  "sources": [
+    {
+      "name": "NPS_Public_Roads FeatureServer layer 0 (Roads)",
+      "url": "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Roads/FeatureServer/0",
+      "live_check": "https://mapservices.nps.gov/arcgis/rest/services/NationalDatasets/NPS_Public_Roads/FeatureServer/0",
+      "method": "esridump --jsonlines (FeatureServer supports pagination; no bulk download published)"
+    }
+  ],
+  "license": "US Government public domain (CC0)",
+  "attribution": "National Park Service",
+  "cadence": "weekly",
+  "zooms": { "min": 4, "max": 14 },
+  "source_layers": ["nps_roads"],
+  "stable_key": "source_id (= GEOMETRYID GUID, falling back to FEATUREID then OBJECTID)",
+  "workflow": ".github/workflows/weekly-motorized.yml",
+  "notes": "Field names verified 2026-08-03 via ?f=json: RDNAME, MAPLABEL, RDSTATUS, RDCLASS (kept as road_class), RDSURFACE, SEASONAL ('Yes'/'No'/'Unknown' → seasonal Seasonal/Yearlong/omitted), SEASDESC (free text → shared season parser, failures → review queue; SEASON POLARITY TRAP: closure-phrased SEASDESC matching CLOSURE_HINT with no affirmative open/opens/opened wording NEVER emits a seasons attr — the parser emits OPEN windows and closure dates would invert legality — it lands in the review queue as seasdesc_closure instead), RDHICLEAR (kept as hiclear), RTENUMBER, RDMAINTAINER (manager), UNITCODE/UNITNAME (unit/unit_name), OPENTOPUBLIC (null on every live record today), GEOMETRYID/FEATUREID/OBJECTID. 'Unknown' values dropped from road_class/surface/hiclear. No miles field (Shape__Length is projected meters, not mapped). Client renders #B39DDB solid, MVUM-like widths."
+}

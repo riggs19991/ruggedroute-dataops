@@ -1,0 +1,19 @@
+{
+  "layer": "nfs_trails",
+  "description": "USFS National Forest System trails (Trans_Trail_NFS_Publish) with per-mode managed-use flags and season windows. Stage 1: tileset built + published but NO client layer yet (hiking overlay is a later stage); the dataset also feeds the MVUM trail enrichment sidecar (surface/trail_class join by CN).",
+  "sources": [
+    {
+      "name": "Trans_Trail_NFS_Publish",
+      "url": "https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip",
+      "live_check": "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TrailNFSPublish_01/MapServer/0"
+    }
+  ],
+  "license": "US Government public domain (CC0)",
+  "attribution": "USDA Forest Service",
+  "cadence": "weekly",
+  "zooms": { "min": 4, "max": 14 },
+  "source_layers": ["nfs_trails"],
+  "stable_key": "source_id (= trail_cn)",
+  "workflow": ".github/workflows/weekly-motorized.yml",
+  "notes": "Field names verified 2026-08-03 against EDW_TrailNFSPublish_01/0: trail_cn, trail_no, trail_name, trail_class, trail_surface, terra_motorized/snow_motorized/water_motorized, {mode}_managed season-string columns ('N/A' is the null sentinel), gis_miles. vehicle_flags mapping (motorized terra modes only): motorcycle_managed→moto, atv_managed→atv_lt50, fourwd_managed→fourwd_gt50, e_bike_classN_managed→ebikeN; snowmobile/snowcoach/motor_watercraft have no slot in the 17-key vocabulary and are excluded. designation: 'open' when terra_motorized='Y', else 'unassessed'."
+}

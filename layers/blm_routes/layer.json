@@ -1,0 +1,20 @@
+{
+  "layer": "blm_routes",
+  "description": "BLM Ground Transportation Linear Features (GTLF), Public Display motorized layers: roads + trails managed for public or limited public motorized use, with OHV designation (open/limited/closed/unassessed), limitation text, and seasons extracted from limitation free text where parseable.",
+  "sources": [
+    {
+      "name": "BLM_Natl_GTLF_Public_Display layers 0-3",
+      "url": "https://gis.blm.gov/arcgis/rest/services/transportation/BLM_Natl_GTLF_Public_Display/MapServer",
+      "live_check": "https://gis.blm.gov/arcgis/rest/services/transportation/BLM_Natl_GTLF_Public_Display/MapServer/0",
+      "method": "esridump --jsonlines per layer (no bulk national GDB is published for the Public Display filter)"
+    }
+  ],
+  "license": "US Government public domain (CC0)",
+  "attribution": "Bureau of Land Management",
+  "cadence": "weekly",
+  "zooms": { "min": 4, "max": 14 },
+  "source_layers": ["blm_routes"],
+  "stable_key": "source_id (= GlobalID when present, else per-layer OBJECTID — OBJECTIDs are NOT stable across BLM republishes; rte_cn_stability treats GTLF churn as expected)",
+  "workflow": ".github/workflows/weekly-motorized.yml",
+  "notes": "Field names verified 2026-08-03 against MapServer/0: GlobalID, OBJECTID, ROUTE_PRMRY_NM, PLAN_OHV_ROUTE_DSGNTN ('Open'/'Limited'), OHV_ROUTE_DSGNTN_LIM, OHV_DSGNTN_LIM_EXPLAIN (free text), PLAN_SEASON_RSTRCT_CODE ('YES'/'NO'), OBSRVE_SRFCE_TYPE, GIS_MILES. Layer hints: 0=roads open, 1=roads limited, 2=trails open, 3=trails limited; explicit PLAN_OHV_ROUTE_DSGNTN wins over the hint. SEASON POLARITY TRAP: live OHV_DSGNTN_LIM_EXPLAIN is overwhelmingly CLOSURE-phrased ('Closed 12/1- 4/15' — 100/100 sampled date-bearing values), but the shared season parser emits OPEN windows; text matching the normalizer's CLOSURE_HINT (closed/closure/closes/closing/prohibit*) therefore NEVER emits a seasons attr — it lands in the review queue (field ohv_dsgntn_lim_explain_closure) and the raw text still ships in limitation_text. Client styles on 'designation': open→#7CB342, limited→#FFC107, closed/unassessed→#8A8F98 dashed."
+}
