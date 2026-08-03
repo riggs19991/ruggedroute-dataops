@@ -82,11 +82,14 @@ jobs:
         run: |
           curl -A "$UA" -fSL --retry 3 -o road.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Road.gdb.zip
           curl -A "$UA" -fSL --retry 3 -o trail.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_MVUM_Trail.gdb.zip
-          unzip -q road.gdb.zip -d road_gdb && unzip -q trail.gdb.zip -d trail_gdb
+          # python3 -m zipfile, not unzip: USFS zips can carry a null-byte prefix before the
+          # first local header (seen on Trans_Trail_NFS_Publish 2026-08-03, 618 zero bytes).
+          # unzip hard-fails on the shifted offsets; zipfile anchors on the central directory.
+          python3 -m zipfile -e road.gdb.zip road_gdb && python3 -m zipfile -e trail.gdb.zip trail_gdb
           rm -f road.gdb.zip trail.gdb.zip
           # Enrichment source is best-effort: fetch/unzip failure must not sink the MVUM build
           if curl -A "$UA" -fSL --retry 3 -o nfspub.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip \
-             && unzip -q nfspub.gdb.zip -d nfspub_gdb; then
+             && python3 -m zipfile -e nfspub.gdb.zip nfspub_gdb; then
             rm -f nfspub.gdb.zip
           else
             echo "::warning::NFS Trails GDB fetch/unzip failed — MVUM trails will build unenriched"
@@ -275,7 +278,8 @@ jobs:
       - name: Fetch RoadCore GDB (239 MB)
         run: |
           curl -A "$UA" -fSL --retry 3 -o roadcore.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_RoadCore_FS.gdb.zip
-          unzip -q roadcore.gdb.zip -d roadcore_gdb
+          # zipfile (not unzip): USFS zips can carry a null-byte prefix — see mvum job note
+          python3 -m zipfile -e roadcore.gdb.zip roadcore_gdb
           rm -f roadcore.gdb.zip
 
       - name: Normalize
@@ -433,7 +437,9 @@ jobs:
       - name: Fetch NFS Trails GDB
         run: |
           curl -A "$UA" -fSL --retry 3 -o trailpub.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip
-          unzip -q trailpub.gdb.zip -d trailpub_gdb
+          # zipfile (not unzip): this zip shipped with a 618-byte null prefix on 2026-08-03;
+          # unzip hard-fails on shifted local-header offsets, python zipfile handles it
+          python3 -m zipfile -e trailpub.gdb.zip trailpub_gdb
           rm -f trailpub.gdb.zip
 
       - name: Normalize
