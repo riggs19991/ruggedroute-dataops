@@ -434,41 +434,62 @@ jobs:
           tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
           sudo mv /tmp/pmtiles /usr/local/bin/
 
-      - name: Fetch NFS Trails GDB
+      - name: Fetch NFS Trails GDB (esridump fallback if the bulk zip is corrupt)
         run: |
-          curl -A "$UA" -fSL --retry 3 -o trailpub.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip
-          # zipfile (not unzip): this zip shipped with a 618-byte null prefix on 2026-08-03;
-          # unzip hard-fails on shifted local-header offsets, python zipfile handles it
-          python3 -m zipfile -e trailpub.gdb.zip trailpub_gdb
-          rm -f trailpub.gdb.zip
+          # Upstream zip was corrupt at rest 2026-08-03: first 618 bytes zeroed IN PLACE,
+          # destroying the local headers of a00000001.* (the GDB system catalog) — the GDB
+          # cannot open even after tolerant extraction. zipfile -e fails loudly on it, which
+          # is what routes us to the fallback; unzip would fail the same way, python zipfile
+          # additionally tolerates the harmless prefixed-archive variant.
+          MODE=gdb
+          if curl -A "$UA" -fSL --retry 3 -o trailpub.gdb.zip https://data.fs.usda.gov/geodata/edw/edw_resources/fc/Trans_Trail_NFS_Publish.gdb.zip \
+             && python3 -m zipfile -e trailpub.gdb.zip trailpub_gdb; then
+            rm -f trailpub.gdb.zip
+          else
+            echo "::warning::NFS Trails bulk GDB fetch/extract failed — falling back to esridump of EDW_TrailNFSPublish_01 (live service, ~86k features)"
+            rm -rf trailpub_gdb trailpub.gdb.zip
+            MODE=esridump
+          fi
+          echo "NFS_FETCH_MODE=$MODE" >> "$GITHUB_ENV"
 
       - name: Normalize
         run: |
           set -euo pipefail
-          locate_gdb() {
-            local root="$1" hit
-            hit=$(find "$root" -type d -iname '*.gdb' -print 2>/dev/null | head -1) || true
-            if [ -z "$hit" ] && compgen -G "$root/a0000000*.gdbtable" > /dev/null; then
-              mv "$root" "${root}.gdb" && hit="${root}.gdb"
-            fi
-            if [ -z "$hit" ]; then
-              echo "::error::no FileGDB under $root — listing follows" >&2
-              find "$root" -maxdepth 3 2>/dev/null | head -40 >&2
-              return 1
-            fi
-            printf '%s\n' "$hit"
-          }
-          detect_layer() {
-            local layer
-            layer=$(ogrinfo -ro "$1" 2>/dev/null | sed -n 's/^[0-9][0-9]*: \([^ ]*\).*/\1/p' | head -1) || true
-            printf '%s\n' "${layer:-$2}"
-          }
-          GDB=$(locate_gdb trailpub_gdb)
-          LAYER_NAME=$(detect_layer "$GDB" Trans_Trail_NFS_Publish)
-          echo "nfs_trails: $GDB :: $LAYER_NAME"
-          ogr2ogr -f GeoJSONSeq /vsistdout/ "$GDB" "$LAYER_NAME" -t_srs EPSG:4326 -dim XY \
-            | python3 lib/normalize_nfs_trails.py --review-out review_queue_nfs_trails.jsonl \
-            > nfs_trails.geojsonl
+          if [ "$NFS_FETCH_MODE" = "gdb" ]; then
+            locate_gdb() {
+              local root="$1" hit
+              hit=$(find "$root" -type d -iname '*.gdb' -print 2>/dev/null | head -1) || true
+              if [ -z "$hit" ] && compgen -G "$root/a0000000*.gdbtable" > /dev/null; then
+                mv "$root" "${root}.gdb" && hit="${root}.gdb"
+              fi
+              if [ -z "$hit" ]; then
+                echo "::error::no FileGDB under $root — listing follows" >&2
+                find "$root" -maxdepth 3 2>/dev/null | head -40 >&2
+                return 1
+              fi
+              printf '%s\n' "$hit"
+            }
+            detect_layer() {
+              local layer
+              layer=$(ogrinfo -ro "$1" 2>/dev/null | sed -n 's/^[0-9][0-9]*: \([^ ]*\).*/\1/p' | head -1) || true
+              printf '%s\n' "${layer:-$2}"
+            }
+            GDB=$(locate_gdb trailpub_gdb)
+            LAYER_NAME=$(detect_layer "$GDB" Trans_Trail_NFS_Publish)
+            echo "nfs_trails: $GDB :: $LAYER_NAME"
+            ogr2ogr -f GeoJSONSeq /vsistdout/ "$GDB" "$LAYER_NAME" -t_srs EPSG:4326 -dim XY \
+              | python3 lib/normalize_nfs_trails.py --review-out review_queue_nfs_trails.jsonl \
+              > nfs_trails.geojsonl
+          else
+            python3 -m pip install --user --quiet esridump
+            export PATH="$HOME/.local/bin:$PATH"
+            esri2geojson --jsonlines \
+              https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TrailNFSPublish_01/MapServer/0 \
+              nfs_raw.geojsonl
+            python3 lib/normalize_nfs_trails.py --review-out review_queue_nfs_trails.jsonl \
+              < nfs_raw.geojsonl > nfs_trails.geojsonl
+            rm -f nfs_raw.geojsonl
+          fi
           wc -l nfs_trails.geojsonl review_queue_*.jsonl || true
           rm -rf trailpub_gdb
 
