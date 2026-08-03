@@ -1,0 +1,2 @@
+{"type":"Feature","properties":{"RTE_CN":"T200","ID":"9001","NAME":"MOAB TRAIL","SBS_SYMBOL_NAME":"Trail open to vehicles 50\" or less","TRAILSTATUS":"EX","GIS_MILES":5.1,"TRAIL_CLASS":"3","SURFACETYPE":"NAT - NATIVE MATERIAL","ATV":"Y","ATV_DATESOPEN":"01/01-12/31","MOTORCYCLE":"Y","MOTORCYCLE_DATESOPEN":"9/15-5/15"},"geometry":{"type":"LineString","coordinates":[[-111.7,34.8],[-111.6,34.9]]}}
+{"type":"Feature","properties":{"RTE_CN":"T201","ID":"9002"},"geometry":{"type":"LineString","coordinates":[[-111.7,34.8],[-111.6,34.9]]}}

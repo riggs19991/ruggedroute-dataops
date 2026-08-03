@@ -1,0 +1,6 @@
+{"type":"Feature","properties":{"RTE_CN":"R100","ID":"123","NAME":"SUGARLOAF","FORESTNAME":"Coconino National Forest","DISTRICTNAME":"Red Rock","SURFACETYPE":"NAT - NATIVE MATERIAL","SEASONAL":"Seasonal","SYMBOL":"3","MVUM_SYMBOL_NAME":"Road open seasonally","GIS_MILES":2.5,"ROUTESTATUS":"EX","JURISDICTION":"FS","PASSENGERVEHICLE":"Y","PASSENGERVEHICLE_DATESOPEN":"03/15-12/15","HIGHCLEARANCEVEHICLE":"Y","HIGHCLEARANCEVEHICLE_DATESOPEN":"yearlong","FOURWD_GT50INCHES":"Y","ATV":"N","MOTORCYCLE":null},"geometry":{"type":"LineString","coordinates":[[-111.7,34.8],[-111.6,34.9]]}}
+{"type":"Feature","properties":{"RTE_CN":"R101","ID":"124","NAME":"DRY WASH","ATV":"Y","ATV_DATESOPEN":"open when dry"},"geometry":{"type":"LineString","coordinates":[[-111.7,34.8],[-111.6,34.9]]}}
+{"type":"Feature","properties":{"ID":"125","NAME":"ORPHAN"},"geometry":{"type":"LineString","coordinates":[[-111.7,34.8],[-111.6,34.9]]}}
+{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[-111.7,34.8],[-111.6,34.9]]}}
+this is not json at all
+{"type": "FeatureCollection", "features": []}

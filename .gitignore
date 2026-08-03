@@ -7,3 +7,6 @@ __pycache__/
 .wrangler/
 review_queue*.jsonl
 dist/
+
+# Test fixtures are tracked even though bulk geojsonl outputs are not
+!lib/fixtures/*.geojsonl
