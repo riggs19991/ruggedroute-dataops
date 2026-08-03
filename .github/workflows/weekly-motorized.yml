@@ -57,11 +57,34 @@ jobs:
         run: |
           set -euo pipefail
           export PATH="$HOME/tippecanoe-bin:$PATH"
-          ROAD_GDB=$(find road_gdb -maxdepth 2 -name '*.gdb' -type d | head -1)
-          TRAIL_GDB=$(find trail_gdb -maxdepth 2 -name '*.gdb' -type d | head -1)
-          ROAD_LAYER=$(ogrinfo -ro -q "$ROAD_GDB" | sed -n 's/^[0-9]*: \([^ ]*\).*/\1/p' | head -1)
-          TRAIL_LAYER=$(ogrinfo -ro -q "$TRAIL_GDB" | sed -n 's/^[0-9]*: \([^ ]*\).*/\1/p' | head -1)
-          echo "road layer: $ROAD_LAYER  trail layer: $TRAIL_LAYER"
+
+          # Robust GDB discovery: any depth, case-insensitive, plus a flat-extraction
+          # fallback (a zip without directory entries can strand gdbtable files at the
+          # extract root). Loud diagnostics on failure — never fail silently again.
+          locate_gdb() {
+            local root="$1" hit
+            hit=$(find "$root" -type d -iname '*.gdb' -print 2>/dev/null | head -1) || true
+            if [ -z "$hit" ] && compgen -G "$root/a0000000*.gdbtable" > /dev/null; then
+              mv "$root" "${root}.gdb" && hit="${root}.gdb"
+            fi
+            if [ -z "$hit" ]; then
+              echo "::error::no FileGDB under $root — listing follows" >&2
+              find "$root" -maxdepth 3 2>/dev/null | head -40 >&2
+              return 1
+            fi
+            printf '%s\n' "$hit"
+          }
+          detect_layer() { # $1=gdb $2=fallback name
+            local layer
+            layer=$(ogrinfo -ro "$1" 2>/dev/null | sed -n 's/^[0-9][0-9]*: \([^ ]*\).*/\1/p' | head -1) || true
+            printf '%s\n' "${layer:-$2}"
+          }
+          ROAD_GDB=$(locate_gdb road_gdb)
+          TRAIL_GDB=$(locate_gdb trail_gdb)
+          ROAD_LAYER=$(detect_layer "$ROAD_GDB" Trans_MVUM_Road)
+          TRAIL_LAYER=$(detect_layer "$TRAIL_GDB" Trans_MVUM_Trail)
+          echo "road: $ROAD_GDB :: $ROAD_LAYER   trail: $TRAIL_GDB :: $TRAIL_LAYER"
+          ogrinfo -ro -so "$ROAD_GDB" "$ROAD_LAYER" | sed -n '1,12p'
           ogr2ogr -f GeoJSONSeq /vsistdout/ "$ROAD_GDB" "$ROAD_LAYER" -t_srs EPSG:4326 -dim XY \
             | python3 lib/normalize_mvum.py --kind road --review-out review_queue_roads.jsonl \
             > mvum_roads.geojsonl
