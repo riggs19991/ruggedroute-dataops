@@ -4,6 +4,7 @@ name = "rr-tiles"
 main = "src/index.js"
 compatibility_date = "2026-07-01"
 workers_dev = true
+account_id = "c13779e49b48ca2af9a730d4b6b5a4ef"
 
 [[r2_buckets]]
 binding = "BUCKET"
