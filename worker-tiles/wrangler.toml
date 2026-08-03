@@ -14,7 +14,6 @@ bucket_name = "rr-tiles"
 binding = "ALIASES"
 id = "f2f28315ee8f43fb8413d1bcddd20684"
 
-# Enable once DNS exists (founder action: Workers -> rr-tiles -> Settings -> Domains):
-# [[routes]]
-# pattern = "tiles.ruggedroutehq.com"
-# custom_domain = true
+# Custom domain tiles.ruggedroutehq.com is attached via the dashboard (2026-08-03) and
+# survives wrangler deploys. Do NOT add a [[routes]] block here — the CI token has no
+# zone permissions, so a route in this file would fail every deploy.

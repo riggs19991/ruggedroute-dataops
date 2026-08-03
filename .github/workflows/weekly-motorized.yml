@@ -125,7 +125,8 @@ jobs:
           pmtiles upload mvum.pmtiles "$VERSION" \
             --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
           if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
-            npx --yes wrangler kv key put --namespace-id "$KV_NAMESPACE_ID" "layer-alias:mvum" "$VERSION"
+            # --remote is REQUIRED: wrangler v4 defaults kv writes to a local simulation
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:mvum" "$VERSION"
           fi
           echo "uploaded $VERSION and flipped alias"
 
