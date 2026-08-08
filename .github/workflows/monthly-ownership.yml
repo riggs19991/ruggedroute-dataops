@@ -1,0 +1,156 @@
+# Stage 2 lands: monthly PAD-US ownership tileset build.
+#
+# RECONCILED vs weekly-motorized.yml (Session 38, 2026-08-08). Publish step now
+# mirrors the proven motorized idiom exactly: same secret names (R2_ACCOUNT_ID /
+# R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY / CLOUDFLARE_API_TOKEN), hardcoded
+# KV_NAMESPACE_ID env (it is not a secret), alias key `layer-alias:lands` (the
+# worker resolves layer-alias:{layer} — a bare `lands` key never goes live),
+# env-mapped secrets + shell -z test (the `secrets` context is unavailable in
+# step `if:` — referencing it parse-fails the entire workflow at trigger time),
+# `npx --yes wrangler`, and the minute-stamped version key (same-day re-runs
+# must never reuse a versioned key: the worker edge-caches versioned objects).
+# The wrangler `--remote` gotcha stands: wrangler v4 `kv key put` defaults to a
+# LOCAL simulation — a silent no-op without --remote; cost a live debugging
+# session in Stage 0/1.
+#
+# Shape: tests gate a 50-state matrix (state GDBs keep runner disk well under
+# the 14 GB free-runner limit; the national GDB zip alone is ~3 GB), pmtiles
+# merge joins the per-state archives, QA gates run per state AND on the merged
+# tileset, then R2 upload as a versioned key + KV alias flip (torn-read-safe).
+# Artifact mode (no R2 secrets) keeps forks/dry-runs green.
+
+name: monthly-ownership
+
+env:
+  # Same namespace as weekly-motorized — the worker reads layer-alias:{layer}
+  KV_NAMESPACE_ID: f2f28315ee8f43fb8413d1bcddd20684
+
+on:
+  schedule:
+    - cron: "0 9 3 * *"   # 03rd 09:00 UTC monthly — PAD-US moves ~annually,
+                           # agency patches monthly-quarterly; monthly is plenty
+  workflow_dispatch:
+    inputs:
+      states:
+        description: "space-separated state codes (empty = all 50)"
+        required: false
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install GDAL + pytest
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gdal-bin
+          pip install -q pytest shapely
+      - name: Lands unit + integration tests
+        run: pytest layers/lands/tests -q
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 50-state matrix; dispatch input can narrow (mirrors weekly-motorized
+        # 'layers' subset idiom). Keep AK last — its GDB is ~800 MB.
+        state: [AL, AZ, AR, CA, CO, CT, DE, FL, GA, ID, IL, IN, IA, KS, KY, LA,
+                ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND,
+                OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY,
+                HI, AK]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip states outside dispatch subset
+        id: gate
+        run: |
+          SUBSET="${{ github.event.inputs.states }}"
+          if [ -n "$SUBSET" ] && ! echo " $SUBSET " | grep -q " ${{ matrix.state }} "; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install GDAL + tippecanoe + pmtiles
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin libsqlite3-dev zlib1g-dev
+          git clone -q --depth 1 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j4 >/dev/null && sudo make -C /tmp/tippecanoe install >/dev/null
+          curl -sL https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz \
+            | sudo tar xz -C /usr/local/bin pmtiles
+          pip install -q shapely mapbox-vector-tile
+      - name: Fetch PAD-US state GDB
+        if: steps.gate.outputs.skip != 'true'
+        run: bash layers/lands/fetch_lands.sh state ${{ matrix.state }} src
+      - name: Normalize + tile + QA
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          unzip -q src/padus_${{ matrix.state }}.zip -d src/
+          GDB=$(find src -maxdepth 2 -name "*.gdb" -type d | head -1)
+          python3 layers/lands/normalize_lands.py --gdb "$GDB" --out build
+          bash layers/lands/tiles.sh build
+          python3 layers/lands/harvest_probes.py --gdb "$GDB" --build build \
+            --out build/probes.json --inholdings 2 --mgr BLM --mgr USFS
+          python3 layers/lands/qa_lands.py --gdb "$GDB" --build build \
+            --probes build/probes.json --pmtiles build/lands.pmtiles
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.skip != 'true'
+        with:
+          name: lands-${{ matrix.state }}
+          path: build/lands.pmtiles
+          retention-days: 7
+
+  merge-publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: parts }
+      - name: Install pmtiles + tile-join
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin libsqlite3-dev zlib1g-dev
+          git clone -q --depth 1 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j4 >/dev/null && sudo make -C /tmp/tippecanoe install >/dev/null
+          curl -sL https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz \
+            | sudo tar xz -C /usr/local/bin pmtiles
+      - name: Merge state tilesets
+        run: |
+          find parts -name "lands.pmtiles" -exec bash -c 'mv "$1" "parts/$(basename $(dirname $1)).pmtiles"' _ {} \;
+          tile-join -o lands.pmtiles --force -pk parts/lands-*.pmtiles
+          pmtiles verify lands.pmtiles
+          ls -la lands.pmtiles
+      - name: Upload to R2 + flip alias (skips until secrets exist)
+        env:
+          LAYER: lands
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # Subset dispatches NEVER publish: the repo-level R2 secrets exist (weekly-motorized
+          # uses them), so without this guard a "UT CO MT" gate run would upload a 3-state
+          # "national" tileset and flip the live alias to it. Artifact-only unless full run.
+          if [ -n "${{ github.event.inputs.states }}" ]; then
+            echo "::notice::state subset run — artifact only, skipping R2 publish."
+            exit 0
+          fi
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            # --remote is REQUIRED: wrangler v4 defaults kv writes to a local simulation
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lands-national
+          path: lands.pmtiles
+          retention-days: 14
