@@ -1,0 +1,67 @@
+{
+  "name": "lands",
+  "description": "Stage 2 land ownership: flattened PAD-US Fee ownership fill (land_fee) + wilderness/WSA motorized-closure overlay (land_overlay), one PMTiles tileset.",
+  "cadence": "monthly",
+  "zooms": { "minzoom": 0, "maxzoom": 12 },
+  "serving": {
+    "tileset": "lands.pmtiles",
+    "url": "https://tiles.ruggedroutehq.com/lands/{z}/{x}/{y}.mvt",
+    "source_layers": ["land_fee", "land_overlay"]
+  },
+  "schema": {
+    "land_fee": {
+      "mgr": "normalized manager code: BLM|USFS|NPS|FWS|BOR|FED_OTHER|DOD|TRIBAL|ST_PARK|ST_WILDLIFE|ST_TRUST|ST_FOREST|ST_OTHER|LOCAL|NGO — PVT/UNK are DROPPED (unshaded = private, the atlas convention)",
+      "unit": "managed-unit name (PAD-US Unit_Nm), optional",
+      "access": "PAD-US Pub_Access: OA|RA|XA (UK dropped — never render unknown as a confident claim)"
+    },
+    "land_overlay": {
+      "kind": "wilderness | wsa",
+      "name": "area name, optional"
+    },
+    "contract_note": "This schema is the CONTRACT with the Android client (LandTileFeatureParser + LayerRegistry.LANDS_FILL_COLORS). Change both sides together or neither."
+  },
+  "sources": {
+    "padus_fee": {
+      "role": "base",
+      "what": "USGS PAD-US 4.1 Fee layer — THE flattened ownership base (already integrates BLM SMA, USFS, NPS LRD, FWS realty, DOD, Census tribal, state stewards)",
+      "national_item": "652d4fc5d34e44db0e2ee45e",
+      "state_item": "6759abcfd34edfeb8710a004",
+      "fetch": "https://www.sciencebase.gov/catalog/file/get/{item}?name={filename} — VERIFIED WORKING with a browser User-Agent (the manager/download and manager file URLs return the SPA HTML shell; catalog/file/get streams the zip)",
+      "license": "US Government public domain; USGS GAP citation requested",
+      "gotcha": "NEVER read the Proclamation layer as ownership (admin extents contain private land). Fee only."
+    },
+    "padus_designation": {
+      "role": "overlay-base",
+      "what": "PAD-US Designation layer, Des_Tp IN (WA, WSA) → wilderness/wsa overlay fallback (always available, same GDB)",
+      "gotcha": "Designation polygons OVERLAP Fee by design — they feed ONLY land_overlay, never the fee fill."
+    },
+    "wilderness_connect": {
+      "role": "overlay-patch (fresher than PAD-US Designation for new designations)",
+      "fetch": "https://wilderness.net/visit-wilderness/gis-gps.php shapefile; live FeatureServer services1.arcgis.com/ERdCHt0sNM6dENSD/arcgis/rest/services/Wilderness_Areas_in_the_United_States/FeatureServer",
+      "cadence": "quarterly",
+      "status": "adapter slot — not yet wired; PAD-US Designation serves until then"
+    },
+    "usfs_basic_ownership": {
+      "role": "patch (precedence: agency > PAD-US)",
+      "what": "S_USA.BasicOwnership — actual USFS-owned surface; fixes private-inholding staleness inside forests",
+      "fetch": "https://data.fs.usda.gov/geodata/edw/datasets.php (FGDB), EDW_BasicOwnership_02 REST",
+      "filter": "OWNERCLASSIFICATION = 'USDA FOREST SERVICE' only — non-FS rows are the inholdings and must NOT paint green",
+      "status": "adapter slot — not yet wired"
+    },
+    "ut_ugrc_sgid": {
+      "role": "patch (UT wholesale — best statewide ownership layer in the country)",
+      "fetch": "https://gis.utah.gov SGID Land Ownership",
+      "status": "adapter slot — not yet wired"
+    },
+    "blm_sma": { "role": "patch slot (freshness between PAD-US releases)", "status": "not wired" },
+    "nps_lrd": { "role": "patch slot", "status": "not wired" },
+    "fws_realty": { "role": "patch slot (Realty boundaries, NEVER Approved Acquisition)", "status": "not wired" },
+    "state_trust_az_nm_mt_co": { "role": "patch slots (AZ needs written OK — non-commercial clause; PAD-US fallback until then)", "status": "not wired" }
+  },
+  "precedence": "agency patches > BLM SMA > PAD-US base. Merge is geometric (higher priority carves lower) because fee fills are translucent — overlapping same-layer polygons double-blend into dark artifacts.",
+  "qa": {
+    "acreage": "per-manager normalized output within 2% of raw PAD-US GIS_Acres sums (qa_lands.py)",
+    "private_probes": "known private-inholding points must have NO public fee polygon (qa_lands.py --probes)",
+    "visual": "MANUAL GATE: side-by-side vs protectedlands.net on 10 checkerboard areas (Crow MT, UT trust sections, Telluride CO inholdings)"
+  }
+}
