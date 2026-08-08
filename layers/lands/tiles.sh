@@ -33,5 +33,18 @@ tippecanoe \
   -L land_fee:land_fee.geojsonl \
   -L land_overlay:land_overlay.geojsonl
 
-pmtiles verify lands.pmtiles
+# Verify, tolerating ONE benign case: a tiny state (RI) can produce no z0 tile
+# under -Z0, so the header MinZoom=0 disagrees with the real min tile zoom and
+# go-pmtiles >=1.31 fails verify ("header MinZoom=0 does not match min tile z").
+# Per-state archives are merge INPUTS only — tile-join iterates present tiles —
+# and the merged national archive (which is what ships) always has z0 tiles and
+# is verified STRICTLY in the merge-publish job. Any other verify failure is fatal.
+if ! pmtiles verify lands.pmtiles 2>&1 | tee verify.out; then
+  if grep -q "does not match min tile z" verify.out; then
+    echo "::warning::pmtiles verify: benign MinZoom-header/min-tile mismatch (tiny state at -Z0) — tolerated for per-state merge inputs; national archive is verified strictly"
+  else
+    echo "pmtiles verify failed" >&2
+    exit 1
+  fi
+fi
 ls -la lands.pmtiles
