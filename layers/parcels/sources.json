@@ -83,11 +83,11 @@
   },
   "WI": {
     "mode": "http",
-    "urls": ["https://web.s3.wisc.edu/parcels/v12_parcels/V12.0.0_Wisconsin_Parcels_2026_10.3_Compressed.zip"],
+    "urls": ["https://web.s3.wisc.edu/parcels/v12_parcels/V12.0.0_Wisconsin_Parcels_2026_10.3_Uncompressed.zip"],
     "layer": "V1200_WisconsinParcels_2026",
     "fields": { "apn": "PARCELID", "county": "CONAME", "acres": "GISACRES" },
     "count_expected": 3574646,
-    "notes": "GDB is Esri COMPRESSED (CDF) — GDAL OpenFileGDB reads it read-only (fine). URL is VERSION-PINNED, new release yearly at sco.wisc.edu/parcels/data (V13 ~June 2027 — update this URL then). Fallback: same path Uncompressed.zip (~1.6 GB). STATEID (CONAME+PARCELID) is the statewide-unique key; PARCELID alone collides across counties — acceptable, we display not join."
+    "notes": "MUST be the Uncompressed variant (~1.6 GB): the Compressed.zip gdb is Esri CDF, which runner GDAL rejects ('gdbtable.cdf file whose format is unhandled' — pilot-verified failure 2026-08-09). URL is VERSION-PINNED, new release yearly at sco.wisc.edu/parcels/data (V13 ~June 2027 — update this URL then). STATEID (CONAME+PARCELID) is the statewide-unique key; PARCELID alone collides across counties — acceptable, we display not join."
   },
   "VT": {
     "mode": "hub",
