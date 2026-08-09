@@ -1,0 +1,195 @@
+# Stage 3 parcels: quarterly private-parcel boundary tileset build.
+#
+# Cloned from monthly-ownership.yml (research 2026-08-09 §5 CI shape) with the
+# same publish idiom: env-mapped secrets + shell -z test (the `secrets` context
+# is unavailable in step `if:` — referencing it parse-fails the workflow at
+# trigger time), hardcoded KV_NAMESPACE_ID, alias key `layer-alias:parcels`,
+# `npx --yes wrangler` with --remote (wrangler v4 kv put defaults to a LOCAL
+# simulation — silent no-op), minute-stamped version keys (the worker
+# edge-caches versioned objects; never reuse one same-day).
+#
+# Differences from lands, deliberate:
+# - tippecanoe PINNED at 2.79.0 via cache (weekly-motorized idiom) — the
+#   unpinned clone in monthly-ownership is a known to-do, not a pattern.
+# - Matrix units are STATES WITH SHARDS: TX_1..3 / FL_1..2 split rest-mode on
+#   the county field (a 6M-parcel shard is the runner disk/wall-clock ceiling).
+# - Raw dumps are deleted between normalize and tiles: raw + normalized
+#   geojsonl for a big shard together brush the 14 GB runner limit.
+# - QA gate 1 is the OWNER-NAMES-NEVER-IN-TILES whitelist — a hard build
+#   failure, the invariant that keeps this layer's licensing at $0.
+#
+# PILOT (research §5 risk control): dispatch with states "UT MT WI" first,
+# read the KB/parcel calibration in each unit's qa_stats.json artifact, and
+# only then trust a full-matrix run. Subset dispatches NEVER publish.
+
+name: quarterly-parcels
+
+env:
+  # Same namespace as weekly-motorized/monthly-ownership — worker reads layer-alias:{layer}
+  KV_NAMESPACE_ID: f2f28315ee8f43fb8413d1bcddd20684
+
+on:
+  schedule:
+    - cron: "0 9 5 1,4,7,10 *"   # 5th of Jan/Apr/Jul/Oct 09:00 UTC — parcel
+                                  # vintages move annually-to-quarterly
+  workflow_dispatch:
+    inputs:
+      states:
+        description: "space-separated unit codes (empty = full matrix). Units: state codes, TX_1..TX_3, FL_1..FL_2"
+        required: false
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install GDAL + pytest
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gdal-bin
+          pip install -q pytest
+      - name: Parcels unit + integration tests
+        run: pytest layers/parcels/tests -q
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Phase 1 clean-license units (research §6). TX/FL sharded — see
+        # sources.json `where` clauses. Order: pilot anchors first.
+        unit: [UT, MT, WI, NC, TX_1, TX_2, TX_3, FL_1, FL_2,
+               CT, DC, VT, VA, NJ, MD, IN, OH, TN, MA, DE, HI, NH, ND,
+               ID, MN, ME]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip units outside dispatch subset
+        id: gate
+        run: |
+          SUBSET="${{ github.event.inputs.states }}"
+          if [ -n "$SUBSET" ] && ! echo " $SUBSET " | grep -q " ${{ matrix.unit }} "; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install GDAL + esridump + QA deps
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin libsqlite3-dev zlib1g-dev
+          pip install --quiet esridump mapbox-vector-tile
+      - name: Cache tippecanoe
+        if: steps.gate.outputs.skip != 'true'
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+      - name: Build tippecanoe
+        if: steps.gate.outputs.skip != 'true' && steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+      - name: Install tippecanoe + pmtiles CLI
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          sudo cp ~/tippecanoe-bin/* /usr/local/bin/
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+      - name: Fetch
+        if: steps.gate.outputs.skip != 'true'
+        run: bash layers/parcels/fetch_parcels.sh ${{ matrix.unit }} src
+      - name: Normalize
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          SRCS=""
+          for f in src/*; do SRCS="$SRCS --src $f"; done
+          python3 layers/parcels/normalize_parcels.py --unit ${{ matrix.unit }} $SRCS --out build
+          # raw + normalized together brush the 14 GB runner limit on big shards
+          rm -rf src
+      - name: Tiles + QA
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          bash layers/parcels/tiles.sh build
+          python3 layers/parcels/qa_parcels.py --unit ${{ matrix.unit }} \
+            --build build --pmtiles build/parcels.pmtiles
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.skip != 'true'
+        with:
+          name: parcels-${{ matrix.unit }}
+          path: |
+            build/parcels.pmtiles
+            build/qa_stats.json
+            build/normalize_stats.json
+          retention-days: 7
+
+  merge-publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: parts }
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+      - name: Install tile-join + pmtiles CLI
+        run: |
+          sudo cp ~/tippecanoe-bin/* /usr/local/bin/
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+      - name: Merge unit tilesets
+        run: |
+          find parts -name "parcels.pmtiles" -exec bash -c 'mv "$1" "parts/$(basename $(dirname $1)).pmtiles"' _ {} \;
+          tile-join -o parcels.pmtiles --force -pk parts/parcels-*.pmtiles
+          pmtiles verify parcels.pmtiles
+          ls -la parcels.pmtiles
+      - name: Upload to R2 + flip alias
+        env:
+          LAYER: parcels
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # Subset dispatches NEVER publish: without this guard a "UT MT WI"
+          # pilot would upload a 3-state "national" tileset and flip the live
+          # alias to it (lands-precedent guard).
+          if [ -n "${{ github.event.inputs.states }}" ]; then
+            echo "::notice::unit subset run — artifact only, skipping R2 publish."
+            exit 0
+          fi
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            # --remote is REQUIRED: wrangler v4 defaults kv writes to a local simulation
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parcels-national
+          path: parcels.pmtiles
+          retention-days: 14

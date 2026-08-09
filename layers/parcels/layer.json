@@ -1,0 +1,41 @@
+{
+  "name": "parcels",
+  "description": "Stage 3 private-parcel boundaries: GEOMETRY ONLY (apn/county/acres/st), no owner names or addresses ever. Phase 1 = clean-license statewide states per docs/research/2026-08-09-free-parcel-boundaries.md §6 (app repo).",
+  "cadence": "quarterly",
+  "zooms": { "minzoom": 13, "maxzoom": 15 },
+  "serving": {
+    "tileset": "parcels.pmtiles",
+    "url": "https://tiles.ruggedroutehq.com/parcels/{z}/{x}/{y}.mvt",
+    "source_layers": ["parcels"]
+  },
+  "schema": {
+    "parcels": {
+      "apn": "assessor parcel number / parcel ID (string), optional",
+      "county": "county name or FIPS as published by the source (string), optional — some states publish FIPS only; client formats or omits",
+      "acres": "source-published acreage rounded to 2 decimals (number), optional — NEVER computed from geometry in v1",
+      "st": "2-letter state code, always present"
+    },
+    "contract_note": "This schema is the CONTRACT with the Android client (parcel identify sheet). It is also the QA WHITELIST: qa_parcels.py hard-fails the build if any other attribute key reaches the normalized output or a decoded tile. Owner names/addresses in tiles would convert a $0 layer into a vendor licensing negotiation — the whitelist gate is the enforcement point (research §5, §6 risk 4). It also neutralizes MT MCA 2-6-1017 and ID §74-120 mailing-list statutes.",
+    "shards_note": "Unit codes in sources.json are state codes, sharded states use ST_1/ST_2 (TX, FL); st = unit prefix. Shards carry a rest-mode 'where' clause splitting on the county field."
+  },
+  "sources": "layers/parcels/sources.json — one entry per matrix unit: {mode: http|rest, urls, layer, fields{apn,county,acres}, where?, count_expected, notes}. Endpoints + field names live-verified 2026-08-09. License basis per state: app repo docs/research/2026-08-09-free-parcel-boundaries.md §2 — do not add a state that is not CONFIRMED/clean there without founder sign-off.",
+  "attribution": {
+    "tileset": "State & county parcel records (open data)",
+    "app_credits_screen": [
+      "Utah: State of Utah, UGRC/SGID — CC BY 4.0 (link license, note changes)",
+      "Maryland: State of Maryland iMAP (metadata acknowledgment)",
+      "Connecticut: CT OPM/GIS Office (CC0)",
+      "District of Columbia: Open Data DC (CC BY 4.0)",
+      "Indiana: Indiana GIS Data Harvest Program (citation requested)",
+      "New Jersey: NJOGIS (acknowledgment requested)",
+      "All other Phase 1 states: state open-records parcel programs — see research doc §6 Phase 1 list"
+    ]
+  },
+  "qa": {
+    "attribute_whitelist": "HARD GATE (qa_parcels.py): every feature in parcels.geojsonl AND in decoded sample tiles must carry ONLY keys ⊆ {apn, county, acres, st}. Any other key fails the build. This is the owner-names-never-in-tiles invariant.",
+    "count": "kept feature count within tolerance (default ±25%) of sources.json count_expected (vintages drift annually)",
+    "size_calibration": "KB/parcel printed per unit; expected 0.4-0.7 KB/parcel through the pyramid (research §5, calibrated vs lands). WARN outside 0.2-1.5 — the pilot (UT MT WI) validates the constant before the full matrix is trusted."
+  },
+  "pilot": "Per research §5 risk control: UT + MT + WI first (workflow_dispatch states subset, artifact-only), check KB/parcel constant, then full matrix.",
+  "phase2_backlog": "WY (email out to DOR), CA bootstrap+overwrite, CO county set, AZ Pinal/Cochise, WA carve-out identification, NM Bernalillo, MS disclaimer PDF, AR wording — research §6 Phase 2."
+}

@@ -36,7 +36,9 @@ Design rules (from the master plan — do not violate):
 | `nfs_trails` (trail system + managed-use seasons; feeds MVUM enrichment) | USFS Trans_Trail_NFS_Publish bulk GDB | `weekly-motorized.yml` | Stage 1 — tileset only, no client layer yet |
 | `blm_routes` (OHV designation open/limited/closed + limitation text) | BLM GTLF Public Display 0-3 (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
 | `nps_roads` (park road inventory, seasonal + surface) | NPS Public Roads FeatureServer (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
-| lands, rec_pois, parcels, … | — | — | Stage 2+ per master plan §11 |
+| `lands` (PAD-US ownership fill + wilderness/WSA overlay) | USGS PAD-US 4.1 state GDBs (ScienceBase) | `monthly-ownership.yml` | **LIVE** (Stage 2, national 195 MB) |
+| `parcels` (private-parcel boundaries, GEOMETRY ONLY — apn/county/acres/st; QA hard-gates any other attribute) | ~25 clean-license state programs (research 2026-08-09, app repo `docs/research/2026-08-09-free-parcel-boundaries.md`) | `quarterly-parcels.yml` | Stage 3 — Phase 1 pipeline built; pilot = UT MT WI |
+| rec_pois, … | — | — | per master plan §11 |
 
 All five normalizers share `lib/route_common.py` (season parser, tolerant GeoJSONSeq
 streaming, deduped review queue). Per-layer manifests live in `layers/{layer}/layer.json`.

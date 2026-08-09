@@ -1,0 +1,203 @@
+{
+  "_README": "Phase 1 clean-license parcel sources (research 2026-08-09 §6; endpoints + fields LIVE-VERIFIED 2026-08-09 by the endpoint sweep). Units = workflow matrix entries; st = unit prefix before '_'. fields values are SOURCE field names — normalize_parcels.py copies ONLY these into the whitelisted {apn,county,acres,st} props and check_mapping() refuses owner/address-looking names. count_expected gates ±25% in qa_parcels.py (null = gate skipped). License basis per state: app repo docs/research/2026-08-09-free-parcel-boundaries.md §2 — never add a state that is not clean there without founder sign-off.",
+
+  "UT": {
+    "mode": "rest",
+    "urls": ["https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/UtahStatewideParcels/FeatureServer/0"],
+    "fields": { "apn": "PARCEL_ID", "county": "County", "acres": null },
+    "count_expected": 1592583,
+    "notes": "CC BY 4.0 (credit UGRC/SGID + license link + change note in app credits). No acreage field on the service (Shape__Area is Web Mercator m² — never map it). NEVER select PARCEL_ADD/PARCEL_CITY/PARCEL_ZIP. Alt bulk: Open SGID Postgres opensgid.agrc.utah.gov db=opensgid user/pass agrc/agrc table cadastre.parcels."
+  },
+  "MT": {
+    "mode": "http",
+    "urls": ["https://ftpgeoinfo.msl.mt.gov/Data/Spatial/MSDI/Cadastral/Parcels/Statewide/MTParcels_GDB.zip"],
+    "layer": "OwnerParcel",
+    "fields": { "apn": "PARCELID", "county": "COUNTYCD", "acres": "TotalAcres" },
+    "count_expected": 937257,
+    "notes": "Monthly drop (~247 MB, StatePlane MT — reprojected by normalizer). Source GDB carries OwnerName/OwnerAddress fields — stripped by construction, whitelist gate backstops. GISAcres is the geometry-computed alternate if TotalAcres goes null upstream. Count from MontanaCadastral_ParcelMetadata.xml in same dir."
+  },
+  "TX_1": {
+    "mode": "tnris",
+    "urls": ["https://api.tnris.org/api/v1/resources?collection_id=0fa04328-872e-481c-b453-126a74777593&limit=254"],
+    "fips_min": "48001", "fips_max": "48155",
+    "fields": { "apn": "Prop_ID", "county": "FIPS", "acres": "GIS_AREA" },
+    "count_expected": null,
+    "notes": "StratMap 2025: 254 per-county zips (each has fgdb/ + shp/; resolve_src picks the gdb). Public domain. REST /query is SERVER-BLOCKED on the statewide MapServer — bulk zips are the ONLY path. GIS_AREA_U holds the unit (expected acres — pilot-verify). Strip OWNER_NAME/NAME_CARE/SITUS_*/MAIL_* is automatic. Re-resolve collection_id for future vintages via api.tnris.org/api/v1/collections?search=land%20parcels. Shard 1: Dallas, Bexar, Collin, Denton, El Paso."
+  },
+  "TX_2": {
+    "mode": "tnris",
+    "urls": ["https://api.tnris.org/api/v1/resources?collection_id=0fa04328-872e-481c-b453-126a74777593&limit=254"],
+    "fips_min": "48157", "fips_max": "48325",
+    "fields": { "apn": "Prop_ID", "county": "FIPS", "acres": "GIS_AREA" },
+    "count_expected": null,
+    "notes": "Shard 2: Harris (biggest, ~1.9M), Hidalgo, Fort Bend."
+  },
+  "TX_3": {
+    "mode": "tnris",
+    "urls": ["https://api.tnris.org/api/v1/resources?collection_id=0fa04328-872e-481c-b453-126a74777593&limit=254"],
+    "fips_min": "48327", "fips_max": "48507",
+    "fields": { "apn": "Prop_ID", "county": "FIPS", "acres": "GIS_AREA" },
+    "count_expected": null,
+    "notes": "Shard 3: Tarrant, Travis, Williamson."
+  },
+  "FL_1": {
+    "mode": "rest",
+    "urls": ["https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0"],
+    "where": "CO_NO <= 44",
+    "fields": { "apn": "PARCEL_ID", "county": "CO_NO", "acres": "LND_SQFOOT" },
+    "acres_divisor": 43560,
+    "count_expected": null,
+    "notes": "FDOR Cadastral 2025, statewide total 10,831,924 (returnCountOnly verified). LND_SQFOOT is SQUARE FEET — divisor 43560. CO_NO is the FDOR county number (11-77 alphabetical), NOT FIPS. maxRecordCount 2000. If paging is ever too slow, FeatureServer/createReplica dataFormat=filegdb is the sanctioned bulk path; the Hub download API is a dead end (>2GB limit)."
+  },
+  "FL_2": {
+    "mode": "rest",
+    "urls": ["https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0"],
+    "where": "CO_NO > 44",
+    "fields": { "apn": "PARCEL_ID", "county": "CO_NO", "acres": "LND_SQFOOT" },
+    "acres_divisor": 43560,
+    "count_expected": null,
+    "notes": "Second half of the CO_NO range (45-77)."
+  },
+  "CT": {
+    "mode": "rest",
+    "urls": ["https://services3.arcgis.com/3FL1kr7L4LvwA2Kb/arcgis/rest/services/Connecticut_CAMA_and_Parcel_Layer_2024/FeatureServer/0"],
+    "fields": { "apn": "Parcel_ID", "county": "Planning_Region", "acres": "Land_Acres" },
+    "count_expected": 1290196,
+    "notes": "CC0. CT has no county governments — Planning_Region holds the 9 census county-equivalents."
+  },
+  "DC": {
+    "mode": "http",
+    "urls": ["https://hub.arcgis.com/api/v3/datasets/1f6708b1f3774306bef2fa81e612a725_40/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1"],
+    "fields": { "apn": "SSL", "county": null, "acres": "LANDAREA" },
+    "acres_divisor": 43560,
+    "count_expected": 137400,
+    "notes": "CC BY 4.0. Common Ownership Lots; SSL = square-suffix-lot. LANDAREA is square feet. Server aborts RANGED GETs — full GET only (fetch does full streams anyway). Hub cache can lag the service days-to-weeks — acceptable at quarterly cadence."
+  },
+  "NC": {
+    "mode": "http",
+    "urls": ["https://dit-cgia-gis-data.s3.amazonaws.com/NCOM-data/parcels/nc-parcels-gdb-most-recent.zip"],
+    "layer": "nc_parcels_poly",
+    "fields": { "apn": "parno", "county": "cntyname", "acres": "gisacres" },
+    "count_expected": 5938901,
+    "notes": "Stable 'most-recent' S3 alias — no filename chasing. Second-largest single unit; keep an eye on runner disk."
+  },
+  "WI": {
+    "mode": "http",
+    "urls": ["https://web.s3.wisc.edu/parcels/v12_parcels/V12.0.0_Wisconsin_Parcels_2026_10.3_Compressed.zip"],
+    "layer": "V1200_WisconsinParcels_2026",
+    "fields": { "apn": "PARCELID", "county": "CONAME", "acres": "GISACRES" },
+    "count_expected": 3574646,
+    "notes": "GDB is Esri COMPRESSED (CDF) — GDAL OpenFileGDB reads it read-only (fine). URL is VERSION-PINNED, new release yearly at sco.wisc.edu/parcels/data (V13 ~June 2027 — update this URL then). Fallback: same path Uncompressed.zip (~1.6 GB). STATEID (CONAME+PARCELID) is the statewide-unique key; PARCELID alone collides across counties — acceptable, we display not join."
+  },
+  "VT": {
+    "mode": "hub",
+    "urls": ["https://hub.arcgis.com/api/download/v1/items/09cf47e1cf82465e99164762a04f3ce6/filegdb?redirect=false&layers=0"],
+    "layer": "FS_VCGI_OPENDATA_Cadastral_VTPARCELS_poly_standardized_parcels_SP_v1",
+    "fields": { "apn": "SPAN", "county": null, "acres": "ACRESGL" },
+    "count_expected": 343869,
+    "notes": "Hub download/v1 job API: poll until Completed, stream ephemeral resultUrl (~1h expiry, never cache)."
+  },
+  "VA": {
+    "mode": "http",
+    "urls": ["https://www.arcgis.com/sharing/rest/content/items/29627d7c051a47dc8ce71b4484531ab3/data"],
+    "layer": "VA_Parcels",
+    "fields": { "apn": "PARCELID", "county": "FIPS", "acres": null },
+    "count_expected": 4170691,
+    "notes": "VGIN quarterly FGDB (~1 GB zip; item ID stable, inner gdb dir name changes quarterly — resolve_src auto-locates). /data 302s to a presigned S3 URL (600s expiry) — curl -L follows fresh each run. Geometry+ID only at source; nothing to strip."
+  },
+  "NJ": {
+    "mode": "http",
+    "urls": ["https://geoapps.nj.gov/njgin/parcel/parcelsStatewide.gdb.zip"],
+    "layer": "Cad_parcel",
+    "fields": { "apn": "PAMS_PIN", "county": null, "acres": null },
+    "count_expected": 3478727,
+    "notes": "Geometry-only composite (owner data is the separate MOD-IV table we never fetch). Zip also holds Cad_pclblock (tax blocks) — the layer hint keeps it out. Behind Imperva CDN: browser UA required (fetch sends it)."
+  },
+  "MD": {
+    "mode": "rest",
+    "urls": ["https://mdgeodata.md.gov/imap/rest/services/PlanningCadastre/MD_ParcelBoundaries/MapServer/0"],
+    "fields": { "apn": "ACCTID", "county": "JURSCODE", "acres": "ACRES" },
+    "count_expected": 2288725,
+    "notes": "Metadata acknowledgment obligation (app credits). REST chosen over the Hub GeoJSON export (multi-GB, refuses ranged GETs, cache observed 13 months stale)."
+  },
+  "IN": {
+    "mode": "http",
+    "urls": ["https://hub.arcgis.com/api/v3/datasets/ce78e8017fcb479c81a06a6255cfcfa6_0/downloads/data?format=fgdb&spatialRefId=4326&where=1%3D1"],
+    "fields": { "apn": "state_parcel_id", "county": "county_fips", "acres": null },
+    "count_expected": 3682675,
+    "notes": "Data Harvest citation requested (app credits). Chunked stream, NO Range support — single uninterrupted download. If the hub cache goes stale: download/v1 items/ce78e8017fcb479c81a06a6255cfcfa6/filegdb poll flow, or esridump gisdata.in.gov/server/rest/services/Hosted/Parcel_Boundaries_of_Indiana_Current/FeatureServer/0."
+  },
+  "OH": {
+    "mode": "rest",
+    "urls": ["https://services2.arcgis.com/MlJ0G8iWUyC7jAmu/arcgis/rest/services/OhioStatewidePacels_full_view/FeatureServer/0"],
+    "fields": { "apn": "LocalParcelID", "county": "County", "acres": "LandArea" },
+    "count_expected": 6313610,
+    "notes": "Service name typo 'Pacels' is REAL — do not correct it. Largest single-unit rest dump (~3.2k pages). Bulk alternatives are dead ends: FGDB export unsupported, shapefile 'dataset too large', GeoJSON is multi-GB in one file. LandArea units — pilot-verify against known parcels."
+  },
+  "TN": {
+    "mode": "rest",
+    "urls": ["https://services1.arcgis.com/YuVBSS7Y1of2Qud1/arcgis/rest/services/Tennessee_Property_Boundaries_Public_Use/FeatureServer/0"],
+    "fields": { "apn": "PARCELID", "county": "COUNTY_NAME", "acres": "DEEDAC" },
+    "count_expected": 2140056,
+    "notes": "Weekly 86-county Comptroller product; the 9 self-maintained counties (incl Nashville/Memphis) are ABSENT — known Phase 1 gap. REST chosen over the Hub GeoJSON (multi-GB single file, TLS-kills ranged GETs)."
+  },
+  "MA": {
+    "mode": "rest",
+    "urls": ["https://services1.arcgis.com/hGdibHYSPO59RG1h/arcgis/rest/services/Massachusetts_Property_Tax_Parcels/FeatureServer/0"],
+    "fields": { "apn": "MAP_PAR_ID", "county": null, "acres": "LOT_SIZE" },
+    "count_expected": 2559286,
+    "notes": "REST chosen over the statewide L3 FGDB bulk: that zip is 8.5 GB with 351 per-town GDBs (M{id}TaxPar feature classes) and a DATED filename — a per-town adapter is Phase 2 work if REST ever degrades. LOT_SIZE units — pilot-verify."
+  },
+  "DE": {
+    "mode": "rest",
+    "urls": ["https://enterprise.firstmap.delaware.gov/arcgis/rest/services/PlanningCadastre/DE_StateParcels/FeatureServer/0"],
+    "fields": { "apn": "PIN", "county": "COUNTY", "acres": "ACRES" },
+    "count_expected": 451074,
+    "notes": "State Parcels 2.0, monthly refresh."
+  },
+  "HI": {
+    "mode": "http",
+    "urls": ["https://geoportal.hawaii.gov/api/download/v1/items/579b8dcb7a8e44c1af201e1b3cdf655f/geojson?layers=25"],
+    "fields": { "apn": "tmk_txt", "county": "county", "acres": "gisacres" },
+    "count_expected": 384035,
+    "notes": "TMK parcels, all 4 counties. Public domain per item."
+  },
+  "NH": {
+    "mode": "rest",
+    "urls": ["https://nhgeodata.unh.edu/hosting/rest/services/Hosted/CAD_ParcelMosaic/FeatureServer/1"],
+    "fields": { "apn": "PID", "county": "CountyId", "acres": null },
+    "count_expected": 617124,
+    "notes": "REST mirror of the GRANIT Parcel Mosaic (bulk zip filename is release-dated with no stable alias, and the FGDB carries a CAMA table + point/line layers we must not ingest — REST layer 1 is the parcels polygon layer). Some towns are line/point-only upstream — polygon layer only is correct. Legal-use disclaimer only, not a commercial restriction."
+  },
+  "ND": {
+    "mode": "hub",
+    "urls": ["https://gishubdata-ndgov.hub.arcgis.com/api/download/v1/items/ac6da1176038457db16e8debe3f1abaf/filegdb?redirect=false&layers=0"],
+    "layer": "Parcels",
+    "fields": { "apn": "GISID", "county": "CountyName", "acres": "CalculatedAcres" },
+    "count_expected": 742101,
+    "notes": "51/53 counties."
+  },
+  "ID": {
+    "mode": "rest",
+    "urls": ["https://services1.arcgis.com/CNPdEkvnGl65jCX8/arcgis/rest/services/Public_Idaho_Parcels_/FeatureServer/7"],
+    "fields": { "apn": "PARCEL_ID", "county": "County", "acres": "ASR_ACRES" },
+    "count_expected": 381144,
+    "notes": "Layer 7, NOT 0. 13/44 counties (incl Ada/Boise, Valley/McCall) — CONFIRMED partial. The all-44 IDWR layer is internal-use only — never touch it."
+  },
+  "MN": {
+    "mode": "http",
+    "urls": ["https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_mngeo/plan_parcels_open/fgdb_plan_parcels_open.zip"],
+    "layer": "plan_parcels_open",
+    "fields": { "apn": "state_pin", "county": "co_name", "acres": "acres_poly" },
+    "count_expected": 2708126,
+    "notes": "59/87 opt-in counties incl 7-county metro, quarterly."
+  },
+  "ME": {
+    "mode": "hub",
+    "urls": ["https://hub.arcgis.com/api/download/v1/items/346131b710a645ffb624f448a9cba6d4/filegdb?redirect=false&layers=10"],
+    "layer": "Maine_Parcels_Organized_Towns",
+    "fields": { "apn": "MAP_BK_LOT", "county": "COUNTY", "acres": null },
+    "count_expected": 704330,
+    "notes": "layers=10 REQUIRED (400 without it; layer 0 does not exist). Layer 9 is the ownership ADB table — NEVER ingest it. Organized towns only (~670k research est, 704k live)."
+  }
+}
