@@ -114,11 +114,11 @@
     "notes": "Geometry-only composite (owner data is the separate MOD-IV table we never fetch). Zip also holds Cad_pclblock (tax blocks) — the layer hint keeps it out. Behind Imperva CDN: browser UA required (fetch sends it)."
   },
   "MD": {
-    "mode": "rest",
-    "urls": ["https://mdgeodata.md.gov/imap/rest/services/PlanningCadastre/MD_ParcelBoundaries/MapServer/0"],
+    "mode": "hub",
+    "urls": ["https://hub.arcgis.com/api/download/v1/items/b33e5f03d50844b8819a4046ecfe0d97/geojson?redirect=false&layers=0"],
     "fields": { "apn": "ACCTID", "county": "JURSCODE", "acres": "ACRES" },
     "count_expected": 2288725,
-    "notes": "Metadata acknowledgment obligation (app credits). REST chosen over the Hub GeoJSON export (multi-GB, refuses ranged GETs, cache observed 13 months stale)."
+    "notes": "Metadata acknowledgment obligation (app credits). The iMAP MapServer is a trap (min/max-OID statistics query errors + returnIdsOnly times out on 2.3M rows — run-2 failure); the hub download/v1 POLL flow regenerates a fresh geojson extract (the v3 cache sat 13 months stale). Multi-GB single geojson — GDAL's streaming parser handles it."
   },
   "IN": {
     "mode": "http",
@@ -146,8 +146,9 @@
     "mode": "rest",
     "urls": ["https://services1.arcgis.com/hGdibHYSPO59RG1h/arcgis/rest/services/Massachusetts_Property_Tax_Parcels/FeatureServer/0"],
     "fields": { "apn": "MAP_PAR_ID", "county": null, "acres": "LOT_SIZE" },
+    "esridump_args": ["--paginate-oid"],
     "count_expected": 2559286,
-    "notes": "REST chosen over the statewide L3 FGDB bulk: that zip is 8.5 GB with 351 per-town GDBs (M{id}TaxPar feature classes) and a DATED filename — a per-town adapter is Phase 2 work if REST ever degrades. LOT_SIZE units — pilot-verify."
+    "notes": "--paginate-oid REQUIRED: deep resultOffset paging dies with 'Invalid query parameters' partway through 2.6M rows (run-2 failure). REST still beats the statewide L3 FGDB bulk (8.5 GB zip of 351 per-town GDBs, dated filename). LOT_SIZE units — pilot-verify."
   },
   "DE": {
     "mode": "http",
@@ -164,11 +165,12 @@
     "notes": "TMK parcels, all 4 counties. Public domain per item."
   },
   "NH": {
-    "mode": "rest",
-    "urls": ["https://nhgeodata.unh.edu/hosting/rest/services/Hosted/CAD_ParcelMosaic/FeatureServer/1"],
+    "mode": "http",
+    "urls": ["https://ftp.granit.unh.edu/GRANIT_Data/Vector_Data/Administrative_and_Political_Boundaries/ParcelMosaic/20260601_NHParcelMosaic_Distributed_Geodatabase.zip"],
+    "layer": "Parcels",
     "fields": { "apn": "PID", "county": "CountyId", "acres": null },
     "count_expected": 617124,
-    "notes": "REST mirror of the GRANIT Parcel Mosaic (bulk zip filename is release-dated with no stable alias, and the FGDB carries a CAMA table + point/line layers we must not ingest — REST layer 1 is the parcels polygon layer). Some towns are line/point-only upstream — polygon layer only is correct. Legal-use disclaimer only, not a commercial restriction."
+    "notes": "Bulk zip (290 MB, gdb ParcelMosaic_Public_2025.gdb): the nhgeodata.unh.edu REST mirror has been down for 2+ days (its API leaks 'postmaster refused' from the backing postgres — runs 1+2). Layer hint 'Parcels' keeps the CAMA table + point/line layers out; if the feature-class name differs, ogr2ogr fails LOUDLY — fix the hint, never widen it. Filename is release-dated (~annual, no stable alias) — scrape the dir listing at .../ParcelMosaic/ when this 404s."
   },
   "ND": {
     "mode": "hub",

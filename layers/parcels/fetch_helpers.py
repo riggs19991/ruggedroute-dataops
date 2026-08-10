@@ -66,11 +66,18 @@ def hub(api_url: str, out_file: str) -> None:
 
 
 def curl_to(url: str, dest: Path) -> None:
-    """Download with curl, not urllib: the data.geographic.texas.gov CloudFront
-    WAF 403s Python's TLS fingerprint even with a browser UA (pilot-verified
-    2026-08-10), while curl passes."""
+    """Download with curl + browser-ish headers. data.geographic.texas.gov's
+    WAF 403s cloud-runner requests: urllib AND bare curl both failed from CI
+    (runs 1-2, 2026-08-10) while working from residential IPs. The Referer +
+    Accept headers are the last same-network attempt; if TX still 403s, the
+    path is a Cloudflare Worker proxy or a mirrored copy in R2 — not more
+    header games."""
     subprocess.run(["curl", "-fSL", "--retry", "3", "--retry-delay", "5",
-                    "-A", UA, "-o", str(dest), url], check=True)
+                    "-A", UA,
+                    "-H", "Referer: https://data.geographic.texas.gov/",
+                    "-H", "Accept: */*",
+                    "-H", "Accept-Language: en-US,en;q=0.9",
+                    "-o", str(dest), url], check=True)
 
 
 def tnris(manifest_url: str, fips_min: str, fips_max: str, out_dir: str) -> None:

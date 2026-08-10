@@ -81,20 +81,40 @@ PY
     echo "esridump $URL ${WHERE:+(where: $WHERE)} ${FIELDS:+(fields: $FIELDS)} ${EXTRA:+(extra: $EXTRA)}"
     # -t 180: the default 30s dies on the biggest services' first count/metadata
     # query (FL 10.8M — pilot-verified 2026-08-10). esridump_args per unit adds
-    # e.g. --paginate-oid where deep resultOffset paging stalls (OH).
+    # e.g. --paginate-oid where deep resultOffset paging stalls (OH, MA).
     ARGS=(--jsonlines -t 180)
     [ -n "$FIELDS" ] && ARGS+=(-f "$FIELDS")
     [ -n "$WHERE" ] && ARGS+=(-p "where=$WHERE")
     while IFS= read -r extra_arg; do
       [ -n "$extra_arg" ] && ARGS+=("$extra_arg")
     done <<< "$EXTRA"
-    esri2geojson "${ARGS[@]}" "$URL" "$OUT_DIR/${UNIT}_raw.geojsonl"
+    # Outer retry: big AGOL dumps hit transient 504s mid-pull (FL, run 2).
+    # esridump cannot resume, so retry the whole dump up to 3 attempts.
+    OK=""
+    for attempt in 1 2 3; do
+      if esri2geojson "${ARGS[@]}" "$URL" "$OUT_DIR/${UNIT}_raw.geojsonl"; then
+        OK=1; break
+      fi
+      echo "::warning::esridump attempt $attempt failed for $UNIT — retrying in 60s"
+      rm -f "$OUT_DIR/${UNIT}_raw.geojsonl"
+      sleep 60
+    done
+    [ -n "$OK" ] || { echo "esridump failed after 3 attempts for $UNIT" >&2; exit 1; }
     wc -l "$OUT_DIR/${UNIT}_raw.geojsonl"
     ;;
   hub)
     URL="$(cfg urls | head -1)"
-    python3 "$(dirname "$0")/fetch_helpers.py" hub "$URL" "$OUT_DIR/${UNIT}_1.zip"
-    head -c 4 "$OUT_DIR/${UNIT}_1.zip" | grep -q "PK" || { echo "FETCH FAILED: not a zip" >&2; exit 1; }
+    tmp="$OUT_DIR/${UNIT}_1.dl"
+    python3 "$(dirname "$0")/fetch_helpers.py" hub "$URL" "$tmp"
+    # Hub jobs deliver zips (filegdb) OR raw geojson (MD) — sniff like http mode
+    if head -c 4 "$tmp" | grep -q "PK"; then
+      mv "$tmp" "$OUT_DIR/${UNIT}_1.zip"
+    elif [ "$(head -c 1 "$tmp")" = "{" ] || [ "$(head -c 1 "$tmp")" = "[" ]; then
+      mv "$tmp" "$OUT_DIR/${UNIT}_1.geojson"
+    else
+      echo "FETCH FAILED: hub result is neither zip nor geojson" >&2; exit 1
+    fi
+    ls -la "$OUT_DIR"
     ;;
   tnris)
     URL="$(cfg urls | head -1)"
