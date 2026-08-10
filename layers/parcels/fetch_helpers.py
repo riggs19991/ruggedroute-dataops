@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 import time
 import urllib.request
@@ -64,6 +65,14 @@ def hub(api_url: str, out_file: str) -> None:
         sys.exit(f"hub download suspiciously small ({size} bytes) — refusing")
 
 
+def curl_to(url: str, dest: Path) -> None:
+    """Download with curl, not urllib: the data.geographic.texas.gov CloudFront
+    WAF 403s Python's TLS fingerprint even with a browser UA (pilot-verified
+    2026-08-10), while curl passes."""
+    subprocess.run(["curl", "-fSL", "--retry", "3", "--retry-delay", "5",
+                    "-A", UA, "-o", str(dest), url], check=True)
+
+
 def tnris(manifest_url: str, fips_min: str, fips_max: str, out_dir: str) -> None:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -82,10 +91,10 @@ def tnris(manifest_url: str, fips_min: str, fips_max: str, out_dir: str) -> None
     print(f"  {len(urls)} county zips in FIPS [{fips_min}, {fips_max}]")
     for i, url in enumerate(sorted(urls), 1):
         dest = out / url.rsplit("/", 1)[-1]
-        size = stream_to(url, dest)
+        curl_to(url, dest)
         if dest.read_bytes()[:2] != b"PK":
             sys.exit(f"FETCH FAILED: {dest} is not a zip")
-        print(f"  [{i}/{len(urls)}] {dest.name} ({size} bytes)")
+        print(f"  [{i}/{len(urls)}] {dest.name} ({dest.stat().st_size} bytes)")
 
 
 def main() -> None:

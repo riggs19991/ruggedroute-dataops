@@ -77,10 +77,17 @@ cfg = json.load(open(sys.argv[1], encoding="utf-8"))[sys.argv[2]]
 print(",".join(v for v in (cfg.get("fields") or {}).values() if v))
 PY
 )"
-    echo "esridump $URL ${WHERE:+(where: $WHERE)} ${FIELDS:+(fields: $FIELDS)}"
-    ARGS=(--jsonlines)
+    EXTRA="$(cfg esridump_args)"
+    echo "esridump $URL ${WHERE:+(where: $WHERE)} ${FIELDS:+(fields: $FIELDS)} ${EXTRA:+(extra: $EXTRA)}"
+    # -t 180: the default 30s dies on the biggest services' first count/metadata
+    # query (FL 10.8M — pilot-verified 2026-08-10). esridump_args per unit adds
+    # e.g. --paginate-oid where deep resultOffset paging stalls (OH).
+    ARGS=(--jsonlines -t 180)
     [ -n "$FIELDS" ] && ARGS+=(-f "$FIELDS")
     [ -n "$WHERE" ] && ARGS+=(-p "where=$WHERE")
+    while IFS= read -r extra_arg; do
+      [ -n "$extra_arg" ] && ARGS+=("$extra_arg")
+    done <<< "$EXTRA"
     esri2geojson "${ARGS[@]}" "$URL" "$OUT_DIR/${UNIT}_raw.geojsonl"
     wc -l "$OUT_DIR/${UNIT}_raw.geojsonl"
     ;;

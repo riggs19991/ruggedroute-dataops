@@ -131,8 +131,9 @@
     "mode": "rest",
     "urls": ["https://services2.arcgis.com/MlJ0G8iWUyC7jAmu/arcgis/rest/services/OhioStatewidePacels_full_view/FeatureServer/0"],
     "fields": { "apn": "LocalParcelID", "county": "County", "acres": "LandArea" },
+    "esridump_args": ["--paginate-oid"],
     "count_expected": 6313610,
-    "notes": "Service name typo 'Pacels' is REAL — do not correct it. Largest single-unit rest dump (~3.2k pages). Bulk alternatives are dead ends: FGDB export unsupported, shapefile 'dataset too large', GeoJSON is multi-GB in one file. LandArea units — pilot-verify against known parcels."
+    "notes": "Service name typo 'Pacels' is REAL — do not correct it. Largest single-unit rest dump. --paginate-oid REQUIRED: the view rejects fields-with-resultOffset paging and stalls in retry loops (run-1 failure 2026-08-10). Bulk alternatives are dead ends: FGDB export unsupported, shapefile 'dataset too large', GeoJSON is multi-GB in one file. LandArea units — pilot-verify against known parcels."
   },
   "TN": {
     "mode": "rest",
@@ -149,11 +150,11 @@
     "notes": "REST chosen over the statewide L3 FGDB bulk: that zip is 8.5 GB with 351 per-town GDBs (M{id}TaxPar feature classes) and a DATED filename — a per-town adapter is Phase 2 work if REST ever degrades. LOT_SIZE units — pilot-verify."
   },
   "DE": {
-    "mode": "rest",
-    "urls": ["https://enterprise.firstmap.delaware.gov/arcgis/rest/services/PlanningCadastre/DE_StateParcels/FeatureServer/0"],
+    "mode": "http",
+    "urls": ["https://hub.arcgis.com/api/v3/datasets/35154346e73748ef915d863651839ccc_0/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1"],
     "fields": { "apn": "PIN", "county": "COUNTY", "acres": "ACRES" },
     "count_expected": 451074,
-    "notes": "State Parcels 2.0, monthly refresh."
+    "notes": "State Parcels 2.0 via the Hub AWS cache: enterprise.firstmap.delaware.gov REFUSES connections from cloud-runner IPs (run-1 failure 2026-08-10; works from residential). Hub cache lags the monthly source a few weeks — fine at quarterly cadence. Item 35154346e73748ef915d863651839ccc owner FirstMap@De."
   },
   "HI": {
     "mode": "http",
