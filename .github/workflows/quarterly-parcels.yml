@@ -134,6 +134,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Reclaim runner disk
+        # Phase-1 national ≈ 5-9 GB and tile-join needs parts + merged output
+        # side by side — preinstalled toolchains are the cheap ~12 GB to free.
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
       - uses: actions/download-artifact@v4
         with: { path: parts }
       - name: Cache tippecanoe

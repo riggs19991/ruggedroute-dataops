@@ -16,7 +16,7 @@
       "st": "2-letter state code, always present"
     },
     "contract_note": "This schema is the CONTRACT with the Android client (parcel identify sheet). It is also the QA WHITELIST: qa_parcels.py hard-fails the build if any other attribute key reaches the normalized output or a decoded tile. Owner names/addresses in tiles would convert a $0 layer into a vendor licensing negotiation — the whitelist gate is the enforcement point (research §5, §6 risk 4). It also neutralizes MT MCA 2-6-1017 and ID §74-120 mailing-list statutes.",
-    "shards_note": "Unit codes in sources.json are state codes, sharded states use ST_1/ST_2 (TX, FL); st = unit prefix. Shards carry a rest-mode 'where' clause splitting on the county field."
+    "shards_note": "Unit codes in sources.json are state codes, sharded states use ST_1/ST_2 (TX, FL); st = unit prefix. Shards split on FILE LISTS, never attribute where-clauses: TX by FIPS range over mirrored county zips, FL by size-balanced halves of the FDOR county-zip list (attribute filters against the FL AGOL service are unindexed/504-prone — see sources.json FL_1 notes)."
   },
   "sources": "layers/parcels/sources.json — one entry per matrix unit: {mode: http|rest, urls, layer, fields{apn,county,acres}, where?, count_expected, notes}. Endpoints + field names live-verified 2026-08-09. License basis per state: app repo docs/research/2026-08-09-free-parcel-boundaries.md §2 — do not add a state that is not CONFIRMED/clean there without founder sign-off.",
   "attribution": {

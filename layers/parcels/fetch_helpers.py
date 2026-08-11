@@ -105,10 +105,11 @@ def tnris(manifest_url: str, fips_min: str, fips_max: str, out_dir: str) -> None
 
 
 def replica(layer_url: str, where: str, out_file: str) -> None:
-    """ArcGIS createReplica bulk extract (FL): deep paging consistently 504s on
-    the 10.8M-row service, but the sanctioned Extract path works — async job,
-    poll, download the filegdb zip. Flow live-verified 2026-08-10 (199-row
-    probe extract completed in ~10s)."""
+    """ArcGIS createReplica bulk extract — async job, poll, download the
+    filegdb zip. RETAINED FOR SMALL EXTRACTS ONLY: the 199-row probe passed
+    (~10s) but multi-million-row extracts STALL server-side (FL run
+    31449720301: frozen at ExportingData/107k records, lastUpdatedTime dead
+    30 min). No unit uses this mode today; FL moved to FDOR bulk zips."""
     import urllib.parse
     root, layer_id = layer_url.rsplit("/", 1)
     body = urllib.parse.urlencode({
