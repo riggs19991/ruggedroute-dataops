@@ -17,40 +17,40 @@
     "notes": "Monthly drop (~247 MB, StatePlane MT — reprojected by normalizer). Source GDB carries OwnerName/OwnerAddress fields — stripped by construction, whitelist gate backstops. GISAcres is the geometry-computed alternate if TotalAcres goes null upstream. Count from MontanaCadastral_ParcelMetadata.xml in same dir."
   },
   "TX_1": {
-    "mode": "tnris",
-    "urls": ["https://api.tnris.org/api/v1/resources?collection_id=0fa04328-872e-481c-b453-126a74777593&limit=254"],
+    "mode": "mirror",
+    "urls": ["https://api.github.com/repos/riggs19991/ruggedroute-dataops/releases/tags/tx-stratmap25"],
     "fips_min": "48001", "fips_max": "48155",
     "fields": { "apn": "Prop_ID", "county": "FIPS", "acres": "GIS_AREA" },
     "count_expected": null,
-    "notes": "StratMap 2025: 254 per-county zips (each has fgdb/ + shp/; resolve_src picks the gdb). Public domain. REST /query is SERVER-BLOCKED on the statewide MapServer — bulk zips are the ONLY path. GIS_AREA_U holds the unit (expected acres — pilot-verify). Strip OWNER_NAME/NAME_CARE/SITUS_*/MAIL_* is automatic. Re-resolve collection_id for future vintages via api.tnris.org/api/v1/collections?search=land%20parcels. Shard 1: Dallas, Bexar, Collin, Denton, El Paso."
+    "notes": "StratMap 2025 per-county zips from OUR release mirror (tag tx-stratmap25, 254 assets, 8.8 GB): data.geographic.texas.gov IP-blocks cloud runners (urllib AND curl 403 from CI runs 1-3; residential works) and REST /query is server-blocked — the mirror is the only CI-reachable path. Public domain data. NEW VINTAGE PROCEDURE: run scripts/mirror_tx.sh from a residential IP, then update the tag here. GIS_AREA_U holds the unit (expected acres — pilot-verify). Shard 1: Dallas, Bexar, Collin, Denton, El Paso."
   },
   "TX_2": {
-    "mode": "tnris",
-    "urls": ["https://api.tnris.org/api/v1/resources?collection_id=0fa04328-872e-481c-b453-126a74777593&limit=254"],
+    "mode": "mirror",
+    "urls": ["https://api.github.com/repos/riggs19991/ruggedroute-dataops/releases/tags/tx-stratmap25"],
     "fips_min": "48157", "fips_max": "48325",
     "fields": { "apn": "Prop_ID", "county": "FIPS", "acres": "GIS_AREA" },
     "count_expected": null,
     "notes": "Shard 2: Harris (biggest, ~1.9M), Hidalgo, Fort Bend."
   },
   "TX_3": {
-    "mode": "tnris",
-    "urls": ["https://api.tnris.org/api/v1/resources?collection_id=0fa04328-872e-481c-b453-126a74777593&limit=254"],
+    "mode": "mirror",
+    "urls": ["https://api.github.com/repos/riggs19991/ruggedroute-dataops/releases/tags/tx-stratmap25"],
     "fips_min": "48327", "fips_max": "48507",
     "fields": { "apn": "Prop_ID", "county": "FIPS", "acres": "GIS_AREA" },
     "count_expected": null,
     "notes": "Shard 3: Tarrant, Travis, Williamson."
   },
   "FL_1": {
-    "mode": "rest",
+    "mode": "replica",
     "urls": ["https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0"],
     "where": "CO_NO <= 44",
     "fields": { "apn": "PARCEL_ID", "county": "CO_NO", "acres": "LND_SQFOOT" },
     "acres_divisor": 43560,
     "count_expected": null,
-    "notes": "FDOR Cadastral 2025, statewide total 10,831,924 (returnCountOnly verified). LND_SQFOOT is SQUARE FEET — divisor 43560. CO_NO is the FDOR county number (11-77 alphabetical), NOT FIPS. maxRecordCount 2000. If paging is ever too slow, FeatureServer/createReplica dataFormat=filegdb is the sanctioned bulk path; the Hub download API is a dead end (>2GB limit)."
+    "notes": "FDOR Cadastral 2025, statewide total 10,831,924. createReplica bulk extract (async filegdb): deep resultOffset paging 504s CONSISTENTLY on this service (runs 2-3, retries included) — Extract is the sanctioned path, flow live-verified 2026-08-10. LND_SQFOOT is SQUARE FEET — divisor 43560. CO_NO is the FDOR county number (11-77 alphabetical), NOT FIPS. Hub download API stays a dead end (>2GB limit)."
   },
   "FL_2": {
-    "mode": "rest",
+    "mode": "replica",
     "urls": ["https://services9.arcgis.com/Gh9awoU677aKree0/arcgis/rest/services/Florida_Statewide_Cadastral/FeatureServer/0"],
     "where": "CO_NO > 44",
     "fields": { "apn": "PARCEL_ID", "county": "CO_NO", "acres": "LND_SQFOOT" },
@@ -167,10 +167,10 @@
   "NH": {
     "mode": "http",
     "urls": ["https://ftp.granit.unh.edu/GRANIT_Data/Vector_Data/Administrative_and_Political_Boundaries/ParcelMosaic/20260601_NHParcelMosaic_Distributed_Geodatabase.zip"],
-    "layer": "Parcels",
+    "layer": "ParcelCama",
     "fields": { "apn": "PID", "county": "CountyId", "acres": null },
     "count_expected": 617124,
-    "notes": "Bulk zip (290 MB, gdb ParcelMosaic_Public_2025.gdb): the nhgeodata.unh.edu REST mirror has been down for 2+ days (its API leaks 'postmaster refused' from the backing postgres — runs 1+2). Layer hint 'Parcels' keeps the CAMA table + point/line layers out; if the feature-class name differs, ogr2ogr fails LOUDLY — fix the hint, never widen it. Filename is release-dated (~annual, no stable alias) — scrape the dir listing at .../ParcelMosaic/ when this 404s."
+    "notes": "Bulk zip (290 MB, gdb ParcelMosaic_Public_2025.gdb): the nhgeodata.unh.edu REST mirror has been down for 2+ days (its API leaks 'postmaster refused' from the backing postgres — runs 1+2). Feature class is 'ParcelCama' (verified from the gdb catalog 2026-08-10; there is no 'Parcels' class — run-3 failure). It carries OwnerName/Mailing* CAMA columns at source — -select + the whitelist strip them. 'Plines*'/'ParcelCama_pts' stay out via the layer hint. Filename is release-dated (~annual) — scrape .../ParcelMosaic/ when this 404s."
   },
   "ND": {
     "mode": "hub",

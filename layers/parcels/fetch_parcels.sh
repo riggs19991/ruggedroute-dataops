@@ -121,6 +121,17 @@ PY
     FIPS_MIN="$(cfg fips_min)"; FIPS_MAX="$(cfg fips_max)"
     python3 "$(dirname "$0")/fetch_helpers.py" tnris "$URL" "$FIPS_MIN" "$FIPS_MAX" "$OUT_DIR"
     ;;
+  mirror)
+    URL="$(cfg urls | head -1)"
+    FIPS_MIN="$(cfg fips_min)"; FIPS_MAX="$(cfg fips_max)"
+    python3 "$(dirname "$0")/fetch_helpers.py" mirror "$URL" "$FIPS_MIN" "$FIPS_MAX" "$OUT_DIR"
+    ;;
+  replica)
+    URL="$(cfg urls | head -1)"
+    python3 "$(dirname "$0")/fetch_helpers.py" replica "$URL" "$WHERE" "$OUT_DIR/${UNIT}_1.zip"
+    head -c 4 "$OUT_DIR/${UNIT}_1.zip" | grep -q "PK" || { echo "FETCH FAILED: replica result is not a zip" >&2; exit 1; }
+    ls -la "$OUT_DIR"
+    ;;
   *)
     echo "unknown mode '$MODE' for unit $UNIT" >&2; exit 1;;
 esac
