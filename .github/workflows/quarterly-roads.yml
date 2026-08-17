@@ -1,0 +1,226 @@
+# D1b roads_tnm: quarterly "every road on every acre" tileset build.
+#
+# Cloned from quarterly-parcels.yml (same publish idiom: env-mapped secrets +
+# shell -z test — the `secrets` context is unavailable in step `if:` —,
+# hardcoded KV_NAMESPACE_ID, alias key `layer-alias:roads_tnm`, `npx --yes
+# wrangler ... --remote`, minute-stamped version keys, tippecanoe PINNED 2.79.0
+# via cache, subset guard so a pilot can never flip the live alias).
+#
+# Differences from parcels, deliberate:
+# - 51 units (50 states + DC), ONE adapter: a per-state USGS TNM FileGDB zip
+#   read in place via /vsizip/ (TX/CA inflate ~2.9x; the zip is deleted before
+#   tippecanoe runs so geojsonl + tippecanoe temp own the disk).
+# - Four source layers per unit (roads_hwy/roads_local/roads_4wd/trails_tnm)
+#   with per-FEATURE tippecanoe.minzoom stamped by the normalizer.
+# - `maxzoom` dispatch input: the ID+UT pilot's KB/feature decides whether the
+#   national run keeps -z14 or drops to -z13 (national ≈ 25M road segments;
+#   parts + merged must coexist on the merge runner).
+# - QA gate 3 hits the live carto.nationalmap.gov MapServer for units with a
+#   golden_bbox (ID/AZ/UT); degrades to a warning if the service is down.
+#
+# PILOT: dispatch units "ID UT" (artifact-only), read qa_stats.json
+# kb_per_feature + golden drift, then dispatch the full matrix (empty units
+# input) which publishes + flips layer-alias:roads_tnm.
+
+name: quarterly-roads
+
+env:
+  # Same namespace as every other layer — worker reads layer-alias:{layer}
+  KV_NAMESPACE_ID: f2f28315ee8f43fb8413d1bcddd20684
+
+on:
+  schedule:
+    - cron: "0 9 12 2,5,8,11 *"   # 12th of Feb/May/Aug/Nov 09:00 UTC — upstream
+                                   # refresh is 'Irregular' (last 2026-02-11)
+  workflow_dispatch:
+    inputs:
+      units:
+        description: "space-separated USPS unit codes (empty = full matrix, publishes). Pilot: 'ID UT'"
+        required: false
+        default: ""
+      maxzoom:
+        description: "tippecanoe max zoom (14 default; 13 if the pilot's KB/feature says the national archive is too big)"
+        required: false
+        default: "14"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install pytest
+        run: pip install -q pytest
+      - name: roads_tnm unit tests (no GDAL needed)
+        run: pytest layers/roads_tnm/tests -q
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      matrix:
+        # Pilot anchors first, then the two biggest zips, then the rest.
+        unit: [ID, UT, TX, CA, FL, PA, NY, OH, IL, MI, GA, NC, VA, MO, TN, WA, WI, MN,
+               IN, KY, AZ, AL, LA, CO, OR, OK, SC, IA, MS, AR, KS, NM, NE, WV, NV,
+               MT, SD, ND, ME, MD, MA, NJ, CT, NH, VT, WY, HI, RI, DE, AK, DC]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip units outside dispatch subset
+        id: gate
+        run: |
+          SUBSET="${{ github.event.inputs.units }}"
+          if [ -n "$SUBSET" ] && ! echo " $SUBSET " | grep -q " ${{ matrix.unit }} "; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Free disk space
+        if: steps.gate.outputs.skip != 'true'
+        # TX/CA: zip 0.8 GB + geojsonl ~3-5 GB + tippecanoe temp; preinstalled
+        # toolchains are the cheap ~12 GB to reclaim (weekly-motorized idiom).
+        run: |
+          df -h / | tail -1
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          df -h / | tail -1
+      - name: Install GDAL + QA deps
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin libsqlite3-dev zlib1g-dev
+          pip install --quiet mapbox-vector-tile
+          ogrinfo --version
+      - name: Cache tippecanoe
+        if: steps.gate.outputs.skip != 'true'
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+      - name: Build tippecanoe
+        if: steps.gate.outputs.skip != 'true' && steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+      - name: Install tippecanoe + pmtiles CLI
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          sudo cp ~/tippecanoe-bin/* /usr/local/bin/
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+      - name: Fetch
+        if: steps.gate.outputs.skip != 'true'
+        run: bash layers/roads_tnm/fetch_roads_tnm.sh ${{ matrix.unit }} src
+      - name: Normalize
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          python3 layers/roads_tnm/normalize_roads_tnm.py --unit ${{ matrix.unit }} \
+            --src src/${{ matrix.unit }}_1.zip --out build
+          # zip + geojsonl + tippecanoe temp together brush the runner limit on TX/CA
+          rm -rf src
+          df -h / | tail -1
+          wc -l build/*.geojsonl
+      - name: Tiles + QA
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          MAXZOOM: ${{ github.event.inputs.maxzoom || '14' }}
+        run: |
+          set -euo pipefail
+          bash layers/roads_tnm/tiles.sh build
+          python3 layers/roads_tnm/qa_roads_tnm.py --unit ${{ matrix.unit }} \
+            --build build --pmtiles build/roads_tnm.pmtiles
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.skip != 'true'
+        with:
+          name: roads_tnm-${{ matrix.unit }}
+          path: |
+            build/roads_tnm.pmtiles
+            build/qa_stats.json
+            build/normalize_stats.json
+            build/review_queue_roads_tnm.jsonl
+          retention-days: 7
+
+  merge-publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reclaim runner disk
+        # National ≈ 25M road segments; tile-join needs parts + merged output
+        # side by side — preinstalled toolchains are the cheap ~12 GB to free.
+        run: |
+          df -h / | tail -1
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          df -h / | tail -1
+      - uses: actions/download-artifact@v4
+        with: { path: parts, pattern: "roads_tnm-*" }
+      - name: Cache tippecanoe
+        id: tcache
+        uses: actions/cache@v4
+        with:
+          path: ~/tippecanoe-bin
+          key: tippecanoe-2.79.0
+      - name: Build tippecanoe
+        if: steps.tcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          make -C /tmp/tippecanoe -j"$(nproc)"
+          mkdir -p ~/tippecanoe-bin
+          cp /tmp/tippecanoe/tippecanoe /tmp/tippecanoe/tile-join ~/tippecanoe-bin/
+      - name: Install tile-join + pmtiles CLI
+        run: |
+          sudo cp ~/tippecanoe-bin/* /usr/local/bin/
+          curl -fsSL -o /tmp/pm.tar.gz https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz
+          tar -xzf /tmp/pm.tar.gz -C /tmp pmtiles
+          sudo mv /tmp/pmtiles /usr/local/bin/
+      - name: Merge unit tilesets
+        run: |
+          set -euo pipefail
+          find parts -name "roads_tnm.pmtiles" -exec bash -c 'mv "$1" "parts/$(basename $(dirname $1)).pmtiles"' _ {} \;
+          ls -la parts/*.pmtiles
+          # -pk: never silently drop an over-500K tile (README: without -pk it is
+          # "just left out of the new tileset"). Dense urban z12 tiles WILL exceed.
+          tile-join -o roads_tnm.pmtiles --force -pk parts/roads_tnm-*.pmtiles
+          rm -f parts/roads_tnm-*.pmtiles
+          pmtiles verify roads_tnm.pmtiles
+          pmtiles show roads_tnm.pmtiles | head -30
+          ls -la roads_tnm.pmtiles
+          df -h / | tail -1
+      - name: Upload to R2 + flip alias
+        env:
+          LAYER: roads_tnm
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # Subset dispatches NEVER publish: without this guard an "ID UT" pilot
+          # would upload a 2-state "national" tileset and flip the live alias.
+          if [ -n "${{ github.event.inputs.units }}" ]; then
+            echo "::notice::unit subset run — artifact only, skipping R2 publish."
+            exit 0
+          fi
+          if [ -z "$R2_ACCOUNT_ID" ] || [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "::notice::R2 secrets not configured — skipping upload (artifact mode)."
+            exit 0
+          fi
+          VERSION="${LAYER}-$(date +%Y%m%d-%H%M).pmtiles"
+          pmtiles upload "${LAYER}.pmtiles" "$VERSION" \
+            --bucket="s3://rr-tiles?endpoint=https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com&region=auto"
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            # --remote is REQUIRED: wrangler v4 defaults kv writes to a local simulation
+            npx --yes wrangler kv key put --remote --namespace-id "$KV_NAMESPACE_ID" "layer-alias:${LAYER}" "$VERSION"
+          fi
+          echo "uploaded $VERSION and flipped alias"
+      - uses: actions/upload-artifact@v4
+        with:
+          # NOT roads_tnm-* : a re-run of this job must not download the previous
+          # national archive as a "part" and tile-join it into itself.
+          name: national-roads_tnm
+          path: roads_tnm.pmtiles
+          retention-days: 7

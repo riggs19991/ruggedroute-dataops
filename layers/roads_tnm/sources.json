@@ -1,0 +1,343 @@
+{
+  "_README": {
+    "what": "One entry per matrix unit (USPS state code, 50 states + DC). Every unit is the same adapter: ONE per-state FileGDB zip from the USGS TNM staged-products bucket, read in place via /vsizip/ (never unzipped on the runner).",
+    "url_pattern": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_{State_Name_With_Underscores}_State_GDB.zip — filenames are UNVERSIONED; zip_bytes/last_modified below are the 2026-02-12 vintage (bucket listing verified 2026-08-16) and exist only for the QA size band + drift visibility. A refreshed upstream zip is expected to change them.",
+    "layers": "Trans_RoadSegment (roads) + Trans_TrailSegment (trails); EPSG:4269 Measured MultiLineString; layer names + field schemas verified identical across AK/DE/VT/WY 2026-08-16.",
+    "golden_bbox": "optional [w,s,e,n]; when present qa_roads_tnm.py compares per-class counts inside the bbox against the live carto.nationalmap.gov transportation MapServer (layers 29-37). Only units whose bbox lies entirely inside the state carry one.",
+    "license": "US Government public domain (usa.gov/publicdomain/label/1.0); attribution 'USGS The National Map: National Transportation Dataset; U.S. Census Bureau – TIGER/Line; U.S. Forest Service.'"
+  },
+  "AK": {
+    "state": "Alaska",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Alaska_State_GDB.zip",
+    "zip_bytes": 38044817,
+    "last_modified": "2026-02-12",
+    "notes": "Probe state 2026-08-16: 68,561 roads / 8,838 trails; 6,919 'Alaska Dept. of Transportation'-originated 4WD rows (source=akdot); 171 ferries dropped."
+  },
+  "AL": {
+    "state": "Alabama",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Alabama_State_GDB.zip",
+    "zip_bytes": 188380501,
+    "last_modified": "2026-02-12"
+  },
+  "AR": {
+    "state": "Arkansas",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Arkansas_State_GDB.zip",
+    "zip_bytes": 159127486,
+    "last_modified": "2026-02-12"
+  },
+  "AZ": {
+    "state": "Arizona",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Arizona_State_GDB.zip",
+    "zip_bytes": 249075517,
+    "last_modified": "2026-02-12",
+    "golden_bbox": [
+      -112.05,
+      34.75,
+      -111.65,
+      34.95
+    ],
+    "notes": "Golden bbox = Sedona (mvum/roadcore golden neighbourhood). USFS-originated rows here include I-17 segments — originator != forest road."
+  },
+  "CA": {
+    "state": "California",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_California_State_GDB.zip",
+    "zip_bytes": 754066747,
+    "last_modified": "2026-02-12",
+    "notes": "Second largest zip (754 MB)."
+  },
+  "CO": {
+    "state": "Colorado",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Colorado_State_GDB.zip",
+    "zip_bytes": 248301096,
+    "last_modified": "2026-02-12"
+  },
+  "CT": {
+    "state": "Connecticut",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Connecticut_State_GDB.zip",
+    "zip_bytes": 82912476,
+    "last_modified": "2026-02-12"
+  },
+  "DC": {
+    "state": "District of Columbia",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_District_of_Columbia_State_GDB.zip",
+    "zip_bytes": 5360077,
+    "last_modified": "2026-02-12",
+    "notes": "Smallest zip (5 MB); may emit no fourwd/trail features — empty layer files are legal."
+  },
+  "DE": {
+    "state": "Delaware",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Delaware_State_GDB.zip",
+    "zip_bytes": 20535961,
+    "last_modified": "2026-02-12",
+    "notes": "Probe state 2026-08-16: 70,690 roads / 4,348 trails; tnmfrc-1 rows carrying only a us_route (US-13/202/301) or state_route (DE-1) — the reason classing is designation-first."
+  },
+  "FL": {
+    "state": "Florida",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Florida_State_GDB.zip",
+    "zip_bytes": 401952294,
+    "last_modified": "2026-02-12"
+  },
+  "GA": {
+    "state": "Georgia",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Georgia_State_GDB.zip",
+    "zip_bytes": 258157993,
+    "last_modified": "2026-02-12"
+  },
+  "HI": {
+    "state": "Hawaii",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Hawaii_State_GDB.zip",
+    "zip_bytes": 21813817,
+    "last_modified": "2026-02-12"
+  },
+  "IA": {
+    "state": "Iowa",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Iowa_State_GDB.zip",
+    "zip_bytes": 192055585,
+    "last_modified": "2026-02-12"
+  },
+  "ID": {
+    "state": "Idaho",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Idaho_State_GDB.zip",
+    "zip_bytes": 155883470,
+    "last_modified": "2026-02-12",
+    "golden_bbox": [
+      -116.45,
+      44.15,
+      -115.95,
+      44.45
+    ],
+    "notes": "Golden bbox = the founder's Idaho Dept of Lands sections (44.3,-116.2): TNM local roads there are 71% Census / 29% USFS-originated (harvest 2026-08-16) — the roads the lands fill was hiding."
+  },
+  "IL": {
+    "state": "Illinois",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Illinois_State_GDB.zip",
+    "zip_bytes": 270603353,
+    "last_modified": "2026-02-12"
+  },
+  "IN": {
+    "state": "Indiana",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Indiana_State_GDB.zip",
+    "zip_bytes": 206768729,
+    "last_modified": "2026-02-12"
+  },
+  "KS": {
+    "state": "Kansas",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Kansas_State_GDB.zip",
+    "zip_bytes": 187260957,
+    "last_modified": "2026-02-12"
+  },
+  "KY": {
+    "state": "Kentucky",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Kentucky_State_GDB.zip",
+    "zip_bytes": 164946274,
+    "last_modified": "2026-02-12"
+  },
+  "LA": {
+    "state": "Louisiana",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Louisiana_State_GDB.zip",
+    "zip_bytes": 146673822,
+    "last_modified": "2026-02-12"
+  },
+  "MA": {
+    "state": "Massachusetts",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Massachusetts_State_GDB.zip",
+    "zip_bytes": 123374615,
+    "last_modified": "2026-02-12"
+  },
+  "MD": {
+    "state": "Maryland",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Maryland_State_GDB.zip",
+    "zip_bytes": 124489725,
+    "last_modified": "2026-02-12"
+  },
+  "ME": {
+    "state": "Maine",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Maine_State_GDB.zip",
+    "zip_bytes": 67551231,
+    "last_modified": "2026-02-12"
+  },
+  "MI": {
+    "state": "Michigan",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Michigan_State_GDB.zip",
+    "zip_bytes": 249388897,
+    "last_modified": "2026-02-12"
+  },
+  "MN": {
+    "state": "Minnesota",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Minnesota_State_GDB.zip",
+    "zip_bytes": 221406329,
+    "last_modified": "2026-02-12"
+  },
+  "MO": {
+    "state": "Missouri",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Missouri_State_GDB.zip",
+    "zip_bytes": 282550793,
+    "last_modified": "2026-02-12"
+  },
+  "MS": {
+    "state": "Mississippi",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Mississippi_State_GDB.zip",
+    "zip_bytes": 162586264,
+    "last_modified": "2026-02-12"
+  },
+  "MT": {
+    "state": "Montana",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Montana_State_GDB.zip",
+    "zip_bytes": 163233822,
+    "last_modified": "2026-02-12"
+  },
+  "NC": {
+    "state": "North Carolina",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_North_Carolina_State_GDB.zip",
+    "zip_bytes": 278564458,
+    "last_modified": "2026-02-12"
+  },
+  "ND": {
+    "state": "North Dakota",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_North_Dakota_State_GDB.zip",
+    "zip_bytes": 113116119,
+    "last_modified": "2026-02-12"
+  },
+  "NE": {
+    "state": "Nebraska",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Nebraska_State_GDB.zip",
+    "zip_bytes": 136869295,
+    "last_modified": "2026-02-12"
+  },
+  "NH": {
+    "state": "New Hampshire",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_New_Hampshire_State_GDB.zip",
+    "zip_bytes": 59008442,
+    "last_modified": "2026-02-12"
+  },
+  "NJ": {
+    "state": "New Jersey",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_New_Jersey_State_GDB.zip",
+    "zip_bytes": 155876537,
+    "last_modified": "2026-02-12"
+  },
+  "NM": {
+    "state": "New Mexico",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_New_Mexico_State_GDB.zip",
+    "zip_bytes": 172185903,
+    "last_modified": "2026-02-12"
+  },
+  "NV": {
+    "state": "Nevada",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Nevada_State_GDB.zip",
+    "zip_bytes": 130639584,
+    "last_modified": "2026-02-12"
+  },
+  "NY": {
+    "state": "New York",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_New_York_State_GDB.zip",
+    "zip_bytes": 259019661,
+    "last_modified": "2026-02-12"
+  },
+  "OH": {
+    "state": "Ohio",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Ohio_State_GDB.zip",
+    "zip_bytes": 261608678,
+    "last_modified": "2026-02-12"
+  },
+  "OK": {
+    "state": "Oklahoma",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Oklahoma_State_GDB.zip",
+    "zip_bytes": 239746020,
+    "last_modified": "2026-02-12"
+  },
+  "OR": {
+    "state": "Oregon",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Oregon_State_GDB.zip",
+    "zip_bytes": 247040261,
+    "last_modified": "2026-02-12"
+  },
+  "PA": {
+    "state": "Pennsylvania",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Pennsylvania_State_GDB.zip",
+    "zip_bytes": 346634414,
+    "last_modified": "2026-02-12"
+  },
+  "RI": {
+    "state": "Rhode Island",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Rhode_Island_State_GDB.zip",
+    "zip_bytes": 21333157,
+    "last_modified": "2026-02-12"
+  },
+  "SC": {
+    "state": "South Carolina",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_South_Carolina_State_GDB.zip",
+    "zip_bytes": 157902968,
+    "last_modified": "2026-02-12"
+  },
+  "SD": {
+    "state": "South Dakota",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_South_Dakota_State_GDB.zip",
+    "zip_bytes": 79253906,
+    "last_modified": "2026-02-12"
+  },
+  "TN": {
+    "state": "Tennessee",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Tennessee_State_GDB.zip",
+    "zip_bytes": 217934794,
+    "last_modified": "2026-02-12"
+  },
+  "TX": {
+    "state": "Texas",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Texas_State_GDB.zip",
+    "zip_bytes": 792741280,
+    "last_modified": "2026-02-12",
+    "notes": "Largest zip (793 MB). Expect the longest build; runner peak disk = zip + geojsonl outputs only (zip is read in place)."
+  },
+  "UT": {
+    "state": "Utah",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Utah_State_GDB.zip",
+    "zip_bytes": 155430400,
+    "last_modified": "2026-02-12",
+    "golden_bbox": [
+      -109.9,
+      38.4,
+      -109.3,
+      38.8
+    ],
+    "notes": "Golden bbox = Moab (blm_routes golden bbox)."
+  },
+  "VA": {
+    "state": "Virginia",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Virginia_State_GDB.zip",
+    "zip_bytes": 336499877,
+    "last_modified": "2026-02-12"
+  },
+  "VT": {
+    "state": "Vermont",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Vermont_State_GDB.zip",
+    "zip_bytes": 47029478,
+    "last_modified": "2026-02-12",
+    "notes": "Probe state 2026-08-16: 93k roads; 719 Snow Trails (dropped in v1 — D3 winter candidate)."
+  },
+  "WA": {
+    "state": "Washington",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Washington_State_GDB.zip",
+    "zip_bytes": 214095086,
+    "last_modified": "2026-02-12"
+  },
+  "WI": {
+    "state": "Wisconsin",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Wisconsin_State_GDB.zip",
+    "zip_bytes": 189866762,
+    "last_modified": "2026-02-12"
+  },
+  "WV": {
+    "state": "West Virginia",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_West_Virginia_State_GDB.zip",
+    "zip_bytes": 123055248,
+    "last_modified": "2026-02-12"
+  },
+  "WY": {
+    "state": "Wyoming",
+    "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Tran/GDB/TRAN_Wyoming_State_GDB.zip",
+    "zip_bytes": 103517516,
+    "last_modified": "2026-02-12",
+    "notes": "Probe state 2026-08-16: 296,391 roads; 684 'Bus,25/80/90' interstate business loops on tnmfrc 2/3 (-> state_hwy, ref 'I-25 Bus'); federal_lands_route populated on 1,919 rows (partial)."
+  }
+}

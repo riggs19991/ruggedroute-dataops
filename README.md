@@ -38,6 +38,7 @@ Design rules (from the master plan — do not violate):
 | `nps_roads` (park road inventory, seasonal + surface) | NPS Public Roads FeatureServer (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
 | `lands` (PAD-US ownership fill + wilderness/WSA overlay) | USGS PAD-US 4.1 state GDBs (ScienceBase) | `monthly-ownership.yml` | **LIVE** (Stage 2, national 195 MB) |
 | `parcels` (private-parcel boundaries, GEOMETRY ONLY — apn/county/acres/st; QA hard-gates any other attribute) | ~25 clean-license state programs (research 2026-08-09, app repo `docs/research/2026-08-09-free-parcel-boundaries.md`) | `quarterly-parcels.yml` | Stage 3 — Phase 1 pipeline built; pilot = UT MT WI |
+| `roads_tnm` (EVERY road class + terra trails on every acre, styled by class — grey context, never a legal designation; source layers roads_hwy/roads_local/roads_4wd/trails_tnm) | USGS TNM National Transportation Dataset per-state FGDBs (TIGER + USFS + NPS + AK DOT; public domain) | `quarterly-roads.yml` | D1b — pipeline built 2026-08-16; pilot = ID UT |
 | rec_pois, … | — | — | per master plan §11 |
 
 All five normalizers share `lib/route_common.py` (season parser, tolerant GeoJSONSeq

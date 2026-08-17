@@ -1,0 +1,62 @@
+{
+  "name": "roads_tnm",
+  "description": "D1b 'every road on every acre': the USGS TNM National Transportation Dataset (TIGER/Line + USFS + NPS + AK DOT conflated by USGS) as OUR tileset — every road class (interstate → local street → 4WD track) plus terra trails, on every land manager, styled by class. Grey CONTEXT for anything that is not a legal designation: this layer never asserts legality; MVUM/GTLF/NPS keep that job.",
+  "cadence": "quarterly (upstream refresh is 'Irregular' — last publish 2026-02-11)",
+  "zooms": { "minzoom": 5, "maxzoom": 14 },
+  "serving": {
+    "tileset": "roads_tnm.pmtiles",
+    "url": "https://tiles.ruggedroutehq.com/roads_tnm/{z}/{x}/{y}.mvt",
+    "source_layers": ["roads_hwy", "roads_local", "roads_4wd", "trails_tnm"]
+  },
+  "schema": {
+    "roads_hwy":   "class ∈ interstate | us_hwy | state_hwy | ramp",
+    "roads_local": "class ∈ local_conn | local",
+    "roads_4wd":   "class ∈ fourwd | closed",
+    "trails_tnm":  "class = trail",
+    "props": {
+      "class": "interstate|us_hwy|state_hwy|local_conn|local|ramp|fourwd|closed|trail — always present",
+      "name": "road/trail name as published (mixed case TIGER, ALL CAPS USFS) — optional",
+      "ref": "signed designation(s), ';'-joined in order I- / US- / SR-, modifier after the number ('I-80;US-30', 'US-13 Bus', 'SR-89A'); fourwd/local fallback FR-<federal_lands_route> then CR-<county_route> — optional",
+      "mtfcc": "Census MTFCC verbatim (S1100 S1200 S1400 S1500 S1630 S1640 S1740 …) — roads only, optional",
+      "source": "originator code: tiger | usfs | nps | akdot | other — the client rule 'hide usfs-sourced TNM roads when RoadCore is on' hangs off this",
+      "source_id": "TNM permanent_identifier / permanentidentifier, braces stripped, lower-cased — stable across refreshes",
+      "miles": "roads: geodesic length computed in the pipeline (SHAPE_Length is DEGREES upstream); trails: lengthmiles when present else computed"
+    },
+    "per_feature_minzoom": "tippecanoe.minzoom stamped by class so low zooms carry a deterministic hierarchy instead of drop-densest lottery: interstate 5, us_hwy 6, state_hwy 7, local_conn 8, fourwd 9, trail 9, ramp 10, local 10, closed 10.",
+    "contract_note": "This schema is the CONTRACT with both clients (web admin/map-layers.js roads_tnm family + Android LayerRegistry mirror). It is also the QA WHITELIST — qa_roads_tnm.py fails the build if any other key reaches the output or a decoded tile. Change both sides together or neither."
+  },
+  "classing": {
+    "verified": "2026-08-16 against the FGDB on disk (AK/DE/VT/WY) + live MapServer; see sources.json _README",
+    "rules_ordered": [
+      "tnmfrc 7 (ferry, mtfcc L4165) → DROP",
+      "tnmfrc 5 → ramp",
+      "tnmfrc 6 → fourwd",
+      "tnmfrc 9 → closed (domain code exists; ZERO rows observed anywhere — forward-compat only)",
+      "tnmfrc ∈ {1,2,3,8} + plain interstate number → interstate",
+      "tnmfrc ∈ {1,2,3,8} + us_route → us_hwy",
+      "tnmfrc ∈ {1,2,3,8} + state_route → state_hwy",
+      "tnmfrc ∈ {1,2,3,8} + interstate BUSINESS loop only ('Bus,25') → state_hwy (ref 'I-25 Bus')",
+      "tnmfrc 1 undesignated → interstate; tnmfrc 8 (tunnel) inherits by mtfcc S1100 → interstate, S1200 → local_conn",
+      "tnmfrc 2/3 undesignated → local_conn",
+      "everything else (tnmfrc 4, 99, NULL, mtfcc S1640 service drive / S1740 private) → local (mtfcc kept so styling can filter)",
+      "Trans_TrailSegment: trailtype 'Snow Trail'/'Water Trail' → DROP; else → trail"
+    ],
+    "why_designation_first": "DE has US-13 freeway rows at tnmfrc 1 with no interstate value; WY has I-180 at tnmfrc 2 and 684 business-loop rows on 2/3. Riders read shields, so signage wins and tnmfrc breaks ties. Golden QA compares SUM(L29+L30+L31) vs SUM(interstate+us_hwy+state_hwy+local_conn) — invariant to which rule wins."
+  },
+  "sources": "layers/roads_tnm/sources.json — 51 units (50 states + DC), one S3 zip each; read via /vsizip/ (no extraction). Trans_RoadSegment fields used: permanent_identifier tnmfrc mtfcc_code name interstate us_route state_route county_route federal_lands_route source_originator. Trans_TrailSegment: permanentidentifier trailtype name maplabel trailnumber lengthmiles sourceoriginator. NEVER GLOBALID (not unique) or SHAPE_Length (degrees); _a/_b/_c route columns are always token subsets of the base column.",
+  "usfs_overlap": "TNM already conflates USFS RoadCore into TIGER (0.1-0.4% overlap inside TNM). Against OUR roads_context tileset the overlap is real (both draw the same USFS roads). v1 = accept double-grey; source='usfs' is in the tiles so a client can suppress usfs-sourced TNM roads whenever ROADS_CONTEXT is on. NOTE: usfs-originated rows include I-17 / SR-55 segments — the originator is who supplied the geometry, not 'forest road'.",
+  "attribution": {
+    "tileset": "USGS The National Map: National Transportation Dataset; U.S. Census Bureau – TIGER/Line; U.S. Forest Service",
+    "license": "US Government public domain (usa.gov/publicdomain/label/1.0) — use/access constraints 'None'",
+    "app_credits_screen": ["USGS The National Map: National Transportation Dataset; U.S. Census Bureau TIGER/Line; USFS"]
+  },
+  "qa": {
+    "attribute_whitelist": "HARD GATE: every feature in the four geojsonl outputs and in decoded sample tiles carries ONLY keys ⊆ {class,name,ref,mtfcc,source,source_id,miles}, class ∈ the enum, source_id present.",
+    "size_band": "kept roads per zip-MB expected 1,500-4,500 (AK 1,800 sparse … DE 3,440 dense); HARD FAIL below 300/MB (broken read), WARN outside the band.",
+    "golden_bbox": "units with golden_bbox: per-class-group counts inside the bbox vs live MapServer 29-37 (tolerance 30% — FGDB Feb-2026 vs MapServer Jul-2026 vintages differ; degrades to ::warning:: when the service errors, house rule).",
+    "tiles": "decode probe tiles at z10 + z14 (whitelist + every layer present somewhere); z6 probe must contain NO roads_local features (per-feature minzoom honoured — WARN only).",
+    "calibration": "KB/feature printed to qa_stats.json; the ID+UT pilot decides whether the national run keeps -z14 or drops to -z13 (workflow input maxzoom)."
+  },
+  "pilot": "workflow_dispatch units 'ID UT' (artifact-only, subset guard) → read qa_stats KB/feature + golden drift → full 51-unit dispatch publishes + flips layer-alias:roads_tnm.",
+  "backlog": ["Snow Trails as a D3 winter toggle", "fold trails_tnm into the D2 hiking spine (conflate with nfs_trails/NPS)", "PR + territories (zips exist, 74 MB total)", "closed roads once tnmfrc 9 has rows upstream"]
+}
