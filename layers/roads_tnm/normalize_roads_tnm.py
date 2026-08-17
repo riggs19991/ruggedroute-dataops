@@ -85,7 +85,8 @@ ORIGINATOR_SUBSTRINGS = (
     ("national park service", "nps"),
     ("alaska dept", "akdot"),
 )
-KNOWN_MODIFIERS = {"bus": "Bus", "alt": "Alt", "byp": "Byp"}   # verified on 4 states
+KNOWN_MODIFIERS = {"bus": "Bus", "alt": "Alt", "byp": "Byp",   # verified AK/DE/VT/WY
+                   "spur": "Spur"}                             # + ID pilot review queue (43 rows)
 FUSED_MODIFIER = re.compile(r"^([A-Za-z]+)\.(\S+)$")            # 'Alt.10'
 MAX_REF_PARTS = 4
 MAX_NAME_LEN = 120

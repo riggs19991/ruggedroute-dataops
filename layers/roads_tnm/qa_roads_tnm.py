@@ -240,7 +240,15 @@ def lonlat_to_tile(lon: float, lat: float, z: int) -> tuple[int, int]:
 def pmtiles_bounds(pmtiles: Path):
     out = subprocess.run(["pmtiles", "show", str(pmtiles)],
                          capture_output=True, text=True, check=True).stdout
-    m = re.search(r"bounds:\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+)", out, re.I)
+    # go-pmtiles 1.31 prints (verified pilot run 31989953542):
+    #   bounds: (long: -117.239175, lat: 41.988226) (long: -111.043699, lat: 49.000822)
+    #   antimeridian_adjusted_bounds -117.239175,41.988226,-111.043699,49.000822
+    # (the plain "bounds: w,s,e,n" regex the parcels QA uses never matches — its
+    # tile gate has always been silently skipped; fixed here, noted for parcels).
+    num = r"(-?[\d.]+)"
+    m = (re.search(rf"antimeridian_adjusted_bounds\s+{num},{num},{num},{num}", out)
+         or re.search(rf"bounds:\s*\(long:\s*{num},\s*lat:\s*{num}\)\s*\(long:\s*{num},\s*lat:\s*{num}\)", out, re.I)
+         or re.search(rf"bounds:\s*{num},\s*{num},\s*{num},\s*{num}", out, re.I))
     if not m:
         return None
     return tuple(float(g) for g in m.groups())

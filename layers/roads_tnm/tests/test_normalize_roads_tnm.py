@@ -108,6 +108,7 @@ def test_parse_route_verified_shapes():
 def test_parse_route_unknown_modifier_still_honoured_and_reviewed():
     review = Review()
     assert parse_route("Loop,12", review) == [("12", "Loop")]
+    assert parse_route("Spur,55", Review()) == [("55", "Spur")]      # ID pilot: 43 rows
     assert parse_route("bus,5", review) == [("5", "Bus")]           # case-insensitive verified vocab
     assert parse_route("13,Bus", review) == [("13", None)]          # dangling modifier ignored
     keys = {k[0] for k in review.entries}
