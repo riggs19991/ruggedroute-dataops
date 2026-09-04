@@ -1,6 +1,6 @@
 # RuggedRoute HQ — business back-office tool: full build plan
 
-**Date:** 2026-09-04 · **Owner:** founder (riggs1991@gmail.com) · **Status:** plan v2 (research-informed), awaiting go-ahead
+**Date:** 2026-09-04 · **Owner:** founder (riggs1991@gmail.com) · **Status:** building — Phase 0 + 1 delivered 2026-09-04 (see §12)
 **Companion:** `docs/research/2026-09-04-business-tools-research.md` — what ~50 existing tools do well, and the verified Idaho/federal rules
 **Working name:** *RuggedRoute HQ* (rename anytime — nothing depends on it)
 
@@ -621,9 +621,14 @@ email ingestion is a convenience on top.
    LLC).** Formation month is *probably* August 2024 from the EIN notice date — **confirm on
    SOSBiz** (see §11); the app will not trust a guess for the annual-report rule.
 2. ~~PWA first.~~ **Resolved: native apps — Android + Windows from one Flutter codebase, installed directly, not through Google Play, self-updating from private GitHub Releases.**
-3. **New Supabase project `rr-hq` in your Rugged Route org (free tier).** *Default: yes, I create
-   it (I will ask for the confirm since it is a billable-capable action even at $0).*
-4. **New repo `riggs19991/ruggedroute-hq`.** *Default: yes; this plan is copied there.*
+3. ~~New Supabase project.~~ **Resolved: same project, `hq_`-prefixed tables.** Supabase quoted a
+   second project at $10/month (the org is not on the free tier for extra projects); the founder
+   chose $0. Isolation comes from row-level security keyed to the allow-listed email, plus
+   separate private buckets. The `hq` schema idea was dropped because exposing a new schema to
+   the API needs a dashboard setting; a table prefix needs nothing.
+4. ~~New repo.~~ **Resolved for now: `hq/` folder in this repo.** The Claude GitHub app cannot
+   create repositories on this account (403). Moving to a dedicated repo later is one
+   `git subtree split` and keeps history.
 5. ~~Hostname `hq.ruggedroutehq.com`.~~ Not needed for the app itself; kept only for the accountant share-link viewer. *Default: yes for that.*
 6. **Receipts inbox `receipts@ruggedroutehq.com` via Cloudflare Email Routing.** *Default: yes,
    with Gmail-forwarding as fallback if Email Routing is not enabled on the zone.*
@@ -643,6 +648,28 @@ email ingestion is a convenience on top.
 12. **Receipt-required threshold.** *Default: $25.*
 
 ---
+
+## 12. Build log
+
+**2026-09-04 — Phase 0 + 1 delivered** (commit `hq: Phase 1 foundation`):
+
+- Database: 31 `hq_*` tables, founder-only RLS on all of them, EIN stored in Supabase Vault via
+  `hq_set_ein` / `hq_get_ein`, private buckets `hq-vault` and `hq-releases`, `hq_home_summary`
+  for the exceptions inbox, `hq_bootstrap` seeding Schedule C categories, the verified deadline
+  rules from §4 (with retired BOI and ABN rows), agencies, retention clocks, and the legal-safety
+  checklist. Applied live to project `tzucpijgyjhpgwukjsau`.
+- App (`hq/app`, Flutter): email + 6-digit code sign-in, exceptions-inbox home with good-standing
+  tile and month strip, business profile (formation date + "verified on SOSBiz" switch, entity
+  switch, timezone, EIN set/reveal), settings with in-app update check and download, bottom
+  navigation on the phone and a side rail on the PC. `flutter analyze` clean, tests pass.
+- Distribution: `hq-release` workflow builds a signed APK (keystore generated on first run and
+  kept in the private bucket) and a Windows installer (Inno Setup), uploads both to
+  `hq-releases/builds/`, and records them in `hq_app_releases`; the apps poll that table and
+  self-update through a signed URL with SHA-256 verification.
+- Deferred from Phase 1 to Phase 2 where it matters: the local SQLite cache / offline outbox
+  (nothing to cache until receipts exist).
+- Founder steps remaining: paste the `{{ .Token }}` email template, add the one GitHub secret,
+  run the workflow, install. Exact steps in `hq/README.md`.
 
 ## 11. What happens next
 
