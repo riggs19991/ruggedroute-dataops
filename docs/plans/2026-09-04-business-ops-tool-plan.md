@@ -321,8 +321,9 @@ of the app already has.
 
 ```
 ┌──────────────────────────── your phone (Android) + your PC (Windows/Mac) ────────────────────┐
-│  RuggedRoute HQ — one Flutter codebase → Android APK (Play internal-testing track, private)   │
-│  and a Windows/macOS desktop installer. Native camera, share-to-HQ from any app, local SQLite │
+│  RuggedRoute HQ — one Flutter codebase → Android APK installed directly (no Play Store)      │
+│  and a Windows installer. Both self-update from private GitHub Releases. Native camera,       │
+│  share-to-HQ from any app, local SQLite                                                      │
 │  cache so it opens instantly and works offline, syncs when online.                            │
 └───────────────┬────────────────────────────────────────────────────┬─────────────────────────┘
                 │ supabase_flutter (auth session, RLS-scoped)         │ Google OAuth (calendar scope)
@@ -349,7 +350,7 @@ of the app already has.
 | Choice | Why | Rejected alternative |
 |---|---|---|
 | **Native apps from one Flutter codebase (Android + Windows/macOS)** | You asked for an app, not a website. Flutter gives a real APK and a real desktop installer from one codebase, with mature plugins for camera, "share to HQ" from the gallery/Gmail, file pickers, local SQLite for offline, and a first-class Supabase SDK. Desktop gets keyboard-driven review and drag-and-drop for the desk work. | PWA: one codebase and fastest to ship, but it is a website in a wrapper and you said no. Kotlin/Compose Multiplatform: matches the RuggedRoute app's language, but desktop support and plugins are less mature; revisit if you ever want to share code with the app. Two separate native apps: double the work for no gain. |
-| **Distribution: Play Console internal-testing track + GitHub Releases for desktop** | Internal testing is private (only accounts you list), installs through Play like any app, auto-updates, and uses your existing developer account. Desktop builds come from GitHub Actions as a signed installer; the app checks for a newer release on launch. | Sideloading APKs: works, but no auto-update. Public Play listing: unnecessary for a one-person tool. |
+| **Distribution: direct install, no Google Play** | You asked for it off the store. GitHub Actions builds a signed APK and a Windows installer for every release into the private `ruggedroute-hq` repo's Releases. First install: open a link on your phone, allow "install from this source" once, tap install; on the PC run the installer. After that **both apps check for a newer release on launch and update themselves** in one tap, so you never touch GitHub again. The APK is signed with your own key, so Android's Play Protect sees the same signer every update. | Play internal-testing track: auto-updates for free, but you don't want the app on Play. Sideloading without an updater: works, but every update is a manual download. |
 | **Supabase (Postgres + Auth + Storage + Edge Functions)** | I can build, migrate, and deploy it directly from this session via the connector; RLS makes single-user lock-down trivial; Postgres full-text search covers receipt/document search without another service; storage is S3-compatible so a backup is a copy. | Cloudflare D1 + R2 + Workers only: doable and consistent with dataops, but D1 lacks full-text search maturity and Auth would be hand-rolled. Firebase: NoSQL makes the year-end reporting queries painful. |
 | **New Supabase project, not the existing app project** | Your business records should not sit behind the same anon key your public mobile app ships with. Separate project = separate keys, separate blast radius, separate backups. Free tier allows two projects. | Same project with a separate schema: cheaper conceptually but one leaked app key exposes both. |
 | **Cloudflare for the pieces that still need a URL** | Email ingestion (`receipts@` worker), the accountant share-link viewer, and backups to R2 all live on your existing account. No public website for the app itself. | — |
@@ -365,15 +366,15 @@ ruggedroute-hq/
 ├── app/                      Flutter (Dart) — Android + Windows + macOS from one codebase
 │   ├── lib/features/         receipts/ deadlines/ vault/ subscriptions/ income/ mileage/ contacts/ package/
 │   ├── lib/data/             supabase client, local SQLite (drift) cache + offline outbox, sync
-│   ├── android/              Play internal-testing config, share-target intent filter
-│   └── windows/ macos/       desktop runners, installer config
+│   ├── android/              signing config, share-target intent filter, in-app updater
+│   └── windows/              desktop runner, installer config (Inno Setup), in-app updater
 ├── supabase/
 │   ├── migrations/           every schema change, in order, in git
 │   ├── functions/            extract-receipt/ sync-calendar/ weekly-digest/ build-package/ ingest-email/ nightly-backup/
 │   └── seed/                 deadline library, categories, subscription templates
 ├── workers/email-ingest/     Cloudflare Email Worker (receipts@ → ingest-email)
-├── .github/workflows/        ci.yml (analyze, tests, migration dry-run), release.yml (APK → Play internal track,
-│                             Windows/macOS installers → GitHub Releases, edge functions → Supabase)
+├── .github/workflows/        ci.yml (analyze, tests, migration dry-run), release.yml (signed APK + Windows
+│                             installer → private GitHub Releases, edge functions → Supabase)
 └── docs/                     this plan (copied), runbook, decisions log
 ```
 
@@ -560,7 +561,7 @@ artifact, on demand.
 ## 7. Security & privacy
 
 - **Auth:** Supabase Auth, Google provider, `authorize` hook rejects any email other than yours.
-  Sessions are held in the platform keystore (Android Keystore / Windows Credential Manager / macOS Keychain); the phone app can also require biometric unlock.
+  Sessions are held in the platform keystore (Android Keystore / Windows Credential Manager); the phone app can also require biometric unlock. The release repo is private and the updater authenticates with a read-only token baked into the build, so nobody else can download your app.
 - **RLS on every table**, `owner = auth.uid()`. Service-role key exists only inside Edge Functions
   and the backup action; never in the browser.
 - **Storage bucket private**; signed URLs valid for 10 minutes; no public objects, ever.
@@ -582,8 +583,8 @@ is in **working sessions** (one session ≈ one focused build-and-deploy pass wi
 
 | Phase | Deliverable | Sessions | What I need from you |
 |---|---|---|---|
-| **0 — Decisions & setup** | Answers to §10; new Supabase project `rr-hq`; new GitHub repo; Play Console internal-testing app entry; Google OAuth client (Android + desktop); Claude API key; Resend sender; signing keys | ½ | Answers to §10, approve creating the Supabase project + repo, paste keys into repo/Supabase secrets, add your Google account as an internal tester |
-| **1 — Foundation** | Repo scaffold, CI + release pipeline, schema migration for all tables, RLS, Google sign-in with allowlist, **Android app on the Play internal track + desktop installer**, local cache + sync, home-screen skeleton, business profile form | 1½–2 | Install both apps, sign in once to verify |
+| **0 — Decisions & setup** | Answers to §10; new Supabase project `rr-hq`; new private GitHub repo; Android signing key + Windows code-signing; Google OAuth client (Android + desktop); Claude API key; Resend sender | ½ | Answers to §10, approve creating the Supabase project + repo, paste keys into repo/Supabase secrets |
+| **1 — Foundation** | Repo scaffold, CI + release pipeline, schema migration for all tables, RLS, Google sign-in with allowlist, **first Android APK + Windows installer with self-update**, local cache + sync, home-screen skeleton, business profile form | 1½–2 | Install both apps from the release link, sign in once to verify |
 | **2 — Receipts** | Camera/upload/PDF capture, extraction with per-field confidence, review form, vendor rules + aliases, receipt-required threshold, list/search/filter, ±5-day dedupe, categories seeded | 1–2 | Photograph ~10 real receipts so the extraction prompt is tuned on your actual vendors |
 | **3 — Deadlines + Calendar** | Verified deadline library (§4) with source links and playbooks, rule engine with entity-type switch, 90/30/7/1 ladder, Google Calendar sync, good-standing tile, jurisdiction cards, mark-done with attachment, custom deadlines | 1 | Formation date / entity type / city; confirm the calendar appears on your phone |
 | **4 — Document vault** | Inbox-first upload with AI triage, folders, versions, typed custom fields + document links, expirations → reminders, agency letters → tasks, full-text search, expiring share links | 1 | Upload your formation docs + EIN letter |
@@ -619,7 +620,7 @@ email ingestion is a convenience on top.
 1. ~~Entity type and formation month.~~ **Resolved: single-member LLC (Addictive Media Productions
    LLC).** Formation month is *probably* August 2024 from the EIN notice date — **confirm on
    SOSBiz** (see §11); the app will not trust a guess for the annual-report rule.
-2. ~~PWA first.~~ **Resolved: native apps — Android + desktop from one Flutter codebase.** Still open: **Windows or Mac** on the PC? *Default: Windows; Mac is the same build with a different installer.*
+2. ~~PWA first.~~ **Resolved: native apps — Android + Windows from one Flutter codebase, installed directly, not through Google Play, self-updating from private GitHub Releases.**
 3. **New Supabase project `rr-hq` in your Rugged Route org (free tier).** *Default: yes, I create
    it (I will ask for the confirm since it is a billable-capable action even at $0).*
 4. **New repo `riggs19991/ruggedroute-hq`.** *Default: yes; this plan is copied there.*
