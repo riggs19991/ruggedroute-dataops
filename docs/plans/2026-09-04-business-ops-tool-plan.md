@@ -42,12 +42,30 @@ Guiding rules for the build:
 | Google account riggs1991@gmail.com, calendars "riggs1991@gmail.com" (tz America/Los_Angeles) and "Family" | Connected | HQ creates a dedicated **"RuggedRoute Business"** calendar and pushes deadlines into it |
 | GitHub `riggs19991/ruggedroute-dataops` | This repo | Holds this plan. The app itself gets a new repo `ruggedroute-hq` (see §5) |
 
-Two things I noticed along the way:
+### 1.1 Your business, as we now know it (from the IRS CP-575 letter and your note, 2026-09-04)
 
-- Your Google primary calendar is set to **America/Los_Angeles**. If you are in Idaho (Mountain
-  time), deadline reminders will fire an hour off. HQ will store its own timezone setting
-  (default America/Boise) and set it explicitly on every event it creates, so this cannot bite you,
-  but you may want to fix the calendar itself too.
+| Fact | Value | What it settles |
+|---|---|---|
+| Legal entity | **Addictive Media Productions LLC** | The entity HQ is built around. *RuggedRoute* is the product/app; see the DBA note below. |
+| Entity type | **Single-member LLC**, one member, no employees | Federal: disregarded entity → **Schedule C + Schedule SE on your Form 1040**, due April 15, with **1040-ES quarterlies**. Idaho: **Form 40**, April 15, **no Idaho estimated payments required**. No 1120-S/1065, no $20 Idaho minimum tax, no Permanent Building Fund tax. HQ's entity switch is set to `smllc`. |
+| EIN | Issued by IRS notice CP-575 G dated **08-12-2024**; name control ADDI | The EIN itself goes only into HQ's encrypted `business_profile.ein` field, never into this repo. **The IRS will not issue a duplicate of this letter** — the photo you took is the permanent copy; it becomes the first document in the vault (Formation folder). |
+| Likely formation month | **July or August 2024** (an EIN is normally requested right after filing with the SOS) — **confirm on SOSBiz** | If August: your Idaho annual report is due **every August 31**. The first one was due Aug 31, **2025**, and the second one Aug 31, **2026 — four days ago**. See the action item in §11. |
+| Where you operate | **Blanchard, Idaho** — unincorporated, **Bonner County**, from your home shop | No city, so no city license. Bonner County requires a **Home Occupation permit** for home-based businesses (Level I covers a resident-run business with up to four employees; Planning Dept 208-265-1458). Verify whether a digital-only business with no customer visits needs one; cheap either way. HQ gets a "Bonner County Planning" jurisdiction card. |
+| Time zone | Bonner County is in the **Pacific** time zone | Your Google calendar's America/Los_Angeles setting is **correct** — I was wrong to flag it earlier. HQ defaults to America/Los_Angeles. |
+| What the business does | Digital creation: videos and promotion for the RuggedRoute community app | Idaho sales tax: services, ad revenue, sponsorships, app subscriptions, and streamed/rented video are **not taxable**; only selling videos with a *permanent right to use* (downloads) would be. Expected: no seller's permit. HQ keeps the rule visible and off. Schedule C categories fit as planned; add **Equipment** depth for cameras/drones/computers (de minimis rule flags anything over $2,500). |
+| Business address on file with the IRS | Priest River, ID | When you move operations to Blanchard, the IRS (Form 8822-B), Idaho SOS (annual report or amendment), and your bank all need the new address. HQ adds a one-time **"address change" checklist** with those three items. |
+
+Two follow-ups this raises:
+
+- **DBA for "RuggedRoute".** If the app is marketed and paid for under the RuggedRoute name, file
+  an **Assumed Business Name** with the Idaho SOS ($25, never expires) so contracts, the Google
+  Play developer account, and the bank all tie back to Addictive Media Productions LLC. This is a
+  veil-protection item and lands on the legal-safety checklist.
+- **Google Play developer account and bank in the LLC's name, using the EIN**, not your SSN. Same
+  reason. Both go on the checklist with a "prove it" document slot.
+
+One thing I noticed along the way:
+
 - Supabase's advisor flags `public.spatial_ref_sys` in the app project as having RLS disabled.
   That is the PostGIS reference table (8,500 rows of coordinate-system definitions, public data) and
   this is a well-known false positive. Nothing to do, just noting I saw it.
@@ -370,12 +388,12 @@ here** — which is exactly why the app carries a *verify* flag and a source lin
 |---|---|---|---|
 | **Annual Report — Idaho Secretary of State** | Every year by the **last day of your formation anniversary month**; first one the year after formation | sosbiz.idaho.gov | **$0**, no late fee. SOS emails a reminder 1–2 months prior (no postcards). Missing it is grounds for administrative dissolution: SOS serves notice, you get **60 days** to cure; reinstatement within 10 years, **$30**. HQ computes the date from the formation date you enter and starts the "dissolution risk" countdown the day after. (Idaho Code §30-21-213, -601/-602/-603) |
 | Assumed Business Name | **No renewal — Idaho ABNs no longer expire** | — | Shown as a *retired* rule with the reason. Only amendments/cancellation are tracked. |
-| Idaho income tax return | **April 15** for all of: Form 40 (single-member LLC, Schedule C flow-through), Form 65 (multi-member LLC), Form 41S (S-corp) | tax.idaho.gov (TAP) | ⚠ Which form depends on your entity. Note Idaho's 65/41S date is a month *later* than the federal March 15. S-corps owe the **$20 minimum tax**. Extension is automatic if 80% of this year's or 100% of last year's tax is paid by April 15. |
+| Idaho income tax return | **April 15** — **Form 40** for you (single-member LLC, Schedule C flow-through). Form 65 / 41S only if the entity ever becomes multi-member or elects S-corp | tax.idaho.gov (TAP) | Resolved: single-member LLC. Extension is automatic if 80% of this year's or 100% of last year's tax is paid by April 15. The S-corp rule set stays in HQ, switched off. |
 | Idaho estimated payments | **Not required for individuals; no underpayment penalty.** C-corps only (Form 41ES, Apr/Jun/Sep/Dec 15 if liability ≥ $500) | TAP | Disabled unless entity = C-corp. The first draft had this wrong. |
 | Idaho Permanent Building Fund tax ($10) | Only if the entity itself pays Idaho tax | with the return | ⚠ Off by default for a pass-through with no entity-level tax. |
-| Idaho sales tax | **None for app subscriptions / SaaS** — electronically delivered software and digital subscriptions are not tangible personal property (§63-3616(b)); Google/Apple are marketplace facilitators elsewhere | — | Rule shown as *not applicable* with the citation. Turns on only if you start selling taxable goods (merch, printed maps). |
+| Idaho sales tax | **None** for video/promotion services, ad revenue, sponsorships, app subscriptions, or streamed/rented video (§63-3616(b)). Only a **permanent-right download** of a digital video, or physical goods, is taxable | — | Rule shown as *not applicable* with the citation. Turns on only if you start selling downloads, merch, or printed maps. |
 | Idaho withholding / unemployment insurance | Only with W-2 employees | TAP / Dept. of Labor | Off by default; turns on with the entity-type switch to "S-corp with payroll". |
-| City license | **No general business license** in Boise, Meridian, Nampa, Idaho Falls, or Pocatello. Idaho Falls and Pocatello require a free **home-occupation permit**; Coeur d'Alene a home-occupation certificate | your city | ⚠ Tell me your city; HQ enables the matching card. |
+| County / city license | **Blanchard is unincorporated — no city license.** Bonner County requires a **Home Occupation permit** for home-based businesses (Level I: resident-run, up to four employees). | Bonner County Planning, 208-265-1458 | ⚠ One call to confirm a no-visitor digital business needs it; then file once. Card enabled. |
 
 ### Federal
 
@@ -593,9 +611,9 @@ email ingestion is a convenience on top.
 
 ## 10. Decisions I need from you (with the default I will use if you just say "go")
 
-1. **Entity type and formation month.** LLC / S-corp / sole prop, and the month/year Idaho SOS
-   shows as your organization date. *Default: the app asks you on first login; the annual-report
-   date stays "unset" until then.*
+1. ~~Entity type and formation month.~~ **Resolved: single-member LLC (Addictive Media Productions
+   LLC).** Formation month is *probably* August 2024 from the EIN notice date — **confirm on
+   SOSBiz** (see §11); the app will not trust a guess for the annual-report rule.
 2. **PWA first, native Android later if wanted.** *Default: yes.*
 3. **New Supabase project `rr-hq` in your Rugged Route org (free tier).** *Default: yes, I create
    it (I will ask for the confirm since it is a billable-capable action even at $0).*
@@ -603,20 +621,40 @@ email ingestion is a convenience on top.
 5. **Hostname `hq.ruggedroutehq.com`.** *Default: yes.*
 6. **Receipts inbox `receipts@ruggedroutehq.com` via Cloudflare Email Routing.** *Default: yes,
    with Gmail-forwarding as fallback if Email Routing is not enabled on the zone.*
-7. **Timezone America/Boise** for all deadlines. *Default: yes.*
+7. ~~Timezone America/Boise.~~ **Resolved: America/Los_Angeles** (Bonner County is Pacific time).
 8. **Categories:** Schedule C mapping as listed in §2.1. *Default: yes; editable later.*
 9. **Weekly Monday digest email** on. *Default: yes.*
 10. **Do you have an accountant** who should get the year-end package, and do they use anything
     specific (QuickBooks, Xero)? If so, I add a QuickBooks-compatible CSV export. *Default: generic
     XLSX only.*
-11. **Which city** you operate from (for the home-occupation permit card) and **which bank/card**
-    you use for the business (so the statement CSV importer is built against its real format).
-    *Default: no city card; generic CSV importer.*
+11. ~~Which city.~~ **Resolved: Blanchard / Bonner County** (Home Occupation permit card enabled).
+    Still open: **which bank/card** you use for the business, so the statement CSV importer is
+    built against its real format. *Default: generic CSV importer.*
+13. **How does money come in?** Google Play subscriptions, YouTube/ad revenue, sponsorships,
+    client video work, or video downloads. Only the last one has an Idaho sales-tax consequence,
+    and the answer decides which income parsers get built first. *Default: Google Play + client
+    invoices.*
 12. **Receipt-required threshold.** *Default: $25.*
 
 ---
 
 ## 11. What happens next
+
+**Before anything else — today, five minutes:** go to sosbiz.idaho.gov, search *Addictive Media
+Productions LLC*, and read two lines: **Status** (Active / Inactive / Administratively Dissolved)
+and **Organization date**. Send me both.
+
+- If the status is *Active* and the 2026 annual report is filed: nothing to do; the app inherits
+  the date.
+- If the 2026 report is not filed and the due date was Aug 31: file it now, online, $0, no late
+  fee. The 60-day dissolution clock starts only after the SOS mails notice, so you are almost
+  certainly still fine.
+- If the status is *Administratively Dissolved* (possible if the 2025 report was missed while
+  the business was paused): reinstatement is a form and $30, allowed for ten years. Not a
+  disaster, but it is the first thing to fix, because a dissolved LLC does not protect you and
+  contracts signed in its name are exposed.
+
+That check is the seed for the app's good-standing tile, so it is the first data point HQ needs.
 
 Reply with "go" (plus any changes to §10) and the next session is Phase 0 + Phase 1: I create the
 Supabase project and repo, lay down the schema and auth, and deploy the empty shell to
