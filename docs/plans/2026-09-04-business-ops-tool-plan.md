@@ -8,7 +8,7 @@
 
 ## 0. What this is, in one paragraph
 
-A private, single-user web app (installable on your phone like a native app) that is the one place
+A private, single-user **native app — Android on your phone, a desktop app on your PC** — that is the one place
 everything about running the business lives: every receipt (photographed, emailed, or uploaded),
 every important document (formation papers, EIN letter, insurance, contracts, licenses), every
 recurring bill and subscription, every income payout, every mile driven for the business, and every
@@ -320,10 +320,12 @@ of the app already has.
 ## 3. Architecture
 
 ```
-┌──────────────────────────────── your phone / laptop ────────────────────────────────┐
-│  hq.ruggedroutehq.com  — React + TypeScript PWA (installable, camera, offline queue) │
-└───────────────┬────────────────────────────────────────────────────┬────────────────┘
-                │ Supabase JS client (auth session, RLS-scoped)      │ Google OAuth (calendar scope)
+┌──────────────────────────── your phone (Android) + your PC (Windows/Mac) ────────────────────┐
+│  RuggedRoute HQ — one Flutter codebase → Android APK (Play internal-testing track, private)   │
+│  and a Windows/macOS desktop installer. Native camera, share-to-HQ from any app, local SQLite │
+│  cache so it opens instantly and works offline, syncs when online.                            │
+└───────────────┬────────────────────────────────────────────────────┬─────────────────────────┘
+                │ supabase_flutter (auth session, RLS-scoped)         │ Google OAuth (calendar scope)
                 ▼                                                    ▼
 ┌──────────── Supabase project "rr-hq" (new, us-west) ───────────┐   Google Calendar API
 │  Postgres 17  — all records, full-text search, pg_cron         │◄── "RuggedRoute Business" calendar
@@ -346,10 +348,11 @@ of the app already has.
 
 | Choice | Why | Rejected alternative |
 |---|---|---|
-| **PWA first, not a native Android app** | One codebase, installs to home screen, camera + offline work fine in Chrome on Android, deploys in seconds, usable on laptop for the desk work (reviewing, year-end). | Native Kotlin app: 3–4× the effort for marginal gain. Can be added later as a thin wrapper (Capacitor) if you want push notifications beyond what Calendar gives. |
+| **Native apps from one Flutter codebase (Android + Windows/macOS)** | You asked for an app, not a website. Flutter gives a real APK and a real desktop installer from one codebase, with mature plugins for camera, "share to HQ" from the gallery/Gmail, file pickers, local SQLite for offline, and a first-class Supabase SDK. Desktop gets keyboard-driven review and drag-and-drop for the desk work. | PWA: one codebase and fastest to ship, but it is a website in a wrapper and you said no. Kotlin/Compose Multiplatform: matches the RuggedRoute app's language, but desktop support and plugins are less mature; revisit if you ever want to share code with the app. Two separate native apps: double the work for no gain. |
+| **Distribution: Play Console internal-testing track + GitHub Releases for desktop** | Internal testing is private (only accounts you list), installs through Play like any app, auto-updates, and uses your existing developer account. Desktop builds come from GitHub Actions as a signed installer; the app checks for a newer release on launch. | Sideloading APKs: works, but no auto-update. Public Play listing: unnecessary for a one-person tool. |
 | **Supabase (Postgres + Auth + Storage + Edge Functions)** | I can build, migrate, and deploy it directly from this session via the connector; RLS makes single-user lock-down trivial; Postgres full-text search covers receipt/document search without another service; storage is S3-compatible so a backup is a copy. | Cloudflare D1 + R2 + Workers only: doable and consistent with dataops, but D1 lacks full-text search maturity and Auth would be hand-rolled. Firebase: NoSQL makes the year-end reporting queries painful. |
 | **New Supabase project, not the existing app project** | Your business records should not sit behind the same anon key your public mobile app ships with. Separate project = separate keys, separate blast radius, separate backups. Free tier allows two projects. | Same project with a separate schema: cheaper conceptually but one leaked app key exposes both. |
-| **Cloudflare Pages for hosting** | Already your account, free, custom domain on your zone, previews per branch. | Vercel/Netlify: another account for no benefit. |
+| **Cloudflare for the pieces that still need a URL** | Email ingestion (`receipts@` worker), the accountant share-link viewer, and backups to R2 all live on your existing account. No public website for the app itself. | — |
 | **Google Calendar as the reminder engine** | You asked for it explicitly, and it is genuinely the right call: reminders reach your phone/watch/desktop with zero extra infra, and you see business deadlines next to personal ones. | Web push notifications: fragile on Android PWAs, and you still want it on the calendar. Done as a later add-on if wanted. |
 | **Claude API (`claude-sonnet-5`) for receipt extraction** | Vision + structured JSON output in one call, handles crumpled/angled photos, PDFs, and emails, and returns a category suggestion — no separate OCR service. At your volume (tens of receipts a month) cost is negligible. | Google Vision / Tesseract: text only, then you still need a model to structure it. |
 | **Resend for the weekly email** | Free tier is far more than one email a week; a single verified sender on your domain. | Gmail API sending: works, but scopes are heavier than needed. |
@@ -359,16 +362,18 @@ of the app already has.
 
 ```
 ruggedroute-hq/
-├── apps/web/                 React + Vite + TypeScript + Tailwind PWA
-│   ├── src/features/         receipts/ deadlines/ vault/ subscriptions/ income/ mileage/ contacts/ package/
-│   ├── src/lib/supabase.ts   typed client (types generated from the DB)
-│   └── public/manifest.webmanifest, sw.ts (offline queue)
+├── app/                      Flutter (Dart) — Android + Windows + macOS from one codebase
+│   ├── lib/features/         receipts/ deadlines/ vault/ subscriptions/ income/ mileage/ contacts/ package/
+│   ├── lib/data/             supabase client, local SQLite (drift) cache + offline outbox, sync
+│   ├── android/              Play internal-testing config, share-target intent filter
+│   └── windows/ macos/       desktop runners, installer config
 ├── supabase/
 │   ├── migrations/           every schema change, in order, in git
 │   ├── functions/            extract-receipt/ sync-calendar/ weekly-digest/ build-package/ ingest-email/ nightly-backup/
 │   └── seed/                 deadline library, categories, subscription templates
 ├── workers/email-ingest/     Cloudflare Email Worker (receipts@ → ingest-email)
-├── .github/workflows/        ci.yml (typecheck, tests, migration dry-run), deploy.yml (Pages + functions)
+├── .github/workflows/        ci.yml (analyze, tests, migration dry-run), release.yml (APK → Play internal track,
+│                             Windows/macOS installers → GitHub Releases, edge functions → Supabase)
 └── docs/                     this plan (copied), runbook, decisions log
 ```
 
@@ -555,7 +560,7 @@ artifact, on demand.
 ## 7. Security & privacy
 
 - **Auth:** Supabase Auth, Google provider, `authorize` hook rejects any email other than yours.
-  Sessions expire in 7 days on desktop, 30 on the installed PWA.
+  Sessions are held in the platform keystore (Android Keystore / Windows Credential Manager / macOS Keychain); the phone app can also require biometric unlock.
 - **RLS on every table**, `owner = auth.uid()`. Service-role key exists only inside Edge Functions
   and the backup action; never in the browser.
 - **Storage bucket private**; signed URLs valid for 10 minutes; no public objects, ever.
@@ -577,17 +582,17 @@ is in **working sessions** (one session ≈ one focused build-and-deploy pass wi
 
 | Phase | Deliverable | Sessions | What I need from you |
 |---|---|---|---|
-| **0 — Decisions & setup** | Answers to §10; new Supabase project `rr-hq`; new GitHub repo; Cloudflare Pages project + `hq.` DNS; Google OAuth client; Claude API key; Resend sender | ½ | Answers to §10, approve creating the Supabase project + repo, paste 3 keys into repo/Supabase secrets |
-| **1 — Foundation** | Repo scaffold, CI, schema migration for all tables, RLS, Google sign-in with allowlist, installable PWA shell, dashboard skeleton, business profile form | 1 | Sign in once to verify |
+| **0 — Decisions & setup** | Answers to §10; new Supabase project `rr-hq`; new GitHub repo; Play Console internal-testing app entry; Google OAuth client (Android + desktop); Claude API key; Resend sender; signing keys | ½ | Answers to §10, approve creating the Supabase project + repo, paste keys into repo/Supabase secrets, add your Google account as an internal tester |
+| **1 — Foundation** | Repo scaffold, CI + release pipeline, schema migration for all tables, RLS, Google sign-in with allowlist, **Android app on the Play internal track + desktop installer**, local cache + sync, home-screen skeleton, business profile form | 1½–2 | Install both apps, sign in once to verify |
 | **2 — Receipts** | Camera/upload/PDF capture, extraction with per-field confidence, review form, vendor rules + aliases, receipt-required threshold, list/search/filter, ±5-day dedupe, categories seeded | 1–2 | Photograph ~10 real receipts so the extraction prompt is tuned on your actual vendors |
 | **3 — Deadlines + Calendar** | Verified deadline library (§4) with source links and playbooks, rule engine with entity-type switch, 90/30/7/1 ladder, Google Calendar sync, good-standing tile, jurisdiction cards, mark-done with attachment, custom deadlines | 1 | Formation date / entity type / city; confirm the calendar appears on your phone |
 | **4 — Document vault** | Inbox-first upload with AI triage, folders, versions, typed custom fields + document links, expirations → reminders, agency letters → tasks, full-text search, expiring share links | 1 | Upload your formation docs + EIN letter |
 | **5 — Subscriptions + Income + Mileage** | Recurring costs with expected ranges and variance alerts, income ledger with **Google Play payout parser**, tax set-aside, trip log (three entry modes), rate table | 1 | Your subscription list; a Google Play earnings CSV |
 | **6 — Transactions + Year-end package** | Statement CSV import, 2-of-3 matcher, "charges with no receipt" exceptions, then the ZIP/XLSX/PDF builder, tax-year states, quarterly variant, accountant share link | 1–2 | A bank/card statement CSV; how your accountant likes to receive things (or if you self-file) |
 | **7 — Email ingestion + weekly digest + backups** | `receipts@` inbox, Monday digest, nightly R2 backup + restore runbook | 1 | Enable Email Routing on the zone (one dashboard click) |
-| **8 — Legal-safety + Ask HQ + extras** | Veil checklist scorecard, retention clocks, evidence folder, contract register, annual-resolution template → PDF, "Ask HQ" assistant with citations + read-only MCP server, per-feature AI toggles, estimated-tax helper with "you saved $X", vendor trend report, offline queue hardening, audit log UI, invoices (optional) | 2 | Use it for a month and tell me what annoys you |
+| **8 — Legal-safety + Ask HQ + extras** | Veil checklist scorecard, retention clocks, evidence folder, contract register, annual-resolution template → PDF, "Ask HQ" assistant with citations + read-only MCP server, per-feature AI toggles, estimated-tax helper with "you saved $X", vendor trend report, offline outbox hardening, native push notifications for exceptions, audit log UI, invoices (optional) | 2 | Use it for a month and tell me what annoys you |
 
-Rough total: **10–12 sessions.** Phases 1–3 alone (three sessions) already give you receipts +
+Rough total: **11–13 sessions.** (Native apps add roughly one session over the web version, mostly in Phase 1's release pipeline.) Phases 1–3 alone (three sessions) already give you receipts +
 the Idaho/IRS calendar on your phone, which is the part you are most worried about.
 
 Sequencing rationale: receipts before deadlines because receipts are daily and deadlines are
@@ -614,11 +619,11 @@ email ingestion is a convenience on top.
 1. ~~Entity type and formation month.~~ **Resolved: single-member LLC (Addictive Media Productions
    LLC).** Formation month is *probably* August 2024 from the EIN notice date — **confirm on
    SOSBiz** (see §11); the app will not trust a guess for the annual-report rule.
-2. **PWA first, native Android later if wanted.** *Default: yes.*
+2. ~~PWA first.~~ **Resolved: native apps — Android + desktop from one Flutter codebase.** Still open: **Windows or Mac** on the PC? *Default: Windows; Mac is the same build with a different installer.*
 3. **New Supabase project `rr-hq` in your Rugged Route org (free tier).** *Default: yes, I create
    it (I will ask for the confirm since it is a billable-capable action even at $0).*
 4. **New repo `riggs19991/ruggedroute-hq`.** *Default: yes; this plan is copied there.*
-5. **Hostname `hq.ruggedroutehq.com`.** *Default: yes.*
+5. ~~Hostname `hq.ruggedroutehq.com`.~~ Not needed for the app itself; kept only for the accountant share-link viewer. *Default: yes for that.*
 6. **Receipts inbox `receipts@ruggedroutehq.com` via Cloudflare Email Routing.** *Default: yes,
    with Gmail-forwarding as fallback if Email Routing is not enabled on the zone.*
 7. ~~Timezone America/Boise.~~ **Resolved: America/Los_Angeles** (Bonner County is Pacific time).
