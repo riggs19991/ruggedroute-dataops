@@ -1,0 +1,104 @@
+# Builds RuggedRoute HQ for Android (signed APK) and Windows (installer) and publishes both
+# into the private Supabase bucket `hq-releases` plus a row in `hq_app_releases`, which the
+# installed apps poll to self-update. No app store involved.
+#
+# One repo secret is required: HQ_SUPABASE_SERVICE_ROLE_KEY (Supabase → Project Settings → API Keys).
+# The Android signing keystore is generated on the first run and kept in the same private bucket
+# under signing/, so every later build is signed with the same key.
+name: hq-release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version shown to the user, e.g. 0.1.0'
+        required: true
+        default: '0.1.0'
+      notes:
+        description: 'What changed (shown in the app before updating)'
+        required: false
+        default: ''
+env:
+  SUPABASE_URL: https://tzucpijgyjhpgwukjsau.supabase.co
+  BUILD_NUMBER: ${{ github.run_number }}
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: hq/app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: Fetch or create the signing keystore
+        env: { KEY: '${{ secrets.HQ_SUPABASE_SERVICE_ROLE_KEY }}' }
+        run: |
+          set -euo pipefail
+          test -n "$KEY" || { echo "Missing secret HQ_SUPABASE_SERVICE_ROLE_KEY"; exit 1; }
+          H=(-H "Authorization: Bearer $KEY" -H "apikey: $KEY")
+          if curl -sfL "${H[@]}" "$SUPABASE_URL/storage/v1/object/authenticated/hq-releases/signing/upload.jks" -o android/upload.jks \
+             && curl -sfL "${H[@]}" "$SUPABASE_URL/storage/v1/object/authenticated/hq-releases/signing/keystore.pass" -o android/keystore.pass; then
+            echo "Using existing keystore"
+          else
+            echo "Creating a new keystore (first release)"
+            openssl rand -hex 24 > android/keystore.pass
+            keytool -genkeypair -v -keystore android/upload.jks -alias hq -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass "$(cat android/keystore.pass)" -keypass "$(cat android/keystore.pass)" \
+              -dname "CN=RuggedRoute HQ, O=Addictive Media Productions LLC, L=Blanchard, ST=Idaho, C=US"
+            curl -sf "${H[@]}" -H "x-upsert: true" -H "Content-Type: application/octet-stream" \
+              --data-binary @android/upload.jks "$SUPABASE_URL/storage/v1/object/hq-releases/signing/upload.jks" >/dev/null
+            curl -sf "${H[@]}" -H "x-upsert: true" -H "Content-Type: text/plain" \
+              --data-binary @android/keystore.pass "$SUPABASE_URL/storage/v1/object/hq-releases/signing/keystore.pass" >/dev/null
+          fi
+          PASS=$(cat android/keystore.pass)
+          printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=hq\nkeyPassword=%s\n' "$PWD/android/upload.jks" "$PASS" "$PASS" > android/key.properties
+      - run: flutter pub get
+      - run: flutter build apk --release --build-name "${{ inputs.version }}" --build-number "$BUILD_NUMBER"
+      - name: Publish APK
+        env: { KEY: '${{ secrets.HQ_SUPABASE_SERVICE_ROLE_KEY }}', NOTES: '${{ inputs.notes }}' }
+        run: |
+          set -euo pipefail
+          APK=build/app/outputs/flutter-apk/app-release.apk
+          NAME="builds/android/RuggedRouteHQ-${{ inputs.version }}-$BUILD_NUMBER.apk"
+          SHA=$(sha256sum "$APK" | cut -d' ' -f1); BYTES=$(stat -c%s "$APK")
+          curl -sf -H "Authorization: Bearer $KEY" -H "apikey: $KEY" -H "x-upsert: true" \
+            -H "Content-Type: application/vnd.android.package-archive" --data-binary @"$APK" \
+            "$SUPABASE_URL/storage/v1/object/hq-releases/$NAME" >/dev/null
+          jq -n --arg v "${{ inputs.version }}" --argjson b "$BUILD_NUMBER" --arg p "$NAME" --arg s "$SHA" --argjson n "$BYTES" --arg notes "$NOTES" \
+            '{platform:"android",version:$v,build_number:$b,storage_path:$p,sha256:$s,bytes:$n,notes:$notes}' \
+          | curl -sf -H "Authorization: Bearer $KEY" -H "apikey: $KEY" -H "Content-Type: application/json" -H "Prefer: return=minimal" \
+              --data-binary @- "$SUPABASE_URL/rest/v1/hq_app_releases"
+          echo "Published $NAME ($BYTES bytes)"
+      - uses: actions/upload-artifact@v4
+        with: { name: android-apk, path: hq/app/build/app/outputs/flutter-apk/app-release.apk }
+
+  windows:
+    runs-on: windows-latest
+    defaults: { run: { working-directory: hq/app, shell: pwsh } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - run: flutter pub get
+      - run: flutter build windows --release --build-name "${{ inputs.version }}" --build-number "$env:BUILD_NUMBER"
+      - run: choco install innosetup -y --no-progress
+      - name: Build installer
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=${{ inputs.version }}" windows\installer\hq.iss
+      - name: Publish installer
+        env: { KEY: '${{ secrets.HQ_SUPABASE_SERVICE_ROLE_KEY }}', NOTES: '${{ inputs.notes }}' }
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $exe = "build\installer\RuggedRouteHQ-Setup-${{ inputs.version }}.exe"
+          $name = "builds/windows/RuggedRouteHQ-Setup-${{ inputs.version }}-$env:BUILD_NUMBER.exe"
+          $sha = (Get-FileHash $exe -Algorithm SHA256).Hash.ToLower()
+          $bytes = (Get-Item $exe).Length
+          $h = @{ Authorization = "Bearer $env:KEY"; apikey = $env:KEY; 'x-upsert' = 'true' }
+          Invoke-RestMethod -Method Post -Uri "$env:SUPABASE_URL/storage/v1/object/hq-releases/$name" -Headers $h -ContentType 'application/octet-stream' -InFile $exe | Out-Null
+          $body = @{ platform='windows'; version='${{ inputs.version }}'; build_number=[int]$env:BUILD_NUMBER; storage_path=$name; sha256=$sha; bytes=$bytes; notes=$env:NOTES } | ConvertTo-Json
+          $h2 = @{ Authorization = "Bearer $env:KEY"; apikey = $env:KEY; Prefer = 'return=minimal' }
+          Invoke-RestMethod -Method Post -Uri "$env:SUPABASE_URL/rest/v1/hq_app_releases" -Headers $h2 -ContentType 'application/json' -Body $body | Out-Null
+          Write-Host "Published $name ($bytes bytes)"
+      - uses: actions/upload-artifact@v4
+        with: { name: windows-installer, path: hq/app/build/installer/*.exe }

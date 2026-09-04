@@ -1,0 +1,17 @@
+name: hq-ci
+on:
+  push:
+    paths: ['hq/**', '.github/workflows/hq-ci.yml']
+  pull_request:
+    paths: ['hq/**', '.github/workflows/hq-ci.yml']
+jobs:
+  analyze-test:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: hq/app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos
+      - run: flutter test

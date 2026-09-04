@@ -10,3 +10,8 @@ dist/
 
 # Test fixtures are tracked even though bulk geojsonl outputs are not
 !lib/fixtures/*.geojsonl
+
+# HQ signing material — never commit
+hq/app/android/key.properties
+hq/app/android/*.jks
+hq/app/android/keystore.pass

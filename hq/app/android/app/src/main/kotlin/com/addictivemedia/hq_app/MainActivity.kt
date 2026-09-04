@@ -1,0 +1,5 @@
+package com.addictivemedia.hq_app
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
