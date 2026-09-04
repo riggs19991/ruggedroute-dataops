@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../config.dart';
@@ -49,6 +50,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Future<void> _changePassword() async {
+    final a = TextEditingController();
+    final b = TextEditingController();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Change password'),
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          TextField(controller: a, obscureText: true, autofocus: true,
+              decoration: const InputDecoration(labelText: 'New password (12+ characters)')),
+          const SizedBox(height: 8),
+          TextField(controller: b, obscureText: true,
+              decoration: const InputDecoration(labelText: 'Repeat new password')),
+        ]),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Change')),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    if (a.text.length < 12 || a.text != b.text) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Passwords must match and be at least 12 characters.')));
+      return;
+    }
+    try {
+      await Hq.instance.auth.updateUser(UserAttributes(password: a.text));
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password changed')));
+    } on AuthException catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -81,15 +115,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SizedBox(height: 12),
           Card(
-            child: ListTile(
-              leading: const Icon(Icons.account_circle_outlined),
-              title: Text(Hq.instance.email ?? ''),
-              subtitle: const Text('Only this email can open HQ.'),
-              trailing: TextButton(
-                onPressed: () => Hq.instance.auth.signOut(),
-                child: const Text('Sign out'),
+            child: Column(children: [
+              ListTile(
+                leading: const Icon(Icons.account_circle_outlined),
+                title: Text(Hq.instance.email ?? ''),
+                subtitle: const Text('Only this email can open HQ.'),
+                trailing: TextButton(
+                  onPressed: () => Hq.instance.auth.signOut(),
+                  child: const Text('Sign out'),
+                ),
               ),
-            ),
+              ListTile(
+                leading: const Icon(Icons.password),
+                title: const Text('Change password'),
+                onTap: _changePassword,
+              ),
+            ]),
           ),
           const SizedBox(height: 12),
           Card(

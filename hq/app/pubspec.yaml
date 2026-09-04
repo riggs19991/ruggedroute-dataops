@@ -1,7 +1,7 @@
 name: hq_app
 description: "RuggedRoute HQ — private back-office app for Addictive Media Productions LLC."
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.1.1+2
 
 environment:
   sdk: ^3.13.2

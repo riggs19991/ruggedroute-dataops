@@ -18,13 +18,14 @@ PC (Windows .exe)  ───┘                      └── hq-releases bucke
 GitHub Actions "hq-release" ── builds both, uploads to hq-releases, adds a row to hq_app_releases
 ```
 
-Sign-in is email + 6-digit code. The database only accepts the email in `hq_allowed_emails`.
+Sign-in is email + password (an emailed one-time code also works once the email template below
+is set). The database only accepts the email in `hq_allowed_emails`.
 The EIN is stored in Supabase Vault (encrypted); only its last four digits sit in a table.
 
 ## One-time setup (founder, ~10 minutes, on the PC)
 
-1. **Email code template.** Supabase dashboard → Authentication → Emails → *Magic Link*.
-   Replace the body with:
+1. **Email code template (optional — enables the one-time-code sign-in; password sign-in works
+   without it).** Supabase dashboard → Authentication → Emails → *Magic Link*. Replace the body with:
    ```html
    <h2>RuggedRoute HQ sign-in code</h2>
    <p>Your code: <strong style="font-size:24px">{{ .Token }}</strong></p>
@@ -52,7 +53,8 @@ The EIN is stored in Supabase Vault (encrypted); only its last four digits sit i
      Windows SmartScreen will warn because the installer is not code-signed: *More info → Run
      anyway*. That is expected for a private app.
 
-5. **Sign in** with riggs1991@gmail.com, enter the emailed code, then fill in *Business*.
+5. **Sign in** with riggs1991@gmail.com and your password (change it under Settings), then fill
+   in *Business*.
 
 After this, new versions are published by re-running *hq-release* with a higher version number;
 both apps notice on launch and offer a one-tap update.
