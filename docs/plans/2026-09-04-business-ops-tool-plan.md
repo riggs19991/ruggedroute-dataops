@@ -1,6 +1,7 @@
 # RuggedRoute HQ — business back-office tool: full build plan
 
-**Date:** 2026-09-04 · **Owner:** founder (riggs1991@gmail.com) · **Status:** plan, awaiting go-ahead
+**Date:** 2026-09-04 · **Owner:** founder (riggs1991@gmail.com) · **Status:** plan v2 (research-informed), awaiting go-ahead
+**Companion:** `docs/research/2026-09-04-business-tools-research.md` — what ~50 existing tools do well, and the verified Idaho/federal rules
 **Working name:** *RuggedRoute HQ* (rename anytime — nothing depends on it)
 
 ---
@@ -66,21 +67,35 @@ whole thing before it helps.
   Amazon — most of your spend already arrives as email; you should never have to screenshot it).
 - **Automatic extraction:** every image/PDF is sent to Claude (vision) which returns vendor, date,
   subtotal, tax, total, payment method (last 4 digits if visible), line items, and a **suggested
-  category**. You review a pre-filled form and tap Save. Wrong guess → change it; HQ remembers
-  vendor→category so the same vendor is right next time.
+  category**, each with a **confidence score**. You review a pre-filled form and tap Save. Every
+  AI-filled field stays marked *AI-set* until you confirm it (M-Files), low-confidence fields are
+  highlighted, and the source snippet is shown next to the value (Box/Juro). Wrong guess → change
+  it; HQ remembers vendor→category so the same vendor is right next time.
 - **Categories aligned to IRS Schedule C lines** (so year-end is a sum, not a sort): Advertising ·
   Car & truck · Contract labor · Insurance · Legal & professional · Office expense · Supplies ·
   Taxes & licenses · Travel · Meals (flagged 50%) · Utilities/phone/internet · Software &
   subscriptions · Equipment (possible depreciation) · Home office · Bank/merchant fees · Other. Fully
   editable; if you turn out to file as an S-corp the mapping changes in one table.
 - **Status flow:** *needs review* (auto-extracted, unconfirmed) → *confirmed* → *reconciled*
-  (matched to a bank/card statement line, optional). The dashboard shows how many are awaiting
-  review so nothing silently piles up.
+  (matched to a bank/card transaction). **Transactions are first-class:** you import the bank/card
+  statement CSV monthly (a live bank feed is an optional later upgrade), and receipts attach to
+  transactions. That flips the question from "did I photograph everything?" to "which charges have
+  no receipt?" (Keeper/Found/Kick). Matching is deterministic: a receipt is auto-attached only when
+  **2 of 3** of date (±3 days), amount, and merchant match **and** there is exactly one candidate;
+  otherwise it waits for you (Brex/Wave). The extracted total is cross-checked against the bank
+  amount to catch a hallucinated digit.
 - **Search & filter** by vendor, category, date range, amount, text inside the receipt (extracted
   text is stored and indexed), tag (e.g. a trip or project name), and whether it is reimbursable /
   personal-card-paid.
-- **Duplicate detection:** same vendor + same total within ±3 days warns before saving (email +
-  photo of the same receipt is the most common double-count).
+- **Duplicate detection:** same vendor + same total within a **±5-day window** (Dext's rule) or an
+  identical file hash flags *both* records with an amber badge. Never auto-deleted; you merge or
+  keep. Email + photo of the same receipt is the most common double-count.
+- **Rules that compound:** after you change a category, HQ asks **"make this a rule for this
+  vendor?"** (Found/Dext). Vendor aliases ("AMZN Mktp" = "Amazon") are confirmed once. The first
+  receipt from a new vendor is manual; the rest auto-file (Zoho).
+- **Receipt-required threshold:** below a settable amount (default $25) a bank line without a
+  receipt is *not* nagged about; above it, it is. Exempt merchants ("dismiss and exempt Cloudflare")
+  stop the nagging for known subscriptions (Expensify/Ramp).
 - **Original always kept.** Extracted fields are metadata; the image/PDF is never modified.
 
 ### 2.2 Compliance calendar & reminders
@@ -90,7 +105,19 @@ whole thing before it helps.
   "anniversary month" vs. "N days after year end"), and lead-time reminder offsets (e.g. 30 / 7 / 1
   days).
 - Deadlines are **recurring rules**, not one-off dates. HQ materializes the next 24 months of
-  occurrences and keeps them rolling forward.
+  occurrences, rolls weekend/holiday dates forward, and keeps them moving. Default reminder ladder
+  **90 / 30 / 7 / 1 days** (Northwest starts at 90; LegalZoom caps at five touches).
+- **Entity-type switch:** choosing LLC vs. S-corp vs. sole proprietor swaps the rule set (adds or
+  removes 1120-S/41S, the $20 Idaho minimum tax, Form 2553). Retired rules (BOI, DBA renewal) are
+  shown as *retired* with the reason, never silently deleted (Mosey).
+- **Good-standing tile** on the dashboard: green/amber/red from open vs. overdue items, and a
+  **"days until dissolution risk"** countdown that turns on the day after the Idaho annual-report
+  due date (60-day cure window) (ZenBusiness/Northwest).
+- **Missed-deadline playbook:** every rule carries a "what to do if you miss it" (Idaho:
+  reinstatement form, $30, within 10 years) shown the moment it goes overdue (Rippling).
+- **Jurisdiction cards:** one card per agency — Idaho SOS, Idaho State Tax Commission, IRS, your
+  city — with your account IDs, login link, next due, last filed, and the agency letters you
+  scanned (Firstbase/Mosey).
 - **One-way sync to Google Calendar:** each occurrence becomes an event on the "RuggedRoute
   Business" calendar with Google-native reminders (popup + email). HQ stores the Google event id so
   edits/deletes update the same event instead of duplicating. Marking a deadline *done* in HQ
@@ -116,6 +143,15 @@ whole thing before it helps.
   the same reminder engine (insurance renewal, license expiry, contract end).
 - Version history: uploading a new version of "Operating Agreement" keeps the old one.
 - Full-text search across PDFs (text extracted on upload).
+- **Inbox-first:** everything lands unsorted; Claude proposes title, type, counterparty, dates,
+  and a one-line summary; you approve or set a folder to auto-file (Trustworthy/Paperless-GPT).
+- **Typed custom fields** per document type — money with currency, dates, URLs, and
+  **document links with an automatic reverse link** (amendment ↔ master agreement, filing
+  confirmation ↔ deadline) (Paperless-ngx).
+- **Agency letters:** scan any letter from the SOS/Tax Commission/IRS, tag the agency, and it
+  spawns a task with a due date (Mosey).
+- **Share links** for your accountant or attorney: expiring (1 h / 1 d / 1 w / 1 mo), optional
+  password, single document or a bundle, every access logged (Paperless/Box/Trustworthy).
 
 ### 2.4 Recurring costs & subscriptions
 
@@ -127,11 +163,21 @@ whole thing before it helps.
   subscription. The dashboard shows "expected this month" vs. "received" so a missing invoice
   (or a surprise price hike) is visible.
 - Renewal reminders 14 days ahead for annual items (developer accounts, domains, insurance).
+- **Expected-amount ranges and variance alerts** (Firefly III/Puzzle): each subscription has an
+  expected range; a charge outside it, or any vendor more than a settable % above its 3-month
+  average, shows up in the exceptions inbox as "Mapbox went from $12 to $31". Monthly vendor
+  breakdown with trend arrows for cutting waste (Kick).
 
 ### 2.5 Income & payouts
 
 - Simple ledger, not double-entry: each Google Play payout / Stripe transfer / invoice paid, with
   gross, fees, net, period covered, and the PDF statement attached. Monthly and YTD totals.
+- **Google Play payout parser.** No mainstream tool does this cleanly (Stripe's connector ignores
+  withholding and commission). HQ imports the Play Console monthly earnings CSV (and RevenueCat
+  exports if you use it), splits gross / Google fee / withholding tax / refunds / FX, and reconciles
+  the net to the bank deposit. This is the highest-leverage custom piece for an app business.
+- **Tax set-aside:** a settable % of every payout is shown as "already spoken for" with a one-tap
+  "move $X to savings" prompt, and the dashboard shows what is yours to keep (Found/Relay/Lettuce).
 - Optional **invoices** for any consulting/custom work: generate a PDF invoice from a template,
   track sent / paid, remind on overdue. (Small module; only built if you want it.)
 
@@ -139,8 +185,10 @@ whole thing before it helps.
 
 - RuggedRoute's whole product is ground-truthing routes, so driving to trailheads *is* business
   travel and is deductible at the IRS standard mileage rate. Log: date, from, to, miles, purpose,
-  vehicle. One-tap "start trip / end trip" on the phone that uses GPS to fill in miles and
-  endpoints, or manual entry. Rate table by year kept in the app (you enter the year's rate; I will
+  vehicle. **Three entry modes** (Found): a trip with GPS assist while the app is open, an
+  odometer start/end, or a manual entry — background auto-detection is deliberately *not* the
+  primary path because Android battery optimization kills it and trailheads have no signal.
+  Named places ("home", "Boise office") and remembered routes fill in the rest (MileIQ). Rate table by year kept in the app (you enter the year's rate; I will
   not hard-code a number that changes annually).
 - Trips can be tagged and linked to receipts (fuel, meals, campground) so a field-verification trip
   is one bundle at year end.
@@ -173,13 +221,19 @@ RuggedRoute-2026-tax-package/
 Also available anytime, not just year end: quarterly versions of the same (for estimated-tax
 math) and a "download everything" full export for backup.
 
-### 2.9 Dashboard (home screen)
+### 2.9 Home screen = the exceptions inbox
 
-- **Due soon** (next 30 days) with big colored chips.
-- **Needs review** count for receipts + a "Capture" button that is the biggest thing on the page.
-- This month: spent by category (small bar chart), income, mileage.
-- Subscriptions renewing this month; documents expiring within 90 days.
-- Last backup time (green if < 36 h).
+The best tools in the research (Digits, Ramp, Puzzle) share one design: the home screen shows
+**only things that need a decision**, and when it is empty it says so. HQ's home screen:
+
+- **Capture** button, the biggest thing on the page.
+- **Good-standing tile** (green / amber / red) with the next deadline and days remaining.
+- **Exceptions list**, each with a one-tap action: receipts awaiting review · bank charges over the
+  threshold with no receipt · possible duplicates · subscription price changes · documents expiring
+  within 90 days · agency letters not yet actioned · deadlines due within 30 days · backup older
+  than 36 h.
+- **This month strip:** spent, income, tax set-aside, miles — small and out of the way.
+- Everything else (charts, vendor breakdown, reports) lives one tap deeper.
 
 ### 2.10 Legal-safety checklist & record retention
 
@@ -219,15 +273,23 @@ Claude with read-only tools over your database and vault (search receipts, searc
 deadlines, sum by category) so every answer cites the actual rows and files it used. It can also
 draft things — a member resolution, a vendor cancellation email, a summary for your accountant —
 into the vault for you to review. It never writes to records without you tapping confirm.
-Built in Phase 8; the tools it uses are the same queries the rest of the app already has.
+Every answer shows the data it used and which AI features are on (each is individually
+toggleable — HoneyBook's trust pattern). The same tools are exposed as a **read-only MCP server**
+so Claude Code or Claude.ai can query your books directly ("what did I spend on software last
+year?") — Kick, Mercury, Digits, and Lili all shipped this in 2026 and it is how you and I will
+work on the business together. Built in Phase 8; the tools it uses are the same queries the rest
+of the app already has.
 
 ### 2.12 Things you did not mention but I recommend
 
-- **Bank/card statement reconciliation** (later phase): upload a CSV from the bank, HQ matches
-  lines to receipts and lists unmatched charges → "you have 6 charges with no receipt." This is
-  the single most effective way to make sure nothing is missing at year end.
+- **Bank/card statement reconciliation** (now Phase 6, moved up after the research): upload a CSV
+  from the bank, HQ matches lines to receipts and lists unmatched charges above the threshold →
+  "you have 6 charges with no receipt." This is the single most effective way to make sure
+  nothing is missing at year end.
 - **Estimated-tax helper:** quarterly view of net profit → rough federal + Idaho estimate using
-  rates you enter, with the four due dates already on the calendar. Not tax advice; a nudge.
+  rates you enter, with the four federal due dates already on the calendar (Idaho does not require
+  individual estimates). Shows "you saved about $X on taxes" when you confirm a deductible receipt
+  (Found/Keeper) — a small reward that keeps capture going. Not tax advice; a nudge.
 - **Personal vs. business card flag** on receipts: if you sometimes pay with a personal card, HQ
   tracks "owed to me" so the reimbursement (or the capital contribution) is documented.
 - **Audit trail:** every edit to a receipt/document is logged. If anyone ever asks "when did you
@@ -294,33 +356,38 @@ ruggedroute-hq/
 
 ---
 
-## 4. Compliance calendar — seed content
+## 4. Compliance calendar — seed content (verified against official sources 2026-09-04)
 
-Everything below is what I will preload. **Items marked ⚠ must be verified against your actual
-entity type, formation date, and an accountant** — I am confident about the shape of each
-obligation, but rules change and I am not your tax professional. The app will show the
-"verify" flag until you clear it.
+Everything below is preloaded. The research pass checked each item against Idaho statute,
+sos.idaho.gov, tax.idaho.gov, irs.gov, and fincen.gov; full citations are in the research doc
+§2.2. Items marked ⚠ still depend on **your** entity type or city and need one confirmation from
+you (or an accountant). Several assumptions from the first draft were **wrong and are corrected
+here** — which is exactly why the app carries a *verify* flag and a source link on every rule.
 
 ### Idaho
 
 | Deadline | When | Where | Notes |
 |---|---|---|---|
-| **Annual Report — Idaho Secretary of State** | Every year, by the **last day of the month your entity was formed** (anniversary month) | sosbiz.idaho.gov | ⚠ Free to file online for Idaho LLCs and corporations. Missing it leads to administrative dissolution roughly 60 days after the due date, and reinstatement is a hassle. HQ computes the date from the formation date you enter. This is the one you told me about. |
-| Assumed Business Name (DBA) renewal | Every **5 years** from filing, if you registered one | Idaho SOS | ⚠ Only if "RuggedRoute" is a DBA rather than the legal entity name. |
-| Idaho income tax return (Form 65 partnership/multi-member LLC, Form 41S S-corp, Form 41 C-corp, or Form 40 individual with Schedule C flow-through) | **April 15** (calendar-year filers; March 15 for S-corp/partnership federal, ⚠ confirm Idaho alignment) | tax.idaho.gov (TAP) | ⚠ Which form depends on your entity + election. |
-| Idaho sales/use tax | Monthly / quarterly / annual, assigned by the Tax Commission **if** you hold a seller's permit | TAP | ⚠ App subscriptions sold through Google Play: Google is the merchant of record and remits US sales tax, so you may have **no** Idaho sales-tax filing at all. Confirm with accountant; if none, this entry is disabled. |
-| Idaho withholding / unemployment insurance | Only if you have W-2 employees | TAP / Idaho Dept. of Labor | Off by default. |
-| City business license | Varies by city; many Idaho cities require none for a home-based online business | Your city | ⚠ Enter if applicable. |
+| **Annual Report — Idaho Secretary of State** | Every year by the **last day of your formation anniversary month**; first one the year after formation | sosbiz.idaho.gov | **$0**, no late fee. SOS emails a reminder 1–2 months prior (no postcards). Missing it is grounds for administrative dissolution: SOS serves notice, you get **60 days** to cure; reinstatement within 10 years, **$30**. HQ computes the date from the formation date you enter and starts the "dissolution risk" countdown the day after. (Idaho Code §30-21-213, -601/-602/-603) |
+| Assumed Business Name | **No renewal — Idaho ABNs no longer expire** | — | Shown as a *retired* rule with the reason. Only amendments/cancellation are tracked. |
+| Idaho income tax return | **April 15** for all of: Form 40 (single-member LLC, Schedule C flow-through), Form 65 (multi-member LLC), Form 41S (S-corp) | tax.idaho.gov (TAP) | ⚠ Which form depends on your entity. Note Idaho's 65/41S date is a month *later* than the federal March 15. S-corps owe the **$20 minimum tax**. Extension is automatic if 80% of this year's or 100% of last year's tax is paid by April 15. |
+| Idaho estimated payments | **Not required for individuals; no underpayment penalty.** C-corps only (Form 41ES, Apr/Jun/Sep/Dec 15 if liability ≥ $500) | TAP | Disabled unless entity = C-corp. The first draft had this wrong. |
+| Idaho Permanent Building Fund tax ($10) | Only if the entity itself pays Idaho tax | with the return | ⚠ Off by default for a pass-through with no entity-level tax. |
+| Idaho sales tax | **None for app subscriptions / SaaS** — electronically delivered software and digital subscriptions are not tangible personal property (§63-3616(b)); Google/Apple are marketplace facilitators elsewhere | — | Rule shown as *not applicable* with the citation. Turns on only if you start selling taxable goods (merch, printed maps). |
+| Idaho withholding / unemployment insurance | Only with W-2 employees | TAP / Dept. of Labor | Off by default; turns on with the entity-type switch to "S-corp with payroll". |
+| City license | **No general business license** in Boise, Meridian, Nampa, Idaho Falls, or Pocatello. Idaho Falls and Pocatello require a free **home-occupation permit**; Coeur d'Alene a home-occupation certificate | your city | ⚠ Tell me your city; HQ enables the matching card. |
 
 ### Federal
 
 | Deadline | When | Notes |
 |---|---|---|
-| Quarterly estimated income tax (Form 1040-ES, and Idaho Form 51) | **Apr 15 · Jun 15 · Sep 15 · Jan 15** | HQ's estimated-tax helper pairs with these. |
+| Quarterly estimated income tax (Form 1040-ES) | **Apr 15 · Jun 15 · Sep 15 · Jan 15** | HQ's estimated-tax helper pairs with these. |
 | Annual federal return | **Mar 15** (1120-S / 1065) or **Apr 15** (Schedule C on 1040, or 1120) | ⚠ entity dependent. Extension (Form 7004 / 4868) reminder 14 days before. |
-| 1099-NEC to contractors + IRS | **Jan 31** | For anyone you paid ≥ $600 (contract dev, designers). HQ's *Contract labor* category totals per payee to tell you who needs one; collect W-9s into the vault. |
-| Beneficial Ownership Information (FinCEN BOI) | — | ⚠ As of the March 2025 FinCEN interim rule, **domestic** US companies are exempt. Included as a disabled entry with a note so you know it was considered. |
+| Form 2553 (S-corp election) | Within 2 months + 15 days of the start of the year it should take effect | Only if you decide to elect; HQ surfaces it when you flip the entity switch. |
+| 1099-NEC to contractors + IRS | **Jan 31** | **Threshold is now $2,000** per payee for payments made after Dec 31, 2025 (was $600), inflation-indexed from 2027. HQ's *Contract labor* category totals per payee and tells you who crosses it; collect W-9s into the vault. |
+| Beneficial Ownership Information (FinCEN BOI) | **Retired** — FinCEN's Aug 11, 2026 final rule permanently exempts all U.S.-created entities | Kept as a retired rule with the citation so you know it was considered. |
 | EIN | No renewal | Store the CP-575 letter in the vault; you will need it constantly. |
+| Record retention (IRS Pub 583) | 3 yrs general · 6 if >25% income omitted · 7 bad debt · **4 yrs employment tax** · asset records until disposal-year limitations end | Drives the retention clocks in §2.10 (HQ uses 7 as the safe default). |
 
 ### Platform, vendor, and operational
 
@@ -330,12 +397,12 @@ obligation, but rules change and I am not your tax professional. The app will sh
 | Apple Developer Program renewal | Annual, $99 | Only when/if iOS ships. |
 | Domain renewals (`ruggedroutehq.com` + any others) | Annual | Enter registrar; reminder 30 days out. |
 | Business insurance (general liability / E&O) renewal | Annual | ⚠ if you carry it. |
-| Cloudflare / Mapbox / Supabase billing review | Monthly | Auto-satisfied when the receipt arrives; flagged if it does not. |
+| Cloudflare / Mapbox / Supabase billing review | Monthly | Auto-satisfied when the receipt arrives; flagged if it does not or if the amount drifts. |
 | Trademark (if filed): Section 8 & 15 declarations at years 5–6, renewal at year 10 | Multi-year | ⚠ only if registered. |
 | Vehicle registration (if business vehicle) | Annual | Optional. |
-| Backup verification | Quarterly | HQ reminder to actually open the backup and confirm it restores. |
-
----
+| Annual member resolution / minutes | Annual, same month as the annual report | Template → PDF → vault (§2.10). |
+| Backup restore test | Quarterly | HQ reminder to actually open the backup and confirm it restores. |
+| Idaho SOS status check | Quarterly | Deep link to your SOSBiz entity page; SOSBiz has no API so this stays a 30-second manual check. |
 
 ## 5. Data model
 
@@ -347,26 +414,44 @@ user-facing tables so "undo" is always possible.
 business_profile   legal_name, dba, entity_type, state, formation_date, ein (encrypted),
                    fiscal_year_end, timezone, address, registered_agent → contact
 categories         name, schedule_c_line, deductible_pct (100 / 50), sort, active
-receipts           file_id, vendor_id?, date, subtotal, tax, tip, total, currency, payment_method,
+transactions       account_id, posted_on, amount, description_raw, merchant_normalized, receipt_id?,
+                   category_id?, status (unmatched|matched|exempt|personal), import_batch_id
+accounts           name, kind (checking|card|savings), last4, csv_profile jsonb
+receipts           file_id, vendor_id?, transaction_id?, date, subtotal, tax, tip, total, currency, payment_method,
                    last4, category_id, status (needs_review|confirmed|reconciled|void),
                    paid_personally bool, notes, tags text[], extracted jsonb (raw model output),
-                   extracted_text (tsvector), subscription_id?, trip_id?, source (camera|upload|email)
+                   extracted_text (tsvector), subscription_id?, trip_id?, source (camera|upload|email),
+                   field_confidence jsonb, verified_fields text[]   (AI-set until you confirm)
 receipt_line_items receipt_id, description, qty, amount
 files              storage_path, bucket, mime, bytes, sha256 (dedupe), width/height, page_count,
                    ocr_text, uploaded_via
-vendors            name, normalized_name, default_category_id, website, notes, contact_id?
-documents          title, doc_type (formation|tax|legal|insurance|license|banking|vendor|statement|other),
+vendors            name, normalized_name, default_category_id, website, notes, contact_id?,
+                   receipt_exempt bool, expected_min, expected_max
+vendor_aliases     vendor_id, alias_pattern   ("AMZN Mktp*" → Amazon)
+vendor_rules       vendor_id, category_id, business_pct, created_from_receipt_id
+agencies           name (Idaho SOS | Idaho STC | IRS | city), account_ids jsonb (encrypted), login_url,
+                   contact_id?, notes
+documents          title, doc_type (formation|tax|legal|insurance|license|banking|vendor|statement|agency_letter|other),
                    file_id, version, supersedes_id?, effective_date, expires_at, tax_year?,
-                   deadline_occurrence_id? (a filing confirmation), tags, text (tsvector)
-deadline_rules     title, authority, url, description, consequence, schedule jsonb
+                   deadline_occurrence_id? (a filing confirmation), tags, text (tsvector),
+                   custom_fields jsonb (typed: money/date/url/select/doc_link), ai_summary,
+                   ai_set_fields text[]
+document_links     from_document_id, to_document_id, relation   (reverse link is implicit)
+share_links        target (document|bundle|package), target_id, expires_at, password_hash?,
+                   access_log jsonb
+deadline_rules     title, agency_id, url, description, consequence, playbook (what to do if missed),
+                   applies_to text[] (llc|smllc|scorp|ccorp|sole), retired_on?, retired_reason?,
+                   source_url, schedule jsonb
                    ({kind: fixed_md|anniversary_month_end|days_after_fye|custom_rrule, ...}),
-                   reminder_offsets int[] (days), verify_required bool, enabled bool, category
+                   reminder_offsets int[] (days, default {90,30,7,1}), verify_required bool, enabled bool
 deadline_occurrences rule_id, due_on, status (upcoming|done|skipped|overdue), completed_at,
                    google_event_id, google_calendar_id, notes
 subscriptions      vendor_id, name, amount, cadence (monthly|annual|quarterly|usage),
                    next_renewal, payment_method, cancel_by, url, notes, active
 income_entries     source (google_play|stripe|invoice|other), period_start, period_end,
-                   gross, fees, net, received_on, file_id?, notes
+                   gross, platform_fee, withholding_tax, refunds, fx_adjustment, net, received_on,
+                   transaction_id? (the deposit), file_id?, notes, import_batch_id?
+tax_setaside       year, pct, federal_rate, idaho_rate, se_rate   (you enter; HQ computes)
 invoices           number, client_contact_id, issued_on, due_on, line_items jsonb, total,
                    status (draft|sent|paid|overdue), pdf_file_id
 trips              date, from_place, to_place, miles, purpose, vehicle, start_ll?, end_ll?,
@@ -440,7 +525,10 @@ fine (streams, does not hold everything in memory).
 
 Nightly GitHub Action in the `ruggedroute-hq` repo (same pattern as dataops): `pg_dump` the `hq`
 schema, list + copy any Storage objects newer than the last manifest, upload both to
-R2 `rr-hq-backup/{yyyy-mm-dd}/`. Keep 90 daily, 24 monthly. A restore runbook lives in `docs/`
+R2 `rr-hq-backup/{yyyy-mm-dd}/`. Keep 90 daily, 24 monthly. The export is a **human-browsable
+folder** — `receipts/2026/03/2026-03-14_Google-Ads_45.00.jpg`, originals untouched, plus a JSON
+manifest of all metadata (Paperless-ngx's exporter pattern) — so it is useful even if HQ itself
+never runs again. That is the Bench lesson: no proprietary ledger without a full export. A restore runbook lives in `docs/`
 and a quarterly deadline reminds you to test it. "Download everything" in the UI is the same
 artifact, on demand.
 
@@ -473,15 +561,15 @@ is in **working sessions** (one session ≈ one focused build-and-deploy pass wi
 |---|---|---|---|
 | **0 — Decisions & setup** | Answers to §10; new Supabase project `rr-hq`; new GitHub repo; Cloudflare Pages project + `hq.` DNS; Google OAuth client; Claude API key; Resend sender | ½ | Answers to §10, approve creating the Supabase project + repo, paste 3 keys into repo/Supabase secrets |
 | **1 — Foundation** | Repo scaffold, CI, schema migration for all tables, RLS, Google sign-in with allowlist, installable PWA shell, dashboard skeleton, business profile form | 1 | Sign in once to verify |
-| **2 — Receipts** | Camera/upload/PDF capture, extraction function, review form, vendor memory, list/search/filter, dedupe, categories seeded | 1–2 | Photograph ~10 real receipts so the extraction prompt is tuned on your actual vendors |
-| **3 — Deadlines + Calendar** | Deadline library seeded (§4), rule engine, occurrences, Google Calendar sync, mark-done with attachment, custom deadlines | 1 | Formation date / entity type; confirm the calendar appears on your phone |
-| **4 — Document vault** | Folders, upload, versions, expirations → reminders, full-text search | 1 | Upload your formation docs + EIN letter |
-| **5 — Subscriptions + Income + Mileage** | Recurring costs with expected-vs-actual, income ledger, trip log with GPS assist, rate table | 1 | Your subscription list; a Google Play payout statement |
-| **6 — Year-end package** | ZIP/XLSX/PDF builder, tax-year states, quarterly variant | 1 | Tell me how your accountant likes to receive things (or if you self-file) |
+| **2 — Receipts** | Camera/upload/PDF capture, extraction with per-field confidence, review form, vendor rules + aliases, receipt-required threshold, list/search/filter, ±5-day dedupe, categories seeded | 1–2 | Photograph ~10 real receipts so the extraction prompt is tuned on your actual vendors |
+| **3 — Deadlines + Calendar** | Verified deadline library (§4) with source links and playbooks, rule engine with entity-type switch, 90/30/7/1 ladder, Google Calendar sync, good-standing tile, jurisdiction cards, mark-done with attachment, custom deadlines | 1 | Formation date / entity type / city; confirm the calendar appears on your phone |
+| **4 — Document vault** | Inbox-first upload with AI triage, folders, versions, typed custom fields + document links, expirations → reminders, agency letters → tasks, full-text search, expiring share links | 1 | Upload your formation docs + EIN letter |
+| **5 — Subscriptions + Income + Mileage** | Recurring costs with expected ranges and variance alerts, income ledger with **Google Play payout parser**, tax set-aside, trip log (three entry modes), rate table | 1 | Your subscription list; a Google Play earnings CSV |
+| **6 — Transactions + Year-end package** | Statement CSV import, 2-of-3 matcher, "charges with no receipt" exceptions, then the ZIP/XLSX/PDF builder, tax-year states, quarterly variant, accountant share link | 1–2 | A bank/card statement CSV; how your accountant likes to receive things (or if you self-file) |
 | **7 — Email ingestion + weekly digest + backups** | `receipts@` inbox, Monday digest, nightly R2 backup + restore runbook | 1 | Enable Email Routing on the zone (one dashboard click) |
-| **8 — Legal-safety + Ask HQ + extras** | Veil checklist scorecard, retention clocks, evidence folder, contract register, "Ask HQ" assistant, offline queue hardening, statement reconciliation, estimated-tax helper, audit log UI, invoices (optional) | 2 | Use it for a month and tell me what annoys you |
+| **8 — Legal-safety + Ask HQ + extras** | Veil checklist scorecard, retention clocks, evidence folder, contract register, annual-resolution template → PDF, "Ask HQ" assistant with citations + read-only MCP server, per-feature AI toggles, estimated-tax helper with "you saved $X", vendor trend report, offline queue hardening, audit log UI, invoices (optional) | 2 | Use it for a month and tell me what annoys you |
 
-Rough total: **9–11 sessions.** Phases 1–3 alone (three sessions) already give you receipts +
+Rough total: **10–12 sessions.** Phases 1–3 alone (three sessions) already give you receipts +
 the Idaho/IRS calendar on your phone, which is the part you are most worried about.
 
 Sequencing rationale: receipts before deadlines because receipts are daily and deadlines are
@@ -521,6 +609,10 @@ email ingestion is a convenience on top.
 10. **Do you have an accountant** who should get the year-end package, and do they use anything
     specific (QuickBooks, Xero)? If so, I add a QuickBooks-compatible CSV export. *Default: generic
     XLSX only.*
+11. **Which city** you operate from (for the home-occupation permit card) and **which bank/card**
+    you use for the business (so the statement CSV importer is built against its real format).
+    *Default: no city card; generic CSV importer.*
+12. **Receipt-required threshold.** *Default: $25.*
 
 ---
 
