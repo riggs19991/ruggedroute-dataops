@@ -2985,6 +2985,118 @@ Hacksaw blades: **14 TPI for 1" and heavier soft metal, 18 general, 24 for 1/8-1
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$anti-seize-and-galling$mw$, $mw$Anti-Seize and Galling: What Galling Is and Which Metals Do It (Stainless, Aluminium, Titanium), the Anti-Seize Types (Copper, Nickel, Aluminium, Moly, Ceramic, Food Grade) with Temperature Limits and Where Each Belongs and Does Not, How Anti-Seize Changes Torque (K-Factor and the Reduction), Applying It, Preventing Galling in Stainless Assemblies, and the Dissimilar-Metal Corrosion It Prevents$mw$, $mw$Galling is the cold-welding of threads that turns a stainless bolt into a rivet; anti-seize stops it and also stops corrosion locking and heat locking, but it changes the torque a bolt needs and belongs only in some places. This covers who galls and why, the anti-seize compounds and their limits, the K-factor math and a torque-reduction table, how to apply it, the assembly practice that prevents galling when you cannot use it, and the galvanic pairs that anti-seize separates.$mw$, $mw$## Galling
+
+When two metal surfaces slide under pressure with no film between them, the microscopic peaks **weld** (adhesive wear); on threads the welded spots tear, the torn metal drags and welds again, and within a turn the nut is **seized solid**: it will not go on or come off, and the fastener is cut off. Metals that gall: **stainless steel** (300 series worst: it work-hardens and its oxide film is thin), **aluminium, titanium, nickel alloys**, and soft or unplated steel on itself under heavy load. It is worse with: **stainless on stainless of the same grade**, fine threads, high tightening speed (an impact wrench: the heat of friction), high preload, rough or damaged threads, a dry assembly, and high temperature.
+
+Prevent galling by: **lubricating the threads** (anti-seize is the lubricant of choice), **slow** tightening (hand tools, no impacts on stainless), **dissimilar hardness or grade** (a 304 bolt with a 316 nut, or a stainless bolt with a bronze or a coated/plated nut), rolled (not cut) threads, coarse threads over fine, a lower preload where the design allows, and **not** forcing a fastener that starts to bind (stop, back off, lubricate).
+
+## Anti-seize types
+
+| Type | Base | Temperature | Use | Do not use |
+|---|---|---|---|---|
+| **Copper (copper-graphite)** (Never-Seez Regular, Loctite C5-A) | Copper flakes and graphite in a grease | to **1,800°F (980°C)** | The general purpose: steel bolts, exhaust and manifold studs, pipe threads, spark plugs (older practice), chain and pins, slow slides | **Not on stainless in corrosive or high-temperature service** where copper can cause stress corrosion (chlorides) or in nuclear/some chemical plants; not near oxygen systems; not on aluminium in salt water (galvanic) |
+| **Nickel** (Never-Seez Pure Nickel Special, Loctite N-5000/N-7000) | Nickel flakes and graphite | to **2,400°F (1,315°C)** | **Stainless steel, nickel alloys, titanium**, high-temperature bolting (turbines, furnaces), where copper is prohibited; the safe choice on stainless | Where a copper-free/nickel-free spec applies (some chemical) |
+| **Aluminium (aluminium-graphite)** | Aluminium flakes | to 1,600°F | General purpose, some marine (no copper), aluminium fittings | |
+| **Moly (molybdenum disulphide)** | MoS₂ in a grease | to 750°F (dry film higher) | Heavy-loaded threads and sliding surfaces, press fits, splines; automotive "moly assembly lube" | High temperature (it oxidises and abrades above 750°F) |
+| **Ceramic / metal-free (Never-Seez Mariner, Loctite LB 8009 metal-free, ceramic paste)** | Ceramic/graphite/other | to 2,600°F (some) | Brakes and wheel studs (no metal to promote corrosion or conduct), stainless in marine, where any metal is prohibited (nuclear, chemical, aerospace), spark plugs (modern practice: metal-free) | |
+| **Zinc** | Zinc | to 750°F | Galvanised and aluminium fittings | |
+| **Food grade (NSF H1)** (Never-Seez Food Grade, Loctite LB 8014) | White/PTFE/aluminium in H1 base | to 1,500°F | Food plants | |
+| **Graphite / dry film** | | | Threads in extreme heat, oxygen (special oxygen-compatible products only) | |
+| Marine grade / anti-corrosion (Tef-Gel, Lanocote, Never-Seez Mariner) | PTFE/lanolin | to 300-500°F | Stainless bolts in aluminium on boats and washdown equipment (galvanic separation) | Hot |
+
+Read the label for the **temperature** and the **"do not use with"** list; in doubt on stainless: **nickel**.
+
+## What anti-seize does to torque
+
+Torque tables assume a **friction (K, nut) factor**: **dry, plain steel about 0.20**; lubricated with oil about 0.15-0.18; **anti-seize about 0.12-0.15** (some products 0.10). The same torque with a lower K stretches the bolt **more**: a bolt torqued to a dry chart value with anti-seize on it is over-loaded by 30-50% and can yield or strip the thread.
+
+```
+   T = K × D × F           T = torque, D = bolt diameter, F = clamp (preload)
+   for the same F:  T_antiseize = T_dry × (K_antiseize ÷ K_dry) = T_dry × (0.13 ÷ 0.20) ≈ 0.65 × T_dry
+```
+
+So **reduce the dry torque by about 25-35%** with anti-seize (the maker's guidance: Never-Seez says "reduce the torque by up to 30%"; Loctite gives a K of 0.13-0.15 for its products), unless the chart you use is already a lubricated chart. If the specification says "lubricated", it means with the specified lubricant and its K: read it.
+
+| Bolt (grade 5, coarse) | Dry torque (K = 0.20) | With anti-seize (K = 0.13-0.15): about 65-75% |
+|---|---|---|
+| 1/4-20 | 8 ft-lb | 5-6 |
+| 5/16-18 | 17 | 11-13 |
+| 3/8-16 | 30 | 20-22 |
+| 7/16-14 | 50 | 32-37 |
+| **1/2-13** | **75** | **50-56** |
+| 9/16-12 | 110 | 72-82 |
+| 5/8-11 | 150 | 100-112 |
+| **3/4-10** | **260** | **170-195** |
+| 7/8-9 | 430 | 280-320 |
+| 1-8 | 640 | 415-480 |
+| Grade 8 | 1.4 × the grade 5 values | The same reduction |
+
+(Full dry tables in [bolt torque chart](/article/bolt-torque-chart-sae-metric).) Where the preload matters (flanges, couplings, structural, machinery hold-downs), use the **lubricated** column of the applicable chart or the maker's K; a torque-angle or a stretch method removes the friction guesswork.
+
+## Applying it
+
+1. Threads **clean** (a wire brush, solvent, dry) and undamaged (chase them); anti-seize on dirt is a grinding paste.
+2. A **thin, even film** on the **male threads** that will be engaged (a brush from the can; the brush-top cans are the right tool), and a film **under the nut face / bolt head** if the torque spec is for a lubricated head (usually it is: the head friction is half the total); a dab on a stud's coarse end going into a casting; on pipe threads a film around the male thread (anti-seize is a thread **lubricant and anti-corrosion** compound, not a rated sealant; pipe threads that must hold pressure still get a sealant, though plants often use anti-seize alone on low-pressure, high-temperature joints that must come apart).
+3. **Not on the first thread** into a blind hole full of it (the hydraulic lock cracks castings); not gobbed (it squeezes out and attracts dirt; excess wiped).
+4. Torque per the reduced/lubricated value; note "anti-seize" on the work order.
+5. Keep it off brake friction surfaces, electrical contacts (some are conductive, some are not: use a conductive grease where continuity matters), O-rings and seals (petroleum base), and the gasket faces.
+6. Hands: it stains and it is a nuisance-to-hazardous mix (copper, nickel are skin sensitisers): gloves.
+
+## Where anti-seize belongs
+
+| Use | Why |
+|---|---|
+| **Stainless bolts and nuts** (all of them, every time) | Galling |
+| **Steel bolts into aluminium** (motor end bells, pump housings, gearbox covers), and stainless into aluminium | Galvanic corrosion locks them; the aluminium thread strips on removal |
+| **Exhaust, furnace, boiler, dryer bolting; anything over 400°F** | Heat welds and scales the threads |
+| Studs into castings (the nut end), pipe threads in high-temperature lines, gland bolts on valves | Removal years later |
+| **Wheel studs** (lightly, per the vehicle maker: many say no; torque adjusted) and brake caliper slide pins/pads (metal-free) | Corrosion |
+| Pins, clevis pins, hinge pins, slides, jack screws, levelling bolts, guard bolts outdoors, conveyor idler and guard bolts | Rust seizure |
+| Bearing housing bolts, coupling bolts, bushing cap screws | **Only** if the maker's torque allows a lubricated value (bushing cap screws are usually specified dry or "lightly oiled": read the sheet) |
+| Spark plugs in aluminium heads | Some makers say yes (metal-free), some no: the plug's maker |
+| Set screws, small machine screws | No (a threadlocker instead) |
+| **Threadlocked joints** | Never both: anti-seize stops the threadlocker curing |
+| Structural high-strength bolts (A325/A490) | Only the lubricant the spec allows (the bolt's own wax/oil; TC bolts as supplied); anti-seize changes the tension and is not allowed unless specified |
+| Torque-critical joints without a lubricated spec | Ask; use the lubricated chart |
+| Oxygen service | Only oxygen-compatible products (most anti-seize is petroleum-based and a fire hazard in oxygen) |
+
+## Preventing galling without anti-seize (stainless assemblies where nothing is allowed)
+
+- Slow hand tightening, no impact tools; the nut started by hand and turned steadily without stopping and restarting under load.
+- Different grades or hardness for the nut and the bolt (a 316 nut on a 304 bolt, a nitronic 60 or a bronze nut, a **silver-plated** nut in high-temperature nuclear/chemical service, a PTFE-coated (xylan) bolt).
+- Coarse threads, rolled threads, a lower class fit, chamfered ends, no burrs.
+- A dry-film lubricant approved for the service (a PTFE dry film, a molybdenum film, a wax) where a paste is not permitted.
+- Never re-use a stainless fastener that has started to gall; the surface is torn.
+
+## Galvanic corrosion (dissimilar metals)
+
+Two metals in contact with an electrolyte (water, salt, chemicals): the more **active** one corrodes (the anode) and the more **noble** one is protected; the further apart in the galvanic series, the faster. Active → noble (roughly): magnesium, zinc/galvanising, aluminium, mild steel, cast iron, lead, tin, brass/bronze, copper, stainless (passive), nickel, titanium, graphite. **A steel bolt in aluminium** corrodes the aluminium around it (the anode is the big part: slow but destructive: the white crust); **a stainless bolt in aluminium** in a wet place corrodes the aluminium faster; **a small aluminium part bolted with steel** corrodes fast (the anode is small). Prevention: **anti-seize (a barrier film)** on the threads and under the head, a **coating** on the bolt (zinc, cadmium, PTFE), an **insulating washer/sleeve**, sealant to keep the electrolyte out, choosing compatible metals (aluminium fasteners in aluminium, stainless with stainless where galling is managed), and drainage.
+
+## Common mistakes
+
+- Stainless bolts assembled dry with an impact wrench: every one galled and cut off.
+- A 3/4" grade 8 bolt torqued to the dry chart's 380 ft-lb with copper anti-seize on it: stretched past yield.
+- Copper anti-seize on stainless in a chloride wash: cracks.
+- Anti-seize and Loctite on the same bolt.
+- Anti-seize on a Taper-Lock bushing's taper: the bushing bottoms and the hub splits.
+- A blind hole filled with anti-seize and the bolt driven in: the casting cracks from the hydraulic lock.
+- Petroleum anti-seize on an oxygen regulator's fitting.
+
+## Related
+
+- [Bolt torque chart (SAE and metric)](/article/bolt-torque-chart-sae-metric)
+- [Locking methods and threadlockers](/article/locking-methods)
+- [Broken bolt and stud removal](/article/broken-bolt-and-stud-removal)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Welding stainless (contamination rules)](/article/welding-stainless-and-dissimilar)
+- [Oxy-fuel safety (oxygen and oil)](/article/oxy-fuel-safety)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$fasteners$mw$),
+          array[$mw$anti-seize$mw$,$mw$anti seize$mw$,$mw$antiseize$mw$,$mw$Never-Seez$mw$,$mw$copper anti-seize$mw$,$mw$nickel anti-seize$mw$,$mw$aluminum anti-seize$mw$,$mw$moly anti-seize$mw$,$mw$ceramic anti-seize$mw$,$mw$food grade anti-seize$mw$,$mw$galling$mw$,$mw$thread galling$mw$,$mw$stainless galling$mw$,$mw$stainless bolts seize$mw$,$mw$cold welding$mw$,$mw$K factor$mw$,$mw$nut factor$mw$,$mw$torque reduction anti-seize$mw$,$mw$lubricated torque$mw$,$mw$anti-seize torque chart$mw$,$mw$dissimilar metals$mw$,$mw$galvanic corrosion$mw$,$mw$steel bolt aluminum$mw$,$mw$exhaust bolts$mw$,$mw$spark plug anti-seize$mw$,$mw$anti-seize where not to use$mw$,$mw$brake anti-seize$mw$,$mw$high temperature bolts$mw$,$mw$anti-seize application$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Bostik Never-Seez and Henkel Loctite anti-seize product data (compositions, temperature ratings, torque reduction guidance); Fastenal Technical Reference Guide (K-factors: dry 0.20, lubricated 0.15, anti-seize about 0.12-0.13); Nickel Institute and ASSDA guidance on stainless steel galling; ASTM F2329 / galvanic series references.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$bolt-torque-chart-sae-metric$mw$, $mw$Bolt Torque Chart: SAE Grade 5 and 8, Metric 8.8 and 10.9, with Grade Markings and Lubrication Factors$mw$, $mw$Reference tightening torques for common UNC and metric fasteners, how to recognise the grade from the head, why lubricated bolts need less torque, and the cross-pattern sequence for flanges and machine feet.$mw$, $mw$> Equipment manuals override this chart. These values are for **plain (unplated), dry** steel bolts in clean steel threads, torqued to about 75% of proof load. Zinc plating, oil, anti-seize or thread locker changes the friction and therefore the torque needed for the same clamp load.
 
 ## SAE (inch) fasteners - torque in **ft-lb**, dry
@@ -3069,6 +3181,396 @@ K ≈ 0.20 dry steel, 0.15 lubricated, 0.12 anti-seize
 - [Decimal equivalents, tap drills and conversions](/article/shop-reference-tables)
 - [Rigging basics](/article/rigging-basics-sling-angles-and-hitches)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$fasteners$mw$),
           array[$mw$torque chart$mw$,$mw$bolt torque$mw$,$mw$grade 5$mw$,$mw$grade 8$mw$,$mw$8.8$mw$,$mw$10.9$mw$,$mw$head markings$mw$,$mw$torque wrench$mw$,$mw$lubricated torque$mw$,$mw$anti-seize$mw$,$mw$K factor$mw$,$mw$torque sequence$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Standard published torque tables (Fastenal, Portland Bolt, ARP) based on 75% of proof load, K = 0.20 dry; SAE J429; ISO 898-1.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$flange-bolting-and-gaskets$mw$, $mw$Flange Bolting and Structural Bolting: Gasket Seating and the Star Pattern (ASME PCC-1 Sequence), Stud Torque Tables for Class 150 and 300 Flanges (B7 Studs, Lubricated), Flange Faces and Finishes, Hot Re-Torque, Leak Checks and Gasket Removal; Structural A325/A490 Bolting with Snug-Tight, Turn-of-Nut Table, DTI Washers and TC Bolts, Inspection and Reuse Rules$mw$, $mw$Two bolting jobs with their own rules: the pressure-boundary flange, where the gasket must be seated evenly by a stud stress that comes from a lubricated torque applied in a star pattern in steps, with the torque tables for the common flange classes and the checks before and after; and the structural steel connection, where the bolt must be pretensioned by turn-of-nut, a tension-control bolt or a tension indicator after a snug-tight pass, with the RCSC rotation table and the inspection and re-use rules.$mw$, $mw$## Part 1: flanges
+
+### Before the bolts go in
+
+1. **Flange faces**: clean to bare metal (no old gasket, no rust scale, no sealant), inspected for **radial scratches** across the seating surface (a leak path; a scratch that catches a fingernail on a raised face is a re-facing job), pits, warping (a straightedge across the face in two directions: within about 0.005-0.010"), and the **finish**: **125-250 µin (serrated, "stock finish")** for soft/sheet and spiral-wound gaskets; smoother (63-125) for PTFE and metal; RTJ grooves smooth and undamaged.
+2. **Alignment** per [pipe strain](/article/pipe-strain-and-flange-alignment): faces parallel, centred, bolt holes lined up **with the bolts loose**; no pulling the pipe to the flange with the studs.
+3. **Gasket**: the right type and material for the service ([shim and gasket making](/article/shim-and-gasket-making)), the right size (a ring gasket for a raised face, a full-face gasket for flat faces), new (never re-used), centred (the bolts centre a ring gasket in a raised-face joint), **dry** (no sealant or grease on a spiral-wound or a CNA sheet unless the maker says; a light anti-stick spray is acceptable on sheet), and its inner ring/outer ring on a spiral-wound present and undamaged.
+4. **Studs and nuts**: the right material (**A193 B7 studs with A194 2H nuts** for carbon steel flanges; B8/B8M for stainless with 8/8M nuts; B16 for high temperature), the right length (**2-3 threads showing beyond each nut**; a stud that ends flush with the nut is one whose last threads never engaged), threads clean and **lubricated** (the lubricant the torque table assumes: a moly or nickel anti-seize on the threads and the nut face; PCC-1 assumes a lubricant with K ≈ 0.16-0.17 for its tables; a dry stud needs about 1.5× the torque and the scatter is huge), **hardened washers** under the nuts (PCC-1 recommends washers), nuts run on by hand to check for damage.
+5. Tools: a **calibrated torque wrench** (or a hydraulic torque wrench for over about 500 ft-lb: 1-1/8" studs and up), a marker for the bolt numbers, the sequence written down.
+
+### The sequence (ASME PCC-1)
+
+**Number the bolts** in a star pattern (for an 8-bolt flange: 1 opposite 5, 2 opposite 6... the cross pattern goes 1-5-3-7-2-6-4-8; for 12 bolts: 1-7-4-10-2-8-5-11-3-9-6-12; for 16: 1-9-5-13-3-11-7-15-2-10-6-14-4-12-8-16; PCC-1 gives the pattern for every count).
+
+1. **Hand-tight all**, then a **snug pass (about 20-30% of the target torque)** in the cross pattern, checking the gap between the flanges is **even all round** (a feeler or a rule at 4 points; an uneven gap now means the flanges are not parallel or the gasket is not centred: fix it before going further).
+2. **Pass 1: 30% of the final torque**, cross pattern.
+3. **Pass 2: 60%**, cross pattern.
+4. **Pass 3: 100%**, cross pattern.
+5. **Pass 4 (final): 100% in a circular (clockwise) pattern**, bolt after bolt, until no nut moves at the target: on a gasketed joint the first bolts relax as the others compress the gasket; keep going around until all hold (usually 1-2 rounds).
+6. Check the flange gap even all round; **record** the torque, the lubricant, the gasket and the date on the flange tag.
+
+PCC-1 also allows alternative "quadrant" and "single-pass" sequences for large flanges with hydraulic tools; the legacy cross pattern above is the common one. Hydraulic tensioners (stretching the stud directly, 50% or 100% coverage) are used on large and critical joints.
+
+### Torque tables (ASME B16.5 raised-face flanges, A193 B7 studs, lubricated with K ≈ 0.16, spiral-wound or CNA sheet gaskets; target stud stress about 40-50 ksi)
+
+| NPS | Class 150: studs (qty × size) | Class 150 torque (ft-lb) | Class 300: studs | Class 300 torque (ft-lb) |
+|---|---|---|---|---|
+| 1/2 | 4 × 1/2" | **45** | 4 × 1/2" | 45 |
+| 3/4 | 4 × 1/2" | 45 | 4 × 5/8" | 90 |
+| 1 | 4 × 1/2" | 45 | 4 × 5/8" | 90 |
+| 1-1/2 | 4 × 1/2" | 45 | 4 × 3/4" | 160 |
+| **2** | 4 × 5/8" | **90** | 8 × 5/8" | 90 |
+| 2-1/2 | 4 × 5/8" | 90 | 8 × 3/4" | 160 |
+| **3** | 4 × 5/8" | **90** | 8 × 3/4" | 160 |
+| **4** | 8 × 5/8" | **90** | 8 × 3/4" | 160 |
+| 5 | 8 × 3/4" | 160 | 8 × 3/4" | 160 |
+| **6** | 8 × 3/4" | **160** | 12 × 3/4" | 160 |
+| **8** | 8 × 3/4" | **160** | 12 × 7/8" | 250 |
+| 10 | 12 × 7/8" | 250 | 16 × 1" | 370 |
+| 12 | 12 × 7/8" | 250 | 16 × 1-1/8" | 500 |
+| 14 | 12 × 1" | 370 | 20 × 1-1/8" | 500 |
+| 16 | 16 × 1" | 370 | 20 × 1-1/4" | 700 |
+| 18 | 16 × 1-1/8" | 500 | 24 × 1-1/4" | 700 |
+| 20 | 20 × 1-1/8" | 500 | 24 × 1-1/4" | 700 |
+| 24 | 20 × 1-1/4" | 700 | 24 × 1-1/2" | 1,200 |
+
+The torque is per stud size: **1/2": 45, 5/8": 90, 3/4": 160, 7/8": 250, 1": 370, 1-1/8": 500, 1-1/4": 700, 1-1/2": 1,200 ft-lb** (lubricated B7; a dry value is about 1.5× and not recommended); **reduce by 25-30% for stainless B8 studs** (lower yield) and use the gasket maker's table for PTFE and soft gaskets (they crush at full B7 stress: e.g. a full-face PTFE gasket on a cast iron or FRP flange may want only 25-40% of these) and for **cast iron and non-metallic flanges** (they crack). The gasket and flange makers' tables (Garlock, Flexitallic, Lamons) govern.
+
+### Faces and gaskets
+
+- **Raised face (RF)**: the standard steel flange; a ring gasket inside the bolt circle; Class 150 and 300 with a 1/16" (Class 150/300) raised face.
+- **Flat face (FF)**: cast iron, aluminium, FRP, some pumps; a **full-face gasket**; **never** mate a raised-face steel flange to a flat-face cast iron flange with a ring gasket (the cast iron flange bends and cracks): either a full-face gasket with the raised face machined off, or a flat-faced steel flange.
+- **Ring-type joint (RTJ)**: a metal ring in grooves; high pressure; the ring is softer than the flange, new every time, no lubricant; torque per the ring maker.
+- Tongue-and-groove, male-female: for special gaskets.
+- Gasket types by service: [shim and gasket making](/article/shim-and-gasket-making).
+
+### After bolting
+
+- **Leak test** per the system (a hydrotest, a pneumatic test at reduced pressure with soap, a service test); a small leak at start-up on a new gasket often seals as it warms and can be nipped up in the pattern **while cold** (never over-torque a leaking flange hot beyond the table: it crushes the gasket); a leak that persists = the joint comes apart (a damaged face, the wrong gasket, misalignment).
+- **Hot re-torque**: sheet and CNA gaskets **relax** (creep) in the first hours and at the first heat-up; re-torque **after 24 hours or after the first thermal cycle at a safe temperature (below 200°F on the studs, or per the plant procedure for hot bolting with a permit)**, in the circular pattern to the original torque; spiral-wound gaskets need no re-torque as a rule; PTFE gaskets re-torqued after 24 h cold.
+- Never **hot bolt** (remove and replace studs on a pressurised flange) without the plant's hot-bolting procedure and permit: it is a defined, dangerous task.
+- Gasket **removal** at the next opening: scrape with a brass or plastic scraper (no screwdrivers or grinders on the face), a gasket-removal solvent, and never a wire wheel on a serrated face.
+
+## Part 2: structural bolting (RCSC / AISC)
+
+### Grades and joints
+
+- **A325 (F3125 Grade A325)**: 120 ksi tensile, the standard high-strength structural bolt (heavy hex head, "A325" and the maker's mark on the head); **A490**: 150 ksi (never galvanised: hydrogen embrittlement; never reused); Type 1 (plain) and Type 3 (weathering); TC (tension-control, "twist-off") versions F1852/F2280; the **nuts A563** (DH/C/D grades) and **F436 hardened washers**.
+- **Joint types**: **snug-tight** (the plies in firm contact: most simple shear connections in buildings), **pretensioned** (the bolt tensioned to 70% of its tensile strength: connections with vibration, impact, reversal, column splices, moment connections, crane runways), **slip-critical (SC)** (pretensioned **and** the faying surfaces prepared to a slip class: no paint or a Class A/B coating: the load carried by friction).
+- The drawing says which; a connection drawn "SC" or "PT" is not done snug-tight.
+
+### Snug-tight
+
+**All bolts** in the joint brought to snug: the plies in firm contact, the bolts tightened with **a few impacts of an impact wrench or the full effort of a person on an ordinary spud wrench** (RCSC), in a pattern from the **stiffest part of the joint outward** (the middle of a flange out to the free edges), so the plies are pulled together everywhere; check that no gap remains at the bolts (shims where the plies do not close).
+
+### Pretensioning methods
+
+| Method | How | Notes |
+|---|---|---|
+| **Turn-of-nut** | After snug-tight, **match-mark** the nut and the bolt end (a crayon line across), then turn the nut the rotation from the table below; the bolt stretches into its plastic range (the tension is controlled by the strain, not the torque) | The most reliable; needs the snug to be genuine; the marks show the inspector |
+| **Calibrated wrench** | A torque wrench/impact calibrated **daily** in a bolt tension calibrator (a Skidmore-Wilhelm) to 5% over the required tension for that lot of bolts | Only with a calibrator on site; torque tables from books are **not** permitted by RCSC |
+| **Twist-off tension-control (TC) bolts (F1852 / F2280)** | The special wrench holds the bolt's spline while turning the nut; the spline **shears off** at the tension; the shear is the record | Snug all bolts first (the splines can shear on the first pass on a non-snug joint: then the bolt is snug only), then a final pass to shear all; a sheared spline on a bolt whose plies were not in contact is a failed installation |
+| **Direct tension indicator (DTI, F959 washer)** | A washer with bumps under the bolt head (or the nut with a hardened washer); the bumps flatten at the tension; the inspector checks the **gap with a 0.005" feeler** in the specified number of spaces (the refusal gap) | The bumps against the **unturned** element; a DTI that is already flat at snug was over-tightened at snug |
+| **Alternative design bolts / lock-pin** | Swaged collars (Huck) | Their own tools |
+
+**Turn-of-nut rotation (RCSC Table 8.1), from snug-tight, both faces normal to the bolt axis:**
+
+| Bolt length (under the head to the end) | Nut rotation |
+|---|---|
+| **Up to and including 4 × bolt diameter** | **1/3 turn** (120°) |
+| **Over 4 to 8 diameters** | **1/2 turn** (180°) |
+| **Over 8 to 12 diameters** | **2/3 turn** (240°) |
+| One face sloped (not more than 1:20) and not more than 4 dia | 1/2 turn |
+| One face sloped, 4-8 dia | 2/3 turn |
+| One face sloped, 8-12 dia | 5/6 turn |
+| Both faces sloped, up to 4 dia | 2/3 turn |
+| Both faces sloped, 4-8 dia | 5/6 turn |
+| Both faces sloped, 8-12 dia | 1 turn |
+
+Tolerance: −0°/+30° for 1/2 turn or less, ±30° for 2/3 turn or more. A **bevelled washer** (F436 bevelled) under the head or the nut on sloped surfaces (channel and S-beam flanges) makes the face normal; over 12 diameters: engineer.
+
+Minimum pretension (70% of the bolt's tensile): **A325: 1/2" 12 kips, 5/8" 19, 3/4" 28, 7/8" 39, 1" 51, 1-1/8" 56, 1-1/4" 71, 1-1/2" 103 kips; A490: 1/2" 15, 5/8" 24, 3/4" 35, 7/8" 49, 1" 64, 1-1/8" 80, 1-1/4" 102, 1-1/2" 148 kips**: the Skidmore verifies these with the lot's bolts.
+
+### Practice
+
+- **Washers**: F436 hardened washers where required (under the turned element for calibrated wrench; under the head/nut on sloped surfaces (bevelled); over oversized and slotted holes (plate washers 5/16" thick on long slots); with A490 bolts in material under 40 ksi; under DTIs and the turned element).
+- **Bolt condition**: A325 as received with the maker's lubricant (a dry, rusty A325 needs re-lubrication with beeswax or the maker's lube before turn-of-nut, or it twists off before the rotation); TC bolts kept **clean and dry in their containers** until use (the lubricant on them is what makes the spline shear at the right tension); galvanised bolts and nuts as matched lubricated sets (the nut's dyed lubricant).
+- **Pre-installation verification**: the Skidmore-Wilhelm test of 3 bolts of each lot/size/length with the method being used, before starting and daily; the RCSC requires it for all pretensioning methods.
+- **Reuse**: A325 may be re-tightened if it was not pretensioned (snug), and a black A325 may be reused once with the engineer's approval; **A490 and galvanised A325: never reused**; TC bolts never.
+- **Inspection**: match-marks show the rotation, DTI gaps with the feeler, sheared splines, the plies in contact (no gaps at the bolts), the bolt/nut/washer grade marks, the thread projection (the bolt end flush with or beyond the nut face), and a **Skidmore** check of the wrench/lot; an inspector's torque wrench check "arbitration" is only by the RCSC procedure with the site-calibrated torque, and torque alone is not the criterion.
+- **Holes**: standard (bolt + 1/16"), oversized, short-slotted, long-slotted per the drawing; **never** enlarge a hole with a torch; a **reamer or a mag drill** where a bolt will not enter; drift pins to align, then bolts.
+- **Ordinary A307 bolts** (grade 2 equivalent) in secondary steel: snug-tight; a standard torque is fine.
+
+## Common mistakes (both parts)
+
+- Flange studs torqued dry to the lubricated table: half the seating stress, a leak.
+- A raised-face steel flange bolted to a flat-face cast iron pump flange with a ring gasket: the pump flange cracks.
+- No circular final pass: half the studs relaxed, the gasket leaks on the first heat cycle.
+- Hot re-torquing a spiral-wound gasket "to be safe": the windings crush.
+- Structural bolts tightened with an impact wrench from a torque chart: the torque is not the tension, and the RCSC does not allow it.
+- TC bolts sheared on the first pass with the plies gapped: the connection is snug at best.
+- A490 bolts reused from a dismantled connection.
+- Snug-tight from the free edge inward: the middle of the joint never closed.
+
+## Related
+
+- [Shim and gasket making (gasket selection)](/article/shim-and-gasket-making)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Bolt torque chart (SAE and metric)](/article/bolt-torque-chart-sae-metric)
+- [Anti-seize and galling (K-factors)](/article/anti-seize-and-galling)
+- [Pipe schedule and flange tables (B16.5 dimensions)](/article/pipe-schedule-and-flange-tables)
+- [Hole patterns and flange templates](/article/hole-patterns-and-flange-templates)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$fasteners$mw$),
+          array[$mw$flange bolting$mw$,$mw$flange torque$mw$,$mw$flange torque chart$mw$,$mw$class 150 torque$mw$,$mw$class 300 torque$mw$,$mw$B7 stud torque$mw$,$mw$star pattern$mw$,$mw$cross pattern$mw$,$mw$PCC-1$mw$,$mw$bolt sequence flange$mw$,$mw$gasket seating$mw$,$mw$spiral wound gasket torque$mw$,$mw$raised face$mw$,$mw$flat face$mw$,$mw$RTJ$mw$,$mw$flange finish$mw$,$mw$hot torque$mw$,$mw$retorque flange$mw$,$mw$flange leak$mw$,$mw$gasket removal$mw$,$mw$structural bolting$mw$,$mw$A325$mw$,$mw$A490$mw$,$mw$F3125$mw$,$mw$snug tight$mw$,$mw$turn of nut$mw$,$mw$turn of nut table$mw$,$mw$DTI washer$mw$,$mw$direct tension indicator$mw$,$mw$TC bolt$mw$,$mw$tension control bolt$mw$,$mw$calibrated wrench$mw$,$mw$structural bolt inspection$mw$,$mw$bolt reuse A490$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME PCC-1-2022 Guidelines for Pressure Boundary Bolted Flange Joint Assembly (cross-pattern/legacy and alternative sequences, target stud stress); Garlock, Flexitallic and Lamons torque tables for ASME B16.5 flanges with ASTM A193 B7 studs (lubricated, K about 0.16-0.17); ASME B16.5 (flange dimensions and faces); RCSC Specification for Structural Joints Using High-Strength Bolts (snug-tight, Table 8.1 nut rotation, DTI, TC bolts, inspection); AISC Steel Construction Manual; ASTM F3125 (A325/A490 grades).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$locking-methods$mw$, $mw$Fastener Locking Methods and Threadlockers: Why Bolts Loosen, Preload as the First Lock, Prevailing-Torque Nuts (Nylon and All-Metal), Lock Washers (Split, Tooth, Belleville, Nord-Lock Wedge), Jam Nuts (Which Goes First), Castle Nuts and Cotter Pins, Safety Wire (Direction and Method), Tab and Bend Washers, Threadlocker Grades (Loctite 222, 243, 263/271, 290, 609/638/680) with Cure, Removal and Primer Rules, Retaining Compounds, and Choosing for Vibration$mw$, $mw$Bolts loosen because they were never tight enough or because transverse vibration walks them out; the fix is preload first and a locking method second. This compares every common locking device with what it actually does (including the split lock washer that does almost nothing), the rules for jam nuts, castle nuts and safety wire, the threadlocker and retaining compound grades with cure times and how to get them apart, and a table of which method to use where.$mw$, $mw$## Why bolts loosen
+
+A bolt that is **preloaded** correctly (stretched to 60-90% of its yield by the torque: see [bolt torque](/article/bolt-torque-chart-sae-metric)) holds by friction in the threads and under the head; it loosens when:
+
+- **Preload was never there**: under-torqued, torqued dry against a lubricated chart, torqued on a soft or dirty joint that settled (embedding: paint, burrs, gaskets, soft materials), too few threads engaged, a bolt stretched past yield.
+- **Transverse (sideways) vibration** slides the mating parts against each other (the Junker test): each slip relieves the thread friction for an instant and the nut walks a fraction of a turn; the standard failure on machinery with shock and vibration (screens, crushers, engines, conveyors).
+- **Thermal cycling** and **relaxation** (gaskets, plastics, aluminium) reduce the clamp.
+- **Joint separation** under load (the clamp too low for the working load: the parts open and the bolt hammers).
+
+The order of defence: **the right preload with a torque wrench on a clean, hard, flat joint** (which stops most loosening by itself); then **short grip lengths avoided** (a long bolt stretches more and keeps its clamp through settling; a bolt with a grip under about 2 × its diameter loosens easily: use a longer bolt with a hardened spacer); then a **locking method** chosen for the mechanism.
+
+## The locking methods compared
+
+| Method | How it works | Effective against transverse vibration? | Reusable? | Notes |
+|---|---|---|---|---|
+| **Correct preload** (torque/turn/stretch) | Friction in the threads and under the head | Yes, until the joint slips | Yes (new bolt after yield) | The foundation; a hardened flat washer under the turned element spreads the load and stops embedding |
+| **Prevailing-torque nut, nylon insert (Nylock)** | The nylon collar grips the threads: a torque to turn it even with no clamp | **Yes** (the nut cannot spin free) | 2-3 times if the prevailing torque is still felt (a nut that spins on by hand is done); **not above 250°F (120°C)**, not with solvents/oil that soften nylon | The general-purpose lock nut; add its prevailing torque to the tightening torque |
+| **Prevailing-torque nut, all-metal (Stover, flex-top, distorted thread, Flexloc, centre-lock)** | A deformed section grips | **Yes** | Limited (the prevailing torque drops each use; 5-10 cycles on good ones) | For heat (to 1,000°F on some), automotive, structural (ASTM A563 with a locking feature); the standard on machinery over 250°F |
+| **Split (helical spring) lock washer** | Supposedly bites the nut and the joint; in fact it flattens at about 1/4 of the bolt's preload and becomes a **flat washer** | **No** (NASA RP-1228: "of no value as a locking device"; the Junker test agrees); it may help a little on a low-preload joint by adding some spring | Once | Still everywhere; do not rely on it; replace with a hardened flat washer and a real lock, or a wedge washer |
+| **External/internal tooth lock washer** | Teeth bite | Slightly, on small screws and soft materials; no on vibration | Once | Electrical grounds (they cut through paint: their real job), small screws |
+| **Belleville (conical spring) washer** | A stiff spring that keeps clamp through settling and thermal cycling | Partly (it keeps preload; it does not stop rotation) | Yes | Stacks (parallel for load, series for travel); on bus bars, flanges with gaskets, thermal joints; the manufacturer's flat load |
+| **Wedge-lock washer pair (Nord-Lock, HEICO-LOCK)** | Two cams: any rotation of the bolt must ride up the cam, which increases the clamp: it locks by geometry, not friction | **Yes, the best** in the Junker test | Yes (many times, if the cams are undamaged) | The choice for vibrating machinery; the pair installed cams-together (the serrated faces out against the nut and the joint); a hardened joint surface (soft materials need a hardened washer under them); do not use with lubricated threads unless the maker says |
+| **Jam (thin) nut** | A second nut jammed against the first puts the threads of the first in tension and locks it | Yes if done right | Yes | **The thin nut goes on first, tightened to a modest torque; the full nut on top, tightened to full torque against it**: the thin nut then carries no load (the top nut takes it) and the threads of the pair are locked; the common practice of the thin nut on top is wrong but usual; hold the bottom nut while torquing the top |
+| **Castle nut / slotted nut with a cotter pin** | The pin through the bolt stops rotation | Yes (rotation is blocked; the preload can still relax) | Nut yes; **pin never** | Torque to spec, then **tighten** (never loosen) to the next slot; a new pin, the legs bent (one over the end, one down, or both around) so nothing stands proud; the standard on axle nuts, tie rods, pins |
+| **Safety wire (lock wire)** | Wire between two or more fasteners so that loosening one **tightens** the wire | Yes | Wire no | Aviation, turbines, rotating assemblies, anything where a nut backing off is catastrophic; method below |
+| **Tab washer / bend-up washer** | A tab bent against a flat of the nut and another against the part | Yes | Once | Bearing lock nuts (the lock washer's tab into the nut's slot: see [adapter sleeves](/article/taper-bore-bearing-adapter-sleeve-skf)), gear trains |
+| **Set screws** (with a cup point, a nylon insert, or a second set screw on top) | | For collars and hubs; a set screw on a key | | Threadlocker on set screws in reversing drives |
+| **Lock plate / retaining plate** | A plate bolted over the nut | Yes | Yes | Big fasteners, structural |
+| **Threadlocker (anaerobic adhesive)** | Fills the thread clearance and cures to a plastic that stops rotation | **Yes** (the best for small fasteners) | Apply fresh each time | Grades below |
+| **Peening / staking / deforming the thread** | The bolt end deformed | Yes, permanent | No | Permanent assemblies |
+| Snap ring / retaining ring | Not a bolt lock: a shoulder | | | |
+| **Interference-fit bolts, TC bolts, DTI washers** (structural) | Control the preload | | | See [flange and structural bolting](/article/flange-bolting-and-gaskets) |
+
+## Jam nut rule
+
+```
+   ┌────────┐  ← full nut, torqued to full spec last (holds the load)
+   ├────────┤
+   │  thin  │  ← jam (thin) nut FIRST, torqued moderately (about 1/4-1/2 of the full torque), then held while the full nut is tightened against it
+   ├────────┤
+   ═══ part ═══
+```
+
+Thin-on-top works on adjusting screws (a jack bolt, a stop screw) where the thin nut is a lock on a screw that carries no clamp: tighten the screw's setting, then the thin nut against the part.
+
+## Castle nut and cotter pin
+
+1. Torque the nut to spec; if a slot does not line up with the hole, **tighten** to the next slot (never back off; a washer of a different thickness if the extra rotation is too much).
+2. A **new** cotter pin of the size that fills the hole, pushed through until the eye seats; bend **one leg over the end of the bolt** and **the other down along the nut's flat** (or both around the nut on some practices), cut to length, tucked so no leg stands proud; stainless pins in corrosive places.
+3. A cotter pin bent once is scrap; a pin that is loose in the hole is the wrong size.
+
+## Safety wire
+
+- Wire: **0.032" stainless or Monel** (0.020" on small screws, 0.041" on large), twisted with safety-wire pliers to **7-10 twists per inch** (0.032"), a **double-twist** method between two fasteners (a single wire through the first, twisted to the second, through the second, then a pigtail of 3-6 twists bent under).
+- **Direction**: the wire must pull each fastener in the **tightening** direction: from the first fastener's hole the wire goes **around** the fastener so that any loosening pulls the wire taut, then to the next; a diagram: the wire leaves the first bolt's hole on the side that leads toward the second bolt in the tightening direction ("the wire tries to tighten it").
+- Rules: the wire tight but not stretched, no more than **three** fasteners in a series (two is standard), the twist right up to the holes (no slack), holes drilled in the bolt heads/nuts (or castle nuts and drilled bolts), no kinks or nicks in the wire (a nicked wire breaks), the pigtail bent inward so it cannot cut anyone, new wire every time.
+
+## Threadlockers (Loctite numbers; other brands cross-reference)
+
+| Grade | Colour | Strength | Use | Removal |
+|---|---|---|---|---|
+| **222** | Purple | Low | Small screws (**under 1/4"**, adjusting screws, set screws in soft metals) that must be adjustable | Hand tools |
+| **243 (242 old formula)** | **Blue** | **Medium** | **The general-purpose**: 1/4"-3/4" bolts, set screws, machine screws, anything that will be **disassembled** with hand tools; 243 is oil-tolerant (works on lightly oily threads) | Hand tools; heat helps |
+| **263 (262/271)** | **Red** | **High** | Studs, permanent assemblies, bolts that must not come out (1/4"-1" and larger: 271 for large) | **Heat to 500°F (260°C)** then tools; not removable cold on big bolts |
+| **290** | Green | Medium-high, **wicking** | Applied **after** assembly on pre-assembled fasteners (it wicks into the threads by capillary action): instrument screws, set screws already installed, locking a nut in place | Heat and tools |
+| 2422/2620/272 | Blue/red | Medium/high, **high temperature** (to 450-650°F) | Hot applications | Heat |
+| 2701/277/2760 | Green/red | High, large diameter | Studs, large bolts | Heat |
+| 567/577/545 | White/yellow/purple | **Thread sealants** (pipe threads: 567 PTFE-filled for metal fittings; 577 fast cure; 545 for hydraulic/pneumatic fine threads) | Not lockers; they seal | Tools |
+| **Retaining compounds 609, 638, 648, 680, 660** | Green | For **cylindrical** parts: bearings on shafts, bushings in housings, keys, sleeves; 609 general (0.005" gap), **638/648** high strength and heat, **680** high strength with larger gap (0.010"), 660 gap-filling for worn seats (0.020") | | Heat 500°F and press |
+
+Rules: **clean and dry threads** (brake cleaner/acetone; the adhesive tolerates a little oil on the oil-tolerant grades only), applied to the **bolt's engaged threads** (a few drops; for a blind hole put it in the hole too so air does not push it out), assembled and torqued **before it cures** (it starts setting in minutes), **fixture time 10-20 minutes, full cure 24 hours** (slower below 40°F and on inactive metals: stainless, plated, aluminium, titanium: use **Primer 7649/7471** which also speeds the cure); anaerobic = it cures only in the **absence of air** in the metal-to-metal gap, so a bead sitting on the outside stays liquid (wipe it); the fastener's **torque is the same** with or without threadlocker (unless the sheet says otherwise; it is not a lubricant); do not use with nylon lock nuts (the nylon dissolves in the uncured liquid) or on plastics (some craze); shelf life 1-2 years; a bottle stored on its side with air in it (the bottle is only half full on purpose: the air keeps it liquid).
+
+**Removal**: blue: hand tools; red: heat the fastener or the part to **500°F** (a torch on the nut, an induction heater, a heat gun for small parts) and turn while hot; the crumbled residue is cleaned with a wire brush and solvent, and the threads chased before re-assembly; retaining compounds: heat and press.
+
+## Choosing for the job
+
+| Application | Lock |
+|---|---|
+| Machine hold-down bolts, guards, general | Correct torque + hardened flat washer; blue threadlocker on vibrating machines; wedge washers on screens, crushers, hammer mills |
+| Set screws over keys, collars | Blue threadlocker; a second set screw (a jam screw) on reversing/vibrating drives |
+| Coupling bolts, sheave/sprocket bushing screws | The coupling/bushing maker's torque; **no** threadlocker on bushing cap screws unless the sheet says (it changes the taper's grip); lock washers as supplied |
+| Bearing lock nuts | The tab washer; retaining compound where the maker says |
+| Studs into castings | Red threadlocker or an interference fit at the coarse end; anti-seize on the nut end (see [anti-seize](/article/anti-seize-and-galling)) |
+| Hot equipment (over 250°F) | All-metal lock nuts, wedge washers, high-temperature threadlocker, safety wire; no nylon |
+| Axles, pins, tie rods | Castle nut + cotter pin |
+| Rotating assemblies where a loose bolt is catastrophic (fan hubs, flywheels, turbine parts) | Safety wire, lock plates, wedge washers, plus a marked torque check |
+| Structural steel | Turn-of-nut / TC bolts / DTI (preload, no lock needed) |
+| Electrical connections | Belleville washers (thermal cycling), tooth washers for grounds |
+| Flanges | Preload in a pattern, re-torque after the gasket relaxes; no lock washers on flanges |
+| Adjusting screws | Jam nut (thin on top) or purple threadlocker |
+| Small screws in instruments, sensors, nameplates | Purple/blue or wicking green after assembly |
+
+## Re-use rules
+
+New: cotter pins, safety wire, tab washers, split washers (if used at all), nylon nuts after 2-3 cycles or any heat, all-metal nuts when the prevailing torque is gone, wedge washers with damaged cams, threadlocker every time; bolts that were torqued to yield (structural A490, engine head bolts, "torque-to-yield") once only; any bolt that was heated.
+
+## Common mistakes
+
+- A split lock washer as "the lock" on a vibrating screen: gone in a week.
+- The jam nut on top and torqued to full: the thin nut strips.
+- Nylon lock nuts on an exhaust flange or an oven door.
+- Red threadlocker on a bolt that has to come out annually: an induction heater job every year.
+- Blue threadlocker on oily, uncleaned threads with no primer on stainless: it never cures.
+- A cotter pin backed off a quarter turn "to line up the slot".
+- Safety wire run the wrong way round: a loose bolt loosens the wire.
+- Threadlocker in a nylon lock nut: the nylon melts and the nut spins.
+
+## Related
+
+- [Bolt torque chart (SAE and metric)](/article/bolt-torque-chart-sae-metric)
+- [Anti-seize and galling](/article/anti-seize-and-galling)
+- [Flange bolting and gaskets (structural and flange preload methods)](/article/flange-bolting-and-gaskets)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [QD and Taper-Lock bushings](/article/qd-and-taper-lock-bushings)
+- [Shaft, bearing and fastener formulas (clamp load and stretch)](/article/shaft-bearing-fastener-formulas)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$fasteners$mw$),
+          array[$mw$bolt loosening$mw$,$mw$why bolts loosen$mw$,$mw$preload$mw$,$mw$prevailing torque nut$mw$,$mw$nylock$mw$,$mw$nyloc$mw$,$mw$stover nut$mw$,$mw$all metal lock nut$mw$,$mw$flex lock nut$mw$,$mw$lock washer$mw$,$mw$split lock washer$mw$,$mw$tooth washer$mw$,$mw$Belleville washer$mw$,$mw$Nord-Lock$mw$,$mw$wedge lock washer$mw$,$mw$jam nut$mw$,$mw$jam nut order$mw$,$mw$castle nut$mw$,$mw$cotter pin$mw$,$mw$safety wire$mw$,$mw$lock wire$mw$,$mw$safety wire direction$mw$,$mw$tab washer$mw$,$mw$threadlocker$mw$,$mw$Loctite 222$mw$,$mw$Loctite 243$mw$,$mw$Loctite 263$mw$,$mw$Loctite 271$mw$,$mw$Loctite 290$mw$,$mw$Loctite 609$mw$,$mw$Loctite 638$mw$,$mw$Loctite 680$mw$,$mw$retaining compound$mw$,$mw$threadlocker cure time$mw$,$mw$threadlocker removal$mw$,$mw$primer 7649$mw$,$mw$anti vibration fastener$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Henkel Loctite product data sheets and selector (222, 243, 263, 271, 290, 609, 638, 680: strength, cure, removal temperature, primer use); NASA RP-1228 Fastener Design Manual (locking methods and the split lock washer finding); Nord-Lock technical guidance; Fastenal Technical Reference Guide (prevailing-torque nuts, reuse); FAA AC 43.13-1B (safety wiring method); Junker vibration test literature.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$thread-identification-and-gauges$mw$, $mw$Thread Identification and Gauges: UNC/UNF Sizes and TPI, Metric Coarse and Fine, Thread Classes, Left-Hand Marking, Pipe Threads (NPT, NPTF, NPSM, BSPT, BSPP) and How to Tell Them Apart, Measuring with a Caliper and a Pitch Gauge, the Look-Alike Traps (1/2-13 vs M12, 5/16-18 vs M8, 3/8-24 vs M10×1), Thread Callouts on Drawings, Go/No-Go Gauges and Thread Wires$mw$, $mw$How to know which thread you have before you buy, tap or force it: the size tables for inch and metric threads with their diameters and pitches, the pipe threads and their tells, a three-step measuring method with a caliper and a pitch gauge, the pairs that look identical and are not, how threads are called out on drawings, and how threads are gauged when it matters.$mw$, $mw$## Unified inch threads (ASME B1.1)
+
+| Size | Major diameter (in) | **UNC (coarse) TPI** | **UNF (fine) TPI** | UNEF | Tap drill UNC / UNF |
+|---|---|---|---|---|---|
+| #4 | 0.112 | 40 | 48 | | #43 / #42 |
+| #6 | 0.138 | 32 | 40 | | #36 / #33 |
+| #8 | 0.164 | 32 | 36 | | #29 / #29 |
+| #10 | 0.190 | 24 | 32 | | #25 / #21 |
+| #12 | 0.216 | 24 | 28 | 32 | #16 / #14 |
+| **1/4** | **0.250** | **20** | **28** | 32 | #7 / #3 |
+| **5/16** | **0.3125** | **18** | **24** | 32 | F / I |
+| **3/8** | **0.375** | **16** | **24** | 32 | 5/16 / Q |
+| **7/16** | **0.4375** | **14** | **20** | 28 | U / 25/64 |
+| **1/2** | **0.500** | **13** | **20** | 28 | 27/64 / 29/64 |
+| 9/16 | 0.5625 | 12 | 18 | 24 | 31/64 / 33/64 |
+| **5/8** | **0.625** | **11** | **18** | 24 | 17/32 / 37/64 |
+| **3/4** | **0.750** | **10** | **16** | 20 | 21/32 / 11/16 |
+| **7/8** | **0.875** | **9** | **14** | 20 | 49/64 / 13/16 |
+| **1** | **1.000** | **8** | **12** (also 14 UNS) | 20 | 7/8 / 59/64 |
+| 1-1/8 | 1.125 | 7 | 12 | 18 | 63/64 / 1-3/64 |
+| 1-1/4 | 1.250 | 7 | 12 | 18 | 1-7/64 / 1-11/64 |
+| 1-1/2 | 1.500 | 6 | 12 | 18 | 1-11/32 / 1-27/64 |
+| 2 | 2.000 | 4.5 | 12 (UNS) | 16 | 1-25/32 |
+
+Number sizes: major diameter = 0.060 + 0.013 × the number (#10 = 0.190). **8-UN, 12-UN and 16-UN** series (constant pitch) on large sizes (1-1/8-8 UN is the usual "1-1/8 coarse" on flanges and machinery, not 7 TPI). **UNS** is a special combination.
+
+## Metric threads (ISO 261)
+
+| Size | Major dia (mm) | **Coarse pitch (mm)** | Fine pitches | Tap drill (coarse) |
+|---|---|---|---|---|
+| M3 | 3 | 0.5 | | 2.5 |
+| M4 | 4 | 0.7 | | 3.3 |
+| M5 | 5 | 0.8 | | 4.2 |
+| **M6** | 6 | **1.0** | 0.75 | 5.0 |
+| **M8** | 8 | **1.25** | 1.0 | 6.8 |
+| **M10** | 10 | **1.5** | 1.25, 1.0 | 8.5 |
+| **M12** | 12 | **1.75** | 1.5, 1.25 | 10.2 |
+| M14 | 14 | 2.0 | 1.5 | 12.0 |
+| **M16** | 16 | **2.0** | 1.5 | 14.0 |
+| M18 | 18 | 2.5 | 1.5 | 15.5 |
+| **M20** | 20 | **2.5** | 1.5 | 17.5 |
+| M22 | 22 | 2.5 | 1.5 | 19.5 |
+| **M24** | 24 | **3.0** | 2.0 | 21.0 |
+| M27 | 27 | 3.0 | 2.0 | 24.0 |
+| M30 | 30 | 3.5 | 2.0 | 26.5 |
+| M36 | 36 | 4.0 | 3.0 | 32.0 |
+
+Metric threads are called out as **M10×1.5** (diameter × pitch); a size with no pitch given is coarse. Japanese (JIS) fine threads differ (M10×1.25 and M12×1.25 are common on Japanese equipment; M8×1.0 on some).
+
+## Classes and hand
+
+- Inch: **2A** (external) / **2B** (internal) is the general commercial fit; 3A/3B closer (precision, aerospace); 1A/1B loose (quick assembly, dirty). Metric: **6g/6H** general; 4h/5H closer; 8g looser.
+- **Left-hand** threads: marked **LH** in the callout (1/2-13 UNC-2A **LH**); on the fastener by **grooves/notches** on the bolt head's flats or a line around the nut; where they live: the left side of a machine's rotating assemblies (a grinder's left spindle nut, a mower blade, a bicycle's left pedal, some pump impeller nuts, turnbuckle ends (one each hand), gas cylinder fuel connections (left-hand: acetylene, propane; the nut has a notch)). "Righty-tighty" fails there.
+- **Multi-start** threads (a lead greater than the pitch: fast-advancing; on some valve stems, jar lids, lead screws): the pitch gauge reads the pitch, the lead is the advance per turn.
+
+## Pipe threads
+
+| Thread | Angle / form | Tapered? | Where | Tells |
+|---|---|---|---|---|
+| **NPT** (National Pipe Taper, ASME B1.20.1) | 60°, 1:16 taper (3/4" per foot) | **Yes** | North American pipe fittings, hydraulic and pneumatic ports on older equipment | Seals on the thread flanks with sealant; the size is the **nominal pipe size**, not the OD: **1/8 NPT = 0.405" OD, 27 TPI; 1/4 = 0.540", 18; 3/8 = 0.675", 18; 1/2 = 0.840", 14; 3/4 = 1.050", 14; 1 = 1.315", 11.5; 1-1/4 = 1.660", 11.5; 1-1/2 = 1.900", 11.5; 2 = 2.375", 11.5** |
+| **NPTF** (dryseal) | Same, with a modified crest/root that seals without sealant | Yes | Hydraulics, fuel | Interchanges with NPT dimensionally; NPT with sealant in an NPTF port is normal |
+| **NPSM / NPSL** | Straight (parallel) NPT-form thread | No | Mechanical joints (the nut on a conduit fitting, a lamp), a washer-sealed straight pipe thread | An NPT male into an NPSM female seals only with a washer/gasket |
+| **BSPT (R)** | 55° Whitworth form, 1:16 taper | Yes | Asian and older European equipment | **55°** (an NPT's 60° flanks look the same to the eye; a Whitworth pitch gauge fits it); 1/2 BSPT = 20.955 mm OD, **14 TPI** (same TPI as 1/2 NPT: they start on each other and leak); 3/8 BSP = 16.66 mm, 19 TPI vs 3/8 NPT 18 TPI; 1/4 BSP 13.16 mm, 19 TPI vs NPT 18 |
+| **BSPP (G)** | 55°, parallel | No | European and Asian hydraulics (ports), plumbing | Seals with a **bonded washer or an O-ring on the shoulder**, or a 60° cone in the female; G 1/2 = 20.955 mm OD, 14 TPI; never sealed on the threads |
+| Metric pipe (M) | 60°, parallel | No | Some European ports (ISO 6149) | O-ring |
+
+Pipe-thread identification: measure the **OD** and count the **TPI**; check for **taper** (the diameter measured at the start and 5 threads in differs on a tapered thread; a straight thread is the same); check the angle with a **55° vs 60° gauge** (the Whitworth gauge's teeth are rounded; the 60° gauge fits an NPT thread's flanks without light at the crest); a parallel male with a shoulder and an O-ring/washer groove is BSPP/ORB; the 14 TPI 1/2" size is the classic NPT/BSPT mix-up.
+
+## Measuring a thread (three steps)
+
+1. **Major diameter** with a caliper (a male thread: over the crests; a female thread: measure across the crests inside for the minor diameter and add roughly 1.1 × the pitch to estimate the size, or measure a bolt that fits); inch and metric sizes are close in places: **the diameter alone is not enough**.
+2. **Pitch** with a **screw pitch gauge** (a set of blades marked in TPI for inch, mm for metric; a 55° Whitworth set for BSP): try blades until one sits **fully** in the thread with no light along its length; a blade that "almost" fits is the wrong one (a 1.5 mm blade on a 16 TPI thread (1.588 mm) looks close and is wrong). No gauge: count the threads in **1"** (or measure 10 threads with a caliper and divide: 10 threads over 0.625" = 16 TPI; 10 threads over 15 mm = 1.5 mm pitch).
+3. **Match** the diameter and the pitch to the tables; check the **angle** (55° vs 60°) on anything that could be pipe; check the **hand** (hold the bolt horizontal and look at the threads on the side facing you: on a right-hand thread they slope **up to the left**; the reliable test is that a right-hand nut goes on clockwise); check **taper** on pipe threads.
+4. Confirm with a **known nut or bolt** (a set of thread checkers/identification plates: a plate with tapped holes and studs for each size is the fastest tool in a truck), a go/no-go gauge for critical work.
+
+## The look-alike traps
+
+| Pair | Difference | What happens if mixed |
+|---|---|---|
+| **1/2-13 UNC vs M12×1.75** | 12.70 vs 12.0 mm OD; 1.954 vs 1.75 mm pitch | A 1/2-13 bolt starts in an M12 nut 2-3 turns and jams; an M12 bolt in a 1/2-13 nut is loose and strips |
+| **5/16-18 vs M8×1.25** | 7.94 vs 8.0 mm OD; 1.411 vs 1.25 pitch | Starts, binds, strips: the commonest mistake in a mixed-fastener plant |
+| **3/8-24 UNF vs M10×1.0** | 9.53 vs 10.0 mm; 1.058 vs 1.0 pitch | An M10×1 bolt in a 3/8-24 nut runs in loosely and strips |
+| 3/8-16 vs M10×1.5 | 9.53 vs 10 mm; 1.588 vs 1.5 | Cross-threads |
+| 7/16-14 vs M12×1.75 | 11.1 vs 12; 1.814 vs 1.75 | |
+| 1/4-20 vs M6×1.0 | 6.35 vs 6.0; 1.27 vs 1.0 | An M6 in a 1/4-20 hole rattles; a 1/4-20 will not enter M6 |
+| #10-32 vs M5×0.8 | 4.83 vs 5.0; 0.794 vs 0.8 | An M5 screw goes into a #10-32 nut and holds a little: it strips under load |
+| **1/2 NPT vs 1/2 BSPT / G 1/2** | 21.3 vs 20.96 mm; both **14 TPI**; 60° vs 55° | Screws together and leaks; a BSPP port destroyed by an NPT fitting |
+| 1/4 NPT vs 1/4 BSP | 18 vs 19 TPI | Starts, jams |
+| 3/4-16 UNF (JIC −8, ORB −8) vs 3/4-14 NPT | 19.05 mm, 16 TPI, parallel vs 26.7 mm, tapered | A −8 JIC does not fit a 3/4 NPT; a **3/4-16 ORB port** takes an ORB fitting; a 1/2 NPT (21.3 mm OD) will not start in it |
+| 1-8 UNC vs 1-14 UNS (some machinery) | Same OD | The nut runs on and locks |
+| 9/16-18 UNF (JIC −6) vs 9/16-12 UNC | Same OD | |
+
+Rule: **a bolt that starts, gets tight after two turns and then loosens** as you force it is the wrong thread and has just stripped the nut.
+
+## Thread callouts on drawings
+
+- Inch: **1/2-13 UNC-2A** (diameter, TPI, series, class, A = external); **3/8-24 UNF-2B ↓ .75** (internal, depth); **1-8 UN-2A LH**; **#10-32 UNF-2B THRU**; **1/2-14 NPT** (pipe: nominal size and TPI); **3/4-16 UNF-2B SAE ORB** (an O-ring boss port).
+- Metric: **M10×1.5-6g** (external), **M10-6H** (internal, coarse by default), **M12×1.25** (fine), **LH** for left-hand; **G 1/2** (BSPP), **R 1/2** (BSPT, external), **Rc 1/2** (BSPT internal).
+- Thread depth vs hole depth: **↓ .75 THD, ↓ 1.00 HOLE**; a **MIN** thread length; **chamfer** notes; **thread relief/undercut** on shafts.
+
+## Gauging threads
+
+- **Go / No-Go thread plug gauges** (internal threads) and **ring gauges** (external): the GO end must screw in fully; the NO-GO must not enter more than about **2 turns**; a thread that fails either is out of tolerance for its class. Used on repairs (a tapped hole, a thread on a shaft) and on receiving inspection.
+- **Thread wires (three-wire method)** on the lathe or the bench for an external thread's pitch diameter: three wires of the "best size" for the pitch (best wire = 0.577 × pitch) in the thread, measured over with a micrometer: **pitch diameter = M − (3 × wire) + (0.866 × pitch)** for 60° threads (M = the measurement over the wires); compare with the class's limits in the tables.
+- **Thread micrometer** (anvils shaped to the thread): reads the pitch diameter directly for the pitch range of its anvils.
+- **Thread checker plates** and a good nut/bolt: the everyday check.
+- Pipe threads: the **L1 gauge** (a ring or plug that should hand-tighten to the gauge's notch ± 1 turn) for NPT; in the field, the fitting hand-tight **3-4 turns** then wrench-tight 2-3 more (a fitting that hand-tightens 6 turns is worn or the wrong thread).
+
+## Common mistakes
+
+- Buying a bolt by its diameter alone: an M8 for a 5/16-18 hole.
+- Trusting a pitch gauge blade that "nearly" fits.
+- A 1/2 NPT nipple wrenched into a G 1/2 hydraulic port: the port is gone.
+- Forcing a bolt that got tight after two turns.
+- Reading a left-hand grinder nut as seized and snapping it.
+- The 1-1/8 nut ordered UNC (7 TPI) for an 8-UN stud.
+
+## Related
+
+- [Bolt torque chart (SAE and metric)](/article/bolt-torque-chart-sae-metric)
+- [Tapping and thread repair](/article/tapping-and-thread-repair)
+- [Hydraulic hose and fittings (JIC, ORB, ORFS, BSPP)](/article/hydraulic-hose-assembly-and-fittings)
+- [Shop reference tables (tap drills)](/article/shop-reference-tables)
+- [Locking methods and threadlockers](/article/locking-methods)
+- [Anti-seize and galling](/article/anti-seize-and-galling)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$fasteners$mw$),
+          array[$mw$thread identification$mw$,$mw$identify a thread$mw$,$mw$UNC$mw$,$mw$UNF$mw$,$mw$UNEF$mw$,$mw$TPI$mw$,$mw$metric thread$mw$,$mw$coarse thread$mw$,$mw$fine thread$mw$,$mw$M8 M10 M12$mw$,$mw$thread pitch gauge$mw$,$mw$screw pitch gauge$mw$,$mw$thread class 2A 2B$mw$,$mw$6g 6H$mw$,$mw$left hand thread$mw$,$mw$LH thread marking$mw$,$mw$NPT$mw$,$mw$NPTF$mw$,$mw$NPSM$mw$,$mw$BSPT$mw$,$mw$BSPP$mw$,$mw$G thread$mw$,$mw$R thread$mw$,$mw$pipe thread identification$mw$,$mw$thread OD table$mw$,$mw$tap drill$mw$,$mw$thread callout$mw$,$mw$thread wires$mw$,$mw$go no go gauge$mw$,$mw$thread ring gauge$mw$,$mw$thread plug gauge$mw$,$mw$look alike threads$mw$,$mw$1/2-13 vs M12$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B1.1 (Unified inch screw threads), ISO 261/262/965 (metric), ASME B1.20.1 (NPT), B1.20.3 (NPTF), ISO 228 (BSPP/G) and ISO 7 (BSPT/R); Fastenal Technical Reference Guide; Machinery's Handbook thread tables; Parker fitting identification guide.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -6117,6 +6619,810 @@ Over-greasing kills more motor bearings than under-greasing; the right amount is
 - [Bearing designation codes](/article/bearing-designation-codes)
 - [Reading a motor nameplate](/article/reading-a-motor-nameplate)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
           array[$mw$regreasing$mw$,$mw$relubrication$mw$,$mw$grease quantity$mw$,$mw$grease amount$mw$,$mw$how much grease$mw$,$mw$0.005 D B$mw$,$mw$grease gun strokes$mw$,$mw$grease gun output$mw$,$mw$regrease interval$mw$,$mw$how often to grease$mw$,$mw$relubrication interval$mw$,$mw$motor greasing$mw$,$mw$Baldor lubrication table$mw$,$mw$motor grease interval$mw$,$mw$frame size grease$mw$,$mw$Polyrex EM amount$mw$,$mw$initial grease fill$mw$,$mw$over greasing$mw$,$mw$overgreasing$mw$,$mw$grease purge$mw$,$mw$grease relief$mw$,$mw$sealed bearing$mw$,$mw$shielded bearing$mw$,$mw$grease fitting$mw$,$mw$zerk$mw$,$mw$n dm speed factor$mw$,$mw$vertical shaft grease$mw$]::text[], $mw$SKF / Baldor-ABB (generic)$mw$, array[$mw$Baldor MN416$mw$,$mw$Baldor MN400$mw$,$mw$Polyrex EM$mw$,$mw$SKF LGMT 2$mw$,$mw$SKF SNL$mw$,$mw$SAF$mw$]::text[], $mw$SKF Rolling Bearings catalogue and Bearing Maintenance Handbook (relubrication quantity G = 0.005 D B, initial fill guidance, relubrication interval method with speed factor, bearing factors and correction factors); Baldor-Reliance/ABB manual MN416 Tables 1-4 (relubrication interval by frame and speed, service multipliers, grease volume by frame/bearing); Machinery Lubrication (Noria) grease gun calibration practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$broken-bolt-and-stud-removal$mw$, $mw$Broken Bolt and Stud Removal: Assessing the Break, Penetrating Oil and Heat, Shock and Vibration, Vise Grips and Stud Extractors on Proud Stubs, Welding a Nut or Washer to the Stub (MIG and TIG Settings), Left-Hand Drills and Extractors (Spiral vs Spline: Why They Break), Drilling Out to the Tap Drill, Grade 8 and Stainless Special Cases, Rusted-In Bolts, Installing Studs Correctly$mw$, $mw$A method for broken and seized fasteners in the order that works, from the least destructive to drilling out: how to size up the stub, the penetrant-heat-shock routine that frees most seized bolts, the tools for a stub that stands proud, welding a nut on (the best trick in the shop, with settings), why extractors snap and when they are safe, left-hand drills, drilling to the tap drill and re-tapping, the stainless and hardened special cases, and how to put a stud in so the next person does not have this job.$mw$, $mw$## Size it up first
+
+- **Proud, flush or below** the surface? Proud stubs (even 1/8") give something to grip or weld to; flush stubs can still be welded; below the surface needs drilling or a welded rod.
+- **Why did it break?** Twisted off while tightening (over-torqued, seized threads: the threads below are also seized), corroded (the threads are rust-locked), fatigue (a clean break, the threads are usually free), sheared by a load (the threads are fine). A bolt that broke because its threads were seized will fight every step; one that fatigued often unscrews with a finger.
+- **What is it in?** Steel (tough, welds), **cast iron** (brittle, cracks under heat and hammering, does not weld easily), **aluminium** (soft, the threads strip, melts at 1,200°F: **no torch heat**, galvanic corrosion locks steel bolts in), a blind or a through hole (a through hole lets you drive or drill from the other side), how much thread is below.
+- **What grade?** Grade 5/8, 10.9, socket-head cap screws and studs are hardened (35-45 HRC): an ordinary HSS drill skates on them; cobalt or carbide drills, and a broken extractor is worse than the bolt.
+- **What did it cost to get here?** The threads and the part must survive; the extractor that snaps off is harder than the bolt and cannot be drilled: use extractors last and lightly.
+
+## Free it: penetrant, heat, shock
+
+Most "broken" bolts are seized bolts; before anything else:
+
+1. **Penetrating oil** (a real penetrant: Kroil, PB Blaster, a 50/50 acetone-ATF mix; not WD-40) on the threads, from both sides if possible, **left to soak** (hours to overnight), re-applied; **wick it in hot**: warm the part (not red) and the oil draws into the thread as it cools.
+2. **Shock**: a sharp blow on the end of the bolt/stud with a hammer (through a brass drift; a hardened bolt chips) breaks the rust bond; an **impact wrench** or a hammer on the wrench (an impact driver for screws) works by shock, not by torque; vibration (an air hammer against the head briefly) helps on a big bolt.
+3. **Heat**: heat the **nut or the boss around the bolt** (not the bolt), quickly, to about 400-600°F (hot enough to expand the boss; a dull red at 1,100°F is too hot for anything with hardened or seal parts nearby), then try while hot or let it cool with penetrant on it (the expansion and contraction breaks the bond); an **induction bolt heater** (Mini-Ductor) heats a nut in seconds with no flame; **no flame near aluminium, magnesium, fuel, hydraulics, or a painted assembly you care about**; heat destroys threadlocker (red Loctite lets go at 480-550°F: the only way to remove it) and the plating/temper of the bolt (replace a heated bolt).
+4. **Work it**: tighten a little, then loosen, back and forth, with penetrant, gaining a fraction each cycle; a bolt that suddenly gets easy is either free or stripping: feel it.
+5. **Candle wax / paraffin** on a hot (not red) stud: it wicks into the thread as it cools; the old machinist's trick.
+
+## A proud stub
+
+| Tool | Use |
+|---|---|
+| **Vise-grips / locking pliers** (a curved jaw, a chain type on big studs) | A stub of 1/4" or more; bite hard, turn with the pliers and a hammer tap on the jaws; a pipe wrench on a big stud (it marks it) |
+| **Stud extractor (collet/cam type: Snap-on, Irwin)** | Slips over the stub and grips harder as it turns; the best for studs and stubs that must not be marred; sizes by stud diameter; turn with a wrench or a ratchet |
+| **Double nut** (two nuts jammed on the stud, turn the **lower** one) | A stud with good threads; the everyday way to remove or install a stud |
+| **A nut welded on** | Below |
+| **File two flats or a slot** on the stub | A wrench or a big screwdriver |
+| Cut a slot with a cut-off wheel for a screwdriver or an impact driver | Screws and small studs |
+
+## Welding a nut on (the millwright's best trick)
+
+A nut welded to the stub gives a hex to turn, and the **weld's heat expands and shocks the bolt** in the hole: bolts that have defeated everything else come out with a nut welded on. It works on stubs proud, flush, and even slightly below the surface (a washer first, then a nut).
+
+1. Clean the stub's end; pick a **nut whose hole is a little larger than the stub** (a 1/2" nut for a 3/8" stub, or the stub's own size if it is proud enough to sit in the nut's bore) so the weld fills the gap between the nut's bore and the stub's end; for a stub below the surface, weld a **thick washer** on first (the hole in the washer over the stub, weld through the hole to the stub), then a nut on the washer.
+2. Protect the part: a copper or brass shim or a washer of the stub's size over the surrounding threads/bore if the weld could stick to the part (a threaded hole in aluminium: weld does not stick, but heat does damage: keep it quick), and shield anything nearby from spatter.
+3. **MIG** (the easiest): .035 wire at a fairly hot setting (about 130-160 A, 19-21 V), start the arc **in the centre of the nut on the stub's end**, fill the nut's bore with a puddle spiralling out to the nut's chamfer, 3-5 seconds; **TIG**: DCEN 100-150 A with ER70S-6 filler, the same fill; **stick**: 3/32" 7018 or 6011 at 80-100 A (harder to keep in the nut); on a stub deep in a hole, a **long-nozzle** MIG or a TIG torch reaches in.
+4. Let it cool **30-60 seconds** (the weld must be solid; the bolt should still be warm: the contraction of the cooling weld pulls the bolt), then a wrench on the nut with a **back-and-forth** action; if it breaks off at the weld, weld again with a hotter setting and a bigger puddle (the weld must fuse into the stub, not sit on it).
+5. Aluminium and cast iron parts: the nut welds to the steel stub, not to the part; keep the heat short; on aluminium, cool the part with a wet rag around the hole.
+6. Stainless stubs: the same with 308L/309L wire; hardened studs: the same (the weld's heat tempers the stud, which helps).
+
+## Extractors: spiral, spline and left-hand drills
+
+- **Left-hand drill bits** first: drill a centre punch mark exactly in the stub's centre (a **centre punch that is truly centred**: a transfer punch or a drill guide bushing on the hole), then drill with a **left-hand cobalt drill** at slow speed and firm feed **in reverse**; a bolt that is loose enough spins out on the drill; if it does not, the hole is ready for an extractor or the next drill.
+- **Spiral (EZ-out) extractors**: a tapered, left-hand-spiral hardened tool that wedges into the drilled hole and turns the bolt; the wedge **expands** the stub in the hole (making a seized bolt tighter), and the tool is **brittle**: **they snap** in a seized bolt, leaving a hardened plug that only EDM removes. Use only on a bolt that is **not seized** (a fatigue or a shear break with free threads, a loosened bolt): drill the correct size (the set's chart), tap the extractor in lightly, turn with a tap wrench **gently** with a light back-and-forth; the moment it stops moving, stop.
+- **Spline (straight-flute) extractors**: hardened splines driven into a drilled hole; they do not expand the bolt as much; the same brittleness; the same rules; better than spirals.
+- A **hex or Torx bit driven into a drilled hole**, or a broken-bolt "tap" (a square extractor) in aluminium: gentle.
+- **Never** hammer an extractor to seat it hard, never a cheater bar, never an impact wrench on an extractor.
+
+## Drilling out
+
+When the stub will not turn: drill it out to the **tap drill size** and re-tap; the drill must be **centred** and **square**, or it walks into the parent thread.
+
+1. **Centre**: file the stub flat; find the centre (a centre-finder, calipers across the hole, a transfer punch sized to the hole if the stub is below the surface, or a **drill guide bushing** made to fit the hole/counterbore and a hole in its centre the size of the pilot); centre punch; a **spotting drill** or a centre drill to start.
+2. **Pilot** with a small (1/8") cobalt drill, checked for centre (look from the top: equal wall all round; correct by slanting the pilot slightly toward the thick side before going deep).
+3. Step up in **two or three drills** to just under the tap drill (a bolt drilled at the tap drill size leaves the bolt's threads as a thin shell that often **unwinds** with a pick, or comes out with a tap); **slow speed, firm feed, cutting oil**; the bolt is often harder than the part: cobalt drills; go slowly at the bottom of a blind hole.
+4. Pick out the shell of thread; run a **tap** (the correct size) through to clean the thread; a bolt to check.
+5. If the drill wandered and the parent thread is damaged: an **insert** (Heli-Coil) or an oversize tap (see [tapping and thread repair](/article/tapping-and-thread-repair)); a badly off-centre hole in a casting: weld/braze fill and re-drill, or a plug.
+6. On a **mag drill or a mill** with the part fixtured, the hole is centred by the machine: far better than a hand drill; a hand drill in a **drill guide** clamped to the part is the field compromise.
+
+Hardened bolts (grade 8, socket heads, studs) that a cobalt drill will not cut: **anneal the stub** (heat to red and let it cool slowly; the part's own hardness is at risk), a **carbide drill** (a solid carbide "broken bolt" drill, rigid, slow, no wobble), or **EDM**.
+
+## Special cases
+
+- **Stainless bolt in stainless (galled)**: the threads have welded themselves; penetrant does nothing; heat and shock help a little; drilling out is usual (stainless work-hardens: sharp cobalt drills, slow, firm); prevent with anti-seize ([anti-seize and galling](/article/anti-seize-and-galling)).
+- **Steel bolt in aluminium**: galvanic corrosion (white powder) locks it; penetrant and **mild** heat (200-300°F, a heat gun), shock, a nut welded on (short), then drilling out; the aluminium threads are gone: a Heli-Coil.
+- **Cast iron**: no hammering on the casting near the bolt, no torch heat that is uneven; penetrant and time; weld a nut (the heat is on the bolt).
+- **Exhaust manifold / hot-cycled studs**: the metal is scaled and seized: heat and penetrant cycles; a nut welded on; the head is often drilled with the manifold off.
+- **Bolt in a blind hole with liquid under it**: the bolt is hydraulically locked: drill a vent.
+- **Broken tap or extractor**: see the tap article; EDM is the answer for anything hardened in a valuable part.
+
+## Rusted-in bolts and nuts (not broken yet)
+
+Penetrant, shock, heat on the nut; a **nut splitter** (a chisel screwed into the nut splits it without harming the bolt) on a seized nut; a cut-off wheel across the nut's flat; a **six-point socket** (never 12-point on a rusty hex), an impact wrench in short bursts (a long pull twists the bolt off; bursts shock it); a **breaker bar with a steady pull** on big bolts; tightening slightly first; if the head rounds, a bolt extractor socket (spiral flutes that grip the rounded head). Replace every bolt that was heated or rounded.
+
+## Installing studs so they come out next time
+
+1. Clean the hole (a tap or a chaser run through, blown out); check the depth.
+2. **Depth**: the stud's coarse end (the shorter thread on a double-ended stud, or the interference-fit end) into the part, to the **shoulder or the bottom of the thread** (a stud bottomed hard in a blind hole strips the hole); the projecting length per the drawing; a stud that has an interference fit is driven to its shoulder.
+3. **Lubricant**: anti-seize on steel-into-aluminium and stainless (see the anti-seize article); a threadlocker (**medium** blue, or the stud-and-bearing-mount red where the drawing says permanent) on steel-into-steel that must not back out with the nut; never both.
+4. **Drive**: a **stud driver** (a collet or a roller type; the tool for the job) or the **double-nut method** (two nuts jammed together on the nut end, turn the **upper** nut to drive in, the lower to remove); never vise-grips on the nut threads; torque by feel to the shoulder plus a snug (a stud with a threadlocker is turned in, not torqued hard).
+5. Let the threadlocker cure before the nut is torqued; the nut is then torqued to the bolt table; with an interference fit, the stud does not turn when the nut is removed later.
+6. Replace studs that have been heated, stretched or that were removed with force; ARP and OEM studs for engines and high-load joints, not all-thread.
+
+## Common mistakes
+
+- An extractor in a rust-seized bolt: the extractor snaps, and the job needs EDM.
+- Drilling with a hand drill, no centre punch, no pilot: the hole goes down the side and takes the thread.
+- A torch on an aluminium block.
+- Impact wrench on a rusty 3/8" bolt at full power: twisted off flush.
+- Welding a nut with the nut's hole too small and the weld sitting on top: it breaks off, twice.
+- All-thread as a replacement stud, no anti-seize, in aluminium: next time it is you again.
+
+## Related
+
+- [Tapping and thread repair (broken taps, inserts)](/article/tapping-and-thread-repair)
+- [Anti-seize and galling](/article/anti-seize-and-galling)
+- [Drill press speeds and feeds](/article/drill-press-speeds-and-feeds)
+- [Bolt torque chart](/article/bolt-torque-chart-sae-metric)
+- [MIG setup](/article/gmaw-mig-setup) and [TIG setup](/article/gtaw-tig-setup)
+- [Heating with a rosebud (freeing seized parts)](/article/oxy-fuel-heating-rosebud)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$machining$mw$),
+          array[$mw$broken bolt removal$mw$,$mw$broken stud removal$mw$,$mw$extract broken bolt$mw$,$mw$easy out$mw$,$mw$EZ out$mw$,$mw$screw extractor$mw$,$mw$spiral extractor$mw$,$mw$spline extractor$mw$,$mw$left hand drill bit$mw$,$mw$weld a nut to a bolt$mw$,$mw$welding nut on broken bolt$mw$,$mw$stud extractor$mw$,$mw$collet stud extractor$mw$,$mw$penetrating oil$mw$,$mw$heat to remove bolt$mw$,$mw$induction bolt heater$mw$,$mw$rusted bolt removal$mw$,$mw$seized bolt$mw$,$mw$galled bolt stainless$mw$,$mw$drilling out a bolt$mw$,$mw$tap drill bolt removal$mw$,$mw$stud installation$mw$,$mw$stud driver$mw$,$mw$double nut$mw$,$mw$stud installation depth$mw$,$mw$broken bolt in aluminum$mw$,$mw$broken bolt in cast iron$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Irwin/Hanson and Snap-on extractor instructions and limitations; Lincoln and Miller guidance on welding a nut to a broken fastener; ARP and Fastenal stud installation guidance; general shop practice (penetrant, heat, shock); Machinery's Handbook (tap drill sizes); Loctite guidance on threadlocker removal (heat to 250°C/482°F for red).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$drill-press-speeds-and-feeds$mw$, $mw$Drill Press Speeds and Feeds: The RPM Formula, SFM by Material for HSS and Cobalt Drills, RPM Tables for Common Drill Sizes, Feed per Revolution, Drill Point Angles and Sharpening by Hand, Pilot Drills and Web Thickness, Countersinks, Counterbores and Reamers, Coolant and Lubricant, Work Holding and Drill Press Safety, Troubleshooting Drill Problems$mw$, $mw$Everything for making a good hole on the drill press: the formula and the surface-speed table that give the spindle rpm for any drill in any material, a ready rpm chart, how much to feed, drill point angles and how to sharpen a drill by hand so it cuts, when to pilot and how big, the follow-up tools (countersink, counterbore, reamer) and their speeds, what coolant to use, how to hold the work so it does not spin, and the fixes for a drill that walks, squeals, chips or breaks.$mw$, $mw$## The formula
+
+```
+   rpm = (SFM × 12) ÷ (π × D) = (SFM × 3.82) ÷ D          D = drill diameter (in), SFM = cutting speed (surface feet per minute)
+   metric: rpm = (V × 1000) ÷ (π × D) = (V × 318) ÷ D    V in m/min, D in mm
+```
+
+## Cutting speed (SFM) by material
+
+| Material | HSS drill | Cobalt (M35/M42) | Carbide (solid or tipped) | Notes |
+|---|---|---|---|---|
+| **Mild steel (1018, A36)** | **80-100** | 100-130 | 200-300 | Oil |
+| Medium carbon (1045) | 60-80 | 80-100 | 150-250 | |
+| Alloy steel (4140 annealed, 4340) | 50-70 | 60-90 | 150-200 | |
+| Hardened/tool steel (over 30 HRC) | 20-40 | 30-50 | 80-150 | Cobalt or carbide only; rigid setup |
+| **Stainless 304/316** | **40-60** | 50-80 | 120-200 | Firm feed, never let it rub; heavy oil |
+| Stainless 410/416 | 60-80 | 80-100 | 150-250 | |
+| **Cast iron (grey)** | **60-90** | 80-110 | 200-300 | Dry (or air); abrasive |
+| Ductile iron | 50-80 | 70-100 | 150-250 | |
+| **Aluminium 6061** | **200-300** (up to 400) | 300-400 | 500-1,000 | Kerosene/wax; clear chips |
+| Brass, bronze (free-cutting) | 150-300 | | 400-600 | Dry or light oil; a 0° rake (dull the edge) to stop grabbing |
+| Copper | 100-200 | | | Gummy; oil |
+| Titanium | 20-40 | 30-50 | 80-150 | Cobalt/carbide, rigid, flood |
+| Plastics (acrylic, nylon, UHMW) | 100-300 | | | Sharp, high rake, slow feed on brittle |
+| Wood | 300-1,000+ | | | |
+
+Halve the speed for a **hole saw** or a **large countersink**; use 2/3 speed for cobalt in stainless if it chatters; the top end for small drills, the low end for big drills and worn machines.
+
+## RPM chart (HSS, mild steel at 90 SFM; scale for other materials by the ratio of SFM)
+
+| Drill | Steel 90 SFM | Stainless 50 SFM | Cast iron 75 SFM | Aluminium 250 SFM |
+|---|---|---|---|---|
+| 1/16" | 5,500 | 3,050 | 4,580 | 15,000 (max spindle) |
+| 1/8" | 2,750 | 1,530 | 2,290 | 7,600 |
+| 3/16" | 1,830 | 1,020 | 1,530 | 5,100 |
+| **1/4"** | **1,375** | 760 | 1,150 | 3,800 |
+| 5/16" | 1,100 | 610 | 920 | 3,050 |
+| **3/8"** | **920** | 510 | 760 | 2,550 |
+| 7/16" | 785 | 435 | 655 | 2,180 |
+| **1/2"** | **690** | 380 | 570 | 1,900 |
+| 5/8" | 550 | 305 | 460 | 1,530 |
+| **3/4"** | **460** | 255 | 380 | 1,270 |
+| 7/8" | 390 | 220 | 330 | 1,090 |
+| **1"** | **345** | 190 | 285 | 955 |
+| 1-1/4" | 275 | 150 | 230 | 760 |
+| 1-1/2" | 230 | 125 | 190 | 640 |
+| 2" | 170 | 95 | 145 | 480 |
+
+Pick the belt step or the gear nearest **below** the number. A drill press with a 250-3,000 rpm range cannot run a 1/16" drill in aluminium correctly (it will do fine at 3,000) and struggles with a 1-1/2" drill in stainless (a bigger machine or a mag drill).
+
+## Feed
+
+Feed is the advance per revolution; on a hand-fed drill press it is the pressure that keeps a **continuous chip** coming:
+
+| Drill diameter | Feed (in/rev) steel | Notes |
+|---|---|---|
+| under 1/8" | 0.001-0.002 | Light; small drills break on feed, not speed |
+| 1/8-1/4" | 0.002-0.004 | |
+| **1/4-1/2"** | **0.004-0.007** | |
+| 1/2-1" | 0.007-0.015 | |
+| over 1" | 0.015-0.025 | |
+
+Aluminium and brass: about 1.5× the steel feed; stainless: the steel feed but **never less** (rubbing work-hardens it); cast iron: slightly more. Chips tell you: **two tight curls or short "6"s = right**; long stringy chips = too fast a speed or too light a feed on steel; blue/purple chips = too hot (too fast); powder = rubbing (too light a feed, or dull); a chip that breaks into chunks with a bang on the way through = grabbing at break-through (ease the feed at the end, clamp the work).
+
+## Drill point geometry
+
+| Point | Angle | Use |
+|---|---|---|
+| **118° conventional** | Chisel edge across the web | General purpose on mild steel, aluminium; needs a centre punch (it walks) |
+| **135° split point** | The web is ground to two cutting edges ("split") | **Steel, stainless, hard materials**: self-centring (no walking), less thrust, better chip start; the standard on cobalt drills |
+| 90° | | Brass, plastics, wood (with a brad point) |
+| 140° | | Very hard materials |
+| Web thinning | The chisel edge shortened by grinding a notch behind it | Reduces thrust on large drills (over 1/2"); done at sharpening |
+
+**Lip clearance** (relief behind the cutting edge): **8-12°** on general drills; too little and the drill rubs and squeals and will not cut; too much and the edge chips. Both **lips equal in length and angle** or the drill cuts oversize and walks (the sign: one chip only, or an oval hole).
+
+## Sharpening a drill by hand
+
+1. A bench grinder with a **clean, dressed** wheel (an aluminium-oxide wheel for HSS; a green silicon-carbide or diamond wheel for carbide), the tool rest close and square, the eye protection on; a drill gauge (a 118° or 135° notch gauge with a scale) at hand.
+2. Hold the drill with the cutting lip **horizontal** and the drill axis at **59° to the wheel face** (for a 118° point), the lip touching the wheel at its centre height.
+3. **Rotate and drop**: grind the lip by rotating the drill clockwise (a right-hand drill) while lowering the shank, so the heel behind the lip is ground away (the clearance): a sweeping motion of about a quarter turn; light pressure; dip in water (HSS only: never quench carbide or a very hot drill: cracks).
+4. Repeat on the other lip: the **same** number of strokes, the same angle.
+5. Check with the gauge: the lip angle 59° each side and the **lip lengths equal** (measure from the point to the outer corner); the clearance visible (the heel lower than the lip); the chisel edge at 120-135° to the lips.
+6. Thin the web on drills over about 3/8" if the chisel is wide.
+7. Test in scrap: two equal chips.
+
+A **drill sharpener** (Drill Doctor and better) does it repeatably; a shop that drills a lot needs one. Split points can be ground by hand with a thin wheel edge but are easier on a machine.
+
+## Pilot drills
+
+- Pilot = roughly the **web thickness** of the final drill (about 1/8-1/4 of the diameter; a 1" drill: a 1/4" pilot); too big a pilot lets the big drill's lips grab at the entry and dig in (chatter, a triangular hole).
+- Split-point drills often need **no pilot** up to 1/2"; a large drill in a hand-fed press without a pilot needs the machine's full thrust: pilot.
+- Centre-punch first (the punch mark centres the point); for accurate location, **spot** with a centre drill or a spotting drill (a short stiff drill) and then drill.
+- Step up in two stages on holes over 3/4" in a small press.
+
+## Countersinks, counterbores and reamers
+
+| Tool | Speed | Notes |
+|---|---|---|
+| **Countersink** (82° for flat-head screws, 90° for chamfers and metric, 100°/120° rivet types; single-flute, multi-flute, zero-flute "Weldon") | **1/4 to 1/3 the drill's rpm** for the same diameter (a 1" countersink in steel: 100-150 rpm) | Slow, with oil, firm feed; fast countersinks chatter and cut a polygon; a **single-flute or zero-flute** countersink is the fix for chatter |
+| **Counterbore** (piloted, for socket-head cap screws: the pilot in the drilled hole) | 1/2 the drill's rpm | The pilot sized to the hole; oil |
+| **Reamer** (chucking reamers for a finished size; hand reamers with a taper lead; taper pin reamers) | **1/2 to 2/3 the drill's rpm**, and **2-3× the drill's feed** | Drill **1/64" under** (up to 1/2") or 1/32" under (over 1/2"); never stop feeding in the hole; never turn backwards; plenty of oil; a reamer that chatters is too fast or the hole too small |
+| **Step drill / Unibit** | 300-600 rpm | Sheet only |
+| **Hole saw** | See [hole making](/article/hole-making-in-the-field) | |
+| **Spot-facer** | 1/2 the drill's rpm | Flat seat for a bolt head on a casting |
+| **Tap** (power tapping in a drill press with a tapping head, or by hand) | 100-300 rpm small taps | See [tapping and thread repair](/article/tapping-and-thread-repair) |
+
+## Coolant and lubricant
+
+| Material | Use |
+|---|---|
+| Steel, alloy | Cutting oil (sulphurised: the dark oil), or a soluble oil flood; tapping fluid for taps |
+| Stainless | Heavy cutting oil or a tapping fluid (chlorinated where allowed); flood |
+| Cast iron | **Dry** (or an air blast); oil makes a paste |
+| Aluminium | Kerosene, WD-40, a wax stick, or a soluble oil; anything to stop chips welding to the lips |
+| Brass, bronze | Dry or light oil |
+| Plastics | Dry or air; water on acrylic |
+| Titanium | Flood coolant, never dry |
+
+Apply **before** the drill gets hot, and keep it coming (a brush or a squeeze bottle on a drill press; a flood on a mill); pecking (withdrawing every diameter or two of depth) clears the chips on deep holes (over 3× the diameter) and lets the oil in; a drill that packs with chips breaks.
+
+## Work holding and safety
+
+- The work **clamped**: a drill press vise bolted or clamped to the table, T-slot clamps and step blocks, a V-block for round stock, a clamp on the far side so the work cannot **spin** when the drill grabs at break-through (a piece of plate spinning on a 1/2" drill is a propeller that breaks wrists); **never hand-hold** anything but a small piece against a fence with the drill under 1/4".
+- The drill in the chuck **tight** (all three chuck key holes on a big drill), the chuck key **out** before the switch; Morse-taper drills seated with a tap, drifted out with a drift and a hand under the drill.
+- Speed set for the drill and the material (the belt or the gears with the power off); the table locked; the depth stop for blind holes.
+- Guards on the belts and the chuck; safety glasses (chips fly; a broken drill flies); no gloves near a turning chuck; sleeves tight; hair tied; the chips cleared with a brush, never the hand.
+- Ease the feed at break-through; feed a small drill lightly.
+- A drill that is grabbing: **do not** hold the work by hand; stop the machine (the switch, not the chuck), let it stop, free it.
+- Long stringy chips: stop and break them with the brush; they wrap the drill and slice.
+
+## Troubleshooting
+
+| Problem | Cause | Fix |
+|---|---|---|
+| Drill **walks** at the start | No punch mark, a 118° point on a hard surface, too fast | Centre punch or spot drill; a split point |
+| **Squeals**, will not cut, powder chips | Dull drill; no clearance; too little feed (rubbing); stainless work-hardened | Sharpen with clearance; feed firmly; on stainless, start again below the hard skin with a sharp drill and heavy feed |
+| Chips **blue**, drill turns blue at the tip | Too fast; no coolant | Halve the speed; oil |
+| Hole **oversize / oval / lobed** | Unequal lips; chuck runout; a bent drill; too much pilot | Regrind equal; check the chuck; new drill |
+| Hole not square to the surface | The table not square to the spindle; the work not seated | Square the table (a square against a rod in the chuck) |
+| Drill **breaks** (small) | Too much feed; chips packed; the drill grabbing at break-through; a loose work | Peck; light feed; clamp |
+| Drill **breaks** (large) | The work spun; grabbing; a cracked drill from quenching | Clamp; ease at break-through |
+| Rough, torn hole | Dull, too fast, no lubricant, the wrong drill for the material | |
+| Chatter at the entry with a pilot hole | The pilot too big for the drill's web | Smaller pilot |
+| Drill stalls the machine | Too big for the press, the belt slipping, too much feed | Step drill, tighten the belt |
+| Break-through burr huge | Too fast a feed at the end; a dull drill | Ease the feed; deburr with a countersink |
+
+## Related
+
+- [Hole making in the field (mag drills, hole saws)](/article/hole-making-in-the-field)
+- [Tapping and thread repair](/article/tapping-and-thread-repair)
+- [Broken bolt and stud removal](/article/broken-bolt-and-stud-removal)
+- [Shop reference tables (tap drills, decimal equivalents)](/article/shop-reference-tables)
+- [Lathe basics for millwrights](/article/lathe-basics-for-millwrights)
+- [Grinding and abrasives safety](/article/grinding-and-abrasives-safety)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$machining$mw$),
+          array[$mw$drill press$mw$,$mw$drill speed$mw$,$mw$drill rpm$mw$,$mw$rpm formula$mw$,$mw$SFM$mw$,$mw$surface feet per minute$mw$,$mw$cutting speed$mw$,$mw$drill speed chart$mw$,$mw$drill feed$mw$,$mw$feed per revolution$mw$,$mw$drilling steel$mw$,$mw$drilling stainless$mw$,$mw$drilling aluminum$mw$,$mw$drilling cast iron$mw$,$mw$HSS drill$mw$,$mw$cobalt drill$mw$,$mw$carbide drill$mw$,$mw$drill point angle$mw$,$mw$118 degree$mw$,$mw$135 degree split point$mw$,$mw$sharpening a drill$mw$,$mw$drill grinding$mw$,$mw$pilot hole$mw$,$mw$web thickness$mw$,$mw$countersink$mw$,$mw$counterbore$mw$,$mw$reamer speed$mw$,$mw$cutting oil$mw$,$mw$tapping fluid$mw$,$mw$drill press vise$mw$,$mw$drill press safety$mw$,$mw$drill walks$mw$,$mw$drill squeals$mw$,$mw$drill breaks$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook (drilling speeds and feeds tables by material and tool material; drill point geometry); drill manufacturer speed charts (Cleveland/Greenfield, Dormer, Precision Twist Drill); Norseman/Viking drill guidance; OSHA 1910.212 and drill press manufacturer manuals (guarding and work holding).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$grinding-and-abrasives-safety$mw$, $mw$Grinding and Abrasives Safety: Bench and Pedestal Grinder Rules (Tool Rest 1/8", Tongue Guard 1/4", Ring Test, Wheel Speed, Dressing), Angle Grinder and Die Grinder Rules, Wheel Selection for Tool Sharpening (Aluminium Oxide, Silicon Carbide, CBN, Diamond), Sharpening Drills, Lathe Bits, Chisels and Punches, Belt Grinders and Sanders, Dust, Sparks and Fire, Face Shields and Hearing$mw$, $mw$The grinder is the shop's most-used and most-abused machine: this covers the OSHA and ANSI rules for bench and pedestal grinders and why each exists (the tool rest and tongue guard distances, the ring test, speed ratings, flanges and blotters, dressing), the portable grinder and die grinder rules, which wheel for which job when sharpening tools, the technique for drills, lathe bits, chisels and punches, belt grinders, the dusts and sparks that start fires and hurt lungs, and the PPE.$mw$, $mw$## Why grinders hurt people
+
+A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" wheel at 3,600 rpm has a rim speed of 85 mph): a cracked wheel, a wheel run over its speed, a wheel with the work jammed between it and the rest, or a wheel struck on its side **bursts** and the pieces leave at rim speed. Grinding also throws sparks (fires), grit (eyes), dust (lungs), noise, and catches gloves and loose clothing.
+
+## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)
+
+| Rule | Why |
+|---|---|
+| **Work rest within 1/8" (3 mm)** of the wheel, adjusted as the wheel wears; rigid | A gap bigger than that lets the work (or a finger) wedge between the rest and the wheel: the wheel breaks or the hand goes in |
+| **Tongue guard (spark arrester) within 1/4" (6 mm)** of the wheel at the top, adjusted as it wears | Stops the pieces of a bursting wheel from flying up into your face; deflects sparks down |
+| **Wheel guard** covering the spindle end, nut and flanges, with the opening on the working side **not over 90°** (65° max above the horizontal centre line on bench grinders) | Contains a burst |
+| **Ring test** before mounting | A cracked wheel sounds dull; every vitrified wheel tested |
+| **Speed**: the wheel's rated rpm **≥ the grinder's spindle rpm** (marked on both) | An 8" wheel rated 3,600 rpm on a 3,450 rpm grinder is fine; a 6" wheel rated 4,140 is not for a 5,000 rpm spindle |
+| **Flanges** equal in diameter, at least 1/3 the wheel's diameter, relieved in the centre, with **blotters** (paper washers) between the flanges and the wheel | Clamp the wheel evenly without point loads that crack it |
+| Nut **snug**: enough to drive the wheel, not cranked | Over-tightening cracks the wheel; the nut's thread runs the direction that tightens under drag |
+| Wheel **dressed** true and clean; **no side grinding** on a straight (Type 1) wheel | A glazed/loaded wheel burns the tool and needs pressure (which is how the work wedges); the side of a Type 1 wheel is not designed for load |
+| **Eye shields** on the grinder **and** safety glasses; a face shield for heavy work | The shields alone do not stop everything |
+| A new wheel run **1 minute** at speed with everyone clear before the first use | A cracked or unbalanced wheel fails then |
+| The grinder **bolted down**, on a stable stand; the switch reachable | |
+| No wet grinding on a dry grinder; no aluminium, brass, copper, wood, plastic on a bonded steel wheel | Soft metals **load** the wheel (fill the pores): it heats, unbalances and can burst; aluminium dust in a wheel with steel sparks is a thermite risk |
+
+**Ring test**: the dry wheel suspended on a finger through its bore (or a small wheel on a pin), tapped lightly with a non-metallic handle (a screwdriver handle) at 45° either side of the vertical, then rotated 45° and tapped again: a clear **ring** = sound; a **dull thud** = cracked: destroy it. Vitrified (bench) wheels only; resinoid (cut-off and portable) wheels do not ring and are inspected visually.
+
+**Dressing**: a **star (Huntington) dresser** (steel star wheels on a handle, rested on the tool rest and pushed across the face) for truing and opening up a coarse wheel; a **diamond dresser** (a single-point diamond in a holder) for fine and precision wheels, traversed across the face with light cuts; a **dressing stick** (a silicon carbide stick) for a quick clean; dress when the wheel is **glazed** (shiny, the tool turns blue without cutting), **loaded** (metal in the pores), **out of round** (it thumps), or **grooved**; after dressing, re-set the tool rest and tongue guard to the new diameter.
+
+**Wheel storage**: flat or on edge in a rack, dry, no freezing, old stock first, vitrified wheels do not expire but resinoid ones have a **3-year** date; dropped wheels are scrapped.
+
+## Angle grinders, cut-off wheels and die grinders (1910.243)
+
+Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safety essentials:
+
+- **Guard on**, positioned between the wheel and you; the cut-off (closed) guard for Type 1/41 wheels; the wheel's rpm rating ≥ the grinder's; the right flanges and the lock nut for the wheel type (a Type 27 depressed-centre wheel needs the raised flange); no pipe flanges or washers as substitutes.
+- **Two hands** (the side handle on), the body out of the plane of the wheel, the **dead-man (paddle) switch** and **no lock-on**; a wheel that has been dropped is scrapped; run a new wheel a minute pointed away.
+- **Kickback**: never cut with the leading edge or let the wheel bind (support the work so the kerf stays open), never side-grind with a cut-off wheel, never grind on the edge of a flap disc's backing.
+- **Die grinders**: mounted points and carbide burrs rated for the tool's speed (a 1" mounted point rated 25,000 rpm is fine on a 20,000 rpm grinder; a 3" cut-off wheel on a 25,000 rpm die grinder without a guard and a rated arbor is a bomb: 3" wheels are rated about 15,000-20,000 rpm and need the guard/arbor system); short overhang of the shank (1/2" in the collet is the minimum, and the shank not extended with a longer arbor than the point is rated for); air die grinders' governors checked (a failed governor over-speeds the tool: a tachometer test yearly); hearing protection (100+ dBA).
+- **Wire wheels and cup brushes**: rated rpm, a face shield (wires break and fly at 100 ft/s), the brush held so it works with the wire ends, not jammed.
+- Cordless grinders have the same rules; a battery grinder in the pocket with the switch bumped is the new injury.
+
+## Wheel and abrasive selection for sharpening
+
+| Abrasive | Colour / look | For |
+|---|---|---|
+| **Aluminium oxide (A)**, grey/brown; white/pink/ruby (friable, cooler) | The general steel and HSS wheel; **white AO (WA)** for HSS tools without burning | HSS tool bits, drills, chisels, punches, steel deburring |
+| **Silicon carbide (C)**, green or black | Harder, sharper, more brittle grains; **green wheels for carbide** (brazed tools, carbide inserts' roughing), cast iron, non-ferrous, stone | Carbide tools (roughing; finish with diamond), aluminium/brass on a **dedicated** wheel |
+| **CBN (cubic boron nitride)**, on a metal or resin hub | For hardened steel and HSS: cool, fast, long-lasting; the sharpening wheel for a shop that grinds a lot of HSS | HSS tool bits, drills, taps; never for carbide |
+| **Diamond**, on a hub | For **carbide** (inserts, brazed tools, drills), ceramics, glass; never on steel (the diamond dissolves into the iron) | Carbide finishing; a diamond hone/hand lap for edges |
+| Grit: **36-46 coarse** (roughing, chisels), **60 medium** (general sharpening), **80-120 fine** (finish edges, HSS) | | A bench grinder with a coarse wheel one side and a fine (or a CBN) the other |
+| Grade (hardness): H-K soft (hard materials, big contact), L-O medium (general), P-S hard (soft materials, small contact) | | A wheel that glazes is too hard for the job; one that wears fast is too soft |
+| Bond: V vitrified (bench), B resinoid (portable, cut-off), R rubber | | |
+
+## Sharpening technique
+
+**Tool rest set close, the wheel dressed, a can of water for HSS (dip often: a blued edge is softened), never quench carbide (cracks), light pressure, keep the tool moving across the face (grooves), the eye shield down, glasses on.**
+
+| Tool | Angles | Method |
+|---|---|---|
+| **Twist drill** | 118° point (59° each side), 8-12° lip clearance, equal lips | [The drill press article](/article/drill-press-speeds-and-feeds) has the hand method; a drill sharpener for consistency; a split point on a machine |
+| **HSS lathe tool bit** | Side rake 8-15°, back rake 8-10°, side/end relief 8-10°, side cutting edge 10-15°, a nose radius; brass: 0° rake | Grind the end relief first, then the side relief, then the rakes on the top, then the nose; hold the blank at the angle by eye against the rest (or an angle block); hone with a fine stone; a 3/8" blank takes 10 minutes |
+| **Cold chisel** | 60° included (70° for hard, 50° for soft), a slight convex edge | Grind both bevels equally, dipped often (a chisel is hardened at the edge: heat ruins it), the edge straight; **grind the mushroomed head** off (a mushroomed chisel or punch throws chips of hardened steel into eyes when struck: an OSHA citation and a common injury); chamfer the head 45° |
+| **Centre punch / prick punch** | 90° / 30-60° | Rotate in the fingers against the wheel at the angle; the point centred |
+| **Scraper, scriber** | | Light touches |
+| Screwdrivers | A hollow-ground tip, square | Both faces, square end |
+| Woodworking chisels and plane irons | 25-30° | A slow wet grinder or a belt, then stones; never overheat |
+| Carbide lathe tools (brazed) | The same angles as HSS but smaller rakes (0-6°) | Rough on the green wheel, finish on a diamond wheel or hone; no quench |
+| Knives | 15-20° per side | Belt or stones; a grinder overheats them |
+
+Do not sharpen: hardened extractors, files, taps (send them out), wheel-cut saw blades.
+
+## Belt grinders, disc sanders and sanders
+
+- Belt tracking adjusted; the belt's rating for the speed; the **work rest/platen** close; the belt's direction **down and away** from you on a vertical belt grinder (the work is held against the platen below the top roller, and a caught piece goes down, not up); no side pressure on the edge of a belt.
+- Disc sanders: work only on the **downward-moving** half of the disc (the side that pushes the work onto the table); the table gap 1/16".
+- Aluminium on a belt: fine; aluminium on a belt that has done steel: a fire in the dust box. **Separate dust collection** for aluminium/magnesium/titanium.
+- Belt grinders' sparks go far and the dust box is a fire: empty it daily, a metal box, no oily rags in it.
+
+## Dust, sparks and fire
+
+- **Grinding dust** is fine metal, abrasive grit and binder: a nuisance dust at best; **hexavalent chromium** from stainless and hard-chrome grinding, **manganese**, **beryllium** (some bronzes), **lead** (some brasses, painted parts), and **silica** from masonry: a respirator (P100 half-mask) and extraction for anything beyond a few minutes on steel; dust collection on bench grinders and belt sanders.
+- **Aluminium, magnesium and titanium dust** is combustible (magnesium violently); it must not mix with steel sparks (thermite) or accumulate in a collector with steel dust; NFPA 484: dedicated wet or inert collectors, no dry sweeping into piles; magnesium grinding fires need a Class D extinguisher or dry sand, **never water**.
+- **Sparks**: a stream of red-hot steel that travels 30 ft and rolls: nothing flammable in the arc (rags, solvent cans, cardboard, wood shavings, the oily bench), a hot-work check when grinding away from the shop, a fire watch after grinding near combustibles; a grinding spark that lands in a rag bin is a fire an hour later.
+- **Grinding near flammable vapours** (a fuel tank, a solvent bath, a paint booth): sparks ignite vapour: never.
+- Hot parts: a ground part is hot; the pliers or the vise, not the hand.
+
+## PPE
+
+| Item | When |
+|---|---|
+| Safety glasses (Z87+, side shields) | Always; and under the face shield |
+| **Face shield** | Wire wheels and brushes, cut-off wheels, heavy grinding, overhead, any grinder over 5" |
+| Hearing protection | Bench and portable grinders (95-105 dBA), die grinders |
+| Respirator (N95 for nuisance, P100 for stainless, chrome, paint, silica) | More than a few minutes, or any of the listed metals |
+| Gloves | **Never** on a bench grinder or a pedestal grinder (a glove catches and pulls the hand into the wheel); leather gloves on a portable grinder are the plant's rule and are acceptable with the guard on |
+| Leather apron/sleeves | Long grinding, wire wheels |
+| Clothing | No loose sleeves or cuffs, no synthetics (melt), no dangling lanyards; long hair tied |
+
+## Common mistakes
+
+- Tool rest 1/2" from the wheel "because the wheel is worn": the chisel jams and the wheel bursts.
+- A wire wheel on a bench grinder with no eye shield and no face shield: a wire in the eye.
+- Grinding aluminium "just a little" on the steel wheel.
+- A cut-off wheel on a die grinder with no guard.
+- Mushroomed chisels struck for years, and one day a chip goes through a co-worker's eye.
+- Sharpening a drill until it is blue, then wondering why it does not cut.
+- Sparks toward the solvent tank, and the lid open.
+
+## Related
+
+- [Saws and abrasives (grinder wheels, types, cut-off)](/article/saws-and-abrasives)
+- [Drill press speeds and feeds (sharpening drills)](/article/drill-press-speeds-and-feeds)
+- [Lathe basics (tool grinding)](/article/lathe-basics-for-millwrights)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)
+- [PPE selection](/article/ppe-selection)
+- [Welding safety (hot work)](/article/welding-safety-fumes-and-ppe)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$machining$mw$),
+          array[$mw$grinding safety$mw$,$mw$bench grinder safety$mw$,$mw$pedestal grinder$mw$,$mw$tool rest 1/8$mw$,$mw$tongue guard 1/4$mw$,$mw$ring test$mw$,$mw$wheel speed rating$mw$,$mw$wheel bursting$mw$,$mw$wheel dressing$mw$,$mw$star dresser$mw$,$mw$diamond dresser$mw$,$mw$angle grinder safety$mw$,$mw$die grinder safety$mw$,$mw$mounted point speed$mw$,$mw$grinding wheel selection$mw$,$mw$aluminum oxide wheel$mw$,$mw$silicon carbide wheel$mw$,$mw$CBN wheel$mw$,$mw$diamond wheel$mw$,$mw$sharpening drill bits$mw$,$mw$sharpening lathe tools$mw$,$mw$sharpening chisels$mw$,$mw$mushroomed chisel$mw$,$mw$belt grinder$mw$,$mw$sander safety$mw$,$mw$grinding dust$mw$,$mw$magnesium dust$mw$,$mw$grinding sparks fire$mw$,$mw$face shield grinding$mw$,$mw$OSHA 1910.215$mw$,$mw$OSHA 1910.243$mw$,$mw$ANSI B7.1$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.215 (abrasive wheel machinery) and 1910.243 (portable powered tools); ANSI B7.1 Safety Requirements for the Use, Care and Protection of Abrasive Wheels; Norton and Camel Grinding Wheels safety and selection guides; grinder manufacturer manuals (Baldor, DeWalt, Metabo); NFPA 484 (combustible metals).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$lathe-basics-for-millwrights$mw$, $mw$Lathe Basics for Millwrights: The Parts and Controls, Work Holding (3-Jaw, 4-Jaw, Collets, Between Centres, Steady and Follower Rests), Tool Bits and Inserts, Speeds and Feeds by Material, Facing, Turning to a Diameter, Shoulders, Chamfers, Drilling and Boring a Bushing, Cutting a Thread, Turning a Shaft Between Centres, Measuring on the Lathe, Finish, and Lathe Safety$mw$, $mw$The lathe work a millwright does: making a bushing, a spacer, a sleeve, a shaft end, cleaning up a seat, cutting a thread on a shaft or in a nut. It covers the machine and its controls, holding the work so it runs true and cannot fly out, choosing and setting a tool, the speed and feed numbers, the basic operations step by step, single-point threading with the compound set at 29.5°, turning a shaft between centres, measuring as you go, and the safety rules that keep sleeves and hair out of the chuck.$mw$, $mw$## The machine
+
+**Headstock** (the spindle, the chuck, the speed gears/pulleys), **bed** with the ways, **carriage** (the saddle on the ways, the **cross-slide** across, the **compound (top) slide** at any angle, the **tool post**), **apron** (the carriage handwheel, the feed and thread engagement levers), **tailstock** (a Morse-taper quill for centres, drills and reamers; offset for tapers), the **lead screw** (threading) and **feed rod** (power feeds), the **quick-change gearbox** (feed and thread pitch selection), and the chip pan. Dials on the cross-slide and compound read in thousandths; many lathes' cross-slide dials read **diameter** reduction (a dial marked in "0.001 on diameter": moving 0.010" removes 0.010" from the diameter; others read radius: 0.010" on the dial takes 0.020" off the diameter: **know which** by a test cut).
+
+## Work holding
+
+| Holding | Use | Notes |
+|---|---|---|
+| **3-jaw self-centring chuck** | Round and hex stock, quick; runout 0.002-0.005" | Fine for a part machined in one setting; **not** for re-chucking a finished diameter concentric (it will not repeat); the two chuck-key positions: use the one marked for best accuracy |
+| **4-jaw independent chuck** | Anything: square, irregular, and **round work that must run true** (to 0.0005" with an indicator) | Each jaw adjusted independently: indicate the work, adjust the opposite jaws in pairs, halving the error; reversible jaws for large diameters; heavy: sling it onto the spindle |
+| **Collet chuck (5C, ER)** | Small round stock (to about 1-1/8" 5C), accurate and gentle | The collet must match the stock size within a few thousandths |
+| **Between centres** (a dead centre in the spindle with a drive plate and a lathe dog, a live centre in the tailstock) | Shafts: the work can be removed and replaced **exactly** concentric; the way to turn a shaft true and to correct a bent one | Centre-drilled ends (a 60° combination drill/countersink), the dog's tail in the drive plate's slot, the live centre snug not tight (heat expands the shaft: back it off as it warms) |
+| **Face plate** | Odd shapes bolted on, with a counterweight | |
+| **Chuck + tailstock centre** | Long work in the chuck supported at the end | The usual for shafts and bushings in the field shop |
+| **Steady rest** | Supports a long shaft mid-length (three fingers on a turned, oiled spot) for facing/drilling the end or for turning a section | Set the fingers on a true diameter with the tailstock centre in place, then remove the centre |
+| **Follower rest** | Rides on the carriage behind the tool on slender work | Stops the work deflecting from the cut |
+| Mandrel (expanding or tapered) | A bushing or a gear held by its bore to turn the OD concentric with it | |
+
+Rules: the work **deep** in the jaws (at least a diameter, and the jaws holding on the full jaw length), the **chuck key never left in the chuck** (a key flying at 500 rpm), the jaws not over the chuck's OD, no overhang over about 3-4 × the diameter unsupported (support with a centre or a steady), the chuck's speed limit respected (a big 4-jaw is not run at 1,500 rpm), the spindle **locked/threaded** chuck seated (a threaded spindle chuck spins off in reverse: no reverse cuts on a threaded spindle).
+
+## Tools
+
+- **HSS tool bits** (1/4-1/2" square blanks) ground on the bench grinder: the millwright's general tool (cheap, tough, easy to grind for any shape); a **right-hand turning tool** cuts toward the headstock; angles: **side rake 8-15°** (steel; 0-5° on brass/cast iron; 15-25° aluminium), **back rake 8-10°**, **side and end relief 8-10°**, a small **nose radius (1/64-1/32")** for finish; **honed** on a stone after grinding.
+- **Carbide inserts** in holders: fast, hard materials, long life; the **ISO/ANSI code** on the box: e.g. **CNMG 432** = C (80° diamond shape), N (0° clearance: negative rake holder, double-sided), M (tolerance), G (chipbreaker/hole type), 4 (1/2" inscribed circle), 3 (3/16" thick), 2 (1/32" nose radius); **CCMT** and **DCMT** (positive, 7° clearance) for light cuts, finishing, small lathes and boring bars; grades: coated (**P** for steel, **K** for cast iron, **M** stainless) and uncoated for aluminium; an insert with a chipped edge is rotated to a fresh corner.
+- **Brazed carbide tools** (AR/AL/BR shapes): between HSS and inserts; sharpened on a green (silicon carbide) or diamond wheel.
+- **Boring bars** (HSS, brazed, insert; steel or carbide shank for reach), **parting (cut-off) blades**, **threading tools** (60° V; a fishtail gauge sets them square), **knurling** tools, **form tools**.
+- **Tool height: exactly on the centre** (a rule between the tool tip and the work: vertical = on centre; or against the tailstock centre's point); above centre rubs, below centre digs in and the work climbs the tool (parting and boring especially); shims under HSS in a lantern post, the height adjustment on a quick-change post.
+- Tool **overhang minimal** (a boring bar 3-4 × its diameter at most), the tool clamped hard, the holder square.
+
+## Speeds and feeds
+
+```
+   rpm = (SFM × 3.82) ÷ D      D = the work's diameter at the cut (in): a facing cut's speed changes across the face: set it for the OD
+```
+
+| Material | HSS SFM (roughing / finishing) | Carbide SFM | Feed (in/rev) roughing / finishing | Depth of cut |
+|---|---|---|---|---|
+| **Mild steel** | **80-100 / 100-120** | 300-500 | 0.010-0.020 / 0.003-0.006 | 0.050-0.150 rough / 0.010-0.020 finish (on radius) |
+| Medium/alloy steel (1045, 4140) | 60-80 | 250-400 | 0.008-0.015 / 0.003-0.005 | |
+| Stainless 304/316 | 40-60 | 200-350 | 0.008-0.015 / 0.004 (never rub) | Keep the tool cutting; sharp, positive rake |
+| Cast iron | 60-90 | 250-400 | 0.010-0.020 | Dry; the skin is hard: first cut under it |
+| Aluminium | 250-400 (as fast as the lathe goes) | 800-1,500 | 0.005-0.015 | Sharp, polished tool, kerosene |
+| Brass | 150-300 | 500-800 | 0.005-0.012 | Zero rake; grabs |
+| Bronze (bearing) | 80-150 | 300-500 | 0.005-0.010 | |
+| Plastics (nylon, UHMW, Delrin) | 200-500 | | 0.005-0.015 | Sharp, high rake |
+
+Example: a 2" 1045 shaft with HSS: 70 × 3.82 ÷ 2 = 134 rpm: the lathe's 125 or 140 step; a 3/4" bushing bore in bronze: 120 × 3.82 ÷ 0.75 = 610 rpm.
+
+## Basic operations
+
+### Facing
+
+The tool moves across the end of the work (the cross-slide) to make it flat and square: a right-hand facing tool or a turning tool angled slightly; from the centre **outward** (or outward-in with a sharp tool); lock the carriage; the last cut light and slow for a finish; the centre nib removed with the tool at exactly centre height. Face both ends of a bushing blank; face a shaft end before centre-drilling.
+
+### Turning to a diameter
+
+1. Rough cuts: leave **0.020-0.030"** on the diameter for finishing; set the depth on the cross-slide dial, engage the power feed toward the headstock, disengage before the shoulder/chuck; coolant/oil.
+2. **Measure** with a micrometer after a cut of a known dial reading to learn the dial's diameter/radius convention and the machine's true cut (deflection and the tool's spring-back mean the first cut is often 0.001-0.003" shallow: take a **spring pass** at the same setting before measuring).
+3. Finish: a sharp honed tool with a nose radius, a fine feed (0.003-0.005"), the last cut 0.005-0.010" deep; measure at both ends (a taper means the tailstock is offset or the work is deflecting: adjust the tailstock, use a follower rest); the target usually a fit from the tables ([bearing fits](/article/bearing-clearance-and-fits-tables)): e.g. a bearing seat at nominal +0.0005".
+4. **Taper turning**: the compound set at the angle (short tapers), the tailstock **offset** for long shallow tapers (offset = (D − d) × L_total ÷ (2 × L_taper), where L_total is the full length between centres and L_taper the tapered length), or a taper attachment.
+
+### Shoulders, chamfers, grooves and radii
+
+- A **square shoulder**: turn to the shoulder's position, then face the shoulder outward with the side of a right-hand tool or a facing tool; **undercut/relief** grooves (a parting tool, 1/32-1/16" wide, to the thread's minor diameter) at the end of a thread or at a shoulder so a bearing seats fully and a thread runs out cleanly; **fillet radius** at a shoulder (a ground radius on the tool) on shafts (a sharp corner is a fatigue crack: see the bearing seat's chamfer/radius rule).
+- **Chamfers**: the compound at 45° (or the tool ground at 45°), a small chamfer (1/32-1/16") on every edge; the bearing's chamfer must clear the shaft's shoulder radius.
+- **Grooves** (snap ring, O-ring): a parting/grooving tool of the groove width, on centre, slow speed, oil, a steady feed in; width and depth from the ring's table.
+
+### Drilling and boring a bushing
+
+1. Face the end; **centre-drill** (a #3 or #4 combination drill) at low-medium speed; **drill** with a tailstock drill chuck (or a Morse-taper drill) at the drill's speed from the [drilling table](/article/drill-press-speeds-and-feeds), pecking, oil; a large hole in steps.
+2. **Boring** makes the hole true, round and to size (a drilled hole is neither): a boring bar in the tool post, on centre, the tool's tip clearing the hole's far end; rough to 0.010-0.020" under, measure with a **telescoping gauge** or a **bore gauge** and a micrometer, finish in light cuts (boring bars deflect: spring passes); the bore's fit to the shaft from the tables (a bronze bushing on a 1" shaft: bore 1.001-1.002" for running clearance; a press-fit bushing OD: 0.001-0.002" over the housing bore for a 1-2" size).
+3. **Ream** for a finished size (drill 1/64" under, ream at half the drill speed and a heavy feed with oil) where the size is standard.
+4. Part off to length (a parting tool, on centre, slow speed, plenty of oil, a steady feed; support the falling piece), face the parted end, chamfer the bore ends.
+5. Press-fit bushings often close up 0.0005-0.001" when pressed: bore after pressing when the fit matters, or bore oversize by the closure.
+
+### Cutting a thread (single point)
+
+1. Turn the OD to the thread's major diameter (slightly under, by 0.002-0.005", for a good fit); chamfer the end at 45° to the minor diameter; cut a **relief groove** at the thread's end (or plan to stop the tool in the same place each pass by hand: a threading dial helps).
+2. Set the gearbox to the **pitch** (TPI or mm from the chart on the machine; an inch lathe cuts metric with transposing gears); the tool a **60° threading tool** (HSS ground with a fishtail gauge, or a laydown insert) set **square to the work** with the gauge, **on centre**.
+3. **Compound at 29.5°** (or 29°) toward the tailstock from the cross-slide's axis (so the tool feeds in along the thread's flank, cutting on one side only: a clean cut; the last passes straight in with the cross-slide for a full form).
+4. Speed **slow** (about 1/4 to 1/3 of the turning speed: 50-150 rpm), the **half-nuts** (thread lever) engaged on the **threading dial**'s mark (even TPI: any mark; odd TPI: numbered marks; a fractional TPI: the same mark each pass; metric on an inch lathe: **never disengage**: reverse the spindle to return).
+5. First pass a **scratch** (0.001-0.002"), check the pitch with a thread gauge; then passes of 0.005-0.010" (compound) reducing to 0.001-0.002" at the end; withdraw the cross-slide at the end of each pass (and return it to zero for the next), disengage the half-nuts at the groove; oil/cutting fluid every pass.
+6. Depth: single-depth of a 60° thread ≈ **0.613 ÷ TPI** (a 1/2-13: 0.047" on the compound at 29.5° is about 0.054" of compound travel); measure with **thread wires** (the three-wire method: M = measured over wires, the wire size and the constant from the table) or a **thread micrometer**, or test with the mating nut (a nut that enters with a light drag by hand: done).
+7. Internal threads: the same with an internal threading tool in a bar, the compound at 29.5° the other way, from a bored hole at the minor diameter; a tap is easier for small sizes.
+8. Left-hand threads: the lead screw reversed, the tool feeding away from the headstock, the compound set the other way.
+
+### Turning a shaft between centres
+
+1. Face and **centre-drill both ends** (in the chuck with a steady, or a spot with a centre drill in the tailstock); the centre holes clean and the right angle (60°) and depth.
+2. A **lathe dog** on one end (a soft shim under the set screw), the dead centre in the spindle (a driving plate), the **live centre** in the tailstock; oil the centres; the tailstock **aligned** (turn a test bar and mic both ends: equal; adjust the tailstock's set-over until it is).
+3. Turn one half; reverse the shaft (the dog on the finished end with a shim), turn the other; the two diameters concentric because both were turned about the same centres.
+4. A **bent shaft** straightened in a press, then turned between centres to clean the seats: the centres must be good (re-drill them true if the shaft was bent near the ends).
+
+### Knurling
+
+A knurling tool (two wheels) pressed into the work at slow speed (50-100 rpm) with a heavy feed and oil, the pattern forming in the first pass; the work supported (it pushes hard); a diamond or straight knurl for grips.
+
+## Measuring on the lathe
+
+- **Outside micrometer** for every diameter (stop the lathe: never measure a turning part); the dial's convention learned by a test cut; a **spring pass** before the final measurement.
+- **Telescoping gauge and mic**, or a **dial bore gauge**, for bores; a **depth micrometer** for shoulders and grooves; a **rule and a scribe** for lengths (the carriage dial or a DRO for accurate lengths); **thread wires / a thread mic / the mating part** for threads; a **surface roughness comparator** for finish.
+- Temperature: a shaft turned hot reads big when it cools 0.0006" per inch per 100°F.
+
+## Finish
+
+A **fine feed, a sharp tool with a nose radius, the right speed (faster for finish on steel and aluminium), a light last cut, oil**; chatter (a wavy finish and a noise) from too much overhang (tool or work), a loose gib, too big a nose radius, too slow a speed with a dull tool, or a slender part: support it, shorten the tool, tighten the gibs, change the speed. A **built-up edge** (aluminium and soft steel welding to the tool tip: a torn finish) from too slow a speed or no lubricant: faster, sharper, lubricate. A 63-125 µin finish (turned) is normal; 32 µin needs a fine feed and a honed tool; a bearing seat is turned then polished with emery on a strap.
+
+## Safety
+
+- **The chuck key**: in your hand or in its holder, never in the chuck; a spring-loaded key that ejects is worth buying.
+- **Nothing loose**: no gloves (a glove in the chuck takes the hand), sleeves rolled or tight, no rings, no watch, hair tied, no lanyard, no rag in the hand near the chuck (emery cloth held in both hands around a turning shaft is a wrapped hand: use a strip held at one end, or a backing stick).
+- **Chips**: a brush and a hook, never fingers; long stringy chips broken with a chipbreaker or a pause in the feed; safety glasses always (a face shield on aluminium and brass at speed).
+- The work secure (a re-check of the jaws after the first cut), the speed within the chuck's rating, the compound and cross-slide locked when not in use, the tool clear of the chuck jaws' path (jog the carriage by hand first), the tailstock locked.
+- Stop the lathe to measure, to adjust, to clear chips, to change speed on a gear-head lathe (it is not a car).
+- Feeds and threading: the half-nuts and the feed can drive the carriage into the chuck: know where the levers are, keep a hand on the disengage, never leave a running lathe.
+- Emergency stop: the brake/stop bar at knee height; know where it is before the first cut.
+- Guards: the chuck guard where fitted, the lead screw cover.
+
+## Common mistakes
+
+- Turning a bearing seat in the 3-jaw after re-chucking: 0.004" out of concentric with the other seat.
+- Reading the cross-slide dial as radius when it reads diameter: the part is scrap on the first finish cut.
+- A boring bar hanging out 8 diameters: a bell-mouthed, chattered bore.
+- Compound at 29.5° set the wrong way: the tool cuts on both flanks and tears the thread.
+- Half-nuts disengaged on a metric thread on an inch lathe: the next pass cuts a new thread.
+- Measuring with the lathe running.
+- A shirt sleeve in the chuck.
+
+## Related
+
+- [Milling basics and keyway cutting](/article/milling-basics-and-keyway-cutting)
+- [Drill press speeds and feeds](/article/drill-press-speeds-and-feeds)
+- [Bearing clearance and fits tables](/article/bearing-clearance-and-fits-tables)
+- [Reading a micrometer](/article/reading-a-micrometer)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Grinding and abrasives safety (tool grinding)](/article/grinding-and-abrasives-safety)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$machining$mw$),
+          array[$mw$lathe$mw$,$mw$engine lathe$mw$,$mw$lathe basics$mw$,$mw$lathe operation$mw$,$mw$3 jaw chuck$mw$,$mw$4 jaw chuck$mw$,$mw$collet chuck$mw$,$mw$between centers$mw$,$mw$steady rest$mw$,$mw$follower rest$mw$,$mw$lathe tool bit$mw$,$mw$HSS tool bit grinding$mw$,$mw$carbide insert$mw$,$mw$insert nomenclature$mw$,$mw$lathe speed$mw$,$mw$lathe feed$mw$,$mw$depth of cut$mw$,$mw$facing$mw$,$mw$turning$mw$,$mw$shoulder$mw$,$mw$chamfer$mw$,$mw$boring$mw$,$mw$boring bar$mw$,$mw$drilling on the lathe$mw$,$mw$thread cutting lathe$mw$,$mw$threading dial$mw$,$mw$compound angle 29.5$mw$,$mw$turning a shaft$mw$,$mw$live center$mw$,$mw$dead center$mw$,$mw$knurling$mw$,$mw$surface finish lathe$mw$,$mw$lathe safety$mw$,$mw$chuck key$mw$,$mw$lathe accident$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook (turning speeds and feeds, thread cutting, tool angles); South Bend 'How to Run a Lathe'; Technology of Machine Tools (Krar); carbide insert manufacturers' nomenclature and speed data (Sandvik, Kennametal); OSHA 1910.212 and lathe manufacturer safety guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$milling-basics-and-keyway-cutting$mw$, $mw$Milling Basics and Keyway Cutting: The Vertical Mill (Bridgeport Type) and Its Controls, Tramming the Head, Work Holding in a Vise and on the Table, Edge Finding and Setting Zero, Cutters (End Mills, Face Mills, Woodruff and Keyseat Cutters) and Speeds and Feeds, Climb vs Conventional, Squaring a Block, Slotting, Cutting a Shaft Keyway and a Hub Keyway (Broaching), Drilling and Boring on the Mill, Portable Keyway Cutters$mw$, $mw$The vertical milling work a millwright needs: setting up a Bridgeport-type mill and tramming it, holding and finding the work, choosing an end mill and running it at the right chip load, squaring a block and milling a slot, cutting a keyway in a shaft with an end mill or a Woodruff cutter to the ANSI depth, broaching a keyway in a hub or sprocket with a bushing set and an arbor press, boring an accurate hole with a boring head, and the safety rules for a machine whose cutter is always exposed.$mw$, $mw$## The machine
+
+A **vertical knee mill** (Bridgeport and clones): the **head** (a variable-speed or step-pulley spindle with an R8 (or 40-taper) spindle, a **quill** that feeds down like a drill press with a fine-feed handwheel and a depth stop, a head that tilts and swivels), the **ram**, the **table** (X longitudinal, Y cross) on the **saddle** and the **knee** (Z: the table rises to the cutter), **table locks** for each axis, a **power feed** on X, and often a **DRO** (digital readout) on X-Y(-Z). Dials read 0.001" (0.200" per turn on most); backlash in the leadscrews means you approach a dimension from the **same direction** every time (or trust the DRO).
+
+## Tramming the head
+
+The spindle must be **square to the table** or a face-milled surface is dished, a bored hole is tapered and a slot is wider at the top:
+
+1. A **dial indicator on an arm in the spindle** (a tramming bar or an indicator holder in a collet), the tip on the table (or on a parallel/ground plate on the table, or a ring gauge) at about a 6-10" radius.
+2. Rotate the spindle by hand: read at **front and back** (the head's tilt about the X axis: the nod) and at **left and right** (the swivel about Y).
+3. Adjust: loosen the head's bolts a little, tap or turn the adjusting worm until the front/back reads within **0.001" over the sweep** (and left/right), tighten in sequence, re-check (tightening moves it).
+4. Tram after any head tilt, after a crash, and on a new job that matters.
+
+## Work holding
+
+- **Milling vise** (a 6" Kurt type): bolted to the table with its **fixed jaw trammed parallel to X** (an indicator along the jaw while traversing: within 0.001" over the jaw); the work on **parallels** so it sits above the jaws, tapped down with a dead-blow until the parallels are tight (no rock); a round part in a **V-block** or in the vise's V; soft jaws for finished surfaces; the work held on enough of its height (at least 1/3) to not lift under the cutter.
+- **Table clamps** (T-slot clamps, step blocks, strap clamps: the clamp bar level or slightly higher at the bolt end, the bolt near the work): for plates and castings; **stops** against the work's edge on the side the cutter pushes; a **fixture plate** for repeat parts.
+- **Angle plate**, **rotary table**, **indexing head** (dividing for bolt circles and gears), a **sine bar** for angles.
+- Long shafts for keyways: in the vise's V (or two V-blocks clamped to the table) with the shaft **parallel to X** (an indicator along its top and its side), the shaft supported at the ends, and clamped so it cannot rotate (a clamp over the shaft, or a V-block with a strap).
+
+## Finding the edge and setting zero
+
+- **Edge finder** (a spring-loaded cylinder in a collet, 0.200" tip): at 800-1,000 rpm, bring it to the work's edge until it runs true, then **kicks** sideways: at that instant the spindle centre is **half the tip's diameter** (0.100") from the edge; set the DRO to −0.100" (or +) for that axis; repeat on the other axis; a **wiggler** or a coaxial indicator for holes; an electronic edge finder lights up on touch.
+- **Centre of a shaft**: edge-find both sides and halve, or an indicator swept on the shaft's top with the spindle centred over the highest point (touch a dial indicator on the shaft from the side: the reading is symmetrical when centred).
+- **Z zero**: touch the cutter to the work's top on a paper shim (0.003") or a feeler, set the quill's depth stop or the knee dial.
+- Cutter **diameter compensation**: the centre-line zero plus or minus the cutter's radius for an edge cut.
+
+## Cutters and speeds
+
+| Cutter | Use |
+|---|---|
+| **2-flute end mill** | Aluminium, slotting (chips clear), plunging (centre-cutting) |
+| **4-flute end mill** | Steel, side milling, finishing (a stiffer core, more teeth); most 4-flutes plunge poorly |
+| **Roughing (corn-cob) end mill** | Fast stock removal in steel, less chatter |
+| **Ball-nose** | Radii, fillets |
+| **Face mill / fly cutter** (a single HSS bit in a holder) | Facing wide surfaces; the fly cutter is cheap and gives a fine finish on a Bridgeport |
+| **Woodruff (keyseat) cutter** | Woodruff key pockets: sized by the key number |
+| **Keyseat cutter / side mill on an arbor** (horizontal mill) | Long keyways on a horizontal mill |
+| **Slitting saw** | Thin slots, cutting off |
+| Boring head | Accurate holes of any size |
+| Materials: HSS (general), cobalt (stainless, alloy), **carbide** (speed, hard materials, rigid machines) with TiN/TiAlN coatings | |
+
+```
+   rpm = (SFM × 3.82) ÷ cutter diameter
+   feed (in/min) = rpm × number of flutes × chip load (in/tooth)
+```
+
+| Material | HSS SFM | Carbide SFM | Chip load (in/tooth): 1/4" cutter / 1/2" / 3/4"-1" |
+|---|---|---|---|
+| **Mild steel** | **70-100** | 300-500 | 0.001-0.002 / 0.002-0.004 / 0.004-0.006 |
+| Alloy steel 4140 | 50-70 | 250-400 | slightly less |
+| Stainless 304 | 40-60 | 200-300 | 0.001 / 0.002-0.003 / 0.003-0.005 (never light) |
+| Cast iron | 60-80 | 250-400 | 0.002 / 0.003-0.005 / 0.005-0.008 |
+| Aluminium | 250-400 | 800-1,500 | 0.002-0.003 / 0.004-0.006 / 0.006-0.010 |
+| Brass/bronze | 150-250 | 500-800 | 0.002 / 0.003-0.005 / 0.005 |
+
+Example: a 1/2" 4-flute HSS end mill in mild steel: rpm = 90 × 3.82 ÷ 0.5 = **690**; feed = 690 × 4 × 0.003 = **8 in/min** (a slow steady crank by hand, or the power feed); depth of cut per pass: up to 1/2 the diameter for slotting in steel (1/4" deep), full width; side cuts 1/4-1/2 × D deep radially and up to 1-1.5 × D axially. Aluminium at 2,000 rpm and 20 in/min with a 2-flute. Too slow a feed **rubs** (the cutter dulls and squeals); too fast breaks flutes; the chips should be small curled commas, not dust and not blue.
+
+**Climb vs conventional**: **conventional** (the cutter's teeth enter the cut thin and leave thick, rotating **against** the table's feed direction) is safe on a manual mill with backlash; **climb** (the teeth enter thick, the cutter pulls the work along the feed) gives a better finish and longer tool life but on a mill with leadscrew backlash the cutter can **grab the table and pull it in** (a broken cutter, a ruined part); on a Bridgeport, climb only in light finish cuts with the table gibs snug and the backlash taken up, or with a ball-screw/CNC. Rule for hand milling: conventional for roughing; a light climb pass for the finish on the side of a slot.
+
+## Squaring a block
+
+1. Face the largest surface (surface 1) with a face mill or fly cutter (the work on parallels, clamped; one pass, a light finish pass).
+2. Surface 1 against the **fixed jaw** (on a round bar between the work and the movable jaw so the work seats flat on the fixed jaw), an adjacent side up: mill it (surface 2: square to 1).
+3. Surface 2 down on parallels, 1 against the fixed jaw: mill 3 (parallel to 2).
+4. Surface 1 down, 2 against the fixed jaw: mill 4.
+5. Ends: the block on end in the vise against the fixed jaw with a square, or on an angle plate: mill 5 and 6 to length.
+6. Check with a square and a micrometer at the corners.
+
+## Slots and keyways in a shaft
+
+**Keyway sizes**: width and depth from [keys and keyways](/article/keys-and-keyways) (1" shaft: 1/4" wide, 1/8" deep in the shaft; 2" shaft: 1/2" wide, 1/4" deep; the shaft's "M" dimension from the keyseat bottom to the opposite side = D − depth − the chord correction).
+
+**End-milled keyway (a closed keyseat with round ends, the common one):**
+
+1. Shaft in V-blocks/the vise V, parallel to X (indicator on the top: within 0.001" over the keyway's length; and on the side), clamped against rotation; the keyway position marked (the shaft's top centre line found with the indicator: the spindle over the shaft's centre in Y).
+2. Cutter: a **2-flute end mill of the keyway's width** (a 1/4" keyway: a 1/4" 2-flute, which cuts slightly over: measure the slot; a 4-flute wanders); an end mill cuts about 0.001-0.002" over its nominal size, so oversize key stock or an undersize end mill gives the fit you want: test on scrap.
+3. **Centre the cutter over the shaft** in Y (edge-find both sides of the shaft and split, or the indicator method); lock the Y axis and the knee.
+4. **Plunge** at the keyway's start to the depth (a 2-flute plunges; go in stages with the quill, or the knee), then feed along X at the chip-load feed to the keyway's end; a keyway to a shoulder: stop the feed at the end minus the cutter's radius.
+5. Depth check: a depth micrometer from the shaft's top at the keyway's edge (the chord correction), or the key stock in the slot with a straightedge across the shaft (the key stands proud of the shaft's top by half its height less the chord correction; use the formula in the keys article); the width with a gauge block or the key: a **sliding fit** with no rock.
+6. Deburr the edges; the end radius equals the cutter's radius: the key's ends are rounded to match.
+
+**Woodruff keyseat**: the Woodruff cutter of the key's number (the number gives the width in 1/32" and the diameter in 1/8": a #808 is 8/32 = 1/4" wide, 8/8 = 1" diameter), centred over the shaft, fed in radially (the knee up) to the depth (the key's height minus its projection; the cutter's slow speed, about 60-80 SFM in steel); one plunge.
+
+**Open keyway to the shaft's end** (for a sled-runner key): the same end-milling, run off the end; or a side-milling cutter on a horizontal mill.
+
+**Long keyways on a large shaft** that will not fit the mill: a **portable keyseat cutter / keyway milling machine** (clamped on the shaft, a small motor and an end mill riding a rail along the shaft), or a **hand-held keyway cutter** (a die grinder with a cutter in a guide) for rough work; a **shaper** in an old shop; a machine shop with a horizontal mill for big shafts.
+
+## Hub keyways: broaching
+
+A keyway in a **bore** (a sprocket, a sheave, a coupling hub, a gear) is cut with a **keyway broach**: a bar with progressively taller teeth, pushed through the bore in a **bushing** (a sleeve sized to the bore with a slot for the broach) with an **arbor press** (or a hydraulic press), with **shims** behind the broach to take successive cuts:
+
+1. Choose the **bushing** for the bore diameter (the broach set has bushings for standard bores: a 1" bushing with a slot for the 1/4" broach) and the **broach** for the keyway width (Style A/B/C by size; each broach cuts one width); the depth is reached with the set's **shims** (a 1/4" broach set: 2-3 passes: no shim, then one shim, then two).
+2. Bushing in the bore (a collar type sits on the hub's face; the hub must sit **square** on the press table, on parallels over the hole so the broach can pass through); the broach in the bushing's slot, its teeth toward the hub, oiled (cutting oil on every pass).
+3. **Press** the broach through **squarely** with steady pressure (the ram on the broach's end; a **broach follower/guide** if the broach could bow); the chips clear; the first pass cuts about a third of the depth.
+4. Add a **shim** behind the broach, second pass; the second shim, third pass; check the keyway's depth with the key stock and the width for a **push fit**; some sets need a fourth pass for the full depth on bigger keys.
+5. Deburr the keyway's edges; a **step key** or an **offset** if the shaft's and hub's keyways are different widths.
+6. Rules: the broach and the bushing matched (a 1/4" broach in a 3/8" bushing slot cuts a crooked keyway); never hammer a broach; never press a bowed broach (it breaks: hardened, expensive); a hub that is not square on the table breaks it too; cast iron hubs broach dry; bronze and aluminium with oil; hardened hubs cannot be broached (EDM or a keyway shaper); a long hub (over about 2× the broach's cutting length) is broached from both sides or with a longer broach.
+
+## Drilling and boring on the mill
+
+- Drilling: the mill is a rigid drill press with a DRO: spot, drill, chamfer at the coordinates; the quill's fine feed for control; the [speeds](/article/drill-press-speeds-and-feeds).
+- **Boring head**: an adjustable head with a boring bar, dialled in 0.001" steps on its diameter (or radius: read the head's scale); bore a drilled hole to size with light finish cuts (the head at the slow speed for its swing), measure with a bore gauge; the way to make a hole to a fit (a bearing housing bore, a bushing seat) on the mill.
+- Tapping: a tapping head, or hand-tapped with the tap guided by a spring centre in the spindle.
+
+## Safety
+
+- The cutter is exposed and fast: **no gloves**, sleeves tight, hair, jewellery, lanyards off; safety glasses; a chip shield on aluminium.
+- The work **clamped** so the cutter cannot lift or pull it; the vise on a trammed and cleaned table; parallels tight.
+- The **drawbar** tight on the collet (a loose collet lets the end mill pull out and dive into the work); the spindle brake to hold while tightening; the wrench off before starting.
+- Hands away from the cutter while it turns; chips cleared with a brush after it stops; never reach behind the cutter to clear a chip.
+- Table feeds: know the limits and the stops; a power feed running into the column or the head.
+- Speed changes on a variable-speed head **only with the spindle running** (the varidrive sheaves); on a step-pulley head, with the spindle stopped.
+- Climb-milling grab on a manual machine; the quill locked when milling with the quill extended.
+- The knee's crank removed after use (it swings into a knee); the table's ways clean.
+
+## Common mistakes
+
+- Milling a slot with a 4-flute end mill plunged in the centre: it drifts and the slot is 0.005" wide.
+- A keyway cut with the shaft not indicated parallel: 0.010" deeper at one end.
+- A hub broached sitting on a chip: the keyway is crooked and the broach is bent.
+- The head out of tram after tilting for a chamfer; every face milled after is concave.
+- Climb-milling a heavy cut on a worn Bridgeport: the table lurches and the end mill snaps.
+- The DRO zeroed on the wrong side of the edge finder's tip.
+
+## Related
+
+- [Keys and keyways (sizes and depths)](/article/keys-and-keyways)
+- [Lathe basics for millwrights](/article/lathe-basics-for-millwrights)
+- [Drill press speeds and feeds](/article/drill-press-speeds-and-feeds)
+- [Layout tools and scribing (keyway layout)](/article/layout-tools-and-scribing)
+- [Grinding and abrasives safety](/article/grinding-and-abrasives-safety)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$machining$mw$),
+          array[$mw$milling$mw$,$mw$vertical mill$mw$,$mw$Bridgeport$mw$,$mw$milling basics$mw$,$mw$tramming the head$mw$,$mw$tram$mw$,$mw$mill vise$mw$,$mw$edge finder$mw$,$mw$setting zero$mw$,$mw$DRO$mw$,$mw$end mill$mw$,$mw$2 flute$mw$,$mw$4 flute$mw$,$mw$roughing end mill$mw$,$mw$face mill$mw$,$mw$fly cutter$mw$,$mw$Woodruff cutter$mw$,$mw$keyseat cutter$mw$,$mw$milling speeds and feeds$mw$,$mw$chip load$mw$,$mw$climb milling$mw$,$mw$conventional milling$mw$,$mw$squaring a block$mw$,$mw$slotting$mw$,$mw$keyway cutting$mw$,$mw$cutting a keyway on a mill$mw$,$mw$shaft keyway$mw$,$mw$hub keyway$mw$,$mw$broaching a keyway$mw$,$mw$keyway broach$mw$,$mw$bushing broach$mw$,$mw$portable keyway cutter$mw$,$mw$boring head$mw$,$mw$milling safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook (milling speeds, feeds, chip loads; keyseat dimensions); Bridgeport Series I manual; Technology of Machine Tools (Krar); duMONT keyway broach instructions; end-mill manufacturer data (Niagara, OSG); ANSI B17.1 keyseat depths.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$tapping-and-thread-repair$mw$, $mw$Tapping and Thread Repair: Tap Types (Taper, Plug, Bottoming, Spiral Point, Spiral Flute, Forming), Tap Drill Rule and Thread Percentage, Hand and Power Tapping Technique, Tapping Fluids, Why Taps Break and How to Remove a Broken Tap, Thread Inserts (Heli-Coil and Time-Sert) with the STI Drill Table, Oversize Taps, Thread Chasers and Files, Repairing Threads in Castings and Aluminium$mw$, $mw$How to cut a thread that fits and lasts, by hand or on the press, how to choose the tap and the drill for the material and the hole (through or blind), the technique and fluid that stop taps breaking, what to do when one does, and how to repair a stripped or damaged thread with an insert (the Heli-Coil drill table), an oversize tap, a chaser or a file, including the special cases of aluminium and cast iron.$mw$, $mw$## Tap types
+
+| Tap | Shape | Use |
+|---|---|---|
+| **Taper (starter)** | 8-10 threads chamfered | Starting a thread by hand, through holes, a hand set's first tap |
+| **Plug** | 3-5 threads chamfered | The general-purpose hand and machine tap; through holes and blind holes with room |
+| **Bottoming** | 1-1.5 threads chamfered | Finishing a blind hole to the bottom, after a plug tap has cut most of it |
+| **Spiral point ("gun") tap** | A plug chamfer with an angled point that **pushes the chips ahead** | **Through holes on the machine**: the fastest, strongest tap; not for blind holes (the chips pack at the bottom) |
+| **Spiral flute tap** | Helical flutes that **pull the chips back out** | **Blind holes on the machine**, soft and stringy materials (aluminium, stainless); weaker, run slower |
+| **Forming (roll) tap** | No flutes; displaces the metal into a thread (no chips) | Aluminium, brass, mild steel, stainless in **ductile** materials; a stronger thread, no chips in blind holes; needs its own **larger** tap drill (the forming tap drill size) and lubricant |
+| Pipe taps (NPT, NPTF) | Tapered | Pipe threads; the drill from the pipe tap chart; do not over-tap (the fitting bottoms) |
+| Thread chaser / re-threading tap | Dull edges | Cleaning up an existing thread without cutting it oversize |
+| **STI tap** | Oversize for thread inserts | Heli-Coil; the insert brings the thread back to size |
+| Materials: HSS (general), HSS-E/cobalt (stainless, alloys), TiN/TiCN coated (life), carbide (hard) | | |
+
+Tap **class**: H limits (H1-H4 for the pitch diameter oversize: H3 is general purpose); GH numbers on inch taps.
+
+## Tap drill size and thread percentage
+
+```
+   tap drill ≈ major diameter − (1 ÷ threads per inch)          gives about 75% thread (the standard)
+   metric: tap drill ≈ major diameter − pitch                    (M10×1.5 → 8.5 mm; M8×1.25 → 6.8; M12×1.75 → 10.2; M16×2 → 14.0)
+   thread % = (major − drill) × TPI × 76.98    (inch)
+```
+
+Common inch tap drills (75%): **#6-32: #36; #8-32: #29; #10-24: #25; #10-32: #21; 1/4-20: #7 (0.201); 1/4-28: #3; 5/16-18: F (0.257); 5/16-24: I; 3/8-16: 5/16; 3/8-24: Q (0.332); 7/16-14: U (0.368); 1/2-13: 27/64; 1/2-20: 29/64; 9/16-12: 31/64; 5/8-11: 17/32; 3/4-10: 21/32; 7/8-9: 49/64; 1-8: 7/8**. The full table is in [shop reference tables](/article/shop-reference-tables).
+
+- **75% thread** is the standard: it has about 90% of the strength of a 100% thread and takes a third of the tapping torque; **50-60%** thread (a drill one size larger) in hard materials (stainless, tool steel) and in long engagements (over 1.5 × D) makes tapping easier with little loss of strength; **never under 50%**.
+- Thread engagement of **1 × D in steel, 1.5 × D in cast iron, 2 × D in aluminium** develops the bolt's full strength; deeper engagement adds nothing but tapping trouble.
+- Pipe tap drills: **1/8 NPT: R (0.339) or 11/32; 1/4 NPT: 7/16; 3/8 NPT: 37/64; 1/2 NPT: 23/32; 3/4 NPT: 59/64; 1 NPT: 1-5/32; 1-1/4: 1-1/2; 1-1/2: 1-47/64; 2: 2-7/32**.
+- Forming taps: a drill about **halfway between the tap drill and the major diameter** (M8×1.25 form tap: 7.4 mm; 1/4-20: 0.228/#1); the tap's own chart.
+
+## Hand tapping technique
+
+1. Drill the hole at the right size and **square** (a drill press; a tapping block or a square used from two sides by hand), **chamfer** the hole mouth with a countersink (the first thread is otherwise a torn burr that jams the tap), and clean the chips out.
+2. **Tapping fluid** (a proper tapping fluid: sulphur-chlorinated for steel and stainless, a wax or kerosene for aluminium, none or a light oil for brass, dry on cast iron); coat the tap.
+3. Start with the taper tap (or a plug on a clean hole) in a **T-handle tap wrench** sized to the tap (a big wrench on a small tap is how they break); **square** it to the hole: a square against the tap from two sides, or a tapping guide/block; the first two turns decide whether the thread is straight.
+4. **Turn a half to one turn forward, then a quarter turn back** to break the chip (conventional taps; spiral point and spiral flute taps in power can run through without backing); feel for resistance: a tap that binds is packed with chips or is dull: back out, clean, re-lube.
+5. Blind holes: the plug tap, then the **bottoming** tap to the bottom; **clear the chips** from the bottom (compressed air, a magnet, turn the part over) before the bottoming tap: a tap driven onto packed chips at the bottom of a blind hole **breaks**. Mark the tap for the depth.
+6. Back the tap out fully, clean the thread, check with a bolt or a **thread gauge** (go/no-go for critical work).
+7. A tap that stops turning under normal force is not "tight": it is broken or about to break: **stop**.
+
+## Power tapping
+
+- On a drill press with a **tapping head** (reversing, with a clutch: the standard), or a mill/CNC with rigid tapping; a drill press without a tapping head can tap by hand-feeding with the spindle running very slowly in reverse-capable machines (the power feed cannot follow the pitch) but it breaks taps: use a tapping head or a hand tapping guide (a sprung centre in the chuck that keeps the tap square while you turn the T-handle).
+- Speed: **small taps (under 1/4") 100-300 rpm** in steel, 300-600 in aluminium; larger taps slower (30-100 rpm on 3/4"); stainless 30-60 rpm; the tapping head's clutch set to slip below the tap's breaking torque.
+- Spiral point taps for through holes at speed; spiral flute for blind; flood the fluid; the depth stop set for blind holes; reverse smartly.
+- Cordless drills with a tap in the chuck: only with a tapping attachment or for **thread chasing**; in soft aluminium a careful tradesman taps small holes with a drill at low speed, and breaks a tap eventually.
+
+## Why taps break, and getting one out
+
+Causes: chips packed in a blind hole, too much thread (a drill too small or the wrong drill), a dull tap, a tap not square (the flutes bind on one side), the wrong tap for the material (a hand tap in stainless), no lubricant, work-hardened stainless, a wrench too big, forcing past a bind, a hole with a hard inclusion or a weld.
+
+Removal, in order of gentleness:
+
+1. **Pick out** the pieces: a broken tap is hard and brittle; it usually breaks into 2-3 pieces that can be **unscrewed backwards** with a punch on a flute from the side (tap them counter-clockwise), or grabbed with needle-nose pliers if the tap stands proud; penetrating oil; do not hammer on the tap along its axis (it wedges).
+2. **Tap extractor** (Walton type: fingers that slide down the flutes, a collar and a wrench): fits the flutes of a 2/3/4-flute tap, the collar pushed down, turn counter-clockwise **gently with back-and-forth rocking**; works when the tap is not wedged or welded by galling.
+3. **Carbide burr / diamond bit in a die grinder**: grind the tap out from the centre carefully (the tap is 62 HRC; the part is soft: the burr wants to wander into the part); use a solid carbide drill (a "broken tap drill") at high rpm to drill the tap's centre, then pick out the remains.
+4. **EDM** (electrical discharge machining, "tap burning") at a machine shop: burns the tap out without touching the thread; the professional answer for an expensive part.
+5. **Weld a nut or a rod** to the stub if it stands proud (TIG or MIG with a small tip; the heat also loosens it), then unscrew: see [broken bolt removal](/article/broken-bolt-and-stud-removal).
+6. **Nitric acid / alum solution** (for a HSS tap in a steel or aluminium part: a saturated alum (potassium aluminium sulphate) solution hot dissolves the tap slowly (days) without attacking aluminium; nitric acid dissolves HSS faster and attacks steel: shop-safe only with the SDS and ventilation).
+7. Heat and shock: a red-hot tap (torch) that is quenched shatters and picks out (ruins any heat treatment of the part; a last resort on a rough part).
+8. Drill out oversize and fit an **insert** (below) if the thread is destroyed.
+
+## Thread repair
+
+| Damage | Repair |
+|---|---|
+| Nicked/burred/dirty external thread (a bolt, a stud, a shaft end) | **Thread file** (8 pitches per file on each end), a **thread restorer** (a die-like tool with rollers), or a **die** run down backwards from the good thread (a split die opened slightly) |
+| Damaged internal thread, mostly intact | **Thread chaser / rethreading tap** (does not cut oversize), or the correct plug tap run in carefully (it will cut a little oversize if forced); clean with a brush and solvent |
+| **Stripped or badly damaged internal thread** | **Thread insert (Heli-Coil / Recoil)**: drill oversize with the STI drill, tap with the STI tap, wind the insert in with the tool, break off the tang: the thread is back to the original size and **stronger than the original in aluminium and cast iron**; or a **solid insert (Time-Sert, Keensert, E-Z LOK)**: a threaded bushing, locked by a flange/keys/thread locker; Time-Sert needs its own counterbore and a driver that expands the bottom threads |
+| Stripped thread with room | Tap **oversize** (the next size, or a special oversize tap such as a 1/2-13 O/S that cuts a few thousandths over) and use an oversize bolt; only where the mating part can be drilled to match |
+| Thread in a thin section | An insert with a flange or a **rivet nut / nutsert** |
+| A spark plug, drain plug or a large hole | The specific insert kits (spark plug, oil drain) |
+| A wallowed hole in a casting where an insert will not hold | Drill and tap larger, fit a threaded **plug** (steel, Loctited), and drill/tap the plug; or weld and re-drill (steel); braze-fill and re-tap (cast iron: see [cast iron](/article/welding-cast-iron-and-repairs)) |
+| Cross-threaded pipe threads in a casting | A pipe tap run in gently; a **PTFE-taped oversize nipple**; an insert; a weld-in boss |
+
+### Heli-Coil (STI) drill sizes and insert lengths
+
+| Thread | STI drill | Thread | STI drill |
+|---|---|---|---|
+| #6-32 | #25 (0.1495) | M4×0.7 | 4.2 mm |
+| #8-32 | #17 (0.173) | M5×0.8 | 5.2 mm |
+| #10-24 | 13/64 (0.203) | **M6×1.0** | **6.3 mm** |
+| #10-32 | 7/32 (0.219) | **M8×1.25** | **8.3 mm** |
+| **1/4-20** | **17/64 (0.266)** | **M10×1.5** | **10.5 mm** |
+| 1/4-28 | 17/64 (0.266) | M10×1.25 | 10.3 mm |
+| **5/16-18** | **Q (0.332) / 21/64** | **M12×1.75** | **12.5 mm** |
+| 5/16-24 | 21/64 (0.328) | M12×1.5 | 12.3 mm |
+| **3/8-16** | **25/64 (0.391) / X (0.397)** | M14×2.0 | 14.5 mm |
+| 3/8-24 | 25/64 (0.391) | **M16×2.0** | **16.5 mm** |
+| 7/16-14 | 29/64 (0.453) | M18×2.5 | 18.5 mm |
+| 7/16-20 | 29/64 | M20×2.5 | 20.5 mm |
+| **1/2-13** | **33/64 (0.516)** | M22×2.5 | 22.5 mm |
+| 1/2-20 | 33/64 | M24×3.0 | 24.5 mm |
+| 9/16-12 | 37/64 | 1/8 NPT | 15/32 (with the pipe STI tap) |
+| 5/8-11 | 41/64 (0.641) | 1/4 NPT | 19/32 |
+| 3/4-10 | 49/64 (0.766) | 3/8 NPT | 47/64 |
+| 7/8-9 | 57/64 | 1/2 NPT | 29/32 |
+| 1-8 | 1-1/64 | | |
+
+(Heli-Coil's chart lists one or two drills per size; the kit's card is the authority; the drill makes a hole about 1.03-1.05 × the major diameter.) **Insert lengths**: 1D, 1.5D, 2D, 2.5D, 3D (times the nominal diameter); 1.5D is the usual choice in steel, 2D in aluminium and cast iron; the insert's top sits **1/4 to 1/2 turn below** the surface.
+
+Installation: drill to the STI size (clean, square, chamfered), tap with the STI tap (the same technique as any tap, to full depth plus a turn), clean the hole, wind the insert on the installation tool (the tang in the tool's slot), screw it in until the top coil is a quarter to a half turn below the surface, remove the tool, **break off the tang** with the punch (a sharp tap; retrieve the tang from a blind hole with a magnet), check with a bolt. **Screw-locking** inserts (a distorted coil that grips the bolt) for vibration. Never install an insert with a tap of the standard size or a "close enough" drill.
+
+## Materials
+
+- **Aluminium**: sharp taps, spiral flute for blind, a form tap for the best thread, kerosene/wax; 2D engagement; Heli-Coils make the strongest repair; anti-seize on steel bolts into aluminium.
+- **Cast iron**: dry, a tap with a smaller rake; abrasive (taps dull fast); the thread holds well; 1.5D.
+- **Stainless**: cobalt taps, 50-65% thread (a larger drill), heavy fluid, firm continuous cutting (backing off and rubbing work-hardens it), slow; spiral flute; galling with stainless bolts (anti-seize).
+- **Hard steel (over 35 HRC)**: carbide or cobalt taps at 50% thread, or thread mill; anneal if possible; a broken tap is likely.
+- **Plastics**: sharp, high-rake taps, a larger drill (plastics close in); inserts for a thread that will see many cycles.
+- **Thin sheet**: a rivet nut, a weld nut or an extruded (flow-drilled) boss; a tapped hole in 16 ga has one thread.
+
+## Common mistakes
+
+- A bottoming tap straight into a blind hole with no plug tap first: it breaks.
+- Tapping stainless with a hand tap and no fluid, backing off every quarter turn: it work-hardens and the tap snaps.
+- A drill one size too small "for a stronger thread": twice the torque and a broken tap.
+- No chamfer: the first thread is a burr and the bolt cross-threads.
+- Heli-Coil installed with a standard drill and the STI tap: the insert will not seat, or vice versa.
+- Extractor hammered in: the tap is now wedged and the extractor's fingers snapped off in the flutes too.
+- Bottoming tap not used and the bolt is "too long" for the hole: the last 1/4" of thread never existed.
+
+## Related
+
+- [Drill press speeds and feeds](/article/drill-press-speeds-and-feeds)
+- [Broken bolt and stud removal](/article/broken-bolt-and-stud-removal)
+- [Shop reference tables (tap drill chart)](/article/shop-reference-tables)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Anti-seize and galling](/article/anti-seize-and-galling)
+- [Hole making in the field](/article/hole-making-in-the-field)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$machining$mw$),
+          array[$mw$tapping$mw$,$mw$tap$mw$,$mw$taper tap$mw$,$mw$plug tap$mw$,$mw$bottoming tap$mw$,$mw$spiral point tap$mw$,$mw$gun tap$mw$,$mw$spiral flute tap$mw$,$mw$forming tap$mw$,$mw$roll tap$mw$,$mw$tap drill$mw$,$mw$tap drill size$mw$,$mw$75 percent thread$mw$,$mw$tapping technique$mw$,$mw$hand tapping$mw$,$mw$power tapping$mw$,$mw$tapping head$mw$,$mw$tapping fluid$mw$,$mw$broken tap$mw$,$mw$broken tap removal$mw$,$mw$tap extractor$mw$,$mw$thread repair$mw$,$mw$Heli-Coil$mw$,$mw$helicoil drill size$mw$,$mw$STI tap$mw$,$mw$Time-Sert$mw$,$mw$thread insert$mw$,$mw$Keensert$mw$,$mw$oversize tap$mw$,$mw$thread chaser$mw$,$mw$thread file$mw$,$mw$thread restorer$mw$,$mw$stripped threads$mw$,$mw$aluminum threads$mw$,$mw$cast iron threads$mw$,$mw$blind hole tapping$mw$]::text[], $mw$Heli-Coil (Stanley) / Time-Sert / OSG / Greenfield (generic)$mw$, array[$mw$Heli-Coil$mw$,$mw$Time-Sert$mw$,$mw$Recoil$mw$,$mw$E-Z LOK$mw$,$mw$Keensert$mw$,$mw$OSG$mw$,$mw$Greenfield$mw$,$mw$Irwin Hanson$mw$]::text[], $mw$Machinery's Handbook (tap drill sizes, thread percentage formula, tapping speeds); OSG and Greenfield tap application guides (tap types, chip control, speeds); Heli-Coil installation manual and drill chart (STI drill sizes; insert lengths); Time-Sert installation instructions; Walton tap extractor instructions.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
