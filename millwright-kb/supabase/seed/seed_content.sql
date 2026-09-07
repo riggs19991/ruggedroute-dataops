@@ -2084,6 +2084,768 @@ Each worker puts their **own lock** on the hasp or lock box. The last person off
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$geometry-formulas-area-volume-weight$mw$, $mw$Geometry Formulas for Millwrights: Area of Shafts and Bores, Volumes, Tank Capacity and Steel Weights$mw$, $mw$Every area and volume formula a millwright reaches for: circle and shaft cross-section, annulus for hollow shafts and cylinder rod side, cylinder and bore volume in cubic inches and gallons, cones, spheres, tanks (including a part-full horizontal tank), and quick weights of round bar, plate and pipe, each with a worked example.$mw$, $mw$## Constants you will use constantly
+
+| Constant | Value |
+|---|---|
+| π | 3.1416 |
+| π/4 (circle area factor) | **0.7854** |
+| Cubic inches per US gallon | **231** |
+| Gallons per cubic foot | **7.48** |
+| Cubic inches per cubic foot | 1 728 |
+| Weight of water | 62.4 lb/ft³ · **8.34 lb/gal** · 0.0361 lb/in³ |
+| Density of steel | **0.2833 lb/in³** · 490 lb/ft³ |
+| Density of cast iron | 0.26 lb/in³ · 450 lb/ft³ |
+| Density of aluminium | 0.098 lb/in³ · 169 lb/ft³ |
+| Density of concrete | 150 lb/ft³ |
+| 1 inch | 25.4 mm |
+
+## Circles, shafts and bores
+
+```
+Area of a circle (solid shaft cross-section)      A = π r² = π d² / 4 = 0.7854 × d²
+Circumference                                     C = π d = 2 π r
+Diameter from circumference                       d = C / π
+Diameter from area                                d = √(A / 0.7854) = 1.128 √A
+```
+
+| d (in) | Area (in²) | | d (in) | Area (in²) |
+|---|---|---|---|---|
+| 1/2 | 0.196 | | 2 | 3.142 |
+| 3/4 | 0.442 | | 2-1/2 | 4.909 |
+| 1 | 0.785 | | 3 | 7.069 |
+| 1-1/4 | 1.227 | | 4 | 12.566 |
+| 1-1/2 | 1.767 | | 5 | 19.635 |
+| 1-3/4 | 2.405 | | 6 | 28.274 |
+
+**Example:** area of a 2-3/8" shaft. 0.7854 × 2.375² = 0.7854 × 5.641 = **4.43 in²**.
+
+### Hollow shaft, pipe wall, or cylinder rod-side (annulus)
+
+```
+A = 0.7854 × (D² − d²)        D = outside diameter, d = inside (or rod) diameter
+```
+
+**Example:** hydraulic cylinder, 4" bore, 2" rod. Full-bore (extend) area = 0.7854 × 16 = **12.57 in²**. Rod-side (retract) area = 0.7854 × (16 − 4) = **9.42 in²**. The cylinder pushes harder than it pulls by the ratio 12.57 / 9.42 = 1.33.
+
+### Arcs, chords, sectors, segments
+
+```
+Arc length                    s = (θ / 360) × π d              θ in degrees
+Chord                         c = d × sin(θ / 2)               (= 2 r sin(θ/2))
+Sector area (pie slice)       A = (θ / 360) × 0.7854 d²
+Sagitta (height of arc)       h = r − √(r² − (c/2)²)
+Radius from chord and sagitta r = c² / (8 h) + h / 2
+Segment area (arc + chord)    A = r² × (θ_rad − sin θ) / 2      θ_rad in radians = θ × 0.01745
+```
+
+**Example:** a broken wheel rim shows a chord of 24" and the arc rises 2" above it. r = 24² / (8 × 2) + 2 / 2 = 36 + 1 = **37"**, so the wheel was 74" in diameter.
+
+## Straight-sided shapes
+
+```
+Rectangle / square       A = L × W
+Triangle                 A = ½ × base × height
+Triangle from 3 sides    s = (a + b + c)/2 ;  A = √( s (s−a)(s−b)(s−c) )      (Heron)
+Trapezoid                A = (a + b) / 2 × h          a, b = parallel sides
+Parallelogram            A = base × height
+Ellipse                  A = 0.7854 × D × d           D, d = long and short diameters
+Regular hexagon          A = 2.598 × s²   (s = side)  = 0.866 × AF²   (AF = across flats)
+Regular polygon          A = ½ × perimeter × apothem (centre to mid-side)
+```
+
+Hexagon across corners = across flats × **1.1547**. Square across corners = across flats × **1.4142**.
+
+## Surface area
+
+```
+Cylinder, side only        A = π d h
+Cylinder, closed both ends A = π d h + 2 × 0.7854 d²
+Sphere                     A = π d²  = 4 π r²
+Cone, side only            A = π r × slant height ;  slant = √(r² + h²)
+Rectangular box            A = 2 (LW + LH + WH)
+```
+
+Use these for paint, insulation and heat-transfer estimates.
+
+## Volumes
+
+```
+Cylinder / cylinder bore / tank on end   V = 0.7854 × d² × h
+Hollow cylinder (pipe wall, sleeve)      V = 0.7854 × (D² − d²) × L
+Rectangular tank / block                 V = L × W × H
+Cone                                     V = ⅓ × 0.7854 × d² × h
+Frustum of a cone (hopper)               V = (π h / 3) × (R² + R r + r²)
+Sphere                                   V = 0.5236 × d³   (= 4/3 π r³)
+Hemisphere (dished head, rough)          V = 0.2618 × d³
+Pyramid                                  V = ⅓ × base area × h
+```
+
+Convert to liquid: **gallons = in³ ÷ 231** or **gallons = ft³ × 7.48**. Litres = cm³ ÷ 1 000.
+
+**Example - vertical tank:** 36" diameter, 60" tall. V = 0.7854 × 36² × 60 = 0.7854 × 1296 × 60 = 61 073 in³. Gallons = 61 073 / 231 = **264 gal**. Weight of water = 264 × 8.34 = **2 204 lb**.
+
+**Example - cylinder bore displacement:** 4" bore, 24" stroke. V = 0.7854 × 16 × 24 = 301.6 in³ = **1.31 gal** per full extend stroke. At 10 gpm the extend takes 1.31 / 10 = 0.131 min = **7.8 s**.
+
+**Example - hopper (frustum):** 48" top diameter, 12" bottom, 36" tall. R = 24, r = 6. V = (π × 36 / 3) × (576 + 144 + 36) = 37.70 × 756 = 28 500 in³ = 16.5 ft³.
+
+### Horizontal cylindrical tank, part full
+
+The one everybody looks up. r = radius, h = liquid depth measured from the bottom, L = tank length, all in the same unit.
+
+```
+Segment area  A = r² × acos( (r − h) / r ) − (r − h) × √(2 r h − h²)      acos in radians
+Volume        V = A × L
+```
+
+**Example:** 48" diameter × 120" long tank, dipstick shows 12" of oil. r = 24, h = 12.
+acos((24 − 12)/24) = acos(0.5) = 1.0472 rad. r² × 1.0472 = 576 × 1.0472 = 603.2. (r − h) × √(2rh − h²) = 12 × √(576 − 144) = 12 × 20.78 = 249.4. A = 603.2 − 249.4 = 353.8 in². V = 353.8 × 120 = 42 456 in³ = **184 gal**. (A full tank holds 0.7854 × 48² × 120 / 231 = 940 gal; 12" of 48" is a quarter of the depth but only 19.6% of the volume.)
+
+Quick fractions for a horizontal tank: depth 25% of diameter ≈ **19.6%** of volume, 50% ≈ 50%, 75% ≈ 80.4%.
+
+## Weight
+
+```
+Weight = volume × density
+Round steel bar         lb per ft = 2.67 × d²        (d in inches)      lb per in = 0.2225 × d²
+Square steel bar        lb per ft = 3.40 × s²
+Steel plate             lb per ft² = 40.8 × thickness (in)
+Steel pipe / tube       lb per ft = 10.69 × (OD − wall) × wall        (inches)
+Hex steel bar           lb per ft = 2.945 × AF²
+Water inside a pipe     lb per ft = 0.34 × ID²      gal per ft = 0.0408 × ID²
+```
+
+For aluminium multiply the steel figures by 0.35; for cast iron by 0.92; for brass by 1.09; for stainless by 1.02.
+
+**Example - shaft weight for rigging:** 3" steel shaft, 10 ft long. 2.67 × 9 = 24 lb/ft → **240 lb**. Long way: 0.7854 × 9 × 120 = 848 in³ × 0.2833 = 240 lb.
+
+**Example - plate:** 4 ft × 8 ft × 3/4" plate. 40.8 × 0.75 = 30.6 lb/ft² × 32 ft² = **979 lb**.
+
+**Example - pipe:** 6" sch 40 (6.625" OD, 0.280" wall), 20 ft. 10.69 × (6.625 − 0.280) × 0.280 = 19.0 lb/ft → 380 lb empty; water in it adds 0.34 × 6.065² = 12.5 lb/ft → **630 lb full**.
+
+**Example - hollow shaft vs solid:** 4" OD × 2" ID tube vs 4" solid, per foot. Solid 2.67 × 16 = 42.7 lb. Tube 2.67 × (16 − 4) = 32.0 lb. The tube is 25% lighter but keeps about 94% of the torsional strength (see the [shaft formulas](/article/shaft-bearing-fastener-formulas)).
+
+## Metric versions
+
+Same formulas; keep every length in **mm** and you get mm² and mm³. 1 000 mm³ = 1 cm³ = 1 mL. Steel = 7.85 g/cm³, so a round bar weighs **0.00617 × d² kg per metre** (d in mm). Water = 1 kg per litre.
+
+## Related
+
+- [Shop reference: decimal equivalents, tap drills, conversions](/article/shop-reference-tables)
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
+- [Trig and layout formulas](/article/trig-and-layout-formulas)
+- [Rigging basics](/article/rigging-basics-sling-angles-and-hitches) (uses these weights)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$formulas$mw$,$mw$area of a circle$mw$,$mw$area of shaft$mw$,$mw$area of bore$mw$,$mw$cylinder volume$mw$,$mw$tank volume$mw$,$mw$gallons$mw$,$mw$annulus$mw$,$mw$hollow shaft$mw$,$mw$cone$mw$,$mw$sphere$mw$,$mw$weight of steel$mw$,$mw$round bar weight$mw$,$mw$pipe weight$mw$,$mw$plate weight$mw$,$mw$circumference$mw$,$mw$arc$mw$,$mw$chord$mw$,$mw$sector$mw$,$mw$hexagon$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; standard geometry. Densities: steel 0.2833 lb/in³ (490 lb/ft³), water 62.4 lb/ft³ (8.34 lb/gal).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$power-torque-speed-drive-formulas$mw$, $mw$Power, Torque, Speed and Drive Formulas: Horsepower, Motors, Ratios, Belts, Chains, Gears, Conveyors and Mechanical Advantage$mw$, $mw$How power, torque and speed relate, how to get horsepower from motor nameplate data or amps, synchronous speed and slip, gear and sprocket geometry, belt and conveyor speed and capacity, torque to accelerate a load, and the simple machines (lever, pulley system, screw, hydraulic press), each with a worked example.$mw$, $mw$## Power, torque, speed
+
+```
+HP  = T (ft-lb) × rpm / 5 252
+HP  = T (in-lb) × rpm / 63 025
+T (ft-lb) = 5 252 × HP / rpm
+T (in-lb) = 63 025 × HP / rpm
+kW  = T (N·m) × rpm / 9 549   ;   T (N·m) = 9 549 × kW / rpm
+1 hp = 746 W = 0.746 kW = 33 000 ft-lb/min = 550 ft-lb/s
+1 ft-lb = 12 in-lb = 1.356 N·m
+```
+
+Where 5 252 comes from: 33 000 ÷ 2π. Torque and speed trade off at constant power: a gearbox that cuts speed by 10 multiplies torque by 10 (less losses).
+
+**Example:** 30 hp motor at 1 750 rpm. T = 5252 × 30 / 1750 = **90 ft-lb** (1 080 in-lb). Through a 20:1 reducer at 95% efficiency the output shaft turns 87.5 rpm and delivers 90 × 20 × 0.95 = **1 710 ft-lb**. The output shaft, keys and coupling are sized for that torque, not for 30 hp in the abstract.
+
+## Work, energy, efficiency
+
+```
+Work (ft-lb)      = force (lb) × distance (ft)
+Power             = work / time
+HP to lift        = weight (lb) × lift speed (ft/min) / 33 000
+Efficiency        = output power / input power   (multiply efficiencies of stages in series)
+Kinetic energy    = ½ m v²   ;   rotating: ½ I ω²
+Potential energy  = weight × height
+```
+
+**Example - hoist:** lift 4 000 lb at 20 ft/min through a hoist with 75% overall efficiency. HP = 4000 × 20 / 33 000 / 0.75 = **3.2 hp** → 5 hp motor.
+
+**Example - efficiency chain:** motor 92% × V-belt 95% × gearbox 96% × chain 93% = 0.78. A 10 hp motor delivers about 7.8 hp to the conveyor shaft.
+
+## Electric motors
+
+```
+Synchronous speed (rpm)   Ns = 120 × frequency / number of poles
+Slip (%)                  = (Ns − actual rpm) / Ns × 100
+Three-phase HP output     = 1.732 × V × I × PF × efficiency / 746
+Three-phase kW input      = 1.732 × V × I × PF / 1 000
+Single-phase HP output    = V × I × PF × efficiency / 746
+Full-load current (rough) ≈ 1.25 A per hp at 460 V ;  2.5 A/hp at 230 V ;  1 A/hp at 575 V   (three-phase)
+Full-load torque          T = 5 252 × HP / full-load rpm
+Starting (locked-rotor) current ≈ 6-8 × full-load amps ;  starting torque 150-275% of full-load (design B)
+Service factor            the motor may run continuously at HP × SF (usually 1.15) at reduced life; do not size to it
+Motor speed on a VFD      rpm = 120 × f / poles × (1 − slip) ;  constant torque below base speed, constant hp above it
+```
+
+| Poles (60 Hz) | Synchronous rpm | Typical full-load rpm |
+|---|---|---|
+| 2 | 3 600 | 3 450-3 550 |
+| 4 | 1 800 | 1 725-1 780 |
+| 6 | 1 200 | 1 150-1 175 |
+| 8 | 900 | 850-875 |
+
+50 Hz: multiply synchronous speeds by 5/6 (3 000, 1 500, 1 000, 750).
+
+**Example - amps to horsepower:** 460 V motor drawing 30 A, PF 0.85, efficiency 92%. HP = 1.732 × 460 × 30 × 0.85 × 0.92 / 746 = **25 hp** of shaft output. If the nameplate says 30 hp, the machine is at about 83% load. Clamp-on ammeter readings are the quickest load check there is; compare against nameplate FLA.
+
+**Example - slip:** nameplate 1 765 rpm, measured 1 790 rpm with a strobe: slip = (1800 − 1790)/1800 = 0.55% versus 1.9% at full load, so the motor is lightly loaded.
+
+## Speed ratios
+
+```
+Belts and pulleys      driver rpm × driver PD = driven rpm × driven PD
+Chains and gears       driver rpm × driver teeth = driven rpm × driven teeth
+Ratio                  = driven teeth / driver teeth = driver rpm / driven rpm  (> 1 is a reduction)
+Compound train         total ratio = product of all driven teeth ÷ product of all driver teeth
+                       output rpm = input rpm × (product of drivers) / (product of drivens)
+Idler gears            change direction only, not ratio
+Torque out             = torque in × ratio × efficiency
+```
+
+**Example - compound:** motor 1 750 rpm → 20 T pinion drives 60 T gear on a jackshaft; on the same shaft a 15 T sprocket drives a 45 T sprocket. Ratio = (60 × 45) / (20 × 15) = 2700 / 300 = **9:1**. Output = 1750 / 9 = **194 rpm**. Torque at the output = 9 × input torque × (0.97 × 0.93).
+
+**Example - pick a sheave:** fan must run 1 150 rpm from a 1 750 rpm motor with a 6" motor sheave. Fan sheave PD = 1750 × 6 / 1150 = **9.13"**; nearest stock 9.0" gives 1 167 rpm (fan laws say the hp changes by (1167/1150)³ = +4.5%).
+
+## Gear geometry (inch, diametral pitch)
+
+```
+Diametral pitch     DP = teeth / pitch diameter        (teeth per inch of PD; 8 DP is coarser than 16 DP)
+Pitch diameter      PD = N / DP
+Outside diameter    OD = (N + 2) / DP
+Circular pitch      CP = π / DP
+Whole tooth depth   ≈ 2.25 / DP  (2.157 / DP for older 14.5° teeth)
+Centre distance     C = (N1 + N2) / (2 × DP)
+Metric module       m = PD (mm) / N ;  OD = m (N + 2) ;  C = m (N1 + N2) / 2 ;  module ≈ 25.4 / DP
+Backlash            measured at the pitch line; typical 0.03-0.05 / DP inch
+```
+
+Two gears only mesh if they have the **same DP (or module) and the same pressure angle** (14.5° or 20°). Count teeth and measure OD to find DP: DP = (N + 2) / OD.
+
+**Example:** gear has 40 teeth, OD measures 5.25". DP = 42 / 5.25 = **8**. PD = 40 / 8 = 5.000". It meshes with a 16-tooth 8 DP pinion (PD 2.0") at a centre distance of (40 + 16)/(2 × 8) = **3.500"**.
+
+## Sprockets and chain
+
+```
+Sprocket pitch diameter    PD = P / sin(180° / N)          P = chain pitch, N = teeth
+Sprocket outside diameter  OD ≈ P × (0.6 + 1 / tan(180° / N))
+Chain speed (ft/min)       = P (in) × N × rpm / 12
+Chain length (pitches)     L = 2C/P + (N1 + N2)/2 + (N2 − N1)² × P / (39.5 × C)     C = centre distance (in); round UP to an even number
+Centre distance from a chain length: solve the above, or lay it out
+```
+
+**Example:** #60 chain (P = 0.75"), 24-tooth sprocket. PD = 0.75 / sin 7.5° = 0.75 / 0.1305 = **5.747"**. At 194 rpm the chain speed = 0.75 × 24 × 194 / 12 = **291 ft/min** (type A manual lubrication is fine below about 350 fpm for #60).
+
+**Example - chain length:** 15 T and 45 T #60 sprockets on 24" centres. 2C/P = 64 pitches; (15 + 45)/2 = 30; (30)² × 0.75 / (39.5 × 24) = 675 / 948 = 0.7. L = 94.7 → **96 pitches** (even, connecting link, no offset), then move the motor to take up the slack.
+
+## Belts, pulleys, conveyors
+
+```
+Belt / rim speed (ft/min)  = π × D (in) × rpm / 12 = 0.2618 × D × rpm
+Belt speed (m/s)           = π × D (m) × rpm / 60
+Conveyor belt speed        same formula with the drive pulley diameter (add belt thickness to D for accuracy)
+Belt length (open drive)   L = 2C + 1.57 (D + d) + (D − d)² / (4C)
+Conveyor capacity (tons/h) = load (lb per ft of belt) × belt speed (ft/min) × 60 / 2 000
+Bulk load per foot         = cross-section area (ft²) × material density (lb/ft³)
+Conveyor drive HP (flat, rough) = (belt pull lb × fpm) / 33 000 / efficiency ;  belt pull = friction × total moving weight + lift
+```
+
+V-belt drives should run between about 1 000 and 6 000 ft/min; above 6 500 fpm sheaves need dynamic balancing; below 1 000 fpm the belt is doing very little work per belt.
+
+**Example:** 24" head pulley at 60 rpm: belt speed = 0.2618 × 24 × 60 = **377 ft/min**. Carrying 40 lb per foot of gravel: 40 × 377 × 60 / 2000 = **452 tons/h**.
+
+## Torque to accelerate a load (starting, braking, flywheels)
+
+```
+Accelerating torque  T (ft-lb) = WK² × Δrpm / (308 × t)        WK² in lb-ft², t in seconds
+WK² of a solid cylinder      = W × r² / 2   (W lb, r ft)     ; thin rim = W × r²
+WK² reflected to the motor   = WK²_load / ratio²             (a 10:1 reducer makes the load look 100× lighter)
+Time to accelerate           t = WK² × Δrpm / (308 × T_available)
+```
+
+**Example:** a fan wheel with WK² = 500 lb-ft² must reach 1 750 rpm in 5 s. T = 500 × 1750 / (308 × 5) = **568 ft-lb** of accelerating torque, on top of the running torque. A 30 hp motor (90 ft-lb full load, maybe 200 ft-lb pull-up) cannot do that in 5 s; it will take 500 × 1750 / (308 × 200) ≈ 14 s of near-locked-rotor current, which is why big fans get soft starters or VFDs, and why repeated starts overheat motors.
+
+## Simple machines and mechanical advantage
+
+```
+Lever                       F1 × L1 = F2 × L2   (distances from the fulcrum)
+Wheel and axle              MA = wheel radius / axle radius
+Block and tackle            MA = number of rope parts supporting the moving block ;  actual ≈ MA × (0.9)^sheaves
+Inclined plane              MA = length of slope / height ;  force to push up = W × (sin θ + μ cos θ)
+Screw jack / threaded rod   MA = 2 π R / lead    (R = handle radius; lead = pitch × starts) ;  real efficiency 20-40%
+Wedge                       MA = length / thickness
+Hydraulic press             F2 = F1 × (A2 / A1)   ; the small piston travels A2/A1 times farther
+Gear / sprocket / pulley    MA = ratio (torque multiplication) at the cost of speed
+Torque wrench extension     wrench setting = target × L_wrench / (L_wrench + L_extension)
+```
+
+**Example - lever:** a 6 ft bar with the fulcrum 6" from the load. MA = 66 / 6 = 11. A 150 lb push lifts 1 650 lb (minus friction). Pry bars, gear pullers and hook spanners all live on this formula.
+
+**Example - chain hoist:** 4 parts of load chain, 3 sheaves. Ideal MA 4; actual about 4 × 0.9³ = 2.9, so a 1-ton lift needs about 690 lb of pull if it were a simple tackle. Real chain hoists add a gear train, which is why one hand lifts a ton.
+
+**Example - hydraulic press:** hand pump piston 0.5" dia (0.196 in²), ram 4" dia (12.57 in²). MA = 64. A 100 lb push makes 6 400 lb of ram force, and the ram moves 1/64 as far as the pump piston.
+
+## Sizing checklist
+
+1. Get the **load torque** at the driven shaft (from process or from amps on the existing motor).
+2. Divide by ratio and efficiencies back to the motor: T_motor = T_load / (ratio × η).
+3. HP = T_motor × rpm / 5252. Add accelerating torque if starts are frequent or the inertia is large.
+4. Choose the next standard motor size, without relying on the service factor.
+5. Check every element between motor and load for the **torque at its own shaft**, at the **lowest speed** it runs (VFD-driven machines at low speed are torque-limited, not hp-limited).
+6. Check belt speed, chain speed and bearing speed limits.
+
+## Related
+
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
+- [Shaft, bearing and fastener formulas](/article/shaft-bearing-fastener-formulas)
+- [V-belt drives](/article/v-belt-drive-installation-and-tensioning)
+- [Roller chain drives](/article/roller-chain-drives)
+- [Shop reference tables](/article/shop-reference-tables)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$formulas$mw$,$mw$horsepower$mw$,$mw$torque$mw$,$mw$5252$mw$,$mw$63025$mw$,$mw$motor amps$mw$,$mw$746$mw$,$mw$synchronous speed$mw$,$mw$slip$mw$,$mw$gear ratio$mw$,$mw$compound gear train$mw$,$mw$diametral pitch$mw$,$mw$pitch diameter$mw$,$mw$sprocket pitch diameter$mw$,$mw$belt speed$mw$,$mw$conveyor speed$mw$,$mw$conveyor capacity$mw$,$mw$WK2$mw$,$mw$accelerating torque$mw$,$mw$mechanical advantage$mw$,$mw$lever$mw$,$mw$block and tackle$mw$,$mw$screw jack$mw$,$mw$inclined plane$mw$,$mw$work$mw$,$mw$energy$mw$,$mw$efficiency$mw$,$mw$service factor$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Standard mechanical engineering references; NEMA MG-1 motor data; Machinery's Handbook.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pump-and-fluid-power-formulas$mw$, $mw$Pump and Fluid-Power Formulas: Head, Pressure, Flow, Horsepower, Affinity Laws, NPSH, Friction Loss and Hydraulic Cylinders$mw$, $mw$The pump math millwrights actually use, with the constants (2.31, 0.433, 3960, 1714, 231) explained and worked examples: converting head and pressure, velocity in pipe, water and brake horsepower, motor sizing, the affinity laws for VFDs and impeller trims, total dynamic head, NPSH available with vapor-pressure and altitude tables, friction loss and fitting equivalent lengths, reading a pump curve, plus positive-displacement pumps, hydraulic cylinders and motors, compressed air and fan laws.$mw$, $mw$## The constants and where they come from
+
+| Constant | Meaning | Comes from |
+|---|---|---|
+| **2.31 ft per psi** | height of a column of water that makes 1 psi | 144 in²/ft² ÷ 62.4 lb/ft³ |
+| **0.433 psi per ft** | pressure at the bottom of 1 ft of water | 1 / 2.31 |
+| **3 960** | gpm × ft ÷ 3960 = water horsepower | 33 000 ft-lb/min ÷ 8.34 lb/gal |
+| **1 714** | psi × gpm ÷ 1714 = hydraulic horsepower | 33 000 ÷ (231 ÷ 12) |
+| **231** | cubic inches in a US gallon | definition |
+| **0.4085** | ft/s = 0.4085 × gpm ÷ d² | 231 ÷ (60 × 0.7854 × 12) |
+| **33.9 ft** | atmospheric pressure at sea level as water head | 14.7 psi × 2.31 |
+| **32.2 ft/s²** | g, for velocity head V²/2g | gravity |
+
+**Specific gravity (SG)** is the fluid's density relative to water (water = 1.0). Gasoline ≈ 0.72, diesel ≈ 0.85, lube oil ≈ 0.88-0.92, seawater 1.03, 50% caustic 1.53, brine up to 1.2. Every pressure ↔ head conversion carries SG; horsepower carries SG; head itself does **not** change with SG (a centrifugal pump makes the same feet of head on any liquid, but a different pressure).
+
+## Head, pressure and velocity
+
+```
+Head (ft)      = psi × 2.31 / SG
+psi            = head (ft) × SG / 2.31  = head × 0.433 × SG
+Head (m)       = kPa × 0.102 / SG ;  bar = head (m) × SG / 10.2
+
+Velocity (ft/s)      V = 0.4085 × gpm / d²          d = pipe inside diameter, inches
+Flow (gpm)           Q = 2.448 × d² × V
+Velocity head (ft)   hv = V² / (2 g) = V² / 64.4
+Pressure at depth    psi = 0.433 × depth (ft) × SG
+```
+
+**Example:** a gauge on a pump discharge reads 60 psi pumping water. Head = 60 × 2.31 = **139 ft**. Same gauge on a 0.85 SG oil pump = 60 × 2.31 / 0.85 = 163 ft of oil. Same pump, same impeller, same speed will show only 60 × 0.85 = 51 psi on that oil.
+
+**Example - velocity:** 200 gpm through 3" schedule 40 pipe (ID 3.068"). V = 0.4085 × 200 / 3.068² = 0.4085 × 200 / 9.41 = **8.7 ft/s**. That is fast for a suction line. Through 4" sch 40 (ID 4.026"): 0.4085 × 200 / 16.2 = **5.0 ft/s**.
+
+Recommended velocities: suction lines **2-5 ft/s** (never over about 7), discharge **5-10 ft/s**, hydraulic pressure lines 15-20 ft/s, hydraulic return 10-15 ft/s, hydraulic suction 2-4 ft/s.
+
+## Horsepower
+
+```
+Water (hydraulic) horsepower   WHP = gpm × TDH (ft) × SG / 3960
+Brake horsepower (at pump shaft) BHP = WHP / pump efficiency
+Motor horsepower needed          = BHP / motor efficiency, rounded up to the next motor size, with service factor in mind
+Pump efficiency                  η = WHP / BHP
+
+Metric: shaft power (kW) = Q (m³/h) × H (m) × SG / (367 × η)
+```
+
+**Example:** 200 gpm at 120 ft TDH, water, pump efficiency 70%. WHP = 200 × 120 × 1.0 / 3960 = **6.06 hp**. BHP = 6.06 / 0.70 = **8.66 hp**. Choose a **10 hp** motor (a 7.5 hp with 1.15 service factor would run at 8.66/7.5 = 115%, right at the SF limit, so do not). Pumping 1.2 SG brine instead: BHP = 8.66 × 1.2 = 10.4 hp → 15 hp motor.
+
+**Reading BHP from the motor:** three-phase, BHP ≈ (1.732 × V × I × PF × motor eff) / 746. See the [power formulas](/article/power-torque-speed-drive-formulas).
+
+## Affinity (pump) laws
+
+For a given impeller when speed changes, or (approximately) for a given speed when impeller diameter is trimmed:
+
+```
+Flow      Q2 = Q1 × (N2 / N1)          or × (D2 / D1)
+Head      H2 = H1 × (N2 / N1)²         or × (D2 / D1)²
+Power     P2 = P1 × (N2 / N1)³         or × (D2 / D1)³
+NPSHr changes roughly with (N2/N1)²
+```
+
+**Example - VFD:** pump at 1 750 rpm delivers 300 gpm at 100 ft using 10 bhp. Slowed to 1 400 rpm (ratio 0.8): Q = 300 × 0.8 = **240 gpm**, H = 100 × 0.64 = **64 ft**, P = 10 × 0.512 = **5.1 bhp**. Cutting flow 20% saved 49% of the power. That is why VFDs pay for themselves on throttled pumps.
+
+**Example - impeller trim:** 13" impeller makes 150 ft; you need 130 ft. D2 = 13 × √(130/150) = 13 × 0.931 = **12.1"**. Trims beyond about 25% of the maximum diameter fall off the affinity laws; check the pump curve for the trimmed line, and stay above the minimum diameter the maker allows.
+
+The same three laws are the **fan laws** (cfm, static pressure, hp) for centrifugal fans.
+
+## Total dynamic head (TDH)
+
+TDH is what the pump must produce. Build it from the system, always in feet of the liquid pumped:
+
+```
+TDH = static head + pressure head + friction head + velocity head
+
+static head    = discharge liquid level (or outlet) elevation − suction liquid level elevation
+                 (a suction LIFT adds to the head; a flooded suction subtracts)
+pressure head  = (discharge vessel psi − suction vessel psi) × 2.31 / SG   (zero for open tanks)
+friction head  = pipe friction + fitting/valve losses, suction side + discharge side, at the design flow
+velocity head  = V² / 64.4 at the discharge (usually small; often ignored below 8 ft/s)
+```
+
+**Example:** water from a sump 10 ft below the pump to an open tank whose inlet is 45 ft above the pump; 200 gpm; suction friction 2 ft; discharge friction 14 ft; discharge velocity 8.7 ft/s. Static = 45 + 10 = 55 ft. Pressure = 0. Friction = 16 ft. Velocity head = 8.7² / 64.4 = 1.2 ft. **TDH = 72 ft.** Pick a pump whose curve passes through 200 gpm at 72 ft near its best efficiency point.
+
+## NPSH: will it cavitate?
+
+**NPSHa** (available) is set by the system. **NPSHr** (required) is on the pump curve. You need **NPSHa ≥ NPSHr + margin** (at least 3 ft, or 1.2 × NPSHr for hot or hydrocarbon service, more for large or high-energy pumps).
+
+```
+NPSHa = Ha + Hs − Hvp − Hf
+
+Ha  = atmospheric pressure on the suction liquid surface, as head (33.9 ft at sea level; less at altitude;
+      for a closed vessel use its absolute pressure × 2.31 / SG)
+Hs  = static height of the liquid surface above the pump centreline (NEGATIVE for a suction lift)
+Hvp = vapor pressure of the liquid at pumping temperature, as head
+Hf  = friction loss in the suction pipe, valves, strainer and fittings at the design flow
+```
+
+### Water vapor pressure
+
+| Temperature | Vapor pressure (psia) | As head (ft) | SG |
+|---|---|---|---|
+| 40°F (4°C) | 0.12 | 0.3 | 1.000 |
+| 60°F (16°C) | 0.26 | 0.6 | 0.999 |
+| 80°F (27°C) | 0.51 | 1.2 | 0.997 |
+| 100°F (38°C) | 0.95 | 2.2 | 0.993 |
+| 120°F (49°C) | 1.69 | 4.0 | 0.989 |
+| 140°F (60°C) | 2.89 | 6.8 | 0.985 |
+| 160°F (71°C) | 4.74 | 11.2 | 0.979 |
+| 180°F (82°C) | 7.51 | 17.8 | 0.972 |
+| 200°F (93°C) | 11.53 | 27.7 | 0.963 |
+| 212°F (100°C) | 14.70 | 35.4 | 0.959 |
+
+Hot water is the classic cavitation case: at 200°F almost all of the atmosphere is eaten by vapor pressure, so the pump needs a **flooded** suction of several feet.
+
+### Atmospheric pressure vs altitude
+
+| Altitude (ft) | psia | Water head (ft) |
+|---|---|---|
+| 0 | 14.7 | 33.9 |
+| 1 000 | 14.2 | 32.8 |
+| 2 000 | 13.7 | 31.6 |
+| 3 000 | 13.2 | 30.5 |
+| 5 000 | 12.2 | 28.2 |
+| 7 000 | 11.3 | 26.2 |
+| 10 000 | 10.1 | 23.4 |
+
+**Example:** sea level, water at 140°F, pump takes suction with an 8 ft lift, suction friction and strainer 3 ft. NPSHa = 33.9 − 8 − 6.8 − 3 = **16.1 ft**. Pump curve shows NPSHr = 12 ft at the duty flow. Margin 4.1 ft: acceptable. At 180°F the same setup gives 33.9 − 8 − 17.8 − 3 = 5.1 ft: it will cavitate. Fixes, in order of cost: cool the liquid, raise the tank or lower the pump (flooded suction), bigger suction pipe, shorter suction pipe, larger/slower pump with lower NPSHr, inducer.
+
+### Signs of cavitation
+
+Sound like pumping gravel, vibration, pitted impeller vanes on the low-pressure (back) side near the eye, falling head and flow, seal and bearing failures. Also check for the other "cavitation": air entrainment from a vortexing sump or a suction leak (bubbles, not vapor).
+
+## Friction loss
+
+### Hazen-Williams (water, turbulent flow)
+
+```
+hf (ft per 100 ft of pipe) = 0.2083 × (100 / C)^1.852 × Q^1.852 / d^4.8655
+Q = gpm, d = inside diameter (in), C = pipe roughness coefficient
+```
+
+| Pipe | C |
+|---|---|
+| New steel, new cast iron | 130 |
+| Steel/cast iron, 10-20 years in service | 100 (use this for design) |
+| Old, tuberculated steel | 60-80 |
+| PVC, HDPE, copper, stainless | 140-150 |
+
+**Example:** 100 gpm in 3" sch 40 steel (3.068"), C = 100. 100^1.852 = 5 060. 3.068^4.8655 = 234. hf = 0.2083 × 5 060 / 234 = **4.5 ft per 100 ft**. Doubling the flow to 200 gpm raises it 2^1.852 = 3.6× to about 16 ft per 100 ft: friction grows almost with the square of flow.
+
+### Fittings and valves as equivalent length
+
+Add these to the straight pipe length before multiplying by the ft-per-100-ft figure (Crane TP-410 L/D ratios, turbulent flow):
+
+| Fitting | Equivalent length in pipe diameters (L/D) | 3" pipe example (ft) |
+|---|---|---|
+| 90° standard elbow | 30 | 7.7 |
+| 90° long-radius elbow | 16 | 4.1 |
+| 45° elbow | 16 | 4.1 |
+| Tee, flow straight through | 20 | 5.1 |
+| Tee, flow through the branch | 60 | 15.3 |
+| Gate valve, fully open | 8 | 2.0 |
+| Globe valve, fully open | 340 | 87 |
+| Angle valve, open | 150 | 38 |
+| Swing check valve | 100 | 26 |
+| Lift check valve | 600 | 153 |
+| Butterfly valve (6-12") | 45 | 11.5 |
+| Ball valve, full port | 3 | 0.8 |
+| Pipe entrance, sharp | K = 0.5 (≈ 25 L/D) | 6.4 |
+| Pipe exit | K = 1.0 (≈ 50 L/D) | 12.8 |
+
+Equivalent length (ft) = (L/D) × d (in) / 12. A globe valve costs the same as 87 ft of 3" pipe; that is why a discharge throttle valve is a globe valve and the isolation valves are gates or balls.
+
+### Head loss from a K factor
+
+```
+h = K × V² / 64.4        (ft)
+```
+
+Strainers: basket type ≈ K 1-2 clean, far higher fouled; always include the strainer in NPSHa and check its ΔP gauge.
+
+## Reading a pump curve
+
+- **H-Q curve**: head falls as flow rises. The **shutoff head** (zero flow) is the left end; **run-out** is the right end. Never run a centrifugal pump at either for long.
+- **BEP**: best efficiency point. Aim for a duty between about **70% and 120% of BEP flow**. Left of that, recirculation, heat and radial thrust; right of it, cavitation and overload.
+- **Power curve**: for radial-flow pumps, power rises with flow; a non-overloading motor is sized for the end of the curve. Axial-flow pumps are the opposite.
+- **NPSHr curve**: rises steeply toward run-out.
+- **Impeller trims**: several H-Q lines for different diameters; efficiency islands drawn across them.
+- **System curve**: static head (flat) plus friction (rising with Q²). The pump operates where the two cross. Throttling the discharge steepens the system curve and moves the point left; a VFD lowers the pump curve instead.
+
+Specific speed (tells you the impeller type): Ns = N × √Q / H^0.75 (rpm, gpm, ft at BEP, per stage). Under 1 500 radial (high head), 1 500-4 500 Francis/mixed, over 8 000 axial. Suction specific speed Nss = N × √Q / NPSHr^0.75; keep it below about 9 000-11 000 for reliable operation.
+
+Minimum continuous flow is on the data sheet; protect with a bypass or recirculation line if the process can go below it.
+
+## Positive-displacement pumps
+
+Flow is set by displacement and speed, not by head. Pressure is set by the system, so a **relief valve is mandatory**.
+
+```
+Flow (gpm)   = displacement (in³ per rev) × rpm / 231 × volumetric efficiency
+Flow (gpm)   = displacement (gal per rev) × rpm × ηv
+Torque (in-lb) at the shaft = displacement (in³/rev) × psi / (6.28 × mechanical efficiency)
+```
+
+**Example:** gear pump, 2.5 in³/rev, 1 800 rpm, ηv 0.95. Q = 2.5 × 1800 / 231 × 0.95 = **18.5 gpm**. At 2 000 psi with 90% mechanical efficiency, shaft torque = 2.5 × 2000 / (6.28 × 0.9) = 885 in-lb, and hp = 885 × 1800 / 63 025 = 25.3 hp. Check: hydraulic hp = 2000 × 18.5 / 1714 = 21.6 hp, divided by overall efficiency 0.855 = 25.3 hp. Same answer.
+
+Reciprocating pumps: displacement per stroke = 0.7854 × bore² × stroke (single acting); double acting subtract the rod area on the return stroke.
+
+## Hydraulics: cylinders, motors, horsepower
+
+```
+Cylinder force (lb)          F = psi × area (in²)
+   extend area = 0.7854 × bore² ;  retract area = 0.7854 × (bore² − rod²)
+Cylinder speed (in/min)      = gpm × 231 / area (in²)      in/s = in/min ÷ 60
+Cylinder flow needed (gpm)   = area × speed (in/min) / 231
+Hydraulic horsepower         HP = psi × gpm / 1714
+Electric motor for the pump  HP = psi × gpm / (1714 × overall pump efficiency)   (≈ 0.85 for piston pumps, 0.75-0.8 gear)
+Hydraulic motor torque       T (in-lb) = displacement (in³/rev) × psi / 6.28 × ηm
+Hydraulic motor speed        rpm = gpm × 231 / displacement × ηv
+Torque ↔ HP                  HP = T (in-lb) × rpm / 63 025
+Pressure drop across an orifice   Q ∝ √ΔP  (double the flow → four times the ΔP)
+Fluid compressibility        about 0.5% per 1 000 psi (why accumulators are needed for stored energy)
+```
+
+**Example - press cylinder:** 4" bore, 2" rod, 2 000 psi. Extend force = 2000 × 12.57 = **25 100 lb (12.6 tons)**. Retract = 2000 × 9.42 = 18 800 lb. At 10 gpm: extend speed = 10 × 231 / 12.57 = 184 in/min = **3.1 in/s**; retract = 10 × 231 / 9.42 = 245 in/min (faster because less volume to fill). Hydraulic hp = 2000 × 10 / 1714 = **11.7 hp**; motor ≈ 11.7 / 0.85 = 13.7 → 15 hp.
+
+**Example - hydraulic motor:** 5 in³/rev at 2 500 psi, 90% mechanical efficiency. T = 5 × 2500 / 6.28 × 0.9 = **1 790 in-lb** (149 ft-lb). Fed 12 gpm at 95% volumetric efficiency: rpm = 12 × 231 / 5 × 0.95 = 527 rpm. HP = 1790 × 527 / 63 025 = 15 hp.
+
+**Accumulator sizing (rule):** usable volume ≈ V_acc × (P_precharge / P_min − P_precharge / P_max) for slow (isothermal) use; precharge ≈ 90% of minimum system pressure.
+
+Cleanliness: ISO 4406 codes such as 18/16/13 (servo valves need cleaner, e.g. 16/14/11). Most hydraulic failures are contamination.
+
+## Compressed air
+
+```
+Cylinder force              F = psi × area (same as hydraulic; 80-100 psi typical)
+Boyle's law (constant T)    P1 × V1 = P2 × V2          absolute pressures (psig + 14.7)
+Free air from a receiver    ft³ free air = receiver ft³ × (psig / 14.7)
+Receiver pump-down/up time  t (min) = V (ft³) × (P2 − P1) / (14.7 × compressor cfm)
+Compressor power            roughly 4-5 cfm per hp at 100 psig
+Receiver size (rule)        1 gal per cfm of compressor capacity, minimum
+```
+
+SCFM is free air at standard conditions; the volume inside the line at 100 psig is SCFM ÷ (114.7/14.7) = SCFM ÷ 7.8.
+
+**Example:** 120-gal (16 ft³) receiver, compressor 25 cfm, from 90 to 125 psig: t = 16 × 35 / (14.7 × 25) = **1.5 min**.
+
+## Fans (same laws as pumps)
+
+```
+Air horsepower       AHP = cfm × static pressure (in. w.c.) / 6 356
+Brake horsepower     BHP = AHP / fan efficiency
+Fan laws             cfm ∝ rpm ;  SP ∝ rpm² ;  hp ∝ rpm³
+Duct velocity        fpm = cfm / duct area (ft²)
+```
+
+**Example:** 10 000 cfm at 2.5" w.c., 65% efficient fan: AHP = 25 000 / 6356 = 3.9 hp; BHP = 6.1 hp → 7.5 hp motor. Speed it up 10% and the motor needs 6.1 × 1.331 = 8.1 hp, so it overloads.
+
+## Troubleshooting with the formulas
+
+| Symptom | Formula that explains it |
+|---|---|
+| Discharge pressure low, flow high, motor overloaded | Operating right of BEP; system head lower than designed (open valve, broken pipe); power ∝ Q on radial pumps |
+| Pressure gauge fine but no flow | Air-bound or blocked discharge; head is there, flow is not; check with the H-Q curve |
+| Amps up after a fluid change | BHP ∝ SG |
+| Pump lost 15% flow after speed dropped 5% on the VFD | Q ∝ N but system static head unchanged, so the operating point slides down the curve faster than the affinity law alone |
+| Gravel noise at high flow | NPSHr rises with Q²; NPSHa falls as suction friction rises with Q² |
+| PD pump relief valve chattering | Relief set too close to operating pressure; pressure is set by the system, flow by the pump |
+
+## Related
+
+- [Geometry formulas: areas, volumes, weights](/article/geometry-formulas-area-volume-weight)
+- [Power, torque, speed and drive formulas](/article/power-torque-speed-drive-formulas)
+- [Mechanical seal replacement on a centrifugal pump](/article/mechanical-seal-replacement-centrifugal-pump)
+- [Shop reference tables](/article/shop-reference-tables)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$formulas$mw$,$mw$pump formulas$mw$,$mw$head to psi$mw$,$mw$2.31$mw$,$mw$specific gravity$mw$,$mw$flow velocity$mw$,$mw$water horsepower$mw$,$mw$brake horsepower$mw$,$mw$3960$mw$,$mw$affinity laws$mw$,$mw$pump laws$mw$,$mw$NPSH$mw$,$mw$NPSHa$mw$,$mw$cavitation$mw$,$mw$total dynamic head$mw$,$mw$TDH$mw$,$mw$friction loss$mw$,$mw$Hazen-Williams$mw$,$mw$equivalent length$mw$,$mw$vapor pressure$mw$,$mw$pump curve$mw$,$mw$BEP$mw$,$mw$specific speed$mw$,$mw$hydraulic cylinder force$mw$,$mw$1714$mw$,$mw$hydraulic horsepower$mw$,$mw$positive displacement$mw$,$mw$cylinder speed$mw$,$mw$hydraulic motor torque$mw$,$mw$compressed air$mw$,$mw$fan laws$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Hydraulic Institute standards; Cameron Hydraulic Data; Crane Technical Paper 410 (fitting losses); Goulds Pump Selection guide; standard fluid-power references.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$shaft-bearing-fastener-formulas$mw$, $mw$Shaft, Bearing and Fastener Formulas: Torsional Stress, Shaft Sizing, Keys, Bearing L10 Life, Shrink Fits, Bolt Clamp Load and Stretch$mw$, $mw$The strength-of-materials formulas behind millwright decisions: shear stress in a solid or hollow shaft, sizing a shaft for a torque, angle of twist, bending stress, key sizing, bearing L10 life and what doubling the load does, dn speed limits, how hot to heat a hub for a shrink fit, bolt clamp load from torque, tensile stress area, proof load and bolt stretch, with worked examples that tie back to the torque chart.$mw$, $mw$## Shafts in torsion
+
+```
+Torque from power                 T (in-lb) = 63 025 × HP / rpm
+Shear stress, solid shaft         τ = 16 T / (π d³) = 5.09 × T / d³            (psi, T in-lb, d in)
+Shear stress, hollow shaft        τ = 16 T D / (π (D⁴ − d⁴))                  D = OD, d = ID
+Polar moment of inertia, solid    J = π d⁴ / 32 = 0.0982 d⁴
+Polar moment, hollow              J = π (D⁴ − d⁴) / 32
+Diameter for an allowable stress  d = ∛( 5.09 × T / τ_allow )
+Angle of twist                    θ (rad) = T L / (J G)      G steel = 11.5 × 10⁶ psi ; degrees = rad × 57.3
+```
+
+Allowable shear stress for ordinary steel line and machine shafts with keyways: **4 000-6 000 psi** for shafts carrying bending as well as torque (motors, conveyors, fans), up to 8 000 psi for pure-torque line shafts. These low numbers include stress concentration at keyways and fatigue. Twist limit rule of thumb: **no more than 1° per 20 diameters** of length (0.08° per foot for line shafts).
+
+**Example - is this shaft big enough?** 50 hp at 1 750 rpm on a 1-1/2" keyed shaft. T = 63 025 × 50 / 1750 = 1 801 in-lb. τ = 5.09 × 1801 / 1.5³ = 5.09 × 1801 / 3.375 = **2 716 psi**. Comfortable (the same motor's own shaft is 1-7/8" because it must also carry belt pull bending).
+
+**Example - minimum diameter:** same torque, allowable 6 000 psi: d = ∛(5.09 × 1801 / 6000) = ∛1.528 = **1.15"**. Round up to the next stock size that suits the bearings and keyway, usually 1-1/4" or 1-3/8". If a belt drive hangs on the shaft, bending adds to this: use the combined-stress formula or, in the field, go one size larger.
+
+**Example - hollow vs solid:** 4" solid shaft J = 0.0982 × 256 = 25.1 in⁴. 4" OD × 2" ID tube: J = 0.0982 × (256 − 16) = 23.6 in⁴, i.e. **94% of the stiffness and strength with 75% of the weight**. Material near the centre does almost nothing in torsion.
+
+**Example - twist:** 1 801 in-lb on a 1-1/2" shaft 10 ft (120") long. J = 0.0982 × 5.06 = 0.497 in⁴. θ = 1801 × 120 / (0.497 × 11.5 × 10⁶) = 0.0378 rad = **2.2°** over 10 ft (80 diameters), so 0.55° per 20 diameters: fine.
+
+## Shafts in bending
+
+```
+Bending moment                    M = force × distance from the support (in-lb)
+Bending stress, round shaft       σ = 32 M / (π d³) = 10.19 × M / d³
+Moment of inertia, round          I = π d⁴ / 64 = 0.0491 d⁴
+Deflection, cantilever, end load  y = F L³ / (3 E I)         E steel = 30 × 10⁶ psi
+Deflection, simply supported, centre load   y = F L³ / (48 E I)
+Combined torque + bending (max shear theory)   equivalent torque Te = √(M² + T²) ; then use the torsion formula with Te
+```
+
+**Example - overhung sheave:** belt pull 600 lb at 4" beyond the bearing on a 1-1/2" shaft. M = 2 400 in-lb; σ = 10.19 × 2400 / 3.375 = 7 250 psi. With the 1 801 in-lb torque from above, Te = √(2400² + 1801²) = 3 000 in-lb; τ = 5.09 × 3000 / 3.375 = 4 520 psi. Still under 6 000 psi, but the belt pull is doing more damage than the torque, which is why overhung loads are limited on gearbox and motor shafts (check the maker's OHL table).
+
+Shaft runout limit at couplings: 0.002" TIR. A bent shaft is a bending load that rotates once per revolution: a fatigue machine.
+
+## Keys and keyways
+
+```
+Standard square key size        ≈ shaft diameter / 4      (e.g. 1-1/2" shaft → 3/8" key ; see the ANSI B17.1 table)
+Force on the key                F = T / (d / 2) = 2 T / d
+Key shear stress                τ = F / (w × L) = 2 T / (d w L)          w = key width, L = key length
+Key bearing (crushing) stress   σ = F / (h/2 × L) = 4 T / (d h L)        h = key height
+Minimum key length              L = 2 T / (d × w × τ_allow)              τ_allow ≈ 8 000 psi for 1018 key stock
+```
+
+**Example:** 1 801 in-lb on a 1-1/2" shaft with a 3/8" square key. F = 2 × 1801 / 1.5 = 2 401 lb. L needed = 2401 / (0.375 × 8000) = 0.80". Any hub 1" or longer is fine; use a key the **full hub length** anyway, sized for the peak (starting or jam) torque, which can be 2-3× running torque.
+
+ANSI square key sizes: shaft 1/2-9/16": 1/8" key; 5/8-7/8": 3/16"; 15/16-1-1/4": 1/4"; 1-5/16-1-3/8": 5/16"; 1-7/16-1-3/4": 3/8"; 1-13/16-2-1/4": 1/2"; 2-5/16-2-3/4": 5/8"; 2-13/16-3-1/4": 3/4"; 3-5/16-3-3/4": 7/8"; 3-13/16-4-1/2": 1". Keyway depth is half the key height in each member.
+
+## Bearing life (L10)
+
+The **basic dynamic load rating C** is on the bearing data sheet (the load at which 90% of a batch survives one million revolutions). **P** is the equivalent dynamic load on the bearing.
+
+```
+L10 (millions of revolutions)  = (C / P)^p         p = 3 for ball bearings, 10/3 for roller bearings
+L10h (hours)                   = 1 000 000 / (60 × rpm) × (C / P)^p
+                               = 16 667 / rpm × (C / P)^p
+Equivalent load (radial + axial)   P = X × Fr + Y × Fa      (X, Y from the catalogue; if Fa is small, P ≈ Fr)
+Load from a belt drive         belt pull ≈ 1.5-2.5 × the torque force (T / sheave radius), depending on tension
+Load from a chain drive        ≈ 1.1 × T / (sprocket PD / 2)
+Load from a gear               tangential T/(PD/2), plus separating force = tangential × tan(pressure angle)
+```
+
+**Example:** 6310 deep-groove ball bearing, C = 65 kN (14 600 lb). Radial load 6 kN (1 350 lb), 1 750 rpm. C/P = 10.8. L10 = 10.8³ = 1 270 million rev. L10h = 16 667 / 1750 × 1270 = **12 100 h** (about 1.4 years continuous, 5 years on one shift). Double the load to 12 kN: C/P = 5.4, L10 = 158, L10h = **1 500 h**. **Doubling the load cuts ball-bearing life by 8×**, and over-tensioned belts are the usual way to do it. Halving the load gives 8× the life.
+
+Roller bearings: (C/P)^3.33, so they are slightly more sensitive to load than ball bearings.
+
+Other life factors: lubricant film (viscosity too low at operating temperature can halve life), contamination (dirt can cut life by 5-10×), temperature (ratings fall above 120°C), misalignment (a 0.002 in/in tilt on a deep-groove ball bearing is already at its limit; spherical rollers take 1.5-2.5°).
+
+### Speed limits: the dn value
+
+```
+dn = bore diameter (mm) × rpm
+```
+
+Rough limits: grease-lubricated ball bearings up to about **300 000-500 000** dn; oil bath up to 500 000-600 000; spherical roller bearings about 200 000-300 000 grease. Above these, use oil mist/circulation or a different bearing. A 100 mm bore bearing at 1 750 rpm = 175 000 dn, fine on grease; at 3 550 rpm = 355 000, check the catalogue limiting speed.
+
+### Grease quantity and interval
+
+```
+Grease charge (grams)  G = 0.005 × D × B          D = outside diameter (mm), B = width (mm)   (SKF rule for regreasing)
+Initial fill           30-50% of the free space in the bearing; housing 1/3 to 1/2 full
+```
+
+Relubrication intervals fall with speed, temperature and load; catalogues give charts. Halve the interval for every 15°C above 70°C bearing temperature.
+
+## Fits and shrink fits
+
+```
+Thermal growth                      ΔL = L × C × ΔT       (steel C = 0.0000063 in/in/°F ; 0.0000113 mm/mm/°C)
+Temperature rise to expand a bore   ΔT = (interference + assembly clearance) / (C × d)
+Bore growth per 100°F               ≈ 0.00063 × d (in)
+Cooling a shaft in dry ice (−110°F) shrinks a 4" shaft about 0.0045"; liquid nitrogen (−320°F) about 0.010"
+```
+
+**Example - heating a coupling hub:** 4.000" bore, shaft 4.004" (0.004" interference), you want 0.004" clearance to slide it on. ΔT = (0.004 + 0.004) / (0.0000063 × 4.0) = **317°F** rise, so heat the hub to about 390°F from a 70°F shop. Stay under 650°F for plain steel hubs (tempering) and far lower for anything with a rubber element or a hardened part. Bearings: max 250°F (120°C).
+
+**Example - press fit force (estimate):** F ≈ μ × p × π × d × L, with contact pressure p ≈ (interference / d) × E / 2 for similar-size steel parts, μ ≈ 0.15 dry. 0.002" interference on a 2" shaft, 3" hub length: p ≈ (0.002/2) × 30×10⁶ / 2 = 15 000 psi; F ≈ 0.15 × 15 000 × π × 2 × 3 = **42 000 lb (21 tons)**. If your shop press is 20 tons, heat the hub instead.
+
+Common fit classes (ISO): shaft **k5/k6/m6/n6** for interference on rotating inner rings (heavier letter = tighter); housing **H7** clearance for stationary outer rings, **J7/K7/M7/N7/P7** progressively tighter for rotating outer rings or heavy loads. Interference on a bearing ring uses up internal clearance: about 80% of the shaft interference reduces the radial clearance, which is why interference-fit bearings are ordered C3.
+
+## Bolts and threads
+
+```
+Clamp load from torque             F = T / (K × d)              T in-lb, d nominal diameter in, K ≈ 0.20 dry, 0.15 oiled, 0.12 anti-seize
+Torque for a clamp load            T = K × d × F
+Tensile stress area (UN threads)   At = 0.7854 × (d − 0.9743 / n)²         n = threads per inch
+Tensile stress area (metric)       At = 0.7854 × (d − 0.9382 × p)²         p = pitch (mm)
+Proof load                         = At × proof strength   (Grade 5: 85 000 psi ; Grade 8: 120 000 psi ; 8.8: 600 MPa ; 10.9: 830 MPa)
+Design preload                     = 75% of proof load (reusable), 90% (permanent)
+Bolt stretch under load            δ = F × L / (At × E)          E = 30 × 10⁶ psi ; L = grip length
+Stress in the bolt                 σ = F / At
+Thread stripping length (rule)     engagement ≥ 1 × d in steel, 1.5 × d in cast iron, 2 × d in aluminium; a nut is 0.875 d
+Number of bolts for a load         n = load × safety factor / (allowable per bolt)
+```
+
+**Example - where the torque chart comes from:** 1/2-13 Grade 5, dry. At = 0.7854 × (0.5 − 0.9743/13)² = 0.7854 × 0.4251² = **0.1419 in²**. Proof load = 0.1419 × 85 000 = 12 060 lb. Preload at 75% = 9 045 lb. T = 0.20 × 0.5 × 9045 = 904 in-lb = **75 ft-lb**, which is the chart value. Oiled (K = 0.15): 68 ft-lb → 56 ft-lb for the same clamp. Torque the oiled bolt to 75 ft-lb and the preload is 12 060 lb: exactly at proof, and it may yield.
+
+**Example - bolt stretch (turn-of-nut and ultrasonic checks):** that 1/2" bolt with a 2" grip at 9 045 lb: δ = 9045 × 2 / (0.1419 × 30 × 10⁶) = **0.0042"**. On a 13-tpi thread one turn = 0.0769", so the stretch is 0.0042/0.0769 = 0.055 turn ≈ **20° of nut rotation past snug**. Turn-of-nut specs for structural bolts (1/3 to 2/3 turn) are larger because they aim for yield and have long grips.
+
+**Example - flange bolting:** 8 bolts hold a 10" flange at 150 psi. Hydrostatic end force ≈ 0.7854 × 10² × 150 = 11 800 lb, plus gasket seating; with a safety factor of 2, each bolt needs ≈ 2 950 lb of clamp. Any 1/2" Grade 5 bolt at 9 000 lb preload is fine; the gasket, not the bolt, sets the real torque.
+
+Thread pitch (inch) = 1 / TPI (1/2-13 → 0.0769"). Lead = pitch × number of starts.
+
+## Cylinder walls and pressure (thin-wall)
+
+```
+Hoop stress in a pipe or tank     σ = P × D / (2 t)             P psi, D inside diameter, t wall
+Longitudinal stress               σ = P × D / (4 t)
+Burst pressure (approx.)          P = 2 × t × UTS / D
+Force on a blank flange / end cap F = P × 0.7854 × D²
+```
+
+**Example:** 6" sch 40 pipe (6.065" ID, 0.280" wall) at 150 psi: hoop stress = 150 × 6.065 / (2 × 0.280) = **1 625 psi**. A 6" blind flange at 150 psi carries 150 × 0.7854 × 36 = 4 240 lb of end force, which is what the bolts see.
+
+## Related
+
+- [Bolt torque chart](/article/bolt-torque-chart-sae-metric)
+- [Mounting bearings with heat](/article/bearing-mounting-with-heat)
+- [Decoding bearing numbers](/article/bearing-designation-codes)
+- [Thermal growth and alignment](/article/thermal-growth-alignment)
+- [Power, torque, speed and drive formulas](/article/power-torque-speed-drive-formulas)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$formulas$mw$,$mw$shaft stress$mw$,$mw$torsional shear$mw$,$mw$shaft diameter$mw$,$mw$hollow shaft$mw$,$mw$polar moment$mw$,$mw$angle of twist$mw$,$mw$bending stress$mw$,$mw$key length$mw$,$mw$key shear$mw$,$mw$bearing life$mw$,$mw$L10$mw$,$mw$C/P$mw$,$mw$dynamic load rating$mw$,$mw$dn value$mw$,$mw$shrink fit$mw$,$mw$interference fit$mw$,$mw$heating temperature$mw$,$mw$thermal expansion$mw$,$mw$bolt clamp load$mw$,$mw$tensile stress area$mw$,$mw$proof load$mw$,$mw$bolt stretch$mw$,$mw$thread engagement$mw$,$mw$K factor$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; Shigley's Mechanical Engineering Design; SKF and Timken bearing catalogues (L10 method, ISO 281); SAE J429 / ISO 898 proof loads.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$shop-reference-tables$mw$, $mw$Shop Reference: Decimal Equivalents, Tap Drill Sizes, Conversions and Drive Formulas$mw$, $mw$One-page shop math for millwrights: fraction-decimal-mm equivalents, UNC/UNF and metric tap drills, unit conversions, pulley and sprocket speed ratios, belt length, and the 3-4-5 square and offset formulas.$mw$, $mw$## Fraction - decimal - millimetre
 
 | Fraction | Decimal | mm | | Fraction | Decimal | mm |
@@ -2188,11 +2950,193 @@ Bolt circle chord (spacing between adjacent holes) = BCD × sin(180° ÷ number 
 
 Eight holes on a 12" bolt circle: 12 × sin 22.5° = 12 × 0.3827 = **4.592"** between hole centres.
 
+## Formula sheets
+
+- [Geometry: areas of shafts and bores, volumes, tank capacity, steel weights](/article/geometry-formulas-area-volume-weight)
+- [Pumps and fluid power: head, flow, horsepower, affinity laws, NPSH, friction, cylinders](/article/pump-and-fluid-power-formulas)
+- [Power, torque, speed and drives: motors, ratios, gears, chains, conveyors, mechanical advantage](/article/power-torque-speed-drive-formulas)
+- [Shafts, bearings and fasteners: stress, shaft sizing, keys, L10 life, shrink fits, bolt preload](/article/shaft-bearing-fastener-formulas)
+- [Trig and layout: right triangles, offsets, bolt circles, tapers, sine bar, slopes, leveling](/article/trig-and-layout-formulas)
+
 ## Related
 
 - [Reading a micrometer](/article/reading-a-micrometer)
 - [Bolt torque chart](/article/bolt-torque-chart-sae-metric)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
           array[$mw$decimal equivalents$mw$,$mw$tap drill$mw$,$mw$conversion$mw$,$mw$inch to mm$mw$,$mw$ft-lb to Nm$mw$,$mw$psi to kPa$mw$,$mw$hp to kW$mw$,$mw$pulley ratio$mw$,$mw$rpm formula$mw$,$mw$belt length$mw$,$mw$3-4-5$mw$,$mw$offset$mw$,$mw$trig$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; standard tables.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$trig-and-layout-formulas$mw$, $mw$Trig and Layout Formulas: Right Triangles, Offsets, Bolt Circles, Tapers, Sine Bars, Slopes and Leveling$mw$, $mw$The trig a millwright uses in the field: solving right triangles, laws of sines and cosines for any triangle, offsets and rolling offsets, bolt-circle chord and coordinate formulas with a table, taper per foot and taper angle, sine-bar heights, converting slope to degrees and percent, shimming from a level reading, squaring with 3-4-5 and diagonals, and finding the centre of a circle, all with worked examples.$mw$, $mw$## Right triangles
+
+```
+Pythagoras      c² = a² + b²        c = hypotenuse
+sin θ = opposite / hypotenuse       cos θ = adjacent / hypotenuse       tan θ = opposite / adjacent
+opposite = hyp × sin θ              adjacent = hyp × cos θ              opposite = adjacent × tan θ
+hypotenuse = opposite / sin θ       hypotenuse = adjacent / cos θ       θ = atan(opposite / adjacent)
+The two acute angles add to 90°.
+```
+
+| θ | sin | cos | tan | | θ | sin | cos | tan |
+|---|---|---|---|---|---|---|---|---|
+| 5° | 0.0872 | 0.9962 | 0.0875 | | 45° | 0.7071 | 0.7071 | 1.0000 |
+| 10° | 0.1736 | 0.9848 | 0.1763 | | 50° | 0.7660 | 0.6428 | 1.1918 |
+| 15° | 0.2588 | 0.9659 | 0.2679 | | 60° | 0.8660 | 0.5000 | 1.7321 |
+| 20° | 0.3420 | 0.9397 | 0.3640 | | 67.5° | 0.9239 | 0.3827 | 2.4142 |
+| 22.5° | 0.3827 | 0.9239 | 0.4142 | | 70° | 0.9397 | 0.3420 | 2.7475 |
+| 30° | 0.5000 | 0.8660 | 0.5774 | | 75° | 0.9659 | 0.2588 | 3.7321 |
+| 36° | 0.5878 | 0.8090 | 0.7265 | | 80° | 0.9848 | 0.1736 | 5.6713 |
+| 40° | 0.6428 | 0.7660 | 0.8391 | | 90° | 1.0000 | 0 | ∞ |
+
+**Example:** a conveyor rises 12 ft over a horizontal run of 40 ft. Length of the incline = √(12² + 40²) = √1744 = **41.8 ft**. Angle = atan(12/40) = atan(0.30) = **16.7°**. Belt loads on an incline: the belt tension needed to lift the material is W × sin θ; the component pressing on the idlers is W × cos θ.
+
+**Example - guy wire:** anchor 15 ft from the base of a 20 ft mast: wire length = √(15² + 20²) = 25 ft (a 3-4-5 triangle scaled by 5), angle at the ground = atan(20/15) = 53.1°.
+
+## Any triangle
+
+```
+Angles sum to 180°
+Law of sines      a / sin A = b / sin B = c / sin C
+Law of cosines    c² = a² + b² − 2 a b cos C          (finds the third side from two sides and the included angle)
+                  cos C = (a² + b² − c²) / (2 a b)     (finds an angle from three sides)
+Area              ½ a b sin C
+```
+
+**Example - two-leg sling check:** legs 8 ft and 8 ft, pick points 10 ft apart. Angle at the hook: cos C = (64 + 64 − 100)/(2 × 64) = 0.2188 → C = 77.4°. Each leg to the horizontal = (180 − 77.4)/2 = **51.3°**, above the 45° minimum-comfortable, load factor = 1/sin 51.3° = 1.28.
+
+**Example - pipe changes direction 30°:** two pipes of 5 ft and 7 ft meet at 150° (the inside angle). Straight-line distance between the far ends: c² = 25 + 49 − 2 × 35 × cos 150° = 74 + 60.6 = 134.6 → **11.6 ft**.
+
+## Offsets (pipe, conduit, shafting, duct)
+
+Two equal bends of angle θ shift a run sideways by the **offset**.
+
+```
+Travel (length of the diagonal piece)     = offset / sin θ = offset × multiplier
+Run (horizontal distance used up)         = offset / tan θ
+Shrink (how much shorter the overall run gets) = travel − run
+Rolling offset (up AND sideways)          true offset = √(rise² + side²), then use the formulas above
+```
+
+| Bend angle | Multiplier (travel/offset) | Run per inch of offset | Shrink per inch of offset |
+|---|---|---|---|
+| 10° | 5.76 | 5.67 | 0.09 |
+| 22.5° | 2.613 | 2.414 | 0.199 |
+| 30° | 2.000 | 1.732 | 0.268 |
+| 45° | 1.414 | 1.000 | 0.414 |
+| 60° | 1.155 | 0.577 | 0.577 |
+
+**Example:** a lube line must jog 9" sideways with 45° fittings. Travel = 9 × 1.414 = **12.7"** centre to centre; run = 9"; the overall length shortens by 9 × 0.414 = 3.7" (add that back into the straight pieces). Rolling offset of 9" up and 6" over: true offset = √(81 + 36) = 10.8"; travel at 45° = 15.3".
+
+## Bolt circles and hole patterns
+
+```
+Chord between adjacent holes    c = BCD × sin(180° / N)          BCD = bolt-circle diameter, N = holes
+Angle between holes             = 360° / N
+Coordinates of hole k (k = 0,1,2…), measured from the centre, first hole at angle φ:
+    x = R × cos(φ + k × 360°/N)          y = R × sin(φ + k × 360°/N)          R = BCD / 2
+Bolt circle from a measured chord       BCD = c / sin(180° / N)
+Bolt circle from two opposite holes     BCD = centre-to-centre distance (even N only)
+```
+
+| Holes N | Chord factor (× BCD) | Holes N | Chord factor |
+|---|---|---|---|
+| 3 | 0.8660 | 8 | 0.3827 |
+| 4 | 0.7071 | 10 | 0.3090 |
+| 5 | 0.5878 | 12 | 0.2588 |
+| 6 | 0.5000 | 16 | 0.1951 |
+| 7 | 0.4339 | 20 | 0.1564 |
+
+**Example:** 6 holes on a 10" BCD. Chord = 10 × 0.5 = **5.000"** exactly (a hexagon's side equals its circumscribed radius: set dividers to the radius and walk around). Coordinates with hole 0 at 0°: hole 1 at 60° → x = 5 cos 60° = 2.500, y = 5 sin 60° = **4.330**; hole 2 at 120° → (−2.500, 4.330); and so on.
+
+**Example - identify a flange:** 8 holes, adjacent holes measure 3.64" centre to centre. BCD = 3.64 / 0.3827 = **9.5"** → an ANSI 6" class 150 flange (8 × 3/4" bolts on a 9.5" circle). Always confirm against the flange tables; 8-hole patterns exist in several sizes.
+
+## Tapers
+
+```
+Taper per foot (TPF)      = (D − d) × 12 / L         D, d = large and small diameter, L = length (in)
+Taper per inch            = (D − d) / L
+Included angle            tan(θ/2) = (D − d) / (2 L)          θ = 2 × atan((D − d)/(2L))
+Angle from TPF            tan(θ/2) = TPF / 24
+Taper ratio 1:n           D − d = L / n   (e.g. 1:12 → 1" of diameter change per 12" of length)
+```
+
+| Taper | TPF | Included angle | Where you meet it |
+|---|---|---|---|
+| 1:12 | 1.000"/ft | 4.77° | SKF/FAG "K" bearing bores, adapter sleeves |
+| 1:30 | 0.400"/ft | 1.91° | "K30" large spherical roller bearings |
+| Morse taper | ≈ 0.600-0.630"/ft | ≈ 2.9° | Drill and lathe spindles |
+| Jarno | 0.600"/ft | 2.86° | Older machine spindles |
+| Brown & Sharpe | 0.500"/ft | 2.39° | Milling spindles (old) |
+| Pipe thread NPT | 0.750"/ft (1:16 on diameter) | 3.58° | Every pipe thread; hand-tight plus 1.5-3 turns |
+| QD / Taper-Lock bushings | see bushing sheet | | Sheaves and sprockets |
+
+**Example:** an adapter sleeve is 1:12. Driving the bearing 0.79 mm along the sleeve (100-120 mm bore, SKF card) expands the inner ring by 0.79 / 12 = 0.066 mm on diameter; about three-quarters of that shows up as clearance reduction (the card says 0.050-0.060 mm for that drive-up), the rest is absorbed by the ring stretching.
+
+**Example - measure an unknown taper:** diameters 2.250" and 2.000" over a 4" length: TPF = 0.25 × 12 / 4 = **0.750"/ft**; half-angle = atan(0.25 / 8) = 1.79°, included 3.58°: it is a pipe-thread taper.
+
+## Sine bar and sine plate
+
+```
+Gauge-block height   h = L × sin θ         L = sine bar length (5" or 10" between roll centres)
+Angle from a height  θ = asin(h / L)
+```
+
+**Example:** set 12°30' on a 5" sine bar: h = 5 × sin 12.5° = 5 × 0.2164 = **1.082"** of gauge blocks. Keep sine bars under 45°; above that the error blows up, so measure the complement instead.
+
+## Slopes, grades and leveling
+
+```
+Slope as a ratio     rise / run
+Percent grade        = rise / run × 100
+Degrees              = atan(rise / run)
+Inches per foot      = rise / run × 12
+Shim to level        shim = span between the feet × (rise / run read on the level)
+Precision level      each division = its sensitivity (e.g. 0.0005" per ft = 0.0005" per 12" per division)
+```
+
+| Slope | Degrees | Percent | in/ft |
+|---|---|---|---|
+| 1:100 | 0.57° | 1% | 0.12 |
+| 1:20 | 2.86° | 5% | 0.60 |
+| 1:12 | 4.76° | 8.3% | 1.00 |
+| 1:8 | 7.13° | 12.5% | 1.50 |
+| 1:4 | 14.0° | 25% | 3.00 |
+| 1:2 | 26.6° | 50% | 6.00 |
+| 1:1 | 45° | 100% | 12.00 |
+
+**Example - leveling a base:** a machinist level reads 3 divisions of 0.0005"/ft high toward the outboard end. The feet are 30" apart. Shim under the low end = 30/12 × 0.0015 = **0.0037"**, so add a 0.004" shim (or 0.003" + 0.001"). Recheck at 90° for cross-level.
+
+**Example - drainage:** a gravity drain must fall 1/4" per foot over 32 ft: total drop = 8". As a percent: 0.25/12 = 2.1%.
+
+## Squaring and layout
+
+```
+3-4-5 (or 6-8-10, 9-12-15, 30-40-50)     square corner when the diagonal is exactly 5 units
+Equal diagonals                          a rectangle is square when both diagonals measure the same
+Diagonal of a rectangle                  = √(L² + W²)
+Diagonal (across corners) of a square    = side × 1.4142
+Hexagon across corners                   = across flats × 1.1547 ;  side = AF × 0.5774
+Octagon across corners                   = across flats × 1.0824
+Centre of a circle                       draw any two chords, erect their perpendicular bisectors; they cross at the centre.
+                                         Or: centre finder / combination-square centre head on a shaft end.
+Divide a circle into N parts             chord = D × sin(180°/N)  (table above), step it with dividers
+Degrees ↔ radians                        rad = deg × 0.01745 ;  deg = rad × 57.30 ;  arc = r × rad
+Degrees, minutes, seconds                12°30'15" = 12 + 30/60 + 15/3600 = 12.504°
+```
+
+**Example - baseplate anchor bolts:** a 60" × 40" bolt pattern. Diagonal must measure √(3600 + 1600) = √5200 = **72.11"** both ways. If one diagonal is 72.3" and the other 71.9", the pattern is a parallelogram, off by about 0.2" at the corners; pull it square before the grout goes in.
+
+**Example - shaft centre on a big pulley face:** 3-point method: scribe three arcs from three spots on the rim with dividers set the same; the centre is where the arcs meet. Or measure any chord, drop a perpendicular from its midpoint, repeat with a second chord.
+
+## Related
+
+- [Geometry formulas: areas, volumes, weights](/article/geometry-formulas-area-volume-weight)
+- [Shop reference tables](/article/shop-reference-tables)
+- [Rigging basics: sling angles](/article/rigging-basics-sling-angles-and-hitches)
+- [Tapered-bore bearing on an adapter sleeve](/article/taper-bore-bearing-adapter-sleeve-skf)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$formulas$mw$,$mw$trigonometry$mw$,$mw$right triangle$mw$,$mw$sine$mw$,$mw$cosine$mw$,$mw$tangent$mw$,$mw$pythagorean$mw$,$mw$law of sines$mw$,$mw$law of cosines$mw$,$mw$offset$mw$,$mw$travel$mw$,$mw$run$mw$,$mw$bolt circle$mw$,$mw$hole coordinates$mw$,$mw$chord$mw$,$mw$taper per foot$mw$,$mw$taper angle$mw$,$mw$sine bar$mw$,$mw$slope$mw$,$mw$grade$mw$,$mw$rise over run$mw$,$mw$level$mw$,$mw$shim by slope$mw$,$mw$hexagon$mw$,$mw$square$mw$,$mw$3-4-5$mw$,$mw$centre of a circle$mw$,$mw$degrees to radians$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; standard trigonometry.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';

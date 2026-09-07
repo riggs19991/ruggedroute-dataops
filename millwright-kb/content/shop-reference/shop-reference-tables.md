@@ -112,6 +112,14 @@ Bolt circle chord (spacing between adjacent holes) = BCD × sin(180° ÷ number 
 
 Eight holes on a 12" bolt circle: 12 × sin 22.5° = 12 × 0.3827 = **4.592"** between hole centres.
 
+## Formula sheets
+
+- [Geometry: areas of shafts and bores, volumes, tank capacity, steel weights](/article/geometry-formulas-area-volume-weight)
+- [Pumps and fluid power: head, flow, horsepower, affinity laws, NPSH, friction, cylinders](/article/pump-and-fluid-power-formulas)
+- [Power, torque, speed and drives: motors, ratios, gears, chains, conveyors, mechanical advantage](/article/power-torque-speed-drive-formulas)
+- [Shafts, bearings and fasteners: stress, shaft sizing, keys, L10 life, shrink fits, bolt preload](/article/shaft-bearing-fastener-formulas)
+- [Trig and layout: right triangles, offsets, bolt circles, tapers, sine bar, slopes, leveling](/article/trig-and-layout-formulas)
+
 ## Related
 
 - [Reading a micrometer](/article/reading-a-micrometer)
