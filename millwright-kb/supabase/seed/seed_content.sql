@@ -1410,6 +1410,849 @@ Example: steel shaft, steel housing, bearings 20" apart, shaft 40°F hotter than
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$thermography-ultrasound-and-oil$mw$, $mw$Thermography, Ultrasound and Oil Analysis as Condition Monitoring: Infrared Camera Basics (Emissivity, Reflections, Distance), What to Scan (Bearings, Motors, Couplings, Electrical, Steam Traps, Refractory) and the Temperature Rules, Airborne and Contact Ultrasound (Leaks, Bearings, Greasing by Ultrasound, Electrical Discharge, Steam Traps), How the Three Fit with Vibration, Building a Route and a Decision Table$mw$, $mw$The other two eyes of a condition-monitoring program beside vibration and oil analysis: how to use an infrared camera or gun so the temperature you read is real, what temperatures and temperature differences mean on bearings, motors, couplings, electrical gear, steam traps and refractory, what an ultrasonic detector hears and how it finds leaks, failing bearings, the right amount of grease and electrical faults, and a table of which technology finds which failure so a route uses the right one.$mw$, $mw$## Infrared thermography
+
+### Getting a real temperature
+
+An IR camera or gun measures the **infrared energy leaving a surface** and converts it to a temperature assuming an **emissivity** (how well the surface radiates: a matte black surface 0.95; painted or oxidised steel 0.8-0.95; **bare shiny metal 0.1-0.3**: it reflects the room and reads far too low, and it reflects you, the lights and the sun). Rules:
+
+1. **Set the emissivity** for the surface (paint 0.95, oxidised steel 0.8, rubber 0.95, oil 0.9, concrete 0.9, shiny aluminium/stainless/copper 0.1-0.3: these cannot be measured reliably) or put a **known-emissivity target** on the object: a piece of black electrical tape or a spot of flat black paint on a bearing housing or a bus bar (with the power off), then read the tape (0.95).
+2. **Reflected temperature**: shiny objects show the reflection of hot or cold things around them (a bus bar "hot spot" that is the reflection of the lamp); move, change the angle, and see if the spot moves: a reflection moves; set the camera's reflected temperature compensation.
+3. **Distance and spot size**: an IR gun's spot grows with distance (a 12:1 gun reads a 1" spot at 12" and a 10" spot at 10 ft, averaging the bearing with the air around it); get close, or use a camera and read the pixel; a camera's smallest measurable spot is several pixels.
+4. **Atmosphere and windows**: steam, dust, smoke and glass block IR (glass is opaque to long-wave IR: you cannot read through a window; IR-transparent inspection windows are made for panels); rain and wind cool surfaces.
+5. **Load and time**: an electrical connection only heats **under load** (scan at peak load, at least 40% of rated); a bearing needs an hour to stabilise; compare like with like (the same load, the same ambient).
+6. **Compare, do not just measure**: the useful number is usually the **difference** between similar components (three phases of a starter, two bearings of the same pump, the same bearing last month).
+
+### What to scan and the rules
+
+| Target | What you look for | Rule of thumb |
+|---|---|---|
+| **Rolling bearings** (housing surface near the bearing) | The absolute temperature and the difference from the other bearing/last time | Normal 100-160°F (40-70°C) housing; **alarm above about 180°F (80°C)** housing (the bearing itself is 10-20°F hotter) or a rise of 20-30°F over the trend; a sudden 30°F+ jump = lubrication or a defect: act |
+| **Electric motors** | The frame temperature pattern (a hot spot on the frame = a winding or a blocked cooling path), the bearing ends, the terminal box | A TEFC frame at 80-100°C under load can be normal for a class F motor at full load; compare the two ends and the pattern; a **hot terminal box** = a bad lead connection |
+| **Couplings** | A coupling warmer than the shafts | A grid or gear coupling running hot (30°F+ above the housings) = misalignment or dry; a disc coupling hot = misalignment |
+| **Gearboxes** | The sump temperature and hot spots at bearings | Mineral oil sump under 180-200°F; a bearing position hotter than the case = a bearing; a hot spot at the mesh = gear trouble |
+| **Belt drives** | The belt and sheave temperature | A belt over 140-160°F is slipping or over-tensioned; one sheave hotter = misalignment, slip on that sheave |
+| **Pumps** | The seal chamber, bearing frame, the casing pattern | A seal chamber hot = a dry or flush-starved seal; a casing hot near the cutwater at low flow = recirculation |
+| **Electrical (NFPA 70B / NETA delta T over a similar component under the same load)** | Hot connections, a hot fuse clip, a hot breaker pole, a hot conductor | **1-10°C (2-18°F) over similar**: possible deficiency, investigate; **11-20°C**: probable deficiency, repair at the next opportunity; **21-40°C**: deficiency, repair soon; **> 40°C (72°F)**: major, repair immediately; the absolute rule: a connection more than **40°C over ambient** is failing; a **hot phase in one phase only** = a connection; all three hot = load or an undersized conductor. Done by a qualified person with the panel open under load, in the arc-flash PPE, from outside the restricted boundary: usually the electrician with the millwright's camera, or through IR windows |
+| **Steam traps** | The inlet and outlet temperatures | A working trap: inlet at steam temperature, outlet 10-30°F cooler and cycling; a **failed open** trap: outlet as hot as the inlet with no cycling (steam blowing through); a **failed closed** trap: cold outlet and a cold trap (condensate backing up) |
+| **Insulation, refractory, ovens, kiln shells** | Hot spots and patterns | A hot spot on a kiln shell = refractory loss inside; insulation gaps on steam lines |
+| **Hydraulic systems** | A hot relief valve, a hot cylinder (bypass), a hot pump case, the cooler ΔT | The hot component is the one passing oil across a pressure drop (see [hydraulic basics](/article/hydraulic-system-basics-and-symbols)) |
+| **Conveyor idlers and pulleys** | A hot roll | A roll 20°F+ over its neighbours has a seized bearing (fire risk on combustible material) |
+| **Tanks and vessels** | Level (the liquid line shows), sludge, insulation | |
+
+### Cameras and guns
+
+- **IR gun** (spot thermometer, 12:1 or 30:1 distance-to-spot, laser pointer): for bearing housings, motors, pipes; set the emissivity; get close; a contact probe (thermocouple) for shiny things.
+- **IR camera** (a 160×120 to 640×480 detector, 8-14 µm long-wave): the image shows the pattern (the hot spot on a motor frame, the connection in a panel, the trap's outlet); save the image with the visible photo and the reading; a report with the delta T and the priority.
+- Safety: IR does not see through covers; electrical scanning is the electrician's; a camera in a classified area must be rated.
+
+## Ultrasound
+
+An ultrasonic detector "hears" high-frequency sound (20-100 kHz) that people cannot: **turbulence** (gas escaping through a leak, a vacuum drawing air), **friction and impacts** (a bearing's rolling contact, a rubbing seal), and **electrical discharge** (corona, tracking, arcing); it translates them down to audible sound in the headphones and reads a level in **dB**. Two modes: **airborne** (a scanning module or a parabolic dish for distance: leaks, electrical, steam) and **contact** (a probe touched on the bearing housing, the trap, the valve: bearings, valves, traps).
+
+| Use | Method | Reading it |
+|---|---|---|
+| **Compressed air / gas leaks** | Airborne, scan the fittings, couplers, hoses, drains, valve packings; the rushing sound peaks at the leak; a tag and the dB level (the software estimates the cfm and cost) | The single fastest payback in most plants (see [pneumatics](/article/pneumatic-systems-frl-and-cylinders)); vacuum leaks the same way |
+| **Bearings** | Contact probe on the housing at the same spot each time; read the dB and listen: a good bearing is a smooth rushing sound; a **dry** bearing is louder and rough; a **damaged** bearing has clicks, crackles and rumbles; the dB trend against the baseline | **+8 dB** over baseline = lubrication needed; **+12 dB** = early failure (the bearing needs a look); **+16 dB** or more = failure; **+35 dB** = catastrophic. Combine with the vibration envelope |
+| **Greasing by ultrasound** | Probe on the housing, grease gun on the fitting, listen: the level **drops** as grease reaches the bearing; add slowly until the drop stops and the level begins to **rise** again (over-greasing); stop | The way to grease the right amount without a calculation; a bearing whose level does not drop with grease is damaged, not dry |
+| **Steam traps** | Contact probe downstream of the trap: a working trap cycles (a rush as it discharges, then quiet); a **failed open** trap is a continuous rush; a **failed closed** trap is silent and cold; combine with the IR reading | The two technologies together give a confident call |
+| **Valves (leak-through)** | Contact on the valve body downstream: a closed valve that passes flow shows turbulence | Find the leaking isolation valve |
+| **Electrical** (airborne, from outside the panel or through the vents, at a safe distance) | **Corona** (a steady buzz/frying at over 1,000 V), **tracking** (an erratic crackle: insulation breaking down), **arcing** (violent pops) | Any tracking or arcing = a fault to be fixed; corona in MV gear = insulation degrading; the ultrasound finds what IR cannot (no heat until it fails) |
+| Pump cavitation, hydraulic valves | Contact on the casing/valve | A cavitating pump crackles; a bypassing hydraulic valve hisses |
+| Gearboxes | Contact | Gear mesh sounds; a damaged tooth clicks once a revolution |
+
+Contact readings need the same spot, the same probe pressure and the same instrument settings (frequency, sensitivity) to trend; baselines at commissioning; record the dB and a sound file for the analyst.
+
+## Which technology finds what
+
+| Failure | Vibration | Ultrasound | Thermography | Oil analysis |
+|---|---|---|---|---|
+| Rolling bearing early stage (months) | Envelope/HFD: **yes** | **Yes** (dB, sound) | No | Sometimes (wear metals in oil-lubricated) |
+| Rolling bearing late stage | Overall: yes | Yes | **Yes** (heat) | Yes |
+| Lubrication starvation / over-greasing | HF energy | **Best** | Yes (heat) | |
+| Misalignment | **Best** (2×, axial) | No | Coupling heat | |
+| Unbalance | **Best** (1×) | No | No | |
+| Looseness / soft foot | **Best** | No | Sometimes (a distorted motor frame shows a heat pattern) | |
+| Gear wear | GMF sidebands | Contact sounds | Hot spots | **Best early** (iron, PQ) |
+| Motor winding/stator | 120 Hz | | **Yes** (frame pattern) | |
+| Rotor bars | Pole-pass sidebands | | | (current analysis) |
+| Electrical connections | No | Arcing/tracking | **Best** (delta T) | |
+| MV corona/tracking | No | **Best** | No until late | |
+| Belt problems | Belt frequency | Slip squeal | **Yes** (hot belt/sheave) | |
+| Air/gas/vacuum leaks | No | **Best** | Sometimes (cooling) | |
+| Steam traps | No | **Yes** | **Yes** | |
+| Hydraulic internal leaks | | Contact | **Best** | |
+| Coolant/water in oil, oxidation, wrong oil | No | No | No | **Only** |
+| Cavitation | Broadband | Contact | Sometimes | |
+| Refractory/insulation | No | No | **Only** | |
+
+A route uses the cheap, fast technology for screening (IR gun and ultrasound on every bearing on the walk; a vibration pen overall) and the analyser or the lab for diagnosis; a finding in one is confirmed with another before the work order.
+
+## Building the route
+
+Points chosen from the machine list by criticality (the machines whose failure stops production or is dangerous get all the technologies monthly; the rest quarterly with the screening tools); each point with its baseline, alarm and the method (spot, emissivity, probe); the same order and settings each time; the readings into the software or the CMMS; a review the same week; the report with the priority (immediate / next shutdown / monitor) and the evidence (the image, the spectrum, the dB, the oil report); the feedback when the machine is opened (was the call right?).
+
+## Common mistakes
+
+- Reading a shiny stainless housing at 0.95 emissivity: it reads 60°F low and the bearing is "fine".
+- A "hot spot" on a bus bar that was the lamp's reflection.
+- Scanning the panel at 10% load: nothing shows.
+- Greasing to a calculated amount into a bearing that ultrasound would have shown was already full.
+- A trap called "failed" from the IR alone (it was cycling between readings).
+- Ultrasound bearing readings taken with different probe pressure each month: the trend is the technician's hand.
+
+## Related
+
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Vibration signatures](/article/vibration-signatures)
+- [Oil analysis and sampling](/article/oil-analysis-and-sampling)
+- [Regreasing intervals and quantities](/article/regreasing-intervals-and-quantities)
+- [Electrical safety for mechanics (thermography of panels)](/article/electrical-safety-for-mechanics)
+- [PM checklists](/article/pm-checklists)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$condition-monitoring$mw$),
+          array[$mw$thermography$mw$,$mw$infrared camera$mw$,$mw$IR camera$mw$,$mw$thermal imaging$mw$,$mw$emissivity$mw$,$mw$reflected temperature$mw$,$mw$IR gun$mw$,$mw$bearing temperature$mw$,$mw$motor temperature$mw$,$mw$electrical thermography$mw$,$mw$hot connection$mw$,$mw$delta T$mw$,$mw$steam trap thermography$mw$,$mw$refractory inspection$mw$,$mw$ultrasound$mw$,$mw$ultrasonic detector$mw$,$mw$airborne ultrasound$mw$,$mw$contact ultrasound$mw$,$mw$ultrasonic leak detection$mw$,$mw$ultrasound bearing$mw$,$mw$greasing by ultrasound$mw$,$mw$ultrasonic steam trap$mw$,$mw$ultrasonic electrical$mw$,$mw$corona$mw$,$mw$arcing$mw$,$mw$condition monitoring technologies$mw$,$mw$PdM route$mw$,$mw$predictive maintenance$mw$,$mw$decision table condition monitoring$mw$]::text[], $mw$$mw$, array[]::text[], $mw$FLIR and Fluke thermography guides (emissivity tables, measurement practice); Infraspection Institute and NETA guidance on electrical thermography temperature rules (delta T criteria); UE Systems and SDT ultrasound application guides (leak, bearing, greasing, electrical, steam trap); NFPA 70B (electrical maintenance thermography); the oil analysis article for the third technology.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$vibration-basics-and-iso-severity$mw$, $mw$Vibration Basics and ISO Severity: What Vibration Is and the Three Units (Displacement, Velocity, Acceleration), Overall vs Spectrum, Where and How to Take a Reading (Bearing Housing, Three Directions, Mounting), the ISO 20816-3 / 10816-3 Severity Zones Table with Machine Groups and Foundation Types, Bearing Condition Indicators (Enveloping, HFD, Spike Energy), Trending and Alarm Setting, Meters and Pens$mw$, $mw$The measurements a millwright takes with a vibration meter or a route collector and what the numbers mean: the three units and when each is used, why overall velocity is the severity number and the spectrum is the diagnosis, how to take a repeatable reading on a bearing housing, the ISO zone table that says whether a machine is good, acceptable, marginal or in trouble, the high-frequency indicators that catch bearing damage months before the overall moves, and how to set alarms and trend.$mw$, $mw$## What you are measuring
+
+A rotating machine shakes at the frequencies of the things that are wrong with it: unbalance at the shaft speed (1×), misalignment at 2×, a bearing defect at the defect's frequency, gear mesh at teeth × rpm. A sensor on the bearing housing measures the housing's motion; the meter reports it as an **overall** (one number: the total vibration in a frequency band) or as a **spectrum** (FFT: the vibration at each frequency, which is where the diagnosis is: see [vibration signatures](/article/vibration-signatures)).
+
+| Unit | What it is | Best for | Typical values |
+|---|---|---|---|
+| **Displacement** (mils peak-to-peak, µm) | How far it moves | Low speeds (under 600 rpm), shaft proximity probes on sleeve-bearing machines (turbines, compressors), structural motion | A 1,800 rpm pump at 0.15 in/s ≈ 1.6 mils p-p |
+| **Velocity** (in/s peak or mm/s RMS) | How fast it moves | **The severity unit for 600-60,000 cpm (10-1,000 Hz)**: the ISO standards use **mm/s RMS** (1 in/s peak = 25.4 mm/s peak = **18 mm/s RMS**); most US meters read in/s peak, most standards in mm/s RMS: convert | Good machine: under 0.1 in/s pk (1.8 mm/s RMS); trouble: over 0.3 in/s pk (5.4 mm/s RMS) |
+| **Acceleration** (g's RMS or peak) | The rate of change of velocity | High frequencies (bearings, gear mesh, cavitation), over 1,000 Hz | Bearing indicators |
+
+Velocity is used for severity because it relates to the fatigue energy in the machine roughly equally across the speed range. **Peak vs RMS**: RMS is 0.707 × peak for a pure sine; meters and standards must be compared in the same convention (a reading of 0.2 in/s peak is 0.14 in/s RMS = 3.6 mm/s RMS).
+
+## Taking the reading
+
+- **Where**: on the **bearing housing**, as close to the bearing as possible, on a **rigid** part of the housing (not a cover, a fin, a guard, or the motor's sheet-metal fan shroud); the same spot every time (a paint dot, a stud, or a marked pad); on a motor: both bearings; on a pump: both bearings of the bearing frame; on a gearbox: each bearing position on the case; on a fan: the bearing pedestals.
+- **Directions**: **horizontal (H)**, **vertical (V)** and **axial (A)** at each bearing (radial readings for unbalance and looseness, axial for misalignment and bent shafts); the H/V ratio itself tells things (a horizontal reading much higher than vertical is normal on a foot-mounted machine: the base is stiffer vertically; equal or higher vertical hints at looseness or a base problem).
+- **Mounting**: a **stud** on a machined pad (the best, to 10 kHz+), a **magnet** on a flat clean steel spot (good to 2-5 kHz on a strong flat magnet; a curved or painted surface halves the useful range and ruins bearing readings), a **hand-held probe** (only for overall readings under 1,000 Hz; presses vary, the reading varies ±20%); a **vibration pen** is a hand-held probe with a display. For bearing indicators (enveloping, HFD) use a magnet or a stud on a flat spot, never a probe.
+- **Conditions**: the machine at its normal load and speed and warmed up; note the speed and load (a pump at low flow vibrates more: it is not a machine fault); the reading taken after the sensor settles (a few seconds); the same meter settings each time (the frequency range, RMS/peak, the averaging).
+- **Safety**: from outside guards; never a probe near a coupling or a belt; a route with clip-on sensors on inaccessible or hot points; hearing and eye protection as for the plant.
+
+## ISO 20816-3 severity zones (industrial machines 15 kW to 50 MW, measured on bearing housings, velocity mm/s RMS, 10-1,000 Hz)
+
+**Zones**: **A** = new-machine condition; **B** = acceptable for unrestricted long-term operation; **C** = unsatisfactory for continuous long-term operation, run for a limited time until repair; **D** = severe enough to cause damage.
+
+| Machine group and support | Zone A/B boundary | Zone B/C boundary | Zone C/D boundary |
+|---|---|---|---|
+| **Group 1: large machines, 300 kW to 50 MW (motors with shaft height over 315 mm), rigid foundation** | 2.3 mm/s (0.09 in/s RMS) | **4.5 (0.18)** | 7.1 (0.28) |
+| Group 1, flexible foundation | 3.5 (0.14) | 7.1 (0.28) | 11.0 (0.43) |
+| **Group 2: medium machines, 15 to 300 kW (motors with shaft height 160-315 mm: most plant pumps, fans, blowers, compressors), rigid foundation** | **1.4 (0.055)** | **2.8 (0.11)** | **4.5 (0.18)** |
+| Group 2, flexible foundation | 2.3 (0.09) | 4.5 (0.18) | 7.1 (0.28) |
+| Pumps over 15 kW with a separate driver (ISO 20816-3 group 3/ISO 10816-7 category), rigid | 2.3 | 4.5 | 7.1 |
+| Pumps with an integrated driver (close-coupled), rigid | 3.2 | 6.3 | 10.0 |
+| Pumps, flexible support | 3.2-4.5 | 7.1-9.0 | 11.0-14.0 |
+
+(In/s **peak** ≈ mm/s RMS × 0.056; so Group 2 rigid: A/B 0.08, B/C **0.16**, C/D **0.25 in/s peak**. Many US plants use a simpler rule from the old general severity chart: **under 0.1 in/s pk good, 0.1-0.2 fair, 0.2-0.4 rough, over 0.4 in/s pk very rough**; a new installation should be under 0.1 in/s pk / 1.8 mm/s RMS.)
+
+**Rigid vs flexible support**: rigid = the machine's mounting natural frequency is above its running speed (a machine bolted to a heavy grouted base); flexible = the natural frequency is below (a machine on isolators, a light steel frame, a tall pedestal); most plant pumps and motors on grouted baseplates are rigid; fans on spring isolators and machines on mezzanines are flexible. When in doubt, use the rigid (stricter) limits.
+
+The standard adds: an **increase** in vibration of more than 25% of the zone B upper limit between readings is an alarm even if the machine is still in zone B; the zones are guidance, and the machine's own baseline and history matter.
+
+Small machines (under 15 kW) and special machines (reciprocating compressors, hammer mills, crushers) have other standards or the maker's limits; a reciprocating compressor at 10 mm/s can be normal.
+
+## Bearing condition indicators (the early warning)
+
+A rolling-element bearing defect is a tiny impact at a high frequency long before it shows in the overall velocity; the meters give a separate number for it:
+
+| Indicator | What it measures | Reading it |
+|---|---|---|
+| **Enveloping / demodulation (gE, gSE, HFE, PeakVue (Emerson), BCU, SEE (SKF))** | The repetitive impacts in a high-frequency band, demodulated so the bearing's defect frequency appears | Trend: the number rises as the defect grows, then can **fall** near the end (the defect smooths) while the overall velocity rises; compare with the same meter's guidance (e.g. gE: under 1 good, 1-3 watch, over 3 damage, on a stud/magnet mount at typical speeds; the values depend on speed, mount and the meter: **trend the machine against itself**) |
+| **HFD / spike energy (gSE), Shock Pulse (SPM dBm/dBc)** | High-frequency acceleration bursts | Same use; SPM's dBm scale has fixed condition zones (green/yellow/red) after entering the bearing and speed |
+| **Crest factor** (peak ÷ RMS of acceleration) | Impulsiveness | Rises in the early bearing stage (3-4 normal, 6+ impacts), falls late |
+| **Acceleration overall (g RMS, 1-10 kHz)** | Total high-frequency energy | Rises with bearing wear, lubrication starvation (a dry bearing is very noisy at high frequency and falls when greased: the greasing-by-vibration/ultrasound method), gear wear, cavitation |
+| **Temperature** at the housing | | Confirms; a late indicator |
+
+A bearing with a rising envelope reading and a flat overall is in the **early** stage (weeks to months); when the overall velocity rises and bearing frequencies with harmonics and sidebands appear in the spectrum, it is **late** (days to weeks); noise, heat and a falling envelope with high overall: **replace now**.
+
+## Alarms and trending
+
+- **Baseline** every machine at commissioning (see [commissioning](/article/machine-guarding-and-commissioning)) and after every repair: overall in 3 directions per bearing, the bearing indicator, and a spectrum saved.
+- **Alert** at about **2× the baseline** or the zone B/C boundary, whichever is lower; **alarm** at the zone C/D boundary or 3-4× baseline; and a **rate-of-change** alert (a 25-50% rise since the last reading).
+- Route frequency: critical machines monthly (or online), general monthly-quarterly, a machine on alert weekly; the route is a list of the same points in the same order with the same settings; the CMMS or the vibration software trends each point.
+- Report: the machine, the point and direction, the overall now vs baseline vs alarm, the bearing indicator, what the spectrum shows (from [signatures](/article/vibration-signatures)), and the recommended action with the urgency (a zone C machine is planned; a zone D machine is scheduled now or stopped).
+- Correlate: temperature, oil analysis, ultrasound, the process (flow, load), recent work (alignment, a belt change).
+
+## Meters
+
+- **Vibration pen / simple meter**: overall velocity (and sometimes acceleration/bearing) in a fixed band; for go/no-go on the route, the commissioning check, and confirming a hunch; the readings must be taken the same way every time to trend.
+- **Route data collector / analyser** (Emerson CSI, SKF Microlog, Pruftechnik, Fluke 810, Adash): spectra, enveloping, time waveforms, phase (with a tach), the route database; the vibration technician's tool; a millwright with training can run routes.
+- **Online systems** (wireless sensors, permanent monitors) on critical machines with alarms to the control room.
+- Care: the sensor's cable strain-relieved, the magnet clean, the calibration checked annually, the battery.
+
+## Worked example
+
+A 75 hp (56 kW) 1,800 rpm end-suction pump on a grouted baseplate (Group 2, rigid): baseline at commissioning 0.06 in/s pk (1.1 mm/s RMS) horizontal at the pump inboard bearing. Six months later the route reads 0.14 in/s pk (2.5 mm/s RMS): still zone B, but 2.3× the baseline: alert; the spectrum shows a 2× running speed peak and a high axial reading: misalignment (the pipe was changed last month); action: check the pipe strain and re-align before it reaches zone C (0.16 in/s pk). The bearing envelope reading at 0.8 gE, unchanged: the bearings are still fine.
+
+## Common mistakes
+
+- Comparing a peak reading from one meter with an RMS limit from the standard: a factor of 1.4.
+- A magnet on the motor's fan cover: the reading is the cover's rattle.
+- Readings at different loads and speeds trended as one line.
+- Alarms set only on the overall: the bearing is gone before the overall moves.
+- "It's in zone B, leave it" on a machine that tripled since last month.
+- Greasing a bearing because it is noisy on the ultrasound, without knowing whether it is starved or damaged (a damaged bearing quiets briefly when greased too).
+
+## Related
+
+- [Vibration signatures (unbalance, misalignment, looseness, bearings, gears, electrical)](/article/vibration-signatures)
+- [Thermography, ultrasound and oil](/article/thermography-ultrasound-and-oil)
+- [Machine guarding and commissioning (acceptance)](/article/machine-guarding-and-commissioning)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [PLC and instrumentation awareness (vibration transmitters)](/article/plc-and-instrumentation-awareness)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$condition-monitoring$mw$),
+          array[$mw$vibration$mw$,$mw$vibration analysis$mw$,$mw$vibration basics$mw$,$mw$vibration units$mw$,$mw$displacement mils$mw$,$mw$velocity in/s$mw$,$mw$velocity mm/s$mw$,$mw$acceleration g$mw$,$mw$overall vibration$mw$,$mw$vibration spectrum$mw$,$mw$FFT$mw$,$mw$vibration meter$mw$,$mw$vibration pen$mw$,$mw$ISO 10816$mw$,$mw$ISO 20816$mw$,$mw$vibration severity chart$mw$,$mw$vibration zones$mw$,$mw$zone A B C D$mw$,$mw$0.1 in/s$mw$,$mw$0.3 in/s$mw$,$mw$2.8 mm/s$mw$,$mw$4.5 mm/s$mw$,$mw$bearing housing measurement$mw$,$mw$horizontal vertical axial$mw$,$mw$accelerometer mounting$mw$,$mw$magnet mount$mw$,$mw$stud mount$mw$,$mw$enveloping$mw$,$mw$gSE$mw$,$mw$HFD$mw$,$mw$spike energy$mw$,$mw$bearing condition$mw$,$mw$vibration trending$mw$,$mw$vibration alarm$mw$,$mw$condition monitoring route$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 20816-3:2022 (superseding ISO 10816-3): vibration severity zones for industrial machines 15 kW-50 MW, groups 1-2, rigid and flexible supports, and the pump group values; ISO 10816-7 (pumps); Mobius Institute and Vibration Institute training material (units, measurement practice, bearing condition indicators); SKF, Emerson/CSI and Fluke vibration meter documentation.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$vibration-signatures$mw$, $mw$Vibration Signatures: Reading a Spectrum for Unbalance, Misalignment, Bent Shaft, Looseness (Three Types), Rolling Bearing Defects and Their Frequencies, Sleeve Bearing Oil Whirl, Gear Mesh and Gear Faults, Belt Drives, Electrical Faults (Rotor Bars, Stator, VFD), Resonance, Cavitation and Flow, Soft Foot and Pipe Strain, with a Symptom-to-Cause Table and the Confirming Tests$mw$, $mw$The patterns in a vibration spectrum that point to each machine fault, with the frequencies, the directions and the shape to look for, the confirming test that separates look-alikes (unbalance from misalignment from resonance, mechanical from electrical), the bearing defect frequency formulas, and a table from the symptom to the cause that a millwright can use with a route analyser or a good vibration meter with a spectrum display.$mw$, $mw$## Reading a spectrum
+
+The spectrum shows amplitude (velocity, mm/s or in/s) against frequency (Hz, or cpm, or **orders**: multiples of the shaft speed, 1× = running speed). Faults are recognised by **which orders** are present, their **relative size**, the **direction** (horizontal, vertical, axial), the **harmonics** (2×, 3×...), the **sidebands** (peaks spaced at another frequency around a main peak: modulation), the **noise floor** (a raised floor = randomness: looseness, cavitation, late bearing damage), and the **phase** (the timing of the 1× vibration between points, measured with a tachometer reference or a two-channel analyser: the tie-breaker between unbalance, misalignment, bent shaft and looseness).
+
+Set the spectrum's maximum frequency to cover what you look for: **10× running speed** for the mechanical faults (unbalance to looseness), **higher** (to 3-10 kHz or a high-frequency band) for bearings and gear mesh; resolution fine enough (1,600-3,200 lines) to separate 2× running speed from 2× line frequency on a 2-pole motor (3,580 rpm × 2 = 7,160 cpm vs 7,200 cpm: 40 cpm apart).
+
+## The signatures
+
+### Unbalance
+
+- **1× dominant**, radial (horizontal usually higher than vertical on a foot-mounted machine), **low axial**, a clean single peak, amplitude rising with the **square of the speed** (a VFD-driven fan doubles its 1× four times going from half to full speed).
+- Phase: horizontal and vertical at the same bearing **90° apart**; the two bearings **in phase** for static unbalance (a heavy spot: a fan with build-up), **out of phase** for couple unbalance (a long rotor).
+- Causes: build-up (fans, impellers), erosion, a lost balance weight, a bent blade, a key too long or missing, an eccentric sheave.
+- Confirm: the fan/impeller cleaned and the reading repeated; a field balance (a two-plane balance with the analyser).
+- Not unbalance if: axial is high (misalignment or bent shaft), it does not change with speed squared (resonance), there are harmonics (looseness).
+
+### Misalignment
+
+- **Angular**: high **axial** 1× (and 2×), the axial at the two sides of the coupling **180° out of phase**.
+- **Parallel (offset)**: high **radial 2×** (often 2× larger than 1×), the radial readings across the coupling 180° out of phase.
+- Usually both: **1×, 2× and sometimes 3×** with a strong 2× and a high axial; the 2× shows on both machines; a **coupling** with a worn element or a locked gear/grid coupling adds harmonics to 4× or more.
+- Causes: alignment, **thermal growth** not allowed for (the machine aligned cold and running hot), **pipe strain**, **soft foot**, a bearing housing moved, a coupling worn.
+- Confirm: alignment check hot and cold; loosening the pipe flanges with indicators on the shaft ([pipe strain](/article/pipe-strain-and-flange-alignment)); a coupling inspection.
+
+### Bent shaft
+
+- High **axial 1×** (and 2× if bent near the coupling), radial 1×; the axial phase at the two ends of the same machine **180° out of phase** (one bearing pushes while the other pulls); like unbalance in the radial and misalignment in the axial.
+- Confirm: dial indicator runout on the shaft (see [bearing removal](/article/bearing-removal-pullers-and-heating) for the shaft check) and on the coupling hub.
+
+### Looseness
+
+| Type | Signature | Cause |
+|---|---|---|
+| **Structural / base (type A)** | High **1×**, mostly **vertical** (V equal to or higher than H, unusual), sometimes 2×; the phase between the foot and the base differs (a foot that lifts) | Loose hold-down bolts, a cracked base or grout, **soft foot**, a broken weld on a pedestal, a rotten foundation |
+| **Mechanical looseness at the machine (type B)** | 1×, 2× and higher, with **sub-harmonics (0.5×, 1.5×)** and the harmonics **directional** | A loose bearing housing cap, loose pillow block bolts, a cracked frame, a rocking pedestal |
+| **Rotating looseness (type C)** | **Many harmonics** of 1× (up to 10× and more), often with **half-orders (0.5×, 1.5×, 2.5×)**, a raised noise floor; the phase unstable | A bearing loose in its housing or on the shaft (the fit gone), excessive bearing clearance, a loose impeller or rotor on the shaft, a loose coupling hub or sheave |
+
+Confirm: a bolt check with a wrench, the fits (see [bearing fits](/article/bearing-clearance-and-fits-tables)), a look at the base, a soft-foot check with the indicator.
+
+### Rolling-element bearing defects
+
+A defect on a race or a roller generates impacts at a **defect frequency** that is not a whole multiple of the shaft speed (the give-away: non-synchronous peaks):
+
+```
+   n = number of rolling elements, d = element diameter, D = pitch diameter, θ = contact angle, f = shaft speed
+   BPFO (outer race, ball pass frequency outer) ≈ (n/2) × f × (1 − (d/D) cos θ)      ≈ 0.4 × n × f
+   BPFI (inner race)                            ≈ (n/2) × f × (1 + (d/D) cos θ)      ≈ 0.6 × n × f
+   BSF  (ball/roller spin)                      = (D/2d) × f × (1 − ((d/D) cos θ)²)
+   FTF  (cage, fundamental train)               ≈ (f/2) × (1 − (d/D) cos θ)          ≈ 0.4 × f
+```
+
+A 6309 (8 balls) at 1,800 rpm (30 Hz): BPFO ≈ 0.4 × 8 × 30 = **96 Hz (3.2×)**, BPFI ≈ 0.6 × 8 × 30 = **144 Hz (4.8×)**; the bearing makers publish exact frequencies for each bearing number; the analyser's database has them.
+
+**Stages**: (1) ultrasonic/high-frequency only (enveloping, HFD, gE rise); (2) the defect frequencies appear in the envelope spectrum and the acceleration spectrum with harmonics; (3) the defect frequencies and their harmonics in the **velocity** spectrum, with **sidebands at 1×** (an inner race defect: it passes through the load zone once a revolution) or at FTF (a cage/roller defect); the overall rises; (4) the discrete peaks smear into a raised **noise floor** with random broadband vibration and the envelope falls: replace immediately.
+
+Confirm: the envelope spectrum shows the defect frequency; temperature; the grease condition; the history (see [bearing failure analysis](/article/bearing-failure-analysis)). Electrical fluting shows as the bearing frequencies plus a "haystack" at high frequency.
+
+### Sleeve (journal) bearings
+
+- **Oil whirl**: a sub-synchronous peak at **0.42-0.48×** (the oil wedge spinning the shaft in the clearance), on pressure-lubricated sleeve bearings at high speed (turbines, compressors, large motors): unstable, changes with load and oil temperature; **oil whip** locks it at the rotor's natural frequency: dangerous. Fix: bearing clearance, oil viscosity/temperature, preload, a different bearing design.
+- Excessive clearance: 1× with harmonics and 0.5× (like looseness).
+- Rubs: harmonics, sub-harmonics (1/2×, 1/3×), a truncated time waveform.
+
+### Gears
+
+- **Gear mesh frequency (GMF) = teeth × rpm** of that gear (the same for both gears in the mesh), with its harmonics, always present at some level; the amplitude rises with load and wear.
+- **Sidebands** around the GMF spaced at the **rpm of the damaged gear** tell which gear (the pinion's speed spacing = the pinion); many sidebands with growing amplitude = a worn or eccentric gear, a cracked or broken tooth (the tooth also shows as a 1× of that gear and an impact in the time waveform once per revolution).
+- **Gear natural frequency** excited by wear: a hump with sidebands.
+- **Hunting tooth frequency** (very low: the frequency at which the same two teeth meet) = a pair of damaged teeth.
+- Misaligned gears: GMF harmonics (2×, 3× GMF) higher than the fundamental; the pattern across the face confirms ([gear inspection](/article/gear-inspection-and-tooth-failure)).
+- Backlash/looseness in a gear train: a 1× of the gear with GMF sidebands and a high noise floor at low load.
+
+### Belt drives
+
+- **Belt frequency** = belt speed ÷ belt length (below the shaft speeds: a sub-synchronous peak, and its harmonics; a worn or defective belt shows at 2×, 3× and 4× belt frequency, with the 2× often highest); belt frequency (Hz) = π × sheave PD (in) × sheave rpm ÷ (60 × belt length (in)).
+- **Sheave misalignment**: high **axial 1×** of the driver or the driven sheave.
+- **Eccentric sheave**: 1× of that sheave, radial, in line with the belts (measure in the direction of the belt tension).
+- Belt resonance: a belt flapping at its natural frequency (change the tension).
+- **Over-tension**: high bearing loads and bearing frequencies.
+- Confirm: a strobe on the belt (the belt frequency and the flapping), a straightedge on the sheaves, a tension check.
+
+### Electrical (induction motors)
+
+- **2× line frequency (120 Hz at 60 Hz)**: stator problems (a soft foot distorting the stator, loose laminations, an eccentric air gap, a shorted stator winding), unbalanced supply voltage; it **disappears the instant the power is cut** (the test: take a reading, kill the motor, watch the peak vanish; mechanical vibration decays with speed).
+- **Pole-pass sidebands** (the slip frequency × the number of poles, a few Hz) around 1× and its harmonics: **broken/cracked rotor bars** or a bad rotor joint (also a **beating** sound and a current swing under load); worse under load.
+- **Rotor bar pass frequency** (bars × rpm) with 2× line-frequency sidebands: loose rotor bars, a rotor eccentricity.
+- **Eccentric rotor** (an air gap that varies): 2× line frequency with pole-pass sidebands; a bent motor shaft or worn bearings.
+- **VFD-driven motors**: peaks at the drive's switching/carrier frequency and its harmonics (normal, high frequency), and the 2× line-frequency signatures at 2× the drive's output frequency (not 120 Hz); plus the bearing fluting signatures.
+- Confirm: the power-off test; a current analysis (MCSA) for rotor bars; the motor shop.
+
+### Resonance
+
+- A peak that does not follow the rules: a 1× that is huge in **one direction only**, an amplitude that changes drastically with a small speed change (the VFD), a machine that vibrates at a speed during coast-down; the structure or the piping has a **natural frequency** near the running speed (or the blade pass, or the mesh); the phase shifts 180° through the resonance.
+- Confirm: a **bump test** (the machine stopped, hit the structure with a soft hammer and read the frequency it rings at with the analyser in a peak-hold mode), a **coast-down** (peak-hold during the run-down: the peaks at the natural frequencies), a run-up.
+- Fix: change the stiffness (a brace, a gusset, a thicker base), the mass, or the speed (a skip frequency on the VFD); detune the piping (supports).
+
+### Flow, cavitation and aerodynamic
+
+- **Blade/vane pass frequency (BPF) = blades × rpm** (an impeller with 5 vanes at 1,750 rpm: 146 Hz) with harmonics: normal at a low level; high with a **wrong impeller-to-cutwater gap**, running far off BEP, a partly blocked impeller passage, a damaged vane.
+- **Cavitation**: a random, broadband **raised noise floor** at high frequencies (often 1-20 kHz), sometimes with BPF harmonics, and the sound of gravel; changes with the suction condition (see [pump troubleshooting](/article/pump-troubleshooting)).
+- **Recirculation**: low-frequency random and sub-synchronous energy at low flow.
+- **Turbulence / flow noise**: random low-frequency energy (below 1×) in fans and pumps with bad inlet conditions.
+
+### Soft foot and pipe strain
+
+- Soft foot: a **distorted frame** gives 2× line frequency (motors), or 1× and 2× that change when a bolt is loosened (the test: loosen one foot at a time with the machine running and watch the spectrum, then re-torque: a foot whose loosening drops the vibration is the soft foot; do it safely, with the machine coupled, small changes).
+- Pipe strain: misalignment signatures that change with temperature or when a flange is loosened.
+
+## From the symptom to the cause
+
+| Spectrum shows | Direction | First suspect | Also consider | Confirm by |
+|---|---|---|---|---|
+| **1× only, clean** | Radial, H > V | Unbalance | Eccentric sheave/rotor, bent shaft (if axial), resonance | Clean, balance; speed change |
+| 1× with **high axial** | Axial | Angular misalignment, bent shaft | Sheave misalignment, a cocked bearing | Alignment, runout, phase |
+| **2× > 1×** radial | Radial and axial | Parallel misalignment | Looseness, a cracked shaft (2× with a 1×), a worn coupling | Alignment hot/cold, pipe strain, coupling |
+| 1× high **vertical** ≥ horizontal | Vertical | Structural looseness, soft foot | Base/grout failure, resonance | Bolts, base, soft foot check |
+| **Many harmonics** and half-orders, raised floor | Radial | Rotating looseness (bearing fit, loose rotor) | Rub, severe bearing damage | Fits, clearances |
+| **Non-synchronous** peaks (3.2×, 4.8×...) with 1× sidebands, envelope high | Radial | Rolling bearing defect | Gear sidebands (check GMF) | Bearing frequency match, envelope, temperature |
+| 0.42-0.48× | Radial | Oil whirl (sleeve bearing) | Rub, belt frequency (calculate it) | Speed/oil change |
+| GMF with sidebands at a gear's rpm | Radial (helical: axial) | Gear wear/damage on that gear | Misalignment of the gears | Inspection, oil analysis |
+| **120 Hz (2× line)** that vanishes at power-off | Radial | Stator/air gap/voltage unbalance/soft foot | | Power-off test, voltage check |
+| 1× with pole-pass sidebands, beating | Radial | Rotor bar | | Current analysis, load test |
+| Sub-synchronous peak and multiples below 1× | Radial | Belt defect | Oil whirl | Strobe, belt frequency |
+| One huge direction, speed-sensitive | One direction | Resonance | | Bump test, coast-down |
+| BPF high | Radial | Pump/fan hydraulic (gap, off-BEP) | Blocked passage | Process check, inspection |
+| Broadband high-frequency floor | Any | Cavitation, late bearing, lubrication starvation | Rub | Suction check, envelope, grease |
+
+Two or more faults at once are normal (misalignment **causes** bearing damage; looseness **amplifies** unbalance): fix the primary one (the alignment, the base) first and re-read.
+
+## Common mistakes
+
+- Balancing a fan that had a resonance: the vibration returns at the next speed.
+- Calling 2× line frequency "misalignment" on a 2-pole motor without the power-off test.
+- Chasing a 3.2× peak as "a harmonic" when it is a bearing.
+- Reading the spectrum without knowing the running speed, the bearing numbers and the gear teeth: the frequencies mean nothing.
+- Fixing the symptom (a bearing) three times without the cause (the misalignment that killed it).
+
+## Related
+
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals) and [soft foot correction](/article/soft-foot-correction)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Gear inspection and tooth failure](/article/gear-inspection-and-tooth-failure)
+- [Pump troubleshooting](/article/pump-troubleshooting)
+- [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
+- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$condition-monitoring$mw$),
+          array[$mw$vibration signatures$mw$,$mw$vibration spectrum$mw$,$mw$vibration diagnosis$mw$,$mw$unbalance vibration$mw$,$mw$1x$mw$,$mw$misalignment vibration$mw$,$mw$2x$mw$,$mw$axial vibration$mw$,$mw$bent shaft$mw$,$mw$looseness vibration$mw$,$mw$harmonics$mw$,$mw$half harmonics$mw$,$mw$bearing defect frequency$mw$,$mw$BPFO$mw$,$mw$BPFI$mw$,$mw$BSF$mw$,$mw$FTF$mw$,$mw$bearing vibration$mw$,$mw$oil whirl$mw$,$mw$gear mesh frequency$mw$,$mw$sidebands$mw$,$mw$belt vibration$mw$,$mw$belt frequency$mw$,$mw$electrical vibration$mw$,$mw$120 Hz$mw$,$mw$rotor bar$mw$,$mw$pole pass frequency$mw$,$mw$2x line frequency$mw$,$mw$resonance$mw$,$mw$natural frequency$mw$,$mw$bump test$mw$,$mw$cavitation vibration$mw$,$mw$blade pass frequency$mw$,$mw$vane pass$mw$,$mw$soft foot vibration$mw$,$mw$phase analysis$mw$,$mw$vibration troubleshooting chart$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Vibration Institute and Mobius Institute (ISO 18436 Category I/II) course material; Technical Associates of Charlotte 'Illustrated Vibration Diagnostic Chart'; SKF and Emerson/CSI application notes on bearing defect frequencies and enveloping; EASA guidance on electrically induced vibration; ISO 20816-3.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$belt-conveyor-components-and-tracking$mw$, $mw$Belt Conveyor Components and Belt Tracking: Pulleys, Idlers (CEMA Classes and Types), Take-Ups, Belt Construction and Specs, the Tracking Rules (Which Way to Move an Idler), the Tracking Sequence from Structure to Training Idlers, Symptom-Cause-Fix Table, Empty vs Loaded Tracking, Reversing and Crowned Pulleys$mw$, $mw$The parts of a belt conveyor a millwright maintains and how each affects the belt, how to read a belt specification, and the discipline of tracking: the two rules that decide which way to move an idler, the sequence that starts with the structure and pulleys and ends with training idlers only as a last resort, a symptom table for a belt that runs off in one place or everywhere, and the special cases of loaded tracking, reversing belts and crowned pulleys.$mw$, $mw$## Components
+
+| Component | Function | Maintenance notes |
+|---|---|---|
+| **Head (drive) pulley** | Drives the belt; usually at the discharge | **Lagging** (rubber, ceramic, diamond-grooved) for traction and wear; crowned on short belts; the drive is a motor/reducer with a backstop on inclines |
+| **Tail pulley** | Turns the belt back at the loading end | Often a **wing pulley** (self-cleaning) or a plain pulley with a plow; crowned; where the belt is most often damaged by carryback |
+| **Snub pulley** | Increases the wrap on the drive pulley (to 200-240°) | Small, close to the head pulley; runs on the dirty side |
+| **Bend pulley** | Changes the belt's direction (take-up loops, tripper) | |
+| **Take-up pulley** | Tensions the belt: **screw take-up** (manual, short belts under about 150 ft), **gravity take-up** (a counterweighted pulley in a vertical loop: constant tension, the standard over 150 ft), **hydraulic/winch take-up** | Gravity take-up travel: allow 1.5-2% of the belt length (plus splice allowance); the counterweight sized by the design, **never adjusted to fix tracking** |
+| **Troughing (carrying) idlers** | Three rolls at 20°, **35°** (the common one) or 45° trough carrying the loaded belt; spacing 3-5 ft (closer at the loading point) | Rolls must **turn freely**: a stuck roll wears a flat and heats; bearing seals; a missing roll lets the belt sag and spill |
+| **Impact idlers** | Rubber-disc rolls under the loading point | Absorb the drop; replace crushed discs |
+| **Return idlers** | Flat rolls (or V-return, rubber-disc for sticky material) under the return strand, spacing 8-10 ft | Run on the dirty side: carryback builds up and tracks the belt off; clean and replace |
+| **Training (self-aligning) idlers** | A troughing or return idler on a pivot that swings when the belt drifts and steers it back | One per 100-150 ft of belt, **never at the pulleys**; a band-aid if the structure is out; they also wear the belt edge if they are the only thing tracking it |
+| **Transition idlers** | Half-angle idlers between the flat pulley and the full trough | Wrong transition distance = edge stress and belt damage |
+| **Belt cleaners (scrapers)** | Primary (pre-cleaner at the head pulley face) and secondary (under the head pulley) | Blade tension and wear; carryback is the enemy of tracking |
+| **Plows** | V-plow or diagonal plow on the return before the tail pulley | Keeps material off the tail pulley |
+| **Skirtboard and skirt seals** | Contain the load at the loading point | Seal rubber wears; adjust so it does not cut the belt |
+| **Pulley lagging, bushings (XT/QD), bearings (SAF/pillow blocks), shafts** | | See [pillow blocks](/article/pillow-block-and-insert-bearings), [bushings](/article/qd-and-taper-lock-bushings) |
+| **Safety devices** | Pull-cord switches, belt-drift switches, speed switch (slip), plugged-chute switch, backstop/brake, guards | See [conveyor safety and guarding](/article/conveyor-safety-and-guarding) |
+
+**CEMA idler classes** (by roll diameter and load): **B** (4-5" rolls, light: 18-48" belts), **C** (5-6", medium: the commonest industrial), **D** (5-6", heavier), **E** (6-7", heavy: mining), F (7-8", extra heavy). Replace like with like (the frame, roll diameter, trough angle, spacing).
+
+## Belt construction and specification
+
+A **carcass** (plies of polyester/nylon fabric, or steel cords) between **covers** (rubber, thick on the top/carrying side). Reading a spec: **"3-ply 330 PIW, 3/16 × 1/16, Grade 2, 36" wide"** = 3 plies, **330 lb per inch of width working tension** (PIW; also quoted as the total tension rating), top cover 3/16", bottom cover 1/16", RMA Grade 2 cover (Grade 1 is more abrasion-resistant; special: oil-resistant, heat-resistant, fire-resistant MSHA), width 36". Steel-cord belts are rated **ST-1000** etc. (N/mm). Replacement belt must match the tension rating (the take-up weight and the pulleys are sized for it), the width, the cover grade for the material, the trough-ability (a stiff belt will not sit in a 45° trough), and the **minimum pulley diameter** for the carcass (a 3-ply 330 needs about 16-24" head pulley; using a smaller pulley cracks the plies and the splice).
+
+## Why belts drift
+
+A belt runs toward the side it is **pulled** to by: idlers or pulleys not square to the belt's centreline (the belt moves **toward the end of the roll it touches first**), a pulley that is not level (the belt walks toward the tighter, higher side), off-centre loading (the belt runs **away from** the side the load is on), material build-up on a pulley or idler (a local crown that steers it), a belt with a **camber** (a bow built into it, from manufacture or from a bad splice: it runs one way on a straight structure), a splice cut out of square, structure out of line or twisted, and idlers that do not turn.
+
+## The two rules
+
+1. **A belt moves toward the end of an idler roll it contacts first.** Skew a flat return roll or a troughing idler so that the side the belt is running **to** is **forward** (in the belt's direction of travel): the belt climbs back toward the centre. Memory aid: "**knock it in the direction of travel** on the side the belt runs to" (move the bracket on the drift side forward, or the opposite side back).
+2. **Pulleys are set square and level, never skewed to steer.** A pulley that is not square to the belt (one end forward) steers the belt toward the end that is back, and a tilted pulley walks it to the high side; a crowned pulley centres a short flat belt. Correct pulleys for **squareness and level** only, and never use them as training devices.
+
+Every adjustment is **small** (an eighth of a turn on the idler bracket bolt, a 1/8" shift of an idler foot), followed by **2-3 full belt revolutions** to see the result, and **written down** on the idler (a paint mark or a tag) so the next person can see what has been done. An idler that has been knocked all the way is a sign the problem is somewhere else: put it back square and find the cause.
+
+## The tracking sequence
+
+1. **Structure first**: the conveyor's stringers must be **straight, level and square**; check with a piano wire or a laser along the centreline (see [piano wire and lasers](/article/optical-and-laser-levels-piano-wire)), a level across, and diagonals at each bent; a twisted structure (one side higher at one end) is the classic cause of a belt that runs off at one point. Fix the structure before touching an idler.
+2. **Pulleys**: each pulley **square to the centreline** (measure from the centreline wire to each pulley face, or diagonals from pulley to pulley: equal within 1/8") and **level** (a precision level across the shaft or the pulley face); the head, tail, snub, bend and take-up pulleys all; lagging worn evenly; **no material build-up** (a 1/4" build-up in the middle of a tail pulley is a crown that tracks the belt off).
+3. **Idlers**: every idler **square to the centreline** (a square off the stringer, or a measurement from the centreline wire to each end of the idler frame) and **level**; all rolls turning; the correct trough angle and no missing rolls; idler frames all facing the same way (they are not symmetric).
+4. **Loading**: material must land **centred** on the belt and in the direction of travel (chute design, skirtboards): an off-centre load cannot be tracked out.
+5. **Belt and splice**: the splice square (a mechanical splice cut crooked by 1/8" steers the belt every revolution: the belt jumps over at the splice), the belt's camber (lay a length out flat and sight along the edge; a belt with a built-in bow of more than about 1/2" in 10 ft runs off no matter what you do: replace it), edge damage.
+6. **Run the belt empty** and watch several revolutions: does it run off **everywhere** (a pulley, the structure, the belt) or **at one point** (the idlers/structure at that point, or a build-up)? Mark where and which direction.
+7. Adjust **idlers** by rule 1, starting on the **return** side at the tail and working toward the head, then the carrying side, small moves, a few at a time, watching the belt; the idlers just ahead of the pulleys are the most effective for a belt drifting at a pulley.
+8. **Load** the belt and watch again (below).
+9. Training idlers last, and only for the small residual drift a well-set-up belt has (wind, moisture, load variation).
+
+## Symptom table
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Belt runs off **at one point** on the carrying side | The idlers at and just before that point out of square; structure twisted/high there; a stuck or missing roll; material build-up on an idler | Square the idlers there and just before; check the structure; free/replace rolls; clean |
+| Runs off at **one point on the return** | Return idlers there; carryback build-up on the rolls | Clean, square, replace |
+| Runs off **along the whole length** on the same side | A pulley out of square or not level (head or tail); structure out of line; the belt cambered | Square the pulleys, check the structure, then the belt |
+| Runs off **at the head pulley** | Head pulley out of square/level, lagging worn on one side, snub pulley out, build-up | Square and level the head and snub, re-lag, clean |
+| Runs off **at the tail pulley** | Tail pulley out of square/level, build-up, the return idlers before it, the take-up out of square | Square the tail and take-up, clean, plow |
+| **Alternates** from side to side | A cambered or twisted belt; a bad splice; skirt seals pushing; over-tension | Replace the belt or splice; check seals; correct tension |
+| Runs off only when **loaded** | Off-centre loading; the load shifting on inclines; the belt sagging between idlers (too little tension or too wide a spacing) | Centre the chute; skirts; idler spacing/tension |
+| Runs off only when **empty** | The belt does not sit in the trough (too stiff, or the wrong belt), a slight camber; idlers slightly off | Track empty first, then load and re-check; the empty condition is the reference |
+| Jumps sideways at the **splice** each revolution | Splice out of square | Re-splice square |
+| Runs off in **wet weather** | Material sticking to pulleys and rolls, slipping on the drive, wet belt cambering | Cleaners, plows, lagging; training idlers for the residual |
+| A **reversing** belt runs off in both directions | Anything that is skewed; training idlers of the wrong type | Reversing conveyors need everything dead square and **reversing-type** training idlers; no skewed idlers |
+| The belt tracks fine, then off after a belt change | The new belt's camber, splice, or a different belt stiffness | Check the belt; trough-ability |
+
+## Tension
+
+The take-up must be right before tracking: too little tension = the belt slips on the drive and sags between idlers (mistracking, spillage); too much = belt and splice damage, bearing loads, and a belt that runs to the tight edge. Gravity take-up: the counterweight is by design (do not add plates to stop slip: fix the lagging or the wrap); check it floats in the middle of its travel with the belt running loaded, and does not bottom out or top out. Screw take-up: equal turns each side (measure the pulley position from the frame each side: equal within 1/16"), tensioned to remove sag and stop slip, then re-checked after the belt seats.
+
+## Crowned pulleys
+
+A crown (a slightly larger diameter in the middle, about 1/8" per foot of face width) self-centres a belt on **short, flat, lightly tensioned** belts (package conveyors, short transfer belts); on troughed bulk belts crowns are used on tail and take-up pulleys sometimes; crowning the **head** pulley of a high-tension belt damages the belt's centre and is not done. A crowned pulley only centres the belt if the belt has enough **free span** before it to be steered (about 1.5-2× the belt width).
+
+## Common mistakes
+
+- Knocking idlers before checking the structure and pulleys: after a week every idler is skewed and the belt still runs off.
+- Training idlers doing all the work, wearing the belt edge to fringe.
+- Adding weight to the gravity take-up to stop the belt running off.
+- Crowning or shimming a pulley to steer the belt.
+- Cleaning the belt but not the return idlers and the tail pulley.
+- Cutting a new splice with a tape and a marker instead of squaring from the centreline (see [belt splicing](/article/belt-splicing)).
+- Reaching in to clean a roll on a running belt: the nip point takes the arm.
+
+## Related
+
+- [Belt splicing](/article/belt-splicing)
+- [Idlers, pulleys and lagging](/article/idlers-pulleys-and-lagging)
+- [Conveyor safety and guarding](/article/conveyor-safety-and-guarding)
+- [Optical and laser levels and piano wire (structure alignment)](/article/optical-and-laser-levels-piano-wire)
+- [Pillow blocks and insert bearings](/article/pillow-block-and-insert-bearings)
+- [Power, torque and drive formulas (conveyor horsepower)](/article/power-torque-speed-drive-formulas)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$conveyors$mw$),
+          array[$mw$belt conveyor$mw$,$mw$conveyor components$mw$,$mw$head pulley$mw$,$mw$tail pulley$mw$,$mw$snub pulley$mw$,$mw$bend pulley$mw$,$mw$take up pulley$mw$,$mw$gravity take up$mw$,$mw$screw take up$mw$,$mw$troughing idler$mw$,$mw$return idler$mw$,$mw$impact idler$mw$,$mw$training idler$mw$,$mw$self aligning idler$mw$,$mw$CEMA idler class$mw$,$mw$belt construction$mw$,$mw$PIW$mw$,$mw$belt specification$mw$,$mw$belt tracking$mw$,$mw$belt training$mw$,$mw$belt drifting$mw$,$mw$belt running off$mw$,$mw$tracking rules$mw$,$mw$idler adjustment$mw$,$mw$crowned pulley$mw$,$mw$lagging$mw$,$mw$belt tracking loaded$mw$,$mw$reversing conveyor$mw$,$mw$conveyor structure square$mw$,$mw$conveyor alignment$mw$]::text[], $mw$$mw$, array[]::text[], $mw$CEMA Belt Conveyors for Bulk Materials (7th ed.) component definitions and idler classes; Fenner Dunlop Conveyor Handbook (belt construction, tracking rules and sequence); Martin Engineering Foundations (belt tracking and transfer points); Continental ContiTech and Goodyear conveyor belt training guidance; PPI and Precision Pulley idler and pulley catalogues.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$belt-splicing$mw$, $mw$Belt Splicing: Squaring the Belt Ends (Centreline Method), Cutting, Mechanical Fasteners (Hinged, Solid Plate, Rivet, Alligator Lacing) Selection by Belt Thickness and Pulley Diameter, Installing Hinged and Plate Fasteners, Skiving, Vulcanized Splices (Hot and Cold, Step Splice, Bias), Splice Inspection and Records$mw$, $mw$A splice is only as good as the square cut behind it: this covers finding the belt's true centreline and squaring the ends, choosing a mechanical fastener by belt thickness, tension and the smallest pulley, installing hinged and solid-plate fasteners properly (including skiving the covers), the basics of hot and cold vulcanized step splices with the bias and step lengths, and inspecting splices so they are replaced before they fail.$mw$, $mw$## Squaring the belt end
+
+A crooked cut makes a splice that steers the belt every revolution; a tape across the belt is not square to a belt whose edges are not straight.
+
+**Centreline (five-point) method**
+
+1. Mark the belt's **centre** at **five places** over 8-10 ft of the end: at each, measure the belt's width and mark the mid-point (not from one edge to a fixed distance: belts are not uniform).
+2. Draw a **straight line** through the five centre marks with a chalk line: that is the belt's **true centreline** (it may not be parallel to the edges).
+3. Square the cut line off the **centreline** with a large square (a framing square or a fabricated one, held on the line) or by the **3-4-5 method** from the centreline; mark the cut line across the full width; check it: measure from the cut line back to a reference line across the belt at both edges: equal.
+4. Do the same on the other belt end. On a mechanical splice both ends are square; on a vulcanized bias splice the cut is at the bias angle **to the centreline** (below).
+
+**Cutting**: a utility knife with a hooked blade or a belt cutter (a guided knife), several passes, soapy water on the blade; cut on a board; a square, clean cut to the line; trim frayed plies. Fabric belts cut easily; steel-cord belts are a vulcanizing crew's job.
+
+## Choosing a mechanical fastener
+
+Mechanical fasteners join the belt with metal plates and a hinge pin or bolts through the carcass: fast (an hour), in the field, no heat; the price is a splice that is **weaker than the belt** (50-70% of the belt's rating), that catches on cleaners and skirts, lets fines through, and needs inspection. Vulcanizing is stronger and cleaner but takes a crew, a press and 4-8 hours.
+
+The selection depends on three things:
+
+1. **Belt thickness** (measure it with a caliper; a fastener is made for a thickness range).
+2. **Minimum pulley diameter** the splice passes over with more than 90° wrap (a plate fastener needs a bigger pulley than a hinged one; too small a pulley bends the plates and they pull out).
+3. **Belt tension rating (PIW)** and the operating tension (each fastener has a maximum rated belt tension: the common hinged sizes cover belts up to a few hundred PIW, the big solid-plate sizes go well beyond that).
+
+| Type | How it works | Best for | Typical sizes (Flexco) |
+|---|---|---|---|
+| **Bolt hinged** | Two rows of hinged plates bolted through the belt, joined by a **hinge pin** | Belts that must be opened (take-up adjustment, maintenance), reversing, small pulleys; the general-purpose industrial splice | 375 (1/8-1/4" belt, 4" pulley), **550 (3/16-7/16", 6")**, 1-1/2 to 2-1/2 sizes for heavier |
+| **Bolt solid plate** | Two-piece plates bolted through both belt ends, no hinge | Highest strength mechanical, heavy belts, high tension; not openable | 1 (3/16-5/16" belt, 8" pulley), 1-1/2 (1/4-7/16", 12"), 2 (7/16-5/8", 14"), 2-1/2, 3 |
+| **Rivet solid plate (BR)** | Plates driven with rivets by a hammer or a rivet driver | Fast, heavy belts, mining; sifts less | BR6 (3/16-5/16", 12"), BR10, BR14 |
+| **Alligator lacing (RS / Ready Set)** | A staple/rivet lacing strip driven with a tool, joined by a pin | Light and medium belts, package and small bulk, quick | RS62 (1/16-1/4", 2-3" pulley), RS125 (1/8-5/16", 4-5"), RS187 (3/16-7/16", 6-7") |
+| **Wire hooks / clipper lacing** | Hooks pressed in with a lacer | Light belts, PVC, food | |
+| **Hammer-on hinged (Flexco Clipper)** | Plates hammered on | Light-duty | |
+
+Pick the fastener by the chart for the thickness and the smallest pulley; when the belt is between sizes, **skive** the covers to bring the thickness into range and use the fastener rated for the pulley. Stainless or rubber-covered fasteners for corrosive or belt-cleaner applications; **nylon or fibreglass hinge pins** for magnets and separators.
+
+## Installing bolt hinged fasteners
+
+1. Square and cut both ends (above); **skive** the top cover if the belt is thicker than the fastener's range or to recess the plates: a skiver removes a strip of the top cover about 1-2" wide along the end, down to the carcass, so the plates sit flush and cleaners pass over them.
+2. Mark the **centre** of the belt end and the **fastener template's** centre; work outward from the centre so any odd fastener ends up at the edges; leave about **1/2" of belt** beyond the last fastener at each edge (no plate hanging over the edge, none so close that the edge tears).
+3. Clamp the belt end in the **fastener installation tool/template** (Flexco's bolt hinged template holds the plates and gives the bolt-hole pattern); insert the fastener plates, hinge loops toward the belt end and **all facing the same way**.
+4. **Drill or punch** the bolt holes through the template (a drill for thick belts, the template punch for thin); insert the bolts the way the instruction sheet for that size shows (the principle is that the **break-off** of the bolt after tightening leaves nothing proud on the pulley side), tighten in the pattern (the centre first, then out) until the plates **bite into the belt** and the top plate is nearly flush with the belt (a torque wrench to the sheet, or "the plate teeth fully embedded"); **break off** the bolt ends (Flexco bolts are notched: bend and snap) and hammer the stubs flat.
+5. Repeat on the other belt end; bring the ends together; mesh the hinge loops; drive the **hinge pin** through with the pin tool; **clip and crimp** the pin ends or fit the retaining washers so the pin cannot walk out (a walked pin is a belt on the floor).
+6. Run the belt slowly and watch the splice go over each pulley and under the cleaners; **re-tighten the bolts after a shift** (the plates seat), and check the pin.
+
+**Solid plate**: the same layout, with both belt ends clamped in the template overlapping at the plate positions (the ends **butt**, the plates span the joint), bolts through both ends; no pin; the splice must be kept **square** during installation (the template does it).
+
+**Alligator lacing**: the strip in the tool, the belt end inserted to the stop, the strip driven with a hammer or the drive tool, both ends, the pin inserted, ends clipped.
+
+Tools: a fastener template/tool for the size, a belt clamp (or two 2×4s bolted across the belt) to hold the ends while working, the skiver, a drill/punch, the pin inserter, a belt cutter, a chalk line and a big square. Lockout the conveyor and **block the gravity take-up** (the counterweight can drop when the belt is cut; the belt can run away on an incline: chain the belt to the structure both sides of the cut).
+
+## Vulcanized splices
+
+The belt ends are **stepped** (each ply cut back a set length so the plies overlap like a staircase), the rubber and fabric are bonded with new rubber and cement, and the joint is cured under heat and pressure (**hot vulcanizing**, a portable press at about 300°F (150°C) and 100 psi, cure time from the vulcanizer's chart for the belt thickness) or with a cold-bonding cement (**cold vulcanizing**: no heat, roller pressure, a 24 h cure; less strength and life; for light belts and emergencies).
+
+- **Splice length**: **(number of plies − 1) × step length + the bias allowance**; step length per ply is about **9-12" for fabric plies (3-6" on light belts)**; a 3-ply 36" belt has a splice about 2-3 ft long on the bias.
+- **Bias**: the splice is cut at an angle to the centreline (usually **22°**, or such that the bias offset is about 0.3 × belt width) so the joint does not hit the pulleys and idlers all at once (a square splice bumps).
+- **Direction**: the steps are laid so the exposed edges of the top plies **trail** (face away from the direction of travel) on the carrying side, so cleaners and material do not lift them.
+- Fabric belt cold/hot splicing is a two-person job with training; steel cord and heavy mining belts are done by a splicing contractor with a press; a bad vulcanized splice fails at the worst time and takes the belt with it.
+- A vulcanized splice is **as strong as the belt** (85-100%) when done right, needs no maintenance, does not sift, and passes cleaners cleanly.
+
+## Inspection
+
+| Check | Frequency | Action |
+|---|---|---|
+| Mechanical splice: **missing/broken bolts or rivets, loose plates, worn/cracked plates, pin walking out, belt torn at the plate edges** | Every shift (a glance as it passes), weekly close | Replace the fastener strip before the belt tears; a pin that has moved: crimp/clip |
+| Belt **ply separation** at the splice, the top cover lifting | Weekly | Repair or re-splice |
+| Belt edge fraying at the splice ends | Weekly | Trim, check the tracking |
+| Vulcanized splice: **edge cracking, ply edges lifting, a bump felt at the idlers** | Monthly | Re-splice when the plies lift |
+| Splice **squareness** (does the belt jump at the splice?) | | Re-splice square |
+| Fastener wear against cleaners | | Adjust cleaners; recess the fasteners |
+| Records | | Splice date, type, fastener size, who; a belt log with the belt's length, splices and repairs |
+
+Life: a mechanical splice on a heavy bulk belt: months to a year; on a light belt: years; a vulcanized splice: the life of the belt if the belt is tracked.
+
+## Common mistakes
+
+- Squaring off the belt edge with a tape: the splice steers the belt.
+- Fastener chosen by "what was in the truck": too big a plate for the tail pulley, it pulls out.
+- Not skiving a thick belt: the plates stand proud and the cleaner strips them.
+- Hinge pin not clipped: it walks out on the second shift.
+- Bolts not broken off flush: they cut the lagging.
+- Gravity take-up not blocked before cutting: the belt end shoots up the loop.
+- Cold vulcanizing a 500 PIW belt on a 24 h schedule "because it is cheaper": it lets go.
+
+## Related
+
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
+- [Idlers, pulleys and lagging](/article/idlers-pulleys-and-lagging)
+- [Conveyor safety and guarding](/article/conveyor-safety-and-guarding)
+- [Layout tools and scribing (squaring)](/article/layout-tools-and-scribing)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$conveyors$mw$),
+          array[$mw$belt splice$mw$,$mw$belt splicing$mw$,$mw$mechanical fastener$mw$,$mw$belt lacing$mw$,$mw$Alligator lacing$mw$,$mw$hinged fastener$mw$,$mw$solid plate fastener$mw$,$mw$rivet fastener$mw$,$mw$Flexco$mw$,$mw$squaring belt ends$mw$,$mw$belt centerline$mw$,$mw$cutting belt$mw$,$mw$skiving belt$mw$,$mw$vulcanized splice$mw$,$mw$hot vulcanizing$mw$,$mw$cold vulcanizing$mw$,$mw$step splice$mw$,$mw$bias angle$mw$,$mw$splice length$mw$,$mw$splice inspection$mw$,$mw$belt repair$mw$,$mw$conveyor belt replacement$mw$,$mw$pulley diameter fastener$mw$,$mw$belt thickness fastener$mw$,$mw$hinge pin$mw$]::text[], $mw$Flexco (generic)$mw$, array[$mw$Flexco Bolt Hinged$mw$,$mw$Flexco Bolt Solid Plate$mw$,$mw$Flexco Rivet Solid Plate BR$mw$,$mw$Alligator RS$mw$,$mw$Alligator Ready Set$mw$,$mw$Flexco Roller Lacer$mw$,$mw$Mato$mw$,$mw$Minet$mw$]::text[], $mw$Flexco fastener selection guidance (belt thickness, minimum pulley diameter and belt tension rating for hinged, solid plate and rivet fasteners) and installation instructions; Fenner Dunlop Conveyor Handbook (squaring, vulcanized splice design: step splice length and bias); Continental ContiTech splicing manual; CEMA belt splicing practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$conveyor-safety-and-guarding$mw$, $mw$Conveyor Safety and Guarding: Nip Points and Where They Are, Guarding Rules (ASME B20.1, OSHA 1910.212/219), Pull-Cord and Safety Switches, Lockout of Conveyors Including the Gravity Take-Up and Inclines, Working Around Running Belts, Crossing and Riding Rules, Transfer Points and Dust, Start-Up Warnings and Inspection Checklist$mw$, $mw$Conveyors kill more maintenance people than any other machine in bulk-handling plants, almost always at a nip point on a belt that was running: this covers where the nip points are, what must be guarded and how, the safety switches and what they do and do not protect, a lockout procedure that includes the stored energy in take-ups and inclined belts, the rules for working near, crossing and never riding a belt, transfer-point hazards, and a pre-start and inspection checklist.$mw$, $mw$## Where people get hurt
+
+- **Nip points**: where the belt meets a **pulley** (head, tail, snub, bend, take-up: the belt runs **into** the pulley on one side), where the belt runs onto a **return roll** or a carrying idler (the in-running side), the **drive** (chain, sheave, coupling), and **cleaners, plows and skirt seals** against the belt. A glove, a sleeve, a shovel or a rag drawn into a pulley nip pulls the arm in faster than anyone can react; MSHA's fatality reports are mostly people **cleaning a running belt** near the tail pulley or **freeing a stuck roll** on a running belt.
+- **Falls** from conveyor walkways and while crossing belts; **being struck** by material from a transfer point or a tripper; **caught** between a carriage (tripper, take-up) and the structure; **crushed** by a gravity take-up counterweight; **fire and dust explosions**.
+- The common thread: the belt was running, or was locked out but still had stored energy, or restarted on a remote signal.
+
+## Guarding
+
+- Every **nip point within reach** (under 7 ft from the floor or a platform, or reachable from a walkway) is **guarded** (ASME B20.1, OSHA 1910.212/219): the head pulley (both sides, the return strand where it enters), the tail pulley (the most common unguarded nip: a full guard around the pulley and the return belt for 3-4 ft, with a mesh small enough to stop a hand: **1/2" mesh at 4"+ from the nip**, finer closer), take-up and bend pulleys (the gravity take-up loop fully enclosed, with the counterweight travel guarded so nothing can be under it), snub pulleys, **return rolls over walkways and along working aisles** (a "return roll guard": a basket under the roll, or a full-length guard on the walkway side), the drive (chain/belt guards, couplings), and the carrying idlers along any walkway where people work close (side guards or a spacing that keeps hands out).
+- Guards are **fixed** (tools to remove), strong, and do not themselves create a nip; **interlocked** guards where access is frequent; inspection **windows** so rolls can be checked without removing guards.
+- Guards go **back on before the lockout comes off**; a conveyor with a guard off is out of service.
+- **Walkways** on at least one side of long conveyors (B20.1 and most plant standards: a walkway with handrails, toe boards, and clearance), crossovers at intervals, no gaps between the walkway and the guard that a leg can go through.
+
+## Safety switches
+
+| Device | What it does | What it does not do |
+|---|---|---|
+| **Pull-cord (rope) emergency stop** | A cord along the walkway that trips a switch when pulled; latches; must be reset | It stops the drive: the belt **coasts** (seconds on a flat belt, and an inclined belt can run **back** unless the backstop holds); it is **not** a lockout |
+| **Belt drift/misalignment switches** | Trip when the belt edge pushes a lever | Only at the switch positions |
+| **Speed (slip) switch / zero-speed** | Trips when the belt (or tail pulley) is not turning at speed: a slipping drive, a broken belt, a jam | Nothing about people |
+| **Plugged-chute switch** | Trips when a transfer chute fills | |
+| **Belt rip detector** | Stops on a longitudinal tear | |
+| **Pre-start alarm** (horn/strobe, 10-30 s before start) | Warns people along a remotely started conveyor | Only if people can hear it and it works |
+| **Backstop / brake** | Holds an inclined belt from running back | Not a lockout: the belt is still under tension |
+
+The pull cord is the **first** thing to find on any conveyor you approach: know where it is, test it on the pre-start checks, never tie it back, and never work with a cord that is slack or broken. An e-stop **does not** make a conveyor safe to work on.
+
+## Lockout of a conveyor
+
+Conveyors have more stored energy than the motor: the belt's **tension** (the take-up pulls the belt with hundreds to thousands of pounds), the **gravity take-up counterweight** (a ton hanging in a loop), an **inclined belt with material on it** (it runs back when the belt is cut or the drive is released), a **tripper carriage** on a slope, hydraulic or pneumatic take-ups and brakes, and **remote/automatic starts** (a PLC that restarts the line when the upstream conveyor runs).
+
+1. **Electrical**: the drive's disconnect **and** any separate control power; verify by trying the local and the remote start; lock and tag; for a line of conveyors interlocked to each other, lock out the ones that can feed onto or run into your work (a stopped conveyor with a loaded feeder above it).
+2. **Take-up**: block or chain the **gravity take-up carriage** in its position (**never** stand under the counterweight; a take-up blocking procedure with rated chains/pins is part of the conveyor's lockout), or back off a screw take-up as the job needs; note that releasing tension on a belt that is being spliced can let the belt slide.
+3. **Belt**: on an incline or a loaded belt, **clamp/chain the belt to the structure** on both sides of the work (belt clamps rated for the belt tension) before cutting or unbolting anything; a belt cut without clamps shoots up the loop or down the incline.
+4. **Material**: empty the belt where practical; a chute full of material above the work is a stored load: block it or empty it.
+5. **Hydraulic/pneumatic**: brakes, take-ups, cleaner tensioners bled and locked.
+6. **Verify**: the belt does not move when the drive is pushed (the pull cord reset and a start attempted from the control room with everyone clear), the take-up is blocked, the belt is clamped; then the guards come off.
+7. Restoring: guards on, clamps and blocks off in the right order (the take-up freed last, the belt tension restored slowly), people clear, the pre-start alarm, a start from the local control with a watch on the whole length.
+
+See [lockout/tagout basics](/article/lockout-tagout-basics) for the general procedure.
+
+## Working near running belts
+
+- **Nothing** is done on a running belt: no cleaning of rolls or pulleys, no shovelling under a tail pulley, no freeing a stuck roll, no adjusting a cleaner or a skirt seal within reach of the belt, no lubricating a bearing on the pulley side without a remote fitting, no putting a hand through a guard; **tracking adjustments** on a running belt are done only on the idler bracket bolts from outside the guard on the walkway side, with no reach toward the belt or the roll.
+- Loose clothing, long hair, drawstrings, lanyards, gloves near a moving belt are how people are caught: leathers tucked, no loose items.
+- **Crossing**: only at **crossovers** (bridges with handrails) or where the conveyor is locked out; never step over or under a running belt, never through the structure; never on the belt.
+- **Riding** a conveyor is prohibited everywhere (B20.1); people have been carried into transfer chutes and crushers.
+- Shovelling spillage: from the walkway side, with the belt stopped where the spillage is within 3 ft of a pulley or a roll; a shovel drawn into a nip takes the arm.
+- Tools and parts kept off the belt and the structure; a dropped wrench on a running belt goes into the crusher or comes back at you at a transfer.
+- Cleaning **under** a running belt (the return strand overhead): only where there is a return roll guard and no reach to the belt; better locked out.
+
+## Transfer points and dust
+
+Falling material, rebounding lumps, blinding dust; head-pulley transfer chutes are an enclosed nip and a fall hazard when the cover is open. Chute inspection doors with guards; **plugged chute** detection; skirtboards and dust curtains; dust collection or suppression; on combustible dusts (coal, grain, sugar, wood, sulphur) the housekeeping, ignition-control and bearing-monitoring rules of NFPA 652/61/120 and the site's dust hazard analysis; a hot idler bearing under a coal belt starts the fire.
+
+## Pre-start and inspection checklist
+
+**Before starting (after work, or each shift)**: guards all on and secured; the pull cord intact, taut and tested; no tools, rags, or people on or under the belt; the belt clear of the structure; take-up free and its blocking removed; belt clamps off; chutes clear; the tracking check ready (a person at the tail and one at the head on a long belt); the pre-start alarm sounded; start locally with a stop at hand.
+
+**Running inspection (from the walkway)**: rolls turning, no hot bearings (IR gun), the belt tracked within its edge limits, no belt damage or splice problems passing, no material build-up on pulleys, cleaners working, skirt seals not cutting the belt, no unusual noise, drift switches not tripped, the take-up in the middle of its travel, no spillage building up under the tail.
+
+**Periodic**: guards' condition (bent, missing mesh, gaps), switch function tests (pull cords, drift, speed, plugged chute: monthly), walkway and handrail condition, lighting, the lockout points labelled, the take-up blocking devices present and rated, backstop function (on an incline: a watch when the belt is stopped loaded).
+
+## Common mistakes
+
+- "Just clearing the build-up off the tail pulley with a shovel while it runs": the most common conveyor fatality.
+- Cutting a belt without clamps on an incline.
+- Locking out the drive but not the upstream conveyor that feeds it; a start signal fills the chute over your head.
+- A tail-pulley guard removed for a belt change and not put back for a month.
+- Tying back a pull cord "because it keeps tripping".
+- Crossing the belt at a low spot "just this once".
+- Freeing a stuck return roll by hitting it with a bar while the belt runs: the bar goes into the nip and the roll comes out with it.
+
+## Related
+
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Machine guarding and commissioning](/article/machine-guarding-and-commissioning)
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
+- [Belt splicing (blocking the take-up)](/article/belt-splicing)
+- [Idlers, pulleys and lagging (roll changes)](/article/idlers-pulleys-and-lagging)
+- [Fall protection, ladders and scaffolds](/article/fall-protection-ladders-scaffolds)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$conveyors$mw$),
+          array[$mw$conveyor safety$mw$,$mw$nip point$mw$,$mw$pinch point conveyor$mw$,$mw$conveyor guarding$mw$,$mw$ASME B20.1$mw$,$mw$OSHA 1910.212$mw$,$mw$OSHA 1910.219$mw$,$mw$pull cord switch$mw$,$mw$emergency stop conveyor$mw$,$mw$belt drift switch$mw$,$mw$speed switch$mw$,$mw$plugged chute switch$mw$,$mw$conveyor lockout$mw$,$mw$gravity take up lockout$mw$,$mw$counterweight lockout$mw$,$mw$incline conveyor lockout$mw$,$mw$belt clamp$mw$,$mw$crossing a conveyor$mw$,$mw$crossover$mw$,$mw$riding a conveyor$mw$,$mw$cleaning a running conveyor$mw$,$mw$conveyor start warning$mw$,$mw$conveyor inspection$mw$,$mw$transfer point dust$mw$,$mw$conveyor fatalities$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B20.1 Safety Standard for Conveyors and Related Equipment; OSHA 29 CFR 1910.212 (machine guarding), 1910.219 (mechanical power transmission), 1910.147 (lockout/tagout); MSHA 30 CFR 56/57 conveyor rules and fatality reports (belt conveyor nip points); CEMA Safety Program guidance and safety labels; Martin Engineering Foundations (transfer points and dust).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$idlers-pulleys-and-lagging$mw$, $mw$Conveyor Idlers, Pulleys and Lagging: Replacing an Idler and a Return Roll Safely, Idler Inspection (Stuck Rolls, Seized Bearings, Shell Wear), Pulley Construction and Failure, Replacing a Pulley (Bushings, Shaft, Bearings), Lagging Types (Rubber, Ceramic, Diamond, Slide-Lag) and Re-Lagging, Wing and Spiral Pulleys, Pulley Alignment$mw$, $mw$The two jobs a conveyor millwright does most: changing idlers and rolls, and dealing with pulleys and their lagging. It covers how to spot a bad idler on a running belt, changing rolls without getting into the nip, what pulleys are made of and how they fail, replacing a pulley with its bushings and bearings and getting it square, the lagging options and when each is right, and re-lagging in place versus in the shop.$mw$, $mw$## Idlers
+
+### Inspection on the run (from outside the guards)
+
+- **A roll that does not turn** (a shiny flat wearing on it, a squeal or a rumble, a hot roll: feel with an IR gun from outside): the bearing has seized or the shaft has spun in the frame; the roll wears a flat, heats the belt, and can ignite it (coal, grain, sulphur); replace now.
+- **A roll that wobbles** or has a dished shell: a worn bearing or a bent shaft.
+- **Shell worn through** (a groove where the belt edge or the material runs, or a hole): replace; grooves cut the belt.
+- **Material build-up** on return rolls (a hard, off-centre crust): steers the belt; clean or replace with rubber-disc returns.
+- **Noise**: a rumble at one idler on a quiet conveyor is a bearing; a chirp is a seal.
+- **Frames**: bent, cracked, bolts loose, frame not square (see [tracking](/article/belt-conveyor-components-and-tracking)).
+- An **ultrasonic gun** or an IR camera walking the conveyor finds bad idlers before they stop turning; a conveyor with hundreds of idlers is inspected by zones.
+
+### Replacing a troughing roll or a return roll
+
+1. **Lockout** the conveyor (electrical, and the belt blocked if on an incline; the gravity take-up considered); confirm zero energy by trying the start. **Never** change a roll on a running belt, however easy it looks: the nip between the belt and the roll takes hands and arms.
+2. Relieve the belt's weight on the idler: **lift the belt** with a belt lifter (a lever tool that hooks the frame and jacks the belt up 2-4"), or a pry bar under the belt on a block (the belt's weight and tension can be hundreds of pounds on a loaded, wide belt: use a rated lifter); on an empty belt two people can often lift it by hand.
+3. **Drop-in (CEMA) rolls**: the roll's shaft ends have flats that sit in slots in the frame; with the belt lifted, slide the roll out sideways or lift it from the slots (the wing rolls of a troughing set come out toward the edge; the centre roll after the wings on some frames, or the centre roll is retained by a clip). **Retained rolls**: remove the clip or bolt.
+4. Compare the new roll: **diameter, length, shaft size and flat, CEMA class**; a different roll length or a metric roll does not fit the frame. Spin it by hand: free.
+5. Install, ensure the shaft flats are **seated** in the slots (a roll sitting on its shaft's round part rolls out under the belt), the retaining clips back on, the belt lowered; rotate the roll by hand once more.
+6. Return rolls: the frame hangs below the stringer; the roll drops out of hooks or a bracket; the belt above is lifted with a bar; watch for the roll dropping on you (return rolls on high conveyors: a rope on the roll).
+7. **Impact idlers** under the loading point: lift the belt with the skirts loosened; the rubber discs replaced as a set.
+8. Remove the lockout only when the guards are back and everyone is clear; run and watch the new roll.
+
+Whole-idler (frame and rolls) replacement: unbolt the frame from the stringer with the belt lifted and supported, note the frame's orientation (the offset centre roll, the direction arrow), fit the new frame **square to the centreline** (measure both ends from the wire or the stringer edge), bolt, check the trough angle and the belt clearance.
+
+## Pulleys
+
+### Construction and classes
+
+A **drum pulley**: a steel shell (rim), **end discs** welded in, **hubs** with **bushings** (XT/QD/Taper-Lock or keyless locking assemblies) on a **shaft** that runs in pillow blocks or SAF housings outside the pulley; CEMA pulley classes by shaft/bushing/duty (light, medium, heavy: "CEMA B/C/D/E" for drum pulleys). **Engineered (mine-duty) pulleys** have thicker rims and profiled end discs. **Wing pulleys** (steel wings on a hub, self-cleaning) at the tail and take-up; **spiral pulleys** and **beater bars** are variants. A pulley's rating is by shaft diameter, bearing centres and belt tension: replacement with the drawing's or the catalogue's part.
+
+### How pulleys fail
+
+| Failure | Cause |
+|---|---|
+| **End disc cracks / weld cracks** (a rumble, a crack at the hub weld) | Fatigue from shaft deflection (an undersized shaft, bearings too far apart), overload |
+| **Bushing/hub loose** on the shaft (the pulley walks, the shaft wears) | Bushing not torqued, wrong bushing, a shaft undersize, keys loose; the shaft is scrap |
+| **Shaft broken** at the hub or the bearing (a step in the shaft) | Fatigue: bending with every revolution under belt tension; a stress riser (a shoulder, a set-screw dimple, corrosion); undersized shaft |
+| **Rim worn through** (bare pulley) | Abrasive carryback; no lagging |
+| **Lagging worn/torn/debonded** | Age, slip, carryback, cleaners set too hard |
+| **Crown worn off** | Age |
+| Bearings (SAF / pillow blocks) | See [pillow blocks](/article/pillow-block-and-insert-bearings) |
+| Wing pulley wings bent/broken | Tramp iron, material packing; the belt then flaps |
+
+### Replacing a pulley
+
+1. Lockout; belt tension relieved (the take-up backed off or the gravity take-up **blocked up** and the belt clamped/chained on both sides of the pulley); the belt lifted or slid off the pulley (on a head pulley the drive is disconnected: coupling, chain or belt guard off).
+2. Support the pulley (a chain hoist from above, or a lift under the shaft: a 36" × 24" drum pulley with shaft weighs 500-1,500 lb); remove the bearing housing bolts (mark shims and positions), unbolt the housings from the frame, lift the pulley with its shaft and bearings out.
+3. On the bench: the bearings off (pullers or the adapter sleeve method: see [bearing removal](/article/bearing-removal-pullers-and-heating)), the bushings out of the hubs (jack screws: [QD and Taper-Lock](/article/qd-and-taper-lock-bushings), or the XT bushing's cap screws into its jack holes), inspect the **shaft** (runout, wear at the bushing seats and bearing seats, cracks: dye-penetrant at the shoulders); a shaft with wear at the bushing seat is replaced, not shimmed.
+4. Assemble the new pulley: **bushings** in the hubs, the pulley **centred** on the shaft (measure from the shaft ends to the rim faces: equal, and per the drawing so the pulley is centred on the belt line), bushings torqued alternately to the table (XT bushings have their own torque values), keys fitted; **bearings** mounted (heat or the adapter method) at the drawing's bearing centres; the **fixed** bearing on the side the drawing says (usually the drive side) and the **float** on the other.
+5. Install: lift in, bearing housings on the frame, **align**: the pulley **square to the conveyor centreline** (measure from the centreline wire to each pulley face, or the diagonals from the tail pulley to the head pulley: equal within 1/8"), **level** (a precision level on the shaft), the pulley **centred** on the belt; shim under the housings (steel shims, full footprint); housing bolts torqued; the drive reconnected and **aligned** (coupling or chain/sheave).
+6. Belt back on, tension restored, guards on, lockout off, run empty: watch the belt's tracking at the pulley and listen; re-torque the bushings and the housing bolts after a day.
+
+### Lagging
+
+Lagging is the rubber or ceramic layer bonded to the pulley face: on the **drive** pulley for **traction** (wet, muddy, or high-tension belts slip on bare steel), on all pulleys for **wear protection** and to shed material.
+
+| Lagging | Use | Notes |
+|---|---|---|
+| **Plain rubber (SBR, 3/8-1/2")**, 60 duro | General tail, bend and take-up pulleys; light drives | Bonded (vulcanized or cold-bonded) sheet |
+| **Diamond-groove rubber** | Drive pulleys: the grooves shed water and fines | The standard drive lagging; the diamond pattern works in either direction, but **herringbone/chevron** patterns are directional and must point in the rotation direction |
+| **Ceramic (tiles in rubber)**, dimpled or smooth | High-tension, wet or slippery drives (mining, quarry) | Highest traction; dimpled ceramic wears belts that slip: get the tension right first; expensive |
+| **Slide-Lag / bolt-on strips** | Field replacement without removing the pulley: rubber or ceramic strips on retainers welded to the pulley | Replace strips one at a time in place |
+| Urethane | Abrasion | |
+| Weld-on **cold-bond** lagging | Field repair | 24 h cure |
+| **Rubber wing lagging** | Wing pulleys in noise-sensitive or belt-wear-sensitive plants | |
+
+Signs to re-lag: the belt slips on the drive (the belt speed lower than the pulley's surface speed: a speed switch alarm, squeal, heat, a polished pulley), lagging worn to the grooves' bottom, torn or debonded patches (a bump), the rim showing. Re-lagging **in the shop** (the pulley out, the old lagging cut and ground off, the surface blasted, primed and the new lagging vulcanized or cold-bonded and ground true to the crown) is the proper job; **in place** with slide-lag strips or cold-bond patches is the field job. Never run a drive pulley with a section of lagging missing: the belt slips and burns at that spot.
+
+### Wing pulleys
+
+Self-cleaning at the tail: material falls through the wings; the trade-off is belt flap (each wing lifts the belt) and noise, and wings bend on tramp iron; a **spiral wing** or a **rubber-lagged wing** reduces the flap; a plain drum with a plow is quieter and kinder to the belt where the material is not sticky.
+
+## Common mistakes
+
+- Changing a roll with the belt running "because it only takes a second".
+- A roll dropped into the frame with the shaft flats not in the slots: it rolls out under the belt at speed.
+- The wrong CEMA class roll: it fits, and it fails in a month.
+- A new pulley installed 1/4" off square: a week of tracking adjustments that will not hold.
+- Bushings torqued once, never re-checked: the pulley walks on the shaft and the shaft is ruined.
+- Ceramic lagging on a belt that slips because the take-up is wrong: the belt cover is gone in a season.
+- Lagging a wing pulley or a bend pulley with directional lagging the wrong way round.
+
+## Related
+
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
+- [Belt splicing](/article/belt-splicing)
+- [Conveyor safety and guarding](/article/conveyor-safety-and-guarding)
+- [Pillow blocks and insert bearings](/article/pillow-block-and-insert-bearings)
+- [QD and Taper-Lock bushings](/article/qd-and-taper-lock-bushings)
+- [Bearing removal, pullers and heating](/article/bearing-removal-pullers-and-heating)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$conveyors$mw$),
+          array[$mw$conveyor idler replacement$mw$,$mw$idler roll$mw$,$mw$return roll$mw$,$mw$stuck idler$mw$,$mw$seized idler$mw$,$mw$idler bearing$mw$,$mw$idler inspection$mw$,$mw$conveyor pulley$mw$,$mw$drum pulley$mw$,$mw$wing pulley$mw$,$mw$spiral pulley$mw$,$mw$pulley lagging$mw$,$mw$rubber lagging$mw$,$mw$ceramic lagging$mw$,$mw$diamond lagging$mw$,$mw$slide lag$mw$,$mw$relagging$mw$,$mw$pulley replacement$mw$,$mw$pulley shaft$mw$,$mw$XT bushing$mw$,$mw$pulley alignment$mw$,$mw$pulley crown$mw$,$mw$pulley end disc$mw$,$mw$pulley failure$mw$,$mw$conveyor maintenance$mw$]::text[], $mw$$mw$, array[]::text[], $mw$CEMA Belt Conveyors for Bulk Materials (idler and pulley standards, CEMA pulley classes); PPI and Precision Pulley and Idler (PPI) catalogues and installation guidance; Martin Engineering Foundations (lagging, wing pulleys); Flexco and Continental lagging guidance; ASME B20.1 (conveyor safety).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$screw-conveyors-and-bucket-elevators$mw$, $mw$Screw Conveyors and Bucket Elevators: Screw Conveyor Parts, Hand and Rotation Rule, Hanger Bearings and Coupling Bolts, Trough Loading and Capacity, Flight Repair, Troubleshooting; Bucket Elevator Types, Belt and Chain, Buckets and Bolts, Boot Take-Up and Tracking, Head and Throat Plate, Inspection and Dust-Explosion Precautions$mw$, $mw$Two conveyors that are simple to look at and full of traps: the screw conveyor's parts, the hand-and-rotation rule that decides which way the material goes, the hanger bearings and coupling bolts that fail first, capacity and loading, flight repair and the jam problem; and the bucket elevator's types, the belt or chain, bucket bolting, the boot take-up and how the belt is tracked in a closed casing, the head section and throat plate, the inspection points and the dust-explosion rules that govern elevators in grain and food plants.$mw$, $mw$## Screw conveyors
+
+### Parts
+
+A **screw** (helical **flighting** welded to a **pipe** with **coupling shafts** at each end) turns in a **U-trough** (or a tube) and pushes the material along. Parts: the **drive** (a shaft-mount reducer or a motor-reducer on the **drive shaft** at one end: the material is usually **pulled** toward the drive), **trough end plates** with the **end bearings** (roller bearings outside the trough with seals/packing), **hanger bearings** every 10-12 ft (a sleeve bearing on a hanger frame that supports the screw between sections and joins two screw sections with a **coupling shaft**), **coupling bolts** (through the pipe and the coupling shaft, 2 or 3 per end), **trough covers**, **inlet and discharge spouts**, and **flight types**: standard (full pitch = diameter), short pitch (2/3, for inclines and feeders), variable pitch (feeders: pitch increasing under the hopper for even draw-off), **cut flight** and **cut-and-folded** (mixing), **ribbon** (sticky materials, mixing), paddle, double flight.
+
+### Hand and rotation
+
+Flighting is **right-hand** (like a right-hand thread: standing at one end looking along the screw, the flight spirals away clockwise) or **left-hand**. The rule for the direction of material travel:
+
+```
+   Look along the screw from the DRIVE end.
+   Right-hand flight turning CLOCKWISE     → material moves TOWARD the drive end (pulled: the normal arrangement)
+   Right-hand flight turning COUNTER-CLOCKWISE → material moves AWAY from the drive end (pushed)
+   Left-hand flight: the opposite of each
+```
+
+Most screw conveyors are built with the drive at the discharge end so the screw is pulled (in tension) and the material travels toward the drive; that is a right-hand screw turning clockwise viewed from the drive. Whatever the drawing says, verify on the machine by **running it and watching a handful of material**. A replacement screw of the wrong hand conveys the wrong way; a motor reversed for a phase swap conveys the wrong way and packs the material against the end plate.
+
+### Hanger bearings and coupling bolts
+
+The hanger bearing is the wear part: a **sleeve** in a hanger frame, with no room for grease on many (hard iron, bronze, white iron, UHMW, wood (oil-impregnated maple), Babbitt, ceramic; some are ball-bearing hangers with a grease line). Failure: worn sleeve → the coupling shaft drops and the flights rub the trough → the shaft wears at the hanger → the coupling bolts shear. Replace when the shaft is visibly worn or the sleeve is more than about 1/16" oversize; **match the sleeve material to the material** (abrasives: hard iron/ceramic; food: UHMW/bronze; high temperature: hard iron/ceramic).
+
+**Coupling shafts**: hardened (or hard-chromed) at the hanger; a coupling shaft with a wear groove at the hanger is replaced; **coupling bolts** (CEMA lists them by shaft size, e.g. 1-1/2" shaft: 3/8" bolts; 2" shaft: 1/2"; 2-7/16": 5/8"; 3": 3/4"; 3-7/16": 7/8") are **grade 5 or 8**, fitted with the nuts on the **trailing side** and torqued; sheared bolts are the screw's fuse: find out why (a jam, worn hangers, a screw too long for the hp, over-speed) before replacing; do not upgrade the bolts to stop them shearing without knowing the cause.
+
+### Loading and capacity
+
+- **Trough loading** (the % of the trough cross-section filled): 15% for heavy, abrasive materials (CEMA class D/E), 30% for average granular, 45% for light, free-flowing (grain); overloading a screw jams it and overloads the hangers.
+- Capacity (cu ft/h) = the CEMA table for the diameter, pitch and loading at 1 rpm × the rpm; e.g. a **9" standard-pitch screw at 30% loading conveys about 2.5 cu ft/h per rpm** (about 130 cu ft/h at 50 rpm); a 12" about 6 cu ft/h per rpm; a 6" about 0.7. Speed limits by class (60-100 rpm for heavy, up to 150-165 for light); inclines lose capacity fast (a 15° incline: about 70%; 25°: 45%; use short pitch and tubular troughs).
+- HP = the material's friction and the screw's own friction (the CEMA formula); a screw drawing more amps than its nameplate is overloaded, jammed, or has a hanger down.
+
+### Repairs and troubleshooting
+
+| Problem | Cause | Fix |
+|---|---|---|
+| **Jam / stalls** | Overfed inlet (no feeder control), a lump or tramp, hanger down, worn flights letting material pack, wet material bridging, wrong direction | Lockout, open the cover, clear by hand (never by reversing under power with people at the trough), find the cause |
+| Coupling bolts shearing | Jam, worn hangers/shafts, overload, undersized bolts, screw running in compression (pushed away from the drive: the material end should be pulled toward the drive) | As above; check the drive end position |
+| **Flight wear** (thin, sharp, holed at the outer edge) | Abrasion | Rebuild the flight edge by welding a strip (**hardfacing** for abrasives: see [hardfacing](/article/hardfacing-and-buildup)), or replace the section; keep the flight-to-trough clearance (about 1/2" nominal on a 9-12" screw) |
+| Trough worn through at the bottom | Abrasion, a screw running low on worn hangers | Replace the trough section, fix the hangers |
+| Screw noisy / knocking | Bent screw, worn hangers, flights hitting the trough, a coupling shaft loose | Check hangers and straightness (a screw section rotated on V-blocks: runout under 1/8") |
+| Material leaking at the shaft seals | Packing/seal worn, shaft worn at the seal | Repack (see [packing](/article/pump-packing-and-stuffing-box)), replace the shaft |
+| Heating, smell | A hanger seized, a screw rubbing, an overload | Stop |
+| Conveys the wrong way | Rotation | Swap two motor leads (after confirming the screw's hand) |
+| Material carried over past the discharge | The discharge spout blocked, the end plate packing | Clear; a short section of reverse flight before the end plate is the design fix |
+
+Safety: a screw is an auger: **never** reach into a trough with the drive energised; covers bolted, an interlock or guards on open troughs (a grating or a mesh under the cover of an inlet you can reach); lockout for any cover removal; a screw that is jammed can spring when freed.
+
+## Bucket elevators
+
+### Types
+
+| Type | Buckets | Discharge | Speed | Use |
+|---|---|---|---|---|
+| **Centrifugal discharge** | Spaced buckets on a **belt** (or chain), dig the material from the boot | Thrown out of the buckets over the head pulley by centrifugal force at the right speed (about **250-400 ft/min** belt speed) | Fast | Free-flowing, fine to small lump: grain, sand, cement |
+| **Continuous discharge** | Closely spaced buckets on a **chain** (or belt), loaded from a chute (not dug) | Gravity: each bucket's contents slide over the back of the preceding bucket at the head | Slow (100-150 ft/min) | Fragile, lumpy, sluggish, abrasive materials |
+| Positive discharge | Chain snubbed under the head | Inverted over the discharge | Slow | Sticky |
+| Super-capacity | Buckets between two chains | Continuous | Slow | Large lumps, high capacity |
+
+Parts: the **boot** (the bottom section with the boot pulley/sprocket and the **take-up**), the **casing** (legs: up and down; single or double leg), the **head** (the head pulley/sprocket, the drive with a **backstop**, the discharge and the **throat plate**), the belt or chain, the buckets, the **elevator bolts** (flat-head with a nib, or Norway/fanged bolts, with locknuts and washers), the inlet, the boot clean-out doors, and monitoring (**belt speed/slip switch, bearing temperature, belt alignment (rub) switch, plugged-chute switch, boot level**), and explosion **vents** on hazardous-dust elevators.
+
+### Belt and chain
+
+- **Belt elevators**: a rubber belt (with a tension rating, cover grade for the material, and oil/heat resistance as needed); joined by a **vulcanized splice** (preferred) or **belt clamps/plates** with the bucket spacing maintained across the splice; the belt must be tracked so it runs centred on the crowned head and boot pulleys and does not rub the casing; belt elongation and tension set by the boot take-up.
+- **Chain elevators**: a single or double strand of engineered steel chain (or combination chain) on sprockets; buckets attached to the chain's attachment links; chain wear is measured as **elongation** (a chain stretched **3%** is at the end of its life on most engineered chains; measure 10 pitches under tension and compare with the new pitch); sprocket teeth hooking = replace with the chain; lubrication per the chain type (many run dry in dusty materials; some use a dry film).
+
+### Buckets and bolts
+
+- Bucket styles (AA, AC, CC, high-capacity, nylon/urethane/steel), spacing (from the drawing: it sets the capacity), **projection**, and vent holes (in plastic buckets, to let air out as they dig).
+- **Elevator bolts**: the head **inside** the bucket, the nut and a fanged or flat washer on the **back** of the belt, tightened so the head is flush and the belt is compressed slightly; **torque evenly**; a **lock nut** or a nylock; missing bolts tear the belt and jam the boot; a bucket run with two of three bolts pulls the belt.
+- Inspect buckets for **wear at the lip and the digging edge, cracks, bent lips (tramp metal), missing buckets**; replace in pairs across the belt; a plastic bucket that has lost its lip does not dig and the capacity drops.
+
+### Boot take-up and tracking
+
+- The take-up (**screw** in the boot on most, **gravity/spring** on some) tensions the belt/chain and tracks it: **equal adjustment both sides** for tension; **unequal** to steer the belt: the belt runs toward the **loose** side, so tighten the side it runs toward to bring it back, in small moves; on a chain elevator the sprockets must be **aligned** (a straightedge/wire across both sprockets) and the take-up equal.
+- Tension: enough that the belt does not slip on the head pulley under load (a slip switch alarms) and not so much that the belt stretches or the bearings overload; the boot pulley should float freely on a gravity take-up; a **belt that rubs the casing** (a rub-block sensor or a shiny stripe on the casing) is off track: adjust in the boot, check the head pulley is level and square.
+- Boot **clearance**: the buckets must clear the boot floor by the design amount (about 1/2-1"); a boot full of material ("the boot is loaded") makes the buckets dig too hard: **clean the boot** (doors at the bottom) and fix the inlet control.
+
+### Head, throat plate and backstop
+
+- The **head pulley** is lagged and crowned; its bearings (SAF or pillow blocks) are the elevator's temperature-monitored points; the **throat plate** (the lip of the discharge spout closest to the buckets) must be set at the correct **clearance** (about 1/4" to the bucket lip) and angle so the discharge is caught and does not fall back down the leg (back-legging: the material returns to the boot, the capacity drops and the leg fills); adjust after bucket or belt changes.
+- The **backstop** (a one-way clutch on the drive) stops the loaded belt running backwards on a power failure and dumping the up-leg into the boot (and burying it); test it; never remove it; a reducer with an internal backstop must be mounted for the correct direction.
+- **Speed**: a centrifugal elevator discharges cleanly only in a narrow speed range (the design belt speed for the head pulley diameter); a VFD slowed "to reduce dust" makes it back-leg; a speed switch alarms on slip.
+
+### Inspection and safety
+
+Weekly: bucket condition (through the inspection doors), belt/chain tracking and tension, bolts, boot clean-out, the throat plate, bearings' temperature, the drive and backstop, the casing for wear (a hole in a leg from a bucket rubbing), dust seals, the monitoring switches tested. Monthly: chain elongation, belt splice, head pulley lagging, the take-up travel remaining. Lockout for any door opening beyond a look (a bucket line is a vertical crusher). **Combustible dust** (grain, flour, sugar, coal, wood, many plastics and metals): NFPA 61/652 rules: bearing-temperature and belt-alignment/speed monitoring with interlocks, explosion vents or suppression, anti-static belts, no ferrous tramp (magnets), housekeeping (dust layers under 1/32" on surfaces), hot-work permits, and **bearings outside the casing**; a friction source (a slipping belt, a rubbing bucket, a hot bearing) in a dust cloud is the ignition source of most elevator explosions.
+
+## Common mistakes
+
+- Screw conveyor replaced with the other hand: it conveys into the end plate and shears the bolts.
+- Hanger bearings run until the shaft has a groove: the coupling shaft, the sleeve and the trough all need replacing.
+- Coupling bolts upgraded to grade 8 and doubled: the next fuse is the reducer.
+- Reaching into a screw trough to clear a jam with the drive on "jog".
+- Elevator belt tracked with the take-up "cranked tight on both sides": the bearings and the belt fail.
+- Throat plate never re-set after new buckets: half the product goes back down the leg.
+- Backstop removed because it was noisy: the up-leg dumped into the boot on the next power dip and the belt tore.
+
+## Related
+
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
+- [Conveyor safety and guarding](/article/conveyor-safety-and-guarding)
+- [Roller chain drives](/article/roller-chain-drives)
+- [Hardfacing and build-up (flights, buckets)](/article/hardfacing-and-buildup)
+- [Dodge torque-arm shaft-mount reducer](/article/dodge-torque-arm-shaft-mount-reducer)
+- [Pump packing and stuffing box (trough end seals)](/article/pump-packing-and-stuffing-box)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$conveyors$mw$),
+          array[$mw$screw conveyor$mw$,$mw$screw conveyor parts$mw$,$mw$screw flight$mw$,$mw$auger conveyor$mw$,$mw$hanger bearing$mw$,$mw$screw conveyor coupling shaft$mw$,$mw$coupling bolts$mw$,$mw$right hand screw$mw$,$mw$left hand screw$mw$,$mw$screw rotation direction$mw$,$mw$trough loading$mw$,$mw$screw conveyor capacity$mw$,$mw$screw conveyor jam$mw$,$mw$flight wear$mw$,$mw$bucket elevator$mw$,$mw$elevator buckets$mw$,$mw$elevator bolts$mw$,$mw$centrifugal discharge$mw$,$mw$continuous discharge$mw$,$mw$elevator belt$mw$,$mw$elevator chain$mw$,$mw$boot take up$mw$,$mw$elevator tracking$mw$,$mw$throat plate$mw$,$mw$head pulley elevator$mw$,$mw$elevator backstop$mw$,$mw$dust explosion elevator$mw$,$mw$NFPA 61$mw$,$mw$elevator inspection$mw$]::text[], $mw$KWS / Martin Sprocket / 4B Components / Rexnord (generic)$mw$, array[$mw$CEMA 300$mw$,$mw$CEMA 350$mw$,$mw$KWS$mw$,$mw$Martin$mw$,$mw$4B$mw$,$mw$Tapco buckets$mw$,$mw$Maxi-Lift$mw$]::text[], $mw$CEMA 350 Screw Conveyors for Bulk Materials (components, capacity tables, trough loading, coupling bolt and hanger bearing practice); KWS Manufacturing Engineering Guide and Martin screw conveyor catalogue (hand and rotation, capacity, hanger bearing materials); CEMA Bucket Elevators book; 4B Components elevator monitoring and Tapco bucket guidance; NFPA 61 (agricultural and food dust) and NFPA 652 (combustible dust).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$carbon-arc-gouging$mw$, $mw$Carbon-Arc Gouging (CAC-A): Arcair Electrode Size vs Amperage Chart (DC and AC), Air Pressure and CFM by Torch, Polarity, Electrode Extension, Angle and Speed, Groove Sizing, Washing and Cutting, Clean-Up and Safety$mw$, $mw$The complete Arcair current table for DC copperclad and AC electrodes from 1/8 to 1 inch, the air pressure and flow each torch class needs, the power-source requirements (DCEP, 60 V open circuit), the electrode extension and angle rules, how travel speed sets groove depth and width, gouging versus washing versus cutting, what to do about the carburised layer, and the noise, fume and spray hazards.$mw$, $mw$## What it is
 
 A carbon-graphite electrode (copper-coated for conductivity) strikes an arc that melts the steel; a **jet of compressed air** from holes in the torch head, directed along the electrode, blows the molten metal out of the groove. It removes metal 5-10× faster than grinding: **back-gouging weld roots, removing defective welds, cutting out cracks, removing lugs and pads, bevelling, cutting cast iron and stainless** where a torch will not, and rough-cutting anything conductive.
@@ -5440,6 +6283,671 @@ Common trap: a thimble line looks aligned but the next sleeve line is *almost* u
 - [Dial indicator use and care](/article/dial-indicator-use)
 - [Decimal equivalents, tap drills and conversions](/article/shop-reference-tables)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
           array[$mw$micrometer$mw$,$mw$reading a mic$mw$,$mw$vernier micrometer$mw$,$mw$thimble$mw$,$mw$barrel$mw$,$mw$sleeve$mw$,$mw$ratchet$mw$,$mw$calibration$mw$,$mw$gauge block$mw$,$mw$tenths$mw$,$mw$0.0001$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Mitutoyo and Starrett micrometer instructions; general shop practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$electrical-safety-for-mechanics$mw$, $mw$Electrical Safety for Mechanics: Shock and Arc Flash, the Qualified-Person Line, NFPA 70E Boundaries (Limited, Restricted, Arc Flash) and PPE Categories with the Table for Common Equipment, Reading an Arc-Flash Label, Lockout and Verifying Zero Energy with a Meter, Working Near Panels and MCCs, Cord and Tool Safety, GFCI, Temporary Power, Welding Machines and Extension Cords, Electrical Fires and Shock Response$mw$, $mw$Where the millwright's work stops and the electrician's begins, and how to stay safe up to that line: the two electrical hazards, the boundaries NFPA 70E draws around exposed live parts and what each means for an unqualified person, the arc-flash PPE categories and the boundaries for the panels and MCCs you stand near, how to read the label on the equipment, the correct way to lock out electrical energy and prove it dead, the everyday cord, tool, GFCI and welding-machine rules, and what to do when someone is shocked or a panel arcs.$mw$, $mw$## Two hazards
+
+- **Shock**: current through the body; above **50 V** (NFPA 70E's threshold for shock hazard) any exposed conductor can kill; the current, not the voltage, does the damage (10 mA cannot let go; 50-100 mA fibrillates the heart); wet skin and metal contact lower the resistance.
+- **Arc flash**: an arc between conductors or to ground (a dropped tool, a slipped screwdriver, a failed component, a rat) releases a blast of heat (35,000°F plasma), molten copper, pressure and sound: burns through clothing at several feet, blinds, deafens. The **incident energy** at the working distance is measured in **cal/cm²**; **1.2 cal/cm²** causes a second-degree burn; the **arc flash boundary** is where the energy has fallen to 1.2.
+
+Both are governed by NFPA 70E (the standard OSHA enforces through 1910.333) and the plant's electrical safety program; Canada uses CSA Z462, the same structure.
+
+## Qualified or not
+
+A **qualified person** has training in the construction and operation of the equipment, the hazards, the boundaries, the PPE, and how to test for voltage; most millwrights are **unqualified** for electrical work and **qualified only for specific tasks** they have been trained on (typically: operating disconnects and lockout, reading meters from outside the boundary, replacing a motor's leads with the circuit proven dead, bumping motors with the electrician). The rule for an unqualified person: **never cross the limited approach boundary** of exposed energised parts, never open an energised enclosure, never do energised work. Reading LEDs through a closed door, operating a disconnect handle with the door closed and the PPE the label requires, and working on a machine that has been locked out and verified are within reach; anything with an open panel and live parts is not.
+
+## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)
+
+| Nominal voltage | **Limited approach boundary** (unqualified persons stay outside; qualified escort to enter) | **Restricted approach boundary** (qualified persons only, with shock PPE and a plan) |
+|---|---|---|
+| 50-150 V (120 V control, 120/208 receptacles) | 3 ft 6 in (1.0 m) (exposed movable conductors: 10 ft) | Avoid contact |
+| **151-750 V (480 V, 600 V: MCCs, panels, motors)** | **3 ft 6 in (1.0 m)** | **1 ft 0 in (0.3 m)** |
+| 751 V-15 kV (2,300/4,160 V motors, 13.8 kV switchgear) | 5 ft (1.5 m) | 2 ft 2 in (0.7 m) |
+| 15.1-36 kV | 6 ft | 2 ft 9 in |
+
+Values from the 2024 edition; older editions listed slightly different restricted distances. "Exposed" means the cover is off or the door is open with live parts uncovered: a closed MCC door has no exposed parts, but **operating** it (racking, opening a breaker) is an arc-flash task.
+
+## Arc flash: categories and the equipment table
+
+**PPE categories** (NFPA 70E Table 130.7(C)(15)(c)): the arc-rated (AR) clothing's rating in cal/cm² and what goes with it:
+
+| Category | Minimum arc rating | Clothing and PPE |
+|---|---|---|
+| **1** | **4 cal/cm²** | AR long-sleeve shirt and pants (or coverall), AR face shield with a wrap-around or a hood, hard hat, safety glasses, hearing protection, leather gloves (or rubber insulating gloves with leather protectors for shock), leather footwear |
+| **2** | **8 cal/cm²** | AR shirt and pants/coverall, **AR flash suit hood** or AR face shield with a balaclava, hard hat, glasses, hearing, gloves, leather footwear |
+| **3** | **25 cal/cm²** | AR **flash suit** (jacket, pants, hood) over AR clothing, gloves, hard hat, glasses, hearing, leather footwear |
+| **4** | **40 cal/cm²** | 40 cal flash suit, hood, gloves, etc. |
+
+Ordinary cotton is not arc-rated (it burns); **synthetics melt into the skin**: no polyester or nylon under an arc-flash task, ever; a welder's FR cotton is not AR-rated unless it says so.
+
+**Table 130.7(C)(15)(a), AC equipment (the table method; the label from an engineering study overrides it)**
+
+| Equipment | Conditions the table assumes | Arc flash PPE category | Arc flash boundary |
+|---|---|---|---|
+| Panelboards and other equipment **≤ 240 V** | ≤ 25 kA fault, ≤ 0.03 s clearing, 18" working distance | **1** | **19 in** |
+| Panelboards **> 240 V to 600 V** | ≤ 25 kA, ≤ 0.03 s, 18" | **2** | **3 ft** |
+| **600 V class MCCs** | ≤ 65 kA, ≤ 0.03 s, 18" | **2** | **5 ft** |
+| 600 V class MCCs | ≤ 42 kA, ≤ 0.33 s (slow clearing), 18" | **4** | **14 ft** |
+| 600 V class switchgear (with power circuit breakers or fused switches) and switchboards | ≤ 35 kA, ≤ 0.5 s, 18" | **4** | **20 ft** |
+| Other 600 V class equipment (277-600 V: disconnects, drives, starters not in an MCC) | ≤ 65 kA, ≤ 0.03 s, 18" | **2** | **5 ft** |
+| NEMA E2 (fused contactor) motor starters 2.3-7.2 kV | ≤ 35 kA, ≤ 0.24 s, 36" | 4 | 40 ft |
+| Metal-clad switchgear 1-15 kV | ≤ 35 kA, ≤ 0.24 s, 36" | 4 | 40 ft |
+| Arc-resistant switchgear 1-15 kV, doors closed and latched | | N/A | N/A (40 ft with doors open) |
+
+The table applies only when the fault current and the clearing time are within its limits (the electrical engineer confirms); if the label on the equipment gives an **incident energy** (e.g. "12.4 cal/cm² at 18 in, arc flash boundary 62 in"), the PPE is chosen to exceed that number, and the label governs. NFPA 70E's task table (130.5(C)) says which operations even need arc-flash PPE: **operating a breaker or a disconnect with the door closed and the equipment properly installed and maintained: no arc-flash PPE required** (normal operation); opening a door, racking a breaker, working on control circuits inside the enclosure, removing covers: PPE per the category. Many plants require Category 2 (8 cal) daily wear for anyone who operates 480 V disconnects: follow the plant's program.
+
+## Reading the arc-flash label
+
+The label on the MCC bucket, the panel, the disconnect: **nominal voltage**; **arc flash boundary** (e.g. 4 ft 3 in); **incident energy at the working distance** (e.g. 6.2 cal/cm² at 18 in) **or** the **PPE category**; the **limited and restricted approach boundaries**; the study date. What it means to you: stay outside the arc flash boundary when someone operates or opens it unless you wear the PPE; operate the handle only in the PPE the plant requires; if the label is missing or old (studies are redone every 5 years or when the system changes), ask.
+
+## Locking out electrical energy
+
+The [lockout basics](/article/lockout-tagout-basics) article has the full procedure; the electrical specifics:
+
+1. **Identify** the disconnect(s) that feed the machine (the drawing, the label on the disconnect, the motor tag: a machine can have more than one source: the motor's 480 V, a 120 V control circuit from another panel, a heater circuit, a VFD with a separate control power supply, a UPS-fed PLC).
+2. **Shut down** the machine at its controls (stop), then **open the disconnect** (the handle to OFF; on an MCC bucket, the door-mounted handle; stand to the **side**, face away, in the PPE, and do not stand in front of the door when operating: this is the moment an arc happens on a failed device).
+3. **Lock** the handle with your lock and tag (a hasp for multiple locks; each person their own lock); **try** the machine's start button (the "try" step); on a VFD wait the bus discharge time.
+4. **Verify zero energy**: for a millwright's mechanical work on a locked-out machine, the try step and the drive's display are the usual verification; **opening the enclosure to test the terminals with a meter is electrical work for a qualified person** (in the shock and arc PPE, with a meter rated CAT III/IV for the voltage, using the **live-dead-live** method: test the meter on a known live source, test the circuit phase-to-phase and phase-to-ground, test the meter again on the live source). If the work is on the motor's leads (reconnection, a motor change) the circuit **must** be tested dead at the motor box by a qualified person before anyone touches the leads; a disconnect handle in the OFF position is not proof (a welded contact, a mislabelled disconnect, a backfeed from a second source).
+5. **Stored electrical energy**: capacitors (drives, power-factor correction, soft starters), batteries/UPS, generators on auto-start, control transformers fed from elsewhere; the electrician bleeds and verifies.
+6. Restore: the reverse, with everyone clear, guards on, and the disconnect closed from the side in the PPE.
+
+**Never** work on a machine that someone else locked out without your own lock; never remove another's lock; never assume a disconnect "off" without the try.
+
+## Around panels and MCCs
+
+- Keep **3 ft clear** in front of every panel and MCC (NEC working space: the electrician needs it and it is the escape route); nothing stored against them; no leaning tools on them.
+- Doors closed and latched, covers on, **knockouts filled**, no missing bucket doors or filler plates: an open hole is an exposed-parts boundary question.
+- **Water**: a panel with water dripping on it or standing water in front of it is a de-energise-before-approach situation; do not operate wet electrical equipment.
+- Report: a **hot smell**, buzzing, discoloured or warm covers (IR thermography on the route: see [thermography](/article/thermography-ultrasound-and-oil)), a breaker that trips repeatedly (never hold a breaker closed or replace a fuse with a bigger one), a disconnect handle that is hard to operate, exposed wires, damaged conduit.
+- When a breaker trips on a motor: reset **once** after the mechanical cause is understood (a locked rotor, a jammed conveyor); a second trip is the electrician's.
+- Do not operate **medium-voltage** (2,300 V+) switchgear; that is a qualified-person, permit task.
+
+## Cords, tools, GFCI and temporary power
+
+- **Extension cords**: 3-wire grounded, **12 AWG or heavier** for tools over 10 A and runs over 50 ft (a 16 AWG cord on a 15 A grinder drops voltage and heats), SJ/SO jacket rated for the environment (outdoor, oil), inspected **every use** (cuts, exposed conductors, a missing ground pin, a crushed jacket: out of service, no tape repairs), not run through doorways, water, or over sharp edges, not stapled, not under a load; unplugged by the plug.
+- **GFCI** (ground-fault circuit interrupter) on every receptacle in wet/damp locations, outdoors, and for temporary power on construction (OSHA 1926.404 and 1910.304); a portable GFCI adapter on any cord you use in a wet area; **test** the GFCI (the button) before use.
+- **Tools**: double-insulated (the square-in-a-square symbol) or grounded (a 3-prong plug with the ground pin present); a damaged cord or a cracked housing is out of service; cordless tools in wet areas; **no tools with the guard or the trigger lock defeated**.
+- **Temporary power** (a spider box, a generator, a welding machine's auxiliary outlets): rated, GFCI-protected, the generator's frame grounded or the neutral bonded per its manual, cords sized for the load.
+- **Welding machines**: the primary cord and plug (240/480 V) inspected, the frame grounded, cables and holders per [welding safety](/article/welding-safety-fumes-and-ppe); the work clamp never on the plant's electrical ground, a conduit or a cable tray.
+- **Lighting** in tanks and wet areas: 12 V or GFCI-protected, guarded lamps.
+
+## When it happens
+
+- **Someone is being shocked**: **do not touch them**; kill the power (the disconnect, the plug) if you can do it instantly and safely; otherwise use a non-conductive object (a dry wooden broom handle, a fibreglass pole) to separate them; call for help; once clear, check breathing and pulse; **CPR/AED** if none; electrical burns are deeper than they look and the heart can stop later: **hospital for any significant shock**, even if they feel fine.
+- **Arc flash / panel fire**: get away from it (the pressure and the burning gases); the disconnect **upstream** if it can be reached safely (not the one that is arcing); a **Class C (or ABC) extinguisher** on electrical fires: never water, never a hose; evacuate and call; treat burns with cool water, no ointments; eye injuries from the flash: medical.
+- Downed or exposed live conductors: keep everyone 30 ft away, do not approach, call the electrical crew.
+- Report every near miss with a panel or a cord; the next one is the injury.
+
+## Common mistakes
+
+- Opening a starter's door to "look at the overload" while it is energised: category 2 exposure in a T-shirt.
+- Assuming the disconnect off is proof: the motor was fed from a second panel.
+- Standing in front of the MCC bucket while pulling the handle.
+- A 100 ft 16-gauge cord on a 13 A drill: brown-out, a hot cord, a dead drill.
+- Taping a cut cord.
+- Grabbing a co-worker who is frozen on a live circuit.
+- Fighting a panel fire with water.
+
+## Related
+
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
+- [VFD basics (DC bus, stopped is not off)](/article/vfd-basics-for-millwrights)
+- [Motor lead connections](/article/motor-lead-connections)
+- [PPE selection](/article/ppe-selection)
+- [Welding safety, fumes and PPE (electric shock)](/article/welding-safety-fumes-and-ppe)
+- [First aid for shop injuries](/article/first-aid-for-shop-injuries)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+          array[$mw$electrical safety$mw$,$mw$arc flash$mw$,$mw$arc flash boundary$mw$,$mw$limited approach boundary$mw$,$mw$restricted approach boundary$mw$,$mw$NFPA 70E$mw$,$mw$PPE category$mw$,$mw$arc flash label$mw$,$mw$cal/cm2$mw$,$mw$qualified person$mw$,$mw$unqualified person$mw$,$mw$electrical lockout$mw$,$mw$verify zero energy$mw$,$mw$test before touch$mw$,$mw$live dead live$mw$,$mw$GFCI$mw$,$mw$extension cord safety$mw$,$mw$temporary power$mw$,$mw$cord inspection$mw$,$mw$double insulated$mw$,$mw$portable tool grounding$mw$,$mw$MCC bucket$mw$,$mw$panel cover$mw$,$mw$electrical shock response$mw$,$mw$electrical fire$mw$,$mw$class C extinguisher$mw$,$mw$50 volts$mw$,$mw$OSHA 1910.333$mw$,$mw$OSHA 1910.334$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NFPA 70E-2024 Standard for Electrical Safety in the Workplace (Article 130: shock protection boundaries Table 130.4(E)(a), arc flash PPE categories Table 130.7(C)(15)(a) and (b), PPE table 130.7(C)(15)(c), Article 110 qualified persons); OSHA 29 CFR 1910.331-335 (electrical safety-related work practices) and 1910.147; OSHA 1926.405/1910.304 (GFCI and cords); IEEE 1584 (arc flash calculation basis).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$megger-and-basic-motor-testing$mw$, $mw$Megger and Basic Motor Testing: Insulation Resistance to Ground (IEEE 43 Test Voltages, Minimum Values, Temperature Correction, Polarization Index), Winding Resistance Balance, Continuity and Phase Checks, Running Checks (Voltage and Current Balance, Temperature, Speed), Bearing and Mechanical Checks, Single-Phase Motor Checks, and When to Send It to the Shop$mw$, $mw$The tests a millwright or maintenance tech can do with a megger and a multimeter to decide whether a motor is fit to run, to find why it trips or hums, and to catch a winding going to ground before it fails: the insulation resistance test with the right voltage and the IEEE 43 pass values, the polarization index, winding resistance balance, the running voltage, current and temperature checks, single-phase motor specifics, mechanical checks, and the line between field testing and the motor shop.$mw$, $mw$> Lockout, and **test for zero voltage** before touching leads; a megger applies 500-1,000 V DC to the winding and the winding **stores** that charge: **discharge** the winding to ground for at least as long as the test (the megger's discharge function, or a grounding stick) before touching it. Disconnect the motor from the VFD and from any surge capacitors, RTDs and instruments before meggering (a megger destroys drive electronics).
+
+## Insulation resistance (megger) to ground
+
+Measures the resistance of the winding insulation to the frame (ground) in megohms; low or falling values mean moisture, dirt, oil, a cracked or overheated insulation, and a fault coming.
+
+**Test voltage (IEEE 43)**
+
+| Winding rated voltage | DC test voltage |
+|---|---|
+| Below 1,000 V (230/460/575 V motors) | **500 V** (1,000 V acceptable on 460-575 V motors in good condition) |
+| 1,000-2,500 V | 500-1,000 V |
+| 2,501-5,000 V (2,300/4,160 V motors) | 1,000-2,500 V |
+| Above 5,000 V | 2,500-5,000 V |
+
+**Procedure**
+
+1. Motor isolated and locked out, leads disconnected from the supply/starter/VFD (test the motor **alone** first; the cable can be added later to find a cable fault); the leads' tags noted.
+2. Clean the connection box; note the winding temperature (a thermometer on the frame or the RTD; the test is temperature-sensitive).
+3. Connect the megger: one lead to **all three motor leads tied together** (or each phase in turn on a motor with separated phases), the other to a clean, bare spot on the **frame** (a ground screw, a bolt with the paint scraped), the guard terminal (if any) to the shaft or a lead surface for surface-leakage cancelling on damp motors.
+4. Apply the voltage for **1 minute** (the reading falls at first as the insulation charges, then steadies); record the **1-minute value (IR₁)** and the temperature. For a PI test, keep the voltage on for **10 minutes** and record IR₁₀.
+5. Discharge; reconnect; record on the motor's history card.
+
+**Minimum values (IEEE 43-2013, corrected to 40°C, 1-minute reading)**
+
+| Winding type | Minimum insulation resistance |
+|---|---|
+| **Random-wound stators (most motors under about 500 hp at ≤ 600 V)**, and form-wound below 1 kV | **5 MΩ** |
+| Form-wound coils made after about 1970 (larger, medium-voltage motors) | **100 MΩ** |
+| Older windings (pre-1970), DC armatures, field windings | **kV + 1 MΩ** (a 460 V motor: 1.46 → about 1.5 MΩ; a 4,160 V motor: 5 MΩ) |
+
+In practice a **healthy low-voltage motor reads hundreds to thousands of MΩ** (often over the megger's range); a reading in the **tens** of MΩ is a wet or dirty motor to be dried and cleaned; **under 5 MΩ do not energise**; a reading in the kΩ or ohms is a ground fault. The **trend** on a motor's record matters more than a single pass: a motor that read 2,000 MΩ last year and 50 MΩ now is on its way out.
+
+**Temperature correction**: insulation resistance roughly **halves for every 10°C rise** (IEEE 43 corrects readings to 40°C: multiply the reading at temperature T by the factor K = 0.5^((40 − T)/10) to get the 40°C value; a reading of 100 MΩ at 20°C is 25 MΩ at 40°C; a reading at 60°C is doubled twice to compare). A cold motor in a damp shop reads low because of **surface moisture**; a motor just stopped reads low because it is warm: compare like with like, and always note the temperature.
+
+**Polarization index (PI)** = IR₁₀ ÷ IR₁ (the 10-minute reading over the 1-minute reading): a good insulation keeps charging (the reading keeps rising); a wet or dirty one does not.
+
+| PI | Condition |
+|---|---|
+| < 1.0 | Dangerous: do not run |
+| 1.0-1.5 | Poor (Class A minimum 1.5) |
+| 1.5-2.0 | Questionable |
+| **≥ 2.0** | Acceptable for Class B, F and H insulation (IEEE 43 minimum) |
+| 2-4 | Good |
+| > 8 or a reading over 5,000 MΩ at 1 minute | The PI is not meaningful (very dry, high-resistance modern insulation); use the IR value alone |
+
+A quick version is the **dielectric absorption ratio** (60 s ÷ 30 s): ≥ 1.25 acceptable, ≥ 1.6 good.
+
+**Drying a wet motor**: warm air (a lamp, a heater, the space heaters energised), or run at a low current (locked rotor at reduced voltage, or with the rotor removed a low-voltage current through the winding: a motor shop job); megger every few hours: the reading rises as it dries; stop when it plateaus above the minimum.
+
+## Winding resistance and continuity
+
+With a **low-ohms meter** (a milliohm meter or a good multimeter on its lowest range; a standard multimeter reads small motors only roughly), measure between each pair of leads (T1-T2, T2-T3, T1-T3 on a 3-lead motor; each winding half on 9-lead motors with the leads separated):
+
+- **Balance**: the three readings should be **within about 1-3% of each other** (larger motors read fractions of an ohm: a milliohm meter or the shop's Kelvin bridge); a phase reading **open** (infinite) = a broken lead or coil; **higher** than the others = a bad joint, a burned turn; **lower** = a **shorted turn** (a turn-to-turn short: the motor runs hot, hums, trips, and it will fail; a surge test at the shop confirms).
+- Compare with the previous record or with an identical motor; a 9-lead motor's halves should match each other (T1-T4 = T2-T5 = T3-T6 and T7-T8 = T8-T9 = T7-T9 on the wye group).
+- Phase-to-phase on a wye motor reads twice the phase resistance; on a delta, two-thirds of it: the value itself does not matter, the balance does.
+- Continuity from each lead to ground: **infinite** on the multimeter (the megger is the real test).
+
+## Running checks (the meter and the eye)
+
+| Check | Tool | Normal | Abnormal means |
+|---|---|---|---|
+| **Supply voltage, each phase pair** | Multimeter at the starter (qualified person, PPE) | Nameplate ± 10%; **imbalance under 1%** (NEMA: derate at 1-5%) | Low voltage: slip and heat; imbalance from a bad connection, a fuse, a single-phase load on the feeder: a 3.5% voltage imbalance gives a 25% current imbalance and derates the motor to 90% |
+| **Current, each phase** | Clamp meter | Under FLA; **imbalance under 10%** (the largest deviation from the average ÷ the average); ideally under 5% | Overload (current above FLA on all phases: the load or the voltage), imbalance (the supply, a bad connection, a winding fault), one phase at 0 (open) |
+| **Motor frame/bearing temperature** | IR gun / contact | Frame: warm to hot depending on the class (a Class F motor's frame can run 90-100°C in places; a TEFC frame at 70-80°C is normal); **bearing housings under about 80-90°C (180°F)** | A hot frame with high current: overload, blocked cooling (fan cover, fins full of dust), high ambient, voltage; a hot bearing: lubrication, misalignment, belt tension |
+| **Speed** | Strobe / tachometer | Nameplate rpm ± a little at load | Excess slip: overload, low voltage, a rotor bar fault (a broken rotor bar also shows as a current that **swings** at the slip frequency) |
+| **Noise and vibration** | Ear, hand, a vibration pen | Smooth hum | Growl at 120 Hz (electrical: unbalanced voltage, a winding, a loose lamination), a bearing noise, rubbing; a noise that **disappears the instant power is cut** is electrical; one that continues while coasting is mechanical |
+| **Starting** | | Comes up to speed in seconds | Slow acceleration: low voltage, a design B on a high-inertia load, a mechanical drag; hums and will not start: a single-phased supply, a seized load, a bad capacitor (single-phase), a wrong connection |
+| **Trips on overload** | The overload relay's setting vs FLA × the allowance (NEC 430.32: 125% of FLA for SF 1.15 motors) | | Set too low, or a genuine overload/imbalance |
+
+## Single-phase motors
+
+- **Capacitor**: a start capacitor (electrolytic, 100-800 µF, in a plastic can) and/or a run capacitor (oil-filled, 5-50 µF): test with a capacitance meter after **discharging it** (a resistor across the terminals; a screwdriver short is the old way and pits the terminals); a start capacitor that is bulged, leaking, or reads open or far from its µF (± 10%) is replaced; a motor that hums and does not start, or starts by hand-spinning, has a bad start capacitor or a bad **centrifugal switch**.
+- **Centrifugal switch**: contacts burned or the mechanism stuck (the motor starts but runs hot and noisy with the start winding still in, or does not start); clean or replace.
+- Windings: the run winding (low resistance) and the start winding (higher resistance) each read continuity; meggered to ground like a three-phase motor.
+- Reversing: swap the start winding leads (T5/T8) as the plate shows.
+
+## Mechanical checks (before blaming the electrical)
+
+- Turn the shaft by hand (locked out): free, no rough spots (bearings), no rub (a rotor touching the stator: bearing wear); end float normal.
+- Fan cover clear, fins clean; a TEFC motor with an inch of dust on it runs 20°C hotter.
+- Alignment, belt tension (an over-tensioned belt loads the DE bearing and raises current), the coupling, the load's own drag (a pump with a rubbing impeller, a gearbox with a seized bearing).
+- Mounting bolts and soft foot (a distorted frame rubs the rotor).
+- Shaft currents on a VFD (fluting in the bearing: see [bearing failure analysis](/article/bearing-failure-analysis)).
+
+## When it goes to the shop
+
+- Insulation resistance below the minimum after drying; a PI under 1.5; a ground fault; a shorted turn (unbalanced resistance, a surge test needed); a broken rotor bar suspected (current swing, high slip); a burned winding smell; a bearing failure that has let the rotor rub the stator (a scored rotor and stator: a rewind or a replacement); explosion-proof motors (the flame paths must be checked and the repair certified).
+- The shop's tests: surge comparison (turn-to-turn), hipot, core loss, rotor bar tests, dynamic balancing; the repair per EASA AR100 with the winding data recorded.
+- Economics: a rewind on a motor under about 40-50 hp usually costs more than a new premium-efficiency motor and gives a less efficient motor; above that, rewinds are normal; keep the nameplate data and the failure evidence for the shop.
+
+## Recording
+
+A card per motor (or the CMMS): date, temperature, IR₁ (at temperature and corrected), PI when done, winding resistances, running currents and voltages, bearing temperatures, vibration; the trend decides the next action.
+
+## Common mistakes
+
+- Meggering with the VFD or a capacitor still connected: the drive is destroyed or the reading is meaningless.
+- Reading 20 MΩ on a warm motor in a damp plant and condemning it, or reading 20 MΩ on a cold motor and running it: correct for temperature and trend it.
+- Touching the leads after the test without discharging.
+- Using a 5,000 V megger on a 460 V motor.
+- Blaming the motor for tripping when one supply phase is 8% low.
+- Testing to a painted frame: a high reading that means nothing.
+
+## Related
+
+- [Reading a motor nameplate](/article/reading-a-motor-nameplate)
+- [Motor lead connections](/article/motor-lead-connections)
+- [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Vibration signatures (electrical vs mechanical)](/article/vibration-signatures)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+          array[$mw$megger$mw$,$mw$megger test$mw$,$mw$insulation resistance$mw$,$mw$IEEE 43$mw$,$mw$insulation resistance minimum$mw$,$mw$1 kV plus 1 megohm$mw$,$mw$100 megohm$mw$,$mw$5 megohm$mw$,$mw$polarization index$mw$,$mw$PI test$mw$,$mw$dielectric absorption$mw$,$mw$megger voltage 500V 1000V$mw$,$mw$winding resistance$mw$,$mw$winding balance$mw$,$mw$ohms balance$mw$,$mw$motor continuity test$mw$,$mw$motor troubleshooting meter$mw$,$mw$current imbalance$mw$,$mw$voltage imbalance$mw$,$mw$motor overheating$mw$,$mw$motor hums won't start$mw$,$mw$motor trips overload$mw$,$mw$single phase motor test$mw$,$mw$capacitor test$mw$,$mw$centrifugal switch$mw$,$mw$motor shop$mw$,$mw$surge test$mw$]::text[], $mw$$mw$, array[]::text[], $mw$IEEE 43-2013 Recommended Practice for Testing Insulation Resistance of Electric Machinery (test voltages, minimum values, temperature correction, polarization index); EASA AR100 and EASA motor testing guidance; NEMA MG 1 (voltage and current unbalance); Fluke and Megger application notes on motor testing.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$motor-lead-connections$mw$, $mw$Motor Lead Connections: 3-Lead, 9-Lead Wye and Delta Dual-Voltage (Low and High Connections), 12-Lead (Wye-Delta Start, Part-Winding), 6-Lead, Identifying Unmarked Leads with an Ohmmeter, Single-Phase Reversing, Checking and Changing Rotation, Connection Box Practice (Lugs, Tape, Grounding), and What a Wrong Connection Does$mw$, $mw$The connection diagrams for the three-phase motors a millwright reconnects most, with the rule for which leads join at low and high voltage and why, how wye-delta and part-winding 12-lead motors are connected, a method to identify a 9-lead motor whose lead tags are gone, how to check and reverse rotation, how to make a connection that does not fail in the box, and what happens when the connection is wrong.$mw$, $mw$> The electrician's licence decides who makes the final connection in many jurisdictions; a millwright must still understand the diagrams to check a motor before it is bolted in, to bump for rotation, and to recognise a wrong connection. **Lockout and test for zero voltage** before opening any motor connection box; a motor on a VFD can have voltage on its leads with the drive "stopped".
+
+## The windings
+
+A three-phase motor has three winding groups (phases) that are connected internally or at the box in a **wye (star: all three joined at a common point)** or a **delta (each end joined to the next: a triangle)**. Dual-voltage motors have each phase in **two halves** brought out so the halves can be connected in **series** (high voltage: each half sees half the line voltage) or in **parallel** (low voltage: each half sees the full, lower voltage): the same winding current per half either way, which is why the FLA at 230 V is twice the FLA at 460 V.
+
+## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)
+
+Leads T1-T9 are brought out; inside the motor, T7, T8 and T9 are joined to form the star point of one set of winding halves:
+
+```
+   HIGH voltage (460 V): series
+      L1 – T1        L2 – T2        L3 – T3
+      join  T4–T7     T5–T8     T6–T9          (nothing else joined)
+
+   LOW voltage (230 V): parallel
+      L1 – T1 & T7   L2 – T2 & T8   L3 – T3 & T9
+      join  T4–T5–T6 together (insulated, not to any line)
+```
+
+Memory aid: on a wye motor the numbers form a **spiral**: T1-T4-T7, T2-T5-T8, T3-T6-T9 are each one phase; high = join across the spiral (4-7, 5-8, 6-9); low = line to 1&7, 2&8, 3&9 and tie 4-5-6.
+
+## 9-lead dual-voltage, delta-connected
+
+```
+   HIGH voltage: series
+      L1 – T1   L2 – T2   L3 – T3
+      join  T4–T7     T5–T8     T6–T9
+
+   LOW voltage: parallel
+      L1 – T1 & T6 & T7      L2 – T2 & T4 & T8      L3 – T3 & T5 & T9
+```
+
+High voltage is connected **the same way** for wye and delta 9-lead motors (line to 1-2-3, join 4-7, 5-8, 6-9); low voltage differs (wye: tie 4-5-6 together; delta: 1-6-7, 2-4-8, 3-5-9). The nameplate diagram says which the motor is: **always use the plate**.
+
+## 12-lead motors
+
+All six winding ends of both halves are out (T1-T12), so the motor can be connected wye or delta at either voltage: for **wye-delta (star-delta) reduced-voltage starting** (the starter connects the motor in wye to start at 58% current, then switches to delta to run) and for **part-winding starting** (half the winding first, then both).
+
+```
+   DELTA run, high voltage (the normal run connection on a wye-delta starter, 460 V):
+      L1 – T1 & T12    L2 – T2 & T10    L3 – T3 & T11
+      join  T4–T7     T5–T8     T6–T9
+   DELTA run, low voltage (230 V):
+      L1 – T1 & T6 & T7 & T12    L2 – T2 & T4 & T8 & T10    L3 – T3 & T5 & T9 & T11
+   WYE, high voltage (across-the-line on a wye motor, or the start connection of a wye-delta starter at 460 V):
+      L1 – T1   L2 – T2   L3 – T3
+      join  T4–T7   T5–T8   T6–T9        and  T10–T11–T12 together
+   WYE, low voltage:
+      L1 – T1 & T7   L2 – T2 & T8   L3 – T3 & T9
+      join  T4–T5–T6 together   and   T10–T11–T12 together
+```
+
+On a **wye-delta starter** the twelve (or six) leads run to the starter (six motor leads in a 6-lead motor: T1-T6), and the starter makes and breaks the wye point; a 12-lead motor on a plain starter or a VFD is connected **delta** for the voltage. **Part-winding** (9-lead wye motors designed for it, or 12-lead): the starter energises T1-T2-T3 (with 4-5-6 tied) first, then adds T7-T8-T9; the plate says "part winding".
+
+## 6-lead and 3-lead motors
+
+- **3-lead** (T1, T2, T3): single voltage, internally connected; line to the leads; reverse by swapping two.
+- **6-lead, single voltage, wye-delta**: T1-T6; run: delta (L1 to T1&T6, L2 to T2&T4, L3 to T3&T5); wye start on the starter (T4-T5-T6 tied).
+- **6-lead dual voltage** (some IEC motors: U1 V1 W1 / U2 V2 W2): **delta** for the lower voltage (bridge U1-W2, V1-U2, W1-V2: in the standard 6-terminal IEC box the three bars sit **vertical for delta (∆)** and one bar joins **U2-V2-W2 horizontally for star (Y)**; the plate's picture shows it), **star** for the higher (bars across U2-V2-W2). An IEC motor marked 230∆/400Y goes in **delta on 230 V** and **star on 400 V**; the same motor on 460/480 V is connected star; on 208-230 V, delta.
+
+IEC lead marking: U1 V1 W1 (line ends), U2 V2 W2 (the other ends); dual-voltage IEC motors with more leads follow the plate diagram.
+
+## Rotation
+
+- NEMA motors connected L1-T1, L2-T2, L3-T3 to a supply with A-B-C phase sequence turn counter-clockwise viewed from the drive end (NEMA states rotation viewed from the opposite drive end, where it is clockwise). In practice the direction depends on the supply's phase sequence, which nobody knows for sure until the motor turns.
+- **Check rotation with the load uncoupled** (see [commissioning](/article/machine-guarding-and-commissioning)): bump, watch. Pumps run backwards make 50-60% of the flow and can unscrew the impeller; a gearbox with a backstop breaks; a screw conveyor packs the end plate.
+- **Reverse**: swap **any two line leads** (at the starter, not by reconnecting the motor's internal connections); on a VFD, swap two motor leads at the drive's output or change the drive's rotation parameter; on a single-phase motor, reverse the **start winding** leads (T5 and T8, or per the plate) relative to the run winding.
+- After any motor change, rotation is checked again: a rewound motor comes back with the leads any way round.
+
+## Identifying unmarked 9-lead motor leads (wye)
+
+Tags fall off and rewinds come back with bare numbers; the ohmmeter method for a **wye** 9-lead motor (the commonest):
+
+1. With the motor isolated and all leads separated, use an ohmmeter (or a continuity tester) to find **groups**: three leads that read continuity to each other form the internal wye (**T7-T8-T9**) and three **pairs** are the outer halves (T1-T4, T2-T5, T3-T6).
+2. Mark the wye group temporarily A, B, C and the pairs 1a-1b, 2a-2b, 3a-3b.
+3. Connect the wye group's three leads to the **low** line voltage (230 V) through the starter/overloads (the motor runs on the inner winding; it will turn); with the motor running, measure the voltage across each outer pair: it reads a definite induced voltage (roughly the line-to-neutral value).
+4. For each outer pair: connect one end of the pair to one wye lead (say A) and measure the voltage between the pair's other end and the **next** wye lead (B and C in turn); the right pairing gives the **higher** reading (the voltages add: about 1.5× the line-to-neutral) in series-aiding; the wrong gives lower. The outer half whose series-aiding reading is highest to wye lead A is that phase's outer half: its lead attached to A is **T4** (with A = T7) and its free end **T1**. Repeat for B (T8: T5/T2) and C (T9: T6/T3).
+5. Mark the leads with numbered tags and tape; verify by connecting for high voltage and running the motor: balanced currents and normal rpm confirm the identification; unbalanced currents mean a phase's polarity is reversed: swap that pair's ends.
+
+A **delta** 9-lead has three groups of three (T1-T4-T9, T2-T5-T7, T3-T6-T8) and a different procedure; unmarked 12-lead or delta motors are best sent to a motor shop with the plate.
+
+## Making the connection
+
+- Lugs: crimped ring or compression lugs on the motor leads and the supply conductors, never twisted-and-taped bare copper; use the right connectors: split-bolt connectors or Polaris-type insulated connectors on large cables, crimp lugs bolted together with a flat washer, lock washer and nut torqued); the number tags visible on every lead.
+- **Insulate** each joint: rubber (self-amalgamating) tape as the insulation, then vinyl tape over it, half-lapped, extended over the lead insulation; or insulated connectors; no bare copper anywhere; each phase joint separated from the others.
+- **Ground**: the equipment grounding conductor to the motor frame's ground screw/lug in the box; the box gasket in place; the conduit connection tight; a motor on a VFD needs the shielded cable's shield terminated at both ends (360° gland) per the drive manual.
+- Position the joints so they do not press against the box cover or each other; drain plugs in a TEFC box on the bottom.
+- Record the connection made (high/low) on the work order; the diagram on the plate followed, not memory.
+
+## What a wrong connection does
+
+| Error | Result |
+|---|---|
+| 460 V motor connected low (230) on 460 V | **Draws 2× current, smokes in minutes** (the winding halves in parallel across double voltage) |
+| Connected high (460) on 230 V | Runs, no torque, stalls under load, overheats slowly (half voltage) |
+| One phase's pair reversed (polarity) | Runs rough, high and unbalanced currents, overheats |
+| One lead not connected (open phase) | Will not start (hums), or if running, single-phases: 173% current in the other two, burns out fast |
+| Two lines swapped | Reverse rotation only |
+| Wye motor connected delta or the reverse (12-lead) | Wrong voltage across the windings: overheat or no torque |
+| Star point (4-5-6) accidentally grounded or connected to a line | Trips, or destroys the winding |
+
+Check the running currents on all three phases after any connection: balanced within 10% and below FLA.
+
+## Common mistakes
+
+- Connecting from the memory of the last motor: a wye and a delta 9-lead differ at low voltage.
+- Tying T4-T5-T6 **and** connecting T7-T8-T9 to the line (mixing the low and high diagrams): the motor burns.
+- Reversing rotation by reconnecting the motor leads instead of swapping two lines: a later "reconnection for high voltage" puts it back the wrong way.
+- Tape only over a split-bolt: it cuts through and the box shorts.
+- No ground on the frame: a winding fault makes the frame live.
+- Skipping the uncoupled rotation check on a pump: the impeller unscrews on the first start.
+
+## Related
+
+- [Reading a motor nameplate](/article/reading-a-motor-nameplate)
+- [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
+- [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
+- [Machine guarding and commissioning (rotation bump)](/article/machine-guarding-and-commissioning)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+          array[$mw$motor lead connections$mw$,$mw$9 lead motor$mw$,$mw$9 lead wye$mw$,$mw$9 lead delta$mw$,$mw$low voltage connection$mw$,$mw$high voltage connection$mw$,$mw$230 460 motor wiring$mw$,$mw$12 lead motor$mw$,$mw$wye delta start$mw$,$mw$part winding start$mw$,$mw$6 lead motor$mw$,$mw$3 lead motor$mw$,$mw$T1 T2 T3$mw$,$mw$motor rotation$mw$,$mw$reverse motor rotation$mw$,$mw$swap two leads$mw$,$mw$unmarked motor leads$mw$,$mw$identify motor leads ohmmeter$mw$,$mw$single phase motor reversing$mw$,$mw$motor junction box$mw$,$mw$motor lugs$mw$,$mw$motor connection tape$mw$,$mw$motor grounding$mw$,$mw$wrong connection motor smoke$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NEMA MG 1 (lead marking and connection diagrams for 3-, 6-, 9- and 12-lead three-phase motors); Baldor-Reliance/ABB connection diagram sheets; EASA connection and lead-identification guidance; NEC Article 430 (motor circuits) for the wiring and grounding requirements.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$plc-and-instrumentation-awareness$mw$, $mw$PLC and Instrumentation Awareness for Millwrights: How a Control System Is Built (PLC, I/O, HMI, Drives, Safety Relays), Digital and Analog Signals (24 VDC, 4-20 mA), the Sensors on Machinery (Proximity, Photo-Eye, Limit Switch, Encoder, Pressure, Temperature, Level, Flow, Vibration), Mounting and Adjusting Sensors, What to Check When a Machine Will Not Run, Reading I/O Lights and the HMI, What Not to Touch, and Working With the Controls Tech$mw$, $mw$A millwright meets the control system every time a machine will not start: this explains what the pieces are and how a machine's permissives, interlocks and sensors decide whether it runs, the signals and sensors bolted to the machinery and how to mount and set them correctly, a method for finding why a machine stopped using the I/O lights and the HMI before calling the controls tech, and the things a millwright does not touch.$mw$, $mw$## The parts
+
+| Part | What it is | Millwright's interest |
+|---|---|---|
+| **PLC** (Allen-Bradley ControlLogix/CompactLogix/MicroLogix, Siemens S7, Omron, Automation Direct) | The computer that runs the machine's logic program: it reads inputs, decides, and sets outputs, scanning many times a second | The program's **permissives** (what must be true to start) and **interlocks** (what stops it) are what you are fighting when it will not run |
+| **I/O modules** (in the PLC rack or remote on a network) | **Digital inputs** (24 VDC or 120 VAC on/off from switches and sensors), **digital outputs** (to starters, solenoids, lights), **analog inputs** (4-20 mA / 0-10 V from transmitters), **analog outputs** (speed references to drives, valve positioners) | Each point has an **LED**: the fastest diagnostic in the plant |
+| **HMI** (the touchscreen or the SCADA screen) | Shows status, alarms, faults, values; lets the operator start/stop and set points | The **alarm/fault screen** tells you which interlock stopped the machine; the **status/diagnostic screen** often shows the permissives as a list with green/red |
+| **Field devices** | Sensors (inputs) and actuators (outputs: motor starters, VFDs, solenoid valves, relays) | Mounted on the machine: yours to install, align and protect |
+| **Safety system** (safety relays, a safety PLC, e-stops, light curtains, guard interlock switches, safety mats, two-hand controls) | A separate, redundant circuit (categories per ISO 13849) that removes power/torque when a guard opens or an e-stop is pressed | Never bypassed, jumpered or "temporarily" defeated; a guard switch that is out of adjustment stops the machine: fix the alignment, not the circuit |
+| **Networks** (Ethernet/IP, Profinet, DeviceNet, AS-i, IO-Link) | Connect remote I/O, drives, HMIs | A network cable crushed in a door stops a whole section |
+| **Control power** (24 VDC supplies, 120 VAC control transformers, fuses, breakers) | Powers the sensors, relays and I/O | A blown 24 V fuse kills a bank of sensors: the first thing to check when many things fail at once |
+
+## Signals
+
+- **Digital (discrete)**: on or off. **24 VDC** is the standard (PNP "sourcing" sensors switch +24 V to the input; NPN "sinking" switch to 0 V: a PNP sensor on an NPN input does nothing: match the type); **120 VAC** on older machines. **NO** (normally open: closes when the sensor sees the target) and **NC** (normally closed: opens when it sees it); **safety and stop circuits use NC** so a broken wire looks like a stop, not a run.
+- **Analog**: **4-20 mA** (the industrial standard: 4 mA = 0% of the range, 20 mA = 100%; 0 mA = a broken wire, which is why 4 is the zero: "live zero"), **0-10 V**, RTD (a resistance), thermocouple (millivolts). A 4-20 mA loop is checked with a **milliammeter in series** (or a loop calibrator): 12 mA = 50% of the transmitter's range.
+- **Pulse/frequency**: encoders (quadrature A/B pulses for speed and direction), flow meters (pulses per gallon).
+- The wiring: a **wiring diagram/schematic** with wire numbers and terminal numbers; each device has a **tag** (the ISA tag: **PT-101** pressure transmitter, **LSH-202** level switch high, **ZS-303** position switch, **SE/ST** speed element/transmitter, **VT** vibration transmitter, **TE/TT** temperature; see [blueprint reading](/article/blueprint-reading-for-millwrights) for the letters) that matches the drawing, the HMI and the label on the device.
+
+## Sensors on machinery
+
+| Sensor | Senses | Range / rules | Mounting and adjustment |
+|---|---|---|---|
+| **Inductive proximity** (the barrel with an LED) | Metal (ferrous best) within a few mm | Sensing range by size: M8: 1-2 mm, M12: 2-4 mm, **M18: 5-8 mm**, M30: 10-15 mm (flush-mount shorter, non-flush longer; non-ferrous targets at 30-50% of the range) | Set the gap at **50-80% of the rated range** (a prox set at its limit drops out with vibration); flush types can be mounted flush in steel, non-flush need clearance around the face; the LED shows the state; a target (a bolt head, a cam, a gear tooth) passing at speed needs the sensor's switching frequency checked; do not use a prox as a mechanical stop |
+| **Capacitive proximity** | Anything (plastic, liquid, grain) within a few mm-25 mm; through a non-metal wall | Sensitivity adjustable | Set with the potentiometer to see the product and not the hopper wall; drifts with humidity and build-up |
+| **Photoelectric** (photo-eye): **through-beam** (emitter and receiver opposite), **retroreflective** (a reflector; polarised for shiny objects), **diffuse** (reflects off the object) | Presence of anything that breaks or reflects the beam; ranges from inches to 100+ ft (through-beam) | Through-beam is the most reliable for dust and distance; diffuse is the fussiest | Align with the alignment LED/the signal-strength indicator (the beam centred, the margin high), lock the bracket, keep lenses and reflectors clean (a wipe on the route), shield from sun and other eyes, a **light-on / dark-on** selector sets the output sense; a reflector that is bumped 5° kills a retroreflective eye |
+| **Limit switch** (mechanical arm/roller/plunger) | Position by physical contact | | Mount so the actuator is hit within its travel and not driven past it (a stop elsewhere); roller arms set to the cam; the arm not used as a stop; watch for water in the head; NC for safety functions |
+| **Safety interlock switch** (tongue, coded magnetic/RFID, hinge) on guards | Guard closed | | Aligned per the maker (RFID coded switches have a sensing distance and a misalignment tolerance); mounted with tamper-proof screws; never replaced by a plain sensor |
+| **Encoder** (incremental or absolute) on a shaft | Speed, position, direction | Pulses per revolution (e.g. 1024) | Coupled with a **flexible** coupling to the shaft (side load kills the encoder's bearing), the coupling aligned; shielded cable; a hollow-shaft encoder with its anti-rotation arm free to float |
+| **Speed switch / zero-speed** (a prox counting a target, or a shaft-mounted unit) | Rotation of a conveyor tail pulley, a screw, an elevator | | The target gap set; the time delay in the PLC lets the belt come up to speed |
+| **Pressure switch / transmitter** | Pressure (on/off, or 4-20 mA) | Set point and differential (deadband) on a switch; range on a transmitter | Mounted with an isolation valve and a snubber on pulsating lines; not on the pump's discharge nozzle where it shakes; the transmitter's range matched to the process (a 0-100 psi transmitter on a 500 psi line is destroyed) |
+| **Temperature**: **RTD** (Pt100, a resistance) and **thermocouple** (J, K), thermostats, bearing temperature detectors | Temperature | RTD: accurate, 3-wire; thermocouple: wider range, polarity matters (the coloured lead is negative on US thermocouples: red is negative) | Installed in a thermowell or against the bearing housing with thermal paste; the extension wire of the same type; a bearing RTD in the housing's drilled hole with a spring clip |
+| **Level**: float switches, capacitance, ultrasonic, radar, rotating paddle (bins), vibrating fork, tilt switch, tuning fork | Level in tanks, bins, sumps | | Paddles and forks mounted where the material will not bury or bridge; ultrasonics need a clear cone and no foam; floats free to move and the right density |
+| **Flow**: switches (paddle, thermal), meters (magnetic, turbine, vortex, Coriolis, ultrasonic) | | | Straight pipe before and after (5-10 diameters), orientation, full pipe |
+| **Vibration transmitter / accelerometer** (4-20 mA velocity, or a 100 mV/g sensor to a monitor) | Machine vibration | | Mounted on a **flat, clean, stud or adhesive pad** on the bearing housing in the load direction; a magnet mount on a curved, painted surface reads garbage; the cable strain-relieved |
+| **Current sensor / power monitor** on a motor | Load | | |
+| **Plugged chute / tilt switch, belt rip, misalignment switches** on conveyors | | | See [conveyor safety](/article/conveyor-safety-and-guarding) |
+
+Sensor mounting rules: **rigid** brackets (a bracket that vibrates gives a chattering input), **protected** from impact and washdown (guards, cable glands, IP rating), **cable** strain-relieved and away from motor cables, **connectors** (M12) tight with the seal, the **tag** on the sensor, and the **gap/alignment** written on the drawing or the bracket so it can be re-set after a change. When you replace a sensor: same type (PNP/NPN, NO/NC, range, connector), same position, and tell the controls tech (some sensors are configured in IO-Link or the safety controller and need a teach/reset).
+
+## Why the machine will not run: a method
+
+1. **Read the HMI**: the active alarm or fault (e-stop pressed, guard open, drive fault, high temperature, low level, a permissive not made); acknowledge/reset if it is cleared. The alarm text usually names the device (the tag) and the location.
+2. **Check the physical thing named**: the guard actually closed and the interlock aligned (the switch's LED); the e-stop **released** (turn to reset; all of them on the line: one pressed in a remote spot stops everything); the level/pressure actually there; the drive not faulted (its display).
+3. **The permissive list** on the HMI's diagnostic screen (green/red) or in the sequence table; the first red item from the top is the one to fix (the logic usually stops at the first missing condition).
+4. **I/O lights**: at the PLC rack or the remote I/O, find the input for the sensor (from the drawing's wire number/point address): LED **on** = the PLC sees 24 V on that input; a sensor whose own LED is on but the input LED is off = the wire/terminal/fuse between them; both off with the target present = the sensor or its supply; a **24 VDC fuse or breaker** feeding a group of sensors tripped = many inputs dead at once. On the output side: an output LED on but the starter not pulling in = the wiring, the coil, the overload relay's contact (**the overload tripped** on a starter is the classic: reset it and find out why the motor overloaded).
+5. **Control power**: the control transformer fuse, the 24 V power supply's LED, the emergency-stop relay's LEDs (a safety relay shows which channel is open).
+6. Mechanical: is the machine free to move (a jammed conveyor trips the drive; a seized shaft trips the overload)?
+7. If the logic itself is in question (an interlock that does not make sense, a timer, a sequence stuck), **call the controls tech**: the program is theirs; do not force I/O or bypass an input.
+
+## What not to touch
+
+- **Never jumper, force, or bypass** a safety device (an interlock, a light curtain, an e-stop, a safety relay input) to run a machine, even to test; the people killed in guarded machines were mostly working with a bypassed interlock.
+- **Forcing I/O** in the PLC (making the program see an input as on) is a controls-tech tool with its own rules; a forced input that is forgotten runs the machine with a guard open.
+- **Program changes**: not yours; a "small change" without the backup and the change control is how a plant loses a line for a day.
+- Terminals in a **live** panel: qualified persons only, with the PPE in [electrical safety](/article/electrical-safety-for-mechanics); reading LEDs from outside the arc-flash boundary is fine; landing a wire is not.
+- Network cables and switches: do not unplug "to see".
+- Instrument calibration (a transmitter's zero and span) is the instrument tech's; report a reading that disagrees with your gauge.
+- Analog loops: do not break a 4-20 mA loop without knowing what else is in series (a chart recorder, a controller input).
+
+## Working with the controls tech
+
+Give them: the machine and the tag, what the HMI says, which LEDs you saw on and off, what you checked mechanically, what changed (a new sensor, a moved bracket, a motor replaced, a drive replaced: the parameters), and the wire/terminal numbers you looked at. Ask for: the permissive list, the sensor types and set gaps on the drawings, and a copy of the sensor settings for the machine's file. A sensor that is replaced and works "sometimes" is a gap or an alignment or a PNP/NPN mix: sort it with them before the machine is handed over.
+
+## Common mistakes
+
+- Bending the prox bracket "closer" until the target hits it: a broken sensor and a stopped line.
+- Replacing an NC safety switch with a NO general-purpose one because "it's the same size".
+- A photo-eye's reflector cleaned once a year.
+- Diagnosing "the PLC is dead" when a 24 V fuse blew.
+- Jumpering the guard switch to run the machine for a bearing check.
+- A bearing vibration sensor on a magnet on a painted, curved housing: the alarm never sees the failure.
+- Landing the thermocouple wires backwards: the bearing reads 20°C cooler than it is.
+
+## Related
+
+- [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Machine guarding and commissioning](/article/machine-guarding-and-commissioning)
+- [Conveyor safety and guarding (safety switches)](/article/conveyor-safety-and-guarding)
+- [Blueprint reading (P&ID and instrument tags)](/article/blueprint-reading-for-millwrights)
+- [Vibration basics and ISO severity (vibration transmitters)](/article/vibration-basics-and-iso-severity)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+          array[$mw$PLC$mw$,$mw$programmable logic controller$mw$,$mw$PLC basics$mw$,$mw$I/O$mw$,$mw$inputs outputs$mw$,$mw$24 VDC$mw$,$mw$4-20 mA$mw$,$mw$digital input$mw$,$mw$analog input$mw$,$mw$HMI$mw$,$mw$proximity sensor$mw$,$mw$inductive prox$mw$,$mw$capacitive sensor$mw$,$mw$photo eye$mw$,$mw$photoelectric sensor$mw$,$mw$retroreflective$mw$,$mw$limit switch$mw$,$mw$encoder$mw$,$mw$pressure transmitter$mw$,$mw$RTD$mw$,$mw$thermocouple$mw$,$mw$level switch$mw$,$mw$flow switch$mw$,$mw$vibration transmitter$mw$,$mw$safety relay$mw$,$mw$safety PLC$mw$,$mw$light curtain$mw$,$mw$interlock switch$mw$,$mw$machine will not start$mw$,$mw$permissive$mw$,$mw$I/O lights$mw$,$mw$forcing I/O$mw$,$mw$sensor gap$mw$,$mw$sensor alignment$mw$,$mw$instrument tag$mw$,$mw$ISA tag$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Allen-Bradley/Rockwell and Siemens PLC and I/O documentation; sensor manufacturer application guides (Turck, Banner, Pepperl+Fuchs, ifm: sensing ranges, mounting, alignment); ISA 5.1 (instrument tagging); ISO 13849 / IEC 62061 and OSHA machine guarding rules on safety circuits; plant controls practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$reading-a-motor-nameplate$mw$, $mw$Reading a Motor Nameplate: HP and kW, Voltage and Dual Voltage, FLA and Service Factor, RPM and Slip, Frame Size (NEMA T-Frame Dimensions Table: Shaft Height and Diameter), Enclosure (ODP, TEFC, TENV, XP), Insulation Class and Temperature Rise, Duty, Design Letter (B, C, D), Code Letter, Efficiency, Bearings, Mounting, Inverter Duty$mw$, $mw$Every line on a three-phase motor nameplate and what it means to the millwright replacing or troubleshooting the motor: the power, voltage and current ratings and how the service factor is used, speed and slip, the NEMA frame number decoded into the shaft height and dimensions with a table of the T-frames, the enclosure types and where each belongs, insulation class and temperature rise, design and code letters, efficiency, bearing numbers and mounting, and what to match when you swap a motor.$mw$, $mw$## The lines and what they mean
+
+| Nameplate item | Meaning | What you do with it |
+|---|---|---|
+| **HP (or kW)** | Rated mechanical output at the shaft (1 hp = 0.746 kW) | The replacement must match or exceed; the driven load's need decides |
+| **Volts** | Rated supply voltage; dual voltage motors show both (230/460, 208-230/460, 575) | Connect for the supply (see [lead connections](/article/motor-lead-connections)); a 460 V motor on 480 V is normal (the utilisation voltage tolerance is ±10%: 414-506 V) |
+| **Amps (FLA)** | Full-load current at each voltage (twice as much at the low voltage) | Sets the overload relay (FLA × the SF allowance per the NEC), the wire size, the clamp-meter check: running amps vs FLA tells you the load; amps above FLA = overloaded or a problem |
+| **Service factor (SF)** | The overload the motor can carry continuously at rated voltage and frequency without damage: **1.15** on most ODP and many TEFC motors, **1.0** on others | A 1.15 SF motor can run at 115% of nameplate hp (at reduced life and higher temperature); do **not** size a drive to use it; SFA (service factor amps) is the current at that load |
+| **RPM** | Full-load speed (e.g. 1,765) | The synchronous speed is the next round number up (1,800 for a 4-pole 60 Hz motor); the difference is **slip** (35 rpm here); a motor running at synchronous speed is unloaded; a motor slipping more than the nameplate is overloaded or on low voltage. Poles = 120 × Hz ÷ sync rpm: 2-pole 3,600, **4-pole 1,800**, 6-pole 1,200, 8-pole 900 |
+| **Hz** | 60 (North America) or 50; some plates give both | A 60 Hz motor on 50 Hz runs at 5/6 speed and must be derated |
+| **Phase** | 3 or 1 | |
+| **Frame** | NEMA frame number (143T, 256T, 405T...) or an IEC frame (IEC 132M, 160L) | The **mounting dimensions**: see the table below; a replacement must have the same frame (or an adapter base) |
+| **Enclosure** | ODP, TEFC, TENV, TEAO, WPI/WPII, XP (explosion-proof, with the Class/Division/Group), IP code (IP55) | Match to the environment (below) |
+| **Insulation class** | The winding's temperature rating: **A 105°C, B 130°C, F 155°C, H 180°C** (total temperature = 40°C ambient + rise + a hot-spot allowance) | Most industrial motors are **Class F**; the rise below tells you how hot it is designed to run |
+| **Temperature rise / Amb** | The winding temperature rise at rated load (e.g. "80°C rise" or "Class B rise") above a **40°C ambient** | A Class F motor with a Class B rise (80°C) has a 25°C reserve: longer life, tolerates a VFD or a warm room; above 40°C ambient the motor is derated |
+| **Duty** | CONT (continuous) or a time rating (30 min, 1 h) or a duty cycle (S1-S8 on IEC) | Intermittent-rated motors overheat on continuous loads |
+| **Design** (NEMA design letter) | **B**: the standard (normal starting torque, low starting current, 3-5% slip); **A**: like B with higher starting current; **C**: high starting torque (conveyors loaded at start, compressors); **D**: very high starting torque, high slip 5-13% (punch presses, hoists, cranes) | A design D motor replaced by a B stalls the loaded conveyor at start; match |
+| **Code letter** (kVA/hp locked rotor) | A-V: the locked-rotor kVA per hp (A: under 3.15; G: 5.6-6.3; **J: 7.1-8.0**; K: 8.0-9.0; L: 9.0-10; M: 10-11.2...) | Sets the starter's instantaneous trip and the starting current: LRA ≈ code kVA/hp × hp × 1000 ÷ (1.732 × V); a 50 hp code J at 460 V draws about 470 A at start (about 6-7× FLA) |
+| **Efficiency (NEMA nominal)** | % at full load; "Premium Efficient" (NEMA Premium / IE3) | The energy label; a premium motor runs slightly faster (less slip) than the old one it replaces: a fan or pump draws more power on it (the affinity laws) |
+| **Power factor** | | |
+| **Bearings** (DE / ODE) | The bearing numbers (6309, 6311, NU 319) | Order spares; regrease amounts by bearing (see [regreasing](/article/regreasing-intervals-and-quantities)); a roller bearing (NU) on the drive end of belted motors |
+| **Mounting / Type** | Foot (F1 = conduit box on the left viewed from the drive end, F2 right), C-face, D-flange, vertical P-base, IEC B3/B5/B14/V1 | |
+| **Inverter duty / VFD rated** | "Inverter duty" with a speed range (e.g. 10:1 constant torque, 1000:1 with a blower) per NEMA MG 1 Part 31 | Required on VFDs for winding insulation (voltage spikes) and cooling at low speed; a standard motor on a VFD needs derating and a minimum speed |
+| **Thermal protection** | "Thermally protected" (built-in), thermostats (P1/P2 leads), RTDs | Wire the thermostats into the control |
+| **Serial number, date, weight, rotation arrow, connection diagram** | | The diagram on the plate is the lead connection for each voltage |
+| **kVA code, LRA, max ambient, altitude (over 3,300 ft derate)** | | |
+
+IEC plates: kW, the IEC frame (the number is the **shaft height in mm**: IEC 132 = 132 mm; the letter S/M/L is the frame length), the duty S1, the IP rating (IP55 = dust and jets), the connection ∆/Y with the voltages (e.g. 230∆/400Y), the cos φ, the efficiency class IE2/IE3.
+
+## NEMA frame dimensions (T-frames, foot-mounted; inches)
+
+The frame number encodes the **shaft height D**: the first two digits ÷ 4 for two-digit frames (143T: 14 ÷ 4 = 3.5"), the first two digits ÷ 4 for three-digit frames (405T: 40 ÷ 4 = 10"); the third digit and the T set the foot spacing; T = the 1964 standard; U = the older standard with different shaft and foot dimensions for the same D.
+
+| Frame | D (shaft height) | 2E (foot width, centre to centre) | 2F (foot length, centre to centre) | BA (foot to shaft shoulder) | Shaft dia U | Shaft length N-W | Key | Typical hp at 1,800 rpm |
+|---|---|---|---|---|---|---|---|---|
+| **143T** | 3.50 | 5.50 | 4.00 | 2.25 | **0.875** | 2.25 | 3/16 | 1 |
+| **145T** | 3.50 | 5.50 | 5.00 | 2.25 | 0.875 | 2.25 | 3/16 | 1.5-2 |
+| **182T** | 4.50 | 7.50 | 4.50 | 2.75 | **1.125** | 2.75 | 1/4 | 3 |
+| **184T** | 4.50 | 7.50 | 5.50 | 2.75 | 1.125 | 2.75 | 1/4 | 5 |
+| **213T** | 5.25 | 8.50 | 5.50 | 3.50 | **1.375** | 3.38 | 5/16 | 7.5 |
+| **215T** | 5.25 | 8.50 | 7.00 | 3.50 | 1.375 | 3.38 | 5/16 | 10 |
+| **254T** | 6.25 | 10.00 | 8.25 | 4.25 | **1.625** | 4.00 | 3/8 | 15 |
+| **256T** | 6.25 | 10.00 | 10.00 | 4.25 | 1.625 | 4.00 | 3/8 | 20 |
+| **284T** | 7.00 | 11.00 | 9.50 | 4.75 | **1.875** | 4.63 | 1/2 | 25 |
+| **286T** | 7.00 | 11.00 | 11.00 | 4.75 | 1.875 | 4.63 | 1/2 | 30 |
+| **324T** | 8.00 | 12.50 | 10.50 | 5.25 | **2.125** | 5.25 | 1/2 | 40 |
+| **326T** | 8.00 | 12.50 | 12.00 | 5.25 | 2.125 | 5.25 | 1/2 | 50 |
+| **364T** | 9.00 | 14.00 | 11.25 | 5.88 | **2.375** | 5.88 | 5/8 | 60 |
+| **365T** | 9.00 | 14.00 | 12.25 | 5.88 | 2.375 | 5.88 | 5/8 | 75 |
+| **404T** | 10.00 | 16.00 | 12.25 | 6.62 | **2.875** | 7.25 | 3/4 | 100 |
+| **405T** | 10.00 | 16.00 | 13.75 | 6.62 | 2.875 | 7.25 | 3/4 | 125 |
+| **444T** | 11.00 | 18.00 | 14.50 | 7.50 | **3.375** | 8.50 | 7/8 | 150 |
+| **445T** | 11.00 | 18.00 | 16.50 | 7.50 | 3.375 | 8.50 | 7/8 | 200 |
+| 447T | 11.00 | 18.00 | 20.00 | 7.50 | 3.375 | 8.50 | 7/8 | 250 |
+| 449T | 11.00 | 18.00 | 25.00 | 7.50 | 3.375 | 8.50 | 7/8 | 300 |
+
+"TS" frames (e.g. 254TS) have a **shorter, smaller shaft** for direct coupling only (no belts): a 254TS shaft is 1.375" × 2.0" instead of 1.625" × 4.0". "U" frames (older, pre-1964) have different shaft diameters and foot spacings for the same D: a U-frame motor is replaced with a T-frame of the same D using an adapter base and a new coupling/sheave bore. Hp per frame varies with speed (a 3,600 rpm motor is one frame smaller for the same hp; 1,200 rpm one larger); the table's hp column is the usual 1,800 rpm assignment for standard-efficiency and many premium motors (premium and TEFC motors sometimes step up a frame).
+
+## Enclosures
+
+| Type | Meaning | Where |
+|---|---|---|
+| **ODP** (open drip-proof) | Openings for cooling air, drips from above cannot enter | Clean, dry indoor: the cheapest; dust and washdown kill it |
+| **TEFC** (totally enclosed fan-cooled) | Sealed frame, an external fan on the ODE blows air over the fins | The industrial standard: dust, damp, outdoor (with a drain and a cover); the fan cover must be kept clear |
+| **TENV** (totally enclosed non-ventilated) | Sealed, no fan; cools by its surface | Small motors, VFD low-speed duty |
+| **TEAO** (totally enclosed air-over) | Cooled by the driven fan's air | Fan motors |
+| TEBC (blower-cooled) | A separate constant-speed blower | Inverter duty at low speed |
+| **Washdown / severe duty / IEEE 841** | TEFC with extra sealing, stainless hardware, epoxy paint, drains, IP56-66 | Food, chemical, mines, paper |
+| **XP** (explosion-proof, Class I Div 1 Groups C/D; Class II Div 1 Groups F/G dust-ignition-proof) | Contains an internal explosion without igniting the outside; a T-code surface temperature | Classified areas; the conduit seals and the cover flame paths must be intact: never file or paint a flame path, never run with a missing bolt |
+| WPI / WPII | Weather-protected (large motors, outdoors) | |
+| IP | IP23 (open), IP54/55 (TEFC), IP56/66 (washdown), IP65+ | IEC |
+
+## Matching a replacement motor
+
+Same **frame** (or an adapter), **hp** (≥), **voltage** and connection, **speed** (poles) and design letter, **enclosure** for the environment, **mounting** (foot/face/flange, conduit box side: F1/F2 can be changed on many motors by rotating the end bells), **service factor**, **insulation/rise**, **inverter duty** if on a VFD, **bearings** (roller DE for belted loads), **rotation** (most are bi-directional; some fans are uni-directional), **thermostats/RTDs** if the control needs them, and the **shaft**: a TS shaft cannot carry a sheave. A premium-efficiency replacement on a fan or pump runs faster and draws more power: check the amps after the change.
+
+## Reading the plate on the job
+
+- Before lockout, record: hp, volts, FLA, rpm, frame, enclosure, SF, bearings, serial. Photograph the plate and the connection diagram.
+- Check the running amps against FLA on all three phases with a clamp meter (imbalance under 10% between phases; a motor at 110% FLA is at its SF limit); the supply voltage between phases (imbalance under 1% per NEMA; voltage imbalance of 3.5% derates the motor to about 90%).
+- The nameplate rpm against a tachometer under load: excessive slip = overload, low voltage, a bad rotor bar.
+
+## Common mistakes
+
+- Replacing a design C conveyor motor with a design B: it will not start loaded.
+- A 1.0 SF TEFC motor sized to run at 115% "like the old ODP did".
+- A 254T ordered for a 254U machine: the shaft is smaller and the feet are different.
+- ODP motor in a washdown area: a month.
+- Standard motor on a new VFD at 10 Hz for hours: the winding cooks with no fan speed.
+- 208 V supply on a 230/460 motor connected for 230: it runs hot at 90% voltage; order a 200 V or a 208-230/460 motor.
+- Reading FLA from the plate of a dual-voltage motor at the wrong voltage: the overload set at half the value.
+
+## Related
+
+- [Motor lead connections](/article/motor-lead-connections)
+- [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
+- [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
+- [Regreasing intervals and quantities (motor tables)](/article/regreasing-intervals-and-quantities)
+- [Power, torque, speed and drive formulas](/article/power-torque-speed-drive-formulas)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+          array[$mw$motor nameplate$mw$,$mw$motor data plate$mw$,$mw$FLA$mw$,$mw$full load amps$mw$,$mw$service factor$mw$,$mw$SF 1.15$mw$,$mw$motor rpm$mw$,$mw$slip$mw$,$mw$synchronous speed$mw$,$mw$NEMA frame$mw$,$mw$frame size$mw$,$mw$143T$mw$,$mw$182T$mw$,$mw$213T$mw$,$mw$254T$mw$,$mw$284T$mw$,$mw$324T$mw$,$mw$364T$mw$,$mw$405T$mw$,$mw$444T$mw$,$mw$shaft height$mw$,$mw$shaft diameter motor$mw$,$mw$TEFC$mw$,$mw$ODP$mw$,$mw$TENV$mw$,$mw$explosion proof motor$mw$,$mw$insulation class F$mw$,$mw$temperature rise$mw$,$mw$NEMA design B$mw$,$mw$code letter$mw$,$mw$locked rotor$mw$,$mw$motor efficiency$mw$,$mw$premium efficiency$mw$,$mw$inverter duty$mw$,$mw$motor bearings nameplate$mw$,$mw$motor replacement$mw$,$mw$IEC frame$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NEMA MG 1 Motors and Generators (nameplate requirements, design letters, frame dimensions, code letters, insulation classes); Baldor-Reliance/ABB and WEG motor catalogues (frame dimension tables, nameplate examples); IEC 60034 (IEC frame designations); EASA motor replacement guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$vfd-basics-for-millwrights$mw$, $mw$VFD Basics for Millwrights: What a Drive Does and the Affinity Laws, the Parameters That Matter (Min/Max Frequency, Accel/Decel, V/Hz vs Vector, Motor Nameplate Entry, Overload, Carrier Frequency), Why Motors on Drives Overheat at Low Speed, Bearing Currents and Shaft Grounding, Cable and Grounding Rules, Reading the Display and Fault Codes, Safety with Drives (DC Bus, Stopped Is Not Off)$mw$, $mw$Enough about variable frequency drives to work safely around them and to understand what they do to the motors and bearings a millwright maintains: how a drive changes speed and what that does to a pump or fan, the handful of parameters that decide whether the machine works, why a motor at 15 Hz cooks, the shaft-current bearing damage a drive causes and the fixes, the cabling rules that stop noise and bearing damage, how to read the display and the common faults, and the rules for a drive that is 'stopped' but live.$mw$, $mw$## What a drive does
+
+A VFD rectifies the incoming AC to a **DC bus** (about 650 V DC on a 460 V drive), then switches it into a variable-frequency, variable-voltage output with transistors (IGBTs) using **pulse-width modulation**: the motor sees a synthesised AC whose frequency sets the speed and whose voltage keeps the **volts-per-hertz ratio** (460 V ÷ 60 Hz = 7.67 V/Hz) constant so the motor's flux and torque stay normal. Speed = the frequency the drive makes: 30 Hz on a 4-pole motor = about 880 rpm.
+
+For **fans and pumps** the affinity laws make a drive the biggest energy saver in a plant: **flow ∝ speed, head/pressure ∝ speed², power ∝ speed³**: a fan at 80% speed uses about **51%** of the power; a pump at 50% speed uses 12.5% (if the system has little static head; see [pump formulas](/article/pump-and-fluid-power-formulas)). For conveyors and constant-torque loads, the drive gives speed control and soft starting; the power falls in proportion to speed.
+
+Other things a drive gives: soft start (no inrush, no belt squeal, the ratio of start current set by the accel time), controlled deceleration (with a braking resistor or a regenerative drive to absorb an overhauling load), reversing by a parameter, built-in motor overload protection, run/fault contacts and analog speed inputs for the PLC, and a display of current, speed and faults that is useful for troubleshooting.
+
+## Parameters a millwright should know
+
+The electrician or the controls tech programs the drive; the millwright needs to know what these do because they decide how the machine behaves and whether the motor survives:
+
+| Parameter | What it sets | Why it matters |
+|---|---|---|
+| **Motor nameplate data** (rated volts, amps, Hz, rpm, hp/kW, power factor) | The drive's motor model and the overload protection | Entered wrong (the 230 V amps on a 460 V motor) and the drive's overload trips or never trips; after a motor change the **new** nameplate must be entered and an autotune done |
+| **Maximum frequency / speed** | The top speed (60 Hz standard; 50 Hz for IEC motors on 60 Hz drives; over 60 Hz possible with the maker's blessing for the motor **and** the driven machine: a fan at 70 Hz draws 1.6× power and may overspeed the impeller) | Overspeeding a pump, a fan, a gearbox or a shaft-mount bearing is a mechanical failure |
+| **Minimum frequency / speed** | The lowest speed the drive will run | **Cooling** (below); pumps need a minimum to make head; a conveyor's minimum for the material |
+| **Accel and decel time** | Seconds from 0 to max speed and back | Too fast an accel: overcurrent trips, belt slip, shock to the load; too fast a decel: **overvoltage trips** (the load pushes energy back into the DC bus; a braking resistor or a longer decel fixes it); a long decel on a conveyor is a safety issue at the e-stop (a coast-to-stop or a brake is separate) |
+| **Control mode**: **V/Hz** (the simple mode, fine for fans and pumps), **sensorless vector** (better low-speed torque and speed holding: conveyors, mixers, positive-displacement pumps), **closed-loop vector with an encoder** (precise speed/torque: hoists, winders) | | A V/Hz drive on a screw conveyor stalls at low speed; a vector drive needs an **autotune** with the motor connected (and often uncoupled) |
+| **V/Hz pattern and torque boost** | Variable torque (fans/pumps: the voltage falls faster at low speed: less heat) vs constant torque; a voltage boost at low speed for starting torque | Too much boost overheats the motor at low speed |
+| **Motor overload (thermal) setting** | The drive's electronic overload, from the entered FLA and a service factor % | The only overload protection the motor has on most drive circuits; it must match the motor, and a motor with a thermostat should have it wired to the drive's input |
+| **Carrier (switching) frequency** | The PWM frequency, 2-16 kHz | Higher = quieter motor, more drive heating and **more bearing current**; lower (2-4 kHz) = audible whine, cooler drive, less common-mode current: the usual compromise is 4 kHz on industrial motors |
+| **Stop mode**: ramp, coast, DC brake | How it stops | A ramp stop needs a resistor for a high-inertia load; a coast stop on an incline needs a mechanical brake |
+| **Skip frequencies** | Bands the drive will not run in | Set to jump over a **resonance** (a speed where the machine or the piping shakes): the millwright finds the speed, the tech programs the skip |
+| **Reverse enable, run permissives, speed reference source, PID** | Control logic | The reason a drive "will not run" is usually a permissive or the reference source, not the drive |
+| **Flying start / catch a spinning load** | Lets the drive pick up a coasting fan | Without it, starting into a spinning fan trips overcurrent |
+| Parameter **lock and the backup** | | Record the parameter set before a drive is replaced; a "factory reset" wipes the motor data |
+
+## Why motors on drives overheat
+
+- **Cooling**: a TEFC motor's fan is on the shaft: at **half speed it moves a quarter of the air**; a standard motor running a constant-torque load below about **50% speed (30 Hz) for long periods** overheats; **inverter-duty motors** are rated for a **speed range** (e.g. 10:1 CT means 6-60 Hz at full torque with their own cooling margin, or 1000:1 with a separate blower); fans and pumps (variable torque) are fine at low speed because the load falls faster than the cooling.
+- **Waveform**: the PWM output has voltage spikes (up to 2× the bus, 1,300 V+) that stress the insulation, especially on **long motor cables** (over about 50-100 ft: reflected waves), and harmonics that add heating; inverter-duty motors (NEMA MG 1 Part 31) have insulation rated for the spikes; a standard motor on a long cable wants an output reactor or a dV/dt filter.
+- **Torque boost too high**, a wrong V/Hz, an overload setting that is wrong, a blocked fan cover: the same as any motor.
+- Check: the motor's frame temperature at its running speed; the drive's displayed current; the speed range it actually runs in.
+
+## Bearing currents (the millwright's VFD problem)
+
+The PWM output has a **common-mode voltage** that couples through the motor's capacitances to the shaft; the shaft voltage discharges through the **bearing's oil film** thousands of times a second: **EDM pitting → fluting** (the washboard raceway), grease turned black, a bearing that fails in months (see [bearing failure analysis](/article/bearing-failure-analysis)). Signs: a bearing failure pattern of fluting on a VFD-driven motor, often the **non-drive end** first, repeated failures after replacement, a rising vibration at bearing frequencies, and a shaft voltage measurable with a brush and an oscilloscope (over about 5-10 V peak is trouble).
+
+Fixes (the drive and the motor together):
+
+1. **Shaft grounding ring** (AEGIS SGR or similar carbon-fibre brush ring, or a maintenance-free brush) on the motor shaft, usually at the drive end, giving the current a path to the frame instead of through the bearing; a **conductive** grease under it; install per the ring's instructions (the shaft area cleaned to bare metal and coated with the conductive epoxy where specified; the ring's fibres on a clean shaft, not painted or rusted).
+2. **Insulated bearing** (a ceramic-coated outer ring or a hybrid ceramic-ball bearing) at the **opposite drive end** (with the grounding ring at the drive end on motors over about 100 hp or on 575 V); insulating both ends and none of the shaft pushes the current down the coupling into the driven machine's bearings: a grounding ring plus one insulated bearing is the standard.
+3. **Cable and grounding**: **VFD-rated shielded cable** (symmetrical grounds and a shield) from the drive to the motor, with the shield terminated **360°** at both ends (a gland/clamp, not a pigtail), the motor frame bonded to the drive's ground bar with a short, wide conductor; the driven machine bonded to the motor frame (a bonding strap across the coupling insulator or the base) so the current has a path other than the coupling.
+4. **Lower the carrier frequency** where the noise is tolerable (2-4 kHz).
+5. Common-mode chokes/filters at the drive output; a dV/dt filter or a sine filter on long cables.
+6. Insulated couplings do **not** protect the motor bearing; they protect the driven machine.
+
+## Cable and installation rules (why the drive "faults for no reason")
+
+- Motor cable: VFD-rated, shielded, in its own conduit/tray **separated** from control and signal cables (at least 8-12", crossing at 90°); the shield to the drive's ground bar and the motor's frame at both ends; the cable as short as practical.
+- Input: a line reactor or DC choke where the supply is stiff or the drive is large (harmonics, drive protection); the drive's ground to the panel ground bar.
+- Control wiring (start, speed reference 4-20 mA / 0-10 V) in shielded twisted pair, the shield grounded at **one** end (the drive).
+- Drive cooling: the enclosure's fan filters clean; a drive that runs hot derates and faults; ambient under 40°C (104°F) inside the enclosure.
+- **Never megger a motor with the drive connected**; disconnect the motor leads at the drive's output terminals (see [megger testing](/article/megger-and-basic-motor-testing)); never switch a contactor on the output while running (a disconnect on the motor side needs an interlock to stop the drive first).
+- Motors under 1 hp on a 460 V drive, or motors with a shorter insulation life, want an output reactor.
+
+## Reading the display
+
+The keypad shows a **status** (Ready, Running, Faulted, Stopped, At Speed), the **output frequency** (Hz) or speed (rpm), **output current** (A: compare with the motor's FLA and watch the trend), **DC bus voltage** (about 1.35 × the line: 620-680 V on 480 V), **output voltage**, torque %, and the **fault history** (the last several faults with the values at the time: the first thing to read on a "the drive tripped" call). Typical faults:
+
+| Fault | Usual cause |
+|---|---|
+| **Overcurrent (OC)** | Accel too fast, a jammed load, a shorted motor/cable, too high a boost, a bad autotune; ground fault |
+| **Overvoltage (OV) on the bus** | Decel too fast (regeneration), an overhauling load, a high line voltage; add a braking resistor or lengthen the decel |
+| **Undervoltage (UV)** | Supply dip, a lost phase, a blown input fuse |
+| **Motor overload (OL1)** | The motor is running above its FLA setting for too long: a mechanical overload, a wrong parameter, low speed at full torque |
+| **Drive overload / overtemperature (OH)** | Drive cooling (filters, fan), ambient, carrier frequency too high, oversized load |
+| **Ground fault (GF)** | Insulation failure in the motor or cable, water in the box |
+| **Output phase loss** | A motor lead open, a bad contactor on the output |
+| **Input phase loss** | A supply phase gone |
+| **Motor stall / speed deviation** | A vector drive that cannot hold speed: overload, a wrong autotune |
+| **External fault / safe torque off (STO)** | The safety circuit or an external interlock opened: the e-stop, a guard switch, a motor thermostat |
+
+"The drive says it's running but the motor is not turning": the drive is running at 0 Hz (the reference is 0), or the motor is disconnected (output phase loss not enabled), or the load is seized (the current will show it).
+
+## Safety around drives
+
+- **Stopped is not off**: a drive in "Stop" has full line voltage inside and can have voltage on the motor terminals (some modes hold DC on the motor); the motor can start on a remote signal or an auto-restart-after-fault parameter. **Lockout is the upstream disconnect**, verified at the drive's input terminals with a meter, **and then a wait**: the **DC bus capacitors hold 650 V for minutes** after power-off (the manual's discharge time, typically **5-15 minutes**; the charge LED must be out and the bus measured below 50 V before touching anything inside).
+- STO (safe torque off) inputs are a safety function for machine guarding, not a lockout for maintenance work inside the motor or the machine.
+- Drives can **auto-restart** after a fault or a power dip if the parameter is set: a locked-out motor is the only safe motor.
+- Do not open a drive's cover to "look" while it runs; the bus bars are exposed; a drive's fan can start any time.
+- The millwright's interface with the drive is the display, the run/stop station, and the mechanical results; parameter changes are the controls person's job and are recorded.
+
+## Common mistakes
+
+- A standard TEFC motor at 12 Hz on a screw conveyor all day: burned in a season.
+- A new motor installed and the old motor's data left in the drive.
+- Bearings replaced three times on a VFD-driven fan motor before anyone measured the shaft voltage.
+- Unshielded THHN in a tray with the control wiring: the PLC inputs flicker and the bearings flute.
+- A decel time shortened to 2 s to "stop it faster": overvoltage trips every stop.
+- Working in the motor box with the drive "stopped".
+- Meggering the motor from the drive terminals: a dead drive.
+
+## Related
+
+- [Reading a motor nameplate (inverter duty)](/article/reading-a-motor-nameplate)
+- [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
+- [Bearing failure analysis (fluting)](/article/bearing-failure-analysis)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
+- [Pump and fluid-power formulas (affinity laws)](/article/pump-and-fluid-power-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+          array[$mw$VFD$mw$,$mw$variable frequency drive$mw$,$mw$inverter$mw$,$mw$drive parameters$mw$,$mw$minimum frequency$mw$,$mw$maximum frequency$mw$,$mw$accel time$mw$,$mw$decel time$mw$,$mw$V/Hz$mw$,$mw$vector control$mw$,$mw$sensorless vector$mw$,$mw$carrier frequency$mw$,$mw$switching frequency$mw$,$mw$motor overload VFD$mw$,$mw$VFD low speed cooling$mw$,$mw$inverter duty motor$mw$,$mw$bearing currents$mw$,$mw$shaft grounding ring$mw$,$mw$AEGIS$mw$,$mw$insulated bearing$mw$,$mw$fluting$mw$,$mw$VFD cable$mw$,$mw$VFD grounding$mw$,$mw$drive fault codes$mw$,$mw$overvoltage fault$mw$,$mw$overcurrent fault$mw$,$mw$DC bus$mw$,$mw$VFD safety$mw$,$mw$VFD stopped not off$mw$,$mw$affinity laws VFD$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Allen-Bradley PowerFlex, ABB ACS, Yaskawa and Danfoss drive manuals (parameter groups, fault codes, installation and cable requirements); NEMA MG 1 Part 30/31 (inverter-fed motors); AEGIS shaft grounding handbook and EASA guidance on bearing currents; Rockwell and ABB application notes on carrier frequency and low-speed cooling.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
