@@ -3319,6 +3319,354 @@ A welding procedure lists the classification, diameter, polarity, amperage/volta
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$blueprint-reading-for-millwrights$mw$, $mw$Blueprint Reading for Millwrights: Views and Projection, Line Types, Sections, Title Block and Revisions, Dimensions and Tolerances, Surface Finish, GD&T Essentials, Structural Shapes, Piping Isometrics and P&IDs$mw$, $mw$The parts of a drawing a millwright reads to install, fabricate or check a part: how views relate, what each line style means, how to read sections and details, the title block and revision level, dimensions and the tolerance rules, surface finish marks, the GD&T symbols that appear on baseplates and shafts, how structural steel and piping drawings label their members, and the P&ID symbols you need to trace a system.$mw$, $mw$## Views and projection
+
+- **Orthographic projection**: the object is shown in flat views at 90° to each other. **Third-angle** (US and Canada): the top view is above the front view, the right side view is to the right (as if the object were unfolded toward you). **First-angle** (Europe, some equipment manuals): views are on the opposite sides (the right-side view appears on the left). The projection symbol in the title block (a truncated cone, small end left for third angle) tells you which.
+- Six possible views; drawings show as many as needed, usually front, top, right. Curved surfaces and holes look the same in one view and different in another: always read at least two.
+- **Section views** (A-A, B-B): the part is cut along the cutting-plane line (thick line with arrows; the arrows point in the direction you look) and the cut material is **hatched**. Full, half, offset, broken-out, revolved and removed sections. Shafts, bolts, keys, ribs and webs are conventionally **not** hatched even when the plane cuts them.
+- **Detail views**: a circle on the main view, enlarged elsewhere with a scale (e.g. DETAIL B, SCALE 2:1).
+- **Auxiliary views**: a view perpendicular to an inclined face so it shows true size.
+- **Assembly drawing**: shows parts fitted together with balloons (item numbers) tied to a **bill of materials (BOM)**; **detail drawing**: one part, fully dimensioned; **exploded** view for order of assembly.
+- **Isometric / pictorial**: 3D look, 30° axes; not to scale for measuring.
+
+## Line types (alphabet of lines)
+
+| Line | Appearance | Means |
+|---|---|---|
+| Visible (object) | Thick solid | Edges you can see |
+| **Hidden** | Medium dashed | Edges behind the surface |
+| **Centre** | Thin, long-short-long | Axis of a hole, shaft, symmetry; bolt circles |
+| Dimension | Thin solid with arrowheads | The measurement |
+| Extension | Thin solid, gap from the object | Carries the dimension out from the part |
+| Leader | Thin with an arrow or dot | Points a note to a feature |
+| Cutting plane | Thick, dashed or phantom, arrows at the ends | Where a section is taken |
+| Section (hatch) | Thin diagonal | Cut material; pattern can show the material |
+| Break | Thin zigzag (short) or wavy (long) | Part shortened on the drawing |
+| Phantom | Thin, long-short-short-long | Alternate positions, adjacent parts, motion limits, repeated detail |
+| Stitch | Thin dotted | Sewing/stitching, sometimes stitch welds |
+| Chain | Thick, long-short | Surface requiring special treatment |
+
+## Title block and revisions
+
+Read **before** measuring anything: **drawing number and sheet**, **revision letter** (compare with the revision block and with the version on the work order: an old print is the classic cause of a wrong part), **scale** (never scale a print with a ruler; "NTS" = not to scale), **units** (inches or mm; dual dimensions show both), **material**, **finish**, **block (general) tolerances**, **projection symbol**, **drawn/checked/approved** names and dates, the standard the drawing follows (ASME Y14.5, ISO), and **general notes** (e.g. "break all sharp edges .015", "all welds 1/4 fillet unless noted", "dimensions apply after plating").
+
+## Dimensions and tolerances
+
+- **Basic dimension** (boxed): theoretically exact, toleranced by a geometric control.
+- **Reference dimension** (in parentheses): for information; not inspected.
+- **Limit dimensions**: 1.500-1.502; **plus/minus**: 1.501 ± .001; **unilateral**: 1.500 +.002/−.000.
+- **Block tolerances** in the title block apply where no tolerance is shown, usually by decimal places: `.X ± .1`, `.XX ± .01`, `.XXX ± .005`, angles ± 0.5°, fractions ± 1/16". So a "2.50" dimension is ± .01 and a "2.500" is ± .005: the number of decimals is a tolerance statement.
+- Metric: `50 h7` and `50 H7` use the ISO fit tables (see [bearing fits](/article/bearing-clearance-and-fits-tables)); unspecified metric tolerances follow ISO 2768 (m, f, c classes) named in the title block.
+- **Chain vs baseline dimensioning**: chain dimensions accumulate tolerance; baseline (all from one datum) does not. Fabricate from the datum the drawing uses.
+- Thread callouts: `1/2-13 UNC-2B` (nominal, TPI, series, class, B = internal), `M12 x 1.75-6H`; depth `↓ .75`; `1/2-14 NPT`. Hole callouts: `Ø .531 THRU`, `⌴ Ø .875 ↓ .375` (counterbore), `⌵ Ø .750 x 82°` (countersink), `4X Ø .406` (four places).
+
+## Surface finish
+
+The check-mark symbol with a number is the **roughness average Ra** in **microinches** (μin) on US drawings, **micrometres** (μm) on metric (1 μm = 40 μin).
+
+| Ra μin (μm) | Process | Typical |
+|---|---|---|
+| 250 (6.3) | Saw, flame cut, rough machining | Non-contact surfaces |
+| 125 (3.2) | Standard machining | General parts, bolted faces |
+| **63 (1.6)** | Fine turning, milling | Bearing housings, mating faces, baseplate pads |
+| **32 (0.8)** | Fine grind, finish turn | Shaft seats for bearings, seal faces |
+| 16 (0.4) | Grinding, honing | Seal sleeves, hydraulic rods, lip seal surfaces (10-20 μin) |
+| 8 (0.2) and below | Lapping, polishing | Mechanical seal faces, gauge blocks |
+
+A bar under the symbol = machining required; a circle = machining prohibited (as-cast). A lay symbol (=, ⊥, X, M, C, R) shows the direction of the tool marks: lip seals want **no lead** (plunge grind), hence "C" or "no lay" callouts on shafts.
+
+## GD&T essentials
+
+A **feature control frame** reads: `| symbol | tolerance | datum A | datum B | datum C |`. Datums are lettered surfaces/axes marked with a triangle. Symbols a millwright meets:
+
+| Symbol | Name | What it controls | Where you see it |
+|---|---|---|---|
+| ⏥ | **Flatness** | Surface within two parallel planes, no datum | Baseplate pads, sole plates, sealing faces |
+| ⏤ | Straightness | Line elements / axis | Shafts |
+| ○ | Circularity (roundness) | | Sleeves, seats |
+| ⌭ | Cylindricity | | Hydraulic rods |
+| ∥ | Parallelism | Surface/axis parallel to a datum | Pads to a base, bores to each other |
+| ⊥ | **Perpendicularity** | Square to a datum | Flange face to bore, pump feet |
+| ∠ | Angularity | | |
+| ⌖ | **Position** | Location of holes/features from datums, usually with a **cylindrical** tolerance zone and often **Ⓜ (MMC)** | Bolt patterns |
+| ◎ | Concentricity (withdrawn in 2018, still on old prints) | | |
+| ⌯ | Symmetry (withdrawn 2018) | | |
+| ↗ | **Circular runout** | Wobble of a surface as it rotates about a datum axis, one revolution | Shaft seats, coupling faces |
+| ⌰ | **Total runout** | Same, over the whole surface | Shaft bearing seats, rotor faces |
+| ⌒ | Profile of a line | | |
+| ⌓ | Profile of a surface | The all-purpose 3D tolerance | Castings, machined contours |
+
+Modifiers: **Ⓜ** maximum material condition (bonus tolerance as the feature departs from MMC: bigger holes get more position tolerance), **Ⓛ** least material, **Ⓟ** projected tolerance zone (for studs). Reading a frame: `⌖ Ø.010 Ⓜ A B C` = position of the hole axis within a Ø.010 cylinder when the hole is at its smallest, relative to datums A (primary, usually the mounting face), B, C. What it means for you: measure from the datums the frame names, in the order named, and expect the flatness or runout number to be an inspection you may have to prove with a straightedge, feeler, level or dial indicator (see [dial indicator basics](/article/dial-indicator-use)).
+
+## Structural steel drawings
+
+| Designation | Shape | Reads |
+|---|---|---|
+| **W12×26** | Wide flange | 12" nominal depth, 26 lb/ft |
+| S8×18.4 | American standard I-beam | |
+| **C8×11.5** / MC | Channel | 8" deep, 11.5 lb/ft |
+| **L4×4×3/8** | Angle | Legs 4" and 4", 3/8" thick (L4×3×1/4 unequal) |
+| **HSS6×6×1/4** | Hollow structural section (tube) | 6×6 outside, 1/4" wall (design wall 0.233) |
+| HSS6.625×0.280 | Round HSS | OD × wall |
+| **PL 1/2×12×1'-6"** | Plate | Thickness × width × length |
+| WT6×13 / ST / MT | Tees cut from W/S/M | |
+| Pipe 4 STD / XS / XXS | Pipe by schedule | |
+| BAR 2×1/2, RD 1-1/2 | Flat bar, round bar | |
+
+Structural drawings use **grid lines** (A, B, 1, 2) and **elevations** ("T/S EL. 112'-6"" = top of steel), **member marks** (B12, C3), **bolt callouts** (`3/4" Ø A325-N` = 3/4" high-strength bolts, threads not excluded; `SC` slip-critical; `TC` tension-control), "**typ**" and "**UNO**" (unless noted otherwise), "**NS/FS**" (near side/far side), "**GA**" gauge (bolt line offset), "**CTR**" centre, "**FIELD**" for field bolts/welds. Feet-inches format: `12'-6 1/2"`. Camber and "**hold**" dimensions (do not change) appear on erection drawings.
+
+## Piping isometrics
+
+- Drawn on 30° isometric axes, not to scale; north arrow; the line number carries the service, size, spec and insulation (e.g. `6"-CW-1501-A1-HC`).
+- Symbols: butt-weld fittings as thin lines with **weld dots**; flanges as double lines; valves by type (gate, globe, check, ball, butterfly) with tag numbers; reducers (concentric/eccentric, **FOT** flat on top / **FOB** flat on bottom); elbows LR (radius 1.5 × NPS) or SR; tees, olets; **field weld** (FW) and **field fit weld** (FFW) with extra length to cut on site; spool numbers and material take-off (MTO) table.
+- Dimensions run **centreline to centreline** and to flange faces; you subtract fitting **take-outs** (LR 90° elbow centre-to-face = 1.5 × NPS: 6" pipe → 9"; 45° LR = 0.625 × NPS: 6" pipe → 3-3/4") and the weld gap to get cut lengths. Take-out tables in [pipe fitting take-outs](/article/pipe-miter-layout).
+- **P&ID (piping and instrumentation diagram)**: schematic, no dimensions; every line, valve and instrument tagged. Instrument bubbles use **ISA 5.1** letters: first letter = variable (**P** pressure, **T** temperature, **F** flow, **L** level, **V** vibration, **S** speed, **Z** position), following letters = function (**I** indicator, **T** transmitter, **C** controller, **S** switch, **A** alarm, **E** element, **V** valve; **H/L** high/low). `PIT-101` = pressure indicating transmitter, loop 101; `TSH-203` = temperature switch high; `PSV` pressure safety valve; `FE` orifice plate. A line through the bubble = board-mounted, none = field-mounted, dashed = behind the panel. Line types: solid = process, dashed = electrical signal, `-o-o-` pneumatic signal, `---//---` software link. Use the P&ID to find isolation valves and drains **before** you open anything.
+
+## Reading a drawing: a checklist
+
+1. Title block: number, rev, units, scale, material, standard, notes.
+2. Find the front view and work out the projection; identify every hidden and centre line.
+3. Locate the datums and the largest features; then the detail.
+4. List every dimension you need with its tolerance (block or stated) and every finish.
+5. Note every weld symbol, hole callout and thread.
+6. Check the BOM quantity and material against what is in the shop.
+7. Question anything that does not add up (overall vs sum of parts, a hole that appears in one view only) **before** cutting.
+
+## Related
+
+- [Welding symbols](/article/welding-symbols)
+- [Bearing fits and tolerances](/article/bearing-clearance-and-fits-tables)
+- [Dial indicator basics](/article/dial-indicator-use)
+- [Pipe miter layout and take-outs](/article/pipe-miter-layout)
+- [Layout tools and scribing](/article/layout-tools-and-scribing)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$blueprint reading$mw$,$mw$reading drawings$mw$,$mw$mechanical drawings$mw$,$mw$orthographic projection$mw$,$mw$third angle$mw$,$mw$first angle$mw$,$mw$line types$mw$,$mw$hidden line$mw$,$mw$center line$mw$,$mw$section view$mw$,$mw$title block$mw$,$mw$revision block$mw$,$mw$bill of materials$mw$,$mw$tolerances$mw$,$mw$block tolerance$mw$,$mw$surface finish$mw$,$mw$Ra$mw$,$mw$GD&T$mw$,$mw$feature control frame$mw$,$mw$flatness$mw$,$mw$perpendicularity$mw$,$mw$position$mw$,$mw$runout$mw$,$mw$structural shapes$mw$,$mw$W12x26$mw$,$mw$HSS$mw$,$mw$piping isometric$mw$,$mw$P&ID$mw$,$mw$ISA symbols$mw$,$mw$assembly drawing$mw$,$mw$detail drawing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.100 (engineering drawing practices), Y14.3 (orthographic and pictorial views), Y14.5-2018 (GD&T), Y14.36 (surface texture); AISC Steel Construction Manual shape designations; ISA 5.1 instrumentation symbols; ASME B16.9 fitting dimensions.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$brazing-and-soldering$mw$, $mw$Brazing, Braze Welding and Soldering: Silver Brazing Alloys (BAg) and Phos-Copper (BCuP) Temperatures, Fluxes, Joint Clearance, Torch Technique, Bronze Braze Welding of Steel and Cast Iron, Soft and Lead-Free Solder, Sweat Joints, Cadmium Warning$mw$, $mw$How brazing differs from welding, which filler and flux for copper, brass, steel, stainless, cast iron, carbide and aluminium with their working temperatures, the joint clearance that capillary action needs, the oxy-acetylene torch procedure step by step, bronze braze welding as a repair method for steel and cast iron, soft soldering of copper tube with 95/5 and lead-free alloys, and the health rules on cadmium and fluxes.$mw$, $mw$## Definitions
+
+- **Brazing**: joining with a filler that melts **above 840°F (450°C)** but below the base metals; the filler is drawn into a tight joint by **capillary action**. The base metal does not melt.
+- **Braze welding**: same fillers (bronze) but a fillet or groove is built up like a weld, no capillary; used to repair cast iron and join thin steel.
+- **Soldering**: below 840°F; capillary joints in copper tube, electrical, sheet metal.
+
+Strength comes from the joint design (overlap area), not from a fat fillet: a brazed lap of **3-4× the thinner member** is as strong as the parent metal.
+
+## Filler metals
+
+| AWS class | Common names (Harris and others) | Composition | Solidus-liquidus °F (°C) | Flux | Use |
+|---|---|---|---|---|---|
+| **BCuP-5** | **Sil-Fos 15**, Phos-copper 15% Ag | 15 Ag, 80 Cu, 5 P | 1190-1475 (640-800) | **None on copper-to-copper** (phosphorus self-fluxes); flux on brass | HVAC/refrigeration copper lines, copper to brass; ductile, gap-filling |
+| BCuP-6 | Sil-Fos 2, Dynaflow (6% Ag) | 6 Ag | 1190-1450 | Same | Copper lines, cheaper |
+| BCuP-2 | Phos-copper 0% | 93 Cu, 7 P | 1310-1460 | Same | Copper only, tight fits, brittle |
+| **BAg-5** | **Stay-Silv 45**, "45% silver" | 45 Ag, 30 Cu, 25 Zn | 1225-1370 (660-745) | Yes (white paste) | Cadmium-free general purpose: steel, stainless, copper, brass, nickel; fairly wide gaps |
+| **BAg-7** | **Safety-Silv 56**, "56%" | 56 Ag, 22 Cu, 17 Zn, 5 Sn | 1145-1205 (620-650) | Yes | Cadmium-free, lowest temperature, best flow and colour on stainless (food service), tight joints |
+| BAg-24 | Safety-Silv 50N, 50% silver with Ni | 50 Ag, 20 Cu, 28 Zn, 2 Ni | 1220-1305 | Yes (black flux for carbide) | **Tungsten carbide tips**, stainless, tool steel |
+| BAg-1 | "Easy-Flo 45" (old), Stay-Silv 45 Cd | 45 Ag, 15 Cd | 1125-1145 | Yes | **Contains cadmium**: excellent flow, toxic fume; avoid; use BAg-5/7/24 instead |
+| BAg-3 | Cd-bearing with Ni | 50 Ag, 16 Cd, 3 Ni | 1170-1270 | Black flux | Old carbide rod; replace with BAg-24 |
+| **RBCuZn-C** | **Low-fuming bronze**, "brazing rod", bare or flux-coated | 58 Cu, 39 Zn, Sn, Fe, Mn | 1590-1630 (865-890) | Borax-type (bronze flux, or flux-coated rod) | **Braze welding** steel, cast iron, copper, galvanised (dull red heat) |
+| RBCuZn-D | Nickel-silver (white bronze) | Cu-Zn-Ni | 1690-1715 | Bronze flux | Stronger, harder braze welding; tool tips, wear parts |
+| BCu | Copper | 100 Cu | 1981 | Furnace | Furnace brazing of steel assemblies |
+| **BAlSi-4** | Aluminium brazing rod, 4047 | 88 Al, 12 Si | 1070-1080 (577-582) | Aluminium flux (corrosive; or flux-cored) | Aluminium to aluminium (6061, 3003, 1100); the melting point is only 100°F below the base metal: tricky |
+| BNi | Nickel-based | | 1800-2100 | Furnace/vacuum | Turbine, stainless assemblies |
+| Zinc-aluminium "miracle rods" (Alumaloy, HTS-2000) | Zn-Al | 730-740 (390-395) | None (stainless brush under the puddle) | Aluminium repair without flux; solder-like strength, not for structural or pressure |
+
+Silver content is not "better": choose by **temperature, flow (tight vs gap-filling), base metal and colour**, and by whether cadmium is out (it always is on food, potable water and anything you breathe near).
+
+## Fluxes
+
+| Flux | Range | For |
+|---|---|---|
+| **White brazing flux (AWS FB3-A, Stay-Silv White)** | 1050-1600°F | Silver brazing of steel, copper, brass, nickel |
+| **Black brazing flux (FB3-C, Stay-Silv Black)** | 1050-1700°F, longer life | Stainless, tungsten carbide, tool steel, long heating cycles, heavy sections |
+| Bronze brazing flux (borax-based, FB3-D) | 1400-2200°F | Braze welding with bronze rods |
+| Aluminium brazing flux (FB1) | 1000-1100°F | Aluminium; chloride-based, corrosive: **wash off completely** with hot water |
+| Soldering flux: water-soluble/acid (zinc chloride) | | Copper plumbing, sheet metal; wash off |
+| Soldering flux: rosin (RMA/RA) | | Electrical/electronics only |
+| No flux | | BCuP on copper-to-copper; furnace brazing in controlled atmosphere |
+
+Flux does three jobs: shows temperature (goes clear and watery at brazing heat), dissolves oxides, and lets the filler wet. Apply a **thin** coat to both parts before assembly; too much flux traps in the joint. Fluxes are fluoride-based: gloves, no skin contact, ventilation, remove all residue after brazing (hot water and a brush, or a quench when the alloy allows; residue is corrosive on stainless and aluminium).
+
+## Joint clearance
+
+Capillary action works only in a **narrow, uniform gap** at brazing temperature:
+
+| Filler | Clearance at brazing temperature |
+|---|---|
+| BAg silver alloys, flux | **0.001-0.005" (0.025-0.13 mm)** |
+| BCuP on copper (no flux) | 0.001-0.005"; tube fittings are made to this |
+| Bronze braze welding | Not capillary: a 45-90° groove or a fillet |
+| BAlSi aluminium | 0.006-0.010" (flux) |
+| Solder | 0.002-0.006"; copper tube fittings 0.002-0.004" |
+
+Dissimilar metals move the gap when heated: a steel bushing in a copper block opens up; a copper sleeve on a steel shaft tightens and can close the joint. Allow for expansion so the gap is right **at temperature**. Design the joint as a lap or sleeve, never a butt, and put the filler where gravity and capillary pull it through the joint (feed from the top or the side, watch it appear on the far side).
+
+## Torch brazing procedure (silver brazing a steel-to-copper or copper-to-copper joint)
+
+1. **Clean**: bright metal, no oil, oxide or paint: emery, wire brush, then solvent. Clean parts braze; dirty parts do not.
+2. **Flux** both faces (except BCuP on copper-to-copper), assemble, support so nothing moves; keep the gap uniform.
+3. **Torch**: oxy-acetylene with a **neutral to slightly carburising flame**, tip 1-2 sizes larger than for welding the same thickness (you heat a broad area, not a spot); air-acetylene or propane/MAPP is fine for copper tube. Shade 3-4 goggles.
+4. **Heat broadly**: play the flame over both parts, **heating the heavier part more**, keeping the flame moving; do not point the inner cone at the flux or the joint. Aim for both parts reaching brazing temperature at the same time. The flux goes from white paste → bubbles → **clear and liquid** (that is the signal, about 1100°F for white flux). Copper dull red in dim light.
+5. **Feed the filler at the joint, not in the flame**: touch the rod to the joint; if it does not melt, heat more and try again. Once it flows, it follows the heat: draw the torch along the joint and the filler chases it through. Feed enough to see a fillet all around and filler appearing at the far side.
+6. Let it solidify undisturbed; remove flux residue with hot water (or quench when the part allows: never quench cast iron or carbide).
+7. Inspect: a continuous fillet with a concave meniscus all the way around; voids or dull lumps mean the gap or the heat was wrong.
+
+Typical mistakes: overheating (silver alloy boils and zinc burns off: white fume, porous joint; flux turns black and stops working), melting the rod in the flame and dripping it on (it balls up and does not flow), heating only one part.
+
+## Copper refrigeration/plumbing lines with BCuP
+
+No flux copper-to-copper; brass fittings need flux. Heat the tube first then the fitting, apply Sil-Fos at the joint, let capillary pull it in, then a small fillet. **Purge with nitrogen** (1-3 psi flow) through refrigeration lines while brazing to prevent oxide scale inside that would foul the compressor. Keep valves and driers cool (wet rag, heat sink). Never braze lines under pressure or with refrigerant present (phosgene-like decomposition).
+
+## Braze welding steel and cast iron with bronze
+
+Used for: cast iron repairs (see [cast iron](/article/welding-cast-iron-and-repairs)), thin galvanised steel, joining dissimilar metals, low-distortion repairs, building up worn surfaces on iron.
+
+1. Bevel cast iron 90° with a grinder; clean to bright metal; for cast iron, heat the joint surfaces to a dull red and let the flame burn the graphite off (a brief oxidising pass), or the bronze will not wet.
+2. Preheat cast iron to 400-600°F (larger castings) and keep it there; mild steel needs no preheat.
+3. Flux-coated bronze rod, or bare rod dipped in bronze flux while hot; neutral flame, tip for the thickness.
+4. Heat the base to **dull red (about 1200-1300°F)**, touch the rod, **tin** the faces first (a thin flowing layer that wets the metal), then build the fillet or fill the groove in layers.
+5. Do not melt the base metal; if the bronze balls up and rolls, the base is too cold or dirty; if it fumes white and spreads thin with a burned look, too hot.
+6. Cool cast iron slowly (blanket, sand). Braze welds machine easily.
+
+Strength: bronze braze welds run 40-60 ksi tensile; do not use them for parts running above 500°F (the bronze softens) or for high-load structural joints.
+
+## Carbide tips
+
+Silver braze (BAg-24 with black flux, or a tri-metal shim) on a clean seat; **heat the steel body, not the carbide**; keep the flame off the carbide; **never quench** (the carbide cracks from thermal shock); cool slowly in air or vermiculite.
+
+## Soldering copper tube (sweat joint)
+
+1. Cut square, **ream** the burr, clean the tube end and fitting cup with abrasive cloth/fitting brush to bright copper.
+2. Thin coat of paste flux on the tube end (not the fitting), insert, twist to spread.
+3. Heat the **fitting** (cup), not the tube, with a propane/MAPP torch; move the flame around; when the flux bubbles and clears, touch solder to the joint opposite the flame; it is drawn in when the fitting is hot enough (about 400-500°F).
+4. Feed only enough: **about 1/2" of solder per 1/2" of pipe diameter** (rule of thumb: solder length ≈ pipe size); a ring all around and stop.
+5. Wipe with a dry rag while soft, cool naturally, wash flux off (acid flux corrodes).
+6. Potable water: **lead-free** only (95/5 tin-antimony, or 96.5/3.5 tin-silver, 430-464°F); 50/50 tin-lead (361-421°F) only on non-potable, drain and roof work where allowed.
+
+| Solder | Melting range °F | Use |
+|---|---|---|
+| 50/50 Sn-Pb | 361-421 | Non-potable, sheet metal, radiators; wide pasty range for wiping |
+| 60/40 Sn-Pb | 361-374 | Electrical (rosin), close to eutectic |
+| 63/37 Sn-Pb | 361 (eutectic) | Electronics |
+| **95/5 Sn-Sb** | **450-464** | Potable copper, higher strength and temperature |
+| **96.5/3.5 Sn-Ag** | **430** | Potable, stainless, HVAC; strongest common soft solder |
+| Sn-Cu lead-free plumbing alloys | 415-460 | Potable |
+
+## Health and safety
+
+- **Cadmium** rods (BAg-1, -2, -3, old "Easy-Flo"): the white fume causes acute pulmonary oedema and long-term kidney damage. Replace with cadmium-free BAg-5/-7/-24. If an old rod with an unknown label is dull grey and flows unbelievably well, suspect cadmium: do not use it.
+- Zinc fume from bronze and BAg (metal fume fever): ventilate.
+- Fluoride fluxes: gloves, glasses, no breathing the vapour, wash hands.
+- Beryllium-copper: no brazing without controls.
+- Shade 3-4 for brazing, 2 for soldering (see [welding safety](/article/welding-safety-fumes-and-ppe)); oxy-fuel rules in [oxy-fuel safety](/article/oxy-fuel-safety).
+
+## Related
+
+- [Oxy-acetylene setup (Victor)](/article/oxy-acetylene-setup-victor)
+- [Welding cast iron and repairs](/article/welding-cast-iron-and-repairs)
+- [Welding aluminium](/article/welding-aluminium)
+- [Welding safety, fumes and PPE](/article/welding-safety-fumes-and-ppe)
+- [Steel grades and heat colours](/article/steel-grades-and-heat-colours)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$brazing$mw$,$mw$silver brazing$mw$,$mw$silver solder$mw$,$mw$Sil-Fos$mw$,$mw$BCuP$mw$,$mw$BAg-5$mw$,$mw$BAg-7$mw$,$mw$Safety-Silv 56$mw$,$mw$Stay-Silv$mw$,$mw$phos copper$mw$,$mw$brazing flux$mw$,$mw$brazing temperature$mw$,$mw$joint clearance brazing$mw$,$mw$capillary$mw$,$mw$braze welding$mw$,$mw$bronze brazing$mw$,$mw$low fuming bronze$mw$,$mw$RBCuZn-C$mw$,$mw$brazing cast iron$mw$,$mw$brazing copper pipe$mw$,$mw$soldering$mw$,$mw$sweat joint$mw$,$mw$95/5 solder$mw$,$mw$lead free solder$mw$,$mw$50/50 solder$mw$,$mw$aluminum brazing$mw$,$mw$cadmium brazing rod$mw$,$mw$carbide tip brazing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A5.8 (brazing filler metals) and AWS Brazing Handbook; Harris Products Group brazing and soldering technical guide and alloy data (Stay-Silv, Safety-Silv, Sil-Fos, Stay-Brite); Lucas-Milhaupt brazing guide; ASTM B32 solder alloys; ASME B31 / copper tube handbook (CDA) sweat joint procedures.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$distortion-control$mw$, $mw$Weld Distortion Control: Why Steel Moves, Angular and Longitudinal Shrinkage Rules of Thumb, Presetting, Back-Stepping, Sequencing, Restraint, Peening and Straightening$mw$, $mw$How much a weld shrinks and in which direction, the practical rules for predicting it, and the sequence of choices (joint design, presetting, restraint, welding order, heat input) that keep a fabrication square, plus how to straighten what still moved with heat.$mw$, $mw$## Why it moves
+
+Weld metal and the plate next to it are put in at melting temperature and shrink as they cool; the cold plate around them resists, so the part bends toward the weld and gets shorter along it. Three things you can measure:
+
+| Movement | What it looks like | Rule of thumb (steel) |
+|---|---|---|
+| **Transverse shrinkage** | Butt joint gets narrower across the weld | ≈ **1/16" per butt weld** in 1/4-1/2" plate (0.5-2.5 mm); more with bigger gaps and groove volume: shrinkage ≈ 0.2 × (weld cross-section area ÷ thickness) + 0.05 × gap |
+| **Longitudinal shrinkage** | Part gets shorter along the weld | ≈ **1/32" per 10 ft of weld** for a single fillet (1 mm per 3 m); bows the part toward the weld if the weld is off the neutral axis |
+| **Angular distortion** | Plate rotates about the weld (a V-groove closes on the wide side; a tee leans toward the fillet) | Single-V 1/2" plate, 60°: **3-5°**; single fillet on a tee: **1-3°**; double-sided balanced welds: near zero |
+| **Buckling** | Thin sheet (< 1/4") waves between welds | Governed by heat input: fewer, smaller, intermittent welds |
+
+More heat input (amps × volts ÷ travel speed) = more distortion. Bigger weld than needed = more distortion. One-sided welds = angular distortion. Welds away from the neutral axis = bowing.
+
+## Control in order of effectiveness
+
+### 1. Design and prep (free)
+
+- **Do not over-weld**: a 1/4" fillet where 3/16" is called for has 78% more metal and shrinkage. Intermittent fillets (e.g. 2-6, 3-12 stagger) where the code allows.
+- **Balance the welds** about the neutral axis: double-V instead of single-V over 3/4"; fillets on both sides of a tee; symmetric stiffeners.
+- **Fewer passes**: on thick sections a few large passes distort less than many small ones (the opposite of what people expect), within the heat-input limit of the procedure.
+- **Minimum groove volume**: 60° V not 90°; U groove on thick plate; smallest root gap that still penetrates.
+- Locate welds where shrinkage does not matter, and put the biggest welds first at the neutral axis.
+
+### 2. Preset (bend it the wrong way first)
+
+- Single-V butt, 1/2" plate: tack with the plates opened up **3-5°** away from the weld side; they close to flat.
+- Tee with a single fillet: tilt the flange 1-3° away from the weld side.
+- Long butt joints: fit with a slight taper (gap opens toward the free end) so it closes as you weld from the fixed end: the joint "walks" closed.
+- Cambering beams: weld the flange to web on the side that will bow the beam the way you want.
+
+### 3. Restraint (fix it so it cannot move)
+
+- Clamps, dogs and wedges, **strongbacks** (a bar tacked across the joint on the back side with wedges under it), fixtures, tacking to a heavy table.
+- Restraint stops distortion but locks in **residual stress**; it can crack high-carbon or thick joints (add preheat) and the part may spring when released. Balance it against presetting.
+- Tack more and closer on thin material (every 2-3").
+
+### 4. Sequence (the order of welding)
+
+| Technique | How | Use |
+|---|---|---|
+| **Back-step** | Weld each 4-8" segment in the opposite direction to the overall progression | Long butt joints, thin plate |
+| **Skip (wandering)** | Weld 1, 5, 3, 7, 2, 6... segments | Long fillets, sheet |
+| **Alternate sides** | Weld a pass on side A, then side B, keep going | Double-V, double-fillet tees |
+| **Weld toward the free end** | Start at the fixed/clamped end so shrinkage has somewhere to go | Frames, anything with one end trapped |
+| **Balance about the axis** | Pair welds symmetrically (two welders opposite each other on a pipe or column) | Beams, columns, pipe |
+| **Weld from the centre out** | On a plate with several stiffeners, do the middle one first | Decks, tank floors |
+| **Root first, then balance** | On a big double-V, root and a couple of passes, back-gouge, then alternate | Heavy plate |
+
+### 5. Heat control
+
+- Preheat evenly (it reduces the temperature gradient, so less distortion, but it also softens thin sheet: use it for thick, not thin).
+- Lower heat input where possible: smaller wire, short-circuit or pulse instead of spray on sheet, stringers.
+- Let welds cool between passes on sheet (the opposite of interpass control on thick sections, which is about cracking).
+- **Chill bars** (copper or aluminium bars clamped beside the joint) pull heat out of thin stainless and aluminium.
+
+### 6. Peening
+
+Hammering each intermediate bead (not the root or the cap on code work, and never with a needle scaler as a substitute for procedure) stretches it and relieves shrinkage. Allowed under D1.1 between passes; check the WPS. Light peening at the crater helps against crater cracks on heavy sections.
+
+## Fixing it afterwards
+
+### Mechanical
+
+Press, jacks, dogs and wedges, a "come-along" on a frame: works on angular distortion of heavy parts. Do not hammer cold on quenched-and-tempered or high-carbon steel.
+
+### Flame (heat) straightening
+
+Heat a spot or a V-shaped wedge with a rosebud on the **convex** (long) side, let it try to expand, the cold surrounding metal stops it, and it shrinks on cooling, pulling the plate back. Rules:
+
+- Temperature: **dull red, about 1100-1200°F (600-650°C)** for mild steel; D1.1 caps it at **1200°F for ordinary steels and 1100°F for quenched-and-tempered** (A514/A517, A709 HPS). Use a temp stick, never guess in daylight; over 1300°F you change the steel.
+- Heat **quickly** with a large tip so the surface gets hot before the whole thickness does.
+- Spot heats 1-2" diameter on plate buckles, **V heats** (apex at the compression side, base at the tension side) on flanges and bars, **line heats** along a fillet to pull a tee flange back.
+- Let it air cool; water-quenching mild steel after the heat is done is common but never on Q&T or high-carbon steel.
+- Expect to repeat: several small heats beat one big one.
+- Compensating heats on the opposite side to the weld on a warped tee flange: heat the flange on the side away from the fillet in lines opposite the weld.
+
+## Worked example
+
+A 3/8" tee, 6 ft long, single 1/4" fillet. Expect the flange to lean about 2° toward the fillet: over a 6" wide flange that is about 0.2" out of flat at the edge. Options: weld both sides with 3/16" fillets (balanced, no lean, similar strength), preset the flange 2° the other way with wedges, or clamp it flat and expect to straighten with a line heat. A 1/4" fillet can also be run as 3-12 intermittent if the drawing allows, cutting shrinkage by half.
+
+## Related
+
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Positions and techniques](/article/positions-and-techniques)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Oxy-fuel heating with a rosebud](/article/oxy-fuel-heating-rosebud)
+- [Steel grades and heat colours](/article/steel-grades-and-heat-colours)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$distortion$mw$,$mw$warping$mw$,$mw$shrinkage$mw$,$mw$angular distortion$mw$,$mw$presetting$mw$,$mw$back step welding$mw$,$mw$skip welding$mw$,$mw$weld sequence$mw$,$mw$restraint$mw$,$mw$clamping$mw$,$mw$strongback$mw$,$mw$peening$mw$,$mw$flame straightening$mw$,$mw$heat straightening$mw$,$mw$transverse shrinkage$mw$,$mw$longitudinal shrinkage$mw$,$mw$buckling$mw$,$mw$thin plate warping$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Lincoln Electric Procedure Handbook of Arc Welding (distortion chapter); The Welding Institute (TWI) distortion guidance; AWS D1.1 Clause 7 (heat straightening limits 1100°F for quenched-and-tempered, 1200°F for other steels).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$fcaw-gas-shielded-setup$mw$, $mw$Gas-Shielded Flux-Core (FCAW-G) Setup: E71T-1 Procedure Chart for .035, .045, .052 and 1/16 Wire, Gas, Polarity, Stickout and Technique$mw$, $mw$Lincoln's published wire feed speed, voltage and amperage table for Outershield 71M (E71T-1C/M) in every diameter, with deposition rates, plus the gas, polarity, stickout, positions and technique that make gas-shielded flux-core the structural welder's workhorse.$mw$, $mw$## What it is
 
 A tubular wire with flux inside, run on a **CV** machine with **DC+** and a shielding gas (100% CO2 or 75/25 Ar-CO2). The flux gives a slag that supports the puddle out of position and a smooth spray-like arc; the gas gives the shielding. Result: MIG speed with stick-like tolerance of position and thickness. It is the default for structural steel, heavy fabrication, shipbuilding and any vertical-up weld on plate.
@@ -4043,6 +4391,240 @@ Match the base metal: ER70S-2 for steel, ER308L/316L/309L for stainless, ER4043/
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hardfacing-and-buildup$mw$, $mw$Hardfacing and Build-Up: Alloy Families by Wear Type, Buffer Layers, Chromium Carbide Check-Cracking, Manganese Steel Rules, Electrode and Wire Selection, Preheat and Bead Patterns$mw$, $mw$How to match a hardfacing alloy to the kind of wear a part sees (abrasion, impact, metal-to-metal, heat, corrosion), the difference between build-up and the hard overlay, why chromium carbide cracks on purpose and manganese steel must stay cool, layer limits, preheat by base metal, bead patterns for different service, and the settings for common rods and wires.$mw$, $mw$## Wear types decide the alloy
+
+| Wear | Looks like | Examples | Alloy family |
+|---|---|---|---|
+| **Abrasion, low stress** (sliding grit) | Polished, scratched | Chutes, hoppers, screw flights, dozer blades, fan blades in dusty air | **Chromium carbide** (highest abrasion resistance), tungsten carbide for extreme |
+| **Abrasion, high stress** (grit crushed against the surface) | Gouged and scratched | Crusher rolls, mill liners, ball mill scoops | Martensitic alloys with carbides, complex carbides |
+| **Impact** | Battered, peened, deformed | Hammer mill hammers, crusher jaws, bucket lips, impact plates | **Austenitic manganese** (work-hardens from HRC 20 to 50+ under impact) |
+| Abrasion + impact | Both | Bucket teeth, ripper shanks, dragline | Martensitic (medium), or manganese base with carbide top |
+| **Metal-to-metal** (rolling/sliding, lubricated or not) | Scored, galled | Shafts, tractor rollers, idlers, trunnions, cranes wheels, gear teeth | **Martensitic build-up / semi-austenitic**, machinable grades; cobalt for hot |
+| Heat + wear | Heat checking, scale | Hot shear blades, forging dies, furnace rolls | Cobalt (Stellite), Ni-based, tool-steel types |
+| Corrosion + wear | Pitted | Valve seats, pump parts, agitators | Stainless (308/309/410), cobalt, Ni-Cr |
+| Cavitation | Spongy pitting | Pump impellers, turbine runners | 309L/312 stainless, cobalt |
+
+## Layers: build-up, buffer, hardfacing
+
+```
+   hardfacing (1-2 layers, HRC 40-65, may be non-machinable, may check-crack)
+   ─────────────────────────────────────────────
+   buffer / buttering (1 layer, tough, ductile; catches cracks, absorbs dilution)
+   ─────────────────────────────────────────────
+   build-up (as many layers as needed to restore dimension; machinable, HRC 25-40)
+   ─────────────────────────────────────────────
+   base metal (carbon steel, low alloy, manganese steel, cast iron...)
+```
+
+- **Build-up** electrodes/wires (e.g. Lincoln Wearshield BU / Lincore BU, Stoody Build-Up, Hardalloy 32) restore worn parts to size; tough, crack-free, unlimited layers, machinable. Base for any hardfacing thicker than 2 layers.
+- **Buffer** on hard-to-weld bases: 7018 or 309L on carbon/low-alloy, a manganese-type buffer (Wearshield Mangjet, Stoody Nicromang) on **manganese steel**, nickel electrodes on cast iron.
+- **Hardfacing** is the last **1-2 layers only** on chromium-carbide types; the third layer spalls off. Martensitic types can go 3-4 layers; manganese and cobalt types more.
+
+## Alloy families and products
+
+| Family | Deposit hardness | Layers max | Machinable | Cracking | Products (stick / open-arc or gas-shielded wire) |
+|---|---|---|---|---|---|
+| Build-up (low-alloy steel) | HRC 25-35 | unlimited | Yes | No | Wearshield BU / Lincore BU-G; Stoody Build-Up; Hardalloy 32 |
+| Martensitic, medium hard | HRC 35-45 | 3-4 | With carbide, or anneal | Rare with preheat | Wearshield MM, Lincore 40-O; Stoody 105B/Super Build-Up; Hardalloy 40/48; McKay Hardalloy 118 |
+| Martensitic, hard | HRC 50-60 | 2-3 | Grinding only | Possible; preheat | Wearshield 60, Lincore 55/60-O; Stoody 2110/Self-Hardening; Hardalloy 55/58 |
+| **Austenitic manganese** | HRC 18-22 as welded, **50+ work-hardened** | unlimited | Difficult (work-hardens as you cut) | No, but the base overheats | Wearshield Mangjet, Lincore M; Stoody Nicromang; Hardalloy 8 |
+| Austenitic Cr-Mn stainless-type (joining/buffer) | HRC 20-25 → 45 | unlimited | Yes | No | Wearshield 15CrMn; Stoody 2110 "Dynamang"; Hardalloy 8 |
+| **Chromium carbide** | HRC 55-65 | **2** | No | **Check-cracks by design** (relief cracks every 1/2-2") | Wearshield ME / ABR / 70; Lincore 50/55/60-O; Stoody 100HC / 101HC / 121; Hardalloy 140 / Postalloy 2830 |
+| Complex carbide (Cr + Nb/Mo/W/B) | HRC 60-70 | 1-2 | No | Check-cracks | Wearshield 70; Stoody 130/143; Postalloy 2836 |
+| Tungsten carbide (composite rod / tube) | HRC 60+ matrix with WC particles ~HRC 90 | 1 | No | Check-cracks | Stoody Tube Borium, Lincoln Toughtung; oxy-fuel or low-amp stick to keep the carbides unmelted |
+| Cobalt (Stellite 6/12/21) | HRC 38-48 hot-hard | 2-3 | Grinding | Preheat 500°F+ | Stoody 6, Stellite 6 rods (TIG/oxy/stick/PTA) |
+| Ni-Cr-B-Si (Colmonoy) | HRC 40-60 | | | | Spray-and-fuse or TIG; pump sleeves, valve seats |
+
+**Check-cracking**: chromium carbide deposits are so hard they cannot shrink without cracking, so they crack every inch or so across the bead; that is normal and prevents the whole layer from lifting. Cracks must **not** run into the base metal (buffer layer, preheat, do not overlap more than 2 layers). Parts loaded in bending or fatigue (shafts) never get chromium carbide.
+
+**Manganese steel rules** (crusher jaws, hammers, frogs): the base metal embrittles above **500°F (260°C)**. Keep the part **cool to the touch 2-3" away**, short beads, skip sequence, water-cool between passes (quenching is allowed on manganese, the opposite of carbon steel), no preheat, use a manganese or Cr-Mn type electrode as the first layer. Check with a temp stick; never use a torch on it.
+
+## Base metal and preheat
+
+| Base metal | Preheat for build-up / hardfacing |
+|---|---|
+| Low-carbon steel (A36, 1020) | None to 100°F (dry) |
+| Medium-carbon (1045 shafts, forgings) | 300-500°F (150-260°C), slow cool |
+| Low-alloy (4140, 4340, 8620) | 500-600°F (260-315°C), buffer, slow cool; PWHT if machined afterwards |
+| **Manganese steel (Hadfield, 11-14% Mn)** | **None; keep under 500°F** |
+| Cast iron | Nickel buffer, 500°F+ or cold method (see [cast iron](/article/welding-cast-iron-and-repairs)) |
+| Stainless | 309L/312 buffer if cracking; interpass ≤ 300°F |
+| Unknown | Spark test; if it sparks like high-carbon or high-alloy, preheat 400°F and buffer |
+
+Rule of thumb: carbon-equivalent based, same as [preheat article](/article/preheat-interpass-and-carbon-equivalent); a build-up layer on a preheated base then the hardfacing on the still-warm part.
+
+## Bead pattern by service
+
+| Pattern | Use |
+|---|---|
+| **Stringers, parallel to flow** | Coarse material sliding: material flows over the beads (chutes, flights) |
+| **Stringers, across the flow** | Fine abrasive: the grooves fill with the material and it wears on itself (dozer blades, bucket sides) |
+| **Waffle / cross-hatch** (1-2" squares) | Rock and mixed material in buckets and hoppers: the material packs the squares and protects the base; saves rod |
+| Dots / studs | Loose rock on plates where you want a rough surface |
+| Full coverage, overlapped 1/3 | Rollers, shafts, metal-to-metal, anything machined afterward |
+| Edge beads only | Cutting edges: hard on the wear side, soft steel behind so it self-sharpens |
+
+## Settings
+
+| Consumable | Diameter | Polarity | Amps / settings |
+|---|---|---|---|
+| Stick build-up and martensitic (Wearshield BU, MM, 60; Hardalloy 32/40/55) | 1/8" | DCEP or AC | 110-150 A |
+| | 5/32" | | 140-200 A |
+| | 3/16" | | 180-260 A |
+| Stick chromium carbide (Wearshield ME/70; Stoody 100HC) | 5/32" | DCEP or AC | 130-190 A (long arc, keep dilution low) |
+| | 3/16" | | 170-250 A |
+| Stick manganese (Mangjet, Nicromang) | 5/32" | DCEP or AC | 130-180 A, short beads |
+| Open-arc hardfacing wire (Lincore 50-O/55-O/60-O, Stoody 100HC-O) | 1/16" | **DCEP** | 200-300 A, 24-30 V, stickout **1-1.5"** |
+| | 7/64" | DCEP | 300-450 A, 26-32 V, stickout 1.5-2.5" |
+| Build-up wire Lincore BU-G / metal-cored | .045 | DCEP, 90/10 or 100% CO2 | 180-280 A, 24-30 V |
+| Tungsten carbide tube rod | 3/16-1/4" | oxy-acetylene (carburising flame) or DCEN low amps | Keep the carbides from melting: sweat the matrix, do not stir |
+| Cobalt (Stellite 6) | 1/8" stick / 3/32" TIG | DCEP / DCEN | 90-140 A / 100-150 A, preheat 500°F |
+
+Open-arc self-shielded hardfacing wires run long stickout and high voltage on purpose: more deposit, less dilution. Deposit efficiency is 60-70%. Dilution from the base metal reduces hardness in the first layer; the **second layer is the hard one**.
+
+## Procedure
+
+1. Identify the base metal (spark test, drawings, magnet); identify the wear type from the surface.
+2. Remove the old hardfacing if it is cracked, spalled or a third layer would result: grind, gouge (carbon-arc works on carbide overlay; grind the carbon off), or machine.
+3. Clean to bright metal; preheat per the table.
+4. Build up to within 1/8-3/16" of final size with build-up alloy; peen martensitic layers if the part is restrained.
+5. Buffer if needed (alloy base, manganese base, cast iron).
+6. Hardface: **1-2 layers**, pattern per service, keep the part within the interpass window (or cool, on manganese).
+7. Slow-cool carbon/alloy steel parts (blanket, sand); air- or water-cool manganese.
+8. Check: look for cracks running into the base (bad) vs check-cracks across the bead (normal on carbide), measure hardness with a file (a new file skates on HRC 60), verify dimensions, grind if it must be smooth.
+
+## Worked example: bucket lip
+
+1/2" A36 bucket lip, worn back 1/4", hauling sand and gravel (abrasion with some impact). Preheat 200°F (dry). Build-up with 5/32" Wearshield BU at 170 A to size; then one layer of Wearshield ME (chromium carbide) 3/16" at 200 A in **stringers across the flow** on the top face and a second layer on the cutting edge only. Expect check cracks every inch. Cool under a blanket. Life is typically 3-5× bare A36; re-face when the carbide is gone, never let it wear into the build-up and the parent metal.
+
+## Common mistakes
+
+- Three or four layers of chromium carbide: the top spalls in slabs and takes the second layer with it.
+- Hardfacing a 4140 shaft with no preheat and no buffer: cracks under the overlay and a broken shaft.
+- Torch-preheating manganese steel jaws: the whole casting cracks on the first blow.
+- Hardfacing without build-up: 1/2" of carbide is $$$ and cracks; build up cheap, face hard.
+- Using 7018 as "hardfacing": it is softer than the part.
+- Grinding carbide overlay with a hard wheel: use a soft-bond wheel or a carbide-rated flap disc; it barely touches HRC 60.
+
+## Related
+
+- [Welding cast iron and repairs](/article/welding-cast-iron-and-repairs)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Stick setup](/article/smaw-stick-setup), [self-shielded flux-core](/article/fcaw-self-shielded-setup)
+- [Metal identification and spark test](/article/metal-identification-and-spark-test)
+- [Hardness conversion](/article/hardness-conversion)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$hardfacing$mw$,$mw$hard facing$mw$,$mw$hardsurfacing$mw$,$mw$build up$mw$,$mw$buildup$mw$,$mw$chromium carbide$mw$,$mw$tungsten carbide$mw$,$mw$manganese steel$mw$,$mw$austenitic manganese$mw$,$mw$buffer layer$mw$,$mw$check cracking$mw$,$mw$wear resistance$mw$,$mw$abrasion$mw$,$mw$impact$mw$,$mw$Stoody$mw$,$mw$Wearshield$mw$,$mw$Lincore$mw$,$mw$Hardalloy$mw$,$mw$McKay$mw$,$mw$bucket teeth$mw$,$mw$screw conveyor flights$mw$,$mw$hammer mill$mw$,$mw$crusher$mw$,$mw$waffle pattern$mw$,$mw$hardfacing amperage$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Lincoln Electric Hardfacing Product and Procedures Selection Guide; ESAB/Stoody Hardfacing Guide; Hobart Hardalloy data sheets; AWS A5.13 / A5.21 (surfacing electrodes and rods); Postle Industries hardfacing guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$joint-design-and-fit-up$mw$, $mw$Weld Joint Design and Fit-Up: Groove Types, Bevel Angles, Root Opening and Land, Prequalified Joint Dimensions, Tacking Sequence and Fit-Up Tolerances$mw$, $mw$The five joint types and the groove shapes cut into them, the dimensions that matter (bevel angle, root opening, root face), the standard prequalified numbers for stick, MIG and flux-core, how much fit-up error is allowed, and the tacking sequence that keeps a joint from pulling out of square before you weld it.$mw$, $mw$## The five joints
+
+| Joint | Where the parts meet | Typical welds |
+|---|---|---|
+| **Butt** | Edge to edge in the same plane | Square, V, bevel, U, J grooves |
+| **Tee** | One part ends against the face of another at ~90° | Fillet, bevel or J groove for full penetration |
+| **Lap** | Parts overlap | Fillet each side, plug or slot welds |
+| **Corner** | Edges meet at ~90° forming an L | Fillet inside, bevel/V groove outside |
+| **Edge** | Parallel faces, edges flush | Edge weld (sheet metal only) |
+
+## Groove geometry words
+
+```
+        bevel angle ──┐      groove angle = both bevels added
+                  ╲   │   ╱
+   plate ─────────╲   │  ╱──────── plate
+                   ╲  │ ╱
+                    ╲ │╱   ← root face (land): the flat left at the bottom
+      root opening →  ├──┤  (gap between the parts)
+```
+
+- **Bevel angle**: cut on one plate (e.g. 30°). **Groove angle**: the total included angle (two 30° bevels = 60° V).
+- **Root opening (gap)**: space between the parts at the root. More gap = easier penetration, more filler, more distortion.
+- **Root face (land)**: flat left unbevelled at the bottom. Too thin melts through; too thick does not fuse.
+- **Backing**: a bar or ring behind the root that lets you run hot without burn-through; steel backing stays in place (or is removed and back-gouged), ceramic backing is removed.
+- **Back-gouge**: grinding or arc-gouging the root from the second side down to sound metal before welding the second side.
+
+## Which groove for which thickness (steel)
+
+| Thickness | Joint | Notes |
+|---|---|---|
+| ≤ 3/16" (5 mm) | **Square groove**, gap 0 to 1/16-1/8" | Full penetration from one side with a gap and MIG/stick; from two sides with no gap up to 1/4" |
+| 3/16-3/4" (5-20 mm) | **Single V**, 60° included, 1/8" gap, 0-1/8" land | The everyday plate joint; single side with backing or open root |
+| 3/4-1.5" | **Double V** (both sides) | Halves the filler, balances distortion; needs access to both sides |
+| > 1" thick, expensive filler or restricted access | **U or J groove**, 1/4" radius, 20° bevel | Less filler than V; needs machining or careful gouging |
+| Tee, full penetration | **Single or double bevel**, 45° each, 1/4" gap with backing, or 3/16" open root | Bevel only the branch member |
+| Pipe | **37.5° bevel** (75° included), 1/16-1/8" land, 1/8" gap (3/32" for TIG root) | Standard API/ASME pipe prep |
+
+## Prequalified numbers (AWS D1.1, stick / MIG spray / FCAW)
+
+Use these when no procedure tells you otherwise; they are the joints that codes have already proven.
+
+| Joint (D1.1 designation) | Groove angle | Root opening | Root face | Notes |
+|---|---|---|---|---|
+| Square groove, welded both sides (B-P1c) | - | ≤ T/2 | - | Up to 1/4" for SMAW |
+| Single V, backing (B-U2a) | 30° with 1/4" gap; **45° with 1/4" gap**; 20° with 1/2" gap | as listed | 0 | With steel backing |
+| Single V, no backing, back-gouged (B-U2) | 60° | 0-1/8" | 0-1/8" | Weld side 1, gouge, weld side 2 |
+| Single V open root, stick (B-U2 "open root") | 60° | 1/8-3/16" | 0-1/8" | E6010 root, 7018 fill typical |
+| Double V (B-U3b) | 60° both | 0-1/8" | 0-1/8" | Alternate sides to control distortion |
+| Single bevel tee, backing (TC-U4a) | 45° | 1/4" | 0 | |
+| Single bevel tee, back-gouged (TC-U4b) | 45° | 0-1/8" | 0-1/8" | |
+| U groove (B-U6) | 20° bevel, 1/4" radius | 0-1/8" | 1/8" | |
+
+**Fit-up tolerances (D1.1 prequalified, as fit)**: root opening **±1/16"** without backing, +1/4"/−1/16" with backing; root face ±1/16"; groove angle +10°/−5°. Gaps up to 3/16" over the drawing can be **buttered** (built up on one face) and then welded; bigger gaps need a backing or a splice strip, never just "fill it".
+
+**Misalignment (hi-lo)**: butt joints of equal thickness, offset ≤ 10% of thickness, max 1/8" (D1.1). Pipe: usually ≤ 1/16" for TIG roots, 3/32" for stick. Offsets over that get a taper of 1 in 2.5 (2.5:1) ground on the thicker part.
+
+## Fillet welds
+
+- **Size** = leg length. Minimum fillet size by the **thicker** part (D1.1 Table 5.7): up to 1/4" → 1/8"; over 1/4" to 1/2" → 3/16"; over 1/2" to 3/4" → 1/4"; over 3/4" → 5/16".
+- Maximum single-pass fillet: about **5/16" with 7018 or MIG spray, 3/8" with FCAW** in the flat position; bigger fillets are multi-pass.
+- Fillet gap: fit the parts tight. **Each 1/16" of gap adds 1/16" to the required leg** (up to a 3/16" max gap allowed by D1.1); over 3/16" needs a backing or a repair of the fit.
+- Throat = 0.707 × leg for an equal-leg fillet; strength comes from the throat.
+
+## Edge preparation
+
+| Method | Use | Watch |
+|---|---|---|
+| Oxy-fuel bevel (track burner or bevel tip) | Carbon steel plate, any thickness | Grind off scale and the 1/32" hardened skin on high-carbon steel |
+| Plasma bevel | Steel, stainless, aluminium | Remove dross, grind nitrided face on stainless if a code job |
+| Grinder | Small jobs, root faces, cleaning | Consistent angle with a bevel gauge |
+| Plate beveller / pipe beveller | Production and pipe | |
+| Machining | U/J grooves, precision | |
+
+Clean **1" back from the joint** on both faces: mill scale, rust, paint, oil, galvanising. Check the bevel with a **fillet/bevel gauge**, mark the root face with a scribe, and dry-fit before tacking.
+
+## Tacking
+
+1. Tack size: tacks about **2 × plate thickness long** at spacing **6-12"** (sheet: 1" tacks every 2-3"). Undersized tacks crack when the plate pulls.
+2. Sequence on a long butt: **ends first, then the middle, then halve the spaces**; on a square frame, tack opposite corners.
+3. Tack with the same electrode/wire family as the root (7018 tacks in a 7018 joint; never 6013 tacks in a code joint). Grind tack ends to a feather so the root pass fuses over them.
+4. Set the root gap with a **spacer** (a piece of 1/8" wire or a gap gauge) and pull it before welding.
+5. Check square and level **after** tacking and again after the root; a preset of 2-3° opposite to the expected pull on a single-V is normal (see [distortion control](/article/distortion-control)).
+6. Tacks that crack, are porous or have arc strikes beside them get ground out, not welded over.
+
+## Common mistakes
+
+- Beveling both sides of a tee (only the branch is bevelled).
+- Root face ground to nothing: the root falls through; 1/16-1/8" land carries the root.
+- Welding a fillet over a 1/4" gap at the drawing size: the throat is gone.
+- Backing bar not tight to the plate: slag traps and root cracks. Clamp it hard; on pipe, use the right ID backing ring.
+- Beveling 45° each side (90° included) "to be safe": twice the filler and twice the distortion of a 60° groove.
+
+## Related
+
+- [Weld positions and techniques](/article/positions-and-techniques)
+- [Distortion control](/article/distortion-control)
+- [Welding symbols](/article/welding-symbols)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Stick setup](/article/smaw-stick-setup), [MIG setup](/article/gmaw-mig-setup)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$joint design$mw$,$mw$weld joint$mw$,$mw$butt joint$mw$,$mw$V groove$mw$,$mw$bevel angle$mw$,$mw$root opening$mw$,$mw$root face$mw$,$mw$land$mw$,$mw$fillet weld$mw$,$mw$tee joint$mw$,$mw$lap joint$mw$,$mw$corner joint$mw$,$mw$fit up$mw$,$mw$tack weld$mw$,$mw$tacking sequence$mw$,$mw$backing bar$mw$,$mw$prequalified joint$mw$,$mw$D1.1 joint$mw$,$mw$gap$mw$,$mw$misalignment$mw$,$mw$hi-lo$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS D1.1 Structural Welding Code, Clause 5 prequalified joint details and fit-up tolerances (Figures 5.1/5.2, Tables 5.4-5.5); AWS A3.0 terms; Lincoln Electric Procedure Handbook of Arc Welding.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$machine-setup-and-duty-cycle$mw$, $mw$Welding Machine Setup: CC vs CV, Duty Cycle Math, Input Power and Breakers, Welding Cable Size Chart, Ground Clamp Placement and Arc Blow$mw$, $mw$The electrical side of setting up any welder: which output type each process needs, how to read and use the duty-cycle rating, what input circuit and breaker a machine wants, the cable size chart by amperage and total lead length, where to put the ground and how to beat arc blow.$mw$, $mw$## Output type by process
 
 | Process | Output | What you set | What the machine holds |
@@ -4145,6 +4727,214 @@ On DC the magnetic field around the arc gets pushed by the field in the plate: t
 - [Welder maintenance and consumables](/article/welder-maintenance-and-consumables)
 - [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
           array[$mw$duty cycle$mw$,$mw$welding cable size$mw$,$mw$cable chart$mw$,$mw$1/0 cable$mw$,$mw$2/0 cable$mw$,$mw$welder breaker size$mw$,$mw$input amps$mw$,$mw$engine drive welder$mw$,$mw$generator welding$mw$,$mw$constant current$mw$,$mw$constant voltage$mw$,$mw$ground clamp$mw$,$mw$work clamp$mw$,$mw$arc blow$mw$,$mw$extension cord welder$mw$,$mw$240V welder$mw$,$mw$multi process$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Manufacturer nameplates and manuals (Miller, Lincoln, ESAB); NEC Article 630 (arc welders); welders-supply.com welding cable size chart (60% duty cycle, 4 V drop basis); IEWC/TPC ampacity tables.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$positions-and-techniques$mw$, $mw$Welding Positions and Techniques: 1G-6G and 1F-4F Explained, Travel and Work Angles, Stringer vs Weave, Vertical-Up and Vertical-Down, Overhead, Restarts and Tie-Ins$mw$, $mw$What each position code means for plate and pipe, the angles and bead types that work in each one for stick, MIG, flux-core and TIG, how to lay multi-pass welds, and how to restart and tie in without defects.$mw$, $mw$## Position codes
+
+**Groove welds (G)** and **fillet welds (F)**; the number is the position.
+
+| Code | Plate | Pipe | The weld runs |
+|---|---|---|---|
+| **1G / 1F** | Flat | Pipe rolled, weld on top | Flat, puddle sits on top of the joint; easiest, hottest settings |
+| **2G / 2F** | Horizontal | Pipe vertical, weld horizontal around it | Horizontal: gravity pulls the puddle down onto the lower plate |
+| **3G / 3F** | Vertical | - | Vertical-up (structural) or vertical-down (sheet, pipeline root) |
+| **4G / 4F** | Overhead | - | Overhead: gravity pulls the puddle off the plate |
+| **5G** | - | Pipe horizontal, **fixed**; weld goes flat → vertical → overhead | All positions in one joint |
+| **6G** | - | Pipe fixed at **45°** | All positions plus an angle; the all-position qualification test |
+| 6GR | - | 6G with a restriction ring | Tests reach and access |
+
+Qualifying in a harder position qualifies the easier ones: 3G+4G plate qualifies all plate positions; 6G pipe qualifies everything for that diameter range and process.
+
+**Which side of the plate the weld runs on and where the plate is** define position; a fillet in a corner that is flat but on a tilted structure counts as whatever the joint angle makes it (D1.1 Figure 5.4 position diagram; ±15° of flat still counts as flat).
+
+## The two angles
+
+- **Work angle**: the angle between the electrode and the plate surface, measured across the joint. Fillet: split the corner, **45°** (bias toward the thicker plate); butt: **90°**.
+- **Travel angle**: the tilt along the direction of travel. **Drag (pull)**: electrode points back at the finished weld: stick, flux-core, "drag if slag". **Push**: electrode points ahead into the unwelded joint: MIG with solid wire, TIG.
+
+| Process | Travel angle | Work angle (fillet) |
+|---|---|---|
+| Stick | 5-15° drag | 45°, 30° from the vertical plate on horizontal fillets |
+| MIG solid wire, short-circuit | 5-15° push (drag allowed on thick, more penetration) | 45° |
+| MIG spray | 5-10° push | 45° |
+| FCAW (gas and self-shielded) | 5-20° drag | 45° |
+| TIG | 10-15° push, filler 15-20° from the plate | 45° |
+| Overhead, any process | Keep 0-10°, more angle drips | 45° |
+
+## Bead types
+
+- **Stringer**: straight, no or minimal oscillation. Standard for root passes, flux-core, spray MIG, stainless and anything under a code that limits weave width. Low heat input, more passes.
+- **Weave**: side-to-side, pausing at the toes, straight across the middle. Vertical-up fills and caps, wide gaps. Max width: about **3/8-5/8" with stick** (most WPSs limit it to a multiple of the electrode diameter); D1.1 limits vertical weaves through the WPS. Wider weaves = more heat input, slower, undercut at the toes if you do not pause.
+- **Whip and pause** (E6010/6011 only): push the arc ahead 1/4-1/2" to let the puddle freeze, come back and pause. For open roots and vertical-up with fast-freeze rods; never with 7018.
+- **Triangle / inverted-V weave**: vertical-up on fillets and open grooves: a shelf builds under the puddle.
+- **Keyhole**: on open-root pipe, the root is welded by keeping a small hole open ahead of the puddle; the hole size is the gap plus about a rod diameter. See [plasma keyholing and piercing](/article/plasma-keyholing-and-piercing) for the cutting meaning.
+
+## Position by position
+
+### Flat (1G/1F)
+
+Hottest settings from the charts; the puddle supports itself. Fillet: 45° work angle, 10-15° drag or push, stringer or slight weave. Big single-pass fillets (5/16") are fine here. Put the arc on the leading edge of the puddle and let the puddle size set the travel speed.
+
+### Horizontal (2G/2F)
+
+Gravity sags the puddle onto the bottom plate: undercut on the top toe and overlap on the bottom.
+
+- Work angle **30-45° up from the bottom plate** on fillets (aim the arc slightly at the lower plate, it needs less heat), electrode tilted 5-15° drag.
+- Grooves: stringers only, **start at the bottom of the groove and work up**, each bead overlapping the one below by half; keep the last bead on the top bevel tight to avoid undercut.
+- Drop amperage 5-10% from flat with stick.
+
+### Vertical-up (3G/3F)
+
+Structural standard: full penetration, slow, hot enough to fuse but cool enough to hold.
+
+- Amps **10-15% below flat**; 7018 3/32" ≈ 80-100 A, 1/8" ≈ 100-125 A; MIG short-circuit drop 1-2 V and WFS 10-20%; FCAW at the low end of the chart.
+- Work angle 90° to the plate, travel angle **0-10° up** (rod pointing slightly up, never down).
+- Root: stringer or tight triangle weave with a short pause each side to build the shelf. Fill: weave, pausing at the toes and moving fast across the centre. Cap: a wider weave, pausing to fill the toes, keeping the puddle ahead of the slag.
+- If the puddle sags, you are too hot or too slow at the centre; if it looks ropey and cold, more heat or a shorter arc.
+
+### Vertical-down (3G/3F down)
+
+Sheet metal and pipeline root passes (E6010 on API 1104 pipe). Fast, shallow, needs a **fast-freeze** electrode (E6010/6011/6013) or short-circuit MIG/self-shielded FCAW. Point the electrode **5-15° up**, keep the arc on the leading edge so the slag stays behind. Not allowed on structural fills with low-hydrogen stick (slag runs ahead and gets trapped).
+
+### Overhead (4G/4F)
+
+- Amps like vertical or a touch higher; **short arc**, stringers or tight weaves, 0-10° travel angle. Keep the puddle small; if it starts to drip, move on and come back.
+- 7018 overhead: hold a very short arc and a steady rhythm. MIG: short-circuit, lower voltage, a gas nozzle that is clean, flow 5 cfh above flat if drafts.
+- Wear leathers, a cap, and no open pockets: sparks fall on you.
+
+### Pipe 5G and 6G
+
+Root (E6010 open root or TIG), hot pass, fill and cap, each pass **around the pipe in halves** from bottom (6 o'clock) to top (12 o'clock) so the whole weld is vertical-up, or downhill root then uphill fill on some pipeline procedures. Change your angle continuously to keep the electrode perpendicular to the pipe surface at every clock position. Grind the start and stop of each half to a taper so the next tie-in fuses.
+
+## Multi-pass welds
+
+1. **Root**: penetration and fusion at the root, nothing else. 1/8" 6010 or 3/32" TIG on pipe; 3/32 or 1/8" 7018 in a backed groove.
+2. **Hot pass** (pipe): right after the root, hotter, to burn out root wagon tracks and reinforce a thin root before it cracks.
+3. **Fill**: stringers or weaves, each bead **overlapping the previous by 1/3 to 1/2**, never leaving a deep valley between beads. Keep the fill about 1/16" below the plate surface for the cap. Clean every pass (chip, wire brush, needle scale if needed).
+4. **Cap / cover**: one wide weave or multiple stringers that stand **1/16-1/8" high**, toes fused, no undercut. A cap wider than the groove by 1/16-1/8" each side is right.
+5. Watch **interpass temperature**: check with a temp stick before each pass (see [preheat and interpass](/article/preheat-interpass-and-carbon-equivalent)).
+
+## Starts, stops and tie-ins
+
+- **Stick restart**: strike **1/2" ahead** of the crater, move back into the crater, fill it, then carry on. Chip the crater first on 7018.
+- **MIG/FCAW restart**: start on the crater itself with a slightly longer stickout, then normal.
+- **Ending**: fill the crater: reverse the travel briefly (stick), let the machine's crater-fill do it (MIG), or pedal down slowly (TIG). Craters left open crack, especially on stainless and aluminium.
+- Tie-ins on pipe halves: grind the previous stop to a taper, start 1/2" back on the taper, pause a beat at the low spot.
+- Arc strikes outside the weld are defects on code work: strike inside the joint or on a run-on tab.
+
+## Common mistakes
+
+- Travel angle too steep (over 20°): shielding is lost, spatter, porosity, undercut.
+- Weaving with 6010/6011 like it was 7018: it works, but pause at the toes or you undercut everything.
+- Vertical-down with 7018: slag inclusions in every bead.
+- Not tapering the tacks and stops: cold laps at every tie-in.
+- Changing the angle at the end of a bead to "wash it in": undercut and overlap.
+
+## Related
+
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Stick setup](/article/smaw-stick-setup), [MIG setup](/article/gmaw-mig-setup), [flux-core](/article/fcaw-gas-shielded-setup), [TIG](/article/gtaw-tig-setup)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$welding positions$mw$,$mw$1G$mw$,$mw$2G$mw$,$mw$3G$mw$,$mw$4G$mw$,$mw$5G$mw$,$mw$6G$mw$,$mw$1F$mw$,$mw$2F$mw$,$mw$3F$mw$,$mw$4F$mw$,$mw$flat$mw$,$mw$horizontal$mw$,$mw$vertical up$mw$,$mw$vertical down$mw$,$mw$overhead$mw$,$mw$travel angle$mw$,$mw$work angle$mw$,$mw$drag angle$mw$,$mw$push angle$mw$,$mw$stringer bead$mw$,$mw$weave$mw$,$mw$whip and pause$mw$,$mw$restart$mw$,$mw$tie in$mw$,$mw$multi pass$mw$,$mw$cover pass$mw$,$mw$root pass$mw$,$mw$hot pass$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A3.0 and D1.1 position definitions; ASME IX QW-461 position figures; Lincoln Electric Stick Electrode Welding Guide (out-of-position section); Hobart and Miller technique guides.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$preheat-interpass-and-carbon-equivalent$mw$, $mw$Preheat, Interpass Temperature and Carbon Equivalent: CE and Pcm Formulas, AWS D1.1 Minimum Preheat Table by Steel and Thickness, Temp Sticks, Hydrogen Control and Post-Heat$mw$, $mw$Why steel cracks hours after welding and the three things that stop it (preheat, low-hydrogen consumables, controlled cooling): the carbon equivalent formulas with a lookup table, the code minimum preheat table by steel group and thickness, how to measure it with a temp stick, maximum interpass, and post-heat for the steels that need it.$mw$, $mw$## What preheat is for
+
+Hydrogen cracking (cold cracking, delayed cracking, underbead cracking) needs three things at once: **hydrogen** in the weld (moisture in the flux, oil, rust, paint), a **hard microstructure** (martensite, from fast cooling of a steel with enough carbon and alloy), and **stress** (restraint, thickness, residual stress). It shows up **hours to days** after welding, in the heat-affected zone or the weld toe, and is the reason code welds sit 48 hours before final inspection on Q&T steel.
+
+Preheat attacks two of the three: it slows the cooling rate (softer HAZ) and drives hydrogen out while the steel is still hot and ductile. It also dries the joint and reduces distortion on thick sections.
+
+## Carbon equivalent
+
+**IIW formula (for steels with C > 0.12%)**
+
+```
+CE = C + Mn/6 + (Cr + Mo + V)/5 + (Ni + Cu)/15
+```
+
+**Pcm (Ito-Bessyo, for low-carbon microalloyed steels, C ≤ 0.12%)**
+
+```
+Pcm = C + Si/30 + (Mn + Cu + Cr)/20 + Ni/60 + Mo/15 + V/10 + 5B
+```
+
+Use the mill certificate; if there is none, use the maximum from the spec.
+
+| CE (IIW) | Weldability | Typical action |
+|---|---|---|
+| **< 0.35** | Excellent | No preheat below 1" except to remove moisture and above freezing; any electrode |
+| 0.35-0.45 | Good | Low-hydrogen consumables; preheat 100-300°F (40-150°C) as thickness and restraint rise |
+| 0.45-0.55 | Fair | Preheat 300-500°F (150-260°C), low-hydrogen, interpass control, slow cool |
+| > 0.55 | Poor | Preheat 400-600°F+, low-hydrogen, post-heat or PWHT, consider a Ni-based filler and a buttered joint |
+
+Typical values: A36 ≈ 0.25-0.40 (often quoted as ≤ 0.40 max); A572 Gr 50 ≈ 0.40-0.45; A514 ≈ 0.55-0.65 (but designed to be welded with preheat/heat-input control); 1045 ≈ 0.60; 4140 ≈ 0.80 (preheat 500-600°F, PWHT); 4340 ≈ 0.95; cast iron off the chart (see [cast iron repairs](/article/welding-cast-iron-and-repairs)).
+
+## Minimum preheat and interpass (AWS D1.1 Table 5.8, prequalified, stick electrodes)
+
+Thickness T is the thickest part at the point of welding. Temperatures are minimums at the joint, measured **3" (75 mm) from the joint** in all directions on the thickest part, held through the whole weld (interpass never falls below it).
+
+| T (thickest part) | Col. 1: A36 and similar (A53 B, A106 B, A500, A501, A516, A570, A709 Gr 36 ≤ 3/4") with **non-low-hydrogen** electrodes | Col. 2: same steels plus A572 Gr 42/50/55, A588, A529, A537, A633 A-D, A710 Cl 1 etc. with **low-hydrogen** electrodes | Col. 3: A572 Gr 60/65, A633 E, API 5L X52, A913 Gr 60/65, A709 Gr 70W, A852, API 2W/2Y Gr 60, **low-hydrogen** | Col. 4: A710 Gr A (all classes), A913 Gr 50/60/65 with **H8** low-hydrogen electrodes |
+|---|---|---|---|---|
+| 1/8" through 3/4" (3-20 mm) | 32°F (0°C) | 32°F (0°C) | 50°F (10°C) | 32°F (0°C) |
+| Over 3/4" through 1-1/2" (20-38 mm) | 150°F (65°C) | 50°F (10°C) | 150°F (65°C) | 32°F (0°C) |
+| Over 1-1/2" through 2-1/2" (38-65 mm) | 225°F (110°C) | 150°F (65°C) | 225°F (110°C) | 32°F (0°C) |
+| Over 2-1/2" (> 65 mm) | 300°F (150°C) | 225°F (110°C) | 300°F (150°C) | 32°F (0°C) |
+
+Footnote: "32°F" means the steel must be at or above freezing; when the base metal is below 32°F, preheat to at least 70°F (20°C) and hold it during welding. Column 1 only applies to the listed mild steels; **A572 and the higher-strength steels are never welded with non-low-hydrogen rods** under the code.
+
+Quenched-and-tempered A514/A517: D1.1 gives its own row (about 50°F ≤ 3/4", 125°F to 1-1/2", 175°F to 2-1/2", 225°F above) **with a maximum** preheat/interpass and a maximum heat input from the mill; over-heating A514 destroys its properties. Check the steel producer's sheet.
+
+## Interpass maximum
+
+- Carbon and low-alloy structural: no code maximum under D1.1 for ordinary steels; practical **≤ 500°F (260°C)** to keep toughness. Q&T steels: **max 400°F (200°C)** typically, per producer.
+- Stainless austenitic (304/316): **max 300°F (150°C)**, 350°F at most, to limit sensitisation and distortion.
+- Aluminium: max 250°F (120°C); 5xxx alloys **keep under 150°F** after the first passes if service is warm.
+- Duplex stainless: max 300°F (150°C) strictly.
+- Nickel alloys: max 350°F (175°C).
+
+## Measuring it
+
+- **Temperature-indicating crayons (Tempilstik and similar)**: melt at a rated temperature (±1%). Stroke the plate **near the joint, 3" out**: a mark that melts and goes liquid means the plate is **above** that temperature; a chalky mark means below. Use two sticks to bracket (e.g. 200°F melts, 250°F does not → 200-250°F). Do not mark inside the groove; residue contaminates the weld.
+- **Contact pyrometer / thermocouple probe**: best for interpass; hold it on the plate until it stabilises.
+- **Infrared gun**: fast but reads low on shiny steel and reads the scale not the metal; set emissivity 0.9-0.95 on a black oxide surface, or paint a spot flat black. Use it only for checking uniformity, not for the code reading.
+- Preheat **through the thickness**: with a torch, heat from the side opposite the weld where possible and wait 1 minute per inch of thickness after the surface reaches temperature before checking (heat soaks in). Electric resistance blankets or induction for anything thick or long.
+- Check **before every pass** on preheat-required joints; heavy sections lose heat fast when you stop to chip.
+
+## Hydrogen control
+
+1. Low-hydrogen electrodes from a **rod oven** (250°F ± 25°F for 7018; H4R rods allow 9 hours out); rebake once at 700-800°F for 1 hour. Details in the [electrode chart](/article/smaw-electrode-chart).
+2. Solid MIG wire and metal-core wire are low-hydrogen by nature (keep dry, no oil). Flux-core gas-shielded E71T-1 with H8 designator for code work; self-shielded general-purpose wires are not low-hydrogen.
+3. Clean the joint: no oil, water, paint, galvanising, cutting fluid; grind rust. Moisture from a cold plate brought into a warm shop condenses; preheat drives it off.
+4. No welding on wet steel, in rain, or below 0°F (−18°C) per D1.1 without shelter.
+5. **Post-heat (hydrogen bake-out)** for CE > 0.5, thick or restrained Q&T and alloy steels: immediately after welding, before cooling, hold at **400-500°F (200-260°C) for 1 hour per inch of thickness (2 h minimum)**, then cool slowly under a blanket. Different from PWHT (stress relief at 1100-1250°F) which is a separate engineering requirement.
+6. Slow cooling: insulating blanket (ceramic fibre) over thick welds; never a fan or a draught on a preheated joint.
+
+## Cold-weather rule set
+
+- Below 32°F: preheat everything to 70°F minimum and keep it there.
+- Windbreaks for gas-shielded processes above 5 mph.
+- Rods and wire stored inside; an open 7018 can at 10°F is a hydrogen sponge.
+- Extra preheat 50-100°F on top of the table for thick restrained joints in the cold.
+
+## Worked example
+
+Welding a 1-1/4" A572 Gr 50 baseplate to a 1" column with 7018: column 2 (low-hydrogen), T = 1-1/4" → **50°F minimum preheat**. It is 20°F in the yard, so preheat to 70°F minimum (in practice 150°F), check 3" from the joint with a 150°F stick, weld, and keep the interpass at or above 150°F and below 500°F. With 6010 root passes instead, column 1 would demand 150°F, and the code would not allow 6010 on A572 anyway.
+
+## Related
+
+- [Stick electrode chart and storage](/article/smaw-electrode-chart)
+- [Welding cast iron and repairs](/article/welding-cast-iron-and-repairs)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Distortion control](/article/distortion-control)
+- [Steel grades and heat colours](/article/steel-grades-and-heat-colours)
+- [Oxy-fuel heating with a rosebud](/article/oxy-fuel-heating-rosebud)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$preheat$mw$,$mw$preheat temperature$mw$,$mw$interpass temperature$mw$,$mw$carbon equivalent$mw$,$mw$CE formula$mw$,$mw$Pcm$mw$,$mw$hydrogen cracking$mw$,$mw$cold cracking$mw$,$mw$delayed cracking$mw$,$mw$underbead crack$mw$,$mw$temp stick$mw$,$mw$tempilstik$mw$,$mw$temperature crayon$mw$,$mw$post heat$mw$,$mw$hydrogen bakeout$mw$,$mw$D1.1 preheat table$mw$,$mw$A36 preheat$mw$,$mw$A514 preheat$mw$,$mw$4140 preheat$mw$,$mw$thick plate welding$mw$,$mw$cold weather welding$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS D1.1 Structural Welding Code, Table 5.8 (minimum preheat and interpass, prequalified) as reproduced in the Lincoln Electric Stick Electrode Welding Guide pp. 35-36; IIW carbon-equivalent formula; AWS D1.1 Annex H (Pcm and hydrogen-control method); Tempil temperature-indicator data.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -4382,6 +5172,441 @@ Rods back in the oven, holder hung where the rod cannot touch ground, machine of
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$weld-defects-and-inspection$mw$, $mw$Weld Defects and Visual Inspection: Porosity, Undercut, Overlap, Lack of Fusion, Cracks, Arc Strikes; AWS D1.1 Visual Acceptance Numbers, Fillet Gauges, Dye Penetrant and Mag Particle Basics, NDT Overview$mw$, $mw$Each common weld discontinuity with its causes and fix, the D1.1 visual acceptance limits you can measure with a gauge (undercut, porosity, reinforcement, convexity, undersize), how to use fillet, undercut and hi-lo gauges, what dye penetrant and mag particle testing can find and how to run them, what UT and RT add, and the bend test that qualifies a welder.$mw$, $mw$## Discontinuity vs defect
+
+A **discontinuity** is any interruption in the weld; it becomes a **defect** only when it exceeds the acceptance criteria of the code, drawing or WPS you are working to. Visual inspection (VT) is the first and cheapest test and finds most surface problems if it is done before the weld is painted.
+
+## The defects and their causes
+
+| Defect | What it looks like | Main causes | Fix |
+|---|---|---|---|
+| **Porosity** (surface, cluster, linear, piping/wormhole) | Round holes, elongated holes at the surface, "worm tracks" | Gas shielding lost (low/high flow, wind, leak, clogged nozzle, wrong gas), contaminated base (rust, oil, paint, galvanising, moisture), damp electrodes, long arc, wrong polarity on flux-core, too fast travel | Fix the gas and the cleaning first; rods from the oven; polarity check; shorten arc |
+| **Undercut** | Groove melted into the base metal at the toe, not filled | Amps/volts too high, travel too fast, wrong angle (too steep), too long an arc, weaving without pausing at the toes, wrong electrode for the position | Lower heat, slower, pause at toes, shorter arc, correct work angle (horizontal fillet: aim at the bottom plate) |
+| **Overlap (cold lap)** | Weld metal lying on the plate without fusing at the toe | Too cold, too slow, too much wire for the heat, wrong angle, oxide on aluminium | More heat, faster, correct angle, clean |
+| **Incomplete (lack of) fusion** | Weld not fused to the sidewall or the previous bead; shows as a fine line, often only on cutting or UT | Too cold, arc not on the leading edge, oxide/scale, too big a puddle rolling ahead (MIG short-circuit on thick plate), wrong push angle, mill scale | More heat/spray mode, correct arc position, clean, smaller puddle |
+| **Incomplete penetration** | Root not fused through on a full-pen joint; visible as a gap or unfused edge on the back side | Root gap too small, land too thick, electrode too big for the gap, too cold, wrong angle | Fix fit-up, smaller electrode, more heat, back-gouge and re-weld |
+| **Slag inclusion** | Dark non-metallic pockets, usually between passes or at the toes | Not cleaning between passes, welding over slag, too cold, undercut in the previous pass trapping slag, wrong angle letting slag run ahead (vertical-down with 7018) | Chip and brush every pass, hotter, fill undercut, correct angle |
+| **Cracks** (crater, longitudinal, transverse, toe, root, underbead/HAZ) | Line, often only visible with penetrant | Crater: stopping without filling. Hot/solidification: high restraint, deep narrow bead, sulphur/phosphorus, wrong filler (aluminium, stainless 310). Cold/hydrogen: see [preheat](/article/preheat-interpass-and-carbon-equivalent). Toe: stress concentration + hardness | Fill craters, convex beads, preheat, low-hydrogen, correct filler, grind toes; **all cracks are rejectable in every code**: remove completely and re-weld |
+| **Arc strikes** | Small melted spots outside the weld | Striking outside the joint, ground clamp arcing | Grind out to sound metal, check for cracks (they are hard spots that crack under fatigue); rejectable on code work |
+| **Spatter** | Balls stuck to the plate | Long arc, wrong voltage, globular transfer, damp rods, wrong polarity, CO2 | Not a defect by itself but must be removed for inspection and coating |
+| **Excessive convexity / reinforcement** | Weld standing too high; ropey | Too cold, too slow, too much wire | Hotter, faster, less WFS; grind flush if the drawing says |
+| **Concavity / undersize** | Fillet throat too thin, groove face below plate | Too hot and fast on a fillet, vertical-down, wrong size electrode | Add a pass |
+| **Burn-through** | Hole | Too hot, gap too wide, thin material | Lower heat, backing, smaller wire, weave the edges |
+| **Distortion / misalignment** | Out of square, hi-lo | See [distortion](/article/distortion-control) | |
+| **Tungsten inclusion** (TIG) | Bright white spot on RT; dipped tungsten | Touching the tungsten to the puddle or filler, too much current for the tungsten | Regrind, larger tungsten |
+
+## D1.1 visual acceptance criteria (Table 8.1, the numbers you can gauge)
+
+| Item | Statically loaded (buildings) | Cyclically loaded (bridges, cranes) |
+|---|---|---|
+| Cracks | **None** | None |
+| Fusion | Complete between weld and base metal and between passes | Same |
+| Craters | Filled to the full cross-section, except ends of intermittent fillets outside the effective length | Same |
+| **Undercut** | Material < 1" thick: ≤ **1/32" (1 mm)**, except ≤ 1/16" for any accumulated 2" in any 12". Material ≥ 1": ≤ **1/16" (2 mm)** any length | Primary members transverse to tensile stress: ≤ 0.01" (0.25 mm); others ≤ 1/32" |
+| **Porosity** | Fillet welds: visible piping porosity ≤ 3/8" total diameter in any linear inch and ≤ 3/4" in any 12". CJP groove butt welds transverse to tensile stress: **no visible piping porosity**. Other groove welds: as fillets | Fillet in stiffeners to web: ≤ 3/8" per inch, 3/4" per 12"; CJP groove: none |
+| Reinforcement (groove face) | ≤ **1/8" (3 mm)** above the plate, gradual transition | Same |
+| Fillet convexity | Face width ≤ 5/16": max convexity 1/16"; 5/16" to 1": 1/8"; > 1": 3/16" | Same |
+| Undersize fillet (D1.1 7.23) | Allowed 1/16" under for ≤ 3/16" fillets, 3/32" under for 1/4", 1/8" under for ≥ 5/16", on **≤ 10% of the weld length**; never at the ends of web-to-flange welds | Same |
+| Weld profiles | No overlap; toes blend | |
+| Time of inspection | Any time; **A514/A517 and other Q&T steel: not less than 48 hours after completion** | |
+
+Other codes differ: ASME B31.3 normal fluid service allows undercut ≤ 1/32" or T/4 whichever less and reinforcement by wall thickness; API 1104 has its own pipe tables. Use the drawing's governing code.
+
+## Gauges
+
+| Gauge | Measures | How |
+|---|---|---|
+| **Fillet weld gauge** (set of 7-12 blades, or the "multi" gauge) | Leg length and throat of a fillet | Set the leg blade in the corner: both edges must touch the plates with the tip touching the weld face for the leg size marked. The concave/throat side of the blade checks a flat/concave weld's throat |
+| **Bridge cam (multipurpose) gauge** | Reinforcement height, fillet leg, throat, undercut depth, misalignment, bevel angle 0-60° | Rest the two feet on the plate, rotate the pointer to touch the weld; read the scale in the window |
+| **V-WAC / undercut gauge** | Undercut depth, porosity size, crown height | Pin depth reads in 1/32" or mm; the porosity holes are 1/16-1/8" comparators |
+| **Hi-lo gauge** | Internal and external pipe misalignment, root gap | Put the two blades inside the pipe and pull them against the wall each side; read the difference. Also has wall-thickness and gap scales |
+| **Automatic weld size (AWS) gauge** | Fillet leg and throat | Slide the pointer until it touches the weld face |
+| Taper gauge | Root gap | Push into the gap until it stops |
+| Bevel protractor / angle gauge | Bevel angle | Before welding |
+| Pit gauge | Depth of corrosion/undercut | |
+| Straightedge and feeler | Flatness, hi-lo on plate | |
+| Temp sticks / contact pyrometer | Preheat, interpass | Before every pass |
+
+A fillet gauge reads **the smaller leg**. A 1/4" fillet with one leg 1/4" and the other 3/16" is a 3/16" fillet.
+
+## Inspection sequence
+
+1. **Before welding**: material ID, fit-up (gap, bevel, land, hi-lo), cleanliness, tack quality, preheat, consumable class and storage, machine settings against the WPS.
+2. **During**: interpass temperature, interpass cleaning, bead placement, root pass before it is covered (this is the only time you will see it), travel and technique.
+3. **After**: clean (chip, brush, no paint), lighting (flashlight at a low angle shows undercut and cold lap), magnification 2-5× for cracks, gauges on size and profile, mark defects with paint stick, record.
+4. Delayed inspection on crack-sensitive steel: 48 h.
+
+## Dye penetrant (PT) for surface cracks
+
+Works on any non-porous material (steel, stainless, aluminium, cast iron), finds only **surface-breaking** defects.
+
+1. Clean: solvent (cleaner/remover), no paint, no rust, no oil; let it dry fully. Do not sandblast or heavily grind first (it smears metal over cracks); if you grinded, etch or wait.
+2. Apply **penetrant** (red, visible type): spray or brush a thin film; **dwell 5-10 minutes** (10-30 on aluminium and castings; longer when cold; 50-125°F surface range for most kits).
+3. Remove excess: wipe with a **dry** lint-free rag, then a rag **dampened** with cleaner. Never spray cleaner on the surface (it washes the penetrant out of the crack).
+4. Apply **developer** (white): a thin, even, translucent coat from 8-12"; heavy coats hide indications.
+5. Read at **1 minute to 10 minutes** under good light: a red line is a crack; red dots are porosity; a diffuse bleed is a wide shallow discontinuity. Re-read after 10-30 minutes for tight cracks.
+6. Clean off developer before welding repairs (it contaminates the weld) and before painting.
+
+## Magnetic particle (MT) for ferrous surfaces
+
+Finds surface and slightly subsurface (to about 1/8") cracks in **ferromagnetic** steel only (not austenitic stainless or aluminium). A **yoke** (AC for surface, DC/HWDC for subsurface) is placed across the area; with the legs 3-8" apart the field runs between them, so cracks **perpendicular to the leg line** show; do it twice at 90°. Dust dry powder (visible, grey/red) while the yoke is energised and blow off the excess gently, or use wet fluorescent particles under UV. A crack collects a tight line of particles. Check the yoke lifts a **10 lb** weight (AC) or 40 lb (DC) as the daily calibration.
+
+## UT and RT
+
+- **Ultrasonic (UT)**: a probe sends sound into the plate; reflections from planar defects (lack of fusion, cracks) and their depth are read on the screen. Best for thick welds, finds planar defects RT misses, needs a certified operator and access to one side.
+- **Radiography (RT)**: X-ray or gamma film/digital image through the weld; finds volumetric defects (porosity, slag, incomplete penetration) as dark spots; cracks and lack of fusion only if aligned with the beam. Radiation exclusion zone: leave when the technician says.
+- **Phased-array UT** replaces RT on much pipe and plate work.
+- Millwright's job: cleanliness, access, surface finish (grind the cap flush if the drawing says "UT" or "RT"), and marking the weld ID and datum.
+
+## Welder qualification bend test (what the coupon must do)
+
+Guided bend of root and face (or side bends on thick plate) around a 1.5" radius mandrel for mild steel: **no open discontinuity over 1/8" (3 mm)** in any direction on the convex surface, and the sum of all discontinuities between 1/32" and 1/8" not over 3/8"; corner cracks up to 1/4" ignored unless they come from slag or fusion defects (D1.1 Clause 6). Cut the coupon: remove reinforcement flush, grind marks lengthwise, radius the corners 1/16", and never quench the coupon.
+
+## Common mistakes
+
+- Painting or grinding before inspection.
+- Reading a fillet gauge on the larger leg.
+- Accepting a "little crater crack" on stainless: it opens up in service.
+- Spraying penetrant cleaner directly on the test area during removal.
+- Yoke placed parallel to the expected crack: no indication.
+- Calling porosity "surface only" without checking with a gauge; piping porosity goes to the root.
+
+## Related
+
+- [Positions and techniques](/article/positions-and-techniques)
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Welding symbols](/article/welding-symbols)
+- [MIG setup](/article/gmaw-mig-setup) and [stick setup](/article/smaw-stick-setup) troubleshooting tables$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$weld defects$mw$,$mw$weld discontinuities$mw$,$mw$porosity$mw$,$mw$undercut$mw$,$mw$overlap$mw$,$mw$cold lap$mw$,$mw$lack of fusion$mw$,$mw$incomplete penetration$mw$,$mw$slag inclusion$mw$,$mw$crater crack$mw$,$mw$hot crack$mw$,$mw$cold crack$mw$,$mw$arc strike$mw$,$mw$spatter$mw$,$mw$convexity$mw$,$mw$reinforcement$mw$,$mw$visual inspection$mw$,$mw$VT$mw$,$mw$fillet gauge$mw$,$mw$undercut gauge$mw$,$mw$hi-lo gauge$mw$,$mw$bridge cam gauge$mw$,$mw$dye penetrant$mw$,$mw$PT$mw$,$mw$magnetic particle$mw$,$mw$MT$mw$,$mw$ultrasonic$mw$,$mw$UT$mw$,$mw$radiography$mw$,$mw$RT$mw$,$mw$D1.1 acceptance$mw$,$mw$bend test$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS D1.1/D1.1M Structural Welding Code, Steel, Table 8.1 (visual inspection acceptance criteria) and Clause 7 weld profiles; AWS B1.11 Guide for the Visual Examination of Welds; AWS D1.1 Clause 6 bend test criteria; G.A.L. Gage Company gauge instructions; ASTM E165 (PT) and E709 (MT).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welder-maintenance-and-consumables$mw$, $mw$Welder Maintenance and Consumables: MIG Gun Liners, Contact Tips, Drive Rolls and Nozzles, TIG Torch Parts, Stick Holders and Cables, Machine Cleaning, Cooler Service, Consumable Storage and Troubleshooting Feed Problems$mw$, $mw$The consumables and service items on stick, MIG, flux-core and TIG equipment, how to size and replace each one, the daily and monthly machine checks, why liners and tips cause most MIG problems and how to fix feeding in five minutes, TIG torch anatomy and cooler care, cable and holder inspection, and how to store wire and rods so they weld clean.$mw$, $mw$## MIG gun consumables
+
+```
+   [machine] ── power pin ── cable/liner ── gun handle/trigger ── neck ── diffuser ── contact tip ── nozzle
+                                         drive rolls at the feeder push the wire through the liner
+```
+
+| Part | Sizing | Replace when | Notes |
+|---|---|---|---|
+| **Liner** | By wire diameter range (e.g. .030-.035, .045-1/16); steel-coil for steel wire; Teflon/nylon for aluminium, sometimes stainless | Feeding gets erratic, "bird's nests", wire shavings at the tip, kinks; every 300-500 lb of wire or when swapping wire size | Cut with the gun **straight**, to the length on the gun maker's chart (usually flush with the diffuser seat, or 3/4" past the end of the cable for some brands), deburr the cut, blow out the cable before inserting |
+| **Contact tip** | Match the wire: .030, .035, .045 (aluminium: one size larger); heavy-duty (longer, tapered) tips for high amps | Hole worn oval (arc wanders, burnbacks, erratic), spatter buildup, burned end; expect a few hours to a shift on hard use | Tighten with pliers, not fingers; a loose tip arcs in the diffuser |
+| **Diffuser (gas diffuser / tip holder)** | By gun model | Gas holes plugged, threads stripped, burned | Keep the holes clear; it is the gas path |
+| **Nozzle** | By gun; ID 1/2" (13 mm) standard, 5/8" for spray and flux-core, 3/8" for tight spots; flush, recessed, or extended tip positions | Spatter cannot be cleaned, insulator cracked, dented | Clean with welpers/nozzle reamer; dip in anti-spatter gel (not spray into the nozzle every weld) |
+| **Neck** | Straight, 45°, 60°, flexible | Gas leak at the O-rings, insulation damaged | O-rings dry out: a leak here means porosity at the start of welds |
+| **Trigger, handle** | | Sticking, intermittent | |
+| **Power pin / adapter** | Euro, Miller, Lincoln, Tweco | Loose, burned | Check the tightness and the O-rings for gas |
+| Wire inlet guide (feeder) | By wire size | Worn, grooved | Aligns the wire with the drive rolls |
+| **Drive rolls** | **V-groove** (solid steel wire), **U-groove** (aluminium), **V-knurled** (flux-core, hardfacing wire); size stamped on the roll; two-groove rolls carry two sizes: check which one is in the drive | Groove worn/polished, shavings | Tension: just enough that the wire stops when you pinch it lightly against a block of wood, no more; the roll should not crush or shave the wire |
+
+## Fixing feeding in five minutes
+
+| Symptom | Check, in order |
+|---|---|
+| **Bird's nest** at the rolls | Tip blocked or worn → liner kinked/dirty/wrong size → gun cable coiled tight → tension too high → wire spool brake too tight/loose → inlet guide misaligned |
+| Erratic feed, arc surging | Contact tip worn → liner dirty (blow out, or replace) → drive rolls worn/wrong groove → spool tangled → cable bent sharply |
+| **Burnback** (wire welds to the tip) | WFS too low for the voltage, tip too close/too small, worn tip, long arc/too much voltage, feed hesitations from the above |
+| Wire stubbing, pushing the gun back | WFS too high or voltage too low (settings), or fine: a feed problem is not in play |
+| Shavings at the drive | Tension too high, wrong groove, rusty wire, worn inlet guide |
+| Wire will not feed at all | Spool brake, trigger, feeder motor breaker, liner blocked, contact tip jammed by a burnback |
+| Porosity at starts | Gas leak in the gun (O-rings, diffuser), post-purge; hose fittings |
+
+Rule: replace the tip first (cheapest), then clean or replace the liner, then check rolls and tension. Keep the gun cable **as straight as possible** while welding.
+
+## TIG torch parts
+
+| Part | Notes |
+|---|---|
+| **Collet** | Sized to the tungsten diameter (1/16, 3/32, 1/8); replace when it will not grip or is arced |
+| **Collet body** (standard) or **gas lens** collet body (screened, laminar flow) | Gas lens for stainless, titanium, long stickout; needs its own cups |
+| **Cup / nozzle** | Alumina (pink) numbers #4-#12 (see [TIG setup](/article/gtaw-tig-setup)); replace when cracked or coated black; large-diameter "pyrex" cups for showing the puddle |
+| **Back cap** | Long, medium, short (stubby for tight spots); O-ring must seal or gas escapes out the back |
+| **Torch body / head** | Air-cooled #9, #17, #26; water-cooled #18, #20; flex heads; rigid |
+| **Insulators / heat shield** | Between the collet body and cup; crack from heat |
+| **Power cable, gas hose, water lines** | Braided covers; check for gas leaks with soapy water at every fitting |
+| Torch switch / amptrol / pedal | Contacts corrode; the machine reads a "stuck pedal" as an open circuit |
+
+**Cooler**: water-cooled torches need coolant flow before arc-on (interlock, if fitted, prevents burning the torch). Use **the maker's low-conductivity coolant** (Miller, Lincoln, "TIG coolant"), never tap water alone (corrosion, freezing, conductive) and never automotive antifreeze (clogs). Check level weekly, replace yearly, clean the filter, and if the torch cable gets warm the pump or the lines are the problem.
+
+## Stick
+
+- **Electrode holder**: jaws clean and gripping (worn jaws heat up and lose the arc), insulation intact (a cracked holder shocks and shorts to the work), cable connection tight. Replace the jaw inserts and springs; replace a holder with melted insulation.
+- **Ground clamp**: spring strong, jaw faces clean copper; the clamp is half the circuit.
+- **Cables**: no exposed copper, no taped splices in the first 10 ft from the holder (OSHA 1910.254), lugs tight and not warm, connectors (Dinse/Tweco) clean and fully seated; a warm connector is a loose one. Repair with proper splice connectors and insulate; replace cable with cracked jacket.
+
+## Machine
+
+**Daily**: cables and connectors; gas leaks; the fan runs; nothing sits on top of the machine; the cart wheels and cylinder chain.
+
+**Weekly**: gun consumables per above; spool and drive; cooler level; clean the feeder rolls and inlet guide; blow spatter and dust from the gun nozzle and TIG cup.
+
+**Monthly (or more in dusty shops)**: **disconnect power**, remove the covers, blow out with **clean dry compressed air** (moderate pressure, do not blast circuit boards directly; use a vacuum first on inverters with boards), especially the fan, heat sinks, transformer and rectifier fins; check for loose connections, discoloured wiring, chewed cables; tighten the output studs. Engine drives: engine oil, air filter, coolant, belts, fuel, battery, slip rings/brushes (on older units), and run under load monthly.
+
+**Every 6-12 months**: calibration check of meters against a clamp meter (a display 10% out ruins procedure settings), contactor/relay contacts, thermal overload operation, ground continuity of the frame, input cord and plug, cooler coolant change, feeder gearbox lubrication if specified.
+
+Signs of trouble: the arc got "soft" or erratic on all settings (loose output connections, failing rectifier, or just a bad ground), duty cycle tripping early (dust-clogged, fan failed), humming louder (loose laminations), a smell (overheating insulation: stop).
+
+## Gas equipment
+
+- Regulator/flowmeter: gauges read zero with no gas; creep (outlet pressure rising with the valve closed) means a bad seat: replace; cracked gauge lens; inlet filter. Never oil oxygen regulators.
+- Hoses: leak test with soapy water at every shift change; replace cracked or spliced hose.
+- Flowmeter tube: dirty tube reads wrong; clean or replace.
+- Plasma: air dryer and filter serviced (water in the air kills consumables in minutes).
+
+## Consumable storage
+
+| Consumable | Storage |
+|---|---|
+| **Low-hydrogen stick (7018, 7016, 8018, stainless -15/-16, Ni rods)** | Sealed until opened, then **rod oven 250°F ± 25°F**; out of the oven ≤ 4 h (9 h for H4R); rebake once 700-800°F 1 h; wet or oil-contaminated rods: discard. Full rules in the [electrode chart](/article/smaw-electrode-chart) |
+| Cellulosic (6010, 6011) | Dry, room temperature, **not** in the oven (they need their moisture) |
+| Rutile (6013, 7014, 7024) | Dry storage; a 200°F warming oven is fine |
+| **MIG solid wire** | On the machine with the cover closed; off the machine in a sealed bag with desiccant; rust on the wire = throw it out (feeding, porosity); avoid storing in the cold and bringing into warm air (condensation) |
+| Flux-core wire (gas and self) | Same; seamless wires are less hygroscopic than folded; discard rusty or damp spools; some makers allow spool baking (check) |
+| Aluminium wire | Sealed bag, no dust, use within a month of opening; wipe rods with acetone |
+| TIG rod | Labelled tubes; never mixed; no fingerprints on aluminium and titanium rod (gloves) |
+| Hardfacing and stainless stick | Sealed until used; oven-dry low-hydrogen types (most are) |
+| Tungsten | In its box; no oil; grind lengthwise; store ground ends up in a foam holder |
+| Brazing rod and flux | Flux sealed (absorbs water); rod dry |
+| Submerged-arc flux | Bake per the maker (bonded flux 500-800°F) if opened |
+
+## Common mistakes
+
+- Cutting the liner with the gun coiled: it ends up short, gas and wire fight at the diffuser.
+- Running .035 wire on the .030 side of the drive roll "because it feeds": crushed wire and shavings.
+- Cranking the drive tension until it feeds through a blocked tip: the bird's nest is now guaranteed.
+- Anti-spatter spray into a hot nozzle after every weld: it cokes in the diffuser holes.
+- Tap water in the TIG cooler; it freezes in the truck and corrodes the torch.
+- Blowing out an inverter with 150 psi shop air with the machine on: boards die.
+- Storing 7018 in the truck: two weeks in a damp cab is a full box of porosity.
+
+## Related
+
+- [MIG (GMAW) setup](/article/gmaw-mig-setup)
+- [TIG (GTAW) setup](/article/gtaw-tig-setup)
+- [Stick electrode chart and storage](/article/smaw-electrode-chart)
+- [Machine setup, duty cycle and cables](/article/machine-setup-and-duty-cycle)
+- [Gas selection and flow](/article/gas-selection-and-flow)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$MIG gun liner$mw$,$mw$liner replacement$mw$,$mw$contact tip$mw$,$mw$contact tip size$mw$,$mw$drive rolls$mw$,$mw$V groove$mw$,$mw$knurled$mw$,$mw$U groove$mw$,$mw$drive roll tension$mw$,$mw$MIG nozzle$mw$,$mw$diffuser$mw$,$mw$gas diffuser$mw$,$mw$bird nest$mw$,$mw$wire feed problems$mw$,$mw$erratic feed$mw$,$mw$burnback$mw$,$mw$TIG collet$mw$,$mw$collet body$mw$,$mw$back cap$mw$,$mw$gas lens$mw$,$mw$TIG cup$mw$,$mw$electrode holder$mw$,$mw$welding cable repair$mw$,$mw$welder cleaning$mw$,$mw$blow out welder$mw$,$mw$TIG cooler coolant$mw$,$mw$welding machine maintenance$mw$,$mw$wire storage$mw$,$mw$rod oven$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Miller Electric and Lincoln Electric owner's manuals (routine maintenance sections); Bernard/Tregaskiss MIG gun consumables and liner guides; CK Worldwide and Weldcraft TIG torch parts guides; Lincoln guidance on wire and electrode storage.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welding-aluminium$mw$, $mw$Welding Aluminium: Alloy Weldability, 4043 vs 5356 Filler, Oxide Removal and Cleaning, MIG with Spool Gun or Push-Pull, AC TIG, Preheat, Cracking and Porosity$mw$, $mw$What makes aluminium different (oxide, conductivity, no colour change, hydrogen porosity), which alloys weld and which do not, how to choose 4043 or 5356, the MIG settings and gun hardware that make .035/3/64 wire feed, AC TIG basics, preheat limits and the cracking and porosity rules.$mw$, $mw$## What is different
+
+| Property | Effect | What you do |
+|---|---|---|
+| Oxide skin melts at **3700°F**; the metal at **1220°F** | Oxide floats and stops fusion; looks like a dull skin on the puddle | Remove it mechanically just before welding; AC or DCEP arc blasts it (cleaning action) |
+| Conducts heat 5× faster than steel | Heat runs away; big parts need preheat or high current; small parts overheat suddenly | Hotter start, then back off; preheat thick sections |
+| No colour change before melting | You cannot see it coming; it drops out | Watch for the shine on the puddle; practise on scrap |
+| Dissolves hydrogen when liquid, rejects it when solid | **Porosity** from moisture, oil, hydrated oxide | Clean, dry, degrease, brush, weld within the hour |
+| Expands 2× steel | Distortion, crater cracks, hot cracks in the wrong alloys | Preset, clamp, fill craters, filler selection |
+| Strength is from heat treatment or work hardening | HAZ loses 30-50% of strength in 6061-T6 (to about 24 ksi from 45) | Design for it; never rely on a weld having base-metal strength in 6xxx/7xxx |
+
+## Which alloys weld
+
+| Series | Examples | Weldable by arc | Filler |
+|---|---|---|---|
+| 1xxx (pure) | 1100 | Yes | 1100, 4043 |
+| 3xxx | 3003 | Yes | 4043, 5356 |
+| **5xxx (Mg, work-hardened)** | **5052, 5083, 5086, 5454** | Yes, best of all | **5356** (5183/5556 for 5083) |
+| **6xxx (heat-treatable)** | **6061, 6063, 6005** | Yes, **crack-sensitive if welded without filler**: always add filler | **4043** (or 5356) |
+| 4xxx | 4043 (castings) | Yes | 4043 |
+| 2xxx | 2024, 2014 | **No** (2219 yes with 2319) | |
+| **7xxx** | **7075, 7050** | **No**: hot cracks and loses strength | 7005/7039 only, with 5356 |
+| Castings | A356, 356, 319 | Yes with 4043 (A356); die castings porous and hard to weld | 4043, 4047 |
+
+Marked "no" means the joint cracks or has no strength; braze, bolt or replace.
+
+## 4043 or 5356
+
+| | **ER4043 (5% Si)** | **ER5356 (5% Mg)** |
+|---|---|---|
+| Use on | 6xxx, castings, 1xxx, 3xxx; anywhere colour match does not matter | 5xxx alloys, 6061 when strength matters, structural |
+| Fluidity / crack resistance on 6061 | Very fluid, most crack-resistant | Less fluid, more prone to cracking on 6061 if diluted heavily |
+| Strength and ductility | Lower | Higher (better for bending/impact) |
+| Feeds | Softer wire, harder to push | Stiffer, feeds better |
+| Anodising | Turns dark grey (mismatch) | Matches |
+| Service temperature | Any | **Not above 150°F (65°C)** sustained: stress-corrosion cracking |
+| Colour | Bright, smutty black soot on MIG | |
+
+Default: 4043 on 6061 and castings, 5356 on 5052/5083 and anything anodised or cold-worked. Never 5356 for parts running hot (engine, exhaust brackets, hot tanks).
+
+## Cleaning: the order matters
+
+1. **Degrease first** with acetone or an alkaline cleaner; wipe with clean lint-free rag. (Brushing before degreasing drives oil into the oxide.)
+2. **Remove the oxide** with a **dedicated stainless steel wire brush** used only on aluminium, one direction, light pressure, or scrape with a carbide scraper. Do not use grinding discs that load up (aluminium smears); if you must grind, use a disc rated for aluminium and follow with the brush.
+3. Weld **within 1 hour**, ideally minutes; oxide regrows.
+4. Store filler wire and rod clean and dry in its tube; wipe TIG rod with acetone before use; throw out MIG wire that has sat open for weeks (porosity).
+5. Preheat also dries the joint; a torch pass drives off moisture on humid days.
+
+## MIG (GMAW) on aluminium
+
+Aluminium MIG runs in **spray or pulsed spray only**, DCEP, 100% argon (Ar/He for over 3/8"). The wire is soft and feeds badly through a long steel gun, so the hardware is the hard part.
+
+**Feeding hardware**
+
+| Item | Setting |
+|---|---|
+| Gun | **Spool gun** (4" spool at the gun; up to 3/64" wire) for occasional work; **push-pull gun** for production and 12" spools; a standard gun works only with ≤ 10 ft cable, straight, Teflon/nylon liner, and .047 (3/64) wire |
+| Drive rolls | **U-groove**, tension as light as it will feed (test: it should slip in your gloved hand) |
+| Liner | Teflon or nylon, cut to length, plastic inlet guide |
+| Contact tip | Sized **one over** (aluminium expands: .035 wire → .039/.040 tip, or tips marked "AL") |
+| Wire | **3/64" (0.047, 1.2 mm)** for anything over 1/8" and for a standard gun; .035 on sheet with a spool gun; .030 only on the thinnest |
+| Gas | 100% argon **30-40 cfh**; Ar/He 75/25 on plate over 3/8" |
+| Nozzle | Larger, clean; anti-spatter spray is not needed |
+| Polarity | DCEP |
+
+**Starting settings, 4043/5356, argon, spray**
+
+| Thickness | Wire | WFS (ipm) | Volts | Amps |
+|---|---|---|---|---|
+| 1/16" (16 ga) | .030 | 300-400 | 18-20 | 70-100 |
+| **1/8"** | **.035** | **350-450** | **21-23** | **110-150** |
+| 3/16" | .035 / 3/64 | 450-550 / 250-320 | 23-25 | 150-190 |
+| **1/4"** | **3/64** | **300-380** | **24-26** | **180-230** |
+| 3/8" | 3/64 | 380-460 | 26-28 | 230-280 (preheat) |
+| 1/2" | 1/16 | 250-300 | 27-30 | 300-350 (preheat, Ar/He) |
+
+Pulsed MIG (synergic "aluminium 4043 .035" program) is the best way to weld 1/16-1/8" and out of position; set the program and trim ±. Technique: **push 10-15°**, stickout 1/2-3/4", travel **fast** (aluminium MIG moves 2-3× steel speed, 20-30 ipm), stringer beads, tie the arc into the leading edge of the puddle. Black soot beside the bead is normal with 4043 (magnesium oxide with 5356, more so with a drag angle or too long an arc); heavy soot means too long an arc or a drag angle. Fill craters with the crater-fill function or by pulling back briefly; **crater cracks** are the aluminium MIG signature defect.
+
+## TIG on aluminium
+
+AC, 2% lanthanated tungsten, argon 15-25 cfh, balance 65-75% EN, 100-150 Hz on inverters; amperage **1 A per 0.001" plus 20-30%**. Full settings in [TIG setup](/article/gtaw-tig-setup) and the [material tables](/article/gtaw-settings-by-material). Technique: torch 10-15° push, tight arc (1/16-1/8"), wait for the shiny puddle, dab filler generously into the leading edge, keep the rod inside the shield, taper off with the pedal while adding a last dab into the crater. Thick parts and castings: preheat 200-300°F, then the puddle forms in seconds instead of soaking.
+
+## Preheat
+
+- Not needed under 1/4" on a warm day; on cold or thick parts **200-300°F (95-150°C)** to start the puddle and drive out moisture.
+- **Never above 400°F (200°C)** on 6xxx or 5xxx: 6061 loses temper, 5xxx sensitise to stress corrosion; keep interpass under 250°F (5xxx under 150°F where service is warm).
+- Castings: preheat 300-400°F, slow cool wrapped; a bad casting outgasses oil and porosity for the first pass: grind it out and weld again.
+
+## Cracking and porosity rules
+
+| Problem | Cause | Fix |
+|---|---|---|
+| **Porosity** (holes, worm tracks, grey grainy bead) | Moisture, oil, hydrated oxide, old wire, gas leak, draft, too low flow, too long stickout | Clean in the right order, new wire, 30-40 cfh, check the gun O-rings and hose, weld within the hour, preheat damp parts |
+| **Hot (solidification) cracks** down the bead centre | 6061 welded with no filler or too little filler; 5356 on 6061 in thick restrained joints; wrong alloy (7075) | Add filler, use 4043, convex bead, preheat, do not weld 2xxx/7xxx |
+| **Crater cracks** | Stopping abruptly | Crater fill, pull back, dab and taper |
+| Weld fell through | No visible warning; too hot, too slow | Practise, faster, less amps, backing bar (aluminium or copper) |
+| Lack of fusion, cold laps | Oxide not removed, arc too long, push angle too flat, too cold | Brush, tight arc, more amps, spray not short-circuit |
+| Bird-nest at the drive rolls | Steel liner, tension too high, contact tip too small, cable coiled | Teflon liner, U-rolls, AL tip, straight cable |
+| Black smut everywhere | Long arc, drag angle, dirty base | Shorter arc, push, clean; a little smut is normal |
+| Wire burns back to the tip | WFS too low for the voltage, tip too small, stickout too short | Raise WFS, AL tip, 1/2-3/4" stickout |
+
+## Common mistakes
+
+- Brushing with the steel brush from the welding bench: iron contamination and porosity.
+- Using C25 gas from the steel machine: gross porosity and a black weld.
+- Welding 6061 tube with no filler "to keep it neat": centreline crack every time.
+- Standing the 12" spool of .035 on a 15 ft gun with a steel liner: bird's nest within a foot.
+- Heating a 5083 tank to 500°F to "get it going": it now cracks in service.
+
+## Related
+
+- [TIG (GTAW) setup](/article/gtaw-tig-setup) and [TIG settings by material](/article/gtaw-settings-by-material)
+- [MIG (GMAW) setup](/article/gmaw-mig-setup), [transfer modes](/article/gmaw-transfer-modes)
+- [Gas selection and flow](/article/gas-selection-and-flow)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Brazing and soldering](/article/brazing-and-soldering) (aluminium brazing alternative)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$aluminum welding$mw$,$mw$aluminium welding$mw$,$mw$4043$mw$,$mw$5356$mw$,$mw$6061 welding$mw$,$mw$5052 welding$mw$,$mw$spool gun$mw$,$mw$push pull gun$mw$,$mw$aluminum MIG settings$mw$,$mw$AC TIG aluminum$mw$,$mw$oxide removal$mw$,$mw$aluminum porosity$mw$,$mw$aluminum cracking$mw$,$mw$aluminum preheat$mw$,$mw$7075 weldable$mw$,$mw$cast aluminum welding$mw$,$mw$U groove drive roll$mw$,$mw$teflon liner$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AlcoTec/ESAB Aluminum Welding Guide and filler selection chart; Lincoln Electric SuperGlaze data and aluminium GMAW guide; Miller aluminium MIG and TIG guidance; AWS D1.2 Structural Welding Code, Aluminum; Aluminum Association Welding Aluminum Theory and Practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welding-cast-iron-and-repairs$mw$, $mw$Welding and Repairing Cast Iron: Identifying Grey, Ductile and White Iron, Nickel Rods (99% Ni vs 55% Ni), Hot and Cold Methods, Peening, Crack Repair with Studs, and When to Braze Instead$mw$, $mw$How to tell which cast iron you have and whether it can be welded, which nickel electrode to use and at what amperage, the two schools of cast iron repair (hot with 500-1200°F preheat and slow cooling, or cold with short beads and immediate peening), the crack-repair sequence with drilled ends, studding for big repairs, and the cases where brazing or a mechanical repair is the better answer.$mw$, $mw$> A cracked gearbox housing, pump volute, motor end bell or machine base is the classic millwright cast iron job. It can usually be repaired, but the metal is unforgiving: it is hard, it does not stretch, and it cracks when a weld shrinks against it. Decide method **before** striking an arc.
+
+## Identify the iron
+
+| Type | Fracture | Spark test (grinder) | Machinability | Weldability |
+|---|---|---|---|---|
+| **Grey iron** (most housings, bases, brake drums) | Grey, grainy, graphite flakes | Short, dull red, many fine bursts | Easy, dusty grey chips | **Fair**: nickel rods, preheat or cold method |
+| **Ductile (nodular) iron** (heavy-duty housings, crankshafts, pipe) | Silvery, tougher | Similar to grey, slightly brighter | Good | **Good**: nickel rods, preheat 300-600°F |
+| Malleable iron (fittings, hardware) | White then grey rim | Between grey and steel | Good | Fair: brazing preferred; welding destroys the malleablising |
+| **White iron** (chilled wear surfaces, mill liners) | White, glassy, very hard | Short, red, few sparks | Not machinable | **Not weldable**; replace |
+| Cast steel (looks like a casting, rings when struck) | Bright, ductile | Long straw sparks like mild steel | Like steel | Weld like steel (7018) |
+
+More in [metal identification and spark test](/article/metal-identification-and-spark-test). Oil-soaked castings (gearboxes, engine blocks) must be heated to **700°F+ for an hour** to burn out the oil or the weld will be porous no matter what you do.
+
+## Electrodes
+
+| Electrode (AWS A5.15) | Trade names | Deposit | Use |
+|---|---|---|---|
+| **ENi-CI (99% Ni)** | Lincoln Softweld 99Ni, Ni-Rod 99, Hobart Nickel 99 | Soft, **machinable**, lower strength (about 40 ksi) | Thin sections, machined surfaces that must be re-machined, low-restraint repairs, filling |
+| **ENiFe-CI (55% Ni)** | Softweld 55Ni, Ni-Rod 55, Nickel 55 | Stronger (about 60 ksi), tougher, expands closer to iron, **less machinable** but still doable with carbide | Thick sections, ductile iron, restrained cracks, structural repairs; the default for heavy housings |
+| ENiFe-CI-A / ENiFeMn-CI | | Higher-strength versions | Ductile iron, heavy repairs |
+| ECI (cast iron rod) | | Grey iron deposit | Oxy-acetylene "hot" welding only, with full preheat and slow furnace cooling |
+| ESt (steel electrode) | 7018 in a pinch | Steel, hard, brittle HAZ | Non-machinable, non-structural filling only; expect cracks |
+| MIG: ERNi-CI / ERNiFe-CI wires, or 99% Ni "flux-core" | | | Production repairs with argon/argon-He |
+| TIG: ERNi-CI, ERNiFe-CI | | | Small cosmetic repairs |
+
+**Amperage (typical, DCEP or AC; confirm on the box)**: 3/32" **60-90 A**, 1/8" **80-120 A**, 5/32" **110-150 A**. Run at the **low end**: the aim is minimum heat into the casting. Store rods dry (they are low-hydrogen-type coatings).
+
+## Choose the method
+
+| | **Hot method (preheat)** | **Cold method (no preheat)** |
+|---|---|---|
+| When | Complex castings, thick sections, high restraint, machined parts that must stay flat, ductile iron | Simple shapes, thin to medium sections, field jobs where you cannot heat the whole casting, cosmetic and non-structural cracks |
+| Preheat | **500-1200°F (260-650°C)** on the whole casting, evenly, held during welding; interpass same | None, or 100-200°F to dry it; **never let the casting get above hand-warm, about 150°F, 2" from the weld** |
+| Beads | Longer beads allowed, still stringers | **1" (25 mm) beads maximum**, staggered around the repair so no area heats up |
+| Peening | Helpful | **Mandatory, immediately** while the bead is red: light, fast blows with a ball-peen or air needle-scaler to stretch the weld as it shrinks |
+| Cooling | **Slow**: wrap in ceramic blanket, bury in vermiculite, dry sand or lime; cool overnight; furnace-cool if possible | Air cool between beads; let it cool to touch before the next bead in the same area |
+| Result | Lowest risk of cracking, softer HAZ, machinable with Ni rods | Some hard HAZ; high-nickel deposit is still machinable; cracks possible on restrained joints |
+
+Preheat uneven = cracks. If you cannot heat the whole casting evenly to at least 500°F, use the cold method properly instead of a half-hearted hot method.
+
+## Crack repair procedure
+
+1. **Find the ends** of the crack: clean, then dye penetrant, or heat with a torch and watch for oil sweat along the crack line. Cracks run further than they look.
+2. **Drill 1/8-1/4" holes at each end**, 1/4" beyond the visible end, to stop it running.
+3. **V it out** with a carbide burr or a grinder (not a torch: local heat cracks it) to a 60-90° groove, **half to two-thirds** through on thin walls, full depth with a backing where possible on thick. Round the bottom; no sharp corners. Grinding a cast iron often smears graphite over the surface: finish with a burr, and wipe with acetone.
+4. **Degrease and burn out oil**: torch the groove to a dull red and let the oil sweat and burn off, repeat until it stops smoking; brush.
+5. Preheat per the method chosen; check with a temp stick 2" from the groove.
+6. Weld with Ni rod, DCEP, low amps, **short arc, stringers**, 1" beads (cold method). **Start at the drilled ends and work toward the middle**, alternating ends, so shrinkage keeps closing the crack instead of pulling it open; **peen each bead immediately**; chip and brush before the next.
+7. Multi-pass: **buttering** the groove faces first with 99Ni gives a soft layer that absorbs the shrinkage, then fill with 55Ni.
+8. Finish: fill the drill holes last, grind flush if required, slow-cool per the method.
+9. Inspect after cooling and again after 24 h with dye penetrant; a hairline crack beside the weld means the HAZ cracked (too much heat or too fast cooling): grind out and repeat with more preheat or shorter beads.
+
+## Studding for large or loaded repairs
+
+For thick, load-bearing sections, screw **steel studs** (1/4-3/8" NC, 3/8-1/2" into the iron, projecting 3/16-1/4") into the groove faces at 1/2-3/4" spacing, weld around each stud with Ni rod (the studs anchor the weld in the casting mechanically), then fill. Standard for broken teeth on big castings, cracked machine frames and press housings. The weld now hangs on steel, not on a brittle fusion line.
+
+## Brazing instead
+
+Braze welding with **low-fuming bronze (RBCuZn-C)** and an oxy-acetylene torch at about **1200-1600°F** (dull red) puts no fusion into the iron and rarely cracks it. Right for: thin sections, cracked pump housings not exposed to heat over 500°F, missing lugs, water jackets. Wrong for: parts running hot, parts that will be painted and must be colour-matched (bronze shows), and for high-load structural cracks. Procedure in [brazing and soldering](/article/brazing-and-soldering): the casting must be preheated to a dull red at the joint, tinned with bronze (the flux flows and the bronze wets grey iron only when the graphite has been burned off the surface), then filled.
+
+## Other options
+
+- **Cold stitching / metal stitching** (Lock-N-Stitch, Metalock): drilled and tapped locks and stitching pins across the crack; no heat at all; the professional repair for engine blocks and large frames.
+- **Epoxy metal fillers** for non-structural leaks and cosmetic fills.
+- **Replacement**: a cracked bearing housing on a critical machine is often cheaper to replace than to repair and re-machine.
+
+## Common mistakes
+
+- Using 7018 "because it is cheap": glass-hard HAZ, cracks in a day, and now the part cannot be machined.
+- Long beads without peening: the weld pulls the casting apart behind it.
+- Preheating one side with a torch and calling it hot method: differential expansion cracks the other side.
+- Quenching to save time: the whole thing cracks.
+- Not burning out the oil: porosity in every pass.
+- Welding white iron wear plates: it just shatters; bolt on new plate.
+
+## Related
+
+- [Brazing and soldering](/article/brazing-and-soldering)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Metal identification and spark test](/article/metal-identification-and-spark-test)
+- [Stick (SMAW) setup](/article/smaw-stick-setup)
+- [Hardfacing and build-up](/article/hardfacing-and-buildup)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$cast iron welding$mw$,$mw$cast iron repair$mw$,$mw$nickel rod$mw$,$mw$ENi-CI$mw$,$mw$ENiFe-CI$mw$,$mw$99 nickel$mw$,$mw$55 nickel$mw$,$mw$Ni-Rod$mw$,$mw$Softweld$mw$,$mw$cast iron preheat$mw$,$mw$peening$mw$,$mw$cracked casting$mw$,$mw$gearbox housing crack$mw$,$mw$pump housing repair$mw$,$mw$studding$mw$,$mw$brazing cast iron$mw$,$mw$grey iron$mw$,$mw$ductile iron$mw$,$mw$white iron$mw$,$mw$spark test cast iron$mw$,$mw$machinable weld$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A5.15 (welding electrodes and rods for cast iron); Lincoln Electric Softweld 99Ni and 55Ni data sheets and cast iron welding guide; Hobart / Harris cast iron guidance; Castolin Eutectic and Special Metals Ni-Rod procedures; Machinery's Handbook cast iron data.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$welding-process-selector$mw$, $mw$Which Welding Process for the Job: Stick, MIG, Flux-Core, TIG, SAW, Oxy-Fuel and Brazing Compared$mw$, $mw$A decision table for picking the process before you set anything up: material, thickness, position, indoors or outdoors, quality required, and what equipment you have. Links to the setup chart for each process.$mw$, $mw$## The one-minute decision
 
 Ask these in order. The first row that fits usually decides it.
@@ -4451,6 +5676,339 @@ Bevel anything thicker than about 1/4" for a full-penetration groove weld; a squ
 - [Oxy-acetylene setup (Victor)](/article/oxy-acetylene-setup-victor)
 - [Brazing and soldering](/article/brazing-and-soldering)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
           array[$mw$welding process$mw$,$mw$SMAW vs GMAW$mw$,$mw$stick vs MIG$mw$,$mw$flux core$mw$,$mw$TIG$mw$,$mw$submerged arc$mw$,$mw$which process$mw$,$mw$process selection$mw$,$mw$field welding$mw$,$mw$wind$mw$,$mw$galvanized$mw$,$mw$thin sheet$mw$,$mw$thick plate$mw$,$mw$aluminum welding$mw$,$mw$stainless welding$mw$,$mw$cast iron$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS Welding Handbook Vol. 2; Lincoln Electric and Miller process guides; general shop practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welding-safety-fumes-and-ppe$mw$, $mw$Welding Safety: Lens Shade Table by Process and Amperage, Fumes (Manganese, Hexavalent Chromium, Zinc, Phosgene), Ventilation and Respirators, Electric Shock, Fire and Hot Work Watch, Compressed Gas, Confined Spaces and PPE$mw$, $mw$The hazards of arc and gas welding in one place with the numbers that matter: the OSHA/ANSI filter shade table for each process and current, what is in the fume from carbon steel, stainless, galvanised and coated metal and how to ventilate or respirate for it, electric shock rules including open-circuit voltage and wet conditions, fire watch requirements and the 35-foot rule, cylinder and confined-space rules, and the PPE that stops burns and arc eye.$mw$, $mw$> Order of protection: **remove the hazard** (clean the coating off, weld outside the confined space), **engineer it out** (extraction, screens, guards), **administrative** (permit, fire watch, rotation), **PPE** last. PPE does not stop a fire or a phosgene cloud.
+
+## Lens shade table
+
+Minimum shade from OSHA 1910.133(a)(5); "suggested" from ANSI Z49.1 for comfort. Start at the suggested shade and go lighter, not below the minimum. Auto-darkening helmets: set the shade number the same way; the resting state (shade 3-4) is only for setup.
+
+| Process | Electrode size / current | Minimum shade | Suggested shade |
+|---|---|---|---|
+| **Stick (SMAW)** | < 3/32" electrode, < 60 A | 7 | 10 |
+| | 3/32-5/32", **60-160 A** | **8** | **10-12** |
+| | 5/32-1/4", 160-250 A | 10 | 12-14 |
+| | > 1/4", 250-550 A | 11 | 14 |
+| **MIG / flux-core (GMAW, FCAW)** | < 60 A | 7 | - |
+| | **60-160 A** | **10** | **11** |
+| | 160-250 A | 10 | 12 |
+| | 250-500 A | 10 | 14 |
+| **TIG (GTAW)** | < 50 A | 8 | 10 |
+| | **50-150 A** | **8** | **12** |
+| | 150-500 A | 10 | 14 |
+| **Air carbon-arc gouging** | light, < 500 A | 10 | 12 |
+| | heavy, 500-1000 A | 11 | 14 |
+| **Plasma arc cutting** | < 300 A | 8 | 9 |
+| | 300-400 A | 9 | 12 |
+| | 400-800 A | 10 | 14 |
+| Plasma arc welding | < 20 A / 20-100 / 100-400 / 400-800 | 6 / 8 / 10 / 11 | 6-8 / 10 / 12 / 14 |
+| Carbon arc welding | | 14 | 14 |
+| **Torch brazing** | | 3 | 3-4 |
+| Torch soldering | | 2 | 2 |
+| **Gas welding** | light < 1/8", medium 1/8-1/2", heavy > 1/2" | 4 / 5 / 6 | 4-5 / 5-6 / 6-8 |
+| **Oxy-fuel cutting** | light < 1", medium 1-6", heavy > 6" | 3 / 4 / 5 | 3-4 / 4-5 / 5-6 |
+
+Everyone within the arc's line of sight gets shade protection or a **welding screen**; helpers and fitters wear shade 5 face shields or glasses when standing next to the arc. **Safety glasses under the helmet always** (grinding, chipping, and the helmet flips up). Arc eye (welder's flash) is a UV burn to the cornea: it hurts 6-12 hours later, feels like sand, lasts 1-2 days; cold compresses, eye drops as advised, and dark; see a doctor if it does not settle, and never rub. Skin burns from UV happen through a T-shirt on a 250 A spray arc in minutes: cover up.
+
+## Fumes
+
+Fume is the metal vapour condensed into fine particles, plus gases from the arc and coatings. Concentration is highest in the plume 12-18" above the weld, which is exactly where a bent-over welder's head is.
+
+| Source | Hazard | Exposure limits (OSHA PEL / ACGIH TLV, 8 h) | Control |
+|---|---|---|---|
+| Carbon steel, stick/flux-core especially | **Manganese** (nervous system), iron oxide | Mn: OSHA ceiling 5 mg/m³; **ACGIH TLV 0.02 mg/m³ respirable** (very low; flux-core easily exceeds it without extraction) | Local exhaust (fume gun or arm within 12-18"), keep head out of the plume, P100 respirator |
+| **Stainless, hardfacing with Cr, Inconel, 309 on carbon** | **Hexavalent chromium** (Cr VI: lung cancer, asthma), nickel | Cr VI: **5 µg/m³ PEL**, action level 2.5 µg/m³ (OSHA 1910.1026 requires monitoring and controls) | Extraction at source, **P100 half-mask minimum**, PAPR for heavy work, no dry sweeping, hygiene (wash before eating) |
+| **Galvanised, zinc-primed** | Zinc oxide: **metal fume fever** (chills, fever, metallic taste 4-12 h later; "Monday sickness"); also lead in some old coatings | ZnO 5 mg/m³ | **Grind the zinc off 1-2" back**, extraction, P100; expect fever the first time anyway |
+| Cadmium plating (old bolts, some brazing rods) | Cadmium: acute lung injury, kidney | 5 µg/m³ | Do not weld or braze cadmium-plated parts or with Cd-bearing filler without extraction and respirator; avoid |
+| Lead paint, old primers | Lead | 50 µg/m³ | Strip first; lead work needs its own program |
+| Painted, oily, plastic-coated parts | Isocyanates (urethane paint), CO, aldehydes | | Strip 4" back |
+| **Chlorinated solvents (brake cleaner, some degreasers) near the arc** | UV converts vapour to **phosgene** (lethal, delayed) | | **Never weld on or near parts cleaned with chlorinated brake cleaner**; use non-chlorinated cleaner, let it fully evaporate, ventilate |
+| Beryllium-copper (tools, some bronze) | Beryllium | | Do not weld/grind without special controls |
+| Any arc in argon/CO2 in a confined space | Oxygen displacement; CO from CO2 | O2 < 19.5% | Ventilation, monitor |
+| Ozone (TIG/MIG on aluminium, high amps), NOx | Lung irritation | O3 0.1 ppm | Ventilation, distance |
+| Flux-core and stick fume in general | Fluorides, respirable particulate | | Extraction |
+
+**Ventilation rules (OSHA 1910.252(c))**: natural ventilation is acceptable only in spaces with > 10,000 ft³ per welder, ceilings > 16 ft, no barriers; otherwise mechanical ventilation or local exhaust (2,000 cfm per welder for general ventilation, or a local hood that gives 100 ft/min air velocity at the arc) is required. Practical: a fume arm or fume gun at every stainless, flux-core and galvanised job, a fan that moves the plume away from the welder's face (not across the shielding gas), and a fit-tested P100 half-mask for anything on the list above. Beards defeat half-masks: PAPR or shave.
+
+## Electric shock
+
+- Welding output is low voltage but **open-circuit voltage (OCV)** on a stick/TIG machine is 60-100 V DC (80 V max under ANSI Z49.1 for manual DC; AC 80 V with voltage-reducing device in wet conditions). Wet skin, wet gloves, sweat, lying on the work, or standing in water make that fatal.
+- **Dry gloves**, dry clothes, insulate yourself from the work (rubber mat, dry plywood), do not wrap the cable around you, do not hold the electrode holder under your arm, never change electrodes with bare wet hands, do not rest the holder on the work.
+- **Voltage-reducing devices (VRD)** on machines for confined and wet locations; use "low OCV" mode when available.
+- Primary side: 230/460 V will kill instantly: only qualified electricians open the input; plugs and cords inspected; machine frame grounded.
+- Work clamp on the work, close to the weld, never on a path that crosses a bearing, hoist chain, gas cylinder, or another welder's circuit. Two welders on one structure with different polarities can have 160 V between their electrodes.
+- Never weld from a ladder or suspended platform without fall protection and dry conditions; a shock at height is a fall.
+- Pacemakers: consult the doctor; stay off high-frequency TIG.
+
+## Fire and hot work
+
+- **35-foot rule** (OSHA 1910.252(a), NFPA 51B): all combustibles moved 35 ft (11 m) from the work or covered with fire-resistant blankets/screens; floor swept, cracks and floor openings covered, wall openings covered, ducts and conveyors that could carry sparks shut down or shielded.
+- **Fire watch** required when combustibles cannot be moved or are within 35 ft, when openings expose combustibles, or for hot work on walls/ceilings with combustibles on the other side: **during the work and at least 30 minutes after (OSHA); NFPA 51B (2019) requires 60 minutes plus a check-back up to 3 hours** for high-risk areas. Fire watch has an extinguisher (ABC 20-lb or hose), knows how to use it and how to call the alarm, and does nothing else.
+- **Hot work permit** (plant procedure, NFPA 51B): a signed check of the area, sprinkler status, gas monitoring where flammables are possible (LEL < 10%), and the fire watch. Never on drums, tanks or pipes that have held flammables without cleaning, purging and testing; a "clean" fuel tank explodes.
+- Sparks travel 35 ft and roll further; grinding sparks bounce; overhead work rains fire into your collar and pockets: leathers, cap, closed pockets, no cuffs, no synthetic underlayers.
+- Extinguisher and a way to raise the alarm within reach at every job; on trucks and in the field, a 10-lb ABC minimum.
+
+## Compressed gases
+
+Cylinders chained upright, caps on in transport, never used as rollers or anchor points, never welded on or near (arc strike on a cylinder = rupture), regulator backed out before opening, open slowly and stand to the side; acetylene never above **15 psig**; oxygen keeps oil, grease and gloves away; argon/CO2/nitrogen are asphyxiants (a leaking bottle in a tank or pit kills without warning; monitor O2). Full oxy-fuel rules in [oxy-fuel safety](/article/oxy-fuel-safety).
+
+## Confined spaces
+
+Welding inside a tank, pit, vessel, duct or between tight bulkheads: permit-required confined space entry (OSHA 1910.146): atmosphere tested (O2 19.5-23.5%, LEL < 10%, toxics) and **continuously monitored**, forced ventilation, cylinders and the machine **outside**, gas shut off at the cylinder and torches removed when you leave (a leaking torch fills the tank with fuel gas or argon), attendant, retrieval line, VRD on the machine, no chlorinated solvents inside, a fire watch outside. See [confined space entry](/article/confined-space-entry).
+
+## PPE
+
+| Item | Spec |
+|---|---|
+| Helmet | ANSI Z87.1, shade per table; auto-darkening with 4 sensors for fabrication; cover lens clean |
+| Safety glasses | Z87.1+ under the helmet, always |
+| Gloves | Stick/flux-core: heavy leather gauntlets; MIG: medium; TIG: thin goatskin for feel. Dry |
+| Jacket / sleeves | FR cotton (not treated once), leather for heavy stick/overhead and carbon-arc; no synthetics next to skin |
+| Trousers | FR or heavy cotton, no cuffs, over the boots |
+| Boots | Leather, high, no laces exposed to sparks (metatarsal guards for heavy work) |
+| Cap / skull cap | Under the helmet; ears covered for overhead |
+| Hearing | Plugs or muffs for carbon-arc (115-120 dB), plasma, grinding, chipping hammers |
+| Respirator | P100 half-mask fit-tested, or PAPR helmet, for stainless, galvanised, flux-core indoors, hardfacing |
+| Face shield | Over glasses for grinding, carbon-arc gouging (with shade), chipping slag |
+| Screens | Welding curtains around the job in a shared shop |
+
+## Common mistakes
+
+- Welding galvanised with the window open as "ventilation" and going home with a fever.
+- Brake cleaner on a part, then TIG: phosgene. It has killed welders.
+- Ground clamp on the crane hook or a machine bed: bearing damage and a hot cable.
+- Fire watch leaving after 5 minutes; most hot-work fires start after the welder is gone.
+- Shade too dark, then lifting the helmet to see the start: an arc eye every day.
+- Gloves damp from sweat, changing a rod while sitting on the steel: a shock that makes you fall.
+
+## Related
+
+- [Oxy-fuel safety](/article/oxy-fuel-safety)
+- [Machine setup, duty cycle and cables](/article/machine-setup-and-duty-cycle)
+- [Gas selection and flow](/article/gas-selection-and-flow)
+- [Hot work permits and fire watch](/article/hot-work-permits-and-fire-watch)
+- [Confined space entry](/article/confined-space-entry)
+- [PPE selection](/article/ppe-selection)
+- [Lockout / tagout](/article/lockout-tagout-basics)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$welding safety$mw$,$mw$welding shade$mw$,$mw$lens shade chart$mw$,$mw$shade number$mw$,$mw$welding fumes$mw$,$mw$manganese$mw$,$mw$hexavalent chromium$mw$,$mw$hex chrome$mw$,$mw$galvanized welding$mw$,$mw$metal fume fever$mw$,$mw$zinc fumes$mw$,$mw$phosgene$mw$,$mw$brake cleaner welding$mw$,$mw$ventilation$mw$,$mw$fume extractor$mw$,$mw$welding respirator$mw$,$mw$P100$mw$,$mw$electric shock welding$mw$,$mw$OCV$mw$,$mw$fire watch$mw$,$mw$hot work permit$mw$,$mw$35 foot rule$mw$,$mw$welding PPE$mw$,$mw$welding helmet$mw$,$mw$arc eye$mw$,$mw$welder's flash$mw$,$mw$UV burn$mw$,$mw$welding in confined space$mw$,$mw$argon asphyxiation$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.252 (welding, cutting and brazing), 1910.133 (eye protection, shade table), 1910.254/255, 1926.102; ANSI Z49.1:2021 Safety in Welding, Cutting and Allied Processes (free from AWS); NFPA 51B (2019) hot work; AWS Safety and Health Fact Sheets; OSHA hexavalent chromium standard 1910.1026; ACGIH TLVs (manganese).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welding-stainless-and-dissimilar$mw$, $mw$Welding Stainless Steel and Dissimilar Metals: 308L/309L/316L Filler Selection, Sensitisation and Carbide Precipitation, Heat Input, Purging, Cleaning, Duplex and Stainless-to-Carbon Steel$mw$, $mw$Which filler for which stainless grade and for stainless-to-carbon-steel joints, why stainless needs low heat input and a maximum interpass, how to purge and judge the colour, cleaning and contamination rules, and the settings differences from carbon steel for stick, MIG, flux-core and TIG.$mw$, $mw$## Families you will meet
+
+| Family | Grades | Magnetic | Notes |
+|---|---|---|---|
+| **Austenitic (300 series)** | 304/304L, 316/316L, 321, 347, 309, 310 | No (slightly after cold work) | 90% of stainless welding; not hardenable; expands 50% more than carbon steel and conducts heat 40% as well → distortion |
+| Ferritic (400 series, low carbon) | 409, 430 | Yes | Exhausts, trim; grain growth in HAZ, keep heat low; filler 409/430 or 308L/309L |
+| Martensitic | 410, 420, 440 | Yes | Hardens on cooling: **preheat 400-600°F**, matching or 309L filler, temper after |
+| Precipitation-hardening | 17-4PH, 15-5PH | Yes | Weld with 17-4 filler in the solution-annealed condition, re-age after |
+| Duplex | 2205, 2507 | Yes | Half austenite, half ferrite; filler 2209; **strict heat-input window and interpass ≤ 300°F** |
+
+## Filler selection
+
+| Base metal | Stick (AWS A5.4) | MIG/TIG wire (A5.9) | FCAW |
+|---|---|---|---|
+| **304, 304L, 321, 347 (general)** | **E308L-16** | **ER308L**, ER308LSi (MIG, wets better) | E308LT1-1/-4 |
+| 321, 347 (stabilised, high-temp) | E347-16 | ER347 | E347T1 |
+| **316, 316L** | **E316L-16** | **ER316L**, ER316LSi | E316LT1-1/-4 |
+| 309, 310 | E309L / E310 | ER309L / ER310 | E309LT1 |
+| **Stainless to carbon or low-alloy steel** | **E309L-16** | **ER309L**, ER309LSi | E309LT1-1/-4 |
+| Stainless to stainless of unknown grade | E309L | ER309L | |
+| 410 (martensitic) | E410-16 (preheat) or E309L (soft, no PWHT) | ER410 / ER309L | |
+| 430 (ferritic) | E430 or E308L/E309L | ER430 / ER309L | |
+| Duplex 2205 | E2209-16 | ER2209 | E2209T1 |
+| Buffer layer / dissimilar high-restraint | ENiCrFe-3 (Inconel 182) | ERNiCr-3 (Inconel 82) | |
+| Nickel to stainless, cryogenic, or clad plate | ENiCrMo-3 | ERNiCrMo-3 (625) | |
+
+Rules: **"L" (≤ 0.03% C) always** unless the drawing says otherwise; 309L for anything joined to carbon steel; ER308LSi/316LSi on MIG (silicon makes the puddle wet out, but do not use Si grades where the weld will be nitric-acid service). Stick electrode suffix -16 (all position, AC/DC), -15 (DC+ only, lime, tougher), -17 (spray-like, smooth, flat/horizontal).
+
+## Why heat input matters: sensitisation
+
+Between roughly **800 and 1500°F (425-815°C)** chromium in austenitic stainless combines with carbon to form chromium carbides at the grain boundaries, stripping chromium from the metal next to them: the weld looks fine and then rusts or cracks in a line beside the weld (weld decay). Defences:
+
+1. **Low-carbon grades (L)** and low-carbon filler.
+2. **Low heat input**: stringer beads, smaller electrodes, faster travel, no wide weaves.
+3. **Interpass ≤ 300°F (150°C)**: check with a temp stick; let it cool, use chill bars.
+4. Stabilised grades (321, 347) for high-temperature service.
+5. Solution annealing (1900-2050°F and quench) if the fabrication allows; rarely available in the field.
+
+**Hot cracking** in fully austenitic welds is avoided by filler with a few percent ferrite (308L and 316L have FN 5-10; 310 and 330 have none and crack easily on restrained joints), by convex beads and by filling craters.
+
+## Settings compared with carbon steel
+
+| Process | Change from carbon steel |
+|---|---|
+| Stick | Same amps or **5-10% lower** for the diameter (see [electrode chart](/article/smaw-electrode-chart)); short arc; the slag is glassy and self-lifting; DCEP or AC on -16 |
+| MIG short-circuit | **Tri-mix (90 He / 7.5 Ar / 2.5 CO2)** for flat wet beads, or 98/2 Ar-CO2; .035 at 60-140 A, 17-21 V; never straight CO2 or C25 (carbon pick-up, ugly oxide) |
+| MIG spray | 98/2 Ar-O2 or Ar-CO2; .035 at 180-220 A, 24-27 V; **pulse** is the best all-round mode on stainless |
+| FCAW | E308LT1-1 with 100% CO2 or E308LT1-4 with 75/25; .045 at 150-220 A, 24-28 V; light slag, all position |
+| TIG | DCEN, **10-20% less amps** than steel, gas lens, argon 15-20 cfh, long post-flow, back-purge | See [TIG settings](/article/gtaw-settings-by-material) |
+
+Stainless does not conduct heat away: the puddle forms fast and stays. Move faster than you would on carbon steel and expect more distortion: tack every 2-3", clamp, chill bars, back-step.
+
+## Purging and colour
+
+Any open root (pipe, tanks, box sections) exposed to air while hot oxidises into a black crust ("sugaring") that has no corrosion resistance and cracks. Purge with argon (procedure in [gas selection and flow](/article/gas-selection-and-flow)) until oxygen < 0.1% and keep the purge on until the root is below about 800°F.
+
+| Heat tint colour on the weld and HAZ | Meaning |
+|---|---|
+| Silver, pale straw | Correct shielding; acceptable for all services |
+| Gold, light blue | Thin oxide; acceptable for non-corrosive service; pickle for corrosive |
+| Dark blue, purple | Thicker oxide; poor shielding or too hot; pickle or grind on corrosive service |
+| Grey, black, crusty | Oxidised, no protection; cut out on the root, grind and re-weld on the cap |
+
+Post-weld cleaning restores the passive layer: **pickling paste** (nitric-hydrofluoric, follow the SDS, neutralise and rinse), electrochemical weld cleaning, or mechanical (dedicated stainless flap disc, then passivation with citric or nitric acid). Wire brushing alone leaves oxide and rubs iron into the surface if the brush was ever used on carbon steel.
+
+## Contamination rules
+
+- **Dedicated tools**: stainless wire brushes, grinding discs, files and clamps marked and kept apart. Carbon steel grinding dust on stainless rusts ("rust spots") within days.
+- No carbon steel spatter, no carbon-steel table without a stainless sheet or wood under the part, no steel hammers on the surface.
+- Degrease with acetone or alcohol; no chlorinated solvents (they leave chlorides, and chlorides cause stress-corrosion cracking); no marker pens with chloride content on chemical-service parts.
+- Temperature sticks: use chloride-free ones on stainless.
+- Store stainless filler in its own tube; a 308L rod that has been on a carbon steel bench picks up iron.
+
+## Stainless to carbon steel
+
+Use **309L**: its extra chromium and nickel absorb dilution from the carbon steel side without forming brittle martensite. Steps: settings for the stainless side, arc favouring the carbon steel side (it needs more heat and it melts faster into the puddle, so keep the dilution low with a shallow puddle), preheat per the carbon steel if it is thick or alloyed (7018 rules), interpass under 300°F for the stainless side. For clad plate: carbon steel side with 7018, back-gouge, one 309L buffer layer, then 308L/316L to match the cladding.
+
+For high-restraint dissimilar joints in service above 600°F (thermal cycling), and for joints to alloy steel like 4140 or to nickel alloys, use a nickel-based filler (ERNiCr-3 / ENiCrFe-3): its expansion sits between the two and it tolerates dilution.
+
+## Duplex quick rules
+
+Heat input window **0.5-2.5 kJ/mm (13-63 kJ/in)**, interpass **≤ 300°F (150°C)**, filler **2209** (over-alloyed with nickel to keep the austenite balance), no preheat, argon (or Ar + 2% N2) shielding and purge, no autogenous welds. Too cold gives too much ferrite (brittle); too hot forms intermetallics (brittle and corrodes). Follow the WPS exactly.
+
+## Common mistakes
+
+- 308L on stainless-to-carbon joints: cracks along the fusion line months later. Use 309L.
+- Weaving 1/8" 308L in one wide cap: sensitised HAZ and a rusty line by summer.
+- C25 gas on stainless MIG "because it was on the machine": carbon pick-up and a dull oxide skin.
+- Grinding with the shop's carbon steel discs: rust spots on a stainless food tank.
+- Skipping the purge on a pipe root "just this once": the root sugars and the seam leaks after the first cleaning cycle.
+- Leaving heat tint on chemical-service welds: pitting starts in the blue band.
+
+## Related
+
+- [Stick electrode chart](/article/smaw-electrode-chart), [AWS classification decoder](/article/aws-electrode-classification)
+- [TIG settings by material](/article/gtaw-settings-by-material)
+- [Gas selection and flow (purging)](/article/gas-selection-and-flow)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Metal identification and spark test](/article/metal-identification-and-spark-test)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$stainless steel welding$mw$,$mw$308L$mw$,$mw$309L$mw$,$mw$316L$mw$,$mw$347$mw$,$mw$filler selection stainless$mw$,$mw$dissimilar metal welding$mw$,$mw$stainless to carbon steel$mw$,$mw$sensitization$mw$,$mw$carbide precipitation$mw$,$mw$ferrite number$mw$,$mw$back purge$mw$,$mw$sugaring$mw$,$mw$heat tint$mw$,$mw$passivation$mw$,$mw$pickling$mw$,$mw$duplex stainless$mw$,$mw$410 stainless$mw$,$mw$17-4$mw$,$mw$interpass stainless$mw$,$mw$stainless MIG settings$mw$,$mw$stainless stick$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A5.4 / A5.9 (stainless electrodes and wires); AWS D1.6 Structural Welding Code, Stainless Steel; Lincoln Electric stainless steel welding guide; ESAB and Sandvik filler selection tables; Nickel Institute and Outokumpu welding handbooks.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welding-symbols$mw$, $mw$Welding Symbols (AWS A2.4): Reference Line, Arrow Side and Other Side, Fillet and Groove Symbols, Size, Length and Pitch, Contour and Finish, Weld-All-Around, Field Weld, Backing, Melt-Through, with Worked Examples$mw$, $mw$How to read every part of a welding symbol on a drawing, with the rules that trip people up (which side of the line is the arrow side, where size and length go, what a break in the arrow means, groove depth versus effective throat) and twelve worked examples read out in plain English. Includes the Canadian/ISO differences.$mw$, $mw$## Anatomy
+
+```
+                    finish symbol ─┐
+                  contour symbol ──┤     ┌── groove angle
+                root opening ──┐   │     │   ┌── length - pitch
+                               │   │     │   │
+              other side ──►  S(E) ▽  ... L - P
+   ─────────────────────────────────────────────────────────◄───── arrow
+              arrow side ──►  S(E) ▷  ... L - P
+                               ▲  ▲
+                 size / depth ─┘  └── weld symbol (this one: fillet)
+   ┌───┐
+   │tail│ ◄── process, spec, WPS, "typ", notes (omitted if nothing to say)
+   └───┘
+   Circle at the junction = weld all around;  flag at the junction = field weld
+```
+
+- **Reference line**: horizontal. Everything **below** the line is the **arrow side** of the joint (the side the arrow touches). Everything **above** is the **other side**. Symbols on both = both sides.
+- **Arrow**: points to the joint. A **broken (bent) arrow** on a bevel or J symbol points to the member that gets the bevel.
+- **Weld symbol** (the little picture) sits on the line. **Welding symbol** = the whole assembly.
+- Multiple reference lines stacked from the arrow show the **sequence** (first operation nearest the arrow).
+- Symbols are drawn the same regardless of which way the arrow points: the fillet triangle always has its vertical leg on the **left**.
+
+## Weld symbols
+
+| Symbol | Name | Notes |
+|---|---|---|
+| ▷ (right triangle, vertical leg left) | **Fillet** | Most common |
+| ‖ | **Square groove** | |
+| V | **V-groove** | Both members bevelled |
+| ⊾ (one vertical, one slanted leg) | **Bevel groove** | One member bevelled; broken arrow shows which |
+| U | **U-groove** | |
+| J | **J-groove** | Broken arrow shows which member |
+| flare-V, flare-bevel | Rounds/tubes to plate | |
+| ▭ (rectangle) | **Plug or slot** | Fill a hole/slot in the arrow-side member |
+| ○ on the line | **Spot / projection** | Resistance or arc spot |
+| ⊖ | **Seam** | |
+| ⌒ half-circle on the opposite side | **Back / backing weld** | Back weld = after the groove; backing weld = before |
+| ▭ with "backing" | Backing bar (with R if to be removed) | |
+| ⌒⌒ (two half circles) | **Surfacing** (build-up, hardfacing) | Size = thickness of deposit |
+| ⊗ | **Stud** | |
+| ⌢ black on the opposite side | **Melt-through** | Full penetration with visible root reinforcement |
+| ⧗ small flag at junction | **Field weld** | Made on site, not in the shop |
+| ○ at junction | **Weld all around** | |
+| ─ ⊂ (flush/flat), ⌒ (convex), ⌣ (concave) | **Contour** | Above/below the weld symbol |
+| G, M, C, H, R, U | **Finish** method: grind, machine, chip, hammer, roll, unspecified | With the contour symbol |
+
+## Where the numbers go
+
+| Position (relative to the weld symbol) | Fillet | Groove |
+|---|---|---|
+| **Left** | **Size** (leg length): `1/4 ▷` = 1/4" fillet; unequal legs `1/4 x 3/8 ▷` (orientation given on the drawing) | **Depth of preparation S**, and **effective throat (E)** in parentheses: `1/2 (5/8) V` = 1/2" deep bevel giving 5/8" throat; nothing = full penetration (CJP) |
+| **Right** | **Length** and **pitch**: `▷ 6-12` = 6" long fillets, 12" centre to centre; `▷ 6` = 6" long, once; nothing = full length | Same for intermittent groove welds (rare) |
+| **Inside the symbol** | | **Root opening**: `V` with `1/8` inside = 1/8" gap |
+| **Outside the opening of the symbol** | | **Groove angle**: `60°` above a V; `45°` beside a bevel |
+| **Above the symbol (arrow side: below the line)** | Contour and finish | Contour and finish |
+| Plug/slot | Size of hole left, depth of fill inside, angle of countersink, pitch right | |
+| Spot/seam | Size or strength left, number of spots in parentheses, pitch right | |
+| Tail | Process (SMAW, GMAW, FCAW, GTAW), spec, "see note 3", "typ" | |
+
+**Intermittent fillets on both sides**: symbols aligned = chain intermittent (welds opposite each other); symbols **staggered** along the line = **staggered** intermittent. `▷ 3-12` both sides staggered means 3" welds every 12" alternating sides, so a weld every 6" if you count both sides.
+
+**Dimensions in the tail or a note override symbols** only when the note says so; "typ" means the same symbol applies to all similar joints on the drawing.
+
+## Worked examples
+
+1. `1/4 ▷` below the line, nothing above: **1/4" fillet, arrow side, full length.**
+2. `▷ 1/4` above and `▷ 1/4` below: **1/4" fillets both sides, full length.**
+3. `5/16 ▷ 2-6` below: **5/16" fillet, arrow side, 2" long every 6" (2" weld, 4" gap).**
+4. `1/4 ▷ 3-12` below and `1/4 ▷ 3-12` above, staggered: **1/4" staggered intermittent fillets both sides, 3" welds on 12" centres, offset.**
+5. `▷` with a **circle** at the junction: **fillet all around** the member (e.g. a pipe stub to plate).
+6. `▷` with a **flag**: **field weld**.
+7. `V` with `60°` above it and `1/8` inside, nothing left: **full-penetration single-V groove, 60° included, 1/8" root opening, arrow side** (both members bevelled 30°).
+8. `⊾` with a **broken arrow** to the vertical plate, `45°`, `1/4` inside, and a `backing` rectangle above: **single-bevel groove on the vertical member, 45°, 1/4" gap, with a backing bar on the other side.** Add `R` in the backing rectangle = remove the bar after welding.
+9. `3/8 (1/2) V` below: **partial-penetration V-groove, 3/8" deep preparation, effective throat 1/2"** (the extra 1/8" comes from penetration past the bevel).
+10. `V` below and `⌒` (back weld) above with a flush contour and `G`: **V-groove arrow side, then back-weld the other side and grind flush.**
+11. `‖` with `1/16` inside, both sides: **square groove welded both sides with a 1/16" gap.**
+12. `▭ 3/4` below with `1/2` inside and `6` right: **plug welds in 3/4" holes in the arrow-side plate, filled 1/2" deep, 6" apart.**
+13. `⌒⌒ 1/8` below: **surfacing (build-up) 1/8" thick on the arrow side.** Direction or pattern in the tail.
+14. `▷` below with a concave contour `⌣` and `M`: **fillet, machined to a concave face** (e.g. a shaft fillet).
+15. Two reference lines from one arrow: nearest `V` (arrow side), second `⌒`: **weld the groove first, then the back weld.**
+16. Melt-through `⌢` black symbol above a `‖` square groove below: **full penetration from one side with root reinforcement showing on the other side** (thin material, TIG on sheet, pipe roots).
+
+## Red Seal / Canadian and ISO notes
+
+CSA W59 uses the same AWS A2.4 symbols. **ISO 2553** (European drawings, some equipment manuals) differs: the fillet symbol is an isosceles triangle, the reference line has a **dashed identification line** for the other side (symbol on the dashed line = other side), size is written `a5` (throat) or `z7` (leg) before the symbol, and the field weld flag looks the same. If a drawing has a dashed line under the reference line, read it as ISO; "a" size is **throat**, not leg (leg ≈ 1.4 × a).
+
+## Common mistakes
+
+- Reading "below the line" as "below the joint": it is the **arrow side**, wherever the arrow points.
+- Taking `1/4 ▷ 6-12` as 6" gap, 12" weld: it is a 6" **weld** on 12" **centres**.
+- Assuming a bevel symbol means "either side can be bevelled": the broken arrow says which one.
+- Missing the weld-all-around circle on a pipe support and welding only the top.
+- Treating the size as the throat on a fillet: it is the **leg**. Throat = 0.707 × leg.
+- Full-length weld where the symbol had a length: extra cost and distortion; or intermittent where full length was called: rejected.
+
+## Related
+
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Positions and techniques](/article/positions-and-techniques)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$welding symbols$mw$,$mw$weld symbol$mw$,$mw$AWS A2.4$mw$,$mw$reference line$mw$,$mw$arrow side$mw$,$mw$other side$mw$,$mw$fillet symbol$mw$,$mw$groove symbol$mw$,$mw$bevel symbol$mw$,$mw$weld size$mw$,$mw$pitch$mw$,$mw$intermittent weld$mw$,$mw$staggered$mw$,$mw$weld all around$mw$,$mw$field weld$mw$,$mw$contour symbol$mw$,$mw$finish symbol$mw$,$mw$backing symbol$mw$,$mw$melt through$mw$,$mw$plug weld$mw$,$mw$slot weld$mw$,$mw$spot weld$mw$,$mw$tail$mw$,$mw$blueprint welding$mw$,$mw$reading welding symbols$mw$,$mw$ISO 2553$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A2.4:2020 Standard Symbols for Welding, Brazing and Nondestructive Examination; AWS welding symbol chart; ISO 2553 (for the differences).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
