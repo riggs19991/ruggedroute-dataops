@@ -69,3 +69,10 @@ before any credentials are minted.
 
 Namespace `rr-tile-aliases` (id `f2f28315ee8f43fb8413d1bcddd20684`), keys
 `layer-alias:{layer}` → current versioned object key (e.g. `mvum-20260802.pmtiles`).
+
+## Millwright Knowledge Base (`millwright-kb/`)
+
+A separate app that shares this repo and the Supabase project: a searchable library of
+millwright procedures, charts and manufacturer manuals with student sign-in, teacher-run
+class groups and weekly sharing. See [`millwright-kb/README.md`](millwright-kb/README.md).
+Built by `.github/workflows/millwright-kb.yml`.

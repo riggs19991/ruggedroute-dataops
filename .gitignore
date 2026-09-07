@@ -10,3 +10,6 @@ dist/
 
 # Test fixtures are tracked even though bulk geojsonl outputs are not
 !lib/fixtures/*.geojsonl
+
+# millwright-kb local env (copy from millwright-kb/.env.example)
+millwright-kb/.env
