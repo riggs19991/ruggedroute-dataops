@@ -7428,6 +7428,430 @@ Installation: drill to the STI size (clean, square, chamfered), tap with the STI
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$inspection-routes$mw$, $mw$Inspection Routes: Building and Walking a Plant Route, What to Carry, How to Take and Record Readings, and Turning Observations into Work Orders$mw$, $mw$How to set up an inspection route that catches failures early: deciding what goes on the route and how often, the tool kit to carry, the look-listen-feel-measure method at each machine, how to establish baselines and alarm limits, recording readings so trends are visible, and the rules for what gets fixed on the spot versus written up.$mw$, $mw$> A route is the cheapest condition monitoring there is: a trained person with an IR thermometer, a vibration pen and a notebook finds most bearing, belt, alignment and lubrication problems weeks before they stop production. The route only works if it is walked **on schedule, the same way, and written down**.
+
+## Building the route
+
+1. **List the assets** in a physical walking order (minimise backtracking; group by area and by lockout requirement).
+2. **Rank by criticality**: A = stops the plant or is a safety issue with no spare (daily or each-shift checks); B = affects production, spare available (weekly); C = minor, run-to-failure acceptable (monthly).
+3. For each asset write the **check points** (what, where, limit): "pump P-101 DE bearing housing: temperature < 180°F and < baseline + 20°F; vibration < 0.3 in/s; seal: no visible leak". Use the [PM checklists](/article/pm-checklists) as the starting list and cut it down to what you can actually do in the time.
+4. **Mark the measuring points** on the machine (paint dot, stick-on target) so readings are repeatable: horizontal, vertical and axial on each bearing housing for vibration; a fixed spot on the housing for temperature.
+5. Decide **how long** it takes (a realistic route is 1-2 hours; longer ones get skipped) and put it on the schedule with a name against it.
+6. Print or load the route sheet with the **last three readings** shown beside each point so the walker sees the trend on the spot.
+
+## What to carry
+
+| Tool | Use | Notes |
+|---|---|---|
+| **IR thermometer** (or a thermal camera) | Bearings, motors, couplings, belts, gearboxes, electrical connections, steam traps | Emissivity: painted or oxidised surfaces read fine; shiny metal reads low; aim at the same spot, 1:1 spot ratio at close range (a 12:1 gun at 12 in sees a 1 in spot) |
+| **Vibration pen / meter** (overall velocity in/s or mm/s) | Bearing housings, motor frames, fans | Same point, same direction, machine at normal load; see [ISO severity](/article/vibration-basics-and-iso-severity) |
+| **Mechanic's stethoscope** or a long screwdriver to the ear | Bearings, gear mesh, valve chatter, cavitation | Compare ends of the same machine |
+| **Ultrasonic gun** (if available) | Bearings (grease condition), air and gas leaks, steam traps, electrical arcing/corona | Ultrasound catches bearing lubrication problems earliest of all |
+| Flashlight, mirror, magnet | Leaks, cracks, under guards | |
+| Strobe (tachometer) | Belt slip (sheave rpm vs motor rpm), rotating parts "frozen" for a look | |
+| Grease gun (labelled with the grease) and rag | Route lubrication points | Quantity by the table, not by feel |
+| Tape, marker, tags | Mark findings on the machine; tag defects | |
+| Route sheet / tablet, pen | The readings | |
+| PPE for the area, lockout locks if any guard opens | | |
+
+## At each machine: look, listen, feel, measure
+
+**Look**: leaks (oil, grease, water, product: where from, how much, new or old), oil level and colour in sight glasses, breathers, guards on and secure, belt dust, rust streaks (fretting) at flanges and bolted joints, cracked welds or paint at the base, loose bolts (paint witness lines broken), foundation cracks, misaligned or rubbing parts, wet insulation, build-up on fans and pulleys, condition of hoses and cables, gauge readings versus normal, sight-glass flow, e-stops and pull cords accessible.
+
+**Listen**: pitch and rhythm compared to last week (a rising whine, a knock at shaft speed, a grinding or hiss, chain slap, belt squeal, cavitation gravel, relief valve chatter, air leaks).
+
+**Feel** (outside the guard, only where it is safe): vibration by hand on the housing and base (a buzz vs a shake), temperature by the back of a hand near (not on) the surface, air flow at the motor fan, pipe pulsation.
+
+**Measure**: temperature at the marked point; vibration at the marked points; amps if a meter is on the panel; pressures and flows from the gauges; oil level; anything the route sheet asks for. Write the number, not "OK".
+
+**Smell**: hot insulation (varnish), burning rubber (belt), overheated oil (gearbox), hydraulic oil (leak), product.
+
+## Baselines and limits
+
+- Take **baseline** readings on a healthy machine (after commissioning, after an overhaul, or the average of the first few readings), at normal load and temperature.
+- Alarm limits: use the maker's numbers where they exist; otherwise **temperature**: alert at baseline + 20°F (11°C), act at + 40°F or an absolute 180°F on bearing housings (200°F on gearboxes); **vibration**: alert at 2× baseline or the ISO 20816 zone B/C boundary for the machine class, act at zone C/D (see the chart); **amps**: alert at 10% over baseline or unbalance over 10% between phases; **oil level**: any drop needing a top-up between routes is a leak to find.
+- Rate of change matters more than the number: a bearing at 160°F that was 120°F last week is the one to watch, not the one that has run at 170°F for three years.
+
+## Recording
+
+- **One line per point, one column per date**: the sheet itself becomes the trend chart. Digital (CMMS route module, spreadsheet, or a photo of the sheet) is fine; a pile of unread paper is not.
+- Note the **condition at the time**: load, product, ambient, speed (readings at half load are not comparable to full load).
+- Anything off-limit or new: photo, tag on the machine, and a **work order** with the reading, the limit and what you think it is (see [work orders and history](/article/work-order-and-history-records)).
+- Fix on the spot only what the route allows (top up oil, tighten a guard bolt, clean a breather, regrease at the scheduled quantity); anything needing lockout, parts or more than a few minutes is written up so it is tracked and the history is kept.
+
+## Frequency by failure speed
+
+| Failure mode | How fast it develops | Route interval |
+|---|---|---|
+| Lubrication starvation (bearing) | Days to weeks after the grease runs out | Weekly with ultrasound / temperature |
+| Rolling element bearing fatigue | Weeks to months from first vibration sign to failure | Weekly to monthly vibration |
+| Belt wear, tension loss | Weeks | Weekly listen/look, monthly measure |
+| Misalignment | Seen at once by vibration; damage over months | Monthly vibration, annually check |
+| Gear tooth wear | Months to years; pitting to breakage can be fast | Monthly oil/magnetic plug, quarterly vibration |
+| Coupling element wear | Weeks to months; dust or rubber crumbs under the guard | Monthly look |
+| Seal leak | Sudden or gradual | Each shift look |
+| Structural cracks, loose bolts | Weeks | Monthly look |
+
+## Common mistakes
+
+- Readings taken at different points, or with the machine in a different condition, so trends are noise.
+- "OK" instead of a number.
+- The route done by whoever is free rather than a named person who knows what normal sounds like.
+- Findings fixed quietly and not recorded, so the history never shows the repeat problem.
+- Over-greasing on the route because the gun is in the hand.
+- Ignoring the small stuff (a broken sight glass, a missing guard bolt, a weeping fitting) that becomes the big stuff.
+
+## Related
+
+- [PM checklists by equipment](/article/pm-checklists)
+- [Work orders and history records](/article/work-order-and-history-records)
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Thermography, ultrasound and oil analysis](/article/thermography-ultrasound-and-oil)
+- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)
+- [Lube routes and single-point lubricators](/article/lube-routes-and-single-point-lubricators)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$maintenance$mw$),
+          array[$mw$inspection route$mw$,$mw$operator rounds$mw$,$mw$maintenance rounds$mw$,$mw$walkdown$mw$,$mw$route based inspection$mw$,$mw$look listen feel$mw$,$mw$IR thermometer$mw$,$mw$vibration pen$mw$,$mw$ultrasound$mw$,$mw$stethoscope$mw$,$mw$strobe$mw$,$mw$route sheet$mw$,$mw$readings log$mw$,$mw$baseline$mw$,$mw$trending$mw$,$mw$alarm limits$mw$,$mw$condition based maintenance$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SMRP body of knowledge; Reliabilityweb and Plant Engineering route-based inspection guidance; ISO 17359 (condition monitoring guidelines); manufacturer maintenance manuals; ISO 20816 vibration severity zones.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pm-checklists$mw$, $mw$Preventive Maintenance Checklists: Pumps, Motors, Gearboxes, Belt and Chain Drives, Conveyors, Compressors, Hydraulic Units and Fans, by Daily, Weekly, Monthly, Quarterly and Annual Interval$mw$, $mw$Ready-to-use PM checklists for the equipment on every millwright's route, organised by interval, with the specific numbers to compare against (temperatures, vibration, belt deflection, oil level, filter differential, relief valve tests) and links to the article that explains each check.$mw$, $mw$> A PM is only useful if the reading is **written down and compared to last time**. Trends (bearing temperature up 10°F over three months, vibration creeping from 0.1 to 0.2 in/s) catch failures; single readings rarely do. Every checklist below assumes the machine is **locked out** for anything that opens a guard.
+
+## General rules for every route
+
+- Running checks first (noise, heat, vibration, leaks, gauges, amps) with the machine on; lockout for anything hands-on.
+- Take readings the **same way, same place, same load** each time; mark the measuring points with paint.
+- Record: date, reading, who, and what was done (topped up 2 oz grease, tightened belts to 1/2 in deflection).
+- Follow the manufacturer's manual for intervals; the intervals below are typical for 8-hour-a-day industrial duty and get shortened for 24/7, dirty, hot or wet service.
+- A PM that finds something outside limits generates a **work order**, not a note in the margin. See [work orders and history](/article/work-order-and-history-records).
+
+## Centrifugal pumps
+
+**Daily / each shift (running)**
+
+- Suction and discharge pressure normal for the flow (compare to the curve and the baseline); gauges not pegged or dead.
+- Seal: mechanical seal dry or a few drops; packing dripping 10-60 drops/min (not a stream, not dry).
+- Bearing housing temperature under 180°F (82°C) and no more than 20°F above baseline; no oil leaks; constant-level oiler bottle not empty; oil in the sight glass at the mark, clear (not milky = water, not dark = overheated).
+- Noise: no cavitation (gravel sound), no bearing growl.
+- Motor amps within nameplate.
+
+**Weekly**
+
+- Vibration reading at the pump and motor bearing housings (overall in/s); compare to the alarm (see [ISO severity](/article/vibration-basics-and-iso-severity)).
+- Coupling guard on; base bolts and foundation crack check; piping supports.
+- Packing gland: adjust one flat at a time if leaking too much (see [packing](/article/pump-packing-and-stuffing-box)).
+
+**Monthly / quarterly**
+
+- Oil change or oil sample on bearing housings (3-6 months, or by analysis); grease-lubed bearings regreased per the schedule (see [regreasing intervals](/article/regreasing-intervals-and-quantities)).
+- Check alignment if vibration has changed, after any pipe work, or annually (see [laser alignment](/article/laser-alignment-procedure)).
+- Strainer/suction screen cleaned; check valve operation; relief valve on PD pumps tested.
+
+**Annual**
+
+- Impeller and wear ring clearance, casing wear, shaft runout (see [impeller clearance](/article/impeller-clearance-and-wear-rings)); performance test against the curve; seal flush plan components (orifices, cyclone, cooler) cleaned; coupling inspected; motor per below.
+
+## Electric motors
+
+**Running, weekly**
+
+- Temperature of the frame (under 180°F for most Class F motors: use the nameplate rise plus ambient, see [nameplate](/article/reading-a-motor-nameplate)); bearing housings within 20°F of baseline.
+- Noise and vibration; fan cover and cooling fins clear of dust and product; vent openings not blocked.
+- Amps on all three phases balanced within 10% (unbalance heats the winding fast).
+
+**Quarterly**
+
+- Regrease (if fitted with fittings) by the maker's table with the drain plug out; do not over-grease; sealed bearings: nothing.
+- Mounting bolts tight, no soft foot, base cracks; conduit and junction box seals; leads not chafing.
+- Clean the exterior (compressed air with the motor off, low pressure, away from the seals).
+
+**Annual**
+
+- Megger insulation resistance (see [megger and motor testing](/article/megger-and-basic-motor-testing)), trended; winding resistance balance.
+- Check the coupling or belt alignment; bearing condition by vibration spectrum or ultrasound; replace bearings at the maker's L10 estimate or on condition.
+- VFD motors: check the shaft grounding ring or insulated bearing, cable shields (see [VFD basics](/article/vfd-basics-for-millwrights)).
+
+## Gearboxes and reducers
+
+**Daily**
+
+- Oil level at the mark (running or stopped per the maker; most sight glasses read stopped); no leaks at seals, split line, plugs; breather clean and not blowing oil.
+- Housing temperature: under 200°F (93°C) for mineral oil, 220°F for synthetic; a sudden rise = trouble.
+- Noise: whine (misalignment or tooth wear), knock (backlash, broken tooth), growl (bearing).
+
+**Monthly**
+
+- Oil sample or visual (water, sludge, metal on the magnetic plug).
+- Vibration reading; mounting bolts; coupling alignment reference; shaft-mount reducers: torque arm bushings and belt tension (see [Dodge torque-arm](/article/dodge-torque-arm-shaft-mount-reducer)).
+
+**Every 2,500 h / 6 months (mineral oil), 5,000-8,000 h (synthetic)**
+
+- Oil change (see [gearbox lubrication](/article/gearbox-lubrication-and-inspection)); flush if contaminated; clean the magnetic plug and breather; change the filter on circulating systems.
+
+**Annual**
+
+- Inspection cover off: tooth contact pattern and wear (see [gear inspection](/article/gear-inspection-and-tooth-failure)), backlash, bearing endplay; seals; thermal and vibration baseline.
+
+## V-belt and chain drives
+
+**Weekly (running, from outside the guard)**
+
+- Belt squeal on start (loose or glazed); belt dust under the drive (misalignment or wear); chain slap, dry chain noise.
+- Temperature of the sheave rim by IR (over 140°F on a V-belt drive = slipping).
+
+**Monthly (locked out, guard off)**
+
+- Belt tension by deflection (1/64" per inch of span, see [V-belt installation](/article/v-belt-drive-installation-and-tensioning)) or a tension gauge; retension new belts after 24-48 h of running.
+- Sheave groove wear with a groove gauge; alignment with a straightedge or laser; matched belt sets; cracks, glazing, missing chunks; bushings tight (see [QD and Taper-Lock](/article/qd-and-taper-lock-bushings)).
+- Chain: sag 2-4% of the span, elongation under 3% (1.5% on large sprockets) measured over 12 pitches, sprocket tooth hooking, lubrication (see [roller chain](/article/roller-chain-drives)); timing belts per [synchronous drives](/article/timing-belts-and-synchronous-drives).
+
+## Belt conveyors
+
+**Each shift (running)**
+
+- Belt tracking at head, tail and along the run (belt edge within the pulley face); no rubbing on the structure.
+- Idlers turning (a stuck idler squeals, then gets hot and cuts the belt); no frozen return idlers.
+- Spillage at transfer points; skirting and scrapers contacting; belt cleaner blades not worn out.
+- Pull cords, e-stops and guards in place; pulley lagging condition; noise at bearings.
+- Carryback on the return side; material build-up on pulleys (tracking killer).
+
+**Weekly / monthly**
+
+- Pillow block temperature and grease; head and tail bearings; gearbox and drive per above; take-up position (a take-up at the end of its travel means the belt has stretched or the splice is failing); splice condition (mechanical fastener plates and pins); belt edge and cover wear; pulley alignment and square; training idlers free.
+- See [belt tracking](/article/belt-conveyor-components-and-tracking), [idlers and pulleys](/article/idlers-pulleys-and-lagging), [splicing](/article/belt-splicing) and [conveyor safety](/article/conveyor-safety-and-guarding).
+
+## Air compressors (rotary screw and reciprocating)
+
+**Daily**
+
+- Oil level in the sight glass; discharge temperature (screw: 170-210°F normal, alarm about 225-235°F); discharge pressure and load/unload cycling normal; **drain the receiver** and any manual drains (auto drains checked working); inlet filter indicator; unusual noise or vibration.
+
+**Weekly**
+
+- Cooler faces clean (blow out from the inside); belt tension on belt-driven units; air leak walk (a 1/4" leak at 100 psi wastes about 100 cfm); dryer dew point / temperature.
+
+**Every 500-2,000 h (per manual)**
+
+- Oil change and oil filter; air/oil separator on screws (by differential pressure, typically 10-15 psi over baseline); inlet filter element; relief valve **lifted manually** or tested; safety shutdowns tested (high temperature, low oil); motor per above; recip: valves, rings, unloaders, crankcase oil, cylinder cooling fins. See [air compressor PM](/article/air-compressors-pm).
+
+## Hydraulic power units
+
+**Daily**
+
+- Reservoir level and temperature (under 140°F / 60°C; 120°F ideal); filter indicators (return and pressure) in the green; system pressure at the set point; leaks at fittings, cylinder rods and hose ends (see [hose assembly](/article/hydraulic-hose-assembly-and-fittings)); cylinder rod condition (scoring, pitting); accumulator charge indicator; noise (pump cavitation whine = suction restriction or low oil).
+
+**Monthly**
+
+- Oil sample for ISO 4406 cleanliness code and water (see [filters and contamination](/article/filters-fluid-and-contamination)); breather element; heat exchanger flow and cleanliness; hose age and chafing; accumulator precharge (see [accumulator precharge](/article/accumulator-precharge-and-safety)); relief valve setting verified with a gauge; pump case drain flow (a rising case drain flow means the pump is wearing).
+
+**Annual**
+
+- Oil change or reconditioning by analysis; reservoir cleaned; filters; cylinder seals as needed; pump and motor coupling alignment.
+
+## Fans and blowers
+
+**Weekly (running)**: bearing temperature and vibration; belt condition; abnormal noise; damper operation; housing leaks; motor amps.
+
+**Monthly / quarterly**: regrease bearings by the schedule (fan bearings run hot and fast: small quantities, often); belt tension and alignment; impeller build-up (unbalance shows as 1× vibration rising); housing and inlet cone clearance; guards; anti-vibration mounts and flexible connections; bolt torque.
+
+**Annual**: impeller inspection (cracks at blade roots, erosion, corrosion), balance check, shaft runout, bearing replacement on condition, duct and damper linkage.
+
+## Lubrication route reminders
+
+- Grease quantity, not "until it comes out": see [regreasing intervals and quantities](/article/regreasing-intervals-and-quantities).
+- Never mix grease thickeners without checking [compatibility](/article/grease-types-and-compatibility).
+- Wipe fittings before and after; a dirty fitting injects grit.
+- Oil: correct ISO grade from the plate (see [viscosity selection](/article/oil-viscosity-and-selection)); clean containers; labelled transfer equipment.
+
+## Related
+
+- [Inspection routes: how to walk a route and what to carry](/article/inspection-routes)
+- [Work orders and history records](/article/work-order-and-history-records)
+- [Spare parts and bearing storage](/article/spare-parts-and-bearing-storage)
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$maintenance$mw$),
+          array[$mw$PM checklist$mw$,$mw$preventive maintenance$mw$,$mw$pump PM$mw$,$mw$motor PM$mw$,$mw$gearbox PM$mw$,$mw$conveyor PM$mw$,$mw$compressor PM$mw$,$mw$hydraulic PM$mw$,$mw$fan PM$mw$,$mw$daily checks$mw$,$mw$weekly checks$mw$,$mw$monthly checks$mw$,$mw$annual overhaul$mw$,$mw$inspection frequency$mw$,$mw$lubrication schedule$mw$,$mw$PM template$mw$,$mw$maintenance schedule$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Manufacturer maintenance manuals (Goulds pumps, Baldor/ABB motors, Dodge and Falk reducers, Sullair and Ingersoll Rand compressors, Parker hydraulics); API 686 and RP 691 practices; SMRP and Reliabilityweb PM best-practice guides; SKF and Timken bearing maintenance guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$spare-parts-and-bearing-storage$mw$, $mw$Spare Parts and Bearing Storage: What to Stock, How to Store Bearings, Seals, Belts, Motors and Gearboxes So They Work When Needed, Shelf Life and Rotation$mw$, $mw$Which spares a maintenance department must hold and how to decide, then the storage rules that keep them usable: bearings in their wrapping in a dry, vibration-free place, seals and O-rings out of light and ozone with shelf-life limits, belts hung not folded, spare motors with shafts turned monthly and heaters on, gearboxes with protective oil fill, plus labelling, first-in first-out and receiving inspection.$mw$, $mw$> A spare that was stored wrong is a failure you paid for twice. A bearing that sat on a vibrating shelf for five years is false-brinelled before it is fitted; an O-ring kit from 2012 has cracked; a spare motor that was never turned has flat spots in its bearings and moisture in the windings.
+
+## What to stock
+
+1. **Critical spares** (asset A-list: if it fails the plant stops and the lead time is longer than the plant can wait): the complete rotating element or a whole spare unit (pump, gearbox, motor), seals, bearings, couplings and specific gaskets. Decide from the lead time versus the cost of the downtime, not from the price of the part.
+2. **Insurance spares**: expensive, long-lead, rarely fail (a gear set, a large motor): held because the outage cost is enormous; reviewed yearly and stored carefully.
+3. **Consumables and commons**: bearings by size across the plant, lip seals, O-ring kits, belts by section and length, chain and links, keys stock, shim stock, grease and oil, fasteners, hydraulic hose and fittings, gaskets, welding consumables.
+4. **Kits**: for planned overhauls, the parts kitted (bagged together with the work order number) in advance; nothing stops a planned job like a missing seal on the day.
+
+**Min/max** levels on consumables based on usage history; the CMMS parts list for each asset (BOM) is what makes ordering fast: build it from nameplates and repair records (see [work orders and history](/article/work-order-and-history-records)).
+
+## Bearings
+
+- **Keep them in the original sealed wrapping** until the moment of fitting; the factory preservative is the corrosion protection. Do not wash new bearings (unless the maker says to remove a heavy preservative before grease-lubed use, and then only with clean solvent and immediate lubrication).
+- **Flat on the shelf**, not standing on the edge (large bearings can distort); large bearings on wooden pallets or racks, not concrete.
+- **Dry**: relative humidity under 60-65%, temperature steady (condensation from temperature swings is the enemy); away from doors, roof leaks and washdown.
+- **Vibration-free**: never on shelving bolted to a running machine's structure, a compressor room wall or near a vibrating conveyor; standing vibration produces false brinelling on the shelf.
+- **Clean**: no grinding dust, no open drums of chemicals in the room.
+- Shelf life: open (unsealed) bearings in intact wrapping keep **5+ years** (SKF says essentially indefinite for open bearings in good storage); **sealed and shielded bearings with grease: about 3 years** (the grease ages); take the oldest first (**FIFO**), write the receipt date on the box. A bearing whose wrapping is torn or that shows any rust is suspect.
+- Do not stock bearings with the wrong clearance "because they are close": a C3 and a CN are not the same part.
+- Receiving: check the designation on the box against the order, look for counterfeit signs (poor printing, wrong box, price too good); buy from authorised distributors.
+
+## Seals, O-rings and elastomers
+
+- Cool (under 100°F / 38°C), dark, dry, away from **ozone** (electric motors, welding, sunlight, fluorescent lights close by) and away from oil and solvent vapour; in sealed bags.
+- Shelf life (SAE ARP5316): **nitrile (NBR) 15 years**; neoprene 15 years; EPDM, fluorocarbon (Viton), silicone: unlimited in good storage; polyurethane 5-10 years; natural rubber 3-5 years. Compound date on the bag; cracked, tacky or chalky = scrap.
+- Lip seals with garter springs: flat, not hung on a nail (distorts the lip); PTFE lip seals never have the lip flexed or the seal stored with anything through it.
+- Mechanical seals: in the maker's box, faces protected, never opened for a look; carbon and ceramic faces chip.
+- Gasket sheet flat, out of sunlight; pre-cut gaskets flat in envelopes.
+
+## Belts and chain
+
+- V-belts and synchronous belts: **hung on a large-radius saddle** (at least 3-4 in diameter for the peg) or coiled in the original box; **never folded, tied tightly, or hung on a nail** (a sharp bend breaks the cords); under 85°F, humidity under 70%, dark, away from ozone; shelf life about **6-8 years** in good storage (Gates: 6 years); check the date code.
+- Matched sets kept together and labelled; a set is a set until fitted.
+- Roller chain: in the original oiled packaging or lightly oiled in a sealed bag; never on a damp concrete floor; stainless and nickel-plated chain separate from carbon steel.
+
+## Motors
+
+- Indoors, dry, warm, on wood or a pallet, shaft horizontal; **space heaters energised** or a low-wattage lamp in a cover to keep the winding above the dew point; desiccant in the terminal box if unheated.
+- **Rotate the shaft by hand every month** (a few turns, ending in a different position: mark the last position on the shaft) so the bearing grease redistributes and no flat spot forms; motors with sleeve bearings need the oil kept in and turned too.
+- Shaft extension coated with rust preventive and the key taped on; drain plugs open if the enclosure has them; fans and vents protected from insects and dust.
+- Before installing a stored motor: megger the winding (see [megger testing](/article/megger-and-basic-motor-testing)), regrease per the table (see [regreasing](/article/regreasing-intervals-and-quantities)), turn by hand, check the fan and the conduit box.
+- More than 12-24 months in storage: check bearings by listening and vibration on a test run before committing to a critical machine.
+
+## Gearboxes and pumps
+
+- Gearboxes: full or partially filled with the operating oil or a vapour-phase inhibitor (VCI) oil per the maker; breather plugged with a solid plug during storage (open it before start-up); shaft turned monthly; shaft extensions coated; stored dry and indoors. Over 6 months: change the oil at commissioning.
+- Pumps: the maker's preservation (oil in the bearing housing, wetted parts dried and coated, flanges covered); rotate the shaft monthly; mechanical seals with faces protected; do not store with the packing fitted for years (packing hardens).
+- Spare rotating elements: on a stand or in a cradle supporting the bearing journals, not the impeller or the shaft ends; covered.
+
+## Hydraulic components, hoses and filters
+
+- Hoses: hung or coiled in large loops, capped, dark, cool, under 10 years from the manufacture date (SAE J1273 suggests 10 years max for stored hose, less in poor conditions); rubber hoses assembled early and stored are worse than bulk hose.
+- Cylinders: rods retracted, ports capped, oil inside, horizontal; rotate stock.
+- Valves and pumps: ports capped, oil inside, in the maker's packaging.
+- Filters: sealed, dry, shelf life per the maker (glass-fibre elements are stable; check the seals).
+
+## Fasteners, keys, shims and stock
+
+- Grade-marked fasteners kept separated by grade; an unmarked mix of 5 and 8 is a mix of 5. Stainless separate from carbon.
+- Shim stock in the original folders, labelled by thickness; keystock in labelled tubes.
+- Welding consumables per their own rules (rod ovens, sealed containers): see [welder maintenance and consumables](/article/welder-maintenance-and-consumables).
+
+## The room
+
+- Dry, heated or dehumidified, clean, lit, locked, with a receiving bench and a computer or sheet for issues; parts on labelled bins (asset numbers and part numbers on the label); heavy items low, shafts and spare rotors racked and strapped; a first-in first-out habit (new stock behind old).
+- **Receiving inspection**: right part, right quantity, undamaged, dated, then bagged and shelved. A bearing that arrived in a torn box goes back.
+- **Issue against the work order** (see [work orders](/article/work-order-and-history-records)): it is how min/max stays right and how the cost lands on the right asset.
+- A yearly walk through: expired elastomers, rusty bearings, cracked belts, obsolete parts for machines that left the plant years ago, and a review of what should have been there and was not.
+
+## Related
+
+- [Work orders and history records](/article/work-order-and-history-records)
+- [PM checklists](/article/pm-checklists)
+- [Bearing designation codes](/article/bearing-designation-codes)
+- [Grease types and compatibility](/article/grease-types-and-compatibility)
+- [Welder maintenance and consumables storage](/article/welder-maintenance-and-consumables)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$maintenance$mw$),
+          array[$mw$spare parts$mw$,$mw$critical spares$mw$,$mw$bearing storage$mw$,$mw$bearing shelf life$mw$,$mw$seal storage$mw$,$mw$elastomer shelf life$mw$,$mw$belt storage$mw$,$mw$motor storage$mw$,$mw$shaft rotation$mw$,$mw$gearbox storage$mw$,$mw$spare motor$mw$,$mw$stores$mw$,$mw$min max$mw$,$mw$kitting$mw$,$mw$parts labelling$mw$,$mw$corrosion protection$mw$,$mw$VCI paper$mw$,$mw$humidity$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SKF and Timken bearing storage guidance; Gates and Continental belt storage recommendations; NEMA MG 1 and Baldor/ABB motor storage instructions; SAE ARP5316 (elastomer shelf life); Parker O-ring handbook; Rexnord/Falk gear drive storage bulletins.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$work-order-and-history-records$mw$, $mw$Work Orders and Equipment History: Writing a Work Order That Gets the Job Done, Recording the Repair, Failure Codes, MTBF and Using History to Stop Repeat Failures$mw$, $mw$What goes in a good work order request and a good repair record, the as-found / as-left convention that makes history useful, failure codes and the simplest way to calculate MTBF and MTTR, how to run a quick root cause on a repeat failure, and the paperwork rules (parts, hours, lockout, permits) that protect the millwright as much as the machine.$mw$, $mw$> The repair you did not write down did not happen. Six months from now, when the same bearing fails again, the only thing that tells the next person (or you) what was found last time is the history. Fill it in like the reader is a stranger who has to fix it alone at 2 a.m.
+
+## The work order request (what to write so the planner can plan it)
+
+| Field | What good looks like |
+|---|---|
+| **Asset / tag number** | The equipment ID from the nameplate or tag ("P-2104 slurry pump B"), not "the pump by the stairs" |
+| **Problem** | What you observed, with numbers: "DE bearing housing 195°F, was 150°F last route; growl audible; vibration 0.45 in/s (baseline 0.12)" |
+| **Priority** | Safety / production down / production at risk / routine, per the site scale; not everything is a 1 |
+| **Suspected cause** (optional) | "Bearing, possibly under-greased: fitting was dry" |
+| **What is needed** | Lockout, permit (hot work, confined space), crane, scaffold, shutdown window, specialist |
+| Photo | A picture of the leak, the reading or the damage saves a paragraph |
+| Reporter and date/time | |
+
+Planners turn this into a planned job: parts, tools, drawings, hours, safety plan. A request that says "pump noisy" gets a planner walking out to look, and a repair a week later.
+
+## The repair record (closing the work order)
+
+**As found / as left** is the convention that makes history useful:
+
+```
+As found:  DE bearing 6310 failed, outer race spalled 1/3 of circumference, grease hard
+           and dark, seal lip worn. Shaft journal 1.9680" (nominal 1.9685-1.9690):
+           0.0005" undersize, acceptable. Housing bore in spec. Alignment as found:
+           0.012" offset vertical, 0.004"/in angular (out of tolerance).
+Work done: Replaced both bearings (6310 2RS C3, SKF), new lip seals, cleaned housing,
+           regreased 25 g Mobil Polyrex EM. Laser aligned to 0.001" offset / 0.0005"/in.
+           Soft foot corrected with 0.010" shim under motor front left.
+As left:   Ran 30 min: DE housing 128°F, vibration 0.09 in/s, no leaks. Guard refitted.
+Parts:     2 x 6310 2RS C3; 2 x seal 45x62x8; 1 x shim pack.
+Labour:    2 x 4.5 h. Downtime 6 h.
+Failure code: Bearing / fatigue / lubrication (hard grease, over-interval).
+Follow-up:  Regrease interval for P-2104 changed from 6 to 3 months (WO 44821 to update PM).
+```
+
+Rules:
+
+- Record **measurements** (clearances, alignment readings, torques, temperatures, runout) with the units. "Aligned" is useless; "0.001 in offset" can be compared next time.
+- Name the **part numbers and brands** actually fitted, and any substitution.
+- Write what you **found**, not only what you did. The found condition is the failure evidence.
+- Note anything left undone or that needs watching ("coupling insert worn, will need replacing at next shutdown").
+- Attach photos of the failed part and the alignment report.
+- Fill in labour hours and downtime honestly: they drive the budget for spares, training and the next overhaul.
+
+## Failure codes
+
+Most CMMS use a three-level code: **component** (bearing, seal, coupling, belt, gear, impeller, motor winding, hose) / **failure mode** (worn, fatigued, corroded, cracked, seized, leaking, loose, contaminated, overheated) / **cause** (lubrication, misalignment, unbalance, contamination, overload, installation error, age, design, operator). Picking the codes takes 20 seconds and lets someone sort the whole plant's history to find that 40% of bearing failures are "lubrication". Free text alone cannot be sorted. If your site has no codes, use those three words at the start of the free text.
+
+## MTBF, MTTR and availability (the simple version)
+
+```
+MTBF (mean time between failures) = operating hours in the period ÷ number of failures
+MTTR (mean time to repair)         = total repair (downtime) hours ÷ number of failures
+Availability                        = MTBF ÷ (MTBF + MTTR)
+```
+
+Example: a conveyor drive runs 6,000 h in a year, fails 4 times, total downtime 32 h. MTBF = 1,500 h; MTTR = 8 h; availability = 1,500 / 1,508 = 99.5%. The number by itself means little; the **trend** (MTBF falling from 3,000 to 1,500 h) and the **comparison** between identical machines (pump A at 4,000 h, pump B at 900 h: what is different?) is where the work is. A "bad actor" list is simply the ten assets with the most work orders or downtime in the last year; fix the top three properly and the backlog shrinks.
+
+## Repeat failures: a 20-minute root cause
+
+When the same component fails a second time in a short period, do not just replace it again.
+
+1. **Keep the failed part** and look at it with the failure-pattern guides: [bearings](/article/bearing-failure-analysis), [belts](/article/belt-failure), [seals](/article/seal-failure), [couplings](/article/coupling-failure), [gears](/article/gear-inspection-and-tooth-failure).
+2. **Pull the history**: how long did the last one last, what was found, what was done, who did it, what changed (product, speed, a new motor, a VFD, a pipe rerouted).
+3. **5 whys**: the bearing failed → why: the grease was hard → why: the interval was 6 months at 180°F → why: the interval came from the default, not the temperature → why: nobody recalculated it → fix: recalculate all hot-running motors' intervals, not just this one.
+4. Check the **installation evidence**: was it aligned, was the fit measured, was the bearing heated correctly, was the torque right? Most "bad bearings" are installation or lubrication.
+5. Write the finding into the work order and raise the **change**: a PM interval, a spec change, a spare, a training note, a modification. A root cause that changes nothing was a story.
+
+## Paperwork that protects you
+
+- Lockout: the lock, the tag and the verification are recorded on the permit or the work order (who, which energy sources, test-before-touch); see [lockout/tagout](/article/lockout-tagout-basics).
+- Permits (hot work, confined space, work at height) attached to or referenced in the work order.
+- Torque values and alignment reports attached for critical machines: they are the evidence that the job was done right when the machine later fails for a different reason.
+- Parts issued against the work order (not "from the shelf"): it keeps the spares accurate and the cost against the right asset.
+- Sign and date; if you were interrupted and the job is not finished, **say so on the machine (tag) and on the work order**.
+
+## Building history on a plant that has none
+
+Start with the critical assets: for each, one page with the nameplate data, bearing and seal numbers, belt sizes, oil type and quantity, alignment tolerance, coupling gap, spare part numbers, the last overhaul date, and a photo of the nameplate. Keep it in the CMMS or a shared folder named by the tag number. Every work order afterwards adds a line. In a year the millwright who wrote it will be the person everyone calls.
+
+## Related
+
+- [PM checklists](/article/pm-checklists)
+- [Inspection routes](/article/inspection-routes)
+- [Spare parts and bearing storage](/article/spare-parts-and-bearing-storage)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$maintenance$mw$),
+          array[$mw$work order$mw$,$mw$CMMS$mw$,$mw$maintenance history$mw$,$mw$equipment history$mw$,$mw$failure code$mw$,$mw$MTBF$mw$,$mw$MTTR$mw$,$mw$root cause$mw$,$mw$RCA$mw$,$mw$5 whys$mw$,$mw$repair report$mw$,$mw$as found as left$mw$,$mw$parts used$mw$,$mw$labor hours$mw$,$mw$backlog$mw$,$mw$priority$mw$,$mw$planning and scheduling$mw$,$mw$bad actor list$mw$,$mw$repeat failure$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SMRP metrics (MTBF, MTTR, PM compliance); ISO 14224 (failure data collection); Doc Palmer, Maintenance Planning and Scheduling Handbook; common CMMS practice (SAP PM, Maximo, Fiix, Limble, eMaint).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$how-to-add-a-manual$mw$, $mw$How to Add a Manufacturer Manual or Datasheet to This Library$mw$, $mw$Anyone signed in can upload a gearbox, motor, pump, coupling or bearing manual. This tip explains what to fill in so other students can find it by manufacturer, model number and topic.$mw$, $mw$Found a Dodge gearbox with no manual in the library? Got a PDF from the maker's website or a scan from the crib? Add it.
 
 ## Steps
@@ -9796,6 +10220,287 @@ Do not mistake **bearing noise** (a whine or growl at the bearing housing, felt 
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$chain-hoists-come-alongs-and-jacks$mw$, $mw$Chain Hoists, Lever Hoists (Come-Alongs), Trolleys and Jacks: Inspection, Capacity, Safe Use and the Rules That Get People Hurt$mw$, $mw$How to inspect a chain hoist, lever hoist or jack before every use, what the capacity plate does and does not allow, how to rig the anchor point (beam clamp, trolley, sling), the safe operating rules for each tool, and the wear limits that take a hoist out of service.$mw$, $mw$> A hoist or jack with no legible capacity plate, a hook with a missing latch, or a load chain you cannot see the full length of is out of service until an inspector says otherwise. Never stand under a load. Never use a jack or hoist to hold a load you then work under: transfer the load to cribbing, stands or blocking first.
+
+## Types and where each fits
+
+| Tool | Typical capacity | Pull ratio | Use | Never |
+|---|---|---|---|---|
+| **Hand chain hoist** (chain fall, chain block) | 1/4-20 t | Hand chain to load chain about 30-50:1 | Vertical lifts from a beam, tripod or trolley | Pull sideways, lift people, exceed the plate |
+| **Lever hoist** (come-along, ratchet lever hoist, "Coffing") | 3/4-9 t | Lever, 1 click at a time | Pulling, dragging, tensioning, positioning, lifts in any direction (rated for it) | Cheater bar on the handle, more than one person on the lever |
+| **Cable come-along** (wire rope puller, "Tirfor" type) | 1/2-4 t | Ratchet on a drum or a walking-jaw over a wire rope | Pulling only on most cheap units; check the tag for "lifting" | Lifting with a drum-type puller not rated for it |
+| **Electric or air chain hoist** | 1/4-25 t | Motor | Production lifting | Two-block (run the hook into the body), plug the reversing switch |
+| **Beam trolley** (push or geared) | 1/2-20 t | | Carries the hoist along an I-beam or W-beam flange | Run off an unstopped beam end |
+| **Beam clamp** | 1-10 t | | Temporary anchor for a hoist on a flange | Side load, lift on a flange wider or narrower than the range stamped |
+| **Hydraulic bottle jack** | 2-100 t | | Vertical lifting at a single point; short stroke | Hold a load, lift on an angle, exceed 3/4 of the stroke |
+| **Toe jack** (Simplex/Enerpac type) | 5-25 t | | Lifting machinery with a 1-2" toe clearance | Use the toe at more than a few inches height without blocking the head |
+| **Screw jack / house jack** | 5-50 t | | Long-duration holding, machine leveling, fine adjustment | Lift fast; check the thread is greased and the base is square |
+| **Hydraulic cylinder + pump (Enerpac)** | 5-500 t | | Heavy lifts, skidding, pressing | Exceed 80% of stroke, use without a saddle |
+
+## Before every use (operator inspection)
+
+1. **Capacity plate / tag** legible and rating equal to or above the load. Rating is for a **straight, vertical, static** pull on a proper hook or anchor.
+2. **Hooks** (top and bottom): latch present and closing; no cracks, nicks, gouges, twists; throat opening not stretched. ASME B30.10: remove if throat is opened more than 5% or 1/4" over the original, or the hook is twisted more than 10°.
+3. **Load chain**: clean enough to see; no stretched, bent, gouged, corroded, nicked, welded or twisted links; chain runs freely over the pocket wheel without binding or "capsizing". A twisted chain on a two-fall hoist (the bottom block has flipped through the chain) will jam and can break: **untwist it before loading**.
+4. **Hand chain / lever**: not kinked, lever not bent, ratchet clicks cleanly both directions, free-chaining (neutral) works and re-engages positively.
+5. **Brake test**: lift the load a few inches, stop, and watch for creep. A hoist that drifts down is out of service.
+6. **Housing and load block**: no cracks, loose fasteners or missing pins; chain container (if fitted) secure.
+7. **Anchor point**: rated for the load and the direction of pull; hoist hook seated in the bowl; beam clamp tight and square to the flange; trolley wheels on the flange with the end stops in place.
+8. **Jacks**: no leaks, ram not scored or pitted, saddle in place, base flat, relief valve working; pump a few strokes unloaded to check for air.
+
+Periodic inspection (documented, by a designated person) is required at least yearly and more often in heavy service; the load chain is gauged for wear (see below).
+
+## Load chain wear limits
+
+Most makers reject a load chain when a measured length of links has stretched more than about **1.5-3%** (check the manual: CM and Harrington publish a "measure 11 links" or "21 links" table with the exact limit for each hoist model). Also reject for wear at the link bearing points of more than about 10% of the link diameter, or any link that no longer articulates freely.
+
+Never repair a load chain (no welding, no replacement links); replace with the maker's chain of the correct pitch and grade. Never lubricate a **lever hoist brake**, but do oil the load chain lightly (it wears far faster dry); on a chain hoist keep the brake discs dry and clean.
+
+## Rigging the hoist
+
+- **Anchor above the load** for a vertical lift; a chain hoist hung at an angle and side-loaded on the beam clamp is the classic dropped-load setup. Lever hoists may be used on angles as they are rated for any direction, but the anchor must be too.
+- **Beam clamp**: tighten the screw or jaw fully; the clamp must be centred on the web, not hanging on one lip. Match the flange width and thickness to the clamp's range. A clamp on a painted or oily flange can slip when side-loaded.
+- **Trolley**: adjust the wheel spacing (spacer washers) to the flange width so the wheels ride on the flange without binding and the trolley cannot fall off. **End stops** on the beam before use. Geared trolleys for anything heavy or high.
+- **Slings as an anchor**: a choker or basket around a beam is fine if the beam is rated (an engineer or your lift plan says so). Pipes, conduit, cable tray, handrails and grating are **not** anchors.
+- Keep the hoist body and the hand chain out of the load path; do not wrap the load chain around the load as a choker (some hoists are rated for a chain choker, most are not; use a sling).
+- **Two-block**: stop before the bottom hook reaches the body; on electric hoists test the upper limit switch with no load every shift.
+
+## Operating rules
+
+- One person on the hand chain or lever; **no cheater bars**. If you cannot move it by hand, the hoist is too small or something is jammed.
+- Lift a few inches, stop, check the brake, the rigging and the balance, then continue.
+- Keep the load chain vertical and untwisted; do not let the load spin on a single chain.
+- Never leave a suspended load unattended; never walk or work under it; never ride it.
+- Lever hoists: **keep tension on** when "free-chaining" the slack out; the free-chain lever must be back in the engaged position before you pull. Lower with the lever, one click at a time, never by releasing the pawl.
+- Pulling with lever hoists: anchor to something that will not move (not the machine frame you are aligning unless it is designed for it), keep people out of the line of pull, and remember the lever hoist has no idea whether it is pulling a 1-ton load or a 6-ton stuck bolt: it will break something.
+- Pulling a load horizontally on skates or rollers: capacity needed ≈ load × rolling resistance (2-5% on good skates, 10-20% on rough concrete or dragging on steel).
+
+## Jacks
+
+1. **Base**: solid, level, non-slip; on soil or asphalt use a steel plate or hardwood pad. A jack that is not square to the load will kick out.
+2. **Head**: contact the load with the saddle or a hardwood block, never a bare ram on a bare steel plate that can slip. Centre the load over the ram.
+3. **Lift in stages**: raise, crib, raise, crib ("lift an inch, block an inch"). The load must never depend on hydraulic pressure alone while anyone works near it. See [cribbing and blocking](/article/cribbing-and-blocking).
+4. Use **no more than 3/4 of the stroke** on bottle and toe jacks; a fully extended ram has no side-load resistance.
+5. **Toe jacks**: the toe capacity is often **half** the head capacity (a "10-ton" toe jack may be 5 t on the toe): read the plate. Block under the toe if the machine has to come up more than the toe's designed height.
+6. **Multiple jacks**: use a manifold or a synchronised pump so the load rises evenly; never lift one corner much more than an inch ahead of the others on a rigid machine (it twists the base).
+7. **Lowering**: slowly, cracking the release valve, with the cribbing being removed one layer at a time as the load comes down.
+8. Hydraulic jack faults: will not lift full load = low oil, air, worn packings, relief valve set low; drifts down = leaking check valve or seals; jerks = air in the system (bleed with the ram down, cap off, pump 10 strokes).
+
+## Common mistakes
+
+- Using a come-along rated for pulling as a hoist over a load.
+- Side-loading a beam clamp to drag a machine into place: the clamp slips off the flange.
+- Twisted load chain on a two-fall hoist.
+- Hook tip loading (hook not fully in the eye or the eye too small for the hook bowl).
+- Leaving a jack under the machine as the "support" while shimming underneath it.
+- Extending a bottle jack fully to gain that last inch; use a block under the jack instead.
+
+## Related
+
+- [Rigging basics: sling angles and hitches](/article/rigging-basics-sling-angles-and-hitches)
+- [Wire rope, chain and web sling capacity tables](/article/wire-rope-and-chain-slings-detail)
+- [Cribbing and blocking](/article/cribbing-and-blocking)
+- [Moving and setting heavy machinery](/article/moving-and-setting-heavy-machinery)
+- [Crane signals and lift planning](/article/crane-signals-and-lift-planning)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$rigging$mw$),
+          array[$mw$chain hoist$mw$,$mw$chain fall$mw$,$mw$chain block$mw$,$mw$lever hoist$mw$,$mw$come along$mw$,$mw$comealong$mw$,$mw$ratchet lever hoist$mw$,$mw$beam trolley$mw$,$mw$beam clamp$mw$,$mw$hydraulic jack$mw$,$mw$bottle jack$mw$,$mw$toe jack$mw$,$mw$screw jack$mw$,$mw$hoist inspection$mw$,$mw$load chain wear$mw$,$mw$hook throat$mw$,$mw$ASME B30.16$mw$,$mw$ASME B30.21$mw$,$mw$ASME B30.1$mw$,$mw$jack safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B30.16 (overhead hoists), B30.21 (lever hoists), B30.1 (jacks), B30.10 (hooks); OSHA 1910.179 and 1926.1431; CM, Harrington and Columbus McKinnon hoist manuals; Enerpac and Simplex jack literature.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$crane-signals-and-lift-planning$mw$, $mw$Crane Hand Signals, Radio Protocol and Lift Planning: Standard Signals, Critical Lift Criteria, Load Charts, Ground Bearing and the Pre-Lift Checklist$mw$, $mw$The standard hand signals a millwright must be able to give and read, the radio protocol used when the operator cannot see the load, what makes a lift critical and what a written lift plan contains, how to read a mobile crane load chart and check outrigger ground bearing, and the walk-through checklist before the hook comes tight.$mw$, $mw$> One signal person at a time. Anyone can give **STOP** or **EMERGENCY STOP**, and the operator obeys it from anyone. If the operator cannot see the signal person or hear the radio clearly, the lift stops.
+
+## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)
+
+| Signal | How |
+|---|---|
+| **Hoist (raise load)** | Forearm vertical, forefinger pointing up, move hand in small horizontal circles |
+| **Lower** | Arm extended downward, forefinger pointing down, move hand in small horizontal circles |
+| **Raise boom** | Arm extended, fist closed, **thumb pointing up** |
+| **Lower boom** | Arm extended, fist closed, **thumb pointing down** |
+| **Raise boom and lower load** | Arm extended, thumb up, open and close the fingers as long as the load should move |
+| **Lower boom and raise load** | Arm extended, thumb down, open and close the fingers |
+| **Swing** | Arm extended, point with the finger in the direction of swing of the boom |
+| **Extend boom (telescoping)** | Both fists in front of the body, thumbs pointing **outward** |
+| **Retract boom** | Both fists in front of the body, thumbs pointing **toward each other** |
+| **Extend boom (one hand)** | One fist in front of the chest, thumb tapping the chest |
+| **Retract boom (one hand)** | One fist in front of the chest, thumb pointing outward, heel of the fist tapping the chest |
+| **Use main hoist** | Tap fist on head, then use regular signals |
+| **Use whip line (auxiliary hoist)** | Tap elbow with one hand, then use regular signals |
+| **Move slowly** | Use one hand to give any motion signal and place the other hand motionless in front of the hand giving the signal ("hoist slowly" shown) |
+| **Travel (both tracks / crane travel)** | Arm extended forward, hand open and slightly raised, pushing motion in the direction of travel |
+| **Travel one track (crawler)** | Lock the track on the side indicated by the raised fist; travel the opposite track in the direction shown by the circular motion of the other fist |
+| **Stop** | Arm extended, palm down, move arm back and forth horizontally |
+| **Emergency stop** | **Both** arms extended, palms down, move arms back and forth horizontally |
+| **Dog everything** | Clasp hands in front of the body (hold everything, operator stays at the controls) |
+
+Overhead (bridge) cranes use the same hoist/lower/stop signals plus **bridge travel** (arm extended forward, open hand, pushing motion) and **trolley travel** (palm up, fingers closed, thumb pointing in the direction of travel, jerk the hand horizontally). Magnet crane: operator spreads both hands apart, palms up, when the magnet is disconnected.
+
+## Radio (voice) signals
+
+Used when the operator cannot see the signal person. Protocol (OSHA 1926.1421): the signal person tells the operator the **function and direction**, the **distance and/or speed**, and the **function stop**. Example:
+
+```
+"Load up ... slow ... up 2 feet ... hold."
+"Swing left ... swing left ... slow ... stop swing."
+"Boom down ... boom down ... stop boom."
+"Load down ... 1 foot ... 6 inches ... set it down ... hold. Slack the line."
+```
+
+Rules: the operator does not move until a signal is given; the signal person keeps talking ("swing left, swing left") during the motion so the operator knows the radio is still live and stops the motion if the voice stops; a dedicated channel; a test call before the lift; never "ok" or "yes" as a command; "**stop**" from anyone stops the crane. Hand signals are prohibited on the same lift unless agreed beforehand. In Canada (CSA Z150) the signals and the "one signaller" rule are the same; some provinces require a certified signaller card.
+
+## Who does what
+
+| Role | Responsibility |
+|---|---|
+| **Lift director / supervisor** | Owns the lift plan, ground conditions, exclusion zone, the go/no-go |
+| **Operator** | The crane, the load chart, outrigger setup, refusing an unsafe lift |
+| **Signal person** (qualified, OSHA 1926.1428) | The only voice or hands the operator follows; positioned to see the load, the landing and the operator |
+| **Riggers** | Sling selection, attachment, tag lines, hook release; **never** under the load |
+
+## What makes a lift "critical" (needs a written engineered plan)
+
+Any one of these on most sites (DOE-STD-1090 and typical corporate rules):
+
+- Load over **75% of the crane's chart capacity** at the working radius and configuration (some sites 80-90%; some define any lift over 50 t as critical).
+- **Two or more cranes** (tandem lift).
+- Lifting **personnel** (man basket: needs the crane's basket procedure, trial lift, 50% chart derate under OSHA 1926.1431).
+- Load passing over or near **occupied buildings, energised equipment, process piping, public roads**, or within the **power line clearance** zone (OSHA: 20 ft to 350 kV; 10 ft to 50 kV under the older Table A; the crane must be planned so nothing can get closer).
+- Load that is **hard to rig**: unknown weight or centre of gravity, fragile, high value, long lead time, or requires turning or tailing.
+- Any lift with a **helicopter, barge, or crane on a floating base**, or wind at or above the chart's limit (typically 20 mph; 10-15 mph for large surface-area loads).
+
+## Lift plan contents (write it even for "simple" lifts)
+
+1. **Load**: weight from the nameplate, drawing or calculation (see [geometry and weight formulas](/article/geometry-formulas-area-volume-weight)); add the **rigging weight** (block, slings, spreader bar, hook block: a 50 t hook block can weigh 1,500 lb) and any attachments. Centre of gravity marked.
+2. **Crane**: model, counterweight, boom length and angle, jib, parts of line, **radius** at pick and at set (the larger governs), outriggers fully extended on pads or rubber. **Gross capacity from the chart minus deductions** (block, jib stowed, rigging) = net capacity; the load must be under it, and the percentage of capacity is written on the plan.
+3. **Rigging**: each sling with its rating at the angle used; shackles; spreader or lifting beam; D/d; softeners; tag lines (two on long loads).
+4. **Ground**: outrigger loads (from the crane's software or the chart's maximum outrigger reaction, roughly 70-80% of crane + load weight on one outrigger in the worst position) divided by pad area versus the **allowable ground bearing pressure** (compacted gravel 3,000-6,000 psf; clay 1,000-3,000 psf; unknown fill: get it checked; never over a vault, culvert, trench or backfilled excavation without cribbing or engineered mats).
+5. **Path**: swing path, set-down location and blocking, obstructions, overhead lines, exclusion zone with barricades, escape routes for riggers.
+6. **Communication**: signal person named, radios tested, channel.
+7. **Weather**: wind limit, lightning, visibility.
+8. **Sequence and contingency**: pre-lift meeting, trial lift (raise a few inches, hold, check brake and rigging), what to do if the load hangs up or the wind gets up.
+9. **Sign-offs**: operator, lift director, riggers.
+
+## Reading a mobile crane load chart
+
+- Charts are for a **specific configuration** (boom length, counterweight, outriggers fully extended, 360° or over-rear) and are **gross** capacities: subtract the block, ball, rigging, jib and any load-line attachments.
+- Radius is measured from the **centre of rotation** to the hook, **loaded** (the boom deflects, radius grows). Use the next larger radius if you are between chart lines; never interpolate upward.
+- Capacities above the bold line are limited by **structure**, below the bold line by **tipping**: structural overloads give no warning.
+- Parts of line: each part carries the rope's rated line pull (e.g. 12,000 lb); a 40,000 lb lift needs 4 parts minimum, plus the chart line-pull limit.
+- Wind, side loading, dynamic swings and duty cycle all take a further percentage. A lift near 85-90% of chart on a bouncy pick is the one that goes over.
+- **Load moment indicator (LMI)** is a safety device, not a planning tool; the plan must work on paper first.
+
+## Forklifts as cranes
+
+Only with a **rated fork-mounted hook or boom attachment** (the truck's capacity plate must be updated for the attachment; capacity drops sharply with the load centre moved forward), never a sling looped over a fork tine. Tip the mast back, lift only high enough to clear, travel slowly, and nobody walks under. Jib attachments on telehandlers use the telehandler's own chart for that attachment.
+
+## Pre-lift walk-through (30-second version)
+
+- Weight known and written, rigging rated for it at the actual angle.
+- Hook centred over the CG, slings seated in the bowl, latch closed, shackles moused, tag lines on.
+- Crane level (bubble), outriggers extended and pads on solid ground, tyres clear (not "on rubber" unless the chart is), swing path clear, power lines identified.
+- One signal person, radios checked, exclusion zone barricaded.
+- Landing area blocked and cribbing ready; nothing touched by hand until the load is stable.
+- Trial lift: up 2-6", hold, check, then go.
+
+## Related
+
+- [Rigging basics: sling angles and hitches](/article/rigging-basics-sling-angles-and-hitches)
+- [Sling, shackle and clip capacity tables](/article/wire-rope-and-chain-slings-detail)
+- [Cribbing and blocking](/article/cribbing-and-blocking)
+- [Moving and setting heavy machinery](/article/moving-and-setting-heavy-machinery)
+- [Chain hoists, lever hoists and jacks](/article/chain-hoists-come-alongs-and-jacks)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$rigging$mw$),
+          array[$mw$crane hand signals$mw$,$mw$hand signal chart$mw$,$mw$hoist signal$mw$,$mw$boom up$mw$,$mw$boom down$mw$,$mw$swing$mw$,$mw$emergency stop$mw$,$mw$signal person$mw$,$mw$radio signals$mw$,$mw$lift plan$mw$,$mw$critical lift$mw$,$mw$load chart$mw$,$mw$percent of capacity$mw$,$mw$ground bearing pressure$mw$,$mw$outrigger pads$mw$,$mw$tag line$mw$,$mw$mobile crane$mw$,$mw$overhead crane$mw$,$mw$forklift lifting$mw$,$mw$ASME B30.5$mw$,$mw$OSHA 1926.1400$mw$,$mw$rigging plan$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B30.5 (mobile cranes) and B30.2 (overhead cranes) standard hand signals; OSHA 29 CFR 1926.1419-1422 (signals) and 1926.1428 (signal person qualification); DOE-STD-1090 critical lift criteria; Liebherr and Grove load chart reading guides; OSHA 1910.178 (forklifts).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$cribbing-and-blocking$mw$, $mw$Cribbing and Blocking: Box Cribs, Timber Capacities, Lift-and-Crib Sequence, Wedges, Stands and the Rules for Working Under a Raised Load$mw$, $mw$How to build a crib that holds what you put on it: box crib capacities for 4x4 and 6x6 timbers, the 3:1 height-to-width rule, which timber and plastic is acceptable, the lift-an-inch block-an-inch sequence with jacks, using wedges and stands, and the hard rules about hands and bodies under a load held by hydraulics.$mw$, $mw$> A raised load is supported by **cribbing, stands or blocking**, never by the jack, hoist, forklift or crane that raised it. Hydraulics leak, hoists creep, forks drift. The crib is built as the load goes up, one layer at a time, so at no moment is there more than about an inch of free fall.
+
+## Materials
+
+| Material | Use | Notes |
+|---|---|---|
+| **Hardwood (oak, maple, hickory)** 4x4, 6x6, 8x8 | Cribs, blocking, dunnage | Strongest; check for splits, rot, oil-soaking (oil-soaked timber is weak and slippery) |
+| **Softwood (Douglas fir, SPF)** | Cribs, blocking | About 60-70% of hardwood in bearing; fine for most machinery work at reduced capacity |
+| **Plastic cribbing** (recycled composite: DICA, Turtle, Bigfoot) | Cribs, outrigger pads | Rated on the block (typical 4x4 x 18" plastic block: 40,000-60,000 lb in a box crib); does not rot or soak oil; slippery when wet or oily unless textured |
+| Steel plates and pads | Under jacks and stands, spreading load on concrete | Never plate on plate on plate without something to stop sliding |
+| Wedges: hardwood, plastic, steel | Taking up the last gap, leveling | Always in **pairs** (opposed), never a single wedge as the only support |
+| **Never**: concrete blocks, bricks, hollow-core, plywood stacks, pallets, rounds of pipe, anything with knots across the grain, painted or unknown "steel" | | Concrete blocks shatter without warning |
+
+Keep cribbing in sets of uniform length (18", 24", 36" for 4x4; 24-48" for 6x6), squared ends, no nails.
+
+## Box crib rules
+
+1. Layers at **90°** to each other, timbers at the **outside edges** of the stack (the load path is through the crossing points).
+2. **Two timbers per layer** minimum ("2x2 crib"); **three per layer** ("3x3") roughly doubles capacity because there are 9 crossing points instead of 4.
+3. **Height no more than 3 × the smallest base width** (a 24"-wide crib: 72" max) for a free-standing crib; 2:1 if the load could shift or the crib is on a marginal base. Tall cribs get racked and walk out.
+4. Every layer flat and full contact; no timber overhanging its support by more than a few inches.
+5. The top layer is **solid** (timbers side by side) if the load has a small footprint, or the load sits on the crossing points directly.
+6. Cribs on soil, asphalt or fill: full base mat first. On grating or a mezzanine: put it over a beam, never mid-span.
+7. Capacity is governed by **crushing across the grain** at the crossing points, about 500 psi for Douglas fir / SPF, 1,000-1,500 psi hardwood (some published figures use 500 psi for all timber as the safe value).
+
+## Box crib capacity (timber crossing points at 500 psi, softwood or "safe" value)
+
+| Timber | Crossing area each | 2x2 crib (4 points) | 3x3 crib (9 points) |
+|---|---|---|---|
+| 4x4 (3.5" actual) | 12.25 in² | **24,000 lb (12 t)** | 55,000 lb (27 t) |
+| 6x6 (5.5" actual) | 30.25 in² | **60,000 lb (30 t)** | 136,000 lb (68 t) |
+| 8x8 (7.5" actual) | 56.25 in² | 112,000 lb (56 t) | 253,000 lb (126 t) |
+
+These are the FEMA/US&R figures (500 psi) rounded; hardwood and rated plastic can be taken higher **only** from the maker's chart. A 4x4 crib built with 3 per layer is the workhorse for machinery: it holds a 20-ton press comfortably. Solid stacks (all timbers in one direction, no crossing) have no interlock and are limited to low heights.
+
+## Lift and crib sequence (jacks)
+
+1. Plan the crib **before** lifting: where the jacks go, where the cribs go (jack and crib cannot be in the same spot; use two jacks and two cribs on a diagonal, or jack at the ends and crib at the corners).
+2. Solid, level base under the jack: steel plate on concrete, plate on a timber mat on soil.
+3. Lift **1-2 inches**. Slide in a layer (or a wedge pair) on the crib. Repeat: **"lift an inch, block an inch"**. Never reach under with an arm past the wrist; push cribbing in with another timber or a rod.
+4. Lift alternately end to end or side to side so the machine never tilts more than about 1" per 10 ft; rigid frames crack and machines slide off jacks when they tilt.
+5. Once at height, **lower the load onto the cribs** and take the jacks slack (leave them in place snug as a backup). Only now is it safe to work under the load, and only with the crib built to the rules.
+6. Add **wedge pairs** to take up any gap so the load is not rocking on two points; with the load seated, all cribs should be tight (tap the wedges home).
+7. Coming down: jack up just enough to free the top layer, remove **one layer**, lower onto the crib, repeat. Same rules as going up.
+
+## Screw stands and machinery stands
+
+Rated, adjustable screw stands (e.g. 10-25 t) are the tidy alternative to cribs under a machine frame: base plate square, screw threads greased, not more than the marked extension, on a hard base. Automotive jack stands are rated for vehicles, not machinery; do not use them under a 10-ton machine bed. Trestle stands for shafts and pipe: check the tag.
+
+## Blocking under lifted loads on a crane or forklift
+
+- Set the load down on **blocking** that leaves room for the slings to be removed and re-rigged (two timbers, not four bricks).
+- Long loads (shafts, beams) on two blocks near the ends, on the same level, with chocks so they cannot roll.
+- Never leave a load hanging on a crane hook to work on it; land it on blocking.
+- Forklift loads: a tine under a machine is not blocking; if the machine has to be shimmed, it comes down onto cribbing first.
+
+## Slopes, chocks and skids
+
+- Machines on rollers or skates: chock the rollers **before** anyone puts a hand near; wedges on both sides.
+- Never crib on a slope without a level mat; the crib walks downhill.
+- Anything on a tilt (a machine on a skid being raised at one end) needs the low end anchored or chocked, and the crib built on the **uphill** side of the tilt to resist sliding.
+
+## Common mistakes
+
+- Working under a machine held on a hydraulic jack "just for a second".
+- Cribs taller than 3 × base width; cribs built with timbers in the middle of the layer instead of at the edges.
+- Concrete blocks under a jack or as blocking.
+- One wedge, not a pair.
+- Reaching under with the arm to push a shim while someone else operates the jack.
+- Oil-soaked, split or rotten timber; timber with the load applied on a knot.
+- Landing a load on cribs and walking away without tapping the wedges tight, so the first vibration rocks it.
+
+## Related
+
+- [Chain hoists, lever hoists and jacks](/article/chain-hoists-come-alongs-and-jacks)
+- [Moving and setting heavy machinery](/article/moving-and-setting-heavy-machinery)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Rigging basics](/article/rigging-basics-sling-angles-and-hitches)
+- [Crane signals and lift planning](/article/crane-signals-and-lift-planning)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$rigging$mw$),
+          array[$mw$cribbing$mw$,$mw$blocking$mw$,$mw$box crib$mw$,$mw$crib stack$mw$,$mw$timber capacity$mw$,$mw$4x4 crib$mw$,$mw$6x6 crib$mw$,$mw$wedges$mw$,$mw$shims$mw$,$mw$jack stands$mw$,$mw$screw stands$mw$,$mw$machinery stands$mw$,$mw$lift and crib$mw$,$mw$raised load$mw$,$mw$dunnage$mw$,$mw$hardwood blocking$mw$,$mw$plastic cribbing$mw$,$mw$DICA$mw$,$mw$working under load$mw$]::text[], $mw$$mw$, array[]::text[], $mw$US Army FM 5-125 and FEMA US&R Structural Collapse Technician cribbing tables (box crib capacities by timber size); OSHA 1910.176 and 1926 Subpart N; ASME B30.1 (jacks) blocking guidance; DICA and Turtle Plastics cribbing literature.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$rigging-basics-sling-angles-and-hitches$mw$, $mw$Rigging Basics: Sling Angles, Hitches, Load Calculation and Sling Inspection$mw$, $mw$The math and rules behind safe lifts: estimating load weight, sling-angle load factors (never below 30 degrees), how each hitch changes capacity, D/d ratio, shackle and hook rules, pre-use sling rejection criteria, and basic crane hand signals.$mw$, $mw$## Estimate the load
 
 Read the nameplate or drawing. If you must calculate:
@@ -9896,6 +10601,729 @@ Bending a sling around a small diameter cuts its strength. **D** = diameter of t
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$wire-rope-and-chain-slings-detail$mw$, $mw$Sling Capacity Tables: Wire Rope (EIPS IWRC), Grade 80 and Grade 100 Chain, Web Slings, Shackle WLL and Wire Rope Clip Torque$mw$, $mw$The capacity tables riggers reach for: wire rope slings by diameter and hitch, Grade 80 and Grade 100 chain by size and leg configuration, web slings by width and ply, screw-pin shackle working load limits by size, and the number, spacing and torque of wire rope clips, with the rules for reading them and the rejection criteria for each sling type.$mw$, $mw$> Always read the **tag** on the sling you are holding. Tables below are typical published ratings for the construction named; another maker's sling of the same size may be rated differently. Angles are measured **from horizontal**; capacities at 30° are the lowest and nothing is rated below 30°. Design factor: wire rope and web 5:1, Grade 100 chain 4:1 (some makers 5:1), Grade 80 chain 4:1.
+
+## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice (lb)
+
+| Dia. | Vertical | Choker | Vertical basket | 2-leg 60° | 2-leg 45° | 2-leg 30° | 3-leg 60° | 3-leg 45° | 3-leg 30° |
+|---|---|---|---|---|---|---|---|---|---|
+| 1/4" | 1,300 | 960 | 2,600 | 2,200 | 1,820 | 1,300 | 3,400 | 2,800 | 1,940 |
+| 5/16" | 2,000 | 1,480 | 4,000 | 3,400 | 2,800 | 2,000 | 5,200 | 4,200 | 3,000 |
+| 3/8" | 2,800 | 2,200 | 5,800 | 5,000 | 4,000 | 2,800 | 7,400 | 6,000 | 4,400 |
+| 7/16" | 3,800 | 2,800 | 7,800 | 6,800 | 5,400 | 3,800 | 10,000 | 8,200 | 5,800 |
+| **1/2"** | **5,000** | **3,800** | **10,200** | 8,800 | 7,200 | 5,000 | 13,200 | 10,800 | 7,600 |
+| 9/16" | 6,400 | 4,800 | 12,800 | 11,000 | 9,000 | 6,400 | 16,600 | 13,600 | 9,600 |
+| **5/8"** | **7,800** | **5,800** | **15,600** | 13,600 | 11,000 | 7,800 | 20,000 | 16,600 | 11,800 |
+| **3/4"** | **11,200** | **8,200** | **22,000** | 19,400 | 15,800 | 11,200 | 30,000 | 24,000 | 16,800 |
+| 7/8" | 15,200 | 11,200 | 30,000 | 26,000 | 22,000 | 15,200 | 40,000 | 32,000 | 22,000 |
+| **1"** | **19,600** | **14,400** | **40,000** | 34,000 | 28,000 | 19,600 | 52,000 | 42,000 | 30,000 |
+| 1-1/8" | 24,000 | 18,200 | 48,000 | 42,000 | 34,000 | 24,000 | 62,000 | 52,000 | 36,000 |
+| 1-1/4" | 30,000 | 22,000 | 60,000 | 52,000 | 42,000 | 30,000 | 76,000 | 62,000 | 44,000 |
+| 1-1/2" | 42,000 | 32,000 | 84,000 | 74,000 | 60,000 | 42,000 | 110,000 | 90,000 | 64,000 |
+| 2" | 74,000 | 56,000 | 146,000 | 126,000 | 104,000 | 74,000 | 190,000 | 156,000 | 110,000 |
+
+Notes: the 2-leg columns are also the **basket at that angle**. Choker ratings assume the choke angle is 120° or more (a tight choke on a narrow load, angle under 120°, derates further: 90° ≈ 87%, 60° ≈ 74%, 30° ≈ 55% of the choker rating). Basket ratings assume **D/d ≥ 25**: over a 1" pin a 1/2" sling (D/d = 2) is roughly **65%** of basket rating; D/d = 1 about 50%. Hand-tucked splices are rated about 10-20% lower than Flemish eye mechanical splices in the small sizes; fibre-core (FC) rope is about 7-10% lower than IWRC. 7x19 galvanised aircraft cable is **not** sling rope.
+
+Quick rule for 6x19 EIPS IWRC: **vertical WLL (tons) ≈ 8 × d²** (d in inches). 1/2": 8 × 0.25 = 2 t = 4,000 lb (conservative against the 5,000 in the table); 1": 8 t.
+
+## Alloy chain slings (lb)
+
+**Grade 100** (design factor 4:1 in this chart)
+
+| Chain size | Single vertical | Single choker | Double 60° | Double 45° | Double 30° | Triple/quad 60° | Triple/quad 45° | Triple/quad 30° |
+|---|---|---|---|---|---|---|---|---|
+| 9/32" (7 mm) | 4,300 | 3,500 | 7,400 | 6,100 | 4,300 | 11,200 | 9,100 | 6,400 |
+| 5/16" (8 mm) | 5,700 | 4,500 | 9,900 | 8,100 | 5,700 | 14,800 | 12,100 | 8,500 |
+| **3/8" (10 mm)** | **8,800** | 7,100 | 15,200 | 12,400 | 8,800 | 22,900 | 18,700 | 13,200 |
+| **1/2" (13 mm)** | **15,000** | 12,000 | 26,000 | 21,200 | 15,000 | 39,000 | 31,800 | 22,500 |
+| 5/8" (16 mm) | 22,600 | 18,100 | 39,100 | 32,000 | 22,600 | 58,700 | 47,900 | 33,900 |
+| 3/4" (20 mm) | 35,300 | 28,200 | 61,100 | 49,900 | 35,300 | 91,700 | 74,900 | 53,000 |
+| 7/8" (22 mm) | 42,700 | 34,100 | 74,000 | 60,400 | 42,700 | 110,900 | 90,600 | 64,000 |
+| 1" (26 mm) | 59,700 | 47,700 | 103,400 | 84,400 | 59,700 | 155,100 | 126,000 | 89,550 |
+| 1-1/4" (32 mm) | 90,400 | 72,300 | 156,600 | 127,800 | 90,400 | 234,900 | 191,700 | 135,600 |
+
+**Grade 80** (design factor 4:1)
+
+| Chain size | Single vertical | Single choker | Double 60° | Double 45° | Double 30° | Triple/quad 60° | Triple/quad 45° | Triple/quad 30° |
+|---|---|---|---|---|---|---|---|---|
+| 9/32" (7 mm) | 3,500 | 2,645 | 6,100 | 4,900 | 3,500 | 9,100 | 7,400 | 5,200 |
+| 5/16" (8 mm) | 4,500 | 3,527 | 7,800 | 6,400 | 4,500 | 11,700 | 9,500 | 6,800 |
+| **3/8" (10 mm)** | **7,100** | 5,511 | 12,300 | 10,000 | 7,100 | 18,400 | 15,100 | 10,600 |
+| **1/2" (13 mm)** | **12,000** | 9,369 | 20,800 | 17,000 | 12,000 | 31,200 | 25,500 | 18,000 |
+| 5/8" (16 mm) | 18,100 | 14,109 | 31,300 | 25,600 | 18,100 | 47,000 | 38,400 | 27,100 |
+| 3/4" (20 mm) | 28,300 | 19,841 | 49,000 | 40,000 | 28,300 | 73,500 | 60,000 | 42,400 |
+| 7/8" (22 mm) | 34,200 | 26,455 | 59,200 | 48,400 | 34,200 | 88,900 | 72,500 | 51,300 |
+| 1" (26 mm) | 47,700 | 37,478 | 82,600 | 67,400 | 47,700 | 123,900 | 101,200 | 71,500 |
+| 1-1/4" (32 mm) | 72,300 | 55,556 | 125,200 | 102,200 | 72,300 | 187,800 | 153,400 | 108,400 |
+
+Rules for chain: only **Grade 80 or 100 alloy** (marked "8", "80", "800", "10", "100" on the links) may be used for overhead lifting; Grade 30/43/70 (proof coil, high test, transport) is **never** a sling. Quad-leg slings are rated as triples (you cannot guarantee four legs share the load). Above **400°F (204°C)** derate (G80/G100 lose 10-25% between 400 and 600°F, and a chain heated over 1,000°F is scrap). Chain slings are the choice for hot, abrasive, sharp and repeated lifts; shorten legs only with rated grab hooks or shortening clutches, never by knotting or bolting.
+
+## Web slings (nylon or polyester, lb)
+
+**Eye-and-eye (EE), flat eyes**
+
+| Width | 1-ply vertical | 1-ply choker | 1-ply basket | 2-ply vertical | 2-ply choker | 2-ply basket |
+|---|---|---|---|---|---|---|
+| 1" | 1,600 | 1,280 | 3,200 | 3,100 | 2,480 | 6,200 |
+| **2"** | **3,100** | 2,480 | 6,200 | **6,200** | 4,960 | 12,400 |
+| 3" | 4,700 | 3,760 | 9,400 | 8,800 | 7,040 | 17,600 |
+| **4"** | **6,200** | 4,960 | 12,400 | **11,000** | 8,800 | 22,000 |
+| 6" | 9,300 | 7,440 | 18,600 | 16,500 | 13,200 | 33,000 |
+| 8" | 11,800 | 9,400 | 23,500 | 22,750 | 18,200 | 45,500 |
+| 12" | 17,650 | 14,120 | 35,300 | 34,100 | 27,280 | 68,200 |
+
+**Endless (EN)**: 1-ply 2" = 6,200 vertical / 4,950 choker / 12,400 basket; 2-ply 2" = 12,400 / 9,900 / 24,800; 2-ply 4" = 22,000 / 17,600 / 44,000. Endless slings rotate the wear point and last longer.
+
+**Polyester round slings** are colour-coded by capacity, but the code varies between makers: purple 2,600, green 5,300, yellow 8,400, tan 10,600, red 13,200, white 16,800, blue 21,200, orange 25,000-31,000 lb vertical is the most common US scheme; **the tag governs**. Choker ≈ 80%, basket 200% of vertical.
+
+Web and round sling rules: keep them off **sharp edges** (corner protectors, the sling will cut at well under its rating), out of **weld spatter and heat** (nylon melts at ~480°F, derate above 194°F), out of acids (nylon) and alkalis (polyester), out of sunlight storage. Nylon stretches about 8-10% at rated load, polyester about 3%. A web sling with a red core yarn showing, cut edge, burn, missing tag or knot is scrap.
+
+## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons
+
+| Nominal size (bow dia.) | Pin dia. | WLL (t) | Inside width | Inside length |
+|---|---|---|---|---|
+| 3/16" | 1/4" | 1/3 | 3/8" | 7/8" |
+| 1/4" | 5/16" | 1/2 | 15/32" | 1-1/8" |
+| 5/16" | 3/8" | 3/4 | 17/32" | 1-1/4" |
+| 3/8" | 7/16" | 1 | 21/32" | 1-7/16" |
+| 7/16" | 1/2" | 1-1/2 | 23/32" | 1-11/16" |
+| **1/2"** | 5/8" | **2** | 13/16" | 1-15/16" |
+| **5/8"** | 3/4" | **3-1/4** | 1-1/16" | 2-3/8" |
+| **3/4"** | 7/8" | **4-3/4** | 1-1/4" | 2-13/16" |
+| 7/8" | 1" | 6-1/2 | 1-7/16" | 3-5/16" |
+| **1"** | 1-1/8" | **8-1/2** | 1-11/16" | 3-3/4" |
+| 1-1/8" | 1-1/4" | 9-1/2 | 1-13/16" | 4-1/4" |
+| 1-1/4" | 1-3/8" | 12 | 2-1/32" | 4-11/16" |
+| 1-3/8" | 1-1/2" | 13-1/2 | 2-1/4" | 5-1/4" |
+| 1-1/2" | 1-5/8" | 17 | 2-3/8" | 5-3/4" |
+| 1-3/4" | 2" | 25 | 2-7/8" | 7" |
+| 2" | 2-1/4" | 35 | 3-1/4" | 7-3/4" |
+
+Rules: the size is the **bow diameter**, not the pin. The WLL is forged on the bow; imported shackles with no WLL and no maker's mark are not for lifting. Screw pin: tighten hand-tight then a quarter turn back off only if the pin must be removed by hand later; **mouse** (wire) the pin if the shackle will be in place for more than one lift or could work loose. Never load the pin against a running sling (a sling sliding in the pin unscrews it); the running sling goes in the **bow**, the fixed eye or hook on the pin. Side load reductions: 45° = 70%, 90° = 50%. Multiple slings in one shackle bow: included angle 120° max. Bolt-type (nut and cotter) shackles for permanent or rotating connections.
+
+## Wire rope clips (Crosby G-450 drop-forged), for making a temporary eye or joining
+
+| Rope dia. | Number of clips | Turn-back length | Torque (ft-lb) |
+|---|---|---|---|
+| 1/8" | 2 | 3-1/4" | 4.5 |
+| 3/16" | 2 | 3-3/4" | 7.5 |
+| 1/4" | 2 | 4-3/4" | 15 |
+| 5/16" | 2 | 5-1/4" | 30 |
+| 3/8" | 2 | 6-1/2" | 45 |
+| 7/16" | 2 | 7" | 65 |
+| **1/2"** | **3** | 11-1/2" | 65 |
+| 9/16" | 3 | 12" | 95 |
+| **5/8"** | **3** | 12" | 95 |
+| **3/4"** | **4** | 18" | 130 |
+| 7/8" | 4 | 19" | 225 |
+| **1"** | **5** | 26" | 225 |
+| 1-1/8" | 6 | 34" | 225 |
+| 1-1/4" | 7 | 44" | 360 |
+| 1-1/2" | 8 | 54" | 360 |
+
+Rules: **"never saddle a dead horse"**: the saddle (the forged base) goes on the **live** (loaded) rope, the U-bolt on the dead end. First clip one base-width from the dead end, second as close to the thimble as possible, others evenly spaced. Torque, load to about the working load, **re-torque** (the rope seats), and re-torque again after the first lift. A correctly made clip eye is about **80%** of the rope strength; the rope is never pulled through the clips (that is what a wedge socket is for). Fist-grip (double saddle) clips can go either way and use the same count. Malleable (cast) clips are not for lifting.
+
+## Reading and derating: worked example
+
+Lift a 6,000 lb gearbox with two 1/2" wire rope slings from two lugs 6 ft apart, hook 4 ft above the lugs. Leg length = √(3² + 4²) = 5 ft; angle from horizontal: sin θ = 4/5 → θ ≈ 53°. Between the 45° column (7,200) and 60° column (8,800) for a 2-leg 1/2" bridle: about 8,300 lb ≥ 6,000: fine, with 1/2" screw-pin shackles (2 t = 4,000 lb each, two legs share 6,000 lb → 3,000 per leg plus angle factor 1.25 = 3,750 lb per shackle: OK but close; 5/8" shackles at 3-1/4 t are more comfortable). Check the lug hole takes a 5/8" shackle pin (3/4" pin).
+
+## Inspection: remove from service
+
+| Wire rope | Chain | Web / round |
+|---|---|---|
+| 10 broken wires in one lay, 5 in one strand in one lay; broken wires at fittings; kinks, birdcaging, crushing, core protrusion; heat damage; wear over 1/3 of outer wire diameter; corrosion; cracked or deformed fittings | Stretched, bent, gouged, cracked, nicked, corroded links; wear beyond the maker's chart (typically 10-15% of link diameter); throat opening of hooks stretched; missing tag; heat tint from welding or cutting nearby | Red warning yarn visible; cuts, holes, snags, burns, melting; broken stitching; acid or alkali damage; knots; missing or unreadable tag; damaged fittings |
+
+Every sling, tag, hook and shackle gets a look **before every lift**; a documented inspection at least yearly (ASME B30.9), quarterly to monthly in severe service.
+
+## Related
+
+- [Rigging basics: sling angles, hitches and hardware](/article/rigging-basics-sling-angles-and-hitches)
+- [Chain hoists, lever hoists and jacks](/article/chain-hoists-come-alongs-and-jacks)
+- [Crane signals and lift planning](/article/crane-signals-and-lift-planning)
+- [Cribbing and blocking](/article/cribbing-and-blocking)
+- [Geometry formulas: load weight from dimensions](/article/geometry-formulas-area-volume-weight)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$rigging$mw$),
+          array[$mw$sling capacity chart$mw$,$mw$wire rope sling capacity$mw$,$mw$chain sling capacity$mw$,$mw$grade 80 chain$mw$,$mw$grade 100 chain$mw$,$mw$web sling capacity$mw$,$mw$nylon sling$mw$,$mw$polyester sling$mw$,$mw$shackle WLL$mw$,$mw$shackle size chart$mw$,$mw$wire rope clips$mw$,$mw$clip torque$mw$,$mw$IWRC$mw$,$mw$EIPS$mw$,$mw$6x19$mw$,$mw$6x37$mw$,$mw$flemish eye$mw$,$mw$D/d ratio$mw$,$mw$sling tag$mw$,$mw$ASME B30.9$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Northern Strands sling capacity chart (web slings EE/EN, 6x19 and 6x37 EIPS IWRC wire rope with Flemish eye, Grade 80 and Grade 100 alloy chain; design factors as marked); Crosby G-209 shackle and G-450 wire rope clip tables; ASME B30.9 (slings), B30.26 (rigging hardware); OSHA 1910.184.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$compressed-gas-cylinder-handling$mw$, $mw$Compressed Gas Cylinder Handling: Identification, Storage Separation, Moving and Securing, Regulator Fitting, Acetylene and Oxygen Rules, Leak Checks and Empty Cylinders$mw$, $mw$The rules that keep a 2,200 psi cylinder from becoming a projectile or a fire: reading the label and the CGA valve outlet, the storage separation for oxygen and fuel gases, caps and chains, how to move cylinders, how to fit a regulator and open the valve, the acetylene 15 psi and 1/7 withdrawal limits, leak testing and what to do with a damaged or empty cylinder.$mw$, $mw$> A full oxygen or argon cylinder holds about 2,200 psi. Knock the valve off and it becomes a rocket that goes through block walls. **Cap on** whenever the regulator is off. **Chained** whenever it is upright. **Never** lifted by the cap, rolled on its side, dropped, used as a roller, welded on, or grounded to.
+
+## Identify the gas
+
+Read the **label**, not the colour (colours are not standardised in the US; suppliers differ). Then check the **CGA valve outlet**: the fitting only fits the regulator for that gas family, and forcing or adapting it is how oxygen meets oil.
+
+| Gas | CGA outlet | Thread | Typical full pressure | Notes |
+|---|---|---|---|---|
+| **Oxygen** | **540** | Right-hand, external | 2,200-2,640 psi | Oil-free everything |
+| **Acetylene** | **510** (large), 200/520 (small MC/B) | Left-hand, internal | 250 psi at 70°F | Dissolved in acetone in a porous mass |
+| **Argon, Ar mixes, helium, nitrogen** | **580** | Right-hand, internal | 2,200-2,640 psi (2,015 for older nitrogen) | Inert; asphyxiants |
+| **CO2** | **320** | Right-hand, with a flat washer | ~830 psi at 70°F (liquid inside) | Pressure does not show contents |
+| Propane / propylene | 510 (same as acetylene) or POL | Left-hand | 100-150 psi (liquid) | Fuel gas, heavier than air |
+| Hydrogen, methane | 350 | Left-hand | 2,000+ | Flammable |
+| Compressed air | 346 | Right-hand | 2,000-3,000 | |
+| Argon-hydrogen mixes | 350 | Left-hand | | Flammable |
+
+**Left-hand threads have a notch** cut around the nut. Fuel gas hose is **red**, oxygen hose **green**, inert gas hose black; fittings B-size (9/16-18) on most shop torches, A-size on light-duty.
+
+## Storage
+
+- **Upright, secured** (chain, strap or rack) at all times, including "empties".
+- **Valve caps on** whenever the cylinder is not connected to a regulator or manifold.
+- **Oxygen separated from fuel gases** (acetylene, propane, hydrogen) by **at least 20 ft (6.1 m)** or a **5 ft high fire-resistant wall (1/2-hour rating)**. Also keep oxygen 20 ft from oil, grease, combustibles and flammable liquids.
+- Full and empty separated and labelled; cylinders in a ventilated, dry area away from heat (under 125°F / 52°C), sunlight, corrosion, electrical circuits and traffic; not in stairwells, exits, corridors or under overhead cranes' load paths.
+- Fuel gas storage inside buildings limited (OSHA 1910.253: 2,000 ft³ of fuel gas or 300 lb of LPG per building outside a separate gas room); propane cylinders generally stored outside.
+- Cylinders on the job (in use on a cart) are exempt from the 20 ft rule while connected to a torch on a proper cart with a flashback-arrestor-equipped regulator; when the job ends for the day they go back to storage or the cart is parked away from combustibles.
+- Inert gas (argon, nitrogen, CO2) in an enclosed room: ventilate; a leak displaces oxygen with no warning.
+
+## Moving cylinders
+
+- **Cap on, regulator off, valve closed** before moving.
+- Use a **cylinder cart** with a chain; tilt and roll on the bottom edge only for the last few feet; never drag, slide, roll on the side or carry by the cap.
+- Never lift with a sling around the body, a magnet, or by the cap; use a **cylinder cage or cradle** on a crane or forklift.
+- On trucks: upright, secured, caps on, fuel and oxygen separated, ventilated (never in a closed van or car).
+- Acetylene that has been on its side: **stand upright for at least an hour** (some suppliers say 24 h) before use so the acetone settles out of the valve.
+
+## Connecting and opening
+
+1. Stand to the **side** of the outlet, valve pointing away from anyone, and **crack** the valve briefly (open and close a fraction of a turn) to blow dust out of the outlet. **Not acetylene near a flame, not in a confined space, and never crack hydrogen** (it can self-ignite).
+2. Check the regulator: correct CGA, gauges intact, **adjusting screw backed all the way out** (no spring load), oil-free on oxygen; inlet filter present; flashback arrestors and check valves on torches.
+3. Fit the regulator; wrench-tight, no oil, no Teflon tape on CGA metal-to-metal seats (a washer is used only where the CGA fitting specifies one, e.g. CGA 320 CO2).
+4. Open the cylinder valve **slowly** (a sudden rush adiabatically heats the regulator; oxygen regulators have caught fire from this). Oxygen and inert: **fully open** (the valve seals against the back seat and stops leaking around the stem). **Acetylene: open no more than 1 to 1-1/2 turns** and leave the **wrench on the valve** so it can be closed instantly.
+5. Set working pressure with the adjusting screw while gas flows.
+6. **Leak check** every connection with soapy water or leak detector after fitting; a hissing regulator, bubbles at the stem or fittings = shut off, back out, re-seat or replace. Never look for leaks with a flame.
+7. Shut down: cylinder valve closed → open the torch valve to bleed the line → back out the regulator screw → close the torch valve. Both gauges at zero. Do this at every break longer than a few minutes, and always at the end of the shift.
+
+## Acetylene: the special rules
+
+- Never over **15 psig (103 kPa)** on the gauge: free acetylene above 15 psi can decompose explosively without oxygen. Regulators for acetylene are red-lined at 15.
+- Withdraw no faster than **1/7 of the cylinder's contents per hour** (some suppliers 1/10): a 300 ft³ cylinder gives at most about 40 cfh; a large rosebud heating tip needs several cylinders **manifolded**. Drawing too fast pulls acetone into the hose (green flame, poor cuts) and can freeze the cylinder. See [heating with a rosebud](/article/oxy-fuel-heating-rosebud).
+- No copper or high-copper alloy (over 65% Cu) fittings, tube or torches on acetylene (copper acetylide explodes); no silver-brazed joints on acetylene lines.
+- Fusible plugs in the cylinder valve melt at about **212°F**: a cylinder in a fire vents and burns; **do not** try to move a burning acetylene cylinder; evacuate and call the fire service, who cool it from behind cover for hours.
+- A hot cylinder (from a flashback, or warm to the touch after use) is a decomposition warning: close the valve if it can be done safely, cool with water from a distance, evacuate.
+
+## Oxygen: the special rules
+
+- **No oil, grease or hydrocarbons** anywhere on the valve, regulator, fittings, hands or gloves; oxygen under pressure ignites them. Wipe threads clean; never use pipe dope, oil or a greasy wrench.
+- Never use oxygen as compressed air: to blow dust off clothes, cool yourself, start an engine, pressurise a tank or run an air tool. Oxygen-saturated clothing burns like a flare.
+- Oxygen-enriched atmosphere (over 23.5%) from a leaking torch in a confined space is a flash fire waiting for a spark: see [confined space entry](/article/confined-space-entry).
+
+## Inert gases (argon, nitrogen, CO2, helium)
+
+- Odourless and colourless; a leak in a pit, tank or small room lowers oxygen with no sensation until you collapse. Argon and CO2 sink; helium rises.
+- Never enter a purged pipe or vessel; never lean into a tank with a purge running.
+- Liquid nitrogen and liquid argon dewars: frost burns, oxygen displacement as they boil off, pressure relief venting is normal.
+- CO2: gauge pressure stays at about 830 psi until nearly empty, then falls; weigh the cylinder to know contents.
+
+## Damaged, suspect and empty cylinders
+
+- Dented, gouged, corroded, arc-struck, fire-exposed, valve damaged, no legible label, past its hydrostatic test date (stamped on the shoulder; 5-10 years depending on the cylinder): **do not use**, tag it and return it to the supplier.
+- Leaking cylinder that cannot be stopped by closing the valve: move outdoors away from ignition and people (if it can be done safely), tag, cordon, call the supplier.
+- "Empty": leave **25-50 psi** in the cylinder (never draw to zero: air and moisture enter and contaminate the next fill), close the valve, cap on, mark **EMPTY** or **MT**, store separately, still chained.
+- Never refill a cylinder yourself, transfer gas between cylinders, mix gases in a cylinder, or remove or deface the supplier's label and markings.
+- Never use a cylinder as a roller, support, work bench, anvil, or ground clamp for welding; **an arc strike on a cylinder condemns it**.
+
+## Canada
+
+CSA B339/B340 cover cylinder specifications and transport (TDG); provincial OHS regulations follow the same storage separation (6 m or a 1.5 m fire wall), cap and securing rules; CSA W117.2 for welding-gas practice.
+
+## Related
+
+- [Oxy-fuel safety](/article/oxy-fuel-safety)
+- [Oxy-acetylene setup (Victor)](/article/oxy-acetylene-setup-victor)
+- [Shielding gas selection, cylinder sizes and flow](/article/gas-selection-and-flow)
+- [Hot work permits and fire watch](/article/hot-work-permits-and-fire-watch)
+- [Confined space entry](/article/confined-space-entry)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$gas cylinder safety$mw$,$mw$cylinder storage$mw$,$mw$oxygen acetylene storage 20 feet$mw$,$mw$cylinder cap$mw$,$mw$cylinder cart$mw$,$mw$cylinder chain$mw$,$mw$regulator$mw$,$mw$CGA fitting$mw$,$mw$CGA 540$mw$,$mw$CGA 510$mw$,$mw$CGA 580$mw$,$mw$CGA 320$mw$,$mw$acetylene 15 psi$mw$,$mw$cylinder valve$mw$,$mw$cracking the valve$mw$,$mw$leak check$mw$,$mw$empty cylinder$mw$,$mw$nitrogen cylinder$mw$,$mw$argon cylinder$mw$,$mw$CO2 cylinder$mw$,$mw$propane cylinder$mw$,$mw$cylinder rocket$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.101, 1910.253 (oxygen-fuel gas welding), 1926.350; CGA P-1 (safe handling of compressed gases), CGA G-1 (acetylene), CGA V-1 (valve outlet connections); NFPA 51 and 55; Compressed Gas Association pamphlets; supplier (Linde, Airgas, Praxair) safety sheets.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$confined-space-entry$mw$, $mw$Confined Space Entry for Millwrights: Identifying Permit Spaces, Atmospheric Testing Limits, Ventilation, Attendant and Rescue, and the Entry Permit$mw$, $mw$How to recognise a confined space and decide whether it needs a permit, the atmosphere limits (oxygen 19.5-23.5%, LEL under 10%, H2S and CO limits) and the order of testing, ventilation practice, the roles of entrant, attendant and entry supervisor, rescue arrangements, what the permit must say, and the special hazards of welding and inert gas inside vessels.$mw$, $mw$> More than **60% of confined-space deaths are would-be rescuers**. Nobody goes in after a collapsed entrant without breathing apparatus and a retrieval system. The attendant's job is to call for rescue and keep others out, not to enter.
+
+## Is it a confined space?
+
+A space is **confined** if all three are true (OSHA 1910.146):
+
+1. Large enough to enter and do work.
+2. **Limited or restricted** means of entry or exit (manway, ladder, hatch, crawl).
+3. **Not designed for continuous occupancy**.
+
+It is a **permit-required confined space (PRCS)** if it also has any one of:
+
+- A hazardous atmosphere, or the potential for one (oxygen deficiency or enrichment, flammables, toxics, dust).
+- A material that could **engulf** the entrant (grain, sand, sawdust, liquids, cement).
+- An internal shape that could **trap or asphyxiate** (converging walls, sloping floor to a small outlet: hoppers, silos, cyclones).
+- Any other serious hazard: unguarded machinery, moving parts, live electrical, heat, noise, falling objects.
+
+Millwright examples: tanks, vessels, boilers, reactors, mixers, dryers, kilns, silos, hoppers, bins, cyclones, ductwork, chutes, crushers, ball mills, pump pits, sumps, valve vaults, trenches over 4 ft, pipe over about 24", crawlspaces, gearbox and turbine casings large enough to enter, degreasers, paint booth pits, dust collectors, conveyor tunnels.
+
+**Any equipment with an agitator, auger, screw, ram, mixer blade, conveyor or drive inside it is a permit space until it is locked out and, where possible, physically blocked or de-energised (stored energy)**. Lockout is a condition of entry, not a substitute for the permit. See [lockout/tagout](/article/lockout-tagout-basics).
+
+## Atmosphere: test before entry and continuously
+
+| Gas | Acceptable entry range | Instrument | Notes |
+|---|---|---|---|
+| **Oxygen** | **19.5-23.5%** | O2 cell | Below 19.5%: impaired judgement; below 16%: unconsciousness fast; below 10%: death in minutes. Above 23.5%: fire and explosion (oxygen leak from a torch) |
+| **Flammable (LEL)** | **< 10% of LEL** for entry; **< 0%** for hot work in most programs | Catalytic bead / IR combustible sensor | Catalytic sensors need at least ~10-12% O2 to read correctly; a low-O2 space can show 0% LEL and be explosive |
+| **Hydrogen sulphide (H2S)** | < 10 ppm (OSHA ceiling 20 ppm; NIOSH REL 10 ppm) | Electrochemical | Rotten-egg smell at low ppm, **no smell above ~100 ppm** (olfactory fatigue); sewers, pits, sumps, pulp mills |
+| **Carbon monoxide (CO)** | < 25-35 ppm (OSHA PEL 50 ppm 8 h TWA; NIOSH 35 ppm) | Electrochemical | Engine exhaust, welding, heaters |
+| Other toxics as the space dictates | Below PEL | Tubes, PID | Solvents, ammonia (25 ppm), chlorine (0.5 ppm), argon/nitrogen (no sensor: watch O2) |
+
+**Test in this order**: oxygen first (the LEL cell needs oxygen), then flammables, then toxics. Test at **top, middle and bottom** of the space (gases stratify: methane, hydrogen and ammonia rise; propane, CO2, H2S and argon sink) and at every level an entrant will be at. **Continuous monitoring** on the entrant's body during the job; alarms mean everyone out. Bump-test the meter before the shift and calibrate on its schedule; a meter that was not bump-tested that day is a decoration.
+
+## Ventilation
+
+- **Forced-air (blower) ventilation** with the intake in clean air, not next to a running engine, the crane exhaust or the welding fume from the next job. Duct to the bottom of the space and to where the entrant works.
+- Purge before entry: **at least 7-10 air changes** (typical program rule) and then re-test. Volume ÷ blower cfm × 7 = minutes. A 1,500 ft³ tank with a 1,000 cfm blower: about 10-15 min.
+- Keep it running the whole job; test again after any interruption.
+- Ventilation does **not** make a space non-permit; only reclassification by the entry supervisor after eliminating the hazards does (alternate entry, 1910.146(c)(5)).
+- Welding, cutting or gouging inside: local exhaust at the arc **plus** general ventilation; the entrant may still need respiratory protection. **Never** use oxygen to ventilate or "freshen" a space, and never leave a torch or gas hose inside a space unattended: leaking acetylene or propane from an idle torch has killed entrants; shut off at the cylinder and take the torch out at every break.
+- **Inert gas**: argon (TIG/MIG shielding, purge gas) and nitrogen are heavier than or equal to air, odourless, and displace oxygen without any sensation. Purged pipe and tanks, and any space below where argon has been used, is a no-go until tested.
+
+## Roles (every entry has all three)
+
+| Role | Must |
+|---|---|
+| **Entry supervisor** | Verify tests, permit, rescue availability; authorise entry; cancel the permit when done or when conditions change |
+| **Attendant** (outside, full time) | Know the hazards; count entrants in and out; maintain contact (voice, radio, rope signals); monitor conditions; order evacuation; **summon rescue; never enter**; keep unauthorised people out |
+| **Entrants** | Know the hazards and symptoms (dizziness, headache, euphoria, shortness of breath, watery eyes); use the equipment; communicate; exit on any alarm or order |
+
+The attendant may not do other work that distracts from the space. One attendant may cover more than one space only if the program allows and they can respond to all.
+
+## Rescue
+
+- **Non-entry retrieval**: full-body harness with a dorsal or shoulder D-ring, lifeline to a **tripod and winch** (or davit) at the opening for vertical spaces up to 5 ft deep or any space where the line will not snag. Chest or shoulder attachment for a straight vertical pull through a manway.
+- **Entry rescue**: a trained team with SCBA or supplied air, on-site or with a verified response time (the fire department is only an acceptable plan if they have confirmed capability and time; many cannot do vessel rescue).
+- Rescue equipment set up **before** entry; a practice rescue at least annually.
+- Any entrant who feels dizzy, hot, confused or "fine, just a bit sleepy" comes out immediately.
+
+## The permit (posted at the entry)
+
+Space identity; purpose; date and duration; names of entrants, attendant, supervisor; hazards; isolation done (lockout, blanks, blinds, disconnects, purging, inerting); test results with time, instrument and tester; acceptable conditions; rescue and emergency services with the phone or radio call; communication method; equipment (PPE, ventilation, retrieval, lighting, hot-work permit if welding); other permits; the supervisor's signature. Cancelled and kept on file (1 year in the US).
+
+## Practical millwright rules
+
+- **Isolate first**: lockout every drive; blank or blind lines that could bring in product, steam, water, gas or nitrogen (a closed valve is not isolation; a locked closed valve is not isolation of a liquid line: blind it or double-block-and-bleed).
+- Cool it: a dryer, kiln or boiler that was at temperature yesterday may be over 120°F inside today; heat stress limits the work period.
+- Lighting: low-voltage or GFCI-protected, explosion-proof where flammables are possible.
+- Tools and cords at the opening on a lanyard so nothing has to be thrown; no gas cylinders inside; hoses leak-checked and shut off at the cylinder at every break.
+- **Grain, sand, sawdust, cement**: no walking on the surface; engulfment takes seconds.
+- Ladders secured; nobody climbs with tools in hand.
+- Canada: CSA Z1006 and provincial regulations use the same three-part definition; "confined space entry" training and a written code of practice are required, and Alberta/BC/Ontario each specify permit contents. Red Seal exam questions follow the OSHA/CSA limits above.
+
+## Related
+
+- [Lockout/tagout basics](/article/lockout-tagout-basics)
+- [Hot work permits and fire watch](/article/hot-work-permits-and-fire-watch)
+- [Welding safety: fumes, ventilation and PPE](/article/welding-safety-fumes-and-ppe)
+- [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling)
+- [PPE selection](/article/ppe-selection)
+- [First aid for shop injuries](/article/first-aid-for-shop-injuries)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$confined space$mw$,$mw$permit required confined space$mw$,$mw$PRCS$mw$,$mw$atmospheric testing$mw$,$mw$gas monitor$mw$,$mw$4 gas meter$mw$,$mw$oxygen deficient$mw$,$mw$LEL$mw$,$mw$H2S$mw$,$mw$carbon monoxide$mw$,$mw$ventilation$mw$,$mw$attendant$mw$,$mw$entry supervisor$mw$,$mw$rescue$mw$,$mw$tank entry$mw$,$mw$vessel entry$mw$,$mw$pit$mw$,$mw$sump$mw$,$mw$tripod$mw$,$mw$retrieval$mw$,$mw$OSHA 1910.146$mw$,$mw$argon asphyxiation$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.146 (permit-required confined spaces) and 1926 Subpart AA; ANSI/ASSP Z117.1; NIOSH confined space guidance; OSHA 1910.1000 PELs; CSA Z1006 (Canada).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$fall-protection-ladders-scaffolds$mw$, $mw$Fall Protection, Ladders, Scaffolds and Lifts: Trigger Heights, Harness and Lanyard Rules, Fall Clearance Math, Ladder Angle and Setup, Scaffold Tags and Aerial Lift Rules$mw$, $mw$The heights at which fall protection is required in general industry (4 ft) and construction (6 ft), how to choose and fit a harness and connect it, the 5,000 lb anchor rule, how to calculate whether you have enough fall clearance for a lanyard or a self-retracting lifeline, ladder selection and setup rules, scaffold inspection and tag colours, and the rules for scissor and boom lifts.$mw$, $mw$> Falls are the leading cause of death in construction and near the top in industrial maintenance. The height that kills is not 40 ft; it is 6-10 ft onto concrete or a machine. **Plan the fall before you plan the job.**
+
+## When fall protection is required
+
+| Setting | Trigger height | Rule |
+|---|---|---|
+| General industry (plants, mills, shops): unprotected sides and edges, holes, platforms, mezzanines | **4 ft (1.2 m)** | OSHA 1910.28 |
+| Construction (new install, demolition, most contractor work) | **6 ft (1.8 m)** | OSHA 1926.501 |
+| Scaffolds | **10 ft** above a lower level (guardrails or PFAS) | 1926.451 |
+| Steel erection | 15 ft (30 ft for connectors) | 1926.760 |
+| Over dangerous equipment (conveyors, tanks, augers, acid) | **any height** | 1910.28(b)(6) |
+| Fixed ladders over 24 ft | Ladder safety system or PFAS (cages no longer accepted on new ladders; all by 2036) | 1910.28(b)(9) |
+| Aerial boom lifts | Always tied off, whatever the height | 1926.453 / ANSI A92 |
+| Canada | 3 m (10 ft) in most provinces; 2.4 m or above machinery in some; Ontario 3 m or any height over hazards | Provincial OHS |
+
+**Hierarchy**: eliminate the height (do it from the floor, lower the work) → guardrails (top rail **42 in ± 3**, midrail 21 in, toeboard 3.5 in, withstand 200 lb) → covers on holes (marked "HOLE", 2× the load) → travel restraint (you cannot reach the edge) → **fall arrest** (you fall and are caught) → warning lines, monitors and nets are last resorts under specific rules.
+
+## Personal fall arrest system (PFAS)
+
+**Anchor**: **5,000 lb (22 kN) per person** attached, or engineered to 2× the maximum arresting force under a qualified person's design. Structural steel beam, a rated beam clamp or strap, a certified anchor point. Not: pipe, conduit, cable tray, handrails (unless certified), sprinkler lines, ductwork, the lift's guardrail (use the designed anchor in the basket), a forklift, a scissor lift railing on an adjoining lift. Anchor **above the D-ring** whenever possible.
+
+**Harness**: full body only (body belts are not for arrest). Fit: chest strap at mid-chest (armpit level, not the throat), leg straps snug (a flat hand slides in, a fist does not), D-ring between the shoulder blades, no twisted webbing, all keepers used. Inspect before each use: cuts, frays, burns, chemical damage, stitching, distorted hardware, impact indicator deployed (tag or fold stitching burst) = out of service. Manufacturer's label legible; retire on the maker's schedule or after any fall.
+
+**Connectors**:
+
+| Connector | Free fall | Arrest force | Notes |
+|---|---|---|---|
+| 6 ft shock-absorbing lanyard | ≤ 6 ft | ≤ 1,800 lb (Z359: 900 lb average) | Deploys up to 3.5 ft (42 in); needs the most clearance |
+| Self-retracting lifeline (SRL), Class 1 (overhead) | ≤ 2 ft | ≤ 1,800 lb | Anchor at or above the D-ring; locks in 2 ft or less |
+| SRL Class 2 (leading edge, "SRL-LE") | | | Rated for anchoring at foot level and over an edge; the only SRL for that use |
+| Vertical lifeline + rope grab | | | Must be attached to the grab at all times; one person per lifeline |
+| Horizontal lifeline | | | Engineered system only |
+| Positioning lanyard / rebar chain | 2 ft max | | Positioning, with a separate arrest system |
+| Restraint lanyard | none | | Length chosen so you cannot reach the edge |
+
+Snap hooks and carabiners **locking** type, never hooked to each other, never hooked to a D-ring smaller than the gate rating allows (roll-out); never wrap a lanyard around a beam back to its own snap hook unless it is designed as a tie-back lanyard (5,000 lb gate). 100% tie-off (two lanyards, "Y") when moving between anchors.
+
+## Fall clearance calculation (shock-absorbing lanyard)
+
+Clearance needed below the anchor:
+
+```
+Lanyard length            6.0 ft
++ Deceleration (deployment)  3.5 ft
++ Harness stretch / D-ring shift  1.0 ft
++ Worker height below D-ring (≈ 5 ft for a 6 ft worker)  5.0 ft
++ Safety factor           3.0 ft (OSHA: minimum 2 ft; Z359: 1 ft plus)
+= 18.5 ft from the anchor to the nearest obstruction
+```
+
+Anchor at foot level instead of overhead: add the extra free fall (up to 6 ft more) and you are at 24 ft: **a 6 ft lanyard tied off at your feet on a 12 ft mezzanine hits the floor**. Use an overhead anchor, an SRL, or restraint. SRL overhead: clearance ≈ 2 ft arrest + 1 ft stretch + worker below D-ring + safety factor ≈ 8-10 ft; still check the maker's chart. **Swing fall**: keep the anchor within 30° of vertical over you; a swing into a column or wall does as much damage as the fall.
+
+## After a fall
+
+Suspension in a harness restricts blood return in the legs: unconsciousness in **5-30 minutes**. Rescue plan **before** the job: ladder, lift, rescue pole, descent device; the worker deploys **suspension trauma straps** (foot loops) and pumps the legs while waiting. Call for help before starting a rescue. Any fall = harness, lanyard and anchor out of service and inspected; the person is medically checked even if "fine".
+
+## Ladders
+
+**Selection**: fibreglass (Type IA 300 lb or IAA 375 lb duty) around electrical; aluminium never near electrical; wood is fine but heavy. Duty rating includes you plus tools. Step ladder height: you stand no higher than the **second step from the top**; extension ladder: no higher than the **fourth rung from the top**. Ladder tall enough that you do not reach overhead: for work at 10 ft, a 6 ft step ladder is too short; use an 8 ft.
+
+**Extension ladder setup**:
+
+- **4:1 angle**: base 1 ft out for every 4 ft of working height (toes at the feet, arms straight, palms on a rung: correct angle). Too steep tips back; too flat kicks out.
+- **3 ft (three rungs) above** the landing when used for access; **tie off** the top (or foot the base) whenever possible; secure at the bottom on any surface that could slip.
+- Overlap of sections: 3 ft up to 36 ft ladders, 4 ft to 48 ft, 5 ft over 48 ft.
+- Fly section **out** (away from you) on most modern ladders; check the label.
+- Feet on a firm, level base; no boxes, drums or forklift forks under it; levellers on uneven ground.
+- Never on a scaffold, in a doorway that is not locked, in front of a truck, in a walkway without a spotter and barricade.
+
+**Use**: three points of contact; face the ladder; belt buckle between the rails (do not lean); tools on a belt or hauled up by rope; one person per ladder; never move a ladder with someone on it; never use the top cap or the pail shelf of a step ladder as a step; a step ladder only fully opened and locked (not leaned closed against a wall). Inspect: cracked or bent rails, missing feet, loose rungs, oil, damaged rope or pulley = tag out. Job ladders are for **access and short-duration light work**; if you need both hands for more than a few minutes or need to move sideways, use a lift or scaffold.
+
+Fixed ladders: cages alone no longer count as fall protection on new installations; climbers use a ladder safety system (rail or cable with a sleeve) or a PFAS above 24 ft.
+
+## Scaffolds
+
+- Erected, moved, altered and dismantled under a **competent person**; inspected by them **before each shift** and after anything that could affect it (wind, impact, changes).
+- **Tags** at every access point: **green** = complete, safe for use; **yellow** = incomplete or modified, use only with fall protection as noted; **red** = do not use. No tag = do not climb.
+- Base: base plates and mud sills, plumb and level, screw jacks not over-extended (typically 12 in maximum). **Height-to-base ratio 4:1** or it is tied to the structure or outriggered.
+- Fully planked working levels (planks overlap at least 12 in on a bearer, extend 6-12 in past supports, cleated or secured), guardrails at 10 ft, toeboards, ladder access (not climbing the frames unless they are designed as ladders).
+- Capacity: light duty 25 psf, medium 50 psf, heavy 75 psf. Materials and people counted.
+- Rolling (mobile) scaffolds: casters locked before climbing; nobody rides it while moving unless the maker allows and the platform is under 2× the base; move only on level floor; outriggers per the maker.
+- Power lines: 10 ft clearance minimum to 50 kV.
+
+## Scissor lifts and boom lifts (aerial work platforms)
+
+- Trained and authorised (ANSI A92.24 / OSHA 1926.453) on that class of machine; read the placard.
+- **Scissor lift**: guardrails are the fall protection; harness and lanyard tied to the designed anchor if the site or maker requires (many do). Chain or gate closed. Stay inside the rails: no standing on the mid-rail, toeboard or a box; no leaning out with the lift extended. Level ground only unless rated for slope; outriggers where fitted; no driving elevated except on machines rated for it, on a flat surface, with the path checked.
+- **Boom lift**: **always** tied off to the basket anchor, with a **short lanyard or SRL** (a boom "catapults" when it hits something or drops a wheel in a hole). Feet on the floor of the basket. Watch the tail swing, overhead structure and the crush zone between the basket and the structure.
+- Both: wind limit (usually 28 mph); never use a lift to lift materials as a crane unless rated and fitted for it; never exit an elevated platform onto a structure unless the site procedure allows it with 100% tie-off; check for GFCI and power lines; lower fully before driving on slopes; pre-use inspection (tyres, hydraulics, controls, ground controls, emergency lowering).
+
+## Canada
+
+CSA Z259 governs harnesses, lanyards and anchors (Class A/D/E/P harnesses; anchor 22 kN or 2× the arrest force); provincial fall protection training (BC "Fall Protection", Alberta and Ontario "Working at Heights") is mandatory before work at height; ladder angles and scaffold rules match the OSHA numbers.
+
+## Related
+
+- [PPE selection](/article/ppe-selection)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)
+- [Crane signals and lift planning](/article/crane-signals-and-lift-planning)
+- [Conveyor safety and guarding](/article/conveyor-safety-and-guarding)
+- [First aid for shop injuries](/article/first-aid-for-shop-injuries)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$fall protection$mw$,$mw$fall arrest$mw$,$mw$harness$mw$,$mw$lanyard$mw$,$mw$shock absorbing lanyard$mw$,$mw$SRL$mw$,$mw$self retracting lifeline$mw$,$mw$anchor point 5000 lb$mw$,$mw$fall clearance$mw$,$mw$swing fall$mw$,$mw$ladder angle 4 to 1$mw$,$mw$extension ladder$mw$,$mw$step ladder$mw$,$mw$three points of contact$mw$,$mw$scaffold tag$mw$,$mw$green tag$mw$,$mw$scissor lift$mw$,$mw$boom lift$mw$,$mw$aerial work platform$mw$,$mw$guardrail height 42$mw$,$mw$OSHA 1910.28$mw$,$mw$OSHA 1926.501$mw$,$mw$suspension trauma$mw$,$mw$ANSI Z359$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910 Subpart D (walking-working surfaces, 2017 rule) and Subpart I (PPE); 1926 Subparts L (scaffolds), M (fall protection) and X (ladders); ANSI/ASSP Z359 (fall protection code) and A14 (ladders); ANSI A92 (aerial platforms); CSA Z259 (Canada).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$first-aid-for-shop-injuries$mw$, $mw$First Aid for Shop and Plant Injuries: Bleeding, Eye Injuries, Burns, Crush and Amputation, Electric Shock, Chemical Exposure, Heat Stress and When to Call for Help$mw$, $mw$What to do in the first minutes for the injuries millwrights actually get, in the order that saves the most: call for help, stop severe bleeding, protect the eye, cool the burn, keep the amputated part, treat electric shock and chemical splashes, recognise heat stroke, and what every shop first aid kit and person should have on hand.$mw$, $mw$> This is not a substitute for a first aid / CPR course; every crew should have at least one trained person and an AED within a 3-minute walk where 911 response is more than a few minutes away (OSHA 1910.151). **Call first** (911 / site emergency number) for anything involving heavy bleeding, unconsciousness, chest pain, breathing trouble, electric shock, eye penetration, amputation, crush, head or spine injury, serious burns, or chemical exposure with symptoms.
+
+## First minute, any serious injury
+
+1. **Scene safe?** Isolate the machine, kill the power, stop the flow (lockout, e-stop, main valve), get the person out of the crush or the gas, without becoming the second casualty (confined space, electrical, chemical: see those articles).
+2. **Call** (or send someone with a clear message: location, what happened, how many, what is wrong) and send someone to meet the ambulance at the gate.
+3. **Bleeding** that is spurting or pooling: stop it now (below).
+4. Not breathing normally: **CPR** (push hard and fast in the centre of the chest, 100-120 per minute, 2 inches deep) and **AED** as soon as it arrives; do not stop to check unless it is obvious.
+5. Keep the person still, warm and talking; do not give food or drink; note the time and what you did for the paramedics.
+
+## Severe bleeding (Stop the Bleed)
+
+- **Direct pressure** with both hands and a dressing or clean cloth, hard, and **do not lift it to look**; add more on top if it soaks through.
+- Limb bleeding that pressure does not control in seconds, or more than one casualty: **tourniquet** 2-3 in above the wound (not on a joint), tightened until the bleeding **stops** (it will hurt), note the **time** on it or the forehead, and do not loosen it. A commercial tourniquet (CAT, SOFTT) in the kit; improvised ones (belts) rarely work.
+- Junction wounds (groin, armpit, neck): pack the wound with gauze (hemostatic if available) and press hard.
+- Impaled objects (rebar, wire, blade): **leave it in**, pad around it, stabilise.
+- Then treat for shock: lie flat, keep warm, monitor.
+
+## Eyes
+
+| Injury | Do | Do not |
+|---|---|---|
+| **Chemical splash** (acid, caustic, solvent, grout, lime) | **Flush immediately at the eyewash for at least 15 minutes** (20+ for caustics), eyelids held open, both eyes if in doubt; continue in the ambulance; bring the SDS | Wait to find the SDS first; neutralise with anything |
+| **Grinding grit / speck** on the surface | Flush with water or eyewash; if it does not come off, cover both eyes and go to a doctor; do not let anyone dig with a tool in the shop | Rub it; use a magnet, needle or a match |
+| **Penetrating** (wire, chip at speed, nail) | Do not remove; cover with a rigid shield (a paper cup taped over, no pressure) and cover the **other eye** too to stop movement; hospital now | Press on it; flush |
+| **Arc eye / welder's flash** (gritty, painful eyes 3-12 h after seeing an arc) | Cool compress, dark room, artificial tears; medical check if severe or not better in 24 h | Rub; wear contacts; drive |
+| Blow to the eye | Cold compress, no pressure; doctor if vision changes, blood in the eye or pain | |
+
+Eyewash stations within 10 seconds and 55 ft of corrosives, tested weekly, tepid water; a bottle is only for getting to the station.
+
+## Burns
+
+- **Thermal** (contact, spatter, slag, steam, hot bearings): **cool running water for 20 minutes** (tepid, not ice), remove rings and watches before swelling, cover loosely with cling film or a sterile non-fluffy dressing. No butter, grease, toothpaste or ice. Hospital for burns bigger than the person's palm, any full-thickness (white, leathery, painless) burn, burns on the face, hands, feet, joints or genitals, or circumferential burns.
+- **Molten metal or slag in a boot or glove**: get it off fast, then cool.
+- **Electrical / arc flash burns**: the entry and exit wounds are small and the damage is inside; **everyone shocked by more than a household circuit or an arc flash goes to hospital** even if they feel fine (heart rhythm and kidney damage show later). Cool the surface burns, watch breathing.
+- **Chemical burns**: brush off dry chemical first (lime, cement), then flush 20 minutes; remove contaminated clothing while flushing; hydrofluoric acid (some rust removers and aluminium brighteners) needs **calcium gluconate gel** and hospital immediately even for a small area.
+- **Cold burns** (liquid nitrogen, CO2, propane): warm slowly in tepid water, no rubbing.
+
+## Crush, entrapment and amputation
+
+- **Entrapment** in machinery: stop and isolate the machine, then free the person by the safest route (reverse the machine only if it will not do more damage; a jack, hoist, cribbing). If a limb has been trapped for more than about 15 minutes, do not release it until paramedics are there if possible (crush syndrome, sudden collapse on release).
+- **Amputation**: control bleeding (pressure, then tourniquet); find the part; **wrap it in clean moist gauze, put it in a sealed bag, put the bag on ice or in cold water: never directly on ice, never in water**; label with the name and time; it goes with the patient. Fingers and hands can be reattached hours later if kept right.
+- **Degloving and severe hand injuries** (chain drives, sheaves, rollers): bleeding control, cover, elevate, hospital.
+- **Hydraulic or grease-gun injection injury**: looks like a pinprick; **it is a surgical emergency within hours**; do not squeeze it; note the fluid; go now and say "high-pressure injection".
+- **Crush to chest or abdomen**, falls from height, struck by a load: assume spine injury; do not move unless the scene is unsafe; keep the head still; monitor breathing.
+
+## Electric shock
+
+1. **Do not touch** the person until the source is dead: kill the breaker or disconnect; if you cannot, push them clear with dry wood or a fibreglass pole. High-voltage lines: stay back 30 ft and call the utility.
+2. Not breathing / no pulse: CPR and AED immediately: shock victims have the best AED survival odds.
+3. Check for entry and exit burns; treat burns; hospital for anyone shocked by 120 V or more, any arc flash, any loss of consciousness, or any abnormal heartbeat.
+4. Static and low-voltage tingles from a tool: tag the tool, report it.
+
+## Chemical exposure and fumes
+
+- **Skin**: remove clothing, flush with water 15-20 minutes; read the SDS section 4 (first aid). Solvents (brake cleaner, degreasers) through skin cause headaches and worse: wash, ventilate.
+- **Inhalation** (welding fume, CO from engines and heaters, solvent vapour, refrigerant, argon in a pit): fresh air, sit up, oxygen if a trained person can give it; **metal fume fever** (flu-like chills 4-12 h after galvanised or brass welding) usually passes in 24-48 h but is a warning to fix the ventilation; cadmium and phosgene (brake cleaner through an arc) are emergencies; anyone collapsed in a pit or vessel: **do not go in**; call rescue.
+- **Swallowed**: do not induce vomiting; call poison control (US 1-800-222-1222) with the SDS.
+
+## Heat stress
+
+| Stage | Signs | Do |
+|---|---|---|
+| Heat cramps | Painful muscle cramps, sweating | Rest in shade, water with electrolytes, stretch |
+| Heat exhaustion | Heavy sweating, weakness, dizziness, nausea, headache, cool clammy skin, fast weak pulse | Stop work, shade or AC, loosen clothing, cool with wet cloths and fanning, sip water; if not better in 30 min or vomiting: medical |
+| **Heat stroke** | **Hot skin (may be dry or sweating), confusion, slurred speech, staggering, seizure, collapse; body temperature over 104°F** | **911. Cool aggressively now**: ice packs to neck, armpits and groin, soak clothing, fan, immerse in cool water if possible. Do not give drinks to a confused person |
+
+Hot work in a boiler, kiln, dryer or in FR clothing in summer: work/rest cycles, 1 cup of water every 15-20 minutes, a buddy watching for confusion, acclimatise new workers over 1-2 weeks.
+
+## Everyday injuries
+
+- **Cuts**: pressure, clean with water, close small cuts with strips, dressing; stitches if gaping, deep, or on a joint or hand; tetanus status.
+- **Metal splinters and slivers**: remove if visible and shallow with clean tweezers; a hospital for anything deep, in a joint, or rusty; steel slivers in the eye: see above.
+- **Sprains and strains**: rest, ice 20 minutes on/off, compression, elevation; medical check for a limb that cannot bear weight or a joint that looks wrong.
+- **Fractures**: immobilise as found (splint, sling), ice, hospital; open fractures: cover, do not push back.
+- **Head bump with no loss of consciousness**: watch for headache, vomiting, confusion or drowsiness over 24 h; any of those = hospital.
+- **Back pain from lifting**: keep moving gently, ice/heat; medical if leg numbness, weakness or bladder trouble.
+
+## The kit (ANSI Z308.1 Class B for industrial sites) and the room
+
+Adhesive bandages, gauze pads and rolls, trauma dressings, triangular bandages, tape, **tourniquet**, hemostatic gauze, eye pads and eyewash, burn dressings and gel, gloves, CPR mask, scissors, splint, foil blanket, cold packs, antiseptic wipes, a first aid guide, and the emergency numbers and site address on the lid. Inspect monthly. AED on the wall with pads in date. Emergency shower and eyewash where corrosives are used. Everyone knows where they are.
+
+## Canada
+
+Provincial first aid regulations set the number of attendants and kit levels by crew size and distance to hospital (WorkSafeBC OFAA levels 1-3, Alberta/Ontario standard and advanced kits); poison control varies by province; the treatments above are identical.
+
+## Related
+
+- [PPE selection](/article/ppe-selection)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Confined space entry](/article/confined-space-entry)
+- [Welding safety: fumes and arc eye prevention](/article/welding-safety-fumes-and-ppe)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$first aid$mw$,$mw$severe bleeding$mw$,$mw$tourniquet$mw$,$mw$eye injury$mw$,$mw$eye wash$mw$,$mw$flash burn$mw$,$mw$arc eye$mw$,$mw$welders flash$mw$,$mw$burns$mw$,$mw$thermal burn$mw$,$mw$chemical burn$mw$,$mw$crush injury$mw$,$mw$amputation$mw$,$mw$electric shock$mw$,$mw$arc flash burn$mw$,$mw$hydraulic injection injury$mw$,$mw$heat stress$mw$,$mw$heat stroke$mw$,$mw$CPR$mw$,$mw$AED$mw$,$mw$first aid kit$mw$,$mw$911$mw$,$mw$metal splinter$mw$,$mw$foreign body eye$mw$]::text[], $mw$$mw$, array[]::text[], $mw$American Red Cross and American Heart Association first aid / CPR / AED guidelines (2020 and later); OSHA 29 CFR 1910.151 (medical services and first aid) and ANSI/ISEA Z308.1 (first aid kits); Stop the Bleed (American College of Surgeons); NIOSH heat stress criteria; Canadian Red Cross.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hand-and-power-tool-safety$mw$, $mw$Hand and Power Tool Safety: Grinders and Wheel Ring Test, Drills, Impact and Air Tools, Hydraulic Tools, Hammers and Chisels, Extension Cords and GFCI, and the Injuries They Cause$mw$, $mw$The specific rules for the tools a millwright uses every day: abrasive wheel rating, mounting and the ring test, guards and side handles on grinders, the kickback and cut-off wheel rules, drill and mag-drill safety, air tool and hose rules, hydraulic tool injection hazard, struck tools, extension cord sizing and GFCI, plus how to inspect a tool and when to tag it out.$mw$, $mw$> Most tool injuries are the **same five**: grinder wheel bursts and kickbacks, drill bits grabbing a glove or a sleeve, cut-off wheels jamming and jumping, chisels and punches with mushroomed heads shedding chips into eyes, and air hoses whipping. Every one of them has a rule.
+
+## Before using any tool
+
+- **Inspect**: cord and plug (cuts, exposed wire, missing ground pin, cracked casing), guard present and working, switch works and does not stick, handles tight, blade/bit/wheel undamaged and correct for the tool. Damaged = **tag out**, do not "just use it once".
+- Right tool for the job; the maker's manual is the rule (max rpm, wheel size, accessories).
+- PPE for the tool (see [PPE selection](/article/ppe-selection)): glasses always, face shield for grinding, hearing protection, no gloves on rotating tools where they can wrap, no loose clothing or jewellery.
+- Unplug or remove the battery before changing bits, wheels or blades, and before clearing a jam.
+- Secure the work: vice, clamps, magnet; never hold small work in a hand while drilling or grinding it.
+- Footing, lighting and a clear line for the tool to go if it kicks.
+
+## Angle grinders and abrasive wheels
+
+**Wheel selection**
+
+- The wheel's **rated rpm must be equal to or higher than the grinder's** no-load rpm (4-1/2" grinders run 10,000-11,000 rpm; wheels are marked 13,300 rpm; a 7" wheel rated 8,500 rpm on a 4-1/2" grinder **explodes**). Never fit a bigger wheel than the guard was made for.
+- Type 27 (depressed centre) for grinding at 15-30°; Type 1 (flat cut-off) for cutting only, never for side grinding (they snap); Type 41/42 cut-off wheels need the **Type 1 cut-off guard** (closed on the top and back). Never use a cut-off wheel for grinding or a grinding wheel for cutting.
+- Check the expiry date on resin-bonded wheels (3 years from manufacture, printed on the metal ring); dispose of expired, cracked, chipped, wet or dropped wheels.
+- **Ring test** (bench grinder and larger vitrified wheels, not thin resinoid discs): hang the wheel on a finger or pin, tap lightly with a screwdriver handle at 45° from the vertical on both sides; a clear ring = sound, a dull thud = cracked, scrap it.
+
+**Mounting**
+
+- Flanges clean and matched, blotters where the wheel needs them, the correct lock nut for the wheel type (raised face for Type 27), tightened with the spanner, not a hammer.
+- New wheel: stand aside and run it for **one minute** unloaded before use.
+- Bench grinder: tool rest **1/8" (3 mm)** from the wheel, tongue guard (spark arrestor) **1/4" (6 mm)** from the wheel, adjusted as the wheel wears; dress the wheel to keep it true; never grind aluminium, brass or wood on a vitrified wheel (loads it and can burst it).
+
+**Using**
+
+- **Guard on, always**, positioned between the wheel and you; **side handle on**; two hands.
+- Let the wheel reach full speed before touching the work; grind on the face at 15-30°; do not hammer the wheel into the work or use the edge of a grinding wheel.
+- **Cut-off**: keep the wheel square in the cut; do not twist or lever; support the work so the kerf **opens**, not closes, on the wheel; cut in a straight line; when cutting through, expect the piece to drop and the wheel to be free.
+- **Kickback** happens when the wheel pinches or catches: position yourself so the grinder cannot come back into your body or legs when it does; never cut toward yourself; never grind or cut above shoulder height; never wedge the trigger on (a lock-on grinder that kicks keeps running: use a **paddle switch / dead-man** grinder for cut-off work; many sites now ban lock-on grinders).
+- Wire wheels and cup brushes: wires fly (face shield); do not exceed the brush's rated rpm; do not press hard.
+- Flap discs are the safest general grinding disc; use them where you can.
+- Let it stop before putting it down; a spinning grinder on the floor walks.
+- Sparks: 35 ft rule for combustibles, see [hot work](/article/hot-work-permits-and-fire-watch); sparks into a gas cylinder area or a grease pit are a fire.
+- Gloves: leather or cut-resistant are fine on a grinder; the wrap-around risk is much lower than with a drill because of the guard; keep the cuff tight.
+
+## Drills and mag drills
+
+- Chuck key out before starting; bit fully inserted and tight.
+- **The bit grabbing on breakthrough** in steel spins the drill and breaks wrists: brace the body and the drill's side handle against something solid, ease off feed pressure as the point breaks through, and use a clutch drill for large bits.
+- No gloves on a drill press or with large bits on hand drills (a glove wrapped around a 1/2" bit takes fingers); clamp the work, never hand-hold it on a drill press.
+- Step bits and hole saws: low speed; hole saws grab, so use the side handle and two hands.
+- **Mag drills**: test the magnet on the actual surface (rust, paint, thin plate under 3/8" and curved surfaces reduce hold badly); **safety strap or chain** on the drill whenever it is used on a vertical surface or overhead (power failure releases the magnet); clear the chips with a brush, not fingers; annular cutter slugs eject hot and fast.
+- Speeds: see [drill press speeds and feeds](/article/drill-press-speeds-and-feeds).
+
+## Impact wrenches, air tools and hoses
+
+- **Impact sockets only** (black, thick-walled); chrome hand sockets shatter.
+- Air tools: correct pressure (90 psi typical at the tool), lubricated per the maker, exhaust pointed away from you.
+- Hoses: rated for the pressure, no repairs with tape, **whip checks (safety cables) on every hose-to-hose and hose-to-tool connection over 1/2"**, and the claw (Chicago) couplings **pinned** with a safety pin or wire. A whipping 3/4" hose breaks bones.
+- **Never** use compressed air to clean clothing or skin (air embolism, blinding; OSHA limits blow-off nozzles to 30 psi dead-ended); never point it at anyone; never use it as breathing air.
+- Isolate and bleed the hose before disconnecting; hold the hose end when releasing a quick coupler.
+- Needle guns, chipping hammers: retainer in place so the chisel cannot fly; vibration limits (see below).
+- Cordless tools: battery removed for changes, batteries stored away from metal objects, damaged (swollen, hot) batteries isolated and disposed of.
+
+## Hydraulic tools (torque wrenches, pullers, nut splitters, jacks, presses)
+
+- **Injection injury**: hydraulic fluid at 3,000-10,000 psi from a pinhole leak goes through skin and gloves, painless at first, and requires **surgery within hours**; anyone who has a pinhole hit goes to hospital and says "high-pressure injection injury" even if it looks like a scratch. Never feel for leaks; use cardboard.
+- Rated hoses and couplers for the tool's pressure (10,000 psi couplers are not interchangeable with 3,000 psi); hoses not kinked, run over or used to carry the tool.
+- Bleed pressure before disconnecting; couplers fully seated (a partly connected coupler blocks flow and the pump builds pressure).
+- Hydraulic pullers and presses: the part being pressed can fly (bearings shatter, shafts release): shield or blanket, stand aside, see [bearing removal](/article/bearing-removal-pullers-and-heating).
+- Hydraulic torque wrenches: hands clear of the reaction arm (crush), reaction arm on a solid surface, never on a fitting.
+
+## Struck and striking tools
+
+- Hammers: head tight, handle unsplit; use the hammer made for the job (ball-peen for metal, sledge for driving, soft-face or brass for shafts and bearings); never strike two hardened faces together (hammer on hammer, hammer on a hardened socket).
+- **Chisels, punches, drifts, wedges**: **grind off mushroomed heads** (chips fly at eye height); hold with a holder or tongs on heavy driving; face shield.
+- Wrenches: pull, do not push; no pipe on a wrench (cheater) unless it is a rated bar; never use a wrench as a hammer.
+- Screwdrivers and pry bars: never toward your body or hand; pry bars can slip and put you on the floor.
+- Knives: cut away from the body; retractable or safety blades; do not use as a pry.
+
+## Electrical: cords, GFCI and double insulation
+
+- **Extension cords**: 12 AWG for 15 A tools up to 50 ft, 10 AWG beyond; 14 AWG only for light loads under 25 ft. Undersized cords burn out tool motors and get hot. Cords rated for outdoor/wet use (SJTW, SOOW) in the plant; not run through doorways, over sharp edges, in water or under traffic without protection; not repaired with tape.
+- **GFCI** on every temporary cord and on any tool used in a wet or conductive location (OSHA 1926.404 assured grounding or GFCI; in general industry, GFCI is the sensible default). Test the GFCI before use.
+- Grounded (3-prong) tools: the ground pin present; double-insulated (square-in-square symbol) tools may be 2-prong.
+- Tools with damaged cords, cracked housings, or a "tingle" are tagged out.
+- Electric tools near flammable vapour or dust: no; use air tools.
+
+## Vibration (HAVS / white finger)
+
+Grinders, needle guns, chipping hammers, impact wrenches and rammers cause permanent nerve and vessel damage. Rotate work, use anti-vibration tools and gloves (they help little at low frequencies), keep hands warm, do not grip harder than needed, and report tingling or white fingertips. EU/UK limits (2.5 m/s² action, 5 m/s² limit over 8 h) are a good guide where OSHA has none.
+
+## Tag-out criteria (any one)
+
+Missing or altered guard; cord damage; switch fault or lock-on defeat; cracked housing; wheel or blade damage; abnormal noise, heat or vibration; overdue inspection; any tool that has been dropped from height, run over or wet inside.
+
+## Related
+
+- [PPE selection](/article/ppe-selection)
+- [Grinding and abrasives safety (wheel speeds, dressing, bench grinders)](/article/grinding-and-abrasives-safety)
+- [Saws and abrasives: cut-off, band and chop saws](/article/saws-and-abrasives)
+- [Hole making in the field: mag drills and annular cutters](/article/hole-making-in-the-field)
+- [First aid for shop injuries](/article/first-aid-for-shop-injuries)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$angle grinder safety$mw$,$mw$grinding wheel rpm$mw$,$mw$ring test$mw$,$mw$wheel guard$mw$,$mw$cut off wheel$mw$,$mw$wire wheel$mw$,$mw$drill safety$mw$,$mw$mag drill$mw$,$mw$impact wrench$mw$,$mw$air tools$mw$,$mw$air hose whip check$mw$,$mw$needle gun$mw$,$mw$hydraulic tool injection injury$mw$,$mw$hammer chisel mushroom head$mw$,$mw$extension cord gauge$mw$,$mw$GFCI$mw$,$mw$kickback$mw$,$mw$dead man switch$mw$,$mw$lock on button$mw$,$mw$vibration white finger$mw$,$mw$tool inspection$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.242-244 (hand and portable powered tools) and 1926 Subpart I; ANSI B7.1 (abrasive wheels); ANSI B175; UL and CSA tool listings; NIOSH hand-arm vibration guidance; manufacturer (DeWalt, Milwaukee, Metabo, Ingersoll Rand, Enerpac) safety manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hot-work-permits-and-fire-watch$mw$, $mw$Hot Work Permits and Fire Watch: When a Permit Is Needed, the 35-Foot Rule, Fire Watch Duties and Duration, Extinguisher Selection and Hot Work on Tanks and Piping$mw$, $mw$What counts as hot work, how the permit-authorising individual decides whether to permit or move the job, the 35 ft (11 m) clear zone and how to protect what cannot be moved, fire watch responsibilities with the 30- and 60-minute post-work watch, extinguisher choice, and the extra steps before welding on drums, tanks and piping that have held anything flammable.$mw$, $mw$> The welding job that started a fire almost always did so **after** the welder walked away. Sparks and slag travel 35 ft, roll into floor openings, lodge in cracks and smoulder in dust and insulation for an hour before flaming. The fire watch is not optional overtime.
+
+## What is hot work
+
+Anything that produces sparks, flame or enough heat to ignite: welding (all processes), oxy-fuel cutting and heating, plasma, carbon-arc gouging, grinding and cut-off wheels, brazing and soldering with a torch, thawing pipes with a torch, hot-tapping, heat-shrink with an open flame, powder-actuated tools in some programs. Battery grinders and reciprocating saws count where flammable vapour or dust is possible.
+
+## Permit or no permit
+
+- **Designated hot work area** (the welding shop, a fab bay built and kept for it, no combustibles within 35 ft, non-combustible floor, fire-rated walls or screens): no permit needed; the area itself is inspected and posted.
+- **Anywhere else** (the plant floor, a conveyor gallery, a roof, a customer's site, a tank farm): a **permit** issued by the **permit-authorising individual (PAI)**, valid for one shift or the period written, after the PAI has inspected the spot.
+
+The PAI's first question is **can this be done elsewhere or another way** (move the part to the shop, bolt instead of weld, cold-cut with a saw, mechanically fasten)? Hot work is the last resort in a hazardous area.
+
+## Preparing the area: the 35 ft (11 m) rule
+
+Within a **35 ft radius** of the arc or flame, and below it on every floor or level that sparks can reach:
+
+1. **Remove** combustibles: paper, wood, rags, drums, pallets, plastic, oily absorbent, cardboard, lubricant stock.
+2. What cannot be moved gets **covered** with fire-resistant tarps, welding blankets or metal sheets (not a plastic tarp) and **wetted** where sensible (a wet floor is not a substitute for cover: it dries).
+3. **Floor**: sweep clean of dust, oil and grease; combustible floors wet down or covered with sand or fire-resistant blankets. Grating, expansion joints and floor drains get covered so slag cannot drop through.
+4. **Openings** in walls, floors and ducts within 35 ft: cover or seal (sheet metal, blankets). Conveyor belts, ducts and pipe chases carry sparks a long way.
+5. **Ductwork and conveyors** that can carry sparks or flammable dust: shut down and protected, or the area is not permitted.
+6. **Flammable liquids, gases and dust**: no hot work if the atmosphere is over **10% LEL** (most programs require **0%** and continuous monitoring). Fuel tanks, drums, vents, relief valve discharges and sample points within the zone: purged, blanked or the work moves.
+7. **Walls, ceilings and the other side**: welding on one side of a metal wall, deck, pipe or bulkhead ignites what is touching the other side (insulation, cable, wood, product). Someone checks the far side; if it cannot be checked, no hot work.
+8. Sprinklers in service; smoke detectors in the zone bagged or bypassed **by the fire system owner** and restored after (write it on the permit).
+9. Fire extinguisher(s) at the job, charged, right type; a charged hose line where the fire risk warrants it.
+10. Fire watch assigned and briefed.
+
+## Fire watch
+
+Required whenever combustibles are within 35 ft (or can be reached through openings), whenever the far side of a wall or partition is combustible or cannot be seen, and whenever the PAI says so.
+
+The fire watch:
+
+- Has **no other duties**; is trained in the extinguisher and the alarm; knows the escape routes.
+- Stays through the work and for at least **30 minutes after** the last spark (NFPA 51B-2019 requires **60 minutes** for the watch, with the first 30 continuous and a documented monitoring plan afterwards; many owners require 60 minutes continuous plus a 3-4 hour re-check). Follow the stricter of the standard and the site rule.
+- Watches **all** exposed areas including the level below and the far side of walls; more than one fire watch where one cannot see everything.
+- Extinguishes small fires only if it is safe with the extinguisher in hand; otherwise sounds the alarm first.
+- Has the authority to **stop the work** and does so if sparks are escaping the protected area, the wind changes, or product enters the zone.
+
+## Extinguishers
+
+| Type | Rating | Use | Notes |
+|---|---|---|---|
+| **ABC dry chemical** (monoammonium phosphate) | e.g. 4A:60B:C for a 10 lb | The general hot-work extinguisher: wood, paper, liquids, electrical | Corrosive residue on electronics and machinery; 10 lb minimum at hot work (20 lb in many programs) |
+| BC dry chemical (sodium bicarbonate) | | Liquids and electrical | Not for Class A |
+| CO2 | 5-20 lb | Electrical, small liquid fires, clean (control panels, motors) | Short range; does not cool; re-ignition of Class A |
+| Water / water-mist | 2A | Wood, paper, rags | Never on electrical or oil |
+| Class D (sodium chloride, copper powder) | | **Metal fires**: magnesium, titanium, aluminium chips, sodium | Water and ABC make magnesium fires worse; keep a bucket of dry sand as a minimum where mag alloys are cut or ground |
+| Wet chemical (K) | | Cooking oil | Kitchens only |
+
+**PASS**: pull the pin, aim at the base, squeeze, sweep. A 10 lb ABC lasts 10-20 seconds; range 10-20 ft. Two people: one fights, one calls. If the fire is bigger than a wastebasket when you get there, or you are not sure, leave and alarm.
+
+## Hot work on containers, drums and piping
+
+Any drum, tank, vessel, pipe or barrel that has held flammable or combustible liquid, gas, or a substance that heats to flammable vapour (oil, fuel, solvent, paint, adhesives, "empty" drums with residue) can **explode** when heated, even years later and even when it "smells clean". AWS F4.1 / NFPA 326 procedure:
+
+1. Identify what was in it (label, SDS, owner). Unknown = treat as flammable.
+2. **Clean**: drain, steam or hot-water and detergent wash, or chemical cleaning, until no residue or odour; remove sludge and scale (residue in seams and under scale keeps outgassing).
+3. **Gas-free test** with a combustible gas meter immediately before and during the work: **0% LEL** (some programs allow up to 10% with continuous monitoring, not recommended for welding on the container itself).
+4. **Or inert**: fill with water to within an inch of the weld (leave a vent open, vapour space at the top must also be tested or purged), or purge with nitrogen or CO2 to below 5% oxygen, with continuous O2 monitoring and vents open so heating cannot pressurise it.
+5. Vents open on every compartment; heat expands the contents.
+6. Never weld or cut a closed container, a sealed pipe (end caps on, valve closed both ends: heating the trapped air pressurises it) or a drum with a bung in place.
+7. Fuel tanks on vehicles and equipment: removed, cleaned and tested, or the work is done away from them with the tank blanked.
+
+Piping in service: hot tapping and welding on in-service lines is an engineered procedure (API RP 2201); a millwright does not do it on a routine permit.
+
+## Permit contents (typical, FM Global / NFPA 51B form)
+
+Location and description of the work; equipment; date and valid hours; the precaution checklist above with each item initialled; atmosphere test results where applicable; fire watch name and duration required; the PAI's signature and the operator's signature; the final sign-off after the post-work watch (the permit is closed by the PAI, who re-inspects the area). Keep the permit on file.
+
+## Canada
+
+CSA W117.2 (welding safety) and provincial OHS regulations follow NFPA 51B's clearances (11 m) and fire-watch rules; many Canadian sites require a 60-minute post-work watch and a further check after 4 hours. The permit form differs in layout, not substance.
+
+## Related
+
+- [Welding safety: fumes, shade numbers and PPE](/article/welding-safety-fumes-and-ppe)
+- [Oxy-fuel safety](/article/oxy-fuel-safety)
+- [Confined space entry](/article/confined-space-entry)
+- [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling)
+- [Carbon-arc gouging](/article/carbon-arc-gouging) and [plasma cutting](/article/plasma-cutting-setup)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$hot work permit$mw$,$mw$fire watch$mw$,$mw$35 feet$mw$,$mw$11 metres$mw$,$mw$welding permit$mw$,$mw$cutting permit$mw$,$mw$grinding sparks$mw$,$mw$fire extinguisher$mw$,$mw$ABC extinguisher$mw$,$mw$fire blanket$mw$,$mw$welding near flammables$mw$,$mw$welding on tanks$mw$,$mw$drum cutting$mw$,$mw$gas free$mw$,$mw$LEL$mw$,$mw$NFPA 51B$mw$,$mw$OSHA 1910.252$mw$,$mw$fire watch 30 minutes$mw$,$mw$fire watch 60 minutes$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NFPA 51B-2019 (Standard for Fire Prevention During Welding, Cutting, and Other Hot Work); OSHA 29 CFR 1910.252(a) and 1926.352; FM Global hot work permit system; API RP 2009 (hot work in petroleum service); AWS F4.1 (containers that held hazardous substances).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$lockout-tagout-basics$mw$, $mw$Lockout / Tagout Basics for Millwrights (OSHA 1910.147)$mw$, $mw$The eight steps of a lockout, the energy sources millwrights forget (springs, gravity, hydraulic accumulators, trapped pressure), group lockout with hasps, and the restart sequence.$mw$, $mw$## Energy sources to isolate
 
 | Source | Isolation | Stored energy to release |
@@ -9945,6 +11373,76 @@ Each worker puts their **own lock** on the hasp or lock box. The last person off
 - [Oxy-fuel safety](/article/oxy-fuel-safety)
 - [Rigging basics](/article/rigging-basics-sling-angles-and-hitches)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
           array[$mw$lockout$mw$,$mw$tagout$mw$,$mw$LOTO$mw$,$mw$energy isolation$mw$,$mw$zero energy$mw$,$mw$try start$mw$,$mw$stored energy$mw$,$mw$group lockout$mw$,$mw$hasp$mw$,$mw$1910.147$mw$,$mw$electrical$mw$,$mw$hydraulic$mw$,$mw$pneumatic$mw$,$mw$gravity$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.147 The Control of Hazardous Energy; ANSI/ASSP Z244.1.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$ppe-selection$mw$, $mw$PPE Selection for Millwrights: Eye and Face, Hearing, Head, Hand, Foot, Respiratory and Body Protection by Task, with Ratings to Look For$mw$, $mw$A task-by-task PPE table for the work a millwright actually does, then what each rating on the label means (Z87+, NRR, hard hat class, ANSI cut level, ASTM F2413 codes, respirator filter classes, arc-rated cal/cm2), how to fit-test and inspect it, and what PPE cannot do.$mw$, $mw$> PPE is the **last** line: guard the machine, isolate the energy, ventilate the fume, then put on the gear. A hazard assessment (written, signed, OSHA 1910.132(d)) decides what is required for each job; the table below is what that assessment usually says for millwright work.
+
+## By task
+
+| Task | Eyes / face | Hearing | Hands | Respiratory | Other |
+|---|---|---|---|---|---|
+| General plant / shop | Z87+ safety glasses with side shields | Plugs or muffs above 85 dBA (most plant floors) | Task gloves | | Hard hat where overhead work or cranes; safety boots |
+| **Grinding, cut-off wheel, wire wheel** | Glasses **plus face shield** | Yes (100-110 dBA) | Leather or cut-resistant A4+ | N95/P100 for long jobs, metal dust | No loose clothing; leather apron for cut-off |
+| Chipping, hammering, punching, splitting | Glasses + face shield | Yes | Leather | | |
+| **Welding (arc)** | Helmet at the right shade (see [welding safety](/article/welding-safety-fumes-and-ppe)); glasses under the helmet | Plugs (spatter in the ear canal) | Welding gauntlets (MIG/stick) or thin TIG gloves | Fume: ventilation first; P100 half-mask or PAPR helmet for stainless, galvanised, confined | Leather jacket or FR cotton; no synthetics; boots with no exposed laces |
+| Oxy-fuel cutting / heating | Shade 3-6 goggles or face shield | | Leather gauntlets | | FR clothing, leathers |
+| Plasma / carbon-arc gouging | Shade 8-9 (plasma) to 14 (CAC-A at 600 A+) helmet | **Yes** (CAC-A 110-120 dBA) | Gauntlets | P100 or supplied air | Full leathers; leather apron |
+| **Bearing / gearbox work with solvents and grease** | Glasses; goggles for pouring solvent | | Nitrile (solvent), leather (handling) | Organic vapour cartridges if in a confined area | |
+| Hydraulic work (pressurised lines) | Glasses + face shield when breaking lines | | Nitrile / oil-resistant | | Injection injury awareness: never search for leaks with a hand |
+| Pressure washing, steam | Face shield, goggles | | Rubber | | Rain suit; boots |
+| Chemical cleaning (acid, caustic, degreaser) | **Goggles** (unvented for splash) + face shield | | Chemical gloves per the SDS (butyl, nitrile, PVC) | Per SDS | Apron; eyewash within 10 seconds |
+| Rigging / cranes / heavy moves | Glasses | | Leather; impact-protective (back-of-hand) for pinch work | | Hard hat, high-vis, safety boots with **metatarsal** guards |
+| Working at height | Glasses | | | | Harness, see [fall protection](/article/fall-protection-ladders-scaffolds) |
+| Electrical (voltage testing, VFD cabinets) | Face shield rated for arc flash | | Voltage-rated rubber gloves with leather protectors | | Arc-rated clothing per the label's cal/cm2, see [electrical safety](/article/electrical-safety-for-mechanics) |
+| Lathe, mill, drill press | Glasses (face shield for heavy chips) | | **No gloves** on rotating machinery | | No rings, watches, loose sleeves, long hair tied |
+| Confined space | Per the permit | | | Per test results; SCBA or supplied air if the atmosphere cannot be made safe | Harness with retrieval |
+| Insulation, dusty demolition | Goggles | | | N95 minimum; P100 for silica, lead paint, fibreglass | Coveralls |
+
+## What the ratings mean
+
+**Eyes** (ANSI Z87.1): "Z87" = basic impact; "**Z87+**" = high-velocity impact (what to buy). "W" plus a number = welding shade; "U6" = UV; "D3" = splash/droplet; "D4" = dust; "D5" = fine dust. Face shields are **secondary** protection: glasses underneath always. Prescription: "Z87-2" on the frame. Contact lenses are allowed but not protection. Eyewash station reachable in 10 seconds where corrosives are used; flush 15 minutes.
+
+**Hearing** (OSHA 1910.95): action level **85 dBA 8-hour TWA** (hearing conservation program), PEL 90 dBA. Every 5 dB more halves the allowed time (95 dBA = 4 h; 100 dBA = 2 h; 110 dBA = 30 min). **NRR** on the package is a lab figure; field rule: subtract 7 then halve, so an NRR 33 plug gives about **13 dB** real-world; plugs plus muffs add about 5 dB. Foam plugs: roll, pull the ear up and back, insert, hold 30 s. Typical levels: grinder 95-105, chop saw 100-110, needle scaler 110-115, CAC-A 115-120, impact wrench 100-105, air blow-off 90-100 dBA.
+
+**Head** (ANSI Z89.1): **Type I** = top impact; **Type II** = top and side. **Class G** (general) 2,200 V; **Class E** (electrical) 20,000 V; **Class C** (conductive, vented) no electrical rating. Replace the suspension yearly and the shell after 5 years or any impact; do not store in the rear window of a truck (UV), do not drill or paint (solvents weaken), no metal stickers. Chin strap when working at height or bending over. Bump caps are not hard hats.
+
+**Hands** (ANSI/ISEA 105): cut levels **A1-A9** (grams to cut through: A1 = 200-499 g, A4 = 1,500-2,199 g, A6 = 3,000-3,999 g; A4 is the sensible plant minimum for sheet metal, blades and edges); puncture 1-5; abrasion 0-6; impact (back-of-hand) "1" (best) to "3". Leather for heat and rough handling, nitrile for oil and most solvents (not ketones or chlorinated), butyl for ketones and esters, PVC for acids; latex is for medical use only and causes allergies. **No gloves on drills, lathes, mills or anything that rotates**. Glove sizes matter: a loose glove gets pulled in.
+
+**Feet** (ASTM F2413): "I/75 C/75" = impact and compression to 75 ft-lb / 2,500 lb; "**Mt**" = metatarsal guard (rigging, heavy moves, forklifts); "EH" = electrical hazard (dry conditions, secondary protection); "SD" = static dissipative; "PR" = puncture-resistant plate. Composite toes are lighter and non-conductive; steel toes are thinner. Welders: no external laces or tongue that catch spatter; pull-on or lace-cover boots.
+
+**Respirators** (NIOSH 42 CFR 84, OSHA 1910.134): requires a written program, medical clearance, **annual fit test** (qualitative or quantitative), and a clean-shaven face where the seal sits; a beard means a loose-fitting PAPR or hood. Filters: **N95/N99/N100** (not oil-resistant), **R95** (oil-resistant, 8 h), **P95/P100** (oil-proof); P100 (HEPA, 99.97%) is the plant default for welding fume, metal dust, silica and lead. Cartridges: organic vapour (black), acid gas (white), ammonia (green), multi-gas (olive); change on the schedule or at breakthrough (smell, taste, irritation) whichever first. **Assigned protection factors**: half-mask 10, full-face 50, PAPR loose hood 25 (1,000 for some helmet types), SCBA 10,000. **Never** an air-purifying respirator in an oxygen-deficient or IDLH atmosphere. Seal check every time you put it on (cover the cartridges, inhale: it should collapse; cover the exhalation valve, exhale: no leak). A dust mask with one strap is not a respirator.
+
+**Body**: cotton or wool for welding, grinding and hot work (synthetics melt into the skin); leather for spatter; **FR (flame-resistant) clothing** where flash fire or arc flash is possible, with the **arc rating in cal/cm2** on the label matched to the task (NFPA 70E category 1 = 4 cal, 2 = 8 cal, 3 = 25 cal, 4 = 40 cal). High-visibility Class 2 near mobile equipment, Class 3 near traffic at night. No loose sleeves, drawstrings, lanyards, rings, watches or long loose hair around rotating equipment: ever.
+
+## Inspection and care
+
+- Before each use: cracks in lenses and shields, cuts in gloves, crushed toes, torn harness webbing, cartridge dates, shell dents; discard on damage.
+- Eyewear: rinse under water before wiping (grit scratches); replace scratched lenses (they weaken and impair vision).
+- Store respirators sealed in a bag away from the dust they filter; clean the facepiece after each shift.
+- Welding helmets: replace cover lenses when spatter-pitted; test auto-darkening lenses on a strike, replace the battery or the lens if it flashes you.
+- Hearing: reusable plugs washed daily, replaced every few months; foam plugs one use.
+
+## Common mistakes
+
+- Face shield without glasses underneath.
+- "Just a quick grind" with no shield, or glasses on the forehead.
+- NRR 33 taken at face value in a 105 dBA job.
+- Gloves on a drill press.
+- Dust mask worn for welding fume or silica.
+- Rubber electrical gloves without the leather protectors, or not air-tested before use (roll the cuff, squeeze, watch for leaks) and past their 6-month test date.
+- Hard hat worn backwards (only if the maker rates it for reverse wear) or with a ball cap underneath.
+
+## Related
+
+- [Welding safety: shade numbers, fumes and PPE](/article/welding-safety-fumes-and-ppe)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)
+- [Electrical safety for mechanics and arc flash](/article/electrical-safety-for-mechanics)
+- [Fall protection, ladders and lifts](/article/fall-protection-ladders-scaffolds)
+- [First aid for shop injuries](/article/first-aid-for-shop-injuries)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$safety$mw$),
+          array[$mw$PPE$mw$,$mw$personal protective equipment$mw$,$mw$safety glasses Z87$mw$,$mw$face shield$mw$,$mw$hearing protection NRR$mw$,$mw$earplugs$mw$,$mw$earmuffs$mw$,$mw$hard hat class$mw$,$mw$gloves$mw$,$mw$cut resistant gloves ANSI A4$mw$,$mw$impact gloves$mw$,$mw$leather gloves$mw$,$mw$safety boots$mw$,$mw$metatarsal$mw$,$mw$respirator$mw$,$mw$N95$mw$,$mw$P100$mw$,$mw$half mask$mw$,$mw$cartridge$mw$,$mw$welding helmet shade$mw$,$mw$arc flash PPE$mw$,$mw$FR clothing$mw$,$mw$hazard assessment$mw$,$mw$OSHA 1910.132$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.132-138 (PPE, eye/face, respiratory, head, foot, hand) and 1910.95 (noise); ANSI/ISEA Z87.1 (eye), Z89.1 (head), 105 (gloves), ASTM F2413 (footwear); NIOSH respirator selection; NFPA 70E (arc flash); CSA Z94 series (Canada).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -11113,6 +12611,364 @@ Write the finding on the work order with the corrective action; the same bearing
 - [VFD basics for millwrights (shaft currents)](/article/vfd-basics-for-millwrights)
 - [Vibration signatures](/article/vibration-signatures)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
           array[$mw$bearing failure$mw$,$mw$bearing failure analysis$mw$,$mw$ISO 15243$mw$,$mw$spalling$mw$,$mw$flaking$mw$,$mw$fatigue$mw$,$mw$brinelling$mw$,$mw$false brinelling$mw$,$mw$fluting$mw$,$mw$electrical erosion$mw$,$mw$VFD bearing damage$mw$,$mw$fretting corrosion$mw$,$mw$bearing overheating$mw$,$mw$blue bearing$mw$,$mw$lubrication failure$mw$,$mw$contamination$mw$,$mw$cage failure$mw$,$mw$load zone$mw$,$mw$load path$mw$,$mw$misalignment pattern$mw$,$mw$bearing damage$mw$,$mw$why did the bearing fail$mw$,$mw$root cause bearing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 15243:2017 Rolling bearings, damage and failures, terms, characteristics and causes; SKF Bearing Damage and Failure Analysis (PUB BU/I3 14219); Timken Bearing Damage Analysis reference guide; NSK and Schaeffler damage catalogues; EASA/AEGIS guidance on shaft currents.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$belt-failure$mw$, $mw$Belt Failure Analysis: Reading a Failed V-Belt, Synchronous Belt or Conveyor Belt, What Each Symptom Means and the Fix$mw$, $mw$Symptom-by-symptom tables for V-belts, synchronous (timing) belts and conveyor belts: what the belt looks like, what caused it and what to change, plus how to measure the things that matter (tension, alignment, sheave wear) so the new belt lasts.$mw$, $mw$> A V-belt that lasts three months on a drive designed for three years is telling you something about the **drive**, not the belt. Fix the sheaves, alignment, tension and load, or the next belt fails the same way. Bring the failed belt to the bench and read it before throwing it out.
+
+## V-belts (classical A/B/C/D, narrow 3V/5V/8V, cogged)
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Sidewalls glazed** (shiny, hard) and belt squeals on start or under load | **Slipping**: under-tensioned, overloaded, worn sheave grooves, oil | Retension to the deflection spec (see [V-belt installation](/article/v-belt-drive-installation-and-tensioning)); check groove wear with a gauge; check load; degrease |
+| **Belt bottoming** (riding low, contact on the bottom of the groove) | Worn sheave grooves (dished), or wrong belt section (A belt in a B groove) | Replace sheaves (a groove gauge that shows a 1/32" gap = replace); match belt section |
+| **Belt riding high** (above the sheave OD) | Wrong belt section (B in an A groove), new belt in a worn groove of a different section | Match belt and sheave |
+| **Uneven sidewall wear**, wear on one side only | **Misalignment** (angular or offset) | Straightedge or laser: within 1/16 in per foot of centre distance; 1/2° max |
+| **Cracks across the bottom** (underside), many small ones | Heat, age, sheave diameter too small for the section, slipping (heat), back-side idler too small | Larger sheaves/idlers (minimum diameter by section), retension, cooling, cogged belt |
+| **Belt turned over / rolled in the groove** | Misalignment, worn grooves, loose tension, shock load, foreign object, damaged belt cord (from prying on) | Align, retension, replace sheaves; never pry a belt on over the rim: it breaks the tensile cords and the belt rolls later |
+| **Belt broke** (clean break, cords intact but snapped) | Shock load, pried on (cord damage), foreign object | Check for a jam or a start-up shock; soft start; install correctly by slackening the centre distance |
+| **Belt swollen, soft, spongy** | Oil or chemical contamination | Find and fix the leak (gearbox seal, over-greased bearing); oil-resistant belt |
+| **Cover fabric worn through, cords exposed** | Belt rubbing a guard or the structure, slipping | Clearance; retension |
+| **Bottom of the belt worn, top cover fine** | Bottoming, riding on the bottom of a worn groove | Sheaves |
+| **Belt stretched beyond the take-up** | Overloaded, wrong belt (light-duty construction), normal end of life | Correct belt, check load |
+| **Burn marks, melted spots** | Belt stalled while the sheave spun (jam) | Find the jam; the sheave may have blued and lost hardness |
+| **One belt of a set failed, others fine** | Unmatched set (different lengths or ages), belt fitted later as a single | Replace the **whole set** with matched belts; never mix new and used |
+| **Belt dust piling up under the drive** | Slipping or misalignment (rubber abraded) | As above; a little dust on a new belt run-in is normal, continuous dust is not |
+| Excessive vibration, belt flapping | Long span with no idler, unmatched set, sheave runout, resonance | Idler, matched set, check sheave runout (under 0.005 in) |
+| Belts wear fast on a drive that was fine for years | Something changed: new sheave from a different maker with a different groove angle, a VFD now running below the rating, a new heavier product, a motor changed to a bigger one | Check the change |
+
+**Sheave inspection**: a groove gauge shows dishing; shiny sheave grooves mean slipping; rust or paint in grooves cuts belts; check runout with a dial indicator; check the bushing is tight (see [QD and Taper-Lock](/article/qd-and-taper-lock-bushings)). Minimum sheave diameter (approximate): A 3.0 in, B 5.4 in, C 9.0 in, D 13.0 in, 3V 2.65 in, 5V 7.1 in, 8V 12.5 in.
+
+**Tension**: new belts seat and lose tension in the first 24-48 h; retension. Under-tension is the most common cause of every failure in the table; over-tension kills bearings and shafts (a belt tensioned to "tight as a guitar string" doubles the bearing load).
+
+## Synchronous (timing) belts
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Teeth sheared off**, belt intact | Overload, shock, tension too low (belt ratchets and jumps teeth), wrong pitch sprocket, debris in the sprocket | Correct tension (they need more than instinct says); check load and pitch; clean |
+| Tooth wear, rounded, worn root | Tension too high or low, worn sprockets, misalignment | Retension; replace sprockets when teeth are hooked or shiny |
+| **Belt tracking off, wearing one edge, flange rubbing** | Misalignment (angular), sprockets not parallel, sprocket flange missing | Align to 1/4°; belts always track toward the side with the tighter span: check both shafts |
+| Belt cracking on the back | Small back-side idler, heat, ozone, age | Larger idler on the back; cooling |
+| Cords exposed at the edge, edge fraying | Flange rubbing (misalignment), belt width wrong | Align; correct belt |
+| **Belt noise (whine)** | Tension too high, air pumping (wide belts at high speed), misalignment | Reduce tension to spec; check alignment; some noise is normal |
+| Belt snapped, cords broken | Crimped during installation (pried over a flange), foreign object, shock | Install by reducing centre distance; guard |
+| Sprocket wear, shiny teeth | Belt too tight, abrasive environment | Tension; sprocket material |
+
+See [timing belts and synchronous drives](/article/timing-belts-and-synchronous-drives) for tension values.
+
+## Conveyor belts
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Edge worn or frayed on one side** | Belt running to that side: mistracking (idlers, pulleys out of square, build-up, off-centre loading, structure not straight) | See [belt tracking](/article/belt-conveyor-components-and-tracking); fix the cause, not the edge |
+| **Top cover cut or gouged in lines along the belt** | Material trapped under the skirting, jammed idler, sharp object at the chute | Skirt clearance and skirt rubber (not steel touching the belt); free or replace idlers; chute liners |
+| **Top cover wear at the load point** (a band across the belt) | Impact and abrasion at the loading zone; material falling from height; wrong drop chute angle | Impact idlers or bed, chute redesign to feed in the belt direction, better cover grade |
+| **Bottom cover wear, grooves** | Frozen (non-turning) return idlers, carryback build-up on pulleys and idlers, pulley lagging worn | Free or replace idlers; belt cleaners; relag pulleys (see [idlers, pulleys and lagging](/article/idlers-pulleys-and-lagging)) |
+| **Belt cupping** (edges up) | Cover wear on one side more than the other, chemical or heat damage, wrong belt for troughing | Correct belt; troughability check |
+| **Longitudinal rip** | Tramp iron, a sharp object at the chute, a broken idler shell, a splice plate lifting | Rip detection, magnets, chute inspection; repair with a vulcanised strip or fastener |
+| **Splice failure**: mechanical fastener pulling out | Fastener too small for the belt, wrong fastener for the pulley diameter, belt end not cut square, worn fasteners, pulley lagging worn | Correct fastener size and belt-end preparation (see [belt splicing](/article/belt-splicing)) |
+| **Splice failure**: vulcanised splice separating | Poor prep (moisture, contamination, wrong cement), too short a step, belt over-tensioned, small pulleys | Redo with proper materials and step length; check take-up tension |
+| **Belt stretched, take-up at the end** | Overloaded, belt too light for the tension, wet fabric belt, normal elongation used up | Re-splice shorter; check belt rating; adjust take-up |
+| **Ply separation, blisters** | Moisture in the carcass (cut edges, damaged cover), oil, heat | Seal edges; correct cover for the product |
+| **Belt breaks at a pulley, carcass crushed** | Pulley too small for the belt, take-up shock | Pulley diameter per belt rating |
+| Heat damage: cover hardened, cracked | Hot product, slipping on the drive pulley | Heat-resistant belt; lagging; tension |
+| Chemical damage: soft, swollen | Oil, grease, chemicals | Oil-resistant cover; leaks fixed |
+
+**Conveyor belt slipping on the drive pulley** (drive runs, belt stalls or lags): tension too low (take-up), lagging worn or wet, overloaded, wrap angle too small, ice or mud. Do not cure it by cranking up the take-up beyond the belt rating; fix the lagging and the load.
+
+## The five measurements to make before fitting a new belt
+
+1. **Sheave/sprocket/pulley condition** (groove gauge, tooth profile, lagging, diameter, runout).
+2. **Alignment** (straightedge, string, laser: offset, angular and twist).
+3. **Tension method and value** (deflection force, frequency gauge, take-up position).
+4. **Load** (motor amps vs nameplate; the belt or drive may be undersized for a machine that has been "improved").
+5. **Environment** (heat, oil, ozone, dust, wet) and the belt construction rated for it.
+
+## Related
+
+- [V-belt drive installation and tensioning](/article/v-belt-drive-installation-and-tensioning)
+- [Timing belts and synchronous drives](/article/timing-belts-and-synchronous-drives)
+- [QD and Taper-Lock bushings](/article/qd-and-taper-lock-bushings)
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
+- [Belt splicing](/article/belt-splicing)
+- [Idlers, pulleys and lagging](/article/idlers-pulleys-and-lagging)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
+          array[$mw$belt failure$mw$,$mw$V-belt failure$mw$,$mw$belt cracking$mw$,$mw$belt glazing$mw$,$mw$belt turned over$mw$,$mw$belt rolled over$mw$,$mw$belt squeal$mw$,$mw$belt slipping$mw$,$mw$belt burning$mw$,$mw$belt wear$mw$,$mw$uneven wear$mw$,$mw$sidewall wear$mw$,$mw$cover separation$mw$,$mw$timing belt failure$mw$,$mw$tooth shear$mw$,$mw$belt tracking failure$mw$,$mw$conveyor belt damage$mw$,$mw$belt edge wear$mw$,$mw$belt cupping$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Gates Belt Drive Preventive Maintenance and Safety Manual; Continental (ContiTech) V-belt failure guide; Fenner Drives troubleshooting; CEMA Belt Conveyors for Bulk Materials (belt damage section); Goodyear/Fenner Dunlop conveyor belt troubleshooting.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$coupling-failure$mw$, $mw$Coupling Failure Analysis: Reading Worn Elastomers, Grids, Gear Teeth and Disc Packs, and What Each Pattern Says About Alignment, Lubrication and Load$mw$, $mw$What the pieces under the coupling guard are telling you: black rubber dust, broken spider lugs, worn or broken grid springs, shiny or scored gear teeth, cracked or bent disc packs, loose hubs and wallowed keyways, each matched to its cause (misalignment, torque overload, lubrication, vibration, installation) and to the fix.$mw$, $mw$> Look under the coupling guard on every route. **Dust, crumbs or grease on the guard** is the coupling failing slowly and telling you that the alignment, the load or the lubrication is wrong. The coupling is the fuse, not the fault.
+
+## First: measure what the coupling saw
+
+Before blaming the part, record: the alignment as found (rim and face or laser), the gap or DBSE against the spec, the hub fits and set-screw/key condition, motor amps against nameplate, the number of starts per hour, any reversing or shock, the running temperature of the coupling (IR gun on the guard vents), and vibration at the bearings. See [coupling types, gap and installation](/article/coupling-types-gap-and-installation).
+
+## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Fine rubber or urethane dust under the coupling**, spider lugs thinned on the sides | **Misalignment** (working the element every revolution); mild overload | Align to the coupling maker's limit (most jaw couplings: 0.010-0.015 in offset, 1° angular is the maximum, not the target; align to shaft alignment tolerances, see [shaft alignment fundamentals](/article/shaft-alignment-fundamentals)); check gap |
+| **Spider lugs sheared off or chunks missing** | **Torque overload / shock** (jam, reversing, DOL starts of high-inertia loads); wrong spider hardness (soft spider on a hard-starting load) | Check for jams, soft start, harder spider (Hytrel or urethane), bigger coupling |
+| **Spider melted, glazed, hard, cracked** | Heat: continuous misalignment at high speed, high ambient, wrong material (NBR over 200°F), chemical attack | Align; polyurethane or Hytrel; keep oil off it |
+| **Spider lugs worn on one face only** | Angular misalignment or the hubs are at an angle to each other | Re-align angular |
+| **Jaws (hub) worn or broken** | Ran metal-to-metal after the spider failed; overload | Replace hubs; the spider should be inspected on the route, not found this way |
+| **Tire coupling: tire split at the bead, rubber pulled out from the clamp rings** | Clamp bolts loose or under-torqued, over-torqued (cut the bead), misalignment beyond limits, overload | Torque clamp ring bolts to the table, evenly; align |
+| Tire heated, cracked | Excessive angular or parallel misalignment at speed, or overload | Align |
+| **Sleeve (Sure-Flex/EPDM) split or teeth worn** | Misalignment, wrong sleeve material (Hytrel for torque, EPDM for misalignment tolerance), overload | Material choice; alignment |
+| **Hub walked off the shaft** or moving axially | Set screw loose or not on the key, shaft undersize, wrong bore fit, gap set wrong | Correct fit (clearance bores need the set screw on the flat/key and Loctite); interference fit on heavy duty |
+| **Keyway wallowed, key sheared** | Loose fit, reversing or shock loads, key too short/soft, hub bore oversize | Rebore/re-key or new hub; see [keys and keyways](/article/keys-and-keyways) |
+
+Elastomer life is set by misalignment: a jaw coupling at 0.005 in offset lasts years; at 0.020 in it dusts in months.
+
+## Grid couplings (Falk Steelflex type)
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Grid broken in the middle of the span** | **Torque overload / shock**: the grid is the fuse; repeated peaks, jams, wrong size | Correct size for the service factor; soft start; check for jams |
+| **Grid broken at the ends (at the hub teeth)** | Misalignment fatigue (angular or offset) | Align; check the gap (grid couplings need the gap set for the size, and the covers' seals need the gap right) |
+| **Grid worn thin where it sits in the hub teeth**, hub teeth worn/hooked | **Lubrication failure**: dry, wrong grease (separates at speed), seals gone; or misalignment | Repack with a coupling grease (high-viscosity base oil, non-separating: Falk LTG, Mobilith SHC or the maker's spec), correct quantity, new cover seals, regrease every 6-12 months; see [grid, gear and disc coupling installation](/article/grid-gear-and-disc-coupling-installation) |
+| **Grease on the guard, cover seals leaking** | Seals damaged during install, gap wrong, cover bolts loose, wrong grease (separates and thins) | New seals, correct gap, torque cover bolts, coupling grease |
+| Grid corroded, rusty grease | Water ingress, condensation, seals failed | Seals; regrease interval |
+| Grid seats worn on one side | Angular misalignment | Align |
+| Cover halves cracked, bolts broken | Over-torque, misalignment beyond the cover's limit, hit by something | Replace |
+
+Grid rules: the grid is inserted **with the ends spread and tapped in with a soft mallet**, never forced closed with the cover; the gap between hub faces is the maker's figure for the size (e.g. 1/8 in on many mid sizes); grease the grid **before** the cover goes on and fill through the lube plugs to the quantity in the table.
+
+## Gear couplings
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Teeth worn, shiny, with a wear step, tip or flank scored** | **Lubrication**: dry, wrong grease (centrifuged out at speed), oil-lubed coupling with low oil, seals gone | Grease specified for couplings (no separation at high G), correct fill, regrease at the maker's interval (often 6 months), new seals; continuous-lube couplings need the oil flow verified |
+| **Teeth worn in a narrow band, hub teeth worn on one side** | **Angular misalignment beyond the tooth's design** (usually 1/2° to 1-1/2° max per half): the teeth slide every revolution | Align to shaft alignment tolerances; the coupling's misalignment capacity is for what it can survive, not what the bearings can |
+| **Teeth broken, hub split** | Massive torque overload, wrong size, key shear | Size for service factor; check the drive for jams |
+| **Sleeve moved axially, flange bolts loose or sheared** | Bolts not torqued, wrong grade bolts, thermal growth with the gap set wrong, axial float not accounted for | Grade 8 (or the maker's) bolts torqued per table; set the gap for thermal growth; limited-end-float kit on sleeve-bearing motors |
+| **Grease leaking at the seals, coupling hot** | Seal wear, over-filled, wrong grease, misalignment | Seals, fill quantity, alignment |
+| **Fretting corrosion (red/black powder) between hub and shaft** | Loose fit, key not fitting, torsional vibration | Interference fit; correct key; check for torsional issues |
+| Coupling "howl" or knock | Dry teeth, excessive backlash, misalignment | Lubricate; inspect |
+
+Gear couplings run best at **as little misalignment as possible** (some misalignment keeps the grease moving; too much wears the teeth); lubrication is the number one failure cause.
+
+## Disc (Thomas/Rexnord, Kop-Flex) and diaphragm couplings
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Discs cracked at the bolt holes or between bolts, broken discs** | **Misalignment fatigue** (angular or offset over the rating) or axial position wrong (discs pre-stretched or compressed) | Align to the tolerance; set the DBSE/gap so the disc packs are flat and unstressed at running temperature (account for thermal growth); see [thermal growth alignment](/article/thermal-growth-alignment) |
+| **Disc pack bulged (wavy) or dished** | Axial misalignment: hubs too close or too far apart | Set the spacer length/DBSE exactly |
+| **Discs worn, fretting between laminations, red dust** | Loose bolts, bolts of the wrong grade or torque, bushings worn | Torque bolts per table with a calibrated wrench, correct hardware kit (never substitute bolts), replace packs as a set |
+| **Bolts broken** | Under-torqued (fatigue), over-torqued, wrong bolts | Torque per table |
+| **One disc pack failed, the other fine** | Angular misalignment concentrated at one end, or one end running hot | Check both planes of alignment; thermal growth |
+| Spacer bent, hub cracked | Ran after the pack failed; dropped or hit | Replace |
+
+Disc coupling rule: they tolerate very little **axial** error; measure the DBSE with the machines at running temperature in mind, and never pry the packs to fit.
+
+## Chain couplings
+
+Chain worn, sprocket teeth hooked, chain thrown: lack of lubrication (they need grease and a cover), misalignment, overload. Chain couplings tolerate less misalignment than most people think (about 0.010 in offset and 1° angular).
+
+## Universal joints and cardan shafts
+
+Cross bearing needles worn, brinelled, cups seized: no grease or wrong interval; operating angle over the rating; **unequal angles at each end** (must be equal within about 1° for constant velocity, or the shaft vibrates at 2× speed); yokes out of phase (the yokes at each end must be in the same plane). Bolts loose at flanges: torque per table; retorque after the first hours.
+
+## Common mistakes
+
+- Aligning to the **coupling's** misalignment rating ("it says 1°, we are well within") instead of the bearings' tolerance; the coupling survives, the bearings do not.
+- Replacing the element without recording or correcting the alignment.
+- Grease meant for bearings in a gear or grid coupling (it separates at speed; the teeth run dry within weeks).
+- Hardware store bolts on a disc coupling.
+- Gap set by eye, not to the spec, on grid and disc couplings.
+- Heavy hubs hammered onto shafts (bearings brinelled, hub cracked); heat them or press them.
+
+## Related
+
+- [Coupling types, gap and installation](/article/coupling-types-gap-and-installation)
+- [Grid, gear and disc coupling installation](/article/grid-gear-and-disc-coupling-installation)
+- [Shaft alignment fundamentals and tolerances](/article/shaft-alignment-fundamentals)
+- [Keys and keyways](/article/keys-and-keyways)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Vibration signatures: misalignment and looseness](/article/vibration-signatures)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
+          array[$mw$coupling failure$mw$,$mw$jaw coupling spider worn$mw$,$mw$elastomer coupling failure$mw$,$mw$tire coupling$mw$,$mw$grid coupling failure$mw$,$mw$grid spring broken$mw$,$mw$gear coupling wear$mw$,$mw$gear coupling teeth worn$mw$,$mw$disc coupling failure$mw$,$mw$disc pack cracked$mw$,$mw$coupling misalignment$mw$,$mw$rubber dust under coupling$mw$,$mw$coupling hub loose$mw$,$mw$keyway wallowed$mw$,$mw$fretting$mw$,$mw$coupling bolts$mw$,$mw$hub bore$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Lovejoy/Timken, Rexnord (Falk, Thomas), Dodge and Kop-Flex coupling installation and failure guides; AGMA 9000 and 9001; Rexnord Falk Steelflex grid coupling manual; Thomas disc coupling manual; Kop-Flex gear coupling maintenance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$machine-vibration-noise-heat-decision-tree$mw$, $mw$Machine Trouble Decision Tree: A Machine Is Vibrating, Noisy or Hot, What to Check First, in Order, and Which Article to Open$mw$, $mw$A symptom-first checklist for the call every millwright gets: something is shaking, screaming or too hot. Work down the tree with a thermometer, a vibration pen, a stethoscope and your eyes to sort the problem into bearing, alignment, unbalance, looseness, belt, gear, lubrication, electrical, flow or structural, then open the article that fixes it.$mw$, $mw$> Before anything else: **is anyone in danger, and is the machine about to fail?** A bearing over 220°F, a vibration that has doubled since this morning, a knocking that gets louder, smoke, or a belt on fire means **stop it now**. Otherwise take 10 minutes of readings while it runs; the readings are the diagnosis.
+
+## The 10-minute running check
+
+1. **Where is it worst?** Walk around with a hand on the housings (or the vibration pen): which bearing, which machine (driver or driven), which direction (horizontal, vertical, axial)?
+2. **Temperatures** by IR: every bearing housing, motor frame, gearbox, coupling guard, belt sheaves; compare ends and compare to the baseline.
+3. **Listen** with a stethoscope or screwdriver at each bearing and at the gear mesh: smooth hiss (fine), rough growl (bearing), whine rising with speed (gear or misalignment), knock once per revolution (looseness, damaged tooth, bent shaft), rattle at random (loose part), squeal (belt), gravel (cavitation).
+4. **Amps** on the panel vs nameplate.
+5. **Look**: leaks, belt dust, rubber crumbs under the coupling, oil level, breather, guard contact, loose bolts, cracked base, pipe hangers, build-up on the fan.
+6. **Speed**: is it running at its normal speed (VFD setting, belt slip via a strobe)?
+7. **What changed?** New product, new belt, recent alignment, motor swapped, VFD parameters, a valve throttled, ambient heat.
+
+## Branch A: it is VIBRATING
+
+| Ask | If yes | Open |
+|---|---|---|
+| Is the vibration **highest horizontally at 1× rpm**, similar on both bearings of the same machine, and steady? | **Unbalance** (build-up on a fan or impeller, lost balance weight, eroded blades, bent shaft if axial is also high) | [Vibration signatures](/article/vibration-signatures); clean the fan; balance |
+| Is it **highest axially**, or high at **2× rpm**, worst at the coupling ends of both machines, with a 180° phase difference across the coupling? | **Misalignment** (or a coupling problem, soft foot, pipe strain, thermal growth) | [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals), [soft foot](/article/soft-foot-correction), [thermal growth](/article/thermal-growth-alignment), [coupling failure](/article/coupling-failure) |
+| Does it get worse when you push on the base, or show at **0.5×, 1×, 2×, 3×** with a knock, or change with load direction? | **Looseness** (base bolts, cracked grout, bearing loose in housing or on the shaft, hub loose on shaft, worn keyway) | Tighten and check every bolt; [grouting and baseplates](/article/grouting-baseplates); [keys and keyways](/article/keys-and-keyways); [bearing clearance and fits](/article/bearing-clearance-and-fits-tables) |
+| Is there a **rough, random, high-frequency** vibration or a growl at one bearing, its temperature rising, ultrasound loud? | **Bearing damage** (or lubrication starvation: check the last grease date first) | [Bearing failure analysis](/article/bearing-failure-analysis); [regreasing](/article/regreasing-intervals-and-quantities); if it is starved, grease it now and watch; if damaged, plan the change |
+| Is it a **belt drive** with a flap or beat, belt dust, and the vibration changes with belt tension? | **Belt/sheave**: mismatched set, sheave runout, misaligned sheaves, worn grooves | [V-belt installation](/article/v-belt-drive-installation-and-tensioning); [belt failure](/article/belt-failure) |
+| **Gearbox** with a whine at gear-mesh frequency (teeth × rpm), sidebands, or a knock once per rev of one shaft? | **Gear wear, damaged tooth, backlash, worn bearing letting the mesh move** | [Gear inspection](/article/gear-inspection-and-tooth-failure); [gearbox lubrication](/article/gearbox-lubrication-and-inspection) |
+| **Motor** vibration that **stops instantly when power is cut** (not coasting down with it)? | **Electrical** (rotor bar, eccentric air gap, unbalanced supply, VFD) | [Megger and motor testing](/article/megger-and-basic-motor-testing); [VFD basics](/article/vfd-basics-for-millwrights); electrician |
+| **Pump** with a gravel/rumble noise, vibration and falling pressure? | **Cavitation / suction problem / recirculation** (throttled suction, low level, blocked strainer, running far off the curve) | [Pump troubleshooting](/article/pump-troubleshooting) |
+| Did it start after a **speed change** (VFD) and does it go away at other speeds? | **Resonance** (structure or piping natural frequency) | Skip the speed on the VFD; stiffen or brace; get a bump test |
+| Vibration in the **piping or structure** more than the machine? | Pipe strain, missing hangers, flow pulsation, unsupported spans | [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment) |
+
+Severity reference: [ISO severity chart](/article/vibration-basics-and-iso-severity). A jump of 2× the baseline is an alarm whatever the number.
+
+## Branch B: it is NOISY
+
+| Noise | Likely | Check / open |
+|---|---|---|
+| **Squeal on start or under load** (belt drive) | Belt slipping (loose, glazed, worn grooves, overloaded) | [V-belt tensioning](/article/v-belt-drive-installation-and-tensioning), [belt failure](/article/belt-failure) |
+| **Continuous squeal or chirp at a bearing** | Dry bearing (grease gone, or the seal let it out), or a lip seal running dry | Grease it (correct type and amount); [seal failure](/article/seal-failure) |
+| **Growl / rumble at a bearing** that gets worse with speed | Rolling element damage | [Bearing failure analysis](/article/bearing-failure-analysis) |
+| **Whine that rises with speed**, from a gearbox | Gear wear, misalignment, low oil, wrong oil | [Gear inspection](/article/gear-inspection-and-tooth-failure) |
+| **Knock once per revolution** | Loose coupling/hub, damaged gear tooth, bent shaft, loose impeller, key sheared | [Coupling failure](/article/coupling-failure), [gear inspection](/article/gear-inspection-and-tooth-failure) |
+| **Rattle, random** | Loose guard, loose bolt, broken spring in a coupling grid, foreign object | Look; [coupling failure](/article/coupling-failure) |
+| **Gravel / marbles in a pump** | Cavitation, air entrainment | [Pump troubleshooting](/article/pump-troubleshooting) |
+| **Hammering in piping** | Water hammer, check valve slam, air pockets, trapped condensate in steam lines | Valve closing speed, air vents, traps |
+| **Hiss** | Air or gas leak, steam trap blowing | Soap or ultrasound; [pneumatic systems](/article/pneumatic-systems-frl-and-cylinders) |
+| **Motor hum louder than normal, with heat** | Single-phasing, unbalanced voltage, VFD carrier noise, loose laminations | Electrician; [electrical safety](/article/electrical-safety-for-mechanics) |
+| **Screech from a chain drive** | Dry chain, worn sprockets, misaligned | [Roller chain drives](/article/roller-chain-drives) |
+| **Clunk at start and stop** | Backlash in coupling or gears, loose key, soft foot | [Coupling types and gap](/article/coupling-types-gap-and-installation), [soft foot](/article/soft-foot-correction) |
+| Conveyor: **squeal that moves along the belt** | Stuck idler | [Idlers, pulleys and lagging](/article/idlers-pulleys-and-lagging) |
+
+## Branch C: it is HOT
+
+| Where | Likely | Check / open |
+|---|---|---|
+| **One bearing housing** hot, the other end fine | Over-greased (very common right after a PM: temperature rises for a few hours then falls; if it keeps rising it is packed solid), under-greased, wrong grease, bearing damage, misalignment loading it, too much interference or preload, seal rubbing, thrust from the coupling gap being wrong | [Regreasing](/article/regreasing-intervals-and-quantities), [grease compatibility](/article/grease-types-and-compatibility), [bearing clearance and fits](/article/bearing-clearance-and-fits-tables), [tapered roller setting](/article/tapered-roller-bearing-setting) |
+| **Motor frame** hot all over | Overload (amps), high ambient, blocked cooling fins or fan, low voltage, unbalanced voltage, VFD at low speed with full torque, too many starts, wrong connection (wye instead of delta) | [Motor nameplate](/article/reading-a-motor-nameplate), [motor lead connections](/article/motor-lead-connections), [VFD basics](/article/vfd-basics-for-millwrights) |
+| **Gearbox** hot (over 200°F mineral, 220°F synthetic) | Low or high oil level, wrong viscosity, wrong oil, overload, blocked breather (pressurised), misalignment, worn bearings, cooler/fan fault | [Gearbox lubrication](/article/gearbox-lubrication-and-inspection), [oil viscosity selection](/article/oil-viscosity-and-selection) |
+| **Coupling** hot (guard vents hot, smell of rubber) | Misalignment working the element; dry gear/grid coupling | [Coupling failure](/article/coupling-failure); align |
+| **Belt sheaves** hot, belt smell | Slipping | [V-belt tensioning](/article/v-belt-drive-installation-and-tensioning) |
+| **Pump** casing hot, low flow | Running at or near shut-off (dead-headed), recirculation, closed discharge valve, blocked line | [Pump troubleshooting](/article/pump-troubleshooting): open a bypass or minimum-flow line **now**, pumps dead-headed boil in minutes |
+| **Hydraulic** oil over 140°F | Relief valve dumping (set too low or system over-pressuring), pump wear, cooler fouled or no water/air flow, low oil, wrong viscosity, cylinder bypassing | [Filters, fluid and contamination](/article/filters-fluid-and-contamination), [hydraulic basics](/article/hydraulic-system-basics-and-symbols) |
+| **Compressor** discharge over 225°F | Low oil, cooler blocked, thermostatic valve, wrong oil, high ambient, low airflow | [Air compressor PM](/article/air-compressors-pm) |
+| **Electrical connection or terminal** hot on a thermal camera | Loose connection, corrosion | Electrician; [thermography](/article/thermography-ultrasound-and-oil) |
+| **Chain** hot | Dry, overloaded, misaligned | [Roller chain drives](/article/roller-chain-drives) |
+| Packing box hot | Gland too tight, no leakage/flush | [Pump packing](/article/pump-packing-and-stuffing-box) |
+
+Bearing temperature limits (typical): alarm at baseline + 20°F; **180°F (82°C)** housing is the general "act" point for grease-lubed ball and roller bearings (grease breaks down fast above it); 200°F on oil-lubed pump bearings; motor bearings up to 200°F can be normal on Class F motors: know the baseline.
+
+## Branch D: it LEAKS, SMELLS or is SLOW
+
+- **Oil leak**: level, breather, seal (see [seal failure](/article/seal-failure)), overfilled, pressurised housing, cracked casing, loose plug; grease leak at a motor: over-greased past the inner cap into the winding.
+- **Smell**: hot varnish = motor winding (stop and megger); hot rubber = belt or coupling; burnt oil = gearbox or hydraulic overheating; sulphur/rotten egg = EP oil overheated or bacteria in coolant.
+- **Slow / low output**: belt slip, VFD limit, pump wear ring clearance ([impeller clearance](/article/impeller-clearance-and-wear-rings)), hydraulic pump wear or relief bypass, filter blocked, air leaks in pneumatics, closed or throttled valve, wrong rotation after a motor change (**check rotation first** on any pump or fan that is "weak" after electrical work).
+
+## Write it down
+
+Whatever you find, the readings, the cause and the fix go on the work order (see [work orders and history](/article/work-order-and-history-records)), and the machine's route sheet gets a new baseline after the repair.
+
+## Related
+
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Vibration signatures](/article/vibration-signatures)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Pump troubleshooting](/article/pump-troubleshooting)
+- [Inspection routes](/article/inspection-routes)
+- [PM checklists](/article/pm-checklists)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
+          array[$mw$troubleshooting$mw$,$mw$decision tree$mw$,$mw$machine vibrating$mw$,$mw$machine noisy$mw$,$mw$bearing hot$mw$,$mw$motor hot$mw$,$mw$gearbox hot$mw$,$mw$pump noisy$mw$,$mw$what to check$mw$,$mw$diagnosis$mw$,$mw$symptom$mw$,$mw$cause$mw$,$mw$quick check$mw$,$mw$first steps$mw$,$mw$noise diagnosis$mw$,$mw$heat diagnosis$mw$,$mw$vibration diagnosis$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Synthesis of the guides referenced in the linked articles: ISO 20816, vibration analysis charts (Technical Associates), SKF and Timken bearing damage guides, Gates belt guides, coupling and pump troubleshooting references, NEMA MG 1 motor guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$seal-failure$mw$, $mw$Seal Failure Analysis: Mechanical Seals, Lip Seals, O-Rings and Packing, Reading the Failed Seal Faces and Lips to Find the Cause$mw$, $mw$How to read a failed seal like an inspector: what heat-checked, chipped, worn, blistered or coked mechanical seal faces mean; why a lip seal leaks (hardened lip, grooved shaft, wrong installation, pressure); the seven O-ring failure patterns; and why packing scores shafts and leaks, each with the root cause and the fix that stops the repeat.$mw$, $mw$> A seal is the **witness**, not the culprit. Most seal failures come from something else: dry running, pipe strain, misalignment, vibration, a bad sleeve, a wrong flush, a dirty installation. Save the failed seal, wipe it gently, look at it under a light and a loupe, and match the pattern below before you order another one.
+
+## Mechanical seals: reading the faces
+
+Two lapped faces (usually a carbon rotating face against a silicon carbide or tungsten carbide stationary, or hard against hard for abrasive service) run on a film of the pumped liquid a few microns thick. Anything that breaks that film, tilts the faces, or attacks the parts shows up on the faces and the secondary seals.
+
+| What you see | What it means | Root cause and fix |
+|---|---|---|
+| **Heat checking**: fine radial cracks across the hard face (ceramic, tungsten carbide); carbon face may be glazed | **Dry running or loss of face lubrication**: film broke, faces got hot fast | Pump run dry or lost suction, vapour in the seal chamber (product flashing), no flush, vent not opened on a vertical pump; install a flush plan (11, 13, 32), vent before starting, low-flow protection; see [mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump) |
+| **Carbon face blistered, pitted, chunks broken out** | Blistering: oil or viscous product trapped in the pores expands with heat | Wrong carbon grade for the fluid; hot oil service needs a specific grade; stationary face material change |
+| **Carbon face worn heavily but evenly, hard face fine** | Abrasives in the fluid, or long run | Flush plan with a cyclone separator (31) or clean external flush (32); hard-on-hard faces (SiC/SiC) |
+| **Wear track wider than the narrow face** or offset | **Misalignment / shaft deflection / runout**: faces not square to the shaft, or shaft moving | Check shaft runout (< 0.002 in), sleeve runout, bearing condition, pipe strain, alignment, impeller balance; the seal cannot cure a bent shaft |
+| **Wear track narrower than the face, or only on part of the circumference** | Faces not flat: distorted gland (uneven bolt torque), damaged seat, stationary cocked | Torque gland bolts evenly and lightly; check the seat sits square; check the seal chamber face is perpendicular |
+| **Chips at the ID or OD of a face** | Mishandled at installation, or pressure over the rating, or "hydraulic hammer" | Careful handling; check pressure; balanced seal for higher pressure |
+| **Coking / hard black build-up on the atmospheric side** of the faces or on the springs | Hot hydrocarbon leaking past and carbonising | Steam quench (plan 62) or a nitrogen quench; cooler seal chamber |
+| **Springs clogged, corroded or fractured** | Product solidifying (polymers, slurries), corrosion (wrong metallurgy), fatigue from vibration | Metal bellows seal (no springs in the product), material upgrade, fix vibration |
+| **Elastomer (O-ring, boot) swollen, hard, cracked, extruded** | Chemical attack, temperature over the elastomer limit, wrong material | Match the elastomer to the fluid and temperature (see O-rings below); Kalrez/FFKM for aggressive chemicals |
+| **Fretting on the shaft or sleeve under the dynamic O-ring** | The seal is moving axially all the time (vibration, pressure pulsing, misalignment) and the O-ring is wearing a groove | Fix the vibration/alignment; hard-coated sleeve; a bellows seal has no dynamic O-ring |
+| **Seal leaked from day one** | Installation: faces contaminated (touched with fingers, dirty), wrong working length (set screws not at the mark), damaged O-ring on a keyway or shoulder, faces not lubricated for start, gland not square | Clean install, protect keyways and threads with tape, set the length from the maker's dimension, check the faces before fitting |
+| **Leaked after a few weeks, faces look fine, elastomer flattened** | Compression set from heat; seal ran too hot | Cooling flush, jacket, check temperature |
+| Seal faces "welded" together / hard face has a full-circle burn | Massive dry run | Everything above; find why it ran dry |
+| Leaks only at start-up, then stops | Vapour in the chamber before priming, faces opening momentarily, thermal shock | Vent the seal chamber; warm up; plan 13 on vertical pumps |
+| Leaks only on shutdown / when hot | Thermal expansion, elastomer at its limit | Temperature check |
+
+Rules of thumb: a mechanical seal needs the **seal chamber vented and full of liquid** before start-up; 0.002 in runout at the seal faces is the limit; a **balanced** seal for pressures above about 100-150 psi in the chamber; a **flush plan** whenever the product is hot, dirty, vaporising or crystallising. Life is set by the pump condition: a pump with 0.010 in of shaft deflection at the seal eats seals at any price.
+
+## Lip (radial shaft) seals
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Lip hardened, cracked, brittle** | Heat: shaft speed too high for the material, under-lubricated lip, elastomer wrong (NBR over 210°F) | Fluorocarbon (FKM) lip for heat; lubricate the lip at install; check that oil actually reaches the seal |
+| **Lip worn wide and flat** | Long service, abrasives, rough shaft (over 20 µin Ra), over-speed, lack of lubrication | Shaft finish 10-20 µin Ra plunge-ground (no lead: a spiral lead pumps oil out); wear sleeve; dust lip |
+| **Shaft grooved under the lip** | Normal wear over years, abrasives in the oil, lip too tight (wrong seal or a spring too strong), dry running | Wear sleeve (Speedi-Sleeve) or move the seal to a new track by shimming its depth; fix contamination |
+| **Lip turned inside out, torn, nicked** | Installed over a keyway, thread or sharp shoulder without protection; pushed on dry; installed backwards then pushed the other way | Bullet/tape over keyways and threads; lubricate; use an installation sleeve |
+| **Seal pushed out of the bore, or cocked** | Pressure behind the seal (plugged breather, gearbox pressurising), bore too big, installed cocked with a punch | Clean the breather; check the bore; press square with a driver of the right size |
+| **Leak between the OD and the bore** | Bore scored, seal OD damaged, wrong size, no sealant on a metal-OD seal in a rough bore | Sealant on the OD, correct bore finish and size |
+| **Garter spring gone or popped off** | Installed with the spring outward and it fell off; corrosion | Spring toward the oil (spring side faces the fluid being retained) |
+| **Leak with a new seal, shaft and bore fine** | Wrong direction (spring side out), lip lubricated with grease that hardened, seal fine but the **bearing has clearance** and the shaft whips | Check bearing endplay and clearance; the seal cannot follow a shaft moving 0.010 in |
+| Excessive heat at the seal | Too much interference, dry lip, high speed, wrong material | Correct seal; check lubrication reaches the lip |
+
+Never reuse a lip seal; never install with a hammer directly on the seal; never let it ride over a keyway unprotected; **spring side toward the oil**.
+
+## O-rings (Parker's seven failure modes)
+
+| Failure | Looks like | Cause | Fix |
+|---|---|---|---|
+| **Abrasion** | Flat, worn surface on the dynamic side, grooves | Rough surface, contamination, poor lubrication | Surface finish 8-16 µin Ra on dynamic seals; filtration; harder compound |
+| **Compression set** | Flat sides, no longer round, does not spring back | Heat over the limit, incomplete cure, too much squeeze, chemical swell | Higher-temperature material (FKM, silicone), correct groove |
+| **Extrusion and nibbling** | Frayed, chewed edge on the low-pressure side | Pressure too high for the clearance/hardness, wrong groove, excessive clearance from wear | Back-up rings, harder compound (90 durometer), tighter clearance (see [cylinder repair](/article/cylinder-repair-and-seal-kits)) |
+| **Explosive decompression** | Blisters, pits, cracks after depressurising | Gas absorbed under high pressure expanded on release | Slow depressurisation, ED-resistant compounds, harder materials |
+| **Installation damage** | Small cuts, nicks, a piece missing; often a 45° cut | Sharp edges, threads, forcing over a bore edge, no lubricant, twisted | Chamfers, lubrication, tape over threads; do not stretch over 50% |
+| **Spiral failure** | Deep spiral cuts around the ring (long-stroke dynamic seals) | The ring rolls and twists in the groove: uneven friction, wide groove, low speed, side loads | Correct groove, lubrication, X-ring or T-seal instead of O-ring |
+| **Chemical attack / swell / hardening** | Swollen, soft, sticky, or hard and cracked; changed size | Wrong material for the fluid; phosphate-ester fluids destroy NBR; ozone cracks NBR | Match material: NBR for mineral oil, FKM for heat and fuels, EPDM for water/glycol/brake fluid/phosphate esters (never mineral oil), silicone for static high-temperature, FFKM for solvents and aggressive chemicals; see the [O-ring material rules](/article/cylinder-repair-and-seal-kits) |
+
+Also: **heat hardening** (glazed, brittle, cracked when bent), **weather/ozone cracking** (stored near motors or in sunlight), **wrong size** (stretched more than 5% on its ID in a static groove, or a ring bought by eye). Shelf-life rules are in [spare parts storage](/article/spare-parts-and-bearing-storage).
+
+## Compression packing
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Shaft or sleeve scored under the packing** | Gland over-tightened (packing running dry), abrasive product, wrong packing (hard filament, aramid) on a soft sleeve, no lantern-ring flush | Adjust for 10-60 drops/min leakage: packing must leak to live; softer packing (PTFE/graphite); flush water; hardened sleeve; see [packing](/article/pump-packing-and-stuffing-box) |
+| **Packing hard, charred, glazed** | Over-tightened, ran dry, no flush, temperature over the rating | As above; graphite packing for heat |
+| **Leaks that cannot be stopped by tightening** | Packing worn out, extruded past the bottom ring, sleeve grooved, gland bottomed, rings cut short | Repack; check sleeve; cut rings to length with a mandrel; stagger joints 90° |
+| **Packing extruded through the gland or bottom** | Excessive clearance (worn box or gland), wrong size, over-tightened | Correct size; anti-extrusion ring; new gland follower |
+| **Rings worn only on one side** | Shaft off-centre in the box: bearings worn, shaft bent | Fix the pump |
+| Excessive heat at the box | Over-tight, no leakage, no flush | Loosen and adjust with the pump running |
+| Leak from day one after repacking | Rings not seated one at a time, joints in line, old packing left in the bottom, no break-in | Seat each ring with a tamping tool; joints staggered; tighten gradually over the first hour |
+
+## Before you fit the replacement
+
+1. Runout at the seal location (< 0.002 in mechanical seal, < 0.005 in lip seal), shaft and sleeve finish, bore condition.
+2. Bearing endplay and clearance; a worn bearing fails every seal.
+3. Alignment and pipe strain (see [pipe strain](/article/pipe-strain-and-flange-alignment)).
+4. Seal chamber vent, flush and quench connections clean and working; breather clear on gearboxes.
+5. The right elastomer and face materials for the fluid and temperature; the right seal type for the pressure and speed.
+6. Cleanliness: clean hands, clean bench, no touching the faces.
+
+## Related
+
+- [Mechanical seal replacement on a centrifugal pump](/article/mechanical-seal-replacement-centrifugal-pump)
+- [Pump packing and the stuffing box](/article/pump-packing-and-stuffing-box)
+- [Cylinder repair and seal kits (O-ring and hydraulic seal rules)](/article/cylinder-repair-and-seal-kits)
+- [Pump troubleshooting](/article/pump-troubleshooting)
+- [Bearing failure analysis](/article/bearing-failure-analysis)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
+          array[$mw$seal failure$mw$,$mw$mechanical seal failure$mw$,$mw$seal face$mw$,$mw$heat checking$mw$,$mw$thermal cracking$mw$,$mw$dry running$mw$,$mw$seal leak$mw$,$mw$lip seal failure$mw$,$mw$shaft groove$mw$,$mw$lip seal hardened$mw$,$mw$O-ring failure$mw$,$mw$extrusion$mw$,$mw$nibbling$mw$,$mw$compression set$mw$,$mw$spiral failure$mw$,$mw$packing failure$mw$,$mw$stuffing box$mw$,$mw$flush plan$mw$,$mw$seal chamber$mw$,$mw$face wear$mw$,$mw$blistering$mw$,$mw$coking$mw$]::text[], $mw$$mw$, array[]::text[], $mw$John Crane, Flowserve and Chesterton mechanical seal failure guides; API 682 (seal piping plans); SKF and Freudenberg (Simrit) radial shaft seal failure catalogues; Parker O-Ring Handbook (failure modes); Fluid Sealing Association packing troubleshooting.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
