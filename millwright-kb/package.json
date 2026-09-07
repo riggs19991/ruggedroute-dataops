@@ -9,9 +9,15 @@
     "lint": "oxlint src",
     "preview": "vite preview",
     "seed": "node scripts/seed.mjs",
-    "build-seed": "node scripts/build-seed.mjs"
+    "build-seed": "node scripts/build-seed.mjs",
+    "icons": "node scripts/make-icons.mjs",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:android": "npx cap open android",
+    "cap:ios": "npx cap open ios"
   },
   "dependencies": {
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/core": "^7.6.9",
     "@supabase/supabase-js": "^2.115.0",
     "dompurify": "^3.4.15",
     "gray-matter": "^4.0.3",
@@ -21,6 +27,9 @@
     "react-router-dom": "^7.18.3"
   },
   "devDependencies": {
+    "@capacitor/android": "^7.6.9",
+    "@capacitor/cli": "^7.6.9",
+    "@capacitor/ios": "^7.6.9",
     "@types/dompurify": "^3.0.5",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",

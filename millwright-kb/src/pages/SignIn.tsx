@@ -29,12 +29,12 @@ export function SignIn() {
       } else if (mode === 'signup') {
         const { data, error } = await supabase.auth.signUp({
           email, password,
-          options: { data: { display_name: name.trim(), school: school.trim() }, emailRedirectTo: window.location.origin },
+          options: { data: { display_name: name.trim(), school: school.trim() }, emailRedirectTo: window.location.origin + import.meta.env.BASE_URL },
         })
         if (error) throw error
         if (!data.session) setMsg({ kind: 'info', text: 'Account created. Check your email for a confirmation link, then sign in.' })
       } else {
-        const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin } })
+        const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + import.meta.env.BASE_URL } })
         if (error) throw error
         setMsg({ kind: 'ok', text: 'Magic link sent. Open the email on this device.' })
       }

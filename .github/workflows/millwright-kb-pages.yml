@@ -1,0 +1,56 @@
+name: millwright-kb-pages
+# Publishes the Millwright Knowledge Base web app to GitHub Pages at
+# https://riggs19991.github.io/ruggedroute-dataops/  (no secrets needed).
+
+on:
+  push:
+    branches: [main, claude/millwright-knowledge-database-pg5n1c]
+    paths: ["millwright-kb/**", ".github/workflows/millwright-kb-pages.yml"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: millwright-kb-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: millwright-kb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: millwright-kb/package-lock.json
+      - run: npm ci
+      - name: Build for the /ruggedroute-dataops/ sub-path
+        env:
+          VITE_BASE: /ruggedroute-dataops/
+        run: |
+          npm run build
+          cp dist/index.html dist/404.html   # SPA fallback: GitHub Pages serves 404.html for unknown routes
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: millwright-kb/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

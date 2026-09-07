@@ -96,6 +96,36 @@ in Supabase → Authentication → Providers → Email if the school would rathe
 Leaked-password protection is off (advisor warning); enable it under Authentication →
 Password settings.
 
+## Where to see it
+
+**Live web app:** https://riggs19991.github.io/ruggedroute-dataops/ (published by
+`.github/workflows/millwright-kb-pages.yml` on every push; no secrets needed). It is also a
+PWA: on a phone, "Add to Home Screen" installs it with an icon and full-screen mode.
+
+## Google Play and the App Store (Capacitor)
+
+The same web build ships as native apps through [Capacitor](https://capacitorjs.com).
+The `android/` and `ios/` folders are the native projects (app id `com.millwrightkb.app`).
+
+```bash
+npm run cap:sync        # builds dist/ and copies it into android/ and ios/
+npm run cap:android     # opens Android Studio  → Build > Generate Signed Bundle (.aab) → Play Console
+npm run cap:ios         # opens Xcode (macOS only) → Product > Archive → App Store Connect
+```
+
+What you need:
+
+| Store | Account | Tooling | Notes |
+|---|---|---|---|
+| Google Play | Play Console, one-time US$25 | Android Studio (Windows/Mac/Linux) | Upload the signed `.aab`; keep the upload keystore safe |
+| Apple App Store | Apple Developer Program, US$99/yr | Xcode on a Mac | Archive and upload with Xcode or Transporter; App Review takes 1-3 days |
+
+Both stores want screenshots, a privacy policy URL (the app collects email + name for
+sign-in; files are stored in Supabase), and a support contact. Native builds load the app
+from the bundle and talk to Supabase over HTTPS exactly like the web version. Email
+confirmation / magic-link redirects open the web app, so on phones the password sign-in is
+the smoothest path; deep links can be added later with `@capacitor/app`.
+
 ## Deploy
 
 The app is a static site. Any of these work:
