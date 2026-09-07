@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../config.dart';
 import '../../data/hq.dart';
+import '../../theme.dart';
 
 /// Email + password sign-in (primary) with an emailed one-time code as the
 /// alternative. Only the allow-listed founder email can get past the database.
@@ -68,7 +69,8 @@ class _SignInScreenState extends State<SignInScreen> {
       decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
     );
     return Scaffold(
-      body: Center(
+      body: TopoBackground(
+        child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),
           child: SingleChildScrollView(
@@ -77,12 +79,11 @@ class _SignInScreenState extends State<SignInScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Icon(Icons.terrain, size: 56, color: theme.colorScheme.primary),
-                const SizedBox(height: 12),
-                Text(HqConfig.appName, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
-                Text('Addictive Media Productions LLC',
-                    textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
-                const SizedBox(height: 32),
+                Image.asset(AmpBrand.wordmark, width: 300),
+                const SizedBox(height: 8),
+                Text(HqConfig.appName.toUpperCase(), textAlign: TextAlign.center,
+                    style: theme.textTheme.titleLarge?.copyWith(color: AmpBrand.green, letterSpacing: 2)),
+                const SizedBox(height: 28),
                 switch (_mode) {
                   _Mode.password => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                       emailField,
@@ -153,6 +154,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ],
             ),
           ),
+        ),
         ),
       ),
     );

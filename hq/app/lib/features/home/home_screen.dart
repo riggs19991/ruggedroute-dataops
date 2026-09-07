@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../data/hq.dart';
 import '../../updater/updater.dart';
+import '../../theme.dart';
 
 /// The home screen is an exceptions inbox: only things that need a decision.
 class HomeScreen extends StatefulWidget {
@@ -56,7 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Home'), actions: [
+      appBar: AppBar(
+        title: Row(children: [
+          ClipRRect(borderRadius: BorderRadius.circular(6), child: Image.asset(AmpBrand.mark, width: 32, height: 32)),
+          const SizedBox(width: 12),
+          const Text('HQ'),
+        ]),
+        actions: [
         IconButton(icon: const Icon(Icons.refresh), onPressed: _refresh, tooltip: 'Refresh'),
       ]),
       body: FutureBuilder<_HomeData>(
@@ -185,7 +192,7 @@ class _GoodStandingTile extends StatelessWidget {
     } else if (next != null) {
       final due = DateTime.parse(next['due_on'] as String);
       final days = due.difference(DateTime.now()).inDays;
-      color = days <= 30 ? Colors.amber.shade700 : Colors.green.shade700;
+      color = days <= 30 ? AmpBrand.amber : AmpBrand.green;
       headline = days <= 30 ? 'Due soon' : 'In good standing';
       detail = '${next['title']} · ${DateFormat.yMMMd().format(due)} ($days days)';
     } else {
@@ -195,7 +202,7 @@ class _GoodStandingTile extends StatelessWidget {
     }
     return Card(
       child: ListTile(
-        leading: CircleAvatar(backgroundColor: color, child: const Icon(Icons.shield, color: Colors.white)),
+        leading: CircleAvatar(backgroundColor: color, child: const Icon(Icons.shield, color: AmpBrand.black)),
         title: Text(headline, style: theme.textTheme.titleMedium),
         subtitle: Text(detail),
       ),

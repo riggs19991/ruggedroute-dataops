@@ -10,6 +10,7 @@ import 'features/auth/sign_in_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/profile/profile_screen.dart';
 import 'features/settings/settings_screen.dart';
+import 'theme.dart';
 
 /// Notifies the router whenever the auth session changes.
 class AuthListenable extends ChangeNotifier {
@@ -63,15 +64,13 @@ class _HqAppState extends State<HqApp> {
 
   @override
   Widget build(BuildContext context) {
-    const seed = Color(0xFF2E5E3F); // trail-sign green
+    // Brand commits to black + neon green; a light mode would not be the brand.
     return MaterialApp.router(
       title: HqConfig.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: seed), useMaterial3: true),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark),
-        useMaterial3: true,
-      ),
+      theme: AmpBrand.dark(),
+      darkTheme: AmpBrand.dark(),
+      themeMode: ThemeMode.dark,
       routerConfig: _router,
     );
   }
@@ -104,9 +103,12 @@ class HqShell extends StatelessWidget {
             selectedIndex: _index,
             labelType: NavigationRailLabelType.all,
             onDestinationSelected: (i) => context.go(_tabs[i].path),
-            leading: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12),
-              child: Icon(Icons.terrain, size: 32),
+            leading: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(AmpBrand.mark, width: 44, height: 44),
+              ),
             ),
             destinations: [
               for (final t in _tabs)
