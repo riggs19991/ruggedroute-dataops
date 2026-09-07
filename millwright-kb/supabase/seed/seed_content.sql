@@ -5,16 +5,40 @@ begin;
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$alignment$mw$, $mw$Shaft Alignment$mw$, $mw$Rim-and-face, reverse dial, laser alignment, soft foot, thermal growth and tolerances.$mw$, $mw$🎯$mw$, 10)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$installation$mw$, $mw$Machine Installation & Foundations$mw$, $mw$Anchor bolts, grouting, leveling, baseplates and sole plates, precision levels, optical and wire alignment, moving machinery.$mw$, $mw$🧱$mw$, 15)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$bearings$mw$, $mw$Bearings$mw$, $mw$Mounting, dismounting, clearance, fits, taper-bore drive-up, heating and designation codes.$mw$, $mw$⚙️$mw$, 20)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$oxy-fuel$mw$, $mw$Oxy-Fuel Cutting & Welding$mw$, $mw$Torch setup, Victor tip charts, pressures, flame adjustment, shutdown and safety.$mw$, $mw$🔥$mw$, 30)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$welding$mw$, $mw$Welding & Fabrication$mw$, $mw$Stick, MIG (all transfer modes), flux-core, TIG and SAW setup charts, filler selection, joint prep, distortion, symbols, brazing.$mw$, $mw$⚡$mw$, 35)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$cutting-gouging$mw$, $mw$Cutting & Gouging$mw$, $mw$Plasma cut charts, piercing and keyholing, carbon-arc gouging, saws, grinders and abrasives, field hole making.$mw$, $mw$✂️$mw$, 36)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$layout-templates$mw$, $mw$Layout & Templates$mw$, $mw$Pipe saddles, miters and laterals, sheet-metal developments, hole patterns, wrap-arounds, shim and gasket templates, jigs.$mw$, $mw$📐$mw$, 37)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$power-transmission$mw$, $mw$Belts, Chains & Couplings$mw$, $mw$V-belt tensioning, roller chain, sheave alignment, coupling types and gap.$mw$, $mw$🔗$mw$, 40)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$conveyors$mw$, $mw$Conveyors & Material Handling$mw$, $mw$Belt tracking, splicing, idlers and pulleys, screw conveyors, bucket elevators, conveyor safety.$mw$, $mw$🎢$mw$, 45)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$gearboxes$mw$, $mw$Gearboxes & Reducers$mw$, $mw$Speed reducers, shaft-mount reducers, lubrication, backlash, inspection.$mw$, $mw$🛠️$mw$, 50)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$lubrication$mw$, $mw$Lubrication$mw$, $mw$Grease types and compatibility, regreasing intervals and quantities, oil viscosity, oil analysis, lube routes.$mw$, $mw$🛢️$mw$, 55)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$condition-monitoring$mw$, $mw$Vibration & Condition Monitoring$mw$, $mw$Vibration basics and ISO severity, fault signatures, thermography, ultrasound, condition-based maintenance.$mw$, $mw$📈$mw$, 56)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$motors-electrical$mw$, $mw$Motors, VFDs & Electrical Awareness$mw$, $mw$Motor nameplates, 9 and 12 lead connections, VFD basics, megger testing, PLC and instrumentation awareness, electrical safety.$mw$, $mw$🔌$mw$, 57)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$pumps-seals$mw$, $mw$Pumps & Seals$mw$, $mw$Centrifugal pumps, mechanical seals, packing, cavitation troubleshooting.$mw$, $mw$💧$mw$, 60)
@@ -26,10 +50,19 @@ insert into public.mw_categories (slug, name, description, icon, sort_order) val
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$measurement$mw$, $mw$Precision Measurement$mw$, $mw$Micrometers, dial indicators, feeler gauges, levels and layout.$mw$, $mw$📏$mw$, 80)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$machining$mw$, $mw$Shop Machining Basics$mw$, $mw$Drill press speeds and feeds, tapping and thread repair, broken bolt removal, lathe and mill basics, grinding.$mw$, $mw$🧲$mw$, 85)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$fasteners$mw$, $mw$Fasteners & Torque$mw$, $mw$Bolt grades, torque charts, thread identification, anti-seize and locking methods.$mw$, $mw$🔩$mw$, 90)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$hydraulics$mw$, $mw$Hydraulics & Pneumatics$mw$, $mw$Fluid power basics, symbols, cylinders, valves, contamination control.$mw$, $mw$🧰$mw$, 100)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$troubleshooting$mw$, $mw$Troubleshooting & Failure Analysis$mw$, $mw$Bearing, belt, seal, coupling and gear failure patterns, what they mean and what to fix.$mw$, $mw$🔍$mw$, 105)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$maintenance$mw$, $mw$Preventive Maintenance & Inspection$mw$, $mw$PM checklists, inspection routes, records, spare parts and bearing storage.$mw$, $mw$📋$mw$, 106)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$safety$mw$, $mw$Safety & Lockout$mw$, $mw$Lockout/tagout, confined space, hot work, PPE, compressed gas handling.$mw$, $mw$🦺$mw$, 110)
@@ -3137,6 +3170,1287 @@ Degrees, minutes, seconds                12°30'15" = 12 + 30/60 + 15/3600 = 12.
 - [Tapered-bore bearing on an adapter sleeve](/article/taper-bore-bearing-adapter-sleeve-skf)
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
           array[$mw$formulas$mw$,$mw$trigonometry$mw$,$mw$right triangle$mw$,$mw$sine$mw$,$mw$cosine$mw$,$mw$tangent$mw$,$mw$pythagorean$mw$,$mw$law of sines$mw$,$mw$law of cosines$mw$,$mw$offset$mw$,$mw$travel$mw$,$mw$run$mw$,$mw$bolt circle$mw$,$mw$hole coordinates$mw$,$mw$chord$mw$,$mw$taper per foot$mw$,$mw$taper angle$mw$,$mw$sine bar$mw$,$mw$slope$mw$,$mw$grade$mw$,$mw$rise over run$mw$,$mw$level$mw$,$mw$shim by slope$mw$,$mw$hexagon$mw$,$mw$square$mw$,$mw$3-4-5$mw$,$mw$centre of a circle$mw$,$mw$degrees to radians$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; standard trigonometry.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$aws-electrode-classification$mw$, $mw$Decoding AWS Electrode and Wire Numbers: E7018-1 H4R, ER70S-6, E71T-1C, E308L-16, ER4043, E71T-11 and More$mw$, $mw$How to read every filler-metal number you will meet on a box or a WPS: covered electrodes, solid MIG/TIG wire, flux-cored wire, stainless, aluminium and cast-iron rods, plus the Canadian CSA equivalents.$mw$, $mw$## Covered (stick) electrodes: AWS A5.1 and A5.5
+
+```
+E 70 1 8 - 1  H4 R
+│ │  │ │   │   │  └ R = moisture-resistant coating (9 h exposure instead of 4)
+│ │  │ │   │   └── H4 = diffusible hydrogen ≤ 4 mL/100 g (H8 = ≤ 8, H16 = ≤ 16)
+│ │  │ │   └────── -1 = improved toughness (Charpy at -50°F instead of -20°F)
+│ │  │ └────────── 8 = coating/current type (see table)
+│ │  └──────────── 1 = position: 1 all positions, 2 flat + horizontal fillet, 4 all incl. vertical-down
+│ └─────────────── 70 = minimum tensile strength, ksi (60, 70, 80, 90, 100, 110, 120)
+└───────────────── E = electrode (arc)
+```
+
+Last digit (coating and current):
+
+| Digit | Coating | Current | Penetration | Examples |
+|---|---|---|---|---|
+| 0 | cellulose sodium | DC+ only | deep | E6010, E7010 |
+| 1 | cellulose potassium | AC or DC+ | deep | E6011 |
+| 2 | rutile sodium | AC or DC− | medium | E6012 |
+| 3 | rutile potassium | AC or DC± | light | E6013 |
+| 4 | rutile + iron powder | AC or DC± | light | E7014 |
+| 5 | low-hydrogen sodium | DC+ | medium | E7015 |
+| 6 | low-hydrogen potassium | AC or DC+ | medium | E7016 |
+| 7 | iron oxide + iron powder | AC or DC− | medium | E6027, E7027 |
+| 8 | low-hydrogen potassium + iron powder | AC or DC+ | medium | **E7018**, E7028 (flat/horizontal, 2 = position digit) |
+
+Low-alloy suffixes (A5.5): **-A1** 1/2% Mo; **-B2** 1-1/4 Cr 1/2 Mo; **-B3** 2-1/4 Cr 1 Mo; **-C1** 2-1/2% Ni; **-C2** 3-1/4% Ni; **-C3** 1% Ni; **-D1/-D2** Mn-Mo; **-G** general (chemistry by agreement); **-M** military (high strength, e.g. E11018-M); **-W** weathering steel; **-P1** pipe (E7010-P1, E8010-P1).
+
+## Solid wire for MIG and TIG: AWS A5.18 (carbon steel)
+
+```
+ER 70 S - 6
+│  │  │   └ chemistry / deoxidiser level: 2, 3, 4, 6, 7, G
+│  │  └──── S = solid wire (C = composite / metal-cored)
+│  └─────── 70 = min tensile ksi (as welded)
+└────────── ER = electrode or rod (usable as a MIG electrode or a TIG filler rod)
+```
+
+| Wire | Deoxidisers | Use it for |
+|---|---|---|
+| **ER70S-2** | triple-deoxidised (Al, Ti, Zr) | TIG root passes on pipe, dirty or rimmed steel, best for TIG on mild steel |
+| **ER70S-3** | medium Si/Mn | Clean steel, general MIG |
+| **ER70S-6** | high Si/Mn | **The default MIG wire**: tolerates mill scale and light rust, wets out well, CO2 or C25 |
+| ER70S-7 | high Mn | Faster travel, stiffer puddle |
+| ER80S-D2, ER80S-Ni1, ER90S-B3 | low-alloy (A5.28) | Higher strength, Cr-Mo, low-temperature toughness |
+| E70C-6M | metal-cored (composite) | Spray-like high deposition, low slag, mixed gas only |
+
+## Flux-cored wire: AWS A5.20 (carbon steel)
+
+```
+E 7 1 T - 1 C  H8
+│ │ │ │   │ │   └ optional hydrogen designator
+│ │ │ │   │ └──── shielding: C = 100% CO2, M = 75-80% Ar mixed gas; (none) = self-shielded
+│ │ │ │   └────── usability number 1-14 (see table)
+│ │ │ └────────── T = tubular (flux-cored)
+│ │ └──────────── 1 = all positions (0 = flat and horizontal only)
+│ └────────────── 7 = min tensile 70 ksi
+└──────────────── E = electrode
+```
+
+| Usability | Shielding | Polarity | Character |
+|---|---|---|---|
+| **T-1** | gas (C or M) | DC+ | Rutile slag, spray-like arc, all positions, smooth: **E71T-1C/M** is the standard structural wire (Outershield 71M, Dual Shield 7100) |
+| T-5 | gas | DC+ | Basic slag, tougher, more spatter, crack-resistant |
+| T-6 | self-shielded | DC+ | Flat/horizontal, deep penetration, high deposition (Innershield NR-305) |
+| T-8 | self-shielded | DC− | All positions, good impact toughness, structural field welding (NR-232) |
+| T-9 | gas | DC+ | T-1 with better impacts |
+| **T-11** | self-shielded | **DC−** | General-purpose all-position, single or limited multi-pass, thin to 1/2" (**NR-211-MP**, E71T-11) |
+| T-14 | self-shielded | DC− | Galvanised and coated sheet, single pass |
+| T-GS | self-shielded | DC− | Single-pass sheet metal (small-spool "gasless" wire) |
+
+Self-shielded wires run **DC−** (electrode negative); gas-shielded run DC+. Getting this wrong is the most common flux-core setup mistake.
+
+The newer AWS A5.36 combined spec writes the same wire as E71T-1C-J-H8 style codes; E71T-11-AZ-CS3 on a NR-211 box is the A5.36 form of E71T-11.
+
+## Stainless electrodes and wires: A5.4 and A5.9
+
+```
+E 308 L - 16        ER 308 L        E 308L T1-1 (flux-cored, A5.22)
+  │   │    └ coating: -15 basic DC+ only; -16 rutile AC/DC+; -17 rutile-silica AC/DC+, smoother, best for horizontal fillets
+  │   └ L = low carbon (≤ 0.04% C) to resist carbide precipitation (sensitisation)
+  └ AISI type of the deposit
+```
+
+| Filler | Welds | Notes |
+|---|---|---|
+| 308L | 304, 304L, 301, 302 | The everyday stainless filler |
+| 309L | stainless to carbon steel, 309, cladding, buffer layers | Higher Cr/Ni tolerates dilution |
+| 316L | 316, 316L (marine, chemical) | Mo for pitting resistance |
+| 310 | 310, high temperature | Fully austenitic, crack-sensitive |
+| 312 | dissimilar and hard-to-weld steels, spring steel repairs | Very high ferrite |
+| 347 | 321, 347 (stabilised) | Nb-stabilised |
+| 2209 | duplex 2205 | |
+| 410, 410NiMo | martensitic stainless, pump impellers, turbine repair | Preheat and PWHT |
+
+## Aluminium: A5.10
+
+```
+ER 4043      ER 5356
+```
+
+| Wire | Alloy family | Use |
+|---|---|---|
+| **ER4043** | 5% Si | 6061, 6063, castings (356, A356); fluid, low crack tendency, less strength, darkens on anodising |
+| **ER5356** | 5% Mg | 5052, 5083, 5086, 6061 when strength or colour match after anodising matters; stiffer wire feeds better; not for service above 150°F (sensitisation) |
+| ER4047 | 12% Si | Brazing-like flow, thin castings |
+| ER5556, ER5183 | high Mg | 5083 marine plate, highest strength |
+| ER1100 | pure Al | 1100, 3003, electrical bus |
+
+## Cast iron: A5.15
+
+| Rod | Deposit | Use |
+|---|---|---|
+| **ENi-Cl** | ~99% Ni | Machinable repairs on grey iron, thin sections |
+| **ENiFe-Cl** | 55% Ni 45% Fe | Stronger, heavier sections, less expansion mismatch, most common |
+| ENiCu | Ni-Cu (Monel) | Older; colour match |
+| ESt (steel) | steel | Non-machinable filling, cheap |
+| RCI / RCI-A | cast iron rod (oxy-fuel) | Colour-matched furnace-preheated repairs |
+
+## Hardfacing (A5.13 / A5.21)
+
+Named by deposit type rather than a tidy code: build-up (EFe1 low-alloy), work-hardening manganese (EFeMn), chromium carbide (EFeCr), tungsten carbide (WC composite), cobalt (ECoCr-A "Stellite 6"), Ni-based. Choose by the wear mode: abrasion, impact, metal-to-metal, heat, corrosion.
+
+## Canadian (CSA W48) equivalents
+
+CSA writes strength in **MPa/10**: E4918 = E7018 (490 MPa ≈ 70 ksi), E4911 = E6011, E4310 = E6010, E4818 ... ER49S-6 = ER70S-6, E491T-9 = E71T-9. Positions and coating digits are the same idea. CWB certifies the electrodes under W48 and the welders and shops under W47.1; a Red Seal test asks for the CSA number.
+
+## On the WPS / drawing
+
+A welding procedure lists the classification, diameter, polarity, amperage/voltage range, travel speed, gas and flow, preheat and interpass. If the box in your hand does not match the WPS classification (including the C/M gas designator or the L), stop and ask; substituting E6013 for E7018 on a structural weld is a rejection and a hazard.
+
+## Related
+
+- [Stick electrode amperage chart](/article/smaw-electrode-chart)
+- [MIG (GMAW) setup](/article/gmaw-mig-setup)
+- [Gas-shielded flux-core setup](/article/fcaw-gas-shielded-setup) and [self-shielded flux-core setup](/article/fcaw-self-shielded-setup)
+- [Welding stainless and dissimilar metals](/article/welding-stainless-and-dissimilar) and [welding aluminium](/article/welding-aluminium)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$AWS classification$mw$,$mw$electrode number$mw$,$mw$E7018 meaning$mw$,$mw$ER70S-6 meaning$mw$,$mw$E71T-1$mw$,$mw$E71T-11$mw$,$mw$E308L-16$mw$,$mw$ER4043$mw$,$mw$ER5356$mw$,$mw$H4R$mw$,$mw$filler metal$mw$,$mw$wire classification$mw$,$mw$A5.1$mw$,$mw$A5.18$mw$,$mw$A5.20$mw$,$mw$A5.4$mw$,$mw$A5.9$mw$,$mw$A5.10$mw$,$mw$CSA W48$mw$,$mw$E4918$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A5.1 (carbon steel covered electrodes), A5.5 (low-alloy covered), A5.18 (carbon steel solid wire), A5.20 (carbon steel flux-cored), A5.4 (stainless covered), A5.9 (stainless bare wire), A5.10 (aluminium), A5.15 (cast iron), A5.36; CSA W48.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$fcaw-gas-shielded-setup$mw$, $mw$Gas-Shielded Flux-Core (FCAW-G) Setup: E71T-1 Procedure Chart for .035, .045, .052 and 1/16 Wire, Gas, Polarity, Stickout and Technique$mw$, $mw$Lincoln's published wire feed speed, voltage and amperage table for Outershield 71M (E71T-1C/M) in every diameter, with deposition rates, plus the gas, polarity, stickout, positions and technique that make gas-shielded flux-core the structural welder's workhorse.$mw$, $mw$## What it is
+
+A tubular wire with flux inside, run on a **CV** machine with **DC+** and a shielding gas (100% CO2 or 75/25 Ar-CO2). The flux gives a slag that supports the puddle out of position and a smooth spray-like arc; the gas gives the shielding. Result: MIG speed with stick-like tolerance of position and thickness. It is the default for structural steel, heavy fabrication, shipbuilding and any vertical-up weld on plate.
+
+Not to be confused with **self-shielded** flux-core (E71T-11, NR-211) which runs **DC−** with **no gas**: see [self-shielded flux-core setup](/article/fcaw-self-shielded-setup).
+
+## Setup checklist
+
+| Item | Setting |
+|---|---|
+| Power source | CV (MIG) machine, **DC+ (electrode positive)** |
+| Drive rolls | **Knurled** V-groove for the wire diameter (smooth rolls crush the tube) |
+| Liner and tip | Steel liner; tip one size up is common for .045 and larger if feeding is rough |
+| Gas | **100% CO2** (deepest penetration, cheapest, more spatter) or **75% Ar / 25% CO2** (smoother, less spatter, slightly lower voltage). Use the gas the wire is classified for: E71T-1**C** = CO2, E71T-1**M** = mixed gas; dual-classified wires run either |
+| Gas flow | **40-50 cfh** (Lincoln) |
+| Contact tip to work (CTWD) | **3/4-1"** (19-25 mm). Electrical stickout ≈ CTWD − 1/4" |
+| Gun angle | **Drag** 10-20° ("drag if slag"); 45° work angle on fillets |
+| Positions | All except vertical-down (T-1 slag freezes too fast to run downhill) |
+| Base metal | Mild and low-alloy steel, 3/16" and thicker is where it shines; usable to 1/8" with .035 |
+
+## Outershield 71M typical operating procedures (100% CO2, DC+, CTWD 3/4-1")
+
+When running mixed gas (75/25), **decrease voltage about 1-2 V** from these values.
+
+**.035" (0.9 mm)**
+
+| WFS (ipm) | Volts | Approx. amps | Deposition (lb/h) |
+|---|---|---|---|
+| 200 | 20-23 | 95 | 2.8 |
+| 250 | 21-24 | 115 | 3.5 |
+| 300 | 22-25 | 130 | 4.2 |
+| 350 | 23-26 | 150 | 4.9 |
+| 400 | 24-27 | 160 | 5.6 |
+| 500 | 26-29 | 185 | 7.0 |
+| 600 | 28-31 | 200 | 8.4 |
+| 700 | 30-33 | 215 | 9.8 |
+
+**.045" (1.1 mm)** - the most common size
+
+| WFS (ipm) | Volts | Approx. amps | Deposition (lb/h) |
+|---|---|---|---|
+| 200 | 23-26 | 165 | 3.9 |
+| 250 | 24-27 | 190 | 4.8 |
+| **300** | **25-28** | **220** | 5.8 |
+| 350 | 26-29 | 245 | 6.8 |
+| 400 | 26-29 | 265 | 7.8 |
+| 500 | 28-31 | 295 | 9.7 |
+| 600 | 30-33 | 315 | 11.7 |
+| 700 | 32-35 | 325 | 13.7 |
+
+**.052" (1.3 mm)**
+
+| WFS (ipm) | Volts | Approx. amps | Deposition (lb/h) |
+|---|---|---|---|
+| 150 | 22-25 | 150 | 3.8 |
+| 200 | 23-26 | 180 | 5.1 |
+| 250 | 24-27 | 210 | 6.5 |
+| 300 | 25-28 | 235 | 7.8 |
+| 350 | 27-30 | 265 | 9.1 |
+| 450 | 29-32 | 305 | 11.8 |
+| 500 | 30-33 | 325 | 13.2 |
+| 600 | 33-36 | 360 | 15.8 |
+
+**1/16" (1.6 mm)**
+
+| WFS (ipm) | Volts | Approx. amps | Deposition (lb/h) |
+|---|---|---|---|
+| 125 | 23-26 | 205 | 4.5 |
+| 150 | 24-27 | 225 | 5.4 |
+| 200 | 25-28 | 260 | 7.2 |
+| 250 | 26-29 | 295 | 9.1 |
+| 300 | 28-31 | 330 | 10.9 |
+| 400 | 30-33 | 395 | 14.6 |
+| 500 | 33-36 | 445 | 18.3 |
+
+Efficiency (deposited/consumed) is 81-86%; the rest is slag and spatter.
+
+## Picking a starting point by job
+
+| Job | Wire | WFS / V |
+|---|---|---|
+| 1/8-3/16" fillets, flat | .035 | 300-350 ipm, 22-25 V |
+| 1/4" fillets, flat/horizontal | .045 | 300-350 ipm, 25-28 V |
+| 3/8" and up, flat, multi-pass | .045 | 400-500 ipm, 27-30 V, or .052 at 350-450 |
+| Vertical-up fillet 1/4-3/8" | .045 | 250-300 ipm, 23-26 V (bottom of the range), slight side-to-side, pause at toes |
+| Overhead | .045 | 220-280 ipm, 23-25 V, stringers |
+| Heavy plate groove fill, flat | 1/16 | 300-400 ipm, 28-32 V |
+
+Out of position: stay in the **lower third** of the WFS range, keep CTWD at 3/4", drag 10-15°, and let the slag do its job. If the puddle sags, you are too hot or the voltage is high.
+
+## Technique notes
+
+- Drag angle and a steady stickout; the slag should follow the puddle by a finger-width.
+- **Clean every pass** (chip and brush) on multi-pass; T-1 slag peels easily but leaves silicon islands that must go.
+- Weave width no more than 3× wire diameter on code work unless the WPS allows; vertical-up uses a slight side-to-side or triangle.
+- Restarts: grind the crater, strike 1/2" ahead, back into the crater.
+- Wind: gas-shielded needs the same protection as MIG (screens over about 5 mph).
+- Wire storage: keep spools dry and bagged; damp flux-core makes worm-track porosity. Discard rusty wire.
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Worm tracks (surface porosity lines) | Voltage too high for the WFS, damp wire, stickout too short, nitrogen from wind | Lower V 1-2, dry wire, 3/4" CTWD, screen |
+| Slag inclusions | Pushing instead of dragging, poor cleaning, too cold, weave too wide | Drag, chip, raise WFS |
+| Excess spatter | 100% CO2 at high voltage, too little stickout, DC− by mistake | Mixed gas, adjust, check polarity |
+| Wire stubbing | Voltage low for WFS | Raise voltage |
+| Undercut vertical-up | Too hot, no pause at toes | Lower WFS, pause |
+| Bird-nesting | Smooth rolls or too much tension crushing the wire | Knurled rolls, reset tension |
+| Cold lap on the bottom toe of a horizontal fillet | Work angle aimed high | Aim at the root, 45° |
+
+## Related
+
+- [Self-shielded flux-core (E71T-11) setup](/article/fcaw-self-shielded-setup)
+- [MIG (GMAW) setup](/article/gmaw-mig-setup)
+- [AWS wire classification decoder](/article/aws-electrode-classification)
+- [Shielding gas selection and flow](/article/gas-selection-and-flow)
+- [Positions and techniques](/article/positions-and-techniques)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$flux core$mw$,$mw$FCAW-G$mw$,$mw$dual shield$mw$,$mw$E71T-1$mw$,$mw$Outershield 71M$mw$,$mw$wire feed speed$mw$,$mw$voltage$mw$,$mw$CO2$mw$,$mw$75/25$mw$,$mw$DCEP$mw$,$mw$stickout$mw$,$mw$slag$mw$,$mw$structural welding$mw$,$mw$vertical up flux core$mw$]::text[], $mw$Lincoln Electric$mw$, array[$mw$Outershield 71M$mw$,$mw$E71T-1C$mw$,$mw$E71T-1M$mw$,$mw$E71T-9C$mw$,$mw$E71T-9M$mw$,$mw$Dual Shield 7100$mw$,$mw$Fabshield$mw$]::text[], $mw$Lincoln Electric Outershield 71M data sheet, Typical Operating Procedures (Welding Consumables Catalog pp. 132-133, issue 01/12).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$fcaw-self-shielded-setup$mw$, $mw$Self-Shielded Flux-Core (FCAW-S) Setup: E71T-11 / Innershield NR-211-MP Procedure Chart, DC− Polarity, Stickout and Field Technique$mw$, $mw$Lincoln's published parameters for Innershield NR-211-MP by wire size, converted to inch units, with the DC− polarity rule, stickout, maximum plate thickness per diameter, position settings, and the technique and troubleshooting that self-shielded flux-core needs in the field.$mw$, $mw$## What it is
+
+Flux-cored wire whose core makes its **own shielding** as it burns; no gas bottle. Runs on any CV machine, including small 120 V units, and is the go-to for **outdoor, windy, rusty and portable** work. The trade-off: more spatter and smoke than gas-shielded wire, a colder-looking bead that needs correct technique, and single-pass or limited multi-pass ratings on the general-purpose wires.
+
+## The three rules
+
+1. **Polarity: DC− (electrode negative).** Gun lead to **−**, ground to **+**. Run it on DC+ and you get a violent, porous, spattery mess. This is the first thing to check on any flux-core complaint.
+2. **Stickout is long**: **1/2" for .030-.035, 5/8-3/4" for .045-.068, 3/4-1" for 5/64 and up**. The wire has to preheat in the long stickout for the flux to work. Short stickout = porosity.
+3. **Drag, don't push**, 10-20°. "Drag if slag."
+
+## NR-211-MP (E71T-11) typical parameters
+
+Converted from Lincoln's metric calculation data (wire feed speed cm/min × 0.394 = in/min). Electrical stickout listed; CTWD is about 1/4" longer.
+
+**.035" (0.9 mm), electrical stickout 3/8" (CTWD ≈ 1/2"), DC−**
+
+| WFS (ipm) | Amps | Volts | Deposition (lb/h) | Use |
+|---|---|---|---|---|
+| 50 | 30 | 14 | 0.7 | 22-20 ga sheet |
+| 90 | 90 | 16 | 1.3 | 14-12 ga |
+| 110 | 120 | 16.5 | 1.8 | 3/16" |
+
+Lincoln's US procedure sheet for .035 spans **50-300 ipm at 13-16 V**; the .030 size runs 40-200 ipm at 13-15 V on 120 V machines.
+
+**.045" (1.1 mm), electrical stickout 9/16" (CTWD ≈ 3/4"), DC−**
+
+| WFS (ipm) | Amps | Volts | Deposition (lb/h) |
+|---|---|---|---|
+| 70 | 120 | 15 | 1.1 |
+| 110 | 160 | 17 | 2.2 |
+| 130 | 170 | 18 | 2.6 |
+
+**.068" (1.7 mm), electrical stickout 3/4", DC−**
+
+| WFS (ipm) | Amps | Volts | Deposition (lb/h) |
+|---|---|---|---|
+| 40 | 120 | 15 | 1.8 |
+| 75 | 190 | 18 | 3.3 |
+| 175 | 320 | 23 | 7.7 |
+
+**5/64" (2.0 mm), electrical stickout 3/4", DC−**
+
+| WFS (ipm) | Amps | Volts | Deposition (lb/h) |
+|---|---|---|---|
+| 50 | 180 | 16 | 3.1 |
+| 75 | 250 | 18 | 4.9 |
+| 150 | 350 | 22 | 9.5 |
+
+**3/32" (2.4 mm), electrical stickout 3/4", DC−**
+
+| WFS (ipm) | Amps | Volts | Deposition (lb/h) |
+|---|---|---|---|
+| 50 | 235 | 16 | 4.4 |
+| 55 | 250 | 18 | 5.1 |
+| 100 | 370 | 20 | 9.3 |
+
+**Optimum settings by position (Lincoln), fill passes**
+
+| Wire | Flat / horizontal fillet | Horizontal groove | Vertical-up | Vertical-down / overhead |
+|---|---|---|---|---|
+| .035 | 70 ipm, 65 A, 15 V | 70 ipm, 65 A, 15 V | 60 ipm, 50 A, 14.5 V | 90 ipm, 85 A, 16 V |
+| .045 | 90 ipm, 140 A, 16 V | 90 ipm, 140 A, 16 V | 80 ipm, 130 A, 16 V | 110 ipm, 160 A, 17 V |
+| .068 | 175 ipm, 320 A, 23 V | 100 ipm, 230 A, 19.5 V | 75 ipm, 190 A, 18 V | 120 ipm, 280 A, 21 V |
+
+**Maximum plate thickness**: .030 and .035 = 5/16"; .045 = 5/16" (single pass rated, 1/2" multi-pass with care); .068 and larger = 1/2" and up. NR-211-MP is a **general-purpose, non-code** wire: it is not low-hydrogen and is not for structural steel under AWS D1.1 seismic or high-restraint rules. For code-quality self-shielded work use **E71T-8** (NR-232, NR-233) which is DC− all-position with impact ratings, or E70T-6 (NR-305) for flat.
+
+## Setup
+
+1. CV machine, **DC−**. Small 120 V machines: use .030 or .035 wire only.
+2. **Knurled** drive rolls; tension light (tube wire crushes).
+3. Liner sized for the wire. Remove the gas nozzle if the gun has one and fit the flux-core **insulated nozzle** or run with the tip exposed as the maker recommends; a MIG nozzle traps spatter.
+4. No gas connected; if the machine has a gas solenoid it does not matter.
+5. Ground clamp on bare metal close to the weld.
+6. Set WFS and voltage from the table. On a tapped-voltage machine, pick the tap then trim WFS for a steady crackle.
+
+## Technique
+
+- Drag 10-20°, stickout per the rule, arc on the leading edge of the puddle.
+- Stringers or a slight side-to-side. Vertical-up with a slow inverted-V weave at the low end of the range; NR-211 also runs **vertical-down** well on sheet.
+- Slag is heavy and glassy: chip and wire-brush every pass; multi-pass welds are limited to about 3 layers on general-purpose wire because of manganese build-up in the deposit (data sheet limit).
+- Fume is heavy: ventilation or a fume extractor, and never weld galvanised without grinding the zinc off 1" back and full ventilation.
+- Wind up to about 20-25 mph is tolerated (the advantage over gas), but rain on the joint is still porosity.
+- Wire spools rust: keep in a bag, and cut off the first foot of wire on a spool that has been open for weeks.
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Spatter everywhere, sooty, porous | **Polarity DC+** | Swap to DC− |
+| Porosity | Stickout too short, voltage too high, rusty/damp wire, oily plate | Lengthen stickout, drop 1 V, new wire, clean |
+| Wire stubs and pushes the gun back | Voltage too low or WFS too high | Up 1 V |
+| Bead tall and ropy, slag hard to remove | Too cold, too fast | Raise WFS/V, slow down |
+| Burn-through on sheet | Too hot | .030 wire, low tap, vertical-down fast |
+| Erratic feeding | Smooth rolls slipping, tension too tight, liner dirty | Knurled rolls, reset, clean |
+| Cracks in a multi-pass weld | Too many passes on general-purpose wire, high restraint | Use E71T-8 or 7018 for multi-pass structural |
+
+## Related
+
+- [Gas-shielded flux-core (E71T-1) setup](/article/fcaw-gas-shielded-setup)
+- [MIG (GMAW) setup](/article/gmaw-mig-setup)
+- [AWS wire classification decoder](/article/aws-electrode-classification)
+- [Welding safety: fumes and PPE](/article/welding-safety-fumes-and-ppe)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$self shielded flux core$mw$,$mw$gasless flux core$mw$,$mw$E71T-11$mw$,$mw$NR-211$mw$,$mw$Innershield$mw$,$mw$DCEN$mw$,$mw$DC negative$mw$,$mw$wire feed speed$mw$,$mw$voltage$mw$,$mw$stickout$mw$,$mw$outdoor welding$mw$,$mw$wind$mw$,$mw$field repair$mw$,$mw$galvanized$mw$,$mw$portable welder$mw$,$mw$flux core troubleshooting$mw$]::text[], $mw$Lincoln Electric$mw$, array[$mw$Innershield NR-211-MP$mw$,$mw$E71T-11$mw$,$mw$NR-212$mw$,$mw$NR-232$mw$,$mw$E71T-8$mw$,$mw$E71T-GS$mw$,$mw$Hobart Fabshield 21B$mw$]::text[], $mw$Lincoln Electric Innershield NR-211-MP data sheet (rev. C-EN03, calculation data and optimum welding parameters); Lincoln NR-211-MP product page (US sizes, CTWD and plate limits).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gas-selection-and-flow$mw$, $mw$Shielding Gas Selection and Flow Rates for MIG, Flux-Core, TIG and Plasma, with Cylinder Sizes, Regulators vs Flowmeters and Purging$mw$, $mw$One table per process for which gas to buy and what flow to set, why each mix behaves the way it does, cylinder sizes and how long they last, regulator versus flowmeter, leak checks, and purging stainless and titanium roots.$mw$, $mw$## Gas by process
+
+| Process | Material | Gas | Flow | Notes |
+|---|---|---|---|---|
+| MIG short-circuit | Mild steel | **75% Ar / 25% CO2 (C25)** | 20-25 cfh (10-12 L/min) | Cleanest general-purpose; C10-C15 also common in shops |
+| MIG short-circuit | Mild steel, budget / deep penetration | 100% CO2 | 20-30 cfh | More spatter, colder look, cheaper, globular above ~200 A |
+| MIG spray / pulse | Mild steel | **90/10 Ar-CO2**, 92/8, 95/5, 98/2 Ar-O2 | 35-45 cfh (17-21 L/min) | Needs ≥ 80% Ar; 98/2 gives the lowest transition current, 90/10 more penetration |
+| MIG | Stainless short-circuit | Tri-mix 90 He / 7.5 Ar / 2.5 CO2 | 25-35 cfh | Flat wet bead; expensive |
+| MIG | Stainless spray/pulse | Ar / 1-2% O2 or 98/2 Ar-CO2 | 30-40 cfh | Keep CO2 ≤ 2-3% to protect corrosion resistance |
+| MIG | Aluminium | **100% Ar**; Ar/He 75/25 or 50/50 above 3/8" | 30-40 cfh (14-19 L/min) | Helium adds heat for thick plate |
+| MIG | Copper, silicon bronze | 100% Ar (He mix for thick copper) | 30-40 | |
+| FCAW-G | Steel E71T-1C | **100% CO2** | **40-50 cfh** | Wire classified "C" |
+| FCAW-G | Steel E71T-1M | 75/25 Ar-CO2 | 35-45 cfh | Wire classified "M"; lower voltage by 1-2 V vs CO2 |
+| FCAW-S | Any | none | - | Self-shielded |
+| Metal-cored | Steel | 90/10 or 95/5 Ar-CO2 | 35-45 | |
+| TIG | Steel, stainless, aluminium, copper, titanium | **100% Ar** | 10-20 cfh standard cup; 15-25 gas lens | Argon-helium 75/25 for aluminium/copper over 1/4" (adds heat, needs more flow) |
+| TIG | Titanium, zirconium | 100% Ar, plus trailing shield and purge | 15-25 torch, 20-40 trailing, 5-10 purge | |
+| Plasma cutting | Steel | Compressed air (dry, 90-120 psi at the machine, per cut chart) | per chart | Nitrogen for stainless/aluminium quality, Ar-H2 on some systems |
+| Plasma gouging | Steel | Air | per chart | |
+| Purge / back-purge | Stainless, titanium, nickel | 100% Ar (or nitrogen for some stainless) | 5-15 cfh after purge | |
+| Oxy-fuel | | Oxygen + acetylene/propane/propylene | per tip chart | See [Victor tip chart](/article/victor-tip-chart-acetylene) |
+
+## Why the mixes behave the way they do
+
+- **Argon**: inert, low ionisation energy, stable arc, low penetration on its own. Pure argon on steel MIG gives a narrow finger-shaped penetration and erratic arc; it needs a little CO2 or O2.
+- **CO2**: active (breaks down in the arc), adds heat and wide penetration, oxidises the puddle (more spatter, more silicon islands, loses some Mn/Si). Cannot spray.
+- **Oxygen 1-5%**: stabilises the arc and wets the bead in spray mode with minimal oxidation.
+- **Helium**: hotter arc, wider bead, needs more flow (lighter than air, escapes), expensive. Aluminium and copper thick sections, stainless tri-mix.
+- **Nitrogen**: plasma cutting gas, some stainless purges; never as a MIG shielding gas on steel (porosity, nitrides).
+- **Hydrogen**: added to argon (2-5%) for stainless and nickel TIG/plasma (hotter, cleaner); never on carbon steel or aluminium (cracking, porosity).
+
+## Setting flow
+
+- **Regulator** (two gauges, psi): reads pressure, not flow; the second gauge on a "regulator-flowgauge" is calibrated in cfh for one orifice: fine for MIG.
+- **Flowmeter** (ball in a tube, cfh or L/min): reads actual flow. Read at the **centre of the ball**, with gas **flowing** (trigger held or TIG purge button). Required for TIG.
+- Too little flow = porosity, grey welds. Too much = turbulence pulls in air = porosity, wasted gas. Bigger nozzle → more flow; draughts → more flow or a screen; overhead welding → slightly less flow (gas rises into the joint).
+- A leak in the gun cable or hose often shows as **porosity at the start of welds** after the machine sits (air diffuses into the line). Check with leak fluid, replace O-rings.
+
+## Cylinders
+
+| Size (US common names) | Contents (ft³) | Height | Notes |
+|---|---|---|---|
+| 20 / 40 | 20-40 | 14-17" | Home shop |
+| 80 | 80 | 27-33" | Small shop MIG |
+| 125 / 150 | 125-150 | 43-48" | |
+| **250 (K)** | 250-300 | 51-55" | Shop standard |
+| 300 (T) | 300-330 | 55-60" | |
+| Liquid dewar | 3 000-4 500 | | High-volume shops |
+
+**Hours per bottle** ≈ contents ÷ flow. A 250 ft³ cylinder at 25 cfh gives 10 hours of arc-on time (about 25-30 hours of a real shift). CO2 is sold by weight (a 50 lb CO2 cylinder ≈ 435 ft³ of gas). Full pressure on argon and mixes ≈ 2 000-2 400 psi; CO2 sits at about 830 psi at 70°F regardless of how full it is (liquid inside), so gauge pressure does not tell you how much CO2 is left.
+
+Cylinder handling: upright and chained, cap on when not connected, crack the valve to blow dust before fitting the regulator, open the valve **slowly** with the regulator backed out, stand to the side of the gauges, close the valve at the end of the shift and bleed the line. Argon and CO2 are asphyxiants in a confined space: they displace air without warning.
+
+## Purging
+
+1. Cap or tape the pipe ends; leave a small vent at the top of the far end.
+2. Feed argon in at the **bottom**, vent at the top (argon is heavier than air). Nitrogen purges go the other way (lighter).
+3. Purge **at least 5-6 volumes** of the pipe at 10-20 cfh, then reduce to 5-10 cfh while welding. Purge time (min) = pipe volume (ft³) × 6 ÷ flow (cfh). Oxygen meter target < 0.1% (1 000 ppm) for stainless, < 0.005% (50 ppm) for titanium.
+4. Water-soluble purge paper dams reduce the volume. Keep the purge on until the root is below 800°F.
+5. Tape the joint except a 2" window and move the tape as you go on open root welds.
+
+## Related
+
+- [MIG (GMAW) setup](/article/gmaw-mig-setup) and [transfer modes](/article/gmaw-transfer-modes)
+- [TIG setup](/article/gtaw-tig-setup)
+- [Gas-shielded flux-core setup](/article/fcaw-gas-shielded-setup)
+- [Oxy-fuel safety and cylinder handling](/article/oxy-fuel-safety)
+- [Plasma cutting setup](/article/plasma-cutting-setup)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$shielding gas$mw$,$mw$argon$mw$,$mw$CO2$mw$,$mw$C25$mw$,$mw$75/25$mw$,$mw$90/10$mw$,$mw$98/2$mw$,$mw$tri-mix$mw$,$mw$helium$mw$,$mw$flow rate cfh$mw$,$mw$flowmeter$mw$,$mw$regulator$mw$,$mw$cylinder size$mw$,$mw$gas cost$mw$,$mw$purge$mw$,$mw$back purge$mw$,$mw$nitrogen$mw$,$mw$plasma gas$mw$,$mw$gas leak$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Praxair/Linde and Airgas shielding gas selection guides; AWS A5.32 (shielding gases); Miller and Lincoln gas guidance; CGA cylinder standards.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gmaw-mig-setup$mw$, $mw$MIG Welding (GMAW) Setup: Machine, Wire, Gas, Voltage and Wire-Feed Charts by Thickness, Drive Rolls, Liner, Tips, Stickout and Technique$mw$, $mw$A complete MIG setup walk-through with the chart most students want: voltage and wire feed speed for .023, .030, .035 and .045 ER70S-6 wire on C25 from 22 gauge to 1/4 inch, plus the amps-per-ipm rules, polarity, gas and flow, drive roll and liner checks, contact tip and stickout, gun angles, and a troubleshooting table.$mw$, $mw$> MIG is easy to start and easy to do badly. Nine out of ten weak MIG welds are **cold**: the setting was fine for the sound of it but the wire never fused the root. Set by the chart, then push the settings until the bead flattens and wets into the plate, and check a cut-and-etch or a bend test when it matters.
+
+## 1. Machine and polarity
+
+- **Constant-voltage (CV)** power source. You set **voltage** on the machine and **wire feed speed (WFS)**; the machine supplies whatever **amperage** the wire feed demands. WFS is the amperage knob; voltage is the arc length / bead width knob.
+- **DCEP (DC+)** for solid wire and gas-shielded flux-core: gun lead on **+**, ground on **−**. (Self-shielded flux-core is the exception: DC−.)
+- Synergic / "auto-set" machines: pick wire size, gas and thickness; the machine sets both. Fine-tune from there.
+
+## 2. Wire
+
+| Wire | Amperage range | Thickness sweet spot | WFS per amp (rule) |
+|---|---|---|---|
+| .023 / .024" | 30-130 A | 24-16 ga sheet, auto body | ~3.5 ipm per amp |
+| **.030"** | 40-145 A | 22 ga to 3/16" (1/4" multi-pass) | **~2 ipm per amp** |
+| **.035"** | 50-180 A short-circuit; to 250 A spray | 16 ga to 1/4" (thicker in spray) | **~1.6 ipm per amp** |
+| **.045"** | 75-250 A short-circuit; to 350 A spray | 3/16" and up; spray on 1/4" and thicker | **~1 ipm per amp** |
+
+ER70S-6 is the default steel wire (tolerates mill scale). Match **drive rolls** (V-groove for solid steel, U-groove for aluminium, knurled for flux-core), **liner** (steel liner for steel; PTFE/nylon for aluminium), and **contact tip** (stamped size; a worn oval tip causes erratic arc) to the wire diameter.
+
+## 3. Gas
+
+| Gas | Use | Flow |
+|---|---|---|
+| **C25 (75% Ar / 25% CO2)** | The shop default for steel short-circuit; also globular | 20-25 cfh; up to 30 outdoors or with a large nozzle |
+| 100% CO2 | Cheap, deepest penetration, more spatter, globular above ~200 A | 20-30 cfh |
+| 90/10 Ar-CO2, 92/8, 95/5, 98/2 Ar-O2 | **Spray and pulsed spray** on steel (≥ 80% Ar needed for spray) | 35-45 cfh |
+| 100% Ar | Aluminium (all modes), copper | 30-40 cfh |
+| Tri-mix (90 He / 7.5 Ar / 2.5 CO2) or Ar-2% O2 | Stainless short-circuit / spray | 25-35 cfh |
+| Ar-1-2% O2 | Stainless spray | 30-40 |
+
+Set flow with the **torch trigger held** (flow, not static). Too little: porosity. Too much (over ~50 cfh with a 5/8" nozzle): turbulence pulls air in, also porosity. Details in [gas selection and flow](/article/gas-selection-and-flow).
+
+## 4. The settings chart: ER70S-6, C25, short-circuit transfer, flat/horizontal fillets
+
+Values are the Miller door-chart starting points; they give roughly the amperage in the last column (WFS ÷ ipm-per-amp).
+
+| Material thickness | .023" wire (V / ipm) | .030" wire (V / ipm) | .035" wire (V / ipm) | Approx. amps |
+|---|---|---|---|---|
+| 22 ga (.030") | 15.8 / 125 | 15.9 / 95 | 15.0 / 88 | 40-55 |
+| 18 ga (.048") | 17.0 / 190 | 16.3 / 115 | 15.8 / 120 | 55-75 |
+| 14 ga (.075") | 18.0 / 240 | 17.3 / 200 | 16.5 / 190 | 90-120 |
+| 1/8" (.125") | 18.3 / 350 | **19.0 / 290** | 17.4 / 230 | 125-150 |
+| 3/16" (.188") | 20.0 / 480 | 21.0 / 400 | 18.4 / 265 | 165-200 |
+| 1/4" (.250") | - | 24.3 / 500 | 21.0 / 375 | 200-250 (multi-pass or spray preferred) |
+
+**.045" wire, short-circuit, C25 (typical Lincoln procedure sheet values):** 1/8": 17-19 V / 150-175 ipm (≈150 A); 3/16": 19-20 V / 200 ipm (≈200 A); 1/4": 20-21 V / 240 ipm (≈240 A). Above 1/4" switch to spray with 90/10 gas: 26-29 V / 350-450 ipm (250-320 A), flat and horizontal only. See [transfer modes](/article/gmaw-transfer-modes).
+
+Notes on using the chart:
+- Charts assume a **fillet weld in the flat/horizontal position**. Vertical-up: about 10-15% less WFS and 1 V less. Vertical-down (sheet): keep it hot and move fast.
+- Butt welds on thin sheet: one step colder than the chart.
+- The chart WFS is often 5-10% hotter than a comfortable setting; many welders trim it.
+- Miller's rule: **1 A per 0.001" of thickness** in short-circuit (1/8" ≈ 125 A). Convert to WFS with the ipm-per-amp factor: 125 A × 2 ipm/A = 250 ipm for .030 (chart says 290 with a hotter fillet setting; both work).
+- Aluminium with a spool gun (.035 ER4043, 100% Ar): 22-24 V / 480-740 ipm (85-190 A) on 1/8-1/4"; stainless (.035 ER308L, tri-mix): 23-24 V / 265-335 ipm on 18 ga-1/8".
+
+## 5. Physical setup
+
+1. **Drive-roll tension**: just enough that the wire cannot be stopped by pinching it lightly at the tip with gloved fingers; too tight deforms the wire and flakes copper into the liner. Test: feed the wire against a block of wood; it should slip at the rolls, not buckle.
+2. **Liner**: right size, not kinked, cut square, blown out with dry air when changing wire. Bird-nesting at the rolls = liner blocked or tip too small.
+3. **Contact tip**: correct size, snug, replace when the hole ovals or spatter builds. Keep a handful in your pocket.
+4. **Nozzle**: clean, anti-spatter gel or dip, recessed tip for spray (tip 1/8" inside nozzle) and flush-to-1/8"-proud for short-circuit.
+5. **Stickout (CTWD, contact tip to work)**: **3/8-1/2" for short-circuit**, **1/2-3/4" for spray**, **3/4-1" for flux-core**. Longer stickout = less amperage at the same WFS (colder), more preheat of the wire.
+6. **Ground** on clean metal near the weld; not through a rotating part.
+7. **Gun cable** straight, not coiled around things; a tight coil makes feeding erratic.
+
+## 6. Technique
+
+- **Gun angle**: **push** 10-15° for solid wire with gas (cleaner, better shielding, flatter bead); drag for flux-core ("drag if slag"). Work angle 45° on fillets, 90° on butts.
+- **Travel**: keep the arc on the **leading edge** of the puddle. If you are welding on top of the puddle you are laying cold metal.
+- **Patterns**: stringer for most; small whip or "C" on gaps; triangle (upside-down V) on vertical-up 1/4" and up.
+- **Sound**: short-circuit should crackle steadily like bacon. Popping = voltage too high or WFS too low; hissing = spray; loud slapping = too much WFS/too little voltage (wire stubbing).
+- **Bead shape**: flat to slightly convex, toes wetted in. Ropy, tall bead sitting on top = cold: raise voltage and/or WFS. Wide flat bead with undercut = too hot or too slow.
+- **Tack** every 4-6" on sheet, then weld in short runs alternating ends to control distortion.
+- **Starts**: cut the wire to 3/8" with a fresh sharp end before each start; a ball on the end pops.
+- **Stops**: fill the crater by pausing and backing up 1/4" (or use crater-fill on the machine).
+
+## 7. Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Porosity (holes, worms) | No/low gas, wind, leaking gun, wet/dirty base metal, too much stickout, nozzle clogged with spatter, wrong gas | Check flow with trigger, block wind, clean, shorten stickout, clean nozzle |
+| Wire stubbing / burning back to tip | Voltage too high (burn-back) or WFS too high (stubbing); bad tip; tension wrong | Adjust, new tip |
+| Bird-nest at the rolls | Tip clogged, liner blocked, tension too tight, wrong rolls | Clear tip/liner, reset tension |
+| Cold lap / no penetration | Settings too cold, too fast, welding on the puddle, stickout too long | Raise V and WFS, slow down, lead the puddle |
+| Burn-through on thin sheet | Too hot, too slow, gap | Smaller wire, lower settings, fast whip, backing bar |
+| Excess spatter | Voltage too high or low for the WFS, 100% CO2, dirty plate, long stickout | Balance V to WFS, C25, clean |
+| Undercut | Too hot, too fast, bad angle | Lower V, pause at toes |
+| Erratic arc | Worn tip, wire rubbing, loose ground, ovaled liner, damp wire (rust) | Replace consumables, clean ground |
+| Wire feeds but no arc | Ground, polarity, tip not touching wire | Check circuit |
+| Black sooty weld on aluminium | Too little gas, wrong gas, dirty base | 100% Ar 30-40 cfh, stainless brush |
+
+## 8. Shutdown
+
+Trigger released, gas valve on the cylinder closed, bleed the line, wire retracted or spool covered (rust), gun hung with the nozzle clear of the table.
+
+## Related
+
+- [MIG transfer modes: short-circuit, globular, spray, pulsed](/article/gmaw-transfer-modes)
+- [Shielding gas selection and flow rates](/article/gas-selection-and-flow)
+- [Gas-shielded flux-core setup](/article/fcaw-gas-shielded-setup) and [self-shielded flux-core setup](/article/fcaw-self-shielded-setup)
+- [Welding aluminium](/article/welding-aluminium) and [welding stainless](/article/welding-stainless-and-dissimilar)
+- [Machine setup, duty cycle and cables](/article/machine-setup-and-duty-cycle)
+- [Welder maintenance and consumables](/article/welder-maintenance-and-consumables)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$MIG welding$mw$,$mw$GMAW setup$mw$,$mw$MIG settings chart$mw$,$mw$wire feed speed$mw$,$mw$voltage chart$mw$,$mw$C25$mw$,$mw$75/25$mw$,$mw$.030 wire$mw$,$mw$.035 wire$mw$,$mw$.045 wire$mw$,$mw$stickout$mw$,$mw$contact tip$mw$,$mw$drive roll tension$mw$,$mw$liner$mw$,$mw$spool gun$mw$,$mw$short circuit$mw$,$mw$MIG troubleshooting$mw$,$mw$burn back$mw$,$mw$bird nest$mw$]::text[], $mw$Miller / Lincoln (generic)$mw$, array[$mw$Millermatic 211$mw$,$mw$Millermatic 252$mw$,$mw$Multimatic 220$mw$,$mw$Power MIG 210 MP$mw$,$mw$Power MIG 256$mw$,$mw$ER70S-6$mw$]::text[], $mw$Miller Electric 'MIG Welding: Setting the Correct Parameters' and Millermatic weld-parameter door charts (as reproduced on garagewelding.com); Lincoln Electric GMAW procedure sheets; AWS Welding Handbook Vol. 2.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gmaw-transfer-modes$mw$, $mw$MIG Transfer Modes: Short-Circuit, Globular, Spray and Pulsed Spray, with Transition Currents, Gas Requirements and Settings$mw$, $mw$What each transfer mode is, when it happens, what gas and current it needs, what it is good and bad at, the transition currents where spray begins for each wire size, and starting settings for short-circuit, spray and pulse.$mw$, $mw$## The four modes at a glance
+
+| Mode | How metal crosses the arc | Current / voltage | Gas | Positions | Thickness | Spatter |
+|---|---|---|---|---|---|---|
+| **Short-circuit (GMAW-S)** | Wire touches the puddle 90-200 times/s; each short melts off a droplet | Low: roughly 40-200 A, 14-22 V | C25, 100% CO2, tri-mix for stainless | **All** | Sheet to 1/8" ideal; thicker with care (lack of fusion risk) | Some |
+| **Globular** | Large irregular drops, bigger than the wire, fall by gravity | Medium-high, above short-circuit but below spray; CO2 or C25 above ~200 A | 100% CO2, C25 | Flat and horizontal | 1/8" and up | Heavy |
+| **Spray (axial spray)** | Fine droplets smaller than the wire stream across a stiff, hissing arc | High: above the **transition current**, 24-32 V | **≥ 80% argon** (90/10, 95/5, 98/2) | Flat and horizontal only (puddle too fluid otherwise) | 1/8" and up; ideal 1/4" and thicker | Very little |
+| **Pulsed spray (GMAW-P)** | Power source pulses 30-400 times/s between a peak (spray droplet) and a low background current | Average current below the transition current | ≥ 80% argon | **All** | 18 ga to heavy plate | Very little |
+
+## Short-circuit transfer
+
+- The everyday shop mode with .030/.035 wire and C25. Low heat input, all positions, bridges gaps.
+- Needs a tight consistent stickout (3/8-1/2") because it runs cold.
+- Weakness: **lack of fusion** on thick plate. Many fabricators limit GMAW-S to 3/16" or require a qualified procedure above that. AWS D1.1 treats short-circuit GMAW as needing procedure qualification.
+- Inductance/"arc control" knob: higher inductance = smoother, wetter, fewer shorts per second and less spatter; lower = crisper, colder, more shorts. Set for the least spatter with a flat bead.
+- Settings: see the [MIG setup chart](/article/gmaw-mig-setup).
+
+## Globular transfer
+
+- Happens with CO2 (any current) and with C25 when you turn the WFS and voltage up past short-circuit without enough argon to spray. The drop wobbles, the arc pops, spatter flies.
+- Used deliberately with gas-shielded flux-core (E71T-1 on CO2) and 100% CO2 solid wire for cheap, deep-penetrating flat and horizontal welds on 1/8" and thicker.
+- Stickout 3/4-1". Expect cleanup.
+- If you are getting globular on C25 by accident, you are in the no-man's-land between 180-220 A: go down into short-circuit or change to 90/10 and go up into spray.
+
+## Spray transfer
+
+Spray starts when the current exceeds the **transition current** for that wire and gas. Below it the arc is globular; above it the arc goes quiet and hisses, the puddle wets out, and the bead is smooth and flat.
+
+Transition currents (AWS Welding Handbook typical values; confirm on your machine):
+
+| Wire | Gas | Transition current |
+|---|---|---|
+| Mild steel .023" | 98% Ar / 2% O2 | ~135 A |
+| Mild steel .030" | 98/2 | ~150 A |
+| Mild steel **.035"** | 98/2 | **~165 A** (about 175-190 A in 90/10 Ar-CO2) |
+| Mild steel **.045"** | 98/2 | **~220 A** (about 230-240 A in 90/10) |
+| Mild steel 1/16" | 98/2 | ~275 A |
+| Stainless .035" | Ar / 1-2% O2 | ~170 A |
+| Stainless .045" | Ar / 1-2% O2 | ~225 A |
+| Aluminium .030" | 100% Ar | ~95 A |
+| Aluminium 3/64" | 100% Ar | ~135 A |
+| Aluminium 1/16" | 100% Ar | ~180 A |
+
+More CO2 in the mix raises the transition current; above ~20-25% CO2 spray does not happen at all, which is why C25 cannot spray.
+
+**Starting settings, steel, 90/10 Ar-CO2, flat fillet**
+
+| Wire | WFS (ipm) | Voltage | Approx. amps | Stickout |
+|---|---|---|---|---|
+| .035" | 380-500 | 24-28 V | 190-250 | 1/2-3/4" |
+| **.045"** | **350-450** | **26-29 V** | **250-320** | 3/4" |
+| .052" | 300-400 | 28-31 V | 300-380 | 3/4-1" |
+| 1/16" | 250-350 | 29-32 V | 350-450 | 1" |
+
+Technique: push 5-10°, tip recessed 1/8" in the nozzle, keep the arc on the leading edge, travel fast enough that the puddle does not pile up. Spray on 3/16" plate is fine for fillets; on thinner material it burns through. Not usable vertical or overhead (except very small fillets by expert hands); use pulse.
+
+Metal-cored wire (E70C-6M) runs in spray at similar voltages with a wider, softer arc and higher deposition; it is the production choice for flat fillets.
+
+## Pulsed spray (GMAW-P)
+
+- Requires a pulse-capable inverter (Millermatic 350P, Power MIG 350MP, Fronius, etc.). You pick wire, gas and diameter; the machine runs a synergic program: one knob for WFS and a "trim"/arc length adjustment.
+- Gives spray-quality welds **out of position** and on **thin material** because the average current is low while each peak still pinches off a spray droplet.
+- Aluminium: pulse is the preferred MIG mode (less burn-through, better control). Stainless: less heat tint. Steel: 3/16"+ vertical-up with .045 at fast travel.
+- Stickout 3/4". Same ≥ 80% argon gases as spray.
+- Typical .045 steel pulse: 200-400 ipm, trim 1.0, arc length adjusted by the bead.
+
+## Choosing quickly
+
+| You are welding… | Use |
+|---|---|
+| 24 ga-1/8" sheet, any position | Short-circuit, .030/.035, C25 |
+| 3/16"-1/4" fillets flat/horizontal | Spray .045 90/10, or short-circuit .035 hot with a qualified procedure |
+| 1/4" and up, flat/horizontal, production | Spray or metal-cored, or FCAW-G |
+| 3/16" and up, vertical/overhead | Pulse .045, or FCAW-G E71T-1, or 7018 |
+| Aluminium 1/8" and up | Spray (spool gun, 100% Ar) or pulse |
+| Aluminium under 1/8" | Pulse, or TIG |
+| Stainless sheet | Short-circuit with tri-mix, or pulse with Ar-2% O2 |
+
+## Keyholing and burn-through in MIG
+
+"Keyhole" in the MIG sense means the arc has cut a hole through the joint that the puddle then fills as you move: it is a **fault** on sheet (burn-through) and a sign you are too hot, too slow, or the gap is too wide. On open-root plate welds a deliberate small keyhole with short-circuit or pulse gives full-penetration roots; keep it the size of the wire diameter and move steadily. (Keyholing as a **cutting** technique belongs to plasma: see [plasma keyholing and piercing](/article/plasma-keyholing-and-piercing).)
+
+## Related
+
+- [MIG setup and settings chart](/article/gmaw-mig-setup)
+- [Shielding gas selection and flow](/article/gas-selection-and-flow)
+- [Welding aluminium](/article/welding-aluminium)
+- [Gas-shielded flux-core setup](/article/fcaw-gas-shielded-setup)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$transfer modes$mw$,$mw$short circuit transfer$mw$,$mw$globular transfer$mw$,$mw$spray transfer$mw$,$mw$pulsed spray$mw$,$mw$transition current$mw$,$mw$spray arc settings$mw$,$mw$90/10$mw$,$mw$98/2$mw$,$mw$argon oxygen$mw$,$mw$metal-cored wire$mw$,$mw$keyhole$mw$,$mw$burn through$mw$,$mw$GMAW-P$mw$,$mw$GMAW-S$mw$,$mw$synergic pulse$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Hobart Brothers / Welding Journal, 'Selecting the Right Welding Transfer Modes' (Aug 2021); AWS Welding Handbook Vol. 2 (transition current table); Lincoln Electric GMAW guide; Miller pulsed MIG guides.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gtaw-settings-by-material$mw$, $mw$TIG Settings by Material and Thickness: Amperage, Tungsten, Filler, Cup and Gas Flow for Steel, Stainless, Aluminium, Copper, Titanium and Chrome-Moly$mw$, $mw$Starting-point tables for the TIG welder: for each material and thickness the amperage range, tungsten diameter, filler diameter, cup size and argon flow, with the current type, the filler to use, and the material-specific rules (cleaning, purge, preheat, colour) that decide whether the weld is sound.$mw$, $mw$> These are starting points for butt and fillet welds in the flat position with argon. Set the machine's maximum 10-20% above the top of the range and drive with the pedal. Vertical and overhead: 10-15% less. Thick parts and heat sinks need more; small parts that heat-soak need less as you go.
+
+## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)
+
+| Thickness | Amps | Tungsten | Filler | Cup | Argon |
+|---|---|---|---|---|---|
+| 0.020-0.040" (24-20 ga) | 15-50 | 1/16" | 1/16" | #4-5 | 10-15 cfh |
+| 0.040-0.060" (18-16 ga) | 40-80 | 1/16" | 1/16" | #5-6 | 12-18 |
+| 0.060-0.093" (14-13 ga) | 60-110 | 3/32" | 1/16-3/32" | #6-7 | 15-20 |
+| **0.093-0.125" (1/8")** | **90-150** | 3/32" | 3/32" | #7-8 | 15-25 |
+| 0.125-0.188" (3/16") | 120-200 | 3/32-1/8" | 3/32-1/8" | #7-8 | 18-28 |
+| 0.188-0.250" (1/4") | 175-275 | 1/8" | 1/8" | #8-10 | 20-30 |
+| 0.250-0.375" (3/8") | 225-350 | 1/8-5/32" | 1/8-3/16" | #8-12 | 25-35 |
+| 0.375-0.500" (1/2") | 300-400 | 5/32" | 3/16" | #10-12 | 28-40 |
+
+Rules: **1 A per 0.001"**. Grind to bright metal; mill scale makes the puddle crawl. Bevel over 3/16" and weld multi-pass. Chrome-moly (4130) tube: same settings, ER70S-2 or ER80S-D2, no need to preheat under 0.120" wall but avoid drafts and quench; use a longer post-flow.
+
+## Stainless steel (DCEN, argon, filler ER308L / 316L / 309L)
+
+| Thickness | Amps | Tungsten | Filler | Cup | Argon |
+|---|---|---|---|---|---|
+| 0.020-0.040" | 10-40 | 1/16" (or 0.040") | 1/16" | #5-6 gas lens | 12-15 cfh |
+| 0.040-0.060" | 35-70 | 1/16" | 1/16" | #6-7 gas lens | 15 |
+| 0.060-0.093" | 55-100 | 3/32" | 1/16-3/32" | #7-8 gas lens | 15-18 |
+| **0.093-0.125"** | **80-130** | 3/32" | 3/32" | #8 gas lens | 15-20 |
+| 0.125-0.188" | 110-180 | 3/32-1/8" | 3/32-1/8" | #8-10 gas lens | 18-25 |
+| 0.188-0.250" | 160-250 | 1/8" | 1/8" | #10-12 gas lens | 20-28 |
+| 0.250-0.375" | 200-320 | 1/8-5/32" | 1/8-3/16" | #12 gas lens | 25-35 |
+
+Rules: **10-20% less current than steel** of the same thickness (poor conductor, heat stays in the weld). Move fast; keep heat input low to stay out of the 800-1500°F (425-815°C) sensitisation range. **Back-purge** anything with an exposed root (pipe, tanks) with argon at 5-10 cfh after a good purge volume, or the root "sugars". Colour tells you shielding quality: silver or pale straw = good; blue is acceptable on non-corrosive service; grey/black = oxidised, cut it out on food, pharma or corrosive service. Use a **gas lens** and long post-flow. Copper chill bars pull heat and stop warping on sheet.
+
+## Aluminium (AC, argon, filler ER4043 or ER5356)
+
+| Thickness | Amps (AC) | Tungsten | Filler | Cup | Argon |
+|---|---|---|---|---|---|
+| 0.040-0.063" (18-16 ga) | 40-80 | 1/16-3/32" | 1/16" | #5-6 | 15-20 cfh |
+| 0.063-0.093" (14-13 ga) | 70-110 | 3/32" | 3/32" | #6-7 | 15-22 |
+| **0.093-0.125" (1/8")** | **100-160** | 3/32" | 3/32" | #7-8 | 18-25 |
+| 0.125-0.188" (3/16") | 140-220 | 3/32-1/8" | 3/32-1/8" | #8-10 | 20-28 |
+| 0.188-0.250" (1/4") | 190-300 | 1/8" | 1/8" | #8-10 | 22-32 |
+| 0.250-0.375" (3/8") | 280-400 (preheat 200-300°F) | 5/32" | 1/8-3/16" | #10-12 | 28-38 |
+| over 3/8" | 350+ with preheat, or helium mix | 5/32-3/16" | 3/16" | #12 | 30-40 |
+
+Rules: **20-30% more current than steel**. Balance 65-75% EN, frequency 100-150 Hz on inverters. Clean: degrease first, then a **dedicated stainless brush** (brushing before degreasing drives oil into the oxide), weld within an hour. **Preheat** thick castings and plate over 1/4" to 200-300°F (never above 400°F on 6xxx/5xxx). 4043 for 6061 and castings (fluid, crack-resistant); 5356 for 5xxx alloys, higher strength, colour match after anodising. Never 5356 above 150°F service. Filler goes in fast and often; a bead that looks grey and grainy was starved of filler or too hot. Aluminium does not change colour before it melts: watch for the shine.
+
+## Copper and copper alloys (DCEN, argon or Ar-He, filler ERCu / ERCuSi-A / ERCuAl-A2)
+
+| Thickness | Amps | Notes |
+|---|---|---|
+| 1/16" | 100-150 | Pure copper: preheat 200°F; 75/25 Ar-He helps above 1/8" |
+| 1/8" | 175-250 | Preheat 300-500°F on pure copper (conducts heat away fast) |
+| 1/4" | 250-400 | Helium-rich gas, 1/8-5/32 tungsten |
+
+Silicon bronze (ERCuSi-A) with DCEN at steel-like settings is the way to **braze-weld** galvanised and thin steel with TIG, and to join copper to steel: 60-120 A on 16-14 ga, puddle does not melt the steel.
+
+## Titanium (DCEN, argon, filler ERTi-2 / ERTi-5)
+
+| Thickness | Amps | Tungsten | Shielding |
+|---|---|---|---|
+| 0.030-0.060" | 25-70 | 1/16" | Gas lens #12 + trailing shield + back purge |
+| 0.060-0.125" | 60-140 | 3/32" | Same |
+| 0.125-0.250" | 120-250 | 1/8" | Same, or purge chamber |
+
+Everything above 800°F must be under argon until it cools: **torch shield + trailing shield + back purge**, 20-40 cfh through the trailing shield. Colour is the inspector: **silver** = good; light straw/gold acceptable; blue, grey, white powder = rejected. Clean with a dedicated stainless brush and acetone, no chlorinated solvents, cotton gloves.
+
+## Cast iron, nickel alloys, tool steel
+
+TIG is possible on nickel alloys (ERNiCr-3 at stainless-like settings, DCEN, gas lens) and on tool steel for small repairs (preheat 300-600°F, matching or Ni-based filler, slow cool). Cast iron: TIG with ENiFe-type filler only for small cosmetic repairs with preheat; stick or braze is usually better.
+
+## Quick conversion for the pedal
+
+Set the machine's maximum amps to the top of the range for the thickness; a good operator floats between 60% and 90% of it. If you find yourself at 100% pedal all the time, raise the max; if the puddle blows out on every start, lower it.
+
+## Related
+
+- [TIG (GTAW) machine and torch setup](/article/gtaw-tig-setup)
+- [Welding aluminium](/article/welding-aluminium)
+- [Welding stainless and dissimilar metals](/article/welding-stainless-and-dissimilar)
+- [Shielding gas selection and flow](/article/gas-selection-and-flow)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$TIG amperage chart$mw$,$mw$TIG settings$mw$,$mw$TIG aluminum settings$mw$,$mw$TIG stainless settings$mw$,$mw$tungsten size chart$mw$,$mw$filler rod size$mw$,$mw$cup size$mw$,$mw$gas flow$mw$,$mw$DCEN amps$mw$,$mw$AC amps$mw$,$mw$titanium purge$mw$,$mw$chrome moly$mw$,$mw$copper TIG$mw$,$mw$TIG thickness chart$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Miller TIG weld-setting calculator; welders-supply.com TIG settings chart; AWS C5.5; CK Worldwide reference; ESAB and Lincoln TIG guides.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gtaw-tig-setup$mw$, $mw$TIG Welding (GTAW) Setup: Polarity, Tungsten Type and Size, Grinding, Cups and Gas Lens, Argon Flow, AC Balance and Frequency, Pulse, Pedal, Pre- and Post-Flow$mw$, $mw$How to set up a TIG machine and torch from the cylinder to the arc: polarity by material, tungsten selection with the diameter-vs-amperage table, how to grind it, cup and gas-lens sizes with matching flow rates, AC balance and frequency for aluminium, pulse basics, arc starting methods, pedal use, pre-flow and post-flow, and torch technique.$mw$, $mw$> TIG is a **CC** process: you set the maximum amperage and control the actual amperage with the foot pedal or torch switch. The tungsten does not melt; filler is added by hand. Everything must be clean: the plate, the filler, the tungsten and the gas path.
+
+## 1. Polarity and current type
+
+| Material | Current | Why |
+|---|---|---|
+| Mild steel, stainless, chrome-moly, copper, titanium, nickel | **DCEN (DC−, straight)**: torch on −, ground on + | 2/3 of the heat goes into the work; tungsten stays cool and pointed |
+| Aluminium, magnesium | **AC** (with high-frequency or square-wave) | The EP half-cycle blasts the oxide off; the EN half-cycle does the melting |
+| Aluminium on a DC-only machine | DCEN with 100% **helium** (rare, thick plate) or use MIG | |
+| DCEP on TIG | never for welding; it melts the tungsten | |
+
+## 2. Tungsten
+
+**Types**
+
+| Tungsten | Colour band | Use |
+|---|---|---|
+| **2% lanthanated (EWLa-2)** | blue | The all-rounder: DC and AC, inverters and transformers, long life, no radioactivity. **Default choice.** |
+| 2% ceriated (EWCe-2) | grey (orange in older codes) | Low-amperage DC, thin stainless and steel, easy starts |
+| 2% thoriated (EWTh-2) | red | Classic DC steel/stainless tungsten; slightly radioactive dust when grinding (use extraction); not for AC on inverters (splits) |
+| 1.5% lanthanated | gold | Same as 2% La for most uses |
+| Zirconiated (EWZr) | white/brown | AC on transformer machines, balls nicely |
+| Pure (EWP) | green | AC on old transformer machines only; balls; never on DC or inverters |
+| Rare-earth "tri-mix" (E3, LaYMo) | purple | Good all-rounder on inverters |
+
+**Diameter vs amperage (approximate, argon)**
+
+| Tungsten | DCEN (steel/stainless) | AC on inverter (aluminium) | AC on transformer (balled) |
+|---|---|---|---|
+| 0.040" (1.0 mm) | 5-40 A | 10-30 A | 10-25 A |
+| **1/16" (1.6 mm)** | **15-90 A** | 20-80 A | 20-60 A |
+| **3/32" (2.4 mm)** | **60-200 A** | 60-160 A | 50-140 A |
+| **1/8" (3.2 mm)** | **150-350 A** | 120-250 A | 100-220 A |
+| 5/32" (4.0 mm) | 250-450 A | 200-350 A | 180-300 A |
+| 3/16" (4.8 mm) | 400-600 A | 300-450 A | 250-400 A |
+
+Rule of thumb: 1/16" up to about 90 A, 3/32" for 90-200 A, 1/8" above that. Undersized tungsten melts and balls; oversized wanders and starts poorly.
+
+**Grinding**
+
+- Grind **lengthwise** on a dedicated fine wheel or a tungsten grinder (never a wheel used for steel; contamination). Radial grind marks make the arc spiral.
+- **DC**: sharp point, taper length 2-2.5 × diameter (about 30° included angle). A tiny flat (0.010-0.020") on the tip at higher amps stops the point melting off.
+- **AC on an inverter**: same point with a small flat, or a truncated cone; do not ball.
+- **AC on a transformer (Syncrowave 250/350 class)**: grind a point, then form a hemispherical **ball** ≈ 1-1.5× diameter by running DCEP briefly on a scrap or just starting on AC.
+- Stickout past the cup: **1× cup ID** with a standard collet body, up to 2× or more with a **gas lens**. Set the tungsten so you can see the puddle.
+- If you dip it in the puddle or touch the filler to it: stop, break off or regrind. A contaminated tungsten throws tungsten into the weld and the arc goes purple and erratic.
+
+## 3. Cups, collet bodies and gas flow
+
+Cup number = orifice diameter in **1/16"**: #4 = 1/4", #5 = 5/16", #6 = 3/8", #7 = 7/16", #8 = 1/2", #10 = 5/8", #12 = 3/4".
+
+| Setup | Cup | Argon flow | Notes |
+|---|---|---|---|
+| Standard collet body, thin work, tight corners | #4-#5 | 10-12 cfh | |
+| Standard collet body, general | #6-#7 | 12-18 cfh | The everyday setup |
+| Standard collet body, high amps / aluminium | #8 | 15-20 cfh | |
+| **Gas lens** (screen inside the collet body) | #8-#12 | 15-25 cfh | Laminar flow: longer stickout, better coverage, needed for stainless, titanium and any joint where you must reach in |
+| Large gas lens / titanium trailing shield | #12-#16, trailing cup | 25-40 cfh | |
+
+Too much flow is as bad as too little: above about 25-30 cfh through a #7 cup the gas goes turbulent and pulls air in. Use a **flowmeter** (ball-in-tube), not a pressure-gauge regulator, for TIG. **Pre-flow** 0.2-0.5 s; **post-flow** long enough to shield the tungsten and the crater until they are dark: about **1 second per 10 amps** (150 A → 15 s), more for stainless and titanium.
+
+Back-purge stainless and titanium roots: see [gas selection and flow](/article/gas-selection-and-flow).
+
+## 4. Torch
+
+| Torch | Cooling | Rated | Use |
+|---|---|---|---|
+| #17 (WP-17) | air | 150 A DC / 115 A AC | Light, everyday steel and stainless |
+| #26 (WP-26) | air | 200 A DC / 160 A AC | Heavier steel |
+| #9 | air | 125 A DC | Small, tight spots |
+| #18, #20 | water | 350 A / 250 A | Aluminium, production, any long run above 150 A |
+
+Air-cooled torches get too hot to hold above about 150 A for more than a couple of minutes: that is what water coolers are for. Flexible heads and short back caps get you into corners.
+
+## 5. Machine settings
+
+| Control | Setting |
+|---|---|
+| Process | TIG (not stick); HF start or lift-arc |
+| Polarity | DCEN for steel/stainless; AC for aluminium |
+| Amperage (max) | From the [material table](/article/gtaw-settings-by-material); roughly **1 A per 0.001"** of steel thickness (1/8" → 125 A); aluminium **+20-30%**; stainless **−10-20%** |
+| Pedal / remote | On; set max amps so full pedal is a little more than you need |
+| **AC balance** | **65-75% EN** on inverters (more EN = more penetration and less tungsten heating; less EN = more cleaning). Start at 70% EN; use 60-65% on dirty or cast aluminium |
+| **AC frequency** | **100-150 Hz** for most aluminium fillets and thin work (tight, focused arc); 60-80 Hz for wide beads on thick plate; transformer machines are fixed at 60 Hz |
+| AC amplitude / independent EN-EP amps (advanced) | Leave at default until comfortable |
+| Pulse (DC) | Off to learn. Typical thin stainless: 1-2 pulses/s, peak = set amps, background 30-40%, 40-50% peak time. High-speed pulse (100+ Hz) stiffens the arc on thin steel |
+| Start amps / upslope | Start 10-20 A, upslope 0.5-1 s for aluminium to avoid tungsten spitting |
+| Downslope / crater | 1-3 s downslope on aluminium and stainless to avoid crater cracks (or pedal off slowly) |
+| Pre-flow / post-flow | 0.3 s / 1 s per 10 A |
+| Spot/weld timer | Off |
+
+**Arc starting**: **HF start** (high frequency jumps the gap, no touching) is best; **lift-arc** (touch, hold, lift) is for machines without HF or near electronics; **scratch start** on stick-only machines with a valve torch contaminates the tungsten and the plate and is a last resort.
+
+## 6. Filler
+
+Match the base metal: ER70S-2 for steel, ER308L/316L/309L for stainless, ER4043/5356 for aluminium, ERCuSi-A for copper/braze-welding. Diameter ≈ tungsten diameter, one size smaller on thin sheet. Keep it clean (wipe with acetone), cut off the oxidised end, and keep the hot end **inside the gas shield** between dabs.
+
+## 7. Technique
+
+1. Clean: grind steel bright; stainless brush (dedicated) and acetone; aluminium: degrease, then stainless-brush to break the oxide, weld within an hour.
+2. Torch angle **10-15° push**, tungsten 1/8" from the plate (arc length ≈ tungsten diameter). Filler enters at 15-20° low from the front, into the leading edge of the puddle, not into the arc.
+3. Form the puddle, dab, move, dab: "walk" the puddle at a steady rhythm. Let the puddle size (about 2× tungsten diameter on steel) set your travel.
+4. Aluminium: wait for the shiny puddle to form (the oxide clears), dab generously and often, expect to add power as the part heats and then back off the pedal.
+5. Finish: ease off the pedal (or downslope) while adding a last dab, hold the torch over the crater through post-flow.
+
+## 8. Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Arc wanders, purple/blue arc, black weld | Contaminated tungsten, wrong type, poor grind | Regrind, lanthanated, lengthwise grind |
+| Tungsten balls or melts on DC | Amps too high for the size, DCEP by mistake | Larger tungsten, check polarity |
+| Tungsten spits on AC start | Too much EP (balance), start amps too high, cheap pure tungsten on inverter | 70-75% EN, lower start amps, lanthanated |
+| Grey/black oxidised bead | Gas: low flow, post-flow too short, leak, draft, cup too small, stickout too long | Check flow, 1 s/10 A post-flow, gas lens |
+| Porosity | Dirty base/filler, gas turbulence (too much flow), leaking torch hose, moisture | Clean, 15-20 cfh, check hoses |
+| Sugaring (crusty root) on stainless | No back purge | Purge |
+| Cannot start the arc | HF off, tungsten too far, ground poor, wet plate | HF on, 1/8" gap, clean ground |
+| Aluminium will not wet / dull puddle | Oxide not cleaned, balance too far EN, dirty filler | Brush, 65-70% EN, clean rod |
+| Grey smoky deposit on the cup | Nozzle too small or too close on aluminium | Larger cup, more flow |
+
+## Related
+
+- [TIG settings by material: steel, stainless, aluminium, copper, titanium](/article/gtaw-settings-by-material)
+- [Shielding gas selection and flow rates](/article/gas-selection-and-flow)
+- [Welding aluminium](/article/welding-aluminium) and [welding stainless](/article/welding-stainless-and-dissimilar)
+- [Machine setup, duty cycle and cables](/article/machine-setup-and-duty-cycle)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$TIG welding$mw$,$mw$GTAW setup$mw$,$mw$tungsten$mw$,$mw$2% lanthanated$mw$,$mw$thoriated$mw$,$mw$ceriated$mw$,$mw$tungsten diameter amps$mw$,$mw$tungsten grinding$mw$,$mw$cup size$mw$,$mw$gas lens$mw$,$mw$argon flow$mw$,$mw$AC balance$mw$,$mw$AC frequency$mw$,$mw$DCEN$mw$,$mw$high frequency$mw$,$mw$lift arc$mw$,$mw$post flow$mw$,$mw$foot pedal$mw$,$mw$TIG torch$mw$,$mw$aluminum TIG$mw$]::text[], $mw$Miller / Lincoln / CK Worldwide (generic)$mw$, array[$mw$Dynasty 210$mw$,$mw$Dynasty 280$mw$,$mw$Syncrowave 210$mw$,$mw$Diversion 180$mw$,$mw$Aspect 375$mw$,$mw$Square Wave TIG 200$mw$,$mw$Precision TIG 225$mw$,$mw$CK17$mw$,$mw$CK26$mw$,$mw$WP-17$mw$,$mw$WP-26$mw$]::text[], $mw$Miller TIG handbook and weld-setting calculator; CK Worldwide tungsten guide; AWS C5.5 Recommended Practices for GTAW; welders-supply.com TIG settings chart.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$machine-setup-and-duty-cycle$mw$, $mw$Welding Machine Setup: CC vs CV, Duty Cycle Math, Input Power and Breakers, Welding Cable Size Chart, Ground Clamp Placement and Arc Blow$mw$, $mw$The electrical side of setting up any welder: which output type each process needs, how to read and use the duty-cycle rating, what input circuit and breaker a machine wants, the cable size chart by amperage and total lead length, where to put the ground and how to beat arc blow.$mw$, $mw$## Output type by process
+
+| Process | Output | What you set | What the machine holds |
+|---|---|---|---|
+| Stick (SMAW), TIG (GTAW), carbon-arc gouging | **Constant current (CC)** | Amperage | Amperage roughly constant as arc length changes |
+| MIG (GMAW), flux-core (FCAW), metal-cored, SAW (most) | **Constant voltage (CV)** | Voltage and wire feed speed | Voltage constant; amperage follows wire feed speed |
+
+Multi-process machines switch between them; welding MIG on CC or stick on CV works badly. A CC engine drive can run a **voltage-sensing suitcase feeder** for flux-core in the field with reduced arc quality; a CV/CC engine drive (Bobcat, Ranger, Trailblazer) does both properly.
+
+## Duty cycle
+
+The nameplate rates output at a **duty cycle**: the percentage of a **10-minute** period the machine can weld at that amperage before it must cool.
+
+```
+Allowed arc time per 10 min = duty cycle × 10 min
+Example: 200 A at 60% → 6 minutes welding, 4 minutes resting, repeating
+```
+
+At a different amperage the duty cycle changes roughly with the square of the current ratio:
+
+```
+Duty cycle at I₂ ≈ rated duty cycle × (I_rated ÷ I₂)²
+Example: rated 250 A at 40%. At 160 A: 40% × (250/160)² = 40% × 2.44 = 98% → continuous.
+At 300 A: 40% × (250/300)² = 28% → under 3 minutes in 10.
+```
+
+Thermal overload lights mean you exceeded it; let the fan run (do not switch off) until it clears. Ratings are at 104°F (40°C) ambient; a hot shed or sun on the machine shortens it.
+
+## Input power
+
+Read the nameplate: **I1max** (maximum input amps) and **I1eff** (effective, for wiring). NEC Article 630 lets a dedicated welder circuit breaker be sized up to 200% of the rated primary current because the load is intermittent; the conductor is sized from I1eff × duty-cycle multiplier. Typical, but always check the manual:
+
+| Machine class | Input | Typical circuit |
+|---|---|---|
+| 120 V 140 A MIG / 90 A stick inverter | 120 V 1-phase, 20 A | Dedicated 20 A circuit; extension cords 12 AWG max 25 ft |
+| 200-250 A MIG (Millermatic 211/252, Power MIG 210/256) on 240 V | 240 V 1-phase, 20-50 A | 30-50 A breaker, 10-8 AWG, NEMA 6-50 receptacle |
+| 200 A stick/TIG inverter (Maxstar 210, Dynasty 210) | 120/240 V | 30 A at 240 V |
+| 300-350 A TIG (Dynasty 280/350, Syncrowave 250) | 240 V 1-ph or 3-ph | 50-100 A |
+| 350-450 A industrial MIG (Deltaweld 350, Power Wave) | 230/460 V 3-phase | 50-60 A at 460 V |
+| Engine drives (Bobcat 225/250, Ranger 225) | Gasoline/diesel | Provide 8-12 kW auxiliary; use the welder's own outlets for grinders |
+
+Generator welding: a stick/TIG inverter needs a **clean** generator with ≥ 1.5× the welder's kVA rating; small "contractor" generators with poor waveform can damage inverters. Extension cords on 240 V: 8 AWG for 50 ft on a 50 A machine; voltage drop shows up as a weak arc and tripping.
+
+## Welding cable size chart
+
+Total circuit length = electrode lead **plus** work lead. Copper welding cable, 60% duty cycle, about 4 V drop (welders-supply chart). Bigger is always fine.
+
+| Machine output | Up to 50 ft total | 50-100 ft | 100-150 ft | 150-200 ft |
+|---|---|---|---|---|
+| 100 A | #4 | #4 | #2 | #2 |
+| 150 A | #2 | #2 | #2 | 1/0 |
+| **200 A** | #2 | 1/0 | 2/0 | 4/0 |
+| **250 A** | 1/0 | 2/0 | 3/0 | 4/0 |
+| **300 A** | 2/0 | 3/0 | 4/0 | 4/0 |
+| 400 A | 3/0 | 4/0 | 4/0 | two 2/0 in parallel |
+
+Ampacity of copper welding cable, continuous-ish: #4 ≈ 85-160 A, #2 ≈ 115-200, 1/0 ≈ 150-300, 2/0 ≈ 200-400, 3/0 ≈ 250-500, 4/0 ≈ 300-600 (ranges reflect 30-100% duty cycle in different makers' tables).
+
+Signs your cable is too small or too long: cable warm to the touch, arc weaker at the end of long leads, machine set higher than the chart to get the same result, dinged lugs getting hot. Check lug crimps and the ground clamp spring; a loose lug is a resistor.
+
+Metric: #2 ≈ 35 mm², 1/0 ≈ 50 mm², 2/0 ≈ 70 mm², 3/0 ≈ 95 mm², 4/0 ≈ 120 mm².
+
+## Ground (work) clamp
+
+- On **clean bare metal** on the piece being welded, as close to the arc as practical.
+- Never let welding current cross a **bearing, bushing, gear mesh, chain, hinge, slewing ring or hydraulic cylinder rod**: it arcs across the contact points and pits them (fluting). On rotating machinery clamp to the shaft or the same casting you are welding; on a vehicle disconnect the battery and clamp near the weld.
+- Never through the machine table's grounded frame, threaded rod or a C-clamp with paint on it.
+- Aluminium and stainless: dedicated clean clamp face.
+- Check: if the clamp or the cable gets warm, or the arc improves when you move the clamp, the connection was bad.
+
+## Arc blow
+
+On DC the magnetic field around the arc gets pushed by the field in the plate: the arc leans, wanders, spatters and blows out near the ends of joints, in corners, on magnetised steel and with the ground far away.
+
+| Fix | How |
+|---|---|
+| Move the ground | To the other end, or to the middle of the joint; weld **away** from the ground |
+| Change angle | Tilt the electrode against the blow direction |
+| Shorten the arc | Tight arc, faster travel, smaller electrode |
+| Run-off tabs | On plate ends |
+| Switch to AC | AC cancels the effect; use an AC-rated rod (E6011, E7018 AC) |
+| Demagnetise | Wrap the ground cable around the part several turns; magnetised shafts need a demagnetiser |
+| Steel blocks | Place a steel bar at the end of the joint to carry the flux |
+
+## Daily checks before striking an arc
+
+1. Cables: cuts, exposed copper, warm lugs.
+2. Ground clamp jaws clean and spring strong.
+3. Electrode holder insulation intact; MIG gun trigger and nozzle.
+4. Gas: cylinder chained, flow set while flowing, no leaks.
+5. Machine vents clear; blow out dust monthly (compressed air, machine off).
+6. Water-cooled torches: coolant level and flow before the arc.
+7. Fire watch, extinguisher, fumes, PPE: see [welding safety](/article/welding-safety-fumes-and-ppe).
+
+## Related
+
+- [Stick (SMAW) setup](/article/smaw-stick-setup)
+- [MIG (GMAW) setup](/article/gmaw-mig-setup)
+- [TIG (GTAW) setup](/article/gtaw-tig-setup)
+- [Welder maintenance and consumables](/article/welder-maintenance-and-consumables)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$duty cycle$mw$,$mw$welding cable size$mw$,$mw$cable chart$mw$,$mw$1/0 cable$mw$,$mw$2/0 cable$mw$,$mw$welder breaker size$mw$,$mw$input amps$mw$,$mw$engine drive welder$mw$,$mw$generator welding$mw$,$mw$constant current$mw$,$mw$constant voltage$mw$,$mw$ground clamp$mw$,$mw$work clamp$mw$,$mw$arc blow$mw$,$mw$extension cord welder$mw$,$mw$240V welder$mw$,$mw$multi process$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Manufacturer nameplates and manuals (Miller, Lincoln, ESAB); NEC Article 630 (arc welders); welders-supply.com welding cable size chart (60% duty cycle, 4 V drop basis); IEWC/TPC ampacity tables.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$smaw-electrode-chart$mw$, $mw$Stick Electrode Amperage Chart: E6010, E6011, E6012, E6013, E7014, E7018, E7024, E7028, Low-Alloy, Stainless and Cast Iron Rods$mw$, $mw$Amperage ranges by rod diameter and polarity for every common mild-steel electrode class, taken from Lincoln's published operating procedures, plus what each class is for, which polarity it runs on, positions, and the low-hydrogen rod storage, exposure and rebake rules.$mw$, $mw$> These ranges are Lincoln's published typical operating procedures for their electrodes. Other makers' rods of the same AWS class run within a few amps of these. Start in the middle of the range and adjust by the sound and the bead. A rod that sticks and the arc goes out is too cold; a rod that spatters heavily, undercuts and the coating burns back is too hot.
+
+## The chart (amps)
+
+**"Out-of-position" group: cellulose electrodes (deep penetration, fast-freeze, thin slag). All positions, including vertical down.**
+
+| Electrode / AWS class | Polarity | 3/32" | 1/8" | 5/32" | 3/16" | 7/32" | 1/4" |
+|---|---|---|---|---|---|---|---|
+| Fleetweld 5P / **E6010** | DC+ | 40-70 | 75-130 | 90-175 | 140-225 | 200-275 | 220-325 |
+| Fleetweld 5P+ / **E6010** | DC+ | 40-70 | 65-130 | 90-175 | 140-225 | - | - |
+| Fleetweld 35 / **E6011** | AC | 50-85 | 75-120 | 90-160 | 120-200 | 150-260 | 190-300 |
+| Fleetweld 35 / E6011 | DC± | 40-75 | 70-110 | 80-145 | 110-180 | 135-235 | 170-270 |
+| Fleetweld 180 / **E6011** | AC | 40-90 | 60-120 | 115-150 | - | - | - |
+| Fleetweld 180 / E6011 | DC± | 40-80 | 55-110 | 105-135 | - | - | - |
+
+**"High speed" group: rutile / iron-powder electrodes (medium penetration, smooth bead, easy slag). Best flat, horizontal and downhill; usable in all positions.**
+
+| Electrode / AWS class | Polarity | 3/32" | 1/8" | 5/32" | 3/16" | 7/32" | 1/4" |
+|---|---|---|---|---|---|---|---|
+| Fleetweld 7 / **E6012** | DC− | - | 80-135 | 110-180 | 155-250 | 225-295 | 245-325 |
+| Fleetweld 7 / E6012 | AC | - | 90-150 | 120-200 | 170-275 | 250-325 | 275-360 |
+| Fleetweld 37 / **E6013** | AC | 75-105 ¹ | 110-150 | 160-200 | 205-260 | - | - |
+| Fleetweld 37 / E6013 | DC± | 70-95 | 100-135 | 145-180 | 190-235 | - | - |
+| Fleetweld 47 / **E7014** | AC | 80-100 | 110-160 | 150-225 | 200-280 | 260-340 | 280-425 |
+| Fleetweld 47 / E7014 | DC− | 75-95 | 110-145 | 135-200 | 185-235 | 235-305 | 260-380 |
+
+¹ 5/64" E6013 runs 50-80 A AC (45-75 DC); 1/16" runs 20-45 A.
+
+**"High deposition" group: heavy iron-powder electrodes. Flat, horizontal and slight downhill (15° max) only.**
+
+| Electrode / AWS class | Polarity | 3/32" | 1/8" | 5/32" | 3/16" | 1/4" |
+|---|---|---|---|---|---|---|
+| Jetweld 1 / **E7024-1** | AC | 115-175 ² | 180-240 | 240-300 | 300-380 | 340-440 |
+| Jetweld 1 / E7024-1 | DC± | 100-160 | 160-215 | 220-280 | 270-340 | 320-400 |
+| Jetweld 2 / **E7024** | AC | 115-175 ² | 180-240 | 240-315 | 300-380 | 350-450 |
+| Jetweld 2 / E7024 | DC± | 100-160 | 160-215 | 215-285 | 270-340 | 315-405 |
+| Jetweld 3 / **E6027** | AC | - | 190-240 | 250-300 | 300-380 | 350-450 |
+| Jetweld 3 / E6027 | DC± | - | 175-215 | 230-270 | 270-340 | 315-405 |
+
+² 3/32" is 65-120 A AC (60-110 DC).
+
+**Low-hydrogen group: E7018 family (X-ray quality, tough, "fill-freeze"). All positions except vertical down. E7028 is flat/horizontal only.**
+
+| Electrode / AWS class | Polarity | 3/32" | 1/8" | 5/32" | 3/16" | 7/32" | 1/4" |
+|---|---|---|---|---|---|---|---|
+| Excalibur 7018 MR / **E7018 H4R** | DC+ | 70-110 | 85-150 | 125-200 | 170-260 | - | - |
+| Excalibur 7018 MR | AC | 80-120 | 95-160 | 130-210 | 180-280 | - | - |
+| Excalibur 7018-1 MR / **E7018-1 H4R** | DC+ | 70-110 | 90-160 | 130-210 | 180-300 | 250-330 | 300-400 |
+| Excalibur 7018-1 MR | AC | 80-120 | 100-160 | 140-210 | 200-300 | 270-370 | 325-420 |
+| Jetweld LH-70 / E7018 H4R | DC+ | 70-100 | 90-150 | 120-190 | 170-280 | 210-330 | 290-430 |
+| Jetweld LH-70 | AC | 80-120 | 110-170 | 135-225 | 200-300 | 260-380 | 325-440 |
+| Jet-LH 78 MR / E7018 H4R | DC+ | 85-110 | 110-160 | 130-200 | 180-270 | 250-330 | 300-400 |
+| Jet-LH 78 MR | AC | - | 120-170 | 140-230 | 210-290 | 270-370 | 325-420 |
+| Jetweld LH-3800 / **E7028 H8** | AC | - | - | 180-270 | 240-330 | 275-410 | 360-520 |
+| Jetweld LH-3800 | DC+ | - | - | 170-240 | 210-300 | 260-380 | - |
+
+**Low-alloy low-hydrogen (same technique as 7018):** Excalibur 7018-A1 (E7018-A1, 1/2% Mo): DC+ 70-110 / 90-160 / 130-210 for 3/32, 1/8, 5/32. Excalibur 8018-C1 and 8018-C3 (nickel): DC+ 70-110 / 90-160 / 130-210 / 180-300 / 250-330 / 300-400 for 3/32 through 1/4. Jet-LH 9018-B3 (Cr-Mo): DC+ 70-100 / 100-140 / 120-190. Jetweld LH-1100M (E11018-M): DC+ 70-110 / 90-155 / 120-190 / 160-280 / 190-310 / 230-360.
+
+**Pipe electrodes (E7010-A1, E7010-P1, E8010-G):** DC+, 3/32 50-90 (7010-A1 only), 1/8 75-130, 5/32 90-175 to 90-185, 3/16 140-225.
+
+**Stainless and other rods (typical, check the box):**
+
+| Rod | Polarity | 3/32" | 1/8" | 5/32" | Notes |
+|---|---|---|---|---|---|
+| E308L-16 / E309L-16 / E316L-16 | DC+ (AC ok on -16) | 40-80 | 70-110 | 100-150 | Run at the low end; stainless conducts heat poorly and the rod overheats |
+| ENi-Cl / ENiFe-Cl (cast iron) | DC+ or AC | 50-80 | 75-110 | 100-140 | Short beads, peen, let cool; see cast-iron article |
+| Hardfacing (chromium carbide, build-up) | DC+ | - | 100-150 | 140-200 | Per rod data sheet |
+| E7018 for "AC-only" buzz boxes (E7018 AC) | AC | 80-120 | 100-160 | 140-210 | Coating tuned for AC arc stability |
+
+## Reading the number
+
+`E 70 1 8` = **E**lectrode, **70** ksi minimum tensile, **1** = all positions (2 = flat and horizontal fillet only, 4 = flat/horizontal/overhead/vertical-down), **8** = coating type: low-hydrogen potassium with iron powder, AC or DC+. Full decoding, including suffixes like -1, H4R, A1, B2, C3, M, is in [AWS electrode and wire classification](/article/aws-electrode-classification).
+
+## Which rod, in plain terms
+
+| Rod | Personality | Reach for it when |
+|---|---|---|
+| **E6010** | Fierce, digging arc; thin fast-freezing slag; DC+ only | Open-root pipe, rusty or painted steel, vertical down, whipping technique; needs a DC machine with good arc force |
+| **E6011** | E6010 for AC machines; also DC | Same jobs on a buzz box or when 6010 will not run on the machine |
+| **E6012** | Soft arc, DC−, bridges gaps | Poor fit-up, sheet metal, downhill |
+| **E6013** | Easiest to run, soft arc, pretty bead, shallow penetration | Sheet metal, tack welding, beginners, cosmetic non-structural |
+| **E7014** | E6013 with iron powder; more deposition, drag technique | General fabrication, flat and horizontal fillets, farm repair |
+| **E7018** | Low-hydrogen; smooth, strong, tough; must be kept dry; **do not whip** | Anything structural, thick plate, high-strength or restrained joints, code work |
+| **E7024** | Drag rod, huge deposition, flat/horizontal only, self-releasing slag | Long flat fillets fast |
+| **E7028** | Low-hydrogen high-deposition; flat/horizontal | Code-quality flat fillets fast |
+
+## Polarity rules
+
+- **DC+ (DCEP, reverse polarity)**: electrode positive. About two-thirds of the heat in the work; deeper penetration. Default for E6010, E7018 and most rods.
+- **DC− (DCEN, straight)**: electrode negative. Less penetration, faster melt-off, cooler on the plate. Sheet metal with E6012/E6013, E7014, burn-through control.
+- **AC**: alternates; cures arc blow on magnetised steel; needed for rods with "AC" in the box description; E6010 will **not** run on AC.
+
+If arc blow (the arc wanders or blows to one side near the end of a joint) is a problem on DC: move the ground clamp, weld toward the ground, wrap the ground cable around the part, or switch to AC.
+
+## Low-hydrogen storage, exposure and rebake
+
+E7018 coatings absorb moisture from the air. Moisture becomes hydrogen in the weld, which causes underbead and delayed cracking, especially on thick or high-strength steel. AWS D1.1 Table 5.1 rules:
+
+| Rod | Holding oven | Max time out of the oven ("exposure") | Then |
+|---|---|---|---|
+| E7018 (no R) | **250°F (120°C) minimum**, continuously | **4 hours** | Rebake once, or scrap |
+| E7018 with **R** designator (e.g. E7018 H4R, Excalibur MR) | 250°F minimum | **9 hours** (per AWS D1.1 for -R electrodes) | Rebake once, or scrap |
+| E8018 | 250°F minimum | 2 hours | |
+| E9018 | 250°F minimum | 1 hour | |
+| E10018 / E11018 | 250°F minimum | 30 minutes | |
+
+- Opened can → straight into the holding oven. Unopened hermetically sealed cans store indefinitely.
+- **Rebake** (recondition) once only: **700-800°F (370-430°C) for 1 hour** per AWS D1.1 for E70XX; then back into the 250°F oven. Rods rebaked twice, wet, or with rusty cores are scrap.
+- Portable rod ovens (the hot box on the truck) count as holding ovens if they hold 250°F.
+- Cellulose rods (E6010/E6011) are the opposite: they **need** a little moisture and must **not** go in a rod oven. Store dry at room temperature.
+- E6013/E7014/E7024: store dry; if damp, 250-300°F for an hour restores them.
+
+Red Seal / CSA W59 note: Canadian structural code uses the same 4 h exposure for E49XX (E70XX) and requires 120°C holding ovens; the CSA classification E4918 = E7018 (MPa strength 490).
+
+## Amperage rules of thumb when the chart is not in your pocket
+
+- **1 amp per 0.001" of rod core diameter** as a starting point: 1/8" (0.125") ≈ 125 A for 7018 and 7014; 6010 runs about 20% lower; 6013 about 10% lower.
+- **Vertical and overhead**: drop 10-15% from the flat setting.
+- **AC**: about 10% more than DC for the same rod.
+- **Thin material**: choose the rod one size smaller than the plate thickness, never larger than the plate.
+- Arc length ≈ rod core diameter; 7018 tighter, 6010 can be longer when whipping.
+
+## Related
+
+- [Stick (SMAW) machine setup, technique and troubleshooting](/article/smaw-stick-setup)
+- [AWS electrode and wire classification decoder](/article/aws-electrode-classification)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Welding cast iron and repairs](/article/welding-cast-iron-and-repairs)
+- [Welding safety: lens shades, fumes and PPE](/article/welding-safety-fumes-and-ppe)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$stick electrode chart$mw$,$mw$welding rod amps$mw$,$mw$7018 amps$mw$,$mw$6010 amps$mw$,$mw$6011 amps$mw$,$mw$6013 amps$mw$,$mw$7014 amps$mw$,$mw$7024 amps$mw$,$mw$rod size$mw$,$mw$electrode diameter$mw$,$mw$polarity$mw$,$mw$DCEP$mw$,$mw$DCEN$mw$,$mw$AC$mw$,$mw$rod oven$mw$,$mw$low hydrogen storage$mw$,$mw$7018 exposure$mw$,$mw$rebake$mw$,$mw$electrode selection$mw$]::text[], $mw$Lincoln Electric$mw$, array[$mw$Fleetweld 5P$mw$,$mw$Fleetweld 5P+$mw$,$mw$Fleetweld 35$mw$,$mw$Fleetweld 180$mw$,$mw$Fleetweld 7$mw$,$mw$Fleetweld 37$mw$,$mw$Fleetweld 47$mw$,$mw$Jetweld 1$mw$,$mw$Jetweld 2$mw$,$mw$Jetweld 3$mw$,$mw$Excalibur 7018 MR$mw$,$mw$Excalibur 7018-1 MR$mw$,$mw$Jetweld LH-70$mw$,$mw$Jet-LH 78 MR$mw$,$mw$Jetweld LH-3800$mw$,$mw$E6010$mw$,$mw$E6011$mw$,$mw$E6013$mw$,$mw$E7014$mw$,$mw$E7018$mw$,$mw$E7024$mw$,$mw$E7028$mw$]::text[], $mw$Lincoln Electric Stick Electrode Welding Guide (C2.410), 'Stick Electrode Typical Operating Procedures' pages 37-40; Lincoln Excalibur 7018-1 MR spec sheet A-17; AWS D1.1 Table 5.1 (electrode exposure) and AWS A5.1 for storage.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$smaw-stick-setup$mw$, $mw$Stick Welding (SMAW) Setup: Machine, Polarity, Rod Choice, Striking, Arc Length, Angles, Restarts and Troubleshooting$mw$, $mw$Everything between plugging in the machine and laying a sound stick bead: constant-current machines and their controls, polarity, ground placement, choosing and setting the rod, the strike, arc length, travel and work angles by position, whip and weave techniques, restarts and crater fills, and a symptom-based troubleshooting table.$mw$, $mw$> Stick welding is the field millwright's process: one cable, one clamp, a box of rods, and it works on rusty steel in the wind. Setup is simple, which is why most bad stick welds come from the three things you control: **arc length, angle and speed**.
+
+## 1. The machine
+
+Stick needs a **constant-current (CC)** power source: the amperage stays where you set it while the voltage swings with arc length. A MIG-only machine (constant voltage) will not stick weld well; a multi-process machine must be switched to "Stick / CC".
+
+| Control | What it does | Typical setting |
+|---|---|---|
+| Amperage (output) | The one knob that matters | From the [electrode chart](/article/smaw-electrode-chart); mid-range to start |
+| Polarity switch or cable swap | DC+ / DC− / AC | DC+ for E6010, E7018; DC− for E6012/E7014 on sheet; AC for AC rods and arc blow |
+| Arc force / "dig" (inverters, engine drives) | Adds current when the arc shortens; stops the rod sticking on E6010, helps roots | 30-50% for 6010, 10-20% for 7018 |
+| Hot start | Extra amps for the first fraction of a second | On for 7018 starts |
+| Duty cycle | How long you can weld per 10 minutes at that amperage | Check the nameplate; see [machine setup](/article/machine-setup-and-duty-cycle) |
+
+Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, run at high idle before striking, keep the exhaust downwind of you.
+
+## 2. Cables and ground
+
+- Cable size for the amperage and total length: [cable chart](/article/machine-setup-and-duty-cycle).
+- **Ground clamp** on clean bare metal, as close to the weld as practical, on the same piece (not through a bearing, a hinge, a chain or a machine table with a rotating part between clamp and weld: welding current through a bearing pits the raceways).
+- Electrode holder jaws clean and tight; a hot holder handle means a loose cable lug.
+
+## 3. Pick the rod
+
+1. Steel type and strength → class (E60XX for mild steel general; E70XX for structural; low-alloy for special steels).
+2. Position → E6010/E6011/E7018 for vertical and overhead; E7024/E7028 only flat and horizontal.
+3. Condition → cellulose (6010/6011) for rust, paint, mill scale and open roots; low-hydrogen (7018) for thick, restrained or high-strength.
+4. Diameter → about the plate thickness for 1/8-3/16" plate; one size down for thinner; 5/32 or 3/16 for fill on thick plate. Never a rod bigger than the plate.
+5. Low-hydrogen rods come **from the oven**, not the truck floor. See storage rules in the chart article.
+
+## 4. Set the amperage
+
+- Chart mid-range for the diameter. Example: 1/8" E7018 DC+ → about 120 A flat, 110 A vertical/overhead.
+- Rule of thumb: 1 A per 0.001" of core wire diameter (1/8" ≈ 125 A), 6010 20% less.
+- **Too cold**: rod sticks, arc stutters, tall narrow bead sitting on top with slag trapped at the toes.
+- **Too hot**: wide flat bead, heavy spatter, undercut along the edges, coating glows red and burns back, crater porosity.
+- Adjust in 5-10 A steps and listen: a good arc sounds like frying bacon; 7018 hums.
+
+## 5. Strike and run
+
+1. **Position yourself** so you can see the puddle and move the whole bead length without shifting your feet. Brace the rod hand against the work or your other hand.
+2. **Strike**: scratch (like a match, then lift to arc length) or tap (touch and lift). Strike in the joint where the weld will cover the mark; stray arc strikes are defects on code work.
+3. **Arc length** ≈ the rod core diameter (1/8" rod → 1/8" arc). 7018 short and tight; too long an arc on 7018 gives porosity and a wide, ropy bead. 6010 tolerates a longer arc when whipping.
+4. **Angles**:
+   - **Work angle**: fillet welds 45° between the plates (aim at the root); groove welds 90° to the plate.
+   - **Travel angle**: **drag** 5-15° (rod tips back toward the finished weld) for stick on steel. "Drag if there's slag."
+5. **Travel speed**: watch the puddle, not the arc. The slag should trail behind the puddle, never run ahead. Bead width about 2-2.5× rod diameter for a stringer.
+6. **Techniques**:
+   - **Stringer**: straight line, no side motion. Default for 7018 and for all root passes.
+   - **Whip** (6010/6011 only): move the rod ahead 1/2-3/4" out of the puddle for an instant to let it freeze, then back. Used vertical-up and on open roots.
+   - **Weave**: side-to-side, pause at each toe, never wider than 2.5× rod diameter (code limit) and never on 7018 vertical without a pause at the edges (undercut).
+   - **Vertical up** (plate over 3/16"): 6010 whip on the root, then box/straight weave; 7018 slight side-to-side "Z" or upside-down "V", 10° drag, 10-15% less amperage.
+   - **Vertical down** (sheet up to 3/16"): 6010/6011/6013, fast, 30-60° drag, keep the arc on the leading edge ahead of the slag.
+   - **Overhead**: short arc, stringers only, rod angled 10-15° drag, amperage at the low end. Weave beads sag.
+7. **Crater**: at the end of a bead, pause and back up a fraction, then lift the rod straight up. A hollow crater cracks.
+8. **Restart**: chip and brush the crater, strike 1/2" ahead of the crater, bring the arc back into the crater, fill it, then move on. On 7018 grind the end of the previous bead to bright metal before restarting for code work.
+9. **Clean** every pass: chip, wire brush, look. Slag left in the toes is inclusion in the next pass.
+
+## 6. Multi-pass rules
+
+- Root, hot pass, fill, cap. Each pass cleaned.
+- Keep the plate within the **interpass temperature** limits (see [preheat and interpass](/article/preheat-interpass-and-carbon-equivalent)).
+- Fillet leg size: one pass of 1/8" 7018 gives about a 3/16" fillet; 5/32" gives 1/4"; larger fillets are multi-pass, with the first pass in the root and the next ones stacked from the bottom plate up.
+
+## 7. Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Rod sticks on start | Amps too low, damp 7018, long rod stub bent, wrong polarity | Raise amps 10%, hot start/arc force on, fresh rod |
+| Arc wanders, blows toward the end of the joint | Arc blow (DC on magnetised steel) | Move ground, weld toward the ground, AC, wrap ground cable around part |
+| Porosity (holes in the bead) | Damp rod, long arc, rust/paint/oil/moisture, wind on a cellulose puddle | Oven-dry 7018, tight arc, grind the joint, block wind |
+| Undercut at the toes | Too hot, arc too long, weave too fast at the edges, wrong angle | Lower amps 10%, pause at toes, correct work angle |
+| Slag inclusions | Slag ran ahead (too slow/wrong angle), poor cleaning, cold lap | Steeper drag, faster travel, chip and brush every pass |
+| Cold lap / lack of fusion | Amps too low, travel too fast, bead rolled onto plate | Raise amps, aim the arc at the root |
+| Cracks in the centreline | Deep narrow bead (too hot/too fast), high carbon, restraint, hydrogen | Preheat, 7018 from the oven, flatter bead, slower cooling |
+| Crater cracks | Pulled out fast | Fill the crater |
+| Spatter everywhere | Too hot, long arc, wrong polarity, damp rod | Lower amps, short arc, check DC+ |
+| Rod coating burns back unevenly / one side | Rod eccentric or damp | Change rod |
+| Bead too narrow and tall | Too cold or too fast | Raise amps, slow down |
+
+## 8. Shutting down
+
+Rods back in the oven, holder hung where the rod cannot touch ground, machine off, cables coiled, hot work area checked 30 minutes later.
+
+## Related
+
+- [Stick electrode amperage chart and rod storage](/article/smaw-electrode-chart)
+- [Welding positions and techniques](/article/positions-and-techniques)
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Welding safety: lens shades, fumes, PPE](/article/welding-safety-fumes-and-ppe)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$stick welding$mw$,$mw$SMAW$mw$,$mw$arc welding setup$mw$,$mw$polarity$mw$,$mw$DCEP$mw$,$mw$striking an arc$mw$,$mw$arc length$mw$,$mw$travel angle$mw$,$mw$work angle$mw$,$mw$whipping$mw$,$mw$weave$mw$,$mw$restart$mw$,$mw$crater$mw$,$mw$slag$mw$,$mw$arc blow$mw$,$mw$undercut$mw$,$mw$porosity$mw$,$mw$buzz box$mw$,$mw$engine drive$mw$,$mw$arc force$mw$,$mw$hot start$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Lincoln Electric Stick Electrode Welding Guide (C2.410); Miller Stick welding guides; AWS Welding Handbook Vol. 2.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$welding-process-selector$mw$, $mw$Which Welding Process for the Job: Stick, MIG, Flux-Core, TIG, SAW, Oxy-Fuel and Brazing Compared$mw$, $mw$A decision table for picking the process before you set anything up: material, thickness, position, indoors or outdoors, quality required, and what equipment you have. Links to the setup chart for each process.$mw$, $mw$## The one-minute decision
+
+Ask these in order. The first row that fits usually decides it.
+
+| Situation | Use | Why |
+|---|---|---|
+| Outdoors, windy, dirty or rusty steel, no gas bottle handy | **Stick (SMAW)** with E6010/E6011 or E7018, or **self-shielded flux-core (FCAW-S)** | No shielding gas to blow away; flux cleans through mill scale and light rust |
+| Thin sheet steel (24 ga to 1/8") in the shop | **MIG short-circuit (GMAW-S)** .030/.035 wire, C25 | Low heat, easy to control, fast |
+| Structural plate 3/16" and up, flat/horizontal, production | **MIG spray** (.045 wire, 90/10 Ar-CO2) or **gas-shielded flux-core (FCAW-G)** E71T-1 | Deposition rate, penetration, low spatter |
+| Plate 1/4" and up, vertical or overhead | **FCAW-G E71T-1** or **E7018 stick** | Fast-freezing slag holds the puddle |
+| Code work, pressure, low-hydrogen required | **E7018** stick, **FCAW-G** with H4/H8 wire, or **GMAW spray/pulse** | Hydrogen control and toughness |
+| Stainless steel, thin, cosmetic | **TIG (GTAW)** DCEN with ER308L/316L | Clean, controllable, no spatter |
+| Stainless, 1/8" and up, production | **MIG** ER308L with tri-mix or Ar-2% O2 spray, or **FCAW** E308LT | Speed |
+| Aluminium, thin or precision | **TIG AC** | Cleans oxide, full control |
+| Aluminium, 1/8" and up, long welds | **MIG spray/pulse** with spool gun or push-pull, ER4043/5356, 100% Ar | Deposition |
+| Cast iron repair | **Stick** ENiFe-Cl / ENi-Cl with preheat and peening, or **braze** | Ductile nickel deposit tolerates the base metal |
+| Very thick plate, long straight seams, flat | **Submerged arc (SAW)** | Highest deposition, no arc glare, but flat/horizontal only |
+| Pipe root pass (open root) | **E6010 stick** DCEP or **TIG** ER70S-2 | Penetration control, keyhole root |
+| Galvanised steel | Any of the above **after grinding the zinc back 1"** plus ventilation, or **braze** with bronze rod | Zinc fume; brazing avoids melting it |
+| Dissimilar steels (carbon to stainless) | **E309L / ER309L** by any process | Ferrite balance absorbs dilution |
+| Hard-facing wear parts | **Stick** or **FCAW-S** hardfacing rods, oxy-fuel for small parts | Controlled dilution |
+| Thin sheet metal, copper, brass, attaching fittings | **Brazing / silver soldering** with oxy-fuel or air-acetylene | Below the melting point, no distortion |
+| Field cutting/heating | **Oxy-fuel** or **plasma** (see Cutting & Gouging) | |
+
+## Process character in one line each
+
+| Process | Power source | Electrode | Shielding | Deposition | Skill | Best at |
+|---|---|---|---|---|---|---|
+| SMAW (stick) | CC, AC or DC | consumable coated rod | flux slag and gas from coating | 1-4 lb/h | medium | portable, all positions, wind, dirty steel |
+| GMAW (MIG) | CV DC+ | solid wire | bottled gas | 3-12 lb/h | low to start, high to master spray/pulse | clean shop steel, sheet to plate, aluminium with spool gun |
+| FCAW-G | CV DC+ | tubular wire, flux inside | bottled gas plus flux | 5-15 lb/h | medium | thick plate, out of position, structural |
+| FCAW-S | CV **DC−** | tubular wire | flux only | 3-8 lb/h | medium | outdoors, field repair, galvanised (with prep) |
+| GTAW (TIG) | CC DC− steel, AC aluminium | non-consumable tungsten, filler by hand | argon | 0.5-2 lb/h | high | stainless, aluminium, thin, cosmetic, root passes |
+| SAW | CV/CC DC | solid wire under granular flux | flux | 10-40 lb/h | low (mechanised) | long flat seams, heavy plate |
+| Oxy-fuel welding | gas | steel rod | flame | low | medium | thin steel, brazing, heating, cutting |
+| Brazing | gas | bronze/silver rod | flux | low | medium | dissimilar and thin metals, cast iron |
+
+## Thickness quick guide (mild steel)
+
+| Thickness | Stick | MIG | FCAW | TIG |
+|---|---|---|---|---|
+| 22-16 ga (.030-.060") | E6013 3/32 with care | .023/.030 short circuit | not ideal (.030 E71T-11 possible) | 1/16 tungsten, 20-60 A |
+| 14 ga - 1/8" | E6013/E6011 1/8 | .030/.035 short circuit | .035 E71T-11 or T-1 | 3/32 tungsten, 60-130 A |
+| 3/16 - 1/4" | E7018 1/8 - 5/32 | .035 short circuit (multi-pass) or .045 spray | .045 E71T-1 | 1/8 tungsten, 130-200 A |
+| 5/16 - 1/2" | E7018 5/32 - 3/16, multi-pass | .045 spray/pulse, bevel over 1/4" | .045-.052 E71T-1, bevel | multi-pass, slow; MIG/FCAW preferred |
+| over 1/2" | E7018 3/16 - 1/4, bevel, preheat as required | .045/.052 spray, bevel | .052-1/16 E71T-1 | root only |
+
+Bevel anything thicker than about 1/4" for a full-penetration groove weld; a square butt on 1/2" plate does not fuse through with any hand process.
+
+## What decides quality, whatever the process
+
+1. **Fit-up and cleanliness** (mill scale, oil, paint, moisture).
+2. **Correct polarity and consumable** for the process.
+3. **Amperage and voltage inside the chart range**, then adjusted by ear and by bead shape.
+4. **Travel speed and angle** consistent.
+5. **Preheat** where thickness or carbon equivalent demands it.
+6. **Stopping and starting** cleanly (crater fill, restarts ground).
+
+## Setup articles
+
+- [Stick (SMAW) setup](/article/smaw-stick-setup) and the [electrode amperage chart](/article/smaw-electrode-chart)
+- [MIG (GMAW) setup](/article/gmaw-mig-setup) and [transfer modes: short-circuit, globular, spray, pulse](/article/gmaw-transfer-modes)
+- [Gas-shielded flux-core (E71T-1)](/article/fcaw-gas-shielded-setup) and [self-shielded flux-core (E71T-11 / NR-211)](/article/fcaw-self-shielded-setup)
+- [TIG (GTAW) setup](/article/gtaw-tig-setup) and [TIG settings by material](/article/gtaw-settings-by-material)
+- [Shielding gas selection and flow rates](/article/gas-selection-and-flow)
+- [Machine setup, duty cycle, cables and input power](/article/machine-setup-and-duty-cycle)
+- [Oxy-acetylene setup (Victor)](/article/oxy-acetylene-setup-victor)
+- [Brazing and soldering](/article/brazing-and-soldering)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+          array[$mw$welding process$mw$,$mw$SMAW vs GMAW$mw$,$mw$stick vs MIG$mw$,$mw$flux core$mw$,$mw$TIG$mw$,$mw$submerged arc$mw$,$mw$which process$mw$,$mw$process selection$mw$,$mw$field welding$mw$,$mw$wind$mw$,$mw$galvanized$mw$,$mw$thin sheet$mw$,$mw$thick plate$mw$,$mw$aluminum welding$mw$,$mw$stainless welding$mw$,$mw$cast iron$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS Welding Handbook Vol. 2; Lincoln Electric and Miller process guides; general shop practice.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
