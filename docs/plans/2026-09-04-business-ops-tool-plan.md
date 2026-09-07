@@ -675,14 +675,17 @@ email ingestion is a convenience on top.
 
 - Capture from camera, photo library, or a PDF/file on phone and PC; images are shrunk on the
   phone before upload; files land in `hq-vault/receipts/yyyy/mm/`, hashed for duplicate detection.
-- `extract-receipt` edge function reads the file with Claude (Opus 5, low effort, structured
-  output): vendor, date, subtotal/tax/tip/total, payment method, last 4, line items, suggested
-  Schedule C category, full text, per-field confidence. Vendor matched by alias/exact/prefix
-  against your list; a vendor's default category wins over the model's guess.
+- Reading is **free**: on-device text recognition on the phone (Google ML Kit, offline) and PDF
+  text-layer extraction on the server, then a rule-based parser (`parser.js`, unit-tested) for
+  vendor, date, subtotal/tax/tip/total, payment method, last 4, category hints, per-field
+  confidence. The founder declined any paid API; the Claude-based reader was built (0.3.0) and
+  replaced the same day (0.3.1). Vendor matched by alias/exact/prefix; a vendor's default category
+  wins over the parser's guess.
 - Review screen: AI-read fields marked until confirmed, low-confidence fields flagged, duplicate
   banner (identical file or same vendor + total within 5 days), "make this a rule?" on confirm,
   re-read, void, soft delete. List with search (full text over receipt contents) and status filters.
-- Anthropic API key is entered once in Settings and stored in Supabase Vault; the app never holds it.
+- No API keys anywhere. The "smart" pass, when wanted, is Claude under the founder's existing
+  subscription: via chat today, via the Phase 8 MCP server later.
 - Also this week: brand applied (0.2.0), real update channel with publisher role (0.2.1),
   password sign-in (0.1.1).
 

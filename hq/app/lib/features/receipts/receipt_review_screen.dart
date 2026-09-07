@@ -111,7 +111,7 @@ class _ReceiptReviewScreenState extends State<ReceiptReviewScreen> {
         labelText: label,
         suffixIcon: _needsCheck(field)
             ? const Tooltip(message: 'Low confidence — please check', child: Icon(Icons.warning_amber, color: AmpBrand.amber))
-            : _aiSet(field) ? const Tooltip(message: 'Read by AI, not yet confirmed', child: Icon(Icons.auto_awesome, size: 18)) : null,
+            : _aiSet(field) ? const Tooltip(message: 'Read automatically, not yet confirmed', child: Icon(Icons.auto_fix_high, size: 18)) : null,
       );
 
   Future<void> _save({String status = 'confirmed'}) async {
@@ -220,7 +220,7 @@ class _ReceiptReviewScreenState extends State<ReceiptReviewScreen> {
             ),
           ),
         if (_r!['notes'] != null && _aiSet('vendor'))
-          Padding(padding: const EdgeInsets.only(bottom: 8), child: Text('AI note: ${_r!['notes']}', style: theme.textTheme.bodySmall)),
+          Padding(padding: const EdgeInsets.only(bottom: 8), child: Text('Note: ${_r!['notes']}', style: theme.textTheme.bodySmall)),
         Autocomplete<String>(
           initialValue: TextEditingValue(text: _vendor.text),
           optionsBuilder: (v) => v.text.isEmpty ? const Iterable<String>.empty()
@@ -301,7 +301,7 @@ class _ReceiptReviewScreenState extends State<ReceiptReviewScreen> {
           PopupMenuButton<String>(
             onSelected: (v) { if (v == 'reread') _reread(); if (v == 'void') _save(status: 'void'); if (v == 'delete') _delete(); },
             itemBuilder: (_) => const [
-              PopupMenuItem(value: 'reread', child: Text('Read again with AI')),
+              PopupMenuItem(value: 'reread', child: Text('Read the text again')),
               PopupMenuItem(value: 'void', child: Text('Mark void')),
               PopupMenuItem(value: 'delete', child: Text('Delete')),
             ],

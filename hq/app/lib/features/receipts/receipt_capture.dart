@@ -5,6 +5,8 @@ import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -29,6 +31,48 @@ class ReceiptCapture {
   static final instance = ReceiptCapture._();
 
   static bool get hasCamera => Platform.isAndroid || Platform.isIOS;
+
+  /// On-device text recognition (Android; free, offline). Returns null elsewhere.
+  Future<String?> recognizeText(Uint8List imageBytes) async {
+    if (!Platform.isAndroid && !Platform.isIOS) return null;
+    File? tmp;
+    try {
+      final dir = await getTemporaryDirectory();
+      tmp = File('${dir.path}${Platform.pathSeparator}hq-ocr-${DateTime.now().microsecondsSinceEpoch}.jpg');
+      await tmp.writeAsBytes(imageBytes, flush: true);
+      final recognizer = TextRecognizer(script: TextRecognitionScript.latin);
+      try {
+        final result = await recognizer.processImage(InputImage.fromFilePath(tmp.path));
+        // Rebuild lines top-to-bottom so the parser sees a receipt-shaped text.
+        final lines = <({double y, double x, String t})>[];
+        for (final b in result.blocks) {
+          for (final l in b.lines) {
+            lines.add((y: l.boundingBox.top, x: l.boundingBox.left, t: l.text));
+          }
+        }
+        lines.sort((a, b) => a.y != b.y ? a.y.compareTo(b.y) : a.x.compareTo(b.x));
+        // Merge lines that sit on the same row (left label + right amount).
+        final out = <String>[];
+        double? lastY;
+        for (final l in lines) {
+          if (lastY != null && (l.y - lastY).abs() < 14 && out.isNotEmpty) {
+            out[out.length - 1] = '${out.last}  ${l.t}';
+          } else {
+            out.add(l.t);
+          }
+          lastY = l.y;
+        }
+        final text = out.join('\n').trim();
+        return text.isEmpty ? null : text;
+      } finally {
+        await recognizer.close();
+      }
+    } catch (_) {
+      return null;
+    } finally {
+      try { await tmp?.delete(); } catch (_) {}
+    }
+  }
 
   Future<({Uint8List bytes, String mime, String ext})?> pick(CaptureSource source) async {
     if (source == CaptureSource.file) {
@@ -73,6 +117,7 @@ class ReceiptCapture {
   }) async {
     final hq = Hq.instance;
     final sha = sha256.convert(bytes).toString();
+    final ocrText = mime == 'application/pdf' ? null : await recognizeText(bytes);
     final now = DateTime.now();
     final id = _uuid();
     final path = 'receipts/${now.year}/${now.month.toString().padLeft(2, '0')}/$id.$ext';
@@ -86,6 +131,7 @@ class ReceiptCapture {
       'mime': mime,
       'bytes': bytes.length,
       'sha256': sha,
+      'ocr_text': ocrText,
       'uploaded_via': source == 'camera' ? 'camera' : 'upload',
     }).select('id').single();
 
@@ -103,8 +149,8 @@ class ReceiptCapture {
     try {
       final res = await Hq.instance.client.functions.invoke('extract-receipt', body: {'receipt_id': receiptId});
       final data = res.data is Map ? Map<String, dynamic>.from(res.data as Map) : <String, dynamic>{};
-      if (res.status >= 400 || data['error'] != null) {
-        return CaptureResult(receiptId: receiptId, extractionError: data['error']?.toString() ?? 'Extraction failed (${res.status})');
+      if (res.status >= 400 || data['ok'] == false || data['error'] != null) {
+        return CaptureResult(receiptId: receiptId, extractionError: data['error']?.toString() ?? 'Could not read the receipt (${res.status})');
       }
       return CaptureResult(
         receiptId: receiptId,
@@ -155,7 +201,7 @@ Future<void> runCaptureFlow(BuildContext context, void Function(String receiptId
   final picked = await ReceiptCapture.instance.pick(source);
   if (picked == null || !context.mounted) return;
   final messenger = ScaffoldMessenger.of(context);
-  messenger.showSnackBar(const SnackBar(content: Text('Uploading and reading the receipt…'), duration: Duration(seconds: 30)));
+  messenger.showSnackBar(const SnackBar(content: Text('Reading and uploading the receipt…'), duration: Duration(seconds: 30)));
   try {
     final result = await ReceiptCapture.instance.upload(
       bytes: picked.bytes, mime: picked.mime, ext: picked.ext,

@@ -55,6 +55,7 @@ android {
             // hq-releases bucket. Without it (local dev) the debug key is used.
             signingConfig = if (keystorePropertiesFile.exists())
                 signingConfigs.getByName("release") else signingConfigs.getByName("debug")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }

@@ -56,11 +56,12 @@ The EIN is stored in Supabase Vault (encrypted); only its last four digits sit i
 5. **Sign in** with riggs1991@gmail.com and your password (change it under Settings), then fill
    in *Business*.
 
-6. **AI receipt reading.** Settings → *AI receipt reading* → *Add key*. Paste an Anthropic API key
-   from console.anthropic.com (Settings → API Keys; the account needs a few dollars of credit).
-   The key is stored encrypted in Supabase Vault and read only by the `extract-receipt` function.
-   Each receipt costs roughly a cent or two to read. Without a key, receipts can still be
-   captured and filled in by hand.
+6. **Receipt reading is free and on-device.** Photos are read by Google's on-device text
+   recognition on the phone (no network, nothing sent anywhere); PDFs are read from their text
+   layer by the `extract-receipt` function; a parser then fills vendor, date, amounts, payment and
+   a category. No API key and no per-receipt cost. Photos added from the PC are stored but not read
+   automatically (Windows has no free on-device OCR wired up yet); fill them in by hand or
+   capture on the phone.
 
 After this, new versions are published by re-running *hq-release* with a higher version number;
 both apps notice on launch and offer a one-tap update.
@@ -88,7 +89,7 @@ Supabase MCP `apply_migration` (or `supabase db push` with the CLI).
 | Business profile + EIN vault | `app/lib/features/profile/profile_screen.dart` |
 | Settings + updater UI | `app/lib/features/settings/settings_screen.dart` |
 | Receipts: capture, list, review | `app/lib/features/receipts/` |
-| Receipt reader (Claude) | `supabase/functions/extract-receipt/index.ts` |
+| Receipt reader (free parser) | `supabase/functions/extract-receipt/` (`parser.js` + `parser.test.mjs`, run with node) |
 | Self-updater | `app/lib/updater/updater.dart` |
 | Data layer | `app/lib/data/hq.dart` |
 | Android signing | `app/android/app/build.gradle.kts` (reads `android/key.properties`, written by CI) |
