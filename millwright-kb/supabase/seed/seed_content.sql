@@ -595,6 +595,144 @@ The only proof is a **hot alignment check**: shut down, lock out, and take readi
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$bearing-clearance-and-fits-tables$mw$, $mw$Bearing Fits, Internal Clearance and Shaft/Housing Tolerances: ISO Fit Codes Explained (h6, j5, k5, m5, n6, p6; H7, J7, K7, M7, N7, P7), Fit Selection by Load Type, Tolerance Tables for Common Sizes in Inches, C3 and Radial Internal Clearance Values, Measuring Seats, Repairing Worn Seats$mw$, $mw$Why a bearing ring must be tight on the member that carries the rotating load and can be loose on the other, how to read the ISO fit codes on a drawing, which fit to use for each load and bearing type, ready tables of the actual shaft and housing limits for common inch and millimetre sizes, the internal clearance classes and typical values including what a press fit does to them, and how to measure and repair the seats.$mw$, $mw$## The rule that decides everything
+
+A bearing ring that turns relative to the direction of the load (**rotating load**) will **creep** on its seat unless it has an **interference fit**; a ring that does not (**stationary load**) can have a loose fit and often must, to allow axial float or thermal expansion.
+
+| Case | Inner ring | Outer ring |
+|---|---|---|
+| **Rotating shaft, stationary housing, fixed-direction load** (motor, pump, gearbox, fan): the commonest | **Interference** (k5/k6/m5/m6/n6 by size and load) | Loose to transition (H7/J7/K7); tight only if the load is heavy or the housing is thin/aluminium |
+| Stationary shaft, rotating housing (wheel hubs, idler pulleys, conveyor rollers) | Loose to transition (g6/h6/j6) | **Interference** (M7/N7/P7) |
+| Unbalanced rotating load (vibrating screens, eccentric drives) | Interference | Interference |
+| Indeterminate load direction, shock | Interference | Interference (M7/N7) |
+
+Too loose: the ring creeps, frets (red-brown powder), wears the seat, the shaft turns in the ring and heats. Too tight: the interference removes the bearing's internal clearance, the bearing runs hot and preloaded, the ring cracks (thin-section and ceramic), the seat is ruined on removal.
+
+## Reading a fit code
+
+`Ø50 k5` on a shaft, `Ø90 H7` in a housing: the number is the nominal size, the letter is the **position** of the tolerance zone relative to nominal (**lower case = shaft**, **upper case = hole**), the number is the **grade** (IT5 fine, IT6, IT7 coarser: the width of the zone).
+
+- Shafts: **g** and **h** are at or below nominal (clearance with an H hole); **j** and **js** straddle nominal (transition); **k, m, n** are above nominal (increasing interference); **p, r, s** heavy interference.
+- Holes: **H** starts at nominal and goes up (clearance); **J/JS** straddle; **K, M, N** go below nominal (interference with an h shaft); **P** heavier.
+- Bearing inner ring bores and outer ring ODs have their **own** tolerance (bore: nominal to **minus** a few tenths, e.g. 0 / −0.0005" for a 50 mm bore in normal class); so an h6 shaft with the bore's minus tolerance gives a slight interference to slight clearance, and a k5 shaft gives a reliable light interference. That is why bearing fits use k/m/n on shafts and H/J/K/M on housings rather than the "press fit" letters a machinist would expect.
+
+## Fit selection (rotating inner ring load; SKF/Timken practice for solid steel shafts)
+
+| Bearing type | Shaft diameter | Light and variable loads (P ≤ 0.05C) | Normal loads (0.05-0.1C) | Heavy and shock loads (> 0.1C) |
+|---|---|---|---|---|
+| **Ball bearings** | up to 18 mm (3/4") | h5 / j5 | j5 | |
+| | 18-100 mm (3/4-4") | j6 | **k5** (k6 over 40) | m6 (> 100: m6/n6) |
+| | 100-200 mm | k6 | m5/m6 | n6 |
+| **Cylindrical and tapered roller** | up to 40 mm | j6 | **k6** | |
+| | 40-140 mm | k6 | **m6** (m5) | n6 |
+| | 140-200 mm | m6 | m6/n6 | p6 |
+| **Spherical roller** | up to 65 mm | | k5/k6 | |
+| | 65-100 | | m5/m6 | n6 |
+| | 100-140 | | m6 | n6/p6 |
+| | over 140 | | n6 | p6/r6 |
+| Stationary inner ring load, any | | g6 (needs to slide) / h6 (does not) | h6 | j6 |
+
+Housings (stationary outer ring load): **H7** for most split housings and where the outer ring must float; **J7** (JS7) for one-piece housings, general; **K7** for accuracy and quiet running with float not needed; **M7** for heavy loads and thin-walled or light-alloy housings; **N7/P7** for rotating outer ring loads (wheel hubs).
+
+Special cases: **hollow shafts** and thin-section bearings need tighter fits than the table (the hollow shaft gives more); **aluminium housings** grow away from the ring when hot and need a tighter housing fit (K7/M7) than the table for steel; **stainless or ceramic-coated** seats: consult the maker; motor bearings: the maker's fits (often j5/k5 and H6/H7).
+
+## Tolerance tables (ISO 286; values in **inches**, deviation from nominal)
+
+### Shafts
+
+| Nominal Ø | h6 | j6 | j5 | k5 | k6 | m5 | m6 | n6 | p6 |
+|---|---|---|---|---|---|---|---|---|---|
+| **18-30 mm (0.709-1.181")** | 0 / -0.0005 | +0.0004 / -0.0002 | +0.0002 / -0.0002 | **+0.0004 / +0.0001** | +0.0006 / +0.0001 | +0.0007 / +0.0003 | +0.0008 / +0.0003 | +0.0011 / +0.0006 | +0.0014 / +0.0009 |
+| **30-50 mm (1.181-1.969")** | 0 / -0.0006 | +0.0004 / -0.0002 | +0.0002 / -0.0002 | **+0.0005 / +0.0001** | +0.0007 / +0.0001 | +0.0008 / +0.0004 | +0.0010 / +0.0004 | +0.0013 / +0.0007 | +0.0017 / +0.0010 |
+| **50-80 mm (1.969-3.150")** | 0 / -0.0007 | +0.0005 / -0.0003 | +0.0002 / -0.0003 | **+0.0006 / +0.0001** | +0.0008 / +0.0001 | +0.0009 / +0.0004 | +0.0012 / +0.0004 | +0.0015 / +0.0008 | +0.0020 / +0.0013 |
+| **80-120 mm (3.150-4.724")** | 0 / -0.0009 | +0.0005 / -0.0004 | +0.0002 / -0.0004 | **+0.0007 / +0.0001** | +0.0010 / +0.0001 | +0.0011 / +0.0005 | +0.0014 / +0.0005 | +0.0018 / +0.0009 | +0.0023 / +0.0015 |
+| 120-180 mm (4.724-7.087") | 0 / -0.0010 | +0.0006 / -0.0004 | +0.0003 / -0.0004 | **+0.0008 / +0.0001** | +0.0011 / +0.0001 | +0.0013 / +0.0006 | +0.0016 / +0.0006 | +0.0020 / +0.0011 | +0.0027 / +0.0017 |
+
+### Housings
+
+| Nominal Ø | H7 | J7 (JS7) | K7 | M7 | N7 | P7 |
+|---|---|---|---|---|---|---|
+| **50-80 mm (1.969-3.150")** | +0.0012 / 0 | +0.0007 / -0.0005 | +0.0004 / -0.0008 | 0 / -0.0012 | -0.0004 / -0.0015 | -0.0008 / -0.0020 |
+| **80-120 mm (3.150-4.724")** | +0.0014 / 0 | +0.0009 / -0.0005 | +0.0004 / -0.0010 | 0 / -0.0014 | -0.0004 / -0.0018 | -0.0009 / -0.0023 |
+| **120-180 mm (4.724-7.087")** | +0.0016 / 0 | +0.0010 / -0.0006 | +0.0005 / -0.0011 | 0 / -0.0016 | -0.0005 / -0.0020 | -0.0011 / -0.0027 |
+| 180-250 mm (7.087-9.843") | +0.0018 / 0 | +0.0012 / -0.0006 | +0.0005 / -0.0013 | 0 / -0.0018 | -0.0006 / -0.0024 | -0.0013 / -0.0031 |
+| 250-315 mm (9.843-12.402") | +0.0020 / 0 | +0.0014 / -0.0006 | +0.0006 / -0.0014 | 0 / -0.0020 | -0.0006 / -0.0026 | -0.0014 / -0.0035 |
+
+Bearing bore tolerance (normal class, PN): 18-30 mm: 0 / −0.0004"; 30-50: 0 / −0.0005"; 50-80: 0 / −0.0006"; 80-120: 0 / −0.0008"; 120-180: 0 / −0.0010". Outer ring OD: 50-80 mm: 0 / −0.0005"; 80-120: 0 / −0.0006"; 120-150: 0 / −0.0007"; 150-180: 0 / −0.0010"; 180-250: 0 / −0.0012".
+
+**Worked example**: 50 mm bore ball bearing (bore 1.9685 to 1.9680") on a k5 shaft (1.9686 to 1.9690"): interference from **0.0001" to 0.0010"**, typically 0.0005". About 80% of the interference reduces the bearing's radial clearance: a 0.0005" fit takes about 0.0004" out of it.
+
+## Internal clearance
+
+Radial internal clearance (RIC) is the total play between the rings measured on the unmounted bearing; the **mounted** clearance is less by the fit reductions, and the **operating** clearance is less again by the temperature difference between the rings (the inner runs hotter and expands). The target is a **small positive operating clearance**.
+
+| Class | Meaning | Use |
+|---|---|---|
+| C2 | Less than normal | Precision, preloaded pairs |
+| **CN (normal, no suffix)** | Normal | Normal fits, small temperature difference |
+| **C3** | Greater than normal | **Interference fit on the shaft (k5/m5 and tighter), hot-running (motors, fans, dryers), roller bearings in general; the usual choice for electric motors** |
+| C4 | Greater than C3 | Both rings tight, high temperature (over 250°F), vibrating machinery |
+| C5 | Greater than C4 | Extreme temperature |
+
+Typical radial internal clearance (deep groove ball bearings, ISO 5753, in inches):
+
+| Bore | CN | C3 | C4 |
+|---|---|---|---|
+| 18-24 mm | 0.0002-0.0008 | 0.0005-0.0011 | 0.0009-0.0016 |
+| 30-40 mm | 0.0002-0.0009 | 0.0006-0.0013 | 0.0011-0.0020 |
+| **40-50 mm** | 0.0002-0.0011 | **0.0007-0.0016** | 0.0013-0.0024 |
+| 50-65 mm | 0.0004-0.0013 | 0.0009-0.0019 | 0.0016-0.0028 |
+| 80-100 mm | 0.0005-0.0016 | 0.0012-0.0024 | 0.0020-0.0035 |
+| 120-140 mm | 0.0006-0.0020 | 0.0015-0.0030 | 0.0026-0.0044 |
+
+Spherical roller bearings have much larger clearances (a 100 mm bore C3 spherical roller: about 0.0055-0.0071"), which is why they are mounted by **measuring the clearance reduction** with a feeler gauge on a taper ([SKF drive-up card](/article/skf-drive-up-card)).
+
+Suffix on the bearing number: `6310-C3`, `22220 E/C3`; the box says it, the ring is often etched. Replacing a C3 motor bearing with a CN one gives a bearing that runs hot and fails early.
+
+## Measuring seats
+
+- **Shaft**: outside micrometer (0.0001" graduations), at **two planes** along the seat and **three angles** (0°, 60°, 120°) at each plane: taper (difference between planes) and out-of-round (difference between angles) each **≤ 25% of the fit tolerance** (about 0.0002" on a 2" seat); compare the average with the table. A seat that is undersize or scored more than a polish will remove: repair.
+- **Housing bore**: dial bore gauge or inside micrometer, same pattern; a split housing is measured with the cap torqued.
+- **Shoulder**: square to the seat (dial indicator), height per the bearing's chamfer (the shoulder must contact the ring face, not the chamfer, and must not touch the cage or seal).
+- Surface finish: 32 µin or better on bearing seats; radius at the shoulder smaller than the bearing's chamfer.
+
+## Repairing worn seats
+
+| Damage | Repair |
+|---|---|
+| Light fretting, minor scoring | Polish with fine emery on a strap, re-measure; if still in tolerance, use it |
+| Shaft seat undersize by up to 0.001-0.002" | **Bearing-mount retaining compound** (Loctite 638/660/680-type) to fill and lock: for light loads, stationary or moderate speed; not a substitute for a proper fit on a heavily loaded bearing |
+| Undersize more, or a spun bearing | **Metal spray or weld build-up and machine** to size; or sleeve the shaft (a shrink-fit sleeve machined to size); or a new shaft |
+| Housing bore worn/ovalled | Bore and sleeve (a steel liner pressed and locked), or bore oversize and fit a special outer ring/cartridge; retaining compound for slight wear |
+| Damaged shoulder | Machine it square, fit a hardened spacer ring against a re-cut shoulder |
+| Keyway or set-screw burrs | File flush; a raised burr next to a seat is a bearing that will not go on or come off |
+
+Retaining compounds: clean and degrease both parts, apply to the shaft seat, install the bearing quickly, do not disturb for the cure (fixture time 5-30 minutes, full cure 24 h), and remember that heat (over 300°F) is needed to release it later.
+
+## Common mistakes
+
+- "It slid on, so the fit is fine": a rotating inner ring that slides on with hand pressure will creep and fret.
+- Pressing a k5-fit bearing on with a hammer on the outer ring.
+- CN bearing in a hot motor or with a tight shaft: no operating clearance.
+- Measuring the seat once, in one place, with a caliper.
+- Filing a shaft "to make the bearing fit" (now it is 0.003" undersize).
+- Bearing-mount compound on a 300 hp motor's spun seat as the permanent fix.
+- Aluminium housing with an H7 bore for a hot-running bearing: the outer ring creeps when warm.
+
+## Related
+
+- [Bearing designation codes](/article/bearing-designation-codes)
+- [Bearing mounting with heat](/article/bearing-mounting-with-heat)
+- [Tapered roller bearing setting](/article/tapered-roller-bearing-setting)
+- [Reading a micrometer](/article/reading-a-micrometer)
+- [Shaft, bearing and fastener formulas (shrink fits)](/article/shaft-bearing-fastener-formulas)
+- [Bearing failure analysis](/article/bearing-failure-analysis)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
+          array[$mw$bearing fits$mw$,$mw$shaft fit bearing$mw$,$mw$housing fit bearing$mw$,$mw$interference fit$mw$,$mw$press fit bearing$mw$,$mw$k5$mw$,$mw$m5$mw$,$mw$n6$mw$,$mw$j6$mw$,$mw$h6$mw$,$mw$H7$mw$,$mw$J7$mw$,$mw$K7$mw$,$mw$M7$mw$,$mw$N7$mw$,$mw$P7$mw$,$mw$ISO 286$mw$,$mw$tolerance table$mw$,$mw$bearing clearance$mw$,$mw$radial internal clearance$mw$,$mw$C3 clearance$mw$,$mw$CN clearance$mw$,$mw$C4$mw$,$mw$bearing seat tolerance$mw$,$mw$measuring shaft for bearing$mw$,$mw$worn bearing seat repair$mw$,$mw$rotating load$mw$,$mw$stationary load$mw$,$mw$circumferential load$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 286-1/-2 tolerance grades and fundamental deviations (values computed for the size ranges shown); SKF and Timken fit recommendation tables (shaft and housing fits by load condition and bearing type); ISO 5753-1 radial internal clearance classes for deep groove ball and spherical roller bearings (representative values); SKF Bearing Maintenance Handbook (seat measurement and repair guidance).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$bearing-designation-codes$mw$, $mw$Decoding Bearing Numbers: Types, Series, Bore Codes and Suffixes (6205-2RS C3, 22220 EK, NU 210 ECP)$mw$, $mw$How to read any metric rolling-bearing designation: the type digit, dimension series, bore code (× 5 rule), and the common prefix and suffix codes for seals, shields, clearance, tapered bores and cage material.$mw$, $mw$## Basic layout
 
 ```
@@ -773,6 +911,187 @@ Bearings with a rotating **outer** ring or a stationary outer ring under heavy l
 - [Decoding bearing numbers and suffixes](/article/bearing-designation-codes)
 - [Tapered-bore bearing on an adapter sleeve](/article/taper-bore-bearing-adapter-sleeve-skf)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
           array[$mw$bearing mounting$mw$,$mw$induction heater$mw$,$mw$hot mounting$mw$,$mw$interference fit$mw$,$mw$press fit$mw$,$mw$shaft fit$mw$,$mw$housing fit$mw$,$mw$demagnetize$mw$,$mw$bearing temperature$mw$,$mw$cold mounting$mw$,$mw$fitting tool$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SKF Bearing Maintenance Handbook; Timken and SKF mounting guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$bearing-removal-pullers-and-heating$mw$, $mw$Bearing Removal: Puller Selection (Jaw, Push-Puller, Blind-Hole, Hydraulic), Pulling on the Right Ring, Heating a Ring to Remove It, Induction Removal, Cutting Off a Seized Inner Ring, Withdrawal Sleeves and Hydraulic Nuts, Preserving the Evidence$mw$, $mw$How to get a bearing off a shaft or out of a housing without damaging the shaft, the housing, or yourself: choosing a puller by the type of grip and the force needed, always pulling on the ring with the interference fit, heating a stuck inner ring quickly with a torch or an induction ring, the cut-and-crack method for a welded-on ring, dismounting adapter and withdrawal-sleeve bearings including hydraulic nuts and oil injection, and how to keep the failed bearing as evidence.$mw$, $mw$> A puller under load is a spring. Never stand in line with the shaft or the puller screw, never extend the handle with a pipe, wear a face shield, and stop when the puller jaws start to slip or bend: the bearing is about to explode off or the puller is about to let go.
+
+## Which ring to pull on
+
+The **ring with the interference fit** is the one that must be pulled: the **inner ring** on a rotating-shaft bearing (the usual case), the **outer ring** when the housing has the tight fit (wheel hubs, some idlers). Pulling on the loose ring drives the force through the rolling elements and brinells the raceways: fine if the bearing is scrap and the shaft is what you are saving, **never** if the bearing is to be reused, and never a good idea with a jaw puller on the outer ring of a ball bearing (the ring cracks and the balls fly).
+
+If the jaws cannot reach the inner ring (a shoulder, a gear, a seal): use a **bearing separator** (a split collar tightened behind the inner ring's face) with a push-puller, or heat the ring, or cut it.
+
+## Puller types
+
+| Puller | Grip | For | Notes |
+|---|---|---|---|
+| **2- or 3-jaw mechanical puller** (self-centring, reversible jaws) | Behind the ring's face | Small to medium bearings, gears, pulleys on shaft ends; up to about 10-20 tons mechanical | 3-jaw for round parts (centres itself), 2-jaw where access is narrow; jaws must reach **all the way behind the inner ring** and grip square; use a **centre protector** on the shaft end to save the centre hole and thread |
+| **Push-puller with bearing separator** (a plate behind the bearing, tie rods, a centre screw) | Behind the inner ring via the separator, or on the outer ring | Bearings tight against a shoulder, bearings in the middle of a shaft, hubs | The separator's knife edge goes between the ring and the shoulder; tighten it evenly; tie rods parallel |
+| **Hydraulic puller** (hand pump or built-in) | Same as jaw or push types, with 10-50 tons | Large bearings, gear couplings, anything a mechanical screw cannot move | The force is enormous and silent; the part comes off suddenly: a **safety strap** or a catch |
+| **Blind-hole / internal puller** (collet expands inside the bore) | Inside the bearing bore or the inner ring | Bearings in blind housings (motor end bells, gearbox bores) where the outer ring is tight | With a slide hammer for small ones, with a bridge and screw for large |
+| **Slide hammer** | Jaws or collet | Small bearings, seals, races in blind bores | Shock loads; not for anything precision that is reused |
+| **Press** (arbor or hydraulic) | Support the ring being pushed on | Bearings on shafts that can go to the shop; inner rings off armatures | Support the **inner ring** on a split plate, push the **shaft**; never push through the balls; the shaft must not fly out the bottom (a catch box) |
+| **Drift and hammer** | Through a brass drift on the ring | Loose-fit outer rings from housings, races from hubs | Alternate sides, drift on the ring only, never on the cage or seal |
+| **Withdrawal sleeve / hydraulic nut / oil injection** | The bearing's own taper | Large adapter-sleeve and withdrawal-sleeve bearings | Below |
+
+Capacity rule of thumb: a puller rated (in tons) at roughly **7-10× the shaft diameter in inches** covers most interference fits (a 2" shaft: 15-20 tons available); pulling a bearing off a 4" shaft usually wants a 30-50 ton hydraulic puller and heat.
+
+## Mechanical pulling procedure
+
+1. Clean the shaft ahead of the bearing; remove keys, snap rings, set screws, the lock nut and washer; **file the burr** at the set-screw spot or the shaft will be scored and the bearing hangs on it.
+2. Select the puller: jaws fully behind the inner ring, the screw centred on the shaft centre with a **protector cap** (or a hardened disc) so the shaft's centre hole and threads survive.
+3. Lubricate the puller screw; tighten by hand until the jaws seat; check the jaws are square and equally engaged; the bearing and the puller in line with the shaft.
+4. Apply force **steadily**; if nothing moves at moderate force, do not keep cranking: add **heat** to the ring (below) or **shock** (a sharp tap on the puller screw head with a hammer while under load breaks the static friction; never hit the puller body) and try again.
+5. When it moves, keep the puller square; near the end the bearing drops: hand under it or a strap.
+6. Inspect the shaft: score marks, fretting (rust-coloured), a rolled shoulder, the seat diameter with a micrometer (see [bearing fits](/article/bearing-clearance-and-fits-tables)); polish with fine emery only, never reduce the seat.
+
+## Heating a ring to get it off
+
+Heat expands the inner ring away from the shaft; the trick is to heat the **ring** fast and not the shaft.
+
+- **Induction "heating ring"** (SKF TMBR / a fixed induction coil sized to the ring): clamps or slips around the inner ring, heats it to 250-300°F in seconds while the shaft stays cool; pull immediately. For cylindrical-roller inner rings left on a shaft this is the standard tool; an **aluminium heating ring** (a slotted ring heated on a hotplate to 400°F, placed over the inner ring and clamped) does the same in a low-budget shop.
+- **Torch** (rosebud, see [rosebud heating](/article/oxy-fuel-heating-rosebud)): only on a bearing that is **scrap**, with the puller already **under tension**; heat the inner ring's face **quickly and evenly** around its circumference (30-60 seconds, keep the flame off the shaft and the seals), and the puller jumps it off. Slow heating soaks the shaft and nothing moves; heating the shaft blue ruins it (hardness, straightness). Grease and seals burn: fume, fire watch.
+- Never heat a bearing you plan to reuse above 250°F; never heat a shaft's bearing seat to colour (over 500°F) if you want to keep the shaft.
+
+## Cutting a seized inner ring off
+
+When the ring will not pull (fretted on, spun and welded, a shoulder in the way):
+
+1. Protect the shaft: wrap the seat next to the ring with sheet metal or a shim, and never let the disc touch the shaft.
+2. **Grind a slot** through the ring, almost to the shaft (leave 0.010-0.020"; the inner ring is 60 HRC and the shaft is soft: the instant you see a colour change the disc is in the shaft), with a thin cut-off wheel, in a place away from the keyway; on a big ring, two slots 180° apart.
+3. **Crack** the ring with a cold chisel across the slot (the hardened ring splits along the slot) or spread it; it drops off. Eye protection: hardened chips fly.
+4. Dress the shaft; measure the seat.
+
+Alternatives: **carbon-arc or plasma** notch on very large rings (protect the shaft with copper), or a **wire EDM** shop cut on precision shafts.
+
+## Adapter-sleeve and withdrawal-sleeve bearings
+
+- **Adapter sleeve** (bearing on a tapered sleeve with a lock nut): remove the lock washer tab, back the nut off a few turns (leave it on as a stop), and **drive the bearing off the sleeve**: a hammer and a brass drift on the **nut** (not the bearing), or a **hydraulic nut** in place of the lock nut that pushes the bearing off; large sizes use **oil injection** through the sleeve's oil groove (a hand pump at 10,000 psi lifts the bearing on an oil film and it slides off) as in [SKF taper-bore mounting](/article/taper-bore-bearing-adapter-sleeve-skf).
+- **Withdrawal sleeve** (the sleeve is driven in between the bearing and the shaft, held by a nut): remove the nut, fit the **withdrawal nut or a hydraulic nut** to the sleeve's thread, and pull the sleeve **out** from under the bearing; oil injection makes it a one-person job on big bearings.
+- Split pillow blocks (SAF/SNL): remove the cap, lift the shaft with the bearing on the sleeve and do the above on the bench where possible.
+
+## Outer rings and housings
+
+- Loose-fit outer rings drop out of the housing; a **tight** outer ring (housing tight fit, or a housing that has fretted): warm the **housing** (heat lamp, hot air, oil bath to 200°F) so it expands, and push the ring out with a drift or a puller with a blind-hole collet; on aluminium housings the expansion difference makes this easy and cold pressing dangerous.
+- Cups (tapered-roller outer races) in hubs: a drift on the cup's back edge through the notches, alternating sides; a puller with cup-pulling jaws; a bead of weld around the inside of the race (shrinks it) as a last resort on a scrap race.
+
+## Preserving evidence
+
+If the bearing failed, **do not clean it, do not spin it, do not knock the seals in**: photograph it in place with the shaft and housing, note the load zone position relative to the housing (mark "top" and the direction of rotation on the outer ring with a scribe), bag it with a label (machine, position, date, hours, lubricant, what was observed), take a grease/oil sample from the housing, and keep the shaft seat and housing bore measurements. The failure analysis is in [bearing failure analysis](/article/bearing-failure-analysis); a bearing that has been wire-brushed tells nobody anything.
+
+## Common mistakes
+
+- Puller jaws on the outer ring of a ball bearing: the ring shatters.
+- Jaws hooked only half behind the inner ring: they slip, mushroom the ring's face and score the shaft.
+- A 3 ft pipe on the puller handle: the screw strips or the bearing releases like a bullet.
+- Heating the shaft blue "to get the ring moving".
+- Cutting through the ring into the shaft.
+- Driving an adapter-sleeve bearing off by hitting the bearing.
+- Throwing the failed bearing in the scrap bin before anyone looks at it.
+
+## Related
+
+- [Bearing mounting with heat](/article/bearing-mounting-with-heat)
+- [Taper-bore bearing on an adapter sleeve (SKF)](/article/taper-bore-bearing-adapter-sleeve-skf)
+- [Bearing clearance and fits tables](/article/bearing-clearance-and-fits-tables)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Heating with a rosebud](/article/oxy-fuel-heating-rosebud)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
+          array[$mw$bearing removal$mw$,$mw$bearing puller$mw$,$mw$jaw puller$mw$,$mw$three jaw puller$mw$,$mw$two jaw puller$mw$,$mw$push puller$mw$,$mw$bearing separator$mw$,$mw$blind hole puller$mw$,$mw$slide hammer$mw$,$mw$hydraulic puller$mw$,$mw$pulling a bearing$mw$,$mw$heating a bearing to remove$mw$,$mw$induction heater removal$mw$,$mw$cutting a bearing off$mw$,$mw$seized inner ring$mw$,$mw$withdrawal sleeve$mw$,$mw$hydraulic nut$mw$,$mw$oil injection$mw$,$mw$puller safety$mw$,$mw$bearing failure evidence$mw$]::text[], $mw$SKF / Posi Lock / Enerpac (generic)$mw$, array[$mw$SKF TMMA$mw$,$mw$SKF TMHP$mw$,$mw$SKF TMBP$mw$,$mw$Posi Lock 104$mw$,$mw$Posi Lock 106$mw$,$mw$Enerpac Sync-Grip$mw$,$mw$OTC 1179$mw$,$mw$SKF TMMD$mw$]::text[], $mw$SKF Bearing Maintenance Handbook (dismounting chapter: puller types, heating rings, oil injection, withdrawal sleeves); Timken bearing handling guidance; Posi Lock and Enerpac puller selection and safety guidance; SKF/Timken failure-analysis guidance on preserving failed bearings.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pillow-block-and-insert-bearings$mw$, $mw$Pillow Blocks and Insert (Mounted) Bearings: Set-Screw, Eccentric Collar, Concentric and Adapter Locking, Set-Screw Torque Table, Expansion vs Non-Expansion, Shaft Requirements, Two-Bearing Alignment, Housing Bolt Torque, Initial Grease and Regreasing, Split Pillow Blocks (SAF/SNL) Basics$mw$, $mw$How to install the ball-bearing pillow blocks, flange units and take-ups that carry most conveyor, fan and machine shafts: the locking types and when each is right, the set-screw torque numbers, which bearing is fixed and which floats, shaft size and condition, lining up two units on one shaft, housing bolts, the greasing rules for sealed inserts, and an outline of the heavy split pillow block (SAF/SNL) with an adapter-sleeve bearing.$mw$, $mw$## Anatomy
+
+A **mounted bearing** is a bearing **insert** (a ball or roller bearing with a wide inner ring and a spherical outside) in a **housing** (pillow block, 2- or 4-bolt flange, take-up frame, hanger, cartridge). The spherical seat lets the insert self-align to a few degrees of shaft misalignment (static only: it does not accommodate a bent shaft that changes angle each revolution). The wide inner ring locks to the shaft with one of the methods below.
+
+## Locking methods
+
+| Type | How it holds | Best for | Watch |
+|---|---|---|---|
+| **Set screw** (two set screws at 120° in the inner ring) | Screws bite into the shaft | The cheapest and commonest; light to moderate loads, one direction or reversing | Set screws push the shaft off-centre of the ring: a slight eccentricity; loosen under reversing shock and vibration; mark the shaft (raise a burr that stops removal: file it) |
+| **Eccentric (self-locking) collar** | A cam collar over an eccentric extension of the inner ring, turned **in the direction of rotation** and locked with one set screw | Unidirectional drives (fans, conveyors); grips concentrically, resists loosening | Must be turned the **rotation direction** (it tightens itself); a reversing drive unlocks it; tap it on with a drift in the collar's hole |
+| **Concentric collar / clamp (Dodge D-Lok, Skwezloc, Timken Concentric)** | A split collar squeezes the slotted inner ring evenly around the shaft | Reversing, vibration, fans at speed, better balance; no shaft damage | Torque the clamp screw to the manual; shaft tolerance still matters |
+| **Adapter (tapered) sleeve mount (Dodge Grip Tight, SKF SYNT/ConCentra, Timken)** | A tapered sleeve driven under the inner ring by a nut | High speed, reversing, shock, imperfect shafts, easy on/off | Nut torque per the manual; drives it up the taper: interference fit |
+| Tapered adapter with lock nut (spherical roller inserts, SAF/SNL) | Standard adapter sleeve like [SKF taper-bore mounting](/article/taper-bore-bearing-adapter-sleeve-skf) | Heavy loads, large shafts | Drive-up or clearance reduction method |
+
+**Set-screw torque** (Dodge and most makers; the screw size is set by the bearing bore):
+
+| Set screw | Typical bore range | Torque |
+|---|---|---|
+| #10-32 | 1/2-3/4" | **28 in-lb** |
+| 1/4-28 | 3/4-1-3/16" | **66 in-lb** (5.5 ft-lb) |
+| 5/16-24 | 1-1/4-1-1/2" | **126 in-lb** (10.5 ft-lb) |
+| 3/8-24 | 1-11/16-2" | **228 in-lb** (19 ft-lb) |
+| 7/16-20 | 2-3/16-2-1/2" | **348 in-lb** (29 ft-lb) |
+| 1/2-20 | 2-11/16-3-1/2" | **504 in-lb** (42 ft-lb) |
+| 5/8-18 | 3-15/16-4" | 1,104 in-lb (92 ft-lb) |
+
+Use a torque wrench with a hex bit; over-torque strips the cup point and dimples the shaft so deep the bearing will not come off. Tighten both screws alternately in two steps. A dab of removable threadlocker on set screws of reversing drives. Metric sizes: M6 (about 7-8 N·m), M8 (14-15 N·m), M10 (28-30 N·m); check the box.
+
+## Fixed and floating
+
+Two bearings on one shaft: **one holds the shaft axially (fixed), the other must let it grow** (float) with temperature, or the bearings fight and fail.
+
+- **Non-expansion (fixed) unit**: the insert is retained in the housing (snap rings or a machined shoulder): holds axial load.
+- **Expansion unit**: the insert can slide axially in the housing (typically ± 1/8 to 1/4"); lock it to the shaft at the centre of its float.
+- Rule: **one fixed, the rest expansion** on any shaft over about 4-5 ft or any hot shaft (dryers, ovens, fans in hot gas); on short cold shafts two non-expansion units are common and the spherical seat gives a little float, but a shaft locked at both ends with 20°F of temperature rise over 10 ft grows 0.016" and preloads both bearings.
+- Fixed bearing at the drive end (where the sprocket or sheave is) unless the manual says otherwise; the coupling side of a driven shaft is the fixed side.
+
+## The shaft
+
+- **Size**: commercial shafting (turned, ground and polished, TG&P) at nominal minus 0.001-0.002" (the makers ask for about **+0.000/−0.001" up to 1-1/2" and −0.0015" up to 3"**); set-screw and eccentric units want the shaft **not more than 0.002-0.003" under nominal**, or the screws cannot hold and the ring hammers; adapter types tolerate more.
+- **Surface**: smooth, no rust, no old set-screw craters (file flat), no keyway under the bearing where avoidable; a **flat** filed at the set-screw position on shafts over 1-1/2" and on reversing drives (Dodge recommends it) so the screw bears on a flat; chamfer the shaft end.
+- **Hardness**: soft (1018-1045) is fine for set screws; hardened or chrome shafting makes set screws skid: use a concentric or adapter unit.
+- Clean, a light film of oil so the insert slides on; never hammer the insert onto a tight shaft.
+
+## Installation
+
+1. **Shaft supported** (blocks, the machine's own frame) so the bearings are not carrying it during the fit; housings bolted on **loosely** at the marked positions.
+2. Slide the inserts on (the insert in its housing, or the insert first then the housing over it on some flange units); position the fixed unit and set the expansion unit at the middle of its float.
+3. **Alignment of two units**: the shaft must run **straight** through both without bending: check that the shaft turns freely by hand with the housings snug; measure from a straightedge or the frame to the shaft at both bearings; shim under a housing that is low (steel shims, full footprint) and slot or move one that is off-centre. The spherical seat forgives **angular** misalignment up to 1-2° (less for roller inserts: 0.5°), **not** an offset that bends the shaft.
+4. **Torque the housing bolts** (grade 5 or better; e.g. 1/2" 55-75 ft-lb, 5/8" 110-150 ft-lb, 3/4" 200-260 ft-lb dry, or the frame's spec), on a **flat** surface (a warped angle-iron frame pinches the housing and the insert will not align: a pillow block housing is cast iron and cracks when bolted to a twisted surface: shim it).
+5. Rotate the shaft, confirm free running; then **lock** the inserts to the shaft (set screws to torque, or collar turned in the rotation direction and its screw torqued, or the concentric clamp screw torqued). Locking **before** the housings are aligned locks the misalignment in.
+6. Grease: most inserts are factory-filled; add a couple of strokes only if the manual says; fit guards and covers.
+7. After the first day: re-torque set screws and housing bolts (they settle), check temperature (< 180°F housing), noise.
+
+## Greasing inserts
+
+Sealed inserts with a grease fitting need **small, regular** shots: a stroke or two of a compatible grease (lithium or lithium-complex NLGI 2 in most units; check the maker) every 1-6 months depending on speed, temperature and dirt (see [regreasing intervals](/article/regreasing-intervals-and-quantities)); grease should purge slightly at the seal, which is how the seal keeps dirt out. Over-greasing blows the seals and heats the bearing; a bearing with **no** fitting is lubed for life. Washdown (food) units use food-grade H1 grease and are greased more often to purge water.
+
+## Split pillow blocks (SAF / SNL / SD) with spherical roller bearings
+
+The heavy-duty pillow block for conveyor pulleys, fans, crushers: a **split housing** (base and cap), a **spherical roller bearing** on an **adapter sleeve** with a lock nut and lock washer, **seals** (labyrinth, taconite, felt, V-ring) and **locating (stabilising) rings** that fix the bearing in the housing on the fixed side.
+
+1. Mount the bearing on the sleeve on the shaft with the [drive-up / clearance-reduction method](/article/skf-drive-up-card); the sleeve nut faces away from the shoulder or the pulley as the drawing shows.
+2. Fit the seals (they sit in grooves in the housing halves, and the seal rings on the shaft).
+3. Lower the shaft into the bases; on the **fixed** bearing, place the **locating rings** on both sides of the outer ring; on the **free** bearing, none: the outer ring sits centred in the housing with room to float both ways (about 1/8" on typical SAF sizes).
+4. Fill the housing **1/3 to 1/2 full of grease** (below the shaft centreline) and pack the seal cavities; put the caps on **matching their bases** (they are machined as pairs, marked), dowels in, cap bolts torqued (from the housing maker's table: the cap bolts are ordinary grade 5 or 8.8 fasteners torqued to their size).
+5. Check the bearing's residual clearance with a feeler through the housing (before the caps go on, on the top rollers) and record it.
+6. Align the two housings so the shaft runs true; torque the hold-down bolts; grease fittings and relief plugs fitted; run-in check as usual.
+
+## Common mistakes
+
+- Eccentric collar turned against the rotation: it loosens in the first hour and the shaft spins in the bearing.
+- Set screws locked before the housings are bolted and aligned: the insert is cocked on the shaft.
+- Both bearings non-expansion on a hot conveyor pulley shaft.
+- Housing bolted down on a bent channel: cracked housing or a pinched insert.
+- Grease gun until it "comes out": blown seals and a hot bearing on a sealed insert.
+- Old set-screw burrs left on the shaft: the new bearing hangs up 1/2" short of position and gets hammered on.
+- Locating rings left out on both SAF bearings: the shaft walks; or fitted to both: no float.
+
+## Related
+
+- [Taper-bore bearing on an adapter sleeve](/article/taper-bore-bearing-adapter-sleeve-skf) and the [SKF drive-up card](/article/skf-drive-up-card)
+- [Bearing designation codes](/article/bearing-designation-codes)
+- [Bearing clearance and fits tables](/article/bearing-clearance-and-fits-tables)
+- [Regreasing intervals and quantities](/article/regreasing-intervals-and-quantities)
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
+          array[$mw$pillow block$mw$,$mw$pillow block bearing$mw$,$mw$mounted bearing$mw$,$mw$insert bearing$mw$,$mw$flange bearing$mw$,$mw$take up bearing$mw$,$mw$set screw bearing$mw$,$mw$eccentric collar$mw$,$mw$concentric collar$mw$,$mw$D-Lok$mw$,$mw$Grip Tight$mw$,$mw$adapter mount$mw$,$mw$set screw torque$mw$,$mw$pillow block installation$mw$,$mw$expansion bearing$mw$,$mw$non expansion bearing$mw$,$mw$float$mw$,$mw$shaft tolerance for pillow block$mw$,$mw$pillow block alignment$mw$,$mw$housing bolt torque$mw$,$mw$split pillow block$mw$,$mw$SAF$mw$,$mw$SNL$mw$,$mw$SAF-XT$mw$,$mw$hanger bearing$mw$,$mw$grease pillow block$mw$]::text[], $mw$Dodge / SKF / Timken / Rexnord Link-Belt (generic)$mw$, array[$mw$Dodge SC$mw$,$mw$Dodge SCM$mw$,$mw$Dodge E-Z Kleen$mw$,$mw$Dodge D-Lok$mw$,$mw$Dodge Grip Tight$mw$,$mw$Dodge S-2000$mw$,$mw$SKF SY$mw$,$mw$SKF SYNT$mw$,$mw$SKF SNL$mw$,$mw$SAF$mw$,$mw$Link-Belt PB$mw$,$mw$Timken SAF$mw$,$mw$Sealmaster NP$mw$]::text[], $mw$Dodge (ABB) mounted ball bearing instruction manuals (set-screw, eccentric collar, D-Lok, Grip Tight; set-screw torque table); SKF Y-bearing and SNL/SAF housing installation guidance; Timken SAF and Rexnord Link-Belt mounted bearing manuals; general shaft tolerance guidance for commercial shafting.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -997,6 +1316,95 @@ Bearing **22222 EK C3** on a **H 322** sleeve, 100 mm shaft (bearing bore 110 mm
 - **Forgetting the bearing walks along the shaft** as it is driven up. Position the sleeve so the *final* bearing centre lands in the housing centre.
 - **Using a C3 card value on a Normal-clearance bearing.** The reduction value is the same; the residual minimum is not.$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
           array[$mw$spherical roller bearing$mw$,$mw$tapered bore$mw$,$mw$adapter sleeve$mw$,$mw$drive-up$mw$,$mw$clearance reduction$mw$,$mw$feeler gauge$mw$,$mw$lock nut$mw$,$mw$SKF card$mw$,$mw$K bearing$mw$,$mw$pillow block$mw$,$mw$SAF$mw$]::text[], $mw$SKF$mw$, array[$mw$22200 K$mw$,$mw$22300 K$mw$,$mw$23000 K$mw$,$mw$H300$mw$,$mw$H2300$mw$,$mw$HA$mw$,$mw$HE$mw$]::text[], $mw$SKF PUB BU/P9 14231 EN 'Mounting bearings with a tapered bore' (Nov 2013); SKF Bearing Maintenance Handbook; Schaeffler J4592 (FAG inch table).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$tapered-roller-bearing-setting$mw$, $mw$Tapered Roller Bearing Setting: End Play vs Preload, Timken Setting Methods Compared (Manual, Preset, Set-Right, Acro-Set, Projecta-Set, Torque-Set, Clamp-Set), Manual Setting with a Dial Indicator, Shim and Spacer Adjustment, Nut-Adjusted Wheel Hubs, Typical Ranges and Hot Running Changes$mw$, $mw$A tapered roller bearing does not have a built-in clearance: you set it when you assemble the machine. This covers what end play and preload are and which one the machine wants, Timken's table of setting methods with the ranges each achieves, the manual method with a dial indicator that a millwright uses on gearboxes, pumps and rolls, shim, spacer and nut adjustment, why the hot setting differs from the cold, and the checks after assembly.$mw$, $mw$## What "setting" means
+
+A tapered roller bearing is two separable parts: the **cone** (inner ring with rollers and cage) and the **cup** (outer ring). Mounted in **pairs** facing each other (direct or indirect mounting), the axial position of one cup or cone relative to the other decides the internal clearance of both bearings at once:
+
+- **End play**: an axial clearance; the shaft can be moved end to end a measurable amount. Rollers are not all loaded; the bearing runs cool and tolerates thermal expansion.
+- **Preload**: an axial interference; the rollers are all loaded and the shaft has zero end play plus a set force. Stiffer, more accurate, higher load capacity from more rollers sharing, but heat and life fall sharply if the preload is too high.
+- **Zero (line-to-line)**: the transition. Timken's life curve peaks at **near-zero to slight preload**; because you cannot hit zero exactly and because hot running changes the setting, most industrial machinery is set with **a small end play cold** that closes toward zero when hot.
+
+Which the machine wants: **the manual decides**. Typical: gearbox shafts, conveyor pulleys, pumps, rolls: **end play 0.001-0.005"** (larger shafts 0.005-0.010"); pinions and spiral bevel gear sets, machine-tool spindles, wheel hubs with unitised seals: **preload**, specified as rolling torque (in-lb) or as a nut torque; truck wheel ends: end play 0.001-0.005" set by the nut method.
+
+## Timken's setting methods (Table 1 of form 5556)
+
+| Method | How the setting is obtained | Typical mounted setting range achieved | Region |
+|---|---|---|---|
+| **Manual** | Adjust a nut, shims or a spacer with a dial indicator or by feel | **0.004-0.010"** (wide; skill-dependent) | End play |
+| Preset assembly (2TS-IM etc.) | Matched cones/cups with a factory spacer giving a bench end play (BEP) | 0.006-0.012" | End play or preload |
+| **Set-Right** | Controlled tolerances on the shaft, housing and bearing; no adjustment at assembly; statistics keep it in range | 0.008-0.014" (probable) | End play or preload |
+| Acro-Set | Measures deflection under a known load to compute the spacer/shim | 0.004-0.006" | End play or preload |
+| Projecta-Set | Gauges the projected position of the cone under load to size the spacer | 0.002-0.004" | End play or preload |
+| **Torque-Set** | Adjusting nut tightened to a specified torque (which seats and preloads), then backed off a set amount or left | 0.005-0.007" | End play or preload |
+| Clamp-Set | Clamping force through a spacer with a deflection-controlled fastener | 0.003-0.005" | End play |
+
+In the field you do the **manual** method most of the time and the **torque** method on wheel ends and where a manual says "tighten to X ft-lb, back off Y".
+
+## Manual setting with a dial indicator (gearbox, pulley, pump)
+
+1. Assembly clean, cones pressed or heated on to their seats against the shoulders (see [mounting with heat](/article/bearing-mounting-with-heat)), cups seated fully in the housing (a dull sound when tapped, or measured). **Cups and cones must be fully seated before any setting**: a cup 0.005" out of its bore reads as 0.005" of end play that disappears when it seats in service.
+2. Assemble with the adjusting element (shims under the end cap, a threaded nut or cup carrier, a spacer) set for an obvious clearance.
+3. **Rotate the shaft several turns while pushing it toward one end** to seat the rollers against the cup ribs (rollers that are not seated give a false large end play); then rotate while pulling to the other end.
+4. Dial indicator on the shaft end (a magnetic base on the housing, plunger on the shaft's end face, parallel to the axis). Push the shaft firmly one way while rotating slightly, zero the indicator; pull it the other way while rotating; the reading is the **end play**. Repeat three times; readings must agree within 0.001".
+5. Adjust: remove or add shims (shim change = end play change, one to one, for a shim under the cup carrier or end cap), turn the nut, or change the spacer; re-seat the rollers (step 3) after every change; re-measure.
+6. Target the cold end play the manual gives; when it gives none, use 0.001-0.003" for shafts under 2", 0.003-0.005" to 4", 0.005-0.008" above (rules of thumb; the correct number depends on the housing material, shaft length between bearings and running temperature: see below).
+7. Lock: bend the lock washer tab, stake or wire the nut, torque the end-cap bolts to spec, re-measure the end play **after** torquing (it changes), and record it.
+8. Rotate by hand: smooth, no rough spots, no drag beyond seal drag. Spin check: a shaft with end play spins on; with preload it stops within a turn.
+
+## Preload settings
+
+- **Rolling torque method**: with the seals out (or their drag measured first), turn the shaft with a torque wrench or a spring scale on a string around a known radius; the manual gives the range (e.g. a differential pinion: 15-25 in-lb new bearings, 5-10 in-lb used). Tighten the nut or remove shims until the rolling torque is in range. Torque = force × radius.
+- **Torque-Set (nut method)**: tighten the adjusting nut to the specified torque while rotating (seats everything and preloads), then **back off** the specified amount (a fraction of a turn to a locking position, or to a measured end play) and lock. The Timken truck wheel-end example: tighten to a slight bind while rotating, back off 1/6 to 1/4 turn to the nearest lock, giving a small end play.
+- **Shim/spacer preload**: measure the gap with the bearings seated line-to-line under a light load (feeler gauge or depth micrometer), and fit a spacer shorter than the gap by the preload amount the manual gives (typically 0.001-0.003").
+- Preload is very sensitive to fits: a cone pressed onto a shaft 0.001" tighter than designed loses 0.0005-0.001" of internal clearance. That is what Set-Right controls with tolerances.
+
+## Hot running: why cold end play is not the running end play
+
+The shaft grows longer than the housing when it runs warmer (gearbox shafts run 20-50°F hotter than the case; a steel shaft in an aluminium housing is the reverse: the housing grows more). Between two bearings L apart:
+
+```
+   change in end play ≈ L × (α_shaft × ΔT_shaft − α_housing × ΔT_housing)      α_steel = 6.5 × 10⁻⁶ /°F, α_aluminium = 12.5 × 10⁻⁶ /°F
+```
+
+Example: steel shaft, steel housing, bearings 20" apart, shaft 40°F hotter than the housing: 20 × 6.5 × 10⁻⁶ × 40 = **0.0052" reduction** in end play. If you set 0.003" cold, it runs 0.002" preloaded: fine for a gearbox, but a longer shaft or a bigger ΔT can turn a "safe" cold end play into heavy preload and a hot bearing. Indirect (X) mounting and direct (O) mounting respond in opposite directions to radial expansion; the manual's cold number already accounts for it. Do not "improve" the manual's number.
+
+## Cups, cones and fits
+
+- Rotating cone (most shafts): **tight** on the shaft (interference fit per the fit tables); cup stationary in a housing: slip fit for the adjustable cup, tight where it is the fixed one. The **adjustable member must be the loose-fitted one** or you cannot adjust it (Timken's "loose fitted member for adjustment").
+- Seat the cup: press or drive with a driver on the cup's face, never on the rib; a cup carrier lets you shim behind it.
+- Cone back face against the shoulder: check with a feeler; a gap here is end play you will lose in service.
+- Matching: cups and cones are interchangeable within a part number (not with other numbers); a 2TS-IM preset pair with its spacer is a matched set.
+
+## Checks after setting
+
+- End play measured after the end cap is torqued, and again after the first heat run when possible (shut down, measure hot).
+- Temperature at the bearing housing after 1-2 hours: stabilised below about 180°F; a rising temperature on a freshly set taper bearing = preload from thermal growth or a mis-seated cup.
+- Rolling smoothness, no axial knock; on gearboxes the tooth contact pattern (see [gear inspection](/article/gear-inspection-and-tooth-failure)) confirms the pinion setting.
+- Record end play, shim thickness, nut position, rolling torque and the date.
+
+## Common mistakes
+
+- Measuring end play without seating the rollers by rotating under load: the "0.008" you measured is really 0.003.
+- Cup not fully seated in the bore: the setting vanishes on the first run.
+- Setting a long steel shaft in a steel housing to zero cold: it preloads hot and burns.
+- Torquing the adjusting nut to the bearing's ruin because the manual said "tight".
+- Mixing a used cone with a new cup, or a cone and cup from different part numbers.
+- Adjusting the tight-fitted member (it will not move without a puller, and the shoulder gets damaged).
+- Forgetting the seal drag when measuring rolling torque for a preload.
+
+## Related
+
+- [Bearing mounting with heat](/article/bearing-mounting-with-heat)
+- [Bearing removal, pullers and heating](/article/bearing-removal-pullers-and-heating)
+- [Bearing clearance and fits tables](/article/bearing-clearance-and-fits-tables)
+- [Dial indicator use](/article/dial-indicator-use)
+- [Gear inspection and tooth failure](/article/gear-inspection-and-tooth-failure)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
+          array[$mw$tapered roller bearing$mw$,$mw$tapered roller bearing setting$mw$,$mw$end play$mw$,$mw$endplay$mw$,$mw$preload$mw$,$mw$bearing setting$mw$,$mw$Timken setting$mw$,$mw$Set-Right$mw$,$mw$Torque-Set$mw$,$mw$dial indicator end play$mw$,$mw$shim adjustment$mw$,$mw$spacer adjustment$mw$,$mw$adjusting nut$mw$,$mw$wheel bearing adjustment$mw$,$mw$gearbox end play$mw$,$mw$bench end play$mw$,$mw$mounted setting$mw$,$mw$cup and cone$mw$,$mw$direct mounting$mw$,$mw$indirect mounting$mw$,$mw$hot end play$mw$,$mw$rolling torque$mw$]::text[], $mw$Timken$mw$, array[$mw$Set-Right$mw$,$mw$Acro-Set$mw$,$mw$Projecta-Set$mw$,$mw$Torque-Set$mw$,$mw$Clamp-Set$mw$,$mw$TDO$mw$,$mw$TDI$mw$,$mw$2TS-IM$mw$]::text[], $mw$Timken 'Setting Techniques for Tapered Roller Bearings' (form 5556): definitions, Table 1 comparison of methods and typical mounted setting ranges (manual 0.004-0.010 in etc.), manual setting description (adjusting nut backed off 1/6 to 1/4 turn), preset assemblies and bench end play; Timken Engineering Manual guidance on end play vs life; gearbox and axle manufacturer service manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -1882,6 +2290,133 @@ Back out the cap screws, thread them into the **jack (removal) holes** in the bu
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gear-inspection-and-tooth-failure$mw$, $mw$Gear Inspection and Tooth Failure (AGMA 1010): Gear Types and Terms, Ratio and Speed Math, Checking Contact Pattern with Bluing, Measuring Backlash (Indicator, Feeler, Solder Wire) with Typical Values by Pitch, Bevel Gear Pattern Adjustment, Tooth Failure Modes (Wear, Scuffing, Micropitting, Pitting, Spalling, Bending Fatigue, Overload) and Their Causes$mw$, $mw$What a millwright checks inside a gearbox and on open gearing: the gear types and the words on the drawing, the ratio and speed calculations, how to blue the teeth and read the contact pattern and move it, how to measure backlash three ways and what number to expect, how to adjust a bevel set, and the AGMA 1010 catalogue of tooth damage with what each one looks like and what caused it.$mw$, $mw$## Gear types
+
+| Type | Teeth | Notes for the millwright |
+|---|---|---|
+| **Spur** | Straight, parallel to the axis | No thrust; noisy at speed; the simplest |
+| **Helical** | Angled | Smooth and quiet, carries more; **produces axial thrust** (a thrust bearing is required; the bearing arrangement matters on rebuild); single helical parallel-shaft reducers are the commonest industrial gearbox |
+| Double helical / herringbone | Two opposed helixes | Thrust cancels; one shaft must float axially to let the teeth centre |
+| **Bevel** (straight, spiral, Zerol) | On cones; shafts at 90° | **Mounting distance** sets the contact pattern; spiral bevels have thrust in both directions depending on rotation and hand |
+| Hypoid | Offset bevel | Sliding action: needs EP oil (automotive rear axles, some industrial) |
+| **Worm and wheel** | Screw driving a bronze wheel | High ratio in one stage, sliding contact (efficiency 50-90%), heat, **bronze wheel is the wear part**, may be self-locking; see [worm and planetary reducers](/article/planetary-and-worm-reducers) |
+| Planetary (epicyclic) | Sun, planets, ring | Compact, high torque, coaxial |
+| Rack and pinion | Linear | Backlash set by the mesh distance |
+
+## Terms
+
+- **Pitch circle / pitch diameter (PD)**: the imaginary rolling circle; gears mesh at their pitch circles. Centre distance = (PD₁ + PD₂) ÷ 2.
+- **Diametral pitch (DP, inch)**: teeth per inch of pitch diameter (PD = N ÷ DP); **module (m, metric)**: mm of pitch diameter per tooth (PD = m × N); m = 25.4 ÷ DP. Two gears mesh only if they have the same DP or module **and** pressure angle.
+- **Pressure angle**: 20° standard (14.5° on old gears): the angle of the tooth force; marked on the drawing.
+- **Addendum** = 1/DP (tooth height above the pitch circle), **dedendum** = 1.25/DP; **outside diameter** = (N + 2) ÷ DP; whole depth = 2.25/DP (2.157/DP old standard). A gear's DP can be found from its OD and tooth count: DP = (N + 2) ÷ OD.
+- **Backlash**: the play between meshing teeth measured at the pitch circle, needed for lubrication and expansion.
+- **Face width**, **helix angle**, **hand** (right/left, for helical and spiral bevel), **AGMA quality number** (Q5-Q15: accuracy).
+
+## Ratio and speed
+
+```
+   ratio i = N_driven ÷ N_driver = PD_driven ÷ PD_driver          output rpm = input rpm ÷ i
+   multi-stage: total ratio = i₁ × i₂ × i₃
+   output torque = input torque × i × efficiency (spur/helical stage ≈ 0.97-0.98; worm 0.5-0.9; bevel 0.97)
+   pitch line velocity (ft/min) = π × PD (in) × rpm ÷ 12       (decides the oil: see [oil viscosity](/article/oil-viscosity-and-selection))
+   gear mesh frequency (Hz) = teeth × rpm ÷ 60                  (the line to watch in a vibration spectrum)
+   hunting tooth: ratio chosen so every tooth meets every other (N₁ and N₂ have no common factor); a 2:1 with 20/40 teeth wears in pairs
+```
+
+Example: a 3-stage helical reducer with 22/61, 19/58, 17/63: i = 2.773 × 3.053 × 3.706 = **31.4:1**; 1750 rpm in → 55.8 rpm out; 50 hp input torque 1,800 in-lb → output 1,800 × 31.4 × 0.94 = 53,100 in-lb.
+
+## Inspection routine
+
+1. **Listen and feel** before opening: whine (mesh frequency, normal), growl or knock (bearing, backlash, broken tooth), a periodic thump once per revolution of a shaft (one bad tooth); housing temperature (under 180-200°F for mineral oil).
+2. **Oil**: level, colour, smell (burnt = overheated), water (milky), metal (magnetic plug: fine grey paste is normal wear, flakes and chips are pitting or breakage), oil analysis for a trend (see [oil analysis](/article/oil-analysis-and-sampling)).
+3. **Open the inspection cover** (clean around it first); light and a mirror or a **borescope**; rotate the gears slowly through a full turn of the slowest gear.
+4. Look at the **tooth contact pattern** (the polished or worn band): position across the face (centred / toward one end / diagonal), and along the height (pitch line / tip / root); then the **surface condition** per the failure table below; check the **root fillets** for cracks (a dye-penetrant check on suspect teeth), the tooth tips for chipping, the keyways and bores for fretting.
+5. **Backlash** at several positions around each gear (below); **end play** of each shaft (dial indicator) and bearing condition (roughness on rotation, wear of the shafts through the seals).
+6. Record with photos and a sketch: the contact pattern position and width, backlash, the worst tooth, the oil condition; compare to the last inspection: gear damage is judged by its **rate of progress** more than by its presence.
+
+## Contact pattern with bluing
+
+1. Clean the teeth of one gear (a few teeth) with solvent; brush a thin film of **marking compound** (Prussian blue, gear marking compound; not layout dye) on the driving gear's teeth (or on the wheel of a worm set).
+2. Rotate the gears **under a light load** (drag on the output by hand, a brake, or the machine's load) through several revolutions in the running direction, then back; too much load spreads the pattern and lies; no load gives a thin pattern.
+3. Read the transfer on the unblued gear: the ideal is a band **centred on the face width and on the pitch line, covering about 70-80% of the face** (not to the edges: the ends are relieved), even along the whole face.
+
+| Pattern | Meaning | Fix |
+|---|---|---|
+| Centred, wide, even | Correct | |
+| **Heavy at one end of the face** (toe or heel on bevels; one end on spur/helical) | **Misalignment**: shafts not parallel, housing bores out of line, bearing wear, a bent shaft, or the housing distorted by uneven foot bolting | Re-align the housings/bearings; shim the bearing carriers; on bevels adjust the mounting distance and offset |
+| **Diagonal band** across the face | Shafts crossed (skewed): misalignment in two planes; a deflecting shaft | As above; check deflection under load |
+| **Narrow band toward the tip** | Centre distance too large (or a bevel pinion too far out): teeth engage at the tip | Reduce the centre distance / move the pinion in |
+| **Narrow band toward the root** | Centre distance too small / pinion too deep | Increase / move out |
+| Band centred but short in the middle only | Crowned teeth (normal on crowned gears) or a light load reading | Load and re-check |
+| Pattern differs tooth to tooth | Runout of a gear (eccentric bore or bent shaft), a damaged tooth | Check runout with an indicator on the OD |
+| Full-width, edge to edge | Overloaded or tooth ends not relieved; watch for end loading | |
+
+Bevel gears: move the **pinion** axially (shims behind its bearing carrier) to move the pattern along the tooth **height** (in: toward the root and the toe; out: toward the tip and the heel), and move the **gear (crown wheel)** axially to move the pattern along the **length** (toward toe or heel) and to set backlash; the two adjustments interact: adjust, re-blue, repeat until the pattern is centred with the backlash in range. Worm sets: shift the **wheel** axially to centre the pattern; the ideal on a worm wheel is a pattern slightly on the **leaving (exit) side** of the wheel's centre so the oil is drawn into the mesh.
+
+## Measuring backlash
+
+- **Dial indicator (the standard)**: lock the driver (a clamp on the input shaft or the brake), put the indicator plunger **tangent to the pitch circle** on a tooth flank of the driven gear (or on a lever fixed to its shaft at the pitch radius), rock the gear back and forth against the locked driver, read the total travel. Repeat at 4 positions around the gear (runout makes it vary) and report the minimum and maximum.
+- **Feeler gauge**: between the non-driving flanks at the pitch line with the driving flanks in contact; fine on large-pitch open gears, rough on fine pitch.
+- **Solder wire / lead wire**: a strip of soft solder laid across the tooth, rolled through the mesh, then measured with a micrometer: the flattened thickness = backlash (plus you can read the tooth contact position from the wire's shape); the method for big open gears (mills, kilns).
+- Angular backlash from a linear measurement at radius R: angle (arc-min) = linear ÷ R × 3438.
+
+**Typical backlash (new, per AGMA 2002 class and general practice)**:
+
+| Diametral pitch (module) | Backlash (in) |
+|---|---|
+| 20 DP (1.25 m) | 0.003-0.005 |
+| 12 DP (2 m) | 0.005-0.007 |
+| **8 DP (3 m)** | **0.007-0.010** |
+| 6 DP (4 m) | 0.009-0.013 |
+| 4 DP (6 m) | 0.013-0.019 |
+| 3 DP (8 m) | 0.018-0.024 |
+| 2 DP (12 m) | 0.027-0.037 |
+| 1 DP (25 m) | 0.050-0.070 |
+
+Rule of thumb: **0.03 ÷ DP to 0.05 ÷ DP** (0.04 × module to 0.06 × module, mm). Worn gears show 2-3× the new value; backlash increasing over successive inspections is the wear rate; a gear with backlash at 3× new is at the end of its life or the centre distance has opened (bearing wear). **Too little** backlash (after a rebuild with the wrong shims) overheats and scores.
+
+## Tooth failure modes (AGMA 1010)
+
+| Mode | What it looks like | Cause | Action |
+|---|---|---|---|
+| **Normal (polishing) wear** | Smooth, mirror-like, the machining marks slowly disappearing | Running in; fine abrasives; a thin film | Acceptable; monitor; better oil filtration |
+| **Moderate / abrasive wear** | Matte, scratched in the sliding direction, the profile still good | Contaminated oil (dirt, sand, wear debris), too thin an oil | Change/filter the oil, fix the breather and seals |
+| **Excessive wear** | Profile changed: a **step at the pitch line**, tooth thinned, tip sharp | Long-term abrasive wear or lubrication starvation | Replace; find the contamination source |
+| **Scuffing (scoring)** | Rough, torn, streaked in the sliding direction (tip and root, not at the pitch line where sliding is zero); dull grey to welded | **Lubricant film breakdown**: oil too thin, too hot, no EP additive under high load, overload, sudden load at start | Correct the oil (viscosity, EP), cooling, load; a scuffed gear that has stopped scuffing can sometimes stay in service |
+| **Micropitting (frosting, grey staining)** | A dull grey, frosted band, usually below the pitch line; under a glass: a field of microscopic pits; the profile slowly wears | Thin film relative to roughness: too low a viscosity, rough surfaces, high load; common on case-hardened ground gears with the wrong oil | Higher viscosity or a micropitting-resistant oil (FZG test), better finish; monitor the profile |
+| **Macropitting (initial / progressive / destructive)** | Pits 0.5-3 mm, first along the **pitch line** (initial: often stops when the load spreads), then spreading and joining (progressive), then craters over the whole flank (destructive) | Surface fatigue from the contact stress: **overload**, misalignment (pits at one end), the end of life, soft gears | Initial: monitor; progressive on one end: fix the alignment; destructive: replace |
+| **Spalling** | Large, shallow, irregular flakes (bigger than pits), often from joined pits or from a case-hardened layer letting go | Overload, case too thin, hydrogen, pits joining | Replace |
+| **Plastic deformation (rolling, ridging, rippling)** | Metal pushed over the tip or into a ridge at the pitch line; wave patterns | Overload on soft (through-hardened) gears, shock; slow heavily loaded gears | Load reduction; harder gears |
+| **Bending fatigue (root crack, tooth breakage)** | A crack in the **root fillet**, then a tooth broken out with a **beach-marked** (smooth, curved lines) fracture face and a final rough zone | Cyclic overload, stress concentration (a nick, a sharp fillet, a grinding step, corrosion pit), misalignment loading one end, a case-hardening crack | Replace the gear **and** the mating gear (a broken tooth's pieces damage everything); find the overload or the notch |
+| **Overload breakage** | One or more teeth snapped with a rough, crystalline fracture face, no beach marks | A single shock: a jam, a foreign object, a brake failure, a coupling failure | Replace; inspect everything downstream |
+| **Case crushing / subcase fatigue** | Long cracks parallel to the surface, large flakes with the whole case gone | Case too thin for the load, soft core | Design issue; replace with correct heat treatment |
+| **Electrical erosion (fluting)** | Regular fine lines across the flank | Current through the mesh (VFD, welding ground) | Grounding fixes as for [bearings](/article/bearing-failure-analysis) |
+| **Corrosion** | Pits with rust, etched surfaces, often on the unloaded flanks too | Water in the oil, condensation, acidic oil, chemical fumes | Fix the water/breather; change oil |
+| **Interference / tip contact** | Wear at the tips and a groove in the mating root | Wrong centre distance, wrong gears (pressure angle, DP mismatch) | Correct the mesh |
+
+Pitting that appears at **one end of the face** = misalignment; along the whole pitch line = load/oil; on the **driver only** or on **one tooth only** = runout, a damaged tooth, or a hunting-tooth issue.
+
+## Gear replacement rules
+
+- Replace **mating pairs** unless the other gear is verified undamaged and the wear step is under 0.005"; a new pinion against a worn wheel wears out fast.
+- Match DP/module, pressure angle, helix angle and hand, face width, material and hardness (the pinion is usually made a little harder than the wheel, on the order of 30-40 HB), and the AGMA quality.
+- Set backlash and contact pattern per above after any bearing or shaft change: bearing end play and preload are what position the gears (see [tapered roller bearing setting](/article/tapered-roller-bearing-setting)).
+- Run-in a new set: half load for several hours, oil change after the run-in (the fine wear debris), then inspection.
+
+## Related
+
+- [Gearbox lubrication and inspection](/article/gearbox-lubrication-and-inspection)
+- [Planetary and worm reducers](/article/planetary-and-worm-reducers)
+- [Dodge torque-arm shaft-mount reducer](/article/dodge-torque-arm-shaft-mount-reducer)
+- [Tapered roller bearing setting](/article/tapered-roller-bearing-setting)
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection) and [oil analysis and sampling](/article/oil-analysis-and-sampling)
+- [Vibration signatures (gear mesh)](/article/vibration-signatures)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
+          array[$mw$gear inspection$mw$,$mw$gear teeth$mw$,$mw$gear failure$mw$,$mw$tooth failure$mw$,$mw$AGMA 1010$mw$,$mw$pitting$mw$,$mw$macropitting$mw$,$mw$micropitting$mw$,$mw$spalling$mw$,$mw$scuffing$mw$,$mw$scoring$mw$,$mw$gear wear$mw$,$mw$tooth breakage$mw$,$mw$bending fatigue$mw$,$mw$contact pattern$mw$,$mw$bluing gears$mw$,$mw$backlash$mw$,$mw$measuring backlash$mw$,$mw$backlash by pitch$mw$,$mw$diametral pitch$mw$,$mw$module$mw$,$mw$pressure angle$mw$,$mw$gear ratio$mw$,$mw$bevel gear pattern$mw$,$mw$toe heel$mw$,$mw$spiral bevel adjustment$mw$,$mw$worm gear pattern$mw$,$mw$gear terms$mw$,$mw$pitch diameter$mw$,$mw$borescope gearbox$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ANSI/AGMA 1010-F14 Appearance of Gear Teeth, Terminology of Wear and Failure; AGMA 2002 (backlash) and typical backlash-by-pitch practice; Rexnord Falk gear failure guide; Boston Gear gear theory and inspection guidance; Gleason bevel gear contact-pattern development guidance; Philadelphia Gear / Errichello (GEARTECH) failure analysis papers.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$gearbox-lubrication-and-inspection$mw$, $mw$Gearbox Lubrication, Oil Levels, Breathers and Routine Inspection$mw$, $mw$How to pick the right gear oil, check and set the level for the mounting position, keep breathers working, change oil on the right interval, check backlash, and read the warning signs of a reducer on its way out.$mw$, $mw$## Oil selection
 
 | Gear type | Typical oil | Notes |
@@ -1950,6 +2485,774 @@ Backlash is the free play between meshing teeth. Too little = binding and heat; 
 - [Dodge Torque-Arm shaft-mount reducer installation](/article/dodge-torque-arm-shaft-mount-reducer)
 - [Bearing designation codes](/article/bearing-designation-codes)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
           array[$mw$gearbox$mw$,$mw$speed reducer$mw$,$mw$gear oil$mw$,$mw$ISO VG$mw$,$mw$AGMA$mw$,$mw$oil level$mw$,$mw$sight glass$mw$,$mw$breather$mw$,$mw$worm gear$mw$,$mw$helical$mw$,$mw$backlash$mw$,$mw$oil change interval$mw$,$mw$oil analysis$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AGMA 9005; Dodge, Falk, SEW, Nord and Boston Gear instruction manuals (general).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$planetary-and-worm-reducers$mw$, $mw$Worm, Planetary and Cycloidal Reducers: How Each Works, Ratio and Efficiency, Self-Locking, Worm Gear Oils (Compounded, PAG, Synthetic) and Compatibility, Mounting Positions and Vents, Thermal Rating, Bronze Wheel Run-In and Wear, Planetary Ratio Math and Maintenance, Cycloidal (Sumitomo) Basics, Service Factors$mw$, $mw$The three reducer types a millwright meets after the ordinary helical box: worm reducers (why they run hot, why the oil is special, when they hold a load without a brake, and how the bronze wheel wears), planetary reducers (the ratio math, why they are compact, what to check), and the cycloidal drive (how it takes shock), with the mounting, venting, oil and service-factor rules common to all.$mw$, $mw$## Worm gear reducers
+
+A steel **worm** (a screw, usually hardened and ground) drives a **bronze wheel** (phosphor bronze or aluminium bronze) at 90°. The contact is **sliding**, not rolling, so:
+
+- **Efficiency depends on the ratio** (the lead angle of the worm): roughly **90% at 5:1, 85% at 10:1, 75-80% at 20:1, 65-70% at 40:1, 50-60% at 60:1 and above**. The lost power is heat in the oil: a 10 hp input at 50:1 puts 3-4 hp into the oil, so the box is **thermally rated** (a maximum input hp for continuous duty, lower than its mechanical rating) and runs hot (200°F on the housing is not unusual and up to about 220°F is allowed by most makers with synthetic oil; over that the bronze wears fast).
+- **Self-locking**: a ratio above about **30:1 to 40:1** (lead angle under 5-6°) cannot be back-driven from the output at rest: the load will not run back down when the motor stops. This is a **design property, not a brake**: vibration, a warm box and a large overhauling load can let it creep; hoists need a brake regardless.
+- Ratio = wheel teeth ÷ worm starts (a single-start worm and a 40-tooth wheel = 40:1; double start = 20:1); a single stage does 5:1 to 100:1; double reduction (helical-worm or worm-worm) to 3600:1.
+- The bronze wheel is the **wear part**: it is designed to wear (the soft member protects the worm); its wear shows as backlash growth and bronze in the oil. A worm that has wear grooves or is pitted needs replacing with the wheel.
+- Thrust: the worm shaft carries a heavy axial thrust; its bearings (often tapered rollers set with end play or preload per the manual) are the first mechanical failure after the oil.
+
+### Worm gear oil
+
+Sliding contact under high pressure with a bronze surface: **EP additives of the sulphur-phosphorus type used in helical gear oils attack bronze** (they are "active" sulphur), so worm boxes use either:
+
+| Oil | Notes |
+|---|---|
+| **Compounded mineral gear oil** (ISO 460 or 680 with 3-10% fatty oil, "AGMA 7 Comp / 8 Comp", such as Mobil 600W Cylinder Oil) | The classic; the fatty additive lubricates the bronze; change every 2,500 h / 6 months |
+| **Synthetic PAO** (ISO 460-680) | Better at temperature, longer life (5,000-8,000 h / 2 years); most makers' factory fill today |
+| **Synthetic PAG (polyglycol, e.g. Mobil Glygoyle, Shell Omala S4 WE)** | Lowest friction on worm gears (runs 10-20°F cooler, efficiency up several %), longest life; **not miscible with mineral or PAO oil** and attacks some paints and seals: **never mix**; flush thoroughly if changing to or from PAG |
+| Food grade H1 synthetic (ISO 460) | Where required |
+| Helical gear EP oil (ISO 220 EP) | **Not for worm boxes** with bronze wheels unless the maker approves an "inactive sulphur" EP grade |
+
+Viscosity: **ISO 460 for most, 680 for slow/hot**, 320 for high-speed worms in cool locations, per the maker's chart by input speed and ambient. Level: to the plug at the mounting position (a worm box has a different fill for each position: the worm-over, worm-under and vertical arrangements each need the oil to reach the mesh and the bearings; the manual's chart by position gives ounces); the wrong level for the position starves the upper bearings or churns.
+
+### Mounting positions and venting
+
+- Boxes are built (or converted) for a **specific mounting position**: worm over, worm under, vertical output up/down, wall mount; the position decides which plug is the fill, level and drain, where the vent goes (the highest point, and not where oil splashes into it), and sometimes the bearing arrangement (grease packs on the upper bearings). **Re-plug** per the manual when the position changes; a box mounted sideways with the vent on the side pumps oil out of it.
+- Vent (breather): clear, at the top, replaced when clogged or when the box pushes oil past the seals (pressure from a blocked vent is the commonest cause of seal leaks); a **desiccant breather** in damp or dusty plants.
+- Solid mounting on a flat surface; **do not** clamp a small worm box to a warped bracket: the housing distorts and the worm binds.
+
+### Run-in and inspection
+
+- New or re-wheeled boxes: **run in at reduced load** (50% for 24 h, or per the maker) so the bronze wears into the worm's shape; efficiency improves over the first 100 hours; change the oil after run-in (bronze fines).
+- Check: housing temperature (a hand cannot stay on a 140°F+ housing; use a thermometer; the maker's limit is typically **200-220°F**), oil level and colour (bronze in the oil turns it golden-green, then dark), backlash at the output shaft (rock it by hand; growth = wheel wear), seal leaks, the worm shaft end play, the vent, mounting bolts.
+- Overheating causes, in order: overload beyond the thermal rating, wrong or old oil, wrong level, a blocked vent, a hot location with no airflow, a fan missing from the input shaft (worm boxes over about 5 hp carry a fan), tight bearings.
+
+## Planetary reducers
+
+A **sun** gear in the centre, several **planet** gears on a **carrier**, all inside a **ring** (annulus) gear; one of the three is held, one is the input, one the output. Load is shared by 3-5 planets, so the box is small for its torque, coaxial (input and output on one axis) and stiff; used on winches, slewing drives, wheel drives, mixers, conveyors (Brevini, Bonfiglioli, Falk, Rexnord Planetgear), and in multi-stage stacks for big ratios.
+
+```
+   ring held, sun in, carrier out (the usual):    i = 1 + N_ring ÷ N_sun         (e.g. 72-tooth ring, 24-tooth sun: i = 4)
+   carrier held (star arrangement):               i = − N_ring ÷ N_sun          (reverses)
+   sun held, ring in, carrier out:                i = 1 + N_sun ÷ N_ring   (close to 1; rare)
+   stages multiply: three 4:1 stages = 64:1
+```
+
+Efficiency about 97-98% per stage. Maintenance: **oil level** at the plug for the mounting position (planetaries are often mounted vertically or on wheel hubs where the fill is a fraction of the volume); **oil change** per hours (typically 500 h first, then 2,500-5,000 h mineral / 8,000-10,000 h synthetic); listen for **planet bearing** roughness (needle bearings in the planets are the common failure; the oil debris tells you); check the **output bearing preload** on wheel drives and slewing units (they carry the load), the seals, and the torque of the ring-gear bolts (a slipped ring gear = a ratio surprise and broken teeth). Never run a planetary without oil even briefly: the planet bearings have no reservoir.
+
+## Cycloidal reducers (Sumitomo Cyclo and similar)
+
+An eccentric on the input drives a **cycloid disc** with lobes that roll on **pins/rollers** in the housing; the disc's slow rotation is taken off by pins to the output. **Rolling contact** (no gear teeth), so the drive takes **500% momentary shock**, is compact, single-stage ratios 6:1 to 119:1, efficiency 90-95%. Lubrication: grease in small sizes (repack per the manual, e.g. every 3-6 months of grease or the maker's hours), oil in larger (level to the sight glass for the mounting position); eccentric bearing is the wear item; the drive is noisy compared with a helical box and that is normal. Inspect for lube and for backlash at the output (cycloids have very little: growth = worn pins/rollers).
+
+## Service factors and selection (all types)
+
+The reducer's catalogue rating is for uniform load, 10 h/day (AGMA class I); the required rating is the motor hp × the **service factor** for the driven machine and the duty:
+
+| Driven load | 3 h/day | 10 h/day | 24 h/day |
+|---|---|---|---|
+| Uniform (centrifugal pumps, fans, light conveyors) | 0.8-1.0 | 1.0 | 1.25 |
+| Moderate shock (heavy-duty conveyors, mixers, screw conveyors) | 1.0 | 1.25 | 1.5 |
+| Heavy shock (crushers, reciprocating pumps, hammer mills, reversing) | 1.5 | 1.75 | 2.0 |
+
+A worm box also needs its **thermal** rating checked separately (input hp continuous without an external fan/cooler). Overhung load (a sprocket or sheave on the output shaft) is rated separately: a big sheave on a small box breaks the output shaft; put the sheave as close to the housing as the guard allows or use a shaft-mount design.
+
+## Replacing a reducer
+
+Match: ratio (or the output speed), input hp and thermal rating, output torque and service factor, shaft sizes and directions (the worm box's output can be left, right or both), mounting position and base dimensions, the direction of rotation (the output turns opposite to the input on a single-stage worm and on a single-stage spur; same on a double), and the oil. Fill to the level for the **new** position; a box shipped with oil is usually shipped **without** its vent (a shipping plug): fit the vent before starting or the seals blow.
+
+## Common mistakes
+
+- Helical EP oil in a worm box: the bronze wheel dissolves into the oil in a year.
+- PAG topped up with mineral oil: gel and a burned wheel.
+- Vent left as the shipping plug: oil out of every seal.
+- Worm box mounted in a new position with the old plug arrangement: the top bearing runs dry.
+- Counting on self-locking as the hoist brake.
+- A 10 hp motor on a worm box with a 7.5 hp thermal rating "because the mechanical rating is 12": the oil cooks.
+- Planetary wheel drive run 200 hours with the oil level right for horizontal mounting when it is vertical: the top stage starved.
+
+## Related
+
+- [Gearbox lubrication and inspection](/article/gearbox-lubrication-and-inspection)
+- [Gear inspection and tooth failure](/article/gear-inspection-and-tooth-failure)
+- [Dodge torque-arm shaft-mount reducer](/article/dodge-torque-arm-shaft-mount-reducer)
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection)
+- [Power, torque and drive formulas](/article/power-torque-speed-drive-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
+          array[$mw$worm gear reducer$mw$,$mw$worm gearbox$mw$,$mw$worm gear oil$mw$,$mw$worm gear efficiency$mw$,$mw$self locking$mw$,$mw$worm gear ratio$mw$,$mw$bronze worm wheel$mw$,$mw$worm gear wear$mw$,$mw$compounded gear oil$mw$,$mw$PAG oil worm$mw$,$mw$mounting position gearbox$mw$,$mw$gearbox vent$mw$,$mw$breather$mw$,$mw$thermal rating$mw$,$mw$planetary gearbox$mw$,$mw$planetary ratio$mw$,$mw$sun planet ring$mw$,$mw$cycloidal reducer$mw$,$mw$Sumitomo Cyclo$mw$,$mw$service factor gearbox$mw$,$mw$gearbox selection$mw$,$mw$gearbox overheating$mw$]::text[], $mw$Boston Gear / Dodge Tigear / Sumitomo Cyclo / Bonfiglioli / Brevini (generic)$mw$, array[$mw$Boston Gear 700 series$mw$,$mw$Dodge Tigear-2$mw$,$mw$Winsmith$mw$,$mw$Sumitomo Cyclo 6000$mw$,$mw$Bonfiglioli 300 series$mw$,$mw$Brevini$mw$,$mw$Falk Quadrive$mw$,$mw$Grove Gear$mw$]::text[], $mw$Boston Gear worm gear reducer manuals and engineering data (efficiency by ratio, lubrication, mounting positions); Dodge Tigear-2 installation manual; AGMA 9005 (lubricants for worm gears: compounded and synthetic); Sumitomo Cyclo 6000 operating manual; Bonfiglioli and Brevini planetary gearbox manuals; AGMA service factor tables.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$accumulator-precharge-and-safety$mw$, $mw$Hydraulic Accumulator Precharge and Safety: Bladder, Piston and Diaphragm Types, What the Precharge Does, Precharge Rules by Application (90% Energy Storage, 75% Shock, 70% Pulsation), Temperature Correction, the Nitrogen Charging Procedure Step by Step, Checking Precharge Without a Gauge, Bleed-Down Before Any Work, Signs of Lost Precharge and Bladder Replacement$mw$, $mw$The accumulator is the most dangerous stored energy in a hydraulic system and the most neglected: this covers the three types, why the nitrogen precharge sets how the accumulator works, the precharge rules for each job and how to correct for temperature, the full charging procedure with the kit and the nitrogen bottle, how to check the precharge quickly, the bleed-down every lockout needs, how to recognise a lost precharge or a failed bladder, and how a bladder is replaced.$mw$, $mw$## Types
+
+| Type | Construction | Notes |
+|---|---|---|
+| **Bladder** | A rubber bladder (nitrile, Viton, Hydrin, butyl) in a forged shell; gas inside the bladder, oil outside; a poppet valve at the oil port stops the bladder extruding | The commonest; fast response; **mount vertically, gas valve up**; ratio (max working : precharge) about 4:1; sizes 1 pint to 15+ gallons; 3,000-6,000 psi |
+| **Piston** | A free piston with seals in a honed cylinder; gas above, oil below | Any orientation (vertical preferred); high compression ratios; big sizes; the piston seals wear and let gas leak slowly, so the precharge is checked more often; dirty oil scores the bore |
+| **Diaphragm** | A diaphragm clamped in a small welded or screwed shell | Small volumes (to about 1 gal); mobile equipment, suspension, pulsation |
+| Spring / weight-loaded | | Old and special |
+
+What they do: **energy storage** (a pump charges the accumulator, it supplies flow bursts bigger than the pump: presses, clamping), **shock absorption** (water hammer, pressure spikes), **pulsation damping** (piston pumps), **leakage make-up / pressure holding** (clamping and load-holding circuits: the pump can stop), **thermal expansion**, **emergency power** (to lower a load or release a brake when the pump fails).
+
+## Precharge
+
+The gas precharge (**dry nitrogen only**, P₀) sets the pressure at which the accumulator starts to take oil and how much oil it can give back between the system's maximum (P₂) and minimum (P₁) pressures.
+
+| Application | Precharge P₀ | Why |
+|---|---|---|
+| **Energy storage** (the usual) | **90% of the minimum system pressure P₁** (or 100 psi below P₁ on a piston type, 175 psi below on a bladder type: Tobul) | The bladder stays slightly off the poppet at P₁ so it never bottoms; below 80% the bladder folds and fatigues; above P₁ the accumulator gives no oil until the system pressure passes the precharge |
+| **Shock absorption** | **about 75%** of the minimum working pressure | Softer response |
+| **Pulsation damping** | **about 70%** of the system operating pressure | |
+| Thermal expansion | Set at the system's normal pressure | |
+| Emergency power | Per the circuit design | |
+
+Never over 90% of P₁ on energy storage (the gas volume is what stores the energy: too high and there is little usable oil, and the bladder hits the poppet on every cycle); never above the accumulator's or the system's rating. The **design sheet or the accumulator's tag** gives the P₀; write it on the accumulator with a paint marker if it is missing.
+
+**Temperature correction**: the gas pressure changes with temperature (a closed volume: P₁/T₁ = P₂/T₂ in **absolute** units). Charge in a cold shop and the precharge is higher when the system is at 140°F:
+
+```
+   P₀ at charging temperature = P₀ (wanted at operating temperature) × (T_charging + 460) ÷ (T_operating + 460)     (°F; use K for °C)
+   Example: wanted 1,000 psi at 140°F, charging at 70°F: 1,000 × 530 ÷ 600 = 883 psi      (Parker's chart gives the same factor, about 0.88)
+```
+
+So charge to the corrected (lower) value when the system will run hot, and when **checking** a running system's precharge, convert the reading to the operating temperature before comparing. Check with the system **cold** and the oil side bled for a clean reading; the Parker/Tobul instructions say to let the gas stabilise **10-15 minutes** after charging before the final reading (compression heats the gas).
+
+## Safety rules (before anything)
+
+- **Nitrogen only**. Oxygen or air with oil = an explosion; CO₂ or other gases damage the bladder and give wrong pressures. Cylinders marked **nitrogen, CGA 580** (up to 3,000 psi) or **CGA 677** (up to 5,000/6,000 psi) outlets; the charging kit must match.
+- The nitrogen bottle is at **2,200-6,000 psi**: the charging assembly's hose must be rated for it (kits are marked 3,000 / 5,000 / 10,000 psi), and the accumulator's gas side must never see more than its rating: a **regulator** on the bottle when the bottle pressure exceeds the accumulator's rating (a 6,000 psi bottle on a 3,000 psi accumulator without a regulator will burst the accumulator's gas valve or shell).
+- **Bleed the oil side to zero** (the system's accumulator dump valve, or the bleed at the accumulator) and prove it on the gauge before touching the gas valve; the gas valve cap and the core are the only barrier.
+- Never unscrew the gas valve assembly, the bladder plug, or a shell fitting with gas in it; never weld on, drill, or heat an accumulator; never exceed the nameplate pressure; a dented or corroded shell is condemned.
+- Expanding nitrogen is **cold**: freeze burns; gloves; eye protection; the bottle chained.
+- **Lockout** of any hydraulic system with an accumulator includes **discharging it** (the dump valve, an automatic unloading valve that opens when the pump stops, or a manual bleed) and **verifying zero** on the accumulator's oil-side gauge; a machine with a charged accumulator can move after the pump is locked out. See [hydraulic basics](/article/hydraulic-system-basics-and-symbols).
+
+## Charging procedure (bladder type; piston and diaphragm the same at the gas valve)
+
+1. Shut down the pump; **open the dump/bleed valve** and drain the oil side of the accumulator to the tank until the pressure gauge on the accumulator's oil side reads **zero** and stays there; lock out the pump. The bladder is now fully expanded against the poppet (a bladder accumulator "clicks" as it seats).
+2. Remove the gas valve **protective cap** and the **valve core cover** (the small cap over the core; some valves have a sealing cap that must be loosened slowly: a hiss means the core is leaking or the cap was the seal: stop and check).
+3. Fit the **charging and gauging assembly**: the swivel nut onto the gas valve (hand tight, then a light wrench pull), the gas chuck's T-handle **backed all the way out** (counter-clockwise: it depresses the core when turned in), the bleed valve on the assembly **closed**, the hose to the nitrogen bottle **not yet connected** or the bottle valve closed.
+4. **Read the existing precharge**: turn the T-handle in (clockwise) until the gauge shows pressure (the core is depressed); this is the current precharge: compare with the tag (corrected for temperature). If it is right, back the T-handle out, remove the assembly, refit the caps; done.
+5. To **add** gas: connect the hose to the bottle (regulator set if needed), **crack the bottle valve slowly** and let the accumulator fill **slowly** to about **100 psi above** the wanted precharge; close the bottle valve; **wait 10-15 minutes** for the gas to cool and the reading to settle; then **crack the assembly's bleed valve** to bring the reading down to the exact precharge; close the bleed.
+6. To **reduce** gas: the bleed valve on the assembly, slowly, watching the gauge; wait and re-read.
+7. Back the T-handle **all the way out** (the core closes), close the bottle valve and bleed the hose (the assembly's bleed), remove the assembly, **check the core for leaks** with soapy water or leak fluid, refit the valve cover and cap (hand tight plus a light pull; the cover seals the core).
+8. Record the date, the temperature, the precharge on the accumulator's tag and in the log. Re-check **after one week** on a newly installed or repaired accumulator, then **monthly for the first few months and every 3-6 months** after (the FST guide: weekly at first, then monthly); piston accumulators more often than bladders.
+
+## Checking without a gauge assembly (the quick check)
+
+With the pump running and the system at pressure, watch the accumulator's oil-side gauge while the pump is stopped or the dump valve opened slowly: the pressure falls **steadily** as the accumulator gives oil, then **drops suddenly** to zero when the bladder seats: the pressure at which it drops **is the precharge**. No sudden drop (it falls smoothly to zero) = **no precharge** (a ruptured bladder or a leaked-off gas charge). This is also how you find a bladder that has failed: the accumulator gives no oil and the system hammers.
+
+## Signs of lost precharge or a failed bladder
+
+- The pump cycles much more often, or runs continuously on a clamping circuit (no stored oil).
+- **Hammering/pressure spikes** on a shock-absorbing accumulator.
+- Slow or weak machine motions that used the accumulator's flow.
+- The gas side reads zero, or the gauge shows **oil** at the gas valve (a ruptured bladder puts oil in the gas side: the core spits oil when depressed).
+- A bladder accumulator that reads a precharge but the system behaves badly: the bladder may be leaking slowly (weekly checks show a loss).
+- Piston accumulator: the gas pressure slowly falling and oil leaking past the piston into the gas side.
+
+Bladder life: 5-10 years, less with high cycle rates, high temperature, or a wrong precharge (a low precharge lets the bladder slam the poppet and tear; a high precharge extrudes it into the port).
+
+## Bladder replacement (outline; the maker's procedure governs)
+
+1. Bleed both sides completely (oil to zero, gas released fully through the core with the T-handle in and the bleed open until the gauge is at zero and no hiss); remove the accumulator from the system if possible; clamp the shell in a fixture (not a pipe vise on the shell).
+2. Remove the gas valve assembly (the nut that holds the bladder's stem in the shell), push the stem into the shell.
+3. Remove the **poppet (fluid port) assembly**: the lock nut, the spacer, the anti-extrusion ring (it collapses to come out through the port), the poppet and spring.
+4. Pull the old bladder out through the fluid port (collapse it); inspect the shell interior for scoring and corrosion (a corroded shell is scrap).
+5. New bladder of the **correct material** for the oil and temperature; **lubricate** it with the system oil; collapse it (a vacuum on the stem helps), insert it through the fluid port with the stem to the gas end, pull the stem through and fit the gas valve nut loosely; **inflate slightly** (5-10 psi) to shape the bladder; refit the poppet assembly and the anti-extrusion ring (it snaps back into shape inside the port), the spacer and the lock nut to torque; tighten the gas valve nut.
+6. Precharge per the procedure; leak test the gas valve and the port; install; re-check in a week.
+
+## Common mistakes
+
+- Charging from a shop air line (oil + oxygen + heat).
+- A 6,000 psi bottle straight onto a 3,000 psi accumulator.
+- Checking the precharge with the oil side still pressurised: the reading is the oil pressure.
+- Precharge set to the system's maximum pressure "for more power": no usable oil, bladder dead.
+- Lockout of the pump only; the press comes down on the accumulator.
+- Cold-shop precharge with no temperature correction on a hot press: 15% high.
+- Tightening the gas valve core cover with a big wrench: the core cracks.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling)
+- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$accumulator$mw$,$mw$hydraulic accumulator$mw$,$mw$precharge$mw$,$mw$pre-charge$mw$,$mw$nitrogen precharge$mw$,$mw$accumulator charging$mw$,$mw$charging kit$mw$,$mw$bladder accumulator$mw$,$mw$piston accumulator$mw$,$mw$diaphragm accumulator$mw$,$mw$precharge pressure$mw$,$mw$90 percent rule$mw$,$mw$accumulator temperature correction$mw$,$mw$accumulator bleed down$mw$,$mw$accumulator safety$mw$,$mw$accumulator dump valve$mw$,$mw$gas valve core$mw$,$mw$bladder replacement$mw$,$mw$lost precharge$mw$,$mw$accumulator stored energy$mw$,$mw$lockout accumulator$mw$,$mw$nitrogen bottle CGA 580$mw$]::text[], $mw$Parker / Hydac / Tobul / Bosch Rexroth (generic)$mw$, array[$mw$Parker ACP$mw$,$mw$Parker A2$mw$,$mw$Hydac SB330$mw$,$mw$Hydac SK$mw$,$mw$Tobul$mw$,$mw$Bosch Rexroth HAB$mw$,$mw$Greer$mw$]::text[], $mw$Tobul (FST) nitrogen pre-charging instructions (precharge 90% energy storage, 75% shock, 70% pulsation; piston 100 psi below minimum, bladder 175 psi below minimum; hose ratings CGA 580 to 3,000 psi, CGA 677 to 5,000 psi; stabilise 10-15 min); Parker accumulator catalogue (temperature correction factor method); Hydac accumulator operating manuals; Fluid Power Safety Institute guidance on accumulator lockout.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$cylinder-repair-and-seal-kits$mw$, $mw$Hydraulic Cylinder Repair and Seal Kits: Identifying the Cylinder and Ordering the Kit, Safe Disassembly (Tie-Rod and Welded Types, Gland Removal), Inspecting the Rod, Barrel and Piston, Honing, Seal Types and Orientation (Rod Seal, Wiper, Buffer, Piston Seal, Wear Rings), Installing Seals Without Damage, Tie-Rod Torque and Sequence, Bench Test and Drift Test$mw$, $mw$How to rebuild a leaking or drifting hydraulic cylinder: getting the right seal kit from the cylinder's data, taking it apart without hurting yourself or the parts, what makes a rod or a barrel scrap and what can be honed, which seal goes where and which way it faces, fitting seals warm without nicks or twists, putting it together with the tie rods torqued in sequence, and proving the repair with a bench test and a drift test before it goes back on the machine.$mw$, $mw$## Is it the cylinder?
+
+- **External leak at the rod**: rod seal and wiper (and often a scored or pitted rod that caused it).
+- **Drift** (the cylinder creeps under load with the valve centred): could be the **piston seals** (internal bypass) **or** the valve (spool leakage) or a load-holding valve; the bypass and drift tests below separate them; do not condemn the cylinder for a valve fault.
+- **Weak / slow with the pump fine**: piston seals bypassing (the cylinder and the lines get hot at the piston).
+- **Rod bent, barrel bulged, clevis cracked**: the cylinder was overloaded or side-loaded: fix the cause (alignment of the mounts, a stop) or it comes back.
+
+## Identify the cylinder and order the kit
+
+Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**, mounting style, seal class (standard nitrile, high-temperature Viton, water-glycol EPDM, low-friction PTFE), the pressure rating. Seal kits are sold by **series + bore + rod**; a "Parker 2H 3-1/4 bore, 1-3/8 rod, class 1 seals" kit contains the rod seal, wiper, piston seals, wear rings, gland O-ring/backup and the tube O-rings. No nameplate: measure the bore (the barrel ID), the rod, the gland seal groove dimensions and the piston groove dimensions with calipers and a seal profile gauge, and a seal supplier (Hercules and the like) will match them; measure **before** cleaning the old seals off, and keep the old seals to compare.
+
+## Safety before disassembly
+
+- The cylinder can hold **pressure** with the lines disconnected (a POC valve, a blocked port, a trapped column of oil that expands as it warms): open both ports slowly with a rag over them.
+- **Spring-return** and **gas-charged** (accumulator-type, nitrogen) cylinders: the spring or the gas is stored energy: only with the maker's procedure.
+- A large cylinder's rod and piston weigh hundreds of pounds: sling and support them; a rod dropped on the bench is a bent rod.
+- Chrome rods and barrels are sharp when damaged; oil everywhere; eye protection for the seal picks.
+
+## Disassembly
+
+**Tie-rod cylinders (Parker 2H/3L, Eaton, most industrial)**
+
+1. Clean the outside; mark the **orientation** of the heads, the ports and the mounts (a paint stripe across the rod end head, tube and cap end) so the ports come back in the same relationship.
+2. Clamp the cylinder by a mount or in soft jaws on the barrel (never on the rod); loosen the **tie-rod nuts in a cross pattern**, evenly, a turn at a time (unequal loosening cocks the heads); remove the nuts and the rod-end head (it may need a tap with a soft mallet; the tube seals hold it).
+3. Withdraw the **rod, piston and gland** from the tube as an assembly (support the rod; keep it straight; do not let the piston drag on the tube edge).
+4. Remove the **gland** from the rod (it slides off the rod once the rod-end head is off; on some designs the gland is retained in the head by a snap ring or bolts).
+5. **Piston**: note which way it faces and how many parts; hold the rod in soft jaws by a flat or across the clevis, and remove the piston nut (a big nut with thread locker: heat gently to 250°F if it will not move; a spanner for lock-nut types); slide the piston off; keep the spacer/cushion sleeve order.
+
+**Welded cylinders (mobile equipment, agricultural)**
+
+1. The gland is either **threaded** into the barrel (a **spanner wrench** in the holes or notches; some are left-hand), retained by a **wire ring** (a snap ring inside the barrel that comes out through a slot when the gland is pushed in), or bolted. Penetrating oil, heat on a stubborn threaded gland (the barrel, not the gland), a strap wrench or the maker's tool; a pipe wrench on the gland is the last resort and marks it.
+2. Pull the rod and piston out; the piston nut as above.
+3. Barrels with a **welded-on cap** cannot be opened from the cap end: everything comes out through the rod end.
+
+Lay everything out in order on a clean bench; photograph the seal stack in the gland and the piston **before** removing the old seals; note the direction the seal lips face.
+
+## Inspection
+
+| Part | Check | Acceptable | Scrap / repair |
+|---|---|---|---|
+| **Rod** | Runout on V-blocks (**≤ 0.002-0.003" over the length** on standard cylinders); chrome: pits, flaking, longitudinal scores; the seal area ring-free | Light polish marks; scores that a fingernail does not catch and that polish out with 600-grit (across, then along) | **Bent**: straighten only at a rod shop (a pressed-straight rod springs back); chrome pitted or flaked: **re-chrome and grind**, or a new rod (the rod seal will never seal on a pit); scores you can feel: re-chrome |
+| **Barrel (tube)** | Bore with a dial bore gauge: size, taper, out-of-round; scores, bulge (a bulged tube is scrap), rust in a stored cylinder | Light scratches that hone out; bore within the seal maker's tolerance for the nominal size (a bore worn 0.005" oversize leaks past new piston seals) | Deep scores: **hone** (a brush hone or a rigid hone, 0.001-0.003" removal max) or bore and sleeve; bulged, cracked, welded on: replace |
+| **Piston** | Seal grooves clean and square, wear-ring grooves, threads, the fit on the rod | Clean, no burrs | Scored OD from a lost wear ring: replace |
+| **Gland** | The bore that carries the rod (the bearing): wear (measure), scores; seal grooves; threads | Bearing wear under about 0.005" diametral | Worn gland bearing: the rod side-loads and the seal fails again: replace the gland or its bushing |
+| **Cushions** | The spear/sleeve and the cushion seat; the adjusting needle and its check | | Damaged cushion: cylinder slams |
+| **Tie rods and nuts** | Threads, stretch (a rod that has yielded) | | Replace as a set |
+| **Ports, clevises, pins and bushings** | Cracks, egg-shaped pin holes | | Weld/bore or replace |
+| **Rod thread and locknut** | | | |
+
+## Seals and where they go
+
+```
+   ROD END (gland), from outside in:
+     wiper (scraper) — lip facing OUT (scrapes dirt off the rod on the return stroke)
+     rod seal (U-cup, or PTFE with an energiser) — lip facing IN toward the pressure (the sealing lip sees the oil)
+     buffer seal (on high-pressure/impulse cylinders) — behind the rod seal, facing the pressure
+     gland bearing / wear ring — guides the rod
+     gland O-ring (static, between the gland and the head/barrel) with a backup ring on the LOW-pressure side of the O-ring
+
+   PISTON:
+     piston seal — a double-acting T-seal / PTFE cap with an O-ring energiser (symmetric), or two U-cups back to back with the lips facing AWAY from each other (each sees its own pressure side)
+     wear rings (guide rings) — one each side of the seal, they take the side load; never omit them
+     piston-to-rod O-ring (static) under the piston
+   TUBE SEALS: O-rings (with backup rings on the outside on high pressure) between the tube ends and the heads
+```
+
+Lips **face the pressure** they seal against: a U-cup installed backwards seals nothing. Backup rings go on the side **away** from the pressure (they stop the O-ring extruding into the gap). Materials: nitrile (Buna, standard, to 250°F), polyurethane (tough rod seals and wipers, to 200°F, not for water-glycol above 120°F), Viton (to 400°F, phosphate ester), EPDM (water-glycol, brake fluid, **not** petroleum oil), PTFE (low friction, wide temperature, needs an energiser).
+
+## Installing seals
+
+1. **Clean everything**: solvent, lint-free wipes, compressed air; a grain of grit under a seal is a leak.
+2. Remove old seals with a brass or plastic pick (never a screwdriver in the groove); clean the grooves.
+3. **Warm** stiff seals (polyurethane, PTFE) in hot oil or water at **150-180°F** for a few minutes so they stretch and recover; PTFE cap seals stretched over a piston must be **re-sized** with a sizing sleeve (or a hose clamp over a shim for 15 minutes) or they will not fit the bore.
+4. Lubricate the seals and the grooves with the **system oil** (or a compatible assembly grease; never a petroleum grease on EPDM).
+5. Rod seal into the gland: fold the U-cup into a kidney shape and pop it into its groove with the lip the right way; run a finger round to seat it; the wiper likewise (a metal-cased wiper is pressed in square). Check by looking from both sides.
+6. Piston seals: the energiser O-ring first, the PTFE cap or T-seal over it (a cone or tape over the threads and sharp edges so the seal is not cut); wear rings snapped into their grooves; the piston O-ring under the piston.
+7. **Protect** every seal from **threads, port edges, snap-ring grooves and sharp chamfers** as it passes: a bullet/cone over the rod's thread when sliding the gland on, **tape over the rod thread** and the port holes inside the tube, a ring compressor or a taper sleeve to enter the piston into the bore, and lubricate the bore. Enter the piston squarely, slowly.
+8. Assemble the rod/piston/gland into the tube; heads on in their marked orientation; tube O-rings seated (a dab of grease holds them).
+9. **Tie-rod nuts**: torque in a **cross pattern in three stages** (30%, 60%, 100%) to the maker's value (the service bulletin for the series and bore gives the figure; it rises steeply with tie-rod diameter, from a few ft-lb on 1/4" rods to hundreds on 1" rods); the heads must be square to the tube (measure the tube protrusion at four points); a cocked head binds the rod.
+10. Piston nut: threadlocker (high-strength) and the torque from the bulletin; the rod's flat in soft jaws.
+11. Welded cylinders: the gland threaded in to the shoulder (anti-seize on the thread), the wire ring fully seated in its groove, the bolts torqued.
+
+## Bench test and drift test
+
+1. Mount the cylinder horizontally, ports up; fill and **bleed** (cycle slowly at low pressure with the ports high to purge air; a spongy cylinder has air).
+2. **Stroke** it at low pressure through its full travel several times: smooth, no stick-slip, the cushions working (a slow-down at each end), no external weeping at the gland or heads.
+3. **Pressure test** at the working pressure (or 1.5× per the plant's rule) with the rod at mid-stroke, **both directions**, held 1-2 minutes each: no external leak, no drop on the gauge with the supply blocked.
+4. **Bypass (internal leak) test**: pressurise the **cap end** with the rod fully extended (the piston against the head) and the **rod-end port open** into a container: oil flowing from the open port = piston seal bypass (a few drops a minute on a big bore is normal for some PTFE seals; a steady flow is a failed seal or a bad bore). Repeat the other way (rod end pressurised, cap port open, rod retracted).
+5. **Drift test** (load holding): rod extended under a load or against a stop, pressure applied and then **blocked** at the cap end: the rod must not move measurably (indicator) over 10 minutes; drift here with the bypass test clean points to the piston nut/rod O-ring or a cracked piston.
+6. Record the tests; cap the ports; tag the cylinder.
+
+On the machine: bleed the lines, cycle without load, check the mounts for alignment (the cylinder must not be side-loaded at any point of the stroke: a bent rod comes from the mounts), check the drift with the real load and the valve centred (a machine that drifts with a good cylinder has a valve or load-holding problem).
+
+## Common mistakes
+
+- Wiper lip facing in and the rod seal facing out: leaks on the first stroke.
+- New seals on a pitted rod.
+- Piston seal cut on the port edge going in.
+- Backup ring on the pressure side.
+- Tie rods torqued one at a time to full: the head is cocked and the gland bearing wears in a month.
+- Honing a tube 0.010" oversize to "clean it up": the piston seals now extrude.
+- Straightening a bent rod in the shop press: it is bent again within a week and the chrome cracked.
+- Condemning a cylinder for drift when the pilot-operated check was leaking.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [O-rings and seals (materials)](/article/seal-failure)
+- [Pump and fluid-power formulas (cylinder force and speed)](/article/pump-and-fluid-power-formulas)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic cylinder repair$mw$,$mw$cylinder rebuild$mw$,$mw$seal kit$mw$,$mw$cylinder seal kit$mw$,$mw$rod seal$mw$,$mw$wiper seal$mw$,$mw$buffer seal$mw$,$mw$piston seal$mw$,$mw$wear ring$mw$,$mw$cylinder gland$mw$,$mw$tie rod cylinder$mw$,$mw$welded cylinder$mw$,$mw$cylinder honing$mw$,$mw$scored rod$mw$,$mw$bent rod$mw$,$mw$chrome rod$mw$,$mw$cylinder drift$mw$,$mw$cylinder bypass$mw$,$mw$bench test cylinder$mw$,$mw$tie rod torque$mw$,$mw$gland nut$mw$,$mw$seal orientation$mw$,$mw$polyurethane seal$mw$,$mw$PTFE seal$mw$,$mw$O-ring cylinder$mw$,$mw$cushion cylinder$mw$,$mw$spanner wrench cylinder$mw$]::text[], $mw$Parker / Eaton / Prince / Hercules (generic)$mw$, array[$mw$Parker 2H$mw$,$mw$Parker 3L$mw$,$mw$Parker 2A$mw$,$mw$Eaton Vickers TZ$mw$,$mw$Prince welded$mw$,$mw$Hercules seal kits$mw$]::text[], $mw$Parker Cylinder Division 2H/3L service bulletins (disassembly, tie-rod torque and sequence, seal installation); Hercules Sealing Products seal identification and installation guidance; Eaton and Prince cylinder service manuals; Parker O-Ring Handbook (seal handling); general hydraulic shop practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$filters-fluid-and-contamination$mw$, $mw$Hydraulic Filters, Fluid and Contamination Control: ISO 4406 Cleanliness Codes Explained with Target Codes by Component, Beta Ratio and Micron Ratings, Filter Locations and Bypass Indicators, Changing a Filter Element, Breathers and Reservoir Care, Fluid Selection (ISO VG, Type), Taking a Sample, Flushing After a Failure, Water and Air in the Oil$mw$, $mw$Most hydraulic failures are contamination: this explains how cleanliness is measured and what code each component needs, how a filter is rated and where each type sits, the routine of changing elements and reading indicators, keeping the reservoir and the breather doing their job, choosing the fluid, sampling for a particle count, how to flush after a pump failure, and the signs and cures for water and air in the oil.$mw$, $mw$## ISO 4406 codes
+
+A particle counter reports the number of particles per millilitre larger than **4 µm, 6 µm and 14 µm** (ISO 11171 calibration; the old code used 5 and 15 µm); each count is converted to a **range number**: each step **doubles** the count.
+
+| Range number | Particles per mL (more than) | up to |
+|---|---|---|
+| 12 | 20 | 40 |
+| 13 | 40 | 80 |
+| **14** | **80** | 160 |
+| 15 | 160 | 320 |
+| **16** | **320** | 640 |
+| 17 | 640 | 1,300 |
+| **18** | **1,300** | 2,500 |
+| 19 | 2,500 | 5,000 |
+| 20 | 5,000 | 10,000 |
+| 21 | 10,000 | 20,000 |
+| 22 | 20,000 | 40,000 |
+
+So **18/16/13** means 1,300-2,500 particles/mL over 4 µm, 320-640 over 6 µm, 40-80 over 14 µm. **One code number lower = half the dirt.** New oil from the drum is typically 20/18/15 to 22/20/17: **dirtier than most systems need**; it must be filtered going in.
+
+**Target cleanliness by the most sensitive component in the system** (industry practice; the component maker's number governs):
+
+| Component | Target ISO code (system pressure < 2,000 psi) | (2,000-3,000 psi) | (> 3,000 psi) |
+|---|---|---|---|
+| **Servo valves** | **16/14/11** | 15/13/10 | 14/12/9 |
+| **Proportional valves** | 17/15/12 | 16/14/11 | 15/13/10 |
+| **Variable-displacement piston pumps and motors** | **18/16/13** | 17/15/12 | 16/14/11 |
+| Fixed piston pumps | 19/17/14 | 18/16/13 | 17/15/12 |
+| Vane pumps | 19/17/14 | 18/16/13 | 18/16/13 |
+| **Gear pumps** | **20/18/15** | 19/17/14 | 18/16/13 |
+| Directional (solenoid) valves, cylinders | 20/18/15 | 19/17/14 | 18/16/13 |
+| Ball bearings, roller bearings (in the same oil) | 15/13/10 to 16/14/11 | | |
+| Industrial gearboxes (oil) | 17/15/12 to 19/17/14 | | |
+
+The Eaton/Vickers rule: going from 22/20/17 to 18/16/13 roughly **doubles to quadruples** pump and valve life.
+
+## Filter ratings
+
+- **Beta ratio** (ISO 16889 multi-pass test): β₁₀ = (particles ≥ 10 µm upstream) ÷ (particles ≥ 10 µm downstream). **β = 2 is 50% efficiency; β = 75 is 98.7%; β = 200 is 99.5%; β = 1000 is 99.9%**. A filter is described as e.g. "β₁₀(c) ≥ 1000" (the "(c)" means the ISO 11171 calibration). Ask for the beta ratio at the size you care about, not the "micron rating".
+- **Absolute rating** = the size at which β ≥ 75-200 (99% efficient): meaningful. **Nominal rating** = a marketing number (often only 50% efficient at that size): meaningless.
+- Typical elements: **3 µm (β₃ ≥ 200)** for servo systems, **5-6 µm** for piston pumps and proportional valves, **10 µm** for general industrial, **25 µm** for gear pump systems and return lines on mobile equipment, **100-150 µm (mesh)** for suction strainers. Cellulose media: cheap, lower beta, absorbs water; **glass fibre (microglass)**: high beta, more dirt-holding, the standard; stainless mesh: cleanable, coarse.
+- **Dirt-holding capacity** decides the change interval; a bigger housing is cheaper than frequent elements.
+
+## Where the filters go
+
+| Location | Job | Rating | Notes |
+|---|---|---|---|
+| **Suction strainer** (in the tank) | Keeps big trash out of the pump | 100-150 µm mesh | Never fine: a fine suction filter **starves the pump** (cavitation); many makers omit it on piston pumps; clean it at every oil change |
+| **Pressure filter** (after the pump, before the valves) | Protects the servo/proportional valves from pump debris | 3-10 µm, high-pressure housing, β high | The one with the **bypass valve removed** or set high on servo systems (a bypassing pressure filter is no filter); an indicator you can see |
+| **Return filter** (before the tank) | Catches the wear debris from the whole system; the workhorse | 10-25 µm | Sized for the return surge (cylinder differential); with a bypass and an indicator; in the tank-top or in-line |
+| **Off-line / kidney-loop** (its own small pump, tank to tank) | Continuous polishing; the only way to hold 16/14/11 on a dirty machine | 3-5 µm, plus a water-absorbing element if needed | Runs 24/7 regardless of the main pump; a **filter cart** does the same job on wheels for topping up and for flushing |
+| **Breather** (tank vent) | Stops airborne dust and moisture entering the tank as the level breathes | 3-10 µm, **desiccant** where humid | Replace when the desiccant changes colour or the ΔP rises; the cheapest and most neglected filter |
+| Fill port screen / fill through a filter | New oil is dirty | Fill only through the filter cart or a fill filter | |
+| Case drain filter | Piston pump case drain | 10 µm, low pressure | |
+| Bypass valve | Opens at 25-50 psi ΔP so the system keeps running when the element is blocked; the oil then bypasses **unfiltered** | | Change the element **before** the bypass opens |
+
+**Indicators**: mechanical (pop-up), gauge (ΔP), or electrical switch to the PLC; read them **at operating temperature** (cold oil shows a high ΔP that is viscosity, not dirt). An indicator that never moves is either a good sign or a stuck indicator: change the element on hours anyway.
+
+## Changing an element
+
+1. Lockout: pump off, pressure bled, the filter housing's own bleed/drain opened; on a pressure filter confirm zero on its gauge; on a return filter the housing may hold oil above the tank level: catch it.
+2. Clean the outside of the housing before opening (dirt on the lid falls in).
+3. Open (the bowl unscrews, or the lid bolts off); note how the element sits (bypass valve on top, seal side); remove the old element into a bag; **look at it** (metal glitter = a pump or a cylinder dying; black sludge = oxidised oil; water gel = water; fibres = a breather failing).
+4. Clean the bowl and the seat with a lint-free wipe (no rags that shed); inspect the bowl O-ring/seal and replace it (most kits include it); lubricate it with clean system oil.
+5. **New element**: keep it in its bag until the moment of installation; check the part number and rating; seat it fully; do not touch the media with dirty gloves; the bypass/seal end the right way.
+6. Close, torque the bowl by hand plus a quarter turn (or the bolts to spec); bleed the housing on start-up (the bleed screw until oil, no foam); check for leaks under pressure from a distance.
+7. Reset the indicator; write the date and hours on the housing tag and the log.
+
+Intervals: by the **indicator**, with a maximum of **6-12 months** or the machine's hours (often 500-1,000 h on mobile, annually on industrial), and **immediately** after any component failure. Fresh elements after a pump failure: run 24 hours and change again.
+
+## Reservoir, breather and level
+
+- **Level**: at the mark with the cylinders in the position the plate says; low level = aeration and heat; too high = spills and foaming against the return.
+- **Breather**: the tank breathes in air every time a cylinder extends; in a wet plant that air carries water: a **desiccant breather** with a check valve (or a sealed reservoir with a bladder); replace on colour change.
+- **Cleaning**: annually or at the oil change: drain, open the clean-out cover, wipe the bottom and the baffles (sludge, water, metal), check the suction strainer and the return diffuser; never wash the tank with rags that shed; a light film of the system oil on the walls, not solvent.
+- Return line **below** the oil level (splashing above it aerates); the baffle between return and suction; the tank sized for 2-3× the pump's gpm on industrial units (dwell time to cool and settle).
+- **Temperature**: 110-140°F normal; over 160°F the oil oxidises fast (halves its life every 18°F), seals harden; check the cooler.
+
+## Fluid selection
+
+| Type | Use | Notes |
+|---|---|---|
+| **AW (anti-wear) mineral hydraulic oil**, ISO VG 32 / **46** / 68 | Industrial and mobile, general | The default; zinc (ZDDP) anti-wear; VG by the pump maker's viscosity window at the operating temperature (vane pumps: 15-70 cSt; piston: 10-160; gear: 10-300) |
+| High-VI / multigrade (HVI, HM) | Outdoor, wide temperature range | Keeps viscosity in range from −20 to 200°F |
+| **R&O (rust and oxidation), no AW** | Some old systems, turbines | Not for vane pumps at high pressure |
+| Zinc-free (ashless) AW | Silver-plated components, some servo valves, environmental | |
+| Water-glycol (HFC) | Fire-resistant (foundries, steel) | Different pump ratings (derated), no zinc, EPDM/Viton seals, water content monitored |
+| Phosphate ester (HFD) | Fire-resistant (turbines, some presses) | Viton/PTFE seals only, special paints; skin irritant |
+| Biodegradable (HETG vegetable, HEES synthetic ester) | Environmentally sensitive | Water and temperature sensitive (vegetable); seal compatibility |
+| Food grade H1 | Food plants | |
+| Engine oil (SAE 10W, 15W-40) | Mobile equipment specified for it (Cat HYDO, some tractors) | Only where the maker says |
+
+Never mix types (AW and water-glycol gel; ester and mineral foam); when changing, drain, flush and change the filters. The viscosity index and the pour point matter on cold starts (a piston pump starting on ISO 68 at 20°F cavitates: heaters, or a lower VG/HVI oil).
+
+## Sampling for a particle count
+
+1. **Where**: from a live line (a sampling valve or test point on the return line before the filter, or the pressure line) with the system **running at temperature**; never from the drain plug (the sludge) or the fill port (settled top oil).
+2. Flush the sampling valve (5-10 times the dead volume into a waste bottle), then fill the **clean sample bottle** (certified clean, ISO 3722) to 3/4, cap immediately; never open the bottle until the moment of filling; no hoses lying on the floor.
+3. Label: machine, point, date, hours, oil type, filter changes, any event. Same point, same way every time: a trend is worth more than one number.
+4. Lab or a portable counter (in-line or bottle): read the ISO code, water (ppm or %), viscosity, wear metals, additive levels (see [oil analysis and sampling](/article/oil-analysis-and-sampling)).
+5. Act: a code two steps above target = find the ingress (breather, wiper seals, a failing component) and polish with the cart; a rising iron/copper trend = a pump or a valve wearing.
+
+## Flushing after a failure
+
+A failed pump or motor spreads metal through the whole system; a new pump installed into it fails in weeks.
+
+1. Drain the reservoir completely; **clean it by hand**; drain every cylinder, accumulator (bleed first), cooler and low point; remove and clean or replace every filter element and the suction strainer; blow out lines that can be disconnected (from the component end back to the tank).
+2. Inspect valves for debris (remove the spools of the directional valves near the failed pump; flush the manifolds); replace any servo/proportional valve that has ingested metal, or send it for service.
+3. Fill with **filtered** oil (through the cart at 3-5 µm) to the level; install flushing elements (coarser, high-capacity) or use the normal ones and expect to change them 2-3 times.
+4. **Flush**: run the system at low pressure (the relief backed off, or with the actuators bypassed with jumper hoses) at full flow, warm, with the filter cart in the kidney loop, **turbulent flow** for 2-4 hours; cycle the actuators with no load; change elements when the indicators show; repeat until a particle count meets the target (typically two or three element changes).
+5. Restore the settings, refit the filters with new elements, sample after 24 hours of normal running and again at a week.
+
+## Water and air
+
+| Sign | Water | Air (aeration) |
+|---|---|---|
+| Oil looks | Milky/cloudy (free water over about 0.1%), or dark with varnish (dissolved water speeds oxidation) | Foam on the tank, oil looks light and bubbly, spongy actuators |
+| Sound | Pump noise, corrosion later | A pump **whine/rattle** (like cavitation), erratic motion |
+| Cause | A cooler leak (water-cooled), condensation through the breather, washdown, rain into the fill cap, a hydraulic press with water contact | A suction leak (a loose fitting sucks air without leaking oil), low level, a return above the oil, a leaking shaft seal on the pump, the wrong oil (poor air release), too small a tank |
+| Limit | **< 200-500 ppm (0.02-0.05%)** for most systems; < 0.1% is visible | Air release under 10 minutes for the oil |
+| Cure | Find the source; **vacuum dehydration** or a water-absorbing element or a centrifuge for free water; a drain of the tank bottom (water sinks) weekly; a desiccant breather; the oil replaced if it has emulsified | Tighten/replace suction fittings (test with a smear of grease on the joint: the noise stops), raise the level, submerge the return, replace the pump's shaft seal, check the breather is not plugged (a vacuum in the tank pulls air past seals) |
+| Crackle test | A drop of oil on a hot plate at 300°F: crackling = water | |
+
+## Common mistakes
+
+- Filling from a drum with a dirty pump and a bucket: the new oil is dirtier than the old.
+- A 10 µm suction filter "for extra protection": the pump cavitates and dies.
+- Running with the bypass indicator red for six months.
+- The breather cap replaced with a bolt, or a rag in the fill hole.
+- Sampling from the drain plug and concluding the system is filthy.
+- New pump straight into a system full of the old pump's metal.
+- Topping up with the wrong oil type.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Oil analysis and sampling](/article/oil-analysis-and-sampling)
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection)
+- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic filter$mw$,$mw$ISO 4406$mw$,$mw$cleanliness code$mw$,$mw$18/16/13$mw$,$mw$16/14/11$mw$,$mw$beta ratio$mw$,$mw$micron rating$mw$,$mw$absolute vs nominal$mw$,$mw$filter bypass$mw$,$mw$filter indicator$mw$,$mw$return filter$mw$,$mw$pressure filter$mw$,$mw$suction strainer$mw$,$mw$offline filter$mw$,$mw$kidney loop$mw$,$mw$desiccant breather$mw$,$mw$reservoir cleaning$mw$,$mw$hydraulic fluid$mw$,$mw$ISO VG 32 46 68$mw$,$mw$AW hydraulic oil$mw$,$mw$water in hydraulic oil$mw$,$mw$aeration$mw$,$mw$foaming$mw$,$mw$hydraulic oil sample$mw$,$mw$particle count$mw$,$mw$flushing hydraulic system$mw$,$mw$filter cart$mw$,$mw$contamination control$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 4406:2021 (solid contamination code) and ISO 11171 (particle counter calibration); ISO 16889 (multi-pass test, beta ratio); Parker, Donaldson, Hydac and Pall filtration guides (target cleanliness codes by component, filter placement); Noria/Machinery Lubrication contamination control guidance; Eaton Vickers system cleanliness recommendations.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-hose-assembly-and-fittings$mw$, $mw$Hydraulic Hose Assembly and Fittings: SAE 100R Hose Types with Working Pressures by Size, Reading a Hose Layline, Fitting Identification (JIC 37°, ORFS, SAE ORB, NPT, BSPP, Flange Code 61/62, Metric DIN), Thread Sizes and Dash Numbers, Measuring and Cutting Hose, Crimping and Reusable Fittings, Routing Rules and Bend Radius, Torque and Leak-Free Installation, Hose Inspection and Replacement$mw$, $mw$How to make and install a hydraulic hose assembly that does not leak or burst: the hose types and their pressure by size, what the printing on the hose means, how to tell JIC from ORFS from NPT and the other threads with a caliper and a pitch gauge, the dash-number and thread size table, measuring and cutting hose to length, crimping to the die spec, the routing rules that decide hose life, the torque for each fitting type, and how to inspect hoses and know when to replace them.$mw$, $mw$## STAMPED: what to know before you make a hose
+
+**S**ize (ID, dash number), **T**emperature (fluid and ambient), **A**pplication (pressure, impulse, movement, abrasion), **M**aterial (fluid compatibility: petroleum oil, water-glycol, phosphate ester, biodegradable), **P**ressure (maximum working, with surges), **E**nds (fitting types, angles, orientation), **D**elivery (length, routing). Replace like with like unless the original was wrong: read the old hose's **layline**.
+
+## Hose types (SAE J517) and working pressure by size
+
+Dash number = hose ID in **1/16"** (−8 = 1/2"). Working pressure is the maximum continuous; burst is 4× (a 4:1 design factor); surges above the working pressure shorten the life.
+
+| Hose | Construction | −4 (1/4") | −6 (3/8") | **−8 (1/2")** | −10 (5/8") | −12 (3/4") | −16 (1") | −20 (1-1/4") | Notes |
+|---|---|---|---|---|---|---|---|---|---|
+| **100R1AT** | 1 wire braid | 2,750 | 2,250 | **2,000** | 1,500 | 1,250 | 1,000 | 625 | Medium pressure; return and low-pressure lines |
+| **100R2AT** | 2 wire braid | 5,000 | 4,000 | **3,500** | 2,750 | 2,250 | 2,000 | 1,625 | The general-purpose high-pressure hose |
+| **100R16** | 1-2 braid, compact, tight bend | 5,800 | 4,800 | 4,000 | 3,600 | 3,100 | 2,400 | | Replaces R1/R2 where space is tight |
+| **100R17** | 1-2 braid, constant pressure | 3,000 | 3,000 | 3,000 | 3,000 | 3,000 | 3,000 | | 3,000 psi all sizes |
+| **100R12** | 4 spiral wire | 4,000 | 4,000 | **4,000** | 4,000 | 4,000 | 4,000 | 3,000 | High pressure, high impulse (mobile, presses) |
+| **100R13** | 4-6 spiral | | | 5,000 | 5,000 | 5,000 | 5,000 | 5,000 | 5,000 psi constant |
+| **100R15** | 6 spiral | | | 6,000 | 6,000 | 6,000 | 6,000 | 6,000 | 6,000 psi constant |
+| 100R3, R6 | Textile braid | 1,250-1,500 | 1,125 | 1,000 | 750-800 | 600 | 400-500 | | Low pressure, return, suction not without a helix |
+| 100R4 | Textile with a wire helix | | | | 300 | 300 | 250 | 200 | **Suction** and return (holds vacuum) |
+| 100R7/R8 | Thermoplastic | 2,750-5,000 | | 2,000-3,500 | | | | | Light, non-conductive versions for boom trucks |
+| PTFE (R14) | PTFE tube, SS braid | 3,000 | 2,500 | 2,000 | | 1,500 | | | Chemical, high temperature |
+
+**Minimum bend radius** (to the hose centreline; the catalogue value): R2AT −8: **7"**; −12: 9.5"; −16: 12"; R1AT the same or slightly less; R16 −8: 3.5", −12: 4.75"; R12 −8: 5", −12: 8.5", −16: 12"; R13 −12: 9.5", −16: 12". A hose bent tighter than this loses pressure rating and life; a hose that is bent right at the fitting fails at the coupling.
+
+**Temperature**: standard rubber hose −40 to **212°F (100°C)** continuous, 250°F short; high-temperature grades to 300°F; the oil temperature at the hose, plus a hot engine or a furnace nearby, decides.
+
+## Reading the layline
+
+`PARKER 471ST-8 SAE 100R2AT 1/2" (12.5 mm) 3500 PSI (24 MPa) MSHA IC-40/4 3Q23`: the maker's hose series, the dash size, the SAE type, the ID, the **working pressure**, approvals, and the **date code** (quarter/year: hoses age; most makers say 6-10 years shelf plus service life, and mobile equipment schedules replace by hours). A hose with no legible layline is unknown: replace it.
+
+## Fitting identification
+
+Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wrong mate looks like it screws on and then leaks or cracks.
+
+| Fitting | Seal | Seat / look | Thread | How to tell |
+|---|---|---|---|---|
+| **JIC 37° flare (SAE J514)** | Metal-to-metal on a 37° cone | Male has a 37° cone nose; female nut with a 37° flare seat | UN/UNF (e.g. 3/4-16 for −8) | The most common hydraulic fitting in North America; a 37° gauge fits the cone; **not** interchangeable with 45° SAE flare (refrigeration/automotive) or JIS 30° |
+| **ORFS (O-ring face seal, SAE J1453)** | O-ring in a groove on the flat male face, against a flat female sleeve | Flat face with an O-ring groove; flat-faced nut | UN (e.g. 13/16-16 for −8) | Zero-leak, high pressure, vibration; replace the O-ring at every reconnection |
+| **SAE ORB (O-ring boss, straight thread port, J1926)** | O-ring under the fitting's shoulder, into a chamfered **port** | Straight thread with an O-ring at the base; adjustable versions have a lock nut and washer | UNF (e.g. 3/4-16 for −8) | For **ports in manifolds and pumps**, not for hose-to-hose; adjustable elbows: back the lock nut off, screw in until the O-ring seats, position, tighten the lock nut |
+| **NPT / NPTF (tapered pipe)** | Thread interference (plus sealant) | Tapered thread, no seat | 1/8-27, 1/4-18, 3/8-18, 1/2-14, 3/4-14, 1-11.5 | The worst hydraulic connection (leaks, cracks ports, cannot be positioned); still on old equipment; NPTF (dryseal) preferred; PTFE tape **never** (shreds into the system): an anaerobic pipe sealant |
+| **BSPP (parallel, G thread, ISO 1179)** | Bonded washer or O-ring under the shoulder, or a 60° cone in the female | Parallel thread, 55° Whitworth form | G 1/4, G 3/8, **G 1/2 (20.9 mm OD, 14 tpi)** | European equipment; looks like NPS; a 1/2" NPT (14 tpi, 21.3 mm OD, tapered) will start in a G 1/2 port and destroy it |
+| **BSPT (tapered, R thread)** | Thread | Tapered 55° | R 1/4, R 3/8... | Asian and European; not NPT |
+| **Metric DIN 2353 / ISO 8434-1 (24° cone, compression ring)** | 24° cone with a bite ring or an O-ring (L light / S heavy series) | Metric thread; tube fittings with a cutting ring | M12×1.5, M14×1.5, M16×1.5, M18×1.5, M22×1.5, M26×1.5, M30×2 | German/European machines; L and S series have different cone diameters for the same thread |
+| **Metric ORB (ISO 6149)** | O-ring in a port with a chamfer | Metric straight thread port | M10×1 to M42×2 | Newer European equipment |
+| **JIS 30° flare** | 30° cone | | BSPP thread | Japanese equipment (Komatsu, Kobelco); looks like JIC |
+| **Komatsu 30° flare** | 30° cone | | Metric | |
+| **Flange, SAE J518 Code 61 (3,000 psi) and Code 62 (6,000 psi)** | O-ring in the flange face | A split or one-piece flange clamp with 4 bolts over a flanged hose end/adapter | 1/2" to 3" nominal | Code 62 is thicker with a larger bolt pattern for the same size; **not interchangeable**; the O-ring face must be clean; bolts torqued in a cross pattern |
+| SAE 45° flare (J512) | 45° cone | | UNF | Refrigeration, fuel, low pressure; not hydraulic |
+| Push-lock / barb | Barb into the hose, no clamp | | | Low pressure (250 psi) only |
+
+**Thread size table (JIC / ORB by dash)**: −4: 7/16-20; −5: 1/2-20; **−6: 9/16-18**; **−8: 3/4-16**; **−10: 7/8-14**; **−12: 1-1/16-12**; −14: 1-3/16-12; **−16: 1-5/16-12**; −20: 1-5/8-12; −24: 1-7/8-12; −32: 2-1/2-12. ORFS: −4: 9/16-18; −6: 11/16-16; −8: 13/16-16; −10: 1-14; −12: 1-3/16-12; −16: 1-7/16-12; −20: 1-11/16-12; −24: 2-12.
+
+Identify: measure the thread OD with a caliper (male) or ID (female), count the tpi with a pitch gauge (or measure the pitch in mm), check whether the thread is **tapered** (the diameter changes along it: pipe) or **parallel**, look at the sealing surface (a cone, a flat face with an O-ring, a flat shoulder), and check the cone angle with a seat gauge. Then match against the table; when in doubt, a fitting identification kit (Parker, Gates) has the gauges.
+
+## Making a hose assembly
+
+1. **Length**: measure the old hose or the route **fitting face to fitting face** (or as the catalogue defines the overall length: usually the cut length plus the fitting lengths; the crimper's chart gives the "cut-off factor" for each fitting). Allow **slack for pressure changes**: a hose **shortens by up to 4%** and thickens under pressure, so a straight hose between two fixed points needs a few percent extra length and a slight curve, never taut.
+2. **Cut** square with a hose saw (a fine-tooth abrasive or a shear cutter; a cut-off wheel makes rubber dust and burned wire: acceptable with a vacuum and the ends cleaned); **clean the bore** (a projectile/foam plug shot through, or compressed air and a swab: rubber dust and wire particles in the bore end up in the servo valve).
+3. **Skive** if the fitting requires it (removing the outer cover, or inner and outer, for spiral hoses; most modern crimp fittings are no-skive); mark the **insertion depth** on the hose from the fitting's chart.
+4. **Fitting**: the correct **ferrule and insert for that hose series** (a Parker 43 fitting on a Gates hose is not a hose assembly, it is a projectile); push the insert to the mark; the ferrule's collar over the hose end.
+5. **Crimp** to the **die and crimp diameter in the crimper's chart for that hose, size and fitting** (e.g. a −8 R2AT with a certain ferrule: a specified crimp OD in mm/inches ± 0.1 mm); **measure the crimped ferrule with a caliper** at two places 90° apart and record it; under-crimped blows off, over-crimped cuts the wire. Set the elbow fittings' **orientation** (angle between two bent ends) before the second crimp, using the machine's angle reference.
+6. **Reusable (field-attachable) fittings** (screw-together socket and nipple) for emergencies and remote sites: cut, screw the socket on **counter-clockwise** to the shoulder, oil the nipple, screw it in (a wrench in the vise), leave the gap the maker says; rated for the hose they were designed for only.
+7. **Clean and cap** the finished assembly; tag with the part number and date.
+8. **Pressure test** critical assemblies at 1.5-2× the working pressure (hydrostatic, behind a shield) if the plant's procedure requires; production hose shops test by sample.
+
+## Installation and routing
+
+| Rule | Why |
+|---|---|
+| **No twist**: the layline runs straight along the hose; hold the hose with a second wrench while tightening the swivel nut | A 7° twist cuts the life by 80-90% |
+| Bend radius ≥ the minimum; no bending **at the fitting**: a straight run of at least 1.5× the hose OD out of the fitting before the bend, or use an elbow fitting | Kinking at the coupling is the top failure |
+| Slack for length change; a loop rather than a straight tight run; avoid the hose being stretched at full machine travel or compressed at the other end | Pressure shortening, machine movement |
+| Route away from heat (exhausts, hot pipes: a heat sleeve or a spring guard), sharp edges and abrasion (clamps, spiral wrap, sleeves where hoses cross or rub), moving parts | Abrasion of the cover exposes the wire to rust |
+| Clamp long runs and hoses that move; do not clamp two hoses in one clamp that move differently; clamps at the bend transitions | Whip and rubbing |
+| Hoses in the same plane of motion as the machine's movement (a hose on a boom bends in the boom's plane, not sideways) | Twisting under motion |
+| Use adapters/elbows to avoid tight routing rather than forcing the hose | |
+| Keep the fittings accessible with a wrench | |
+
+**Torque for fittings**: JIC 37° by the **flats method**: tighten to hand-tight, mark the nut, then turn it (−4: 2 flats; −6: 1.5 flats; −8: 1.5; −10: 1-1.5; −12: 1; −16: 3/4-1 flat); or by torque (−6: 18-20 ft-lb; −8: 27-33; −10: 36-40; −12: 60-70; −16: 85-95 ft-lb; steel fittings). ORFS: −6: 18-22 ft-lb; −8: 27-33; −10: 40-45; −12: 60-70; −16: 85-95. ORB port fittings: −6: 18-22; −8: 30-35; −10: 40-45; −12: 60-70; −16: 95-105 ft-lb (adjustable: tighten the lock nut to the same). NPT: 2-3 turns past hand tight with sealant. Code 61 flanges: bolts −8 (5/16"): 15-20 ft-lb; −12 (3/8"): 25-30; −16 (7/16"): 40-45; −24 (1/2"): 65-75, cross pattern, the flange halves parallel to the face. Values differ slightly by maker and by steel/stainless/brass: use the fitting maker's chart when it is at hand; **over-tightening a JIC cracks the flare and it leaks forever**; a leaking JIC is usually over-tightened, scored, or has a damaged flare: replace the fitting, do not keep tightening.
+
+## Inspection and replacement
+
+Check weekly on machines, at every PM on plants: **cover cracks and abrasion** (wire showing = replace now), **blisters or bulges** (an inner tube failure), **leaks at the fitting** (crimp slipping = replace), **kinks or crushed sections**, **hardening or cracking** (heat, age), corroded fittings, damaged or missing guards and clamps, hoses stretched taut at machine travel. Replacement rules: any hose with exposed reinforcement, any hose leaking at the coupling, any hose over the maker's or the plant's service life (mobile equipment: 5-10 years; critical hoses on a schedule), and both hoses of a pair if one has failed from age.
+
+## Common mistakes
+
+- NPT with PTFE tape into an ORB port (it does not seal and the tape goes into the valve).
+- JIC tightened with a 2 ft wrench: cracked flare.
+- The wrong ferrule for the hose brand: it looked fine until 2,000 psi.
+- Hose measured with no slack, twisted to fit the last inch.
+- Cut hose not cleaned: the servo valve sticks a week later.
+- BSPP and NPT mixed on a European press.
+- Code 61 hose end into a Code 62 flange clamp: it seats, then blows.
+- Feeling for the leak.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic hose$mw$,$mw$hydraulic fittings$mw$,$mw$100R1$mw$,$mw$100R2$mw$,$mw$100R12$mw$,$mw$100R13$mw$,$mw$hose pressure rating$mw$,$mw$hose dash size$mw$,$mw$hose layline$mw$,$mw$JIC fitting$mw$,$mw$37 degree flare$mw$,$mw$ORFS$mw$,$mw$O-ring face seal$mw$,$mw$ORB$mw$,$mw$O-ring boss$mw$,$mw$NPT hydraulic$mw$,$mw$BSPP$mw$,$mw$flange fitting code 61$mw$,$mw$code 62$mw$,$mw$metric hydraulic fitting$mw$,$mw$thread identification hydraulic$mw$,$mw$hose crimp$mw$,$mw$crimp diameter$mw$,$mw$reusable fitting$mw$,$mw$hose length$mw$,$mw$hose bend radius$mw$,$mw$hose routing$mw$,$mw$hose torque$mw$,$mw$hydraulic leak$mw$,$mw$hose inspection$mw$,$mw$hose replacement$mw$,$mw$STAMPED$mw$]::text[], $mw$Parker / Gates / Eaton (generic)$mw$, array[$mw$SAE 100R1AT$mw$,$mw$100R2AT$mw$,$mw$100R12$mw$,$mw$100R13$mw$,$mw$100R16$mw$,$mw$100R17$mw$,$mw$Parker 43 series$mw$,$mw$Gates MegaCrimp$mw$,$mw$Code 61$mw$,$mw$Code 62$mw$,$mw$JIC 37$mw$]::text[], $mw$SAE J517 (100R series hose working pressures and bend radii, as published in Parker and Gates hose catalogues); SAE J514 (37° flare and ORB), SAE J1453 (ORFS), SAE J518 (Code 61/62 flanges), ASME B1.20.1 (NPT); Parker fitting identification guide and torque tables; Gates hydraulic hose assembly and STAMPED guidance; NAHAD hose assembly guidelines.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-system-basics-and-symbols$mw$, $mw$Hydraulic System Basics and Schematic Symbols: Pressure, Flow and Power Rules, the Components (Pumps, Valves, Actuators, Reservoir, Filters, Accumulators), Reading an ISO 1219 Schematic Symbol by Symbol, Directional Valve Notation, Pilot and Drain Lines, Pressure Settings and the Order to Adjust Them, Basic Troubleshooting Logic and Injection-Injury Safety$mw$, $mw$The working knowledge a millwright needs before touching a hydraulic system: the pressure, flow and power relationships, what each component does and how it fails, how to read every symbol on the schematic including the spool boxes and pilot lines, which pressure valves are set in which order, the logic for tracing a problem from the schematic to the machine, and the hard rules about stored energy and pinhole leaks.$mw$, $mw$## The rules
+
+```
+   Force (lb) = pressure (psi) × area (in²)              pressure is caused by resistance to flow, not by the pump
+   Flow (gpm) makes speed: cylinder speed (in/min) = 231 × gpm ÷ area (in²)
+   Hydraulic hp = gpm × psi ÷ 1714                        (÷ 1714 ÷ efficiency for the motor hp: about 0.85)
+   Heat: every psi dropped across a valve or a relief with no work done turns into heat: 1 hp = 2,545 BTU/h
+   Pascal: pressure acts equally in all directions; the load sets the pressure; the relief valve sets the ceiling
+```
+
+Full formulas (cylinder force, motor torque, pump displacement) in [pump and fluid-power formulas](/article/pump-and-fluid-power-formulas). A system that runs **hot (over 140°F / 60°C)** is wasting power somewhere: a relief valve dumping, a leaking cylinder, a pump compensator set above the relief, an undersized cooler.
+
+## Components
+
+| Component | What it does | Field notes |
+|---|---|---|
+| **Reservoir** | Holds, cools, deaerates, settles the oil; the breather and the level | Level checked with all cylinders **retracted** (or per the machine); the breather is a **filter** (replace it; a desiccant breather in damp plants); the suction strainer (100-mesh) inside; the baffle separates return from suction |
+| **Pump** (gear: fixed, cheap, noisy, tolerant; vane: quieter, medium pressure; **piston**: high pressure, variable displacement, sensitive to contamination) | Makes flow | A pump does not make pressure; a worn pump makes less flow **at pressure** (case drain flow rises: over 10% of the pump's flow to the case drain = worn); cavitation from a restricted suction (a whine, foam) kills it in hours |
+| **Relief valve** | Limits the maximum system pressure, dumping to tank | The system's fuse; set 10-15% above the working pressure and **above** the compensator on a pressure-compensated pump (or it dumps continuously and heats the oil); direct-acting for small flows, pilot-operated (with a vent port for remote/unloading) for the main relief |
+| **Pressure-reducing valve** | Limits the pressure **downstream** of it (a branch at a lower pressure) | The only pressure valve that is normally **open**; has a drain |
+| **Sequence valve** | Lets flow pass to a second circuit only when the pressure reaches its setting | External drain; a clamp-then-drill circuit |
+| **Counterbalance (load-holding) valve** | Holds a load against gravity; opens on pilot pressure from the other line | On lifting cylinders and hydraulic motors on slopes; set 1.3× the load-induced pressure; **do not remove it to "fix" a slow lower**: the load will fall |
+| **Unloading valve** | Dumps a pump to tank at low pressure when an accumulator or a high-pressure pump takes over | Hi-lo circuits |
+| **Directional control valve (DCV)** | Routes flow: 4/3 (four ports, three positions), 4/2, 3/2, 2/2; spool centre conditions: **closed, open, tandem, float**; operated by lever, solenoid (DC/AC), pilot, cam, spring return, detent | The **spool centre condition** tells you what happens when the valve is de-energised: a **tandem centre** unloads the pump and locks the cylinder; an **open centre** lets the load drift; a **closed centre** blocks everything and the relief takes the flow (heat) unless the pump is compensated; **float** connects A and B to tank |
+| **Check valve** | Flow one way | With a cracking-pressure spring; **pilot-operated check** (POC) locks a cylinder until pilot pressure opens it: on load-holding and locking circuits |
+| **Flow control** | Meters flow: needle valve (not compensated: flow changes with pressure), **pressure-compensated** flow control (constant flow), with a bypass check for free flow the other way | **Meter-in** (into the actuator: pulling loads, precise), **meter-out** (out of the actuator: overrunning loads, the usual for cylinders), **bleed-off** (to tank, efficient); adjusting a flow control changes the speed, never the force |
+| **Cylinder** | Linear actuator: single-acting (spring/gravity return), double-acting, differential (the rod side has less area: faster retract, less force), telescopic; **cushions** at the ends | Rod seals and wipers, piston seals (an internally bypassing piston: the cylinder drifts and the oil heats); see [cylinder repair](/article/cylinder-repair-and-seal-kits) |
+| **Hydraulic motor** | Rotary actuator: gear, vane, piston (axial, radial); torque ∝ pressure × displacement | Needs a case drain (piston motors) and a load-holding valve on a hanging load; starting torque is less than running |
+| **Accumulator** | Stores pressure (energy), absorbs shock, makes up leakage | Gas precharge with **nitrogen only**; see [accumulator precharge](/article/accumulator-precharge-and-safety); a bleed-down valve must be in the circuit |
+| **Filters** | Pressure filter (protects a valve), return filter (catches wear debris), off-line (kidney loop), suction strainer | ΔP indicators; bypass valves; see [filters and contamination](/article/filters-fluid-and-contamination) |
+| **Heat exchanger** | Air or water cooled | A dirty cooler = a hot system |
+| **Gauges and test points** | Diagnostic connections (Minimess/Stauff) | Read the pressure **at the actuator**, not just at the pump |
+| Pressure switch / transducer, temperature switch, level switch | Machine interlocks | |
+
+## Reading the schematic (ISO 1219)
+
+- **Lines**: solid = main working line; **dashed** = pilot (control) or drain line; double = mechanical connection; a dot at a junction = connected; lines crossing without a dot = not connected; an enclosure (dash-dot rectangle) = a manifold or a valve assembly.
+- **Circles**: a circle with a **solid triangle pointing outward** = a **pump** (the triangle is the flow direction); pointing inward = a **motor**; two triangles = bidirectional; an **arrow through** the circle = variable displacement; a small dashed box with an arrow next to it = pressure-compensated; a hollow triangle = pneumatic.
+- **Reservoir**: an open-top box (vented) or a closed box (pressurised); the line ending **below** the oil level = submerged return.
+- **Squares (envelopes)**: valves. A directional valve is drawn as **one square per position** (a 4/3 has three); the arrows inside show the flow paths in each position; the ports (P pressure, T tank, A and B work) are drawn on the envelope that is active **at rest** (the centre position of a spring-centred 4/3); imagine sliding the boxes across the ports to see the other positions. Operators are drawn at the ends: a lever, a solenoid (a rectangle with a diagonal), a spring (zigzag), a pilot (dashed line to a small triangle), a detent (notches).
+- **Pressure valves** are a single square with an arrow offset from the flow line and a **spring** with an adjustable arrow; the **pilot dashed line** shows what pressure operates it: from the **inlet** (relief, sequence, counterbalance from the other line) or from the **outlet** (pressure-reducing). A relief's outlet goes to tank; a reducing valve's outlet goes to the circuit.
+- **Check valve**: a ball on a seat (a circle in a V); with a spring = cracking pressure; with a pilot line = pilot-operated.
+- **Flow control**: a restriction (two curves like a narrowing) with an arrow across = adjustable; with a dashed pressure box = compensated; with a check in parallel = one-way.
+- **Cylinder**: a rectangle with a piston and rod; a double-acting has ports at both ends; cushions are small boxes at the piston; a rectangular "T" on the rod end = a spring return.
+- **Filter**: a square on its corner with a dashed line across; with a bypass check = filter with bypass; with an indicator = ΔP indicator.
+- **Accumulator**: a tall rounded rectangle; a gas symbol (triangle) at the top = gas-charged.
+- **Cooler**: a diamond with arrows; a heater with an arrow inward.
+- Every valve's **setting** is written beside it on a good schematic (e.g. RV1 2,000 psi; SEQ 900 psi); the sequence of the machine's operation is often on the sheet as a table of which solenoids are energised for each step: **that table is the fault-finding tool**.
+
+## Pressure settings and the order to set them
+
+1. **Main relief** first, with everything else backed off: set it to the design pressure (with a gauge on the pump outlet, the actuators dead-headed or blocked; turn the adjuster in slowly while reading; **lock** it).
+2. **Pump compensator** (pressure-compensated piston pump): set **below** the relief by 150-300 psi (the relief becomes a safety valve; the pump destrokes at the compensator pressure and makes no heat).
+3. **Reducing valves** in the branches.
+4. **Sequence, counterbalance and unloading** valves as the circuit requires (counterbalance: the load-induced pressure × 1.3; sequence: above the pressure needed by the first operation).
+5. **Flow controls** for speed; **cushions** at the ends of stroke.
+6. Record every setting on the schematic and the machine's log; never adjust a valve without a gauge and without knowing what it does.
+
+## Troubleshooting logic
+
+1. **What is the machine doing wrong?** (No motion, slow, weak, drifts, erratic, hot, noisy, leaking.) Which actuators, which step of the sequence.
+2. **Electrical or hydraulic?** Is the solenoid energised at that step (the light, a test lamp, the PLC output; a solenoid that is energised but not shifting the spool: sticking from contamination or a burned coil; manual override pin on the valve shifts it by hand).
+3. **Pressure at the point of work**: gauges at the pump outlet and at the actuator (test points): pump pressure good but the actuator low = a restriction or an internal leak between; pump pressure low = the pump, the relief, the compensator, or a valve dumping to tank.
+4. **Flow**: a flow meter, or the cylinder's speed against the calculation; low flow at pressure = a worn pump (case drain check), a relief partly open, a bypassing cylinder.
+5. **Temperature**: feel (carefully) or IR-gun the components: the **hot one is the one passing oil across a pressure drop**: a relief that is hot is dumping; a cylinder hot at the piston is bypassing; a hot tank is the sum.
+6. **Noise**: pump whine/rattle = cavitation or aeration (the suction, the level, the breather, a suction leak); a relief chattering = set too close to the compensator or damaged; a valve hammering = an unstable counterbalance.
+7. Fix the cause, then the symptom: a slow cylinder from a worn pump is not fixed by opening the flow control.
+
+| Symptom | Likely causes |
+|---|---|
+| No pressure / no motion | Pump not turning or rotation wrong (new pump: check!), coupling, suction closed, relief stuck open or set to zero, DCV not shifting, a broken line |
+| Low pressure | Relief set low or worn, compensator low, internal leaks (cylinder piston, valve spool, motor), worn pump |
+| Slow | Low flow: worn pump, flow control, viscosity (cold oil), a restriction, a bypassing actuator, relief cracking early |
+| Weak but fast at no load | Pressure limited: relief, reducing valve, a bypass at load |
+| **Drift** (cylinder creeps under load) | Piston seals, a POC or counterbalance leaking, the DCV spool leakage with an open-centre spool (normal drift), the rod seal (external) |
+| Erratic, jerky | Air in the oil (aeration: foam in the tank, a suction leak), a sticking spool, cushions, stick-slip from a worn cylinder |
+| **Overheating** | Relief dumping (compensator above relief, relief set low, a stuck valve), internal leakage, a dirty cooler, low oil level, high ambient, wrong viscosity, a closed-centre spool with a fixed pump |
+| Noisy pump | Cavitation (suction filter, viscosity, level, a collapsed suction hose), aeration (a leaking suction fitting, a low level, a return line above the oil), worn pump, misalignment |
+| Foaming oil | Aeration, wrong oil, water |
+| Milky oil | Water: a leaking cooler, condensation, a bad breather |
+
+## Safety
+
+- **Injection injury**: a pinhole leak at 2,000 psi cuts through skin painlessly and injects oil into the tissue: it looks like a small puncture and becomes amputation within hours unless surgeons debride it. **Never feel for a leak with your hand**; use cardboard or a mirror; **never tighten a fitting under pressure**; if injected, go to hospital **immediately** with the fluid's SDS, whatever it looks like.
+- **Stored energy**: pressure remains after the pump stops: in accumulators, in loaded cylinders (a raised load, a clamped part, a spring), in lines blocked by check valves and POCs. Lockout is the electrical isolation **plus** bleeding the pressure to zero at every gauge, blocking or lowering every load, and discharging the accumulators (the bleed valve), then proving zero on the gauge; the [lockout basics](/article/lockout-tagout-basics) article has the sequence.
+- **Hoses** whip and burst: inspect, route, and replace by age; never stand in line with a fitting being loosened.
+- Hot oil (140-180°F) and hot components; oil on the floor; fire (mineral oil mist at 2,000 psi is a flame-thrower near a hot surface).
+- Never operate the manual override on a valve unless you know what will move and everyone is clear.
+
+## Related
+
+- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulics basics$mw$,$mw$hydraulic schematic$mw$,$mw$hydraulic symbols$mw$,$mw$ISO 1219$mw$,$mw$reading hydraulic drawings$mw$,$mw$directional control valve$mw$,$mw$4/3 valve$mw$,$mw$spool valve$mw$,$mw$relief valve$mw$,$mw$pressure reducing valve$mw$,$mw$sequence valve$mw$,$mw$counterbalance valve$mw$,$mw$check valve$mw$,$mw$pilot operated check$mw$,$mw$flow control$mw$,$mw$pressure compensated$mw$,$mw$gear pump$mw$,$mw$vane pump$mw$,$mw$piston pump$mw$,$mw$variable displacement$mw$,$mw$hydraulic cylinder$mw$,$mw$hydraulic motor$mw$,$mw$reservoir$mw$,$mw$hydraulic filter$mw$,$mw$accumulator symbol$mw$,$mw$pilot line$mw$,$mw$drain line$mw$,$mw$hydraulic pressure flow horsepower$mw$,$mw$relief valve setting$mw$,$mw$injection injury$mw$,$mw$hydraulic safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 1219-1 (fluid power symbols) and ISO 1219-2 (circuit diagrams); Parker, Eaton Vickers and Bosch Rexroth industrial hydraulics training manuals (component function and adjustment order); Fluid Power Safety Institute (injection injury and lockout of hydraulic energy); NFPA/T2 fluid power standards.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pneumatic-systems-frl-and-cylinders$mw$, $mw$Pneumatic Systems: FRL Setup (Filter, Regulator, Lubricator), Air Tool Consumption and Hose Sizing, Piping and Drip Legs, Quick Couplers, Pneumatic Cylinders and Valves, Solenoid Valve Basics, Air Cylinder Seal Repair, Leaks, and Compressed-Air Safety (Lockout, 30 psi Rule, Whip Checks)$mw$, $mw$The plant air side a millwright maintains: setting up a filter-regulator-lubricator so the tools and cylinders get clean, dry, regulated and (where needed) oiled air, how much air tools use and how to size hoses and pipe so the pressure arrives, the couplers that do and do not mate, how pneumatic cylinders and valves work and how to repair a cylinder, finding leaks, and the safety rules on stored air, blow-off and hoses.$mw$, $mw$## FRL: filter, regulator, lubricator
+
+Installed **in that order** in the flow direction, close to the point of use (within 20 ft), bowls hanging down, at eye level where you can read them.
+
+**Filter** (5-40 µm particulate with a centrifugal water separator; a 0.01 µm coalescing filter after it for paint, instruments and air bearings): the bowl collects water and dirt; **drain it** (manual petcock: daily; **auto drain**: check it dumps); replace the element when the ΔP indicator shows or annually; polycarbonate bowls crack with some solvents and oils (use a metal bowl guard); the flow arrow in the flow direction.
+
+**Regulator** (relieving type for tools, non-relieving for some systems): set **with air flowing** (the downstream pressure drops under flow: set the tool running, not static); **90 psi at the tool** for most air tools (the tool's rating: 90 psi is standard, some 100), cylinders per the machine, blow guns 30 psi or a safety nozzle; lock the knob (push down or the lock nut); a regulator that creeps up with no flow is a damaged seat: rebuild kit. Do not use the regulator as a shut-off.
+
+**Lubricator** (mist type for tools and cylinders; micro-fog for long runs and many cylinders): fill with **air tool oil** (ISO VG 32 turbine/air tool oil, or the tool maker's oil; never motor oil or hydraulic AW oil with additives that attack seals) through the fill plug **with the line depressurised** (or a pressurised fill cap); set the drip rate with the needle screw while air is flowing at the normal rate: rule of thumb **1 drop per minute per 10-20 cfm** of flow (an impact wrench at 5 cfm average: 1 drop every 2-3 minutes; a grinder at 20 cfm: 1-2 drops per minute); too much oil fogs the shop and fouls the tool. Tools marked "oil-free" or "lubed for life" and any line feeding paint, instruments, breathing air or food: **no lubricator**. Many modern cylinders are pre-lubricated and run dry; once a cylinder has been run with a lubricator it must stay lubricated (the oil washes out the factory grease).
+
+Air lines with a lubricator run **downhill** toward the tool where possible, or the oil pools; keep the lubricator within 20-30 ft of the tool.
+
+## Air tool consumption and hose sizing
+
+**Consumption** (average cfm at 90 psi, 25% duty; peak is 3-4× while running):
+
+| Tool | Average cfm | Peak cfm |
+|---|---|---|
+| Blow gun | 2-3 | 10 |
+| 3/8" ratchet, 1/4" die grinder | 3-4 | 12-15 |
+| **1/2" impact wrench** | **4-5** | 15-20 |
+| 3/4" impact | 7-8 | 30 |
+| 1" impact | 10-12 | 40+ |
+| 4-1/2" angle grinder | 6-8 | 20-25 |
+| 7" angle grinder | 8-10 | 30 |
+| Needle scaler, chipping hammer | 3-4 | 15 |
+| Air drill 3/8" | 4 | 15 |
+| Orbital sander | 6-10 | 25 |
+| Paint spray gun (HVLP) | 10-15 (continuous) | |
+| Sandblast nozzle 1/4" | 80-100 (continuous) | |
+| 1/2" air hoist (1 ton) | 40-60 (while running) | |
+
+**Hose** (ID matters, not length alone): 1/4" hose is for blow guns and small tools; **3/8" ID is the shop minimum** for impact wrenches and grinders; **1/2" for 3/4" impacts, sanders and anything over 50 ft**; 3/4" for 1" impacts, sandblasting and hoists. Pressure drop through a 3/8" hose at 20 cfm is roughly 3-4 psi per 25 ft plus 2-4 psi per coupler; a 1/4" hose at the same flow loses 15+ psi in 25 ft: the impact wrench that "has no power" is on a 1/4" hose with three couplers. Check with a gauge at the tool while running.
+
+## Piping
+
+- Main loop sized for **under 3-5 psi drop** at full flow; **take-offs from the top** of the main (water stays in the bottom); **drip legs** (a tee pointing down with a drain valve) at every low point and at the end of every run; the main sloped 1" in 10 ft toward the drip legs.
+- Materials: black iron (standard, rusts inside: a rust-scale filter before instruments), copper (clean, brazed), aluminium modular systems (clean, easy), stainless for clean air; **never PVC** (it shatters; OSHA prohibits it above ground for compressed air).
+- Isolation valves at each branch, a drain at each drip leg, a pressure gauge at the end of the longest run.
+- Cold rooms: the air dries in the dryer but condenses again where the pipe crosses a cold area: insulate or dry deeper.
+
+## Quick couplers
+
+They look alike and do not mate: **Industrial interchange (Milton M-style, 1/4" body: the common shop coupler)**, **Automotive (Tru-Flate / T-style)**, **ARO (A-style)**, **Lincoln**, **V-style high-flow (1/4" body, 3/8" flow)**, and the 3/8" and 1/2" body sizes of each; **universal** couplers accept industrial, automotive and ARO plugs. Standardise the shop on one style; check the plug's flow size matches the hose; couplers wear (leak, blow off): replace, do not tape. On hoses over 3/4" and on every hose at a sandblast or jackhammer: **Chicago (claw) couplings with safety pins and whip checks**.
+
+## Pneumatic cylinders
+
+- **Types**: double-acting (the standard), single-acting spring return, rodless (magnetic or band), compact, guided, rotary actuators; **NFPA interchange** tie-rod cylinders (bores 1-1/2 to 8", rod sizes standard) and ISO 15552 metric (32-320 mm bore).
+- **Force** = pressure × piston area (a 2" bore at 80 psi: 3.14 × 80 = 251 lb extend, less on retract by the rod area); size for **50-70% of the theoretical force** so it moves briskly.
+- **Cushions**: adjustable needle screws at each end that trap air to slow the piston before it hits the head; set so the piston decelerates without slamming and without bouncing; a slammed cylinder breaks its rod end and the machine's stop.
+- **Speed control**: flow controls **meter-out** (an exhaust restriction with a free-flow check into the cylinder) for steady motion; meter-in only on single-acting; a quick-exhaust valve at the port for fast strokes.
+- **Position sensors**: magnetic reed or solid-state switches on a band around the barrel (the piston carries a magnet); a switch that chatters is at the edge of the magnet's field: move it.
+- **Mounting**: the load in line with the rod; side loads bend rods and wear glands; use guided cylinders or a linear bearing for offset loads; an alignment coupler on the rod end.
+- **Lubrication**: dry-running unless the line has a lubricator; if it does, keep it.
+
+**Seal repair**: same logic as [hydraulic cylinders](/article/cylinder-repair-and-seal-kits) at low pressure: kit by maker/series/bore; lockout and **exhaust both ports**; disassemble (tie-rod nuts cross pattern, or the snap ring on a round-body); rod condition (scored = replace); piston seals (often a single double-lip seal or two O-rings with wear bands), rod seal and wiper, tube O-rings, cushion seals (a small seal in each head); grease with a **silicone or the maker's cylinder grease** (not petroleum grease on NBR/urethane, which swells or hardens); reassemble with the seals protected from the threads and ports; test at 30 psi for smooth stroke, then at working pressure for leaks at the rod and the ports, and cushion adjustment.
+
+## Valves
+
+- **Directional valves**: 3/2 (single-acting cylinders, pilot signals), **5/2** (double-acting: one supply, two outlets, two exhausts; the common cylinder valve), 5/3 (with a centre: closed, exhaust, or pressure centre); operated by solenoid (with a manual override button: use it to test the mechanics with the electrical de-energised and everyone clear), pilot, lever, roller, foot; **spring return or double solenoid (detented)**; valve manifolds and islands with a fieldbus.
+- **Solenoid basics**: 24 VDC is standard; check the LED; a solenoid that hums and does not shift: low voltage or a stuck spool (dirt, no lubrication, dried-out seals); most cylinder valves are **pilot-operated** and need a minimum supply pressure (about 30-45 psi) to shift: a valve that works at 90 and not at 20 psi is normal; an exhaust silencer plugged with oil and dirt slows or stops the valve: replace silencers.
+- **Shut-off/dump valves** with lockout provisions at every machine (an OSHA lockout point): a **three-way lockable valve** that exhausts the machine when closed; an in-line soft-start valve on machines with big cylinders.
+- Air-piloted check valves and **rod locks** hold vertical loads when the air is off; **do not** rely on a cylinder holding a load with the air exhausted.
+
+## Leaks
+
+A hissing plant leaks 20-30% of its air; a 1/16" hole at 100 psi costs about 6 cfm (1-1.5 hp). Walk the plant during a **quiet shift** with an ultrasonic detector (or soap): couplers, hose ends, push-in fittings (the worst: replace, do not push harder), FRL bowl seals, solenoid valve exhausts (a valve that leaks at the exhaust when idle has failed seals), cylinder rod seals, drain valves left cracked, thread joints; tag, fix, re-check; a leak log with the cfm saved.
+
+## Safety
+
+- **Lockout of pneumatic energy** (OSHA 1910.147): close and lock the machine's isolation/dump valve, **exhaust** the machine (the dump valve vents it), **verify** zero on the machine's gauge and by trying the controls, and **block or lower** any load held by air (a vertical cylinder falls when exhausted; a pressed part springs; a clamp releases); air in a closed cylinder with the valve centred is still stored energy: exhaust both ports.
+- **Compressed air on people**: never blow off clothing or skin; **OSHA 1910.242(b): blow-off nozzles limited to 30 psi dead-ended, with chip guarding and eye protection**; 40 psi into the ear or the mouth injures; air into the skin or the rectum through clothing has killed workers (embolism).
+- Hoses: whip checks and safety pins on claw couplings, hoses off the floor and away from sharp edges; a burst 3/4" hose at 100 psi is a whip that breaks bones; never carry a tool by its hose; on large hoses shut the supply and bleed the hose before uncoupling.
+- Pressure vessels: air receivers and any air-over-oil tank are pressure vessels: no welding, no modifications.
+- Tools: eye protection with every air tool, hearing protection (impacts and grinders 95-105 dBA), the correct sockets (impact-rated: chrome sockets shatter), no exceeding a grinder's wheel rpm with an air grinder that has a failed governor (check the free speed with a tachometer yearly).
+- Never exceed a tool's, a hose's or a coupler's rated pressure; never use compressed air for breathing or to pressurise a container that is not rated.
+
+## Common mistakes
+
+- Regulator set static at 90, so the tool sees 60 running.
+- Lubricator on a line that feeds the paint booth.
+- 1/4" hose with three couplers on a 3/4" impact.
+- PVC air line "because it is cheap": shrapnel.
+- A cylinder held up only by air while someone reaches under it.
+- Blow gun without the 30 psi safety nozzle cleaning a shirt.
+- Push-in fitting leaking and "fixed" with PTFE tape.
+- Silencers never replaced: the valve is slow and then stuck.
+
+## Related
+
+- [Air compressors and PM](/article/air-compressors-pm)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)
+- [PLC and instrumentation awareness (valves and sensors)](/article/plc-and-instrumentation-awareness)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$pneumatics$mw$,$mw$FRL$mw$,$mw$filter regulator lubricator$mw$,$mw$air regulator$mw$,$mw$air lubricator drops per minute$mw$,$mw$air filter bowl$mw$,$mw$auto drain$mw$,$mw$air tool cfm$mw$,$mw$air hose size$mw$,$mw$air pressure drop$mw$,$mw$drip leg$mw$,$mw$air piping$mw$,$mw$quick coupler$mw$,$mw$Milton coupler$mw$,$mw$industrial interchange$mw$,$mw$pneumatic cylinder$mw$,$mw$air cylinder$mw$,$mw$cylinder cushion$mw$,$mw$pneumatic valve$mw$,$mw$5/2 valve$mw$,$mw$solenoid valve$mw$,$mw$air cylinder seal kit$mw$,$mw$air leaks$mw$,$mw$whip check$mw$,$mw$30 psi cleaning rule$mw$,$mw$lockout air$mw$,$mw$pneumatic safety$mw$,$mw$compressed air safety$mw$]::text[], $mw$Parker / SMC / Festo / Norgren / Ingersoll Rand (generic)$mw$, array[$mw$Parker P3$mw$,$mw$SMC AC series$mw$,$mw$Norgren Excelon$mw$,$mw$Festo MS$mw$,$mw$Bimba$mw$,$mw$Milton M-style$mw$,$mw$Industrial interchange$mw$,$mw$ARO$mw$,$mw$Chicago coupling$mw$]::text[], $mw$Parker and Norgren FRL installation and lubricator setting guidance; Ingersoll Rand and Chicago Pneumatic air tool consumption data; OSHA 1910.242(b) (compressed air for cleaning, 30 psi); OSHA 1910.147 (lockout of pneumatic energy); Compressed Air Challenge best practices (piping, leaks); SMC and Festo pneumatic component guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -3391,6 +4694,591 @@ Rule: match the fluid first, then temperature, then pressure and bolt load. Old 
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$grease-types-and-compatibility$mw$, $mw$Grease Types and Compatibility: Thickeners (Lithium, Lithium Complex, Calcium Sulfonate, Polyurea, Aluminium Complex, Clay), Base Oils and Viscosity, NLGI Grades, Additives (EP, Moly), the Thickener Compatibility Chart, Changing Greases Safely, Common Products Cross-Reference and Which Grease for Which Machine$mw$, $mw$What a grease is made of and why the thickener decides almost everything about how it behaves and what it can be mixed with, the NLGI grades and the base-oil viscosity that should match the bearing's speed, the additives that help and the ones that hurt (moly in ball bearings), the compatibility chart with the rule for changing greases, and a cross-reference of the greases a plant actually stocks and where each belongs.$mw$, $mw$## What a grease is
+
+**Base oil (70-95%)** held in a **thickener** (a soap or a non-soap sponge, 5-25%) with **additives** (5-10%). The oil does the lubricating; the thickener holds it in place and releases it under shear and heat; the additives protect against wear, rust and oxidation.
+
+| Property | Set by | What it means to you |
+|---|---|---|
+| **Consistency (NLGI grade)** | The amount of thickener | How stiff it is: how it pumps and stays put; **not** how "heavy" it lubricates |
+| **Base oil viscosity** (cSt at 40°C) | The oil | The film in the bearing: must match the **speed** (high speed = thin oil, 32-100 cSt; slow and heavy = thick, 220-460+); a grease's "weight" is this number, not the NLGI grade |
+| Dropping point | The thickener | The temperature where it turns to liquid; the working limit is well below it (about 2/3) |
+| Water resistance, mechanical stability, oxidation life, pumpability | The thickener and additives | |
+
+## Thickeners
+
+| Thickener | Character | Temperature range | Typical use |
+|---|---|---|---|
+| **Lithium (12-hydroxystearate)** | The all-purpose soap: good water resistance, stable, cheap | −20 to 250°F (dropping point 350-390°F) | General plant bearings, chassis; Mobilux EP, SKF LGMT 2 |
+| **Lithium complex** | Lithium with a complexing agent: higher dropping point, better at temperature, long life | −20 to 300°F (dropping point 500°F+) | The modern general-purpose and high-temperature grease: Mobilith SHC (synthetic), Mobilgrease XHP, SKF LGEP 2 (lithium/calcium) |
+| **Calcium sulfonate (complex)** | Excellent water resistance and washout, natural EP and rust protection, high dropping point | −20 to 325°F | Wet, marine, steel mill, paper machine wet ends, heavy loads; Chevron Delo ESI, Mobilgrease XTC, LE 1250 |
+| **Polyurea** | Non-soap; excellent oxidation life at temperature, quiet, low bleed; some are shear-sensitive | −20 to 350°F | **Electric motor bearings** (the motor makers' choice: Polyrex EM, Chevron SRI, Shell Dolium); sealed-for-life bearings |
+| **Aluminium complex** | Good water resistance, tacky, food-grade versions | −20 to 300°F | Food plants (H1), some heavy equipment |
+| **Calcium (anhydrous / 12-hydroxy)** | Water resistant, low temperature limit | to 200°F | Wet, low temperature, marine, old "cup grease" |
+| Calcium complex | High dropping point, hardens in service | to 300°F | Older high-temperature; rarely now |
+| **Clay (bentonite, "non-melting")** | No dropping point; poor at high speed; dries out | to 350-400°F | Kiln car bearings, ovens, very slow hot bearings; **incompatible with everything** |
+| Barium complex | Water and steam | to 300°F | Steam applications; rare |
+| PTFE / silicone / perfluoropolyether (PFPE) | Chemically inert, extreme temperature | to 500°F+ | Oxygen service, vacuum, extreme heat; very expensive |
+| Sodium (soda) | Old; poor water resistance | | Obsolete; incompatible |
+
+Base oils: **mineral** (most greases), **PAO synthetic** (wide temperature, long life: Mobilith SHC is a PAO lithium complex; SKF LGHP 2 is a mineral-oil polyurea), esters, PAG (not compatible with mineral), silicone. Read the data sheet for the base oil and thickener of any grease you stock.
+
+## NLGI grades
+
+| NLGI | Penetration (0.1 mm, 25°C) | Feel | Use |
+|---|---|---|---|
+| 000, 00 | 445-475, 400-430 | Fluid to semi-fluid | Gearboxes and centralised systems that leak oil |
+| 0 | 355-385 | Very soft | Centralised systems in cold weather; some gearboxes |
+| **1** | 310-340 | Soft (tomato paste) | **Centralised/automatic lube systems**, cold climates, couplings, high-speed spindles |
+| **2** | 265-295 | Medium (peanut butter) | **The standard for bearings and grease guns** |
+| 3 | 220-250 | Firm | Vertical shafts, high temperature, where NLGI 2 slumps out; some wheel bearings |
+| 4-6 | 175-205 down to 85-115 | Hard to block | Special |
+
+## Base oil viscosity by application
+
+| Bearing / application | Base oil viscosity (cSt at 40°C) |
+|---|---|
+| High-speed spindles and small motors (n·dm over 400,000) | 15-32 |
+| **Electric motor bearings, general fans** | **70-115** (Polyrex EM: 115; SRI: 100) |
+| General plant bearings at 1,000-3,600 rpm | **100-220** (Mobilux EP 2: 160; LGMT 2: 110; LGEP 2: 200) |
+| Slow, heavily loaded (conveyor pulleys, crushers, mill trunnions, under 500 rpm) | **220-460+** (LGEP 2, LGEM 2: 500; Mobilgrease XHP 222: 220; open gear and heavy-duty greases 460-1000) |
+| Couplings (grid, gear) | 400-1,500 with low bleed |
+
+Speed factor n·dm = rpm × mean bearing diameter (mm); under 100,000 use a thick base oil; over 500,000 a thin one. The wrong choice shows as a hot bearing (too thick at speed: churning) or a worn one (too thin under load).
+
+## Additives
+
+- **EP (extreme pressure)**: sulphur-phosphorus or borate compounds that prevent scoring under shock and heavy load: for slow, heavy, shock-loaded bearings, gears in grease, pins; not needed (and mildly harmful to some cage materials and silver plating) in lightly loaded high-speed ball bearings; **"EP 2"** is the plant's heavy-duty grease.
+- **Moly (molybdenum disulphide, 3-5%)**: a solid lubricant for **sliding** under extreme load (pins, bushings, splines, slow oscillating joints, fifth wheels, CV joints); **not for rolling-element bearings at speed** (the solids pile up in the raceway and cause skidding and noise); a black moly grease in an electric motor is a mistake.
+- Graphite: high temperature sliding.
+- Anti-wear (ZDDP-type), rust inhibitors, oxidation inhibitors, tackifiers (stringy, stays on open gears and chains), polymers for water resistance.
+- **Food grade (NSF H1)**: aluminium complex, calcium sulfonate or PTFE thickeners with white oil/PAO; H2 is for no-contact areas.
+
+## Compatibility chart
+
+Mixing two greases with incompatible thickeners makes a mixture **softer or harder than either**, with a lower dropping point and less oil retention: it runs out of the bearing or hardens into a cake. This is the chart most published guides agree on (**C** = compatible, **B** = borderline: test or purge well, **I** = incompatible); check your supplier's own chart for a specific pair, because polyurea and calcium-sulfonate formulations vary.
+
+| | Al complex | Ba complex | Ca stearate | Ca 12-OH | Ca complex | Ca sulfonate | Clay | Li stearate | Li 12-OH | Li complex | Polyurea |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| **Aluminium complex** | - | I | I | C | I | B | I | I | I | B | I |
+| **Barium complex** | I | - | I | C | I | I | I | I | I | C | I |
+| **Calcium stearate** | I | I | - | C | I | B | C | C | C | C | I |
+| **Calcium 12-hydroxy** | C | C | C | - | B | B | C | C | C | C | I |
+| **Calcium complex** | I | I | I | B | - | I | I | I | I | I | I |
+| **Calcium sulfonate** | B | I | B | B | I | - | I | C | C | C | C |
+| **Clay (bentonite)** | I | I | C | C | I | I | - | I | I | I | I |
+| **Lithium stearate** | I | I | C | C | I | C | I | - | C | C | I |
+| **Lithium 12-hydroxy** | I | I | C | C | I | C | I | C | - | C | I |
+| **Lithium complex** | B | C | C | C | I | C | I | C | C | - | B |
+| **Polyurea (conventional)** | I | I | I | I | I | C | I | I | I | B | - |
+
+Rules from the chart: **lithium, lithium 12-hydroxy and lithium complex mix with each other** (the plant's everyday greases); **calcium sulfonate mixes with the lithium family** (and with modern polyurea); **clay mixes with nothing** but calcium; **conventional polyurea mixes with almost nothing** except calcium sulfonate (and borderline lithium complex) so **electric motor grease (polyurea) must not be topped up with EP 2 (lithium)**, which is the commonest mistake in any plant; **aluminium complex and calcium complex are loners**. Some modern **shear-stable polyureas** (Mobil Polyrex EM is one of them) are stated by their makers to be compatible with lithium and lithium complex; Chevron SRI is compatible with lithium complex per Chevron. The base oils must also be compatible (mineral and PAO: yes; PAG with either: no; silicone with anything: no).
+
+## Changing from one grease to another
+
+1. If the thickeners are compatible: **purge**: grease the bearing until the new grease comes out clean at the relief/seal, over two or three regreasing intervals shortened to weeks; expect a temperature rise while the old grease is displaced.
+2. If incompatible (or unknown): **clean the bearing and the housing** (dismantle, solvent, dry) and refill; where you cannot open it (a sealed motor), purge heavily with the running motor and the drain open, several times at short intervals, watching the temperature, and accept some risk.
+3. Never mix in a **central lubrication system** without draining and flushing; a plugged distributor line is the result.
+4. Label every grease gun with its grease; one gun per grease; colour-code the guns and the fittings (the caps); keep the guns capped and clean.
+5. Record the change on the equipment tag and in the CMMS.
+
+## Common products (check the current data sheet; formulations change)
+
+| Grease | Thickener | Base oil (cSt) | NLGI | Use |
+|---|---|---|---|---|
+| **Mobil Polyrex EM** | Polyurea | 115 (mineral) | 2 | Electric motor bearings (Baldor/ABB, WEG and Siemens factory fill); 300°F |
+| **Chevron SRI 2** | Polyurea | 100 | 2 | Motor bearings, high speed |
+| Shell Gadus S3 T460 / Dolium | Polyurea | | 2 | Motors |
+| **Mobilux EP 2** | Lithium | 160 | 2 | General plant, medium load |
+| **Mobilith SHC 100 / 220 / 460** | Lithium complex, PAO | 100 / 220 / 460 | 2 | High temperature, long life, high speed (100) to slow heavy (460) |
+| Mobilgrease XHP 222 | Lithium complex | 220 | 2 | General, wet, EP |
+| **SKF LGMT 2** | Lithium | 110 | 2 | General purpose |
+| **SKF LGEP 2** | Lithium/calcium | 200 | 2 | Heavy loads, EP |
+| **SKF LGHP 2** | Polyurea | 96 | 2-3 | High temperature, high speed, motors |
+| SKF LGWA 2 | Lithium complex | 185 | 2 | Wide temperature, wet |
+| SKF LGEM 2 | Lithium, moly | 500 | 2 | Very slow, heavy, shock (never in fast bearings) |
+| Shell Gadus S2 V220 2 | Lithium | 220 | 2 | General EP |
+| Chevron Delo ESI / Ulti-Plex | Calcium sulfonate / Li complex | 220 | 2 | Heavy duty, wet |
+| Lubriplate / Kluber food grades (H1) | Al complex / PTFE | | 1-2 | Food plants |
+| Falk LTG, Kop-Flex KSG | Lithium (special) | 1,000+ | 1 | **Couplings only** |
+| Open gear compound (Mobiltac, Whitmore) | Asphaltic / semi-fluid | 1,000-3,000 | 0-00 | Open gears, kiln girth gears |
+
+## Which grease where
+
+| Machine | Grease |
+|---|---|
+| **Electric motors** | The motor maker's polyurea (Polyrex EM, SRI); never EP 2 unless the motor was cleaned and converted |
+| Pillow blocks, fans, conveyors, pumps (grease-lubricated) | Lithium or lithium complex NLGI 2, 100-220 cSt; EP where loaded |
+| Slow heavy bearings (pulleys, crushers) | Lithium complex or calcium sulfonate EP, 220-460 cSt |
+| Wet areas, washdown, outdoor | Calcium sulfonate or aluminium complex; food grade where required |
+| High temperature (ovens, dryers, 300°F+) | Lithium complex synthetic, polyurea, or clay (no speed) |
+| Couplings | Coupling grease only |
+| Pins, bushings, slow slides, splines | Moly EP grease |
+| Open gears and wire rope | Open gear compound / rope dressing |
+| Centralised systems | NLGI 0-1 of the system's approved grease |
+
+## Storage and handling
+
+Sealed containers, out of the sun and dust, under 100°F, oldest first (shelf life 2-3 years for most; polyurea and some complexes separate oil on the shelf: stir, do not use if the oil has bled out heavily); the grease gun loaded from cartridges (bulk loading introduces dirt), the nozzle **wiped and capped**, fittings **wiped before greasing**; a grease that has been left open picks up the dust that becomes the abrasive in the bearing.
+
+## Related
+
+- [Regreasing intervals and quantities](/article/regreasing-intervals-and-quantities)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection)
+- [Lube routes and single-point lubricators](/article/lube-routes-and-single-point-lubricators)
+- [Coupling installation (coupling grease)](/article/grid-gear-and-disc-coupling-installation)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
+          array[$mw$grease$mw$,$mw$grease types$mw$,$mw$grease compatibility$mw$,$mw$grease compatibility chart$mw$,$mw$thickener$mw$,$mw$lithium grease$mw$,$mw$lithium complex$mw$,$mw$calcium sulfonate$mw$,$mw$polyurea$mw$,$mw$aluminum complex$mw$,$mw$bentonite clay grease$mw$,$mw$NLGI$mw$,$mw$NLGI 2$mw$,$mw$NLGI 1$mw$,$mw$EP grease$mw$,$mw$moly grease$mw$,$mw$base oil viscosity$mw$,$mw$grease selection$mw$,$mw$motor grease$mw$,$mw$Polyrex EM$mw$,$mw$Mobilith SHC$mw$,$mw$SKF LGMT 2$mw$,$mw$LGEP 2$mw$,$mw$LGHP 2$mw$,$mw$Chevron SRI$mw$,$mw$food grade grease$mw$,$mw$changing grease$mw$,$mw$mixing grease$mw$,$mw$grease gun$mw$,$mw$grease storage$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NLGI Lubricating Grease Guide (thickener types, grades); published thickener compatibility charts (Machinery Lubrication/Noria, Lubrication Engineers, SKF and ExxonMobil compatibility guidance; the charts agree on the main pairs and differ on borderline cells); SKF grease selection guidance; ExxonMobil, Chevron and SKF product data sheets (Polyrex EM, Mobilith SHC, Mobilux EP, SKF LGMT/LGEP/LGHP, Chevron SRI).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$lube-routes-and-single-point-lubricators$mw$, $mw$Lube Routes and Single-Point Lubricators: Building a Lubrication Route (Survey, Tagging, Colour Codes, Route Sheets), Grease Gun Care and Calibration, Grease Fitting Types and Repairs, Automatic Single-Point Lubricators (Gas, Spring, Electromechanical: Setting the Rate), Centralised Grease Systems Basics, Oil Level Devices (Sight Glasses, Constant-Level Oilers) and Setting Them, Record-Keeping$mw$, $mw$The routine side of lubrication that decides whether the right grease gets to the right point in the right amount every time: surveying and tagging every lube point, designing routes and route sheets, keeping and calibrating grease guns, fixing fittings, when and how to use automatic single-point lubricators and how to set their rate, how centralised systems work and fail, and how to set the oil level devices on bearing housings so the level is actually right.$mw$, $mw$## Survey and tag every point
+
+1. Walk every machine with the drawings and the manuals: list every **lube point** (grease fittings, oil fills, oilers, sight glasses, drains, centralised system reservoirs, chain oilers, coupling plugs), the **bearing or component** at each, the **lubricant** (from the maker's manual or the [selection rules](/article/grease-types-and-compatibility)), the **quantity** ([regreasing quantities](/article/regreasing-intervals-and-quantities)) and the **interval**.
+2. **Tag** the point: a durable tag or a colour-coded disc/label at the fitting or the fill with the **lubricant code** (a colour and a symbol from the plant's lube chart: e.g. a red circle = polyurea motor grease, a blue square = EP 2, a green triangle = ISO 220 gear oil), the quantity and the interval; the same code on the grease gun, the drum and the transfer container. Nobody should have to remember which grease a point takes.
+3. Mark **do-not-grease** points (sealed bearings, points that are on the centralised system, motors greased by the electrical crew) so a keen greaser does not blow the seals.
+4. Add **sampling valves** and **relief fittings** where missing; replace broken fittings; bring hard-to-reach fittings out on **extension lines** (a hose or tube from the bearing to a fitting block at a safe height: a fitting you cannot reach safely is a fitting that is never greased; keep extension lines short and the same grease in them).
+
+## Routes and route sheets
+
+- Group points by **interval** (daily/weekly/monthly/quarterly) and by **area** so a route is a walk, not a hunt; a route sheet (or the CMMS task) lists each point in walking order with the tag code, lubricant, quantity (strokes for **that** gun), interval, and a box for "done / abnormal (temperature, purge condition, leak, noise)".
+- Typical: a **daily** route (oil levels, sight glasses, auto-lubricator checks, drains, leaks), a **weekly** route (fast/dirty/wet bearings, chains), a **monthly** route (most pillow blocks, fans), a **quarterly** route (motors, gearboxes' levels and breathers), an **annual** (couplings, gearbox oil changes, breather changes, sample points).
+- One person **owns** each route; the route is a PM work order with the sheet attached; abnormal findings become work orders (a bearing running hot on the route is the best early warning a plant gets).
+- Review the routes yearly: intervals adjusted from the evidence (purge condition, temperatures, oil analysis, failures).
+
+## Grease guns
+
+- **One gun per grease**, labelled and colour-coded, loaded from **cartridges** (bulk loading takes in dirt and air unless from a filtered bulk loader); the coupler wiped and **capped** between points; a gun kept in a clean box, not the truck bed.
+- **Calibrate** each gun: 10 strokes into a cup on a scale → grams per stroke, written on the gun; re-check when a gun is serviced or the grease changes; battery/pneumatic guns per stroke as well (they vary from 0.5 to 2 g).
+- Guns develop 3,000-10,000 psi: enough to blow a seal or inject grease into a hand: never hold a fitting with a bare hand while pumping; a gun that will not pump (a plugged fitting) is not "pumped harder".
+- Fittings: **standard 1/4-28 or 1/8 NPT hex-head (zerks)**, straight, 45°, 90°; **button-head** (large, on heavy equipment: their own coupler); **flush** (recessed); **pin/needle** (on small joints); metric M6/M8/M10; a **ball-check** inside each: a fitting that leaks grease back out or will not take grease (the check stuck or the fitting plugged with hardened grease) gets replaced (they are pennies). A **broken-off fitting**: an extractor (EZ-out) for the stub, or drill and re-tap; **relief fittings** (a spring-loaded vent, e.g. 1-5 psi) on the drain side of motors and blocks let the excess out instead of into the winding or through the seal.
+- Couplers wear: a coupler that leaks at the fitting sprays grease and wastes the shot; replace it.
+
+## Automatic single-point lubricators
+
+A cartridge (30-500 mL) screwed onto the fitting that dispenses grease continuously over a set period (1-12 months): for points that are **hard or dangerous to reach**, need **frequent small amounts** (fans, conveyors, pumps in dirty/wet areas), or where a route is unreliable.
+
+| Type | Drive | Setting | Notes |
+|---|---|---|---|
+| **Gas-driven (Perma Classic/Futura, SKF LAGD 125/60)** | An electrochemical or gas generator pushes a piston | Turn the dial/screw to the discharge period (1, 3, 6, 12 months) and **activate** (screw in the activator/pull the tab); mark the date | **Temperature-dependent**: the rate roughly doubles for each 10°C above 20°C and halves below: set a longer period on a hot bearing; not adjustable after activation; will keep pushing even if the fitting is blocked; **not for points that must not be over-greased at any time** |
+| **Spring-driven (mechanical)** | A spring on a piston with a flow restrictor | Fixed rate by the orifice | Simple, cheap; rate changes with grease viscosity and temperature |
+| **Electromechanical (Perma Star, SKF TLSD, Perma Pro)** | A motor/pump on a battery with electronics | Set the period on the dial (1-12 months) or the volume; a **status LED**; some are remote-monitored | **Temperature-independent**, accurate; can feed several points through a distributor; batteries and cartridges replaced; the choice for critical points |
+| Pump-fed (Perma Pro MP, Lincoln) | A small electric pump with a reservoir | Programmed | Several points from one unit |
+
+Setting the rate: quantity needed per interval from the [regreasing calculation](/article/regreasing-intervals-and-quantities) (e.g. 15 g every 4 weeks = 180 g/year): a **125 mL (about 110 g) cartridge** set to **6 months** gives about 18 g/month: right; a 60 mL set to 12 months gives 4.5 g/month: for a small motor bearing. Match the grease in the cartridge to the bearing (the lubricators are sold pre-filled with a few greases, or refillable); never a different thickener than the bearing has. Install: the lubricator **above** the fitting where possible, a short extension line (1/4" ID, under 3 ft for gas types, longer for electromechanical), the fitting and line **pre-filled** with grease so the first months' output goes into the bearing not the hose, the **date and setting written on the unit**, and a check on the daily route (the piston position/level window, the LED, grease at the seal). A lubricator that has run empty for a month is worse than a greaser.
+
+## Centralised (automatic) lubrication systems
+
+A pump (electric, air or hand) feeds a network of **metering valves** (progressive dividers: each piston moves the next, so one blocked outlet stops the whole block; or injectors on a single-line parallel system) to dozens of points on a timer. Millwright duties: keep the **reservoir filled** with the specified grease (NLGI 0-1 usually; a wrong grease plugs the dividers), check the **cycle indicator pin** on progressive systems moves each cycle (a stalled pin = a blocked line or bearing somewhere downstream, found by disconnecting outlets one at a time; a progressive system with one blocked outlet delivers nothing to any point), check the **pressure** and the **relief/vent** (a relief spitting grease = a blockage), inspect the lines for leaks and crushed tubing (a leak starves everything after it on a progressive block), confirm grease actually arrives at the far points (a purge at the seal), and replace the **filter** on the fill line. Adjust the timer from the evidence, not the default.
+
+## Oil level devices
+
+- **Sight glass / level window**: read with the machine **stopped** (unless the plate says running: circulating and some splash boxes) and **level**; the mark or the centre of the glass; a glass **darkened with varnish** or **fogged** is not a level: replace it (bull's-eye glasses fail slowly and lie).
+- **Dipstick**: as marked; wipe, insert without screwing (or screwed, per the stick), read.
+- **Constant-level oiler (Trico Opto-Matic, Oil-Rite)**: a bottle that feeds oil into the housing as the level drops, holding the housing level at the height set by the oiler's adjustable stem: it is only right if it was **set** to the housing's correct level. Setting: fill the housing to the correct level through the fill plug (the sight glass mark or the plug hole per the manual), then adjust the oiler's **body height (the stem/collar)** until the oil in the housing just meets the level in the oiler's lower cup (the level line on the oiler body), lock it; then fill the bottle. An oiler set too high overfills (hot, churning bearings); too low starves; a bottle that never needs topping up on a pump is an oiler that is not feeding (the vent plugged, the stem above the level) or a level too high. Keep the bottle **vented** per its type (closed systems need the vented cap or a vent line) and the bottle **full** (an empty bottle means the level is dropping: find the leak).
+- **Oil rings / slingers, oil mist**: check the ring turns (a stopped ring = a starved sleeve bearing); the mist system's pressure and reclassifiers.
+- Breathers on oil-lubricated housings: clean, desiccant where wet; a plugged breather pushes oil out of the seals.
+
+## Records
+
+Every route completion, every abnormal finding, every top-up (how much: a pump that takes a litre a month has a leak), every oil change (date, product, quantity, filter), every sample result, in the CMMS against the equipment; lubricant consumption per machine trended (a step change is a leak or a wrong setting); the lube chart (product, code, colour, where used) posted in the lube room and on the trucks; a lube-room audit yearly (labels, containers, drums, guns, sample bottles).
+
+## Common mistakes
+
+- Six unlabelled grease guns in the truck: the motor gets the EP moly.
+- A fitting nobody can reach: never greased in ten years; the bearing ran dry and "nobody knew".
+- Single-point lubricator on a 180°F bearing set to 12 months: empty in three.
+- Progressive divider system "working" because the pump runs, while the cycle pin has been stalled for a month.
+- Constant-level oiler bolted on at whatever height the last person left it.
+- Grease added on the route "because the sheet says so" while the seal is already purging thick black grease and the housing is hot: the route sheet needs an "abnormal" box and someone who reads it.
+
+## Related
+
+- [Regreasing intervals and quantities](/article/regreasing-intervals-and-quantities)
+- [Grease types and compatibility](/article/grease-types-and-compatibility)
+- [Oil analysis and sampling](/article/oil-analysis-and-sampling)
+- [PM checklists](/article/pm-checklists)
+- [Pillow blocks and insert bearings](/article/pillow-block-and-insert-bearings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
+          array[$mw$lube route$mw$,$mw$lubrication route$mw$,$mw$lubrication survey$mw$,$mw$lube tags$mw$,$mw$lube color code$mw$,$mw$grease gun$mw$,$mw$grease gun calibration$mw$,$mw$grease fitting$mw$,$mw$zerk fitting$mw$,$mw$grease fitting types$mw$,$mw$broken grease fitting$mw$,$mw$single point lubricator$mw$,$mw$automatic lubricator$mw$,$mw$Perma$mw$,$mw$SKF SYSTEM 24$mw$,$mw$lubricator setting$mw$,$mw$centralized lubrication$mw$,$mw$progressive divider$mw$,$mw$constant level oiler$mw$,$mw$Trico oiler$mw$,$mw$setting a constant level oiler$mw$,$mw$sight glass$mw$,$mw$oil level$mw$,$mw$lube records$mw$,$mw$CMMS lubrication$mw$,$mw$lubrication PM$mw$]::text[], $mw$Perma / SKF SYSTEM 24 / Trico / Lincoln (generic)$mw$, array[$mw$Perma Classic$mw$,$mw$Perma Star$mw$,$mw$SKF SYSTEM 24 LAGD 125$mw$,$mw$SKF TLSD$mw$,$mw$Trico Opto-Matic oiler$mw$,$mw$Lincoln Quicklub$mw$,$mw$Graco$mw$,$mw$Bijur$mw$]::text[], $mw$Perma and SKF SYSTEM 24 single-point lubricator instructions (setting the discharge period, temperature effects, capacities); Trico constant-level oiler installation and setting instructions; Lincoln/Graco centralised lubrication system guidance; Noria/ICML lubrication program best practices (route design, tagging, colour coding, grease gun calibration); SKF Bearing Maintenance Handbook.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$oil-analysis-and-sampling$mw$, $mw$Oil Analysis and Sampling: Why and When to Sample, Taking a Representative Sample (Live Zone, Sampling Valves, Vacuum Pump Method, Bottle Cleanliness), Reading the Report (Viscosity, Wear Metals, Additive Metals, Contaminants, Water, Acid Number, Particle Count, Ferrous Density), Typical Alarm Limits for Gearboxes, Hydraulics and Bearings, Trending and Actions, Field Tests$mw$, $mw$Oil analysis tells you the condition of the oil and the machine before either fails, if the sample is taken properly and someone reads the report: this covers what to sample and how often, the sampling technique that gives a representative sample every time, each line of a standard report and what a change in it means, typical alarm limits for the machines a millwright looks after, how to trend and what action each finding calls for, and the quick field tests you can do at the machine.$mw$, $mw$## What it does
+
+A sample every 1-3 months from a gearbox, hydraulic unit or oil-lubricated bearing gives three things: **the oil's condition** (can it stay in service: viscosity, oxidation, additives), **contamination** (dirt, water, coolant, wrong oil), and **machine wear** (which metals are increasing and how fast). A rising iron trend in a gearbox shows up months before the vibration does; water in a hydraulic unit shows up before the pump fails. The **trend** is the value; a single sample without history is a guess.
+
+## What to sample and how often
+
+| Equipment | Interval | Notes |
+|---|---|---|
+| Critical gearboxes (large, expensive, slow) | Monthly to quarterly | Plus after any event (overheating, a new gear set) |
+| General gearboxes | Quarterly to semi-annually | At least at every oil change decision |
+| Hydraulic units (industrial) | Quarterly; monthly on servo systems | Particle count and water are the key lines |
+| Oil-lubricated pump and fan bearings | Quarterly | Small sumps: the sample is a large share of the oil; top up |
+| Compressors (screw) | Quarterly; per the maker for extending fluid life | |
+| Turbines, large motors (sleeve bearings) | Quarterly | |
+| Engines (mobile equipment) | Every 250-500 h | |
+| New oil (each delivery) | Per batch | Baseline: the reference for the trend |
+
+Sample **more often** after a change of oil or a repair (baseline again), during a developing problem (weekly), and when the machine's duty changes.
+
+## Taking the sample
+
+The rule: **from the same point, in the same way, with the machine at operating temperature and running (or just stopped), from a live zone of the oil**, into a **clean** bottle.
+
+1. **Point**: a **sampling valve** (a pitot tube or a valve on the return line before the filter on hydraulics; a valve in the side of the sump at mid-level, away from the bottom sludge and the drain, on gearboxes; on the drain line of a bearing housing before the reservoir on circulating systems). Install proper sampling valves (Minimess-type test points with a probe, or a ball valve with a dust cap) on every machine in the program; the **drain plug** gives sludge, and the **fill port** gives the top layer: neither is representative.
+2. **Timing**: the machine at operating temperature after at least an hour of running; hydraulic and circulating systems **running**; splash gearboxes and bearing sumps **within minutes of stopping** (the wear debris is still suspended).
+3. **Flush**: open the valve and run **5-10× the dead volume** (a few hundred mL) into a waste container so the sample is not the stagnant oil in the valve; wipe the valve.
+4. **Bottle**: a new, clean, capped sample bottle (the lab's, certified for particle counting if a count is wanted); **open it only at the moment of filling**; fill to about **3/4**, cap immediately; never touch the inside of the cap or the neck.
+5. **Vacuum pump method** (no valve: a dipstick tube, a fill port on a sump): a hand vacuum pump with a new length of tube cut for each sample; insert the tube to **mid-depth of the oil** (never the bottom); draw the sample; discard the tube.
+6. **Label** at once: machine, sampling point, date, hours since the last change, oil type and grade, any top-ups (how much), any event (a filter change, a repair, a temperature excursion). The lab's form asks the same; incomplete forms give useless reports.
+7. Send within a day or two; keep the bottle out of the sun.
+
+Consistency beats perfection: the same valve, flush, temperature and bottle every time gives a trend; a different method each time gives noise.
+
+## Reading the report
+
+| Line | What it measures | What a change means |
+|---|---|---|
+| **Viscosity at 40°C (and 100°C)** | The oil's thickness vs the grade's nominal | **Up** (+10-15%): oxidation, a thicker oil added, soot, water emulsion; **down** (−10-15%): a thinner oil or fuel/solvent added, shear-down of a VI improver, coolant |
+| **Acid number (AN, TAN)** | Acidic oxidation products (mgKOH/g) | Rising: oxidation from heat/air/water/age; alarm at about **+0.5 to +1.0 above new** for gear oils, 0.2-0.3 above new for turbine/hydraulic R&O oils; base number (BN) is the engine-oil equivalent going down |
+| **Oxidation / nitration (FTIR)** | Infrared absorbance | Rising with AN: the oil is ageing; a varnish warning on turbine and hydraulic oils |
+| **Water** (Karl Fischer, ppm or %) | Dissolved + free water | Alarm: **> 500 ppm (0.05%)** hydraulics and bearings, **> 1,000 ppm (0.1%)** most gearboxes, any free water is bad; sources: condensation through the breather, a cooler leak, washdown, a wrong seal |
+| **Particle count (ISO 4406 code)** | Solid particles ≥ 4/6/14 µm | Against the target code for the machine ([contamination control](/article/filters-fluid-and-contamination)); rising = ingress or wear |
+| **Wear metals (ICP, ppm)**: **iron** (gears, bearings races, shafts, housings), **copper** (bronze bushings/worm wheels, brass cages, coolers), **lead** (babbitt bearings, some bronze), **tin** (babbitt, bronze), **chromium** (rings, some bearings, plating), **aluminium** (pistons, housings, some cages), **nickel** (alloy gears, bearings) | Wear particles under about 8 µm (ICP sees small particles only) | The **trend and the rate** matter: a gearbox at 100 ppm iron steady is different from one going 20 → 60 → 150 in three samples; copper rising in a worm box = the wheel wearing; iron + chromium together = a bearing; lead/tin = babbitt |
+| **Contaminant metals**: **silicon** (dirt/dust; also silicone sealant and antifoam), **sodium/potassium/boron** (coolant, salt, some additives), **calcium/magnesium** (detergent additives, hard water, lime dust) | | Silicon **and** aluminium rising together = dust; silicon with iron rising = dirt causing wear; sodium/potassium = coolant leak or seawater |
+| **Additive metals**: **zinc/phosphorus** (AW/EP additives), **calcium/magnesium** (detergents), **barium**, **molybdenum** (friction modifier), **boron** | | Falling = additive depletion or dilution with the wrong oil; a jump = the wrong oil added (an EP gear oil into a turbine oil shows zinc/phosphorus appearing) |
+| **Ferrous density (PQ index / DR ferrography)** | The total ferrous debris including **large** particles | A rising PQ with a flat ICP iron = **large** particles = a serious wear mode (pitting, spalling); the most important gearbox line |
+| **Analytical ferrography** (on request) | Particle shapes under a microscope | Cutting wear (sliding), fatigue chunks (bearings/gears), spheres (bearing fatigue), oxides, non-metallic |
+| Foam, air release, demulsibility | Oil properties | Contamination or additive depletion |
+| Appearance, odour, colour | | Dark = oxidation; milky = water; a burnt smell = overheating |
+
+Labs flag each line **normal / marginal / abnormal / critical** against their limits for the oil type and the machine type; ask them to set limits for your machines (the same iron number is normal in a big kiln drive and critical in a small hydraulic unit).
+
+## Typical alarm limits (starting points; adjust to your trends)
+
+| Machine | Iron (ppm) | Copper | Silicon | Water | Viscosity change | AN change | ISO code |
+|---|---|---|---|---|---|---|---|
+| **Industrial gearbox, helical** | caution 100-150, alarm 250-300 (larger boxes higher) | 25-50 | 25-30 | 500-1,000 ppm | ± 10-15% | +0.5-1.0 | 19/17/14 or better |
+| **Worm gearbox** | 100 | **100-200 (bronze wheel wear)** | 25 | 500 | ± 15% | +1.0 | |
+| **Hydraulic unit** | 30-50 | 20-30 | 15-20 | **200-500 ppm** | ± 10% | +0.3 | target per components (18/16/13 typical) |
+| **Turbine / R&O bearing oil** | 20-30 | 10-20 | 15 | 200-500 | ± 5-10% | +0.2-0.3 | 17/15/12 |
+| **Pump / fan bearing sump** | 30-50 | 10-20 | 15 | 500 | ± 10% | +0.5 | |
+| **Screw compressor fluid** | 30-50 | 20 | 20 | 500 | ± 10% (varnish watch) | +0.5-1.0 | |
+
+A **rate** rule: an increase of more than **50% between consecutive samples** on any wear metal deserves a re-sample within two weeks whatever the absolute level.
+
+## Actions by finding
+
+| Finding | Action |
+|---|---|
+| Iron rising steadily, PQ rising, other metals normal | Gear/bearing wear starting: shorten the interval, inspect the gearbox (contact pattern, [gear inspection](/article/gear-inspection-and-tooth-failure)), check alignment and load, filter the oil; plan the repair on the trend |
+| Iron and chromium/nickel rising | Rolling bearing wear: vibration check, plan a bearing change |
+| Copper rising (gearbox) | Bronze wear (worm wheel, bushings, a cage), or a cooler; check the oil (EP on bronze?), the load, the wheel backlash |
+| Silicon rising | Dust ingress: the breather, seals, the fill practice; filter/change the oil |
+| Water | Find the source (cooler pressure test, breather, seals, washdown practice); dehydrate or change the oil; check bearings for rust |
+| Viscosity up, AN up, dark | The oil is oxidised (heat, age): change it, check the temperature and the breather, consider synthetic |
+| Viscosity off, additives odd | Wrong oil added: identify, drain and refill, fix the labelling |
+| Particle count above target | Ingress or wear: filter cart, check the breather and seals, look for the wear source |
+| Sodium/potassium/boron | Coolant: fix the cooler; a coolant leak in a gearbox ruins the oil and the gears quickly |
+| Everything normal | Extend the interval or the drain, within the maker's limits; keep sampling |
+
+## Field tests at the machine
+
+- **Crackle test**: a drop of oil on a hot plate at about 300°F (150°C): **crackling/popping = water** (roughly > 500 ppm); a bubble that does not pop = dissolved water; nothing = dry.
+- **Blotter spot**: a drop on blotting paper or a filter paper, dry an hour: a dark centre with a sharp edge = soot/insoluble sludge; a wide yellow-brown ring = oxidation; a wet spreading ring = fuel/solvent; a clean uniform spot = healthy.
+- **Visual**: in a clear bottle against the light: milky = water, dark = oxidation, sparkles = metal, sediment after settling = dirt/wear; smell: burnt, sour (oxidised), sweet (glycol).
+- **Magnetic plug**: fine grey paste is normal wear; flakes, chips or a "fur" of long particles are gear or bearing damage; photograph and keep them.
+- **Viscosity comparator** (a two-tube drop-ball or a portable viscometer) for a quick grade check on a suspected wrong oil.
+- **Patch test kit**: a measured volume through a membrane, compared with a chart: an ISO code estimate at the machine.
+
+## Building the program
+
+Sampling valves on every machine in the program (one-time cost), the same lab, a spreadsheet or the CMMS with the results trended per machine, limits agreed for each machine class, a person who reads the reports **the week they arrive** and writes the action on a work order, and a feedback loop (when a gearbox is opened, compare what is found with what the oil said). Programs that only file reports find nothing.
+
+## Common mistakes
+
+- Sampling from the drain plug (sludge) and changing good oil, or from the fill hole and missing a problem.
+- Cold, stopped machine: the debris has settled.
+- Bottle opened in a dusty plant and filled from an open bucket: the particle count is the shop's dust.
+- No hours since change on the form: the lab cannot judge the trend.
+- Reading only the "overall" flag; a critical iron rate hides behind a "marginal".
+- A lab set to "diesel engine" limits reporting on a kiln gearbox.
+
+## Related
+
+- [Filters, fluid and contamination (ISO 4406)](/article/filters-fluid-and-contamination)
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection)
+- [Gearbox lubrication and inspection](/article/gearbox-lubrication-and-inspection)
+- [Gear inspection and tooth failure](/article/gear-inspection-and-tooth-failure)
+- [Bearing failure analysis](/article/bearing-failure-analysis)
+- [Thermography, ultrasound and oil (condition monitoring)](/article/thermography-ultrasound-and-oil)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
+          array[$mw$oil analysis$mw$,$mw$oil sampling$mw$,$mw$oil sample$mw$,$mw$sampling valve$mw$,$mw$vacuum sampling pump$mw$,$mw$oil analysis report$mw$,$mw$wear metals$mw$,$mw$iron ppm$mw$,$mw$copper ppm$mw$,$mw$viscosity change$mw$,$mw$TAN$mw$,$mw$acid number$mw$,$mw$water in oil$mw$,$mw$Karl Fischer$mw$,$mw$particle count$mw$,$mw$ISO code$mw$,$mw$ferrous density$mw$,$mw$PQ index$mw$,$mw$ferrography$mw$,$mw$oil analysis limits$mw$,$mw$gearbox oil analysis$mw$,$mw$hydraulic oil analysis$mw$,$mw$trending oil analysis$mw$,$mw$crackle test$mw$,$mw$blotter spot test$mw$,$mw$oil condition monitoring$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASTM D445 (viscosity), D664/D974 (acid number), D6304 (Karl Fischer water), D5185 (elements by ICP), D7416/D7690 (ferrous debris, ferrography); ISO 4406 (particle count); Noria/Machinery Lubrication sampling best practices; SKF, Timken and gearbox makers' condition-monitoring guidance; commercial lab (Polaris, ALS, Bureau Veritas) report interpretation guides.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$oil-viscosity-and-selection$mw$, $mw$Oil Viscosity and Selection: ISO VG, SAE Engine and Gear Grades, AGMA Numbers Compared in One Chart, Viscosity Index and Temperature, Choosing Gearbox Oil (AGMA 9005 by Speed and Ambient), Hydraulic Oil (32/46/68), Bearing Oil by Speed and Temperature, Compressor and Chain Oils, Mineral vs PAO vs PAG vs Ester, Food Grade, Storage and Labelling$mw$, $mw$One chart to convert between the viscosity systems on the drums (ISO VG, SAE engine, SAE gear, AGMA), what viscosity index means when the oil warms up, and the selection rules a millwright applies: gearbox oil by speed and ambient per AGMA 9005, hydraulic oil by pump type, bearing oil by speed and temperature, the special cases (worm gears, compressors, chains, high temperature), the synthetic base oils and which mix with mineral oil, food-grade requirements, and how to store, label and consolidate lubricants so the wrong oil never goes in.$mw$, $mw$## Viscosity: what the number is
+
+Viscosity is resistance to flow; for lubricants it is quoted in **centistokes (cSt, mm²/s) at 40°C** (ISO VG numbers are the cSt at 40°C) and at 100°C. It **falls as the oil warms**: an ISO 220 gear oil is 220 cSt at 40°C (104°F), about 19 cSt at 100°C, and only 10 cSt at 130°C; the oil in a gearbox running at 180°F is nowhere near "220". Old units: **SUS** (Saybolt universal seconds: cSt ≈ SUS × 0.22 above 100 SUS) and the SAE grades.
+
+**Viscosity index (VI)**: how little the viscosity changes with temperature: mineral oils 90-100, high-VI/hydraulic HVI 130-150, PAO synthetics 130-160, PAG 150-250. A high-VI oil stays thicker when hot and thinner when cold: fewer grade changes with the seasons.
+
+## Comparison chart (approximate; the grades overlap, not equal)
+
+| ISO VG (cSt at 40°C) | AGMA number (gear) | SAE engine grade | SAE gear grade | Typical use |
+|---|---|---|---|---|
+| 22 | | 5W | | Spindles, hydraulic (cold), air tools |
+| **32** | | 10W | | Hydraulics (cold/high speed), turbines, spindles |
+| **46** | 1 | 10W / 20 | 75W | **Hydraulics (standard)**, turbines, compressors |
+| **68** | 2 | 20 | 75W-80W | Hydraulics (hot), bearings, compressors, light gears |
+| **100** | 3 | 30 | 80W | Bearings, high-speed gears, compressors |
+| **150** | 4 | 40 | 80W-85W | Bearings, gears, chains |
+| **220** | 5 | 50 | 90 | **Industrial gearboxes (the commonest)**, chains |
+| **320** | 6 | 60 | 90 | Gearboxes (slow/hot), mill gears |
+| **460** | 7 (7 Comp) | | 140 | Slow heavy gears, **worm gears**, open-gear spray |
+| **680** | 8 (8 Comp) | | 140-250 | Very slow, hot, kiln drives, worm |
+| 1000 | 8A | | 250 | Open gears |
+| 1500 | 9 | | | Open gears, girth gears |
+
+"Comp" = compounded (with fatty oil for worm gears); "EP" after the AGMA number = extreme pressure additives; "S" = synthetic. Multigrade engine oils (15W-40) span two rows.
+
+## Gearbox oil (AGMA 9005 approach)
+
+The grade depends on the **pitch-line velocity** (or the low-speed shaft rpm for a simple rule) and the **ambient/operating temperature**; enclosed helical, spur and bevel gearboxes:
+
+| Low-speed shaft or pitch-line velocity | Ambient 15-50°F (−10 to 10°C) | **Ambient 50-95°F (10-35°C)** | Ambient 95-130°F (35-55°C) |
+|---|---|---|---|
+| High speed, > 3,000 ft/min (15 m/s) or > 1,500 rpm low-speed shaft | ISO 68-100 | **ISO 100-150** | ISO 150-220 |
+| Medium, 1,000-3,000 ft/min or 300-1,500 rpm | ISO 100-150 | **ISO 150-220** | ISO 220-320 |
+| **Slow, < 1,000 ft/min or < 300 rpm** | ISO 150-220 | **ISO 220-320** | ISO 320-460 |
+| Very slow / heavily loaded (mill, kiln, crusher) | 220-320 | 320-460 | 460-680 |
+| **Worm gears** | 320-460 (compounded/synthetic) | **460** | 680 |
+
+Then: **EP** (sulphur-phosphorus) oil where the drive sees shock or heavy loads (most industrial gear oils sold are EP: Mobilgear 600 XP, Shell Omala S2 G); **R&O (no EP)** for gearboxes with bronze or silver parts, and for turbines and bearings; **compounded or synthetic PAG/PAO** for worm gears (EP attacks the bronze: see [worm reducers](/article/planetary-and-worm-reducers)); **synthetic PAO** (Mobil SHC 630 series, Omala S4 GX) for wide temperature swings, hot boxes, extended drains; the gearbox maker's plate governs where it gives a grade. A gearbox's oil should hold **at least about 20-25 cSt at the operating sump temperature**: check the oil's temperature-viscosity data at your sump temperature (a 220 at 180°F is roughly 25 cSt; at 200°F it is 18: go to 320 or synthetic).
+
+Change intervals: mineral **2,500 h or 6 months** (many makers: first change at 500 h), synthetic **5,000-8,000 h or 2 years**, or by [oil analysis](/article/oil-analysis-and-sampling).
+
+## Hydraulic oil
+
+| System | Oil |
+|---|---|
+| Industrial, indoor, 100-140°F operating | **AW ISO 46** (32 for high-speed vane/piston pumps and cold rooms; 68 for hot or heavily loaded gear pumps) |
+| Mobile equipment, outdoor | HVI AW 46 or 68, or the maker's engine-oil spec (10W, 15W-40 on some) |
+| Servo and proportional systems | AW 32/46 with high cleanliness; zinc-free where the maker says |
+| Water-glycol / fire-resistant | HFC/HFD per the system |
+| Cold starts below 20°F | ISO 32 HVI, or heaters |
+
+The pump maker's viscosity window (typically 16-40 cSt ideal, 10-100 limits at operating temperature) is the deciding rule; the reservoir temperature decides the grade more than the ambient.
+
+## Bearing oil (oil-lubricated pillow blocks, pump bearing frames, spindles)
+
+Minimum required viscosity at the **operating temperature** depends on speed and bearing size (SKF): a 50-100 mm bearing at 1,800 rpm needs about **12-15 cSt at operating temperature** (a ball bearing) to 20+ cSt (roller); to have that at 160°F you need an **ISO 68** oil; at 200°F an ISO 100. Typical: **pump bearing frames (ANSI pumps): ISO 68 turbine/R&O oil** (Goulds: ISO VG 68, or 100 for hot services); electric motor sleeve bearings: ISO 32-68 turbine oil; high-speed spindles: 10-32; slow heavy trunnions: 220-460; oil mist systems: ISO 68-100 designed for mist. Rule: **the faster, the thinner; the hotter and slower and heavier, the thicker**, then check the minimum at temperature.
+
+## Special cases
+
+| Application | Oil | Notes |
+|---|---|---|
+| Reciprocating compressor | Compressor oil ISO 100 (SAE 30) non-detergent, or a synthetic diester | Never engine oil (carbon on the valves) |
+| Rotary screw compressor | The maker's synthetic fluid (PAO/diester blend) | Do not mix with mineral: varnish |
+| Refrigeration compressor | POE (HFC refrigerants), mineral (R-22, ammonia), PAG | Per refrigerant |
+| **Roller chains** | ISO 100-220 chain oil (with tackifier), or a penetrating chain lube; SAE 30 in a pinch | Must penetrate to the pins: oil, not grease (grease seals the outside and starves the pin) |
+| Air tools | ISO 32 air tool oil | Through the lubricator |
+| Steam turbines, turbo blowers | ISO 32-46 turbine oil (R&O, high oxidation stability) | |
+| Machine tool ways | Way oil ISO 68-220 (tacky, anti-stick-slip) | |
+| Open gears, wire rope | Asphaltic compounds, semi-fluid greases, rope dressing | |
+| Chain in ovens/dryers | Synthetic high-temperature chain oil (ester, PAG) | Mineral cokes |
+| Vacuum pumps | Vacuum pump oil (low vapour pressure) | |
+| Food contact | **NSF H1** (white mineral or PAO/PAG H1) in ISO 32-460 | H2 for no-contact; keep separate |
+
+## Base oils and mixing
+
+| Base | Character | Mixes with mineral? |
+|---|---|---|
+| **Mineral (Group I-III)** | The standard; Group II/III are cleaner and longer-lived | Yes |
+| **PAO (polyalphaolefin)** | Wide temperature range, high VI, long life, low deposits; the common "synthetic" | **Yes** (compatible; seals may need a little ester in the blend) |
+| **PAG (polyalkylene glycol)** | Low friction on worms, very high VI, clean; attacks some paints and seals | **No**: not miscible with mineral or PAO; flush completely |
+| Ester (diester, polyol ester) | Compressors, high temperature, biodegradable | Mostly yes; seal swelling |
+| Silicone | Extreme temperature, low lubricity | No; contaminates everything |
+| PFPE | Oxygen, chemical | No |
+
+## Storage, labelling and consolidation
+
+- Drums **indoors, on their side or under cover, bungs at 3 and 9 o'clock** (a drum standing outside breathes rain in through the bungs); a **desiccant breather and a filter** on bulk tanks; **filter new oil into the system** (drum oil is ISO 20/18/15 or dirtier).
+- **Label everything**: the drum, the transfer container, the pump, the grease gun, the machine's fill point, with the same **colour and code** (a plant lube chart: e.g. blue triangle = ISO 220 EP gear oil): the ISO 46 hydraulic in the gearbox and the 220 in the hydraulic unit both happen when containers are unlabelled.
+- **Dedicated transfer containers** (sealed, with a spout and a filter) per oil; no open buckets, no funnels shared; wipe fill caps before opening.
+- **Consolidate**: most plants can run on about 8-12 lubricants (an AW 46, an R&O 68, EP gear oils 220 and 320/460, a worm/synthetic 460, a compressor fluid, a chain oil, a turbine oil, two or three greases, a food grade set); fewer products = fewer mix-ups; but never consolidate an oil out that a machine specifically needs (worm gears, screw compressors, PAG systems).
+- Shelf life: mineral oils 3-5 years sealed; additive-heavy oils and greases 2-3; rotate stock.
+- Oil sample bottles, sampling valves and the lab's schedule belong with the lube program: [oil analysis and sampling](/article/oil-analysis-and-sampling).
+
+## Common mistakes
+
+- ISO 220 gear oil in a hydraulic unit (it will not flow through the filter; the pump cavitates) or ISO 46 in a slow gearbox (metal-to-metal).
+- EP 220 in a worm gearbox with a bronze wheel.
+- PAG topped up with mineral.
+- SAE 30 engine oil in a compressor.
+- Grease on a roller chain.
+- "Synthetic is better, so ISO 68 synthetic will do in the 220 box": viscosity first, base oil second.
+- Drums stored upright outdoors with a puddle on the top.
+
+## Related
+
+- [Grease types and compatibility](/article/grease-types-and-compatibility)
+- [Oil analysis and sampling](/article/oil-analysis-and-sampling)
+- [Gearbox lubrication and inspection](/article/gearbox-lubrication-and-inspection)
+- [Planetary and worm reducers (worm gear oils)](/article/planetary-and-worm-reducers)
+- [Filters, fluid and contamination (hydraulic fluid)](/article/filters-fluid-and-contamination)
+- [Roller chain drives](/article/roller-chain-drives)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
+          array[$mw$oil viscosity$mw$,$mw$ISO VG$mw$,$mw$ISO 220$mw$,$mw$ISO 320$mw$,$mw$ISO 460$mw$,$mw$ISO 68$mw$,$mw$SAE 90$mw$,$mw$SAE 30$mw$,$mw$AGMA number$mw$,$mw$viscosity comparison chart$mw$,$mw$viscosity index$mw$,$mw$cSt$mw$,$mw$SUS$mw$,$mw$gear oil selection$mw$,$mw$AGMA 9005$mw$,$mw$gearbox oil$mw$,$mw$hydraulic oil 46$mw$,$mw$bearing oil viscosity$mw$,$mw$compressor oil$mw$,$mw$chain oil$mw$,$mw$synthetic oil$mw$,$mw$PAO$mw$,$mw$PAG$mw$,$mw$ester oil$mw$,$mw$food grade oil$mw$,$mw$H1$mw$,$mw$oil storage$mw$,$mw$oil labeling$mw$,$mw$lubricant consolidation$mw$,$mw$EP gear oil$mw$,$mw$R&O oil$mw$,$mw$turbine oil$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 3448 (ISO VG grades); SAE J300 (engine) and J306 (automotive gear) grade definitions; AGMA 9005-F16 (industrial gear lubrication: viscosity by pitch-line velocity and ambient) and the AGMA lubricant number cross-reference; SKF bearing oil viscosity selection (minimum viscosity at operating temperature by speed and size); Noria/Machinery Lubrication viscosity comparison chart; pump and compressor maker guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$regreasing-intervals-and-quantities$mw$, $mw$Regreasing Intervals and Quantities: The SKF Quantity Formula (G = 0.005 × D × B) with Worked Examples and Grease-Gun Strokes, Initial Fill Rules, Interval Estimation from Speed Factor and Bearing Type with Correction Factors, the Baldor/ABB Motor Relubrication Tables (Interval by Frame and Speed, Volume by Frame), the Greasing Procedure, Over-Greasing Symptoms, Sealed and Shielded Bearings$mw$, $mw$The two numbers every greaser needs: how much and how often. The SKF quantity formula turned into grease-gun strokes with a method to calibrate the gun, the initial fill for a new housing, the interval estimated from bearing type, size and speed with the temperature, contamination and orientation corrections, the Baldor/ABB motor tables that most plants use for motors, the right procedure (relief open, machine warm), the tell-tale signs of too much grease, and what not to grease at all.$mw$, $mw$## How much: the SKF formula
+
+```
+   Relubrication quantity  G (grams) = 0.005 × D × B        D = bearing outside diameter (mm), B = bearing width (mm)
+   (relubricating through the side of the bearing; from the centre through a W33 groove: G = 0.002 × D × B)
+   in ounces: G (oz) = G (g) ÷ 28.35
+   this fills roughly 30-40% of the bearing's free space each time; it is the amount to add at each interval, not a housing fill
+```
+
+**Worked examples**
+
+| Bearing | D × B (mm) | G = 0.005 × D × B | Ounces |
+|---|---|---|---|
+| 6205 | 52 × 15 | **3.9 g** | 0.14 |
+| 6210 | 90 × 20 | 9 g | 0.32 |
+| 6310 | 110 × 27 | 14.9 g | 0.52 |
+| 6316 | 170 × 39 | 33 g | 1.2 |
+| 22216 E (spherical roller) | 140 × 33 | 23 g | 0.8 |
+| 22220 E | 180 × 46 | 41 g | 1.5 |
+| 22226 E | 230 × 64 | 74 g | 2.6 |
+| 23036 (SAF housing) | 280 × 74 | 104 g | 3.7 |
+| 1-1/2" pillow block insert (about 52 mm bore, 100 × 30 outer) | 100 × 30 | 15 g | 0.5 |
+
+The bearing number gives D and B from any catalogue ([bearing designation codes](/article/bearing-designation-codes)); measure them if the number is gone.
+
+**Turning grams into grease-gun strokes**: guns vary from **0.5 to 3 grams per stroke** (lever guns about 1.5-2 g; pistol grips less; battery guns are set per stroke or by volume). **Calibrate your gun**: pump 10 strokes into a cup on a kitchen scale, divide by 10, write the number on the gun. A 6310 (15 g) with a 1.5 g/stroke gun = **10 strokes**; a 6205 (4 g) = **2-3 strokes**, which is why small motor bearings die of over-greasing.
+
+**Initial fill** (a new bearing in a clean housing): fill the **bearing** completely (work grease into the rolling elements) and the **housing 30-50%** of its free space (up to 50% for slow speeds, 30% at high; SKF's rule for standard housings with **n·dm under about 100,000**: up to 1/2; faster: 1/3); a rule of thumb for a housing fill is **G_initial = 0.01 × D × B** (twice the regrease quantity) plus the housing's own volume estimate. **Sealed** inserts and motors come filled.
+
+## How often: estimating the interval
+
+The relubrication interval is the time after which the grease still has enough oil left to protect the bearing; it depends on **bearing type, size, speed, temperature and contamination**. SKF's method: the **speed factor n·dm** (rpm × mean diameter (d + D)/2 in mm) and a **bearing factor** give a base interval from a chart, then corrections.
+
+Base intervals for a **deep groove ball bearing** at **70°C (158°F) at the outer ring, clean, horizontal shaft, normal load** (read from the SKF chart; typical values):
+
+| n·dm | Base interval (hours) |
+|---|---|
+| 50,000 | > 30,000 (practically the grease's oxidation life: 1-3 years) |
+| 100,000 | about 20,000 |
+| **200,000** | **about 10,000** |
+| 300,000 | about 6,000 |
+| 400,000 | about 4,000 |
+| 500,000 | about 2,500 |
+| 600,000 | about 1,500 |
+
+**Bearing factor**: divide the ball-bearing interval by roughly **2 for cylindrical roller**, **5 for spherical roller and tapered roller bearings** (they churn and need more frequent relubrication; SKF uses factors up to 10 for thrust types).
+
+**Corrections** (multiply the interval):
+
+| Condition | Factor |
+|---|---|
+| Temperature: every **15°C (27°F) above 70°C** at the bearing | **× 0.5** per step (a bearing at 100°C gets a quarter of the interval); below 70°C no increase beyond the grease's life |
+| Vertical shaft | × 0.5 |
+| Heavy load (P/C over 0.1) | × 0.5 to 0.7 |
+| Contamination (dust, water, washdown) | × 0.5 to 0.1 (grease more to purge) |
+| Vibration, shock | × 0.5 to 0.7 |
+| Outer ring rotating | × 0.5 |
+| Grease with high-performance base oil (synthetic, polyurea in motors) | up to × 2 (per the grease maker) |
+
+**Worked example**: a 22220 spherical roller bearing (bore 100, OD 180: dm = 140) in a fan at 1,500 rpm: n·dm = 210,000 → ball-bearing base about 9,000 h; ÷ 5 for the spherical roller = **1,800 h**; the fan runs at 85°C (one step above 70): × 0.5 = **900 h**; dusty: × 0.5 = **450 h**: about every **3 weeks** on continuous duty, **41 g** each time. A 6205 in a clean 1,750 rpm small motor: dm = 38.5, n·dm = 67,000 → base over 20,000 h; the motor maker's table is the practical answer (below).
+
+Practical plant intervals when nobody has calculated: **motors per the maker's table**; **pillow blocks and fan bearings at 1,800 rpm: monthly to quarterly**, small amounts; **slow heavy pulleys: weekly to monthly**; **couplings: annually**; **washdown areas: after every wash**. Then adjust from the evidence: grease purging clean and the bearing cool = stretch it; grease coming out black or with water, or a warm bearing = shorten.
+
+## Motors: the Baldor/ABB tables (MN416)
+
+The motor makers publish the numbers; use theirs. Baldor-Reliance (ABB) Table 1, **relubrication interval, ball bearings, standard service** (8 h/day, up to 104°F, clean):
+
+| NEMA frame (IEC) | 3,600 rpm | **1,800 rpm** | 1,200 rpm | 900 rpm |
+|---|---|---|---|---|
+| Up to 210 (132) | 5,500 h | **12,000 h** | 18,000 h | 22,000 h |
+| Over 210 to 280 (180) | 3,600 h | **9,500 h** | 15,000 h | 18,000 h |
+| Over 280 to 360 (225) | 2,200 h | **7,400 h** | 12,000 h | 15,000 h |
+| Over 360 to 5800 (400) | 2,200 h | **3,500 h** | 7,400 h | 10,500 h |
+
+Divide by 2 for **vertical motors and for roller bearings**. Multipliers (Table 3) for the service (Table 2): **standard × 1.0; severe (16+ h/day, 122°F, moderate dirt) × 0.5; extreme (over 122°F, severe dirt, shock) × 0.1**. A 100 hp 405T motor at 1,800 rpm running 24 h in a dusty plant: 3,500 × 0.5 = **1,750 h (about 10 weeks)**.
+
+Table 4, **amount of grease to add** (the large, shaft-end bearing of each frame; the opposite end takes the same or less):
+
+| Frame (IEC) | Bearing | Weight | Volume (in³) | Teaspoons |
+|---|---|---|---|---|
+| 56 to 140 (90) | 6203 | 0.08 oz (2.4 g) | 0.15 | 0.5 |
+| 140 (90) | 6205 | 0.15 oz (3.9 g) | 0.2 | 0.8 |
+| 180 (100-112) | 6206 | 0.19 oz (5.0 g) | 0.3 | 1.0 |
+| 210 (132) | 6307 | 0.30 oz (8.4 g) | 0.6 | 2.0 |
+| 250 (160) | 6309 | 0.47 oz (12.5 g) | 0.7 | 2.5 |
+| 280 (180) | 6311 | 0.61 oz (17 g) | 1.2 | 3.9 |
+| 320 (200) | 6312 | 0.76 oz (20.1 g) | 1.2 | 4.0 |
+| 360 (225) | 6313 | 0.81 oz (23 g) | 1.5 | 5.2 |
+| 400 (250) | 6316 | 1.25 oz (33 g) | 2.0 | 6.6 |
+| 440 (280) | 6318 | 1.52 oz (40 g) | 2.5 | 8.2 |
+| 440 (280) | 6319 | 2.12 oz (60 g) | 4.1 | 13.4 |
+| 5000-5800 (315-400) | 6328 / NU328 | 4.70 oz (130 g) | 9.2 | 30.0 |
+| 360-449 (225-280) | NU319 | 2.12 oz (60 g) | 4.1 | 13.4 |
+
+(These match the SKF formula within rounding: 6309 = 100 × 25 × 0.005 = 12.5 g.) Grease: **Polyrex EM** (polyurea) for standard Baldor motors from 15°F to 120°F ambient; a high-temperature or low-temperature special where the sheet says; **do not mix grease types** (see [grease compatibility](/article/grease-types-and-compatibility)). Other makers (WEG, Siemens, Toshiba, Nidec/US Motors) publish equivalent tables on the motor's nameplate plate or manual: WEG stamps the interval and the grams on the nameplate.
+
+## The procedure
+
+1. Identify the bearing and the grease (the tag, the CMMS, the motor nameplate); the **right gun** (labelled), the nozzle **wiped**, the fitting **wiped** (dirt on the fitting goes straight into the bearing).
+2. Machine **running** if it is safe (the grease distributes and purges) and **warm**; the Baldor manual says grease while stationary and warm and then run 15 minutes; either way not cold.
+3. **Remove the drain (relief) plug** on housings and motors that have one (the plug opposite the fitting, at the bottom of the bearing cap); clean the drain of hardened grease with a wire; on motors with a **grease relief fitting** or a spring relief, check it is not plugged.
+4. Pump the **calculated amount slowly** (one stroke every few seconds); watch the drain for old grease; on a sealed insert with a fitting, one to two strokes only.
+5. Leave the drain open and the machine running **15-30 minutes** (motors: run with the drain out so the excess purges, then refit the plug); wipe the purge; on a pillow block, wipe the seal purge.
+6. Refit the plug; record the date, the amount and the grease; feel the housing temperature at the next round (a rise of 10-20°F that settles in a day is normal after greasing; a rise that persists is over-greasing).
+7. Do not grease: **sealed bearings (2RS)** (no path in; the grease blows the seal), bearings with **no fitting** (lubed for life), **shielded bearings with a fitting** only per the maker (the shield lets grease pass slowly), TEFC motor fans (no), variable-speed drives' bearings on the inverter's own schedule.
+
+## Over-greasing
+
+| Sign | What is happening |
+|---|---|
+| Bearing housing runs **hotter** after greasing and stays hot | The full housing churns; the grease oxidises |
+| Grease **inside the motor** (on the windings, out of the fan end) | The cavity behind the bearing cap is full and the grease has nowhere to go but through the inner seal into the motor: a winding failure waits |
+| Grease squeezing out of the seals in fat rings, seals pushed out | Pressure |
+| Grease **darkened/burnt** at the drain | Overheated from churning |
+| The gun is hard to pump, the fitting balls up | The housing is full: stop |
+
+Over-greasing kills more motor bearings than under-greasing; the right amount is small and the interval is long.
+
+## Sealed, shielded and lubed-for-life
+
+- **2RS / 2RSR (rubber seals)**: sealed; no regreasing; life = grease life (typically 3-5 years, less hot).
+- **2Z / ZZ (metal shields)**: shielded, not sealed; on a motor with a fitting, grease can pass the shield's gap into the bearing slowly; the maker's table applies with reduced quantities.
+- Open bearings in a greased housing: the tables above.
+- Sealed pillow block inserts with a fitting: a purge of the seal cavity, 1-2 strokes.
+
+## Related
+
+- [Grease types and compatibility](/article/grease-types-and-compatibility)
+- [Lube routes and single-point lubricators](/article/lube-routes-and-single-point-lubricators)
+- [Bearing failure analysis (over-greasing, lubrication failure)](/article/bearing-failure-analysis)
+- [Pillow blocks and insert bearings](/article/pillow-block-and-insert-bearings)
+- [Bearing designation codes](/article/bearing-designation-codes)
+- [Reading a motor nameplate](/article/reading-a-motor-nameplate)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
+          array[$mw$regreasing$mw$,$mw$relubrication$mw$,$mw$grease quantity$mw$,$mw$grease amount$mw$,$mw$how much grease$mw$,$mw$0.005 D B$mw$,$mw$grease gun strokes$mw$,$mw$grease gun output$mw$,$mw$regrease interval$mw$,$mw$how often to grease$mw$,$mw$relubrication interval$mw$,$mw$motor greasing$mw$,$mw$Baldor lubrication table$mw$,$mw$motor grease interval$mw$,$mw$frame size grease$mw$,$mw$Polyrex EM amount$mw$,$mw$initial grease fill$mw$,$mw$over greasing$mw$,$mw$overgreasing$mw$,$mw$grease purge$mw$,$mw$grease relief$mw$,$mw$sealed bearing$mw$,$mw$shielded bearing$mw$,$mw$grease fitting$mw$,$mw$zerk$mw$,$mw$n dm speed factor$mw$,$mw$vertical shaft grease$mw$]::text[], $mw$SKF / Baldor-ABB (generic)$mw$, array[$mw$Baldor MN416$mw$,$mw$Baldor MN400$mw$,$mw$Polyrex EM$mw$,$mw$SKF LGMT 2$mw$,$mw$SKF SNL$mw$,$mw$SAF$mw$]::text[], $mw$SKF Rolling Bearings catalogue and Bearing Maintenance Handbook (relubrication quantity G = 0.005 D B, initial fill guidance, relubrication interval method with speed factor, bearing factors and correction factors); Baldor-Reliance/ABB manual MN416 Tables 1-4 (relubrication interval by frame and speed, service multipliers, grease volume by frame/bearing); Machinery Lubrication (Noria) grease gun calibration practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$how-to-add-a-manual$mw$, $mw$How to Add a Manufacturer Manual or Datasheet to This Library$mw$, $mw$Anyone signed in can upload a gearbox, motor, pump, coupling or bearing manual. This tip explains what to fill in so other students can find it by manufacturer, model number and topic.$mw$, $mw$Found a Dodge gearbox with no manual in the library? Got a PDF from the maker's website or a scan from the crib? Add it.
 
 ## Steps
@@ -3987,6 +5875,325 @@ The gap is the distance between the two hub faces (or the spider/element length 
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$grid-gear-and-disc-coupling-installation$mw$, $mw$Coupling Installation by Type: Grid (Falk Steelflex T10/T20) Gap, Grid and Grease, Gear Couplings (Lubrication and Fill), Disc Couplings (DBSE and Bolt Torque), Elastomeric Jaw, Tire and Sleeve Couplings, Hub Mounting, Coupling Guards, Misalignment Limits and Regreasing$mw$, $mw$Each coupling type has its own installation rules that alignment alone does not cover: the grid coupling's hub gap, grid direction and grease charge; the gear coupling's fill and the reasons it fails; the disc coupling's DBSE and its bolts; the elastomeric couplings' element and gap; plus how to mount the hubs, what misalignment each type tolerates, the guard, and the regreasing routine for the lubricated ones.$mw$, $mw$## Hub mounting (all types)
+
+- Hub bore fit: **interference** (0.0005-0.001" per inch of bore) on most industrial couplings with a **clearance** fit (0.001-0.002") plus a set screw only on small elastomeric couplings; the coupling manual states which. Check the bore and the shaft with a micrometer.
+- Mount interference hubs **with heat** (oven, induction, or a hot-oil bath to **275-350°F**, never a torch on a finished hub if avoidable; see [bearing mounting with heat](/article/bearing-mounting-with-heat) for the method), slide on to the shoulder or the measured position in one move, and hold until they grip. **Never hammer a hub on**: it damages the bearings behind it and the hub face.
+- Key fitted per [keys and keyways](/article/keys-and-keyways); set screw over the key.
+- Hub position: the hub face flush with the shaft end (or the distance the manual gives) so the **gap** or the **DBSE** (distance between shaft ends) comes out right; measure before the hubs cool.
+- Check hub face and OD runout with a dial indicator (**≤ 0.002"** on the face and OD of a machined hub, more only on rough elastomeric hubs); a hub that runs out was mounted cocked or has a burr in the bore.
+- Alignment procedure and tolerances: [shaft alignment fundamentals](/article/shaft-alignment-fundamentals). The tolerances below are what the **coupling** accepts; the machine's (bearings, seals) are always tighter, and the alignment is done to the machine's.
+
+## Grid couplings (Falk Steelflex T10 horizontal split cover, T20 vertical split)
+
+The grid spring in the hub teeth transmits torque, flexes for misalignment and damps shock; it must be greased.
+
+| Size | **Gap between hub faces** | Grease charge (lb) | Cover fasteners (T10) |
+|---|---|---|---|
+| 1020T-1030T | **1/8"** (0.125) | 0.06-0.09 | 1/4-20, 100 in-lb |
+| 1040T-1050T | **1/8"** | 0.12-0.15 | 1/4-20, 100 in-lb |
+| 1060T-1070T | **1/8"** | 0.19-0.25 | 5/16-18, 200 in-lb |
+| 1080T-1090T | **1/8"** | 0.38-0.56 | 5/16-18, 200 in-lb |
+| 1100T-1110T | **3/16"** (0.188) | 0.94-1.1 | 3/8-16, 312 in-lb |
+| 1120T-1140T | **1/4"** (0.250) | 1.6-2.5 | 3/8-16 and up, per the manual |
+
+(Values are those printed in Rexnord manual 428-110 for the standard T10 sizes; confirm the gap and grease on the manual page for your size and for T20/T31 versions, which differ.) Gap tolerance about ± 1/32" on the small sizes.
+
+1. Mount the hubs with the **seals and the cover halves on the shafts first** (they cannot go on after the grid is in); hub faces at the gap.
+2. Align to the machine's tolerance; grid couplings accept up to about **0.010-0.015" parallel offset and 1/4° angular** (size-dependent), far more than a pump bearing wants.
+3. Pack the hub teeth and the gap with the specified grease (**a coupling grease**: NLGI 1-2, high-viscosity base oil, low bleed, such as Falk LTG or Kop-Flex KSG; an ordinary lithium bearing grease separates under centrifugal force and the grid runs dry).
+4. **Install the grid**: insert the grid segments into the teeth with the grid's **rounded (closed) ends facing the direction of rotation** so the open ends trail, working around; seat with a soft mallet and a drift; the grid's tightness in the teeth is normal.
+5. Fill the cover cavities with the rest of the grease; fit the gaskets (T10 horizontal covers use a gasket between the halves; T20 use an O-ring); fit the covers with the **seals seated in the cover grooves**, the cover halves' match marks aligned and the split **90° from the grid split**, lube plugs at 90° to the split; torque the cover fasteners to the table.
+6. Fill through the lube hole until grease appears at the other hole (both plugs out); plugs in; guard on.
+7. **Regrease**: annually (semi-annually on hot or high-speed), through the plugs with the coupling stopped; replace the seals when they weep; replace the grid when it shows wear steps, cracks or has been run dry (it fails as a broken grid in the teeth: a coupling with a broken grid still turns, making a rattle).
+
+## Gear couplings (Falk Lifelign, Kop-Flex Series H, Amerigear)
+
+Two hubs with external gear teeth in sleeves with internal teeth; the sliding of the teeth under misalignment is what needs lubricant, and 90% of gear coupling failures are **lubrication** failures.
+
+1. Sleeves and seals on the shafts first; hubs mounted (heat); gap per the manual (typically 1/8-1/4" between hub faces, the sleeves' O-ring seals located on the hub barrels).
+2. Align; gear couplings accept 1/2-1-1/2° per gear mesh, but the **wear rate rises steeply with misalignment** (they are not a substitute for alignment: a gear coupling at 0.5° misalignment wears out in a year and shakes the machine at 2× running speed).
+3. **Lubricate**: pack the teeth with coupling grease and fill the sleeve to the quantity in the manual (the sleeve is filled through the lube plug, with the plugs at the top and bottom, until it comes out the lower one, then rotated 90°, or the manual's ounces); high-speed gear couplings run **oil** (continuous lubricated, from the bearing oil system) or a low-bleed grease with a high base-oil viscosity. **Never** general-purpose grease: centrifuging separates the oil from the soap, the soap cakes in the teeth and the teeth wear dry (the tell-tale is a hard, pasty grease with the consistency of cheese in the teeth).
+4. Bolt the sleeve flanges together with the gasket (or O-ring), bolts torqued per the manual (the bolts also carry the torque on a flanged sleeve: use the coupling's own bolts, hardened, and the torque table), match marks aligned.
+5. Guard; **regrease every 6-12 months**, or every 3 months for reversing/hot; on inspection look for the grease colour (black = wear), the tooth wear pattern (hourglass wear = misalignment), and the seal condition.
+
+## Disc couplings (Thomas, Rexnord, Kop-Flex, Lovejoy SX)
+
+Stainless steel flexible disc packs bolted alternately to the hubs and the spacer; **no lubrication**, no wear if aligned, misalignment capacity about **1/4-1/2° per disc pack** and axial float set by the DBSE.
+
+1. Hubs mounted flush with the shaft ends; **DBSE** (distance between shaft ends) = the coupling's catalogue DBSE **±** its tolerance (typically ± 1/16" on small sizes, the manual gives it): measure with a rule or an inside micrometer; a DBSE that is out pre-stretches or compresses the disc packs, which then fatigue.
+2. Align (disc couplings are the standard on pumps and turbines with laser alignment to fine tolerances).
+3. Install the **centre member / spacer with its disc packs** (they come as a unit; do not take the disc packs apart): the packs must be **flat**, not dished, when the bolts are tight: a dished (bowed) pack means the DBSE is wrong.
+4. Bolts: the coupling's own **fitted bolts** with the special washers, nut on the side the manual says, torqued **to the manual's value** (from the coupling's own sheet, which differs by maker and size) with a torque wrench holding the bolt head, not the nut, where the sheet says; anti-seize on the threads only if the manual allows (it changes the torque). Bolts hold the disc pack by clamp friction; loose bolts = fretted, cracked discs.
+5. Guard; **inspect annually**: disc cracks at the bolt holes (misalignment or DBSE), bowed packs (DBSE), loose bolts, corrosion; a broken outer disc at both ends of the pack = misalignment; broken in the middle = torque overload.
+
+## Elastomeric couplings
+
+| Type | Element | Install rules | Misalignment |
+|---|---|---|---|
+| **Jaw (Lovejoy L, Martin, Rexnord)** | Rubber/urethane **spider** between the jaws | Hub gap = spider thickness + the manual's clearance (the jaws must not bottom on the other hub); spider hardness per the load (NBR soft, urethane harder, Hytrel hardest); set-screw or clearance bore | 0.010-0.015" parallel, 1° angular; fail-safe (the jaws drive if the spider dies) |
+| **Sleeve / shear (Sure-Flex, Dodge)** | Rubber sleeve on toothed flanges | Hubs at the gap in the manual (measured between flange faces); sleeve pushed on evenly; no lube; fail-safe types have a split sleeve with a ring | 1/32-1/16" parallel, 1-4° angular |
+| **Tire (Dodge Para-Flex, Rexnord Omega, Fenner Tyre)** | A rubber tire clamped by segments/rings | Hub spacing to the manual (the tire is matched to a **gap**), clamp ring bolts torqued evenly in stages in a cross pattern to the manual (values from the coupling's sheet); the tire sits with no twist; Omega elements come split so they install without moving the machines | Up to 4° angular, 1/8" parallel (large) |
+| Donut / bushed pin | Rubber bushings on pins | Pins torqued, bushings not over-compressed | 1/2-1° |
+| Bellows / Oldham (small) | Metal bellows / sliding block | Set screws, clamps; precise | Small |
+
+Elastomeric elements age: replace when cracked, chunked, glazed or after the maker's life (3-5 years), and match the element's hardness/material to the original.
+
+## Coupling guards
+
+Every coupling gets a **fixed guard** enclosing the coupling and the exposed shaft ends (OSHA 1910.219; API 610/671 for non-sparking guards in classified areas): see [machine guarding](/article/machine-guarding-and-commissioning). Design it so alignment checks can be done with the guard's top off, and so it clears the coupling with the machine's thermal growth.
+
+## Misalignment limits by coupling type (coupling capacity, not the target)
+
+| Coupling | Parallel offset | Angular |
+|---|---|---|
+| Grid | 0.010-0.015" (size) | 1/4° |
+| Gear (per mesh) | Governed by the spacer length × angle | 1/2-1-1/2° |
+| Disc (per pack) | Spacer length × angle | 1/4-1/2° |
+| Jaw | 0.010-0.015" | 1° |
+| Sleeve/shear | 1/32-1/16" | 1-4° |
+| Tire | 1/8" | 4° |
+| **What the machine wants at 1800 rpm** | **≤ 0.002-0.004"** | **≤ 0.0005-0.001"/inch** |
+
+## Common mistakes
+
+- Grid coupling with the covers left off the shafts until the grid is in: everything comes apart again.
+- Bearing grease in a gear coupling: dry teeth in six months.
+- Grid coupling gap set to zero because "the hubs looked right": the grid binds and the bearings take the thrust.
+- Disc coupling DBSE 1/4" out: the packs dish and crack.
+- Coupling bolts replaced with hardware-store bolts: the disc pack frets loose.
+- Aligning to the coupling's misalignment rating instead of the machine's.
+- A jaw coupling spider run until the jaws touch: the fail-safe has become the drive and the hubs hammer.
+
+## Related
+
+- [Coupling types, gap and installation (overview)](/article/coupling-types-gap-and-installation)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
+- [Rim-and-face](/article/rim-and-face-alignment), [reverse dial](/article/reverse-dial-alignment), [laser](/article/laser-alignment-procedure) alignment
+- [Keys and keyways](/article/keys-and-keyways)
+- [Bearing mounting with heat (hubs)](/article/bearing-mounting-with-heat)
+- [Coupling failure patterns](/article/coupling-failure)
+- [Machine guarding and commissioning](/article/machine-guarding-and-commissioning)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$power-transmission$mw$),
+          array[$mw$coupling installation$mw$,$mw$grid coupling$mw$,$mw$Steelflex$mw$,$mw$Falk T10$mw$,$mw$coupling gap$mw$,$mw$grid spring$mw$,$mw$coupling grease$mw$,$mw$gear coupling$mw$,$mw$gear coupling grease$mw$,$mw$gear coupling lubrication$mw$,$mw$disc coupling$mw$,$mw$DBSE$mw$,$mw$spacer coupling$mw$,$mw$coupling bolt torque$mw$,$mw$jaw coupling$mw$,$mw$spider$mw$,$mw$tire coupling$mw$,$mw$Para-Flex$mw$,$mw$Omega coupling$mw$,$mw$Sure-Flex$mw$,$mw$coupling hub mounting$mw$,$mw$coupling misalignment limits$mw$,$mw$coupling guard$mw$,$mw$coupling regrease$mw$,$mw$coupling failure$mw$]::text[], $mw$Rexnord Falk / Lovejoy / Dodge / Kop-Flex (generic)$mw$, array[$mw$Falk Steelflex T10$mw$,$mw$Falk Steelflex T20$mw$,$mw$1050T$mw$,$mw$1060T$mw$,$mw$1070T$mw$,$mw$Falk Lifelign$mw$,$mw$Kop-Flex Series H$mw$,$mw$Thomas disc coupling$mw$,$mw$Rexnord Omega$mw$,$mw$Lovejoy L-Jaw$mw$,$mw$Dodge Para-Flex$mw$,$mw$Sure-Flex$mw$]::text[], $mw$Rexnord Falk Steelflex T10 installation manual 428-110 (gap, grid installation, lubrication quantities, cover fastener torque); Falk Lifelign gear coupling manual; Rexnord/Thomas disc coupling manuals (DBSE and bolt torque practice); Lovejoy L/C-Jaw and Dodge Para-Flex installation sheets; Piotrowski, Shaft Alignment Handbook (coupling tolerances).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$keys-and-keyways$mw$, $mw$Keys and Keyways: ANSI B17.1 Square and Rectangular Key Sizes by Shaft Diameter, Keyseat Depths, Metric DIN 6885 Sizes, Key Types (Square, Gib-Head, Woodruff, Feather, Tapered), Key Stock and Fits, Measuring a Keyway, Fitting and Locking a Key, Key Length Rule, Repairing a Wallowed Keyway$mw$, $mw$The key size that belongs on each shaft diameter (inch and metric), how deep the keyseat in the shaft and the keyway in the hub are cut, the standard key types and when each is used, what key stock to buy and how tight the fit should be, how to measure a keyway with a rule and a micrometer, the length a key needs to carry the torque, fitting a key by hand, locking it, and what to do with a keyway that has been hammered oval.$mw$, $mw$## Square key size by shaft diameter (ANSI B17.1, inch)
+
+| Shaft diameter (over-to) | Key width × height (square) | Keyseat depth in shaft (H/2) | Keyway depth in hub (H/2 + clearance) |
+|---|---|---|---|
+| 5/16 - 7/16 | 3/32 | 3/64 | 3/64 |
+| 7/16 - 9/16 | 1/8 | 1/16 | 1/16 |
+| 9/16 - 7/8 | **3/16** | 3/32 | 3/32 |
+| **7/8 - 1-1/4** | **1/4** | **1/8** | 1/8 |
+| 1-1/4 - 1-3/8 | 5/16 | 5/32 | 5/32 |
+| **1-3/8 - 1-3/4** | **3/8** | **3/16** | 3/16 |
+| **1-3/4 - 2-1/4** | **1/2** | **1/4** | 1/4 |
+| 2-1/4 - 2-3/4 | 5/8 | 5/16 | 5/16 |
+| 2-3/4 - 3-1/4 | 3/4 | 3/8 | 3/8 |
+| 3-1/4 - 3-3/4 | 7/8 | 7/16 | 7/16 |
+| 3-3/4 - 4-1/2 | 1 | 1/2 | 1/2 |
+| 4-1/2 - 5-1/2 | 1-1/4 | 5/8 | 5/8 |
+| 5-1/2 - 6-1/2 | 1-1/2 | 3/4 | 3/4 |
+
+Rule of thumb behind the table: **key width ≈ shaft diameter ÷ 4**, depth in each part = half the key height. Rectangular keys (width > height, e.g. 1/2 × 3/8 on a 2" shaft) are used where the hub is thin; B17.1 lists them beside the square sizes. Check the actual keyway: many motors and gearboxes use the next size down (a 1-5/8" motor shaft usually has a 3/8" keyway, a 2-1/8" shaft a 1/2").
+
+Metric (DIN 6885-1) parallel keys: shaft 10-12 mm: 4 × 4; 12-17: 5 × 5; 17-22: 6 × 6; 22-30: **8 × 7**; 30-38: **10 × 8**; 38-44: **12 × 8**; 44-50: **14 × 9**; 50-58: 16 × 10; 58-65: 18 × 11; 65-75: 20 × 12; 75-85: 22 × 14; 85-95: 25 × 14; 95-110: 28 × 16; 110-130: 32 × 18. Shaft keyseat depth t1 (e.g. 8×7: 4.0 mm; 10×8: 5.0; 12×8: 5.0; 14×9: 5.5; 16×10: 6.0; 18×11: 7.0; 20×12: 7.5); hub keyway depth t2 (8×7: 3.3; 10×8: 3.3; 12×8: 3.3; 14×9: 3.8; 16×10: 4.3; 18×11: 4.4; 20×12: 4.9).
+
+## Key types
+
+| Type | Shape | Use |
+|---|---|---|
+| **Square / rectangular parallel key** | Straight bar, ends square or rounded (to fit a milled keyseat) | The standard for couplings, sheaves, sprockets, gears; held axially by a set screw over the key or by the hub's shoulder/retaining ring |
+| **Gib-head (tapered) key** | Tapered 1/8" per foot on the top with a head for extraction | Old machinery; the taper wedges the hub tight; drives in with a hammer and pulls out with a wedge behind the head; not for reversing high-speed drives |
+| Plain tapered key | Same taper, no head | Where the head is a hazard |
+| **Woodruff key** | Half-moon, sits in a milled pocket | Small shafts, tapered shaft ends (motor fans, small pump impellers, automotive); self-aligning; part number gives width and diameter (e.g. #806 = 8/32" wide × 6/8" diameter) |
+| **Feather key** | Parallel key fixed to the shaft (screwed) or to the hub, with a **sliding** fit on the other | Hubs that must slide axially while driving (clutches, sliding gears); one part slides |
+| Pratt & Whitney key | Rounded-end parallel key in a pocket | Machine tools |
+| **Step (offset) key** | Two different widths, one for the shaft keyway and one for the hub | Mating a hub with a different keyway width to a shaft |
+| Kennedy (double tangential) keys | Two square keys at 90° on the tangent | Heavy reversing drives, mill shafts |
+| Splines | Many keys machined into the shaft | High torque, sliding |
+
+## Key stock and fits
+
+- **Key stock**: cold-finished **1018/1045 steel bar** sold as "key stock" in **+0.001/+0.002" oversize** (so it can be fitted) or as **undersize** (−0.001/−0.002", drops in); stainless 303/316 for washdown; brass for non-sparking; hardened (4140 HT) for heavy shock. Do not use hot-rolled bar (out of square) or a hardware-store bolt.
+- **B17.1 fits**: **Class 1** (the normal one): a **clearance** fit of the key in the keyseat and keyway (key side fit 0.000-0.002" clear on width up to 1/2"), with a small top clearance (a few thousandths to 1/32" over the key); **Class 2**: a **transition/interference** side fit (0.000-0.002" tight) for reversing or shock drives; **Class 3**: interference, fitted keys for heavy reversing service.
+- Practical: the key should **slide into the shaft keyseat with hand pressure or light taps** (no rocking side to side), and the hub should slide over it with a **slight** drag. A key that rattles in the keyseat hammers the keyway oval in a week of reversing; a key that has to be driven in with a sledge splits the hub.
+- Never fill a loose keyway with shim stock beside the key, weld, or a double key.
+
+## Measuring a keyway
+
+- **Width**: a rule for rough; a **micrometer on a piece of key stock** that just fits, or a **gauge block / adjustable parallel** for accuracy; check for taper along the length (worn keyways bell-mouth at the ends).
+- **Depth**: the drawing gives the depth from the **opposite side of the shaft** (the dimension across from the bottom of the keyseat to the far side of the shaft, `D − H/2 + (correction)`) or from the top of the shaft at the keyseat centreline. A depth gauge resting on the round shaft surface at the keyseat edge reads less than the true depth by the chord height, so use the formulas:
+
+```
+   chord height  y = (D − √(D² − W²)) ÷ 2         D = shaft diameter, W = keyway width
+   depth read by a depth gauge on the shaft surface at the keyseat edge = H/2 − y
+   shaft "M" dimension (bottom of keyseat to opposite side) = D − H/2 − y    (Machinery's Handbook keyseat table gives M)
+```
+
+Example: 2" shaft, 1/2" key: y = (2 − √(4 − 0.25))/2 = (2 − 1.9365)/2 = 0.0318"; M = 2 − 0.25 − 0.032 = **1.718"** (the table value); the depth gauge on the shaft surface at the keyseat edge reads about 0.218".
+
+- **Hub keyway**: from the bore's far side to the keyway bottom = D + H/2 + clearance − y; check with a rule or a telescoping gauge and mic.
+- Key stock in the keyway with a straightedge across the shaft: the key should stand above the shaft by half its height less the chord.
+
+## Key length
+
+The key must be long enough that the **shear** and the **bearing (crush)** stress on it are below the material's limits; for a **steel key on a steel shaft of the same strength, a key length equal to 1.5 × the shaft diameter** carries the full torque of the shaft (1.0 × D is the bare minimum; most hubs are 1.25-2 × D long and the key runs the full hub length). Where the hub is aluminium or cast iron, the key bears on the softer hub: longer. Formulas:
+
+```
+   shear stress in key    = 2 T ÷ (D × W × L)
+   bearing stress on key sides = 4 T ÷ (D × H × L)         T = torque (in-lb), D = shaft dia, W, H, L = key width, height, length (in)
+   allowable (1018 key): shear ≈ 8,000-10,000 psi, bearing ≈ 15,000-20,000 psi (with a safety factor for shock)
+```
+
+Example: 50 hp at 1750 rpm on a 1-5/8" shaft, 3/8" key: T = 63,025 × 50 ÷ 1750 = 1,800 in-lb; with L = 2.5": shear = 3,600 ÷ (1.625 × 0.375 × 2.5) = 2,363 psi; bearing = 7,200 ÷ (1.625 × 0.375 × 2.5) = 4,726 psi: fine. The same shaft with a 1" long key and a shock load starts to hammer.
+
+## Fitting a key
+
+1. Cut the key stock to length; **chamfer or round the ends** to match the keyseat's milled ends (an end-mill keyseat has full radius ends: round the key's ends to the same radius, or it will not seat), chamfer the long edges 1/32" (keyways have a small root radius).
+2. Try it in the shaft keyseat; **file** (a fine mill file, keep it square) the sides until it enters with hand pressure along the whole length, no rock; a light coat of oil.
+3. Check the height: with the key in, the hub should pass over it with slight drag: file the top if it binds (never the sides at this point, they are the driving faces).
+4. Key **in the shaft**, hub on, positioned; lock: the **set screw over the key** (cup point into a spot on the key, or a dog point into a dimple; the set screw goes on the **key**, never beside it on the shaft), or a retaining ring / end plate on the shaft; a dab of removable threadlocker on the set screw; on reversing drives, two set screws.
+5. Gib-head keys: drive in until tight with the head 1/8-1/4" from the hub; never so far that the head is a projecting hazard; remove with a key wedge (a forked wedge driven between the head and the hub).
+6. Woodruff: press the key into its pocket (light taps), check it sits fully down and the top is parallel to the shaft, then the hub.
+7. Mark on the work order the key size fitted; keep a bag of keys in each size in the truck.
+
+## Repairing a wallowed keyway
+
+| Situation | Repair |
+|---|---|
+| Keyway slightly bell-mouthed at one end | Fit a longer key of the correct width; check the hub's keyway too |
+| Keyway worn wide (0.005-0.015" over) | **Machine the keyway to the next standard width** (or oversize in 1/32" steps) and fit a **step key** or an oversize key; both shaft and hub keyways to the same new width if possible |
+| Keyway hammered oval, edges rolled | Machine oversize as above; or **cut a new keyway 90° or 180°** from the old one (fill the old with a fitted key or weld and dress); or weld up and re-mill (preheat, machinable rod, stress relief on alloy shafts) |
+| Hub keyway worn, shaft fine | Broach the hub oversize and fit a step key; or a new hub |
+| Shaft worn under the hub as well | Rebuild by metal spray/weld and machine, or replace the shaft |
+| Emergency (get it running until the weekend) | A fitted oversize key hand-filed to the worn keyway; **never** a key with shims, weld, or a hub run on the set screws alone |
+
+Keyways are cut on a mill (end mill for a closed keyseat, Woodruff cutter, side mill for an open keyseat) or in the field with a **keyseat cutter** on a portable mill / a hand-held keyway cutter guided on the shaft; hub keyways with a **broach** in a press (bushings and shims sized to the bore), or by shaping. Depth and width to the tables above; the keyway must be parallel to the shaft axis (a keyway cut at an angle cocks the hub).
+
+## Common mistakes
+
+- A 3/8" key in a 1/2" keyway "because it drives fine": the hub rocks and the keyway is oval by the end of the month.
+- Set screw beside the key on the shaft: raises a burr, and the hub is now stuck.
+- Key too high: the hub is cocked on the key and the sheave wobbles.
+- Full-length key on a bushing hub that extends past the bushing and stops it seating.
+- Gib-head key hammered in until the hub splits.
+- Key stock cut with a torch: heat-affected, out of square.
+
+## Related
+
+- [QD and Taper-Lock bushings](/article/qd-and-taper-lock-bushings)
+- [Coupling installation](/article/grid-gear-and-disc-coupling-installation)
+- [Shaft, bearing and fastener formulas](/article/shaft-bearing-fastener-formulas)
+- [Milling basics and keyway cutting](/article/milling-basics-and-keyway-cutting)
+- [Layout tools (keyway layout)](/article/layout-tools-and-scribing)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$power-transmission$mw$),
+          array[$mw$keys$mw$,$mw$keyway$mw$,$mw$keyseat$mw$,$mw$key size chart$mw$,$mw$ANSI B17.1$mw$,$mw$square key$mw$,$mw$rectangular key$mw$,$mw$gib head key$mw$,$mw$Woodruff key$mw$,$mw$feather key$mw$,$mw$tapered key$mw$,$mw$key stock$mw$,$mw$keyway depth$mw$,$mw$keyseat depth$mw$,$mw$measuring keyway$mw$,$mw$key fit$mw$,$mw$class 1 fit$mw$,$mw$key length$mw$,$mw$DIN 6885$mw$,$mw$metric key$mw$,$mw$wallowed keyway$mw$,$mw$keyway repair$mw$,$mw$offset key$mw$,$mw$step key$mw$,$mw$keyway broach$mw$,$mw$set screw over key$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ANSI/ASME B17.1 Keys and Keyseats (inch: key size by shaft diameter, keyseat depth, class 1 and 2 fits) and B17.2 Woodruff keys; DIN 6885-1 metric parallel keys; Machinery's Handbook key and keyseat tables and formulas; key stock supplier data (1018 cold-finished, 1045, stainless).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$qd-and-taper-lock-bushings$mw$, $mw$QD and Taper-Lock Bushings: Reading the Numbers, Conventional vs Reverse Mounting, Installation Steps, Cap-Screw Torque Tables (Dodge QD JA-S and Taper-Lock 1008-5050), Key and Set-Screw Rules, Removal with Jack Screws, Wobble Check and Troubleshooting$mw$, $mw$The two tapered bushings that hold sheaves, sprockets and couplings on shafts: how the size numbers decode, how to mount them conventionally and reversed, the exact cap-screw torques from the Dodge manuals for every size, why the flange gap must stay open, how to remove one with its jack-screw holes, and what a wobbling sheave or a spun bushing tells you.$mw$, $mw$## Which is which
+
+| | **QD (Quick Detachable)** | **Taper-Lock** |
+|---|---|---|
+| Look | A **flanged** split bushing; 2-4 cap screws through the flange into the sheave (or reversed) | A **flangeless** split bushing sitting flush inside the hub; 2-3 set screws (half in the bushing, half in the hub) |
+| Taper | Shallow taper (about 4° per side) | Similar shallow taper; the numbers differ by size |
+| Sizes | JA, SH, SDS, SD, SK, SF, E, F, J, M, N, P, W, S (bore range grows down the list) | 1008, 1108, 1210, 1215, 1310, 1610, 1615, 2012, 2517, 2525, 3020, 3030, 3535, 4040, 4545, 5050 |
+| Number means | Letters only; the bore is stamped | First two digits = **max bore in 1/8"** (16 → 2"), last two = **length in 1/8"** (10 → 1-1/4"); 2517 = up to 2-1/2" bore, 2-1/8" long |
+| Removal | Cap screws moved to the jack (tapped) holes | Set screws moved to the removal hole(s) |
+| Reverse mount | Yes: flange toward the machine, screws from the other side | No flange; can be fitted from either side |
+| Interchange | QD sheaves and sprockets take QD bushings only; XT/Dodge split-taper are their own family | Taper-Lock hubs take Taper-Lock bushings only |
+
+Both are **split** (one saw cut) and grip the shaft by being **wedged into the tapered hub**: the bushing bore closes on the shaft as the screws pull the taper together. They need **no interference fit** on the shaft; the shaft should be nominal size to −0.002" (a set-screw-scarred, undersize or oval shaft slips).
+
+## Installation (both types)
+
+1. **Clean** the shaft, the bushing bore and taper, and the hub taper: no oil, grease, anti-seize or paint on the **taper surfaces** (Dodge: "do not lubricate"; an oiled taper is over-drawn and cracks the hub). A light oil on the **shaft** is fine on Taper-Lock; **lightly oil the set screws / cap screws** only. Remove the burr the last bushing's set screw raised.
+2. Place the key in the shaft keyway (a **straight, parallel key** sized to the shaft; see [keys and keyways](/article/keys-and-keyways)); the bushing's keyway is the same width, the key must not stand proud into the hub's split.
+3. **Assemble the bushing into the hub loosely**: QD conventional: bushing flange **outside**, cap screws through the flange's clear holes into the hub's tapped holes, finger tight; **reverse**: bushing inside, cap screws through the hub's clear holes into the bushing flange's tapped holes. Taper-Lock: line up the half-holes, screws in the **install** holes (marked on the bushing: the holes threaded in the hub side), finger tight.
+4. Slide the assembly onto the shaft to its position; the bushing **saw slot away from the keyway** (keep the saw slot away from the keyway so the bushing can close on the shaft); align the sheave with the other sheave (straightedge or laser).
+5. **Tighten the screws alternately and evenly**, in stages, **to the table torque** and no more: QD in 3 steps round the flange; Taper-Lock alternately; then **tap the hub face lightly with a hammer** (Taper-Lock: over a drift on the large end of the bushing) to seat the taper and **re-torque**. Repeat until the torque holds.
+6. **Check the flange gap** (QD): there must be a gap between the bushing flange and the hub face of about **1/8-1/4"**: if the flange closes on the hub the bushing has bottomed and is not gripping. Taper-Lock: the bushing's large end should sit about flush to slightly below the hub face; a bushing pulled through past the hub is wrong (shaft undersize).
+7. Tighten the **key-seat set screw** (QD bushings have one over the key) to the table value.
+8. **Wobble check**: rotate the shaft by hand with a dial indicator or a straightedge on the sheave face/rim: runout over about 0.005-0.010" per foot of diameter means dirt on a taper, a burr, or uneven torque: loosen and redo.
+9. **Re-torque after 24 hours** of running (the bushing seats); Dodge says re-check periodically.
+10. Fill the unused holes with the plastic plugs or grease to keep them clean for removal.
+
+## Torque tables
+
+### Dodge QD bushings (MN4049)
+
+| Bushing | Cap screws (qty × size) | **Cap screw torque** | Key-seat set screw | Set-screw torque |
+|---|---|---|---|---|
+| QT | 1/4-20 × 7/8 | 90 in-lb | #10-24 | 36 in-lb |
+| JA | #10-24 × 1 | 60 in-lb | #10-24 | 36 in-lb |
+| **SH, SDS** | 1/4-20 × 1-3/8 | **108 in-lb (9 ft-lb)** | 1/4-20 | 87 in-lb |
+| **SD** | 1/4-20 × 1-7/8 | **108 in-lb** | 1/4-20 | 87 in-lb |
+| **SK** | 5/16-18 × 2 | **180 in-lb (15 ft-lb)** | 1/4-20 | 87 in-lb |
+| **SF** | 3/8-16 × 2 | **360 in-lb (30 ft-lb)** | 5/16-18 | 165 in-lb |
+| **E** | 1/2-13 × 2-3/4 | **720 in-lb (60 ft-lb)** | 3/8-16 | 290 in-lb |
+| F | 9/16-12 × 3-5/8 | 900 in-lb (75 ft-lb) | 3/8-16 | 290 in-lb |
+| J | 5/8-11 × 4-1/2 | 1,620 in-lb (135 ft-lb) | 3/8-16 | 290 in-lb |
+| M | 3/4-10 × 7 | 2,700 in-lb (225 ft-lb) | 3/8-16 | 290 in-lb |
+| N | 7/8-9 × 8 | 3,600 in-lb (300 ft-lb) | 1/2-13 | 620 in-lb |
+| P | 1-8 × 9-1/2 | 5,400 in-lb (450 ft-lb) | 5/8-11 | 1,325 in-lb |
+| W | 1-1/8-7 × 11-1/2 | 7,200 in-lb (600 ft-lb) | 1-8 | 5,000 in-lb |
+| S | 1-1/4-7 × 15-1/2 | 9,000 in-lb (750 ft-lb) | 1-1/4-7 | 7,600 in-lb |
+
+Metric QD (MN4049): SH/SDS/SD M6 11.5 N·m, SK M8 20.5 N·m, SF M10 34 N·m, E M12 77 N·m, F M14 100 N·m, J M16 194.5 N·m, M M20 256 N·m.
+
+### Dodge Taper-Lock bushings (MN4044)
+
+| Bushing | Screws | **Torque** |
+|---|---|---|
+| 1008, 1108 | 2 × 1/4-20 | **55 in-lb** (6.2 N·m) |
+| **1210, 1215, 1310, 1610, 1615** | 2 × 3/8-16 | **175 in-lb** (19.9 N·m) |
+| 2012 | 2 × 7/16-14 | 280 in-lb (31.6 N·m) |
+| **2517, 2525** | 2 × 1/2-13 | **430 in-lb** (48.6 N·m) |
+| 3020, 3030 | 2 × 5/8-11 | 800 in-lb (90 N·m) |
+| 3535 | 3 × 1/2-13 | 1,100 in-lb (124 N·m) |
+| 4040 | 3 × 5/8-11 | 1,700 in-lb (192 N·m) |
+| 4545 | 3 × 3/4-10 | 2,450 in-lb (277 N·m) |
+| 5050 | 3 × 7/8-9 | 3,100 in-lb (350 N·m) |
+
+Other makers' Taper-Lock values differ slightly (some list the 1210-1615 group at 15 ft-lb = 180 in-lb and 2012 at 23 ft-lb); if the hub or the bushing carries a torque marking, **that** governs. Over-torque cracks the hub (cast iron sheaves split at the taper) and the bushing; under-torque lets the sheave walk and wear the shaft.
+
+## Removal
+
+**QD**: remove all cap screws; put them (or the longer removal screws supplied) into the **tapped jack holes in the bushing flange** (conventional mount) or in the hub (reverse); tighten **alternately and evenly**, starting with the screw farthest from the saw slot, until the taper breaks free; pull the sheave and bushing off by hand. Never pry the flange with a bar or hammer on the sheave rim.
+
+**Taper-Lock**: remove all set screws; insert them in the **removal hole(s)** (the half-holes threaded on the **bushing** side, marked); tighten alternately until the bushing releases from the hub; slide off. A stuck bushing: tap the hub (not the shaft) lightly while tightening; penetrating oil in the split; heat on the hub only as a last resort.
+
+Rusted-in bushings on old shafts: the split lets penetrating oil work; a puller on the sheave with the screws in the jack holes and a light tap on the shaft end (with a cap) usually does it.
+
+## Troubleshooting
+
+| Symptom | Cause |
+|---|---|
+| Sheave **wobbles** after installation | Dirt or a burr on a taper; screws tightened unevenly; key too high forcing the bushing; the hub's taper damaged |
+| Bushing **bottomed** (QD flange against the hub) | Shaft undersize or bushing bore oversize; wrong bushing/hub combination; grease on the taper |
+| Bushing **spun on the shaft** | Shaft undersize (worn, set-screw craters), under-torqued, oiled taper, wrong key; the shaft is now scored and needs repair or a larger-bore bushing on a sleeve |
+| Hub **cracked** at the taper | Over-torqued, oiled taper, cap screws too long (bottoming in the tapped holes) |
+| Bushing will not release | Screws in the wrong holes; taper corroded; one screw not backed out |
+| Cap screws stripped | Wrong length or grade; over-torque; re-tap or replace the bushing |
+
+## Related
+
+- [V-belt drives (the sheaves these carry)](/article/v-belt-drive-installation-and-tensioning)
+- [Roller chain drives](/article/roller-chain-drives)
+- [Keys and keyways](/article/keys-and-keyways)
+- [Timing belts and synchronous drives](/article/timing-belts-and-synchronous-drives)
+- [Coupling installation](/article/grid-gear-and-disc-coupling-installation)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$power-transmission$mw$),
+          array[$mw$QD bushing$mw$,$mw$Taper-Lock bushing$mw$,$mw$taper lock$mw$,$mw$bushing torque$mw$,$mw$QD torque$mw$,$mw$SDS bushing$mw$,$mw$SK bushing$mw$,$mw$SF bushing$mw$,$mw$1610 bushing$mw$,$mw$2517 bushing$mw$,$mw$bushing installation$mw$,$mw$bushing removal$mw$,$mw$jack screws$mw$,$mw$reverse mount$mw$,$mw$sheave bushing$mw$,$mw$sprocket bushing$mw$,$mw$split taper bushing$mw$,$mw$XT bushing$mw$,$mw$bushing wobble$mw$,$mw$bushing bore size$mw$,$mw$flange gap$mw$]::text[], $mw$Dodge (ABB) / TB Woods / Martin$mw$, array[$mw$QD JA$mw$,$mw$QD SH$mw$,$mw$QD SDS$mw$,$mw$QD SD$mw$,$mw$QD SK$mw$,$mw$QD SF$mw$,$mw$QD E$mw$,$mw$QD F$mw$,$mw$QD J$mw$,$mw$QD M$mw$,$mw$QD N$mw$,$mw$Taper-Lock 1108$mw$,$mw$1210$mw$,$mw$1610$mw$,$mw$2012$mw$,$mw$2517$mw$,$mw$3020$mw$,$mw$3535$mw$,$mw$4040$mw$,$mw$XT bushing$mw$]::text[], $mw$Dodge QD Bushings instruction manual MN4049 (cap-screw and key-seat set-screw torque table, English and metric); Dodge Taper-Lock Bushings instruction manual MN4044 (installation wrench torque table); TB Woods and Martin Sprocket bushing instruction sheets (cross-check).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$roller-chain-drives$mw$, $mw$Roller Chain Drives: Chain Numbers, Sprocket Alignment, Sag, Wear Limits and Lubrication$mw$, $mw$Reading ANSI chain numbers, aligning sprockets, setting chain sag to 2-4% of span, measuring elongation against the 3% (1.5%) wear limit, connecting-link and offset-link rules, and the four ANSI lubrication types.$mw$, $mw$## ANSI chain numbers
 
 The number tells you the pitch. **Divide the first digit(s) by 8 for pitch in inches.**
@@ -4081,6 +6288,116 @@ Oil must reach the **pin-bushing joint**: apply on the inside edge of the link p
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$timing-belts-and-synchronous-drives$mw$, $mw$Timing Belts and Synchronous Drives: Pitch Families (XL/L/H, HTD 3M-14M, GT, Poly Chain), Reading a Belt Number, Sprocket Flanges, Installation Without Prying, Tensioning by Deflection and Sonic Meter, Alignment Tolerances and Laser Sheave Alignment, Failure Signs$mw$, $mw$The belts that drive with teeth instead of friction: the pitch families and how to read the numbers on a belt and a sprocket, why flanges and alignment matter more than on a V-belt, how to install without damaging the tensile cords, how to tension (the deflection method with the span formula and the sonic meter that most plants now use), the alignment tolerance and how to hit it with a laser, and how to read a failed belt.$mw$, $mw$## Why they are different from V-belts
+
+A synchronous belt **cannot slip**: the teeth engage sprocket grooves, so the ratio is exact (timing, positioning, indexing, and no speed loss), it needs **less tension** than a V-belt (less bearing load), does not stretch or need re-tensioning after run-in, and runs at 98% efficiency. In return it is **intolerant of misalignment** (it tracks off and shears teeth), of debris in the grooves, of shock overload (it **ratchets**: jumps teeth), and of prying (the fibreglass or carbon tensile cords crack and the belt fails later with no warning).
+
+## Pitch families
+
+| Family | Tooth profile | Pitches | Use |
+|---|---|---|---|
+| **Classical trapezoidal** (MXL, XL, L, H, XH, XXH) | Trapezoid | MXL 0.080", XL 1/5", **L 3/8", H 1/2"**, XH 7/8", XXH 1-1/4" | Older machines, light drives, positioning; being replaced |
+| **HTD (curvilinear)** | Rounded tooth | **3M, 5M, 8M, 14M**, 20M (mm pitch) | General industrial; the common one on conveyors, fans, blowers |
+| **GT (PowerGrip GT2/GT3/GT4, modified curvilinear)** | Deeper, rounded | 2M, 3M, 5M, **8M, 14M** | Higher capacity than HTD in the same pitch, quieter; **GT belts fit HTD sprockets** (8M, 14M) with the maker's blessing, not the reverse |
+| **Poly Chain GT Carbon** | Curvilinear with carbon cords, polyurethane | **8M, 14M** | Replaces roller chain: very high torque, long life; needs its own sprockets |
+| Metric T and AT (T5, T10, AT10) | Trapezoid | 5, 10 mm | European machinery, linear motion |
+| Double-sided (DD, DH) | Teeth both sides | | Serpentine and reversing drives |
+
+Sprockets must match the belt's pitch **and** profile (an HTD 8M belt on a GT 8M sprocket runs; an L belt on an H sprocket does not fit).
+
+## Reading the numbers
+
+- **Belt**: `1440-8M-30` = **1440 mm pitch length** (the number of teeth = 1440 ÷ 8 = 180), **8 mm pitch**, **30 mm wide**. Inch families: `480H100` = 48.0" pitch length, H (1/2") pitch, 1.00" wide (the width code is in 1/100"). `8MGT3-1440-30` adds the profile and generation. Poly Chain: `8MGT-1440-36`.
+- **Sprocket**: `P34-8M-30` or `34-8M-30` = **34 teeth**, 8M pitch, 30 mm belt width; `P34-8M-30-2517` adds the Taper-Lock bushing size; inch: `30H100` = 30 teeth, H pitch, 1" belt. `F` or a flange note = flanged.
+- Pitch diameter (for ratios, speeds): PD = teeth × pitch ÷ π (34 teeth × 8 mm ÷ π = 86.6 mm); the outside diameter is PD minus twice the belt's pitch-line distance (about 0.69 mm for 8M; the catalogue gives the OD).
+- Ratio = driven teeth ÷ driver teeth, exactly.
+- Centre distance from belt length: use the V-belt formula in [power, torque and drive formulas](/article/power-torque-speed-drive-formulas) with pitch diameters, or the maker's table; there is no adjustment for stretch, so the drive needs an adjustable centre or an idler to install and tension the belt.
+
+## Flanges and alignment
+
+A synchronous belt tracks toward one side (they all do, because of cord twist and slight misalignment), so **at least one sprocket must be flanged**: both flanges on one sprocket, or one flange on each sprocket on opposite sides; on a drive with a centre distance over 8× the small sprocket's diameter, **both** sprockets flanged. Belts that ride hard against a flange wear the edge and shed cords: the drive is misaligned.
+
+**Alignment tolerance**: much tighter than V-belts: **≤ 1/4° (0.25°) combined angular and parallel** (Gates: 1/16" per foot of centre distance as the practical limit, tighter, 1/32" per foot, on drives over 5 m/s and on Poly Chain). Check:
+
+1. **Parallel (offset)**: a straightedge across both sprocket faces (touching at 4 points) or a **laser sheave alignment tool** (magnetic laser on one sprocket, target on the other: reads offset and angle in one shot). Correct by moving the sprocket on its bushing or the motor on its slots.
+2. **Angular (twist)**: the straightedge touches on one side only; a laser shows it as a line off the target's centre at each end. Shim the motor feet.
+3. **Sprocket runout**: a dial indicator on the sprocket face and OD: ≤ 0.005" plus 0.0005" per inch of diameter; a bushing not seated or a bent shaft shows here.
+4. After tensioning, run and check the belt sits with a small even gap to the flange; adjust while running is not allowed: stop, adjust, restart.
+
+## Installation
+
+1. Lockout. Never **pry, roll or force** a synchronous belt over a flange: the cords break. Loosen the motor / idler to reduce the centre distance until the belt goes on **by hand** with no force; on drives with flanges both sides, one sprocket may have to come off its bushing to fit the belt (or a removable flange).
+2. Clean the sprocket grooves: rust, paint, debris, worn tooth tips (a sprocket with hooked or thin teeth, or shiny worn groove bottoms, is scrap: it will shear the new belt's teeth).
+3. Sprockets aligned as above; bushings torqued (see [QD and Taper-Lock](/article/qd-and-taper-lock-bushings)).
+4. Belt on, teeth fully in the grooves on both sprockets; take up the centre distance until the belt just tightens; align again.
+5. Tension (below); lock the motor base; rotate by hand 2-3 turns, re-check tension and tracking; guard on.
+6. Synchronous belts need **no run-in re-tension** (no stretch), but check after the first day for tracking and for a sprocket that has settled on its bushing.
+
+## Tensioning
+
+Too loose: the belt **ratchets** (jumps teeth) under load, the teeth shear, it flaps and wears. Too tight: bearing and shaft loads, cord fatigue, noise, sprocket wear. The correct tension depends on the belt section, width and the drive load; the maker's design program gives a **static tension** in pounds (or a deflection force). Two field methods:
+
+**Force-deflection (Gates method)**
+
+```
+   deflection distance = span length ÷ 64        (1/64" per inch of span; span = √(C² − ((D − d)/2)²))
+   push the belt at mid-span with a spring scale (belt tension tester) and read the force at that deflection;
+   compare with the maker's minimum/maximum deflection force for that belt (from the drive design or the table).
+```
+
+Typical **deflection forces** at span ÷ 64 for PowerGrip GT/HTD (per the Gates tables; the exact value comes from the design's static tension, these are the usual ranges for a new belt):
+
+| Belt | 20 mm wide | 30 mm | 50 mm | 85 mm |
+|---|---|---|---|---|
+| 5M | 3-4 lb | 4-6 lb | | |
+| **8M** | 5-8 lb | **8-12 lb** | 14-20 lb | 24-34 lb |
+| **14M** | | | 30-45 lb | 50-75 lb |
+| Poly Chain 8M | 7-10 lb | 10-16 lb | 18-27 lb | 30-45 lb |
+
+If the drive's calculated tension is not known, tension to the **lower** end of the range, run under load, and increase only if it ratchets; small sprockets (under about 24 teeth) and shock drives need the upper end.
+
+**Sonic tension meter** (Gates 507C, ContiTech): the belt's natural vibration frequency at a known span, width and mass per length gives the tension: enter the belt data, pluck the belt, hold the sensor 1/2" from the span, read the tension in lb or the frequency, compare with the design value (or the target frequency the maker's app gives). It is the standard on wide belts and high-speed drives, repeatable to a few percent, and takes seconds. Rule: measure at the **middle of the longest span**, belt static, three readings.
+
+Idlers: a fixed **inside** idler on the slack side is normal for tensioning drives with fixed centres; an idler on the **back** (smooth side) must be large (≥ the small sprocket's OD) and never on the teeth side unless it is a grooved idler. Spring-loaded auto-tensioners on drives with load variation.
+
+## Failure signs
+
+| Sign | Cause |
+|---|---|
+| **Teeth sheared** off the belt (the cords intact) | Ratcheting from under-tension, shock overload, a sprocket with worn/hooked teeth, misalignment loading one edge, debris in the grooves |
+| **Edge wear / frayed edge, cords showing on one side** | Misalignment; belt tracking hard against a flange; a bent flange |
+| **Cracks across the back** | Heat (over 185°F for standard belts), a back idler too small, ozone/chemicals, age |
+| Belt broken cleanly, cords snapped | Belt **pried on** at installation (crimped cords), shock load, sprocket damage |
+| **Excessive tooth wear, teeth shiny and thin** | Over-tension, worn sprocket, abrasive dust |
+| Belt jumps teeth at start-up only | Under-tension; too small a sprocket for the torque |
+| **Noise (whine)** | Normal at high speed; louder = over-tension or misalignment; a chirp = a belt edge rubbing the flange |
+| Sprocket teeth hooked, groove bottoms polished | Sprocket worn out: replace with the belt (never a new belt on a worn sprocket) |
+| Belt rides up on the flange or climbs off | Severe misalignment, a bent shaft, the wrong flange side |
+
+Storage: hang or lay flat, no tight coils (kinks crack cords), dry, out of sunlight, under 85°F; a belt's shelf life is 5-8 years.
+
+## Common mistakes
+
+- Prying the belt over the flange with a screwdriver.
+- Using the V-belt "thumb push" rule for tension: far too tight.
+- Aligning with a piece of string on a 14M drive: 1° off, teeth gone in a month.
+- New belt, old sprocket.
+- Idler on the back with a 2" diameter: the belt back cracks.
+- Belt number 1440-8M-30 replaced by 1440-8M-20 because "it was in stock": ratchets at half the load.
+
+## Related
+
+- [V-belt drive installation and tension](/article/v-belt-drive-installation-and-tensioning)
+- [Roller chain drives](/article/roller-chain-drives)
+- [QD and Taper-Lock bushings](/article/qd-and-taper-lock-bushings)
+- [Power, torque and drive formulas](/article/power-torque-speed-drive-formulas)
+- [Belt failure patterns](/article/belt-failure)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$power-transmission$mw$),
+          array[$mw$timing belt$mw$,$mw$synchronous belt$mw$,$mw$toothed belt$mw$,$mw$HTD belt$mw$,$mw$8M belt$mw$,$mw$14M belt$mw$,$mw$GT belt$mw$,$mw$Poly Chain$mw$,$mw$timing belt pitch$mw$,$mw$belt number decoder$mw$,$mw$timing belt tension$mw$,$mw$deflection method$mw$,$mw$sonic tension meter$mw$,$mw$timing belt alignment$mw$,$mw$sprocket alignment$mw$,$mw$laser sheave alignment$mw$,$mw$belt tracking on sprocket$mw$,$mw$flanged sprocket$mw$,$mw$timing belt failure$mw$,$mw$tooth shear$mw$,$mw$ratcheting$mw$,$mw$belt install$mw$,$mw$timing pulley$mw$]::text[], $mw$Gates / Goodyear (Continental) / Optibelt (generic)$mw$, array[$mw$PowerGrip GT4$mw$,$mw$PowerGrip HTD$mw$,$mw$Poly Chain GT Carbon$mw$,$mw$Gates 507C$mw$,$mw$Gates Sonic Tension Meter$mw$,$mw$Eagle Pd$mw$,$mw$Falcon Pd$mw$,$mw$Optibelt Omega$mw$]::text[], $mw$Gates PowerGrip GT and HTD drive design manuals (belt designations, tensioning, installation tension force-deflection tables and the sonic method); Gates Belt Preventive Maintenance and Safety Manual (alignment tolerances, failure analysis); Continental ContiTech synchronous belt guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$v-belt-drive-installation-and-tensioning$mw$, $mw$V-Belt Drives: Sheave Alignment, Installation and Tensioning (Deflection Method)$mw$, $mw$How to identify belts, check and align sheaves, install a matched set without prying, tension by the 1/64 inch per inch of span deflection method, and re-tension after run-in.$mw$, $mw$## Identify the belt
 
 | Section | Top width | Typical use |
@@ -4154,6 +6471,224 @@ Three kinds of misalignment: **angular** (shafts not parallel), **parallel/offse
 - [Roller chain drives](/article/roller-chain-drives)
 - [Couplings: types, gap and installation](/article/coupling-types-gap-and-installation)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$power-transmission$mw$),
           array[$mw$v-belt$mw$,$mw$belt tension$mw$,$mw$deflection$mw$,$mw$sheave alignment$mw$,$mw$pulley$mw$,$mw$belt drive$mw$,$mw$matched set$mw$,$mw$QD bushing$mw$,$mw$taper lock$mw$,$mw$belt slip$mw$,$mw$run-in$mw$]::text[], $mw$Gates / Dodge / Browning (generic)$mw$, array[$mw$A$mw$,$mw$B$mw$,$mw$C$mw$,$mw$D$mw$,$mw$3V$mw$,$mw$5V$mw$,$mw$8V$mw$,$mw$AX$mw$,$mw$BX$mw$,$mw$5VX$mw$,$mw$3VX$mw$]::text[], $mw$Gates Belt Drive Preventive Maintenance and Safety Manual; Dodge and Browning drive guides; general practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$air-compressors-pm$mw$, $mw$Air Compressors: Reciprocating, Rotary Screw and Vane Types, Controls, Oil and Filters, Dryers and Dew Point, Receiver and Safety Valve Rules, the PM Schedule by Interval, Condensate and Leak Surveys, Troubleshooting and Safety$mw$, $mw$What each compressor type is and how it is controlled, the oil and filter rules that decide its life, how dryers and receivers work and how they fail, the PM schedule by daily, weekly, monthly, quarterly and annual items with the typical hours, the condensate and leak surveys that save the most money, the troubleshooting table, and the safety rules for receivers, safety valves and compressed air on people.$mw$, $mw$## Types
+
+| Type | How | Where | Character |
+|---|---|---|---|
+| **Reciprocating (piston), single-stage** | One or more cylinders compress to about 125-135 psi | Small shops, 1-15 hp, intermittent | Cheap, noisy, hot; duty cycle **50-60%**: needs rest; oil carryover |
+| **Reciprocating, two-stage** | First stage to 30-50 psi, intercooler, second stage to 175 psi | 5-30 hp shop compressors (IR T30, Quincy QT), high pressure | Cooler, efficient at 175 psi; duty cycle to 75-100% on industrial models |
+| **Rotary screw, oil-flooded** | Two meshing rotors in an oil-flooded chamber; oil seals, cools and lubricates; a **separator** removes the oil from the air | 10-500 hp plant air, 100-125 psi, **100% duty** | Continuous, quiet, needs its oil and separator cared for; controls (load/unload, modulation, VSD) decide the energy use |
+| Rotary screw, oil-free | Timing gears keep the rotors apart; two stages | Food, pharma, electronics | Expensive, hot, oil-free air |
+| Rotary vane | Vanes in an eccentric rotor, oil-flooded | 5-50 hp | Simple, low speed, long life |
+| Centrifugal | Turbo impellers | 300+ hp | Plant-scale, oil-free |
+| Scroll | Orbiting scroll, oil-free | Small, lab | Quiet |
+
+Ratings: **cfm** (delivered air, at 100 psi typically; about 4-5 cfm per hp for screws, 3-4 for pistons), **psi**, and the tank size. Air tools want **90 psi at the tool**; every 2 psi above the needed pressure costs about 1% of the compressor's power, and every 10°F of hotter intake air raises the power about 2%.
+
+## Controls
+
+- **Pressure switch (start/stop)**: pistons; cut-in/cut-out (e.g. 100/125 psi); the differential and the receiver size decide the starts per hour (motors want under 6-10 starts/h).
+- **Load/unload**: screws run continuously, an inlet valve closes and the sump blows down to unload (the compressor idles at about 25-30% of full power); a timer stops it after an unloaded period ("auto dual").
+- **Modulation (inlet throttling)**: the inlet valve throttles to match demand; simple but wasteful below 70% load.
+- **VSD (variable speed)**: the motor speed follows demand; the most efficient for a variable load; needs the air-end's minimum speed respected.
+- **Sequencers** on multiple compressors; a **pressure/flow controller** and a large receiver let the compressors run at a lower pressure.
+
+## Oil and filters
+
+| Item | Reciprocating | Rotary screw |
+|---|---|---|
+| Oil | Compressor oil (non-detergent mineral ISO 100 / SAE 30, or a synthetic diester/PAO compressor oil); **never automotive engine oil** (detergents foam and carbonise the valves) | The maker's screw compressor fluid (synthetic PAO/diester/PAG blends; food grade H1 where needed); **do not mix types** (varnish) |
+| Oil change | **500 h mineral / 1,000-2,000 h synthetic**, or 3-6 months; more often in dust or heat | **2,000 h mineral, 4,000-8,000 h synthetic** (the maker's hours; oil analysis extends); or annually |
+| Oil level | Sight glass, midpoint, checked **stopped** | Sight glass, checked at the maker's condition (some running unloaded, some stopped after 5 min) |
+| Air filter | Every 500 h or when the indicator shows; blow out from the inside weekly in dust; never run without one (dust scores the cylinders) | Element per the differential indicator or every 1,000-2,000 h; **never** run without it (the air-end is scrap in hours) |
+| Oil filter | (Splash-lubricated pistons have none; pressure-lubricated: with the oil) | Every oil change or per the ΔP indicator (1,000-2,000 h) |
+| **Separator element** (screw) | | Every **4,000-8,000 h** or when the ΔP across it exceeds about 10-15 psi, or when oil carryover appears downstream; a plugged separator raises the discharge temperature and the power; a torn one puts oil in the plant air |
+| Valves (piston) | Inspect **annually** or 2,000 h: broken reeds/plates, carbon; a compressor that takes longer to fill has a valve problem | |
+| Intake and discharge temperature | Piston discharge 250-350°F normal at the head | Screw discharge (air-end) **170-200°F** normal; **trips at about 225-235°F**; high temperature = dirty cooler, low oil, plugged separator, hot room, a thermostatic valve stuck |
+
+## Dryers and air treatment
+
+Compressed air at 100 psi holds water: a 100 cfm compressor in a warm humid shop makes **10-20 gallons of water a day**. The chain: aftercooler (cools the air to near ambient, condenses most of the water) → **moisture separator with an automatic drain** → receiver (drain) → **dryer** → filters (particulate, coalescing for oil, activated carbon for odour) → distribution with drip legs.
+
+| Dryer | Dew point | Notes |
+|---|---|---|
+| **Refrigerated** | **35-40°F (2-4°C) pressure dew point** | The plant standard; cannot go below freezing; needs its condenser coil cleaned monthly and its drain working; a dryer that ices up is undersized or has a control fault |
+| Regenerative desiccant (heatless, heated, blower) | −40°F to −100°F | Instrument air, outdoor lines, paint; uses **10-15% of the air** to purge (heatless); desiccant replaced every 2-5 years; needs a pre-filter (oil kills desiccant) and an after-filter (dust) |
+| Membrane | 35°F to −40°F | Point of use |
+| Deliquescent | 20°F below inlet | Cheap, tablets consumed |
+
+Filters: **particulate (5 µm) → coalescing (0.01 µm oil aerosol) → carbon** (vapour); change elements at the ΔP indicator or annually; **auto drains** on every filter bowl and separator: check them daily (a stuck drain is a bowl full of water into the line).
+
+## Receiver and safety valve
+
+- The **receiver** (ASME Section VIII stamped, the nameplate says MAWP and the National Board number) is a pressure vessel: it must have a **safety valve set at or below the MAWP**, a **pressure gauge**, a **drain** at the bottom, and it must be **inspected** (external visually every year, internal/ultrasonic thickness per the jurisdiction, typically 3-5 years); a receiver that shows rust streaks at the seams, has a corroded bottom head, or has been welded on by anyone is a hazard: it is the biggest energy store in the shop. OSHA 1910.169 covers it. Wet (before the dryer) and dry (after) receivers: a receiver of 1-2 gallons per cfm smooths the demand and reduces cycling.
+- **Drain the receiver daily** (manual) or fit an **automatic drain** (timer or zero-loss) and **check it works** weekly; a receiver with a foot of water in it has lost capacity and is rusting from the inside.
+- **Safety valve**: **never adjust, plug, or "fix" it**; test by lifting the ring **monthly** (the maker's manuals and many insurers say monthly or quarterly; some plants trip-test annually with a gauge); it must reseat; replace with the same set pressure and capacity if it weeps or does not reseat; a safety valve that has never been lifted in five years is likely stuck: replace it.
+- Pressure switch and the compressor's own unloader/relief are **not** substitutes for the receiver's safety valve.
+
+## PM schedule (typical; the compressor's manual governs)
+
+| Interval | Reciprocating | Rotary screw | Both |
+|---|---|---|---|
+| **Daily** | Oil level; drain the receiver; listen (knocks, valve clatter) | Oil level; discharge temperature and pressure on the display; drains; listen | Check the auto drains, dryer dew point/temperature, filter bowls, any leaks, the fault log |
+| **Weekly** | Air filter check; belts (tension, cracks); clean the cylinder fins and the intercooler; check the unloader operation | Air filter indicator; separator ΔP; cooler face clean; the cabinet filter mats; belts on belt-drive units | Leak walk-round; safety valve visual; condensate handling |
+| **Monthly** | Safety valve lift; check the head and fittings for leaks; check the pressure switch settings; oil for water/colour | Safety valve lift; cooler cleaning (blow out with air, opposite to the flow); check the minimum pressure valve and the blowdown; oil sample for large units | Dryer condenser cleaned; filter elements per indicator; motor greasing per the [motor table](/article/regreasing-intervals-and-quantities); belt tension |
+| **Quarterly (500 h)** | **Oil change** (mineral); air filter; belt tension; valve check by fill-time test | Air filter element; oil sample; check the inlet valve and blowdown valve; tighten electrical connections | Receiver drain valve exercised; check-valve function (the receiver holds pressure with the compressor off) |
+| **Annual (2,000-4,000 h)** | Valves inspected/replaced; piston rings on high-hour units; gaskets; motor bearings; pressure switch calibration; receiver inspection | **Oil change** (mineral at 2,000, synthetic at 4,000-8,000); oil filter; **separator**; air-end bearing check by vibration; thermostatic valve; shaft seal; motor bearings; cooler chemical cleaning; safety valve test/replace; **receiver inspection** | Dryer: refrigerant charge, drains, desiccant; the whole air system leak survey with an ultrasonic detector; controls calibration |
+| 20,000-40,000 h | Complete overhaul | Air-end rebuild or exchange (bearings) | |
+
+## Leak and condensate surveys
+
+- A **1/8" hole at 100 psi leaks about 26 cfm** (about 6 hp of compressor, several thousand dollars a year); typical plants leak **20-30%** of their air. Survey with an **ultrasonic leak detector** (or soapy water) at every fitting, coupling, hose, drain, and at the tool ends; tag, fix, re-survey; quick-connect couplers and old hoses are the usual offenders.
+- Condensate from oil-flooded compressors is **oily water**: it goes through an **oil/water separator** and the oil to waste oil; never down the drain.
+- Piping: a loop main, drip legs at low points with drains, take-offs from the **top** of the main, sized for under 3-5 psi drop (as a guide, at 100 psi over 100 ft with a small drop: 3/4" pipe about 20-30 cfm, 1" about 50, 1-1/2" about 120, 2" about 250 cfm; use a piping chart for real design).
+
+## Troubleshooting
+
+| Symptom | Causes |
+|---|---|
+| Compressor runs but pressure builds slowly / never reaches cut-out | Leaks (the biggest), intake filter plugged, **valves** (piston) broken or carboned, worn rings, the unloader stuck open, a screw's inlet valve not opening, the minimum pressure valve, wrong belt speed, demand higher than the supply |
+| Runs continuously | Demand ≥ capacity, leaks, the pressure switch/controller setting, the unloader |
+| Cycles too often (short cycling) | Receiver too small, water in the receiver, the differential set too narrow, a leak |
+| **High discharge temperature / trips on temperature** (screw) | Dirty cooler, low oil, wrong oil, plugged separator or oil filter, thermostatic valve, hot room (over 104°F), fan failure, a restricted intake |
+| **Oil in the air lines** (screw) | Separator element torn or plugged, scavenge line plugged, oil level too high, wrong oil (foaming), the minimum pressure valve |
+| Oil consumption (piston) | Rings and cylinder worn, over-filled, crankcase breather, running too hot, the wrong oil |
+| Water in the lines | Drains stuck, aftercooler dirty, dryer overloaded or failed (check the dew point), no dryer, intake in a humid spot |
+| Knocking (piston) | Loose flywheel or pulley, bearing, wrist pin, a broken valve, carbon on the piston top |
+| Safety valve popping | Pressure switch failed closed, the unloader failed, wrong set point; **never** answer it by changing the valve |
+| Motor overloads | Low voltage, belts too tight, pressure too high, the unloader not unloading at start, a seized air-end/cylinder, the wrong oil in cold weather |
+| Noisy screw, vibration | Air-end bearings (vibration monitoring on the air-end; 40,000 h life), coupling, mounts |
+
+## Safety
+
+- **Never use compressed air to clean clothing or blow off skin**: 100 psi injects air under the skin (embolism, death); OSHA 1910.242(b) limits cleaning nozzles to **30 psi dead-ended** with chip guarding and PPE.
+- Lockout: the electrical supply **and** the stored air: isolate and **bleed the receiver and the lines to zero** on the gauge before opening anything; the screw compressor's sump holds pressure after stopping (wait for the blowdown, check the sump gauge reads zero before opening the oil fill).
+- Hot surfaces (cylinder heads 300°F, screw air-end 200°F); guards on belts and couplings; hearing protection (85-95 dBA).
+- Receiver rules above; a receiver with a **welded-on bracket or a patch** is condemned; never move a receiver under pressure.
+- Hoses: whip checks on 3/4" and larger, claw couplings pinned; a burst hose is a whip.
+- Breathing air is **not** plant air (CO, oil): only from a breathing-air system with a CO monitor.
+
+## Related
+
+- [Pneumatic systems, FRL and air tools](/article/pneumatic-systems-frl-and-cylinders)
+- [Regreasing intervals and motor greasing](/article/regreasing-intervals-and-quantities)
+- [V-belt drive installation and tensioning](/article/v-belt-drive-installation-and-tensioning)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [PM checklists](/article/pm-checklists)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$pumps-seals$mw$),
+          array[$mw$air compressor$mw$,$mw$compressor maintenance$mw$,$mw$compressor PM$mw$,$mw$reciprocating compressor$mw$,$mw$rotary screw compressor$mw$,$mw$screw compressor$mw$,$mw$compressor oil$mw$,$mw$compressor oil change$mw$,$mw$air filter compressor$mw$,$mw$separator element$mw$,$mw$air dryer$mw$,$mw$refrigerated dryer$mw$,$mw$desiccant dryer$mw$,$mw$dew point$mw$,$mw$receiver tank$mw$,$mw$receiver drain$mw$,$mw$safety valve compressor$mw$,$mw$pressure switch$mw$,$mw$load unload$mw$,$mw$compressor belts$mw$,$mw$compressor overheating$mw$,$mw$air leaks$mw$,$mw$leak survey$mw$,$mw$condensate$mw$,$mw$compressor troubleshooting$mw$,$mw$compressed air safety$mw$,$mw$cfm psi$mw$]::text[], $mw$Ingersoll Rand / Quincy / Sullair / Atlas Copco / Kaeser (generic)$mw$, array[$mw$Ingersoll Rand T30$mw$,$mw$IR 2545$mw$,$mw$Quincy QT$mw$,$mw$Quincy QGS$mw$,$mw$Sullair ES$mw$,$mw$Atlas Copco GA$mw$,$mw$Kaeser SK$mw$,$mw$Gardner Denver$mw$]::text[], $mw$Ingersoll Rand, Quincy and Sullair operator and maintenance manuals (PM intervals, oil types and change hours, separator and filter service); Atlas Copco Compressed Air Manual; Compressed Air Challenge (US DOE) best practices; ASME Section VIII / National Board (receiver inspection and safety valve rules); OSHA 1910.169 (air receivers) and 1910.242(b) (30 psi cleaning rule).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$impeller-clearance-and-wear-rings$mw$, $mw$Impeller Clearance and Wear Rings: Setting Open-Impeller Clearance on an ANSI Pump (Goulds 3196 Dial-Indicator and Feeler Methods, Temperature Correction Table), Reverse-Vane Impellers, Enclosed-Impeller Wear Ring Clearances (API 610 Table) and When to Renew Them, Effects of Clearance on Flow and Power, Re-Checking After Seal Work$mw$, $mw$The clearance between an open impeller and the casing (or the wear rings of an enclosed impeller) is what keeps a centrifugal pump making its head: this covers how to set it on the standard ANSI pump with the bearing-frame jack bolts and a dial indicator, the cold setting and how much to add for hot liquid, the feeler-gauge method, the reverse-vane pump where it is done at the cover, the API 610 wear-ring clearance table and the rule for renewing rings, and why the clearance must be re-set after every seal change.$mw$, $mw$## Why it matters
+
+In an **open-impeller** pump (ANSI B73.1 process pumps: Goulds 3196, Durco Mark 3 and their copies) the front of the impeller vanes runs a few thousandths from the casing (or the suction cover); liquid that slips back across that gap from the discharge side to the suction is lost work. As a rule of thumb, **doubling the design clearance drops the efficiency several points and the head a few percent**, raises the power, and moves the pump off its curve; too little clearance rubs when the pump warms up (galling, seizure, a broken shaft on start). The clearance wears open with abrasives and corrosion and is **re-set** (the impeller is moved forward) two or three times in its life before it needs replacing.
+
+In an **enclosed-impeller** pump (most API 610 and many water pumps) the same leakage path is sealed by **wear rings** (a replaceable ring on the impeller and/or the casing) running with a small radial clearance; you do not adjust it, you **renew the rings** when the clearance has grown.
+
+## Goulds 3196-type: setting the impeller clearance
+
+The bearing housing (frame) sits in the frame adapter on **jack bolts** (three or four, with lock nuts) that move the whole rotating assembly axially; the impeller clearance is set by moving the rotating element **toward the casing** until the impeller touches, then backing off by the setting.
+
+**Cold settings (Goulds 3196 i-FRAME table, electric-motor driven, standard cast iron/ductile/steel/alloy casing)**:
+
+| Pumped liquid temperature | Clearance (in) |
+|---|---|
+| −20 to 200°F (−29 to 93°C) | **0.015"** (0.38 mm) |
+| 200 to 250°F (93-121°C) | 0.017" |
+| 250 to 300°F (121-149°C) | 0.019" |
+| 300 to 350°F (149-177°C) | 0.021" |
+| 350 to 400°F (177-204°C) | 0.023" |
+| 400 to 450°F (204-232°C) | 0.025" |
+| 450 to 500°F (232-260°C) | 0.027" |
+| 500 to 550°F (260-288°C) | 0.029" |
+| 550 to 600°F (288-316°C) | 0.031" |
+
+(About 0.002" per 50°F above 200°F. Larger frames and some materials in the IOM have a different table: the **XLT-X / X17** frames and CV/LF variants differ, and the 3196 sizes 1x1.5-4 and the CV 3196 use the feeler method or a different procedure; confirm on the table for your pump. Turbine-driven and high-speed pumps: see the IOM.)
+
+**Dial-indicator method (all except the CV 3196, CV 3198 and LF 3196 1x1.5-4)**
+
+1. Lockout; coupling disconnected (spacer out), the pump drained if hot work; **loosen the bearing-housing hold-down bolts** (the bolts that clamp the frame to the adapter, or the cap screws of the frame adapter, per the IOM; the frame must be free to move) and the jack-bolt **lock nuts**.
+2. Mount a **dial indicator** on the frame adapter (or the casing) with the plunger on the **bearing housing** (or the shaft end), reading axial movement; zero it.
+3. Back off the jack bolts a turn or two so the housing can move forward; **turn the shaft by hand** while **tightening the hold-down bolts / drawing the housing forward evenly** (the IOM: tighten the housing bolts in stages) until the **impeller just touches the casing** (you feel the drag in the shaft, and the indicator stops moving); zero the indicator here.
+4. **Back the housing off with the jack bolts** by the clearance from the table (0.015" cold on ambient service), turning them **evenly** (a sixth of a turn each, round and round, or the indicator lies), until the indicator reads the setting; turn the shaft by hand: it should turn freely with no rub.
+5. Tighten the **hold-down bolts** evenly, then the jack-bolt **lock nuts**, watching the indicator so the setting does not move (it will try to: tighten in a cross pattern and correct with the jacks); the final reading must be the table value ± 0.001-0.002".
+6. Turn the shaft again; **re-check the shaft runout at the seal** (the seal's setting has just moved axially by the amount you moved the housing: a component seal must be re-set; a cartridge seal's setting clips go in only after this step). Reconnect the coupling, check alignment (the housing moved with respect to the motor by the same amount: usually inside tolerance, but check).
+
+**Feeler-gauge method (casing removed, or through the suction on small pumps)**: with the rotating element free, push it toward the casing until it touches, then set the gap with a feeler gauge between the impeller vanes and the casing at several points while adjusting the jack bolts; lock as above. Used when the indicator cannot be mounted and on the sizes the IOM lists.
+
+**When to re-set**: after every mechanical seal change (the housing is moved during seal work: set the impeller **first**, then set the seal); when the flow/head has dropped; after any bearing frame rebuild; when an impeller or casing is replaced; after the pump has run hot; on a PM, measure the clearance (touch and back off, read the indicator) and record it: 0.030" on a pump set at 0.015" a year ago is the wear rate.
+
+## Reverse-vane impellers (Durco Mark 3 type)
+
+The vanes are on the **back** of the impeller and run against the **rear cover (stuffing box cover)**, so the clearance is set between the impeller and the cover, from the **back** of the pump: the bearing frame is moved **away** from the casing to close the clearance, or the cover is shimmed, per the Flowserve IOM; the usual setting is also about **0.015"** cold with a similar temperature correction, and the seal is unaffected by wear adjustment on some designs because the cover moves with it: read the IOM, the direction is opposite to the Goulds and the numbers differ.
+
+## Enclosed impellers: wear rings
+
+Clearance is **diametral** (the difference in diameters between the ring on the impeller and the ring in the casing), measured with a micrometer on the impeller ring OD and a bore gauge on the casing ring ID (not with feelers in place, which read the radial gap on one side).
+
+**API 610 minimum running clearance (new; diametral, for rings of the same material with a galling tendency, e.g. cast iron/bronze at ≤ 500°F)**:
+
+| Ring diameter (in) | Minimum clearance (in) |
+|---|---|
+| < 2.000 | 0.010 |
+| 2.000-2.499 | 0.011 |
+| 2.500-2.999 | 0.012 |
+| **3.000-3.499** | **0.014** |
+| 3.500-3.999 | 0.016 |
+| **4.000-4.499** | **0.016** |
+| 4.500-4.999 | 0.016 |
+| 5.000-5.999 | 0.017 |
+| 6.000-6.999 | 0.018 |
+| 7.000-7.999 | 0.019 |
+| 8.000-8.999 | 0.020 |
+| 9.000-9.999 | 0.021 |
+| 10.000-10.999 | 0.022 |
+| 11.000-11.999 | 0.023 |
+| 12.000-12.999 | 0.024 |
+| 13.000-13.999 | 0.025 |
+| for each additional inch | +0.001 |
+
+Add **0.005"** to these for materials that gall (stainless on stainless, hardened alloys), for temperatures over 500°F, and for services with solids; non-galling combinations (bronze/steel, PEEK or composite rings) can run **half** these values with the maker's approval. Water pumps and ANSI enclosed impellers typically run 0.010-0.020" on rings under 6".
+
+**Renew the rings when the clearance reaches about twice the new value** (or the IOM's limit): performance falls (head down 5-10%), the pump vibrates (the rings damp the rotor: a worn ring set on a multistage pump raises vibration and can let the rotor rub), and power rises. Rings are pressed/shrunk and **locked** (set screws, tack welds, or grub screws at 120°), machined to size after fitting where the design says, and the impeller is re-balanced if a ring is replaced. Order rings by the pump's part number, or machine a bronze ring to the casing bore with the table clearance; the casing ring is fitted first, measured, then the impeller ring turned to suit.
+
+## Effect of clearance on performance (the numbers you see on the gauges)
+
+| Clearance | Head | Flow at the same head | Power | Notes |
+|---|---|---|---|---|
+| Design (0.015" open impeller) | 100% | 100% | 100% | |
+| 2× design | 95-97% | 90-95% | 102-105% | Re-set / renew rings |
+| 3× design | 90-93% | 80-90% | 105-110% | The pump has moved left on its curve; recirculation, heat, vibration |
+| Rubbing (too little) | | | Spikes at start | Galling, seizure, broken shaft or coupling |
+
+A pump "not making pressure" with no cavitation, correct rotation and a clean impeller is usually a clearance problem.
+
+## Common mistakes
+
+- Setting the clearance with the hold-down bolts loose and then torquing them: the setting moved 0.005".
+- Jack bolts turned unevenly: the housing cocks, the impeller rubs on one side and the seal faces are cocked.
+- Setting the seal before the impeller.
+- Hot-service pump set at 0.015" cold: it rubs at temperature.
+- Wear ring clearance measured with a feeler on one side (radial) and reported as diametral.
+- New impeller ring on an old casing ring "to save a day": the clearance is still 0.030".
+- Forgetting to re-check the coupling alignment after moving the housing 0.030" toward the casing during a wear adjustment.
+
+## Related
+
+- [Mechanical seal replacement (centrifugal pump)](/article/mechanical-seal-replacement-centrifugal-pump)
+- [Pump packing and stuffing box](/article/pump-packing-and-stuffing-box)
+- [Pump troubleshooting](/article/pump-troubleshooting)
+- [Pump and fluid-power formulas (head, affinity laws)](/article/pump-and-fluid-power-formulas)
+- [Dial indicator use](/article/dial-indicator-use)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$pumps-seals$mw$),
+          array[$mw$impeller clearance$mw$,$mw$impeller setting$mw$,$mw$open impeller$mw$,$mw$Goulds 3196 clearance$mw$,$mw$0.015 impeller clearance$mw$,$mw$impeller clearance temperature$mw$,$mw$jack bolts bearing frame$mw$,$mw$dial indicator impeller$mw$,$mw$feeler gauge impeller$mw$,$mw$reverse vane impeller$mw$,$mw$Durco Mark 3$mw$,$mw$wear ring$mw$,$mw$wear ring clearance$mw$,$mw$API 610 wear ring$mw$,$mw$renew wear rings$mw$,$mw$enclosed impeller$mw$,$mw$pump efficiency clearance$mw$,$mw$pump vibration clearance$mw$,$mw$ANSI pump$mw$,$mw$B73.1$mw$]::text[], $mw$ITT Goulds / Flowserve Durco (generic ANSI B73.1)$mw$, array[$mw$Goulds 3196$mw$,$mw$Goulds 3196 i-FRAME$mw$,$mw$Goulds 3175$mw$,$mw$Durco Mark III$mw$,$mw$Flowserve Mark 3$mw$,$mw$Griswold 811$mw$,$mw$Sulzer CPT$mw$]::text[], $mw$ITT Goulds Pumps Model 3196 i-FRAME IOM (impeller clearance setting: 0.015 in cold setting for ambient service with the temperature correction table, dial-indicator and feeler-gauge methods using the bearing housing jack bolts); Flowserve Durco Mark 3 IOM (reverse-vane impeller clearance set at the rear cover); API 610 (minimum running clearances for wear rings, Table 6); Hydraulic Institute pump efficiency guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -4233,6 +6768,215 @@ Exceed these and the seal faces open and close every revolution. Fix (new sleeve
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
 - [Dial indicator use and care](/article/dial-indicator-use)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$pumps-seals$mw$),
           array[$mw$mechanical seal$mw$,$mw$centrifugal pump$mw$,$mw$seal replacement$mw$,$mw$cartridge seal$mw$,$mw$component seal$mw$,$mw$seal setting$mw$,$mw$stuffing box$mw$,$mw$shaft runout$mw$,$mw$impeller clearance$mw$,$mw$back pull-out$mw$,$mw$ANSI pump$mw$]::text[], $mw$Goulds / Flowserve / John Crane / Chesterton (generic)$mw$, array[$mw$3196$mw$,$mw$Type 21$mw$,$mw$Type 1$mw$,$mw$Type 2$mw$,$mw$Chesterton 155$mw$,$mw$Chesterton 180$mw$,$mw$Flowserve ISC2$mw$]::text[], $mw$Seal manufacturer installation sheets (John Crane, Chesterton, Flowserve); Goulds 3196 IOM.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pump-packing-and-stuffing-box$mw$, $mw$Pump Packing and the Stuffing Box: Packing Materials and Selection, Measuring the Box and Sizing Rings, Cutting Rings (Skive vs Butt), Installing with Staggered Joints and a Lantern Ring, Gland Adjustment and Break-In (Drops per Minute), Sleeve Condition, Troubleshooting and Converting to a Mechanical Seal$mw$, $mw$How to repack a centrifugal pump or a valve stuffing box so it seals and does not eat the sleeve: choosing the packing yarn and construction for the fluid, measuring the box to get the ring size and count, cutting rings on a mandrel with a skive cut, installing one ring at a time with the joints staggered and the lantern ring under the flush port, and the slow break-in that makes packing last, plus the leak rates, the sleeve rules and the faults that send you back in.$mw$, $mw$## How packing works
+
+Rings of braided yarn are compressed by the gland so they press against the shaft **sleeve** and the box bore; the fluid leaks through the packing in a controlled trickle that **lubricates and cools** the rubbing surface. **Packing must leak**: a packing that is bone dry is burning itself and scoring the sleeve. A **lantern ring** (seal cage) lets clean flush water or the pump's own discharge into the middle of the set to lubricate and to keep abrasives out. The **gland** is adjusted over the first hours to bring the leakage down to a steady rate, and re-adjusted as the packing consolidates.
+
+## Packing materials
+
+| Material | Service | Temperature | Notes |
+|---|---|---|---|
+| **PTFE-impregnated synthetic (acrylic/aramid) braid** | General water, mild chemicals, food | to 500°F | The general-purpose ring; low sleeve wear |
+| **Flexible graphite / graphite yarn** (with Inconel wire for valves) | High temperature, steam, hydrocarbons, boiler feed, valves | to 850°F (steam), 1200°F+ inert | Low friction, self-lubricating; needs a corrosion inhibitor with some sleeves; fragile: handle carefully |
+| **Aramid (Kevlar) braid, PTFE-treated** | Abrasive slurries, high pressure | to 500°F | Hard on sleeves: use in the end rings only (corner rings) with softer packing between, or with a hardened/coated sleeve |
+| **Carbon yarn** | Chemicals, high temperature, high speed | to 850°F | General industrial and chemical |
+| **PTFE braid (pure)** | Strong chemicals, oxygen, food | to 500°F | Cold-flows: keep compression light |
+| Flax / ramie (lubricated) | Cold water, marine, low speed | to 200°F | Cheap; old water pumps |
+| **Die-formed graphite rings** | Valves, high pressure | | Pre-formed, not cut |
+| Injectable / pumpable packing | Emergency, valves | | Not for pump shafts |
+| Combination sets (aramid corners + PTFE/graphite centre) | Slurry pumps | | Best of both |
+
+Ask: fluid (chemical compatibility, abrasives), temperature, pressure, shaft speed (surface speed: graphite and carbon for over 2,000 ft/min), sleeve material, and whether a flush is available.
+
+## Measuring the box and sizing rings
+
+```
+   packing cross-section  = (box bore − shaft/sleeve OD) ÷ 2          (measure both with calipers; the box is often not the nominal size)
+   ring length (mean circumference) = π × (shaft OD + packing size)   (or wrap a ring around a mandrel of the shaft size)
+   number of rings = (box depth − lantern ring height) ÷ packing size   (typically 5-6 rings; 2-3 below and 2-3 above the lantern ring)
+```
+
+Round the cross-section **down** to the standard size (1/4, 5/16, 3/8, 7/16, 1/2, 5/8, 3/4") if it is between; packing 1/32" oversize will not go in without crushing the braid; undersize by 1/32" is acceptable with an extra ring. Note the position of the **flush port** measured from the box face: the lantern ring must sit **under the port** when the set is compressed (packing compresses 10-20%, so count the rings so that the lantern ring lands under the port once the set is compressed, as the pump's IOM shows).
+
+## Cutting rings
+
+1. Use a **mandrel** of the shaft/sleeve diameter (a piece of pipe, bar, or the packing cutter's mandrel) and wrap the packing snugly **without stretching** it.
+2. **Skive cut (45°)** for most braided packings (the makers say skive only): a sharp knife or a packing cutter, cutting so the ring's ends overlap at 45° in the **direction of the wrap**; the joint closes as the ring is compressed. **Butt (square) cut** for die-formed rings and some PTFE packings that cold-flow, and for very small sizes. Never a ragged cut: it leaves a leak path and loose yarn.
+3. Cut every ring on the mandrel, **one at a time**, and lay them out in order; do not cut a "spiral" of several rings and peel them off (the lengths drift).
+4. Wrap the ring **around the shaft**, not over the end: the ends should just touch with no gap and no overlap when wrapped around the actual sleeve.
+
+## Installation
+
+1. Lockout; isolate and drain the pump; remove the gland; **remove all old packing** with a packing extractor (corkscrew) and hook, **including the lantern ring** (and the rings below it, which is where people stop); flush the box; check the flush port is open.
+2. **Inspect the sleeve**: scoring, grooves you can feel with a fingernail (over about 0.005" deep), pitting or a step under the old packing: **replace or resurface the sleeve**; new packing on a scored sleeve leaks and dies in a week. Check the shaft runout at the box (≤ 0.002-0.003") and the box bore for corrosion.
+3. Lubricate rings lightly if the maker says (a silicone or PTFE lube on synthetic packing, none on graphite that is pre-lubricated; never oil a packing for oxygen or food service).
+4. Install **one ring at a time**: open the ring **sideways** (an S twist, never pulled open flat, which breaks the braid), slip it around the sleeve, push it to the bottom of the box and **seat it fully with a tamping tool** (a split bushing, or the gland itself pushed in and lightly tightened, then backed off); the first ring seated is the one that seals.
+5. **Stagger the joints**: 180° for 2 rings, 120° for 3, **90° for 4 or more**; each ring's skive facing the same direction.
+6. Place the **lantern ring** at the flush port depth after the correct number of rings; check with a rule from the box face that its centre will sit under the port when compressed.
+7. Remaining rings; the last ring's joint away from the gland's split if the gland is a split type.
+8. Fit the gland **square** and **finger-tight only** (plus a light snug with a wrench: the rings should still be loose enough that the shaft turns by hand); the gland must not touch the shaft (check for equal gap all round: a cocked gland scores the sleeve).
+9. Connect the flush (clean water at 10-15 psi above the box pressure on a slurry or hot service; on clean cold water the pump's own discharge through a tapped line).
+
+## Break-in and gland adjustment
+
+1. Start the pump with the gland loose: **it should leak freely** (a stream, then heavy dripping); Chesterton: **20-30 drops per minute minimum** at the start. Let it run 5-10 minutes with the flush on.
+2. Tighten the gland nuts **1/12 turn (half a flat) at a time, evenly on both nuts, no more often than every 15 minutes**, watching the leakage and the temperature of the gland (it should be warm, not hot: if it is too hot to touch, back off).
+3. Target after the break-in (a few hours): a steady **10-60 drops per minute** on a clean cold water pump (about 1 drop per second is a common target; more on hot or abrasive services, and the IOM may give a rate), no steam, gland cool enough to hold a hand on.
+4. Re-check daily for the first week and tighten only if the leakage rises; when the gland has used all its travel (the gland follower is nearly in the box), it is time to **add one ring** (the top one) or repack.
+5. Log the drops per minute at each check.
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| **Packing burns / smokes in the first minutes** | Gland tightened too fast, no leakage, no flush | Back off, let it leak, flush on, start again slowly |
+| Excessive leakage that will not adjust down | Rings too small, joints lined up, rings not seated at the bottom, sleeve scored, the box bore corroded, packing pushed out of the bottom (no throat bushing) | Repack properly; new sleeve; a throat bushing |
+| **Sleeve scored / grooved** | Gland too tight, abrasives (no flush or lantern ring in the wrong place), hard packing (aramid), packing extrusion | Correct flush and lantern ring, softer packing or a hardened sleeve, lighter gland |
+| Leakage between the sleeve and the shaft | Sleeve O-ring/gasket failed, sleeve loose | Reseal the sleeve |
+| Short packing life on slurry | Lantern ring not under the flush, flush pressure too low, wrong packing | Flush at 10-15 psi above box pressure, aramid corners |
+| Packing extruded out of the gland | Gland clearance too large, pressure too high for the packing | A close-fitting gland follower; a higher-grade packing |
+| Gland hot, shaft seized | Everything too tight | Repack |
+| Pump loses prime / air in the box (suction lift pumps) | Air drawn in through the packing under vacuum | Lantern ring flushed from the discharge; tighten slightly; consider a mechanical seal |
+
+## Converting to a mechanical seal
+
+Many packed pumps convert with a **seal gland and a stuffing-box cover** designed for the seal (cartridge seals need the box depth and bore per the seal's drawing, and often a bigger bore). Do it when the leakage is unacceptable (chemicals, housekeeping), when sleeves and packing cost more than seals, or when the vacuum leakage is losing prime. The seal's installation is in [mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump); the pump's shaft runout, box squareness and alignment must be better than packing tolerates.
+
+## Valve packing (the quick version)
+
+Same rules: remove all the old rings, check the stem, cut on a mandrel, install with staggered joints, gland finger-tight then a light wrench pull, and **no leakage** is the target on a valve (it is static most of the time); graphite or graphite-with-braid corner sets for steam; PTFE for chemicals; **live-loaded** glands (Belleville springs under the gland nuts) on valves that cycle hot and cold; re-tighten after the first heat cycle.
+
+## Common mistakes
+
+- Leaving the two bottom rings and the lantern ring in "because they looked fine".
+- Cutting rings with a hacksaw or a dull knife: frayed ends and a leak.
+- Snapping rings open flat like a bracelet.
+- Cranking the gland down at start-up to stop the drips: burned packing and a scored sleeve within an hour.
+- Lantern ring not under the flush port (or fitted upside down on a tapered design).
+- New packing on a grooved sleeve.
+- Zero-leakage target on a rotating shaft.
+
+## Related
+
+- [Mechanical seal replacement (centrifugal pump)](/article/mechanical-seal-replacement-centrifugal-pump)
+- [Impeller clearance and wear rings](/article/impeller-clearance-and-wear-rings)
+- [Pump troubleshooting](/article/pump-troubleshooting)
+- [Shim and gasket making](/article/shim-and-gasket-making)
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$pumps-seals$mw$),
+          array[$mw$pump packing$mw$,$mw$compression packing$mw$,$mw$stuffing box$mw$,$mw$packing rings$mw$,$mw$packing installation$mw$,$mw$cutting packing$mw$,$mw$skive cut$mw$,$mw$lantern ring$mw$,$mw$seal cage$mw$,$mw$packing gland$mw$,$mw$gland adjustment$mw$,$mw$packing leakage$mw$,$mw$drops per minute$mw$,$mw$packing break in$mw$,$mw$PTFE packing$mw$,$mw$graphite packing$mw$,$mw$aramid packing$mw$,$mw$flax packing$mw$,$mw$packing size$mw$,$mw$packing mandrel$mw$,$mw$tamping tool$mw$,$mw$packing extractor$mw$,$mw$pump sleeve scoring$mw$,$mw$valve packing$mw$,$mw$repack a pump$mw$]::text[], $mw$Chesterton / Garlock / John Crane (generic)$mw$, array[$mw$Chesterton 1730$mw$,$mw$Chesterton 477-1$mw$,$mw$Chesterton 1725$mw$,$mw$Garlock 98$mw$,$mw$Garlock 1303-FEP$mw$,$mw$John Crane 1340$mw$,$mw$Chesterton 5800T$mw$]::text[], $mw$Chesterton packing installation instructions (skive-cut rings, 90° stagger, tamping, break-in with 20-30 drops per minute minimum and 1/12-turn adjustments no more often than every 15 minutes); Garlock and John Crane packing installation guidance; Fluid Sealing Association compression packing handbook; pump manufacturer IOMs (Goulds 3196 packed box).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pump-troubleshooting$mw$, $mw$Centrifugal Pump Troubleshooting: Cavitation vs Air Entrainment vs Recirculation, Reading the Pump Curve (BEP, NPSHr, Running Off-Curve), the Symptom Table (No Flow, Low Flow or Head, High Power, Vibration, Seal and Bearing Failures, Noise), Field Checks with Gauges, and Start-Up, Priming and Shutdown$mw$, $mw$How to find out why a centrifugal pump is not doing its job before pulling it apart: the three noises that get called cavitation and how to tell them apart, what the pump curve tells you about where the pump is running, a symptom-to-cause table ordered by likelihood, the gauge readings and quick checks that decide between a pump problem and a system problem, and the correct way to prime, start and stop a centrifugal and a PD pump.$mw$, $mw$## Start with the gauges
+
+A pump complaint is a **system** complaint until the gauges say otherwise. Fit or read: **suction pressure** (or vacuum), **discharge pressure**, motor **amps** (all three phases), and if possible flow; note the liquid temperature and the tank level. Then:
+
+```
+   differential head (ft) = (P_discharge − P_suction, psi) × 2.31 ÷ SG        (correct the gauges to the pump centreline)
+   compare with the curve at the flow you think you have; the amps tell you the power and therefore roughly the flow
+   NPSHa = (P_atm + P_suction gauge − P_vapour) × 2.31 ÷ SG + velocity head    (formulas in [pump formulas](/article/pump-and-fluid-power-formulas))
+```
+
+- **High differential head, low flow, low amps**: the pump is fine and the system is **throttled or blocked** (a closed valve, a plugged strainer downstream, a stuck check valve, a plugged line).
+- **Low head, high amps, high flow**: running far out on the curve (a broken line, a wide-open system, the wrong impeller or speed).
+- **Low head, low flow, low amps**: the pump is not developing head: **wrong rotation**, an impeller worn or plugged, excessive clearance, **air in the pump**, speed low (VFD), a broken coupling/key.
+- **Suction gauge bouncing / high vacuum**: suction problem: cavitation, a plugged suction strainer, a vortex at the tank.
+
+## The three noises
+
+| | **Cavitation** | **Air entrainment (aeration)** | **Recirculation** |
+|---|---|---|---|
+| Sound | Rattling gravel, marbles, a crackle, loudest at the suction; worse as the discharge valve opens (more flow) | Similar crackle but softer, steadier, often with **surging** flow and a spitting discharge; the pump loses prime | A random knock or bang at the impeller, worse as the discharge valve **closes** (less flow) |
+| Cause | Vapour bubbles form at the impeller inlet because **NPSHa < NPSHr** (suction lift too high, liquid too hot, tank too low, strainer plugged, suction line too small/long, pump running out too far on its curve) | Air drawn in: a leaking suction flange or packing (on lift), a vortex at a low tank level, a submerged return line entraining air, a leaking pump seal on vacuum | Running at **low flow** (below the minimum continuous stable flow, typically 30-50% of BEP on ANSI pumps): the liquid recirculates at the impeller eye or discharge and pounds |
+| Damage | Pitting on the impeller vanes **near the inlet edge**, on the low-pressure side; seal and bearing failure from the shaking | Rarely damages the metal; loses prime, gas-locks the seal | Pitting on the **pressure side of the vane** near the inlet (suction recirculation) or at the vane tips (discharge recirculation); shaft deflection, seal and bearing failures |
+| Fix | Raise NPSHa: raise the tank level, lower the pump, bigger/shorter suction line, clean the strainer, cool the liquid, reduce the flow (throttle the discharge: it works because NPSHr falls with flow), a slower pump or an inducer; check the NPSH margin (HI: at least 3-5 ft or a ratio 1.1-1.3 NPSHa/NPSHr) | Find the leak (soap the suction joints under vacuum, fix the packing/seal, submerge the tank return, raise the level, a vortex breaker) | Open the flow: a minimum-flow bypass, a smaller impeller or pump, a VFD; never run a pump on the shut-off line for long |
+
+Do not mistake **bearing noise** (a whine or growl at the bearing housing, felt with a screwdriver at the housing) or **coupling noise** for any of these.
+
+## The pump curve
+
+- **Head vs flow**: the pump's own line; **BEP** (best efficiency point) is where it should run; **allowable operating region** (HI 9.6.3) is roughly **70-120% of BEP** for most pumps; outside it the radial thrust rises (shaft deflection → seal and bearing failure), recirculation and cavitation begin.
+- **NPSHr line** rises with flow; the system must supply more than it (with margin).
+- **Power line** rises with flow on radial pumps (a pump running far out on its curve overloads the motor).
+- **The system curve** (static head + friction that rises with the square of flow) crosses the pump curve at the operating point; **opening a valve** moves the point right (more flow, less head, more power, more NPSHr); closing it moves left.
+- **Speed change** (VFD): flow ∝ speed, head ∝ speed², power ∝ speed³ (the affinity laws): at 80% speed the head is 64%: on a system with mostly **static** head the pump may not reach the lift at all; minimum speed limits.
+- **Impeller trim**: the same laws approximately; a trimmed impeller is how a pump that was oversized gets put on its curve.
+- **Worn pump**: the curve drops (lower head at the same flow) and the power line stays: efficiency loss; the sign of clearance/wear ring wear.
+
+## Symptom table (most likely first)
+
+| Symptom | Causes to check, in order |
+|---|---|
+| **No flow, no pressure at start** | Not primed / air-bound (vent it); **wrong rotation** (bump uncoupled: motor leads swapped); suction valve closed or strainer blocked; suction lift too high or foot valve stuck; speed low; coupling/key/impeller loose or broken; discharge valve closed with a bypass open |
+| **No flow after running a while** | Loss of prime (air leak on suction, tank empty, vortex); vapour lock (hot liquid); strainer plugging |
+| **Low flow** | Air leaks; partly blocked suction or impeller (rags, scale); worn impeller / excessive clearance / worn wear rings; system head higher than designed (a valve partly closed, a fouled line, a higher tank); wrong impeller diameter or speed; cavitation (NPSH); viscosity higher than designed; the wrong rotation (a backwards pump gives about half the flow and head: it does pump) |
+| **Low head (pressure)** | Same as low flow; air in the liquid; impeller diameter too small; VFD speed |
+| **Head/flow fine but too much power (amps high)** | Running out on the curve (open system, low head); SG or viscosity higher than the design; rubbing (impeller clearance too small, packing too tight, misalignment, bent shaft); wrong (larger) impeller or speed; the wrong rotation on some designs |
+| **Loses prime repeatedly** | Air leaks in the suction line, packing, seal, gaskets; a foot valve leaking; a vortex; a submerged return aerating the tank; too much lift; gas coming out of solution (hot) |
+| **Seal fails repeatedly (weeks)** | Running off-curve (low flow: deflection; dry-running on loss of prime); cavitation; **pipe strain**; misalignment; shaft runout, bent shaft, worn bearings; wrong seal flush or a plugged flush line; no seal setting done after an impeller adjustment; a bad seal installation (see [seal replacement](/article/mechanical-seal-replacement-centrifugal-pump)) |
+| **Bearing fails repeatedly** | Misalignment; pipe strain; running off-curve (radial thrust); wrong oil level (constant-level oiler set wrong, or over-filled), water in the oil (a bad breather, washdown); over-greasing; cavitation/recirculation vibration; a bent shaft; unbalance |
+| **Vibration** | Misalignment (2× running speed), unbalance (1×; a plugged or eroded impeller), cavitation/recirculation (random, broadband), bearings (high-frequency), looseness (foot bolts, base, coupling), a bent shaft (1× axial), resonance of the base/piping, running off-curve, wear rings gone (rotor rub); see [vibration signatures](/article/vibration-signatures) |
+| **Noise** | Cavitation/recirculation (above); bearings; a coupling rubbing the guard; the motor (fan, bearings); a resonant pipe |
+| **Overheating pump** | Running at or near shut-off (dead-headed: the liquid boils in minutes on a hot service); low flow; rubbing; bearing oil |
+| **Leak at the casing gasket** | Gasket, bolts uneven, casing corroded, pressure too high, thermal cycling |
+| **Motor overloaded / trips** | Power causes above; the motor itself (voltage, single-phasing, overload setting); a jammed impeller |
+| **Discharge pressure pulsing** | Air entrainment; cavitation; a check valve fluttering; two pumps in parallel fighting; a VFD hunting |
+
+## Field checks in order
+
+1. Gauges and amps (above); tank level and temperature; valve positions on suction and discharge, including any bypass and the recirculation line.
+2. **Rotation** (bump uncoupled if in doubt; arrows on the casing).
+3. Strainer ΔP or pull the basket; the suction line for air leaks (soap on a suction under vacuum shows nothing: **pressurise** the suction line or watch for bubbles in a sight glass; a vacuum gauge that reads high with the strainer clean = restriction).
+4. Vent the casing at the top (a pump that spits air was air-bound).
+5. Speed (a VFD display, a tachometer on the shaft).
+6. Turn the shaft by hand (coupled, with lockout): free, no rub, no play.
+7. Impeller clearance (the touch-and-indicator check, see [impeller clearance](/article/impeller-clearance-and-wear-rings)); impeller condition through the suction on small pumps.
+8. Alignment, soft foot, pipe strain (indicators on the shaft while loosening flange bolts); the base and foot bolts.
+9. Only then pull the pump: impeller (erosion, plugging, cracks, eye damage from cavitation), wear rings, shaft runout, bearings, seal faces.
+
+## Priming, start-up and shutdown
+
+**Centrifugal**
+
+1. Rotation confirmed uncoupled; bearings lubricated (oil to the sight glass, the constant-level oiler primed); seal flush/quench lines open; guards on.
+2. **Prime**: flooded suction: open the suction valve fully and **vent** the casing at the highest point until liquid runs solid (open the discharge valve slightly to let air move if the check valve traps it). Suction lift: fill through the priming connection with the foot valve holding, vent, or use the priming pump/eductor; self-priming pumps need the casing full to the priming line.
+3. **Start against a closed or nearly closed discharge valve** (5-10% open) for a radial-flow pump (lowest power, no water hammer), then **open the discharge over 30-60 seconds** to the operating point; never run more than a minute or two dead-headed (heat), and never with the **suction** valve throttled (cavitation). Axial-flow and high specific speed pumps start with the discharge **open**.
+4. Watch: pressures settle, amps within FLA, no cavitation noise, seal not spraying (a few drops from a new seal for a minute is normal), bearing housings warming slowly, vibration by feel.
+5. **Shutdown**: close the discharge valve slowly (or let the check valve do it on a small pump), stop the motor, then close the suction if isolating; on hot services keep the seal flush on until cool; on freezing weather drain the casing.
+
+**Positive displacement (gear, screw, lobe, piston, diaphragm)**
+
+- **Never start against a closed discharge**: the pressure rises until something breaks; the **relief valve** on the pump or the line must be proven, and the discharge valve **open** at start.
+- Prime; many PD pumps self-prime but not dry-running ones (gear pumps with mechanical seals: a few seconds dry ruins the seal): fill the casing.
+- Check rotation (many PD pumps pump only one way, and some reverse their relief valve with rotation).
+- Viscosity and temperature govern the speed and the suction line size; cold thick oil cavitates a PD pump like water cavitates a centrifugal (a rattle and a fluctuating discharge).
+
+## Common mistakes
+
+- Calling every noise cavitation and raising the tank when the pump was running at 20% of BEP and recirculating.
+- Throttling the **suction** to "reduce flow".
+- Running a pump backwards for a week because it "pumped a bit".
+- Replacing three seals before checking pipe strain.
+- Starting a centrifugal with the discharge wide open into an empty line (water hammer and a tripped motor), or a PD pump with it closed (a burst gauge).
+- Never venting: the pump "primed" with a bubble in the eye.
+
+## Related
+
+- [Pump and fluid-power formulas (NPSH, affinity laws)](/article/pump-and-fluid-power-formulas)
+- [Impeller clearance and wear rings](/article/impeller-clearance-and-wear-rings)
+- [Mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump)
+- [Pump packing and stuffing box](/article/pump-packing-and-stuffing-box)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Vibration signatures](/article/vibration-signatures)
+- [Seal failure patterns](/article/seal-failure)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$pumps-seals$mw$),
+          array[$mw$pump troubleshooting$mw$,$mw$centrifugal pump problems$mw$,$mw$pump not pumping$mw$,$mw$low flow$mw$,$mw$low head$mw$,$mw$cavitation$mw$,$mw$cavitation sound$mw$,$mw$air entrainment$mw$,$mw$recirculation$mw$,$mw$NPSH$mw$,$mw$NPSHa$mw$,$mw$NPSHr$mw$,$mw$pump curve$mw$,$mw$BEP$mw$,$mw$best efficiency point$mw$,$mw$running off curve$mw$,$mw$dead head$mw$,$mw$minimum flow$mw$,$mw$pump vibration$mw$,$mw$seal failure repeat$mw$,$mw$bearing failure pump$mw$,$mw$pump noise$mw$,$mw$priming a pump$mw$,$mw$pump startup$mw$,$mw$pump shutdown$mw$,$mw$rotation check$mw$,$mw$suction strainer$mw$,$mw$pump gauges$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Goulds Pumps (ITT) Pump Handbook and troubleshooting tables; Hydraulic Institute ANSI/HI 9.6.3 (allowable operating region) and troubleshooting guidance; Grundfos Pump Handbook; pump manufacturer IOMs (Goulds 3196, Flowserve); Karassik, Pump Handbook.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -5445,6 +8189,116 @@ Degrees, minutes, seconds                12°30'15" = 12 + 30/60 + 15/3600 = 12.
 - [Tapered-bore bearing on an adapter sleeve](/article/taper-bore-bearing-adapter-sleeve-skf)
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
           array[$mw$formulas$mw$,$mw$trigonometry$mw$,$mw$right triangle$mw$,$mw$sine$mw$,$mw$cosine$mw$,$mw$tangent$mw$,$mw$pythagorean$mw$,$mw$law of sines$mw$,$mw$law of cosines$mw$,$mw$offset$mw$,$mw$travel$mw$,$mw$run$mw$,$mw$bolt circle$mw$,$mw$hole coordinates$mw$,$mw$chord$mw$,$mw$taper per foot$mw$,$mw$taper angle$mw$,$mw$sine bar$mw$,$mw$slope$mw$,$mw$grade$mw$,$mw$rise over run$mw$,$mw$level$mw$,$mw$shim by slope$mw$,$mw$hexagon$mw$,$mw$square$mw$,$mw$3-4-5$mw$,$mw$centre of a circle$mw$,$mw$degrees to radians$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; standard trigonometry.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$bearing-failure-analysis$mw$, $mw$Bearing Failure Analysis (ISO 15243): Reading the Load Path, Fatigue Spalling, Wear, Corrosion and Fretting, False and True Brinelling, Electrical Fluting from VFDs, Overheating and Lubrication Failure, Cage Failure and Fracture, with the Cause and the Fix for Each$mw$, $mw$How to look at a failed bearing and say what killed it: first the load path (where the rings are worn tells you about the fit, alignment and load), then the ISO 15243 damage modes with what each looks like to the eye, its usual cause, and the corrective action, so the replacement does not fail the same way. Includes the fluting signature of VFD shaft currents, the difference between true and false brinelling, and the temperature colours.$mw$, $mw$## Before you look
+
+- Collect the evidence as in [bearing removal](/article/bearing-removal-pullers-and-heating): not cleaned, orientation marked, the grease or oil sampled, the shaft and housing measured, the history (hours, load, speed, temperature trend, vibration trend, last greasing, what was done at the last rebuild).
+- Only about one bearing in ten reaches its calculated L10 fatigue life; the rest die of **lubrication (about 40-50%), contamination (about 15-20%), mounting and handling (about 15-20%)** and misapplication. The analysis is about finding which.
+- Look at the whole set: **both rings, the rolling elements, the cage, the seals, and the seats** (shaft and housing). The rings' running tracks are the first thing to read.
+
+## Reading the load path (running track)
+
+The rolling elements polish a **track** on each raceway where the load passes. Its position and width tell the story before you find any damage.
+
+| Track pattern | Meaning |
+|---|---|
+| **Inner ring: track all round, centred and uniform; outer ring: track over ~1/3 of the circumference in the load direction, centred** | Normal for a rotating inner ring with a fixed-direction radial load: the correct picture |
+| Outer ring track all round (rotating outer ring load) with the inner track short | Normal for a rotating housing / stationary shaft |
+| Tracks **wider than normal on both rings, all round** | **Excessive preload**: too much interference, C-clearance too small, thermal, both rings tight |
+| Track **offset to one side** on both rings (one side of the raceway) | **Axial load** (thrust): normal on an angular-contact or where thrust is intended; on a deep groove ball bearing, a large offset = excessive axial load or both bearings fixed with no float |
+| Track **diagonal** on the inner ring, or running from one side to the other on the outer ring | **Misalignment**: shaft deflection, cocked housing, bent shaft, housing bores not in line |
+| Outer ring track in **two zones 180° apart** | **Ovalised (pinched) housing** or a housing bolted to a warped base; the ring is squeezed |
+| Track **wider at one point** on a stationary ring | Local load from a distorted housing or shaft seat (a burr, a high spot) |
+| Inner ring track **wider than the outer ring's** on a stationary shaft | Wrong fit: the inner ring is creeping (see fretting) |
+| No track at all | Bearing never carried load (not the failed one) or brand new |
+
+## Damage modes (ISO 15243)
+
+### 1. Fatigue (spalling / flaking)
+
+- **Subsurface-initiated**: flakes with a smooth crater and a coarse bottom, starting in the load zone in the middle of the track, spreading in the rolling direction; the end of the design life, or a heavily overloaded bearing. Cause: load higher than expected (belt over-tension, misalignment, unbalance), the end of life. Fix: correct the load; bigger bearing; check the L10 calculation.
+- **Surface-initiated**: fine cracks and micro-spalls starting at the surface, often with a grey, frosted look first (micro-pitting), in a track that shows a pattern of dents: from **inadequate lubrication film** (too thin an oil, too hot, too little) and **contamination** dents acting as crack starters. Fix: the right viscosity at operating temperature, clean grease, better sealing.
+
+### 2. Wear
+
+- **Abrasive**: dull, matte raceways and rollers, the track looks sand-blasted; the cage pockets worn; rolling elements undersize; ends of rollers worn. Cause: **dirt** (grit in the grease, failed seals, dirty handling, dirty grease gun nozzle). Fix: sealing, clean lubrication practice, filtration on oil systems.
+- **Adhesive (smearing, skidding)**: streaks and torn metal on rollers and raceways where they slid instead of rolled: rollers skidding under too light a load at high speed (an unloaded roller bearing), sudden acceleration, too thick a grease at start-up. Smearing of roller ends on ribs: thrust overload or lube starvation.
+
+### 3. Corrosion
+
+- **Moisture corrosion**: rust pits, etch marks, often at the roller pitch (a **stationary** bearing with water in it: the rollers' contact points etch): water in the grease, washdown, condensation in storage, a machine parked in the weather. Fix: seals, water-resistant grease, purge greasing, storage.
+- **Fretting corrosion (fit rust)**: **reddish-brown or black powder** on the **bore or the OD**, sometimes rubbed bright spots: the ring **creeping** on a loose fit or the seat flexing under a heavy load; a bore that has fretted is also often oversize. Fix: correct fit (see [fits](/article/bearing-clearance-and-fits-tables)), repair the seat; retaining compound only for light loads.
+- **False brinelling**: **shallow depressions at roller/ball pitch with a polished or rusty bottom, no raised edges**, on a bearing that **did not rotate** while it vibrated: shipped on a truck, standby machines next to running ones, a spare motor stored on a vibrating floor; the oil film is squeezed out and the surfaces fret. Fix: rotate standby machines' shafts weekly (a quarter turn plus a bit), ship with shafts locked, isolate stored equipment from vibration.
+
+### 4. Electrical erosion
+
+- **Excessive current (spark)**: craters, welded spots, pitting like arc strikes: **welding current through the bearing** (the ground clamp on the wrong place), or a lightning strike.
+- **Current leakage (VFD shaft currents)**: **fluting**: a regular **washboard** of grey lines across the raceway, evenly spaced (the outer ring looks like a record); under magnification the surface is a field of microscopic craters; the grease is **blackened** and the bearing noisy. Cause: common-mode voltage from a **VFD** discharging through the bearing's oil film (thousands of tiny arcs per second); also stray currents from bad motor grounding. Fix: **shaft grounding ring** (AEGIS type) or brush at the drive end, an **insulated bearing** (ceramic-coated or hybrid ceramic) at the non-drive end, proper VFD cable and grounding (shielded cable, 360° terminations), lower the carrier frequency; details in [VFD basics](/article/vfd-basics-for-millwrights). Plain replacement lasts weeks.
+
+### 5. Plastic deformation (dents)
+
+- **True brinelling**: **dents at the rolling element pitch with raised edges** (the metal was pushed), from a **static overload or an impact**: dropping the bearing, pressing the bearing on through the rolling elements (a hammer on the outer ring to mount it on a shaft), a shock load, a jammed conveyor. Every dent becomes a noise and later a spall. Fix: mount on the ring with the fit, use a press/heater, protect from impact; check that the machine did not see a shock.
+- **Indentation by debris**: random dents of various sizes (with raised edges) from hard particles rolled over: contamination (weld spatter, casting sand, grit from the housing). Fix: cleanliness, filtration.
+- **Overload deformation**: rolling elements and raceways flattened; heavy static load on a stationary bearing.
+
+### 6. Fracture and cracking
+
+- **Forced fracture**: an inner ring **split across** (axial crack) from **too much interference** (driven up a taper too far, a shaft oversize, or a seat with a burr), or a ring cracked by a hammer or a puller jaw.
+- **Fatigue fracture**: a ring cracked through after long running from a cyclic load or a ring flexing on a soft or loose seat.
+- **Thermal cracking**: crack patterns from a **spun ring** (the ring rotated on the seat and frictional heat cracked it); look for bluing and smearing on the bore or OD.
+
+## Overheating and lubrication failure (the everyday one)
+
+| Sign | Meaning |
+|---|---|
+| **Discoloured rings: straw (400°F), brown, blue (550-600°F), black** | Overheating: lubrication failure, over-greasing (churning), preload, excessive speed, misalignment, heat from the process; a **blue bearing is scrap and the shaft's hardness next to it is gone** |
+| Grease **hard, dry, caked, or oxidised black** | Too hot for too long, wrong grease, never regreased, or over-greased and churned |
+| Grease **milky / watery** | Water contamination |
+| Grease looks like it has **grit** (rub it between two fingers) | Dirt |
+| Cage **bronze coloured (from a steel cage)** or deformed | Heat, lubrication starvation, misalignment, contact with a housing |
+| Rollers **blue at the ends, ribs smeared** | Lubrication failure at the roller-rib contact: thrust without enough oil film |
+| Raceways **glazed, mirror bright** | Running with metal-to-metal contact: too thin a film |
+| Rolling elements **welded/skidded** | Total lube failure: the bearing seized |
+
+Over-greasing kills as many bearings as under-greasing: a full housing churns, the temperature climbs, the grease oxidises and the seals blow; quantities and intervals in [regreasing intervals](/article/regreasing-intervals-and-quantities).
+
+## Cage failure
+
+Cage breakage is usually the **last** event, not the first: it follows misalignment (the cage is forced to steer), excessive speed, lubrication failure (cage-to-roller friction), contamination (worn pockets), or vibration with a stationary bearing. A broken cage with clean raceways and a blue tint points to lubrication; a broken cage with a diagonal track points to misalignment.
+
+## Putting it together
+
+| What you found | Most likely root cause | Corrective action |
+|---|---|---|
+| Wide tracks both rings + blue rings + hard grease | Preload from a too-tight fit or C-clearance too small; heat | Correct the fit, C3, check the mounting method |
+| Diagonal track + cage broken | Misalignment / bent shaft / housing bores out of line | Align the housings, check the shaft runout, self-aligning bearing if the misalignment is inherent |
+| Fretting powder on the bore + track wider on the inner ring | Loose shaft fit; ring creeping | Repair the seat to size, correct fit |
+| Dents at roller pitch with raised edges + noise from day one | Brinelling from mounting or impact | Mount with heat / press on the correct ring; handling |
+| Dents at pitch **without** raised edges, rusty, on a spare or a standby | False brinelling | Rotate stored/standby shafts; vibration isolation |
+| Washboard fluting + black grease + VFD on the motor | Shaft current | Grounding ring / insulated bearing / cable and grounding fix |
+| Sand-blasted raceways + worn cage + dirty grease | Contamination | Seals, clean grease practice, purge |
+| Water etch at pitch + rust | Water in the bearing | Seals, water-resistant grease, purge after washdown |
+| Spalling in the centre of a normal track after long life | Fatigue: end of life, or overload | Check the load, belt tension, unbalance; accept if life was reached |
+| Micro-pitting / frosting + spalls, oil too thin or hot | Lubrication film too thin | Correct the viscosity for the temperature; cooler running |
+| Split inner ring on a taper mount | Driven up too far | Follow the drive-up chart |
+| Smearing on rollers, light load, high speed | Skidding | Correct preload/minimum load, lighter grease |
+
+Write the finding on the work order with the corrective action; the same bearing failing twice with the same evidence means the corrective action was not done.
+
+## Related
+
+- [Bearing removal (preserving evidence)](/article/bearing-removal-pullers-and-heating)
+- [Bearing clearance and fits tables](/article/bearing-clearance-and-fits-tables)
+- [Bearing mounting with heat](/article/bearing-mounting-with-heat)
+- [Regreasing intervals and quantities](/article/regreasing-intervals-and-quantities)
+- [Grease types and compatibility](/article/grease-types-and-compatibility)
+- [VFD basics for millwrights (shaft currents)](/article/vfd-basics-for-millwrights)
+- [Vibration signatures](/article/vibration-signatures)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
+          array[$mw$bearing failure$mw$,$mw$bearing failure analysis$mw$,$mw$ISO 15243$mw$,$mw$spalling$mw$,$mw$flaking$mw$,$mw$fatigue$mw$,$mw$brinelling$mw$,$mw$false brinelling$mw$,$mw$fluting$mw$,$mw$electrical erosion$mw$,$mw$VFD bearing damage$mw$,$mw$fretting corrosion$mw$,$mw$bearing overheating$mw$,$mw$blue bearing$mw$,$mw$lubrication failure$mw$,$mw$contamination$mw$,$mw$cage failure$mw$,$mw$load zone$mw$,$mw$load path$mw$,$mw$misalignment pattern$mw$,$mw$bearing damage$mw$,$mw$why did the bearing fail$mw$,$mw$root cause bearing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 15243:2017 Rolling bearings, damage and failures, terms, characteristics and causes; SKF Bearing Damage and Failure Analysis (PUB BU/I3 14219); Timken Bearing Damage Analysis reference guide; NSK and Schaeffler damage catalogues; EASA/AEGIS guidance on shaft currents.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
