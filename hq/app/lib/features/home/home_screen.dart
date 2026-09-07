@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../data/hq.dart';
 import '../../updater/updater.dart';
 import '../../theme.dart';
+import '../receipts/receipt_capture.dart';
 
 /// The home screen is an exceptions inbox: only things that need a decision.
 class HomeScreen extends StatefulWidget {
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 64,
                   child: FilledButton.icon(
-                    onPressed: () => _comingSoon('Receipt capture'),
+                    onPressed: () => runCaptureFlow(context, (id) => context.push('/receipts/$id').then((_) => _refresh())),
                     icon: const Icon(Icons.photo_camera, size: 28),
                     label: const Text('Capture receipt', style: TextStyle(fontSize: 18)),
                   ),
@@ -139,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
       out.add(_Exception(Icons.event, '${n('deadlines_30d')} deadline(s) due within 30 days', null));
     }
     if (n('receipts_needs_review') > 0) {
-      out.add(_Exception(Icons.receipt_long, '${n('receipts_needs_review')} receipt(s) awaiting review', null));
+      out.add(_Exception(Icons.receipt_long, '${n('receipts_needs_review')} receipt(s) awaiting review', null, route: '/receipts?status=needs_review'));
     }
     if (n('transactions_unmatched') > 0) {
       out.add(_Exception(Icons.credit_card, '${n('transactions_unmatched')} charge(s) with no receipt', null));

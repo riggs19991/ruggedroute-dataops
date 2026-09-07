@@ -9,6 +9,8 @@ import 'data/hq.dart';
 import 'features/auth/sign_in_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/profile/profile_screen.dart';
+import 'features/receipts/receipt_review_screen.dart';
+import 'features/receipts/receipts_list_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'theme.dart';
 
@@ -49,6 +51,13 @@ class _HqAppState extends State<HqApp> {
         builder: (context, state, child) => HqShell(location: state.matchedLocation, child: child),
         routes: [
           GoRoute(path: '/home', builder: (_, _) => const HomeScreen()),
+          GoRoute(
+            path: '/receipts',
+            builder: (_, state) => ReceiptsListScreen(initialStatus: state.uri.queryParameters['status']),
+            routes: [
+              GoRoute(path: ':id', builder: (_, state) => ReceiptReviewScreen(receiptId: state.pathParameters['id']!)),
+            ],
+          ),
           GoRoute(path: '/profile', builder: (_, _) => const ProfileScreen()),
           GoRoute(path: '/settings', builder: (_, _) => const SettingsScreen()),
         ],
@@ -84,6 +93,7 @@ class HqShell extends StatelessWidget {
 
   static const _tabs = [
     (path: '/home', icon: Icons.inbox_outlined, selected: Icons.inbox, label: 'Home'),
+    (path: '/receipts', icon: Icons.receipt_long_outlined, selected: Icons.receipt_long, label: 'Receipts'),
     (path: '/profile', icon: Icons.business_outlined, selected: Icons.business, label: 'Business'),
     (path: '/settings', icon: Icons.settings_outlined, selected: Icons.settings, label: 'Settings'),
   ];

@@ -15,6 +15,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   PackageInfo? _info;
+  bool? _hasAiKey;
   ReleaseInfo? _available;
   double? _progress;
   String? _status;
@@ -23,6 +24,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     PackageInfo.fromPlatform().then((i) => mounted ? setState(() => _info = i) : null);
+    Hq.instance.client.rpc('hq_has_secret', params: {'p_key': 'anthropic_api_key'})
+        .then((v) => mounted ? setState(() => _hasAiKey = v == true) : null).catchError((_) {});
+  }
+
+  Future<void> _setAiKey() async {
+    final ctl = TextEditingController();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Anthropic API key'),
+        content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text('Used only to read receipts and documents. Stored encrypted in your Supabase Vault; never inside the app.'),
+          const SizedBox(height: 12),
+          TextField(controller: ctl, autofocus: true, obscureText: true, decoration: const InputDecoration(hintText: 'sk-ant-…')),
+          TextButton(onPressed: () => launchUrl(Uri.parse('https://console.anthropic.com/settings/keys')), child: const Text('Get a key at console.anthropic.com')),
+        ]),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Store securely')),
+        ],
+      ),
+    );
+    if (ok != true || ctl.text.trim().isEmpty) return;
+    try {
+      await Hq.instance.client.rpc('hq_set_secret', params: {'p_key': 'anthropic_api_key', 'p_value': ctl.text.trim()});
+      setState(() => _hasAiKey = true);
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('API key stored')));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    }
   }
 
   Future<void> _check() async {
@@ -136,6 +167,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: _changePassword,
               ),
             ]),
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.auto_awesome),
+              title: const Text('AI receipt reading'),
+              subtitle: Text(_hasAiKey == null ? 'Checking…' : _hasAiKey! ? 'Anthropic API key on file (encrypted).' : 'No API key yet. Receipts can still be entered by hand.'),
+              trailing: TextButton(onPressed: _setAiKey, child: Text(_hasAiKey == true ? 'Change key' : 'Add key')),
+            ),
           ),
           const SizedBox(height: 12),
           Card(

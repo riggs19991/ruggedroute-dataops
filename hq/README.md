@@ -56,6 +56,12 @@ The EIN is stored in Supabase Vault (encrypted); only its last four digits sit i
 5. **Sign in** with riggs1991@gmail.com and your password (change it under Settings), then fill
    in *Business*.
 
+6. **AI receipt reading.** Settings → *AI receipt reading* → *Add key*. Paste an Anthropic API key
+   from console.anthropic.com (Settings → API Keys; the account needs a few dollars of credit).
+   The key is stored encrypted in Supabase Vault and read only by the `extract-receipt` function.
+   Each receipt costs roughly a cent or two to read. Without a key, receipts can still be
+   captured and filled in by hand.
+
 After this, new versions are published by re-running *hq-release* with a higher version number;
 both apps notice on launch and offer a one-tap update.
 
@@ -81,9 +87,12 @@ Supabase MCP `apply_migration` (or `supabase db push` with the CLI).
 | Home (exceptions inbox) | `app/lib/features/home/home_screen.dart` |
 | Business profile + EIN vault | `app/lib/features/profile/profile_screen.dart` |
 | Settings + updater UI | `app/lib/features/settings/settings_screen.dart` |
+| Receipts: capture, list, review | `app/lib/features/receipts/` |
+| Receipt reader (Claude) | `supabase/functions/extract-receipt/index.ts` |
 | Self-updater | `app/lib/updater/updater.dart` |
 | Data layer | `app/lib/data/hq.dart` |
 | Android signing | `app/android/app/build.gradle.kts` (reads `android/key.properties`, written by CI) |
 | Windows installer | `app/windows/installer/hq.iss` |
 | Schema | `supabase/migrations/0001_hq_init.sql` |
 | Seed defaults (categories, deadline rules, checklist) | `supabase/migrations/0002_hq_seed_defaults.sql` |
+| Receipt helpers (vendor match, duplicates, rules, secrets) | `supabase/migrations/0005_hq_receipts_helpers.sql` |

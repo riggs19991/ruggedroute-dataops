@@ -1,18 +1,22 @@
 name: hq_app
 description: "RuggedRoute HQ — private back-office app for Addictive Media Productions LLC."
 publish_to: 'none'
-version: 0.2.1+26090704
+version: 0.3.0+26090705
 
 environment:
   sdk: ^3.13.2
 
 dependencies:
   crypto: ^3.0.7
+  file_picker: ^12.2.0
   flutter:
     sdk: flutter
+  flutter_image_compress: ^2.5.1
   go_router: ^18.0.1
   http: ^1.6.0
+  image_picker: ^1.2.3
   intl: ^0.20.3
+  mime: ^2.1.0
   open_filex: ^4.7.0
   package_info_plus: ^10.2.1
   path_provider: ^2.1.6

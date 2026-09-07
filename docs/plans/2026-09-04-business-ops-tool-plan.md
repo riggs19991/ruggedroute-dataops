@@ -671,6 +671,21 @@ email ingestion is a convenience on top.
 - Founder steps remaining: paste the `{{ .Token }}` email template, add the one GitHub secret,
   run the workflow, install. Exact steps in `hq/README.md`.
 
+**2026-09-07 — Phase 2 (receipts) delivered, app 0.3.0:**
+
+- Capture from camera, photo library, or a PDF/file on phone and PC; images are shrunk on the
+  phone before upload; files land in `hq-vault/receipts/yyyy/mm/`, hashed for duplicate detection.
+- `extract-receipt` edge function reads the file with Claude (Opus 5, low effort, structured
+  output): vendor, date, subtotal/tax/tip/total, payment method, last 4, line items, suggested
+  Schedule C category, full text, per-field confidence. Vendor matched by alias/exact/prefix
+  against your list; a vendor's default category wins over the model's guess.
+- Review screen: AI-read fields marked until confirmed, low-confidence fields flagged, duplicate
+  banner (identical file or same vendor + total within 5 days), "make this a rule?" on confirm,
+  re-read, void, soft delete. List with search (full text over receipt contents) and status filters.
+- Anthropic API key is entered once in Settings and stored in Supabase Vault; the app never holds it.
+- Also this week: brand applied (0.2.0), real update channel with publisher role (0.2.1),
+  password sign-in (0.1.1).
+
 ## 11. What happens next
 
 **Before anything else — today, five minutes:** go to sosbiz.idaho.gov, search *Addictive Media
