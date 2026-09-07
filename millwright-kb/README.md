@@ -98,8 +98,7 @@ Password settings.
 
 ## Where to see it
 
-**Live web app:** https://millwright-kb.WORKERS_SUBDOMAIN.workers.dev (exact URL printed by the
-`millwright-kb` workflow's deploy step). It is a Cloudflare Worker serving the static build
+**Live web app:** https://millwright-kb.riggs1991.workers.dev. It is a Cloudflare Worker serving the static build
 with single-page-app routing, deployed by `.github/workflows/millwright-kb.yml` on every
 push using the same `CLOUDFLARE_API_TOKEN` the tiles worker uses (Workers Scripts: Edit).
 It is also a PWA: on a phone, "Add to Home Screen" installs it with an icon and full-screen mode.

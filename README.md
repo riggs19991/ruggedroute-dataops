@@ -75,4 +75,4 @@ Namespace `rr-tile-aliases` (id `f2f28315ee8f43fb8413d1bcddd20684`), keys
 A separate app that shares this repo and the Supabase project: a searchable library of
 millwright procedures, charts and manufacturer manuals with student sign-in, teacher-run
 class groups and weekly sharing. See [`millwright-kb/README.md`](millwright-kb/README.md).
-Built by `.github/workflows/millwright-kb.yml`.
+Live at https://millwright-kb.riggs1991.workers.dev, deployed by `.github/workflows/millwright-kb.yml`.
