@@ -32,11 +32,11 @@ export function SignIn() {
           options: { data: { display_name: name.trim(), school: school.trim() }, emailRedirectTo: window.location.origin + import.meta.env.BASE_URL },
         })
         if (error) throw error
-        if (!data.session) setMsg({ kind: 'info', text: 'Account created. Check your email for a confirmation link, then sign in.' })
+        if (!data.session) setMsg({ kind: 'info', text: 'Account created. Open the confirmation email and tap its link (the page it opens may look blank). Then come back here and sign in with your password.' })
       } else {
         const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + import.meta.env.BASE_URL } })
         if (error) throw error
-        setMsg({ kind: 'ok', text: 'Magic link sent. Open the email on this device.' })
+        setMsg({ kind: 'ok', text: 'Link sent. If the link does not bring you back to this app, return here and use your password instead.' })
       }
     } catch (err) {
       setMsg({ kind: 'error', text: (err as Error).message })
