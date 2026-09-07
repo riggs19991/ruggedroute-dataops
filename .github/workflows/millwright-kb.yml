@@ -5,7 +5,7 @@ name: millwright-kb
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/millwright-knowledge-database-pg5n1c]
     paths: ["millwright-kb/**", ".github/workflows/millwright-kb.yml"]
   pull_request:
     paths: ["millwright-kb/**", ".github/workflows/millwright-kb.yml"]
@@ -38,8 +38,8 @@ jobs:
           path: millwright-kb/dist
           retention-days: 7
       - name: Deploy to Cloudflare Pages
-        # main pushes and manual runs (workflow_dispatch) deploy; PRs only build.
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        # pushes and manual runs deploy (when the secrets exist); pull requests only build.
+        if: github.event_name != 'pull_request'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # The R2 account id is the same Cloudflare account id; used when no dedicated secret exists.
