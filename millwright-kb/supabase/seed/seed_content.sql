@@ -1002,6 +1002,738 @@ Bearing **22222 EK C3** on a **H 322** sleeve, 100 mm shaft (bearing bore 110 mm
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$carbon-arc-gouging$mw$, $mw$Carbon-Arc Gouging (CAC-A): Arcair Electrode Size vs Amperage Chart (DC and AC), Air Pressure and CFM by Torch, Polarity, Electrode Extension, Angle and Speed, Groove Sizing, Washing and Cutting, Clean-Up and Safety$mw$, $mw$The complete Arcair current table for DC copperclad and AC electrodes from 1/8 to 1 inch, the air pressure and flow each torch class needs, the power-source requirements (DCEP, 60 V open circuit), the electrode extension and angle rules, how travel speed sets groove depth and width, gouging versus washing versus cutting, what to do about the carburised layer, and the noise, fume and spray hazards.$mw$, $mw$## What it is
+
+A carbon-graphite electrode (copper-coated for conductivity) strikes an arc that melts the steel; a **jet of compressed air** from holes in the torch head, directed along the electrode, blows the molten metal out of the groove. It removes metal 5-10× faster than grinding: **back-gouging weld roots, removing defective welds, cutting out cracks, removing lugs and pads, bevelling, cutting cast iron and stainless** where a torch will not, and rough-cutting anything conductive.
+
+## Equipment
+
+| Item | Requirement |
+|---|---|
+| Power source | **CC or CV DC welder**, three-phase industrial machines or engine drives with **open-circuit voltage ≥ 60 V**; arc voltage runs **35-56 V**, so small single-phase machines with low OCV will not sustain the arc. Size the machine for the electrode (a 3/8" carbon needs a 600 A source at 60-100% duty cycle). CV machines run smoother for gouging on many models |
+| Polarity | **DCEP (electrode positive)** for DC copperclad electrodes; AC electrodes (rare) on AC or DCEN |
+| Torch | Manual torches by capacity: light duty (K2000: to 1/4"), general/heavy duty (K3000: to 3/8"; K4000: to 1/2"; K5000: to 5/8" and flats); the air valve in the handle, air holes in the head, swivel cable |
+| Air | Compressed air (never oxygen: explosion). **80-100 psi at the torch** while gouging; 60 psi for light-duty torches; higher pressure does not remove more metal. Hose ID **3/8" minimum** |
+| Cables | Sized for the amperage and length (a 3/8" carbon at 500 A needs 3/0-4/0 leads; see the [cable chart](/article/machine-setup-and-duty-cycle)) |
+| Electrodes | DC copperclad pointed (jointed for continuous machine gouging), flat electrodes for washing, AC electrodes for AC machines |
+
+**Recommended minimum air (Arcair)**
+
+| Torch class | Pressure at the torch | Air consumption | Compressor (continuous) | Receiver |
+|---|---|---|---|---|
+| Light duty (to 1/4") | 40 psi | 8 cfm | 1.5 hp | 60 gal |
+| General duty (to 3/8") | **80 psi** | **25 cfm** | 7.5 hp | 80 gal |
+| Multipurpose / foundry (to 5/8" and flats) | 80 psi | 33 cfm | 10 hp | 80 gal |
+
+A shop compressor rated 10-15 cfm at 90 psi will keep up with a 1/4-5/16" electrode for short jobs; a 3/8" electrode on a long back-gouge needs a 185 cfm tow-behind or plant air.
+
+## Electrode size vs amperage (Arcair data)
+
+| Electrode diameter | DC copperclad on **DCEP** (min-max A) | AC electrode on AC (A) | AC electrode on DCEN (A) |
+|---|---|---|---|
+| 1/8" (3.2 mm) | 60-90 | - | - |
+| 5/32" (4.0 mm) | 90-150 | - | - |
+| **3/16" (4.8 mm)** | **200-250** | 200-250 | 150-180 |
+| **1/4" (6.4 mm)** | **300-400** | 300-400 | 200-250 |
+| **5/16" (7.9 mm)** | **350-450** | - | - |
+| **3/8" (9.5 mm)** | **450-600** | 350-450 | 300-400 |
+| 1/2" (12.7 mm) | 800-1000 | - | - |
+| 5/8" (15.9 mm) | 1000-1250 | - | - |
+| 3/4" (19.1 mm) | 1250-1600 | - | - |
+| 1" (25.4 mm) | 1600-2200 | - | - |
+
+The usual shop sizes are **1/4" on a 400 A machine and 5/16" or 3/8" on a 500-600 A machine**; 5/32 and 3/16 for thin plate, sheet and tight spots. More amperage than the table does not gouge faster; it consumes the electrode and overheats the copper coating. Under the range, the arc sputters and the groove is rough.
+
+## Setup
+
+1. Machine: DC, **electrode positive**, amperage from the table; on a CV machine set the voltage to about 40-45 V and let the current follow.
+2. Air: connect to the torch, open the shop valve, check **80-100 psi at the torch with air flowing** (a gauge on the torch supply); drain water from the line: wet air spits and blows the groove rough.
+3. Electrode in the torch with the **air holes pointing at the work** (between the electrode and the plate), extension **maximum 7" (180 mm), minimum 2"**; too long an extension = wobbly arc and burned electrode, too short = damage to the torch head from radiated heat.
+4. Ground: on the workpiece, on clean metal, heavy cable.
+5. PPE: helmet shade **10 (under 500 A) or 11 (500-1000 A)**, **face shield over the helmet lens** because the molten spray comes back at you; full leathers, gauntlets, a cap, hearing protection (**115-120 dBA at the operator: plugs and muffs**), respirator or extraction for stainless, galvanised, cast iron and aluminium.
+6. Area: molten metal sprays **15-20 ft**; screens, no flammables, fire watch, clear the people behind you. Keep the air flowing past the arc **toward the direction of travel** so the metal blows away from you.
+
+## Technique
+
+- **Air on first, then strike**; air stays on until the arc is off and the electrode has cooled a second (the air also cools the electrode).
+- Hold the torch like a stick electrode holder, with **both hands** for a straight groove: one on the torch, one steadying the cable.
+- **Push angle 35-45°** to the plate for gouging, electrode pointed in the direction of travel; the air blows the melt ahead and out.
+- **Travel speed**: fast enough to keep a smooth, steady **hissing** sound with a continuous stream of metal leaving the groove; too slow = deep, rough, carbon deposits; too fast = shallow and the arc breaks. Typical 20-40 ipm on a 1/4" electrode.
+- **Groove width ≈ electrode diameter + 1/8"**; depth is set by the angle and speed (steeper and slower = deeper). For a deep groove make **several passes** rather than one slow one; for a wide groove weave or use a flat electrode. A pass with a 1/4" electrode at 35° runs about 1/8-1/4" deep.
+- Guide: chalk or soapstone lines are burned off instantly; scribe or centre-punch a line, or clamp a bar as a guide. Grinding a grinder line to follow is easier still.
+- Keep the electrode **fed**: as it burns back, stop, re-set the extension to 5-7" rather than gouging with 1" sticking out.
+- **Washing** (removing a surface layer, pads, hardfacing): flat electrode or a round one at a shallow **15-20°** angle, weaving side to side, air blowing ahead; a thin skin at a time.
+- **Cutting** (parting plate or a lug): same as gouging but at **10-20° from vertical**, pushing along the line; the air blows the metal out the bottom of the kerf. Cuts thick, dirty and non-ferrous material that a torch cannot.
+- **Removing a weld**: gouge along the centreline first to open the weld, then along each fusion line, leaving a clean U that a welder can fill; do not gouge into the base metal past the root.
+- **Removing a crack**: gouge to just below the crack tip, dye-penetrant test, gouge again until clean; grind the groove.
+
+## After gouging
+
+- The groove surface has a thin **carburised layer** (carbon pick-up from the electrode) and copper flecks: **grind it off** (1/32-1/16") before welding, or expect hard spots and porosity, especially on low-alloy and stainless. On stainless and cast iron, grinding is mandatory.
+- Remove the slag "eyebrows" at the edges with a chipping hammer or grinder.
+- Check with a straightedge and depth gauge for back-gouges; dye-pen for crack removal.
+- Preheat requirements for gouging on crack-sensitive steel are the same as for welding it (see [preheat](/article/preheat-interpass-and-carbon-equivalent)); quenched-and-tempered steel and heavy sections need it.
+
+## Material notes
+
+| Material | Notes |
+|---|---|
+| Carbon and low-alloy steel | Standard; preheat thick Q&T per the WPS |
+| Stainless | Gouges well; grind 1/16" off afterward (carbon and copper contamination), extraction for chromium fume |
+| Cast iron | Gouges where a torch will not (no oxidation needed); heavy fume and spray; grind afterward |
+| Aluminium | DCEN or AC with AC electrodes on some procedures, or DCEP at the low end; the oxide makes the groove rough; grind and clean |
+| Copper alloys, nickel alloys | Gouge fine; high amps for copper |
+| Manganese steel | Keep it cool between passes (see [hardfacing](/article/hardfacing-and-buildup)) |
+
+## Troubleshooting
+
+| Problem | Cause | Fix |
+|---|---|---|
+| Arc sputters, will not sustain | OCV too low, amps below range, wet air, electrode extension too long | Bigger machine, raise amps, drain air, 5-7" extension |
+| Rough, carbon-slagged groove | Too slow, air pressure too low, air holes not facing the work, wet air | Speed up, 80-100 psi, rotate the electrode |
+| Electrode burns fast, copper peels | Amps too high, extension too long, air off before the arc | Lower amps, shorten, air first/last |
+| Groove wanders | One-handed torch, no guide line | Two hands, scribed line or guide bar |
+| Metal not blowing out | Air pressure, hose too small/long, angle too flat, travel too slow | 3/8" hose, 80 psi at the torch |
+| Torch head overheats / arcs | Extension under 2", touching the plate, air holes blocked | Reset, clean the head |
+
+## Related
+
+- [Plasma gouging](/article/plasma-keyholing-and-piercing)
+- [Joint design and fit-up (back-gouging)](/article/joint-design-and-fit-up)
+- [Weld defects and inspection](/article/weld-defects-and-inspection)
+- [Welding safety, fumes and PPE](/article/welding-safety-fumes-and-ppe)
+- [Machine setup, duty cycle and cables](/article/machine-setup-and-duty-cycle)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$cutting-gouging$mw$),
+          array[$mw$carbon arc gouging$mw$,$mw$air arc$mw$,$mw$air carbon arc$mw$,$mw$CAC-A$mw$,$mw$arc air$mw$,$mw$Arcair$mw$,$mw$gouging electrode$mw$,$mw$carbon electrode amperage$mw$,$mw$copperclad$mw$,$mw$1/4 carbon$mw$,$mw$3/8 carbon$mw$,$mw$gouging torch$mw$,$mw$K4000$mw$,$mw$air pressure gouging$mw$,$mw$cfm gouging$mw$,$mw$DCEP gouging$mw$,$mw$back gouging$mw$,$mw$weld removal$mw$,$mw$crack removal$mw$,$mw$washing$mw$,$mw$carbon arc cutting$mw$,$mw$gouging cast iron$mw$,$mw$gouging stainless$mw$,$mw$gouging aluminum$mw$]::text[], $mw$Arcair (ESAB)$mw$, array[$mw$K2000$mw$,$mw$K3000$mw$,$mw$K4000$mw$,$mw$K5000$mw$,$mw$Angle-Arc$mw$,$mw$Copperclad$mw$,$mw$CutSkill$mw$]::text[], $mw$Arcair (ESAB) Air Carbon Arc Gouging Data sheet (suggested current ranges by electrode type and size; recommended minimum air requirements by torch; noise exposure); AWS 'Suggestions for Air Carbon Arc Gouging' 2nd edition (technique, angles, groove width); ESAB Arcair operator guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hole-making-in-the-field$mw$, $mw$Hole Making in the Field: Mag Drills and Annular Cutters (Speeds, Pilot, Magnet Rules), Hole Saw RPM Chart by Material, Step Drills, Twist Drills in a Hand Drill, Rotary Hammers and Concrete Anchors, Hole Punching and Reaming, Enlarging Holes$mw$, $mw$Every way a millwright makes or enlarges a hole away from the drill press: setting up a mag drill and running annular cutters at the right speed with the pilot and the magnet rules, the full hole-saw RPM table for steel, stainless, aluminium, brass and cast iron, step drills on sheet, twist drills in a hand drill with the speed formula, rotary hammers and drilling concrete for anchors, hydraulic punches, reamers, and how to enlarge or slot a hole without a torch.$mw$, $mw$## Choosing the method
+
+| Hole | First choice | Also |
+|---|---|---|
+| 7/16-2" in plate 1/4-2", in place, accurate | **Mag drill + annular cutter** | Torch/plasma then grind (rough), hydraulic punch to 1" in 1/2" |
+| 3/4-6" in plate ≤ 1/2", sheet, tube | **Hole saw** (bi-metal), carbide-tipped for stainless and thicker | Plasma with circle guide |
+| Up to 1/2" in plate, any | Twist drill in a mag drill, or hand drill with a pilot | |
+| 1/8-1" in sheet under 1/8" | **Step drill** | Chassis punch |
+| Bolt holes in structural angle/flat in numbers | Hydraulic punch (Greenlee/ Enerpac), ironworker | Mag drill |
+| Concrete anchors | **Rotary hammer (SDS)** with the anchor maker's bit size | Core drill for large holes |
+| Precise size for a pin or dowel | Drill undersize then **ream** | |
+| Enlarge or slot an existing hole | Mag drill with a slug pilot / hole saw with a bushing, die grinder, **never a torch on a bolt hole in a code structure without approval** | |
+
+## Mag drills and annular cutters
+
+An annular cutter cuts a **ring**, leaving a slug, so it removes a fraction of the metal a twist drill would; a 1" hole in 1" plate takes a minute with a 1/2 hp mag drill and no pilot hole.
+
+### Setup and the magnet rules
+
+1. **Clean, flat, bare steel** under the magnet, **3/8" (10 mm) minimum thickness**; the magnet's rated pull assumes 1" plate. On thinner steel or a rough surface, clamp or bolt a steel plate under it, and expect less holding force. Paint, rust and scale halve the pull; grind a spot.
+2. **Safety chain or strap** from the drill to the structure **always** when drilling vertically or overhead, and on anything where a power cut drops the drill (the magnet dies with the power).
+3. Power: a dedicated circuit; the drill will not hold on a generator that dips; check the magnet indicator light before starting the motor.
+4. Cutter: correct shank (3/4" Weldon is standard: two flats, set screws tight), **pilot pin** for the cutter length (the pin centres, ejects the slug and carries the coolant); depth of cut ≤ cutter length (1" or 2" cutters).
+5. Line up the pilot on the centre-punch mark, magnet **on**, then confirm the pin is still on the mark (the magnet pulls the drill slightly).
+6. Coolant: cutting fluid in the reservoir or a spray bottle; run **wet**; aluminium with an aluminium-cutting fluid; dry on cast iron.
+7. Guard on, glasses and face shield (the slug ejects hot and fast), gloves off near the cutter, sleeves tight.
+
+### Speed and feed
+
+Annular cutters like the same surface speed as a good HSS twist drill in the material, about **80-100 sfm in mild steel for HSS, 60-80 for stainless, 250-300 for aluminium**; carbide-tipped cutters 2-3× faster.
+
+```
+rpm = (sfm × 3.82) ÷ cutter diameter (in)
+```
+
+| Cutter Ø | Mild steel, HSS (rpm) | Stainless, HSS | Aluminium | Carbide-tipped, mild steel |
+|---|---|---|---|---|
+| 1/2" | 600-750 | 450-550 | 1500+ | 1200-1500 |
+| 9/16" | 550-680 | 400-500 | | |
+| 11/16" | 450-550 | 330-400 | | 900-1100 |
+| 13/16" | 380-470 | 280-350 | | |
+| **1"** | **300-380** | **230-290** | 900-1100 | 700-900 |
+| 1-1/16" | 290-360 | 210-270 | | |
+| 1-1/4" | 250-300 | 180-230 | | 550-700 |
+| 1-1/2" | 200-250 | 150-200 | 600-750 | 450-600 |
+| 2" | 150-190 | 110-150 | 450-550 | 350-450 |
+
+Most 1-1/8" to 1-1/2" capacity mag drills run **250-700 rpm** on two speeds or a dial; smaller cutters on the fast setting, large ones slow. If the drill only has one speed (typically 450-600 rpm), it is right for 5/8-1" cutters and you baby the larger ones with lighter feed.
+
+Feed: **steady, firm pressure** that keeps a continuous chip curling out of the cutter (two thin ribbons spiralling out); the motor note should drop a little but not labour. Back off the pressure **just before break-through** so the cutter does not grab and stall or snap the teeth, and let the slug eject. Too light = rubbing, squeal, teeth glaze; too heavy = broken teeth, stalled motor, the magnet skips.
+
+Bad signs: squealing (dull cutter or too light, or dry), the drill walking (magnet lost hold: stop, clean, re-seat), the slug not ejecting (bent pilot pin, chips packed inside).
+
+### Cutter care
+
+Teeth are ground with a specific geometry; **resharpen** on a cutter grinder or replace; a chipped tooth chips the next one. Store in the tube. Twist drills with 3/4" Weldon shanks fit the mag drill for tapping-size holes and countersinks; a chuck adaptor lets you run ordinary drills.
+
+## Hole saws
+
+### RPM chart (bi-metal hole saws)
+
+| Diameter | Mild steel | Stainless steel | Cast iron | Aluminium | Brass |
+|---|---|---|---|---|---|
+| 9/16" | 580 | 300 | 400 | 900 | 790 |
+| 5/8" | 550 | 275 | 365 | 825 | 730 |
+| 3/4" | 460 | 230 | 300 | 690 | 600 |
+| 7/8" | 390 | 195 | 260 | 585 | 520 |
+| **1"** | **350** | **175** | 235 | 525 | 470 |
+| 1-1/8" | 300 | 150 | 200 | 450 | 400 |
+| 1-1/4" | 275 | 140 | 180 | 410 | 360 |
+| **1-1/2"** | **230** | **115** | 150 | 345 | 300 |
+| 1-3/4" | 195 | 95 | 130 | 295 | 250 |
+| **2"** | **170** | **85** | 115 | 255 | 230 |
+| 2-1/2" | 130 | 65 | 85 | 200 | 175 |
+| **3"** | **115** | **55** | 75 | 170 | 150 |
+| 3-1/2" | 95 | 45 | 65 | 145 | 130 |
+| **4"** | **85** | **40** | 55 | 130 | 110 |
+| 5" | 70 | 35 | 45 | 95 | 90 |
+| 6" | 65 | 30 | 40 | 90 | 85 |
+
+Wood and plastic run 2-5× the aluminium speed. Carbide-tipped hole saws run about the same rpm in steel but last far longer in stainless and can cut 1/2" plate; a bi-metal hole saw is for **up to about 1/4-3/8" steel** (its cup depth is 1-1/2 to 1-3/4").
+
+### Technique
+
+- **Low speed, high torque drill** (a 1/2" drill with a side handle; a mag drill with a chuck is ideal); the chart speeds are far below what a cordless drill wants to run: use the low gear and squeeze lightly.
+- Pilot drill sharp and short; start with the pilot, bring the saw down flat.
+- **Light, steady pressure** with cutting oil; lift the saw every few seconds to clear chips (the biggest cause of a burned saw is packed teeth). A "spring-eject" or "speed slot" saw lets you pry the slug out.
+- Hold the drill against the twist: when a hole saw grabs, it throws the drill (broken wrists happen); brace the side handle against something solid and expect it at break-through.
+- Enlarging a hole: fit a **bushing/adaptor** that fills the old hole to guide the pilot, or bolt a scrap plate over the hole and start the pilot in it.
+
+## Step drills
+
+For sheet under about 1/8" (3/16" in aluminium): one bit for all sizes from 1/8" to 1-3/8", no grabbing at break-through, deburrs as it goes. Run **slow (300-600 rpm)** with oil; a step drill run fast turns blue in seconds. Mark the step you need with a paint pen; count the clicks. Do not use them on plate thicker than a step (the hole comes out stepped).
+
+## Twist drills in a hand drill
+
+```
+rpm = (sfm × 3.82) ÷ drill diameter (in)      (sfm: HSS in mild steel 80-100, stainless 40-60, cast iron 60-80, aluminium 200-300, brass 150-250)
+```
+
+| Drill Ø | Mild steel (rpm, HSS) | Stainless | Aluminium |
+|---|---|---|---|
+| 1/8" | 2500-3000 | 1200-1800 | 6000+ |
+| 1/4" | 1200-1500 | 600-900 | 3000 |
+| 3/8" | 800-1000 | 400-600 | 2000 |
+| 1/2" | 600-750 | 300-450 | 1500 |
+| 3/4" | 400-500 | 200-300 | 1000 |
+| 1" | 300-380 | 150-230 | 750 |
+
+- **135° split-point** drills for steel and stainless (self-centring, no walking); cobalt (M35/M42) for stainless and hard steel; 118° for general.
+- Centre-punch, **pilot drill about the web thickness of the big drill** (roughly 1/4 to 1/3 the final diameter), then the final size; too big a pilot makes the big drill grab.
+- Steady pressure so a continuous chip comes off; **stainless: firm pressure, slow speed, never let it rub** (it work-hardens instantly and the drill will not cut afterwards); cutting oil on steel, dry or with a wax on aluminium, dry on cast iron.
+- Ease off at break-through; clamp the work; use the side handle; drilling over 1/2" by hand wants a mag drill.
+- Blue smoking chips = too fast or dull; squeal = dull or rubbing; drill walks = no punch mark or a 118° point on a hard surface.
+
+## Rotary hammers and concrete
+
+- **Rotary hammer (SDS-Plus to 1", SDS-Max above)** in hammer-and-rotate mode; carbide bit sized **exactly as the anchor maker says** (wedge and sleeve anchors: bit = anchor diameter; drop-in anchors: their own size; adhesive anchors: usually 1/8" over the rod). ANSI-tolerance bits.
+- Depth: anchor embedment plus 1/2"; mark the bit with tape or use the depth rod.
+- **Clean the hole**: blow, brush, blow (compressed air, wire brush, air) for mechanical anchors; for **adhesive anchors it is mandatory** and inspected (dust on the wall halves the bond).
+- Rebar hit: stop, move the hole (or use a rebar cutter bit only where the engineer allows cutting).
+- Never use a hammer drill in "hammer" on steel or wood; never drill concrete in rotation only with a masonry bit (it just polishes).
+- PPE: dust (silica: respirator or dust extraction with a HEPA vac per OSHA silica rule), hearing, glasses; brace for the bit binding.
+
+## Hydraulic punches and ironworkers
+
+Punch and die sets by hole size (round, oblong); rule: **material thickness ≤ punch diameter**. Tonnage needed for mild steel is about `tons = 3.1416 × D × t × 25` (D = hole diameter, t = thickness, inches): a 3/4" hole in 1/2" plate needs about 30 tons, so check the tool's rating chart. Align the punch tip on the punch mark, square, full stroke, and support the plate. Punched holes have a slightly rough, cone-shaped exit; structural codes limit punching by thickness (AISC allows full-size punching only where the thickness is not more than the hole diameter plus 1/8"; check the governing code) and often require reaming after sub-punching.
+
+## Reaming and finishing
+
+- **Reamer** for a dowel or pin fit: drill **1/64" (0.4 mm) under** the reamer size for small reamers (up to 1/2"), 1/32" under above that; reamer at **half the drill speed**, steady feed, lots of oil, **never turn it backwards**; a hand reamer with a tap wrench for in-place work; taper pin reamers for taper pins.
+- **Deburr** every hole (countersink, deburring tool); a burr under a bolt head is a loose bolt later.
+- Hole callouts on drawings: [blueprint reading](/article/blueprint-reading-for-millwrights).
+
+## Enlarging or slotting holes
+
+- Mag drill with an annular cutter sized to the new hole plus a slug from a scrap of the same thickness as a pilot, or a **hole saw with a bushing**.
+- Slotting: two holes at the ends and remove the web with a die grinder and carbide burr, or a plasma with a straightedge and grind; a **slotted-hole punch** on an ironworker is best.
+- Structural bolt holes: oversize and slotted holes are allowed only where the drawing says (AISC/RCSC hole types) and often need hardened washers; **never flame-cut or plasma-cut a bolt hole in a code structure** unless the engineer approves (the edge hardens and the hole is out of tolerance).
+
+## Related
+
+- [Saws and abrasives](/article/saws-and-abrasives)
+- [Drill press speeds and feeds](/article/drill-press-speeds-and-feeds)
+- [Tapping and thread repair](/article/tapping-and-thread-repair)
+- [Anchor bolts and foundations](/article/anchor-bolts-and-foundations)
+- [Shop reference: tap drill sizes and decimal equivalents](/article/shop-reference-tables)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$cutting-gouging$mw$),
+          array[$mw$mag drill$mw$,$mw$magnetic drill$mw$,$mw$annular cutter$mw$,$mw$Rotabroach$mw$,$mw$slugger$mw$,$mw$annular cutter speed$mw$,$mw$pilot pin$mw$,$mw$mag drill safety$mw$,$mw$hole saw$mw$,$mw$hole saw speed chart$mw$,$mw$hole saw rpm$mw$,$mw$step drill$mw$,$mw$unibit$mw$,$mw$drilling steel hand drill$mw$,$mw$drill speed$mw$,$mw$rotary hammer$mw$,$mw$SDS drill$mw$,$mw$drilling concrete$mw$,$mw$anchor hole$mw$,$mw$hydraulic punch$mw$,$mw$reaming a hole$mw$,$mw$enlarging a hole$mw$,$mw$slotting a hole$mw$,$mw$drilling stainless$mw$,$mw$drilling aluminum$mw$]::text[], $mw$Hougen / Milwaukee / Lenox (generic)$mw$, array[$mw$Hougen HMD904$mw$,$mw$Milwaukee 4272$mw$,$mw$Rotabroach$mw$,$mw$Lenox Speed Slot$mw$,$mw$Unibit$mw$,$mw$SDS-Plus$mw$,$mw$SDS-Max$mw$]::text[], $mw$Hougen annular cutter speed guidance and mag-drill operator manuals; bi-metal hole saw RPM chart (Lenox-based, as published by distributors); Machinery's Handbook drilling speeds (SFM by material); Hilti/Simpson anchor installation instructions (bit sizing, hole cleaning); Milwaukee and DeWalt tool manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$oxy-fuel-cutting-technique$mw$, $mw$Oxy-Fuel Cutting Technique: Straight Cuts, Bevels, Circles and Piercing, Reading the Cut Edge (Drag Lines, Top-Edge Melt, Gouging), Guides and Track Burners, Thick Plate, Propane vs Acetylene Tips, Cutting Cast Iron and Stainless (Why Not)$mw$, $mw$The technique side of oxy-fuel cutting once the torch is set (setup and the pressure card are in the Victor articles): how to start, hold the tip, judge speed, cut straight with guides, bevel with a bevel angle and a track burner, pierce, cut circles, read a cut edge for what went wrong, handle thick plate and rusty or painted steel, and why the process works on carbon steel and cast iron only with tricks and not at all on stainless or aluminium.$mw$, $mw$> Setup, lighting and shutdown: [Victor oxy-acetylene setup](/article/oxy-acetylene-setup-victor). Tip sizes and pressures: [Victor tip chart](/article/victor-tip-chart-acetylene). Safety: [oxy-fuel safety](/article/oxy-fuel-safety).
+
+## How the cut works
+
+The preheat flames bring a spot of steel to **kindling temperature (about 1600°F, bright cherry red)**; the cutting-oxygen jet then **burns** the iron (iron + oxygen → iron oxide, releasing heat) and blows the liquid oxide out of the kerf. The steel is oxidised, not melted; that is why:
+
+- It only works on metals whose oxide melts **below** the metal: **carbon and low-alloy steel** (and, with care, wrought iron). Cast iron's graphite and high carbon fight it (see below).
+- **Stainless** (chromium oxide is refractory) and **aluminium** (aluminium oxide melts at 3700°F) **cannot be oxy-fuel cut**: use plasma, carbon-arc or a saw.
+- Rust, scale, paint and galvanising insulate the surface and interrupt the reaction: clean the line first.
+
+## Tip selection and flame
+
+Tip size by thickness from the chart (1/4" → 00, 1/2" → 0, 1" → 2, 2" → 3-4). **Neutral flame** for cutting: adjust the preheat flames neutral with the cutting oxygen lever **pressed**, since pressing the lever drops the preheat oxygen slightly on many torches; if the flame goes carburising (feather) when you press, add preheat oxygen. Propane/natural gas tips (GPN) have a recessed or two-piece design and need **more preheat oxygen** and a longer preheat; propane is cheaper and cuts thick plate well but heats slower. Acetylene at **15 psig max** always.
+
+## Straight cut, step by step
+
+1. Clean a strip along the line; mark with soapstone (silver pencil on dark plate); set the plate on supports so the flame and slag fall clear (not into your table's slats or a concrete floor: concrete spalls and pops).
+2. Light and set the flame; hold the torch with **both hands**: one guides at the head, the other pulls the lever. Sit or brace your elbows; move from the shoulder, not the wrist.
+3. **Preheat**: torch **90° to the plate** (for a square cut), tips **1/8-1/4" (3-6 mm) above the surface** (inner cones just off the metal), at the **edge** of the plate. Hold until the spot is **bright cherry red** (3-5 seconds on 1/4", 10-20 on 1").
+4. **Press the cutting lever fully** and, as the kerf opens, start moving at a steady pace. Keep the tip height constant.
+5. **Speed**: the chart gives about **27-30 ipm at 1/4", 20-24 at 1/2", 15-19 at 1", 9-12 at 2"**. Right speed sounds like a steady crackle-hiss and the sparks and slag stream go **straight down or slightly back**; you see the cut through the plate as a bright vertical line. Sparks blowing **forward** means too slow. Sparks coming back up at you mean too fast, or the cut has been lost.
+6. If you lose the cut (the jet stops going through), release the lever, back up 1/4" onto the finished kerf, preheat again and restart: never try to "catch up" by pushing.
+7. At the end, keep the lever down until the tip clears the plate so the last tab drops; then release the lever, and shut down or move to the next cut.
+
+**Torch angle along the cut**: 90° for thick plate; on **thin sheet (under 1/4") lean the torch 15-30° in the direction of travel** so the jet spreads the preheat and the metal burns without melting the top edge, and move fast. Cutting **toward** yourself is steadier for most people; cutting on a **pull** with a straightedge is steadiest of all.
+
+## Guides
+
+- **Straightedge / angle iron** clamped parallel to the line, offset by the distance from the tip centre to the torch head edge; slide the head along it. Roller guides that clip on the tip give constant height.
+- **Circle cutter attachment** (a pivot arm with a centre point): set the radius, punch the centre, pierce or edge-start, and walk the torch around; for holes over about 2".
+- **Track burner** (Bug-O, Koike, Victor): a motorised carriage on a rail or a magnetic track; set the speed from the chart, the bevel angle on the torch holder, and it cuts straighter than any hand. Standard for long bevels and plate prep.
+- **Pattern tracers** and CNC oxy tables: same cutting rules, machine-held.
+
+## Bevels
+
+- Set the torch **at the bevel angle** (30° for a 60° V, 37.5° for pipe, 45° for a single-bevel tee) with a bevel guide or the track burner's angle scale.
+- The **effective thickness** the jet crosses is **thickness ÷ cos(angle)**: 1/2" plate at 45° cuts like 0.71" plate: go up a tip size and slow down.
+- Two-torch track burners cut a bevel and the land in one pass; by hand, cut square first and then bevel, or bevel first and leave the land with a grinder.
+- Keep the preheat flames on the **top edge** of the bevel; the bottom edge lags.
+
+## Piercing
+
+1. Preheat the spot to bright red with the torch upright (or slightly tilted away from you).
+2. **Raise the tip to about 1/2"** and press the lever **slowly**; molten slag blows up and out: the tilt and height keep it off the tip.
+3. As the jet bites, lower to normal height, bring upright and start the cut. On plate thicker than about 1/2", start the pierce **tilted** and rock it; on plate over 1" drill a start hole (torch piercing thick plate is slow and clogs the tip).
+4. Inside cuts: pierce inside the scrap and lead in to the line.
+
+## Reading the cut edge (AWS C4.1 language)
+
+| What you see | Cause | Fix |
+|---|---|---|
+| **Drag lines** (the curved lines on the face) vertical and light | Correct speed | |
+| Drag lines swept back strongly, bottom edge not cut through | Too fast, or cutting oxygen too low | Slow down / raise pressure / bigger tip |
+| Drag lines irregular, gouging, deep grooves | Too slow, oxygen too high, dirty tip | Speed up, check the tip |
+| **Top edge rounded / melted**, heavy top slag | Too much preheat, tip too close, too slow | Reduce preheat, raise the tip, speed up |
+| Top edge sharp but bottom slag hard to remove | Too fast, oxygen low | Slow |
+| Slag easily knocked off (bottom) | Normal | |
+| Face concave (kerf wider in the middle) | Oxygen pressure too high | Lower |
+| Face bevelled (not square) | Torch not vertical, tip orifice damaged | Square the torch, clean or replace the tip |
+| Kerf wider than the chart | Tip too large or worn oversize; oxygen high | Correct tip |
+| Cut lost repeatedly at the same spot | Rust, paint, mill scale inclusion, a lamination | Clean; slow through it |
+| Wavy face on thin sheet | Wrist steering, uneven speed | Guide, cut from the shoulder |
+
+Kerf widths from the Victor card: about 0.04" on 1/8" plate, 0.06" at 1/2", 0.09" at 1", 0.11" at 2". Add the kerf to the scrap side when you mark.
+
+## Thick plate (over 2")
+
+- Tip 4-6, cutting oxygen 45-70 psi, propane or acetylene; preheat takes a minute or more; keep the torch dead vertical and the speed dead steady (a track burner is worth it).
+- Start at a **chamfered edge** or a drilled hole; lead the cut in slowly for the first inch so the bottom catches up.
+- Pause briefly if the bottom lags (the sparks stream forward); do not speed up on thick plate once it is going, and never stop mid-cut.
+
+## Cast iron
+
+Oxy-fuel cuts grey cast iron only with a **carburising flame, a bigger tip than the thickness suggests, and a weaving motion** that keeps flushing the graphite and slag: slow and ugly. **Plasma or carbon-arc** is the right answer for cast iron; a torch does it in an emergency.
+
+## Gouging and scarfing with oxy-fuel
+
+Gouging nozzles (Victor sells them by series like the cutting tips) lay a low-angle (**5-20°**) jet along the surface to scoop out a groove for removing welds or defects on carbon steel. Preheat to red, tilt the torch low, press the lever and push a wave of molten oxide ahead of the jet; depth set by the angle and speed. Less accurate than carbon-arc but quiet and needs no power.
+
+## Common mistakes
+
+- Preheat flames too far off the plate: never gets to kindling temperature; too close: tip pops and the top edge melts.
+- Trying to cut galvanised or painted steel without cleaning: cut stops every inch and the fume is toxic.
+- Pressing the lever before bright red: the jet just cools the spot.
+- Cutting over concrete or the shop floor's cracks: spalling and fire.
+- Acetylene over 15 psi to "get more heat": use a bigger tip or propane instead.
+- Trying to oxy-cut stainless because "it is steel": it will not cut.
+
+## Related
+
+- [Victor oxy-acetylene setup](/article/oxy-acetylene-setup-victor)
+- [Victor tip chart (cutting, welding, heating)](/article/victor-tip-chart-acetylene)
+- [Oxy-fuel safety](/article/oxy-fuel-safety)
+- [Heating with a rosebud](/article/oxy-fuel-heating-rosebud)
+- [Plasma cutting setup](/article/plasma-cutting-setup)
+- [Carbon-arc gouging](/article/carbon-arc-gouging)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$cutting-gouging$mw$),
+          array[$mw$oxy fuel cutting$mw$,$mw$torch cutting$mw$,$mw$cutting torch technique$mw$,$mw$oxy acetylene cutting$mw$,$mw$bevel cut$mw$,$mw$cutting bevel torch$mw$,$mw$circle cutter$mw$,$mw$piercing with torch$mw$,$mw$cut quality$mw$,$mw$drag lines$mw$,$mw$kerf$mw$,$mw$track burner$mw$,$mw$straightedge cutting$mw$,$mw$propane cutting tip$mw$,$mw$GPN tip$mw$,$mw$cutting thick plate$mw$,$mw$cutting cast iron torch$mw$,$mw$cutting stainless torch$mw$,$mw$preheat flame$mw$,$mw$cutting oxygen lever$mw$,$mw$gouging tip$mw$,$mw$scarfing$mw$]::text[], $mw$Victor$mw$, array[$mw$1-101$mw$,$mw$3-101$mw$,$mw$GPN$mw$,$mw$GPM$mw$,$mw$CA2460$mw$,$mw$ST2600$mw$,$mw$Bug-O$mw$,$mw$Koike IK-12$mw$]::text[], $mw$Victor cutting tip charts (acetylene series 1-101/3-101; propane/natural gas series GPN); AWS C4.1 Criteria for Describing Oxygen-Cut Surfaces; Victor and ESAB oxy-fuel cutting technique guides; Lincoln/Hobart cutting instruction.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$plasma-cutting-setup$mw$, $mw$Plasma Cutting Setup and Cut Charts: Air Supply, Consumable Stack, Hypertherm Powermax45 XP / 65 / 85 / 105 Capacities, Mild Steel Cut Chart (Amps, Thickness, Speed, Voltage, Kerf), Hand Cutting Technique, Dross and Bevel Troubleshooting$mw$, $mw$How a plasma cutter is set up from the compressor to the tip: air quality and flow, the consumable stack and when to change each part, what the capacity numbers mean, the full Powermax45 XP mild steel cut chart with pierce heights, delays, speeds and arc voltages for hand and CNC use, capacity and air figures for the 65/85/105, and the technique and troubleshooting for clean square cuts.$mw$, $mw$## How it works, in one paragraph
+
+A pilot arc inside the torch ionises the air; when the torch is near the plate the main arc transfers to the work and the swirl of compressed air through a small nozzle orifice constricts it to a 30,000°F jet that melts and blows the metal out of the kerf. It cuts **anything conductive** (steel, stainless, aluminium, copper, cast iron), needs only electricity and dry air, and leaves a narrow kerf with a small heat-affected zone. The consumables (electrode with a hafnium insert, nozzle) are the wear parts; the air quality decides how long they last.
+
+## Air supply
+
+| Item | Requirement |
+|---|---|
+| Pressure at the machine inlet | **85 psi minimum** while cutting (Powermax45 XP: 400 scfh / 6.7 scfm at 85 psi; do not exceed 135 psi); the machine regulates internally. Set the shop regulator to about **90-120 psi** so the inlet never drops below 85 with the hose losses |
+| Flow | 6-7 scfm (400 scfh) for the 45/65/85 class, 7.5 scfm (450 scfh) for the 105 and for gouging on the 85; the compressor must supply this **continuously** at pressure, so a compressor rated 8-10 cfm at 90 psi or better with a 30+ gal receiver for a 45 A machine, larger for the 85/105 |
+| Quality | **Clean, dry, oil-free** (ISO 8573-1 class 1.2.2 for Hypertherm). Water or oil in the air kills electrodes in minutes, causes spitting starts, ragged cuts and torch arcing. Fit a **particulate/coalescing filter** at the machine and a **refrigerated or desiccant dryer** on any compressor in a humid shop; drain the receiver daily |
+| Hose | 3/8" ID minimum, short; a 1/4" hose from a long run starves the torch |
+| Alternatives | Nitrogen cylinder (99.95%) for stainless/aluminium quality; F5 (95 N2 / 5 H2) for stainless on some systems; argon for marking. Air is right for 95% of millwright work |
+
+Low air = the torch fires, then stutters and the "gas pressure" fault lights. Check the inlet gauge while cutting, not idle.
+
+## Consumable stack
+
+```
+   torch body → electrode (hafnium insert) → swirl ring → nozzle (tip, orifice by amperage) → retaining cap → shield (drag shield for hand, deflector for machine)
+```
+
+| Part | Job | Replace when |
+|---|---|---|
+| **Electrode** | Carries the arc from the hafnium insert | Pit in the insert deeper than about **1/16" (1.5 mm)**; heavy pitting = green-white arc, slow cuts, and it will blow through and destroy the torch |
+| **Nozzle (tip)** | Constricts the arc; orifice matched to amperage (45 A, 65 A, 85 A, 105 A, FineCut) | Orifice out of round or oversize, gouged; symptoms: bevelled cut, wide kerf, dross, wandering arc |
+| **Swirl ring** | Spins the gas | Cracked, holes blocked; rarely |
+| **Retaining cap** | Holds the stack, carries air | Cracked or arced |
+| **Shield / drag shield** | Protects the nozzle, lets you drag the torch on the plate; deflector for machine torches | Holes blocked with spatter, face arced, rounded |
+| **O-rings** | Seal the torch | Dry, cracked: leaks and misfires |
+
+**Change electrode and nozzle together** as a pair; keep a set in the box. Always match the consumable part numbers on the cut chart for the amperage (the Powermax45 XP 45 A shielded set in the manual is shield 220817, retaining cap 220854, nozzle 220941, swirl ring 220857, electrode 220842; check the chart for your model). FineCut consumables (narrow kerf, thin material) and gouging consumables are different parts. Use only the maker's or a known-equivalent brand: cheap copies burn fast and can arc inside the torch.
+
+## What the capacity numbers mean
+
+| System | Recommended (hand, good quality, ~20 ipm) | Maximum (10 ipm) | Severance (5 ipm, rough) | Pierce, hand | Air |
+|---|---|---|---|---|---|
+| **Powermax45 XP** (45 A) | **5/8" (16 mm)** | 7/8" (22 mm) | 1-1/8" (29 mm) | **1/2" (12 mm)** | 400 scfh at 85 psi |
+| **Powermax65** (65 A) | **3/4" (20 mm)** | 1" (25 mm) | 1-1/4" (32 mm) | 5/8" (16 mm) | 400 scfh at 85 psi |
+| **Powermax85** (85 A) | **1" (25 mm)** | 1-1/4" (32 mm) | 1-1/2" (38 mm) | 3/4" (19 mm) | 400 scfh at 85 psi (450 at 70 psi for gouging) |
+| Powermax105 (105 A) | 1-1/4" (32 mm) | 1-1/2" (38 mm) | 2" (50 mm) | 7/8" (22 mm) | 450 scfh at 85 psi |
+| Powermax30 AIR (built-in compressor) | 3/8" (10 mm) | 1/2" | 5/8" | 1/4" | internal |
+
+"Recommended" is what you cut all day with a clean edge; "severance" is a hot ragged parting cut. **Pierce capacity is about half the recommended cut thickness**; above it, edge-start or drill a start hole.
+
+Powermax45 XP maximum cut speeds on mild steel (hand, lab conditions): 1/4" 90 ipm, 3/8" 48 ipm, 1/2" 30 ipm, 5/8" 20 ipm, 3/4" 13 ipm, 1" 7 ipm.
+
+## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables
+
+Mechanized (CNC) data from the operator manual; hand cutting uses the same speeds as a guide with the drag shield on the plate. Torch-to-work (cut height) **0.06" (1.5 mm)**; pierce height **0.15" (3.8 mm), 250% of cut height**.
+
+| Thickness | Pierce delay (s) | Best quality: speed (ipm) | Best quality: arc volts | Production: speed (ipm) | Production: arc volts | Kerf (in) |
+|---|---|---|---|---|---|---|
+| 16 ga (0.060") | 0.1 | 249 | 128 | 320 | 125 | 0.053 |
+| 14 ga (0.075") | 0.2 | 225 | 128 | 320 | 125 | 0.054 |
+| 10 ga (0.135") | 0.4 | 129 | 128 | 181 | 128 | 0.057 |
+| **3/16"** | 0.5 | **85** | 129 | 122 | 127 | 0.059 |
+| **1/4"** | 0.6 | **48** | 130 | 72 | 127 | 0.061 |
+| **3/8"** | 0.8 | **33** | 136 | 38 | 133 | 0.069 |
+| **1/2"** | 1.0 | **18** | 141 | 24 | 139 | 0.077 |
+| 5/8" | edge start | 13 | 146 | 16 | 141 | 0.082 |
+| 3/4" | edge start | 7 | 151 | 10 | 145 | 0.086 |
+| 7/8" | edge start | 6 | 154 | 7 | 151 | 0.103 |
+| 1" | edge start | 4 | 157 | 6 | 154 | 0.119 |
+
+Metric (best quality): 2 mm 5560 mm/min at 128 V; 3 mm 3390 at 128; 4 mm 2800 at 128; 6 mm 1430 at 130; 8 mm 1020 at 133; 10 mm 780 at 136; 12 mm 540 at 140; 16 mm 310 at 146; 20 mm 170 at 152; 25 mm 110 at 157.
+
+Stainless and aluminium have their own tables in the manual: roughly the same speeds on thin gauge, **20-30% slower on stainless** above 1/4" and slightly faster on aluminium, with more dross and a need for nitrogen for clean edges. Larger machines: the 65 cuts 1/2" at about 30-35 ipm and 3/4" at 15; the 85 cuts 1/2" at about 45 ipm, 3/4" at 25 and 1" at 12-15 (from the maker's charts; confirm on the chart for your consumables).
+
+**Arc voltage** matters on a CNC table with torch height control: it rises as the consumables wear and as the torch lifts; set the THC to the chart voltage and it holds the cut height. By hand, ignore it.
+
+## Setting up to cut
+
+1. Ground: work clamp on **clean bare metal** on the piece being cut (not on the slats of the table alone, not across a hinge or bearing). A poor ground = no arc transfer, double-arcing, short consumable life.
+2. Air: drain the receiver, check the filter bowl is dry, set the inlet pressure, confirm on the machine's gauge while pressing the trigger with the torch away from metal (gas test mode on most machines).
+3. Consumables: correct set for the amperage and job (shielded drag for hand; FineCut for thin sheet; gouging for gouging); tight, O-rings lightly lubricated with the silicone that came with the torch (never petroleum).
+4. Amperage: **max for the thickness** (45 A on a 45 machine for anything over 1/8"); lower amps (20-30 A) only for thin sheet with FineCut or to slow the melt on 20 ga. Amps do not fine-tune the cut; speed does.
+5. Mode: cut / continuous pilot arc (for expanded metal and grating: pilot stays on across gaps, more consumable wear) / gouge.
+6. Safety: **shade 8** (up to 300 A) per the table in [welding safety](/article/welding-safety-fumes-and-ppe), gloves, leathers, hearing protection (plasma is loud), fume extraction on stainless (hex chrome) and galvanised, fire watch (sparks go 20 ft), nothing flammable under the table.
+
+## Hand cutting technique
+
+- **Drag the shield on the plate** with shielded consumables; with unshielded, hold **1/16-1/8" standoff**. Torch **90° to the plate**; tilt only for bevels.
+- Start on the edge: torch at the edge, trigger, wait for the arc to punch through, then move. Circles and inside cuts: **pierce** with the torch tilted 30-45° away from you so the blow-back does not hit the shield, rotate upright as it goes through (see [piercing and keyholing](/article/plasma-keyholing-and-piercing)).
+- **Speed**: correct speed shows a **15-20° trailing arc** under the plate with sparks going down and slightly behind. Sparks straight down or forward = too slow (heavy dross, wide kerf); sparks spraying back at a shallow angle = too fast (the cut does not go through; the arc climbs the plate).
+- Pull the torch toward you (dragging) is steadier than pushing. Use a straightedge, an angle-iron guide, a circle-cutting attachment or a roller guide for anything you want straight; the cut is only as good as your hand.
+- The **square side of the kerf** is on the **right** of the direction of travel (looking from behind the torch, moving away), the bevelled side on the left, because of the arc swirl. Cut so the scrap is on the left.
+- Finish the cut by slowing slightly at the end so the arc goes fully through the last bit; a lost arc at the end leaves a hanging tab.
+- Post-flow: keep the torch on the machine's hanger until the air stops; the post-flow cools the consumables.
+
+## Troubleshooting
+
+| Problem | Cause | Fix |
+|---|---|---|
+| Will not fire / no pilot arc | No air, low air pressure, consumables loose or worn, cap not seated (safety switch), trigger safety | Air first, then consumables |
+| Fires but will not transfer / cuts out | Bad ground, standoff too high, painted or rusty plate under the clamp | Clean clamp spot, drag the torch |
+| Heavy **low-speed dross** (thick, easy to knock off, under the plate) | Too slow, amps too high for the thickness | Speed up |
+| **High-speed dross** (thin, hard, welded to the bottom edge) | Too fast, worn nozzle, standoff too high | Slow down, new nozzle |
+| Top-side dross / spatter | Standoff too high, worn shield, fast | Drag the shield |
+| **Bevelled cut** (one side more than the usual 3-5°) | Worn nozzle/electrode, torch not vertical, too fast, wrong direction (bevel side toward the part) | New consumables, square the torch, cut the other way round |
+| Wide kerf, wandering arc, green-white flame | Electrode pit too deep, nozzle oversize, wet air | Change the pair, dry the air |
+| Short consumable life | **Water/oil in the air**, piercing too close, arc stretched at the end of cuts, continuous pilot arc on solid plate, cheap copies | Dryer and filter; pierce at height; cut off the arc promptly |
+| Cut stops part way through thick plate | Beyond capacity, too fast, low input power (long extension cord, generator) | Slow to severance speed or use a bigger machine; 10 AWG cord max 50 ft |
+| Double arcing (nozzle burns from the outside) | Standoff too small with unshielded tip, touching the plate, spatter bridging | Shielded consumables, clean the shield |
+| Machine trips on duty cycle | Powermax45 XP is 50% at 45 A (5 minutes in 10) at 104°F | Let the fan run; lower amps for long thin cuts |
+
+## Related
+
+- [Plasma piercing, keyholing and gouging](/article/plasma-keyholing-and-piercing)
+- [Carbon-arc gouging](/article/carbon-arc-gouging)
+- [Oxy-fuel cutting technique](/article/oxy-fuel-cutting-technique)
+- [Welding safety and PPE (shade table)](/article/welding-safety-fumes-and-ppe)
+- [Machine input power and duty cycle](/article/machine-setup-and-duty-cycle)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$cutting-gouging$mw$),
+          array[$mw$plasma cutting$mw$,$mw$plasma cutter setup$mw$,$mw$plasma cut chart$mw$,$mw$Hypertherm cut chart$mw$,$mw$Powermax 45$mw$,$mw$Powermax 65$mw$,$mw$Powermax 85$mw$,$mw$plasma air pressure$mw$,$mw$plasma consumables$mw$,$mw$electrode$mw$,$mw$nozzle$mw$,$mw$swirl ring$mw$,$mw$shield$mw$,$mw$retaining cap$mw$,$mw$drag cutting$mw$,$mw$standoff$mw$,$mw$cut speed$mw$,$mw$arc voltage$mw$,$mw$kerf width$mw$,$mw$dross$mw$,$mw$bevel$mw$,$mw$plasma stainless$mw$,$mw$plasma aluminum$mw$,$mw$plasma CNC table$mw$,$mw$torch height$mw$]::text[], $mw$Hypertherm$mw$, array[$mw$Powermax45 XP$mw$,$mw$Powermax65$mw$,$mw$Powermax85$mw$,$mw$Powermax105$mw$,$mw$Powermax30 AIR$mw$,$mw$Duramax$mw$,$mw$Spectrum 625$mw$,$mw$Spectrum 875$mw$,$mw$Cutmaster 60i$mw$]::text[], $mw$Hypertherm Powermax45 XP Operator Manual 809240 rev. 4 (specifications, recommended cut capacity, mild steel 45 A shielded cut chart, gouging tables); Hypertherm Powermax65/85 and Powermax105 published specifications; Hypertherm cutting-technique guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$plasma-keyholing-and-piercing$mw$, $mw$Plasma Piercing, Keyholing Thick Plate and Plasma Gouging: Pierce Height and Delay, the Rolling Pierce, Keyhole Technique Beyond Pierce Capacity, Inside Cuts, Bolt-Hole Starts, and Gouging Settings and Profiles$mw$, $mw$The two ways to start a plasma cut in the middle of a plate (a straight pierce within pierce capacity, and the tilted rolling pierce), how to keyhole through plate thicker than the pierce rating by walking a hole open, how CNC tables set pierce height and delay, inside cuts and hole starts that keep the consumables alive, and plasma gouging: which consumables, what angle and standoff, and the depth-and-width profiles from Hypertherm's tables.$mw$, $mw$## Piercing rules
+
+- **Pierce capacity ≈ half the recommended cut thickness** (Powermax45 XP: 1/2"; 65: 5/8"; 85: 3/4"; 105: 7/8"). Piercing above it burns the shield and nozzle with blow-back and often will not go through.
+- **Pierce height 1.5-4× cut height** (Powermax45 XP: 0.15" / 3.8 mm, 250% of the 0.06" cut height) so the molten fountain does not land on the tip. By hand, that means **tilt the torch** so the metal blows away from you and the tip.
+- **Pierce delay**: the arc must burn through before the torch moves: 0.1 s on 16 ga up to 1 s on 1/2" (table in [plasma cutting setup](/article/plasma-cutting-setup)). Moving early drags an unfinished pierce and the arc stretches and dies.
+- **Lead-in ≈ material thickness** on CNC (pierce 1/2" away from the line on 1/2" plate), so the pierce crater is not on the finished edge.
+- Never pierce on a spot where you can edge-start instead; every pierce costs consumable life.
+
+## Straight pierce (thin material, within capacity)
+
+1. Torch **90°** to the plate at pierce height (tip 1/8-3/16" off, or drag shield lifted).
+2. Trigger; hold still until **sparks come out under the plate** and the sound changes.
+3. Lower to cut height (drag the shield) and move off along the cut line.
+
+## Rolling pierce (the hand-torch standard)
+
+1. Hold the torch at about **30° to the plate** (Hypertherm) with the tip **within 1/16" (1.5 mm)** of the surface, pointed **away from you**.
+2. Trigger. The molten metal blows out the far side of the puddle, away from the tip.
+3. As the arc digs in, **roll the torch upright** to 90° (2-3 seconds on 3/8"), keeping the tip at height.
+4. When sparks exit below, drag the shield down and start the cut.
+5. On plate near the pierce limit, start the roll on the **scrap side** of the line, and give it the full delay before moving.
+
+## Keyholing thick plate (beyond pierce capacity)
+
+For 5/8-1" on a 45 A machine, or any thickness above the pierce rating, you open a **keyhole** rather than piercing straight down:
+
+1. Rolling pierce start at 30-45° on the scrap side, roughly 1" from the cut line.
+2. Instead of holding still, **walk the arc in a small circle or a short back-and-forth** (1/4-1/2" long), keeping the torch tilted so the slag fountain goes away from you. The circle lets the metal blow out sideways; the hole grows and the arc gets deeper each pass.
+3. Increase the circle slightly and slowly bring the torch upright as the arc bottoms out; when sparks exit below, you have a hole the width of two kerfs.
+4. Drag the shield down, move to the cut line at severance speed for the first inch, then at the chart speed.
+5. Wear a face shield over the helmet and full leathers: keyholing throws molten metal several feet.
+
+Alternative for repeated thick starts: **drill a 3/8-1/2" start hole**, or begin at the plate edge with an oxy-fuel or grinder notch. On a CNC table, thick plate uses a "pierce-and-lift" routine (higher pierce height, longer delay, torch retract) built into the controller; do not exceed the pierce chart.
+
+## Inside cuts and holes
+
+- Pierce **inside the scrap**, not on the line; lead in to the line with a curve so there is no notch on the finished edge; lead out the same way.
+- Holes: the square side of the kerf is on the **right** of the direction of travel, so cut holes **clockwise** (viewed from above) to leave the square edge on the plate, and cut outside profiles **counter-clockwise**. Prove it on scrap with your own torch before a real part.
+- Bolt holes under about **1.5× the plate thickness** in diameter come out tapered on plasma; drill them, or plasma-cut undersize and drill/ream. Hypertherm's rule for good holes on Powermax: diameter ≥ 1.5-2× thickness with FineCut consumables.
+- Slots for cutting out a section: pierce in the middle, cut to the corners, do not try to turn sharp corners with a hand torch; overrun and come back.
+
+## Plasma gouging
+
+Plasma gouging uses **gouging consumables** (a wide-orifice nozzle and an open shield) so the arc sweeps metal out of a groove instead of cutting through. Advantages over carbon-arc: **no carbon pick-up**, far less noise and smoke, works on **stainless and aluminium**, controllable shallow grooves; disadvantage: much lower metal removal (7.5 lb/h at 45 A versus 20-30 lb/h with a 3/8" carbon).
+
+Powermax45 XP has two processes: **Maximum Control gouging (26-45 A)** with its consumables, and **Precision gouging (10-25 A)** for spot-weld removal and light surface work.
+
+| Setting | Maximum Control gouging, 45 A | Precision gouging, 10 A |
+|---|---|---|
+| Torch angle | **40-50°** from the plate | 40-45° |
+| Standoff | **1/4" (6 mm)** | 0.01-0.05" (nearly touching; up to 1/8" for a very light gouge) |
+| Speed | 10-40 ipm | slow |
+| Air | 350 scfh at 60 psi | 350 scfh at 55 psi |
+| Removal rate on mild steel | 7.5 lb/h | 0.5 lb/h |
+
+**Gouge profile, 45 A on mild steel (Hypertherm Table 3)**
+
+| Torch angle | Speed (ipm) | Depth (in) | Width (in) |
+|---|---|---|---|
+| 40° | 10 | 0.183 | 0.331 |
+| 40° | 20 | 0.126 | 0.268 |
+| 40° | 30 | 0.074 | 0.231 |
+| 40° | 40 | 0.055 | 0.206 |
+| 50° | 10 | 0.195 | 0.263 |
+| 50° | 20 | 0.132 | 0.205 |
+| 50° | 30 | 0.107 | 0.192 |
+| 50° | 40 | 0.088 | 0.181 |
+
+Stainless steel gouges slightly narrower and deeper at the same settings (Table 5: 40°, 10 ipm → 0.114" deep × 0.245" wide; 50°, 10 ipm → 0.210" × 0.224"). Steeper angle = deeper and narrower; faster = shallower. Multiple passes for deeper grooves; a weaving motion widens the groove.
+
+**Technique**: hold the torch at the angle with the standoff, fire, and **push** the molten metal ahead of the arc away from you (the arc blows the puddle out the front of the groove). Keep a steady speed: a hiss with a continuous stream of sparks ahead. Do not let the nozzle touch the puddle (the standoff is what keeps the shield alive). For **back-gouging a weld root**, take two passes at 45° and check with a straightedge; for **removing a weld or a lug**, gouge along the fusion line, then grind. **Spot-weld removal** (Precision gouging, 10 A): torch at 40-45° on one side of the spot, lift and rotate around the weld until the sheet separates; the base sheet stays.
+
+## Safety notes specific to piercing and gouging
+
+- Blow-back and gouge spray travel 10-20 ft: clear the area, fire-resistant screens, no open flammables, fire watch.
+- Face shield over the shade-8 helmet lens for gouging; hearing protection; leathers; gauntlets.
+- Fumes: gouging aluminium and stainless makes dense fume: extraction or respirator.
+- Do not pierce or gouge over a table water tray without knowing what it holds; hydrogen from aluminium dross in water tables can pop.
+
+## Related
+
+- [Plasma cutting setup and cut charts](/article/plasma-cutting-setup)
+- [Carbon-arc gouging](/article/carbon-arc-gouging)
+- [Joint design and fit-up (back-gouging)](/article/joint-design-and-fit-up)
+- [Hole making in the field](/article/hole-making-in-the-field)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$cutting-gouging$mw$),
+          array[$mw$plasma pierce$mw$,$mw$piercing plasma$mw$,$mw$pierce height$mw$,$mw$pierce delay$mw$,$mw$rolling pierce$mw$,$mw$keyhole$mw$,$mw$keyholing$mw$,$mw$keyhole cut$mw$,$mw$thick plate plasma$mw$,$mw$inside cut$mw$,$mw$start hole$mw$,$mw$plasma gouging$mw$,$mw$gouging consumables$mw$,$mw$plasma gouge stainless$mw$,$mw$plasma gouge aluminum$mw$,$mw$remove weld plasma$mw$,$mw$back gouge plasma$mw$,$mw$spot weld removal$mw$,$mw$hole in plate$mw$,$mw$plasma blowback$mw$]::text[], $mw$Hypertherm$mw$, array[$mw$Powermax45 XP$mw$,$mw$Powermax65$mw$,$mw$Powermax85$mw$,$mw$Powermax105$mw$]::text[], $mw$Hypertherm Powermax45 XP Operator Manual 809240 rev. 4 (pierce procedure, pierce height 1.5-4× cut height, lead-in rule, gouging chapter tables 2-7: 45 A Maximum Control gouging profiles at 40°/50°, 10 A precision gouging); Hypertherm gouging application guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$saws-and-abrasives$mw$, $mw$Saws and Abrasives: Band Saw Blade TPI and Speed Charts (Horizontal and Portable), Blade Break-In, Chop Saws and Cut-Off Wheels, Angle Grinder Wheel Types and Grit, Wheel Markings, Ring Test, Guards and OSHA Grinder Rules, Cold Saws$mw$, $mw$How to pick a band saw blade by thickness and material with the TPI and blade-speed tables, break in a new blade, set up a horizontal saw and a portaband, choose and use abrasive chop-saw wheels and angle-grinder wheels and flap discs by type and grit, read a wheel marking, do the ring test, and set guards and tool rests to the OSHA numbers.$mw$, $mw$## Band saw blades
+
+### The 3-24 rule
+
+At least **3 teeth in the cut** at all times (or the teeth strip and the blade grabs) and **no more than 24** (or the gullets pack with chips and the blade stalls and rubs). Thin-wall tube and structurals are sized by the **wall thickness**, not the outside dimension, and want a **variable-pitch** blade (e.g. 10/14) because the teeth-in-cut changes as the blade passes through the walls.
+
+### TPI by material thickness (solids; bi-metal blades)
+
+| Thickness of cut | Constant pitch | Variable pitch (recommended) |
+|---|---|---|
+| under 1/8" (3 mm) sheet, thin tube | 18-24 | 14/18, 18/24 |
+| 1/8-1/4" (3-6 mm) | 14 | 10/14, 14/18 |
+| **1/4-1/2" (6-12 mm)** | **10** | **8/12, 10/14** |
+| **1/2-1" (12-25 mm)** | **6-8** | **6/10, 8/12** |
+| 1-2" (25-50 mm) | 4-6 | 5/8, 4/6 |
+| 2-3" (50-75 mm) | 3-4 | 4/6, 3/4 |
+| 3-6" (75-150 mm) | 2-3 | 3/4, 2/3 |
+| over 6" (150 mm) | 1.5-2 | 2/3, 1.5/1.9, 1/1.5 |
+
+Portable band saws (44-7/8" × 1/2" × 0.020" blades): **14/18 for sheet, tube, conduit and unistrut; 10/14 for solids 1/4" and up and for general work; 18 for thin stainless tube**. A 10/14 blade covers most millwright cutting.
+
+Blade types: **carbon (flex-back)** for wood, plastic and soft metal on cheap saws; **bi-metal (M42 HSS teeth on a spring-steel back)**: the standard for steel, stainless and aluminium; **carbide-tipped** for hard, abrasive and large production cuts; **carbide grit** for hardened steel and fibreglass.
+
+### Blade speed (surface feet per minute) and feed
+
+| Material | Speed (sfpm), bi-metal, up to 1" | 1-3" | Feed rate feel |
+|---|---|---|---|
+| Low-carbon steel (1008-1020, A36) | **250** | 275 | Firm; 8-12 in²/min |
+| Free-machining (1112, 12L14) | 300 | 330 | |
+| Medium carbon (1045, 1050) | 200 | 200 | Moderate; 5-7 in²/min |
+| High carbon (1065-1095), spring steel | 200 | 150-200 | Light |
+| Alloy (4140, 4340 annealed) | 150-200 | 150-175 | Moderate |
+| Tool steel A2 | 210 | 200 | Light |
+| Tool steel D2 | 110 | 100 | Very light |
+| **304/316 stainless** | **120** | **100** | Light and **steady**: never let it rub or it work-hardens |
+| 410/420 stainless | 150 | 130 | Light |
+| Cast iron (grey) | 200-250 | 200 | Firm, dry |
+| Nickel alloys (Monel, Inconel) | 100-110 | 100 | Very light |
+| Titanium | 100 | 90-100 | Very light |
+| Aluminium 6061 | 1000-3000 (as fast as the saw goes; 250-300 on a steel-speed saw is fine) | | Firm, coarse teeth, lube |
+| Brass, bronze | 400-800 | | Moderate |
+| Copper | 300-500 | | |
+
+Small horizontal saws run 80-300 sfpm on a 2-4 speed pulley; set the **lowest speed for stainless and alloy**, the middle for mild steel, top for aluminium. A portaband on "variable speed" runs 100-350 sfpm: full speed on mild steel and aluminium, half on stainless.
+
+Feed: use the hydraulic down-feed on a horizontal saw so the blade cuts a **fine curled chip**; powder means too light (rubbing, work-hardening), blue thick chips mean too heavy. On a portaband let the weight of the saw do the work with light pressure, and hold the shoe against the work.
+
+### Coolant and lube
+
+Flood coolant (soluble oil 5-10%) on horizontal saws for steel and stainless; wax stick or cutting oil on the blade for aluminium (it gums); dry for cast iron. A dry blade on stainless lasts a tenth as long.
+
+### Break-in
+
+New blades have razor tooth edges that chip if fed hard at first. **First 50-100 in² of cut** (about 10-15 minutes) at **half the normal feed and normal speed**, then increase to full feed. Skip it and the blade "strips" early.
+
+### Horizontal saw setup
+
+1. Tension per the saw's gauge or a tension meter (**25,000-30,000 psi** on bi-metal; on small saws, tight enough that the blade does not deflect more than 1/32" with thumb pressure between the guides).
+2. Guides: roller or carbide guides set as **close to the work as possible** (within 1/2-1" each side) and square to the blade; a blade that wanders or cuts crooked usually has guides too far apart or worn.
+3. Vise: work clamped square; long bars supported on a stand at the same height; bundles clamped tight or cut singly (bundle cutting strips teeth).
+4. Check squareness of the cut with a square after the first piece; adjust the vise or the guide arms.
+5. Blade tracking on the wheels: back of the blade just touching the wheel flange; a blade running off the wheel means worn tires or flange.
+6. Never start the blade in the cut, never force it, stop the saw before clearing chips, keep the blade cover on.
+
+### Blade problems
+
+| Symptom | Cause |
+|---|---|
+| Teeth stripped | Too few teeth in the cut (wrong TPI), feed too heavy, no break-in, work not clamped, started in the cut |
+| Blade breaks at the weld | Over-tension, guides out, weld poor |
+| Crooked cut | Guides too far apart or worn, dull on one side (blade rubbed on a hard spot), too much feed, loose blade |
+| Blade glazed / smooth, not cutting | Rubbing: feed too light, wrong speed on stainless, no coolant |
+| Chatter / noise | Speed too high, blade loose, work loose |
+| Blue chips, smoking | Speed too high, feed too high, no coolant |
+
+## Chop saws (abrasive cut-off)
+
+- 14" reinforced Type 1 (Type 41) wheels at **up to 4,400 rpm** (some saws 5,400: match the wheel's rating), A24-A36 grit resinoid for steel; a stainless-rated (iron-free, "INOX") wheel for stainless; masonry wheels only on masonry saws.
+- Clamp the work in the vise tight; cut with a **steady, moderate pressure**: pushing hard glazes and heats the wheel, and it wears fast; let the sparks fly straight down.
+- Wheel wobbling, chipped edge, cracked, or soaked in water: throw it out. Store flat, dry, off the floor.
+- Cuts are hot and burred; the cut face has a **heat-affected skin** that is hard: grind before welding on stainless.
+- Guard down and tight; sparks 15 ft; face shield over glasses; hearing protection; nothing flammable in the spark path; the saw never cuts with the wheel edge above the guard line.
+- **Dry-cut carbide saws** (Evolution, DeWalt) and **cold saws** (slow-turning HSS circular blade with coolant) cut cooler, square and burr-free, and are the better choice for tube and structural; use the blade the maker rates for the material, never a wood blade on steel.
+
+## Angle grinder wheels and discs
+
+### Types
+
+| Type | Shape | Use | Rules |
+|---|---|---|---|
+| **Type 27 (depressed centre) grinding wheel, 1/4" thick** | | Grinding, bevelling, weld removal, notching | Grind on the face at **15-30°**, never on the edge; standard guard |
+| **Type 27 cut-off/grind wheel, 1/8"** | | Light grinding and cutting | |
+| **Type 1 / Type 41 cut-off wheel, 0.040-0.060"** | Flat | Cutting only | **Never side-grind** with it (it shatters); use the **cut-off guard** (closed type) |
+| Type 42 cut-off (depressed centre) | | Cutting with clearance | Cutting only |
+| **Flap disc** (Type 27 or 29) | Overlapping abrasive flaps | Blending, weld dressing, finishing; grinds and finishes in one step | Type 29 (conical) for aggressive stock removal at 15°, Type 27 for flat finishing at 5-10° |
+| Wire wheel / cup brush | | Scale, rust, paint | Rated rpm on the brush; face shield (wires fly); do not press hard |
+| Type 11 cup wheel | | Concrete and stone, heavy grinding | Cup guard |
+| Fibre (resin fibre) disc on a backing pad | | Grinding and finishing at 24-120 grit | Speed rating of the pad |
+| Surface-conditioning / non-woven discs | | Cleaning, prep | |
+| Diamond blades | | Masonry, tile; "steel-cutting diamond" blades exist for shop use | |
+
+**Grit**: 24-36 for heavy stock removal and cast iron, **40-60 general purpose weld grinding and bevels**, 80-120 blending and finishing, 180+ polishing. Zirconia and ceramic grains outlast aluminium oxide 3-10× on steel and stainless; **iron-free (INOX/contaminant-free) discs** for stainless and aluminium; aluminium loads discs: use a wax stick or aluminium-rated discs.
+
+### Sizes and speeds
+
+| Grinder size | Max wheel rpm (mark on the wheel) | Typical no-load rpm |
+|---|---|---|
+| 4-1/2" (115 mm) | **13,300** | 10,000-11,000 |
+| 5" (125 mm) | 12,200 | 10,000-11,000 |
+| 6" (150 mm) | 10,200 | 9,000-10,000 |
+| 7" (180 mm) | **8,500** | 6,500-8,000 |
+| 9" (230 mm) | **6,600** | 6,000-6,500 |
+| Die grinder 1/4" shank points and burrs | Per the mounted point or burr (small burrs are rated 20,000-30,000; a 2" wheel far less) | 20,000-25,000 |
+
+**The wheel's rated rpm must be equal to or higher than the tool's** no-load rpm; a 6,600 rpm 9" wheel on a 4-1/2" grinder spindle adaptor explodes. Check the wheel diameter fits the guard for that grinder.
+
+### Grinder rules (OSHA 1910.243 / ANSI B7.1 / maker's manuals)
+
+- Guard **on**, positioned between you and the wheel, never removed "for access". Cut-off wheels need the closed cut-off guard.
+- Two hands, side handle fitted, body out of the plane of the wheel; a **paddle (dead-man) switch** preferred; **never lock the switch on**.
+- Inspect every wheel before mounting (cracks, chips, wet, expiry date: resinoid wheels are dated **3 years** from manufacture); run a new wheel **for a minute** pointed at the floor away from you before use.
+- Correct flanges, wheel seated flat, nut snug (not hammered); inner and outer flanges matched.
+- Let the wheel reach speed before touching the work; take the wheel off the work before switching off; do not set the grinder down until it stops.
+- Kickback: never grind or cut with the **leading edge** or let the wheel jam in the kerf; cut in a straight line; support both sides of the cut so the kerf does not close.
+- Face shield over safety glasses for cutting, wire wheels and overhead work; gloves; hearing; respirator for stainless and paint; fire watch for sparks (a cut-off wheel is hot work).
+- Aluminium: it loads the wheel and the wheel can burst; use rated discs, light pressure, wax.
+- Grinding **magnesium** produces flammable dust: separate collection, no water.
+
+### Bench and pedestal grinders (OSHA 1910.215)
+
+- **Tool rest within 1/8" (3 mm)** of the wheel, adjusted as the wheel wears.
+- **Tongue guard (spark arrester) within 1/4" (6 mm)** of the wheel at the top.
+- Wheel guard covers the wheel except a **90° exposure** (65° above the horizontal max for bench grinders).
+- **Ring test** every wheel before mounting: hang it on a finger through the bore, tap lightly with a plastic handle at four points 45° each side of the vertical; a clear ring = sound, a **dull thud = cracked, destroy it**. Only for vitrified (bench) wheels; resinoid wheels ring dull anyway.
+- Wheel rpm ≥ spindle rpm; blotters between the wheel and flanges; flanges at least 1/3 the wheel diameter and equal.
+- Dress the wheel with a star or diamond dresser when glazed or out of round; a grooved wheel from grinding on the corner is a burst waiting to happen.
+- Never grind aluminium, brass, copper or wood on a steel wheel (loads it, heats it, can burst).
+- Eye protection: glasses **and** the guard's shield; face shield for wire wheels.
+
+## Reading a wheel marking
+
+`A 24 R BF` on a cut-off/grinding wheel: **A** = aluminium oxide abrasive (**Z** zirconia, **C** silicon carbide, **CA** ceramic), **24** = grit (coarse; 36, 46, 60, 80 finer), **R** = grade/hardness (A soft to Z hard; Q-T typical for steel), **BF** = resinoid bond, fibre-reinforced (**V** vitrified, bench wheels). Also on the label: max rpm, max peripheral speed (**80 m/s** on portable wheels), diameter × thickness × bore, type number, expiry date, and the material pictograms.
+
+## Hacksaws and files (the quick numbers)
+
+Hacksaw blades: **14 TPI for 1" and heavier soft metal, 18 general, 24 for 1/8-1/4" and thin tube, 32 for sheet and small tube**; teeth **pointing forward**, tension tight, cut on the push stroke at 40-50 strokes per minute, full blade length. Files: cut on the push, lift on the return, card the file, a handle on the tang always.
+
+## Related
+
+- [Hole making in the field](/article/hole-making-in-the-field)
+- [Plasma cutting setup](/article/plasma-cutting-setup)
+- [Oxy-fuel cutting technique](/article/oxy-fuel-cutting-technique)
+- [Grinding and abrasives safety](/article/grinding-and-abrasives-safety)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$cutting-gouging$mw$),
+          array[$mw$band saw blade$mw$,$mw$TPI chart$mw$,$mw$teeth per inch$mw$,$mw$3 tooth rule$mw$,$mw$blade speed sfpm$mw$,$mw$bi-metal blade$mw$,$mw$portaband$mw$,$mw$portable band saw$mw$,$mw$44-7/8 blade$mw$,$mw$blade break in$mw$,$mw$chop saw$mw$,$mw$abrasive cut off wheel$mw$,$mw$angle grinder$mw$,$mw$grinding wheel type 27$mw$,$mw$type 1$mw$,$mw$type 41$mw$,$mw$flap disc$mw$,$mw$grit$mw$,$mw$wheel marking$mw$,$mw$ring test$mw$,$mw$wheel speed rpm$mw$,$mw$bench grinder tool rest 1/8$mw$,$mw$tongue guard$mw$,$mw$OSHA 1910.215$mw$,$mw$ANSI B7.1$mw$,$mw$cold saw$mw$,$mw$hacksaw TPI$mw$,$mw$cutting stainless band saw$mw$,$mw$cutting aluminum band saw$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Lenox band saw blade selection guidance (3-24 teeth-in-cut rule; TPI by thickness); Saw Service of Washington band saw speed and feed chart (sfpm by material and size); Milwaukee/DeWalt portable band saw manuals; ANSI B7.1 and OSHA 29 CFR 1910.215 (abrasive wheel machinery); Norton and Walter abrasive wheel guidance and marking system.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$bolt-torque-chart-sae-metric$mw$, $mw$Bolt Torque Chart: SAE Grade 5 and 8, Metric 8.8 and 10.9, with Grade Markings and Lubrication Factors$mw$, $mw$Reference tightening torques for common UNC and metric fasteners, how to recognise the grade from the head, why lubricated bolts need less torque, and the cross-pattern sequence for flanges and machine feet.$mw$, $mw$> Equipment manuals override this chart. These values are for **plain (unplated), dry** steel bolts in clean steel threads, torqued to about 75% of proof load. Zinc plating, oil, anti-seize or thread locker changes the friction and therefore the torque needed for the same clamp load.
 
 ## SAE (inch) fasteners - torque in **ft-lb**, dry
@@ -1505,6 +2237,113 @@ Any gauge that will not drop to zero means a cylinder valve is still cracked or 
 - [Victor acetylene tip chart (cutting, welding, heating)](/article/victor-tip-chart-acetylene)
 - [Oxy-fuel safety: cylinders, backfire and flashback](/article/oxy-fuel-safety)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$oxy-fuel$mw$),
           array[$mw$oxy-acetylene$mw$,$mw$torch setup$mw$,$mw$Victor$mw$,$mw$regulator$mw$,$mw$pressure setting$mw$,$mw$lighting torch$mw$,$mw$neutral flame$mw$,$mw$shutdown$mw$,$mw$cutting attachment$mw$,$mw$tip chart$mw$,$mw$acetylene 15 psi$mw$]::text[], $mw$Victor$mw$, array[$mw$Journeyman$mw$,$mw$Performer$mw$,$mw$315FC$mw$,$mw$100FC$mw$,$mw$CA2460$mw$,$mw$CA1350$mw$,$mw$ESS4$mw$,$mw$SR450$mw$,$mw$1-101$mw$,$mw$3-101$mw$,$mw$W-J$mw$]::text[], $mw$Victor 'Set-Up and Safe Operating Procedures' manual 0056-3260; Victor Tip Charts 65-2505 (Thermadyne 2011); CGA and OSHA 29 CFR 1910.253.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$oxy-fuel-heating-rosebud$mw$, $mw$Heating with a Rosebud (Multi-Flame Heating Tip): Sizes, Pressures and Gas Withdrawal, Torch Handling, Heating Bearings, Sprockets and Couplings for Fitting, Loosening Seized Parts, Heat Straightening and Preheating, Colour Temperatures and What Not to Heat$mw$, $mw$The rosebud is the millwright's heat source for fitting and freeing parts: which size to use and the pressures for each, why big rosebuds need a manifold (the 1/7 rule), how to light and handle one without backfires, how to heat a bearing, gear, sprocket or hub evenly for a shrink fit with the temperature limits that protect it, heating seized fasteners and pins, heat straightening, preheating for welding, and the parts you must never put a torch on.$mw$, $mw$> A rosebud puts out **10-20× the heat of a welding tip** and pulls acetylene faster than a single cylinder can supply. Two rules before anything: check the [1/7 withdrawal rule](#gas-supply-and-the-1-7-rule), and never heat a **sealed, pressurised, or plated** part (see [what not to heat](#what-not-to-heat)).
+
+## Sizes and pressures (Victor MFA / MFA-1, acetylene)
+
+| Size | Acetylene psig | Oxygen psig | Acetylene consumption (scfh) | Oxygen (scfh) | Torch handle | Typical use |
+|---|---|---|---|---|---|---|
+| 2 | 4-8 | 4-8 | 3-9 | 3-10 | 100 series | Small parts, soldering |
+| 4 | 6-10 | 8-12 | 6-20 | 7-22 | 100 series | Bushings, small bearings, 1/2" bolts |
+| **6** | **8-12** | **10-15** | **14-40** | **15-44** | 100 / 315 | The general shop rosebud: bearings to 4", hubs, 3/4-1" bolts |
+| **8** | **10-15** | **20-30** | **30-80** | **33-88** | 315 / HD310 | Large hubs, sprockets, 1-1/2" bolts, preheat |
+| 10 | 12-15 | 30-40 | 40-100 | 44-110 | HD310 | Heavy sections, straightening |
+| 12* | 12-15 | 50-60 | 60-150 | 66-165 | HD310C, 3/8" hose | Very heavy, manifold only |
+| 15* | 12-15 | 50-60 | 90-220 | 99-244 | HD310C, 3/8" hose | Foundry-scale heating |
+
+Pressures are at the regulators with gas flowing. Sizes 12 and 15 need the heavy-duty handle and 3/8" hose. Propane/natural-gas rosebuds (Victor TFN and similar) are the better choice for **large, slow, even heating** (no acetylene withdrawal limit, cheaper, softer flame) at about the same oxygen pressures and 5-15 psi propane; they are slower to bring a spot up to red.
+
+## Gas supply and the 1/7 rule
+
+Acetylene is dissolved in acetone in the cylinder; draw it out too fast and acetone comes with it (bad flame, damaged regulator) and the cylinder cools and starves. **Maximum withdrawal = 1/7 of the cylinder contents per hour** (CGA rule; some makers say 1/10 for continuous use).
+
+| Cylinder | Contents (ft³) | Max withdrawal (ft³/h) | Largest rosebud alone |
+|---|---|---|---|
+| B (40 ft³) | 40 | 6 | size 2 |
+| MC / #2 (75) | 75 | 11 | size 4 (low end) |
+| #3 (145) | 145 | 21 | size 4; size 6 at the low end only |
+| **#4 (300)** | 300 | **43** | **size 6** (14-40 scfh) |
+| #5 (390) | 390 | 56 | size 6; size 8 at the low end |
+| Two #4 manifolded | 600 | 86 | size 8 (30-80) |
+| Three #4 | 900 | 129 | size 10 |
+
+A size 8 pulling 80 scfh needs **560 ft³ of connected cylinder**: a manifold of two or three cylinders, or switch to propane. Signs you are over the limit: the flame shrinks and goes weak after a minute, frost on the cylinder, a sweet acetone smell, and pops.
+
+## Lighting and handling
+
+1. Rosebuds backfire easily if lit wrong. Set the pressures from the table for the size, purge each line, open the acetylene valve on the handle about **a half to one turn** (more than for a welding tip), light with a striker held to the side, and increase acetylene until the smoky flame just clears, then add oxygen until every one of the flame cones is neutral (sharp, no feather). A single soft cone means one orifice is blocked.
+2. If it **pops** while lighting: acetylene too low. Increase, or the flame settles back into the tip and the head overheats.
+3. Keep the flame **moving**; a rosebud held still in one place melts the surface in seconds on thin sections.
+4. **Overheating the tip** (from holding it too close, or working in a corner where the flame reflects) causes backfires (pop and out) and flashback (hiss and squeal, flame inside). On a squeal: **close the oxygen valve on the handle immediately, then the acetylene**, let it cool, check the flashback arrestors. Never restart a hot, popping tip: let it cool.
+5. Flashback arrestors on the torch handle (and check valves) are mandatory with rosebuds: the reverse-flow risk is highest with big tips.
+6. Full PPE: shade **4-5** goggles or face shield with a shade lens, leather gloves, sleeves; the radiant heat from a size 8 burns bare forearms.
+
+## Heating a bearing, gear, sprocket or hub for a shrink fit
+
+Torch heating is the crude cousin of the [induction heater / oil bath method](/article/bearing-mounting-with-heat); use it when you have nothing else, and never on a bearing you care about the life of.
+
+1. Know the limit: **bearings max 250°F (120°C)**, never above 300°F; gears, sprockets, couplings and hubs (through-hardened or plain steel) **300-500°F (150-260°C)** is plenty; use the expansion rule: steel grows **0.0000065" per inch of diameter per °F**, so a 4" bore heated 200°F over ambient grows 0.0052", enough for a 0.002-0.003" interference plus clearance to slide on.
+2. Support the part on firebricks or blocks (not the concrete floor), bore **vertical** so you heat it evenly around.
+3. **Neutral flame, size 6-8, kept moving in circles around the hub, on the heavy section (the hub, not the teeth or the raceway)**; heat from the inside of the bore when you can reach, and from both faces alternately. Keep the flame 2-4" off; never let the inner cones touch.
+4. Check with **temperature-indicating crayons** (250°F stick on a bearing; 350°F on a hub), marking away from the fit surfaces; or a contact thermometer. Do not judge by colour: 250°F has no colour, and the first faint colour (straw, 400°F) is already past the bearing limit.
+5. When it reads temperature all the way round (check three spots), pick it up with gloves and a lifting hook, push it on **in one move against the shoulder**, and hold it there until it grips (10-30 seconds), or it walks off the shoulder as it shrinks.
+6. Let it cool in air; do not quench. Re-check the position against the shoulder and the axial float when cold.
+
+Sprocket or coupling hub with a set screw and key: fit the key first in the shaft, heat the hub, and drop it on; it needs less heat (200-300°F) because the fit is lighter.
+
+## Loosening seized fasteners and pins
+
+- **Heat the nut, not the bolt**: the nut expands away from the bolt threads; 30-60 seconds at a dull red (1000°F) on a 3/4" nut, then the wrench. Heating the bolt swells it in the nut.
+- **Rusted-in pins and bushings**: heat the outer member fast and evenly, then drive or press immediately; a slow heat soaks both parts and nothing moves.
+- **Heat wrench** on a stuck coupling or hub: heat the hub quickly around its circumference with a big rosebud (size 8) while a puller is pre-loaded; it jumps off at the right moment. Keep the flame off the shaft.
+- **Candle wax or penetrating oil** into a hot (not red) thread wicks in as it cools; penetrating oil on a red-hot part just burns.
+- **Never heat**: fasteners you intend to reuse in a structural or torque-critical joint (the heat treatment is gone: replace them), grade 8/10.9 bolts you will reinstall, bolts near hydraulic hoses, seals, wiring, or on tanks.
+
+## Heat straightening and preheating
+
+- **Straightening** bent shafts, bars and plate: spot or V heats on the convex side to **dull red, 1100-1200°F, never above (1100°F on quenched-and-tempered steel)**, air cool; details in [distortion control](/article/distortion-control). Bent shafts with bearings still on: pull the bearings first.
+- **Preheating for welding**: rosebud or propane heating torch, heat **from the opposite face where possible**, broad and slow, check with a temp stick 3" from the joint after a soak of 1 minute per inch of thickness; targets in [preheat and interpass](/article/preheat-interpass-and-carbon-equivalent).
+- **Stress relief** and normalising are furnace jobs; a torch cannot hold 1150°F evenly for an hour on anything but tiny parts.
+
+## Colour and temperature (steel, dim light)
+
+| Colour | Approx. °F (°C) | Meaning |
+|---|---|---|
+| No colour, temp stick only | up to 700 (370) | Bearing and hub fitting range (250-500°F) |
+| Faint red, barely visible in the dark | 900 (480) | |
+| Dark/blood red | 1100-1200 (600-650) | **Heat straightening limit**; freeing nuts |
+| Dull cherry | 1300 (700) | Bronze braze welding |
+| Bright cherry | 1500 (800) | Oxy-cutting kindling |
+| Salmon / orange | 1700-1800 (925-980) | Forging/bending mild steel |
+| Yellow | 2000 (1100) | Heavy forging |
+| White | 2300+ (1250+) | Burning; sparks |
+
+Temper colours on polished steel (straw 400°F, brown 500, purple 540, blue 570-600) tell you a bearing or a shaft was overheated after the fact. Full table in [steel grades and heat colours](/article/steel-grades-and-heat-colours).
+
+## What not to heat
+
+- **Sealed or greased bearings** (grease burns, seals melt); any bearing above 250°F.
+- **Hydraulic cylinders, accumulators, gas springs, shock absorbers, closed tubes or tanks** (pressure); vessels that held anything flammable; drums; anything with a fluid inside.
+- Galvanised, cadmium-plated or painted parts without fume control; lead-based paint.
+- Aluminium and magnesium castings (they melt with no colour warning; magnesium burns).
+- Springs, hardened pins, gears with hardened teeth (a torch draws the temper), shafts near seal surfaces and keyways (warp).
+- Concrete floors and walls (spall and explode), anything near hoses, cables, wood cribbing, the crane's wire rope.
+- Parts under load or restrained in a way that will bend when hot.
+
+## Related
+
+- [Victor tip chart (MFA rosebud table)](/article/victor-tip-chart-acetylene)
+- [Victor oxy-acetylene setup](/article/oxy-acetylene-setup-victor)
+- [Oxy-fuel safety](/article/oxy-fuel-safety)
+- [Bearing mounting with heat](/article/bearing-mounting-with-heat)
+- [Distortion control and heat straightening](/article/distortion-control)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$oxy-fuel$mw$),
+          array[$mw$rosebud$mw$,$mw$heating tip$mw$,$mw$heating nozzle$mw$,$mw$MFA$mw$,$mw$multi flame$mw$,$mw$rosebud pressures$mw$,$mw$rosebud size$mw$,$mw$acetylene withdrawal$mw$,$mw$1/7 rule$mw$,$mw$manifold$mw$,$mw$heating a bearing with a torch$mw$,$mw$heating a sprocket$mw$,$mw$heating a coupling hub$mw$,$mw$torch fit$mw$,$mw$seized bolt heat$mw$,$mw$heat wrench$mw$,$mw$heat straightening$mw$,$mw$preheat with torch$mw$,$mw$propane rosebud$mw$,$mw$heat colours$mw$,$mw$backfire rosebud$mw$,$mw$flashback rosebud$mw$]::text[], $mw$Victor$mw$, array[$mw$MFA$mw$,$mw$MFA-1$mw$,$mw$6-MFA-1$mw$,$mw$8-MFA$mw$,$mw$10-MFA$mw$,$mw$12-MFA$mw$,$mw$15-MFA$mw$,$mw$HD310C$mw$,$mw$315FC$mw$,$mw$TFN$mw$]::text[], $mw$Victor Tip Charts form 65-2505 (MFA/MFA-1 heating nozzles: pressures and consumption); Victor Professional Welding and Heating Nozzles reference; CGA G-1 (acetylene withdrawal, 1/7 rule); Machinery's Handbook temperature colours; SKF/Timken bearing heating limits (250°F / 120°C max); AWS D1.1 heat straightening temperature limits.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
