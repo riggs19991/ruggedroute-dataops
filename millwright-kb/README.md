@@ -98,9 +98,19 @@ Password settings.
 
 ## Where to see it
 
-**Live web app:** https://riggs19991.github.io/ruggedroute-dataops/ (published by
-`.github/workflows/millwright-kb-pages.yml` on every push; no secrets needed). It is also a
-PWA: on a phone, "Add to Home Screen" installs it with an icon and full-screen mode.
+**Live web app:** https://millwright-kb.WORKERS_SUBDOMAIN.workers.dev (exact URL printed by the
+`millwright-kb` workflow's deploy step). It is a Cloudflare Worker serving the static build
+with single-page-app routing, deployed by `.github/workflows/millwright-kb.yml` on every
+push using the same `CLOUDFLARE_API_TOKEN` the tiles worker uses (Workers Scripts: Edit).
+It is also a PWA: on a phone, "Add to Home Screen" installs it with an icon and full-screen mode.
+
+Add the URL to Supabase → Authentication → URL Configuration (Site URL and Redirect URLs)
+so sign-up confirmation emails land back on the app. Supabase itself cannot host the page:
+its platform serves HTML from functions and public buckets as plain text on purpose.
+
+Optional nicer URLs: the `millwright-kb-pages.yml` workflow publishes to GitHub Pages once
+Pages is switched on in the repo settings (Settings → Pages → Source: GitHub Actions), and
+a custom domain can be attached to the Worker in the Cloudflare dashboard.
 
 ## Google Play and the App Store (Capacitor)
 

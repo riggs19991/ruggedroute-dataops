@@ -1,6 +1,6 @@
 name: millwright-kb
 # Type-checks and builds the Millwright Knowledge Base app on every change.
-# Deploys to Cloudflare Pages on main when CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID exist;
+# Deploys to a Cloudflare Worker (static assets) when CLOUDFLARE_API_TOKEN exists;
 # skips the deploy gracefully otherwise (same pattern as deploy-worker.yml).
 
 on:
@@ -37,19 +37,19 @@ jobs:
           name: millwright-kb-dist
           path: millwright-kb/dist
           retention-days: 7
-      - name: Deploy to Cloudflare Pages
-        # pushes and manual runs deploy (when the secrets exist); pull requests only build.
-        # Non-fatal: the build above is the real check. Needs a token with "Cloudflare Pages: Edit".
+      - name: Deploy to Cloudflare Workers (static assets)
+        # Pushes and manual runs deploy when the token exists; pull requests only build.
+        # Uses the same token as deploy-worker.yml (Workers Scripts: Edit is enough).
         if: github.event_name != 'pull_request'
-        continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          # The R2 account id is the same Cloudflare account id; used when no dedicated secret exists.
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || secrets.R2_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "::notice::Cloudflare secrets not configured — skipping Pages deploy (dist is attached as an artifact)."
+            echo "::notice::Cloudflare secrets not configured — skipping deploy (dist is attached as an artifact)."
             exit 0
           fi
-          npx wrangler@4 pages project create millwright-kb --production-branch main 2>&1 | grep -v "already exists" || true
-          npx wrangler@4 pages deploy dist --project-name millwright-kb --branch main --commit-dirty=true
+          npx wrangler@4 deploy 2>&1 | tee deploy.log
+          url=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1)
+          echo "::notice title=Millwright KB deployed::$url"
+          echo "### Millwright KB is live at $url" >> "$GITHUB_STEP_SUMMARY"
