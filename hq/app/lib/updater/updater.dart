@@ -49,11 +49,10 @@ class Updater {
   /// True when [candidate] is newer than [current].
   static bool isNewer(int candidate, int current) => candidate > current;
 
-  Future<ReleaseInfo?> checkForUpdate() async {
+  /// Latest published release for this platform, or null if none exist yet.
+  Future<ReleaseInfo?> latestPublished() async {
     final p = platform;
     if (p == null) return null;
-    final info = await PackageInfo.fromPlatform();
-    final current = int.tryParse(info.buildNumber) ?? 0;
     final rows = await Hq.instance.client
         .from('hq_app_releases')
         .select()
@@ -61,7 +60,14 @@ class Updater {
         .order('build_number', ascending: false)
         .limit(1);
     if ((rows as List).isEmpty) return null;
-    final rel = ReleaseInfo.fromRow(Map<String, dynamic>.from(rows.first));
+    return ReleaseInfo.fromRow(Map<String, dynamic>.from(rows.first));
+  }
+
+  Future<ReleaseInfo?> checkForUpdate() async {
+    final rel = await latestPublished();
+    if (rel == null) return null;
+    final info = await PackageInfo.fromPlatform();
+    final current = int.tryParse(info.buildNumber) ?? 0;
     return isNewer(rel.buildNumber, current) ? rel : null;
   }
 

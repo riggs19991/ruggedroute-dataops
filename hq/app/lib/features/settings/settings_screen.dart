@@ -28,10 +28,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _check() async {
     setState(() { _status = 'Checking…'; _available = null; });
     try {
+      final latest = await Updater.instance.latestPublished();
       final rel = await Updater.instance.checkForUpdate();
       setState(() {
         _available = rel;
-        _status = rel == null ? 'You have the latest version.' : 'Version ${rel.version} is available.';
+        _status = rel != null
+            ? 'Version ${rel.version} (build ${rel.buildNumber}) is available.'
+            : latest == null
+                ? 'No releases have been published yet.'
+                : 'You have the latest published version (${latest.version}, build ${latest.buildNumber}).';
       });
     } catch (e) {
       setState(() => _status = 'Could not check: $e');
