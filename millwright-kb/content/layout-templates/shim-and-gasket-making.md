@@ -4,7 +4,7 @@ slug: shim-and-gasket-making
 category: layout-templates
 kind: procedure
 tags: [shims, slotted shims, precut shims, shim kit, shim sizes, Maudlin, Accushim, shim stock, stainless shim, brass shim, shim stacking, soft foot, shim pack, tapered shim, making shims, gasket making, gasket cutting, gasket material, gasket thickness, compressed sheet, rubber gasket, cork gasket, PTFE gasket, spiral wound, ball peen gasket, gasket punch, gasket template, full face gasket, ring gasket]
-source: "Maudlin Products / Accushim precut shim catalogues (sizes A-D, slot widths, thickness series); API RP 686 shim rules (maximum five shims, minimum pack 1/8"); Garlock and Lamons gasket handbooks (material selection, thickness); ASME B16.21 non-metallic flat gaskets; general trade practice."
+source: "Maudlin Products / Accushim precut shim catalogues (sizes A-D, slot widths, thickness series); API RP 686 shim rules (maximum five shims, minimum pack 1/8 in); Garlock and Lamons gasket handbooks (material selection, thickness); ASME B16.21 non-metallic flat gaskets; general trade practice."
 summary: "The shim sizes and thicknesses you buy and how to stack them under machine feet without creating soft foot, how to cut and mark custom shims and tapered shims from stock, and how to select a gasket material for the fluid and temperature and make a flat gasket from a flange or a template by tracing, peening or punching, with the thickness and surface rules that keep it sealed."
 ---
 

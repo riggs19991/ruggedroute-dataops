@@ -1955,6 +1955,1442 @@ Backlash is the free play between meshing teeth. Too little = binding and heat; 
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$anchor-bolts-and-foundations$mw$, $mw$Anchor Bolts and Foundations: Foundation Mass and Cure Rules, Cast-In J-Bolts with Sleeves, Wedge, Sleeve, Drop-In and Adhesive Anchors (Selection, Embedment, Hole Sizes, Torque, Cure), Building an Anchor-Bolt Template, Setting Bolts for a Pour, Edge Distance and Spacing$mw$, $mw$What a machine foundation must be and how long it must cure, the anchor types and when to use each with their embedment, hole size, torque and cure numbers, how to build and set an anchor-bolt template so the bolts land where the baseplate wants them, sleeves and free-stretch length, and the edge-distance and spacing rules that keep an anchor from splitting the concrete.$mw$, $mw$## Foundations
+
+- **Mass**: a rotating machine's foundation block should weigh **at least 3× the machine (machine + driver + base)**, a reciprocating machine's **5×** (API 686, Ch. 4), sized so the combined centre of gravity is low and the block does not rock. Isolated from the floor slab with an expansion joint so machine vibration does not travel and floor loads do not tilt the block.
+- **Concrete**: 3,000-4,000 psi minimum; reinforced; the top left rough (not trowelled) if grout will go on it, and **chipped to expose aggregate** before grouting (see [grouting](/article/grouting-baseplates)).
+- **Cure**: concrete reaches design strength at **28 days**; API 686 wants the foundation at full design strength before grouting and machinery loads; a practical minimum before grouting is **7 days** (and the grout maker's own requirement, epoxy grouts want the concrete **dry**: 28 days or a moisture test). Do not set anchors in green concrete.
+- **Level and location**: the top of the block is left **1-2" below the baseplate's bottom** (the grout space) and checked for elevation and position against the column lines before the machine arrives; **anchor-bolt positions checked against the actual baseplate**, not the drawing alone (baseplates arrive with holes 1/8" off).
+
+## Anchor types
+
+| Type | How it works | Use | Notes |
+|---|---|---|---|
+| **Cast-in J-bolt / L-bolt / headed bolt, with sleeve** | Set in the wet concrete on a template | **Machinery baseplates**, anything with a grouted base; the API 686 standard | Sleeve (pipe 2-3× bolt Ø, foam-filled or taped, around the top 6-12" of the bolt) lets the bolt be pulled 1/4-1/2" to meet the baseplate hole and gives **free-stretch length** so the bolt stays tight; **≥ 10 Ø embedded and ≥ 12 Ø free stretch** (Chockfast) |
+| **Wedge (expansion) anchor** (Kwik Bolt, Strong-Bolt, Wedge-All) | Expansion clip pulled up a cone as the nut is torqued | Machine feet on existing floors, guards, racks, light bases, anything under 3/4-1" | **Cracked and uncracked concrete ratings (ICC-ES ESR)**; one-piece: cannot be removed, cut it flush; **not for overhead in vibration-critical or in unreinforced masonry without the CMU rating** |
+| **Sleeve anchor** | A full-length sleeve expands | Masonry, block, brick, soft concrete | Lower capacity, more forgiving of hole size |
+| **Drop-in anchor** | Internally threaded, set with a setting tool | Overhead hangers, threaded rod, removable bolts | Flush; bolt can be removed and replaced; needs the setting tool driven fully |
+| **Adhesive (epoxy or hybrid) anchor** (HIT-RE 500, HIT-HY 200, SET-3G, AT-XP) with threaded rod or rebar | Resin bonds the rod in a clean hole | **Heavy machinery on existing concrete**, close to edges, high loads, seismic, where you cannot cast in | Highest capacity; **hole cleaning is everything**; cure before load; temperature-dependent cure; not for hot service above the resin's rating (about 110-160°F long term) |
+| Undercut anchor | Cuts a bearing surface at the bottom | Heavy overhead and seismic, cracked concrete | Specialist |
+| Screw anchor (Titen HD, Kwik HUS) | Threads cut into the concrete | Light and medium, removable, temporary | Fast, no torque setting |
+| Grouted-in bolt (cored hole, cementitious or epoxy grout around a J-bolt) | | Retrofit machine anchors | A cast-in bolt after the fact |
+
+## Wedge anchor numbers (Hilti KB-TZ2 in concrete; other makers similar, always use the box or the ESR)
+
+| Diameter | Drill bit | Min hole depth | Nominal embedment | Installation torque (carbon steel) |
+|---|---|---|---|---|
+| 3/8" | 7/16" | 1-7/8" | 1-1/2" | **30 ft-lb** |
+| 1/2" | 9/16" | 2-1/2" | 2" | **50 ft-lb** (SS: 40) |
+| 5/8" | 11/16" | 3" | 2-3/4" | **110 ft-lb** (SS: 60) |
+| 3/4" | 13/16" | 3-1/4" | 3-1/4" | **185 ft-lb** |
+| 1" | 1-1/8" | 4-1/4" | 3-3/4" | per the maker's table |
+
+Other common wedge anchors (Simpson Wedge-All, Red Head): 3/8" 25-30 ft-lb, 1/2" 55-60, 5/8" 90, 3/4" 150, 1" 300; they are **not** the same as the Hilti values above, so read the box. Bit size = **anchor diameter** for wedge and sleeve anchors (an ANSI-tolerance carbide bit); over-drilling by even 1/32" halves the holding value.
+
+**Installation**: drill to depth (mark the bit), **clean the hole** (blow, brush, blow), drive the anchor through the base until the washer seats, then **torque to the table**; a re-check torque after 24 h (the wedge seats) is good practice. Minimum concrete thickness about 1.5× embedment; do not drill into the anchor's own cone zone of another anchor.
+
+## Adhesive anchor procedure (Hilti HIT-RE 500 / HY 200, Simpson SET-3G)
+
+1. **Drill** with a carbide bit of the size on the cartridge chart (usually rod + 1/8": 5/8" rod → 3/4" bit; 3/4" rod → 7/8"; 1" rod → 1-1/8"), to the embedment on the chart (typical **9-12 × rod diameter** for full strength; e.g. 3/4" rod → 6-3/4 to 9"). Hollow drill bits with vacuum are allowed by some ESRs and skip the cleaning step.
+2. **Clean**: **blow (compressed air or the maker's pump, to the bottom of the hole) – brush (the maker's wire brush, full depth, 2-4 strokes) – blow again**, until no dust comes out. Dust on the wall = a failed anchor. Wet holes and water-filled holes only with resins rated for them (RE 500 V4 is; check).
+3. **Dispense**: cartridge in the gun, discard the first 2-3 strokes (unmixed), mixing nozzle to the bottom of the hole, fill from the bottom **2/3 full** while withdrawing.
+4. **Insert the rod** slowly with a twisting motion to the marked depth; resin should ooze out the top; wipe. Support the rod so it does not sink or tilt (a wedge or a template for a bolt group).
+5. **Cure** before touching or loading (typical for HIT-RE 500 V4: about 12 h at 68°F, 24 h at 50°F, 72 h at 41°F; HY 200 hybrid: 30 min at 68°F, 1.5 h at 41°F, 3 h at 23°F; SET-3G: 24 h at 70°F; **read the cartridge**). No torque until cured; then torque to the maker's value (adhesive anchors are torqued only to seat, and the value comes from the cartridge chart, not a bolt torque table).
+6. Record the batch, the temperature and the time; special inspection is required on adhesive anchors in many jurisdictions for overhead and sustained tension.
+
+## Building and setting an anchor-bolt template
+
+1. From the **actual baseplate** (or its certified drawing): measure hole centres, diagonals and the hole diameters; mark the baseplate's centrelines and a datum corner.
+2. Template: 3/4" plywood or a welded frame of angle/flat bar, big enough to span the form; drill the bolt holes **at the baseplate's hole size** (or the bolt size for a snug fit that will not let the bolt tilt); mark centrelines and "NORTH" or the driver end.
+3. Check the template against the baseplate by laying it on (or bolting it on) before the pour.
+4. Hang the bolts in the template with **two nuts** (one above, one below the plywood) so they are plumb and at the right **projection** (top of bolt = baseplate bottom + baseplate thickness + grout thickness + nut + washer + 2-3 threads; API 686: 1-1/2 to 3 threads above the nut). Fit the **sleeves** around the bolt's top section, taped or foam-filled so no concrete gets in, and seal the top of the sleeve.
+5. Set the template on the form at the elevation and position from the column lines (measure from two axes, check diagonals, plumb bob to the floor marks); **brace it** to the form or stakes so the pour cannot move it; recheck after the rebar is tied and again just before the pour.
+6. During the pour, keep the vibrator off the bolts; after the pour, recheck positions while the concrete is still plastic; clean the threads immediately (a coating of grease and a cap or tape before the pour saves grief).
+7. After cure: remove the template, check every bolt's position against the baseplate (drop the baseplate on, or measure), and the projection; bend or cut nothing without the engineer.
+
+## Edge distance and spacing (rules of thumb; the ESR and ACI 318 govern)
+
+| Rule | Value |
+|---|---|
+| Minimum edge distance, expansion anchors | **≥ 6 × anchor diameter** (5/8" → 3-3/4"; 3/4" → 4-1/2"); critical (full capacity) 10-12 Ø |
+| Minimum spacing between expansion anchors | ≥ 6 Ø (full capacity at 10-12 Ø) |
+| Adhesive anchors | Edge ≥ 5 Ø, spacing ≥ 5 Ø minimum, reduced capacity below 1.5 × embedment |
+| Cast-in bolts | Edge distance ≥ 4-6 Ø and enough cover for the sleeve; the engineer's drawing rules |
+| Concrete thickness | ≥ 1.5 × embedment for wedge anchors; the hole must not break through |
+| Rebar hit | Move the hole (spacing rules) or core with a rebar cutter only with approval; never bend the anchor to miss it |
+
+## Common mistakes
+
+- Setting anchors into a slab poured last week and torquing them: they pull.
+- No sleeves on cast-in bolts: the baseplate holes are 1/4" off and nothing can be moved; the bolts get heated and bent (never do that on machinery anchors).
+- Wedge anchor bit "close enough" (a worn or oversize bit): the anchor spins and never sets.
+- Adhesive anchor holes drilled and not brushed: pull-out at half the load.
+- Torquing a wedge anchor with an impact wrench: over-torqued and the cone is stripped.
+- Anchor template not braced: the pour moved it 3/8" and the base now needs slotted holes.
+- Forgetting the grout space: the baseplate ends up sitting on the concrete with no room for grout.
+
+## Related
+
+- [Grouting baseplates](/article/grouting-baseplates)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Hole patterns and drilling templates](/article/hole-patterns-and-flange-templates)
+- [Hole making in the field (rotary hammers)](/article/hole-making-in-the-field)
+- [Bolt torque and fastener basics](/article/bolt-torque-chart-sae-metric)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$anchor bolts$mw$,$mw$foundation$mw$,$mw$machine foundation$mw$,$mw$J bolt$mw$,$mw$cast in anchor$mw$,$mw$anchor bolt sleeve$mw$,$mw$wedge anchor$mw$,$mw$sleeve anchor$mw$,$mw$drop in anchor$mw$,$mw$epoxy anchor$mw$,$mw$adhesive anchor$mw$,$mw$Hilti HIT-RE 500$mw$,$mw$Kwik Bolt$mw$,$mw$anchor torque$mw$,$mw$anchor embedment$mw$,$mw$anchor bolt template$mw$,$mw$edge distance$mw$,$mw$anchor spacing$mw$,$mw$concrete cure$mw$,$mw$foundation mass 3 times$mw$,$mw$rebar hit$mw$,$mw$hole cleaning$mw$,$mw$anchor bolt projection$mw$]::text[], $mw$Hilti / Simpson Strong-Tie (generic)$mw$, array[$mw$Kwik Bolt TZ2$mw$,$mw$KB-TZ2$mw$,$mw$HIT-RE 500 V4$mw$,$mw$HIT-HY 200$mw$,$mw$Strong-Bolt 2$mw$,$mw$Wedge-All$mw$,$mw$SET-3G$mw$,$mw$AT-XP$mw$]::text[], $mw$API RP 686 Recommended Practice for Machinery Installation (foundation and anchor bolt chapters: mass ratios, sleeves, projection); Hilti KB-TZ2 installation instructions (bit size, hole depth, embedment, torque); Hilti/Simpson adhesive anchor instructions (hole cleaning, cure tables); ACI 318 Chapter 17 anchoring (edge distance and spacing concepts); ITW Chockfast grouting guidance (bolt free-stretch length).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$grouting-baseplates$mw$, $mw$Grouting Baseplates: Cementitious vs Epoxy Grout Selection, Concrete and Baseplate Preparation, Forms with Chamfers and Head Boxes, Mixing and Pouring in One Direction, Cure Times, Expansion Joints, Removing Jack Screws, Soundness Check and Common Grout Failures$mw$, $mw$How to grout a machinery baseplate so it becomes part of the foundation: choosing epoxy or cementitious grout, chipping the concrete and preparing the baseplate underside, building leak-proof forms with chamfers, head boxes and vents, conditioning and mixing, pouring from one side without voids, curing before you load it, and the checks (sounding, edge sealing, jack-screw removal) that separate a good grout job from a hollow one.$mw$, $mw$## Why grout
+
+The baseplate sits on jack screws or shims at the anchor bolts with a 1-2" gap to the concrete; grout fills that gap so the whole underside is supported, the baseplate cannot flex or vibrate, and the anchor bolts do not carry bending. A void under a pump's mounting pads shows up later as alignment that will not hold and as a resonance.
+
+## Epoxy or cementitious
+
+| | **Epoxy grout** (Chockfast Orange/Red, Escoweld, Five Star DP, MasterFlow 648) | **Cementitious (non-shrink) grout** (Five Star Grout, MasterFlow 928, Sika 212) |
+|---|---|---|
+| Use | Rotating machinery, pumps, compressors, gearboxes, anything with vibration, oil or chemical exposure; API 686 default | Structural column bases, light machinery, static equipment, budget jobs, indoor dry |
+| Compressive strength | 12,000-19,000 psi (Chockfast Orange 19,000) | 7,000-10,000 psi at 28 days |
+| Bond to steel and concrete | Excellent (needs clean, dry surfaces) | Poor to fair (bond is mechanical) |
+| Oil and chemical resistance | Excellent | Poor (oil degrades it) |
+| Shrinkage | Very low; cures by reaction | Non-shrink formulations expand slightly; must be kept wet-cured |
+| Pour depth per lift | **1/2" to 4"** typical (Chockfast Orange; deep-pour versions to 18") | 1" to 6" typical; deeper with aggregate |
+| Working time | 30-45 min at 70°F; shorter when hot | 30-60 min |
+| Cure before load | Handling 12-24 h at 77°F; **full cure 3-7 days**; torque anchors and align after the maker's minimum (often 24-48 h at 70°F) | 24-72 h before light load; **7 days** before torque and alignment; 28 days full |
+| Temperature window | Materials and foundation **65-95°F** (Chockfast); below 60°F the cure stalls, above 95°F it flashes | 45-90°F; protect from freezing |
+| Expansion joints | **Every 4-7 ft** on long pours (Chockfast) because epoxy expands 3-5× more than concrete | Not usually |
+| Cost | High | Low |
+| Mistakes | Voids from air under the plate, cold materials, damp concrete | Shrinkage cracks, oil softening, poor bond |
+
+For a pump and motor on a fabricated steel baseplate: **epoxy**. For a small guard post or a column base: cementitious.
+
+## Preparation
+
+### Concrete
+
+1. Concrete cured (28 days for epoxy; 7 days minimum for cementitious) and **dry** for epoxy (tape a plastic sheet down for 24 h: condensation under it means wet).
+2. **Chip** the surface with a light chipping hammer to remove the laitance (weak surface skin) and expose **at least 50% coarse aggregate**, to a depth of 1/2-1"; no bush hammers or heavy breakers that fracture the concrete below. Round the edges of the pour area.
+3. **Clean**: blow and vacuum every particle of dust; no oil, curing compound or water. For cementitious grout, **soak the concrete for 24 h** and remove standing water just before the pour (saturated surface dry); for epoxy the concrete stays **dry**.
+4. Anchor bolt sleeves: filled with foam or sealed so grout cannot lock the bolt (the free-stretch length must stay free); bolt threads taped or greased.
+
+### Baseplate
+
+1. Underside **clean, bare metal or epoxy primer** (the makers want "near white" for epoxy: sandblast SSPC-SP10 or at least power-tool clean to SP3, primed within hours with the grout maker's approved epoxy primer); rust, mill scale and old paint do not bond.
+2. **Vent holes** (1/2" minimum) at every enclosed pocket and at the high points of the underside; **grout (fill) holes** (2-4") in the deck between the stiffeners; API 686 asks for a baseplate designed with a vent and fill hole in each compartment.
+3. Level the baseplate on **jack screws** (API 686: jack screws at each anchor, on steel pads of 1/4" plate or hardened discs, greased or waxed so they release) or on shim packs; see [leveling and machine setting](/article/leveling-and-machine-setting). Anchor bolts snug, not torqued (they distort the plate).
+4. **Wax or tape** every surface the grout must not stick to: jack screws and their pads, anchor bolts, levelling wedges, the form.
+
+### Forms
+
+- Rigid, **leak-proof** (epoxy grout finds every gap): plywood or 2× lumber, sealed at the concrete with putty or foam, braced; three coats of **paste wax** (or the maker's release agent) on every grout-contact surface so the form strips.
+- Form top **1" above the baseplate's bottom flange** so the grout covers the flange edge, and a **45° chamfer strip** along the top edges (grout edges chip and crack without it).
+- **Head box**: a raised box on the pour side, 4-6" above the plate, that gives hydraulic head to push grout across the underside and out the far side; the far side form 1/2-1" above the flange (so you can see the grout arrive).
+- Clearance from the baseplate edge: 1-2" of exposed grout shoulder for epoxy, 2-4" for cementitious; expansion joints (a 1/2" foam or wood strip, later sealed) every 4-7 ft on epoxy pours and at the baseplate's stiffener lines.
+- Cover the top of the baseplate with plastic and tape the vent/fill holes not in use; grout on machined pads is a day's scraping.
+
+## Mixing and pouring
+
+1. **Condition** all components to 65-95°F (Chockfast) for 24 h; shade the foundation or warm it with lamps/tents; the concrete's temperature governs the cure.
+2. Mix resin and hardener **completely** (3 minutes with a slow drill and paddle; scrape the sides), then add aggregate **one bag at a time**, mixing **only until wet out** (over-mixing traps air); the mix should be wet and flowing but with no free resin. Use full kits; never split them. Cementitious: measured water per the bag, mortar mixer, flowable consistency verified with a flow cone if the spec demands.
+3. **Pour from one side only**, into the head box, continuously, letting the grout flow under the plate and out the vents and the far side; **never pour from both sides** (a void where the two fronts meet). Use a plunger or a strap to help it along stiffener pockets; do not vibrate epoxy (air). Keep the head box topped up.
+4. Watch every vent hole: when grout rises in a vent, plug it; the pour is done when grout is up at the far side and every vent is full.
+5. Working time is short: **two or three people** mixing and pouring in sequence; a 20-gallon kit every 10 minutes on a big base.
+6. Finish the exposed shoulder with a trowel and the chamfer strip; cementitious grout gets a **wet cure** (wet burlap and plastic) for 3-7 days; epoxy is left alone. Keep the area **warm and dry** for the cure period; no vibration from adjacent machines (isolate or schedule).
+
+## After the cure
+
+1. Strip the forms (epoxy 24 h typically). **Sound** the grout: tap all over the baseplate deck with a small hammer; a hollow, drummy sound = a void. Small voids get drilled and **pressure-injected** with low-viscosity epoxy; large voids: chip out and re-pour.
+2. **Remove or back off the jack screws** (API 686: back them out at least a turn or remove them and fill the holes with sealant, so the baseplate rests on the grout, not on the screws) and remove levelling wedges; fill the holes with silicone or epoxy.
+3. **Torque the anchor bolts** to the specified value after the maker's cure time (never before), in a cross pattern, in steps.
+4. Seal the grout-to-baseplate edge with a bead of epoxy or sealant (stops oil and water getting under and lifting the grout).
+5. Check the baseplate **level and flatness again** (it can move 0.002-0.005" during grouting): if it is out beyond the alignment tolerance, the machine is shimmed to it; if grossly out, the grout is chipped and redone.
+6. Only now mount the machines and align (cold), then pipe, then check pipe strain: see [leveling and machine setting](/article/leveling-and-machine-setting) and [pipe strain](/article/pipe-strain-and-flange-alignment).
+
+## Common grout failures
+
+| Failure | Cause |
+|---|---|
+| Voids under the pads (hollow sound) | Poured from two sides, no head box, no vents, mix too stiff, air from over-mixing, cold grout |
+| Grout cracked along the edge | No chamfer, no expansion joint on a long epoxy pour, too thin a shoulder |
+| Grout debonded from the baseplate | Rusty or painted underside, oil on the plate, damp concrete (epoxy), no primer |
+| Grout cracked over the anchor bolts | Bolt not sleeved; thermal movement of the bolt tore the grout |
+| Soft, gummy epoxy | Cold cure (below 60°F), wrong ratio, split kit |
+| Cementitious grout crumbling under oil | Wrong grout for the service |
+| Baseplate rocking on the jack screws | Screws never backed off |
+| Alignment will not hold | Any of the above; also a baseplate too flexible for the job |
+
+## Related
+
+- [Anchor bolts and foundations](/article/anchor-bolts-and-foundations)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Soft foot correction](/article/soft-foot-correction)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Machine guarding and commissioning](/article/machine-guarding-and-commissioning)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$grouting$mw$,$mw$grout$mw$,$mw$epoxy grout$mw$,$mw$cementitious grout$mw$,$mw$baseplate grout$mw$,$mw$Chockfast$mw$,$mw$Five Star$mw$,$mw$MasterFlow$mw$,$mw$grout forms$mw$,$mw$head box$mw$,$mw$chamfer$mw$,$mw$grout pour$mw$,$mw$grout cure$mw$,$mw$expansion joint grout$mw$,$mw$jack screws grout$mw$,$mw$grout voids$mw$,$mw$sounding grout$mw$,$mw$chipping concrete$mw$,$mw$laitance$mw$,$mw$grout thickness$mw$,$mw$grout temperature$mw$,$mw$pump baseplate grout$mw$,$mw$sole plate grout$mw$]::text[], $mw$ITW Chockfast / Five Star / Master Builders (generic)$mw$, array[$mw$Chockfast Orange$mw$,$mw$Chockfast Red SG$mw$,$mw$Escoweld 7505E$mw$,$mw$Five Star Grout$mw$,$mw$Five Star DP Epoxy$mw$,$mw$MasterFlow 928$mw$,$mw$MasterFlow 648$mw$]::text[], $mw$API RP 686 Chapter 5 (grouting); ITW Chockfast epoxy grout installation cheat sheet and technical bulletins (concrete prep with 50% exposed aggregate, 65-95°F conditioning, three coats of paste wax on forms, head boxes, expansion joints at 4-7 ft, bolt free stretch); Five Star and MasterFlow product data (cementitious grout flow, cure); Chockfast Orange TDS (pour depth 1/2 to 4 in, cure 12-24 h handling, 3-7 days full).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$leveling-and-machine-setting$mw$, $mw$Leveling and Machine Setting: Installation Sequence from Crate to Coupling, Precision Levels (Sensitivity, Reversal Check, How to Read Them), Leveling a Baseplate on Jack Screws and Shims to API 686 Tolerances, Pad Flatness and Coplanarity, Sole Plates and Chocks, Setting the Machines, Doweling$mw$, $mw$The order of operations for installing a machine on a foundation and why each step comes where it does, how to use a precision level correctly with the reversal check and the conversion from divisions to inches, how to level a baseplate on jack screws to the API 686 numbers before grouting, how to check the mounting pads for flatness and coplanarity, the sole-plate and chock alternatives, setting the driver and driven machines on the base, and doweling after the final hot alignment.$mw$, $mw$## The sequence
+
+| Step | What | Why in this order |
+|---|---|---|
+| 1 | Receiving inspection: damage, rotation by hand, shaft runout, nameplate vs order, preservation | Claims before it is installed |
+| 2 | Foundation check: elevation, position vs column lines, anchor bolts vs baseplate, cure | See [anchor bolts](/article/anchor-bolts-and-foundations) |
+| 3 | Set the baseplate on jack screws/shims, **level it**, check pad flatness | Level before grout; grout locks it |
+| 4 | **Grout**, cure, back off jack screws, torque anchors, re-check level | See [grouting](/article/grouting-baseplates) |
+| 5 | Set the driven machine (pump) first with a **1/8" shim pack** under the driver; rough align | The pump is fixed by its piping; the motor moves |
+| 6 | Correct **soft foot** on both machines | Before any alignment reading |
+| 7 | **Rough alignment** (within 0.020") | Before piping, so pipe is fitted to a machine in its final place |
+| 8 | Connect piping; **pipe strain check** | Piping must not move the pump |
+| 9 | **Final cold alignment** with thermal growth targets | See the alignment articles |
+| 10 | Rotation check (uncoupled), lube, guards, coupling | |
+| 11 | Run-in, **hot alignment check**, then **dowel** | Dowels lock the final position |
+| 12 | Baseline data (vibration, temperatures, alignment record) | For the PM program |
+
+Break the order (piping before alignment, dowels before the hot check, grout before level) and every later step fights the earlier one.
+
+## Precision levels
+
+| Level | Sensitivity per division | Arc | Use |
+|---|---|---|---|
+| Carpenter's / torpedo level | about 0.03-0.05"/ft | 10-15 min | Rough placement only |
+| **Machinist's level (Starrett 98)** | **0.005"/ft (0.42 mm/m)** | 80-90 s | General machinery, conveyors, gearboxes |
+| **Master precision level (Starrett 199, Mitutoyo 960)** | **0.0005"/ft (0.04 mm/m)** | 10 s | Baseplates for API pumps, compressors, machine tools |
+| Electronic level (Wyler, Federal) | 0.0001-0.0002"/ft | 1-2 s | Precision beds, long-span comparisons |
+
+Reading: the bubble moves **toward the high end**. One division on a 199 = 0.0005" per foot of level length; across a 4 ft baseplate one division means the far end is 4 × 0.0005 = **0.002" high**. Sensitive levels take 20-30 seconds to settle; shield from drafts and sun, and do not hold the vial end with a warm hand (the bubble runs from the heat).
+
+**Reversal (calibration) check**, every time before trusting a reading: set the level on the surface, note the bubble position; **rotate it 180°** on the same spot; note again. If both readings are the same, the level is true and the surface is at that reading. If they differ, the surface's true slope is the **average** and the difference ÷ 2 is the level's error: adjust the vial (the adjusting screw on a 98/199) until both readings match, or apply the correction.
+
+Place the level on **machined surfaces only** (pads, a shaft, a ground parallel), cleaned, never on paint or a rough deck; use a ground parallel or a straightedge to bridge between pads; check each pad **in two directions** at 90°.
+
+## Leveling a baseplate (before grout)
+
+Tolerances (API 686 practice; use the drawing or the plant spec if it says otherwise):
+
+| Item | Target |
+|---|---|
+| Level, longitudinal and transverse | **0.0002"/ft (0.017 mm/m)** for API-class pumps and compressors is the commonly applied API 686 target; **0.001-0.002"/ft** is typical for general industrial machinery (fans, gearboxes, conveyors drives) |
+| Mounting pads flat | 0.002" over the pad (feeler gauge under a straightedge) |
+| Pads of one machine **coplanar** (in one plane) | within **0.002"** of each other |
+| Driver pads relative to driven pads | Driver pads at least the shim pack height (**1/8"**) **below** the line of the driven pads, and parallel to them |
+| Elevation vs drawing | ± 1/8" (3 mm) |
+
+Procedure:
+
+1. Anchor bolts hanging loose in the sleeves; baseplate on its **jack screws** (API 686: one at each anchor bolt, minimum four, on steel pads) or on shim packs at the anchors, about 1-2" above the concrete.
+2. Level with the **master level on the pump pads** (the machined surfaces) longitudinally, then transversely, adjusting the jack screws **in pairs** so you do not twist the plate; then the driver pads; then diagonally to check twist. Small turns: a 1/2-13 jack screw moves the plate **0.077" per turn**, so a sixth of a turn is 0.013".
+3. Check pad flatness and coplanarity with a straightedge and feelers across all the pads; a plate that cannot be levelled without twisting has a warped deck: shim under the pads later, or send it back.
+4. Bring the anchor bolt nuts to **finger tight plus a snug** (not torqued); recheck the level; a change means the plate is being pulled by a bolt that is not plumb or a sleeve full of concrete.
+5. Record the readings; wax the jack screws; grout.
+6. After the grout cures: back the jack screws off, torque the anchors in steps, **re-level**; the plate can move 0.002-0.005". If it is now outside tolerance, that is what shims under the machine feet are for; if it is way out, the grout was poured wrong.
+
+## Sole plates and chocks
+
+Big machines (large motors, compressors, mills) are not set on a one-piece baseplate but on **sole plates**: individual machined steel plates grouted to the foundation under each foot, levelled to each other with a precision level and a **transit or laser** across them, and doweled later. Alternatively **epoxy chocks** (Chockfast Orange poured in a dam under each foot, 1/2-2" thick) replace machined shims and sole plates: the chock takes the exact shape of the foot and the foundation, with no fitting, and is the marine and heavy-industry standard. Adjustable **steel chocks** (Vibracon, screw-adjusted wedges) allow re-levelling without re-grouting.
+
+## Setting the machines
+
+1. Pump (the driven, fixed machine) goes on first, on its pads, **no shims or a thin equal pack** (the pump is the reference; the piping decides where it sits); feet bolted, soft foot checked and corrected (see [soft foot](/article/soft-foot-correction)).
+2. Motor/driver on **shim packs of at least 1/8"** at every foot (API 686), the same thickness at each foot, so it can be lowered later; **maximum 5 shims per foot**, thick on the bottom; no more than 1/2" total stack, else machine a spacer.
+3. Rough align: straightedge across the coupling rims and feeler at the faces to within about 0.020"; centre the motor in its bolt holes so you have movement both ways (bolt-bound is a day lost); lock the motor with the jack bolts on the base (API 686 wants horizontal jack bolts at the driver feet).
+4. Connect piping to the pump (see [pipe strain](/article/pipe-strain-and-flange-alignment)); check the pump did not move.
+5. Final alignment: [rim-and-face](/article/rim-and-face-alignment), [reverse dial](/article/reverse-dial-alignment) or [laser](/article/laser-alignment-procedure) with [thermal growth](/article/thermal-growth-alignment) targets; torque the hold-down bolts to spec in the sequence and re-check.
+6. Guards, coupling per the coupling's own manual, lube.
+
+## Doweling
+
+After the machine has run at operating temperature and the **hot alignment** has been checked and accepted, dowels lock the position so it can be removed and replaced without re-aligning:
+
+- **Two dowels per machine**, on **diagonally opposite feet** (some plants: the two outboard feet of the pump, and none on the motor if it must move for alignment); through the foot into the baseplate pad (not into grout).
+- **Taper pins** (1:48 taper, ANSI B18.8.2): drill with the taper pin drill size, ream with the matching taper reamer until the pin's small end stands a set height above the foot, tap it home (large end up so it can be driven out from below or pulled with a slide hammer); or straight dowels with a reamed hole and a threaded end for extraction.
+- Dowel diameter ≈ **1/2 to 2/3 of the hold-down bolt** size; length through the foot and 1-1.5 × diameter into the base.
+- Never dowel a machine with large thermal growth on both feet ends (it cannot grow): dowel the fixed end only or use the maker's guidance.
+- Mark the dowel positions on the alignment record; re-ream if the machine is ever re-aligned.
+
+## Common mistakes
+
+- Levelling on the painted deck of the baseplate instead of the machined pads.
+- Trusting a level that has not been reversed: the baseplate is out by twice the vial error.
+- Grouting a baseplate that is level but twisted: the pads are not coplanar and the motor has a permanent soft foot.
+- No 1/8" shim pack under the motor: the pump wears in, the motor has to come down 0.005", and there is nowhere to go.
+- Piping connected before alignment: the pump is aligned to a position the piping will not let it keep.
+- Doweling before the hot check.
+- Torquing anchor bolts on green grout, or torquing them with the jack screws still holding the plate.
+
+## Related
+
+- [Anchor bolts and foundations](/article/anchor-bolts-and-foundations)
+- [Grouting baseplates](/article/grouting-baseplates)
+- [Soft foot correction](/article/soft-foot-correction)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Optical and laser levels and piano wire](/article/optical-and-laser-levels-piano-wire)
+- [Shim and gasket making (shim rules)](/article/shim-and-gasket-making)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$leveling a machine$mw$,$mw$machine installation$mw$,$mw$machine setting$mw$,$mw$precision level$mw$,$mw$machinist level$mw$,$mw$Starrett 98$mw$,$mw$Starrett 199$mw$,$mw$master precision level$mw$,$mw$level sensitivity$mw$,$mw$reversal check$mw$,$mw$jack screws$mw$,$mw$leveling baseplate$mw$,$mw$API 686 level tolerance$mw$,$mw$0.0002 in/ft$mw$,$mw$pad flatness$mw$,$mw$coplanar pads$mw$,$mw$sole plate$mw$,$mw$chock$mw$,$mw$epoxy chock$mw$,$mw$dowel pins$mw$,$mw$taper pin$mw$,$mw$doweling a pump$mw$,$mw$installation sequence$mw$,$mw$commissioning sequence$mw$]::text[], $mw$Starrett (levels), generic machinery$mw$, array[$mw$Starrett 98$mw$,$mw$Starrett 199$mw$,$mw$Starrett 199Z$mw$,$mw$Mitutoyo 960$mw$,$mw$Wyler$mw$,$mw$Federal precision level$mw$]::text[], $mw$API RP 686 Recommended Practice for Machinery Installation and Installation Design (installation sequence, baseplate leveling and flatness, shim limits, doweling); Starrett 98 and 199 level specifications (0.005 in/ft per division; 0.0005 in/ft per division, 10 arc-seconds); Piotrowski, Shaft Alignment Handbook; manufacturer installation manuals (Goulds, Baldor).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$machine-guarding-and-commissioning$mw$, $mw$Machine Guarding and Commissioning: Guard Types and OSHA Opening Rules, Coupling and Drive Guards, Pre-Start Checklist, Rotation Bump, First Run and Run-In, Bearing Temperature and Vibration Acceptance (ISO 20816 Zones), Hot Alignment Check, Baseline Data and Handover$mw$, $mw$The two things that finish an installation: guards that meet the OSHA rules for every rotating and nip point, and a commissioning run that proves the machine is right before the plant takes it: the pre-start checklist, checking rotation uncoupled, the first run with vibration and temperature limits, the hot alignment check and doweling, and the baseline data package that becomes the PM reference.$mw$, $mw$## Guarding rules
+
+- **Every** rotating shaft, coupling, sheave, belt, chain, sprocket, gear, flywheel, projecting key or set screw within **7 ft (2.1 m) of the floor or a working platform** must be guarded (OSHA 1910.219); points of operation, nip points and flying-chip hazards under 1910.212. Over 7 ft still needs guarding where people can reach from ladders or during maintenance if not locked out.
+- Guards are **fixed** (bolted, needs a tool to remove: the default for couplings and drives), **interlocked** (the machine stops when the guard opens: for access needed during operation), **adjustable** or **self-adjusting** (saws, grinders).
+- Guard openings: the allowed opening size depends on the **distance from the opening to the hazard** (OSHA Table O-10 / ANSI B11.19): within 1/2" of the hazard: opening ≤ 1/4"; at 1-1/2 to 2-1/2": ≤ 3/8"; at 2-1/2 to 3-1/2": ≤ 1/2"; at 3-1/2 to 5-1/2": ≤ 5/8"; at 5-1/2 to 6-1/2": ≤ 3/4"; at 6-1/2 to 7-1/2": ≤ 7/8"; at 7-1/2 to 12-1/2": ≤ 1-1/4"; at 12-1/2 to 15-1/2": ≤ 1-1/2"; over 31-1/2": up to 6". A finger fits through anything over 1/4"; **expanded metal guards must be at least 4" from the hazard** for the usual 1/2-3/4" mesh.
+- Guard must **not itself create a hazard** (sharp edges, pinch points, a guard that can contact the coupling), must be strong enough to withstand contact and a thrown coupling piece (1/8" plate or 12 ga expanded metal on a frame for couplings), and must not need removal for routine lubrication (grease fittings extended through the guard, inspection ports with a cover).
+- **Coupling guards**: enclose the coupling and the exposed shaft ends completely, fixed to the baseplate, **non-sparking** (aluminium or brass, or a stainless mesh) in classified areas per API 610/671; clearance to the coupling so a failed element does not hit the guard; a hinged or split design so alignment can be checked without unbolting the machine.
+- **Belt and chain guards**: cover the nip points at both sheaves/sprockets and the belt run within reach; a bottom open only if over 7 ft from anything.
+- **Fan and blower inlets** with mesh; **shaft ends** that project past a bearing get a cap; **set screws and keys** on collars and couplings must be flush or covered.
+- Guards go back on **before** the lockout is removed, every time; a missing guard is a stop-work item.
+
+Canadian note: CSA Z432 (Safeguarding of Machinery) and the provincial OHS regulations use the same principles with their own opening tables.
+
+## Pre-start checklist (mechanical completion)
+
+Tick every line; sign it.
+
+1. Installation records complete: level, grout sound, anchors torqued, [pipe strain test](/article/pipe-strain-and-flange-alignment) passed, final cold alignment record with thermal targets, soft foot corrected, hold-down bolts torqued, dowel plan (after hot check).
+2. **Lockout** in place on the electrical and process isolations while the following is done.
+3. Rotation by hand: free, no rubs, no noise, seals not binding; coupling **disconnected** (spacer out or element removed).
+4. **Lubrication**: bearings greased or oil at the correct level (constant-level oiler set and primed; sight glass at the mark), gearbox oil to the mark with the right oil, coupling greased if it is a grease type, oil mist or circulating lube systems running and proven before the machine can start.
+5. Cooling water, seal flush, seal pot filled and vented, quench, barrier fluid pressurised.
+6. Piping: strainers in, valves in the start-up position (suction open, discharge closed or cracked for a centrifugal, **open** for a PD pump with a relief valve), vents open then closed, pump **primed** and vented.
+7. Instruments: pressure gauges, temperature points, vibration probes, level switches, all connected and reading; alarms and trips set and **tested** (low oil pressure trip, high vibration trip, overspeed on turbines).
+8. Electrical: motor megger tested, connections per the nameplate voltage, overloads set to FLA × service factor, VFD parameters, emergency stops and interlocks tested, rotation checked (below).
+9. **Guards on**, area clean, tools removed, no loose items on the machine, drains closed, fire protection in service, lighting.
+10. People: operator briefed, permit signed, lockout removed by the lockout owner in the proper sequence, everyone clear.
+
+## Rotation check ("bump")
+
+With the coupling **disconnected** (never bump a coupled pump backwards: some impellers unscrew, and a gearbox may be one-way), give the motor a short **bump** (a second) and watch the fan or the shaft end: rotation must match the arrow on the pump/gearbox. Wrong: swap any two leads on a 3-phase motor (T1 and T2) at the starter, lockout on, and re-bump. Then connect the coupling per its manual (gap, bolt torque, grid or element in, guard).
+
+## First run and run-in
+
+1. Start with the discharge valve **cracked open** (centrifugal), bring it up to the operating point over a few minutes; watch for prime loss, seal leaks, noise. Listen with a stethoscope or a screwdriver at the bearing housings.
+2. Readings at **start, 15 min, 30 min, 1 h, 2 h, 4 h**, then each shift for the first day and daily for a week:
+   - Bearing housing temperature (contact thermometer or IR on a painted spot): rising then **stabilising** within 1-2 hours; typical stable **140-180°F (60-80°C)**; alarm at about **180°F (82°C)** housing / 200°F (95°C) oil, per the maker; a bearing that keeps climbing is over-greased, misaligned, preloaded or running dry: **shut down** and find out.
+   - Motor frame temperature and current vs FLA on all three phases (imbalance under 10%).
+   - **Vibration** at each bearing, horizontal/vertical/axial (see zones below).
+   - Suction and discharge pressure, flow, seal leakage (drips per minute for packing, dry for a mechanical seal after a few minutes), oil level, coupling temperature.
+   - Noise, smell, leaks at every flange.
+3. New bearings and gears run in: temperature may run 10-20°F higher for the first hours; grease-packed bearings purge and cool. A gearbox's first oil change comes early (per the maker: often 500 h or 2-4 weeks) to remove run-in debris.
+4. Stop and investigate at: vibration in Zone C/D, temperature still climbing after 2 h or above the alarm, seal spraying, unusual noise, current above FLA × SF, oil level falling.
+
+### Vibration acceptance (ISO 20816-3 / ISO 10816-3, overall velocity, mm/s RMS, 10-1000 Hz)
+
+| Machine group | Zone A (new, good) | Zone B (acceptable, unrestricted) | Zone C (restricted; plan repair) | Zone D (damage) |
+|---|---|---|---|---|
+| Group 1: large machines 300 kW-50 MW, rigid foundation | ≤ 2.3 | 2.3-4.5 | 4.5-7.1 | > 7.1 |
+| Group 1, flexible foundation | ≤ 3.5 | 3.5-7.1 | 7.1-11 | > 11 |
+| **Group 2: medium machines 15-300 kW (most pumps, fans, motors), rigid foundation** | **≤ 1.4** | **1.4-2.8** | **2.8-4.5** | **> 4.5** |
+| Group 2, flexible foundation | ≤ 2.3 | 2.3-4.5 | 4.5-7.1 | > 7.1 |
+| Pumps > 15 kW, integrated impeller (ISO 20816-3 group 3/4) | ≤ 2.3-3.2 | to 4.5-7.1 | to 7.1-11 | above |
+
+(1 mm/s = 0.0394 in/s; Zone B upper for a Group 2 rigid machine = **0.11 in/s**.) A new installation should be **Zone A** or low Zone B; anything in C at start-up is an installation problem (alignment, unbalance, looseness, resonance, pipe strain), not "running in". Full signature interpretation in [vibration basics](/article/vibration-basics-and-iso-severity).
+
+## Hot alignment check and doweling
+
+After **at least 4 hours** at operating temperature (or until the bearing temperatures and the casing are stable), shut down and **immediately** take alignment readings (laser is fastest; within 10-15 minutes the machine has cooled measurably): compare with the cold targets and the predicted thermal growth; if the hot alignment is outside tolerance, re-set the cold targets (the [thermal growth](/article/thermal-growth-alignment) article covers the math) and re-align cold; run again and re-check. When the hot alignment is accepted, **dowel** (see [leveling and machine setting](/article/leveling-and-machine-setting)) and record the final cold offsets that produce it.
+
+## Baseline data and handover
+
+The **commissioning report** becomes the PM baseline: without it, nobody knows what "normal" is.
+
+- Equipment tag, nameplate data (motor and driven), coupling type and gap, belt/sheave sizes, lubricant names and quantities, filter part numbers.
+- Installation records: level readings, grout date and product, anchor torque, pipe strain test result, cold alignment (as-found and final), hot alignment, thermal targets, shim packs per foot, dowel positions.
+- Run data: vibration spectra (not just overall) at each bearing in 3 axes, bearing and motor temperatures at stable condition, motor current per phase, pressures/flows at the duty point, seal condition, noise notes, first oil-change date.
+- Settings: overload, VFD parameters, alarm and trip set points, relief valve setting, spring hanger settings.
+- Drawings marked as-built; spare parts list; the manual filed and a copy at the machine.
+- Signatures: installer, commissioning lead, operations, maintenance.
+
+## Common mistakes
+
+- A coupling guard fabricated 3/8" from the coupling: it rings and rubs, and the crew removes it.
+- Expanded metal guard right over the belt nip: fingers go through.
+- Bumping a coupled pump: the impeller unscrews (some ANSI pumps) or the gearbox thrust bearing is loaded backwards.
+- Starting a PD pump against a closed discharge.
+- Accepting 0.25 in/s vibration on a new pump as "run-in".
+- Doweling before the hot check, then spending a week re-reaming when the hot alignment is off.
+- No baseline: a year later the vibration "increase" cannot be evaluated because nobody knows the start point.
+
+## Related
+
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Thermal growth in alignment](/article/thermal-growth-alignment)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [PM checklists](/article/pm-checklists)
+- [Reading a motor nameplate](/article/reading-a-motor-nameplate)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$machine guarding$mw$,$mw$guards$mw$,$mw$OSHA 1910.212$mw$,$mw$OSHA 1910.219$mw$,$mw$coupling guard$mw$,$mw$belt guard$mw$,$mw$guard opening$mw$,$mw$point of operation$mw$,$mw$commissioning$mw$,$mw$pre start checklist$mw$,$mw$bump test$mw$,$mw$rotation check$mw$,$mw$first start$mw$,$mw$run in$mw$,$mw$bearing temperature limit$mw$,$mw$vibration acceptance$mw$,$mw$ISO 10816$mw$,$mw$ISO 20816$mw$,$mw$vibration zones$mw$,$mw$hot alignment$mw$,$mw$baseline data$mw$,$mw$commissioning report$mw$,$mw$handover$mw$,$mw$mechanical completion$mw$,$mw$pre commissioning$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.212 and 1910.219 (machine guarding and mechanical power transmission apparatus; 7 ft rule; guard openings); ANSI B11.19 and ASME B15.1 (guard design and opening-distance tables); ISO 20816-3 / ISO 10816-3 vibration severity zones for industrial machines; API RP 686 (run-in and hot alignment); manufacturer IOMs (bearing temperature limits); NEMA MG 1 (motor temperature).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$moving-and-setting-heavy-machinery$mw$, $mw$Moving and Setting Heavy Machinery: Finding Weight and Centre of Gravity, Machinery Skates and Rollers, Toe Jacks and Hydraulic Jacks, Cribbing and Blocking Rules, Pulling with Come-Alongs and Winches, Forklift Capacity and Load Centre, Floor Loading, Route Survey, Setting on Anchor Bolts$mw$, $mw$How to move a gearbox, motor, press or machine base across a floor and onto its bolts safely: estimating weight and finding the centre of gravity, choosing skates, rollers or air casters, jacking with toe jacks and bottle jacks, cribbing as you go, pulling with come-alongs and winches from proper anchors, forklift capacity math with the load-centre derating, checking the floor and the route, and the final setting over the anchor bolts.$mw$, $mw$> Machinery moving kills by **crush**: a load that tips, a jack that kicks out, a skate that runs away on a slope, a forklift that noses over. Nobody puts any part of their body under or beside a load that could move; hands stay off the load while it is moving; the load moves slowly and is cribbed at every stop.
+
+## Weight and centre of gravity
+
+- **Weight**: the nameplate or the manual first; the shipping documents; the crane's load cell; the drawing's steel volume × 0.283 lb/in³ (490 lb/ft³) for fabricated bases. Estimate high. Table: a 100 hp 405T motor ≈ 1,000-1,400 lb; a 250 hp 449T ≈ 2,500-3,500 lb; a mid-size worm gearbox 300-800 lb; a 6" ANSI pump with base and 50 hp motor ≈ 2,000 lb; a 3/4" steel plate weighs 30.6 lb/ft².
+- **Centre of gravity (CG)**: from the manual (it is often marked), or by geometry (motors: near the shaft centre and the frame's middle; gearboxes: toward the low-speed end; pumps on bases: toward the motor). Check it: lift slightly at one end with a jack: the end that is harder to lift is nearer the CG; on a crane, a test lift 2" off the floor shows which way it hangs. A tall machine with a high CG (a vertical pump, a press, a control cabinet) is the one that tips: **keep the CG inside the footprint of the skates or forks at every moment, including on slopes and over dock plates**.
+- Mark the CG and the pick points on the machine with paint before the move.
+
+## Choosing the method
+
+| Load | Method |
+|---|---|
+| Up to 500 lb, flat floor | Pallet jack (rated), dolly, or two people with a bar (no: use the pallet jack) |
+| 500 lb - 5 tons, flat concrete | **Machinery skates (dollies)**: a steering skate at the front, two rigid at the back, each rated for its share ×1.5; polyurethane rollers on smooth concrete, steel on rough |
+| 1-20 tons, any distance, rough floor | **Pipe rollers** (solid bar or heavy pipe, 3 or more under a skid or timbers) with a pry bar to steer; slow and reliable |
+| 5-100 tons, smooth floor, clean | **Machinery rollers** (Hilman type, rated 5-100 tons each) under a skid |
+| Any weight, delicate floor, need to turn in place | **Air casters** (need a smooth sealed floor and lots of compressed air) |
+| Lifting to skates or bolts | **Toe jacks** (low toe height 1-2", 5-25 tons), bottle jacks under a lifting lug, a rated **machinery jack** with a swivel base; hydraulic gantry for big items |
+| Across a plant with a crane available | The crane (see [rigging](/article/rigging-basics-sling-angles-and-hitches)); skates only for the last feet under structure |
+| Up or down a slope | Winch or crane control **always**: never free skates on a grade; chock behind |
+
+## Jacking
+
+1. Jack rated ≥ the load at that point (assume one jack may carry 2/3 of the weight when the load is off-centre); **on a solid base** (steel plate, not asphalt, not a floor drain cover, not a grate); plumb; the head on a solid, flat part of the machine (a lifting lug, a machined pad, a frame member: never a guard, an oil pan, a sheet-metal cover or a bearing housing).
+2. Lift **one end or one corner at a time, a little at a time**: "**lift an inch, crib an inch**" (cribbing follows the load up so a jack failure drops it an inch, not a foot). Two jacks on one end together only if one person controls both, or use a manifold.
+3. **Never work under a load held by a jack**; jack stands or cribbing carry it. Hydraulic jacks creep down; screw jacks and cribbing do not.
+4. Toe jacks: the toe fully under a solid edge, the jack body vertical, lift and slide in cribbing or a skate; the toe-to-body angle wants a flat floor.
+5. Lowering: slowly, with the release valve cracked, the crib stack removed one layer at a time as the load comes down, hands away.
+6. Jack capacity marking must be visible (OSHA 1910.244); a jack with a bent ram, a leaking seal or no rating is out of service.
+
+## Cribbing and blocking
+
+- **Hardwood or Douglas fir 4×4 and 6×6**, sound, no rot, cut square; never concrete blocks (they shatter), never round pipe as a block, never mixed sizes in a layer.
+- **Box crib**: layers of 2 timbers, alternating direction, corners overlapping, each layer touching the one below on all four points; the load sits on the top layer over the crossing points.
+- **Height ≤ 3 × the base width** (a 3 ft wide crib is stable to 9 ft; in practice keep machine cribbing under 3-4 ft high) and level; on a slope, dig or shim the base level first.
+- Capacity: each **contact point** between crossing 4×4s carries about **6,000 lb** (Douglas fir, across the grain, with a safety margin), a 6×6 point about **15,000 lb**: a 2×2 box crib (4 points) of 4×4 holds 24,000 lb, of 6×6 60,000 lb; a 3×3 (9 points) of 4×4 holds 54,000 lb. Add timbers per layer for heavier loads.
+- **Wedges and shims** (hardwood, in pairs) to take up the last gap so the load is solid and cannot rock; a load that rocks on a crib walks off it.
+- Blocking under skates and rollers: **steel plates or plywood runways** on soft or uneven floors spread the load; a roller on a floor joint drops into it.
+
+## Pulling
+
+- **Come-along (lever hoist, rated for pulling; cable pullers are not for lifting)**, tirfor/wire-rope puller, an electric or hydraulic winch, or a forklift as a **dead-man anchor** (never as the puller on a rope over its fork tips).
+- **Anchor point**: a column base, a floor anchor rated for the pull, a deadman machine heavier than the load: never a pipe, a conduit, a cable tray, a guard rail, an overhead crane's bridge, or an unbolted machine.
+- **Pull force** on level rollers or skates ≈ **2-5% of the weight** (a 10-ton machine needs 400-1,000 lb of pull; starting friction and floor joints double it); on a 1% grade add 1% of the weight per percent. A 2-ton lever hoist handles a 20-ton machine on skates on the flat.
+- Attach to a **structural point** on the machine at or below the CG height (a pull above the CG tips it); use a bridle of two slings if the base is wide; keep the pull in line with the skates' direction.
+- Everyone stands **outside** the line of pull and the bight of the rope (a snapped cable cuts); one person operates, one watches the load and the skates, one on the tag line/steering bar; move an inch at a time round corners, re-position the anchor rather than pulling at an angle.
+- **Chock the load** the moment you stop (wedges against the skate wheels); a load on skates has no brakes.
+
+## Forklift
+
+- **Capacity plate** rating is at the rated **load centre** (usually 24"); a load whose CG is further out **derates** the truck: `allowable load ≈ rated capacity × (rated load centre ÷ actual load centre)` (a 5,000 lb truck at 24" carries only about 3,000 lb with the CG at 40"); attachments (a boom, a fork extension, a rotator) derate again per the plate.
+- Forks fully under, load against the backrest, mast tilted **back**, forks **4-6" off the floor** while travelling, slow, no turns on ramps, drive in reverse when the load blocks the view, spotter for a wide load, seat belt on.
+- Lifting with a **fork-mounted hook or boom** only if the attachment is rated and on the data plate; never sling from bare fork tips; never let anyone under or ride the load.
+- A machine on the forks that is taller than it is wide: strap it to the mast.
+
+## Floor and route
+
+- **Floor capacity**: a 6" reinforced slab on grade takes a point load of a few thousand pounds on a roller; a 4" slab or a suspended floor may not; anything over about 5 tons on skates deserves a look at the drawings or plywood/steel runways to spread it. Watch for floor drains, trench covers, expansion joints, painted floors (slippery), grating, dock plates and elevators (rated), and buried services.
+- **Route survey**: measure every door, aisle, overhead pipe and cable tray on the way against the machine's dimensions (+6"); remove obstacles in advance; a helper walks the route with the tallest dimension on a stick.
+- **Clear the area**, barricade, and tell the people who work there; lighting; a rescue plan.
+- **Communication**: one person gives the commands; hand signals agreed before the move.
+
+## Setting onto the anchor bolts
+
+1. Skid or skate the machine over the foundation on runways above the bolts (the bolts get **protection sleeves** or a plywood cover so a slip does not bend them).
+2. Jack one end, remove the skate, crib, lower onto steel blocks or the levelling jack screws with the bolt holes roughly over the bolts; repeat the other end.
+3. Bar the machine (a crowbar on a fulcrum at a solid point) to line up the holes; drift pins in two diagonal holes; lower the last inch onto the jack screws or shims; nuts on hand-tight.
+4. Now the [leveling and machine setting](/article/leveling-and-machine-setting) procedure starts; nothing gets torqued yet.
+
+## Common mistakes
+
+- Jacking on the gearbox's oil pan or a motor's fan cover.
+- No cribbing following the jack: a seal lets go and 3 tons drops 8".
+- Skates on a slight slope with nobody on a chock: the load rolls into the wall.
+- Pulling from a pipe support with a 4-ton come-along; the pipe support pulls out and the come-along recoils.
+- Forklift at full reach with a 4 ft deep load and the capacity read straight off the plate.
+- Moving the machine with the crate's shipping bolts still tying it to a skid that is not rated for the pull.
+- Bare hands guiding the load onto the bolts: crushed fingers between the foot and the base.
+
+## Related
+
+- [Rigging and lifting basics](/article/rigging-basics-sling-angles-and-hitches)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Anchor bolts and foundations](/article/anchor-bolts-and-foundations)
+- [Chain hoists, come-alongs and jacks](/article/chain-hoists-come-alongs-and-jacks)
+- [Cribbing and blocking](/article/cribbing-and-blocking)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$moving machinery$mw$,$mw$machinery moving$mw$,$mw$machinery skates$mw$,$mw$rollers$mw$,$mw$pipe rollers$mw$,$mw$toe jack$mw$,$mw$hydraulic jack$mw$,$mw$bottle jack$mw$,$mw$cribbing$mw$,$mw$blocking$mw$,$mw$box crib$mw$,$mw$lift an inch crib an inch$mw$,$mw$come along$mw$,$mw$winch$mw$,$mw$machinery pulling$mw$,$mw$forklift capacity$mw$,$mw$load center$mw$,$mw$forklift derating$mw$,$mw$center of gravity$mw$,$mw$finding weight$mw$,$mw$floor loading$mw$,$mw$route survey$mw$,$mw$setting machine on anchor bolts$mw$,$mw$skidding$mw$,$mw$air casters$mw$,$mw$rigging machinery$mw$,$mw$machinery moving safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B30.1 Jacks, Industrial Rollers, Air Casters and Hydraulic Gantries; OSHA 1910.244 (jacks) and 1910.178 (forklifts); Hilman Rollers and machinery-skate manufacturer guidance; cribbing capacity practice (FEMA/US&R and rigging texts: 4×4 and 6×6 softwood contact-point loads); machinery weight estimating from steel volume.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$optical-and-laser-levels-piano-wire$mw$, $mw$Optical and Laser Levels, Transits and Piano Wire: Builder's Level and Transit Setup, Two-Peg Test, Reading a Rod, Rotary Laser and Receiver, Transferring Elevations and Centrelines, Piano-Wire Alignment with the Sag Formula and Table, Bore Alignment of Multi-Bearing Housings, Plumb Bobs$mw$, $mw$The tools for long-distance and multi-machine alignment where a spirit level and a straightedge cannot reach: setting up and checking an optical level or transit, reading a rod, using a rotary laser to carry an elevation around a plant or along a conveyor, stretching a piano wire as a straight-line reference with a computed sag correction, aligning bearing bores in line with a wire or a laser, and plumbing columns and vertical shafts with a plumb bob.$mw$, $mw$## Which tool
+
+| Job | Tool |
+|---|---|
+| Carry one elevation around a room or along 200 ft of conveyor | **Rotary laser + receiver** (or an optical level and rod) |
+| Set a line of bearings, rolls or idlers on a straight line and level | **Piano wire** (centreline and straightness), optical level (elevation), transit (straight line and square) |
+| Establish a machine centreline and a 90° cross line on a floor | **Transit** (or a laser square / total station) |
+| Check a long shaft or a line of bores for straightness | **Optical (jig) transit with targets**, laser bore alignment, or a wire with an inside micrometer |
+| Plumb a column, a vertical shaft, a hanger line | **Plumb bob** (in oil), transit, laser plumb |
+| Roll parallelism (paper machines, converting lines) | Optical tooling, laser roll alignment, or a wire and a **square** off the wire |
+| Precision level of a single base | Master precision level (see [leveling](/article/leveling-and-machine-setting)) |
+
+## Optical level (builder's / dumpy / automatic level)
+
+1. **Tripod**: legs spread, points pushed into the floor or on the concrete, head roughly level by eye, at a comfortable eye height; instrument screwed on snug.
+2. **Level the instrument**: with the three (or four) levelling screws, centre the circular bubble; on an automatic level the compensator does the rest; on a dumpy level, align the tube vial over two screws, centre, rotate 90°, centre with the third, repeat until the bubble stays centred through a full rotation.
+3. **Focus**: eyepiece on the crosshairs first (against a white card), then the objective on the rod. Parallax check: move your eye; the crosshair must not shift on the rod.
+4. **Reading a rod**: the horizontal crosshair reads the rod (feet and hundredths on an engineer's rod: "4.32" = 4.32 ft; feet-inches-eighths on a builder's rod). The rod must be **plumb** (rod level, or the rodman rocks it slowly and you take the **lowest** reading). Stadia hairs give distance: (upper − lower) × 100 = distance in the rod's units.
+5. **Height of instrument (HI)** = benchmark elevation + rod reading on the benchmark (the backsight). **Elevation of any point** = HI − rod reading on that point (the foresight). To set a mark at a required elevation, raise or lower a target until the reading = HI − required elevation.
+6. Keep foresight and backsight distances similar to cancel instrument error; **do not touch the tripod**; re-check the backsight at the end of every setup (the reading must repeat within 0.01 ft or 1/16").
+
+**Two-peg test** (checks the line of sight is level; do it monthly and after a knock): drive two pegs 100 ft apart; set up **midway** and read both (the difference is the true difference in elevation, whatever the instrument error); set up **close to peg A** (within 10 ft), read A and B; the difference now should match the first within 1/16" per 100 ft (0.005 ft); if not, the instrument needs adjustment (crosshair or compensator).
+
+## Transit / theodolite
+
+Same setup and levelling, plus a vertical circle and a horizontal circle. Uses: a **straight line** (sight a far target, lock the horizontal motion, plunge the scope up and down: every point on that vertical plane is on the line; lay out a machine centreline this way and mark it on the floor and on the wall), a **90° line** (turn exactly 90° on the circle: better than 3-4-5 over long distances), **plumbing** a column (sight the base, elevate the scope: the crosshair should stay on the column's edge; check from two directions 90° apart), and elevations like a level when the scope is levelled. A **jig transit** (optical tooling) has a telescope that can be aligned to a wire or a target line and an optical micrometer to read offsets to 0.001": the tool for long-line shaft and roll alignment in paper mills, though laser trackers have taken over.
+
+## Rotary laser and receiver
+
+1. Tripod or a stand on solid ground away from traffic and vibration; self-levelling lasers need to be within their range (±5°) or they blink an error; check the **out-of-level alarm** is on (if the tripod is bumped the laser stops rather than lying).
+2. **Calibration check** (like the two-peg): mark the beam on a wall at 50-100 ft, rotate the laser 180° and mark again; the marks should be within the accuracy spec (**±1/16" at 100 ft** for good construction lasers, ±1/8" for cheap ones); check both axes.
+3. Receiver on a **grade rod** or held against the steel; move it up and down until it beeps "on grade"; the receiver's mark is at the beam height. Read the rod, or mark the steel.
+4. To carry an elevation: put the receiver on the benchmark, note the rod reading (the beam height above the benchmark); at the target point, set the receiver so it reads the same, and the mark is at the benchmark elevation; add or subtract the required difference.
+5. For a long conveyor: the laser at one end, the receiver on every stringer at every bent; mark, and compare with the drawing's grade (a 1% grade rises 1.2" per 10 ft).
+6. Sun and heat shimmer widen the beam at long range; the beam's accuracy degrades over 300 ft; re-set up halfway.
+
+Laser levels in **line mode** (a static line) and **laser squares** put an accurate 90° on a floor for layout; a **laser plumb** (5-point laser) transfers a floor point to the ceiling or a beam above.
+
+## Piano wire
+
+A stretched steel wire is a straight line to within the sag, which you can calculate and correct for. Used for: conveyor structure centrelines, lines of pillow blocks and hanger bearings, kiln and dryer roller alignment, checking a long bed or way for straightness, and centring a shaft in a line of bores.
+
+**Setup**
+
+1. Wire: **music (piano) wire 0.015-0.025"** (0.4-0.6 mm), new, unkinked; anchored at one end to a fixed bracket or clamp with the wire wrapped on a small drum, and tensioned at the other end over a **pulley with a weight**, or with a turnbuckle and a spring scale. Tension to about **60-70% of the wire's breaking strength** (0.020" music wire breaks at about 100-110 lb; use **40-60 lb**); a wire at low tension sags too much and swings.
+2. Keep the wire away from anything it might touch; **the wire is straight in the horizontal plane and sags in the vertical plane**: use it for horizontal (side-to-side) alignment directly, and correct for sag when using it vertically.
+3. Measure from the wire with an **inside micrometer or a depth micrometer with a light-contact indicator**: a battery, a buzzer or a small light in series with the wire and the micrometer tells you when the tip just touches (you cannot feel it, and pushing the wire moves it). Or use a dial indicator with a fork that straddles the wire on a mag base.
+4. Set the wire on the **design centreline**: measure from two fixed reference points (columns, the head shaft's bearing centres) at each end and adjust the end brackets; read intermediate points as offsets from the wire.
+
+**Sag**
+
+```
+   sag at mid-span  S = w × L² ÷ (8 × T)        w = wire weight per unit length, L = span, T = tension  (consistent units)
+   sag at distance x from one end  s(x) = 4 × S × x × (L − x) ÷ L²     (parabola)
+   music wire weight w (lb/in) = 0.283 × π/4 × d²   (d in inches)
+```
+
+| Wire Ø | w (lb/ft) | Span 50 ft, T 40 lb | Span 100 ft, T 40 lb | Span 100 ft, T 60 lb | Span 200 ft, T 60 lb |
+|---|---|---|---|---|---|
+| 0.015" | 0.00060 | 0.056" | 0.225" | 0.150" | 0.60" |
+| **0.020"** | **0.00107** | **0.100"** | **0.400"** | **0.267"** | 1.07" |
+| 0.025" | 0.00167 | 0.156" | 0.625" | 0.417" | 1.67" |
+| 0.031" | 0.00256 | 0.240" | 0.961" | 0.641" | 2.56" |
+
+(Inches of sag at mid-span; S = w L² / 8T with w in lb/ft, L in ft, T in lb gives feet; ×12 for inches.) Halve the span or double the tension to reduce sag; thinner wire sags less at the same tension. The sag correction at any point is s(x) above; note that the **weight on the pulley end is the tension** (minus pulley friction: use a good ball-bearing pulley, or a calibrated spring scale on a turnbuckle).
+
+**Worked example**: a line of 6 pillow blocks over 60 ft, 0.020" wire at 50 lb. S = 0.00107 × 60² ÷ (8 × 50) = 3.852 ÷ 400 = 0.00963 ft = **0.116"** at mid-span. At a bearing 15 ft from the end: s = 4 × 0.116 × 15 × 45 ÷ 3600 = **0.087"**. If you set the wire at the bearing-centre height at both ends, that bearing's centre must be 0.087" **below** the wire height reading, or, easier, use the wire only for horizontal position and a level or laser for elevation.
+
+## Aligning bearing bores in line (line boring, multi-bearing housings)
+
+1. **Wire method**: wire through all the bores, centred in the two end bores with an inside micrometer (measure 4 points at each end: top, bottom, left, right; adjust until equal); then at each intermediate bore measure the 4 points: the bore's offset from the line = half the difference of opposite readings, corrected for sag vertically. Bores are shimmed or re-bored to bring the offsets to zero (typical target ± 0.002-0.005"; the bearing maker's misalignment limit for the bearing type decides).
+2. **Mandrel / dummy shaft** with dial indicators for short lines (3 bores): a ground bar through the bores, indicators at each bore.
+3. **Laser bore alignment** (Easy-Laser, Pruftechnik): a laser in one end bore, a detector on a self-centring fixture in each other bore; reads offset and angle directly and handles sag-free; the modern answer for engine blocks, stern tubes, extruder barrels, kiln trunnions.
+4. **Optical**: jig transit sighted through targets centred in each bore; 0.001" over 50 ft.
+
+## Plumb bob
+
+For a vertical shaft, a column, a hoist rope line, a vertical pump: hang a plumb bob on a fine line from the top point, **damp it in a can of oil** (it swings for minutes otherwise), let it settle, measure from the line to the object at top and bottom with a rule; the difference over the height is the out-of-plumb. Wind ruins it: use a laser plumb or a transit outdoors. Vertical shafts on long pumps and agitators: the plumb bob from the top bearing centre through the bottom bearing centre, inside micrometer to the line.
+
+## Common mistakes
+
+- Reading a rod that is not plumb: every reading is high.
+- Moving the tripod (or leaning on it) between backsight and foresight.
+- Laser used beyond its range or in shimmer: 1/4" errors at 300 ft.
+- Wire touching something along the way (a guard, a chip): the line has a kink.
+- Ignoring sag on a 100 ft wire used for elevation: the middle bearing is set 3/8" low.
+- Pushing the micrometer into the wire until you "feel" it: the wire has moved 0.010" by then.
+- Plumb bob in wind or not damped: 1/8" guesses.
+
+## Related
+
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
+- [Dial indicator use](/article/dial-indicator-use)
+- [Trig and layout formulas](/article/trig-and-layout-formulas)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$builders level$mw$,$mw$dumpy level$mw$,$mw$transit$mw$,$mw$theodolite$mw$,$mw$two peg test$mw$,$mw$leveling rod$mw$,$mw$grade rod$mw$,$mw$rotary laser$mw$,$mw$laser receiver$mw$,$mw$laser level$mw$,$mw$elevation transfer$mw$,$mw$benchmark$mw$,$mw$centerline transfer$mw$,$mw$piano wire$mw$,$mw$music wire alignment$mw$,$mw$wire sag$mw$,$mw$sag formula$mw$,$mw$wire alignment conveyor$mw$,$mw$bore alignment$mw$,$mw$bore sighting$mw$,$mw$line boring alignment$mw$,$mw$mandrel alignment$mw$,$mw$plumb bob$mw$,$mw$plumb line$mw$,$mw$optical tooling$mw$,$mw$jig transit$mw$,$mw$laser tracker$mw$,$mw$conveyor structure alignment$mw$,$mw$roll alignment$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Builder's level and transit manuals (Topcon, Leica, David White) and the two-peg test; rotary laser operating guidance (Spectra, Leica); Brunson optical tooling and jig transit guidance; piano-wire sag derivation (catenary approximated by a parabola: sag = wL²/8T) with music-wire weights; Easy-Laser / Pruftechnik bore alignment guidance; millwright program manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pipe-strain-and-flange-alignment$mw$, $mw$Pipe Strain and Flange Alignment: Why Pipe Strain Wrecks Pumps, API 686 Flange Fit-Up Limits (Parallelism, Offset, Bolt-Hole, Gap), the Dial-Indicator Pipe Strain Test (0.002" Limit), Fixing Strain (Spring Hangers, Cutting and Rewelding, Expansion Joints), Thermal Growth of Piping, Supports and Hangers$mw$, $mw$What pipe strain is and what it does to bearings, seals and alignment, the flange fit-up numbers you must meet before the bolts go in, how to run the dial-indicator test that proves the piping is not pulling the pump, what to do when it fails, how to support pipe with hangers, guides, anchors and spring supports so thermal growth does not load the machine, and the suction and discharge piping rules that keep a pump alive.$mw$, $mw$## What pipe strain is
+
+A pipe flange that does not meet the pump's nozzle square, level and centred is **forced** to it with the bolts. The pump casing is now a spring: the bearing housing bends, the shaft is pulled out of line with the motor, the mechanical seal faces open, the impeller rubs the wear ring, and the coupling sees a misalignment that changes every time the pipe warms up. Pipe strain is the leading cause of "we aligned it last week and it moved" and of repeat seal failures on the same pump. API 610 limits the forces and moments a pump nozzle can take, and API 686 gives the field tests; the pump does not know or care what the piping designer intended.
+
+Signs: a pump that will not stay aligned; alignment readings that change when the flange bolts are loosened; a bearing housing that moves when the pipe is unbolted; seals failing on one pump repeatedly; the coupling gap changing between cold and hot; cracked pump feet or a broken casing flange.
+
+## Flange fit-up limits (API 686 practice, before bolting)
+
+| Check | Limit |
+|---|---|
+| **Flange face parallelism** (gap difference across the diameter, measured with feelers at 4 points) | **≤ 0.001" per inch of flange OD** (a 10" OD flange: 0.010"), and never over about 1/32" total |
+| **Flange face separation** (gap) | Gasket thickness ± 1/16" (about 1/32" per side): the pipe must not be pulled in to close a gap or pushed out |
+| **Concentricity (offset of bore centres)** | ≤ 1/32" (0.8 mm) |
+| **Bolt-hole alignment** | All bolts slide through **by hand** with the flange loose; rotational offset ≤ 1/16" |
+| **Pipe-to-pump flange contact** | Faces flat and clean, no forcing with a spud wrench, no come-along to pull the pipe to the pump |
+| Spring hangers | Pinned (locked) during fit-up, released before the strain test and start-up, set to the cold load |
+
+The **cardinal rule**: the piping must fit the pump **with all bolts loose and no external force**. If a bolt has to be drawn in with a wrench, or a flange pulled with a chain fall, the fit is wrong.
+
+## The pipe strain test
+
+1. Pump on its base, aligned (rough or final), hold-down bolts torqued; piping flanged up loosely.
+2. Mount **two dial indicators** (or the laser alignment heads) on the pump's **bearing housing or shaft**, reading against a fixed reference (the baseplate or the motor shaft), one in the **vertical** and one in the **horizontal**; zero them. Better: indicators on the pump shaft end reading vertical and horizontal, and a third indicator axial.
+3. **Tighten the flange bolts** in the proper pattern to full torque (suction first, then discharge, or one at a time) while watching the indicators.
+4. **Limit: 0.002" (0.05 mm)** movement in any direction (API 686). Movement above that = pipe strain; the fit-up must be corrected, not "aligned out" (the strain changes with temperature and the machine will not stay aligned).
+5. Repeat after the piping is **hot** if the system runs hot: thermal growth of the piping loads the pump differently; a hot test is the real one on hot-oil, boiler-feed and steam-traced lines.
+6. Also **loosen** a suspect existing installation's flanges with indicators on the shaft: if the shaft springs more than 0.002", you have found the reason the alignment never held.
+
+Record the readings on the installation sheet.
+
+## Fixing pipe strain
+
+| Cause | Fix |
+|---|---|
+| Flange out of parallel (the pipe comes in at an angle) | Cut the pipe back and re-weld the flange square, using a flange-alignment tool or a level and a square; a **field-fit weld** left in the spool for this purpose |
+| Offset (pipe centre not on the nozzle centre) | Cut and re-fit a spool; two 45° elbows to make up a small offset; **never** a tapered flange or a bent pipe |
+| Gap too big or too small | Cut and re-fit the closing spool with the correct gasket space; **never** stack gaskets |
+| Pipe too short, pulled to the pump | Re-cut a longer spool |
+| Bolt holes misaligned (rotated) | Rotate a flange by cutting and re-welding (two-hole it); never oval the holes |
+| Dead weight hanging on the nozzle (unsupported valves, strainers) | Add a **support** within 1-2 pipe diameters of the nozzle, adjustable, set to carry the pipe's weight |
+| Thermal growth pushing on the pump | **Expansion loop**, expansion joint (with tie rods or anchors to take the pressure thrust), **spring hangers** set for the cold-to-hot travel, anchors and guides so the growth goes away from the pump |
+| Vibrating piping loading the pump | Supports and snubbers; fix the source (cavitation, pulsation) |
+| Piping settled after years | Re-support; re-check the strain |
+
+## Thermal growth of piping
+
+```
+   growth ΔL = L × α × ΔT
+   carbon steel  α ≈ 0.0000065 /°F  → 0.78" per 100 ft per 100°F
+   stainless 304 α ≈ 0.0000096 /°F  → 1.15" per 100 ft per 100°F
+   copper        α ≈ 0.0000094 /°F
+   PVC/CPVC      α ≈ 0.00003-0.00004 /°F (5× steel)
+```
+
+A 50 ft carbon-steel discharge line going from 70°F to 250°F grows 50 × 0.0000065 × 180 = **0.059" (1/16")**: enough to load a pump nozzle heavily if the line is anchored at the far end and rigid at the pump. Steam and hot-oil lines at 400-600°F grow inches: they need loops or joints designed by an engineer, and the pump must be on the anchored side or the growth must be absorbed before it reaches the pump.
+
+## Supports, hangers, guides and anchors
+
+| Support | Function | Notes |
+|---|---|---|
+| **Rigid hanger / rest support** | Carries weight; allows small sliding | Within 1-2 diameters of the pump nozzle for valves and strainers; on both sides of heavy items; spacing from the code span table (about 7 ft for 1", 10 ft for 2", 14 ft for 4", 17 ft for 6", 19 ft for 8" water-filled steel; less for plastic) |
+| **Adjustable support (screw, turnbuckle)** | Lets you set the pipe exactly to the nozzle | Set it to **just carry the pipe** with the flange bolts loose and the gap right, then lock the jam nut |
+| **Spring hanger (variable)** | Carries weight while the pipe moves vertically with temperature | Cold and hot settings marked on the can; **pinned** during installation, pins pulled before the strain test/start-up; a spring "topped out" or "bottomed out" is a rigid support |
+| Constant-load hanger | Large vertical travel | Engineered |
+| **Guide** | Allows axial movement, stops lateral | Along expansion runs |
+| **Anchor** | Fixes the pipe completely | Decides which way the growth goes: put it so growth goes **away** from the pump |
+| Snubber / sway brace | Stops vibration and shock, allows slow thermal motion | Reciprocating compressor and pulsating lines |
+| Expansion joint (bellows) | Absorbs axial/lateral movement | Must have **tie rods or external anchors**: the pressure thrust (pressure × bellows area) otherwise pushes the pump off its base |
+
+Never let the pump be the anchor for the piping. Never leave the weight of a valve or a strainer on the nozzle. Never remove a support "temporarily".
+
+## Suction and discharge piping rules (Hydraulic Institute / pump makers)
+
+- Suction pipe **one or two sizes larger than the suction nozzle**; **eccentric reducer flat side up** (horizontal suction) so no air pocket forms at the pump; 5-10 diameters of straight pipe before the suction nozzle (3 minimum with a long-radius elbow; an elbow feeding a double-suction pump must be in the plane perpendicular to the shaft); no elbow bolted straight to the suction nozzle.
+- Suction line continuously rising to the pump (no high points that trap air) on a lift; continuously falling from a flooded source; no valves on the suction except an isolation gate valve (full open); a strainer with a ΔP gauge during commissioning.
+- Discharge: check valve then isolation valve; a concentric reducer/increaser at the nozzle; supports for both.
+- Piping tied to the pump only after the [alignment](/article/shaft-alignment-fundamentals) rough-in, and checked with the strain test; **final alignment after the piping is connected and the strain test passed**.
+
+## Common mistakes
+
+- Pulling a 1/4" gap closed with the bolts "because the gasket will take it".
+- Ovalling flange holes with a torch to make the bolts go in.
+- Aligning the pump with the piping bolted and never testing whether the piping is holding it there.
+- A spring hanger left pinned (rigid) for the life of the plant.
+- Strainer and valve hanging on the suction nozzle with no support.
+- Concentric reducer on a horizontal suction: air pocket, cavitation, the seal fails.
+- An expansion joint with no tie rods on a 100 psi 8" line: 5,000 lb of thrust on the pump.
+
+## Related
+
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals) and [thermal growth in alignment](/article/thermal-growth-alignment)
+- [Mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump)
+- [Pump and fluid-power formulas (NPSH)](/article/pump-and-fluid-power-formulas)
+- [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
+- [Pipe miter layout and take-outs](/article/pipe-miter-layout)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+          array[$mw$pipe strain$mw$,$mw$pipe stress$mw$,$mw$flange alignment$mw$,$mw$flange parallel$mw$,$mw$flange offset$mw$,$mw$bolt hole alignment$mw$,$mw$flange gap$mw$,$mw$pipe strain test$mw$,$mw$dial indicator pipe strain$mw$,$mw$0.002 pipe strain$mw$,$mw$API 686 pipe strain$mw$,$mw$pump nozzle loads$mw$,$mw$spring hanger$mw$,$mw$pipe support$mw$,$mw$pipe hanger$mw$,$mw$expansion joint$mw$,$mw$expansion loop$mw$,$mw$thermal growth piping$mw$,$mw$pipe anchor$mw$,$mw$pipe guide$mw$,$mw$flange bolting sequence$mw$,$mw$pump piping$mw$,$mw$suction piping$mw$,$mw$discharge piping$mw$,$mw$nozzle load$mw$]::text[], $mw$$mw$, array[]::text[], $mw$API RP 686 Chapter 6 (piping to machinery: flange fit-up tolerances and the shaft-movement test of 0.002 in / 0.05 mm); API 610 nozzle load criteria (Annex F); Hydraulic Institute ANSI/HI 9.6.2 (pump piping); pump manufacturer installation manuals (Goulds 3196, Flowserve); Piotrowski, Shaft Alignment Handbook; ASME B31.3 flange alignment guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hole-patterns-and-flange-templates$mw$, $mw$Bolt-Hole Patterns and Flange Templates: Chord Factor Table (3 to 24 Holes), Laying Out a Bolt Circle with Dividers or Coordinates, Straddling the Centrelines, Making and Using a Drilling Template, Transfer Punching, Hole Clearance Sizes, ASME B16.5 Class 150 Bolt Circles$mw$, $mw$How to lay out any number of equally spaced holes on a bolt circle with a chord table or coordinates, why flange holes straddle the centrelines and how to orient a flange, how to make a reusable drilling template from a mating part or a drawing and use transfer punches, the clearance hole sizes to drill for bolts, and the Class 150 flange bolt-circle table for pipe sizes 1/2 to 12 inch.$mw$, $mw$## Chord factor table
+
+Set the dividers to the **chord** between adjacent holes and step round the circle; if the last step lands on the first mark, the layout is good.
+
+```
+   chord = bolt circle diameter (D) × sin(180° ÷ N)         N = number of holes
+```
+
+| N holes | Chord factor (× D) | N holes | Chord factor (× D) |
+|---|---|---|---|
+| 3 | 0.8660 | 12 | 0.2588 |
+| **4** | **0.7071** | 13 | 0.2393 |
+| 5 | 0.5878 | 14 | 0.2225 |
+| **6** | **0.5000** | 15 | 0.2079 |
+| 7 | 0.4339 | **16** | **0.1951** |
+| **8** | **0.3827** | 17 | 0.1838 |
+| 9 | 0.3420 | 18 | 0.1736 |
+| 10 | 0.3090 | 19 | 0.1646 |
+| 11 | 0.2817 | **20** | **0.1564** |
+| | | 24 | 0.1305 |
+
+Example: 8 holes on a 7.50" bolt circle (4" Class 150 flange): chord = 7.50 × 0.3827 = **2.870"**.
+
+## Laying out a bolt circle with dividers
+
+1. Find and prick-punch the **centre** (diagonals on a plate; centre head on a round).
+2. Scribe the **bolt circle** with dividers or trammels set to D/2.
+3. Scribe the **two centrelines** at 90° through the centre (combination square on a plate edge, or the surface gauge method).
+4. Decide whether holes go **on** the centrelines or **straddle** them (below). For straddling, the first hole is at 180°/N from the centreline (45° for 4 holes, 22.5° for 8): scribe that angle with a protractor head, or mark it as half a chord from the centreline along the circle.
+5. Set dividers to the chord from the table; put one leg in the first hole's prick mark and step round, punching lightly at each step. Check that you close on the first mark within the width of a scribed line; if not, adjust the dividers by a fraction of the total error ÷ N and start again.
+6. Centre-punch each mark, then drill with a pilot and the clearance drill.
+
+For large circles (over about 2 ft) trammels replace dividers; for many holes, mark opposite pairs first (4 holes at 90°) to keep the error from accumulating, then subdivide.
+
+## Coordinate method (no dividers, better for a drill press with a DRO or a mag drill from a straightedge)
+
+Hole k of N on a bolt circle of radius R, with hole 1 at angle θ₁ from the X axis:
+
+```
+   angle_k = θ₁ + (k − 1) × 360°/N
+   X_k = R × cos(angle_k)         Y_k = R × sin(angle_k)          (from the centre; add the centre's coordinates from the datum edges)
+```
+
+Example: 6 holes, R = 3", straddling the X axis (θ₁ = 30°): angles 30, 90, 150, 210, 270, 330; X = 2.598, 0, −2.598, −2.598, 0, 2.598; Y = 1.5, 3, 1.5, −1.5, −3, −1.5. Measure each hole from the two datum edges with a rule or the DRO.
+
+## Straddling the centrelines
+
+Pipe flanges, valve bodies, pump and motor flanges are drilled with the holes **straddling** the vertical and horizontal centrelines ("two-holing" a flange): no hole sits on the centreline. That way, every flange in the plant mates with every other in the same orientation and the top two holes are level. To set a flange:
+
+1. Mark the top (12 o'clock) line on the pipe (contour marker / level).
+2. Put a **level across the two top holes** (a "two-hole pin" set or a spirit level on two bolts): when level, the holes straddle the vertical centreline. Tack, recheck, weld.
+3. Equipment nozzles that are drawn "holes on centreline" are the exception and are noted on the drawing.
+
+## Clearance holes
+
+| Bolt | Close fit | **Normal (standard)** | Loose fit |
+|---|---|---|---|
+| 1/4" | 17/64 (0.266) | **9/32 (0.281)** | 19/64 |
+| 5/16" | 21/64 | **11/32 (0.344)** | 23/64 |
+| 3/8" | 25/64 | **13/32 (0.406)** | 27/64 |
+| 1/2" | 33/64 | **9/16 (0.562)** | 39/64 |
+| 5/8" | 41/64 | **11/16 (0.688)** | 47/64 |
+| 3/4" | 25/32 | **13/16 (0.812)** | 29/32 |
+| 7/8" | 29/32 | **15/16 (0.938)** | 1-1/32 |
+| 1" | 1-1/32 | **1-1/16 (1.062)** | 1-5/32 |
+| M8 | 8.4 mm | **9 mm** | 10 mm |
+| M10 | 10.5 | **11** | 12 |
+| M12 | 13 | **13.5 (14)** | 15 |
+| M16 | 17 | **17.5 (18)** | 19 |
+| M20 | 21 | **22** | 24 |
+
+Structural steel (AISC): standard holes are **bolt + 1/16"** (up to 7/8" bolts; bolt + 1/8" for 1" and over); ASME flanges have holes **1/8" larger than the bolt**; machine bases: bolt + 1/16 to 1/8". Oversize and slotted holes only where the drawing allows.
+
+## Making a drilling template
+
+From a mating part (a motor, a gearbox foot, a flange): the most reliable way to get holes that match.
+
+1. Material: 1/8-1/4" plate for a template you will reuse or drill through; hardboard or plywood for a one-off you only mark from; clear acrylic when you need to see the layout underneath.
+2. **Datum**: scribe centrelines on the template, and mark which side is "up" and which edge is the datum, before anything else.
+3. Transfer the holes: either **clamp the template to the mating part and mark through the holes** with a transfer punch (a punch that fits the hole with a centre point) or a scriber run round the hole, or lay out from the drawing with the chord method above.
+4. Drill the template holes **at bushing size** (the pilot drill size, e.g. 1/4") for a marking template, or at full clearance size with hardened **drill bushings** pressed in for a production template.
+5. Deburr, stamp the template with the part number and the hole size, and hang it on a nail with the drawing number.
+6. Use: clamp the template on the work at the datum, **transfer-punch** each hole (or spot with the pilot drill through the template), remove the template, centre-punch, drill the pilot then the clearance size.
+
+For **anchor-bolt templates** (a frame that holds the anchor bolts in the wet concrete) see [anchor bolts and foundations](/article/anchor-bolts-and-foundations): plywood or steel, holes at the base's clearance size, diagonals checked, braced so it cannot move during the pour.
+
+**Transfer punch set**: a set of punches in 1/64" steps from 3/32" to 1/2"; the punch fills the hole and the point marks the centre exactly. Transfer screws (screwed into tapped holes, with a point) do the same from a threaded part.
+
+## ASME B16.5 Class 150 flanges (raised face)
+
+| NPS | Flange OD | **Bolt circle** | Holes | Bolt size | Hole Ø |
+|---|---|---|---|---|---|
+| 1/2" | 3.50 | 2.38 | 4 | 1/2" | 5/8 |
+| 3/4" | 3.88 | 2.75 | 4 | 1/2" | 5/8 |
+| 1" | 4.25 | 3.12 | 4 | 1/2" | 5/8 |
+| 1-1/4" | 4.62 | 3.50 | 4 | 1/2" | 5/8 |
+| 1-1/2" | 5.00 | 3.88 | 4 | 1/2" | 5/8 |
+| **2"** | 6.00 | **4.75** | 4 | 5/8" | 3/4 |
+| 2-1/2" | 7.00 | 5.50 | 4 | 5/8" | 3/4 |
+| **3"** | 7.50 | **6.00** | 4 | 5/8" | 3/4 |
+| **4"** | 9.00 | **7.50** | 8 | 5/8" | 3/4 |
+| 5" | 10.00 | 8.50 | 8 | 3/4" | 7/8 |
+| **6"** | 11.00 | **9.50** | 8 | 3/4" | 7/8 |
+| **8"** | 13.50 | **11.75** | 8 | 3/4" | 7/8 |
+| 10" | 16.00 | 14.25 | 12 | 7/8" | 1 |
+| 12" | 19.00 | 17.00 | 12 | 7/8" | 1 |
+
+Class 300 flanges are larger with more/bigger bolts (a 4" Class 300 is 10.00" OD, 7.88" bolt circle, 8 × 3/4" bolts); full tables in [pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables). Chord for a Class 150 4" (8 holes on 7.50): 2.870"; 6" (8 on 9.50): 3.636"; 8" (8 on 11.75): 4.497"; 3" (4 on 6.00): 4.243".
+
+## Common mistakes
+
+- Holes on the centreline instead of straddling: the flange goes on 22.5° off and the pipe is twisted.
+- Stepping dividers round without checking the closure: the last space is 1/8" short.
+- Drilling clearance holes at the bolt size: the bolts will not go in when the pattern is 1/32" off.
+- Template with no datum mark: it gets used upside down and mirrored.
+- Marking from a rusty flange's holes without cleaning them: the transfer punch centres on the rust.
+
+## Related
+
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Trig and layout formulas (bolt circles and coordinates)](/article/trig-and-layout-formulas)
+- [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
+- [Hole making in the field](/article/hole-making-in-the-field)
+- [Anchor bolts and foundations](/article/anchor-bolts-and-foundations)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$bolt circle$mw$,$mw$bolt hole pattern$mw$,$mw$chord factor$mw$,$mw$chord table$mw$,$mw$bolt circle layout$mw$,$mw$PCD$mw$,$mw$pitch circle diameter$mw$,$mw$flange template$mw$,$mw$drilling template$mw$,$mw$transfer punch$mw$,$mw$hole clearance$mw$,$mw$straddle centerlines$mw$,$mw$two hole rule$mw$,$mw$flange bolt holes$mw$,$mw$class 150 bolt circle$mw$,$mw$B16.5$mw$,$mw$motor mounting holes$mw$,$mw$coordinate layout$mw$,$mw$hole pattern coordinates$mw$,$mw$template plate$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Chord factor mathematics (chord = D × sin(180°/N)); Machinery's Handbook jig-boring coordinate tables; ASME B16.5 Class 150 flange dimensions (bolt circle, number and size of bolts, hole diameter); standard clearance-hole practice (ASME B18.2.8).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$layout-tools-and-scribing$mw$, $mw$Layout Tools and Scribing: Layout Dye, Scribers, Punches, Dividers and Trammels, Combination and Framing Squares, Surface Gauge, Wrap-Arounds and Contour Markers, Finding Centres, Squaring with 3-4-5 and Diagonals, Working from a Datum, Witness Marks$mw$, $mw$The layout kit a millwright or fabricator carries and how each tool is used correctly, how to prepare a surface and scribe lines that survive cutting, the punch marks that let you find a line after the dye is gone, finding centres of round and flat stock, squaring by 3-4-5 and equal diagonals, laying out from one datum so errors do not accumulate, and marking pipe with wrap-arounds and contour markers.$mw$, $mw$## The kit
+
+| Tool | Use | Notes |
+|---|---|---|
+| **Layout dye** (Dykem blue, or a felt marker for small areas) | Makes a scribed line show as bright metal on blue | Thin coat on a clean, degreased surface; let it dry; soapstone and silver pencil are for rough marking on hot/dirty steel |
+| **Scriber** (hardened steel or carbide point) | Fine permanent line | Hold it like a pencil tilted **away from the straightedge**, one firm pass; a double line means it wandered |
+| **Prick punch (30-60° point)** | Small mark exactly on a line or intersection to anchor dividers | Set the point on the line at an angle so you can see it, then tip it vertical and tap once |
+| **Centre punch (90° point)** | Enlarges the prick mark to start a drill | Only after checking the prick mark is on the line; an off-centre punch can be pulled over by punching at an angle |
+| Automatic centre punch | Same, one-handed | Adjust the spring for a light mark on thin metal |
+| **Dividers** (spring, 6-8") | Arcs, circles, stepping off equal spaces, transferring distances | Set from a rule by putting one leg in the 1" graduation, not the end |
+| **Trammel points** on a beam (or a bar with two clamped points) | Circles and arcs bigger than the dividers, bolt circles on plate | Set with a tape; check by swinging a full circle back to the start |
+| **Hermaphrodite caliper (odd-leg)** | Scribing a line parallel to an edge; finding the centre of round stock | Hook leg on the edge, scribe leg set to the distance |
+| **Combination square set**: rule, square head, **centre head**, **protractor head** | Squares and 45°, depths, parallel lines (rule set to a dimension, slid along the edge with the head against it), centre of rounds, angles | Keep the rule clean and the head screw tight; check the square against a known square |
+| **Framing square (24 × 16")** and a **steel rule / tape** | Large squares, rafter-style layouts, checking square of frames | Check it: scribe a line, flip, scribe again; the lines must coincide |
+| **Straightedge** (ground, 24-72") | Long lines, checking flatness | Never used as a hammer or a pry |
+| **Surface gauge / height gauge with a surface plate** | Scribe lines at a set height around a part, find centres, check parallel | On a surface plate or a flat machined base; scribe with the point trailing |
+| **V-blocks** | Hold round stock for centre and keyway layout | |
+| **Bevel protractor / angle finder** | Angles, bevels | Magnetic digital angle finder for pipe rolls and torch angles |
+| **Wrap-around** (flexible rubber/nylon strip, 3-6" wide) | Square lines round pipe, miter lines through points | Wrap so the edge meets itself with no offset: it is then square |
+| **Contour marker / centre finder (Curv-O-Mark, Flange Wizard)** | Longitudinal lines on pipe, quarter lines, finding top dead centre, holes | Magnetic base; has a level for 0/90/180/270 |
+| **Chalk line, plumb bob, string line, water level, laser line** | Long straight lines on floors and structures, plumb, transferring elevations | See [installation](/article/leveling-and-machine-setting) |
+| Soapstone (flat, sharpened on an edge), silver-streak pencil, paint marker | Marking for torch and grinder | Soapstone burns off; silver pencil survives the torch |
+| **Templates**: cardboard, hardboard, thin plate, gasket sheet | Repeat layouts, bolt patterns | See [hole patterns and flange templates](/article/hole-patterns-and-flange-templates) |
+
+## Scribing a line that survives
+
+1. Clean and degrease; **dye** the area; dry.
+2. Establish the **datum edge** (see below) and scribe from it.
+3. Straightedge or square held down firmly; scribe once, tilted away from the edge, drawing toward you.
+4. **Prick-punch** the ends of every line and each intersection (a light mark every 1-2" on a long cut line is the pipefitter's "witness"); when the dye is burned off by the torch, the punch marks are still there and you can see the line as a dotted row of craters.
+5. Mark waste side with an X or hatching; write dimensions on the part with paint marker.
+6. **Witness marks** on the finished part: a second line 1/2" from the cut line (a "witness" or "check" line) lets you confirm after cutting and grinding that you finished on the layout.
+
+## Working from a datum
+
+Pick one **straight edge** (or two edges at 90°) as the datum, exactly like the drawing does. Measure every dimension **from that edge**, not from the last line you drew: chain measuring adds each error to the next. On a plate with a rough flame-cut edge, first scribe a straight datum line 1/2" in and cut/grind to it, or measure from a straightedge clamped to the plate. On pipe, the datum is a square line from the wrap-around and the longitudinal line from the contour marker.
+
+## Squaring
+
+- **3-4-5**: from the corner, mark 3 units along one line and 4 along the other; the diagonal between the marks is **5** if the corner is square (use 3-4-5 ft, or 6-8-10, 9-12-15, 30-40-50 for big frames).
+- **Equal diagonals**: on any rectangle, measure both diagonals corner to corner; equal = square (only if opposite sides are also equal). Adjust with a come-along or a jack across the long diagonal before final tacking.
+- A framing square across a corner for anything under about 2 ft; a **large fabricated square** (welded angle iron, checked by flipping) for big frames.
+- Check a square: scribe against it, flip it over on the same edge, scribe again: any gap between the lines is twice the error.
+
+## Finding the centre of round stock
+
+1. **Centre head**: hold it against the bar, scribe along the rule; rotate 90°, scribe again; the intersection is the centre (rotate 45° for a third line and use the small triangle's centre if they do not meet).
+2. **V-block and surface gauge**: bar in the V-block, gauge set to roughly the centre height, scribe a line, rotate the bar 90° and scribe again, repeat twice more; the small square in the middle is the centre.
+3. **Hermaphrodite caliper**: set to about the radius, hook on the bar, scribe four arcs from four positions; the centre is in the middle of the little square.
+4. Plate centre: diagonals from the corners.
+
+## Laying out a keyway on a shaft
+
+1. Centre lines: find the centre of the shaft end (above) and scribe a diameter line across the end and along the shaft with the surface gauge (shaft in V-blocks on the plate, or a centre finder held on the shaft).
+2. Keyway width: scribe two lines parallel to the centreline, half the key width each side, along the shaft (surface gauge raised and lowered by half the width from the centre height, or the rule of the combination square set to the distance).
+3. Length and ends: square lines at the start and end; radius the end if it is a milled (end-mill) keyway.
+4. Depth on the end of the shaft: from the top of the shaft (see [keys and keyways](/article/keys-and-keyways) for the depth formula).
+5. Punch the outline; the machinist cuts to the punch marks.
+
+## Pipe marking
+
+- **Square line**: wrap-around with its edges matched, mark with soapstone; for a cut, mark the whole circumference and a **witness** line 1" away.
+- **Longitudinal line and quarters**: contour marker/centre finder with its level at 0, mark the top; rotate the pipe or the marker to 90/180/270 with the level; these are the lines for laying out branches, hangers and orientations of flange bolt holes. Without a marker: a straightedge (angle iron) laid on the pipe touches along a longitudinal line; a level across the pipe finds the top.
+- **Flange orientation**: bolt holes **straddle the centrelines** (two-hole rule): mark the top line of the pipe, hold a level across two holes, and the top line falls between them.
+- **Dividing a circumference**: measure with a tape (circumference = π × OD; a 6" pipe is 20.81" round), divide, step off with dividers set to the space, and walk them round: the last step must land on the start.
+
+## Making a layout on the floor
+
+Chalk lines for the main axes from the anchor bolt drawing's datum (a column line, the centreline of the driven machine); check square by 3-4-5 with a 50 ft tape; mark the anchor bolt centres by measuring from **both** axes; centre-punch and paint. Plumb bob or a laser plumb to transfer to elevated steel. Full sequence in [anchor bolts and foundations](/article/anchor-bolts-and-foundations).
+
+## Common mistakes
+
+- Measuring from the end of a rule (worn) instead of from the 1" line and subtracting.
+- Scribing twice: two lines, and cutting between them.
+- Punching before checking: a punch mark 1/32" off the line becomes a hole 1/32" off.
+- Chain-measuring holes: the tenth hole is 1/8" out.
+- Layout on a rough flame-cut edge as the datum: nothing lines up on the machine.
+- Using the shop's bent framing square: check it first.
+
+## Related
+
+- [Hole patterns and flange templates](/article/hole-patterns-and-flange-templates)
+- [Pipe saddle and lateral templates](/article/pipe-saddle-and-lateral-templates)
+- [Pipe miter layout](/article/pipe-miter-layout)
+- [Trig and layout formulas](/article/trig-and-layout-formulas)
+- [Reading a micrometer](/article/reading-a-micrometer) and [dial indicator use](/article/dial-indicator-use)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$layout$mw$,$mw$layout tools$mw$,$mw$layout dye$mw$,$mw$Dykem$mw$,$mw$scriber$mw$,$mw$center punch$mw$,$mw$prick punch$mw$,$mw$dividers$mw$,$mw$trammel points$mw$,$mw$trammel$mw$,$mw$combination square$mw$,$mw$center head$mw$,$mw$protractor head$mw$,$mw$framing square$mw$,$mw$surface gauge$mw$,$mw$height gauge$mw$,$mw$V block$mw$,$mw$wrap around$mw$,$mw$contour marker$mw$,$mw$Curv-O-Mark$mw$,$mw$center finder$mw$,$mw$3-4-5 rule$mw$,$mw$diagonals square$mw$,$mw$datum edge$mw$,$mw$witness marks$mw$,$mw$soapstone$mw$,$mw$silver pencil$mw$,$mw$chalk line$mw$,$mw$plumb bob$mw$,$mw$scribing a line$mw$,$mw$laying out a plate$mw$,$mw$keyway layout$mw$]::text[], $mw$$mw$, array[]::text[], $mw$General trade practice as taught in millwright and pipe-trades programs (BC ITA Millwright Manual, NCCER); Starrett tool instructions (combination square set, surface gauge, trammels); Flange Wizard / Jackson Curv-O-Mark instructions; Machinery's Handbook layout section.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$making-a-story-pole-and-fixtures$mw$, $mw$Story Poles, Jigs, Fixtures and Drilling Templates: Making a Story Pole for Repeated Elevations and Hole Spacings, Welding Jigs and Fixtures, Squaring Frames, Go/No-Go and Setting Gauges, Marking Gauges, Fixtures for Field Drilling, Documenting a Fixture$mw$, $mw$Tools you make once so a repeated layout comes out the same every time: a story pole that carries all the elevations or spacings of a job on one stick, marking and spacer gauges for idler and hanger spacing, drill guides and templates, welding jigs that hold parts square and stop distortion, setting gauges for seal and bearing positions, and how to label a fixture so the next person can use it.$mw$, $mw$## Why make them
+
+A tape and a rule reproduce the same error every time you read them; a **story pole** or a **gauge** carries the dimension physically, so every hanger, idler, bolt hole or bracket lands in the same place, and you spend the layout time once. Anything you will do more than three times deserves a jig.
+
+## Story pole
+
+A straight stick (1×2 lumber, aluminium angle, 1/2" square tube, or a scrap of unistrut) with **every dimension of the job marked on it** from one datum.
+
+1. Choose the datum: floor finish level, the top of a beam, the centreline of a shaft, or a benchmark on a column. Mark it on the stick with a square line and a label.
+2. From the drawing, transfer **all** the elevations or spacings to the stick with a steel tape: bottom of the conveyor stringer, centreline of the head shaft, top of the guard rail, each pipe hanger centreline... each with a square line, an arrow to the side of the line the dimension is on, and the name.
+3. For spacings along a run (idlers every 4'-0", hangers every 10', bolts every 6"), mark the **cumulative** positions from the datum on one edge, never step off one at a time; for the run, hook the pole's datum on the start mark and step it, marking the pole's end each time, and check the total with a tape.
+4. Colour-code: elevations in one colour, hole centres in another; mark "UP" and the datum end clearly.
+5. Use it: hold the datum on the benchmark (or the level line transferred with a laser or water level), mark at each line. Two people with a story pole lay out a conveyor gallery's hangers in minutes.
+6. Keep it with the job; when the job is done, write the drawing number on it and keep it if the plant has more of the same, else scrap it before it gets used for the wrong job.
+
+Vertical version: a **transfer of elevations** to columns from a benchmark with a laser level or a water level, then the story pole from that line; a **grade rod** with a receiver is the surveyor's story pole.
+
+## Spacer and marking gauges
+
+- **Spacer gauge**: a bar cut to the exact spacing (idler-to-idler, bolt-to-bolt) with a stop at one end and a mark or a hole at the other; hook it on the last mark and mark the next. Check every fifth mark against a tape so the error does not walk.
+- **Marking gauge** (a block with a scriber at a fixed offset): scribe a line a set distance from an edge along a long plate, faster and more consistent than a rule and square; the combination square's rule slid along the edge is the same idea.
+- **Offset gauge** for pipe hangers: a piece of angle with the hanger's bolt hole and the pipe's centreline marked, so the hole lands at the right distance from the wall or beam every time.
+- **Setting gauges**: a bar or a sleeve cut to the exact distance a part must sit, e.g. the distance from the shaft shoulder to the seal face (a cut piece of tube), the gap between a coupling hub and the housing, the height of a sensor over a target, the compression of a mechanical seal (see [mechanical seal installation](/article/mechanical-seal-replacement-centrifugal-pump)). Mark the dimension on it.
+- **Go/no-go gauge**: two steps on one bar (the minimum and the maximum of a tolerance): a chain wear gauge, a sheave groove gauge and a taper gauge are commercial examples; you can make one for a repeated gap or a shim thickness.
+
+## Drill guides and templates
+
+- Drilling template: see [hole patterns and flange templates](/article/hole-patterns-and-flange-templates). Add **locating stops** (an angle welded on two edges) so the template registers on the part's datum edges without measuring.
+- **Drill guide block**: a hardwood or steel block with a hole drilled square on the drill press, clamped on the work, to keep a hand drill square in the field (or use a commercial portable drill guide); the same block with a bushing for repeated field holes.
+- **Punching template**: a plate with hardened punch bushings for marking (a transfer punch through it) where you cannot drill through a template.
+- For bolt holes in a series of brackets: drill the first bracket from the layout, then use it as the template for the rest (clamp, transfer-punch); label it "MASTER".
+
+## Welding jigs and fixtures
+
+A **jig** guides a tool; a **fixture** holds the work. In the shop the words are mixed; what matters is that the fixture:
+
+1. **Locates** the parts on datums (3 points on a plane, 2 on a line, 1 for the stop: the 3-2-1 rule), from the same datums the drawing uses, so the weld does not move the reference.
+2. **Clamps** them so they cannot move under weld shrinkage (toggle clamps, C-clamps, dogs and wedges, bolts through the base), and at the same time lets the parts **expand and shrink** where they must (one end fixed, the other in a slot), or the fixture bends.
+3. **Presets** for distortion where you know it (see [distortion control](/article/distortion-control)): the fixture holds the frame 2° out of square the other way.
+4. Keeps the **weld side accessible** and the ground clamp on the part (never through the fixture's hinges or bearings).
+5. Is **square itself**: built on a flat table or a machined plate, checked with a large square and diagonals, and re-checked after a week of use (fixtures warp).
+
+Types a millwright makes: a **squaring fixture** for frames (two angle-iron fences at 90° bolted to a table, stops for the members), a **tacking fixture** for pipe supports and guards (V-blocks and pipe stops), an **alignment fixture** for shaft-through-bearing assemblies (two V-blocks on a rail at the bearing centres, so the housings are welded in line), and **positioning stands** (a rotating fixture so every weld is flat). Copper or aluminium backing bars in the fixture take the heat of full-penetration welds and give a smooth root.
+
+Rules: clean the fixture of spatter each use (anti-spatter, or stainless faces), keep fixture bolts snug not stretched, and weld the part in the fixture in the same sequence every time (write the sequence on the fixture).
+
+## Squaring a frame without a fixture
+
+Tack two corners, measure the **diagonals**, pull the long diagonal with a come-along or push with a jack until equal, tack the other corners, re-measure, then weld in the sequence that balances shrinkage (opposite corners, alternating sides). Check with a large square at each corner and a straightedge along each side; a level for twist (all four corners on a flat floor, or wind up a string diagonal to see if the frame is twisted).
+
+## Field drilling and cutting fixtures
+
+- **Mag-drill spacer**: a bar with a stop that sets the drill's pilot at the right offset from an edge for a line of holes.
+- **Torch straightedge**: a length of angle iron with a stop at the right offset from the tip; a torch roller guide; a **circle-cutting attachment**.
+- **Plasma template**: a 1/4" plate cut to the profile, offset by the torch standoff and half the kerf; the plasma shield rides on its edge.
+- **Cut length stop** on a saw or a chop saw: a block clamped at the length, so 40 pieces are identical; never hold a stop against the cut-off piece (it jams), put the stop on the far side of the blade with a gap.
+
+## Documenting a fixture
+
+Stamp or paint on it: what it makes (drawing number), the datum face and "UP", the sequence of use, the date and who made it, and the last check date for a squaring fixture. Store it flat and off the floor; a bent fixture makes bent parts.
+
+## Common mistakes
+
+- Story pole marked from the wrong end after a rotation: every mark is off by the pole's length.
+- Fixture that clamps everything solid: the weld cracks or the fixture springs when released.
+- Using the fixture's own frame as the ground path: the hinge pins arc and seize.
+- A spacer gauge stepped 50 times with no tape check: 1/16" per step becomes 3" at the end.
+- No "MASTER" label on the first bracket: someone drills the master to a different size.
+
+## Related
+
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Hole patterns and flange templates](/article/hole-patterns-and-flange-templates)
+- [Distortion control](/article/distortion-control)
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Optical and laser levels and piano wire](/article/optical-and-laser-levels-piano-wire)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$story pole$mw$,$mw$story stick$mw$,$mw$jig$mw$,$mw$fixture$mw$,$mw$welding jig$mw$,$mw$welding fixture$mw$,$mw$squaring jig$mw$,$mw$drill jig$mw$,$mw$drill guide$mw$,$mw$setting gauge$mw$,$mw$go no go gauge$mw$,$mw$marking gauge$mw$,$mw$spacer gauge$mw$,$mw$conveyor idler spacing$mw$,$mw$hanger spacing$mw$,$mw$repeated layout$mw$,$mw$transfer elevations$mw$,$mw$benchmark$mw$,$mw$fabrication fixture$mw$,$mw$tack fixture$mw$,$mw$alignment fixture$mw$,$mw$template board$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Trade practice from millwright, carpentry and fabrication programs (NCCER, BC ITA); Machinery's Handbook jig and fixture principles; welding fixture design guidance (Lincoln Electric Procedure Handbook).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pipe-miter-layout$mw$, $mw$Pipe Miter Layout and Fitting Take-Outs: 2-, 3-, 4- and 5-Piece Mitered Elbows with Cut-Back Tables, Miter Templates, Offsets by Angle (45°, 60°, 30°, 22.5°) with Constants, Rolling Offsets, Butt-Weld Elbow and Tee Take-Outs (ASME B16.9), Cut Length Math$mw$, $mw$How to lay out and cut mitered elbows of any number of pieces with the cut-back tables for common pipe sizes and a wrap-around template method, the standard offset constants for calculating travel and run at any angle including rolling offsets, and the butt-weld fitting take-out numbers you subtract to get cut lengths of pipe between fittings.$mw$, $mw$## Mitered elbows
+
+A miter is an elbow made by cutting pipe at an angle and welding the pieces. For a total bend angle A made of n pieces there are (n − 1) joints and the two end pieces are half-segments:
+
+```
+   cut angle at each joint (measured from a square cut)  θ = A ÷ [2 × (n − 1)]
+   cut-back at the outside of the pipe (from the square line to the long point)  C = (OD ÷ 2) × tan θ
+   the cut runs from +C on the outside of the bend to −C on the inside: total difference between long and short sides = 2C = OD × tan θ
+```
+
+| Elbow | Pieces | Joints | θ (cut angle) | Segment angle |
+|---|---|---|---|---|
+| 2-piece 90° | 2 | 1 | **45°** | 90° at one joint |
+| 3-piece 90° | 3 | 2 | **22.5°** | 45° per joint |
+| 4-piece 90° | 4 | 3 | **15°** | 30° per joint |
+| 5-piece 90° | 5 | 4 | 11.25° | 22.5° per joint |
+| 2-piece 45° | 2 | 1 | 22.5° | |
+| 3-piece 45° | 3 | 2 | 11.25° | |
+
+Codes (ASME B31.3) limit miter angles by pressure: over about 22.5° per joint a miter is a "single miter" with reduced pressure rating; 3-piece and 4-piece 90s are the usual pressure-piping miters, 2-piece only on low-pressure and duct work.
+
+### Cut-back table C (inches) at the pipe's outside surface
+
+| Pipe (OD) | 2-piece (45°) | 3-piece (22.5°) | 4-piece (15°) | 5-piece (11.25°) |
+|---|---|---|---|---|
+| 2" (2.375) | 1.188 | 0.492 | 0.318 | 0.236 |
+| 3" (3.500) | 1.750 | 0.725 | 0.469 | 0.348 |
+| 4" (4.500) | 2.250 | 0.932 | 0.603 | 0.448 |
+| 6" (6.625) | 3.312 | 1.372 | 0.888 | 0.659 |
+| 8" (8.625) | 4.312 | 1.786 | 1.156 | 0.858 |
+| 10" (10.75) | 5.375 | 2.226 | 1.440 | 1.069 |
+| 12" (12.75) | 6.375 | 2.641 | 1.708 | 1.268 |
+
+For any other size: C = OD/2 × tan θ.
+
+### Laying out a miter cut on the pipe
+
+**Method 1, two marks and a wrap-around**: square a line around the pipe with the wrap-around; on the **outside of the bend** measure C up from it and mark; on the **inside** measure C down and mark; on both sides (90° round) mark on the square line. Wrap the wrap-around through those four points: it lies along the elliptical cut line. Mark. (Works because a plane cut through a cylinder is an ellipse that a flat wrap follows.)
+
+**Method 2, ordinate template** (for accurate large miters or thick wall): divide the circumference into 16, ordinate at element line k is `C × cos(k × 22.5°)`, i.e. +C, +0.924C, +0.707C, +0.383C, 0, −0.383C, −0.707C, −0.924C, −C and back; plot on paper, cut, wrap.
+
+**Method 3, angle finder**: for a single piece cut, set a bevel protractor or a magnetic angle finder on the pipe and mark the two sides, then join with the wrap.
+
+### Piece lengths for a miter elbow of centreline radius R
+
+For an n-piece 90° elbow with centreline radius R (choose R ≈ 1.5 × NPS like a long-radius elbow, or whatever the drawing says), the developed centreline length is `π × R ÷ 2`, and each **middle piece** measures `2 × R × tan θ` on the centreline; each **end piece** measures `R × tan θ` plus the straight tangent you need. Lay out each piece with the miter on both ends (middle pieces) rotated so the long points are all on the outside of the bend, and mark **"top" and the centreline** on every piece before cutting or you will assemble a corkscrew.
+
+### Fitting a miter
+
+Bevel every cut 30-37.5° (the bevel angle changes as the cut turns: grind), leave a root gap of 1/16-3/32", tack the pieces on a flat surface with the centrelines aligned, check the total angle with a framing square or protractor against a straightedge on each end, then weld.
+
+## Offsets
+
+An offset moves a pipe run sideways using two equal fittings (elbows) at an angle. The three sides of the right triangle: **offset** (the sideways distance, centre to centre), **run** (the distance along the original direction), **travel** (the centre-to-centre length of the diagonal pipe plus fittings).
+
+```
+   travel = offset × (1 ÷ sin A)          run = offset × (1 ÷ tan A)
+```
+
+| Fitting angle A | travel = offset × | run = offset × | offset = travel × |
+|---|---|---|---|
+| **45°** | **1.414** | **1.000** | 0.707 |
+| 60° | 1.155 | 0.577 | 0.866 |
+| 30° | 2.000 | 1.732 | 0.500 |
+| 22.5° | 2.613 | 2.414 | 0.383 |
+| 11.25° | 5.126 | 5.027 | 0.195 |
+| 90° | 1.000 (the offset is a straight leg) | 0 | |
+
+**Cut length of the diagonal pipe** = travel − (take-out of the first fitting) − (take-out of the second fitting) − weld gaps (for butt-weld) or + thread engagements (threaded).
+
+### Rolling offset
+
+The pipe has to move sideways **and** up/down: the true offset is the diagonal of a box, `true offset = √(horizontal² + vertical²)`; then use the table with the true offset. The **rotation angle** of the fittings from the vertical is `tan⁻¹(horizontal ÷ vertical)`. Set the two elbows on the pipe at that roll angle using an angle finder or the box method (lay a framing square with the two offsets as its legs and measure the diagonal).
+
+Worked example: 6" offset sideways and 8" up with 45° fittings: true offset = √(36 + 64) = 10"; travel = 10 × 1.414 = 14.14"; run = 10"; roll = tan⁻¹(6/8) = 36.9° from vertical.
+
+## Butt-weld fitting take-outs (ASME B16.9, centre to face)
+
+| Fitting | Take-out | 2" | 3" | 4" | 6" | 8" | 10" | 12" |
+|---|---|---|---|---|---|---|---|---|
+| **90° long radius elbow** | **1.5 × NPS** | 3" | 4-1/2" | 6" | 9" | 12" | 15" | 18" |
+| 90° short radius elbow | 1.0 × NPS | 2" | 3" | 4" | 6" | 8" | 10" | 12" |
+| **45° long radius elbow** | 0.625 × NPS (B16.9 rounds) | 1-3/8" | 2" | 2-1/2" | 3-3/4" | 5" | 6-1/4" | 7-1/2" |
+| 180° return LR, centre to centre | 3 × NPS | 6" | 9" | 12" | 18" | 24" | 30" | 36" |
+| Straight tee, centre to run end (C) | | 2-1/2" | 3-3/8" | 4-1/8" | 5-5/8" | 7" | 8-1/2" | 10" |
+| Cap, length | | 1-1/2" | 2" | 2-1/2" | 3-1/2" | 4" | 5" | 6" |
+| Concentric reducer, length | | 3" | 3-1/2" | 4" | 5-1/2" | 6" | 7" | 8" |
+
+The 45° take-outs are the B16.9 values for the sizes shown (they are not exactly 0.625 × NPS at every size: 2" is 1-3/8", not 1-1/4"). Flanges: weld-neck flange length from the face to the weld end is in ASME B16.5 by class (a 4" class 150 WN is 3" long; 6" is 3-1/2"). Threaded and socket-weld fittings (B16.11) have their own centre-to-end dimensions and you add thread make-up (about 1/2" per end on 1", 3/4" on 2") or subtract socket depth minus the 1/16" gap.
+
+### Cut-length math (butt weld)
+
+```
+   pipe cut length = centre-to-centre dimension − take-out(fitting 1) − take-out(fitting 2) − gap(1) − gap(2)
+   gap = root opening, typically 1/8" (3/32-1/8") per weld
+```
+
+Example: two 6" LR 90s, 4'-0" centre to centre: 48 − 9 − 9 − 0.125 − 0.125 = **29-3/4"**.
+
+For a run with a tee: subtract the tee's centre-to-end (C) on that side. Always mark the centrelines on the fittings and the pipe before tacking; **check the weld gap with a 1/8" rod or gap gauge**, square the fitting with a level or a framing square on the flange face or the fitting's opposite end, tack at the quarters.
+
+## Common mistakes
+
+- Using nominal size instead of OD in the miter cut-back.
+- Miter long points not all on the outside of the bend: a snake instead of an elbow.
+- Forgetting the weld gaps: every pipe comes up 1/4" short per pair of fittings.
+- Mixing LR and SR elbows on the same run: the take-outs are not the same.
+- Rolling offset done as two separate offsets: twice the fittings and a leak-prone mess.
+
+## Related
+
+- [Pipe saddle and lateral templates](/article/pipe-saddle-and-lateral-templates)
+- [Trig and layout formulas (offsets, tapers, bolt circles)](/article/trig-and-layout-formulas)
+- [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Blueprint reading (isometrics)](/article/blueprint-reading-for-millwrights)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$pipe miter$mw$,$mw$mitered elbow$mw$,$mw$miter cut$mw$,$mw$cutback$mw$,$mw$2 piece elbow$mw$,$mw$3 piece elbow$mw$,$mw$4 piece elbow$mw$,$mw$miter template$mw$,$mw$pipe offset$mw$,$mw$45 degree offset$mw$,$mw$offset travel$mw$,$mw$rolling offset$mw$,$mw$fitting take out$mw$,$mw$take-out$mw$,$mw$elbow center to face$mw$,$mw$long radius elbow$mw$,$mw$1.5 x NPS$mw$,$mw$ASME B16.9$mw$,$mw$weld gap$mw$,$mw$cut length$mw$,$mw$pipe fitting math$mw$,$mw$pipe circumference$mw$,$mw$lobster back$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Miter geometry computed for ASME B36.10 outside diameters; ASME B16.9 butt-welding fitting centre-to-face dimensions; Pipe Fitter's and Pipe Welder's Handbook (Frankland) offset constants; IPT Pipe Trades Handbook.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pipe-saddle-and-lateral-templates$mw$, $mw$Pipe Saddle (Branch) and Lateral Templates: Ordinate Method for 90° Tees with Tables for 2" to 8" Branches, 45° Lateral Layout, Wrap-Around Marking, Cutting and Fitting the Branch, Header Hole Layout$mw$, $mw$How to lay out the curved cut where a branch pipe meets a header (the saddle or fishmouth) by the ordinate method, with ready-computed ordinate tables for the common size combinations, the matching hole in the header, the 45° lateral variant, how to wrap the template and mark the pipe, cut with a torch or plasma, and grind to a fit with the right gap for welding.$mw$, $mw$## The idea
+
+Unroll the branch pipe's circumference onto paper, divide it into 16 equal parts (element lines), and at each line mark how far back from a square cut the pipe must be cut so it sits down on the round header. Those distances are the **ordinates**. Wrap the paper on the branch, mark the curve through the points, cut, and the branch nests on the header.
+
+```
+   Ordinate at element line θ (measured around the branch from the side, 0° = the side of the branch that sits on the header's side, 90° = top/bottom centre):
+
+       y(θ) = R − √( R² − (r · sin θ)² )        r = branch outside radius, R = header outside radius
+
+   At the crotch (θ = 0, the sides of the branch) y = 0. At θ = 90° (the top and bottom of the branch, on the header's centreline) y is greatest.
+```
+
+Element lines run from the crotch (0°) to the centreline (90°) and back; the template is symmetrical, so you only need the 5 values for 0°, 22.5°, 45°, 67.5° and 90° and you repeat them.
+
+## Ordinate tables (inches; branch OD on header OD, ASME B36.10 pipe)
+
+Spacing of element lines around the branch = circumference ÷ 16.
+
+| Branch (OD) | Circumference | Spacing (circ ÷ 16) |
+|---|---|---|
+| 2" (2.375) | 7.46" | 0.466" (15/32) |
+| 3" (3.500) | 11.00" | 0.687" (11/16) |
+| 4" (4.500) | 14.14" | 0.884" (7/8) |
+| 6" (6.625) | 20.81" | 1.301" (1-5/16) |
+| 8" (8.625) | 27.10" | 1.694" (1-11/16) |
+
+Ordinates y at 0° / 22.5° / 45° / 67.5° / 90° (the 0° value is always 0; measure the others **back from a square line** at the branch end):
+
+| Branch on header | 22.5° | 45° | 67.5° | **90°** (max) |
+|---|---|---|---|---|
+| **2" on 2"** | 0.090 | 0.348 | 0.733 | **1.188** |
+| 2" on 3" | 0.060 | 0.215 | 0.387 | 0.465 |
+| 2" on 4" | 0.046 | 0.163 | 0.286 | 0.339 |
+| 2" on 6" | 0.031 | 0.108 | 0.187 | 0.220 |
+| 2" on 8" | 0.024 | 0.083 | 0.142 | 0.167 |
+| 2" on 10" | 0.019 | 0.066 | 0.113 | 0.133 |
+| 2" on 12" | 0.016 | 0.056 | 0.095 | 0.112 |
+| **3" on 3"** | 0.133 | 0.513 | 1.080 | **1.750** |
+| 3" on 4" | 0.102 | 0.371 | 0.685 | 0.836 |
+| 3" on 6" | 0.068 | 0.240 | 0.421 | 0.500 |
+| 3" on 8" | 0.052 | 0.181 | 0.315 | 0.371 |
+| 3" on 10" | 0.042 | 0.144 | 0.249 | 0.293 |
+| 3" on 12" | 0.035 | 0.121 | 0.208 | 0.245 |
+| **4" on 4"** | 0.171 | 0.659 | 1.389 | **2.250** |
+| 4" on 6" | 0.114 | 0.407 | 0.733 | 0.881 |
+| 4" on 8" | 0.087 | 0.304 | 0.534 | 0.633 |
+| 4" on 10" | 0.069 | 0.241 | 0.418 | 0.494 |
+| 4" on 12" | 0.058 | 0.202 | 0.348 | 0.410 |
+| **6" on 6"** | 0.252 | 0.970 | 2.045 | **3.312** |
+| 6" on 8" | 0.191 | 0.692 | 1.274 | 1.551 |
+| 6" on 10" | 0.152 | 0.537 | 0.956 | 1.142 |
+| 6" on 12" | 0.127 | 0.446 | 0.783 | 0.928 |
+| **8" on 8"** | 0.328 | 1.263 | 2.662 | **4.312** |
+| 8" on 10" | 0.260 | 0.949 | 1.767 | 2.167 |
+| 8" on 12" | 0.217 | 0.777 | 1.398 | 1.680 |
+
+Equal-size branches: the 90° ordinate is simply the pipe radius (a 6" on 6" saddle cuts back 3.312", half the OD). Any other combination: use the formula with a calculator; for a **set-in** branch (branch goes into a hole in the header, flush with the inside) use the header's **inside** radius for R and the branch OD for r. In practice set-on (branch sits on the header's outside) is what a millwright makes; set-in is a fabrication-shop detail.
+
+## Making the template (set-on 90° branch)
+
+1. Paper or thin cardboard (or a used gasket sheet, or a strip of roofing felt) at least the branch circumference plus 1" long and the max ordinate plus 2" wide. A "wrap-around" of 1/16" rubber is the pipefitter's straightedge for marking the square line.
+2. Draw a **base line** along the length and mark 16 equal spaces (use the spacing table, or step off the circumference with dividers: measure the actual pipe with a tape and divide by 16).
+3. Number the element lines 0 to 16; **0, 8 and 16 are the crotch (sides)** with ordinate 0; **4 and 12 are the centreline** (top and bottom, on the header's centreline) with the maximum ordinate. Lines 1-3 and 5-7 (and the mirror) get the 22.5°, 45°, 67.5° values.
+4. Square up from each element line by its ordinate and mark a point; draw a fair curve through the points (a flexible batten or a French curve).
+5. Cut along the curve. Wrap the template around the branch with the base line on a square line, the 0/8/16 lines on the **sides** of the branch (the plane of the header's axis), tape it, and mark the curve with soapstone or a silver pencil.
+6. Mark the **centreline** of the branch on the pipe too, so you can orient it on the header.
+
+## Laying out the hole in the header
+
+For a set-on branch the hole is the branch's **inside** diameter projected onto the header: use a centre finder/contour marker to draw the header's longitudinal centreline, mark the branch centre point, and lay out the hole with the branch's ID as the width across the header (along the circumference) and, along the header's axis, the same ID (seen from above it is a circle of the branch ID; unrolled flat it becomes a slight ellipse). Practical method: set the cut branch on the header where it goes, scribe around the inside of it, and cut 1/8" inside the scribed line, then grind to the line. For **reinforced** or code branches, the hole and weld are per the drawing (weldolets and reinforcing pads are used above certain sizes and pressures).
+
+## 45° lateral
+
+For a branch entering the header at 45° the ordinates are no longer symmetrical: the **heel** side is long and the **throat** side is short. General formula for a branch at angle α measured around the branch from the heel line (θ):
+
+```
+   L(θ) = [ R − √( R² − (r · sin θ)² ) ] ÷ sin α  +  r · cos θ ÷ tan α
+```
+
+Take the smallest value as zero and measure the others from a square line. For a 45° lateral with the branch equal to the header, the throat point (θ = 180°) is 0, the heel (θ = 0) is about the pipe OD back from it, and the side points fall between. Computed examples (inches, 9 points from heel to throat, 22.5° apart): **2" on 2"**: 2.375, 2.412, 2.519, 2.679, 2.867, 1.770, 0.840, 0.218, 0; **4" on 6"**: 4.500, 4.490, 4.417, 4.148, 3.497, 2.426, 1.235, 0.332, 0; **6" on 8"**: 6.625, 6.642, 6.633, 6.382, 5.506, 3.847, 1.948, 0.522, 0. Notice the ordinate is not maximum at the heel on unequal sizes (the heel curls back a little); draw a fair curve and trust it. The hole in the header is an elongated (elliptical) opening; scribe it from the cut branch set in position.
+
+Nowadays a **pipe layout app or a template program** prints these for any size and angle; the method above is what you do when the phone is dead.
+
+## Cutting and fitting
+
+1. Cut with a torch or plasma **on the waste side** of the line, torch tilted to follow the bevel: for a set-on branch the cut is bevelled **outward** on the top and bottom (centreline) where the branch meets the header at 90°, and nearly square at the crotch where it meets at a glancing angle: a varying bevel (the reason saddles are ground after cutting).
+2. Grind to the line; try it on the header; mark the high spots with soapstone; grind again. Target **1/16-1/8" gap all round** for a fillet or a groove weld per the drawing; a gap over 3/16" at the crotch is a sign the ordinates were measured from the wrong reference.
+3. Set the branch on its centreline mark (contour marker/centre finder on the header for the longitudinal line; a **level or a square across the header** for plumb), tack at the four quarter points, check square with a framing square against the header, then weld.
+4. Weld sequence for a branch: quarters, alternating, starting at the crotches where the fit is tightest.
+
+## Common mistakes
+
+- Wrapping the template with the 0 line on the top of the branch instead of on the side: the saddle comes out rotated 90° and does not fit anything.
+- Using the header's nominal size (6") instead of its OD (6.625) for R.
+- Forgetting the cut is measured **back** from the square end: the branch is short.
+- Cutting on the line instead of the waste side: no metal left to grind to a fit.
+- Not allowing for the varying bevel: the branch fits at the crotch and gaps at the top.
+
+## Related
+
+- [Pipe miter layout and fitting take-outs](/article/pipe-miter-layout)
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Trig and layout formulas](/article/trig-and-layout-formulas)
+- [Oxy-fuel cutting technique](/article/oxy-fuel-cutting-technique)
+- [Joint design and fit-up](/article/joint-design-and-fit-up)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$pipe saddle$mw$,$mw$saddle template$mw$,$mw$branch template$mw$,$mw$fishmouth$mw$,$mw$pipe tee layout$mw$,$mw$ordinate method$mw$,$mw$pipe lateral$mw$,$mw$45 degree lateral$mw$,$mw$lateral template$mw$,$mw$wrap around$mw$,$mw$pipe layout$mw$,$mw$branch connection$mw$,$mw$set on branch$mw$,$mw$set in branch$mw$,$mw$header hole$mw$,$mw$pipe fitting layout$mw$,$mw$pipe template$mw$,$mw$contour marker$mw$,$mw$pipe ordinates table$mw$,$mw$pipe circumference table$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Ordinate formulas from the Pipe Fitter's and Pipe Welder's Handbook (Frankland) and the IPT Pipe Trades Handbook, computed here for ASME B36.10 pipe outside diameters; Curv-O-Mark/Flange Wizard marker instructions; general pipe-trades practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$sheet-metal-developments$mw$, $mw$Sheet-Metal Developments: Parallel-Line (Truncated Cylinders, Elbows), Radial-Line (Cones, Truncated Cones, Hoppers), Triangulation (Square-to-Round Transitions), Bend Allowance and Setback with K-Factor, Minimum Bend Radius, Seam and Hem Allowances$mw$, $mw$The three classical ways to draw a flat pattern that folds or rolls into a 3-D sheet part, with step lists for the shapes a millwright makes (chute sections, cylinder cut at an angle, duct elbows, cones and hopper sections, square-to-round transitions), the bend allowance formula and K-factors for press-brake work with a worked example, minimum inside bend radii by material, and the allowances for seams and hems.$mw$, $mw$## Which method
+
+| Shape | Surfaces | Method |
+|---|---|---|
+| Cylinders and prisms cut square or at an angle, pipe-style elbows, tees on cylinders | Parallel edges (elements are parallel) | **Parallel-line** |
+| Cones, truncated cones, pyramids, hoppers with a common apex | Elements meet at a point | **Radial-line** |
+| Square-to-round, rectangle-to-round, offset transitions, anything twisted | No common apex, no parallel elements | **Triangulation** |
+| Flat parts with bends (brackets, boxes, guards) | Flat with bend lines | **Bend allowance** flat pattern |
+
+Draw the developments at full size on paper, hardboard or directly on the sheet with dye; keep the drawing's **seam** where it does the least harm (the shortest element, the back, away from the wear side).
+
+## Parallel-line development: a cylinder cut at an angle (chute elbow, 2-piece duct elbow)
+
+1. Draw the **elevation** (side view) showing the cylinder and the angled cut, and the **plan** (end view): a circle of the cylinder's diameter (use the **mean** diameter for thick material: ID + t).
+2. Divide the circle into **12 equal parts** (16 for accuracy on big work) and number them 1-12; project each division point up into the elevation as a vertical **element line** to the cut line.
+3. Draw the **stretch-out line**: a horizontal line whose length is the circumference (π × mean diameter); mark the 12 (or 16) equal spaces along it and number them to match, starting and ending at the seam element.
+4. At each numbered point, square up a line and project across from the elevation the **height** of the same-numbered element (where it meets the angled cut). Transfer with dividers or a straight projection line.
+5. Join the tops with a fair curve: that is the pattern; add seam and hem allowances (below). The bottom is straight (a square cut).
+
+**2-piece elbow**: the same pattern cut twice from one stretch-out, nested (one inverted) so nothing is wasted. **3- and 4-piece elbows**: the middle pieces have the angled cut on both ends (draw both curves). **Tee on a cylinder**: the branch is a parallel-line development of the branch cut to the header's curve (same as the pipe saddle, see [pipe saddle templates](/article/pipe-saddle-and-lateral-templates)).
+
+## Radial-line development: a cone and a truncated cone (hopper, reducer, funnel)
+
+Full cone with base diameter D and slant height S (the distance from the apex to the base edge along the surface):
+
+```
+   S = √( (D/2)² + H² )                       H = vertical height
+   pattern: a sector of a circle of radius S, with an included angle  A = 360° × (D/2) ÷ S  = 180° × D ÷ S
+   arc length of the sector = π × D (the base circumference)
+```
+
+Truncated cone (big diameter D, small diameter d, height H):
+
+1. Draw the elevation; extend the sides to the apex. Slant height to the big end S = √((D/2)² + H_total²) where H_total is the height from the apex to the big base; slant to the small end s = S × d ÷ D.
+2. From a centre point swing an arc of radius S and one of radius s.
+3. Sector angle A = 180° × D ÷ S. Lay it out with a protractor, or step the big-end circumference (π × D) along the big arc with dividers set to 1/12 of it.
+4. Join the ends of the arcs to the centre; the ring-sector between the arcs is the pattern. Add seam allowance on one radial edge and any flange/hem on the arcs.
+
+**Worked example**: reducer 24" to 12" diameter, 18" tall. Apex height H_total: by similar triangles, H_total = 18 × 24 ÷ (24 − 12) = 36". S = √(12² + 36²) = 37.95"; s = 37.95 × 12/24 = 18.97"; A = 180 × 24 ÷ 37.95 = **113.8°**. Big arc length = π × 24 = 75.4"; check by measuring. A cone too big for one sheet is made in two or three sectors of A/2 or A/3 each with seams.
+
+For a cone with an **off-centre apex** (an oblique cone) or a truncated cone **cut at an angle**, the elements are no longer equal: divide the base into 12, draw each element in the elevation, find its true length (rotate into the plane of the drawing), and lay the pattern out element by element from the apex with dividers: that is radial-line development with true lengths, and it shades into triangulation.
+
+## Triangulation: square-to-round transition
+
+Divide the surface into triangles, find the **true length** of every edge, and lay the triangles out flat one after the other.
+
+1. Draw the **plan** (top view): the square (side s) and the circle (diameter D) concentric (or offset, if the transition is offset); divide the circle into 12 points (3 per quarter), number them; letter the square's corners A, B, C, D.
+2. Draw lines from each corner of the square to the four nearest circle points. The surface is now 4 flat triangles (each square side joined to the circle point in front of it) and 4 curved sections made of triangles fanning from each corner to the circle points.
+3. Each line in the plan is a **plan length**; the **true length** = √(plan length² + height²). Draw a **true-length diagram**: a vertical line of the transition's height H, and from its base measure each plan length horizontally; the hypotenuse is the true length. Label them.
+4. Lay out: start with a square side (true size, it is horizontal), swing arcs from its ends with the true lengths of the lines to the first circle point to locate that point; from that point swing the circle's chord (the distance between adjacent circle points in plan, which is true because it is horizontal) and from the corner swing the true length of the next line; their intersection is the next point. Continue around the whole surface.
+5. Join the circle points with a fair curve and the square points with straight lines; add seam allowance. Fold on the corner lines; roll the curved sections gently over a pipe or in the rolls.
+
+Rectangle-to-round and offset transitions work the same with more distinct triangles (no symmetry, so every line is found). This is the method for hopper transitions, dust-collection connections and chute mouths.
+
+## Bend allowance for press-brake and hand-brake work
+
+When sheet bends, the outside stretches and the inside compresses; the **neutral axis** (that keeps its length) sits at K × T from the inside, where K ≈ 0.33 for tight bends (R < T), 0.40-0.45 typical, 0.50 for large-radius bends. The flat pattern length is the sum of the flat legs plus the arc length at the neutral axis.
+
+```
+   Bend allowance  BA = (π ÷ 180) × angle × (R + K × T)          angle = bend angle in degrees, R = inside radius, T = thickness
+   Outside setback (for 90°)  OSSB = R + T
+   Bend deduction  BD = 2 × OSSB − BA                             (subtract from the sum of the outside leg lengths)
+   Flat length = leg1 + leg2 − BD   (legs measured to the outside intersection of the faces)
+             = (leg1 − OSSB) + (leg2 − OSSB) + BA
+```
+
+**Worked example**: 90° bend in 1/4" (0.25") plate, inside radius 1/4", K = 0.42 (mild steel, R = T). BA = 1.5708 × (0.25 + 0.42 × 0.25) = 1.5708 × 0.355 = **0.558"**. OSSB = 0.5". BD = 1.0 − 0.558 = **0.442"**. A bracket with 4" and 6" outside legs cuts from a flat **10.00 − 0.44 = 9.56"** long. For 90° bends in thin sheet (16 ga, R = T), a rule of thumb is BD ≈ 1.6-1.7 × T, but check with a test bend on scrap and measure; every brake and die set is a little different.
+
+**Minimum inside bend radius** (to avoid cracking; bend **across** the grain of the sheet where possible):
+
+| Material | Minimum inside radius |
+|---|---|
+| Mild steel (A36, 1008-1018, 3003 aluminium) | 1 × T (0.5 T on thin gauges with good tooling) |
+| A572 Gr 50, higher-strength | 1.5-2 × T |
+| Stainless 304 annealed | 1-1.5 × T |
+| Aluminium 5052-H32 | 1-1.5 × T |
+| **Aluminium 6061-T6** | **3-4 × T (cracks otherwise; anneal or use 6061-O)** |
+| 7075-T6 | Do not bend |
+| Plate over 1/2" | Per the mill; hot forming above 1" |
+
+Press-brake V-die opening ≈ **8 × T** (6 T for thin, 10-12 T for thick or high-strength); inside radius from an air bend is about the die opening ÷ 6 to 8 in mild steel. Springback: bend 2-5° past 90° on mild steel, more on stainless and aluminium alloys.
+
+## Seams, hems and allowances
+
+| Item | Allowance |
+|---|---|
+| Butt-weld seam (steel plate) | None; add nothing |
+| **Lap seam** (riveted, spot-welded, bolted) | Add the lap width (3 × rivet diameter minimum) to one edge |
+| Grooved seam (light gauge) | 3 × the groove width in total, 1.5 each edge |
+| Pittsburgh lock (duct) | Pocket edge: about 1-1/8" for a 1/4" pocket; flange edge: 1/4" |
+| Single hem (edge stiffening) | Hem width (1/4-1/2") |
+| Double hem | 2 × hem width |
+| Wired edge | 2.5 × wire diameter |
+| Flange (90°) | Flange width + bend allowance |
+| Rolled cylinder from plate | Circumference at the **mean** diameter (ID + T); the ends cut square |
+
+Mark on the pattern: bend lines (dashed), the inside or outside of the bend (an "up"/"down" note), seam side, grain direction, part number and quantity. Number the elements on the sheet as on the drawing before cutting: after cutting, it is just a curve.
+
+## Common mistakes
+
+- Circumference at the inside or outside diameter on thick plate: a rolled cylinder ends up a half-inch short or long.
+- Forgetting the seam allowance on one edge only (adding it to both makes it too long).
+- Triangulation with plan lengths instead of true lengths: the transition twists and will not close.
+- Bending 6061-T6 at a tight radius: cracks along the bend.
+- Bend deduction applied per leg instead of per bend.
+- Cone sector angle from D and the vertical height instead of the slant height.
+
+## Related
+
+- [Pipe saddle and lateral templates](/article/pipe-saddle-and-lateral-templates)
+- [Pipe miter layout](/article/pipe-miter-layout)
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Trig and layout formulas](/article/trig-and-layout-formulas)
+- [Geometry formulas: areas and volumes](/article/geometry-formulas-area-volume-weight)
+- [Wire gauge and sheet thickness](/article/wire-gauge-and-sheet-thickness)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$sheet metal layout$mw$,$mw$pattern development$mw$,$mw$development$mw$,$mw$parallel line development$mw$,$mw$radial line development$mw$,$mw$triangulation$mw$,$mw$cone layout$mw$,$mw$truncated cone$mw$,$mw$cone pattern$mw$,$mw$square to round$mw$,$mw$transition piece$mw$,$mw$hopper layout$mw$,$mw$chute layout$mw$,$mw$duct elbow$mw$,$mw$bend allowance$mw$,$mw$bend deduction$mw$,$mw$K factor$mw$,$mw$setback$mw$,$mw$flat pattern$mw$,$mw$minimum bend radius$mw$,$mw$press brake$mw$,$mw$hem allowance$mw$,$mw$seam allowance$mw$,$mw$Pittsburgh lock$mw$,$mw$stretchout$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Sheet Metal Technology and standard pattern-development texts (parallel, radial, triangulation methods); Machinery's Handbook bend allowance and K-factor; press-brake maker guidance on minimum inside radius by material; NAVEDTRA Steelworker manual.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$shim-and-gasket-making$mw$, $mw$Making Shims and Gaskets: Precut Slotted Shim Sizes and Thickness Kits, Cutting Custom Shims, Shim Stacking Rules (API 686), Tapered Shims, Gasket Materials and Thickness Selection, Cutting Gaskets by Template, Ball-Peen and Punch Methods, Sheet vs Spiral-Wound$mw$, $mw$The shim sizes and thicknesses you buy and how to stack them under machine feet without creating soft foot, how to cut and mark custom shims and tapered shims from stock, and how to select a gasket material for the fluid and temperature and make a flat gasket from a flange or a template by tracing, peening or punching, with the thickness and surface rules that keep it sealed.$mw$, $mw$## Precut slotted shims
+
+Precut stainless shims (300 series, thickness marked on each) are the standard under motors, pumps and gearboxes. The slot goes around the hold-down bolt from the side.
+
+| Size | Shim (in) | Slot width | Bolt up to | Typical machine |
+|---|---|---|---|---|
+| **A** | 2 × 2 | 5/8" | 1/2" | Small motors (to about 5 hp), small pumps |
+| **B** | 3 × 3 | 13/16" (some makers 7/8") | 3/4" | Motors 5-50 hp, ANSI pumps |
+| **C** | 4 × 4 | 1-1/4" | 1" | Motors 50-200 hp, gearboxes |
+| **D** | 5 × 5 | 1-5/8" | 1-1/4" | Large motors, compressors |
+| E / F | 6 × 6, 8 × 8 | 2-1/8", 2-5/8" | 1-1/2" to 2" | Big drives |
+
+Thickness series in a kit: **0.001, 0.002, 0.003, 0.004, 0.005, 0.010, 0.015, 0.020, 0.025, 0.050, 0.075, 0.100, 0.125"** (metric kits: 0.05, 0.10, 0.20, 0.25, 0.50, 0.75, 1.0, 2.0, 3.0 mm). Thin shims (≤ 0.031") are precision-rolled; 0.050-0.125" are ± 0.002". Brass and plastic (colour-coded polyester) shims exist; stainless does not rust or crush.
+
+Choose the shim size so the shim covers **most of the foot** (at least 75-80% of the foot's bearing area) and the slot clears the bolt with room to slide in and out; a shim smaller than the foot lets the foot bend around it (a soft foot you created).
+
+## Stacking rules
+
+- Use the **fewest shims**: one 0.050 beats five 0.010. **Maximum 5 shims** under a foot (API 686; many plants say 3-4).
+- **Thick shims on the bottom, thinnest on top** (or sandwiched in the middle); thin shims on the bottom crush into the base's surface texture.
+- **Minimum 1/8" (3 mm) shim pack under a machine at installation** (API 686) so you can later lower the machine as well as raise it, and the total stack under 1/2" (12 mm); if the machine needs more, machine a spacer plate or grout a taller base.
+- Same shim size at all four feet; shims centred under the foot, fully covering the bolt area.
+- Clean, flat, burr-free: wipe each shim, check for kinks and folded corners; a shim with a bent corner is a 0.005" soft foot.
+- Measure the pack with a micrometer, not by adding the stamped numbers: 0.001-0.003 of dirt and crush adds up.
+- After alignment, record the shim pack under each foot on the alignment sheet.
+- Never use washers, split shims, coins, hacksaw blades or shims with paint on them.
+
+Soft foot rules and the sequence for checking it: [soft foot](/article/soft-foot-correction)... see the alignment articles.
+
+## Cutting custom shims
+
+For odd feet, sole plates and big machines, cut from **shim stock** (rolls of stainless, brass or steel in 0.001-0.062", or plate for thicker):
+
+1. Make a **template** (cardboard) of the foot: outline, bolt hole position, and the direction the slot must open (toward the accessible side).
+2. Mark the stock with a scriber; cut thin stock (≤ 0.010") with **snips** (shims curl: flatten between two plates), 0.010-0.062" with heavy snips, a bench shear or a nibbler, and thicker plate on a band saw or with a plasma (then grind the edge flat and deburr).
+3. Slot: **bolt diameter + 1/16 to 1/8"** wide, open to the edge, corners rounded; drill the end of the slot and cut to it.
+4. **Deburr every edge** with a file or a fine flap disc, both sides; lay it on the surface plate and check it lies flat.
+5. Stamp or scribe the thickness on it (measure with a micrometer at three points; thick plate shims are surface-ground to a measured thickness).
+6. Thick spacer blocks (over 1/2"): steel plate, both faces machined or ground parallel within 0.001"; measure at four corners.
+
+**Tapered shims** (angular soft foot, a base that is out of flat, or a bearing housing that sits on an angle): cut a shim and grind or file the taper, measuring with a micrometer at both ends; or stack two or three shims stepped back 1/4" each to approximate the taper; better still, machine the base or use an epoxy chock. Never bend a shim to make a taper.
+
+## Gaskets
+
+### Material selection
+
+| Material | Fluid | Temperature | Notes |
+|---|---|---|---|
+| **Compressed non-asbestos sheet (CNA, "compressed fibre")** (Garlock Blue-Gard, Klingersil) | Water, steam, oils, mild chemicals | −40 to 400°F (some 750°F short) | The default flat gasket for general piping and equipment; 1/16" for most, 1/32" on good machined faces, 1/8" on rough or warped faces |
+| **Nitrile (Buna-N) rubber** | Water, oils, air, fuels | −20 to 200°F | Cheap, soft; not for steam or solvents |
+| EPDM rubber | Water, steam (low), glycol, brake fluid | −40 to 300°F | **Not for oils or fuels** |
+| Neoprene | Water, weather, mild oils | −20 to 200°F | Cover plates, splash |
+| Viton (FKM) | Fuels, oils, chemicals, hot | to 400°F | Expensive |
+| Silicone | Air, water, high/low temperature | −70 to 450°F | Not for fuels/oils/steam |
+| **Cork / cork-rubber** | Oil, gearbox covers, inspection plates | to 250°F | Compresses a lot; low bolt loads |
+| **Vegetable fibre (oil paper)** | Oil, gearbox and pump casings | to 250°F | Thin, cheap |
+| **PTFE (virgin, filled or expanded ePTFE)** | Almost all chemicals, food, oxygen (virgin) | −300 to 500°F | Creeps (virgin); use filled/expanded for flanges; ePTFE joint sealant tape for big or irregular faces |
+| Graphite sheet (flexible graphite, with or without a metal insert) | Steam, hot oil, high temperature | to 850°F (in air), higher inert | Fragile; for hot services |
+| **Spiral-wound (metal + graphite/PTFE filler, with centring and inner rings)** | Steam, hydrocarbons, high pressure | to 1500°F (SS/graphite) | Class 300 and up, raised-face flanges; **never re-use**; needs high bolt stress |
+| Metal (ring-type joint RTJ, solid) | High pressure/temperature | | Ring groove flanges; machined, not made in the shop |
+| Liquid gasket / RTV silicone / anaerobic (Loctite 515/518) | Machined faces, gearbox splits, pump cover plates | per product | Thin film, both faces clean and dry; not a cure for warped flanges |
+
+Rule: match the fluid first, then temperature, then pressure and bolt load. Old asbestos gaskets in the plant: do not cut, grind or dry-brush them; handle wet and per the asbestos procedure.
+
+### Thickness and faces
+
+- **Thinnest gasket that seals** is best (less creep, less blow-out): 1/32" on machined faces with a good finish, **1/16"** general, 1/8" only for rough, pitted or slightly warped faces.
+- Raised-face flanges take a **ring gasket** (inside the bolts); flat-face flanges (cast iron, plastic, some pumps) need a **full-face** gasket with bolt holes, or the flange breaks when bolted.
+- Face finish: 125-250 µin (serrated, "stock finish") for soft gaskets; 125-250 spiral serrated for spiral-wound; the phonographic serrations bite the gasket. Radial scratches across the face are leak paths: dress them.
+- Gasket ID slightly larger than the pipe bore (never protruding into the flow); OD to the inside of the bolts (ring) or the flange OD (full face).
+
+### Making a flat gasket
+
+**From the flange by tracing**: lay the sheet on the clean flange, hold it, rub with a finger or a rag to show the outline (dirty flanges print themselves), or scribe round the outside and inside with a pencil; punch the bolt holes with a hollow punch on a lead or end-grain wood block; cut the outline with gasket shears or a sharp knife on a cutting board.
+
+**Ball-peen method** (soft sheet up to 1/16", from a flange with a sharp edge): lay the sheet on the flange, tap gently around the bore edge and the bolt holes with the **ball** end of a ball-peen hammer: the edge cuts the sheet cleanly. Do not use on a machined sealing face you care about (it peens the edge) or on hard sheet.
+
+**From a drawing or template**: gasket cutter (a compass with a blade) for circles: set the ID radius and the OD radius, cut on a board; bolt holes at the bolt circle with the chord method (see [hole patterns](/article/hole-patterns-and-flange-templates)) and a hollow punch **1/16" larger than the bolt** (or the flange hole size for full-face).
+
+**Large or odd gaskets** (tank manways, split housings): cardboard template first, then transfer; **ePTFE joint sealant** (form-in-place tape) laid in a loop with the ends overlapped is the pragmatic answer for big rectangular covers and warped faces.
+
+**Install**: faces clean and dry, no sealant on CNA or spiral-wound unless the maker says (a light dusting of graphite or anti-stick spray helps removal); gasket centred (the bolts centre a ring gasket); bolt in a star pattern in 3 steps to the torque in [flange bolting](/article/flange-bolting-and-gaskets); re-torque after the first heat cycle for CNA sheet. Never re-use a gasket; never double up gaskets to fill a gap.
+
+## Common mistakes
+
+- Five 0.005 shims to make 0.025: soft foot from the stack, and they walk out.
+- Shim stack with no 1/8" base pack: next alignment, the motor must come **down** and there is nowhere to go.
+- Shim smaller than the foot: the foot bends and the alignment changes when the bolts are torqued.
+- Rubber gasket on a steam line or EPDM on gear oil: it swells or hardens and leaks within a week.
+- 1/8" gasket to fix a warped flange: it extrudes and blows out; machine the flange.
+- Ring gasket on a flat-faced cast iron pump flange: the flange cracks on torque-up.
+
+## Related
+
+- [Soft foot and base checks](/article/soft-foot-correction)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
+- [Hole patterns and flange templates](/article/hole-patterns-and-flange-templates)
+- [Pump packing and stuffing box](/article/pump-packing-and-stuffing-box)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+          array[$mw$shims$mw$,$mw$slotted shims$mw$,$mw$precut shims$mw$,$mw$shim kit$mw$,$mw$shim sizes$mw$,$mw$Maudlin$mw$,$mw$Accushim$mw$,$mw$shim stock$mw$,$mw$stainless shim$mw$,$mw$brass shim$mw$,$mw$shim stacking$mw$,$mw$soft foot$mw$,$mw$shim pack$mw$,$mw$tapered shim$mw$,$mw$making shims$mw$,$mw$gasket making$mw$,$mw$gasket cutting$mw$,$mw$gasket material$mw$,$mw$gasket thickness$mw$,$mw$compressed sheet$mw$,$mw$rubber gasket$mw$,$mw$cork gasket$mw$,$mw$PTFE gasket$mw$,$mw$spiral wound$mw$,$mw$ball peen gasket$mw$,$mw$gasket punch$mw$,$mw$gasket template$mw$,$mw$full face gasket$mw$,$mw$ring gasket$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Maudlin Products / Accushim precut shim catalogues (sizes A-D, slot widths, thickness series); API RP 686 shim rules (maximum five shims, minimum pack 1/8 in); Garlock and Lamons gasket handbooks (material selection, thickness); ASME B16.21 non-metallic flat gaskets; general trade practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$how-to-add-a-manual$mw$, $mw$How to Add a Manufacturer Manual or Datasheet to This Library$mw$, $mw$Anyone signed in can upload a gearbox, motor, pump, coupling or bearing manual. This tip explains what to fill in so other students can find it by manufacturer, model number and topic.$mw$, $mw$Found a Dodge gearbox with no manual in the library? Got a PDF from the maker's website or a scan from the crib? Add it.
 
 ## Steps

@@ -5,7 +5,7 @@ category: layout-templates
 kind: chart
 tags: [bolt circle, bolt hole pattern, chord factor, chord table, bolt circle layout, PCD, pitch circle diameter, flange template, drilling template, transfer punch, hole clearance, straddle centerlines, two hole rule, flange bolt holes, class 150 bolt circle, B16.5, motor mounting holes, coordinate layout, hole pattern coordinates, template plate]
 source: "Chord factor mathematics (chord = D × sin(180°/N)); Machinery's Handbook jig-boring coordinate tables; ASME B16.5 Class 150 flange dimensions (bolt circle, number and size of bolts, hole diameter); standard clearance-hole practice (ASME B18.2.8)."
-summary: "How to lay out any number of equally spaced holes on a bolt circle with a chord table or coordinates, why flange holes straddle the centrelines and how to orient a flange, how to make a reusable drilling template from a mating part or a drawing and use transfer punches, the clearance hole sizes to drill for bolts, and the Class 150 flange bolt-circle table for pipe sizes 1/2" to 12"."
+summary: "How to lay out any number of equally spaced holes on a bolt circle with a chord table or coordinates, why flange holes straddle the centrelines and how to orient a flange, how to make a reusable drilling template from a mating part or a drawing and use transfer punches, the clearance hole sizes to drill for bolts, and the Class 150 flange bolt-circle table for pipe sizes 1/2 to 12 inch."
 ---
 
 ## Chord factor table
