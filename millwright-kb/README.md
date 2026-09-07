@@ -47,8 +47,8 @@ cp .env.example .env     # publishable key; safe to ship in a browser bundle
 npm run dev              # http://localhost:5173
 ```
 
-`npm run build` type-checks and produces `dist/` (a static site; `public/_redirects`
-makes single-page routing work on Cloudflare Pages / Netlify).
+`npm run build` type-checks and produces `dist/` (a static site; `wrangler.toml` gives it
+single-page-app routing on Cloudflare Workers).
 
 ## Database
 

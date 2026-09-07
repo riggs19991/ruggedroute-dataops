@@ -3,9 +3,7 @@ name: millwright-kb-pages
 # https://riggs19991.github.io/ruggedroute-dataops/  (no secrets needed).
 
 on:
-  push:
-    branches: [main, claude/millwright-knowledge-database-pg5n1c]
-    paths: ["millwright-kb/**", ".github/workflows/millwright-kb-pages.yml"]
+  # Manual only until GitHub Pages is enabled in the repo settings (Settings → Pages → Source: GitHub Actions).
   workflow_dispatch: {}
 
 permissions:

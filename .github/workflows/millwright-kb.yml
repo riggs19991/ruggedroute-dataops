@@ -49,6 +49,7 @@ jobs:
             echo "::notice::Cloudflare secrets not configured — skipping deploy (dist is attached as an artifact)."
             exit 0
           fi
+          set -o pipefail
           npx wrangler@4 deploy 2>&1 | tee deploy.log
           url=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1)
           echo "::notice title=Millwright KB deployed::$url"
