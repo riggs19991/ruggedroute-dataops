@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
 import { uploadFile } from '../lib/files'
+import { FilePicker } from '../components/FilePicker'
 import { currentWeek, formatDate, type FileRow, type Group, type GroupPost, type Profile } from '../lib/types'
 import { Markdown } from '../components/Markdown'
 import { FileList } from '../components/FileList'
@@ -153,7 +154,7 @@ export function GroupPage() {
               </div>
               <div className="field"><label>Message (markdown)</label><textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="What to read, what to bring, what the lab covers…" /></div>
               <div className="field"><label>Link an article from the library</label><ArticlePicker value={picked} onChange={setPicked} /></div>
-              <div className="field"><label>Attach files (handouts, slides, manuals)</label><input type="file" multiple onChange={(e) => setNewFiles(Array.from(e.target.files ?? []))} /></div>
+              <FilePicker files={newFiles} onChange={setNewFiles} label="Attach files (handouts, slides, manuals, photos)" />
               <div className="btn-row">
                 <button type="submit" className="btn primary" disabled={busy}>{busy ? 'Posting…' : 'Post'}</button>
                 <button type="button" className="btn" onClick={() => setShowForm(false)}>Cancel</button>

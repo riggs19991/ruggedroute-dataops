@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 import type { Article, Category } from '../lib/types'
 import { SearchBox } from '../components/SearchBox'
 import { ArticleCard } from '../components/ArticleCard'
+import { InstallPrompt } from '../components/InstallPrompt'
 
 const EXAMPLES = ['7018 amperage', 'MIG settings 1/4 plate', 'TIG aluminum', 'plasma cut chart', 'bearing heater', 'laser alignment', 'grease compatibility', 'belt tracking', 'sling capacity', 'megger test', 'tap drill', 'Victor tip chart']
 
@@ -42,6 +43,8 @@ export function Home() {
           <Link to="/article/set-me-up-for-a-task">Set me up for a task</Link> · <Link to="/a-z">A-Z index of every article</Link>
         </p>
       </section>
+
+      <InstallPrompt />
 
       <section className="section">
         <div className="section-head"><h2>Browse by topic</h2></div>

@@ -15,6 +15,11 @@ import { ProfilePage } from './pages/Profile'
 import { Groups } from './pages/Groups'
 import { GroupPage } from './pages/Group'
 import { Review } from './pages/Review'
+import { InstallPage } from './pages/Install'
+import { AuthConfirmed } from './pages/AuthConfirmed'
+import { AuthReset } from './pages/AuthReset'
+import { Privacy } from './pages/Privacy'
+import { registerSW } from 'virtual:pwa-register'
 
 function RequireAuth({ children, teacher = false }: { children: React.ReactElement; teacher?: boolean }) {
   const { user, loading, isTeacher } = useAuth()
@@ -35,6 +40,10 @@ function App() {
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/auth/confirmed" element={<AuthConfirmed />} />
+        <Route path="/auth/reset" element={<AuthReset />} />
+        <Route path="/install" element={<InstallPage />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="/contribute" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/contribute/:slug" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
@@ -46,6 +55,18 @@ function App() {
     </Routes>
   )
 }
+
+// Service worker: precached shell, cached diagrams and articles. When a new build is published,
+// show a small bar offering to reload (content changes often).
+const updateSW = registerSW({
+  onNeedRefresh() {
+    const bar = document.createElement('div')
+    bar.className = 'update-bar'
+    bar.innerHTML = '<span>A new version is ready.</span><button type="button">Reload</button>'
+    bar.querySelector('button')!.onclick = () => updateSW(true)
+    document.body.appendChild(bar)
+  },
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

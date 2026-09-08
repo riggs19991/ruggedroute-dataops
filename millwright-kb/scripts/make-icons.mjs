@@ -52,6 +52,12 @@ function gear(size) {
     return NAVY
   }
 }
-for (const size of [192, 512]) writeFileSync(new URL(`../public/icon-${size}.png`, import.meta.url), png(size, gear(size)))
-// maskable icons need the artwork inside the centre 80%: same drawing already fits.
-console.log('wrote public/icon-192.png and public/icon-512.png')
+for (const size of [180, 192, 512]) writeFileSync(new URL(`../public/icon-${size}.png`, import.meta.url), png(size, gear(size)))
+// Maskable icon: the platform may crop to a circle or rounded square inside the centre 80%,
+// so draw the gear smaller on a solid navy field.
+function maskable(size) {
+  const inner = gear(size * 0.8), off = size * 0.1
+  return (x, y) => (x < off || y < off || x >= size - off || y >= size - off) ? NAVY : inner(x - off, y - off)
+}
+writeFileSync(new URL('../public/icon-maskable-512.png', import.meta.url), png(512, maskable(512)))
+console.log('wrote public/icon-180.png, icon-192.png, icon-512.png, icon-maskable-512.png')

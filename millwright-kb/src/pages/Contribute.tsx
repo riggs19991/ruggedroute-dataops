@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
 import { uploadFile } from '../lib/files'
+import { FilePicker } from '../components/FilePicker'
 import { KINDS, type Article, type ArticleKind, type Category, type FileRow, type Group } from '../lib/types'
 import { FileList } from '../components/FileList'
 import { Markdown } from '../components/Markdown'
@@ -196,12 +197,8 @@ export function Contribute() {
           <label>Source</label>
           <input type="text" value={source} onChange={(e) => setSource(e.target.value)} placeholder="Where this came from: manual number, URL, instructor, own experience" />
         </div>
-        <div className="field">
-          <label>Attachments (PDF, images, documents, up to 50 MB each)</label>
-          <input type="file" multiple onChange={(e) => setNewFiles(Array.from(e.target.files ?? []))} />
-          {newFiles.length > 0 && <div className="hint">{newFiles.map((f) => f.name).join(', ')}</div>}
-          <FileList files={files} canDelete onDeleted={(id) => setFiles(files.filter((f) => f.id !== id))} />
-        </div>
+        <FilePicker files={newFiles} onChange={setNewFiles} />
+        <FileList files={files} canDelete onDeleted={(id) => setFiles(files.filter((f) => f.id !== id))} />
         <div className="row cols-2">
           <div className="field">
             <label>Share with</label>

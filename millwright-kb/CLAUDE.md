@@ -24,6 +24,17 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
 6. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
    the sandbox) and look at the PNG before shipping it.
 
+## App shell rules
+
+- The site is an installable PWA (`vite-plugin-pwa`, config in `vite.config.ts`). Never cache
+  `/auth/**` or `/storage/**`; keep `/img/**` cache-first and REST article reads stale-while-revalidate.
+- Auth email links must point at `/auth/confirmed` (sign-up, magic link) and `/auth/reset`
+  (password reset); the Supabase Site URL and redirect allow-list are owner settings.
+- Uploads go through `src/lib/files.ts` (folder = user id, images downscaled first) and the
+  `FilePicker` component; the `mw_files` row must reference an article or a group post.
+- Test phone behaviour with Playwright device emulation (`devices['Pixel 5']`, `devices['iPhone 13']`,
+  `context.setOffline(true)`).
+
 ## Pipeline for a content change
 
 ```
