@@ -85,3 +85,10 @@ Screw conveyor, 7.5 hp motor at 1750 rpm, screw at 60 rpm, 16 hours a day, chain
 - Output torque at 7.5 hp: 63,025 × 7.5 ÷ 58 = 8,150 lb·in.
 - Pick the box whose 30:1 mechanical rating at 1750 rpm input is at least 11.25 hp and whose thermal rating is at least 7.5 hp (the actual motor power, since heat depends on transmitted power).
 - OHL with an 8 in pitch sprocket: 126,000 × 7.5 × 1.0 ÷ (58 × 8) = 2,037 lb; check against the catalogue OHL.
+
+## Related
+
+- [Worm, Planetary and Cycloidal Reducers](/article/planetary-and-worm-reducers)
+- [Dodge Torque-Arm Shaft-Mount Reducer](/article/dodge-torque-arm-shaft-mount-reducer)
+- [Power, Torque, Speed and Drive Formulas](/article/power-torque-speed-drive-formulas)
+- [How to Read a Coupling and Sheave Selection Table](/article/how-to-read-a-coupling-and-sheave-selection-table)

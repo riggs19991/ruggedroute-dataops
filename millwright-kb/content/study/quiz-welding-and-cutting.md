@@ -101,3 +101,12 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: work through the welding category from the top, starting with the setup articles.
+
+## Related
+
+- [Stick Welding (SMAW) Setup](/article/smaw-stick-setup)
+- [MIG Welding (GMAW) Setup](/article/gmaw-mig-setup)
+- [TIG Welding (GTAW) Setup](/article/gtaw-tig-setup)
+- [Setting Up, Lighting and Shutting Down an Oxy-Acetylene Torch (Victor outfit)](/article/oxy-acetylene-setup-victor)
+- [Plasma Cutting Setup and Cut Charts](/article/plasma-cutting-setup)
+- [Millwright Glossary A to Z](/article/millwright-glossary)

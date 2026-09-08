@@ -101,3 +101,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: work through the rigging category from the top.
+
+## Related
+
+- [Rigging Basics](/article/rigging-basics-sling-angles-and-hitches)
+- [Sling Capacity Tables](/article/wire-rope-and-chain-slings-detail)
+- [Chain Hoists, Lever Hoists (Come-Alongs), Trolleys and Jacks](/article/chain-hoists-come-alongs-and-jacks)
+- [Crane Hand Signals, Radio Protocol and Lift Planning](/article/crane-signals-and-lift-planning)
+- [Millwright Glossary A to Z](/article/millwright-glossary)

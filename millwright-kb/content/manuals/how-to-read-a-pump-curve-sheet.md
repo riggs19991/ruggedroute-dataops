@@ -61,3 +61,10 @@ A separate curve near the bottom gives **NPSHr** in feet against flow. It rises 
 ## Where to file it
 
 Attach the curve sheet, the data sheet and the sectional drawing to the pump's article under Manuals so the next person can find the impeller diameter, the clearances and the bearing numbers in one place.
+
+## Related
+
+- [Centrifugal Pump Troubleshooting](/article/pump-troubleshooting)
+- [Pump and Fluid-Power Formulas](/article/pump-and-fluid-power-formulas)
+- [Impeller Clearance and Wear Rings](/article/impeller-clearance-and-wear-rings)
+- [How to Add a Manufacturer Manual or Datasheet to This Library](/article/how-to-add-a-manual)

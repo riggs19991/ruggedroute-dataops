@@ -52,3 +52,10 @@ QD and taper-lock sheaves are listed with the **bushing size** (SH, SD, SK, SF, 
 ## Checking what was installed
 
 Catalogues also let you audit an existing drive: count belts, read the sheave part numbers (they encode groove count, section and OD: 4/5V14.0 is four grooves, 5V, 14.0 in) and work backward to the hp the drive can carry. An undersized drive that keeps throwing belts is cheaper to fix by adding a groove than by replacing belts monthly.
+
+## Related
+
+- [Shaft Couplings](/article/coupling-types-gap-and-installation)
+- [V-Belt Drives](/article/v-belt-drive-installation-and-tensioning)
+- [QD and Taper-Lock Bushings](/article/qd-and-taper-lock-bushings)
+- [Reducer Selection and Service Factor](/article/reducer-selection-and-service-factor)

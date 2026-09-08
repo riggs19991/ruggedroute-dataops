@@ -101,3 +101,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: read the alignment category from the top, then the installation category.
+
+## Related
+
+- [Shaft-to-Shaft Alignment Fundamentals](/article/shaft-alignment-fundamentals)
+- [Soft Foot](/article/soft-foot-correction)
+- [Reverse-Dial Indicator Alignment](/article/reverse-dial-alignment)
+- [Grouting Baseplates](/article/grouting-baseplates)
+- [Millwright Glossary A to Z](/article/millwright-glossary)

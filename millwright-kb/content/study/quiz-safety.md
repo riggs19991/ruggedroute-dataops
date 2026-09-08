@@ -101,3 +101,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: work through the safety category from the top.
+
+## Related
+
+- [Lockout / Tagout Basics for Millwrights (OSHA 1910.147)](/article/lockout-tagout-basics)
+- [Confined Space Entry for Millwrights](/article/confined-space-entry)
+- [Fall Protection, Ladders, Scaffolds and Lifts](/article/fall-protection-ladders-scaffolds)
+- [Hot Work Permits and Fire Watch](/article/hot-work-permits-and-fire-watch)
+- [Millwright Glossary A to Z](/article/millwright-glossary)

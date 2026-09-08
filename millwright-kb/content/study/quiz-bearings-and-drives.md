@@ -101,3 +101,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: work through the bearings category, then power transmission and gearboxes.
+
+## Related
+
+- [Decoding Bearing Numbers](/article/bearing-designation-codes)
+- [Mounting Bearings with Heat](/article/bearing-mounting-with-heat)
+- [V-Belt Drives](/article/v-belt-drive-installation-and-tensioning)
+- [Roller Chain Drives](/article/roller-chain-drives)
+- [Millwright Glossary A to Z](/article/millwright-glossary)

@@ -21,7 +21,10 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
 5. Article style: imperial first with metric alongside, US OSHA/AWS practice with Red Seal/CSA notes
    where they differ, every chart cites its `source:` in the front matter, and every article ends with
    `## Related` links as `/article/<slug>`. Front matter strings must not contain unescaped `"`.
-6. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
+6. Study articles (`content/study/`): quizzes are 20 numbered questions, each answer in a
+   single-line `<details><summary>Answer</summary>...</details>` block that names the article to
+   review; the review figure at the top reuses an existing diagram.
+7. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
    the sandbox) and look at the PNG before shipping it.
 
 ## App shell rules

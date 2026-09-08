@@ -84,3 +84,10 @@ Boundary dimensions are ISO standard, so a 6205 from any brand fits the same sea
 5. Tapered bore (K) and any W33 groove on sphericals.
 
 Then confirm the ratings in the new catalogue are equal or better. A bearing interchange is a mechanical statement and belongs on the work order.
+
+## Related
+
+- [Decoding Bearing Numbers](/article/bearing-designation-codes)
+- [Bearing Fits, Internal Clearance and Shaft/Housing Tolerances](/article/bearing-clearance-and-fits-tables)
+- [Shaft, Bearing and Fastener Formulas](/article/shaft-bearing-fastener-formulas)
+- [How to Add a Manufacturer Manual or Datasheet to This Library](/article/how-to-add-a-manual)

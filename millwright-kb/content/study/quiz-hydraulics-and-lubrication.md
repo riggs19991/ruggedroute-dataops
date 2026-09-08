@@ -101,3 +101,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: work through the hydraulics and lubrication categories from the top.
+
+## Related
+
+- [Hydraulic System Basics and Schematic Symbols](/article/hydraulic-system-basics-and-symbols)
+- [Hydraulic Filters, Fluid and Contamination Control](/article/filters-fluid-and-contamination)
+- [Grease Types and Compatibility](/article/grease-types-and-compatibility)
+- [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
+- [Millwright Glossary A to Z](/article/millwright-glossary)

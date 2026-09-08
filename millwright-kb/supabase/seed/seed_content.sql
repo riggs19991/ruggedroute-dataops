@@ -4236,7 +4236,14 @@ Spiral bevel sets are positioned in two directions: the **pinion mounting distan
 - Setting preload by feel without an indicator.
 - Pinion mounting distance ignored: pattern at the toe or heel, gear noise, and a new set gone in months.
 - Seal lip pushed over a sharp keyway: leaks on the first day.
-- Breather left off or blocked: pressure pushes oil past the seals.$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
+- Breather left off or blocked: pressure pushes oil past the seals.
+
+## Related
+
+- [Tapered Roller Bearing Setting](/article/tapered-roller-bearing-setting)
+- [Gear Inspection and Tooth Failure (AGMA 1010)](/article/gear-inspection-and-tooth-failure)
+- [Gearbox Lubrication, Oil Levels, Breathers and Routine Inspection](/article/gearbox-lubrication-and-inspection)
+- [Mounting Bearings with Heat](/article/bearing-mounting-with-heat)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
           array[$mw$gearbox rebuild$mw$,$mw$gearbox overhaul$mw$,$mw$reducer rebuild$mw$,$mw$shim pack$mw$,$mw$bearing preload$mw$,$mw$tapered roller preload$mw$,$mw$bevel gear shimming$mw$,$mw$backlash adjustment$mw$,$mw$contact pattern$mw$,$mw$gear mesh pattern$mw$,$mw$gearbox seal replacement$mw$,$mw$gearbox teardown$mw$,$mw$end play gearbox$mw$,$mw$run in gearbox$mw$,$mw$gearbox inspection$mw$,$mw$bevel gearbox$mw$]::text[], $mw$Falk / Dodge / Rexnord / SEW / Nord (generic)$mw$, array[$mw$Falk Enclosed Drive$mw$,$mw$Dodge Quantis$mw$,$mw$SEW-Eurodrive K series$mw$,$mw$Nord Unicase$mw$,$mw$Rexnord Planetgear$mw$]::text[], $mw$Falk enclosed gear drive service manuals (bearing adjustment and shim procedure); SEW-Eurodrive K-series bevel gearbox assembly instructions; Timken tapered roller bearing setting guide (shim-set preload); AGMA 6013 (gear drive rating and inspection); Rexnord and Dodge Quantis rebuild manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -4413,7 +4420,14 @@ Screw conveyor, 7.5 hp motor at 1750 rpm, screw at 60 rpm, 16 hours a day, chain
 - Ratio: 1750 ÷ 60 = 29:1; nearest catalogue 30:1 gives 58 rpm.
 - Output torque at 7.5 hp: 63,025 × 7.5 ÷ 58 = 8,150 lb·in.
 - Pick the box whose 30:1 mechanical rating at 1750 rpm input is at least 11.25 hp and whose thermal rating is at least 7.5 hp (the actual motor power, since heat depends on transmitted power).
-- OHL with an 8 in pitch sprocket: 126,000 × 7.5 × 1.0 ÷ (58 × 8) = 2,037 lb; check against the catalogue OHL.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
+- OHL with an 8 in pitch sprocket: 126,000 × 7.5 × 1.0 ÷ (58 × 8) = 2,037 lb; check against the catalogue OHL.
+
+## Related
+
+- [Worm, Planetary and Cycloidal Reducers](/article/planetary-and-worm-reducers)
+- [Dodge Torque-Arm Shaft-Mount Reducer](/article/dodge-torque-arm-shaft-mount-reducer)
+- [Power, Torque, Speed and Drive Formulas](/article/power-torque-speed-drive-formulas)
+- [How to Read a Coupling and Sheave Selection Table](/article/how-to-read-a-coupling-and-sheave-selection-table)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
           array[$mw$service factor$mw$,$mw$AGMA service factor$mw$,$mw$gearbox selection$mw$,$mw$reducer selection$mw$,$mw$reducer sizing$mw$,$mw$thermal rating$mw$,$mw$mechanical rating$mw$,$mw$overhung load$mw$,$mw$OHL$mw$,$mw$gearbox ratio$mw$,$mw$output speed$mw$,$mw$load classification$mw$,$mw$uniform moderate heavy shock$mw$,$mw$gear reducer catalogue$mw$,$mw$gearmotor selection$mw$,$mw$gearbox replacement$mw$,$mw$duty cycle hours per day$mw$]::text[], $mw$AGMA / Dodge / Falk / SEW / Nord (generic)$mw$, array[$mw$Dodge Torque-Arm II$mw$,$mw$Dodge Quantis$mw$,$mw$Falk Enclosed Drive$mw$,$mw$SEW-Eurodrive R/F/K series$mw$,$mw$Nord SK series$mw$,$mw$Boston Gear$mw$]::text[], $mw$AGMA 6013 and ANSI/AGMA 9005 service factor and lubrication standards; Dodge Torque-Arm II and Quantis selection guides (service factor tables, overhung load formulas); Falk enclosed drive catalogue (thermal ratings); SEW-Eurodrive gearmotor catalogue (fB service factor and load classification).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -8528,7 +8542,13 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - Gates: gates.com (belt drive design and tension tables)
 - Goulds / Xylem: goulds.com (3196 IOM)
 - Flowserve, John Crane, Chesterton: seal installation sheets
-- Victor / ESAB: esab.com (torch manuals, tip charts)$mw$, $mw$tip$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+- Victor / ESAB: esab.com (torch manuals, tip charts)
+
+## Related
+
+- [How to Read a Pump Curve Sheet](/article/how-to-read-a-pump-curve-sheet)
+- [How to Read a Bearing Catalogue Page](/article/how-to-read-a-bearing-catalogue-page)
+- [How to Read a Coupling and Sheave Selection Table](/article/how-to-read-a-coupling-and-sheave-selection-table)$mw$, $mw$tip$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
           array[$mw$upload$mw$,$mw$manual$mw$,$mw$PDF$mw$,$mw$contribute$mw$,$mw$Dodge$mw$,$mw$Baldor$mw$,$mw$SKF$mw$,$mw$Timken$mw$,$mw$Falk$mw$,$mw$Rexnord$mw$,$mw$Gates$mw$,$mw$datasheet$mw$,$mw$how to use this app$mw$]::text[], $mw$$mw$, array[]::text[], $mw$This app.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -8608,7 +8628,14 @@ Boundary dimensions are ISO standard, so a 6205 from any brand fits the same sea
 4. Cage material for high speed or high temperature.
 5. Tapered bore (K) and any W33 groove on sphericals.
 
-Then confirm the ratings in the new catalogue are equal or better. A bearing interchange is a mechanical statement and belongs on the work order.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+Then confirm the ratings in the new catalogue are equal or better. A bearing interchange is a mechanical statement and belongs on the work order.
+
+## Related
+
+- [Decoding Bearing Numbers](/article/bearing-designation-codes)
+- [Bearing Fits, Internal Clearance and Shaft/Housing Tolerances](/article/bearing-clearance-and-fits-tables)
+- [Shaft, Bearing and Fastener Formulas](/article/shaft-bearing-fastener-formulas)
+- [How to Add a Manufacturer Manual or Datasheet to This Library](/article/how-to-add-a-manual)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
           array[$mw$bearing catalogue$mw$,$mw$bearing catalog$mw$,$mw$how to read bearing catalogue$mw$,$mw$bearing designation$mw$,$mw$bearing number$mw$,$mw$dynamic load rating$mw$,$mw$C rating$mw$,$mw$static load rating$mw$,$mw$C0$mw$,$mw$limiting speed$mw$,$mw$reference speed$mw$,$mw$bearing suffix$mw$,$mw$bearing prefix$mw$,$mw$2RS$mw$,$mw$ZZ$mw$,$mw$C3$mw$,$mw$bearing dimensions$mw$,$mw$bearing cross reference$mw$,$mw$interchange$mw$,$mw$bearing mass$mw$,$mw$fatigue load limit$mw$]::text[], $mw$SKF / FAG (Schaeffler) / NSK / NTN / Timken (generic)$mw$, array[$mw$SKF 6205-2RS1$mw$,$mw$SKF 22220 E$mw$,$mw$FAG 6205-2RSR$mw$,$mw$NSK 6205DDU$mw$,$mw$NTN 6205LLU$mw$,$mw$Timken 6205-2RS$mw$]::text[], $mw$SKF Rolling Bearings catalogue (product table layout and designation system); Schaeffler FAG catalogue HR1; NSK and NTN ball and roller bearing catalogues; ISO 15 (boundary dimensions), ISO 281 (dynamic load ratings and life).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -8656,7 +8683,14 @@ QD and taper-lock sheaves are listed with the **bushing size** (SH, SD, SK, SF, 
 
 ## Checking what was installed
 
-Catalogues also let you audit an existing drive: count belts, read the sheave part numbers (they encode groove count, section and OD: 4/5V14.0 is four grooves, 5V, 14.0 in) and work backward to the hp the drive can carry. An undersized drive that keeps throwing belts is cheaper to fix by adding a groove than by replacing belts monthly.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+Catalogues also let you audit an existing drive: count belts, read the sheave part numbers (they encode groove count, section and OD: 4/5V14.0 is four grooves, 5V, 14.0 in) and work backward to the hp the drive can carry. An undersized drive that keeps throwing belts is cheaper to fix by adding a groove than by replacing belts monthly.
+
+## Related
+
+- [Shaft Couplings](/article/coupling-types-gap-and-installation)
+- [V-Belt Drives](/article/v-belt-drive-installation-and-tensioning)
+- [QD and Taper-Lock Bushings](/article/qd-and-taper-lock-bushings)
+- [Reducer Selection and Service Factor](/article/reducer-selection-and-service-factor)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
           array[$mw$coupling selection$mw$,$mw$coupling service factor$mw$,$mw$coupling torque rating$mw$,$mw$jaw coupling size chart$mw$,$mw$grid coupling selection$mw$,$mw$sheave selection$mw$,$mw$V belt selection$mw$,$mw$belt horsepower table$mw$,$mw$belt length table$mw$,$mw$datum diameter$mw$,$mw$pitch diameter$mw$,$mw$arc of contact$mw$,$mw$belt count$mw$,$mw$number of belts$mw$,$mw$QD bushing bore$mw$,$mw$max bore coupling$mw$,$mw$coupling catalogue$mw$,$mw$how to read selection table$mw$]::text[], $mw$Lovejoy / Rexnord Falk / TB Wood's / Gates / Dodge / Martin (generic)$mw$, array[$mw$Lovejoy L-series jaw$mw$,$mw$Falk Steelflex T$mw$,$mw$Rexnord Omega$mw$,$mw$TB Wood's Sure-Flex$mw$,$mw$Gates Super HC$mw$,$mw$Dodge QD sheaves$mw$,$mw$Martin sheaves$mw$]::text[], $mw$Lovejoy jaw coupling catalogue (selection procedure, service factors, nominal torque, maximum bore); Rexnord Falk Steelflex selection guide; Gates Heavy Duty V-belt drive design manual (rated hp per belt, arc of contact and length correction factors); TB Wood's and Dodge sheave and QD bushing catalogues.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -8713,7 +8747,14 @@ A separate curve near the bottom gives **NPSHr** in feet against flow. It rises 
 
 ## Where to file it
 
-Attach the curve sheet, the data sheet and the sectional drawing to the pump's article under Manuals so the next person can find the impeller diameter, the clearances and the bearing numbers in one place.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+Attach the curve sheet, the data sheet and the sectional drawing to the pump's article under Manuals so the next person can find the impeller diameter, the clearances and the bearing numbers in one place.
+
+## Related
+
+- [Centrifugal Pump Troubleshooting](/article/pump-troubleshooting)
+- [Pump and Fluid-Power Formulas](/article/pump-and-fluid-power-formulas)
+- [Impeller Clearance and Wear Rings](/article/impeller-clearance-and-wear-rings)
+- [How to Add a Manufacturer Manual or Datasheet to This Library](/article/how-to-add-a-manual)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
           array[$mw$pump curve$mw$,$mw$how to read pump curve$mw$,$mw$head capacity curve$mw$,$mw$impeller trim$mw$,$mw$efficiency curve$mw$,$mw$BEP$mw$,$mw$best efficiency point$mw$,$mw$NPSHr$mw$,$mw$NPSH required$mw$,$mw$pump power curve$mw$,$mw$brake horsepower pump$mw$,$mw$system curve$mw$,$mw$operating point$mw$,$mw$pump data sheet$mw$,$mw$pump performance curve$mw$,$mw$Goulds 3196 curve$mw$,$mw$shut off head$mw$,$mw$run out$mw$]::text[], $mw$Goulds / Flowserve / Grundfos / KSB / Sulzer (generic)$mw$, array[$mw$Goulds 3196$mw$,$mw$Goulds 3656$mw$,$mw$Flowserve Durco Mark 3$mw$,$mw$Grundfos CR$mw$,$mw$KSB Etanorm$mw$,$mw$Sulzer CPT$mw$]::text[], $mw$Goulds Pumps 3196 performance curve booklets and data sheet layout; Hydraulic Institute ANSI/HI 14.6 (rotodynamic pump test) and HI curve conventions; Flowserve Durco Mark 3 curve sheets; Grundfos CR curve booklet.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -15461,7 +15502,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Z
 
 - **Zerk (grease fitting)**: the nipple through which grease is pumped into a bearing housing.
-- **Zone (ISO 10816)**: vibration severity bands A (new) to D (damaging) by machine class.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- **Zone (ISO 10816)**: vibration severity bands A (new) to D (damaging) by machine class.
+
+## Related
+
+- [Set Me Up for a Task](/article/set-me-up-for-a-task)
+- [Shop Reference](/article/shop-reference-tables)
+- [Test Yourself](/article/quiz-welding-and-cutting)
+- [Test Yourself](/article/quiz-bearings-and-drives)
+- [Test Yourself](/article/quiz-safety)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$glossary$mw$,$mw$definitions$mw$,$mw$millwright terms$mw$,$mw$trade terminology$mw$,$mw$what does mean$mw$,$mw$dictionary$mw$,$mw$terms$mw$,$mw$vocabulary$mw$,$mw$Red Seal terms$mw$,$mw$apprenticeship terms$mw$,$mw$study$mw$,$mw$jargon$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Definitions written against the articles in this knowledge base and standard references (SKF bearing handbook, Machinery's Handbook, AWS A3.0 welding terms and definitions, ASME B30 rigging standards, Hydraulic Institute pump terms).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -15560,7 +15609,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: read the alignment category from the top, then the installation category.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: read the alignment category from the top, then the installation category.
+
+## Related
+
+- [Shaft-to-Shaft Alignment Fundamentals](/article/shaft-alignment-fundamentals)
+- [Soft Foot](/article/soft-foot-correction)
+- [Reverse-Dial Indicator Alignment](/article/reverse-dial-alignment)
+- [Grouting Baseplates](/article/grouting-baseplates)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$alignment quiz$mw$,$mw$shaft alignment test$mw$,$mw$installation quiz$mw$,$mw$soft foot questions$mw$,$mw$reverse dial questions$mw$,$mw$laser alignment questions$mw$,$mw$grouting questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the alignment and installation articles in this knowledge base (Ludeca and Pruftechnik alignment guides, ANSI/ASA S2.75 alignment tolerances, API 686 machinery installation).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -15659,7 +15716,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: work through the bearings category, then power transmission and gearboxes.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: work through the bearings category, then power transmission and gearboxes.
+
+## Related
+
+- [Decoding Bearing Numbers](/article/bearing-designation-codes)
+- [Mounting Bearings with Heat](/article/bearing-mounting-with-heat)
+- [V-Belt Drives](/article/v-belt-drive-installation-and-tensioning)
+- [Roller Chain Drives](/article/roller-chain-drives)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$bearing quiz$mw$,$mw$bearing test$mw$,$mw$V belt quiz$mw$,$mw$chain drive quiz$mw$,$mw$coupling quiz$mw$,$mw$gearbox quiz$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$,$mw$power transmission questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the bearings, power transmission and gearboxes articles in this knowledge base (SKF bearing maintenance handbook, Timken tapered bearing setting, Gates and Dodge belt drive manuals, ACA chain manual, AGMA service factor tables).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -15758,7 +15823,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: work through the hydraulics and lubrication categories from the top.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: work through the hydraulics and lubrication categories from the top.
+
+## Related
+
+- [Hydraulic System Basics and Schematic Symbols](/article/hydraulic-system-basics-and-symbols)
+- [Hydraulic Filters, Fluid and Contamination Control](/article/filters-fluid-and-contamination)
+- [Grease Types and Compatibility](/article/grease-types-and-compatibility)
+- [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$hydraulic test questions$mw$,$mw$pneumatics quiz$mw$,$mw$lubrication quiz$mw$,$mw$oil viscosity questions$mw$,$mw$grease compatibility questions$mw$,$mw$ISO 4406 questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the hydraulics, pneumatics and lubrication articles in this knowledge base (Parker and Eaton Vickers hydraulic training data, ISO 4406, ISO VG grades, NLGI grease grades, SKF and Noria lubrication practice).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -15857,7 +15930,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: work through the pumps and seals, conveyors, motors and troubleshooting categories.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: work through the pumps and seals, conveyors, motors and troubleshooting categories.
+
+## Related
+
+- [Centrifugal Pump Troubleshooting](/article/pump-troubleshooting)
+- [Belt Conveyor Components and Belt Tracking](/article/belt-conveyor-components-and-tracking)
+- [Reading a Motor Nameplate](/article/reading-a-motor-nameplate)
+- [Vibration Basics and ISO Severity](/article/vibration-basics-and-iso-severity)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$pump quiz$mw$,$mw$mechanical seal questions$mw$,$mw$conveyor quiz$mw$,$mw$belt tracking questions$mw$,$mw$motor quiz$mw$,$mw$vibration quiz$mw$,$mw$troubleshooting quiz$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the pumps and seals, conveyors, motors and electrical, condition monitoring and troubleshooting articles in this knowledge base (Hydraulic Institute, Goulds pump manuals, John Crane and Flowserve seal guides, CEMA belt conveyor handbook, NEMA MG-1, ISO 10816 vibration severity).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -15956,7 +16037,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: work through the rigging category from the top.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: work through the rigging category from the top.
+
+## Related
+
+- [Rigging Basics](/article/rigging-basics-sling-angles-and-hitches)
+- [Sling Capacity Tables](/article/wire-rope-and-chain-slings-detail)
+- [Chain Hoists, Lever Hoists (Come-Alongs), Trolleys and Jacks](/article/chain-hoists-come-alongs-and-jacks)
+- [Crane Hand Signals, Radio Protocol and Lift Planning](/article/crane-signals-and-lift-planning)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$rigging quiz$mw$,$mw$rigging test questions$mw$,$mw$sling angle questions$mw$,$mw$load calculation questions$mw$,$mw$shackle questions$mw$,$mw$hoist questions$mw$,$mw$crane signals questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the rigging articles in this knowledge base (ASME B30.9 slings, B30.26 rigging hardware, B30.16 hoists, B30.5 signals; Crosby rigging guide; Canadian provincial OHS rigging rules).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -16055,7 +16144,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: work through the safety category from the top.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: work through the safety category from the top.
+
+## Related
+
+- [Lockout / Tagout Basics for Millwrights (OSHA 1910.147)](/article/lockout-tagout-basics)
+- [Confined Space Entry for Millwrights](/article/confined-space-entry)
+- [Fall Protection, Ladders, Scaffolds and Lifts](/article/fall-protection-ladders-scaffolds)
+- [Hot Work Permits and Fire Watch](/article/hot-work-permits-and-fire-watch)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$safety quiz$mw$,$mw$safety test questions$mw$,$mw$lockout tagout questions$mw$,$mw$confined space questions$mw$,$mw$fall protection questions$mw$,$mw$hot work questions$mw$,$mw$WHMIS questions$mw$,$mw$arc flash questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the safety articles in this knowledge base (CSA Z460 lockout, CSA Z1006 confined space, CSA Z259 fall protection, NFPA 51B hot work, CSA Z432 machine guarding, CSA Z462 and NFPA 70E arc flash, WHMIS 2015, CGA cylinder handling).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -16154,7 +16251,16 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
-- Under 14: work through the welding category from the top, starting with the setup articles.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- Under 14: work through the welding category from the top, starting with the setup articles.
+
+## Related
+
+- [Stick Welding (SMAW) Setup](/article/smaw-stick-setup)
+- [MIG Welding (GMAW) Setup](/article/gmaw-mig-setup)
+- [TIG Welding (GTAW) Setup](/article/gtaw-tig-setup)
+- [Setting Up, Lighting and Shutting Down an Oxy-Acetylene Torch (Victor outfit)](/article/oxy-acetylene-setup-victor)
+- [Plasma Cutting Setup and Cut Charts](/article/plasma-cutting-setup)
+- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$welding quiz$mw$,$mw$welding test$mw$,$mw$cutting quiz$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$SMAW questions$mw$,$mw$GMAW questions$mw$,$mw$FCAW questions$mw$,$mw$TIG questions$mw$,$mw$oxy fuel questions$mw$,$mw$plasma cutting questions$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the welding and cutting articles in this knowledge base (Lincoln, Hobart, ESAB and Victor process data; AWS A5 filler classifications; CSA W59 and AWS D1.1 conventions).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,

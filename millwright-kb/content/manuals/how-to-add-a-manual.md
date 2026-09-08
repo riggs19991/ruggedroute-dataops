@@ -44,3 +44,9 @@ Found a Dodge gearbox with no manual in the library? Got a PDF from the maker's 
 - Goulds / Xylem: goulds.com (3196 IOM)
 - Flowserve, John Crane, Chesterton: seal installation sheets
 - Victor / ESAB: esab.com (torch manuals, tip charts)
+
+## Related
+
+- [How to Read a Pump Curve Sheet](/article/how-to-read-a-pump-curve-sheet)
+- [How to Read a Bearing Catalogue Page](/article/how-to-read-a-bearing-catalogue-page)
+- [How to Read a Coupling and Sheave Selection Table](/article/how-to-read-a-coupling-and-sheave-selection-table)

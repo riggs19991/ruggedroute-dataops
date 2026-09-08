@@ -98,3 +98,10 @@ Spiral bevel sets are positioned in two directions: the **pinion mounting distan
 - Pinion mounting distance ignored: pattern at the toe or heel, gear noise, and a new set gone in months.
 - Seal lip pushed over a sharp keyway: leaks on the first day.
 - Breather left off or blocked: pressure pushes oil past the seals.
+
+## Related
+
+- [Tapered Roller Bearing Setting](/article/tapered-roller-bearing-setting)
+- [Gear Inspection and Tooth Failure (AGMA 1010)](/article/gear-inspection-and-tooth-failure)
+- [Gearbox Lubrication, Oil Levels, Breathers and Routine Inspection](/article/gearbox-lubrication-and-inspection)
+- [Mounting Bearings with Heat](/article/bearing-mounting-with-heat)

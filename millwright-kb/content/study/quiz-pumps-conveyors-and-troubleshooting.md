@@ -101,3 +101,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - 18 to 20: exam ready for this section.
 - 14 to 17: review the articles named in the answers you missed.
 - Under 14: work through the pumps and seals, conveyors, motors and troubleshooting categories.
+
+## Related
+
+- [Centrifugal Pump Troubleshooting](/article/pump-troubleshooting)
+- [Belt Conveyor Components and Belt Tracking](/article/belt-conveyor-components-and-tracking)
+- [Reading a Motor Nameplate](/article/reading-a-motor-nameplate)
+- [Vibration Basics and ISO Severity](/article/vibration-basics-and-iso-severity)
+- [Millwright Glossary A to Z](/article/millwright-glossary)
