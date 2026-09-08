@@ -26,6 +26,10 @@ Choose the shim size so the shim covers **most of the foot** (at least 75-80% of
 
 ## Stacking rules
 
+![Shim stacking: thick to thin, few shims, full contact](/img/layout-templates/shim-stacking.svg)
+
+*Shim stacking: thick to thin, few shims, full contact*
+
 - Use the **fewest shims**: one 0.050 beats five 0.010. **Maximum 5 shims** under a foot (API 686; many plants say 3-4).
 - **Thick shims on the bottom, thinnest on top** (or sandwiched in the middle); thin shims on the bottom crush into the base's surface texture.
 - **Minimum 1/8" (3 mm) shim pack under a machine at installation** (API 686) so you can later lower the machine as well as raise it, and the total stack under 1/2" (12 mm); if the machine needs more, machine a spacer plate or grout a taller base.

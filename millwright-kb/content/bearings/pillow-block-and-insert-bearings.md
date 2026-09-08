@@ -14,6 +14,10 @@ summary: "How to install the ball-bearing pillow blocks, flange units and take-u
 
 A **mounted bearing** is a bearing **insert** (a ball or roller bearing with a wide inner ring and a spherical outside) in a **housing** (pillow block, 2- or 4-bolt flange, take-up frame, hanger, cartridge). The spherical seat lets the insert self-align to a few degrees of shaft misalignment (static only: it does not accommodate a bent shaft that changes angle each revolution). The wide inner ring locks to the shaft with one of the methods below.
 
+![Housing, insert, locking collar, fixed and floating ends](/img/bearings/pillow-block-anatomy.svg)
+
+*Housing, insert, locking collar, fixed and floating ends*
+
 ## Locking methods
 
 | Type | How it holds | Best for | Watch |

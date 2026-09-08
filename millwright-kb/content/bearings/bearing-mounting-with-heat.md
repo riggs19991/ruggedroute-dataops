@@ -34,6 +34,10 @@ A 100 mm bore expands about 0.001 mm per °C, so 80°C of rise gives about 0.08 
 
 ## Procedure - induction heater, shaft fit
 
+![Induction heater with the probe on the inner ring; push to the shoulder and hold](/img/bearings/induction-heater-mounting.svg)
+
+*Induction heater with the probe on the inner ring; push to the shoulder and hold*
+
 1. Confirm the bearing number matches the drawing. Leave it in its wrapping until you are ready.
 2. Measure the shaft seat with a micrometer at two places, 90° apart. Compare to the fit table (typical rotating-inner-ring fits: **j5/k5** light, **m5/m6** for heavier loads; the shaft is slightly larger than the bore). Check the shoulder is square and the fillet radius is smaller than the bearing chamfer.
 3. Clean the shaft. Light oil on the seat.

@@ -36,6 +36,10 @@ Last digit: **0** = standard roller chain, **1** = lightweight, **5** = rollerle
 
 ## Alignment
 
+![Chain sag, sprocket alignment and wear measurement](/img/power-transmission/chain-sag-and-wear.svg)
+
+*Chain sag, sprocket alignment and wear measurement*
+
 1. Shafts **parallel**: check with a rule or feeler between shafts at two points, or a level on each.
 2. Sprockets **in the same plane**: straightedge across the machined faces of both sprockets should touch at four points. For long centres use a string or a laser.
 3. Lock the sprockets with the correct key, set screws (on flats) or bushing.

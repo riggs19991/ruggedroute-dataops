@@ -29,6 +29,10 @@ The **cardinal rule**: the piping must fit the pump **with all bolts loose and n
 
 ## The pipe strain test
 
+![Indicators on the pump shaft while the flange bolts are loosened](/img/installation/pipe-strain-check.svg)
+
+*Indicators on the pump shaft while the flange bolts are loosened*
+
 1. Pump on its base, aligned (rough or final), hold-down bolts torqued; piping flanged up loosely.
 2. Mount **two dial indicators** (or the laser alignment heads) on the pump's **bearing housing or shaft**, reading against a fixed reference (the baseplate or the motor shaft), one in the **vertical** and one in the **horizontal**; zero them. Better: indicators on the pump shaft end reading vertical and horizontal, and a third indicator axial.
 3. **Tighten the flange bolts** in the proper pattern to full torque (suction first, then discharge, or one at a time) while watching the indicators.

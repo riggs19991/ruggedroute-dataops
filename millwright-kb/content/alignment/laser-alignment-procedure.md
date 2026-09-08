@@ -16,6 +16,10 @@ A laser kit replaces the indicators and the arithmetic. It **does not** replace 
 
 ## Procedure
 
+![Laser heads on both shafts, rotated together through 9, 12 and 3](/img/alignment/laser-alignment-positions.svg)
+
+*Laser heads on both shafts, rotated together through 9, 12 and 3*
+
 ### 1. Prepare
 
 1. Lockout/tagout. Pre-alignment checklist complete.

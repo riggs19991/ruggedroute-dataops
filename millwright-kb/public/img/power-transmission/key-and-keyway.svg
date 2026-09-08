@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" width="500" height="240" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Key and keyway</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="240" fill="#ffffff"/>
+<circle cx="150" cy="120" r="90" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="130" y="30" width="40" height="40" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="130" y="30" width="40" height="40" fill="none" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M119.21818710068982,35.42766412926824 A90,90 0 0 1 180.78181289931018,35.42766412926825" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="130" y="30" width="40" height="40" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+<rect x="60" y="12" width="180" height="24" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="130" y="12" width="40" height="24" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<line x1="130" y1="82" x2="170" y2="82" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="150" y="78" font-size="11" text-anchor="middle" fill="#1a2233">W</text>
+<line x1="118" y1="50" x2="118" y2="70" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="112" y="64" font-size="10" text-anchor="end" fill="#1a2233">W/2 shaft</text>
+<line x1="118" y1="30" x2="118" y2="50" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="112" y="44" font-size="10" text-anchor="end" fill="#1a2233">W/2 hub</text>
+<rect x="290" y="30" width="190" height="20" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="43.6" font-size="10.5" text-anchor="start" font-weight="600" fill="#1a2233">Shaft dia. (in)</text>
+<text x="406" y="43.6" font-size="10.5" text-anchor="start" font-weight="600" fill="#1a2233">Square key</text>
+<rect x="290" y="50" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="63.6" font-size="10.5" text-anchor="start" fill="#1a2233">1/2 - 9/16</text>
+<text x="406" y="63.6" font-size="10.5" text-anchor="start" fill="#1a2233">1/8</text>
+<rect x="290" y="70" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="83.6" font-size="10.5" text-anchor="start" fill="#1a2233">5/8 - 7/8</text>
+<text x="406" y="83.6" font-size="10.5" text-anchor="start" fill="#1a2233">3/16</text>
+<rect x="290" y="90" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="103.6" font-size="10.5" text-anchor="start" fill="#1a2233">15/16 - 1-1/4</text>
+<text x="406" y="103.6" font-size="10.5" text-anchor="start" fill="#1a2233">1/4</text>
+<rect x="290" y="110" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="123.6" font-size="10.5" text-anchor="start" fill="#1a2233">1-5/16 - 1-3/8</text>
+<text x="406" y="123.6" font-size="10.5" text-anchor="start" fill="#1a2233">5/16</text>
+<rect x="290" y="130" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="143.6" font-size="10.5" text-anchor="start" fill="#1a2233">1-7/16 - 1-3/4</text>
+<text x="406" y="143.6" font-size="10.5" text-anchor="start" fill="#1a2233">3/8</text>
+<rect x="290" y="150" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="163.6" font-size="10.5" text-anchor="start" fill="#1a2233">1-13/16 - 2-1/4</text>
+<text x="406" y="163.6" font-size="10.5" text-anchor="start" fill="#1a2233">1/2</text>
+<rect x="290" y="170" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="183.6" font-size="10.5" text-anchor="start" fill="#1a2233">2-5/16 - 2-3/4</text>
+<text x="406" y="183.6" font-size="10.5" text-anchor="start" fill="#1a2233">5/8</text>
+<rect x="290" y="190" width="190" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="203.6" font-size="10.5" text-anchor="start" fill="#1a2233">2-13/16 - 3-1/4</text>
+<text x="406" y="203.6" font-size="10.5" text-anchor="start" fill="#1a2233">3/4</text>
+<text x="250" y="232" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Key length ≈ 1.5 × shaft dia.; snug sides, slight top clearance.</text>
+</svg>

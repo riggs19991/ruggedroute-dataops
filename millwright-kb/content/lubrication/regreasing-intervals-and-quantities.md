@@ -12,6 +12,10 @@ summary: "The two numbers every greaser needs: how much and how often. The SKF q
 
 ## How much: the SKF formula
 
+![The grease quantity formula from bearing OD and width](/img/lubrication/regrease-quantity.svg)
+
+*The grease quantity formula from bearing OD and width*
+
 ```
    Relubrication quantity  G (grams) = 0.005 × D × B        D = bearing outside diameter (mm), B = bearing width (mm)
    (relubricating through the side of the bearing; from the centre through a W33 groove: G = 0.002 × D × B)

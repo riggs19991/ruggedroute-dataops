@@ -12,6 +12,10 @@ summary: "The two tapered bushings that hold sheaves, sprockets and couplings on
 
 ## Which is which
 
+![QD flange bushing versus flangeless Taper-Lock](/img/power-transmission/qd-vs-taperlock.svg)
+
+*QD flange bushing versus flangeless Taper-Lock*
+
 | | **QD (Quick Detachable)** | **Taper-Lock** |
 |---|---|---|
 | Look | A **flanged** split bushing; 2-4 cap screws through the flange into the sheave (or reversed) | A **flangeless** split bushing sitting flush inside the hub; 2-3 set screws (half in the bushing, half in the hub) |

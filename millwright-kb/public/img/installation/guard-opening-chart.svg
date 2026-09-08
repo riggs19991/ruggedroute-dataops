@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Guard opening chart</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="320" fill="#ffffff"/>
+<text x="250" y="22" font-size="12.5" text-anchor="middle" font-weight="700" fill="#1a2233">Maximum guard opening by distance from the hazard</text>
+<rect x="40" y="36" width="290" height="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="50.96" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Distance from nip point</text>
+<text x="226" y="50.96" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Max opening</text>
+<rect x="40" y="58" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="72.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">1/2 to 1-1/2 in</text>
+<text x="226" y="72.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">1/4 in</text>
+<rect x="40" y="80" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="94.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">1-1/2 to 2-1/2 in</text>
+<text x="226" y="94.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">3/8 in</text>
+<rect x="40" y="102" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="116.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">2-1/2 to 3-1/2 in</text>
+<text x="226" y="116.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">1/2 in</text>
+<rect x="40" y="124" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="138.96" font-size="11" text-anchor="start" fill="#1a2233">3-1/2 to 5-1/2 in</text>
+<text x="226" y="138.96" font-size="11" text-anchor="start" fill="#1a2233">5/8 in</text>
+<rect x="40" y="146" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="160.96" font-size="11" text-anchor="start" fill="#1a2233">5-1/2 to 6-1/2 in</text>
+<text x="226" y="160.96" font-size="11" text-anchor="start" fill="#1a2233">3/4 in</text>
+<rect x="40" y="168" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="182.96" font-size="11" text-anchor="start" fill="#1a2233">6-1/2 to 7-1/2 in</text>
+<text x="226" y="182.96" font-size="11" text-anchor="start" fill="#1a2233">7/8 in</text>
+<rect x="40" y="190" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="204.96" font-size="11" text-anchor="start" fill="#1a2233">7-1/2 to 12-1/2 in</text>
+<text x="226" y="204.96" font-size="11" text-anchor="start" fill="#1a2233">1-1/4 in</text>
+<rect x="40" y="212" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="226.96" font-size="11" text-anchor="start" fill="#1a2233">12-1/2 to 15-1/2 in</text>
+<text x="226" y="226.96" font-size="11" text-anchor="start" fill="#1a2233">1-1/2 in</text>
+<rect x="40" y="234" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="248.96" font-size="11" text-anchor="start" fill="#1a2233">15-1/2 to 17-1/2 in</text>
+<text x="226" y="248.96" font-size="11" text-anchor="start" fill="#1a2233">1-7/8 in</text>
+<rect x="40" y="256" width="290" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="270.96" font-size="11" text-anchor="start" fill="#1a2233">17-1/2 to 31-1/2 in</text>
+<text x="226" y="270.96" font-size="11" text-anchor="start" fill="#1a2233">2-1/8 in</text>
+<rect x="350" y="60" width="120" height="100" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="360" y="70" width="18" height="80" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="388" y="70" width="18" height="80" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="416" y="70" width="18" height="80" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="444" y="70" width="18" height="80" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="410" cy="200" r="25" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="350" y1="165" x2="470" y2="165" stroke="#b91c1c" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
+<line x1="478" y1="160" x2="478" y2="200" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="472" y="184" font-size="10" text-anchor="end" fill="#1a2233">dist.</text>
+<text x="410" y="250" font-size="10" text-anchor="middle" fill="#5b6577">opening</text>
+<text x="250" y="312" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Rule of thumb: a finger reaches 1/2 in; a hand 4 in; an arm 30 in.</text>
+</svg>

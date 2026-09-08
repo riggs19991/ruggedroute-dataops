@@ -20,6 +20,10 @@ If the jaws cannot reach the inner ring (a shoulder, a gear, a seal): use a **be
 
 ## Puller types
 
+![Jaw puller and separator with push-puller, both on the inner ring](/img/bearings/puller-types.svg)
+
+*Jaw puller and separator with push-puller, both on the inner ring*
+
 | Puller | Grip | For | Notes |
 |---|---|---|---|
 | **2- or 3-jaw mechanical puller** (self-centring, reversible jaws) | Behind the ring's face | Small to medium bearings, gears, pulleys on shaft ends; up to about 10-20 tons mechanical | 3-jaw for round parts (centres itself), 2-jaw where access is narrow; jaws must reach **all the way behind the inner ring** and grip square; use a **centre protector** on the shaft end to save the centre hole and thread |

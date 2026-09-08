@@ -33,6 +33,10 @@ Draw the developments at full size on paper, hardboard or directly on the sheet 
 
 Full cone with base diameter D and slant height S (the distance from the apex to the base edge along the surface):
 
+![Radial-line development of a cone: slant height and sector angle](/img/layout-templates/cone-development.svg)
+
+*Radial-line development of a cone: slant height and sector angle*
+
 ```
    S = √( (D/2)² + H² )                       H = vertical height
    pattern: a sector of a circle of radius S, with an included angle  A = 360° × (D/2) ÷ S  = 180° × D ÷ S

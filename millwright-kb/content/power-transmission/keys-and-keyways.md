@@ -10,6 +10,10 @@ summary: "The key size that belongs on each shaft diameter (inch and metric), ho
 
 ## Square key size by shaft diameter (ANSI B17.1, inch)
 
+![Square key half in the shaft and half in the hub, with sizes by shaft diameter](/img/power-transmission/key-and-keyway.svg)
+
+*Square key half in the shaft and half in the hub, with sizes by shaft diameter*
+
 | Shaft diameter (over-to) | Key width × height (square) | Keyseat depth in shaft (H/2) | Keyway depth in hub (H/2 + clearance) |
 |---|---|---|---|
 | 5/16 - 7/16 | 3/32 | 3/64 | 3/64 |

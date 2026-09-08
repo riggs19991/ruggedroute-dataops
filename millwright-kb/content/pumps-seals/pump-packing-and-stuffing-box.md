@@ -14,6 +14,10 @@ summary: "How to repack a centrifugal pump or a valve stuffing box so it seals a
 
 Rings of braided yarn are compressed by the gland so they press against the shaft **sleeve** and the box bore; the fluid leaks through the packing in a controlled trickle that **lubricates and cools** the rubbing surface. **Packing must leak**: a packing that is bone dry is burning itself and scoring the sleeve. A **lantern ring** (seal cage) lets clean flush water or the pump's own discharge into the middle of the set to lubricate and to keep abrasives out. The **gland** is adjusted over the first hours to bring the leakage down to a steady rate, and re-adjusted as the packing consolidates.
 
+![Packing rings, lantern ring and gland in the stuffing box](/img/pumps-seals/packing-box.svg)
+
+*Packing rings, lantern ring and gland in the stuffing box*
+
 ## Packing materials
 
 | Material | Service | Temperature | Notes |

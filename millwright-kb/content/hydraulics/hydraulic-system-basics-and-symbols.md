@@ -44,6 +44,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 
 ## Reading the schematic (ISO 1219)
 
+![The basic ISO 1219 schematic symbols](/img/hydraulics/schematic-symbols.svg)
+
+*The basic ISO 1219 schematic symbols*
+
 - **Lines**: solid = main working line; **dashed** = pilot (control) or drain line; double = mechanical connection; a dot at a junction = connected; lines crossing without a dot = not connected; an enclosure (dash-dot rectangle) = a manifold or a valve assembly.
 - **Circles**: a circle with a **solid triangle pointing outward** = a **pump** (the triangle is the flow direction); pointing inward = a **motor**; two triangles = bidirectional; an **arrow through** the circle = variable displacement; a small dashed box with an arrow next to it = pressure-compensated; a hollow triangle = pneumatic.
 - **Reservoir**: an open-top box (vented) or a closed box (pressurised); the line ending **below** the oil level = submerged return.

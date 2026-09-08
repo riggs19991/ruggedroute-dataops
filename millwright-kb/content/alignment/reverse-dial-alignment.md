@@ -16,6 +16,10 @@ Both shafts must rotate together (coupling connected or hubs pinned).
 
 ## Setup
 
+![Two brackets, each indicator reading the other shaft's rim, plotted on a graph](/img/alignment/reverse-dial-setup.svg)
+
+*Two brackets, each indicator reading the other shaft's rim, plotted on a graph*
+
 1. Pre-alignment checklist, soft foot done, rough alignment within 0.020".
 2. Bracket **S** clamps to the stationary shaft; its indicator reads the movable shaft (or hub) at plane **P1**, the plane closest to the movable machine.
 3. Bracket **M** clamps to the movable shaft; its indicator reads the stationary shaft at plane **P2**, the plane closest to the stationary machine.

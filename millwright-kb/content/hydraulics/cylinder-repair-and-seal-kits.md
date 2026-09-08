@@ -61,6 +61,10 @@ Lay everything out in order on a clean bench; photograph the seal stack in the g
 
 ## Seals and where they go
 
+![Wiper, rod seal, wear rings and piston seal orientation](/img/hydraulics/cylinder-seal-orientation.svg)
+
+*Wiper, rod seal, wear rings and piston seal orientation*
+
 ```
    ROD END (gland), from outside in:
      wiper (scraper) : lip facing OUT (scrapes dirt off the rod on the return stroke)

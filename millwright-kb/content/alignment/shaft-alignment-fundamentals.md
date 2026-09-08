@@ -16,6 +16,10 @@ A flexible coupling tolerates *some* misalignment. It does not remove the forces
 
 Two shafts can be out in four independent ways. You correct all four.
 
+![Parallel offset and angular misalignment in two planes](/img/alignment/offset-and-angularity.svg)
+
+*Parallel offset and angular misalignment in two planes*
+
 | Term | What it means | Corrected by |
 |---|---|---|
 | **Vertical offset** | Movable shaft centreline is parallel but higher/lower than the stationary | Shims under all four feet equally |
@@ -60,6 +64,10 @@ Vertical always comes first because shim changes disturb horizontal readings, bu
 ## General alignment tolerances
 
 Use these when the equipment manual gives none. Values are for short flexible couplings with the coupling as the measurement plane. "Excellent" is the target for new installations and critical machines; "Acceptable" is the outer limit for continued running.
+
+![Offset tolerance falls as speed rises](/img/alignment/alignment-tolerances.svg)
+
+*Offset tolerance falls as speed rises*
 
 | Speed (rpm) | Offset - Excellent (mils) | Offset - Acceptable (mils) | Angularity - Excellent (mils/in) | Angularity - Acceptable (mils/in) |
 |---|---|---|---|---|

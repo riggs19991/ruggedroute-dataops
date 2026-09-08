@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" width="500" height="240" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Bearing fits by load</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="240" fill="#ffffff"/>
+<text x="130" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Rotating shaft, fixed load</text>
+<rect x="40" y="100" width="180" height="30" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="130" cy="115" r="50" fill="#ffffff" stroke="#b91c1c" stroke-width="3"/>
+<circle cx="130" cy="115" r="30" fill="#cbd5e1" stroke="#166534" stroke-width="3"/>
+<path d="M76.3064249653648,84 A62,62 0 0 1 183.69357503463522,84" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="215" y1="115" x2="188" y2="115" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="222" y="119" font-size="10" text-anchor="start" fill="#b91c1c">load</text>
+<text x="40" y="180" font-size="10" text-anchor="start" fill="#166534">inner ring: tight (k5, m5)</text>
+<text x="40" y="195" font-size="10" text-anchor="start" fill="#b91c1c">outer ring: push fit (H7)</text>
+<text x="130" y="215" font-size="10" text-anchor="middle" fill="#5b6577">belt pull, gear load, weight</text>
+<text x="370" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Fixed shaft, rotating housing</text>
+<rect x="280" y="100" width="180" height="30" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="370" cy="115" r="50" fill="#ffffff" stroke="#166534" stroke-width="3"/>
+<circle cx="370" cy="115" r="30" fill="#cbd5e1" stroke="#b91c1c" stroke-width="3"/>
+<path d="M316.3064249653648,84 A62,62 0 0 1 423.6935750346352,84" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="455" y1="115" x2="428" y2="115" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="462" y="119" font-size="10" text-anchor="start" fill="#b91c1c">load</text>
+<text x="280" y="180" font-size="10" text-anchor="start" fill="#166534">outer ring: tight (N7, P7)</text>
+<text x="280" y="195" font-size="10" text-anchor="start" fill="#b91c1c">inner ring: push (g6, h6)</text>
+<text x="370" y="215" font-size="10" text-anchor="middle" fill="#5b6577">idler pulley, wheel, sheave on an axle</text>
+<text x="250" y="232" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">A ring that should be tight but is loose creeps, frets and turns blue.</text>
+</svg>

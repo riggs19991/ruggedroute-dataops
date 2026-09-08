@@ -72,6 +72,10 @@ Speed factor n·dm = rpm × mean bearing diameter (mm); under 100,000 use a thic
 
 Mixing two greases with incompatible thickeners makes a mixture **softer or harder than either**, with a lower dropping point and less oil retention: it runs out of the bearing or hardens into a cake. This is the chart most published guides agree on (**C** = compatible, **B** = borderline: test or purge well, **I** = incompatible); check your supplier's own chart for a specific pair, because polyurea and calcium-sulfonate formulations vary.
 
+![Thickener compatibility matrix](/img/lubrication/grease-compatibility-matrix.svg)
+
+*Thickener compatibility matrix*
+
 | | Al complex | Ba complex | Ca stearate | Ca 12-OH | Ca complex | Ca sulfonate | Clay | Li stearate | Li 12-OH | Li complex | Polyurea |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | **Aluminium complex** | - | I | I | C | I | B | I | I | I | B | I |

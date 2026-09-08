@@ -12,6 +12,10 @@ summary: "How to lay out any number of equally spaced holes on a bolt circle wit
 
 Set the dividers to the **chord** between adjacent holes and step round the circle; if the last step lands on the first mark, the layout is good.
 
+![Stepping the chord around a bolt circle with dividers; holes straddle the centrelines](/img/layout-templates/bolt-circle-chord.svg)
+
+*Stepping the chord around a bolt circle with dividers; holes straddle the centrelines*
+
 ```
    chord = bolt circle diameter (D) × sin(180° ÷ N)         N = number of holes
 ```

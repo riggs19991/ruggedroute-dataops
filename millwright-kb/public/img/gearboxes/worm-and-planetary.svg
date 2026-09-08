@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 230" width="500" height="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Worm and planetary</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="230" fill="#ffffff"/>
+<text x="130" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Worm and wheel</text>
+<circle cx="130" cy="130" r="55" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="185" cy="130" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="183.12592044589877" cy="144.23504748063863" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="177.63139720814414" cy="157.5" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="168.89087296526012" cy="168.89087296526012" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="157.5" cy="177.6313972081441" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="144.23504748063863" cy="183.12592044589877" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="130" cy="185" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="115.76495251936136" cy="183.12592044589877" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="102.50000000000001" cy="177.63139720814414" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="91.10912703473988" cy="168.89087296526012" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="82.36860279185586" cy="157.5" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="76.87407955410126" cy="144.23504748063866" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="75" cy="130" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="76.87407955410124" cy="115.76495251936136" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="82.36860279185588" cy="102.5" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="91.10912703473988" cy="91.10912703473988" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="102.49999999999997" cy="82.36860279185589" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="115.76495251936137" cy="76.87407955410124" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="130" cy="75" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="144.23504748063863" cy="76.87407955410123" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="157.5" cy="82.36860279185588" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="168.8908729652601" cy="91.10912703473988" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="177.6313972081441" cy="102.49999999999997" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="183.12592044589877" cy="115.76495251936136" r="3" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<rect x="40" y="56" width="180" height="22" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<line x1="52" y1="58" x2="60" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="72" y1="58" x2="80" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="92" y1="58" x2="100" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="112" y1="58" x2="120" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="132" y1="58" x2="140" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="152" y1="58" x2="160" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="172" y1="58" x2="180" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="192" y1="58" x2="200" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="212" y1="58" x2="220" y2="76" stroke="#64748b" stroke-width="1.5" stroke-linecap="round"/>
+<text x="130" y="205" font-size="9.5" text-anchor="middle" fill="#5b6577"><tspan x="130" dy="0">ratio = wheel teeth ÷ worm starts</tspan><tspan x="130" dy="11.875">5:1 to 100:1; efficiency 50-90%</tspan></text>
+<text x="370" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Planetary</text>
+<circle cx="370" cy="120" r="75" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="370" cy="120" r="62" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="370" cy="120" r="22" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="370" cy="162" r="20" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="333.6269330410536" cy="99" r="20" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="406.3730669589464" cy="98.99999999999999" r="20" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<text x="370" y="124" font-size="9" text-anchor="middle" fill="#1a2233">sun</text>
+<text x="370" y="205" font-size="9.5" text-anchor="middle" fill="#5b6577"><tspan x="370" dy="0">ratio = 1 + ring ÷ sun teeth (ring fixed)</tspan><tspan x="370" dy="11.875">3:1 to 10:1 per stage; efficiency 95%+</tspan></text>
+</svg>

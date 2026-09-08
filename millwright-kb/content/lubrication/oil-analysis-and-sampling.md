@@ -31,6 +31,10 @@ Sample **more often** after a change of oil or a repair (baseline again), during
 
 The rule: **from the same point, in the same way, with the machine at operating temperature and running (or just stopped), from a live zone of the oil**, into a **clean** bottle.
 
+![Sample from a live zone at mid-level, not the drain](/img/lubrication/oil-sampling-point.svg)
+
+*Sample from a live zone at mid-level, not the drain*
+
 1. **Point**: a **sampling valve** (a pitot tube or a valve on the return line before the filter on hydraulics; a valve in the side of the sump at mid-level, away from the bottom sludge and the drain, on gearboxes; on the drain line of a bearing housing before the reservoir on circulating systems). Install proper sampling valves (Minimess-type test points with a probe, or a ball valve with a dust cap) on every machine in the program; the **drain plug** gives sludge, and the **fill port** gives the top layer: neither is representative.
 2. **Timing**: the machine at operating temperature after at least an hour of running; hydraulic and circulating systems **running**; splash gearboxes and bearing sumps **within minutes of stopping** (the wear debris is still suspended).
 3. **Flush**: open the valve and run **5-10× the dead volume** (a few hundred mL) into a waste container so the sample is not the stagnant oil in the valve; wipe the valve.

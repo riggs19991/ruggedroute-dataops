@@ -10,6 +10,10 @@ source: "Boston Gear worm gear reducer manuals and engineering data (efficiency 
 summary: "The three reducer types a millwright meets after the ordinary helical box: worm reducers (why they run hot, why the oil is special, when they hold a load without a brake, and how the bronze wheel wears), planetary reducers (the ratio math, why they are compact, what to check), and the cycloidal drive (how it takes shock), with the mounting, venting, oil and service-factor rules common to all."
 ---
 
+![Worm and wheel versus sun, planets and ring](/img/gearboxes/worm-and-planetary.svg)
+
+*Worm and wheel versus sun, planets and ring*
+
 ## Worm gear reducers
 
 A steel **worm** (a screw, usually hardened and ground) drives a **bronze wheel** (phosphor bronze or aluminium bronze) at 90°. The contact is **sliding**, not rolling, so:

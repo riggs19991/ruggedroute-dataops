@@ -12,6 +12,10 @@ summary: "Each coupling type has its own installation rules that alignment alone
 
 ## Hub mounting (all types)
 
+![Hub gap and coupling families](/img/power-transmission/coupling-gap-and-types.svg)
+
+*Hub gap and coupling families*
+
 - Hub bore fit: **interference** (0.0005-0.001" per inch of bore) on most industrial couplings with a **clearance** fit (0.001-0.002") plus a set screw only on small elastomeric couplings; the coupling manual states which. Check the bore and the shaft with a micrometer.
 - Mount interference hubs **with heat** (oven, induction, or a hot-oil bath to **275-350°F**, never a torch on a finished hub if avoidable; see [bearing mounting with heat](/article/bearing-mounting-with-heat) for the method), slide on to the shoulder or the measured position in one move, and hold until they grip. **Never hammer a hub on**: it damages the bearings behind it and the hub face.
 - Key fitted per [keys and keyways](/article/keys-and-keyways); set screw over the key.

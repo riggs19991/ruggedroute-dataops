@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 285" width="500" height="285" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Puller types</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="285" fill="#ffffff"/>
+<text x="130" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#166534">Jaw puller (right)</text>
+<rect x="20" y="120" width="150" height="24" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="120" y="100" width="40" height="64" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="120" y="112" width="40" height="40" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M110,60 L110,100 L120,100" fill="none" stroke="#1a2233" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M110,204 L110,164 L120,164" fill="none" stroke="#1a2233" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="110" y1="60" x2="110" y2="204" stroke="#1a2233" stroke-width="6" stroke-linecap="round"/>
+<rect x="60" y="122" width="50" height="20" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="60" y1="132" x2="30" y2="132" stroke="#1a2233" stroke-width="6" stroke-linecap="round"/>
+<text x="95" y="235" font-size="10" text-anchor="middle" fill="#5b6577"><tspan x="95" dy="0">jaws behind the inner ring;</tspan><tspan x="95" dy="12.5">screw on the shaft centre</tspan></text>
+<text x="370" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#166534">Separator + push-puller</text>
+<rect x="280" y="120" width="150" height="24" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="380" y="100" width="40" height="64" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="380" y="112" width="40" height="40" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="366" y="90" width="14" height="84" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="366" y1="96" x2="300" y2="96" stroke="#1a2233" stroke-width="4" stroke-linecap="round"/>
+<line x1="366" y1="168" x2="300" y2="168" stroke="#1a2233" stroke-width="4" stroke-linecap="round"/>
+<rect x="290" y="86" width="12" height="92" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="290" y1="132" x2="260" y2="132" stroke="#1a2233" stroke-width="6" stroke-linecap="round"/>
+<text x="360" y="235" font-size="10" text-anchor="middle" fill="#5b6577"><tspan x="360" dy="0">separator knife-edges behind the</tspan><tspan x="360" dy="12.5">inner ring when there is no room</tspan></text>
+<text x="250" y="277" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Pulling on the outer ring loads the balls: the bearing is scrap after that.</text>
+</svg>

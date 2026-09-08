@@ -43,6 +43,10 @@ Exceed these and the seal faces open and close every revolution. Fix (new sleeve
 
 ## Installing a component seal (rotary + stationary)
 
+![Rotary unit, faces, gland and O-rings of a component seal](/img/pumps-seals/mechanical-seal-parts.svg)
+
+*Rotary unit, faces, gland and O-rings of a component seal*
+
 1. Clean everything. New gaskets and O-rings. Deburr keyways and shaft steps; **cover the keyway and threads with tape** so the O-ring cannot be cut sliding over them.
 2. Fit the **stationary seat** into the gland with its O-ring or cup gasket. Lubricate the elastomer with **water, soapy water or the seal maker's lubricant**. Do not use petroleum oil on EPDM (it swells). Press in square with a clean, soft tool; never touch the lapped face with bare fingers. Wipe the face with a lint-free tissue and alcohol.
 3. Slide the gland (with seat) onto the shaft, face inward.

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Thermal growth</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<text x="250" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">ΔL = L × α × ΔT     (steel α = 6.5 × 10⁻⁶ in per in per °F)</text>
+<rect x="40" y="160" width="460" height="16" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="80" y="90" width="120" height="70" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
+<text x="140" y="121.975" font-size="11" text-anchor="middle" fill="#1a2233"><tspan x="140" dy="0">motor</tspan><tspan x="140" dy="13.75">cool</tspan></text>
+<rect x="300" y="70" width="120" height="90" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+<text x="360" y="111.975" font-size="11" text-anchor="middle" fill="#1a2233"><tspan x="360" dy="0">pump</tspan><tspan x="360" dy="13.75">hot: 180°F</tspan></text>
+<line x1="200" y1="110" x2="300" y2="110" stroke="#0b5fa5" stroke-width="2" stroke-linecap="round"/>
+<line x1="200" y1="100" x2="300" y2="100" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 3" stroke-linecap="round"/>
+<line x1="260" y1="100" x2="260" y2="110" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="266" y="109" font-size="10" text-anchor="start" fill="#1a2233">growth</text>
+<text x="250" y="200" font-size="10.5" text-anchor="middle" fill="#5b6577">example: 12 in base to shaft, ΔT = 110°F: 12 × 6.5e-6 × 110 = 0.0086 in</text>
+<text x="250" y="218" font-size="10.5" text-anchor="middle" fill="#b91c1c">so set the pump shaft 0.009 in LOW cold (or the motor 0.009 in high)</text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Use the maker’s numbers where given; verify with a hot alignment check.</text>
+</svg>

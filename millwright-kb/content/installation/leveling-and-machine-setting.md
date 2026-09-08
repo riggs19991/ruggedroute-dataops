@@ -48,6 +48,10 @@ Place the level on **machined surfaces only** (pads, a shaft, a ground parallel)
 
 Tolerances (API 686 practice; use the drawing or the plant spec if it says otherwise):
 
+![Precision level on the machined pads, jack bolts at each anchor](/img/installation/leveling-with-jack-bolts.svg)
+
+*Precision level on the machined pads, jack bolts at each anchor*
+
 | Item | Target |
 |---|---|
 | Level, longitudinal and transverse | **0.0002"/ft (0.017 mm/m)** for API-class pumps and compressors is the commonly applied API 686 target; **0.001-0.002"/ft** is typical for general industrial machinery (fans, gearboxes, conveyors drives) |
@@ -70,6 +74,10 @@ Procedure:
 Big machines (large motors, compressors, mills) are not set on a one-piece baseplate but on **sole plates**: individual machined steel plates grouted to the foundation under each foot, levelled to each other with a precision level and a **transit or laser** across them, and doweled later. Alternatively **epoxy chocks** (Chockfast Orange poured in a dam under each foot, 1/2-2" thick) replace machined shims and sole plates: the chock takes the exact shape of the foot and the foundation, with no fitting, and is the marine and heavy-industry standard. Adjustable **steel chocks** (Vibracon, screw-adjusted wedges) allow re-levelling without re-grouting.
 
 ## Setting the machines
+
+![Shim stacking rules under machine feet](/img/layout-templates/shim-stacking.svg)
+
+*Shim stacking rules under machine feet*
 
 1. Pump (the driven, fixed machine) goes on first, on its pads, **no shims or a thin equal pack** (the pump is the reference; the piping decides where it sits); feet bolted, soft foot checked and corrected (see [soft foot](/article/soft-foot-correction)).
 2. Motor/driver on **shim packs of at least 1/8"** at every foot (API 686), the same thickness at each foot, so it can be lowered later; **maximum 5 shims per foot**, thick on the bottom; no more than 1/2" total stack, else machine a spacer.

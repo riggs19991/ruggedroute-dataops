@@ -16,6 +16,10 @@ summary: "The sequence and the traps for installing a Dodge Torque-Arm / TXT sha
 
 A shaft-mount reducer hangs directly on the driven shaft (conveyor head pulley, screw conveyor, mixer). A **torque arm** (turnbuckle rod) stops the case from rotating. The motor drives the input with V-belts, usually on a **motor mount** bolted to the reducer. Because the reducer hangs on the shaft, **bushing fit and torque-arm geometry** are everything.
 
+![Shaft-mount reducer, torque arm and belt drive](/img/gearboxes/torque-arm-reducer.svg)
+
+*Shaft-mount reducer, torque arm and belt drive*
+
 ## Bushing systems
 
 | System | Where used | How it grips |

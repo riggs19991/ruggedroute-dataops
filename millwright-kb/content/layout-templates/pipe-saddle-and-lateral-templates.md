@@ -12,6 +12,10 @@ summary: "How to lay out the curved cut where a branch pipe meets a header (the 
 
 Unroll the branch pipe's circumference onto paper, divide it into 16 equal parts (element lines), and at each line mark how far back from a square cut the pipe must be cut so it sits down on the round header. Those distances are the **ordinates**. Wrap the paper on the branch, mark the curve through the points, cut, and the branch nests on the header.
 
+![Saddle template by ordinates around the branch circumference](/img/layout-templates/saddle-template-ordinates.svg)
+
+*Saddle template by ordinates around the branch circumference*
+
 ```
    Ordinate at element line θ (measured around the branch from the side, 0° = the side of the branch that sits on the header's side, 90° = top/bottom centre):
 

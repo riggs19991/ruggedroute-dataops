@@ -59,6 +59,10 @@ For a pump and motor on a fabricated steel baseplate: **epoxy**. For a small gua
 
 ## Mixing and pouring
 
+![Forms, head box, sleeved anchors and wrapped jack bolts for a grout pour](/img/installation/grout-pour.svg)
+
+*Forms, head box, sleeved anchors and wrapped jack bolts for a grout pour*
+
 1. **Condition** all components to 65-95°F (Chockfast) for 24 h; shade the foundation or warm it with lamps/tents; the concrete's temperature governs the cure.
 2. Mix resin and hardener **completely** (3 minutes with a slow drill and paddle; scrape the sides), then add aggregate **one bag at a time**, mixing **only until wet out** (over-mixing traps air); the mix should be wet and flowing but with no free resin. Use full kits; never split them. Cementitious: measured water per the bag, mortar mixer, flowable consistency verified with a flow cone if the spec demands.
 3. **Pour from one side only**, into the head box, continuously, letting the grout flow under the plate and out the vents and the far side; **never pour from both sides** (a void where the two fronts meet). Use a plunger or a strap to help it along stiffener pockets; do not vibrate epoxy (air). Keep the head box topped up.

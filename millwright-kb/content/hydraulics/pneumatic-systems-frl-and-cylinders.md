@@ -14,6 +14,10 @@ summary: "The plant air side a millwright maintains: setting up a filter-regulat
 
 Installed **in that order** in the flow direction, close to the point of use (within 20 ft), bowls hanging down, at eye level where you can read them.
 
+![Filter, regulator, lubricator in order of flow](/img/hydraulics/frl-unit.svg)
+
+*Filter, regulator, lubricator in order of flow*
+
 **Filter** (5-40 µm particulate with a centrifugal water separator; a 0.01 µm coalescing filter after it for paint, instruments and air bearings): the bowl collects water and dirt; **drain it** (manual petcock: daily; **auto drain**: check it dumps); replace the element when the ΔP indicator shows or annually; polycarbonate bowls crack with some solvents and oils (use a metal bowl guard); the flow arrow in the flow direction.
 
 **Regulator** (relieving type for tools, non-relieving for some systems): set **with air flowing** (the downstream pressure drops under flow: set the tool running, not static); **90 psi at the tool** for most air tools (the tool's rating: 90 psi is standard, some 100), cylinders per the machine, blow guns 30 psi or a safety nozzle; lock the knob (push down or the lock nut); a regulator that creeps up with no flow is a damaged seat: rebuild kit. Do not use the regulator as a shut-off.

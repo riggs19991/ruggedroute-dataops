@@ -47,6 +47,10 @@ Three kinds of misalignment: **angular** (shafts not parallel), **parallel/offse
 
 ## Tension - deflection method
 
+![Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge](/img/power-transmission/v-belt-deflection.svg)
+
+*Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge*
+
 1. Measure the **span length** (the straight belt length between the two sheaves where they leave the groove), in inches.
 2. Deflection target = **span ÷ 64**, i.e. **1/64" per inch of span**. A 32" span deflects 1/2".
 3. Use a spring-scale belt tension tester (Gates Krikit or a pencil-style tester) at the **middle of the span**, pressing square to the belt. Read the force needed to reach the deflection.

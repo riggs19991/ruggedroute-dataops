@@ -12,6 +12,10 @@ summary: "How to lay out and cut mitered elbows of any number of pieces with the
 
 A miter is an elbow made by cutting pipe at an angle and welding the pieces. For a total bend angle A made of n pieces there are (n − 1) joints and the two end pieces are half-segments:
 
+![Two- and three-piece mitred elbows and the cut-angle rule](/img/layout-templates/miter-elbow-layout.svg)
+
+*Two- and three-piece mitred elbows and the cut-angle rule*
+
 ```
    cut angle at each joint (measured from a square cut)  θ = A ÷ [2 × (n − 1)]
    cut-back at the outside of the pipe (from the square line to the long point)  C = (OD ÷ 2) × tan θ

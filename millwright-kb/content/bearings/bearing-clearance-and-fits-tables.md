@@ -12,6 +12,10 @@ summary: "Why a bearing ring must be tight on the member that carries the rotati
 
 A bearing ring that turns relative to the direction of the load (**rotating load**) will **creep** on its seat unless it has an **interference fit**; a ring that does not (**stationary load**) can have a loose fit and often must, to allow axial float or thermal expansion.
 
+![Which ring is tight depends on which ring rotates relative to the load](/img/bearings/fits-rotating-load.svg)
+
+*Which ring is tight depends on which ring rotates relative to the load*
+
 | Case | Inner ring | Outer ring |
 |---|---|---|
 | **Rotating shaft, stationary housing, fixed-direction load** (motor, pump, gearbox, fan): the commonest | **Interference** (k5/k6/m5/m6/n6 by size and load) | Loose to transition (H7/J7/K7); tight only if the load is heavy or the housing is thin/aluminium |

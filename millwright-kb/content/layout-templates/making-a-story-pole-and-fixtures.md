@@ -16,6 +16,10 @@ A tape and a rule reproduce the same error every time you read them; a **story p
 
 A straight stick (1×2 lumber, aluminium angle, 1/2" square tube, or a scrap of unistrut) with **every dimension of the job marked on it** from one datum.
 
+![A story pole carries every spacing from one datum](/img/layout-templates/story-pole.svg)
+
+*A story pole carries every spacing from one datum*
+
 1. Choose the datum: floor finish level, the top of a beam, the centreline of a shaft, or a benchmark on a column. Mark it on the stick with a square line and a label.
 2. From the drawing, transfer **all** the elevations or spacings to the stick with a steel tape: bottom of the conveyor stringer, centreline of the head shaft, top of the guard rail, each pipe hanger centreline... each with a square line, an arrow to the side of the line the dimension is on, and the name.
 3. For spacings along a run (idlers every 4'-0", hangers every 10', bolts every 6"), mark the **cumulative** positions from the datum on one edge, never step off one at a time; for the run, hook the pole's datum on the start mark and step it, marking the pole's end each time, and check the total with a tape.

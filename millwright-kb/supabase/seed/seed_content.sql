@@ -81,6 +81,10 @@ A laser kit replaces the indicators and the arithmetic. It **does not** replace 
 
 ## Procedure
 
+![Laser heads on both shafts, rotated together through 9, 12 and 3](/img/alignment/laser-alignment-positions.svg)
+
+*Laser heads on both shafts, rotated together through 9, 12 and 3*
+
 ### 1. Prepare
 
 1. Lockout/tagout. Pre-alignment checklist complete.
@@ -170,6 +174,10 @@ Two brackets, one on each shaft, each carrying a rim indicator that reads the **
 Both shafts must rotate together (coupling connected or hubs pinned).
 
 ## Setup
+
+![Two brackets, each indicator reading the other shaft's rim, plotted on a graph](/img/alignment/reverse-dial-setup.svg)
+
+*Two brackets, each indicator reading the other shaft's rim, plotted on a graph*
 
 1. Pre-alignment checklist, soft foot done, rough alignment within 0.020".
 2. Bracket **S** clamps to the stationary shaft; its indicator reads the movable shaft (or hub) at plane **P1**, the plane closest to the movable machine.
@@ -288,6 +296,10 @@ One bracket clamped to the **stationary** shaft (or hub) carries two dial indica
 Rotate both shafts together (or, if the movable cannot be turned, rotate only the stationary with the bracket and read a hub that has been checked for runout). Readings at 12, 3, 6 and 9 o'clock give the vertical and horizontal picture.
 
 ## Tools
+
+![Rim and face indicator setup with the A, B and C dimensions](/img/alignment/rim-and-face-setup.svg)
+
+*Rim and face indicator setup with the A, B and C dimensions*
 
 - Rim-and-face bracket (chain or clamp type) with rigid rods; the shorter the rods, the less sag
 - Two dial indicators, 0.001" (or 0.01 mm), with a 1" range
@@ -411,6 +423,10 @@ A flexible coupling tolerates *some* misalignment. It does not remove the forces
 
 Two shafts can be out in four independent ways. You correct all four.
 
+![Parallel offset and angular misalignment in two planes](/img/alignment/offset-and-angularity.svg)
+
+*Parallel offset and angular misalignment in two planes*
+
 | Term | What it means | Corrected by |
 |---|---|---|
 | **Vertical offset** | Movable shaft centreline is parallel but higher/lower than the stationary | Shims under all four feet equally |
@@ -456,6 +472,10 @@ Vertical always comes first because shim changes disturb horizontal readings, bu
 
 Use these when the equipment manual gives none. Values are for short flexible couplings with the coupling as the measurement plane. "Excellent" is the target for new installations and critical machines; "Acceptable" is the outer limit for continued running.
 
+![Offset tolerance falls as speed rises](/img/alignment/alignment-tolerances.svg)
+
+*Offset tolerance falls as speed rises*
+
 | Speed (rpm) | Offset - Excellent (mils) | Offset - Acceptable (mils) | Angularity - Excellent (mils/in) | Angularity - Acceptable (mils/in) |
 |---|---|---|---|---|
 | 600 | 5.0 | 9.0 | 1.0 | 1.5 |
@@ -496,6 +516,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 Soft foot is a machine foot that does not sit flat on the base when the bolts are loose. Tightening the bolt pulls the frame down to the base and **distorts the machine**, which moves the shaft and the bearings. Alignment readings taken on a distorted frame change every time a bolt is touched, and the motor frame is under permanent stress. Rule: **any foot that lifts more than 0.002" (0.05 mm) when its bolt is loosened must be corrected.**
 
 ## Types
+
+![Parallel, angular, squishy and induced soft foot](/img/alignment/soft-foot-types.svg)
+
+*Parallel, angular, squishy and induced soft foot*
 
 | Type | Description | Fix |
 |---|---|---|
@@ -545,6 +569,10 @@ Only now start the alignment method. If during the alignment the readings change
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$thermal-growth-alignment$mw$, $mw$Thermal Growth: Calculating Cold-Alignment Targets$mw$, $mw$Machines change height as they warm up. This article gives the formula, expansion coefficients, a worked example, and how to enter the cold target into your alignment so the shafts are aligned at running temperature.$mw$, $mw$## Formula
+
+![Set the hot machine low cold so it grows into line](/img/alignment/thermal-growth.svg)
+
+*Set the hot machine low cold so it grows into line*
 
 ```
 Growth (ΔL) = L × C × ΔT
@@ -598,6 +626,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$bearing-clearance-and-fits-tables$mw$, $mw$Bearing Fits, Internal Clearance and Shaft/Housing Tolerances: ISO Fit Codes Explained (h6, j5, k5, m5, n6, p6; H7, J7, K7, M7, N7, P7), Fit Selection by Load Type, Tolerance Tables for Common Sizes in Inches, C3 and Radial Internal Clearance Values, Measuring Seats, Repairing Worn Seats$mw$, $mw$Why a bearing ring must be tight on the member that carries the rotating load and can be loose on the other, how to read the ISO fit codes on a drawing, which fit to use for each load and bearing type, ready tables of the actual shaft and housing limits for common inch and millimetre sizes, the internal clearance classes and typical values including what a press fit does to them, and how to measure and repair the seats.$mw$, $mw$## The rule that decides everything
 
 A bearing ring that turns relative to the direction of the load (**rotating load**) will **creep** on its seat unless it has an **interference fit**; a ring that does not (**stationary load**) can have a loose fit and often must, to allow axial float or thermal expansion.
+
+![Which ring is tight depends on which ring rotates relative to the load](/img/bearings/fits-rotating-load.svg)
+
+*Which ring is tight depends on which ring rotates relative to the load*
 
 | Case | Inner ring | Outer ring |
 |---|---|---|
@@ -735,6 +767,10 @@ Retaining compounds: clean and degrease both parts, apply to the shaft seat, ins
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$bearing-designation-codes$mw$, $mw$Decoding Bearing Numbers: Types, Series, Bore Codes and Suffixes (6205-2RS C3, 22220 EK, NU 210 ECP)$mw$, $mw$How to read any metric rolling-bearing designation: the type digit, dimension series, bore code (× 5 rule), and the common prefix and suffix codes for seals, shields, clearance, tapered bores and cage material.$mw$, $mw$## Basic layout
 
+![Bearing parts and the meaning of 6205-2RS C3](/img/bearings/bearing-parts-and-number.svg)
+
+*Bearing parts and the meaning of 6205-2RS C3*
+
 ```
 [prefix]  TYPE  SERIES  BORE  [suffixes]
 
@@ -870,6 +906,10 @@ A 100 mm bore expands about 0.001 mm per °C, so 80°C of rise gives about 0.08 
 
 ## Procedure - induction heater, shaft fit
 
+![Induction heater with the probe on the inner ring; push to the shoulder and hold](/img/bearings/induction-heater-mounting.svg)
+
+*Induction heater with the probe on the inner ring; push to the shoulder and hold*
+
 1. Confirm the bearing number matches the drawing. Leave it in its wrapping until you are ready.
 2. Measure the shaft seat with a micrometer at two places, 90° apart. Compare to the fit table (typical rotating-inner-ring fits: **j5/k5** light, **m5/m6** for heavier loads; the shaft is slightly larger than the bore). Check the shoulder is square and the fillet radius is smaller than the bearing chamfer.
 3. Clean the shaft. Light oil on the seat.
@@ -925,6 +965,10 @@ The **ring with the interference fit** is the one that must be pulled: the **inn
 If the jaws cannot reach the inner ring (a shoulder, a gear, a seal): use a **bearing separator** (a split collar tightened behind the inner ring's face) with a push-puller, or heat the ring, or cut it.
 
 ## Puller types
+
+![Jaw puller and separator with push-puller, both on the inner ring](/img/bearings/puller-types.svg)
+
+*Jaw puller and separator with push-puller, both on the inner ring*
 
 | Puller | Grip | For | Notes |
 |---|---|---|---|
@@ -1008,6 +1052,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$pillow-block-and-insert-bearings$mw$, $mw$Pillow Blocks and Insert (Mounted) Bearings: Set-Screw, Eccentric Collar, Concentric and Adapter Locking, Set-Screw Torque Table, Expansion vs Non-Expansion, Shaft Requirements, Two-Bearing Alignment, Housing Bolt Torque, Initial Grease and Regreasing, Split Pillow Blocks (SAF/SNL) Basics$mw$, $mw$How to install the ball-bearing pillow blocks, flange units and take-ups that carry most conveyor, fan and machine shafts: the locking types and when each is right, the set-screw torque numbers, which bearing is fixed and which floats, shaft size and condition, lining up two units on one shaft, housing bolts, the greasing rules for sealed inserts, and an outline of the heavy split pillow block (SAF/SNL) with an adapter-sleeve bearing.$mw$, $mw$## Anatomy
 
 A **mounted bearing** is a bearing **insert** (a ball or roller bearing with a wide inner ring and a spherical outside) in a **housing** (pillow block, 2- or 4-bolt flange, take-up frame, hanger, cartridge). The spherical seat lets the insert self-align to a few degrees of shaft misalignment (static only: it does not accommodate a bent shaft that changes angle each revolution). The wide inner ring locks to the shaft with one of the methods below.
+
+![Housing, insert, locking collar, fixed and floating ends](/img/bearings/pillow-block-anatomy.svg)
+
+*Housing, insert, locking collar, fixed and floating ends*
 
 ## Locking methods
 
@@ -1140,6 +1188,10 @@ All dimensions in **mm**, angle in degrees.
 
 ## How to read it
 
+![Feeler gauge over the top roller while the lock nut is tightened](/img/bearings/adapter-sleeve-drive-up.svg)
+
+*Feeler gauge over the top roller while the lock nut is tightened*
+
 - **Reduction** is what the feeler-gauge reading must *drop by*. Starting clearance 0.150 mm and a target reduction of 0.050-0.060 means you stop at 0.090-0.100 mm.
 - **s** is how far the inner ring travels along the taper past the line-to-line position. A 1:30 taper needs about 2.5 × the travel of a 1:12 taper for the same expansion.
 - The **nut angle** is a convenience for bores up to 100 mm. It assumes a standard KM nut on a standard sleeve thread pitch, starting from firm line-to-line contact.
@@ -1186,6 +1238,10 @@ Read the suffix on the bearing:
 Bore diameter is the last two digits × 5 for codes 04 and up. **22220 EK C3** → bore 20 × 5 = **100 mm**, taper 1:12, C3 clearance. The matching adapter sleeve is **H 320** (for a 100 mm bore bearing on a 90 mm shaft; the sleeve number is the bearing's last two digits with the sleeve series in front).
 
 ## Step 1 - Measure and record the unmounted radial internal clearance
+
+![Measuring clearance over the top roller on an adapter sleeve mounting](/img/bearings/adapter-sleeve-drive-up.svg)
+
+*Measuring clearance over the top roller on an adapter sleeve mounting*
 
 1. Wipe preservative off the bearing but do **not** wash it. Leave the factory oil film.
 2. Stand the bearing upright on a clean bench. Spin the inner ring a couple of turns so the rollers seat against the guide ribs.
@@ -1346,6 +1402,10 @@ Which the machine wants: **the manual decides**. Typical: gearbox shafts, convey
 In the field you do the **manual** method most of the time and the **torque** method on wheel ends and where a manual says "tighten to X ft-lb, back off Y".
 
 ## Manual setting with a dial indicator (gearbox, pulley, pump)
+
+![Cups, cones and measuring end play with an indicator on the shaft end](/img/bearings/tapered-roller-end-play.svg)
+
+*Cups, cones and measuring end play with an indicator on the shaft end*
 
 1. Assembly clean, cones pressed or heated on to their seats against the shoulders (see [mounting with heat](/article/bearing-mounting-with-heat)), cups seated fully in the housing (a dull sound when tapped, or measured). **Cups and cones must be fully seated before any setting**: a cup 0.005" out of its bore reads as 0.005" of end play that disappears when it seats in service.
 2. Assemble with the adjusting element (shims under the end cap, a threaded nut or cup carrier, a spacer) set for an obvious clearance.
@@ -3610,6 +3670,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A shaft-mount reducer hangs directly on the driven shaft (conveyor head pulley, screw conveyor, mixer). A **torque arm** (turnbuckle rod) stops the case from rotating. The motor drives the input with V-belts, usually on a **motor mount** bolted to the reducer. Because the reducer hangs on the shaft, **bushing fit and torque-arm geometry** are everything.
 
+![Shaft-mount reducer, torque arm and belt drive](/img/gearboxes/torque-arm-reducer.svg)
+
+*Shaft-mount reducer, torque arm and belt drive*
+
 ## Bushing systems
 
 | System | Where used | How it grips |
@@ -3709,6 +3773,10 @@ Example: a 3-stage helical reducer with 22/61, 19/58, 17/63: i = 2.773 × 3.053 
 
 ## Contact pattern with bluing
 
+![Contact patterns: centred, toe, heel, tip and root](/img/gearboxes/gear-contact-pattern.svg)
+
+*Contact patterns: centred, toe, heel, tip and root*
+
 1. Clean the teeth of one gear (a few teeth) with solvent; brush a thin film of **marking compound** (Prussian blue, gear marking compound; not layout dye) on the driving gear's teeth (or on the wheel of a worm set).
 2. Rotate the gears **under a light load** (drag on the output by hand, a brake, or the machine's load) through several revolutions in the running direction, then back; too much load spreads the pattern and lies; no load gives a thin pattern.
 3. Read the transfer on the unblued gear: the ideal is a band **centred on the face width and on the pitch line, covering about 70-80% of the face** (not to the edges: the ends are relieved), even along the whole face.
@@ -3805,6 +3873,10 @@ ISO VG number = viscosity in cSt at 40°C. AGMA number is the older US grade (AG
 
 ## Oil level
 
+![Sight glass level, breather, magnetic plug and gear dip](/img/gearboxes/oil-level-and-breather.svg)
+
+*Sight glass level, breather, magnetic plug and gear dip*
+
 1. The level is only valid with the reducer **stopped and cooled** for a few minutes so oil drains back.
 2. **Sight glass**: level at the mark or mid-glass. **Level plug**: oil just reaches the bottom of the plug hole.
 3. **Mounting position matters.** A reducer mounted on its side or vertically has different fill plugs, level plugs and quantities than the standard horizontal position. Manuals show a diagram of each position with which port is fill, level, drain and breather. Filling to the wrong plug either starves the top bearings or floods the seals.
@@ -3863,7 +3935,11 @@ Backlash is the free play between meshing teeth. Too little = binding and heat; 
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$planetary-and-worm-reducers$mw$, $mw$Worm, Planetary and Cycloidal Reducers: How Each Works, Ratio and Efficiency, Self-Locking, Worm Gear Oils (Compounded, PAG, Synthetic) and Compatibility, Mounting Positions and Vents, Thermal Rating, Bronze Wheel Run-In and Wear, Planetary Ratio Math and Maintenance, Cycloidal (Sumitomo) Basics, Service Factors$mw$, $mw$The three reducer types a millwright meets after the ordinary helical box: worm reducers (why they run hot, why the oil is special, when they hold a load without a brake, and how the bronze wheel wears), planetary reducers (the ratio math, why they are compact, what to check), and the cycloidal drive (how it takes shock), with the mounting, venting, oil and service-factor rules common to all.$mw$, $mw$## Worm gear reducers
+  values ($mw$planetary-and-worm-reducers$mw$, $mw$Worm, Planetary and Cycloidal Reducers: How Each Works, Ratio and Efficiency, Self-Locking, Worm Gear Oils (Compounded, PAG, Synthetic) and Compatibility, Mounting Positions and Vents, Thermal Rating, Bronze Wheel Run-In and Wear, Planetary Ratio Math and Maintenance, Cycloidal (Sumitomo) Basics, Service Factors$mw$, $mw$The three reducer types a millwright meets after the ordinary helical box: worm reducers (why they run hot, why the oil is special, when they hold a load without a brake, and how the bronze wheel wears), planetary reducers (the ratio math, why they are compact, what to check), and the cycloidal drive (how it takes shock), with the mounting, venting, oil and service-factor rules common to all.$mw$, $mw$![Worm and wheel versus sun, planets and ring](/img/gearboxes/worm-and-planetary.svg)
+
+*Worm and wheel versus sun, planets and ring*
+
+## Worm gear reducers
 
 A steel **worm** (a screw, usually hardened and ground) drives a **bronze wheel** (phosphor bronze or aluminium bronze) at 90°. The contact is **sliding**, not rolling, so:
 
@@ -3969,6 +4045,10 @@ What they do: **energy storage** (a pump charges the accumulator, it supplies fl
 ## Precharge
 
 The gas precharge (**dry nitrogen only**, P₀) sets the pressure at which the accumulator starts to take oil and how much oil it can give back between the system's maximum (P₂) and minimum (P₁) pressures.
+
+![Bladder accumulator and the precharge rule](/img/hydraulics/accumulator-precharge.svg)
+
+*Bladder accumulator and the precharge rule*
 
 | Application | Precharge P₀ | Why |
 |---|---|---|
@@ -4107,6 +4187,10 @@ Lay everything out in order on a clean bench; photograph the seal stack in the g
 
 ## Seals and where they go
 
+![Wiper, rod seal, wear rings and piston seal orientation](/img/hydraulics/cylinder-seal-orientation.svg)
+
+*Wiper, rod seal, wear rings and piston seal orientation*
+
 ```
    ROD END (gland), from outside in:
      wiper (scraper) : lip facing OUT (scrapes dirt off the rod on the return stroke)
@@ -4176,6 +4260,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$filters-fluid-and-contamination$mw$, $mw$Hydraulic Filters, Fluid and Contamination Control: ISO 4406 Cleanliness Codes Explained with Target Codes by Component, Beta Ratio and Micron Ratings, Filter Locations and Bypass Indicators, Changing a Filter Element, Breathers and Reservoir Care, Fluid Selection (ISO VG, Type), Taking a Sample, Flushing After a Failure, Water and Air in the Oil$mw$, $mw$Most hydraulic failures are contamination: this explains how cleanliness is measured and what code each component needs, how a filter is rated and where each type sits, the routine of changing elements and reading indicators, keeping the reservoir and the breather doing their job, choosing the fluid, sampling for a particle count, how to flush after a pump failure, and the signs and cures for water and air in the oil.$mw$, $mw$## ISO 4406 codes
 
 A particle counter reports the number of particles per millilitre larger than **4 µm, 6 µm and 14 µm** (ISO 11171 calibration; the old code used 5 and 15 µm); each count is converted to a **range number**: each step **doubles** the count.
+
+![ISO 4406 codes and typical targets](/img/hydraulics/iso-4406-codes.svg)
+
+*ISO 4406 codes and typical targets*
 
 | Range number | Particles per mL (more than) | up to |
 |---|---|---|
@@ -4353,6 +4441,10 @@ Dash number = hose ID in **1/16"** (−8 = 1/2"). Working pressure is the maximu
 
 Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wrong mate looks like it screws on and then leaks or cracks.
 
+![JIC, ORFS, ORB, NPT and BSPP fitting seats](/img/hydraulics/fitting-types.svg)
+
+*JIC, ORFS, ORB, NPT and BSPP fitting seats*
+
 | Fitting | Seal | Seat / look | Thread | How to tell |
 |---|---|---|---|---|
 | **JIC 37° flare (SAE J514)** | Metal-to-metal on a 37° cone | Male has a 37° cone nose; female nut with a 37° flare seat | UN/UNF (e.g. 3/4-16 for −8) | The most common hydraulic fitting in North America; a 37° gauge fits the cone; **not** interchangeable with 45° SAE flare (refrigeration/automotive) or JIS 30° |
@@ -4463,6 +4555,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 
 ## Reading the schematic (ISO 1219)
 
+![The basic ISO 1219 schematic symbols](/img/hydraulics/schematic-symbols.svg)
+
+*The basic ISO 1219 schematic symbols*
+
 - **Lines**: solid = main working line; **dashed** = pilot (control) or drain line; double = mechanical connection; a dot at a junction = connected; lines crossing without a dot = not connected; an enclosure (dash-dot rectangle) = a manifold or a valve assembly.
 - **Circles**: a circle with a **solid triangle pointing outward** = a **pump** (the triangle is the flow direction); pointing inward = a **motor**; two triangles = bidirectional; an **arrow through** the circle = variable displacement; a small dashed box with an arrow next to it = pressure-compensated; a hollow triangle = pneumatic.
 - **Reservoir**: an open-top box (vented) or a closed box (pressurised); the line ending **below** the oil level = submerged return.
@@ -4533,6 +4629,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$pneumatic-systems-frl-and-cylinders$mw$, $mw$Pneumatic Systems: FRL Setup (Filter, Regulator, Lubricator), Air Tool Consumption and Hose Sizing, Piping and Drip Legs, Quick Couplers, Pneumatic Cylinders and Valves, Solenoid Valve Basics, Air Cylinder Seal Repair, Leaks, and Compressed-Air Safety (Lockout, 30 psi Rule, Whip Checks)$mw$, $mw$The plant air side a millwright maintains: setting up a filter-regulator-lubricator so the tools and cylinders get clean, dry, regulated and (where needed) oiled air, how much air tools use and how to size hoses and pipe so the pressure arrives, the couplers that do and do not mate, how pneumatic cylinders and valves work and how to repair a cylinder, finding leaks, and the safety rules on stored air, blow-off and hoses.$mw$, $mw$## FRL: filter, regulator, lubricator
 
 Installed **in that order** in the flow direction, close to the point of use (within 20 ft), bowls hanging down, at eye level where you can read them.
+
+![Filter, regulator, lubricator in order of flow](/img/hydraulics/frl-unit.svg)
+
+*Filter, regulator, lubricator in order of flow*
 
 **Filter** (5-40 µm particulate with a centrifugal water separator; a 0.01 µm coalescing filter after it for paint, instruments and air bearings): the bowl collects water and dirt; **drain it** (manual petcock: daily; **auto drain**: check it dumps); replace the element when the ΔP indicator shows or annually; polycarbonate bowls crack with some solvents and oils (use a metal bowl guard); the flow arrow in the flow direction.
 
@@ -4639,6 +4739,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Level and location**: the top of the block is left **1-2" below the baseplate's bottom** (the grout space) and checked for elevation and position against the column lines before the machine arrives; **anchor-bolt positions checked against the actual baseplate**, not the drawing alone (baseplates arrive with holes 1/8" off).
 
 ## Anchor types
+
+![Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance](/img/installation/anchor-types.svg)
+
+*Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance*
 
 | Type | How it works | Use | Notes |
 |---|---|---|---|
@@ -4767,6 +4871,10 @@ For a pump and motor on a fabricated steel baseplate: **epoxy**. For a small gua
 
 ## Mixing and pouring
 
+![Forms, head box, sleeved anchors and wrapped jack bolts for a grout pour](/img/installation/grout-pour.svg)
+
+*Forms, head box, sleeved anchors and wrapped jack bolts for a grout pour*
+
 1. **Condition** all components to 65-95°F (Chockfast) for 24 h; shade the foundation or warm it with lamps/tents; the concrete's temperature governs the cure.
 2. Mix resin and hardener **completely** (3 minutes with a slow drill and paddle; scrape the sides), then add aggregate **one bag at a time**, mixing **only until wet out** (over-mixing traps air); the mix should be wet and flowing but with no free resin. Use full kits; never split them. Cementitious: measured water per the bag, mortar mixer, flowable consistency verified with a flow cone if the spec demands.
 3. **Pour from one side only**, into the head box, continuously, letting the grout flow under the plate and out the vents and the far side; **never pour from both sides** (a void where the two fronts meet). Use a plunger or a strap to help it along stiffener pockets; do not vibrate epoxy (air). Keep the head box topped up.
@@ -4847,6 +4955,10 @@ Place the level on **machined surfaces only** (pads, a shaft, a ground parallel)
 
 Tolerances (API 686 practice; use the drawing or the plant spec if it says otherwise):
 
+![Precision level on the machined pads, jack bolts at each anchor](/img/installation/leveling-with-jack-bolts.svg)
+
+*Precision level on the machined pads, jack bolts at each anchor*
+
 | Item | Target |
 |---|---|
 | Level, longitudinal and transverse | **0.0002"/ft (0.017 mm/m)** for API-class pumps and compressors is the commonly applied API 686 target; **0.001-0.002"/ft** is typical for general industrial machinery (fans, gearboxes, conveyors drives) |
@@ -4869,6 +4981,10 @@ Procedure:
 Big machines (large motors, compressors, mills) are not set on a one-piece baseplate but on **sole plates**: individual machined steel plates grouted to the foundation under each foot, levelled to each other with a precision level and a **transit or laser** across them, and doweled later. Alternatively **epoxy chocks** (Chockfast Orange poured in a dam under each foot, 1/2-2" thick) replace machined shims and sole plates: the chock takes the exact shape of the foot and the foundation, with no fitting, and is the marine and heavy-industry standard. Adjustable **steel chocks** (Vibracon, screw-adjusted wedges) allow re-levelling without re-grouting.
 
 ## Setting the machines
+
+![Shim stacking rules under machine feet](/img/layout-templates/shim-stacking.svg)
+
+*Shim stacking rules under machine feet*
 
 1. Pump (the driven, fixed machine) goes on first, on its pads, **no shims or a thin equal pack** (the pump is the reference; the piping decides where it sits); feet bolted, soft foot checked and corrected (see [soft foot](/article/soft-foot-correction)).
 2. Motor/driver on **shim packs of at least 1/8"** at every foot (API 686), the same thickness at each foot, so it can be lowered later; **maximum 5 shims per foot**, thick on the bottom; no more than 1/2" total stack, else machine a spacer.
@@ -4913,6 +5029,10 @@ After the machine has run at operating temperature and the **hot alignment** has
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$machine-guarding-and-commissioning$mw$, $mw$Machine Guarding and Commissioning: Guard Types and OSHA Opening Rules, Coupling and Drive Guards, Pre-Start Checklist, Rotation Bump, First Run and Run-In, Bearing Temperature and Vibration Acceptance (ISO 20816 Zones), Hot Alignment Check, Baseline Data and Handover$mw$, $mw$The two things that finish an installation: guards that meet the OSHA rules for every rotating and nip point, and a commissioning run that proves the machine is right before the plant takes it: the pre-start checklist, checking rotation uncoupled, the first run with vibration and temperature limits, the hot alignment check and doweling, and the baseline data package that becomes the PM reference.$mw$, $mw$## Guarding rules
+
+![Maximum guard opening by distance from the nip point](/img/installation/guard-opening-chart.svg)
+
+*Maximum guard opening by distance from the nip point*
 
 - **Every** rotating shaft, coupling, sheave, belt, chain, sprocket, gear, flywheel, projecting key or set screw within **7 ft (2.1 m) of the floor or a working platform** must be guarded (OSHA 1910.219); points of operation, nip points and flying-chip hazards under 1910.212. Over 7 ft still needs guarding where people can reach from ladders or during maintenance if not locked out.
 - Guards are **fixed** (bolted, needs a tool to remove: the default for couplings and drives), **interlocked** (the machine stops when the guard opens: for access needed during operation), **adjustable** or **self-adjusting** (saws, grinders).
@@ -5011,6 +5131,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$moving-and-setting-heavy-machinery$mw$, $mw$Moving and Setting Heavy Machinery: Finding Weight and Centre of Gravity, Machinery Skates and Rollers, Toe Jacks and Hydraulic Jacks, Cribbing and Blocking Rules, Pulling with Come-Alongs and Winches, Forklift Capacity and Load Centre, Floor Loading, Route Survey, Setting on Anchor Bolts$mw$, $mw$How to move a gearbox, motor, press or machine base across a floor and onto its bolts safely: estimating weight and finding the centre of gravity, choosing skates, rollers or air casters, jacking with toe jacks and bottle jacks, cribbing as you go, pulling with come-alongs and winches from proper anchors, forklift capacity math with the load-centre derating, checking the floor and the route, and the final setting over the anchor bolts.$mw$, $mw$> Machinery moving kills by **crush**: a load that tips, a jack that kicks out, a skate that runs away on a slope, a forklift that noses over. Nobody puts any part of their body under or beside a load that could move; hands stay off the load while it is moving; the load moves slowly and is cribbed at every stop.
 
 ## Weight and centre of gravity
+
+![Centre of gravity inside the skate footprint, push low](/img/installation/cg-and-skates.svg)
+
+*Centre of gravity inside the skate footprint, push low*
 
 - **Weight**: the nameplate or the manual first; the shipping documents; the crane's load cell; the drawing's steel volume × 0.283 lb/in³ (490 lb/ft³) for fabricated bases. Estimate high. Table: a 100 hp 405T motor ≈ 1,000-1,400 lb; a 250 hp 449T ≈ 2,500-3,500 lb; a mid-size worm gearbox 300-800 lb; a 6" ANSI pump with base and 50 hp motor ≈ 2,000 lb; a 3/4" steel plate weighs 30.6 lb/ft².
 - **Centre of gravity (CG)**: from the manual (it is often marked), or by geometry (motors: near the shaft centre and the frame's middle; gearboxes: toward the low-speed end; pumps on bases: toward the motor). Check it: lift slightly at one end with a jack: the end that is harder to lift is nearer the CG; on a crane, a test lift 2" off the floor shows which way it hangs. A tall machine with a high CG (a vertical pump, a press, a control cabinet) is the one that tips: **keep the CG inside the footprint of the skates or forks at every moment, including on slopes and over dock plates**.
@@ -5113,6 +5237,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | Precision level of a single base | Master precision level (see [leveling](/article/leveling-and-machine-setting)) |
 
 ## Optical level (builder's / dumpy / automatic level)
+
+![Optical level staff readings and piano wire sag](/img/installation/optical-level-and-wire.svg)
+
+*Optical level staff readings and piano wire sag*
 
 1. **Tripod**: legs spread, points pushed into the floor or on the concrete, head roughly level by eye, at a comfortable eye height; instrument screwed on snug.
 2. **Level the instrument**: with the three (or four) levelling screws, centre the circular bubble; on an automatic level the compensator does the rest; on a dumpy level, align the tube vial over two screws, centre, rotate 90°, centre with the third, repeat until the bubble stays centred through a full rotation.
@@ -5223,6 +5351,10 @@ The **cardinal rule**: the piping must fit the pump **with all bolts loose and n
 
 ## The pipe strain test
 
+![Indicators on the pump shaft while the flange bolts are loosened](/img/installation/pipe-strain-check.svg)
+
+*Indicators on the pump shaft while the flange bolts are loosened*
+
 1. Pump on its base, aligned (rough or final), hold-down bolts torqued; piping flanged up loosely.
 2. Mount **two dial indicators** (or the laser alignment heads) on the pump's **bearing housing or shaft**, reading against a fixed reference (the baseplate or the motor shaft), one in the **vertical** and one in the **horizontal**; zero them. Better: indicators on the pump shaft end reading vertical and horizontal, and a third indicator axial.
 3. **Tighten the flange bolts** in the proper pattern to full torque (suction first, then discharge, or one at a time) while watching the indicators.
@@ -5307,6 +5439,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$hole-patterns-and-flange-templates$mw$, $mw$Bolt-Hole Patterns and Flange Templates: Chord Factor Table (3 to 24 Holes), Laying Out a Bolt Circle with Dividers or Coordinates, Straddling the Centrelines, Making and Using a Drilling Template, Transfer Punching, Hole Clearance Sizes, ASME B16.5 Class 150 Bolt Circles$mw$, $mw$How to lay out any number of equally spaced holes on a bolt circle with a chord table or coordinates, why flange holes straddle the centrelines and how to orient a flange, how to make a reusable drilling template from a mating part or a drawing and use transfer punches, the clearance hole sizes to drill for bolts, and the Class 150 flange bolt-circle table for pipe sizes 1/2 to 12 inch.$mw$, $mw$## Chord factor table
 
 Set the dividers to the **chord** between adjacent holes and step round the circle; if the last step lands on the first mark, the layout is good.
+
+![Stepping the chord around a bolt circle with dividers; holes straddle the centrelines](/img/layout-templates/bolt-circle-chord.svg)
+
+*Stepping the chord around a bolt circle with dividers; holes straddle the centrelines*
 
 ```
    chord = bolt circle diameter (D) × sin(180° ÷ N)         N = number of holes
@@ -5480,6 +5616,10 @@ Pick one **straight edge** (or two edges at 90°) as the datum, exactly like the
 
 ## Finding the centre of round stock
 
+![Finding the centre of round stock with a centre head or a surface gauge](/img/layout-templates/centre-finding.svg)
+
+*Finding the centre of round stock with a centre head or a surface gauge*
+
 1. **Centre head**: hold it against the bar, scribe along the rule; rotate 90°, scribe again; the intersection is the centre (rotate 45° for a third line and use the small triangle's centre if they do not meet).
 2. **V-block and surface gauge**: bar in the V-block, gauge set to roughly the centre height, scribe a line, rotate the bar 90° and scribe again, repeat twice more; the small square in the middle is the centre.
 3. **Hermaphrodite caliper**: set to about the radius, hook on the bar, scribe four arcs from four positions; the centre is in the middle of the little square.
@@ -5533,6 +5673,10 @@ A tape and a rule reproduce the same error every time you read them; a **story p
 ## Story pole
 
 A straight stick (1×2 lumber, aluminium angle, 1/2" square tube, or a scrap of unistrut) with **every dimension of the job marked on it** from one datum.
+
+![A story pole carries every spacing from one datum](/img/layout-templates/story-pole.svg)
+
+*A story pole carries every spacing from one datum*
 
 1. Choose the datum: floor finish level, the top of a beam, the centreline of a shaft, or a benchmark on a column. Mark it on the stick with a square line and a label.
 2. From the drawing, transfer **all** the elevations or spacings to the stick with a steel tape: bottom of the conveyor stringer, centreline of the head shaft, top of the guard rail, each pipe hanger centreline... each with a square line, an arrow to the side of the line the dimension is on, and the name.
@@ -5611,6 +5755,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$pipe-miter-layout$mw$, $mw$Pipe Miter Layout and Fitting Take-Outs: 2-, 3-, 4- and 5-Piece Mitered Elbows with Cut-Back Tables, Miter Templates, Offsets by Angle (45°, 60°, 30°, 22.5°) with Constants, Rolling Offsets, Butt-Weld Elbow and Tee Take-Outs (ASME B16.9), Cut Length Math$mw$, $mw$How to lay out and cut mitered elbows of any number of pieces with the cut-back tables for common pipe sizes and a wrap-around template method, the standard offset constants for calculating travel and run at any angle including rolling offsets, and the butt-weld fitting take-out numbers you subtract to get cut lengths of pipe between fittings.$mw$, $mw$## Mitered elbows
 
 A miter is an elbow made by cutting pipe at an angle and welding the pieces. For a total bend angle A made of n pieces there are (n − 1) joints and the two end pieces are half-segments:
+
+![Two- and three-piece mitred elbows and the cut-angle rule](/img/layout-templates/miter-elbow-layout.svg)
+
+*Two- and three-piece mitred elbows and the cut-angle rule*
 
 ```
    cut angle at each joint (measured from a square cut)  θ = A ÷ [2 × (n − 1)]
@@ -5733,6 +5881,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$pipe-saddle-and-lateral-templates$mw$, $mw$Pipe Saddle (Branch) and Lateral Templates: Ordinate Method for 90° Tees with Tables for 2" to 8" Branches, 45° Lateral Layout, Wrap-Around Marking, Cutting and Fitting the Branch, Header Hole Layout$mw$, $mw$How to lay out the curved cut where a branch pipe meets a header (the saddle or fishmouth) by the ordinate method, with ready-computed ordinate tables for the common size combinations, the matching hole in the header, the 45° lateral variant, how to wrap the template and mark the pipe, cut with a torch or plasma, and grind to a fit with the right gap for welding.$mw$, $mw$## The idea
 
 Unroll the branch pipe's circumference onto paper, divide it into 16 equal parts (element lines), and at each line mark how far back from a square cut the pipe must be cut so it sits down on the round header. Those distances are the **ordinates**. Wrap the paper on the branch, mark the curve through the points, cut, and the branch nests on the header.
+
+![Saddle template by ordinates around the branch circumference](/img/layout-templates/saddle-template-ordinates.svg)
+
+*Saddle template by ordinates around the branch circumference*
 
 ```
    Ordinate at element line θ (measured around the branch from the side, 0° = the side of the branch that sits on the header's side, 90° = top/bottom centre):
@@ -5866,6 +6018,10 @@ Draw the developments at full size on paper, hardboard or directly on the sheet 
 
 Full cone with base diameter D and slant height S (the distance from the apex to the base edge along the surface):
 
+![Radial-line development of a cone: slant height and sector angle](/img/layout-templates/cone-development.svg)
+
+*Radial-line development of a cone: slant height and sector angle*
+
 ```
    S = √( (D/2)² + H² )                       H = vertical height
    pattern: a sector of a circle of radius S, with an included angle  A = 360° × (D/2) ÷ S  = 180° × D ÷ S
@@ -5979,6 +6135,10 @@ Thickness series in a kit: **0.001, 0.002, 0.003, 0.004, 0.005, 0.010, 0.015, 0.
 Choose the shim size so the shim covers **most of the foot** (at least 75-80% of the foot's bearing area) and the slot clears the bolt with room to slide in and out; a shim smaller than the foot lets the foot bend around it (a soft foot you created).
 
 ## Stacking rules
+
+![Shim stacking: thick to thin, few shims, full contact](/img/layout-templates/shim-stacking.svg)
+
+*Shim stacking: thick to thin, few shims, full contact*
 
 - Use the **fewest shims**: one 0.050 beats five 0.010. **Maximum 5 shims** under a foot (API 686; many plants say 3-4).
 - **Thick shims on the bottom, thinnest on top** (or sandwiched in the middle); thin shims on the bottom crush into the base's surface texture.
@@ -6131,6 +6291,10 @@ Speed factor n·dm = rpm × mean bearing diameter (mm); under 100,000 use a thic
 
 Mixing two greases with incompatible thickeners makes a mixture **softer or harder than either**, with a lower dropping point and less oil retention: it runs out of the bearing or hardens into a cake. This is the chart most published guides agree on (**C** = compatible, **B** = borderline: test or purge well, **I** = incompatible); check your supplier's own chart for a specific pair, because polyurea and calcium-sulfonate formulations vary.
 
+![Thickener compatibility matrix](/img/lubrication/grease-compatibility-matrix.svg)
+
+*Thickener compatibility matrix*
+
 | | Al complex | Ba complex | Ca stearate | Ca 12-OH | Ca complex | Ca sulfonate | Clay | Li stearate | Li 12-OH | Li complex | Polyurea |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | **Aluminium complex** | - | I | I | C | I | B | I | I | I | B | I |
@@ -6208,6 +6372,10 @@ Sealed containers, out of the sun and dust, under 100°F, oldest first (shelf li
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$lube-routes-and-single-point-lubricators$mw$, $mw$Lube Routes and Single-Point Lubricators: Building a Lubrication Route (Survey, Tagging, Colour Codes, Route Sheets), Grease Gun Care and Calibration, Grease Fitting Types and Repairs, Automatic Single-Point Lubricators (Gas, Spring, Electromechanical: Setting the Rate), Centralised Grease Systems Basics, Oil Level Devices (Sight Glasses, Constant-Level Oilers) and Setting Them, Record-Keeping$mw$, $mw$The routine side of lubrication that decides whether the right grease gets to the right point in the right amount every time: surveying and tagging every lube point, designing routes and route sheets, keeping and calibrating grease guns, fixing fittings, when and how to use automatic single-point lubricators and how to set their rate, how centralised systems work and fail, and how to set the oil level devices on bearing housings so the level is actually right.$mw$, $mw$## Survey and tag every point
+
+![Colour and shape coded lube point tags](/img/lubrication/lube-point-tags.svg)
+
+*Colour and shape coded lube point tags*
 
 1. Walk every machine with the drawings and the manuals: list every **lube point** (grease fittings, oil fills, oilers, sight glasses, drains, centralised system reservoirs, chain oilers, coupling plugs), the **bearing or component** at each, the **lubricant** (from the maker's manual or the [selection rules](/article/grease-types-and-compatibility)), the **quantity** ([regreasing quantities](/article/regreasing-intervals-and-quantities)) and the **interval**.
 2. **Tag** the point: a durable tag or a colour-coded disc/label at the fitting or the fill with the **lubricant code** (a colour and a symbol from the plant's lube chart: e.g. a red circle = polyurea motor grease, a blue square = EP 2, a green triangle = ISO 220 gear oil), the quantity and the interval; the same code on the grease gun, the drum and the transfer container. Nobody should have to remember which grease a point takes.
@@ -6302,6 +6470,10 @@ Sample **more often** after a change of oil or a repair (baseline again), during
 ## Taking the sample
 
 The rule: **from the same point, in the same way, with the machine at operating temperature and running (or just stopped), from a live zone of the oil**, into a **clean** bottle.
+
+![Sample from a live zone at mid-level, not the drain](/img/lubrication/oil-sampling-point.svg)
+
+*Sample from a live zone at mid-level, not the drain*
 
 1. **Point**: a **sampling valve** (a pitot tube or a valve on the return line before the filter on hydraulics; a valve in the side of the sump at mid-level, away from the bottom sludge and the drain, on gearboxes; on the drain line of a bearing housing before the reservoir on circulating systems). Install proper sampling valves (Minimess-type test points with a probe, or a ball valve with a dust cap) on every machine in the program; the **drain plug** gives sludge, and the **fill port** gives the top layer: neither is representative.
 2. **Timing**: the machine at operating temperature after at least an hour of running; hydraulic and circulating systems **running**; splash gearboxes and bearing sumps **within minutes of stopping** (the wear debris is still suspended).
@@ -6399,6 +6571,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$oil-viscosity-and-selection$mw$, $mw$Oil Viscosity and Selection: ISO VG, SAE Engine and Gear Grades, AGMA Numbers Compared in One Chart, Viscosity Index and Temperature, Choosing Gearbox Oil (AGMA 9005 by Speed and Ambient), Hydraulic Oil (32/46/68), Bearing Oil by Speed and Temperature, Compressor and Chain Oils, Mineral vs PAO vs PAG vs Ester, Food Grade, Storage and Labelling$mw$, $mw$One chart to convert between the viscosity systems on the drums (ISO VG, SAE engine, SAE gear, AGMA), what viscosity index means when the oil warms up, and the selection rules a millwright applies: gearbox oil by speed and ambient per AGMA 9005, hydraulic oil by pump type, bearing oil by speed and temperature, the special cases (worm gears, compressors, chains, high temperature), the synthetic base oils and which mix with mineral oil, food-grade requirements, and how to store, label and consolidate lubricants so the wrong oil never goes in.$mw$, $mw$## Viscosity: what the number is
 
 Viscosity is resistance to flow; for lubricants it is quoted in **centistokes (cSt, mm²/s) at 40°C** (ISO VG numbers are the cSt at 40°C) and at 100°C. It **falls as the oil warms**: an ISO 220 gear oil is 220 cSt at 40°C (104°F), about 19 cSt at 100°C, and only 10 cSt at 130°C; the oil in a gearbox running at 180°F is nowhere near "220". Old units: **SUS** (Saybolt universal seconds: cSt ≈ SUS × 0.22 above 100 SUS) and the SAE grades.
+
+![Viscosity of ISO grades versus temperature](/img/lubrication/viscosity-vs-temperature.svg)
+
+*Viscosity of ISO grades versus temperature*
 
 **Viscosity index (VI)**: how little the viscosity changes with temperature: mineral oils 90-100, high-VI/hydraulic HVI 130-150, PAO synthetics 130-160, PAG 150-250. A high-VI oil stays thicker when hot and thinner when cold: fewer grade changes with the seasons.
 
@@ -6514,6 +6690,10 @@ Minimum required viscosity at the **operating temperature** depends on speed and
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$regreasing-intervals-and-quantities$mw$, $mw$Regreasing Intervals and Quantities: The SKF Quantity Formula (G = 0.005 × D × B) with Worked Examples and Grease-Gun Strokes, Initial Fill Rules, Interval Estimation from Speed Factor and Bearing Type with Correction Factors, the Baldor/ABB Motor Relubrication Tables (Interval by Frame and Speed, Volume by Frame), the Greasing Procedure, Over-Greasing Symptoms, Sealed and Shielded Bearings$mw$, $mw$The two numbers every greaser needs: how much and how often. The SKF quantity formula turned into grease-gun strokes with a method to calibrate the gun, the initial fill for a new housing, the interval estimated from bearing type, size and speed with the temperature, contamination and orientation corrections, the Baldor/ABB motor tables that most plants use for motors, the right procedure (relief open, machine warm), the tell-tale signs of too much grease, and what not to grease at all.$mw$, $mw$## How much: the SKF formula
+
+![The grease quantity formula from bearing OD and width](/img/lubrication/regrease-quantity.svg)
+
+*The grease quantity formula from bearing OD and width*
 
 ```
    Relubrication quantity  G (grams) = 0.005 × D × B        D = bearing outside diameter (mm), B = bearing width (mm)
@@ -7937,6 +8117,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Runout on a shaft
 
+![Measuring runout and avoiding cosine error](/img/measurement/dial-indicator-runout.svg)
+
+*Measuring runout and avoiding cosine error*
+
 1. Support the shaft in its own bearings (or V-blocks for a loose shaft).
 2. Plunger on a clean, unpainted part of the shaft, square to it.
 3. Rotate the shaft slowly one full turn. The **total swing** of the needle (highest minus lowest) is the **TIR** (total indicator reading). A shaft that is bent 0.002" reads 0.004" TIR.
@@ -7994,6 +8178,10 @@ The spindle screw on an **inch** micrometer has **40 threads per inch**. One ful
 A **metric** mic has a 0.5 mm pitch: one turn = 0.5 mm; the thimble has 50 divisions of **0.01 mm**; the vernier adds 0.001 mm.
 
 ## Reading an inch micrometer
+
+![Reading 0.333 in on the sleeve and thimble](/img/measurement/micrometer-reading.svg)
+
+*Reading 0.333 in on the sleeve and thimble*
 
 1. **Sleeve (barrel)** - read the largest numbered line visible: each number is 0.100". Then count the small lines past it: each is 0.025".
 2. **Thimble** - read the thimble line that lines up with (or has just passed) the sleeve's index line: each line is 0.001".
@@ -9112,6 +9300,10 @@ The drill size is handy for checking a tip: if a #60 drill shank slides into a s
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$coupling-types-gap-and-installation$mw$, $mw$Shaft Couplings: Types, Setting the Gap, and Hub Installation$mw$, $mw$The main coupling families millwrights meet, what each tolerates, how to set the gap between hubs, and how to install hubs without hammering them onto the shaft.$mw$, $mw$## Families
 
+![Coupling gap and the four common families](/img/power-transmission/coupling-gap-and-types.svg)
+
+*Coupling gap and the four common families*
+
 | Type | Example | Misalignment tolerance | Lubrication | Notes |
 |---|---|---|---|---|
 | **Jaw (elastomer spider)** | Lovejoy L/AL, Martin ML | Low: about 0.015" offset, 1° angular | None | Cheap, fail-safe (runs jaw-on-jaw if spider dies). Spider hardness (SOX rubber, Hytrel, urethane) sets torque and stiffness. |
@@ -9166,6 +9358,10 @@ The gap is the distance between the two hub faces (or the spider/element length 
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$grid-gear-and-disc-coupling-installation$mw$, $mw$Coupling Installation by Type: Grid (Falk Steelflex T10/T20) Gap, Grid and Grease, Gear Couplings (Lubrication and Fill), Disc Couplings (DBSE and Bolt Torque), Elastomeric Jaw, Tire and Sleeve Couplings, Hub Mounting, Coupling Guards, Misalignment Limits and Regreasing$mw$, $mw$Each coupling type has its own installation rules that alignment alone does not cover: the grid coupling's hub gap, grid direction and grease charge; the gear coupling's fill and the reasons it fails; the disc coupling's DBSE and its bolts; the elastomeric couplings' element and gap; plus how to mount the hubs, what misalignment each type tolerates, the guard, and the regreasing routine for the lubricated ones.$mw$, $mw$## Hub mounting (all types)
+
+![Hub gap and coupling families](/img/power-transmission/coupling-gap-and-types.svg)
+
+*Hub gap and coupling families*
 
 - Hub bore fit: **interference** (0.0005-0.001" per inch of bore) on most industrial couplings with a **clearance** fit (0.001-0.002") plus a set screw only on small elastomeric couplings; the coupling manual states which. Check the bore and the shaft with a micrometer.
 - Mount interference hubs **with heat** (oven, induction, or a hot-oil bath to **275-350°F**, never a torch on a finished hub if avoidable; see [bearing mounting with heat](/article/bearing-mounting-with-heat) for the method), slide on to the shoulder or the measured position in one move, and hold until they grip. **Never hammer a hub on**: it damages the bearings behind it and the hub face.
@@ -9271,6 +9467,10 @@ Every coupling gets a **fixed guard** enclosing the coupling and the exposed sha
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$keys-and-keyways$mw$, $mw$Keys and Keyways: ANSI B17.1 Square and Rectangular Key Sizes by Shaft Diameter, Keyseat Depths, Metric DIN 6885 Sizes, Key Types (Square, Gib-Head, Woodruff, Feather, Tapered), Key Stock and Fits, Measuring a Keyway, Fitting and Locking a Key, Key Length Rule, Repairing a Wallowed Keyway$mw$, $mw$The key size that belongs on each shaft diameter (inch and metric), how deep the keyseat in the shaft and the keyway in the hub are cut, the standard key types and when each is used, what key stock to buy and how tight the fit should be, how to measure a keyway with a rule and a micrometer, the length a key needs to carry the torque, fitting a key by hand, locking it, and what to do with a keyway that has been hammered oval.$mw$, $mw$## Square key size by shaft diameter (ANSI B17.1, inch)
+
+![Square key half in the shaft and half in the hub, with sizes by shaft diameter](/img/power-transmission/key-and-keyway.svg)
+
+*Square key half in the shaft and half in the hub, with sizes by shaft diameter*
 
 | Shaft diameter (over-to) | Key width × height (square) | Keyseat depth in shaft (H/2) | Keyway depth in hub (H/2 + clearance) |
 |---|---|---|---|
@@ -9387,6 +9587,10 @@ Keyways are cut on a mill (end mill for a closed keyseat, Woodruff cutter, side 
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$qd-and-taper-lock-bushings$mw$, $mw$QD and Taper-Lock Bushings: Reading the Numbers, Conventional vs Reverse Mounting, Installation Steps, Cap-Screw Torque Tables (Dodge QD JA-S and Taper-Lock 1008-5050), Key and Set-Screw Rules, Removal with Jack Screws, Wobble Check and Troubleshooting$mw$, $mw$The two tapered bushings that hold sheaves, sprockets and couplings on shafts: how the size numbers decode, how to mount them conventionally and reversed, the exact cap-screw torques from the Dodge manuals for every size, why the flange gap must stay open, how to remove one with its jack-screw holes, and what a wobbling sheave or a spun bushing tells you.$mw$, $mw$## Which is which
+
+![QD flange bushing versus flangeless Taper-Lock](/img/power-transmission/qd-vs-taperlock.svg)
+
+*QD flange bushing versus flangeless Taper-Lock*
 
 | | **QD (Quick Detachable)** | **Taper-Lock** |
 |---|---|---|
@@ -9512,6 +9716,10 @@ Last digit: **0** = standard roller chain, **1** = lightweight, **5** = rollerle
 
 ## Alignment
 
+![Chain sag, sprocket alignment and wear measurement](/img/power-transmission/chain-sag-and-wear.svg)
+
+*Chain sag, sprocket alignment and wear measurement*
+
 1. Shafts **parallel**: check with a rule or feeler between shafts at two points, or a level on each.
 2. Sprockets **in the same plane**: straightedge across the machined faces of both sprockets should touch at four points. For long centres use a string or a laser.
 3. Lock the sprockets with the correct key, set screws (on flats) or bushing.
@@ -9627,6 +9835,10 @@ A synchronous belt tracks toward one side (they all do, because of cord twist an
 
 Too loose: the belt **ratchets** (jumps teeth) under load, the teeth shear, it flaps and wears. Too tight: bearing and shaft loads, cord fatigue, noise, sprocket wear. The correct tension depends on the belt section, width and the drive load; the maker's design program gives a **static tension** in pounds (or a deflection force). Two field methods:
 
+![Synchronous belt with flanges and deflection tensioning](/img/power-transmission/timing-belt-tension.svg)
+
+*Synchronous belt with flanges and deflection tensioning*
+
 **Force-deflection (Gates method)**
 
 ```
@@ -9725,6 +9937,10 @@ Three kinds of misalignment: **angular** (shafts not parallel), **parallel/offse
 
 ## Tension - deflection method
 
+![Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge](/img/power-transmission/v-belt-deflection.svg)
+
+*Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge*
+
 1. Measure the **span length** (the straight belt length between the two sheaves where they leave the groove), in inches.
 2. Deflection target = **span ÷ 64**, i.e. **1/64" per inch of span**. A 32" span deflects 1/2".
 3. Use a spring-scale belt tension tester (Gates Krikit or a pencil-style tester) at the **middle of the span**, pressing square to the belt. Read the force needed to reach the deflection.
@@ -9767,6 +9983,10 @@ Three kinds of misalignment: **angular** (shafts not parallel), **parallel/offse
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$air-compressors-pm$mw$, $mw$Air Compressors: Reciprocating, Rotary Screw and Vane Types, Controls, Oil and Filters, Dryers and Dew Point, Receiver and Safety Valve Rules, the PM Schedule by Interval, Condensate and Leak Surveys, Troubleshooting and Safety$mw$, $mw$What each compressor type is and how it is controlled, the oil and filter rules that decide its life, how dryers and receivers work and how they fail, the PM schedule by daily, weekly, monthly, quarterly and annual items with the typical hours, the condensate and leak surveys that save the most money, the troubleshooting table, and the safety rules for receivers, safety valves and compressed air on people.$mw$, $mw$## Types
+
+![Reciprocating and screw compressors with the receiver](/img/pumps-seals/compressor-types.svg)
+
+*Reciprocating and screw compressors with the receiver*
 
 | Type | How | Where | Character |
 |---|---|---|---|
@@ -9879,6 +10099,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$impeller-clearance-and-wear-rings$mw$, $mw$Impeller Clearance and Wear Rings: Setting Open-Impeller Clearance on an ANSI Pump (Goulds 3196 Dial-Indicator and Feeler Methods, Temperature Correction Table), Reverse-Vane Impellers, Enclosed-Impeller Wear Ring Clearances (API 610 Table) and When to Renew Them, Effects of Clearance on Flow and Power, Re-Checking After Seal Work$mw$, $mw$The clearance between an open impeller and the casing (or the wear rings of an enclosed impeller) is what keeps a centrifugal pump making its head: this covers how to set it on the standard ANSI pump with the bearing-frame jack bolts and a dial indicator, the cold setting and how much to add for hot liquid, the feeler-gauge method, the reverse-vane pump where it is done at the cover, the API 610 wear-ring clearance table and the rule for renewing rings, and why the clearance must be re-set after every seal change.$mw$, $mw$## Why it matters
 
 In an **open-impeller** pump (ANSI B73.1 process pumps: Goulds 3196, Durco Mark 3 and their copies) the front of the impeller vanes runs a few thousandths from the casing (or the suction cover); liquid that slips back across that gap from the discharge side to the suction is lost work. As a rule of thumb, **doubling the design clearance drops the efficiency several points and the head a few percent**, raises the power, and moves the pump off its curve; too little clearance rubs when the pump warms up (galling, seizure, a broken shaft on start). The clearance wears open with abrasives and corrosion and is **re-set** (the impeller is moved forward) two or three times in its life before it needs replacing.
+
+![Open impeller clearance and enclosed impeller wear rings](/img/pumps-seals/impeller-clearance.svg)
+
+*Open impeller clearance and enclosed impeller wear rings*
 
 In an **enclosed-impeller** pump (most API 610 and many water pumps) the same leakage path is sealed by **wear rings** (a replaceable ring on the impeller and/or the casing) running with a small radial clearance; you do not adjust it, you **renew the rings** when the clearance has grown.
 
@@ -10017,6 +10241,10 @@ Exceed these and the seal faces open and close every revolution. Fix (new sleeve
 
 ## Installing a component seal (rotary + stationary)
 
+![Rotary unit, faces, gland and O-rings of a component seal](/img/pumps-seals/mechanical-seal-parts.svg)
+
+*Rotary unit, faces, gland and O-rings of a component seal*
+
 1. Clean everything. New gaskets and O-rings. Deburr keyways and shaft steps; **cover the keyway and threads with tape** so the O-ring cannot be cut sliding over them.
 2. Fit the **stationary seat** into the gland with its O-ring or cup gasket. Lubricate the elastomer with **water, soapy water or the seal maker's lubricant**. Do not use petroleum oil on EPDM (it swells). Press in square with a clean, soft tool; never touch the lapped face with bare fingers. Wipe the face with a lint-free tissue and alcohol.
 3. Slide the gland (with seat) onto the shaft, face inward.
@@ -10066,6 +10294,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$pump-packing-and-stuffing-box$mw$, $mw$Pump Packing and the Stuffing Box: Packing Materials and Selection, Measuring the Box and Sizing Rings, Cutting Rings (Skive vs Butt), Installing with Staggered Joints and a Lantern Ring, Gland Adjustment and Break-In (Drops per Minute), Sleeve Condition, Troubleshooting and Converting to a Mechanical Seal$mw$, $mw$How to repack a centrifugal pump or a valve stuffing box so it seals and does not eat the sleeve: choosing the packing yarn and construction for the fluid, measuring the box to get the ring size and count, cutting rings on a mandrel with a skive cut, installing one ring at a time with the joints staggered and the lantern ring under the flush port, and the slow break-in that makes packing last, plus the leak rates, the sleeve rules and the faults that send you back in.$mw$, $mw$## How packing works
 
 Rings of braided yarn are compressed by the gland so they press against the shaft **sleeve** and the box bore; the fluid leaks through the packing in a controlled trickle that **lubricates and cools** the rubbing surface. **Packing must leak**: a packing that is bone dry is burning itself and scoring the sleeve. A **lantern ring** (seal cage) lets clean flush water or the pump's own discharge into the middle of the set to lubricate and to keep abrasives out. The **gland** is adjusted over the first hours to bring the leakage down to a steady rate, and re-adjusted as the packing consolidates.
+
+![Packing rings, lantern ring and gland in the stuffing box](/img/pumps-seals/packing-box.svg)
+
+*Packing rings, lantern ring and gland in the stuffing box*
 
 ## Packing materials
 
@@ -10191,6 +10423,10 @@ A pump complaint is a **system** complaint until the gauges say otherwise. Fit o
 Do not mistake **bearing noise** (a whine or growl at the bearing housing, felt with a screwdriver at the housing) or **coupling noise** for any of these.
 
 ## The pump curve
+
+![Pump curve, system curve and the best efficiency zone](/img/pumps-seals/pump-curve.svg)
+
+*Pump curve, system curve and the best efficiency zone*
 
 - **Head vs flow**: the pump's own line; **BEP** (best efficiency point) is where it should run; **allowable operating region** (HI 9.6.3) is roughly **70-120% of BEP** for most pumps; outside it the radial thrust rises (shaft deflection → seal and bearing failure), recirculation and cavitation begin.
 - **NPSHr line** rises with flow; the system must supply more than it (with margin).

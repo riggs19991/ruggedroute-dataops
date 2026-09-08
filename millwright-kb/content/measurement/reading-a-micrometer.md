@@ -16,6 +16,10 @@ A **metric** mic has a 0.5 mm pitch: one turn = 0.5 mm; the thimble has 50 divis
 
 ## Reading an inch micrometer
 
+![Reading 0.333 in on the sleeve and thimble](/img/measurement/micrometer-reading.svg)
+
+*Reading 0.333 in on the sleeve and thimble*
+
 1. **Sleeve (barrel)** - read the largest numbered line visible: each number is 0.100". Then count the small lines past it: each is 0.025".
 2. **Thimble** - read the thimble line that lines up with (or has just passed) the sleeve's index line: each line is 0.001".
 3. **Vernier** (if fitted) - find the vernier line on the sleeve that lines up exactly with any thimble line: that number is the 0.0001".

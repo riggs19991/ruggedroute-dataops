@@ -19,6 +19,10 @@ summary: "What a machine foundation must be and how long it must cure, the ancho
 
 ## Anchor types
 
+![Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance](/img/installation/anchor-types.svg)
+
+*Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance*
+
 | Type | How it works | Use | Notes |
 |---|---|---|---|
 | **Cast-in J-bolt / L-bolt / headed bolt, with sleeve** | Set in the wet concrete on a template | **Machinery baseplates**, anything with a grouted base; the API 686 standard | Sleeve (pipe 2-3× bolt Ø, foam-filled or taped, around the top 6-12" of the bolt) lets the bolt be pulled 1/4-1/2" to meet the baseplate hole and gives **free-stretch length** so the bolt stays tight; **≥ 10 Ø embedded and ≥ 12 Ø free stretch** (Chockfast) |

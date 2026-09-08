@@ -10,6 +10,10 @@ summary: "Machines change height as they warm up. This article gives the formula
 
 ## Formula
 
+![Set the hot machine low cold so it grows into line](/img/alignment/thermal-growth.svg)
+
+*Set the hot machine low cold so it grows into line*
+
 ```
 Growth (ΔL) = L × C × ΔT
 

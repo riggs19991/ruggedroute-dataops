@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" width="500" height="240" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Micrometer reading</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="240" fill="#ffffff"/>
+<rect x="40" y="90" width="300" height="40" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="4"/>
+<rect x="40" y="110" width="300" height="1" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="60" y1="110" x2="60" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="60" y="90" font-size="10" text-anchor="middle" fill="#1a2233">0</text>
+<line x1="80" y1="110" x2="80" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="100" y1="110" x2="100" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="120" y1="110" x2="120" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="140" y1="110" x2="140" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="140" y="90" font-size="10" text-anchor="middle" fill="#1a2233">1</text>
+<line x1="160" y1="110" x2="160" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="180" y1="110" x2="180" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="200" y1="110" x2="200" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="220" y1="110" x2="220" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="220" y="90" font-size="10" text-anchor="middle" fill="#1a2233">2</text>
+<line x1="240" y1="110" x2="240" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="260" y1="110" x2="260" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="280" y1="110" x2="280" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<line x1="300" y1="110" x2="300" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="300" y="90" font-size="10" text-anchor="middle" fill="#1a2233">3</text>
+<line x1="320" y1="110" x2="320" y2="102" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+
+<rect x="320" y="70" width="140" height="80" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<rect x="320" y="70" width="8" height="80" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="330" y1="80" x2="344" y2="80" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="84" font-size="10" text-anchor="start" fill="#1a2233">5</text>
+<line x1="330" y1="90" x2="344" y2="90" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="94" font-size="10" text-anchor="start" fill="#1a2233">6</text>
+<line x1="330" y1="100" x2="344" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="104" font-size="10" text-anchor="start" fill="#1a2233">7</text>
+<line x1="330" y1="110" x2="344" y2="110" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="114" font-size="10" text-anchor="start" fill="#1a2233">8</text>
+<line x1="330" y1="120" x2="344" y2="120" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="124" font-size="10" text-anchor="start" fill="#1a2233">9</text>
+<line x1="330" y1="130" x2="344" y2="130" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="134" font-size="10" text-anchor="start" fill="#1a2233">10</text>
+<line x1="330" y1="140" x2="344" y2="140" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="350" y="144" font-size="10" text-anchor="start" fill="#1a2233">11</text>
+<line x1="320" y1="110" x2="300" y2="110" stroke="#b91c1c" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="330" cy="110" r="3" fill="#b91c1c" stroke="none" stroke-width="1.5"/>
+<circle cx="110" cy="140" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="110" y="144" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text>
+<circle cx="305" cy="140" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="305" y="144" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text>
+<circle cx="380" cy="160" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="380" y="164" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text>
+<circle cx="39" cy="171" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="175" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text><text x="54" y="175" font-size="11" text-anchor="start" fill="#1a2233">sleeve: last number showing = 3 → 0.300</text>
+<circle cx="39" cy="187" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="191" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text><text x="54" y="191" font-size="11" text-anchor="start" fill="#1a2233">extra lines past it: one line = 0.025 → 0.325</text>
+<circle cx="39" cy="203" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="207" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text><text x="54" y="207" font-size="11" text-anchor="start" fill="#1a2233">thimble line at the index: 8 → 0.008; total 0.333 in</text>
+<text x="250" y="232" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Metric: sleeve mm and half-mm, thimble 0.01 mm. Zero-check on the standard.</text>
+</svg>

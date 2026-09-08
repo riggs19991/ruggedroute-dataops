@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280" width="500" height="280" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Accumulator precharge</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="280" fill="#ffffff"/>
+<rect x="80" y="40" width="100" height="180" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" rx="40"/>
+<path d="M130,60 q40,20 40,80 q0,60 -40,80 q-40,-20 -40,-80 q0,-60 40,-80 z" fill="#cfe8ff" stroke="#0b5fa5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="122" y="20" width="16" height="22" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="122" y="218" width="16" height="22" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="130" y="130" font-size="14" text-anchor="middle" font-weight="700" fill="#0b5fa5">N2</text>
+<text x="130" y="12" font-size="9.5" text-anchor="middle" fill="#5b6577">gas valve (charging kit)</text>
+<text x="130" y="252" font-size="9.5" text-anchor="middle" fill="#5b6577">oil port (to system)</text>
+<rect x="220" y="40" width="260" height="44" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" rx="6"/><text x="350" y="58.975" font-size="11" text-anchor="middle" fill="#1a2233"><tspan x="350" dy="0">NITROGEN ONLY: never air or oxygen</tspan><tspan x="350" dy="13.75">(oil + oxygen = explosion)</tspan></text>
+<text x="220" y="110" font-size="9.5" text-anchor="start" fill="#5b6577">precharge p0 = 0.8-0.9 × minimum working pressure</text>
+<text x="220" y="128" font-size="9.5" text-anchor="start" fill="#5b6577">e.g. 1,500-2,500 psi system → p0 ≈ 1,200-1,350 psi</text>
+<text x="220" y="158" font-size="10" text-anchor="start" fill="#5b6577"><tspan x="220" dy="0">check: isolate, bleed the oil side to 0 psi, fit</tspan><tspan x="220" dy="12.5">the charging assembly, open the gas valve, read</tspan></text>
+<text x="220" y="198" font-size="10" text-anchor="start" fill="#5b6577"><tspan x="220" dy="0">lost precharge: bladder works hard and fails;</tspan><tspan x="220" dy="12.5">too high: bladder hits the poppet, no volume</tspan></text>
+<text x="250" y="272" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Bleed-down valve before any hydraulic work; accumulator = stored energy.</text>
+</svg>

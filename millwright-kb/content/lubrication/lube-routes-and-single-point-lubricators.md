@@ -12,6 +12,10 @@ summary: "The routine side of lubrication that decides whether the right grease 
 
 ## Survey and tag every point
 
+![Colour and shape coded lube point tags](/img/lubrication/lube-point-tags.svg)
+
+*Colour and shape coded lube point tags*
+
 1. Walk every machine with the drawings and the manuals: list every **lube point** (grease fittings, oil fills, oilers, sight glasses, drains, centralised system reservoirs, chain oilers, coupling plugs), the **bearing or component** at each, the **lubricant** (from the maker's manual or the [selection rules](/article/grease-types-and-compatibility)), the **quantity** ([regreasing quantities](/article/regreasing-intervals-and-quantities)) and the **interval**.
 2. **Tag** the point: a durable tag or a colour-coded disc/label at the fitting or the fill with the **lubricant code** (a colour and a symbol from the plant's lube chart: e.g. a red circle = polyurea motor grease, a blue square = EP 2, a green triangle = ISO 220 gear oil), the quantity and the interval; the same code on the grease gun, the drum and the transfer container. Nobody should have to remember which grease a point takes.
 3. Mark **do-not-grease** points (sealed bearings, points that are on the centralised system, motors greased by the electrical crew) so a keen greaser does not blow the seals.

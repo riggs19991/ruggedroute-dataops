@@ -37,6 +37,10 @@ Bore diameter is the last two digits Ã— 5 for codes 04 and up. **22220 EK C3** â
 
 ## Step 1 - Measure and record the unmounted radial internal clearance
 
+![Measuring clearance over the top roller on an adapter sleeve mounting](/img/bearings/adapter-sleeve-drive-up.svg)
+
+*Measuring clearance over the top roller on an adapter sleeve mounting*
+
 1. Wipe preservative off the bearing but do **not** wash it. Leave the factory oil film.
 2. Stand the bearing upright on a clean bench. Spin the inner ring a couple of turns so the rollers seat against the guide ribs.
 3. Push the inner ring down (or let gravity load it) so all the clearance sits at the **top** (12 o'clock).

@@ -25,6 +25,10 @@ What they do: **energy storage** (a pump charges the accumulator, it supplies fl
 
 The gas precharge (**dry nitrogen only**, P₀) sets the pressure at which the accumulator starts to take oil and how much oil it can give back between the system's maximum (P₂) and minimum (P₁) pressures.
 
+![Bladder accumulator and the precharge rule](/img/hydraulics/accumulator-precharge.svg)
+
+*Bladder accumulator and the precharge rule*
+
 | Application | Precharge P₀ | Why |
 |---|---|---|
 | **Energy storage** (the usual) | **90% of the minimum system pressure P₁** (or 100 psi below P₁ on a piston type, 175 psi below on a bladder type: Tobul) | The bladder stays slightly off the poppet at P₁ so it never bottoms; below 80% the bladder folds and fatigues; above P₁ the accumulator gives no oil until the system pressure passes the precharge |

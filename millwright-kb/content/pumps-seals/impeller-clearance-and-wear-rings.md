@@ -14,6 +14,10 @@ summary: "The clearance between an open impeller and the casing (or the wear rin
 
 In an **open-impeller** pump (ANSI B73.1 process pumps: Goulds 3196, Durco Mark 3 and their copies) the front of the impeller vanes runs a few thousandths from the casing (or the suction cover); liquid that slips back across that gap from the discharge side to the suction is lost work. As a rule of thumb, **doubling the design clearance drops the efficiency several points and the head a few percent**, raises the power, and moves the pump off its curve; too little clearance rubs when the pump warms up (galling, seizure, a broken shaft on start). The clearance wears open with abrasives and corrosion and is **re-set** (the impeller is moved forward) two or three times in its life before it needs replacing.
 
+![Open impeller clearance and enclosed impeller wear rings](/img/pumps-seals/impeller-clearance.svg)
+
+*Open impeller clearance and enclosed impeller wear rings*
+
 In an **enclosed-impeller** pump (most API 610 and many water pumps) the same leakage path is sealed by **wear rings** (a replaceable ring on the impeller and/or the casing) running with a small radial clearance; you do not adjust it, you **renew the rings** when the clearance has grown.
 
 ## Goulds 3196-type: setting the impeller clearance

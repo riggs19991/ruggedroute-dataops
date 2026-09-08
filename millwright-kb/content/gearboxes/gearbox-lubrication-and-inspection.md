@@ -23,6 +23,10 @@ ISO VG number = viscosity in cSt at 40°C. AGMA number is the older US grade (AG
 
 ## Oil level
 
+![Sight glass level, breather, magnetic plug and gear dip](/img/gearboxes/oil-level-and-breather.svg)
+
+*Sight glass level, breather, magnetic plug and gear dip*
+
 1. The level is only valid with the reducer **stopped and cooled** for a few minutes so oil drains back.
 2. **Sight glass**: level at the mark or mid-glass. **Level plug**: oil just reaches the bottom of the plug hole.
 3. **Mounting position matters.** A reducer mounted on its side or vertically has different fill plugs, level plugs and quantities than the standard horizontal position. Manuals show a diagram of each position with which port is fill, level, drain and breather. Filling to the wrong plug either starves the top bearings or floods the seals.

@@ -14,6 +14,10 @@ Soft foot is a machine foot that does not sit flat on the base when the bolts ar
 
 ## Types
 
+![Parallel, angular, squishy and induced soft foot](/img/alignment/soft-foot-types.svg)
+
+*Parallel, angular, squishy and induced soft foot*
+
 | Type | Description | Fix |
 |---|---|---|
 | **Parallel (short) foot** | Foot is flat but higher than the others (short leg, missing shim) | Add shims equal to the gap |

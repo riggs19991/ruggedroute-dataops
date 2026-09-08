@@ -36,6 +36,10 @@ In the field you do the **manual** method most of the time and the **torque** me
 
 ## Manual setting with a dial indicator (gearbox, pulley, pump)
 
+![Cups, cones and measuring end play with an indicator on the shaft end](/img/bearings/tapered-roller-end-play.svg)
+
+*Cups, cones and measuring end play with an indicator on the shaft end*
+
 1. Assembly clean, cones pressed or heated on to their seats against the shoulders (see [mounting with heat](/article/bearing-mounting-with-heat)), cups seated fully in the housing (a dull sound when tapped, or measured). **Cups and cones must be fully seated before any setting**: a cup 0.005" out of its bore reads as 0.005" of end play that disappears when it seats in service.
 2. Assemble with the adjusting element (shims under the end cap, a threaded nut or cup carrier, a spacer) set for an obvious clearance.
 3. **Rotate the shaft several turns while pushing it toward one end** to seat the rollers against the cup ribs (rollers that are not seated give a false large end play); then rotate while pulling to the other end.

@@ -12,6 +12,10 @@ summary: "One chart to convert between the viscosity systems on the drums (ISO V
 
 Viscosity is resistance to flow; for lubricants it is quoted in **centistokes (cSt, mm²/s) at 40°C** (ISO VG numbers are the cSt at 40°C) and at 100°C. It **falls as the oil warms**: an ISO 220 gear oil is 220 cSt at 40°C (104°F), about 19 cSt at 100°C, and only 10 cSt at 130°C; the oil in a gearbox running at 180°F is nowhere near "220". Old units: **SUS** (Saybolt universal seconds: cSt ≈ SUS × 0.22 above 100 SUS) and the SAE grades.
 
+![Viscosity of ISO grades versus temperature](/img/lubrication/viscosity-vs-temperature.svg)
+
+*Viscosity of ISO grades versus temperature*
+
 **Viscosity index (VI)**: how little the viscosity changes with temperature: mineral oils 90-100, high-VI/hydraulic HVI 130-150, PAO synthetics 130-160, PAG 150-250. A high-VI oil stays thicker when hot and thinner when cold: fewer grade changes with the seasons.
 
 ## Comparison chart (approximate; the grades overlap, not equal)

@@ -44,6 +44,10 @@ Dash number = hose ID in **1/16"** (−8 = 1/2"). Working pressure is the maximu
 
 Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wrong mate looks like it screws on and then leaks or cracks.
 
+![JIC, ORFS, ORB, NPT and BSPP fitting seats](/img/hydraulics/fitting-types.svg)
+
+*JIC, ORFS, ORB, NPT and BSPP fitting seats*
+
 | Fitting | Seal | Seat / look | Thread | How to tell |
 |---|---|---|---|---|
 | **JIC 37° flare (SAE J514)** | Metal-to-metal on a 37° cone | Male has a 37° cone nose; female nut with a 37° flare seat | UN/UNF (e.g. 3/4-16 for −8) | The most common hydraulic fitting in North America; a 37° gauge fits the cone; **not** interchangeable with 45° SAE flare (refrigeration/automotive) or JIS 30° |

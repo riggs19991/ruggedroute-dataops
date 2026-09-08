@@ -12,6 +12,10 @@ summary: "How to move a gearbox, motor, press or machine base across a floor and
 
 ## Weight and centre of gravity
 
+![Centre of gravity inside the skate footprint, push low](/img/installation/cg-and-skates.svg)
+
+*Centre of gravity inside the skate footprint, push low*
+
 - **Weight**: the nameplate or the manual first; the shipping documents; the crane's load cell; the drawing's steel volume × 0.283 lb/in³ (490 lb/ft³) for fabricated bases. Estimate high. Table: a 100 hp 405T motor ≈ 1,000-1,400 lb; a 250 hp 449T ≈ 2,500-3,500 lb; a mid-size worm gearbox 300-800 lb; a 6" ANSI pump with base and 50 hp motor ≈ 2,000 lb; a 3/4" steel plate weighs 30.6 lb/ft².
 - **Centre of gravity (CG)**: from the manual (it is often marked), or by geometry (motors: near the shaft centre and the frame's middle; gearboxes: toward the low-speed end; pumps on bases: toward the motor). Check it: lift slightly at one end with a jack: the end that is harder to lift is nearer the CG; on a crane, a test lift 2" off the floor shows which way it hangs. A tall machine with a high CG (a vertical pump, a press, a control cabinet) is the one that tips: **keep the CG inside the footprint of the skates or forks at every moment, including on slopes and over dock plates**.
 - Mark the CG and the pick points on the machine with paint before the move.

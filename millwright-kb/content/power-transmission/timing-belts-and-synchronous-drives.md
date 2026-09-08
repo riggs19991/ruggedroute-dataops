@@ -59,6 +59,10 @@ A synchronous belt tracks toward one side (they all do, because of cord twist an
 
 Too loose: the belt **ratchets** (jumps teeth) under load, the teeth shear, it flaps and wears. Too tight: bearing and shaft loads, cord fatigue, noise, sprocket wear. The correct tension depends on the belt section, width and the drive load; the maker's design program gives a **static tension** in pounds (or a deflection force). Two field methods:
 
+![Synchronous belt with flanges and deflection tensioning](/img/power-transmission/timing-belt-tension.svg)
+
+*Synchronous belt with flanges and deflection tensioning*
+
 **Force-deflection (Gates method)**
 
 ```

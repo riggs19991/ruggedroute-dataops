@@ -54,6 +54,10 @@ Example: a 3-stage helical reducer with 22/61, 19/58, 17/63: i = 2.773 × 3.053 
 
 ## Contact pattern with bluing
 
+![Contact patterns: centred, toe, heel, tip and root](/img/gearboxes/gear-contact-pattern.svg)
+
+*Contact patterns: centred, toe, heel, tip and root*
+
 1. Clean the teeth of one gear (a few teeth) with solvent; brush a thin film of **marking compound** (Prussian blue, gear marking compound; not layout dye) on the driving gear's teeth (or on the wheel of a worm set).
 2. Rotate the gears **under a light load** (drag on the output by hand, a brake, or the machine's load) through several revolutions in the running direction, then back; too much load spreads the pattern and lies; no load gives a thin pattern.
 3. Read the transfer on the unblued gear: the ideal is a band **centred on the face width and on the pitch line, covering about 70-80% of the face** (not to the edges: the ends are relieved), even along the whole face.

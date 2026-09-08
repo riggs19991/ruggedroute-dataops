@@ -12,6 +12,10 @@ summary: "What each compressor type is and how it is controlled, the oil and fil
 
 ## Types
 
+![Reciprocating and screw compressors with the receiver](/img/pumps-seals/compressor-types.svg)
+
+*Reciprocating and screw compressors with the receiver*
+
 | Type | How | Where | Character |
 |---|---|---|---|
 | **Reciprocating (piston), single-stage** | One or more cylinders compress to about 125-135 psi | Small shops, 1-15 hp, intermittent | Cheap, noisy, hot; duty cycle **50-60%**: needs rest; oil carryover |

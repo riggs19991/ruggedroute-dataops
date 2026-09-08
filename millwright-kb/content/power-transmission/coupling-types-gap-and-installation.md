@@ -12,6 +12,10 @@ summary: "The main coupling families millwrights meet, what each tolerates, how 
 
 ## Families
 
+![Coupling gap and the four common families](/img/power-transmission/coupling-gap-and-types.svg)
+
+*Coupling gap and the four common families*
+
 | Type | Example | Misalignment tolerance | Lubrication | Notes |
 |---|---|---|---|---|
 | **Jaw (elastomer spider)** | Lovejoy L/AL, Martin ML | Low: about 0.015" offset, 1° angular | None | Cheap, fail-safe (runs jaw-on-jaw if spider dies). Spider hardness (SOX rubber, Hytrel, urethane) sets torque and stiffness. |

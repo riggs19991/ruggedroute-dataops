@@ -53,6 +53,10 @@ All dimensions in **mm**, angle in degrees.
 
 ## How to read it
 
+![Feeler gauge over the top roller while the lock nut is tightened](/img/bearings/adapter-sleeve-drive-up.svg)
+
+*Feeler gauge over the top roller while the lock nut is tightened*
+
 - **Reduction** is what the feeler-gauge reading must *drop by*. Starting clearance 0.150 mm and a target reduction of 0.050-0.060 means you stop at 0.090-0.100 mm.
 - **s** is how far the inner ring travels along the taper past the line-to-line position. A 1:30 taper needs about 2.5 × the travel of a 1:12 taper for the same expansion.
 - The **nut angle** is a convenience for bores up to 100 mm. It assumes a standard KM nut on a standard sleeve thread pitch, starting from firm line-to-line contact.

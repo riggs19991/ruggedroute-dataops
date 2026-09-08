@@ -19,6 +19,10 @@ Rotate both shafts together (or, if the movable cannot be turned, rotate only th
 
 ## Tools
 
+![Rim and face indicator setup with the A, B and C dimensions](/img/alignment/rim-and-face-setup.svg)
+
+*Rim and face indicator setup with the A, B and C dimensions*
+
 - Rim-and-face bracket (chain or clamp type) with rigid rods; the shorter the rods, the less sag
 - Two dial indicators, 0.001" (or 0.01 mm), with a 1" range
 - Pre-cut shim pack, feeler gauges, straightedge

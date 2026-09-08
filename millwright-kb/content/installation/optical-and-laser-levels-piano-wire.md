@@ -22,6 +22,10 @@ summary: "The tools for long-distance and multi-machine alignment where a spirit
 
 ## Optical level (builder's / dumpy / automatic level)
 
+![Optical level staff readings and piano wire sag](/img/installation/optical-level-and-wire.svg)
+
+*Optical level staff readings and piano wire sag*
+
 1. **Tripod**: legs spread, points pushed into the floor or on the concrete, head roughly level by eye, at a comfortable eye height; instrument screwed on snug.
 2. **Level the instrument**: with the three (or four) levelling screws, centre the circular bubble; on an automatic level the compensator does the rest; on a dumpy level, align the tube vial over two screws, centre, rotate 90°, centre with the third, repeat until the bubble stays centred through a full rotation.
 3. **Focus**: eyepiece on the crosshairs first (against a white card), then the objective on the rod. Parallax check: move your eye; the crosshair must not shift on the rod.

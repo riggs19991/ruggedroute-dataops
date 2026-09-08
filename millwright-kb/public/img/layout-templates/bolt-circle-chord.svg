@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Bolt circle chord layout</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<circle cx="150" cy="150" r="100" fill="#ffffff" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="5 4"/>
+<circle cx="150" cy="150" r="130" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="10" y1="150" x2="290" y2="150" stroke="#5b6577" stroke-width="0.8" stroke-dasharray="8 4" stroke-linecap="round"/>
+<line x1="150" y1="10" x2="150" y2="290" stroke="#5b6577" stroke-width="0.8" stroke-dasharray="8 4" stroke-linecap="round"/>
+<circle cx="200" cy="63.39745962155614" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="250" cy="150" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="200" cy="236.60254037844385" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="100.00000000000003" cy="236.60254037844388" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="50" cy="150" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="99.99999999999996" cy="63.39745962155615" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="200" y1="63.39745962155614" x2="250" y2="150" stroke="#b91c1c" stroke-width="2" stroke-linecap="round"/>
+<text x="233" y="102.69872981077808" font-size="11" text-anchor="start" font-weight="600" fill="#b91c1c">chord</text>
+<text x="150" y="156" font-size="11" text-anchor="middle" fill="#0b5fa5">BC dia.</text>
+<rect x="300" y="40" width="190" height="21" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="54.28" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Holes</text>
+<text x="376" y="54.28" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Chord ÷ BC dia.</text>
+<rect x="300" y="61" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="75.28" font-size="11" text-anchor="start" fill="#1a2233">4</text>
+<text x="376" y="75.28" font-size="11" text-anchor="start" fill="#1a2233">0.7071</text>
+<rect x="300" y="82" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="96.28" font-size="11" text-anchor="start" fill="#1a2233">5</text>
+<text x="376" y="96.28" font-size="11" text-anchor="start" fill="#1a2233">0.5878</text>
+<rect x="300" y="103" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="117.28" font-size="11" text-anchor="start" fill="#1a2233">6</text>
+<text x="376" y="117.28" font-size="11" text-anchor="start" fill="#1a2233">0.5000</text>
+<rect x="300" y="124" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="138.28" font-size="11" text-anchor="start" fill="#1a2233">8</text>
+<text x="376" y="138.28" font-size="11" text-anchor="start" fill="#1a2233">0.3827</text>
+<rect x="300" y="145" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="159.28" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<text x="376" y="159.28" font-size="11" text-anchor="start" fill="#1a2233">0.3090</text>
+<rect x="300" y="166" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="180.28" font-size="11" text-anchor="start" fill="#1a2233">12</text>
+<text x="376" y="180.28" font-size="11" text-anchor="start" fill="#1a2233">0.2588</text>
+<rect x="300" y="187" width="190" height="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="201.28" font-size="11" text-anchor="start" fill="#1a2233">16</text>
+<text x="376" y="201.28" font-size="11" text-anchor="start" fill="#1a2233">0.1951</text>
+<text x="300" y="225" font-size="10.5" text-anchor="start" fill="#5b6577"><tspan x="300" dy="0">chord = factor × bolt circle dia.</tspan><tspan x="300" dy="13.125">6 holes on a 12 in BC:</tspan><tspan x="300" dy="13.125">chord = 0.5 × 12 = 6.000 in</tspan></text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Straddle: no hole on the vertical or horizontal centreline (flanges).</text>
+</svg>

@@ -36,6 +36,10 @@ Do not mistake **bearing noise** (a whine or growl at the bearing housing, felt 
 
 ## The pump curve
 
+![Pump curve, system curve and the best efficiency zone](/img/pumps-seals/pump-curve.svg)
+
+*Pump curve, system curve and the best efficiency zone*
+
 - **Head vs flow**: the pump's own line; **BEP** (best efficiency point) is where it should run; **allowable operating region** (HI 9.6.3) is roughly **70-120% of BEP** for most pumps; outside it the radial thrust rises (shaft deflection → seal and bearing failure), recirculation and cavitation begin.
 - **NPSHr line** rises with flow; the system must supply more than it (with margin).
 - **Power line** rises with flow on radial pumps (a pump running far out on its curve overloads the motor).

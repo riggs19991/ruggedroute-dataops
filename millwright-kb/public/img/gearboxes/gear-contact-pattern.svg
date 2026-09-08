@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 230" width="500" height="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Gear contact pattern</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="230" fill="#ffffff"/>
+<rect x="30" y="50" width="80" height="60" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="46" y="71" width="48" height="18" fill="#2b6cb0" stroke="none" stroke-width="1.5" opacity="0.8"/>
+<text x="70" y="42" font-size="11" text-anchor="middle" font-weight="600" fill="#166534">good</text>
+<text x="70" y="128" font-size="9" text-anchor="middle" fill="#5b6577"> centred</text>
+<rect x="125" y="50" width="80" height="60" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="129" y="71" width="28" height="18" fill="#2b6cb0" stroke="none" stroke-width="1.5" opacity="0.8"/>
+<text x="165" y="42" font-size="11" text-anchor="middle" font-weight="600" fill="#b91c1c">toe</text>
+<text x="165" y="128" font-size="9" text-anchor="middle" fill="#5b6577"> shafts not parallel</text>
+<rect x="220" y="50" width="80" height="60" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="268" y="71" width="28" height="18" fill="#2b6cb0" stroke="none" stroke-width="1.5" opacity="0.8"/>
+<text x="260" y="42" font-size="11" text-anchor="middle" font-weight="600" fill="#b91c1c">heel</text>
+<text x="260" y="128" font-size="9" text-anchor="middle" fill="#5b6577">centred, 60-80%</text>
+<rect x="315" y="50" width="80" height="60" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="331" y="53" width="48" height="18" fill="#2b6cb0" stroke="none" stroke-width="1.5" opacity="0.8"/>
+<text x="355" y="42" font-size="11" text-anchor="middle" font-weight="600" fill="#b91c1c">tip</text>
+<text x="355" y="128" font-size="9" text-anchor="middle" fill="#5b6577"> centre distance</text>
+<rect x="410" y="50" width="80" height="60" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="426" y="89" width="48" height="18" fill="#2b6cb0" stroke="none" stroke-width="1.5" opacity="0.8"/>
+<text x="450" y="42" font-size="11" text-anchor="middle" font-weight="600" fill="#b91c1c">root</text>
+<text x="450" y="128" font-size="9" text-anchor="middle" fill="#5b6577"> too close</text>
+<text x="250" y="160" font-size="10.5" text-anchor="middle" fill="#5b6577">toe / heel: shafts not parallel (bearing seats, housing bore)</text>
+<text x="250" y="178" font-size="10.5" text-anchor="middle" fill="#5b6577">tip / root: centre distance or backlash wrong; check with a feeler or dial indicator</text>
+<text x="250" y="222" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Blue the driven gear, roll by hand under light load, read the flank.</text>
+</svg>

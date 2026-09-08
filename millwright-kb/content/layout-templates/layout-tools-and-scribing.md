@@ -54,6 +54,10 @@ Pick one **straight edge** (or two edges at 90°) as the datum, exactly like the
 
 ## Finding the centre of round stock
 
+![Finding the centre of round stock with a centre head or a surface gauge](/img/layout-templates/centre-finding.svg)
+
+*Finding the centre of round stock with a centre head or a surface gauge*
+
 1. **Centre head**: hold it against the bar, scribe along the rule; rotate 90°, scribe again; the intersection is the centre (rotate 45° for a third line and use the small triangle's centre if they do not meet).
 2. **V-block and surface gauge**: bar in the V-block, gauge set to roughly the centre height, scribe a line, rotate the bar 90° and scribe again, repeat twice more; the small square in the middle is the centre.
 3. **Hermaphrodite caliper**: set to about the radius, hook on the bar, scribe four arcs from four positions; the centre is in the middle of the little square.

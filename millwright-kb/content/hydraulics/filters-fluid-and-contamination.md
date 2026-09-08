@@ -12,6 +12,10 @@ summary: "Most hydraulic failures are contamination: this explains how cleanline
 
 A particle counter reports the number of particles per millilitre larger than **4 µm, 6 µm and 14 µm** (ISO 11171 calibration; the old code used 5 and 15 µm); each count is converted to a **range number**: each step **doubles** the count.
 
+![ISO 4406 codes and typical targets](/img/hydraulics/iso-4406-codes.svg)
+
+*ISO 4406 codes and typical targets*
+
 | Range number | Particles per mL (more than) | up to |
 |---|---|---|
 | 12 | 20 | 40 |

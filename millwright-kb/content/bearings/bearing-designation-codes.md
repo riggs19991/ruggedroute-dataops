@@ -10,6 +10,10 @@ summary: "How to read any metric rolling-bearing designation: the type digit, di
 
 ## Basic layout
 
+![Bearing parts and the meaning of 6205-2RS C3](/img/bearings/bearing-parts-and-number.svg)
+
+*Bearing parts and the meaning of 6205-2RS C3*
+
 ```
 [prefix]  TYPE  SERIES  BORE  [suffixes]
 

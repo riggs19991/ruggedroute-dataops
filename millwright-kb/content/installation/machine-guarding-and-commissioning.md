@@ -10,6 +10,10 @@ summary: "The two things that finish an installation: guards that meet the OSHA 
 
 ## Guarding rules
 
+![Maximum guard opening by distance from the nip point](/img/installation/guard-opening-chart.svg)
+
+*Maximum guard opening by distance from the nip point*
+
 - **Every** rotating shaft, coupling, sheave, belt, chain, sprocket, gear, flywheel, projecting key or set screw within **7 ft (2.1 m) of the floor or a working platform** must be guarded (OSHA 1910.219); points of operation, nip points and flying-chip hazards under 1910.212. Over 7 ft still needs guarding where people can reach from ladders or during maintenance if not locked out.
 - Guards are **fixed** (bolted, needs a tool to remove: the default for couplings and drives), **interlocked** (the machine stops when the guard opens: for access needed during operation), **adjustable** or **self-adjusting** (saws, grinders).
 - Guard openings: the allowed opening size depends on the **distance from the opening to the hazard** (OSHA Table O-10 / ANSI B11.19): within 1/2" of the hazard: opening ≤ 1/4"; at 1-1/2 to 2-1/2": ≤ 3/8"; at 2-1/2 to 3-1/2": ≤ 1/2"; at 3-1/2 to 5-1/2": ≤ 5/8"; at 5-1/2 to 6-1/2": ≤ 3/4"; at 6-1/2 to 7-1/2": ≤ 7/8"; at 7-1/2 to 12-1/2": ≤ 1-1/4"; at 12-1/2 to 15-1/2": ≤ 1-1/2"; over 31-1/2": up to 6". A finger fits through anything over 1/4"; **expanded metal guards must be at least 4" from the hazard** for the usual 1/2-3/4" mesh.

@@ -27,6 +27,10 @@ summary: "Plunger (AGD) versus lever (test) indicators, how to mount them so the
 
 ## Runout on a shaft
 
+![Measuring runout and avoiding cosine error](/img/measurement/dial-indicator-runout.svg)
+
+*Measuring runout and avoiding cosine error*
+
 1. Support the shaft in its own bearings (or V-blocks for a loose shaft).
 2. Plunger on a clean, unpainted part of the shaft, square to it.
 3. Rotate the shaft slowly one full turn. The **total swing** of the needle (highest minus lowest) is the **TIR** (total indicator reading). A shaft that is bent 0.002" reads 0.004" TIR.
