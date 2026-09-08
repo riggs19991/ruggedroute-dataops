@@ -117,6 +117,16 @@ update public.mw_profiles set is_admin = true
 where id = (select id from auth.users where email = 'owner@example.com');
 ```
 
+### Donations and legal pages
+
+The app is operated by Addictive Media Productions LLC. `/terms` (terms of use, safety
+disclaimer, community-content licence, copyright, liability, donations), `/privacy` and
+`/support` (a polite donation ask) are linked from the footer, the home page and the end
+of every article. The donation button points at `VITE_DONATE_URL`, which both workflows read from the
+repository variable `DONATE_URL` (GitHub → Settings → Secrets and variables → Actions →
+Variables); or hard-code it in `src/lib/site.ts`; until it is set, the button opens `/support`. Company
+name, contact email and copyright year live in `src/lib/site.ts`.
+
 ### Re-seeding content from `content/`
 
 Edit or add markdown files (front-matter: `title`, `slug`, `category`, `kind`, `tags`,

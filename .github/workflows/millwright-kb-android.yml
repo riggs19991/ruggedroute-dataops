@@ -36,6 +36,8 @@ jobs:
         run: |
           npm run build
           npx cap sync android
+        env:
+          VITE_DONATE_URL: ${{ vars.DONATE_URL }}
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

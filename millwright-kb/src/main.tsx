@@ -18,6 +18,8 @@ import { InstallPage } from './pages/Install'
 import { AuthConfirmed } from './pages/AuthConfirmed'
 import { AuthReset } from './pages/AuthReset'
 import { Privacy } from './pages/Privacy'
+import { Terms } from './pages/Terms'
+import { SupportPage } from './pages/Support'
 import { registerSW } from 'virtual:pwa-register'
 
 function RequireAuth({ children }: { children: React.ReactElement }) {
@@ -42,6 +44,8 @@ function App() {
         <Route path="/auth/reset" element={<AuthReset />} />
         <Route path="/install" element={<InstallPage />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/support" element={<SupportPage />} />
         <Route path="/contribute" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/contribute/:slug" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />

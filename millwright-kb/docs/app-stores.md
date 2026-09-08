@@ -95,3 +95,12 @@ Without a Mac, use a macOS GitHub Actions runner:
 1. Home-screen install now (done: site is offline-capable, install page at `/install`).
 2. Google Play account, Android signed bundle, closed test with the class, production.
 3. Apple account, macOS CI job, TestFlight with the class, App Store.
+
+## Store listing URLs
+
+Both stores ask for these; they are live pages in the app:
+
+- Privacy policy: https://millwright-kb.riggs1991.workers.dev/privacy
+- Terms of use: https://millwright-kb.riggs1991.workers.dev/terms
+- Support / contact: https://millwright-kb.riggs1991.workers.dev/support (email riggs1991@gmail.com)
+- Developer name on the listing: Addictive Media Productions LLC

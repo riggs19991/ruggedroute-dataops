@@ -30,6 +30,8 @@ jobs:
         run: node scripts/build-seed.mjs
       - name: Type-check and build
         run: npm run build
+        env:
+          VITE_DONATE_URL: ${{ vars.DONATE_URL }}
       - name: Lint
         run: npm run lint
       - uses: actions/upload-artifact@v4

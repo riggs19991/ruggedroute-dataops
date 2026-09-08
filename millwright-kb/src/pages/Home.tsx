@@ -43,7 +43,7 @@ export function Home() {
           {EXAMPLES.map((e) => <Link key={e} className="chip" to={`/search?q=${encodeURIComponent(e)}`}>{e}</Link>)}
         </div>
         <p className="hero-links">
-          <Link to="/article/set-me-up-for-a-task">Set me up for a task</Link> · <Link to="/a-z">A-Z index of every article</Link>
+          <Link to="/article/set-me-up-for-a-task">Set me up for a task</Link> · <Link to="/a-z">A-Z index of every article</Link> · <Link to="/support">Support the creator</Link>
         </p>
       </section>
 

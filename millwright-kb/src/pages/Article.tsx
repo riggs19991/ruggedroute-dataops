@@ -5,6 +5,7 @@ import { useAuth } from '../lib/auth'
 import { formatDate, type Article, type FileRow } from '../lib/types'
 import { Markdown } from '../components/Markdown'
 import { FileList } from '../components/FileList'
+import { SupportAsk } from '../components/SupportAsk'
 
 export function ArticlePage() {
   const { slug } = useParams()
@@ -123,6 +124,8 @@ export function ArticlePage() {
       {article.source && <p className="small muted"><strong>Source:</strong> {article.source}</p>}
 
       <FileList files={files} canDelete={canEdit} onDeleted={(id) => setFiles(files.filter((f) => f.id !== id))} />
+
+      <SupportAsk />
     </article>
   )
 }

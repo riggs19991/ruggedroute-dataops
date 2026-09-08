@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { SearchBox } from './SearchBox'
+import { SupportAsk } from './SupportAsk'
+import { COMPANY, COPYRIGHT_YEAR } from '../lib/site'
 
 export function Layout() {
   const { user, profile, signOut } = useAuth()
@@ -44,7 +46,9 @@ export function Layout() {
       <footer className="site-footer">
         Millwright Knowledge Base. Reference values are starting points: the equipment manual and your instructor always win.
         Content is contributed by the millwright community and is not reviewed before it appears: verify before you rely on it.
-        <div className="footer-links"><Link to="/install">Install on your phone</Link> · <Link to="/privacy">Privacy</Link> · <Link to="/article/set-me-up-for-a-task">Task index</Link></div>
+        <div className="footer-links"><Link to="/install">Install on your phone</Link> · <Link to="/article/set-me-up-for-a-task">Task index</Link> · <Link to="/terms">Terms and legal</Link> · <Link to="/privacy">Privacy</Link> · <Link to="/support">Support the creator</Link></div>
+        <div className="footer-legal">© {COPYRIGHT_YEAR} {COMPANY}. Free to use, no ads, built by one person.</div>
+        <div className="footer-legal"><SupportAsk compact /></div>
       </footer>
     </>
   )
