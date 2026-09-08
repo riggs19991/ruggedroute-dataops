@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 270" width="500" height="270" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Shim pack preload</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="270" fill="#ffffff"/>
+<rect x="40" y="60" width="400" height="150" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="60" y="118" width="360" height="34" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M90,92 L130,92 L124,118 L96,118 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M90,178 L130,178 L124,152 L96,152 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350,92 L390,92 L384,118 L356,118 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350,178 L390,178 L384,152 L356,152 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="220" y="80" width="60" height="110" fill="#64748b" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<rect x="40" y="76" width="22" height="118" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="62" y="76" width="6" height="118" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+<rect x="418" y="76" width="22" height="118" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="412" y="76" width="6" height="118" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+<line x1="107" y1="36" x2="65" y2="80" stroke="#b45309" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="110" y="40" font-size="11" text-anchor="start" fill="#b45309">shim pack</text>
+<line x1="383" y1="36" x2="415" y2="80" stroke="#b45309" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="380" y="40" font-size="11" text-anchor="end" fill="#b45309">shim pack</text>
+<rect x="446" y="128" width="22" height="14" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="440" y1="135" x2="446" y2="135" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="457" y1="128" x2="457" y2="112" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<text x="462" y="122" font-size="9" text-anchor="middle" fill="#5b6577">indicator</text>
+<line x1="392" y1="102" x2="410" y2="102" stroke="#0b5fa5" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="401" y="90" font-size="9" text-anchor="middle" fill="#0b5fa5">end play</text>
+<text x="40" y="232" font-size="11" text-anchor="start" font-weight="700" fill="#1a2233">shims = trial pack + end play − target (0.001 to 0.003 in cold)</text>
+<text x="40" y="250" font-size="11" text-anchor="start" fill="#1a2233">rotate the shaft while pushing to seat the rollers; check both directions</text>
+<text x="250" y="262" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Thick shims mid-pack, thin outside; keep each pack with its cap.</text>
+</svg>

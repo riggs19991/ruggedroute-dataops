@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 270" width="500" height="270" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Height gauge and sine bar</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="270" fill="#ffffff"/>
+<rect x="20" y="200" width="460" height="22" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="216" font-size="11" text-anchor="middle" fill="#ffffff">granite surface plate (reference plane)</text>
+<rect x="40" y="180" width="70" height="20" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="70" y="50" width="10" height="130" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="80" y1="60" x2="90" y2="60" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="70" x2="86" y2="70" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="80" x2="86" y2="80" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="90" x2="86" y2="90" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="100" x2="86" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="110" x2="90" y2="110" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="120" x2="86" y2="120" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="130" x2="86" y2="130" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="140" x2="86" y2="140" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="150" x2="86" y2="150" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="160" x2="90" y2="160" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="170" x2="86" y2="170" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="80" y1="180" x2="86" y2="180" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<rect x="80" y="100" width="30" height="24" fill="#64748b" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<rect x="110" y="108" width="50" height="6" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M160,106 L176,111 L160,116 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="150" y="150" width="60" height="50" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="176" y1="111" x2="176" y2="150" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="3 2" stroke-linecap="round"/>
+<line x1="176" y1="200" x2="196" y2="200" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<line x1="176" y1="111" x2="196" y2="111" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<line x1="192" y1="200" x2="192" y2="111" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="198" y="159.5" font-size="11" text-anchor="start" fill="#0b5fa5">H</text>
+<text x="100" y="36" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Height gauge</text>
+<text x="180" y="60" font-size="10" text-anchor="middle" fill="#5b6577"><tspan x="180" dy="0">zero on the plate,</tspan><tspan x="180" dy="12.5">then scribe or read H</tspan></text>
+<text x="380" y="36" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Sine bar</text>
+<circle cx="290" cy="190" r="10" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="430" y="120" width="40" height="80" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<circle cx="450" cy="110" r="10" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<g transform="rotate(-26.6 290 190)"><rect x="280" y="160" width="180" height="22" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" rx="2"/></g>
+<path d="M325.76616947357473,172.08963648644922 A40,40 0 0 1 330,190" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/><text x="340.60530138440856" y="182.03741366621858" font-size="12" text-anchor="middle" fill="#0b5fa5">θ</text>
+<line x1="430" y1="200" x2="412" y2="200" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<line x1="430" y1="120" x2="412" y2="120" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<line x1="416" y1="200" x2="416" y2="120" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="422" y="164" font-size="11" text-anchor="start" fill="#0b5fa5">h</text>
+<text x="400" y="240" font-size="10" text-anchor="middle" fill="#0b5fa5">gauge blocks, height h</text>
+<text x="260" y="70" font-size="12" text-anchor="start" font-weight="700" fill="#1a2233">sin θ = h ÷ L  (L = 5 or 10 in)</text>
+<text x="260" y="88" font-size="11" text-anchor="start" fill="#1a2233">30°, 5 in bar: h = 5 × 0.5 = 2.500 in</text>
+<text x="250" y="262" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Everything on the plate is measured from one flat reference.</text>
+</svg>

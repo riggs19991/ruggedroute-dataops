@@ -74,6 +74,9 @@ insert into public.mw_categories (slug, name, description, icon, sort_order) val
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$shop-reference$mw$, $mw$Shop Math & Reference$mw$, $mw$Conversions, formulas, decimal equivalents, tap drill sizes, trig for millwrights.$mw$, $mw$🧮$mw$, 130)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$study$mw$, $mw$Test Yourself & Glossary$mw$, $mw$Practice questions with answers for the Red Seal and apprenticeship exams, and an A-Z glossary of millwright terms.$mw$, $mw$🎓$mw$, 140)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$laser-alignment-procedure$mw$, $mw$Laser Shaft Alignment: General Procedure for Any Laser Kit$mw$, $mw$A brand-independent walk-through for a two-head laser alignment system: mounting, dimensions, sweep, result screen, live move, and the checks that laser systems do not do for you.$mw$, $mw$## What the laser does and does not do
 
@@ -1465,6 +1468,161 @@ Example: steel shaft, steel housing, bearings 20" apart, shaft 40°F hotter than
 - [Dial indicator use](/article/dial-indicator-use)
 - [Gear inspection and tooth failure](/article/gear-inspection-and-tooth-failure)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$bearings$mw$),
           array[$mw$tapered roller bearing$mw$,$mw$tapered roller bearing setting$mw$,$mw$end play$mw$,$mw$endplay$mw$,$mw$preload$mw$,$mw$bearing setting$mw$,$mw$Timken setting$mw$,$mw$Set-Right$mw$,$mw$Torque-Set$mw$,$mw$dial indicator end play$mw$,$mw$shim adjustment$mw$,$mw$spacer adjustment$mw$,$mw$adjusting nut$mw$,$mw$wheel bearing adjustment$mw$,$mw$gearbox end play$mw$,$mw$bench end play$mw$,$mw$mounted setting$mw$,$mw$cup and cone$mw$,$mw$direct mounting$mw$,$mw$indirect mounting$mw$,$mw$hot end play$mw$,$mw$rolling torque$mw$]::text[], $mw$Timken$mw$, array[$mw$Set-Right$mw$,$mw$Acro-Set$mw$,$mw$Projecta-Set$mw$,$mw$Torque-Set$mw$,$mw$Clamp-Set$mw$,$mw$TDO$mw$,$mw$TDI$mw$,$mw$2TS-IM$mw$]::text[], $mw$Timken 'Setting Techniques for Tapered Roller Bearings' (form 5556): definitions, Table 1 comparison of methods and typical mounted setting ranges (manual 0.004-0.010 in etc.), manual setting description (adjusting nut backed off 1/6 to 1/4 turn), preset assemblies and bench end play; Timken Engineering Manual guidance on end play vs life; gearbox and axle manufacturer service manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$bearing-defect-frequencies-and-envelope$mw$, $mw$Bearing Defect Frequencies and Enveloping: BPFO, BPFI, BSF and FTF Formulas, the Quick Estimates, What Each Looks Like in a Spectrum, and Judging How Far Gone a Bearing Is$mw$, $mw$The four bearing defect frequencies with the formula and the rules of thumb that get within a few percent without the bearing geometry, how outer race, inner race, roller and cage faults each appear in the velocity and envelope spectra, the four stages of bearing failure and the actions for each, and the pitfalls (wrong shaft speed, wrong bearing, sidebands mistaken for harmonics).$mw$, $mw$> Bearing faults do not appear at multiples of shaft speed. They show up at **non-synchronous** frequencies (like 3.58× or 5.42× rpm) that are fixed by the bearing's geometry. Find those numbers for the bearing on the machine and the spectrum tells you which part of the bearing is damaged and how far along it is.
+
+## The four frequencies
+
+With **n** = number of rolling elements, **d** = ball or roller diameter, **D** = pitch diameter (average of bore and OD, roughly), **θ** = contact angle, and shaft speed **S** in Hz (rpm ÷ 60), for a rotating inner ring and a fixed outer ring:
+
+![BPFO, BPFI, BSF and FTF with rule-of-thumb multiples](/img/condition-monitoring/bearing-defect-frequencies.svg)
+
+*BPFO, BPFI, BSF and FTF with rule-of-thumb multiples*
+
+| Fault | Name | Formula (multiples of S) | Quick estimate |
+|---|---|---|---|
+| Outer race defect | **BPFO** ball pass frequency, outer | (n ÷ 2) × (1 − d/D cos θ) | ≈ **0.4 × n** × rpm |
+| Inner race defect | **BPFI** ball pass frequency, inner | (n ÷ 2) × (1 + d/D cos θ) | ≈ **0.6 × n** × rpm |
+| Rolling element defect | **BSF** ball spin frequency | (D ÷ 2d) × (1 − (d/D cos θ)²) | ≈ 0.2 × n × rpm (2 × BSF is what usually shows) |
+| Cage defect / cage rotation | **FTF** fundamental train frequency | (1 ÷ 2) × (1 − d/D cos θ) | ≈ **0.4** × rpm (0.38-0.45) |
+
+BPFO + BPFI = n × S exactly. Example: 6310 (8 balls), shaft 1,780 rpm (29.67 Hz): BPFO ≈ 0.4 × 8 × 29.67 = **95 Hz** (3.2×); BPFI ≈ 0.6 × 8 × 29.67 = **142 Hz** (4.8×); FTF ≈ 12 Hz (0.4×). Exact values from the maker's calculator or the geometry: 6310 BPFO 3.05×, BPFI 4.95× (the estimate is within 5%). Roller bearings with many rollers (22220: 18 rollers) push BPFO up to about 7.5×.
+
+Rules: if the **outer ring rotates** (wheel bearings, idlers on fixed shafts) swap the estimates (BPFO becomes the 0.6 one). Always confirm the bearing number on the machine or the drawing: the wrong bearing gives frequencies that fit nothing.
+
+## What each fault looks like
+
+| Fault | Velocity spectrum | Envelope (demodulated) spectrum | Time waveform |
+|---|---|---|---|
+| **Outer race** | Peaks at BPFO and its harmonics (2×, 3× BPFO); little sideband structure because the defect stays in the load zone | Clear BPFO harmonics; the earliest to show | Regular impacts at BPFO |
+| **Inner race** | BPFI harmonics with **1× rpm sidebands** (the defect passes in and out of the load zone once per turn) | BPFI with 1× sidebands | Impacts modulated once per revolution (bursts) |
+| **Roller / ball** | 2 × BSF (the flaw hits both races per spin) with **FTF sidebands** | 2 × BSF with FTF sidebands | Irregular impacts |
+| **Cage** | FTF (0.4×) and its harmonics, often with looseness signs; fast failure | FTF | Erratic |
+| **Lubrication starvation** | Broadband hash 1-20 kHz, no discrete peaks | Raised noise floor, no harmonics | Random |
+
+**Enveloping** (also called demodulation, gSE, HFD, spike energy, PeakVue depending on the instrument) filters out the low-frequency running vibration and turns the tiny high-frequency impacts of an early bearing defect into a spectrum where BPFO or BPFI harmonics stand out months before the velocity spectrum shows anything. It is the tool for stage 1-2 detection; velocity is the tool for judging severity later.
+
+## Stages of failure
+
+| Stage | Signs | Time to failure (typical) | Action |
+|---|---|---|---|
+| **1** | Ultrasonic and envelope only; no change in overall velocity; bearing temperature normal | months (10-20% of remaining life) | Check lubrication; trend more often |
+| **2** | Envelope harmonics clear; small defect peaks in velocity; slight rise in noise | weeks to months (5-10%) | Plan the replacement; order the bearing; check alignment and fits |
+| **3** | Defect frequencies and harmonics with sidebands in velocity; overall rising; audible; temperature rising | days to weeks (1-5%) | Replace at the next opportunity; watch daily |
+| **4** | Discrete peaks blur into a broadband "haystack"; 1× and harmonics rise (looseness as clearance opens); noise floor rises; temperature climbs; then the peaks may **drop** as the bearing smooths itself just before seizing | hours to days | Stop it before it seizes; a bearing that suddenly goes quiet after being noisy is about to fail |
+
+## Reading tips
+
+- Measure on the bearing housing in the load zone, radial direction, with the sensor stud- or magnet-mounted on clean metal; envelope readings need a high-frequency-capable sensor mount (a magnet on paint filters the impacts away).
+- Same point, same speed, same load every time; a VFD-driven machine at a different speed moves every frequency: note the rpm and work in orders.
+- Sidebands spaced at 1× rpm around a non-synchronous peak = inner race; spaced at FTF = rolling element; harmonics of a peak = the same defect, worse.
+- Gear mesh and vane pass frequencies are synchronous (integer × rpm) and are not bearings; blade pass = number of blades × rpm.
+- Confirm with temperature, ultrasound and, at replacement, [bearing failure analysis](/article/bearing-failure-analysis) so the cause is fixed.
+
+## Common mistakes
+
+- Wrong rpm (belt-driven fan speed is not motor speed: measure it with a strobe or tach).
+- Wrong bearing number; two bearings of different types on one shaft (calculate both).
+- Calling a 3× peak "misalignment" when it is BPFO at 3.05×: zoom in and check whether it is exactly synchronous.
+- Ignoring stage 1 envelope warnings because the overall level is "fine".
+- Re-greasing a stage 3 bearing and calling it fixed because the noise dropped for a day.
+
+## Related
+
+- [Vibration signatures](/article/vibration-signatures)
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Thermography, ultrasound and oil analysis](/article/thermography-ultrasound-and-oil)
+- [Bearing failure analysis (ISO 15243)](/article/bearing-failure-analysis)
+- [Bearing designation codes](/article/bearing-designation-codes)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$condition-monitoring$mw$),
+          array[$mw$bearing defect frequencies$mw$,$mw$BPFO$mw$,$mw$BPFI$mw$,$mw$BSF$mw$,$mw$FTF$mw$,$mw$ball pass frequency$mw$,$mw$cage frequency$mw$,$mw$envelope spectrum$mw$,$mw$demodulation$mw$,$mw$gSE$mw$,$mw$HFD$mw$,$mw$spike energy$mw$,$mw$bearing fault stages$mw$,$mw$bearing vibration$mw$,$mw$non synchronous peaks$mw$,$mw$sidebands$mw$,$mw$bearing frequency calculator$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SKF and Timken bearing frequency calculation guidance; Mobius Institute and Technical Associates vibration analysis references; ISO 13373.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$field-balancing-basics-single-plane$mw$, $mw$Field Balancing Basics: When Unbalance Is the Problem, Single-Plane Balancing with a Trial Weight and a Vibration Meter, the Vector Method Step by Step, and Balance Grade Limits$mw$, $mw$How to confirm unbalance before you balance anything, the safe trial weight from the rotor weight and speed, the single-plane vector method (original run, trial run, calculate the correction), the four-run method that needs no phase reading, where to put and how to fix weights, and how to check the result against the ISO balance grades.$mw$, $mw$> Most "unbalance" on a fan is **build-up** on the blades or a **lost weight**: clean the wheel and look for the clip before you balance. Balancing a dirty fan puts the correction in the wrong place as soon as the dirt falls off.
+
+## Confirm it is unbalance
+
+Unbalance shows as a **steady 1× rpm** vibration, highest in the radial direction, with an amplitude that rises with the square of speed and a phase that stays fixed run to run; both bearings of the rotor read in phase for a single-plane (disc) rotor. Rule out misalignment (2×, axial), looseness (harmonics), resonance (amplitude changes sharply with a small speed change) and a bent shaft (1× with 180° phase across the coupling) first: see [vibration signatures](/article/vibration-signatures). Also check the wheel is tight on the shaft and the bearings are sound.
+
+Single-plane balancing is enough when the rotor is a narrow disc (length under about a quarter of the diameter: fan wheels, pulleys, impellers, flywheels). Long rotors need two-plane balancing (an analyst with a two-channel instrument).
+
+## Equipment
+
+Vibration meter with **phase** (a tachometer or strobe referenced to a piece of reflective tape on the shaft) is the standard tool; a plain overall meter can use the four-run method below. Trial weights: washers, clamp-on weights, tape-on test weights (removed after), a scale for weighing them, chalk and a protractor for marking the rotor, lockout for every stop.
+
+## Trial weight size
+
+Start with a weight that produces a centrifugal force of about **10% of the rotor weight** (some use 5-10% of rotor weight in force, or a rule of thumb of 30 g at the rim per 100 lb of rotor at 1,800 rpm):
+
+```
+Trial weight (oz) = 56,375 × W ÷ (r × N²)
+W = rotor weight (lb), r = radius where the weight goes (in), N = rpm
+Example: 300 lb fan wheel, 18 in radius, 1,200 rpm:
+56,375 × 300 ÷ (18 × 1,440,000) = 0.65 oz  (about 18 g)
+```
+
+Too small a trial weight and the vibration barely changes (bad math); too big and the machine can be damaged: if the trial run vibration doubles, stop and halve the weight.
+
+## Single-plane vector method (with phase)
+
+![Vector diagram: original, original plus trial, and the trial effect](/img/condition-monitoring/single-plane-balancing-vectors.svg)
+
+*Vector diagram: original, original plus trial, and the trial effect*
+
+1. **Original run (O)**: run at operating speed, record amplitude and phase at the bearing nearest the rotor: e.g. 0.30 in/s at 60°.
+2. Stop, lock out. Mark the rotor 0° at the reflective tape; add the **trial weight (T)** at a known angle and radius (say 0°), note its mass.
+3. **Trial run (O+T)**: record again: e.g. 0.45 in/s at 110°.
+4. On polar paper (or a balancing app): draw vector O (0.30 at 60°) and vector O+T (0.45 at 110°). The **effect of the trial weight** is the vector T = (O+T) − O: draw from the tip of O to the tip of O+T and measure its length and direction: say 0.38 in/s at 145°.
+5. The correction weight must produce a vector equal and opposite to O:
+   - **Size**: correction = trial weight × |O| ÷ |T| = trial × 0.30 ÷ 0.38 = 0.79 × trial.
+   - **Angle**: move the weight from the trial position by the angle between T and −O (that is, between T and O plus 180°). Direction convention (with or against rotation) is what most beginners get wrong: try it, and if the second run gets worse, the weight went the wrong way: move it the other direction by twice the angle.
+6. Remove the trial weight, fit the correction weight (or keep the trial weight and add the difference), run, and read the residual. Repeat the vector step with the new reading as the "original" if it is not within the target; two iterations normally reach it.
+
+## Four-run method (no phase reading)
+
+For a meter with amplitude only:
+
+1. Run 1: original amplitude O.
+2. Mark three positions 120° apart (A, B, C). Same trial weight at A: read amplitude a. Move to B: read b. Move to C: read c.
+3. On paper draw a circle of radius O. From three points on it at 0°, 120°, 240° draw circles of radius a, b and c. The three circles intersect (nearly) at one point; the line from the centre to that point has length T (the trial effect) and points at the angle, measured from the same marks, where the trial weight was heaviest in its effect.
+4. Correction weight = trial × O ÷ T, placed **opposite** the direction found (or at the angle the intersection indicates, per the construction). Confirm with a run.
+
+Slower (four starts) but no phase instrument.
+
+## Fixing weights
+
+- Fans: clip-on balance clips on the wheel's back plate rim, or a welded washer (weld on the back, away from the airstream; a weld adds its own weight: weigh a test weld first). Never drill blades unless the maker allows.
+- Pulleys and flywheels: drill a hole at the light spot to remove weight (mass removed = same effect as adding opposite); keep the hole shallow and off the rim edge.
+- Impellers: grind the shroud at the heavy spot lightly and evenly; do not grind vanes.
+- Record the correction (mass, radius, angle) on the work order.
+
+## How good is good enough
+
+ISO 21940-11 balance grades give the permissible residual unbalance per kilogram of rotor: **G6.3** for fans, pumps, general machinery; **G2.5** for turbines, compressors, machine tool spindles; G16 for agricultural and crushing machinery. Field acceptance is usually on vibration instead: below the [ISO severity](/article/vibration-basics-and-iso-severity) zone B limit (about 2.8 mm/s RMS for a mid-size machine) or under about 0.1 in/s peak on a good fan; going below 0.05 in/s is diminishing returns unless the bearings or the process demand it.
+
+## Common mistakes
+
+- Balancing dirt, a bent shaft, a loose hub or a resonance.
+- Trial weight lost during the run (use a positive clamp or tape well; note the direction of the airstream).
+- Phase reference tape moved between runs.
+- Mixing up the angle convention and chasing the weight around the wheel.
+- Reading vibration at a different point or a different speed in the trial run.
+- Skipping the lockout for a "quick" weight change.
+
+## Related
+
+- [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity)
+- [Vibration signatures](/article/vibration-signatures)
+- [Bearing defect frequencies and enveloping](/article/bearing-defect-frequencies-and-envelope)
+- [Idlers, pulleys and lagging (fan and pulley build-up)](/article/idlers-pulleys-and-lagging)
+- [Lockout/tagout basics](/article/lockout-tagout-basics)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$condition-monitoring$mw$),
+          array[$mw$field balancing$mw$,$mw$single plane balancing$mw$,$mw$trial weight$mw$,$mw$balancing a fan$mw$,$mw$balancing an impeller$mw$,$mw$unbalance$mw$,$mw$1x vibration$mw$,$mw$phase$mw$,$mw$vector balancing$mw$,$mw$four run method$mw$,$mw$balance grade$mw$,$mw$ISO 21940$mw$,$mw$G6.3$mw$,$mw$G2.5$mw$,$mw$balance weight$mw$,$mw$residual unbalance$mw$,$mw$fan build-up$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 21940-11 (balance quality requirements, formerly ISO 1940-1); vibration analyst training material (Technical Associates, Mobius Institute); Ludeca and IRD field balancing procedures.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -3991,6 +4149,100 @@ Backlash is the free play between meshing teeth. Too little = binding and heat; 
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gearbox-rebuild-and-shimming-procedure$mw$, $mw$Gearbox Rebuild and Shimming Procedure: Teardown Records, Bearing Replacement, Setting Bevel and Tapered Bearing Preload with Shim Packs, Backlash and Contact Pattern Checks, Seals, Reassembly and Run-In$mw$, $mw$Step-by-step rebuild of an industrial gear reducer: recording everything before teardown, getting the bearings and gears out without damage, deciding what to replace, then the part most people get wrong: setting tapered-bearing preload and bevel-gear position with shim packs, checking backlash and the contact pattern, fitting seals and running it in.$mw$, $mw$## Before you open it
+
+1. **Record**: nameplate (model, ratio, serial, mounting position), oil type and quantity, shaft direction, coupling and sheave positions (measure hub face to shaft end), and all the outside shim thicknesses under the feet.
+2. **Photograph** every side, the breather location, and the oil level plug.
+3. **Drain hot** if possible; keep a sample of the oil and look at the drain plug magnet. Metal on the magnet before you open the box tells you what you will find.
+4. **Get the manual**: shim procedures, preload values, backlash and torque values are specific to the model. The values here are typical, not universal.
+
+## Teardown, in an order you can reverse
+
+1. Clean the outside. Grit in an open gearbox ruins the rebuild.
+2. Remove the cover (split housing) or end caps (unicase). **Note which cap came from which bore** and keep every shim pack together with its cap, labelled. Shims are measured, not guessed.
+3. Measure and record before disturbing:
+   - **backlash** of each mesh with a dial indicator on a tooth (typical 0.004 to 0.012 in for medium industrial boxes, more on big low-speed sets),
+   - **shaft end play** or preload of each shaft (indicator on shaft end, pry gently both ways),
+   - **contact pattern** with marking compound (see below).
+4. Lift shafts out as assemblies. Support gears so they do not hang on a bearing.
+5. Pull bearings with a puller or press on the **inner ring only**. Cut the cage and heat the inner ring if it fights. A bearing pulled by its outer ring goes in the scrap bin.
+6. Inspect gears: pitting, scuffing, spalling, tooth-root cracks, broken tips, wear steps. Inspect bores and housing seats for fretting and score marks. Check the housing joint face for nicks.
+
+## What to replace
+
+- **Every bearing** the shaft was on, unless the box is newly rebuilt and the failure was elsewhere. Bearings are cheap against a second teardown.
+- **All seals, gaskets, and O-rings.**
+- **Gears in pairs.** A new pinion against a worn gear wears the pinion in weeks.
+- **Shafts** with fretted or undersized seats (measure with a micrometer against the drawing; typical interference seat is 0.0005 to 0.0015 in above nominal on a 2 in shaft).
+
+## Assembly of shafts
+
+1. Heat bearings on an induction heater or in oil to 80 to 110 °C and slide them on to the shoulder. Hold with pressure until they grip.
+2. Press gears on to keyed or splined seats; check runout of the pitch line against a V-block or between centres (target under 0.002 in TIR for medium boxes).
+3. Do not fit seals yet. They are the last thing in.
+
+## Setting tapered roller bearing preload with shims
+
+This is the step that decides bearing life. Tapered rollers are set by moving the cap in or out with a **shim pack** between the cap and the housing.
+
+![Shim pack under the bearing cap sets the tapered bearing end play](/img/gearboxes/shim-pack-preload.svg)
+
+*Shim pack under the bearing cap sets the tapered bearing end play*
+
+1. Fit the shaft with its bearings and the cap **without shims** or with a thick trial pack.
+2. Torque the cap bolts in stages.
+3. Measure axial movement with an indicator on the shaft end: push and pull the shaft (rotate while pushing to seat the rollers). This is the **trial end play**.
+4. Required shim pack = trial pack + trial end play − target setting.
+   - Target for most industrial reducers: **0.001 to 0.003 in end play** cold (the manual may specify a light preload of 0.000 to 0.002 in on high-speed pinions).
+   - The box grows when hot; a cold end play becomes a light preload at temperature.
+5. Fit the calculated pack, retorque, re-measure. Rotate the shaft: it should turn freely with no lash you can feel by hand.
+6. Split packs so the thick shims are in the middle and the thin ones outside: they seal better and tear less.
+
+## Setting bevel gear position
+
+Spiral bevel sets are positioned in two directions: the **pinion mounting distance** (how deep the pinion sits) and the **gear axial position** (which sets backlash). Both are shim adjustments and they interact.
+
+![Reading the bevel gear contact pattern](/img/gearboxes/bevel-contact-pattern.svg)
+
+*Reading the bevel gear contact pattern*
+
+1. Read the **mounting distance** etched on the pinion (an MD number, for example "MD 3.125"). Set pinion shims so the measured distance from the pinion back face to the gear axis equals it. A pinion depth gauge or a machinist's height gauge from the housing face does this.
+2. Move the **gear** with its shims until backlash is in range (typical 0.004 to 0.008 in for sets to 12 in diameter). Adding shims on one side means removing the same amount from the other so the preload is unchanged.
+3. Paint three or four teeth on the gear with marking compound and roll the pinion through under a light hand load. Read the pattern:
+   - Centred and about 60 to 80 percent of the face width: correct.
+   - Toward the toe (small end) or heel (large end): move the gear.
+   - Too deep (root) or too shallow (tip): move the pinion.
+   - Pattern moves opposite ways on drive and coast: expected; set for the drive side.
+4. Re-check preload after every move.
+
+## Reassembly
+
+1. New gasket or anaerobic sealant on the joint face (cured RTV squeezed into the oil is a classic filter blocker; use it thinly).
+2. Torque cover bolts in a crossing pattern to the manual values.
+3. Fit seals last, with a sleeve over keyways and a thin film of oil on the lip. Set new seals a little deeper or shallower than the old wear track.
+4. Rotate by hand through several turns; no tight spots, no noise.
+5. Fill with the specified oil to the level plug for the **mounting position**. Fit the breather.
+
+## Run-in
+
+- Run unloaded 15 to 30 minutes; watch temperature and listen.
+- Apply load in steps to full over a shift where the process allows.
+- Log bearing housing temperatures every 15 minutes for the first two hours. Steady under about 80 °C at the bearings and 90 °C oil sump is normal for a mineral-oil industrial reducer; a steady climb is not.
+- Change the oil after 200 to 500 hours to flush assembly debris, then follow the normal interval.
+
+## Common rebuild mistakes
+
+- Shims lost or mixed between caps: preload is wrong on every shaft.
+- Setting preload by feel without an indicator.
+- Pinion mounting distance ignored: pattern at the toe or heel, gear noise, and a new set gone in months.
+- Seal lip pushed over a sharp keyway: leaks on the first day.
+- Breather left off or blocked: pressure pushes oil past the seals.$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
+          array[$mw$gearbox rebuild$mw$,$mw$gearbox overhaul$mw$,$mw$reducer rebuild$mw$,$mw$shim pack$mw$,$mw$bearing preload$mw$,$mw$tapered roller preload$mw$,$mw$bevel gear shimming$mw$,$mw$backlash adjustment$mw$,$mw$contact pattern$mw$,$mw$gear mesh pattern$mw$,$mw$gearbox seal replacement$mw$,$mw$gearbox teardown$mw$,$mw$end play gearbox$mw$,$mw$run in gearbox$mw$,$mw$gearbox inspection$mw$,$mw$bevel gearbox$mw$]::text[], $mw$Falk / Dodge / Rexnord / SEW / Nord (generic)$mw$, array[$mw$Falk Enclosed Drive$mw$,$mw$Dodge Quantis$mw$,$mw$SEW-Eurodrive K series$mw$,$mw$Nord Unicase$mw$,$mw$Rexnord Planetgear$mw$]::text[], $mw$Falk enclosed gear drive service manuals (bearing adjustment and shim procedure); SEW-Eurodrive K-series bevel gearbox assembly instructions; Timken tapered roller bearing setting guide (shim-set preload); AGMA 6013 (gear drive rating and inspection); Rexnord and Dodge Quantis rebuild manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$planetary-and-worm-reducers$mw$, $mw$Worm, Planetary and Cycloidal Reducers: How Each Works, Ratio and Efficiency, Self-Locking, Worm Gear Oils (Compounded, PAG, Synthetic) and Compatibility, Mounting Positions and Vents, Thermal Rating, Bronze Wheel Run-In and Wear, Planetary Ratio Math and Maintenance, Cycloidal (Sumitomo) Basics, Service Factors$mw$, $mw$The three reducer types a millwright meets after the ordinary helical box: worm reducers (why they run hot, why the oil is special, when they hold a load without a brake, and how the bronze wheel wears), planetary reducers (the ratio math, why they are compact, what to check), and the cycloidal drive (how it takes shock), with the mounting, venting, oil and service-factor rules common to all.$mw$, $mw$![Worm and wheel versus sun, planets and ring](/img/gearboxes/worm-and-planetary.svg)
 
 *Worm and wheel versus sun, planets and ring*
@@ -4082,6 +4334,87 @@ Match: ratio (or the output speed), input hp and thermal rating, output torque a
 - [Oil viscosity and selection](/article/oil-viscosity-and-selection)
 - [Power, torque and drive formulas](/article/power-torque-speed-drive-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
           array[$mw$worm gear reducer$mw$,$mw$worm gearbox$mw$,$mw$worm gear oil$mw$,$mw$worm gear efficiency$mw$,$mw$self locking$mw$,$mw$worm gear ratio$mw$,$mw$bronze worm wheel$mw$,$mw$worm gear wear$mw$,$mw$compounded gear oil$mw$,$mw$PAG oil worm$mw$,$mw$mounting position gearbox$mw$,$mw$gearbox vent$mw$,$mw$breather$mw$,$mw$thermal rating$mw$,$mw$planetary gearbox$mw$,$mw$planetary ratio$mw$,$mw$sun planet ring$mw$,$mw$cycloidal reducer$mw$,$mw$Sumitomo Cyclo$mw$,$mw$service factor gearbox$mw$,$mw$gearbox selection$mw$,$mw$gearbox overheating$mw$]::text[], $mw$Boston Gear / Dodge Tigear / Sumitomo Cyclo / Bonfiglioli / Brevini (generic)$mw$, array[$mw$Boston Gear 700 series$mw$,$mw$Dodge Tigear-2$mw$,$mw$Winsmith$mw$,$mw$Sumitomo Cyclo 6000$mw$,$mw$Bonfiglioli 300 series$mw$,$mw$Brevini$mw$,$mw$Falk Quadrive$mw$,$mw$Grove Gear$mw$]::text[], $mw$Boston Gear worm gear reducer manuals and engineering data (efficiency by ratio, lubrication, mounting positions); Dodge Tigear-2 installation manual; AGMA 9005 (lubricants for worm gears: compounded and synthetic); Sumitomo Cyclo 6000 operating manual; Bonfiglioli and Brevini planetary gearbox manuals; AGMA service factor tables.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$reducer-selection-and-service-factor$mw$, $mw$Reducer Selection and Service Factor: AGMA Service Factor Tables by Application and Duty, Mechanical versus Thermal Rating, Ratio and Output Speed, Overhung Load, Choosing a Replacement from the Catalogue$mw$, $mw$How to size or replace a gear reducer from the catalogue: turn the motor power and the application into a required rating with the AGMA service factor, check the box against both its mechanical and its thermal rating, get the ratio from the speeds, and check overhung load on the output shaft before you order.$mw$, $mw$## The idea
+
+A reducer is rated for a **uniform** load over 10 hours a day. Real machines are not uniform. The **service factor** (SF) is the multiplier that turns the motor's power into the reducer rating you must buy:
+
+![Five checks for selecting a reducer](/img/gearboxes/service-factor-selection.svg)
+
+*Five checks for selecting a reducer*
+
+**Required reducer rating = motor power × service factor**
+
+A 10 hp motor on a bucket elevator running 24 hours (SF 1.75) needs a box rated for at least 17.5 hp at the output speed. Buying a "10 hp" box gives short bearing and gear life, which is the usual reason a replacement box fails again.
+
+## Load classification (AGMA)
+
+| Class | Meaning | Examples |
+|---|---|---|
+| Uniform (U) | steady, no shock | centrifugal pumps and fans, belt conveyors uniformly loaded, agitators for liquids |
+| Moderate shock (M) | variable load, some shock | bucket elevators, screw conveyors, mixers with solids, reciprocating compressors (multi-cylinder), hoists |
+| Heavy shock (H) | frequent heavy shock or reversals | crushers, hammer mills, reciprocating feeders, car dumpers, single-cylinder compressors |
+
+## Typical service factors (electric motor drive)
+
+| Load class | up to 3 h/day | 3 to 10 h/day | over 10 h/day |
+|---|---|---|---|
+| Uniform | 1.00 | 1.00 | 1.25 |
+| Moderate shock | 1.00 | 1.25 | 1.50 |
+| Heavy shock | 1.25 | 1.50 | 1.75 |
+
+Add about 0.25 for internal-combustion engine drives with multiple cylinders and 0.50 for single-cylinder engines. Manufacturers publish their own tables listing hundreds of applications; use the manufacturer's table when you have it, because the box rating was derived against it.
+
+Frequent starts (more than 10 an hour) and reversing duty push the factor up a step. Brake motors or plugging count as heavy shock.
+
+## Mechanical rating versus thermal rating
+
+A catalogue box has two ratings at each ratio and input speed:
+
+- **Mechanical rating**: the power the gears and bearings carry for their design life (typically 25,000 hours L10 for bearings under uniform load).
+- **Thermal rating**: the power the box can shed as heat continuously without the oil going over about 93 °C (200 °F) in a 25 °C ambient with no fan.
+
+Select on the smaller of the two. Small boxes at high ratio are mechanically limited; large boxes at high input speed and low ratio are thermally limited. Options for a thermally limited box: shaft fan, cooling coil, a larger box, or accepting a lower continuous duty (the thermal rating is for continuous running; intermittent duty tables allow more).
+
+Worm reducers are almost always thermally limited because of sliding friction; check the thermal column first.
+
+## Ratio and output speed
+
+Ratio = input rpm ÷ required output rpm. A 1750 rpm motor and a 35 rpm conveyor head shaft need 50:1; you would pick the nearest catalogue ratio (say 50.6:1) and live with 34.6 rpm, or change the belt drive between motor and reducer to correct it. Check the catalogue output speed, not the nominal ratio, when speed matters.
+
+Output torque (lb·in) = 63,025 × hp ÷ output rpm. That torque must be within the box rating, and the coupling, sprocket and shaft downstream must take it.
+
+## Overhung load
+
+When the output shaft carries a sprocket, sheave or pinion, the belt or chain pull is a bending load on the output bearings. The catalogue gives an allowable **overhung load (OHL)** at the shaft midpoint.
+
+OHL (lb) = 126,000 × hp × K ÷ (rpm × pitch diameter in inches)
+
+with K = 1.00 for chain sprockets, 1.25 for gears, 1.50 for V-belt sheaves, 2.50 for flat belts. If the calculated OHL exceeds the allowable, use a larger pitch diameter, move the sheave closer to the bearing, or use an outboard bearing. Shaft-mount reducers (Torque-Arm type) avoid the problem because the output is the driven shaft itself.
+
+## Choosing a replacement
+
+1. Read the nameplate: model, ratio, input hp, mounting position, and the **frame size** (the catalogue family).
+2. Confirm it was not undersized: work out the SF from the application and check the old box rating. If it failed early, upsize now.
+3. Match: ratio (nearest, or a different ratio with a belt change), shaft sizes and centre distance (or plan new couplings and base), mounting position, output rotation, and thermal rating.
+4. Check the input: direct coupled motor, C-face gearmotor, or belt drive; C-face requires the same NEMA flange and shaft.
+5. Order oil and breather orientation for the mounting position at the same time.
+
+## Worked example
+
+Screw conveyor, 7.5 hp motor at 1750 rpm, screw at 60 rpm, 16 hours a day, chain drive from the reducer.
+
+- Class: moderate shock; over 10 h: SF 1.50.
+- Required rating: 7.5 × 1.5 = 11.25 hp.
+- Ratio: 1750 ÷ 60 = 29:1; nearest catalogue 30:1 gives 58 rpm.
+- Output torque at 7.5 hp: 63,025 × 7.5 ÷ 58 = 8,150 lb·in.
+- Pick the box whose 30:1 mechanical rating at 1750 rpm input is at least 11.25 hp and whose thermal rating is at least 7.5 hp (the actual motor power, since heat depends on transmitted power).
+- OHL with an 8 in pitch sprocket: 126,000 × 7.5 × 1.0 ÷ (58 × 8) = 2,037 lb; check against the catalogue OHL.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$gearboxes$mw$),
+          array[$mw$service factor$mw$,$mw$AGMA service factor$mw$,$mw$gearbox selection$mw$,$mw$reducer selection$mw$,$mw$reducer sizing$mw$,$mw$thermal rating$mw$,$mw$mechanical rating$mw$,$mw$overhung load$mw$,$mw$OHL$mw$,$mw$gearbox ratio$mw$,$mw$output speed$mw$,$mw$load classification$mw$,$mw$uniform moderate heavy shock$mw$,$mw$gear reducer catalogue$mw$,$mw$gearmotor selection$mw$,$mw$gearbox replacement$mw$,$mw$duty cycle hours per day$mw$]::text[], $mw$AGMA / Dodge / Falk / SEW / Nord (generic)$mw$, array[$mw$Dodge Torque-Arm II$mw$,$mw$Dodge Quantis$mw$,$mw$Falk Enclosed Drive$mw$,$mw$SEW-Eurodrive R/F/K series$mw$,$mw$Nord SK series$mw$,$mw$Boston Gear$mw$]::text[], $mw$AGMA 6013 and ANSI/AGMA 9005 service factor and lubrication standards; Dodge Torque-Arm II and Quantis selection guides (service factor tables, overhung load formulas); Falk enclosed drive catalogue (thermal ratings); SEW-Eurodrive gearmotor catalogue (fB service factor and load classification).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -8202,6 +8535,191 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$how-to-read-a-bearing-catalogue-page$mw$, $mw$How to Read a Bearing Catalogue Page: Designation Codes, Dimensions and Chamfers, Dynamic and Static Load Ratings, Limiting Speeds, Fatigue Load Limit, Suffixes and Prefixes, Mass, and How to Cross-Reference Brands$mw$, $mw$The catalogue page for a bearing series is a table of numbers that answers most questions a millwright asks: will it fit, how much load can it take, how fast can it run, and what do the letters on the end mean. This article walks a standard deep-groove and spherical roller page column by column and explains how to cross-reference between brands.$mw$, $mw$## The page layout
+
+A catalogue page for a series (for example deep groove ball bearings, 60 series) has a drawing at the top with dimension letters, then a table with one row per bearing size. Columns run in this order on most brands:
+
+![One row of a bearing catalogue table explained](/img/manuals/bearing-catalogue-row.svg)
+
+*One row of a bearing catalogue table explained*
+
+1. **Principal dimensions**: d (bore), D (outside diameter), B (width), all in mm.
+2. **Basic load ratings**: C (dynamic), C0 (static), in kN.
+3. **Fatigue load limit** Pu (kN) on SKF and FAG pages.
+4. **Speed ratings**: reference speed and limiting speed, rpm.
+5. **Mass**, kg.
+6. **Designations**: the open bearing, then sealed and shielded variants.
+7. A second table of **abutment and fillet dimensions**: da, Da (shoulder diameters), ra (max fillet radius the bearing chamfer will clear).
+
+## Designation codes
+
+A basic designation is series + bore code: **6205** is series 62 (deep groove, medium-light) and bore code 05. Bore codes: 00 = 10 mm, 01 = 12, 02 = 15, 03 = 17; from 04 upward multiply by 5 (04 = 20 mm, 05 = 25, 12 = 60, 20 = 100).
+
+The first digit(s) give the type: 6 deep groove ball, 7 angular contact ball, 1 self-aligning ball, 2 spherical roller (22, 23), N/NU/NJ cylindrical roller, 3 tapered roller (metric), 5 thrust ball, K needle. The next digit is the dimension series (width and diameter series): 60 lighter, 62 medium, 63 heavy, 64 heaviest for the same bore.
+
+## Prefixes and suffixes
+
+Suffixes carry the details you must match when ordering:
+
+| Suffix | Meaning |
+|---|---|
+| 2RS1 / 2RSR / DDU / LLU / 2RS | contact rubber seal both sides (SKF / FAG / NSK / NTN / Timken) |
+| RS1 (one side) | seal one side |
+| 2Z / ZZ / 2ZR | metal shield both sides |
+| C3, C4 | internal clearance larger than normal (C3 for most hot or interference-fit motor applications); C2 smaller |
+| CN | normal clearance (often not marked) |
+| E | reinforced design (larger rollers, higher rating) |
+| K | tapered bore 1:12 for adapter sleeves; K30 = 1:30 |
+| M, MA, MB | machined brass cage, guided by rollers or by outer/inner ring |
+| J, TN9, TVP | pressed steel cage; glass-fibre polyamide cage |
+| P5, P6 | precision class (ABEC 5, ABEC 3) |
+| W33 | lubrication groove and holes in the outer ring (spherical rollers) |
+| /C3, /W64 | slash suffixes: clearance, grease type (SKF) |
+| VA405, HT | special heat-stabilized or high-temperature variant |
+
+A prefix such as **W** (stainless) or **E2.** (energy efficient, SKF) modifies the whole bearing.
+
+## Load ratings
+
+- **C, basic dynamic load rating**: the constant radial load a group of identical bearings can take for one million revolutions with 90 percent surviving. It is a comparison number, not a working load.
+- **C0, basic static load rating**: the load that produces a permanent indentation of 0.0001 times the rolling element diameter. Stationary or slow oscillating bearings are selected against C0; shock loads at rest also.
+- **Pu, fatigue load limit**: loads below this, with clean oil and good lubrication, give theoretically unlimited life.
+
+Life estimate: **L10 (millions of revolutions) = (C ÷ P)^p** with p = 3 for ball bearings and 10/3 for roller bearings, P the equivalent dynamic load. In hours: L10h = 1,000,000 ÷ (60 × rpm) × (C ÷ P)^p. A 6205 (C = 14.8 kN) under 1.5 kN at 1750 rpm: (14.8 ÷ 1.5)³ = 961 million rev = 9,150 hours. That is why a lightly loaded motor bearing outlasts a heavily loaded pump bearing many times over.
+
+## Speed ratings
+
+- **Reference speed**: the speed at which the bearing reaches a stable 70 °C under a standard light load with oil bath or normal grease. Above it you need to check the thermal limit.
+- **Limiting speed**: the mechanical maximum for the cage and seals. Contact seals (2RS) cut the limit sharply; shields (2Z) barely change it.
+
+## Dimensions that bite
+
+- **Chamfer r (rs min)**: the housing and shaft fillet radius must be **smaller** than this or the bearing sits on the fillet and runs out of square.
+- **Shoulder diameters da, Da**: the minimum shaft shoulder and maximum housing shoulder so the rings, not the cage, are supported.
+- Sealed bearings can be a fraction wider than the open version on some series; check B.
+
+## Cross-referencing brands
+
+Boundary dimensions are ISO standard, so a 6205 from any brand fits the same seat. What changes is suffix spelling and the load rating (an E design may rate higher). Match:
+
+1. Basic number (6205, 22220).
+2. Seal or shield type (2RS1 = 2RSR = DDU = LLU).
+3. Clearance (C3 in all brands).
+4. Cage material for high speed or high temperature.
+5. Tapered bore (K) and any W33 groove on sphericals.
+
+Then confirm the ratings in the new catalogue are equal or better. A bearing interchange is a mechanical statement and belongs on the work order.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+          array[$mw$bearing catalogue$mw$,$mw$bearing catalog$mw$,$mw$how to read bearing catalogue$mw$,$mw$bearing designation$mw$,$mw$bearing number$mw$,$mw$dynamic load rating$mw$,$mw$C rating$mw$,$mw$static load rating$mw$,$mw$C0$mw$,$mw$limiting speed$mw$,$mw$reference speed$mw$,$mw$bearing suffix$mw$,$mw$bearing prefix$mw$,$mw$2RS$mw$,$mw$ZZ$mw$,$mw$C3$mw$,$mw$bearing dimensions$mw$,$mw$bearing cross reference$mw$,$mw$interchange$mw$,$mw$bearing mass$mw$,$mw$fatigue load limit$mw$]::text[], $mw$SKF / FAG (Schaeffler) / NSK / NTN / Timken (generic)$mw$, array[$mw$SKF 6205-2RS1$mw$,$mw$SKF 22220 E$mw$,$mw$FAG 6205-2RSR$mw$,$mw$NSK 6205DDU$mw$,$mw$NTN 6205LLU$mw$,$mw$Timken 6205-2RS$mw$]::text[], $mw$SKF Rolling Bearings catalogue (product table layout and designation system); Schaeffler FAG catalogue HR1; NSK and NTN ball and roller bearing catalogues; ISO 15 (boundary dimensions), ISO 281 (dynamic load ratings and life).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$how-to-read-a-coupling-and-sheave-selection-table$mw$, $mw$How to Read a Coupling and Sheave Selection Table: Coupling Service Factors and Torque Ratings, Bore and Keyway Limits, Sheave Datum Diameter and Belt Section, Belt Length Tables, Arc of Contact and Belt Count from Rated Horsepower$mw$, $mw$Manufacturer catalogues size couplings and V-belt drives through tables, and the tables only work if you use the right service factor, the right diameter definition and the correction factors printed in small type. This article explains the coupling selection page (torque rating, service factor, bore and keyway) and the belt drive page (rated hp per belt, arc and length corrections, belt count) with a worked example of each.$mw$, $mw$## Coupling selection page
+
+1. **Service factor table** near the front lists applications (centrifugal pump 1.0, screw conveyor 1.5, reciprocating compressor 2.0 to 3.0, crusher 2.5 to 3.0). Pick the factor for the driven machine; add 0.25 for reversing duty on some brands.
+2. **Design torque** (lb·in) = 63,025 × hp × SF ÷ rpm.
+3. **Size table**: one row per coupling size with nominal torque (lb·in or Nm), maximum bore (in), maximum speed (rpm), misalignment capacity (parallel in, angular degrees), overall dimensions, and the elastomer or grid options. Choose the smallest size whose **nominal torque exceeds the design torque**, then check:
+   - **maximum bore** takes both shafts (a coupling can fail selection on bore alone; go up a size),
+   - **maximum speed** is above running speed (important for elastomeric couplings on 3550 rpm pumps),
+   - **misalignment capacity** covers the installed alignment tolerance,
+   - **keyway**: standard square keyways per ANSI B17.1 for the bore; a step-bore or a set-screw-only hub is not for interference fits.
+4. Some tables list **hp per 100 rpm** instead of torque; multiply by rpm ÷ 100 and compare with hp × SF.
+
+**Example**: 25 hp, 1750 rpm, screw conveyor, SF 1.5. Design torque = 63,025 × 25 × 1.5 ÷ 1750 = 1,351 lb·in. In the L-series jaw table, an L-150 (nominal 1,240 lb·in) is too small; an L-190 (1,728 lb·in, max bore 1.75 in) is the pick if both shafts are 1.75 in or smaller; a 1.875 in motor shaft forces an L-225.
+
+## Elastomer inserts
+
+The insert material has its own torque rating in the same table: NBR (Buna) baseline, urethane about 1.5 times, Hytrel about 3 times, bronze for slow high-torque duty. The coupling torque rating is the **lower** of the hub and the insert rating; changing spider material changes the selection.
+
+## Sheave and belt selection page
+
+V-belt catalogues follow a fixed order:
+
+![V-belt drive selection steps with a worked example](/img/manuals/belt-selection-steps.svg)
+
+*V-belt drive selection steps with a worked example*
+
+1. **Service factor** (1.0 to 1.6 for electric motor drives, higher for engines and intermittent duty) → **design hp** = motor hp × SF.
+2. **Belt section selection chart**: design hp against faster shaft rpm gives the section (3V, 5V, 8V for narrow belts; A, B, C, D for classical; 3VX/5VX and AX/BX for notched).
+3. **Sheave diameter**: catalogues list **datum** (classical belts, formerly pitch) or **outside** diameter (narrow belts). Speed ratio uses datum diameters: ratio = driven datum ÷ driver datum. Keep the small sheave above the belt minimum (for example 5V: 4.4 in minimum; B: 5.4 in datum) and the belt speed under 6,500 ft/min for cast iron.
+4. **Belt length table**: for the sheave pair and centre distance, read the belt number (5V1000 = 100 in outside length). The table also gives the exact centre distance for a standard belt; centres must allow about 1.5 percent shorter for installation and 3 percent longer for take-up.
+5. **Rated hp per belt** table: enter with the small sheave rpm and diameter; read basic hp, then add the **speed ratio additional hp** column.
+6. **Correction factors**: arc of contact (below 180° on the small sheave: 0.99 at 170°, 0.95 at 150°, 0.89 at 130°) and belt length (short belts below 1.00, long belts above). Corrected hp per belt = rated × arc × length.
+7. **Belt count** = design hp ÷ corrected hp per belt, rounded up.
+
+**Example**: 30 hp motor, 1750 rpm, driving a fan at 900 rpm, 16 hours a day, SF 1.3 → design 39 hp. Section 5V. Driver 7.1 in, driven 14.0 in outside (ratio 1.97). Centre distance 36 in → belt 5V850. Rated hp per belt at 1750 rpm and 7.1 in: about 10.5 plus 0.8 for ratio = 11.3; arc factor 0.97, length factor 0.98 → 10.7 per belt. 39 ÷ 10.7 = 3.6 → **4 belts**, so a 4-groove 5V sheave pair, matched set.
+
+## Bushings
+
+QD and taper-lock sheaves are listed with the **bushing size** (SH, SD, SK, SF, E, F, J, M for QD; 1108, 1610, 2517, 3020 for taper-lock) and the bushing table gives the maximum bore and the keyway. Bore the bushing, not the sheave. Bushing screws have their own torque table (QD SK: 15 ft·lb; SF: 30 ft·lb; E: 60 ft·lb), and a bushing overtightened past its rated torque splits the hub.
+
+## Checking what was installed
+
+Catalogues also let you audit an existing drive: count belts, read the sheave part numbers (they encode groove count, section and OD: 4/5V14.0 is four grooves, 5V, 14.0 in) and work backward to the hp the drive can carry. An undersized drive that keeps throwing belts is cheaper to fix by adding a groove than by replacing belts monthly.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+          array[$mw$coupling selection$mw$,$mw$coupling service factor$mw$,$mw$coupling torque rating$mw$,$mw$jaw coupling size chart$mw$,$mw$grid coupling selection$mw$,$mw$sheave selection$mw$,$mw$V belt selection$mw$,$mw$belt horsepower table$mw$,$mw$belt length table$mw$,$mw$datum diameter$mw$,$mw$pitch diameter$mw$,$mw$arc of contact$mw$,$mw$belt count$mw$,$mw$number of belts$mw$,$mw$QD bushing bore$mw$,$mw$max bore coupling$mw$,$mw$coupling catalogue$mw$,$mw$how to read selection table$mw$]::text[], $mw$Lovejoy / Rexnord Falk / TB Wood's / Gates / Dodge / Martin (generic)$mw$, array[$mw$Lovejoy L-series jaw$mw$,$mw$Falk Steelflex T$mw$,$mw$Rexnord Omega$mw$,$mw$TB Wood's Sure-Flex$mw$,$mw$Gates Super HC$mw$,$mw$Dodge QD sheaves$mw$,$mw$Martin sheaves$mw$]::text[], $mw$Lovejoy jaw coupling catalogue (selection procedure, service factors, nominal torque, maximum bore); Rexnord Falk Steelflex selection guide; Gates Heavy Duty V-belt drive design manual (rated hp per belt, arc of contact and length correction factors); TB Wood's and Dodge sheave and QD bushing catalogues.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$how-to-read-a-pump-curve-sheet$mw$, $mw$How to Read a Pump Curve Sheet: Head-Capacity Curve, Impeller Trim Lines, Efficiency Islands, Power and NPSHr Curves, Best Efficiency Point, Finding the Operating Point on a Manufacturer Data Sheet$mw$, $mw$A manufacturer pump curve sheet holds five things: the head-capacity curves for each impeller diameter, the efficiency lines, the power curves, the NPSH required curve and the best efficiency point. This article walks through a typical ANSI end-suction sheet line by line, then shows how to find where your pump is actually running and whether that is a safe place.$mw$, $mw$## What is on the sheet
+
+The header identifies the pump: model and size (for example 3x4-13 means 3 in discharge, 4 in suction, 13 in maximum impeller), speed (1750 or 3550 rpm for 60 Hz), curve number and the impeller pattern. The curves are drawn for water at 20 °C; viscous or dense liquids need correction.
+
+![An annotated manufacturer pump curve sheet](/img/manuals/pump-curve-sheet-anatomy.svg)
+
+*An annotated manufacturer pump curve sheet*
+
+The plot has **flow** (US gpm or m³/h) along the bottom and **total head** (ft or m) up the side. Head is the energy per unit weight and does not depend on the liquid density, which is why pump curves use head and not pressure.
+
+## Head-capacity curves
+
+Several curves fan out from the top left, one per **impeller diameter** (13 in, 12 in, 11 in, down to the minimum trim). At zero flow each meets the axis at **shut-off head**; head falls as flow rises toward **run-out** at the right end.
+
+- A steady, continuously falling curve is a **stable** curve. A curve that rises before it falls (a hump) is unstable near shut-off and should not be run there.
+- Trimming the impeller lowers the whole curve: head falls roughly with the square of diameter, flow with the diameter, power with the cube.
+- The pump delivers the head where its curve crosses the **system curve** (static lift plus friction, which rises with the square of flow). Closing a valve steepens the system curve and moves the point left and up.
+
+## Efficiency
+
+Efficiency is drawn either as islands (closed contours labelled 60, 65, 70 percent) or as lines sweeping up across the diameter curves. The peak of efficiency for each diameter is the **best efficiency point (BEP)**. The Hydraulic Institute preferred operating region is **70 to 120 percent of BEP flow**, and the allowable region about 50 to 120 percent.
+
+Running far left of BEP (throttled) gives high radial load on the shaft, recirculation, vibration and seal problems; running far right gives cavitation risk and motor overload on an end-suction pump. Most bearing and seal failures on process pumps come from running far off BEP, not from the bearings.
+
+## Power
+
+Brake horsepower is drawn either as separate curves per diameter (usually lower on the sheet) or as slanted lines across the head curves. On an end-suction radial pump, power rises with flow, so the motor must cover the power at the **end of curve** (run-out) or you risk overloading it if the discharge is ever wide open. A **non-overloading** selection picks a motor larger than the run-out power.
+
+BHP = flow (gpm) × head (ft) × specific gravity ÷ (3960 × efficiency).
+
+## NPSH required
+
+A separate curve near the bottom gives **NPSHr** in feet against flow. It rises steeply toward run-out. Your system must supply more than this: **NPSHa should exceed NPSHr by at least 3 ft or 10 percent, whichever is larger** (some services require more). NPSHr on the sheet is the 3 percent head-drop value, which means cavitation has already started at that point; the margin is not optional.
+
+## Finding your operating point
+
+1. Read the suction and discharge gauges with the pump running; correct for gauge elevation relative to the pump centreline and for velocity head if the pipe sizes differ.
+2. Total head (ft) = (Pd − Ps in psi) × 2.31 ÷ specific gravity (plus the elevation and velocity corrections).
+3. Draw a horizontal line at that head to the curve for your impeller diameter (from the nameplate or the last rebuild record); read the flow below it.
+4. Compare with BEP. Check the power at that point against the motor amps.
+5. If the point does not land on any diameter curve the impeller is worn, the speed is wrong, or the liquid is not water-like.
+
+## Using the sheet for a rebuild or a change
+
+- **New impeller diameter**: choose the trim whose curve passes through the required duty with a small margin; do not trim below the minimum diameter on the sheet.
+- **Speed change** with a VFD: flow scales with speed, head with speed squared, power with speed cubed (affinity laws). Slowing a pump 20 percent saves about half the power.
+- **Viscous liquids**: use the HI viscosity correction charts; efficiency drops fast above about 100 cSt.
+
+## Where to file it
+
+Attach the curve sheet, the data sheet and the sectional drawing to the pump's article under Manuals so the next person can find the impeller diameter, the clearances and the bearing numbers in one place.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$manuals$mw$),
+          array[$mw$pump curve$mw$,$mw$how to read pump curve$mw$,$mw$head capacity curve$mw$,$mw$impeller trim$mw$,$mw$efficiency curve$mw$,$mw$BEP$mw$,$mw$best efficiency point$mw$,$mw$NPSHr$mw$,$mw$NPSH required$mw$,$mw$pump power curve$mw$,$mw$brake horsepower pump$mw$,$mw$system curve$mw$,$mw$operating point$mw$,$mw$pump data sheet$mw$,$mw$pump performance curve$mw$,$mw$Goulds 3196 curve$mw$,$mw$shut off head$mw$,$mw$run out$mw$]::text[], $mw$Goulds / Flowserve / Grundfos / KSB / Sulzer (generic)$mw$, array[$mw$Goulds 3196$mw$,$mw$Goulds 3656$mw$,$mw$Flowserve Durco Mark 3$mw$,$mw$Grundfos CR$mw$,$mw$KSB Etanorm$mw$,$mw$Sulzer CPT$mw$]::text[], $mw$Goulds Pumps 3196 performance curve booklets and data sheet layout; Hydraulic Institute ANSI/HI 14.6 (rotodynamic pump test) and HI curve conventions; Flowserve Durco Mark 3 curve sheets; Grundfos CR curve booklet.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$dial-indicator-use$mw$, $mw$Dial Indicators: Types, Setup, Reading Runout and Avoiding Cosine Error$mw$, $mw$Plunger (AGD) versus lever (test) indicators, how to mount them so the reading is real, measuring shaft and hub runout, reading TIR and sign, and the cosine-error correction for tilted test indicators.$mw$, $mw$## Two kinds
 
 | | Plunger (AGD dial indicator) | Lever (dial test indicator) |
@@ -8275,6 +8793,77 @@ Keep the stylus under 10° and ignore it; over that, correct or re-mount.
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$feeler-gauges-and-thickness-measurement$mw$, $mw$Feeler Gauges and Thickness Measurement: Using and Stacking Feelers, Reading Bearing Clearance, Gaps and Soft Foot, Plus Taper Gauges, Shim Gauges and Ultrasonic Thickness$mw$, $mw$The feel that makes feeler gauge readings repeatable, how to stack blades and when not to, measuring bearing internal clearance, coupling gaps, soft foot and flange gaps, using taper (wedge) and shim gauges, checking journal clearance with plastic gauge strip, and reading wall thickness with an ultrasonic gauge.$mw$, $mw$> A feeler gauge reading is a **feel**, not a number the tool gives you: the right blade drags slightly when pulled, and the next size up will not go in. Two people with the same set should agree within one blade.
+
+## The set
+
+Blades from 0.0015 to 0.035 in (0.04 to 1.0 mm) in a folding holder; long blades (12 in) for bearing housings and machine bases; bent-tip blades for spark plugs and tight spots. Keep them oiled, straight and free of burrs; a bent blade reads thick. Metric and inch sets are not interchangeable at the thin end (0.002 in = 0.05 mm, but 0.0015 in has no metric twin).
+
+## Technique
+
+![Light drag both ways; stack blades for in-between sizes](/img/measurement/feeler-gauge-technique.svg)
+
+*Light drag both ways; stack blades for in-between sizes*
+
+1. Clean the gap: oil and grit change the reading by a blade or two.
+2. Start thin, go up: the correct blade slides in with a **light, even drag** along its full length; the next thicker will not enter without forcing.
+3. Pull straight, do not twist or lever; keep the blade flat to the surfaces.
+4. **Stack** blades only when you must, up to about three, and clean them first; a stack of thin blades reads slightly thick (oil film between them). Where stacking is common (soft foot), a **taper gauge** is quicker.
+5. Record the largest blade that goes, and note where along the gap it was measured.
+
+## Where a millwright uses them
+
+| Job | How | Numbers |
+|---|---|---|
+| **Bearing radial clearance** (spherical and cylindrical roller, larger ball bearings) | Blade between the **top (unloaded) roller** and the outer ring, bearing seated, roller pushed down; use the long blade | See [clearance tables](/article/bearing-clearance-and-fits-tables); on an adapter sleeve mount, measure before and after drive-up, see [SKF drive-up](/article/skf-drive-up-card) |
+| **Soft foot** | Bolt loose, blade under the foot at four corners | Over 0.002 in = correct it; see [soft foot](/article/soft-foot-correction) |
+| **Coupling gap** | Blade or taper gauge between hub faces at four points | Gap per the coupling table; difference between top and bottom = angular misalignment; see [coupling gap](/article/coupling-types-gap-and-installation) |
+| **Flange face gap / parallelism** | Around the flange at four points before bolting | See [pipe strain](/article/pipe-strain-and-flange-alignment) |
+| **Impeller to casing clearance** | Blade between vane and casing at several vanes | Typical 0.015 in cold; see [impeller clearance](/article/impeller-clearance-and-wear-rings) |
+| **Gear backlash (rough)** | Blade between teeth at the pitch line | Better with a dial indicator; see [gear inspection](/article/gear-inspection-and-tooth-failure) |
+| **Bench grinder rest** | 1/8 in blade between rest and wheel | [Grinder gaps](/article/grinding-and-abrasives-safety) |
+| **Valve, breaker and contactor gaps** | Per the manual | |
+
+## Taper (wedge) gauge and shim gauge
+
+A taper gauge is a hardened wedge marked in thousandths along its length: push it into the gap until it stops and read at the edge. Quick for soft foot and flange gaps from 0.010 to 0.500 in. A shim gauge (slotted shim thicknesses on a ring) identifies shim stock thickness without a micrometer.
+
+## Plastic gauge strip (Plastigage) for journal bearings
+
+For plain (sleeve) bearings where a feeler cannot reach: lay a strip of the plastic gauge across the journal, fit the cap and torque it (do not turn the shaft), remove the cap and compare the flattened strip's width to the scale on the packet: the width gives the clearance (green 0.001-0.003 in, red 0.002-0.006 in, blue 0.004-0.009 in). Wipe it off afterwards.
+
+## Ultrasonic thickness gauge
+
+Measures wall thickness from one side (tanks, pipe, plate, casings, corrosion checks):
+
+1. Calibrate on the step block that came with it (or a known thickness of the same material) at the velocity for the material (steel 0.2330 in/µs; the gauge has a table).
+2. Grind or wire-brush a clean spot, couplant gel on it, probe flat and steady; read when the number holds.
+3. Take a grid of readings (every 6-12 in on a corrosion survey) and record the minimum; compare with the required minimum wall from the vessel or pipe spec (see [pipe schedules](/article/pipe-schedule-and-flange-tables)).
+4. Coated surfaces: an echo-to-echo mode ignores paint; otherwise remove it. Pitted surfaces read the remaining wall under the probe only: probe the pits.
+
+Coating thickness (paint on steel) is a different, magnetic-induction gauge; do not confuse them.
+
+## Common mistakes
+
+- Forcing a blade in: a bent blade and a false reading.
+- Measuring bearing clearance at the bottom roller (it is loaded) or with the bearing not fully seated.
+- Feeler in an oily coupling gap without cleaning.
+- Ultrasonic reading through mill scale or with no couplant: no echo or a wrong echo.
+- Trusting a stack of six thin blades.
+
+## Related
+
+- [Reading a caliper](/article/reading-a-vernier-caliper)
+- [Dial indicator use](/article/dial-indicator-use)
+- [Bearing clearance and fits tables](/article/bearing-clearance-and-fits-tables)
+- [Soft foot correction](/article/soft-foot-correction)
+- [Shim and gasket making](/article/shim-and-gasket-making)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
+          array[$mw$feeler gauge$mw$,$mw$feeler gauges$mw$,$mw$thickness gauge$mw$,$mw$gap measurement$mw$,$mw$bearing clearance feeler$mw$,$mw$soft foot feeler$mw$,$mw$taper gauge$mw$,$mw$shim gauge$mw$,$mw$plastigauge$mw$,$mw$ultrasonic thickness gauge$mw$,$mw$UT thickness$mw$,$mw$wall thickness$mw$,$mw$coating thickness$mw$,$mw$feeler stacking$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Starrett feeler gauge notes; SKF bearing clearance measurement guidance; Plastigage instructions; Olympus and Cygnus ultrasonic thickness gauge manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$reading-a-micrometer$mw$, $mw$Reading an Outside Micrometer (Inch and Metric, with Vernier)$mw$, $mw$How an inch micrometer divides an inch, the three-part reading (sleeve, thimble, vernier), a metric reading, how to use the ratchet and hold the mic, and how to check it against a standard.$mw$, $mw$## How it works
 
 The spindle screw on an **inch** micrometer has **40 threads per inch**. One full turn of the thimble moves the spindle **1/40" = 0.025"**. The thimble is divided into **25** parts, so one thimble division = **0.001"**. A vernier scale on the sleeve adds **0.0001"** (a "tenth").
@@ -8333,6 +8922,302 @@ Common trap: a thimble line looks aligned but the next sleeve line is *almost* u
 - [Dial indicator use and care](/article/dial-indicator-use)
 - [Decimal equivalents, tap drills and conversions](/article/shop-reference-tables)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
           array[$mw$micrometer$mw$,$mw$reading a mic$mw$,$mw$vernier micrometer$mw$,$mw$thimble$mw$,$mw$barrel$mw$,$mw$sleeve$mw$,$mw$ratchet$mw$,$mw$calibration$mw$,$mw$gauge block$mw$,$mw$tenths$mw$,$mw$0.0001$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Mitutoyo and Starrett micrometer instructions; general shop practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$reading-a-vernier-caliper$mw$, $mw$Reading a Vernier, Dial and Digital Caliper: Inch and Metric Scales, the Four Measurements, Accuracy Limits and the Checks Before You Trust It$mw$, $mw$How to read the three caliper types in inch and metric, take outside, inside, depth and step measurements correctly, what accuracy to expect (about 0.001 in, never a micrometer substitute), and the zero, jaw and squareness checks that catch a bad reading before it becomes a bad part.$mw$, $mw$> A caliper reads to 0.001 in (0.02 mm) but is only trustworthy to about **0.002 in** on a good day: the jaws flex, the work tilts and the beam wears. Use it to get close and to measure inside, depth and step; use a [micrometer](/article/reading-a-micrometer) when a fit depends on the last thousandth.
+
+## The four measurements
+
+![The four measurements a caliper makes](/img/measurement/vernier-caliper-parts.svg)
+
+*The four measurements a caliper makes*
+
+| Measurement | Jaws | Rules |
+|---|---|---|
+| **Outside** (diameter, thickness) | Large lower jaws | Deep in the jaws, not the tips; jaws square to the axis; rock slightly to find the true diameter (smallest reading) |
+| **Inside** (bore, slot) | Small upper "knife" jaws | Tips fully in the bore, rock to find the largest reading; knife jaws read small on bores under about 1/4 in; add nothing on modern calipers (the scale allows for the jaw thickness) |
+| **Depth** | Depth rod from the beam end | Beam end flat and square on the surface, rod straight down; do not lean the beam |
+| **Step** | End of the beam and the jaw face | Rest the beam end on the upper surface, the fixed jaw face on the lower |
+
+## Reading a vernier caliper (inch, 0.001 in)
+
+![Reading an inch vernier: 1.436 in step by step](/img/measurement/vernier-scale-reading.svg)
+
+*Reading an inch vernier: 1.436 in step by step*
+
+1. Main scale: each inch is divided into tenths and each tenth into 4, so one main-scale line = **0.025 in**.
+2. Read the main scale at the vernier's **zero** line: the last main line passed. Example: past 1 in, past the 2 (0.200), past two more lines (0.050) = **1.250**.
+3. Find the **one** vernier line that lines up exactly with any main-scale line. The vernier has 25 divisions (0 to 25); the matching line's number is thousandths. Example: line 14 aligns = **0.014**.
+4. Add: 1.250 + 0.014 = **1.264 in**.
+
+Metric vernier (0.02 mm): main scale in millimetres; vernier 50 divisions over 49 mm, each 0.02 mm. Read whole mm at the vernier zero, then the aligned vernier line × 0.02. Example: 31 mm + line 17 (0.34) = 31.34 mm.
+
+## Dial caliper
+
+Main scale in 0.1 in; the dial makes one turn per 0.1 in with 100 divisions of 0.001 in. Read the last 0.1 in mark passed, add the dial. Dial calipers skip and jump if the rack gets a chip in it: blow it out, zero it against the closed jaws by rotating the bezel, and check that it returns to zero after a full travel.
+
+## Digital caliper
+
+Zero with the jaws closed and clean (the "ZERO/ABS" button); the "INC" mode lets you zero at any point to measure a difference. Metric/inch toggle; battery low = drifting readings, replace it. Never store it with the jaws slammed closed; never use it on a running lathe.
+
+## Before you trust a reading
+
+1. **Zero**: close the jaws, hold up to the light: no gap visible, reading 0.000. A light line means worn or bent jaws.
+2. **Jaw wear**: measure a gauge block or a good micrometer standard (1.000 in) at the tips and deep in the jaws; readings must agree within 0.001 in.
+3. **Squareness**: measure a ground shaft, rotate the caliper a little each way: the smallest reading is right, and a caliper that reads 0.003 in different at a small tilt is being held wrong.
+4. **Pressure**: a caliper has no ratchet; use a light, consistent thumb pressure. Squeezing hard reads small.
+5. **Temperature**: your hand on the beam for a minute warms and lengthens it; measure and set it down.
+6. Burrs, paint, chips and oil under the jaws all read big.
+
+## Worked examples
+
+- Shaft for a 6205 bearing (25 mm nominal, k5 fit 25.002-25.011): a caliper reading 25.00 mm tells you it is in the neighbourhood; the fit needs a micrometer.
+- Bore of a bushing: inside jaws read 1.253 in rocked to the largest; a telescoping gauge and micrometer read 1.2515 in. The caliper knife jaws read big on a chamfered bore edge: measure deeper in.
+- Keyway depth: depth rod on the shaft surface into the keyway bottom: 0.125 in; check with the [key size table](/article/keys-and-keyways).
+
+## Common mistakes
+
+- Measuring at the jaw tips (they spring open).
+- Trusting the inside jaws in a small bore or against a radius.
+- Not zeroing a digital caliper after cleaning the jaws.
+- Reading the wrong vernier line because two look aligned: pick the one whose neighbours are equally off on each side.
+- Using a caliper as a scriber or a clamp (bends the jaws).
+
+## Related
+
+- [Reading a micrometer](/article/reading-a-micrometer)
+- [Telescoping and bore gauges](/article/telescoping-and-bore-gauges)
+- [Feeler gauges and thickness measurement](/article/feeler-gauges-and-thickness-measurement)
+- [Bearing fits and tolerances](/article/bearing-clearance-and-fits-tables)
+- [Shop reference tables: decimal equivalents](/article/shop-reference-tables)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
+          array[$mw$caliper$mw$,$mw$vernier caliper$mw$,$mw$dial caliper$mw$,$mw$digital caliper$mw$,$mw$reading a vernier$mw$,$mw$0.001 in$mw$,$mw$0.02 mm$mw$,$mw$outside measurement$mw$,$mw$inside measurement$mw$,$mw$depth$mw$,$mw$step$mw$,$mw$caliper accuracy$mw$,$mw$zeroing a caliper$mw$,$mw$Abbe error$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Mitutoyo and Starrett caliper instructions; Machinery's Handbook (measuring instruments); ASME B89.1.14 (calipers).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$surface-plate-height-gauge-and-squares$mw$, $mw$Surface Plate, Height Gauge, Squares and Straightedges: Checking Flatness, Squareness and Parallelism in the Shop, and Setting Up Layout Work$mw$, $mw$How to use the surface plate as the reference for everything else: measuring heights and parallelism with a height gauge and indicator, checking squareness with a square, a cylinder square or the reversal method, checking flatness with a straightedge and feelers or bluing, holding round work in V-blocks, setting angles with a sine bar, and keeping the plate itself accurate.$mw$, $mw$> The surface plate is the flattest thing in the shop: a granite plate is flat to about 0.0001 in over its length (grade B; grade A better). Everything measured on it inherits that flatness, which is why it is kept clean, covered, level and never used as a bench.
+
+## The plate
+
+- **Clean** it with the plate cleaner or isopropyl alcohol and a lint-free cloth before use; grit under a part scratches the plate and lifts the reading.
+- **Level** it (a plate on a stand with three feet) so oil and instruments do not drift; flatness does not need level, repeatability does.
+- **Cover** it; never hammer, punch or weld on it; slide parts on, do not drop them; keep the same spot from wearing by spreading the work around.
+- Check flatness yearly with a repeat-reading gauge or by a calibration service; a plate with a worn dip in the middle reads everything wrong.
+
+## Height gauge
+
+Vernier, dial or digital, 6 to 24 in, with a hardened scriber or an indicator holder.
+
+![Height gauge and sine bar on the surface plate](/img/measurement/height-gauge-and-sine-bar.svg)
+
+*Height gauge and sine bar on the surface plate*
+
+1. Zero on the plate (scriber on the plate, or a gauge block if the scriber is offset) and lock.
+2. **Scribing a layout line**: set the height, lock, and draw the scriber across the part held against an angle plate or standing on a machined face; layout dye first. Lines are parallel to the plate, so the datum face must sit on the plate or against the angle plate.
+3. **Measuring a height**: with a dial test indicator in the holder, zero on a gauge block stack or the plate, then read the difference on the part. Compare, do not rely on the height gauge scale alone for the last thousandth.
+4. **Parallelism**: indicator on the top face, slide the gauge across: the total indicator movement is the parallelism error relative to the bottom face on the plate.
+5. Keep the beam square: a height gauge with a loose base or worn scriber reads tilted.
+
+## Squares
+
+| Square | Use | Check |
+|---|---|---|
+| **Combination square** (rule, square head, protractor head, centre head) | Layout, 45/90° checks, depth, centre of round stock | Hold the head on a straight edge, scribe along the rule, flip the head, scribe again: the two lines must coincide (the reversal check) |
+| **Machinist (solid) square** | Squareness of parts against the plate; setting a mill vice | Reversal against a cylinder square or the plate: stand the square on the plate, indicate its blade top to bottom, flip 180°, indicate again; half the difference is the square's error |
+| **Cylinder square** | A ground cylinder whose axis is square to its base within 0.0001 in: the shop's squareness master | Rotate it and indicate; it should read the same all round |
+| **Precision (bevelled-edge) square** | Checking machine ways, fixtures | Light test: a gap of 0.0001 in shows light |
+| Framing square | Fabrication, not precision | Check with the 3-4-5 rule |
+
+**Checking a part for squareness**: part on the plate, square blade against the vertical face, look for light at the top or bottom; or indicate the vertical face against the cylinder square. Squareness error is stated as a gap per length (0.001 in per 6 in).
+
+## Straightedges and flatness
+
+- Steel or granite straightedge (bevelled edge) on the surface: light under it shows high and low spots; a **feeler** under the edge measures the gap (bearing pedestals, machine feet, flanges).
+- **Bluing**: thin film of Prussian blue on the plate, part rubbed gently on it: blue transfers to the high spots. Three-point contact = a rocking part. Used for scraping, machine ways, gearbox split lines and checking a bearing's fit in its housing.
+- A 4 ft straightedge and feelers checks a baseplate before grouting: see [leveling and machine setting](/article/leveling-and-machine-setting).
+
+## V-blocks, angle plates and parallels
+
+- **V-blocks** hold round stock on the plate; matched pairs keep a shaft parallel to the plate; indicate the shaft top along its length for straightness (bent shaft check: rotate and read runout, see [dial indicator use](/article/dial-indicator-use)).
+- **Angle plate** (90° box or plate) gives a vertical datum to clamp parts to for scribing and measuring.
+- **Parallels** lift work for indicating and for drilling on a mill.
+
+## Sine bar
+
+Sets an accurate angle from gauge blocks: **block stack = sine bar length × sin(angle)**. A 5 in sine bar at 20°: 5 × 0.3420 = 1.7101 in of blocks under one roller. Indicate along the part on the bar: zero movement means the part's angle equals the set angle. Tables in [trig and layout formulas](/article/trig-and-layout-formulas).
+
+## Common mistakes
+
+- A dirty plate, a dirty part, or a burr on the part: all read as errors in the part.
+- Scribing from a face that was not on the plate.
+- Trusting a dropped square; checking a square with another unchecked square.
+- Reading the height gauge scale for a measurement instead of comparing with an indicator.
+- Leaving tools on the plate overnight (rust rings on cast iron plates; oil stains on granite).
+
+## Related
+
+- [Dial indicator use](/article/dial-indicator-use)
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Reading a caliper](/article/reading-a-vernier-caliper)
+- [Trig and layout formulas (sine bar table)](/article/trig-and-layout-formulas)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
+          array[$mw$surface plate$mw$,$mw$granite plate$mw$,$mw$height gauge$mw$,$mw$vernier height gauge$mw$,$mw$combination square$mw$,$mw$machinist square$mw$,$mw$cylinder square$mw$,$mw$straightedge$mw$,$mw$flatness$mw$,$mw$squareness$mw$,$mw$parallelism$mw$,$mw$surface gauge$mw$,$mw$V-block$mw$,$mw$angle plate$mw$,$mw$gauge blocks$mw$,$mw$sine bar$mw$,$mw$layout on a surface plate$mw$,$mw$checking a square$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Starrett and Mitutoyo height gauge and square instructions; ASME B89.3.7 (granite surface plates); Machinery's Handbook (checking squares, sine bar tables).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$telescoping-and-bore-gauges$mw$, $mw$Telescoping Gauges, Small-Hole Gauges, Dial Bore Gauges and Inside Micrometers: Measuring a Bore Correctly for a Bearing or Bushing Fit$mw$, $mw$Which bore gauge to use for which size and accuracy, the rocking technique that makes a telescoping gauge read true, how to zero and read a dial bore gauge against a micrometer or setting ring, measuring at several depths and angles to find taper and out-of-round, and the housing bore numbers a bearing fit needs.$mw$, $mw$> A bore is never measured once. Measure at **two angles (90° apart) and three depths**: the spread between readings is the out-of-round and the taper, and it decides whether the housing or bushing is any good before the diameter does.
+
+## Which gauge
+
+| Gauge | Range | Reads to | Use |
+|---|---|---|---|
+| **Telescoping (snap) gauge** set, transfer to an outside micrometer | 5/16 to 6 in in 6 gauges | ±0.0005 in with practice | The everyday bore tool for bushings, housings, cylinders |
+| **Small-hole (ball) gauge** set, transfer to a micrometer | 1/8 to 1/2 in | ±0.0005 in | Small bores, keyway widths, slots |
+| **Dial bore gauge** (zeroed to a ring or micrometer) | 0.7 to 12 in with extensions | 0.0001 in comparison | Fast, repeatable; taper and out-of-round in one sweep; cylinder bores, bearing housings |
+| **Inside micrometer** (tubular, with extension rods) | 2 in and up | 0.001 in direct | Large housings, pump casings; awkward under 2 in |
+| **Caliper inside jaws** | any | 0.002-0.005 in | Rough check only, see [reading a caliper](/article/reading-a-vernier-caliper) |
+| **Plug or ring gauge** (go / no-go) | fixed size | pass/fail | Production checks of a known fit |
+
+## Telescoping gauge technique
+
+![Rock the telescoping gauge through the centre, then measure it with a micrometer](/img/measurement/telescoping-gauge-technique.svg)
+
+*Rock the telescoping gauge through the centre, then measure it with a micrometer*
+
+1. Pick the gauge whose range brackets the bore; clean the bore.
+2. Loosen the lock, compress the plungers, insert the gauge slightly tilted with the handle a little **above** square, and let the plungers spring out gently.
+3. Snug the lock lightly. Rock the handle **down through square** in one motion: the plungers get pushed in to the true diameter as the gauge passes through the shortest line across the bore. Do not rock side to side afterwards.
+4. Tighten the lock, withdraw the gauge without touching the plungers.
+5. Measure over the plunger ends with an outside micrometer using the **same light feel** as the rocking pass; the ratchet is usually too heavy: use the friction thimble or the same fingertip pressure every time.
+6. Repeat three times; readings should agree within 0.0005 in. If they spread more, your rocking pass is inconsistent.
+
+Small-hole gauge: expand the ball until it drags lightly when rocked through the bore, lock, withdraw and mic over the ball at the widest point.
+
+## Dial bore gauge
+
+1. Fit the anvil and extension for the size; set the range so the dial sits near the middle of its travel at the nominal size.
+2. **Zero** it: in a setting ring of the nominal size (best) or between the anvils of an outside micrometer set to the nominal and clamped in a stand. Rock the gauge until the needle reverses; set the bezel zero at the reversal point.
+3. In the bore: insert, rock through square in the plane of the anvils; the reading at the **needle reversal** is the diameter's difference from nominal. Plus means bigger than nominal on most gauges: check which way yours reads.
+4. Sweep at the top, middle and bottom of the bore and at 90°: record all six.
+
+## Reading the pattern
+
+| Readings | Meaning | Consequence |
+|---|---|---|
+| All within 0.0005 in | Round, straight | Fit from the tables |
+| Differ between the 0° and 90° readings | **Out-of-round** (ovality) | Housings distort bearings: over about 0.0005 in on a bearing seat = rebore or replace |
+| Bigger at the mouth than deep in | **Bell mouth** (worn or bad boring) | Interference fit will not hold; cylinders leak past rings |
+| Steady change end to end | **Taper** | Bushing pinches at one end |
+| Bigger in the middle | Barrel (hone or bore stroke too short) | |
+
+## Housing bore numbers for bearings
+
+Use the [bearing fits table](/article/bearing-clearance-and-fits-tables): a rotating-inner-ring load wants a housing about **H7** (e.g. 62 mm housing for a 6206: 62.000 to +0.030 mm); a stationary shaft with a rotating housing wants a tight housing (N7/P7). A housing bore measured 0.002 in over H7 lets the outer ring creep and hammer: sleeve it, bore and fit a liner, or use a bearing retaining compound only as a stopgap. Check also the shoulder squareness and that the bore is not oversize only at the snap-ring groove.
+
+## Common mistakes
+
+- Rocking the telescoping gauge in both planes: it reads small.
+- Mic pressure different from the gauge feel: the transfer adds error.
+- Zeroing a bore gauge on a micrometer without a stand (it wobbles) or with the anvils not on the same axis.
+- One reading, one place.
+- Measuring a hot housing: 0.0007 in per inch per 100°F.
+
+## Related
+
+- [Reading a caliper](/article/reading-a-vernier-caliper)
+- [Reading a micrometer](/article/reading-a-micrometer)
+- [Bearing fits and clearances](/article/bearing-clearance-and-fits-tables)
+- [Lathe basics: boring a bushing](/article/lathe-basics-for-millwrights)
+- [Impeller clearance and wear rings](/article/impeller-clearance-and-wear-rings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
+          array[$mw$telescoping gauge$mw$,$mw$snap gauge$mw$,$mw$T-gauge$mw$,$mw$small hole gauge$mw$,$mw$ball gauge$mw$,$mw$dial bore gauge$mw$,$mw$inside micrometer$mw$,$mw$measuring a bore$mw$,$mw$bore diameter$mw$,$mw$housing bore$mw$,$mw$bushing bore$mw$,$mw$out of round$mw$,$mw$taper$mw$,$mw$bell mouth$mw$,$mw$bore gauge setting ring$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Starrett and Mitutoyo instructions for telescoping, small-hole and dial bore gauges; Machinery's Handbook; SKF housing bore tolerance guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$torque-wrench-use-and-calibration$mw$, $mw$Torque Wrench Use and Calibration: Click, Beam, Dial and Digital Types, Correct Pull, Extensions and Crowfoot Math, Accuracy and the Checks That Keep a Wrench Honest$mw$, $mw$How to get the torque the chart asks for onto the bolt: the right wrench type and range, the smooth pull at the handle centre, why you never use a click wrench past its click or as a breaker bar, the formula for a crowfoot or extension that changes the lever arm, torque-plus-angle methods, and how to check calibration with a simple weight-and-arm test or a tester.$mw$, $mw$> A torque wrench controls **friction plus stretch**, not stretch alone: the same torque on a dry bolt, an oiled bolt and an anti-seized bolt gives three different clamp loads. Use the chart's condition (see [bolt torque chart](/article/bolt-torque-chart-sae-metric) and [anti-seize](/article/anti-seize-and-galling)), and make the wrench itself repeatable with the habits below.
+
+## Types
+
+| Type | Accuracy (new) | Notes |
+|---|---|---|
+| **Click (micrometer adjust)** | ±4% clockwise, often ±6% counter-clockwise | The shop standard; set, pull until the click, stop. Wind back to the lowest setting for storage (spring relaxes) |
+| **Beam** | ±4% | No spring to wear; read the pointer while pulling; cheap and honest; awkward in tight spots |
+| **Dial** | ±2-4% | Reads peak or live torque; used for checking and for prevailing torque (running torque of a locknut) |
+| **Digital (electronic)** | ±1-2% | Peak hold, angle mode, presets, audible/vibrating signal; needs batteries and a gentle life |
+| **Preset / production** | ±4-6% | Fixed torque, no scale; for one repeated job |
+| **Hydraulic** | ±3% of gauge | Flange and structural bolting over about 1,000 ft-lb; pressure-to-torque chart per tool; see [flange bolting](/article/flange-bolting-and-gaskets) |
+| **Torque multiplier** (gearbox) | depends on input | 4:1 to 25:1; input torque × ratio × efficiency (about 0.9-0.95); reaction arm needs a solid stop |
+| Impact wrench "torque sticks" | ±20-30% at best | Not a torque wrench: final tightening by a real wrench |
+
+## Using a click wrench
+
+1. Pick a wrench whose range covers the target in its **middle 20-80%**: a 250 ft-lb wrench is wrong for 25 ft-lb.
+2. Set the value: unlock, turn the handle to the main scale + the vernier on the handle (e.g. 90 + 5 = 95 ft-lb), lock.
+3. Socket square on the fastener; hand on the **centre of the handle grip** (the wrench is calibrated for that point); no extensions on the handle.
+4. Pull **smoothly and slowly** in the plane of the wrench until it clicks: one click, then stop. A second click adds torque. Do not jerk, do not use it to break bolts loose, do not drop it.
+5. For multi-bolt joints follow the sequence and stages: see [flange bolting](/article/flange-bolting-and-gaskets).
+6. After the job set it back to the minimum, keep it in its case.
+
+Counter-clockwise use only if the wrench is rated for it (many click wrenches are not, or are less accurate).
+
+## Extensions and crowfoot adapters
+
+An extension **along the wrench axis** (straight socket extension, downward) changes nothing. An adapter that **lengthens the lever** (crowfoot, dog-bone, spanner adapter in line with the handle) makes the wrench apply more torque than it reads:
+
+![Correcting the wrench setting for a crowfoot or extension](/img/measurement/torque-wrench-extension.svg)
+
+*Correcting the wrench setting for a crowfoot or extension*
+
+```
+Setting on the wrench = Target × L ÷ (L + E)
+
+L = wrench length from the centre of the handle grip to the square drive
+E = extra length from the square drive to the centre of the adapter (in line with the wrench)
+```
+
+Example: target 100 ft-lb, wrench L = 18 in, crowfoot E = 2 in: set 100 × 18 ÷ 20 = **90 ft-lb**. If the crowfoot is put on at **90°** to the wrench, E = 0 and the setting stays 100 ft-lb: the easy way when there is room.
+
+## Torque plus angle
+
+Some joints (head bolts, torque-to-yield bolts, some coupling and structural bolts) specify a snug torque **then an angle** (e.g. 30 ft-lb + 90°). The angle controls stretch directly and is insensitive to friction. Mark the socket and the part, or use an angle gauge or a digital wrench's angle mode; do not reuse torque-to-yield bolts.
+
+## Checking calibration
+
+Every 5,000 cycles or 12 months (ISO 6789), after a drop, or whenever readings feel wrong:
+
+**Weight and arm check** (good to about ±3%):
+1. Clamp the square drive horizontally in a vice (a socket on a bolt held in the vice).
+2. Measure the distance from the drive centre to the centre of the handle grip (L, in feet or inches).
+3. Hang a known weight (W) at the grip centre from a cord: torque = W × L (lb × ft = ft-lb). A 25 lb weight at 18 in = 25 × 1.5 = 37.5 ft-lb.
+4. Set the click wrench slightly below and above that value and confirm it clicks only at or above. Test at 20%, 60% and 100% of range.
+5. Out by more than 4%: send it for calibration (a calibration lab adjusts and certifies it) or replace it.
+
+A bench torque tester (electronic) does the same faster and gives a certificate.
+
+## Common mistakes
+
+- Using a click wrench as a breaker bar or past the click.
+- Pulling from the end of the handle or with two hands at different points.
+- Leaving it wound up to 200 ft-lb in the drawer for a year.
+- Forgetting to correct for a crowfoot in line with the handle.
+- Torquing over a lubricated thread with a dry-torque value (30-40% over-stretched bolts).
+- Chrome sockets on impact wrenches to "get close first": the impact strips the thread and lies about torque.
+
+## Related
+
+- [Bolt torque chart](/article/bolt-torque-chart-sae-metric)
+- [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
+- [Anti-seize and galling](/article/anti-seize-and-galling)
+- [Fastener locking methods](/article/locking-methods)
+- [Hand and power tool safety](/article/hand-and-power-tool-safety)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$measurement$mw$),
+          array[$mw$torque wrench$mw$,$mw$click torque wrench$mw$,$mw$beam torque wrench$mw$,$mw$dial torque wrench$mw$,$mw$digital torque wrench$mw$,$mw$torque wrench calibration$mw$,$mw$crowfoot torque$mw$,$mw$extension torque formula$mw$,$mw$torque angle$mw$,$mw$torque wrench accuracy$mw$,$mw$ISO 6789$mw$,$mw$hydraulic torque wrench$mw$,$mw$torque multiplier$mw$,$mw$impact wrench torque$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 6789 (hand torque tools); ASME B107.300; Snap-on, CDI and Norbar torque wrench instructions; Bolt Science and Fastenal torque-tension guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -9338,6 +10223,174 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Victor acetylene tip chart](/article/victor-tip-chart-acetylene)
 - [Lockout / tagout basics](/article/lockout-tagout-basics)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$oxy-fuel$mw$),
           array[$mw$safety$mw$,$mw$acetylene$mw$,$mw$oxygen$mw$,$mw$cylinder storage$mw$,$mw$flashback arrestor$mw$,$mw$check valve$mw$,$mw$backfire$mw$,$mw$flashback$mw$,$mw$hot work permit$mw$,$mw$fire watch$mw$,$mw$PPE$mw$,$mw$1/7 rule$mw$]::text[], $mw$$mw$, array[]::text[], $mw$OSHA 29 CFR 1910.253; CGA P-1 and G-1; Victor manual 0056-3260.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$oxy-fuel-welding-and-braze-welding-tips$mw$, $mw$Oxy-Acetylene Welding and Braze Welding: Welding Tip Sizes by Thickness, Flame Setting, Puddle and Rod Technique, Forehand and Backhand, and Bronze Braze Welding of Steel and Cast Iron$mw$, $mw$The oxy-acetylene process a millwright still uses on thin sheet, small tube, field repairs and cast iron: tip size and pressure by thickness, the neutral flame and why it matters, puddle control with the forehand and backhand techniques, RG45 and RG60 rods, and braze welding with bronze rod for cast iron, galvanised and dissimilar repairs.$mw$, $mw$> Gas welding is slow and puts a lot of heat into the part, but it needs no electricity, welds very thin steel without burn-through, and braze welding with bronze fixes cast iron and thin galvanised parts that an arc would crack or burn. It only works with **acetylene** (see [propane limits](/article/propane-and-propylene-cutting)).
+
+## Welding tip sizes (Victor W-J / 100 series, acetylene)
+
+| Tip | Steel thickness | Oxygen psi | Acetylene psi | Rod diameter |
+|---|---|---|---|---|
+| 000 | up to 1/32 in (26-24 ga) | 3 | 3 | 1/16 |
+| 00 | 1/32-1/16 in (22-18 ga) | 4 | 4 | 1/16 |
+| 0 | 1/16-3/32 in (16 ga) | 5 | 5 | 1/16-3/32 |
+| 1 | 3/32-1/8 in (14-11 ga) | 6 | 6 | 3/32 |
+| 2 | 1/8-3/16 in | 7 | 7 | 3/32-1/8 |
+| 3 | 3/16-1/4 in | 8 | 8 | 1/8 |
+| 4 | 1/4-5/16 in | 9 | 9 | 1/8-5/32 |
+| 5 | 5/16-3/8 in | 10 | 10 | 5/32 |
+| 6 | 3/8-1/2 in | 11 | 11 | 3/16 |
+
+Equal pressures for welding tips is the Victor convention; other makers list slightly different numbers. Stay under 15 psi acetylene always and inside the 1/7 cylinder withdrawal rule (a #5 tip on a small cylinder draws too fast: see [cylinder handling](/article/compressed-gas-cylinder-handling)).
+
+## Flame
+
+- Light the acetylene, raise it until the smoke clears, then add oxygen until the acetylene feather **just disappears** into a sharp inner cone: **neutral**. Welding steel is done with a neutral flame; a carburising flame (feather showing) adds carbon and makes a hard, porous weld; an oxidising flame (short, hissing, pointed cone) burns the steel and foams the puddle.
+- Flame types are pictured in the [flame guide](/article/oxy-acetylene-setup-victor).
+- Inner cone tip held **1/16-1/8 in** above the puddle; the cone never touches the metal.
+
+## Technique
+
+![Forehand torch and rod angles; bronze rod tins first](/img/oxy-fuel/oaw-braze-technique.svg)
+
+*Forehand torch and rod angles; bronze rod tins first*
+
+1. **Clean** the joint (grind, wire brush; no paint or galvanising unless braze welding with ventilation).
+2. **Tack** every 1-2 in on sheet; on a butt joint leave a gap of about the sheet thickness and expect the seam to close as you weld: tack from one end and adjust.
+3. **Puddle first**: hold the flame on the start until a shiny molten puddle forms, then move it along, adding rod into the front edge of the puddle (not into the flame). The puddle should be round and about 1/4 in across on 16 ga.
+4. **Forehand** (rod ahead of the flame, torch tilted 45° in the travel direction): the preheating flame goes ahead; the usual method for sheet up to 1/8 in; smooth thin beads.
+5. **Backhand** (torch points back at the finished weld, rod between flame and weld): more heat control and penetration for 1/8 in and thicker plate and for pipe; slower travel, fewer passes.
+6. Keep the rod end inside the outer flame between dips so it does not oxidise; a rod that sticks to the puddle means the puddle went cold.
+7. Finish by lifting the flame slowly while adding a last dab to fill the crater.
+
+**Rods**: RG45 (mild, general, 45 ksi) for sheet and non-critical work; RG60 (60 ksi) for pipe and plate; copper-coated to stop rust. Never use coat-hanger wire (unknown steel, zinc-plated: porosity). Diameter roughly equals the sheet thickness.
+
+## Distortion
+
+Gas welding heats a wide zone: tack often, weld short sections (back-step), clamp, and let sheet cool between passes; see [distortion control](/article/distortion-control).
+
+## Braze welding with bronze rod
+
+Braze welding uses a bronze rod (RBCuZn-C, flux-coated or with separate flux) at **1,600-1,700°F**, below the melting point of steel: the base metal does not melt, the bronze bonds to a "tinned" surface and builds a fillet.
+
+Where it wins: **cast iron** repairs (no cracking from fusion welding, see [welding cast iron](/article/welding-cast-iron-and-repairs)), thin **galvanised** sheet (with ventilation and a respirator: zinc fume), copper or brass to steel, and worn parts that need build-up without hardness.
+
+1. Clean to bright metal; V out cracks in castings; preheat castings to 400-600°F, warm plate to 200°F.
+2. **Slightly oxidising** flame (short cone, slight hiss) for bronze: it reduces zinc fuming and improves flow.
+3. Heat the joint to a dull red; touch the flux-coated rod to the hot metal so flux runs ahead; when the surface **tins** (bronze flows and wets, does not ball up) add rod and build the fillet. Too hot = bronze boils, white fumes, weak bond; too cold = balls up, no tinning.
+4. Braze weld in the flat position where possible; the fillet needs the same size as a steel fillet.
+5. Cool castings slowly (sand, blanket); wire-brush the glassy flux off when cool.
+
+Bronze braze welds are about 40-60 ksi tensile, softer than steel, and cannot be used above about 500°F service or on parts that will be painted with high-bake coatings; tell the customer it is a braze.
+
+## Common mistakes
+
+- Carburising or oxidising flame on steel (porous, hard, or foamy beads).
+- Cone in the puddle (blows the puddle out, carbon pickup).
+- Rod fed into the flame instead of the puddle; rod withdrawn out of the flame envelope.
+- No gap on a butt joint: the seam laps as it shrinks.
+- Braze welding without flux, without preheat on castings, or with a carburising flame.
+- Galvanised without ventilation: metal fume fever.
+
+## Related
+
+- [Oxy-acetylene setup, lighting and shutdown](/article/oxy-acetylene-setup-victor)
+- [Victor tip chart (welding nozzle data)](/article/victor-tip-chart-acetylene)
+- [Brazing and soldering (silver brazing, torch technique)](/article/brazing-and-soldering)
+- [Welding cast iron and repairs](/article/welding-cast-iron-and-repairs)
+- [Oxy-fuel safety](/article/oxy-fuel-safety)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$oxy-fuel$mw$),
+          array[$mw$oxy acetylene welding$mw$,$mw$gas welding$mw$,$mw$OAW$mw$,$mw$welding tip size$mw$,$mw$welding tip chart$mw$,$mw$neutral flame welding$mw$,$mw$forehand welding$mw$,$mw$backhand welding$mw$,$mw$RG45 rod$mw$,$mw$RG60 rod$mw$,$mw$braze welding$mw$,$mw$bronze rod$mw$,$mw$RBCuZn-C$mw$,$mw$flux coated bronze rod$mw$,$mw$gas welding thin sheet$mw$,$mw$pipe gas welding$mw$,$mw$gas welding cast iron$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Victor welding nozzle flow data (W-J and 100 series); AWS A5.2 (RG rods) and A5.8 (RBCuZn brazing filler); Lincoln and ESAB oxy-acetylene welding guides; AWS C4.2.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$propane-and-propylene-cutting$mw$, $mw$Cutting and Heating with Propane and Propylene Instead of Acetylene: Tips, Pressures, Regulators, Flame Setting and What Each Gas Cannot Do$mw$, $mw$Why plants switch to propane or propylene for cutting and heating (cost, safety, storage), the different two-piece tips and higher oxygen pressures they need, typical Victor GPN and HPN settings by plate thickness, how to set the flame when there is no acetylene-style feather, and the jobs (gas welding, some brazing) that still need acetylene.$mw$, $mw$> Propane and propylene cut and heat as well as acetylene once the **tip, regulator and technique** match the gas. They fail when someone fits an acetylene tip and expects an acetylene flame: the preheat takes forever, the tip pops, and the cut is blamed on the gas.
+
+## The gases compared
+
+![Propane needs a two-piece tip, more oxygen and a longer preheat](/img/oxy-fuel/propane-vs-acetylene.svg)
+
+*Propane needs a two-piece tip, more oxygen and a longer preheat*
+
+| | Acetylene | Propylene (and MAPP-substitutes, Chemtane) | Propane | Natural gas |
+|---|---|---|---|---|
+| Flame temperature (with O2) | 5,720°F | 5,190°F | 4,580°F | 4,600°F |
+| Primary (inner cone) heat | highest, concentrated | good | low: heat is in the outer flame | low |
+| Preheat time for cutting | shortest | slightly longer | 1.5-2 × acetylene | longer |
+| Oxygen used per fuel volume | 1.1-1.5 : 1 | 3.5-4 : 1 | 4-4.5 : 1 | 1.5-2 : 1 |
+| Cylinder | dissolved in acetone, 15 psi max, 1/7 withdrawal rule | liquid, high pressure | liquid, 100-150 psi vapour | pipeline |
+| Cost per BTU | highest | middle | lowest | lowest |
+| Gas welding steel | yes | no (oxidising, low temperature) | no | no |
+| Silver brazing | yes | yes | yes (slower) | yes |
+| Heavy heating, bending, shrink fits | yes (rosebud, many cylinders) | very good | very good, cheap: the usual choice for big heating | good in the shop |
+| Cutting thick plate | good | good | good, slower start | good |
+| Fuel hose | red, grade R or T | grade T | **grade T** (R hose rots in propane) | grade T |
+
+Propylene is the "acetylene replacement" that behaves most like it; propane is the cheap heating and cutting gas. Both are heavier than air (leaks pool in pits and lows); acetylene is lighter.
+
+## Tips
+
+Alternate fuels burn on the outside of the flame, so tips are **two-piece** with a recessed, splined or grooved inner section that stabilises the flame and keeps the preheat flames from blowing off:
+
+| Fuel | Victor cutting tip series | Heating tips |
+|---|---|---|
+| Acetylene | 1-101, 3-101 (one-piece) | MFA (rosebud) |
+| Propane / natural gas | **GPN** (and 1-GPN for lighter duty), GPM | MFN |
+| Propylene / MAPP-type | **HPN** | MFN or MFA-P |
+
+Using an acetylene one-piece tip on propane pops and backfires; a propane tip on acetylene gives a ragged, oxidising flame.
+
+## Typical settings: Victor GPN cutting tips, propane or natural gas
+
+| Tip | Plate | Oxygen psi | Fuel psi | Preheat O2 psi setting note |
+|---|---|---|---|---|
+| 000 | 1/8 in | 20-25 | 2-5 | preheat flames set neutral-slightly oxidising after the cut starts |
+| 00 | 1/4 in | 25-30 | 2-5 | |
+| 0 | 3/8 in | 30-35 | 3-5 | |
+| 1 | 1/2 in | 35-40 | 3-5 | |
+| 2 | 3/4 in | 40-45 | 3-6 | |
+| 3 | 1 in | 45-50 | 3-6 | |
+| 4 | 2 in | 50-60 | 4-8 | |
+| 5 | 3 in | 55-65 | 5-10 | |
+| 6 | 4-5 in | 60-75 | 6-12 | |
+
+Propylene (HPN tips) uses about the same oxygen and 4-8 psi fuel. These are starting points from the Victor charts for 25 ft of hose; the plate, torch model and hose length shift them, and the **oxygen regulator must be a higher-flow model** (heavy-duty, 100 psi delivery) for propane cutting over about 1 in, because the oxygen-to-fuel ratio is three times that of acetylene. See the acetylene equivalents in the [Victor tip chart](/article/victor-tip-chart-acetylene).
+
+## Setting the flame
+
+Propane has no bright feather to judge by. Method:
+
+1. Open the fuel, light, and increase fuel until the flame just stops smoking and leaves the tip.
+2. Add oxygen until the preheat flames become short, sharp **blue cones** with a clear outline; a faint white feather becoming a crisp inner cone is neutral. Adding more oxygen makes the cones shorter and the flame hiss: slightly oxidising, which is normal for propane cutting once the cut is started (it speeds preheat).
+3. For heating and brazing keep it neutral to slightly carburising; a rosebud on propane wants the flame 1/4-1/2 in off the work, further than acetylene.
+4. Preheat to bright red on the edge before pressing the oxygen lever; with propane hold the tip **closer** to the plate (1/16-1/8 in) than with acetylene and keep the preheat cones just touching the surface.
+
+## Hoses, regulators and arrestors
+
+- **Grade T hose** for propane and propylene (grade R is for acetylene only and degrades in LPG).
+- Fuel regulator with the **CGA 510** inlet fits propane cylinders (POL); check the regulator is rated for LPG (some acetylene regulators use seat materials that LPG attacks).
+- Flashback arrestors and check valves as for any oxy-fuel outfit: [oxy-fuel safety](/article/oxy-fuel-safety).
+- Propane cylinders upright: drawing liquid instead of vapour freezes the regulator and floods the torch. Big rosebuds draw fast enough to frost the cylinder: manifold two cylinders or warm the cylinder with water (never a flame).
+- Leaks pool: check low spots and pits, and store cylinders outside.
+
+## What propane will not do
+
+- **Gas welding** steel: the flame is too cool and oxidising; use acetylene or an arc process.
+- Fast starts on thick plate with a small tip: use the next size up and accept a longer preheat.
+- Silver brazing very thin work fast: it works but the heat is broad; keep the flame moving.
+
+## Related
+
+- [Oxy-acetylene setup, lighting and shutdown (Victor)](/article/oxy-acetylene-setup-victor)
+- [Victor acetylene tip chart](/article/victor-tip-chart-acetylene)
+- [Oxy-fuel cutting technique](/article/oxy-fuel-cutting-technique)
+- [Heating with a rosebud](/article/oxy-fuel-heating-rosebud)
+- [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$oxy-fuel$mw$),
+          array[$mw$propane cutting$mw$,$mw$propylene cutting$mw$,$mw$propane vs acetylene$mw$,$mw$LPG cutting$mw$,$mw$propane tip$mw$,$mw$GPN tip$mw$,$mw$propylene tip$mw$,$mw$propane pressure$mw$,$mw$oxygen propane pressures$mw$,$mw$two piece tip$mw$,$mw$preheat propane$mw$,$mw$propane cannot weld$mw$,$mw$chemtane$mw$,$mw$MAPP$mw$,$mw$flame temperature$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Victor and Harris tip charts for propane/natural gas (GPN, GPM series) and propylene (HPN); Linde and Airgas fuel gas comparison guides; CGA fuel gas practice.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -14193,6 +15246,916 @@ Use SJTW/SOOW or better cords, three-prong, GFCI-protected; a cord that is warm 
 - [Sheet-metal developments](/article/sheet-metal-developments)
 - [Unit conversions (extended)](/article/unit-conversions-extended)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
           array[$mw$sheet metal gauge chart$mw$,$mw$gauge to inches$mw$,$mw$16 gauge thickness$mw$,$mw$14 gauge$mw$,$mw$11 gauge$mw$,$mw$10 gauge$mw$,$mw$galvanized gauge$mw$,$mw$stainless gauge$mw$,$mw$aluminum gauge$mw$,$mw$plate weight per square foot$mw$,$mw$AWG wire gauge$mw$,$mw$wire diameter$mw$,$mw$wire ampacity$mw$,$mw$NEC 310.16$mw$,$mw$welding cable ampacity$mw$,$mw$extension cord gauge$mw$,$mw$drill rod sizes$mw$,$mw$sheet weight$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Manufacturers' Standard Gauge for sheet steel (US); Galvanized Sheet Gauge; US Standard Gauge (stainless); Brown and Sharpe / AWG (aluminium and non-ferrous, copper wire); NEC 2023 Table 310.16 (60/75/90°C copper); Machinery's Handbook; welding cable maker tables (Lincoln, Direct Wire).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$millwright-glossary$mw$, $mw$Millwright Glossary A to Z: One-Line Definitions of the Trade Terms Used in This Knowledge Base, from Adapter Sleeve and Angularity to Wire Rope Lay and Yield Strength$mw$, $mw$An A to Z glossary of the words a millwright meets on drawings, in catalogues, in manuals and on the floor: bearings, alignment, welding, cutting, hydraulics, lubrication, rigging, pumps, conveyors, motors and measurement. One line each, in plain language, so you can look a term up fast and then search the knowledge base for the full article.$mw$, $mw$Search this page with your browser's find function, or use the app search box with the term; most entries have a full article behind them.
+
+![How to use the glossary](/img/study/glossary-lookup.svg)
+
+*How to use the glossary*
+
+## A
+
+- **Adapter sleeve**: a tapered, slotted sleeve with a locknut that clamps a tapered-bore bearing onto a plain shaft.
+- **Affinity laws**: the rules that flow varies with pump speed, head with speed squared and power with speed cubed.
+- **AGMA**: American Gear Manufacturers Association; publishes gear ratings, service factors and lubricant standards.
+- **Angularity**: shaft misalignment where the centrelines meet at an angle, expressed in mils per inch or degrees.
+- **Anchor bolt**: bolt cast or set into concrete to hold a base down; needs free stretch length to stay tight.
+- **Arc blow**: deflection of a DC welding arc by magnetic fields, worst near the ends of a joint and at the work clamp.
+- **Arc flash**: the explosive release of energy from an electrical fault, rated in cal/cm² for PPE selection.
+- **Axial**: along the shaft centreline. Axial float is end-to-end movement of a shaft in its bearings.
+
+## B
+
+- **Babbitt**: soft white-metal bearing alloy poured or bonded into sleeve bearings.
+- **Backlash**: the clearance between meshing gear teeth measured at the pitch line.
+- **Base metal**: the material being welded or cut.
+- **Basket hitch**: a sling passed under the load with both ends on the hook.
+- **Bearing housing**: the casting that holds a bearing; pillow block, flange block or take-up.
+- **BEP (best efficiency point)**: the flow at which a pump is most efficient and its radial loads are lowest.
+- **Beta ratio**: filter efficiency: particles upstream divided by particles downstream at a given size.
+- **Bevel**: an angled edge cut for a weld groove; also a gear type with intersecting shafts.
+- **Bore**: the inside diameter of a bearing, sheave, hub or cylinder.
+- **BPFO, BPFI, BSF, FTF**: bearing defect frequencies for outer race, inner race, rolling element and cage.
+- **Brinelling**: indentation of a bearing raceway by static overload or hammer blows through the rolling elements (false brinelling is fretting wear from vibration while stationary).
+- **Bushing**: a removable sleeve bearing, or the tapered hub (QD, taper-lock) that fixes a sheave to a shaft.
+
+## C
+
+- **C and C0**: the dynamic and static basic load ratings of a bearing from the catalogue.
+- **Cavitation**: vapour bubbles forming in a pump or hydraulic pump inlet at low pressure and collapsing violently downstream.
+- **Centre of gravity**: the point where a load's weight acts; the hook must be above it for a level lift.
+- **Choker hitch**: a sling passed around the load and through its own eye, capacity about 75 to 80 percent of vertical.
+- **Clearance (bearing)**: the internal play between rings and rolling elements; C2 less than normal, CN normal, C3 and C4 greater.
+- **Cold lap**: weld metal that lies on the base metal without fusing; overlap at the toe.
+- **Contact pattern**: the marking-compound footprint showing where gear teeth touch; used to set bevel and hypoid gears.
+- **Coupling**: the device joining two shafts; rigid, elastomeric (jaw, tire), grid, gear or disc.
+- **Crest and root**: the top and bottom of a thread or gear tooth.
+- **Cylinder (hydraulic)**: a linear actuator; force equals pressure times piston area.
+
+## D
+
+- **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
+- **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
+- **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
+- **Dowel**: a hardened pin that fixes the position of a machine or cover after alignment.
+- **Drive-up**: the axial distance a tapered-bore bearing is pushed up its seat to reach the correct fit reduction.
+- **Duty cycle**: the percentage of a 10 minute period a welding machine can run at a given current; also machine operating hours per day for service factors.
+
+## E
+
+- **Electrode**: the consumable (SMAW rod, MIG wire) or non-consumable (TIG tungsten) that carries the arc.
+- **End play**: measurable axial movement of a shaft between its thrust limits.
+- **Envelope (demodulation)**: a vibration processing method that pulls bearing impact repetition rates out of high-frequency noise.
+- **EP (extreme pressure)**: additives in oils and greases that protect surfaces under boundary lubrication; some attack bronze.
+
+## F
+
+- **Face (rim-and-face)**: the axial indicator reading on the coupling face used to measure angularity.
+- **Feeler gauge**: a set of thin steel blades of known thickness for measuring gaps.
+- **Fillet weld**: a triangular weld joining two surfaces at roughly right angles; sized by leg length.
+- **Fit**: the relationship between a shaft or housing size and the bearing bore or OD: interference (press), transition or clearance.
+- **Flashback**: a flame burning back into a torch, hose or regulator; stopped by a flashback arrestor.
+- **Flux**: the coating or core that shields, cleans and shapes a weld; also the slag-forming material in brazing and soldering.
+- **Fretting**: surface damage from tiny oscillating movement between parts under load, red-brown debris.
+- **FRL**: filter, regulator, lubricator unit on a compressed air drop.
+
+## G
+
+- **Gib**: an adjustable wedge or strip that takes up clearance in a slide.
+- **GMAW / FCAW / SMAW / GTAW**: gas metal arc (MIG), flux-cored arc, shielded metal arc (stick) and gas tungsten arc (TIG) welding.
+- **Gouging**: removing metal with a carbon arc and air blast, or with an oxy-fuel gouging tip.
+- **Grout**: the epoxy or cement material filling between a baseplate and its foundation.
+- **Grade (chain)**: alloy chain marking; Grade 80 and 100 are for overhead lifting.
+
+## H
+
+- **Head**: the energy a pump adds, in feet or metres of the pumped liquid; independent of density.
+- **HAZ (heat-affected zone)**: base metal next to a weld whose structure has been changed by heat.
+- **Hydraulic nut**: a piston-type nut used to press bearings and couplings onto tapered seats.
+- **Hypoid**: a bevel gear set with offset axes, as in a differential.
+
+## I
+
+- **Idler**: an unpowered roller supporting a conveyor belt: carrying, return, impact, training.
+- **Induction heater**: an electromagnetic heater for expanding bearings and hubs before mounting.
+- **Interpass temperature**: the temperature of the weld area just before the next pass is made.
+- **ISO 4406**: the cleanliness code for hydraulic and lube oils, three numbers for three particle sizes.
+- **ISO VG**: viscosity grade of industrial oils, the kinematic viscosity in cSt at 40 °C.
+
+## J
+
+- **Jacking bolt**: a bolt threaded through a fixed block to push a machine sideways during alignment.
+- **Journal**: the part of a shaft that runs in a bearing.
+
+## K
+
+- **Keyway**: the slot in a shaft and hub that carries a key to transmit torque.
+- **Kinematic viscosity**: resistance to flow measured in centistokes; falls sharply as oil warms.
+
+## L
+
+- **L10 life**: the number of revolutions (or hours) that 90 percent of a group of bearings will reach.
+- **Lagging**: the rubber or ceramic covering on a conveyor drive pulley that increases belt friction.
+- **Laminar pattern**: see contact pattern.
+- **Lay (wire rope)**: the direction and manner in which wires and strands are twisted; regular lay or lang lay.
+- **Lockout**: isolating and locking every energy source of a machine before work on it.
+- **Low-hydrogen electrode**: E7018 and related rods whose coating is kept dry to avoid hydrogen cracking.
+
+## M
+
+- **Magnetic base**: a switchable magnet holding a dial indicator to steel.
+- **Mechanical seal**: a shaft seal with two lapped faces, one rotating and one stationary, riding on a thin liquid film.
+- **Micrometer**: a screw-thread gauge reading to 0.001 in (0.0001 in with a vernier) or 0.01 mm.
+- **Misalignment**: offset, angularity or both between two coupled shafts.
+- **Mounting distance**: the distance from the back face of a bevel pinion to the axis of its mating gear, etched on the pinion.
+
+## N
+
+- **Nip point**: where a belt or chain meets a pulley or sprocket; a pinch hazard that must be guarded.
+- **NLGI grade**: grease consistency number; NLGI 2 is the standard bearing grease.
+- **NPSH**: net positive suction head; available (system) versus required (pump).
+
+## O
+
+- **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
+- **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
+- **Oxidizing / carburizing flame**: an oxy-fuel flame with excess oxygen or excess fuel; neutral is in between.
+
+## P
+
+- **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
+- **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
+- **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
+- **Pillow block**: a bearing housing with a flat base and two bolt holes.
+- **Pipe strain**: force from misfitted piping distorting a pump and shifting its shaft.
+- **Preheat**: warming the base metal before welding to slow cooling and avoid cracking.
+- **Preload**: a deliberate negative clearance set in tapered or angular contact bearings.
+- **Pulse (welding)**: alternating high and low current to control heat, in GMAW-P and pulsed TIG.
+
+## Q
+
+- **QD bushing**: quick-detachable split tapered bushing with a flange, used on sheaves and sprockets.
+
+## R
+
+- **Radial**: at right angles to a shaft centreline.
+- **Reference speed / limiting speed**: catalogue bearing speed ratings: thermal (reference) and mechanical (limiting).
+- **Relief valve**: a valve that limits maximum hydraulic system pressure by dumping flow to tank.
+- **Reverse dial**: alignment method using two rim indicators, one from each shaft across to the other.
+- **Rim reading**: the radial indicator reading on the coupling rim that measures offset.
+- **Root (weld)**: the deepest part of a weld joint; the root pass is the first pass.
+- **Runout**: the total indicator reading of a surface as a shaft rotates; radial or axial (face).
+
+## S
+
+- **Sag (indicator)**: droop of an indicator bracket under its own weight, corrected out of vertical readings.
+- **Service factor**: the multiplier applied to motor power to size couplings, belts and reducers for shock and duty.
+- **Sheave**: a grooved pulley for V-belts; sprocket is the toothed wheel for chain.
+- **Shim**: a thin metal spacer under a machine foot or behind a bearing cap; stainless precut shims for alignment.
+- **Slag**: the solidified flux covering a stick or flux-cored weld; must be removed between passes.
+- **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
+- **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
+- **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
+- **Specific gravity**: density of a liquid relative to water; converts head to pressure.
+- **Spreader bar**: a rigid bar that keeps sling legs vertical on wide loads.
+- **Stick-out**: electrode extension from the contact tip to the arc in wire welding.
+- **Surface plate**: a flat granite reference plane for layout and measurement.
+
+## T
+
+- **Tag line**: a rope used to steady and guide a suspended load.
+- **Take-up**: the adjustable frame that tensions a conveyor belt or chain; screw or gravity type.
+- **Taper (1:12)**: the standard taper of a tapered-bore bearing for adapter sleeves; 1:30 for large sphericals.
+- **Thermal growth**: expansion of a machine as it warms, which changes alignment between cold and hot.
+- **Thermal rating**: the power a gearbox can transmit continuously without overheating its oil.
+- **TIR (total indicator reading)**: the full swing of a dial indicator over one revolution.
+- **Torque**: turning force; hp × 63,025 ÷ rpm gives lb·in.
+- **Tracking**: keeping a conveyor belt centred on its pulleys and idlers.
+
+## U
+
+- **Undercut**: a groove melted into the base metal at the toe of a weld and left unfilled.
+- **Unbalance**: uneven mass distribution in a rotor, seen as 1× vibration.
+
+## V
+
+- **Vernier**: the auxiliary scale on a caliper or height gauge that subdivides the main scale.
+- **VFD**: variable frequency drive; changes motor speed by changing supply frequency.
+- **Viscosity index**: how little an oil's viscosity changes with temperature; higher is better.
+
+## W
+
+- **Weld symbol**: the drawing notation on a reference line and arrow giving weld type, size and location.
+- **WHMIS**: Workplace Hazardous Materials Information System, the Canadian labelling and SDS system.
+- **Wire rope**: strands of wires around a core; classified by wire count, lay and core (fibre or IWRC).
+- **Worm gear**: a screw driving a bronze wheel at 90 degrees; high ratio, sliding contact, runs hot.
+
+## Y
+
+- **Yield strength**: the stress at which a material starts to deform permanently; bolts are tightened to a fraction of it.
+
+## Z
+
+- **Zerk (grease fitting)**: the nipple through which grease is pumped into a bearing housing.
+- **Zone (ISO 10816)**: vibration severity bands A (new) to D (damaging) by machine class.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$glossary$mw$,$mw$definitions$mw$,$mw$millwright terms$mw$,$mw$trade terminology$mw$,$mw$what does mean$mw$,$mw$dictionary$mw$,$mw$terms$mw$,$mw$vocabulary$mw$,$mw$Red Seal terms$mw$,$mw$apprenticeship terms$mw$,$mw$study$mw$,$mw$jargon$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Definitions written against the articles in this knowledge base and standard references (SKF bearing handbook, Machinery's Handbook, AWS A3.0 welding terms and definitions, ASME B30 rigging standards, Hydraulic Institute pump terms).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-alignment-and-installation$mw$, $mw$Test Yourself: Alignment and Installation (20 Questions with Answers on Soft Foot, Rim-and-Face, Reverse Dial, Laser Alignment, Thermal Growth, Grouting, Levelling and Baseplates)$mw$, $mw$Twenty practice questions on shaft alignment and machine installation: soft foot, indicator sag, rim-and-face and reverse dial math, tolerances by speed, thermal growth, levelling, anchor bolts and grout. Answers are hidden until you tap them and each one names the article to review.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: offset and angularity](/img/alignment/offset-and-angularity.svg)
+
+*Review figure: offset and angularity*
+
+## Questions
+
+**1.** Define soft foot and give the usual acceptance limit.
+
+<details><summary>Answer</summary>A machine foot that does not sit flat on its base so that tightening the bolt distorts the frame. Limit: 0.002 in (0.05 mm) movement at any foot when its bolt is loosened with the others tight. Review: soft foot.</details>
+
+**2.** Name the four kinds of soft foot.
+
+<details><summary>Answer</summary>Parallel (short leg), angular (bent foot), squishy (too many or dirty shims, paint, rust), and induced (pipe strain or coupling strain pulling the machine). Review: soft foot.</details>
+
+**3.** What is indicator sag and how do you measure it?
+
+<details><summary>Answer</summary>The droop of the indicator bracket under its own weight, which reads as a false vertical offset. Measure by mounting the bracket on a rigid bar, zeroing at top, rolling to bottom and reading (the reading is the sag, always negative). Review: dial indicator alignment basics.</details>
+
+**4.** Which method reads only on the coupling rims of both shafts and is unaffected by axial float?
+
+<details><summary>Answer</summary>Reverse dial (reverse indicator) method: two rim readings, one from each shaft across to the other, no face readings. Review: reverse dial alignment.</details>
+
+**5.** A rim reading on the moveable machine shows top 0, bottom −0.020 in after sag correction. What is the offset and which way?
+
+<details><summary>Answer</summary>Offset is half the total indicator reading: 0.010 in. A negative bottom reading with the indicator on the moveable shaft means the moveable shaft is high by 0.010 in at the plane of the reading (sign convention depends on setup; check the article). Review: rim and face alignment.</details>
+
+**6.** Give the alignment tolerance (offset and angularity) for a machine at 1800 rpm.
+
+<details><summary>Answer</summary>Typical: offset 0.003 in (0.08 mm) and angularity 0.0005 in per inch (0.5 mils per inch) of coupling diameter, at 1800 rpm; roughly half those at 3600 rpm. Review: alignment tolerances.</details>
+
+**7.** Why are the far feet moved by more than the near feet for the same angular correction?
+
+<details><summary>Answer</summary>Angular misalignment is a slope; the correction at each foot equals the slope times its distance from the coupling, so the farther foot moves more. Review: alignment math and foot corrections.</details>
+
+**8.** A pump case is at 90 °C and the motor at 40 °C in service. Which machine grows more, and how would you allow for it during a cold alignment?
+
+<details><summary>Answer</summary>The pump grows more (thermal growth = coefficient × height × temperature rise; steel about 6.5 millionths per inch per °F). Set the motor centreline high cold by the difference in growth so the shafts line up hot, using the manufacturer target or a hot check. Review: thermal growth.</details>
+
+**9.** What does a laser system mean by "as found" and why do you save it?
+
+<details><summary>Answer</summary>The initial measurement before any moves; saved as the record that shows the machine condition before work and lets the job be audited or repeated. Review: laser alignment procedure.</details>
+
+**10.** In what order should you correct vertical and horizontal misalignment?
+
+<details><summary>Answer</summary>Vertical first (shims), then horizontal (jacking bolts), then re-check both; a horizontal move does not change shims but shim changes can shift horizontal. Review: alignment procedure.</details>
+
+**11.** How many shims are acceptable under one foot and why does it matter?
+
+<details><summary>Answer</summary>Maximum of four or five, thickest at the bottom, thinnest on top. A tall stack springs and gives squishy soft foot. Review: shims and soft foot.</details>
+
+**12.** What is bolt-bound and how do you fix it?
+
+<details><summary>Answer</summary>The hold-down bolt touches the side of the foot hole before the required horizontal move is complete. Fix by moving the stationary machine, elongating the hole slightly, using undersize bolts, or shifting both machines. Review: alignment procedure.</details>
+
+**13.** What is the tolerance for levelling a baseplate to API 686 practice?
+
+<details><summary>Answer</summary>Within 0.002 in per foot (0.17 mm/m) in both directions across the mounting pads, with pads coplanar within 0.002 in. Review: baseplate installation and levelling.</details>
+
+**14.** Why must anchor bolts have a sleeve or free length above the concrete?
+
+<details><summary>Answer</summary>So the bolt can stretch over its free length when torqued and stay tight; a bolt cast solid to the top has almost no stretch and loosens. Review: anchor bolts and foundations.</details>
+
+**15.** Epoxy grout versus cementitious grout: name two reasons for epoxy under a pump baseplate.
+
+<details><summary>Answer</summary>Higher bond and compressive strength, resistance to oil and chemicals, and better vibration damping and no shrinkage cracks; cementitious grout is cheaper and fine for lightly loaded non-critical bases. Review: grouting.</details>
+
+**16.** What preparation does concrete need before grouting?
+
+<details><summary>Answer</summary>Chip to sound aggregate (remove laitance), clean and dust free, dry for epoxy (saturated surface dry for cement grout), forms sealed and wax coated, headbox to keep grout flowing from one side. Review: grouting procedure.</details>
+
+**17.** What is pipe strain and how do you check for it after alignment?
+
+<details><summary>Answer</summary>Force from misfitted piping on the pump nozzles distorting the case and shifting the shaft. Check by mounting an indicator on the shaft, loosening the flange bolts, and watching for more than about 0.002 in movement. Review: piping strain and installation.</details>
+
+**18.** What is the correct sequence for tightening hold-down bolts after a final alignment move?
+
+<details><summary>Answer</summary>Snug all, then torque in a crossing pattern to the specified value while watching the indicator or laser for movement; re-check alignment with all bolts tight. Review: alignment procedure.</details>
+
+**19.** How do you align a machine that has a spacer coupling with a 10 in shaft gap?
+
+<details><summary>Answer</summary>Reverse dial or laser with the spacer removed, brackets clamped on each shaft reading across the gap; the tolerance for spacer couplings is expressed in mils per inch of spacer length. Review: alignment of spacer couplings.</details>
+
+**20.** Name three conditions that must be true before you trust an alignment reading.
+
+<details><summary>Answer</summary>Soft foot corrected, brackets rigid and sag known, shafts turned together (no coupling backlash), indicators zeroed and readings repeatable within 0.001 in, and both machines at a known temperature state. Review: dial indicator alignment basics.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: read the alignment category from the top, then the installation category.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$alignment quiz$mw$,$mw$shaft alignment test$mw$,$mw$installation quiz$mw$,$mw$soft foot questions$mw$,$mw$reverse dial questions$mw$,$mw$laser alignment questions$mw$,$mw$grouting questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the alignment and installation articles in this knowledge base (Ludeca and Pruftechnik alignment guides, ANSI/ASA S2.75 alignment tolerances, API 686 machinery installation).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-bearings-and-drives$mw$, $mw$Test Yourself: Bearings and Power Transmission (20 Questions with Answers on Bearing Numbers, Fits, Mounting, Adapter Sleeves, Grease, V-Belts, Chain, Couplings and Gearboxes)$mw$, $mw$Twenty practice questions on bearings, belts, chains, couplings and gearboxes: reading a bearing number, choosing fits, mounting with heat and adapter sleeves, greasing, belt tension, chain wear limits, coupling selection and reducer service factors. Tap each answer after you decide; each names the article to review.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: bearing parts and number](/img/bearings/bearing-parts-and-number.svg)
+
+*Review figure: bearing parts and number*
+
+## Questions
+
+**1.** Decode SKF 22220 EK/C3 W33.
+
+<details><summary>Answer</summary>Spherical roller bearing (22), dimension series 22, bore code 20 = 100 mm bore; E reinforced design; K tapered bore 1:12 for an adapter sleeve; C3 larger than normal clearance; W33 lubrication groove and holes in the outer ring. Review: bearing numbers and suffixes.</details>
+
+**2.** Which ring gets the interference fit when the shaft rotates and the load is stationary, as on a fan?
+
+<details><summary>Answer</summary>The inner ring (rotating ring relative to the load direction gets the tight fit); the outer ring can be a locational or loose fit in the housing. Review: bearing fits.</details>
+
+**3.** How hot should a bearing be heated for mounting, and what is the maximum?
+
+<details><summary>Answer</summary>About 80 to 90 °C above shaft temperature, typically 110 °C; never above 120 °C or the ring loses hardness and clearance. Use an induction heater and demagnetize. Review: mounting bearings with heat.</details>
+
+**4.** When mounting a spherical roller bearing on an adapter sleeve, what are the two methods of knowing when it is tight enough?
+
+<details><summary>Answer</summary>Measure the reduction in radial internal clearance with feeler gauges (for example 0.0016 to 0.0022 in reduction for a 100 mm bore), or use the drive-up (axial displacement) method with the manufacturer's table, or the hydraulic nut angle. Review: adapter sleeve mounting.</details>
+
+**5.** Why must a bearing never be driven onto a shaft by hammering on the outer ring?
+
+<details><summary>Answer</summary>The force passes through the rolling elements and brinells the raceways, leaving dents that fail the bearing early with a characteristic noise. Press on the ring being fitted only. Review: bearing mounting.</details>
+
+**6.** How much grease goes in a bearing housing on first fill?
+
+<details><summary>Answer</summary>Fill the bearing itself and 30 to 50 percent of the free housing space (less for high speed); over-greasing causes churning and overheating. Review: bearing lubrication.</details>
+
+**7.** A 6310 bearing at 1750 rpm: give the approximate relubrication quantity formula.
+
+<details><summary>Answer</summary>G (grams) = 0.005 × D × B, with D outside diameter and B width in mm: 0.005 × 110 × 27 = about 15 g. Review: grease quantity and intervals.</details>
+
+**8.** What is the sound and vibration signature of a bearing with a spalled outer race?
+
+<details><summary>Answer</summary>Rough, gritty noise; in the spectrum, a series of harmonics at the ball-pass frequency outer race (BPFO), non-synchronous with shaft speed, first seen in the envelope or high-frequency bands. Review: bearing defect frequencies.</details>
+
+**9.** How much tension should a V-belt have, using the deflection method?
+
+<details><summary>Answer</summary>Deflect the belt 1/64 in per inch of span (for example 5/8 in on a 40 in span) with the force listed in the catalogue for the belt section; re-tension after 24 hours of run-in. Review: V-belt installation and tensioning.</details>
+
+**10.** What does a belt that turns over in the groove usually indicate?
+
+<details><summary>Answer</summary>Misaligned sheaves, worn grooves, mismatched belts, or excessive vibration of the drive; also a belt with a broken tensile cord. Review: V-belt troubleshooting.</details>
+
+**11.** What is the wear limit for roller chain elongation, and how do you measure it?
+
+<details><summary>Answer</summary>3 percent (1.5 percent for large sprockets over 60 teeth). Measure the length of a known number of pitches under light tension with a chain gauge or tape and compare with the nominal length. Review: roller chain maintenance.</details>
+
+**12.** Why should a new chain not be run on old sprockets?
+
+<details><summary>Answer</summary>Worn sprocket teeth are hooked and pitch-worn, so they cut into the new chain rollers and wear the chain quickly; replace chain and sprockets as a set. Review: roller chain maintenance.</details>
+
+**13.** Name the misalignment capacity difference between a jaw coupling and a grid coupling.
+
+<details><summary>Answer</summary>Jaw couplings tolerate small misalignment (about 0.010 in parallel, 1 degree angular); grid couplings a little more and they also give torsional damping. Neither substitutes for proper alignment. Review: coupling types.</details>
+
+**14.** What does the service factor do in coupling and reducer selection?
+
+<details><summary>Answer</summary>It multiplies the motor power (or torque) to a design value that accounts for shock, duty hours and starts, so the component is sized for the real load. Review: reducer selection and service factor.</details>
+
+**15.** Why are worm gear reducers usually thermally limited?
+
+<details><summary>Answer</summary>Sliding contact between the worm and bronze wheel generates more heat than rolling gear contact, so the box reaches its oil temperature limit before its mechanical rating. Review: worm and planetary reducers.</details>
+
+**16.** What is the target cold end play when setting tapered roller bearings in a gearbox with shims?
+
+<details><summary>Answer</summary>Typically 0.001 to 0.003 in end play cold (some high-speed pinions call for zero to a light preload), measured with an indicator on the shaft end while rotating to seat the rollers. Review: gearbox rebuild and shimming.</details>
+
+**17.** What does a contact pattern at the toe of a bevel gear tell you?
+
+<details><summary>Answer</summary>The gear is too close to the pinion (or the pinion too deep): move the gear away, re-check backlash. Review: gearbox rebuild and shimming.</details>
+
+**18.** Which way should a pillow block's grease relief and seals be arranged when the shaft is washed down daily?
+
+<details><summary>Answer</summary>Use a sealed or labyrinth housing, purge grease outward through the seals, and fit a shroud; grease more often with a water-resistant grease so the lip is always pressurized with grease. Review: pillow block selection and sealing.</details>
+
+**19.** A motor bearing hums and runs 20 °C hotter than the other end after regreasing. What happened?
+
+<details><summary>Answer</summary>Over-greased: the housing is packed and the grease churns; open the drain plug and run until excess purges, or clean out to the correct fill. Review: motor bearing greasing.</details>
+
+**20.** List the steps to check a shaft seat before fitting a new bearing.
+
+<details><summary>Answer</summary>Clean, check for fretting and scoring, measure the seat with a micrometer at two positions and 90 degrees apart against the fit table, check the shoulder is square and the fillet radius is smaller than the bearing chamfer, and deburr keyways. Review: bearing fits and shaft inspection.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the bearings category, then power transmission and gearboxes.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$bearing quiz$mw$,$mw$bearing test$mw$,$mw$V belt quiz$mw$,$mw$chain drive quiz$mw$,$mw$coupling quiz$mw$,$mw$gearbox quiz$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$,$mw$power transmission questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the bearings, power transmission and gearboxes articles in this knowledge base (SKF bearing maintenance handbook, Timken tapered bearing setting, Gates and Dodge belt drive manuals, ACA chain manual, AGMA service factor tables).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-hydraulics-and-lubrication$mw$, $mw$Test Yourself: Hydraulics, Pneumatics and Lubrication (20 Questions with Answers on Pascal's Law, Pumps and Valves, Cylinder Force, Accumulators, Contamination Codes, Oil Grades, Grease Compatibility and Relubrication)$mw$, $mw$Twenty practice questions on fluid power and lubrication: pressure and force math, pump types, relief and directional valves, accumulator precharge, filtration and cleanliness codes, viscosity grades, grease thickener compatibility and relubrication practice. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: ISO 4406 cleanliness codes](/img/hydraulics/iso-4406-codes.svg)
+
+*Review figure: ISO 4406 cleanliness codes*
+
+## Questions
+
+**1.** A cylinder has a 4 in bore and a 2 in rod at 2,000 psi. What is the extend force and the retract force?
+
+<details><summary>Answer</summary>Extend: area 12.57 in² × 2,000 = 25,100 lb. Retract: annulus (12.57 − 3.14) = 9.43 in² × 2,000 = 18,900 lb. Review: hydraulic cylinder force and speed.</details>
+
+**2.** Why does a hydraulic system make heat, and what is the usual sign that the relief valve is set too low?
+
+<details><summary>Answer</summary>Any oil passing across a pressure drop without doing work becomes heat. A relief set below the working pressure dumps flow continuously: the tank runs hot and actuators are slow or stall under load. Review: hydraulic troubleshooting.</details>
+
+**3.** Name the three common hydraulic pump types and the one that tolerates dirt best.
+
+<details><summary>Answer</summary>Gear, vane and piston. Gear pumps tolerate contamination best; piston pumps are the most efficient and the most sensitive. Review: hydraulic pumps.</details>
+
+**4.** What does a 4/3 directional valve mean and what is a tandem centre?
+
+<details><summary>Answer</summary>Four ports (P, T, A, B), three positions. Tandem centre connects P to T (pump unloads) while blocking A and B (cylinder held). Review: directional control valves.</details>
+
+**5.** A bladder accumulator is rated 3,000 psi and the system runs 1,000 to 2,000 psi. What precharge do you set?
+
+<details><summary>Answer</summary>About 90 percent of minimum system pressure for energy storage: 900 psi, with dry nitrogen only, set with the hydraulic side fully drained. Review: accumulators.</details>
+
+**6.** What is the first thing you do before opening any hydraulic line?
+
+<details><summary>Answer</summary>Lock out the power unit, then relieve stored pressure (accumulators, raised loads, trapped cylinders) and verify zero on a gauge. Review: hydraulic safety and lockout.</details>
+
+**7.** Explain ISO 4406 code 18/16/13.
+
+<details><summary>Answer</summary>Particle counts per millilitre in three size bands: greater than 4 µm (code 18 = 1,300 to 2,500), greater than 6 µm (16 = 320 to 640), greater than 14 µm (13 = 40 to 80). Each code step doubles the count. Review: contamination control and filtration.</details>
+
+**8.** What is a filter's beta ratio of 200 at 10 µm?
+
+<details><summary>Answer</summary>For every 200 particles of 10 µm and larger entering, one passes: 99.5 percent efficiency at that size. Review: hydraulic filtration.</details>
+
+**9.** What is the difference between an ISO VG 46 oil and an SAE 20 oil?
+
+<details><summary>Answer</summary>ISO VG 46 has a kinematic viscosity of 46 cSt (±10 percent) at 40 °C, an industrial grade; SAE 20 is an engine oil grade defined at 100 °C, roughly ISO VG 46 to 68. Review: oil viscosity grades.</details>
+
+**10.** Why do you not top up a lithium complex grease bearing with a polyurea grease?
+
+<details><summary>Answer</summary>Thickener incompatibility: the mixture can soften and run out or harden, losing lubrication. Purge fully or confirm compatibility from the chart first. Review: grease compatibility.</details>
+
+**11.** What does NLGI 2 mean?
+
+<details><summary>Answer</summary>A consistency grade (worked penetration 265 to 295): the standard medium grease for bearings; NLGI 1 is softer for centralized systems and cold, NLGI 3 stiffer for vertical shafts. Review: grease basics.</details>
+
+**12.** Give the SKF-style formula for a grease relubrication interval and name two things that shorten it.
+
+<details><summary>Answer</summary>Interval depends on the speed factor n × dm (rpm × mean diameter) and bearing type, read from the chart; halve it for every 15 °C above 70 °C, and shorten for contamination, moisture, vibration and vertical shafts. Review: grease quantity and intervals.</details>
+
+**13.** What is the correct oil level for a bath-lubricated bearing at rest?
+
+<details><summary>Answer</summary>At the centre of the lowest rolling element; higher causes churning heat, lower starves the bearing. Review: oil lubrication of bearings.</details>
+
+**14.** What happens when you use a compounded worm gear oil in a gearbox with a bronze wheel? And an EP oil?
+
+<details><summary>Answer</summary>Compounded oil (mineral with fatty additives) is correct for bronze worm wheels. Active-sulphur EP oils can corrode bronze; use only EP oils declared safe for yellow metals, or a PAG synthetic. Review: worm and planetary reducers.</details>
+
+**15.** What does an FRL do on a pneumatic drop and in what order are the units?
+
+<details><summary>Answer</summary>Filter, regulator, lubricator, in that order in the flow direction; filter removes water and dirt, regulator sets pressure, lubricator (if used) mists oil for tools. Review: pneumatic system basics.</details>
+
+**16.** Air at 90 psi in a 2 in bore cylinder: what force?
+
+<details><summary>Answer</summary>3.14 in² × 90 = about 283 lb extend (less friction), which is why pneumatic cylinders are much larger than hydraulic for the same force. Review: pneumatic cylinders.</details>
+
+**17.** A hydraulic pump cavitates. Name four causes.
+
+<details><summary>Answer</summary>Restricted suction (clogged strainer, closed valve), oil too cold or too viscous, low reservoir level, air leak on the suction side, pump too high above the tank, or excessive speed. Review: hydraulic troubleshooting.</details>
+
+**18.** What is the danger of a pinhole leak in a hydraulic hose at 3,000 psi?
+
+<details><summary>Answer</summary>Fluid injection injury: oil penetrates skin and tissue and requires surgery within hours. Never search for a leak with a hand; use cardboard. Review: hydraulic safety.</details>
+
+**19.** What is the base oil viscosity you would expect in a general purpose bearing grease?
+
+<details><summary>Answer</summary>About ISO 100 to 220 base oil (often 150 to 220 for medium speed); high-speed spindle greases use lighter base oils, slow heavily loaded bearings heavier. Review: grease basics.</details>
+
+**20.** What does the oil analysis result "water 0.2 percent, ISO 21/19/16, viscosity +18 percent" tell you about a gearbox?
+
+<details><summary>Answer</summary>Water above the 0.05 to 0.1 percent limit (condensation or seal leak), dirty oil well above target, and viscosity increase from oxidation or the wrong oil topped up. Change oil, find the water source, check the breather. Review: oil analysis.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the hydraulics and lubrication categories from the top.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$hydraulic test questions$mw$,$mw$pneumatics quiz$mw$,$mw$lubrication quiz$mw$,$mw$oil viscosity questions$mw$,$mw$grease compatibility questions$mw$,$mw$ISO 4406 questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the hydraulics, pneumatics and lubrication articles in this knowledge base (Parker and Eaton Vickers hydraulic training data, ISO 4406, ISO VG grades, NLGI grease grades, SKF and Noria lubrication practice).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-pumps-conveyors-and-troubleshooting$mw$, $mw$Test Yourself: Pumps, Seals, Conveyors, Motors and Troubleshooting (20 Questions with Answers on Pump Curves, NPSH, Mechanical Seals, Belt Tracking, Idlers, Motor Nameplates, Vibration and Fault Finding)$mw$, $mw$Twenty practice questions covering centrifugal pump operation and curves, NPSH and cavitation, mechanical seals and packing, conveyor belt tracking and idlers, motor nameplate data and bearings, vibration severity and the systematic fault-finding method. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: the pump curve and BEP](/img/pumps-seals/pump-curve.svg)
+
+*Review figure: the pump curve and BEP*
+
+## Questions
+
+**1.** What is the best efficiency point and why do pumps run outside it fail?
+
+<details><summary>Answer</summary>The flow at which the pump converts power to head most efficiently, with the lowest radial load on the impeller. Far left, recirculation and high radial load bend the shaft and kill seals and bearings; far right, cavitation and motor overload. Review: how to read a pump curve sheet.</details>
+
+**2.** State the affinity laws for a speed change.
+
+<details><summary>Answer</summary>Flow varies with speed, head with the square of speed, power with the cube of speed. Review: pump curves and VFDs.</details>
+
+**3.** Define NPSHa and NPSHr and the margin between them.
+
+<details><summary>Answer</summary>NPSHa is what the system provides at the suction (absolute pressure plus static head minus vapour pressure minus friction); NPSHr is what the pump needs at that flow. NPSHa should exceed NPSHr by 3 ft or 10 percent at least. Review: NPSH and cavitation.</details>
+
+**4.** A pump sounds like it is pumping gravel. Name three possible causes.
+
+<details><summary>Answer</summary>Cavitation (low NPSHa, hot liquid, clogged suction strainer), air entrainment (leaking suction line or vortexing in the tank), or running far right on the curve. Review: pump troubleshooting.</details>
+
+**5.** What is the mechanical seal's primary sealing interface, and what keeps it lubricated?
+
+<details><summary>Answer</summary>The lapped faces of the rotating and stationary rings; a thin film of the pumped liquid (or a flush plan fluid) between them. Running dry for seconds destroys the faces. Review: mechanical seals.</details>
+
+**6.** What does API Plan 11 do?
+
+<details><summary>Answer</summary>Recirculates liquid from the pump discharge through an orifice to the seal chamber to cool and flush the seal faces and vent air. Review: seal flush plans.</details>
+
+**7.** How tight should packing be on a packed pump?
+
+<details><summary>Answer</summary>Loose enough to leak a steady drip (about 10 to 60 drops per minute depending on shaft size) for cooling and lubrication; tighten a flat at a time over the first hour of running. Review: pump packing.</details>
+
+**8.** What is the first check when a pump has low flow after a rebuild?
+
+<details><summary>Answer</summary>Rotation direction (a backward-running impeller gives roughly half flow and head), then impeller clearance setting, then suction conditions and priming. Review: pump start-up.</details>
+
+**9.** A conveyor belt runs to one side along its whole length. Where do you look first?
+
+<details><summary>Answer</summary>The belt runs toward the side that is slack or lower; check pulley and idler alignment (square to the structure), material loading off-centre, and structure level. Fix the cause, then use training idlers. Review: belt tracking.</details>
+
+**10.** What is the rule of thumb for adjusting a return idler to steer a belt?
+
+<details><summary>Answer</summary>Move the idler end in the direction of belt travel on the side the belt runs toward (the belt moves toward the end of the idler it touches first); make small moves and wait several revolutions. Review: belt tracking.</details>
+
+**11.** Give the correct belt tension for a screw take-up on a conveyor.
+
+<details><summary>Answer</summary>Just enough that the drive pulley does not slip at start-up under full load and the belt sag between idlers stays under 2 percent (about 1.5 to 3 percent); excess tension shortens belt and bearing life. Review: conveyor take-ups.</details>
+
+**12.** What does the wrap angle and lagging on a drive pulley do?
+
+<details><summary>Answer</summary>Increase the friction available to drive the belt; snub pulleys raise wrap above 180 degrees and rubber or ceramic lagging raises the friction coefficient, allowing lower tension. Review: conveyor drive pulleys.</details>
+
+**13.** From a motor nameplate: 460 V, 3 phase, 60 Hz, 1775 rpm, SF 1.15, code letter G, design B. What do rpm and SF tell you?
+
+<details><summary>Answer</summary>1775 rpm is the full-load speed of a 4-pole motor (synchronous 1800, slip 1.4 percent); SF 1.15 means it can run continuously at 115 percent of nameplate hp with reduced life and higher temperature. Review: motor nameplate.</details>
+
+**14.** How do you reverse a three-phase induction motor?
+
+<details><summary>Answer</summary>Swap any two of the three line leads (by a qualified electrician under lockout). Review: motor basics.</details>
+
+**15.** A motor draws high current on all three phases and runs hot. Give three mechanical causes.
+
+<details><summary>Answer</summary>Overloaded driven machine, tight or misaligned drive (belt over-tension, coupling misalignment), seized or over-greased bearing, or the wrong sheave ratio; electrical causes (low voltage, single phasing) are eliminated by measuring. Review: motor troubleshooting.</details>
+
+**16.** What vibration velocity puts a medium machine (15 to 75 kW, rigid base) in the unsatisfactory zone under ISO 10816-3?
+
+<details><summary>Answer</summary>About 4.5 mm/s rms (0.18 in/s) and above is unsatisfactory (zone C); above 7.1 mm/s (0.28 in/s) is unacceptable; new machines under 1.4 to 2.3 mm/s. Review: vibration basics and ISO severity.</details>
+
+**17.** Which fault shows as high 1× radial vibration with the same phase at both bearings and low axial?
+
+<details><summary>Answer</summary>Unbalance (force unbalance). Misalignment shows 2× and high axial with 180 degree phase change across the coupling; looseness shows many harmonics. Review: vibration signatures.</details>
+
+**18.** What are the steps of a systematic troubleshooting method?
+
+<details><summary>Answer</summary>Define the problem (what changed, when, symptoms), gather data (readings, history, operator interview), list possible causes, test the most likely and cheapest to check first, fix, verify by measurement, and record. Review: troubleshooting method.</details>
+
+**19.** What do you check on a pump base if the pump keeps going out of alignment?
+
+<details><summary>Answer</summary>Cracked or hollow grout under the base (sounding), loose or broken anchor bolts, corroded shims, pipe strain pulling the pump, and thermal growth not allowed for. Review: alignment troubleshooting and grouting.</details>
+
+**20.** A gear reducer's oil is milky. Name the cause and the fix.
+
+<details><summary>Answer</summary>Water in the oil (condensation through a missing or wrong breather, wash-down, cooler leak). Drain, flush, fix the ingress path (desiccant breather, shroud), refill, and resample after a week. Review: gearbox lubrication and inspection.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the pumps and seals, conveyors, motors and troubleshooting categories.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$pump quiz$mw$,$mw$mechanical seal questions$mw$,$mw$conveyor quiz$mw$,$mw$belt tracking questions$mw$,$mw$motor quiz$mw$,$mw$vibration quiz$mw$,$mw$troubleshooting quiz$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the pumps and seals, conveyors, motors and electrical, condition monitoring and troubleshooting articles in this knowledge base (Hydraulic Institute, Goulds pump manuals, John Crane and Flowserve seal guides, CEMA belt conveyor handbook, NEMA MG-1, ISO 10816 vibration severity).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-rigging-and-lifting$mw$, $mw$Test Yourself: Rigging and Lifting (20 Questions with Answers on Sling Angles, Load Calculations, Sling Types and Inspection, Hitches, Shackles, Chain Hoists, Signals and Lift Planning)$mw$, $mw$Twenty practice questions on rigging: sling tension by angle, weight estimating, hitch capacities, sling and hardware inspection and rejection criteria, shackle and hook use, chain hoist limits, hand signals and planning a lift. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: sling angles and hitches](/img/rigging/sling-angles-and-hitches.svg)
+
+*Review figure: sling angles and hitches*
+
+## Questions
+
+**1.** A 4,000 lb load is lifted with two sling legs at 60 degrees to horizontal. What is the tension in each leg?
+
+<details><summary>Answer</summary>Each leg carries (4,000 ÷ 2) ÷ sin 60° = 2,000 ÷ 0.866 = 2,310 lb. At 30 degrees it would be 4,000 lb per leg. Review: sling angles and load factors.</details>
+
+**2.** What is the minimum sling angle you should rig to, and why?
+
+<details><summary>Answer</summary>Never below 30 degrees to horizontal (45 degrees or more preferred): leg tension doubles at 30 degrees and the horizontal compression on the load and hardware rises sharply. Review: sling angles.</details>
+
+**3.** Estimate the weight of a steel plate 8 ft by 4 ft by 1 in.
+
+<details><summary>Answer</summary>Steel plate weighs 40.8 lb per square foot per inch of thickness: 32 ft² × 40.8 = about 1,300 lb. Review: estimating load weight.</details>
+
+**4.** Compare the capacity of a vertical, choker and basket hitch for the same sling.
+
+<details><summary>Answer</summary>Vertical 100 percent of rated load; choker about 75 to 80 percent (less if the choke angle is under 120 degrees); basket up to 200 percent with legs vertical, reduced by the sling angle. Review: hitches.</details>
+
+**5.** Name four rejection criteria for a synthetic web sling.
+
+<details><summary>Answer</summary>Missing or illegible tag, cuts or holes, broken or worn stitching, melted or charred areas, chemical damage, knots, excessive abrasion, or damaged fittings. Review: sling inspection.</details>
+
+**6.** When is a wire rope sling removed from service due to broken wires?
+
+<details><summary>Answer</summary>Ten randomly distributed broken wires in one rope lay, or five broken wires in one strand in one lay, plus any kinking, crushing, birdcaging, core protrusion or heat damage. Review: wire rope sling inspection.</details>
+
+**7.** Which grade of chain is permitted for overhead lifting?
+
+<details><summary>Answer</summary>Alloy chain Grade 80 or Grade 100 (and 120) with matching alloy fittings; Grade 30, 43 and 70 chain is not for lifting. Review: alloy chain slings.</details>
+
+**8.** How do you correctly load a screw pin shackle in a choker or with a side pull?
+
+<details><summary>Answer</summary>Load in line with the bow; when the sling runs on the pin in a choker, the pin must be moused or use a bolt-type shackle so the pin cannot unscrew; side loading reduces capacity (50 percent at 90 degrees). Review: shackles and rigging hardware.</details>
+
+**9.** Why is a hook with a spread throat rejected, and what is the limit?
+
+<details><summary>Answer</summary>Throat opening increased more than 5 percent (or 1/4 in) from original shows the hook has been overloaded and yielded; also reject for cracks, 10 percent wear in the bowl, or a twist over 10 degrees. Review: hook inspection.</details>
+
+**10.** What is the design factor for wire rope slings, and what does it mean?
+
+<details><summary>Answer</summary>5:1: the rope breaking strength is at least five times the rated load, to allow for wear, dynamic loading and hidden damage. Synthetic slings also 5:1, chain 4:1. Review: sling ratings.</details>
+
+**11.** What is the rated capacity of a 1/2 in Grade 80 chain sling with two legs at 45 degrees?
+
+<details><summary>Answer</summary>About 12,000 lb single leg vertical; two legs at 45 degrees: 12,000 × 2 × 0.707 = about 17,000 lb (check the manufacturer chart on the tag). Review: alloy chain slings.</details>
+
+**12.** A manual chain hoist rated 2 tons has a 3 ton load hanging off it. Why did the hoist lift it?
+
+<details><summary>Answer</summary>Overload protection is not standard on most chain hoists and the design factor allows it to lift; the load chain, gears and hook are overstressed and the hoist must be taken out of service and inspected. Review: chain hoists and lever hoists.</details>
+
+**13.** What checks come before every use of a chain hoist?
+
+<details><summary>Answer</summary>Tag and capacity, hook latches and throat, load chain for wear, twist, stretch and lubrication, brake function with a small lift, and the support it hangs from. Review: chain hoist inspection.</details>
+
+**14.** Can you use a lever hoist (come-along) to lift a load overhead?
+
+<details><summary>Answer</summary>Only a lever hoist rated for lifting (ASME B30.21) with load chain; a cable-type ratchet puller is for pulling, not lifting. Review: lever hoists.</details>
+
+**15.** Where is the centre of gravity of a motor and pump on a common baseplate likely to be, and what does that change in the rigging?
+
+<details><summary>Answer</summary>Closer to the heavier and larger component, usually the motor. The hook must be directly over the centre of gravity, so sling legs are unequal or a spreader with adjustable points is used to keep the load level. Review: centre of gravity and lift planning.</details>
+
+**16.** Describe the hand signal for "stop" and "emergency stop".
+
+<details><summary>Answer</summary>Stop: arm extended, palm down, moved horizontally. Emergency stop: both arms extended, palms down, moved horizontally. Review: crane hand signals.</details>
+
+**17.** What is a tag line for and who holds it?
+
+<details><summary>Answer</summary>To control rotation and swing of the load without anyone touching it; held by a rigger standing clear of the load path, never wrapped around the hand. Review: lift execution.</details>
+
+**18.** List five items in a written lift plan.
+
+<details><summary>Answer</summary>Load weight and centre of gravity, rigging selection and capacities with angles, crane or hoist capacity at radius, ground or structure adequacy, exclusion zone and signal person, weather and communications, sequence and hazards. Review: lift planning.</details>
+
+**19.** Why is a spreader bar used instead of longer slings?
+
+<details><summary>Answer</summary>To keep sling legs vertical (no angle factor, no compression on the load) and to reach the lifting points on long or fragile loads when headroom is limited; it must be rated and identified. Review: spreader and lifting beams.</details>
+
+**20.** What softener or protection does a synthetic sling need on a steel edge, and why?
+
+<details><summary>Answer</summary>Corner protectors or wear pads; synthetic slings cut on edges under load even at low tension, and a cut through the load-bearing yarns fails the sling. Review: sling protection.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the rigging category from the top.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$rigging quiz$mw$,$mw$rigging test questions$mw$,$mw$sling angle questions$mw$,$mw$load calculation questions$mw$,$mw$shackle questions$mw$,$mw$hoist questions$mw$,$mw$crane signals questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the rigging articles in this knowledge base (ASME B30.9 slings, B30.26 rigging hardware, B30.16 hoists, B30.5 signals; Crosby rigging guide; Canadian provincial OHS rigging rules).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-safety$mw$, $mw$Test Yourself: Safety (20 Questions with Answers on Lockout-Tagout, Confined Space, Fall Protection, Hot Work, Machine Guarding, Arc Flash, WHMIS and Compressed Gas Handling)$mw$, $mw$Twenty practice questions on the safety rules a millwright is examined on and works under every day: lockout steps and verification, confined space entry, fall protection anchors and clearance, hot work permits and fire watch, guarding, arc flash boundaries, WHMIS pictograms and gas cylinder handling. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: lockout steps](/img/safety/lockout-steps.svg)
+
+*Review figure: lockout steps*
+
+## Questions
+
+**1.** List the steps of a lockout in order.
+
+<details><summary>Answer</summary>Identify all energy sources; notify affected people; shut down by normal procedure; isolate each source; apply locks and tags; release or restrain stored energy; verify zero energy by trying to start and by test (meter, gauge). Review: lockout-tagout procedure.</details>
+
+**2.** Why is "verify" the most important step, and give two ways to do it.
+
+<details><summary>Answer</summary>Because a lock on the wrong disconnect looks the same as a lock on the right one. Verify by attempting a start at the controls with everyone clear, and by measuring: a meter test on electrical (test the meter first), gauge reading zero on hydraulic and pneumatic, and a visual on valves. Review: lockout-tagout procedure.</details>
+
+**3.** A crew of six is working on a locked-out conveyor. How many locks are on the disconnect?
+
+<details><summary>Answer</summary>At least six, one per worker, through a hasp or group lockbox; each person removes only their own lock. Review: group lockout.</details>
+
+**4.** Name five forms of stored energy that a lockout must address.
+
+<details><summary>Answer</summary>Gravity (raised loads, counterweights), springs, pressure (hydraulic, pneumatic, steam), capacitors and batteries, rotating inertia, thermal, and chemical. Review: stored energy.</details>
+
+**5.** Define a confined space in one sentence.
+
+<details><summary>Answer</summary>An enclosed or partially enclosed space not designed for continuous occupancy, with restricted entry or exit, where hazards from atmosphere, engulfment or configuration may exist. Review: confined space entry.</details>
+
+**6.** What atmospheric tests are done before entry and in what order?
+
+<details><summary>Answer</summary>Oxygen first (19.5 to 23 percent), then flammables (under 10 percent of LEL), then toxics (for example CO under 25 ppm, H2S under 10 ppm), testing at top, middle and bottom, and continuously during entry. Review: confined space atmosphere testing.</details>
+
+**7.** What does the attendant do, and may they enter to rescue?
+
+<details><summary>Answer</summary>Monitors the entrants, the atmosphere and conditions, keeps count, maintains communication and calls rescue; the attendant never enters. Most confined space deaths are would-be rescuers. Review: confined space entry.</details>
+
+**8.** What is the maximum arresting force and maximum free fall distance for a personal fall arrest system?
+
+<details><summary>Answer</summary>Arresting force 8 kN (1,800 lb) with an energy absorber; free fall limited to 1.8 m (6 ft) for a standard shock-absorbing lanyard. Review: fall protection.</details>
+
+**9.** Calculate the fall clearance needed under an anchor for a 6 ft lanyard with a shock absorber.
+
+<details><summary>Answer</summary>Lanyard 6 ft + absorber deployment 3.5 ft + worker height below D-ring about 5 ft + safety factor 3 ft = about 17.5 ft from anchor to the nearest obstruction. Review: fall clearance.</details>
+
+**10.** What capacity must a fall arrest anchor have?
+
+<details><summary>Answer</summary>22 kN (5,000 lb) per worker for a non-engineered anchor, or two times the maximum arresting force when designed by an engineer. Review: fall protection anchors.</details>
+
+**11.** What is the fire watch requirement after hot work stops?
+
+<details><summary>Answer</summary>At least 30 minutes (60 minutes in many plant permits) of continuous watch, then a recheck of the area for a further period, by a person with an extinguisher and no other duties. Review: hot work permits.</details>
+
+**12.** How far must combustibles be moved from hot work, and what if they cannot be moved?
+
+<details><summary>Answer</summary>11 m (35 ft); if not movable, cover with fire-resistant blankets, wet down, and seal floor and wall openings. Review: hot work permits.</details>
+
+**13.** What is the danger of welding on a drum that once held a flammable liquid?
+
+<details><summary>Answer</summary>Vapour remaining in the drum explodes on ignition; drums must be cleaned, purged, tested and filled with water or inert gas before any hot work. Review: hot work on containers.</details>
+
+**14.** Name four types of machine guard and give the opening rule.
+
+<details><summary>Answer</summary>Fixed, interlocked, adjustable, self-adjusting (plus presence sensing devices). Openings: a guard 6 in from the hazard may have openings up to 1/2 in; a finger must not reach the nip point through the opening. Review: machine guarding.</details>
+
+**15.** After a guard is removed for maintenance, when may the machine be run with the guard off?
+
+<details><summary>Answer</summary>Only under a documented procedure with alternative protection (for example jog mode, hold-to-run, exclusion zone), by a trained person; the guard goes back before returning the machine to production. Review: machine guarding.</details>
+
+**16.** What is the limited approach boundary and who may cross it?
+
+<details><summary>Answer</summary>The distance from exposed energized conductors within which a shock hazard exists; only qualified persons or unqualified persons escorted by one, with the appropriate PPE. Review: electrical safety and arc flash.</details>
+
+**17.** What is arc flash PPE category 2 and what does it include?
+
+<details><summary>Answer</summary>Minimum arc rating 8 cal/cm²: arc-rated long-sleeve shirt and pants or coveralls, arc-rated face shield with balaclava or hood, hard hat, safety glasses, hearing protection, leather gloves and footwear. Review: arc flash.</details>
+
+**18.** Name the WHMIS 2015 pictogram for a gas under pressure and for a health hazard such as a carcinogen.
+
+<details><summary>Answer</summary>Gas under pressure: a gas cylinder in a red diamond. Health hazard (carcinogen, respiratory sensitizer, reproductive toxicity): the silhouette with a starburst on the chest. Review: WHMIS.</details>
+
+**19.** How must a gas cylinder be moved and stored?
+
+<details><summary>Answer</summary>Valve cap on, upright and chained on a cart; never rolled on its side, lifted by the cap or slung by the valve; stored upright, secured, oxygen and fuel gas separated by 6 m (20 ft) or a 1.5 m fire wall; full and empty separated and labelled. Review: compressed gas cylinder handling.</details>
+
+**20.** Name the four elements of the "right to refuse" unsafe work as it applies to an apprentice.
+
+<details><summary>Answer</summary>The worker has reasonable cause to believe the work is dangerous, reports it to the supervisor immediately, does not return until the hazard is investigated and resolved or a joint decision is made, and cannot be disciplined for a good-faith refusal. Review: worker rights and responsibilities.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the safety category from the top.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$safety quiz$mw$,$mw$safety test questions$mw$,$mw$lockout tagout questions$mw$,$mw$confined space questions$mw$,$mw$fall protection questions$mw$,$mw$hot work questions$mw$,$mw$WHMIS questions$mw$,$mw$arc flash questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the safety articles in this knowledge base (CSA Z460 lockout, CSA Z1006 confined space, CSA Z259 fall protection, NFPA 51B hot work, CSA Z432 machine guarding, CSA Z462 and NFPA 70E arc flash, WHMIS 2015, CGA cylinder handling).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-welding-and-cutting$mw$, $mw$Test Yourself: Welding and Cutting (20 Questions with Answers on SMAW, GMAW, FCAW, GTAW, Oxy-Fuel, Plasma and Carbon Arc Gouging)$mw$, $mw$Twenty practice questions on the welding and cutting material in this knowledge base, from electrode classification and polarity to oxy-fuel pressures and plasma cut quality. Try each one before opening the answer. Each answer names the article to review if you got it wrong.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20. Anything under 16 means read the linked articles again before the exam.
+
+![Review figure: polarity and where the heat goes](/img/welding/polarity.svg)
+
+*Review figure: polarity and where the heat goes*
+
+## Questions
+
+**1.** What do the digits in E7018 tell you?
+
+<details><summary>Answer</summary>70 = minimum tensile strength 70,000 psi; 1 = all positions; 8 = low-hydrogen iron-powder coating usable on AC or DC electrode positive. Review: SMAW electrode selection.</details>
+
+**2.** Which polarity gives the deepest penetration with a stick electrode, and what is it called?
+
+<details><summary>Answer</summary>DC electrode positive (DCEP, also called reverse polarity). For SMAW the greater share of arc heat is released at the positive side, and with the electrode positive the arc digs deeper into the plate; 7018 and 6010 both run on DCEP. Review: SMAW machine setup.</details>
+
+**3.** A 7018 electrode has been out of the rod oven for six hours on a humid day. Can you use it on a code weld?
+
+<details><summary>Answer</summary>No. Low-hydrogen electrodes are limited to about 4 hours of exposure (less for higher strength classes) before they must be re-baked at 370 to 430 °C for one hour or discarded. Review: electrode storage and drying.</details>
+
+**4.** In GMAW, what changes when you turn up the wire feed speed and leave voltage alone?
+
+<details><summary>Answer</summary>Amperage rises: in constant-voltage GMAW the wire feed speed sets the current. Arc length shortens and the arc gets crackly until voltage is raised to match. Review: GMAW setup.</details>
+
+**5.** Name the four GMAW transfer modes and the one you would use for out-of-position welding on 3/8 in plate.
+
+<details><summary>Answer</summary>Short circuit, globular, spray, pulsed spray. Short circuit (or pulsed spray with a suitable power source) is used out of position; conventional spray is flat and horizontal only. Review: GMAW transfer modes.</details>
+
+**6.** What shielding gas mix gives spray transfer on carbon steel, and why will 100 percent CO2 not do it?
+
+<details><summary>Answer</summary>Argon with 8 to 20 percent CO2 (commonly 90/10 or 75/25 above the transition current). Pure CO2 cannot support axial spray; it stays globular at any current. Review: GMAW shielding gases.</details>
+
+**7.** E71T-1 versus E71T-11: which one needs gas and which can be used outdoors without it?
+
+<details><summary>Answer</summary>E71T-1 is gas-shielded (CO2 or 75/25) and gives the best mechanicals; E71T-11 is self-shielded for use outdoors and in wind, with polarity DCEN. Review: FCAW setup.</details>
+
+**8.** A self-shielded flux-cored wire is porous along the whole bead. The wire and machine are right. What is the most likely setting error?
+
+<details><summary>Answer</summary>Stick-out too short. Self-shielded wires need long electrical stick-out (3/4 to 1-1/4 in) to preheat the wire and let the flux generate its shielding. Review: FCAW troubleshooting.</details>
+
+**9.** For GTAW on aluminum, what current type and tungsten would you set?
+
+<details><summary>Answer</summary>AC with high-frequency start, balance around 65 to 75 percent electrode negative, on a lanthanated or zirconiated tungsten with a balled or lightly pointed tip. Review: GTAW setup for aluminum.</details>
+
+**10.** What is the purpose of post-flow on a TIG torch, and roughly how long should it be?
+
+<details><summary>Answer</summary>To shield the cooling tungsten and weld puddle from oxidation. About one second per 10 amps: 10 to 15 seconds for a 150 amp weld. Review: GTAW setup.</details>
+
+**11.** What is the safe working pressure limit for acetylene, and why?
+
+<details><summary>Answer</summary>15 psig. Above that, free acetylene can decompose explosively without oxygen present. Review: oxy-fuel safety.</details>
+
+**12.** Explain the neutral flame and how you recognize it.
+
+<details><summary>Answer</summary>Equal volumes of oxygen and acetylene: a sharp, well defined inner cone with no acetylene feather and no hissing, rounded oxidizing cone. Set by adding oxygen until the feather just disappears. Review: oxy-acetylene setup.</details>
+
+**13.** You have a 1/2 in plate to cut with oxy-acetylene. What tip size and approximate pressures for a Victor 1-101 style tip?
+
+<details><summary>Answer</summary>Tip size 1: oxygen about 30 to 35 psig, acetylene 3 to 5 psig, travel roughly 16 to 20 in/min. Review: Victor tip chart.</details>
+
+**14.** What is the flashback arrestor for and where does it go?
+
+<details><summary>Answer</summary>To stop a flame travelling back up the hose into the regulator and cylinder; fitted at the regulator outlet (and often also at the torch inlet). A reverse-flow check valve alone does not stop a flashback. Review: oxy-fuel safety.</details>
+
+**15.** Why does plasma cutting need a clean, dry air supply, and what fails first if it is not?
+
+<details><summary>Answer</summary>Moisture and oil in the air cause erratic arcs and rapid electrode and nozzle wear (hafnium pit burn-out, nozzle orifice erosion). Consumables fail first, then cut quality. Review: plasma cutting setup.</details>
+
+**16.** What does excessive bevel angle on a plasma cut tell you?
+
+<details><summary>Answer</summary>Worn nozzle or electrode, standoff too high, or travel too fast for the amperage. Reverse bevel on one side means the torch is not square or the swirl direction was ignored. Review: plasma cut quality.</details>
+
+**17.** Carbon arc gouging: what polarity and air pressure for DC copper-coated electrodes?
+
+<details><summary>Answer</summary>DCEP, with compressed air at 80 to 100 psig at the torch; current about 800 to 1000 amps per inch of electrode diameter. Review: carbon arc gouging setup.</details>
+
+**18.** Name three welding defects that are caused by a travel speed that is too slow.
+
+<details><summary>Answer</summary>Excessive reinforcement (overlap and cold lap at the toes), burn-through on thin material, and wide beads with slag entrapment on multipass welds. Review: weld defects and causes.</details>
+
+**19.** A drawing shows a fillet symbol below the reference line with a 6 next to it and a flag on the arrow. What does it mean?
+
+<details><summary>Answer</summary>A 6 mm (or 1/4 in on an inch drawing) fillet weld on the arrow side, to be made in the field. Review: welding symbols.</details>
+
+**20.** What preheat would you use for E7018 on 1 in thick A36 plate at 0 °C?
+
+<details><summary>Answer</summary>About 65 °C (150 °F) minimum for 3/4 to 1-1/2 in thick low-carbon plate with low-hydrogen electrodes (per AWS D1.1 Table 3.2 category B), and never weld below 0 °C base metal temperature without warming. Review: preheat and interpass.</details>
+
+## Scoring
+
+- 18 to 20: exam ready for this section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the welding category from the top, starting with the setup articles.$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$welding quiz$mw$,$mw$welding test$mw$,$mw$cutting quiz$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$SMAW questions$mw$,$mw$GMAW questions$mw$,$mw$FCAW questions$mw$,$mw$TIG questions$mw$,$mw$oxy fuel questions$mw$,$mw$plasma cutting questions$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the welding and cutting articles in this knowledge base (Lincoln, Hobart, ESAB and Victor process data; AWS A5 filler classifications; CSA W59 and AWS D1.1 conventions).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';

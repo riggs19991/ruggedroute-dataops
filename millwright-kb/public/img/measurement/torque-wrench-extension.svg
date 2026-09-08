@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" width="500" height="240" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Torque wrench extension correction</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="240" fill="#ffffff"/>
+<rect x="40" y="90" width="250" height="18" fill="#64748b" stroke="#1a2233" stroke-width="1.5" rx="4"/>
+<rect x="40" y="86" width="60" height="26" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<rect x="290" y="84" width="40" height="30" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" rx="4"/>
+<rect x="330" y="92" width="60" height="14" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="390" y="82" width="30" height="34" fill="#b45309" stroke="#1a2233" stroke-width="1.5" rx="4"/>
+<circle cx="405" cy="99" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="70" y1="99" x2="70" y2="40" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
+<line x1="310" y1="99" x2="310" y2="40" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
+<line x1="405" y1="99" x2="405" y2="40" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
+<line x1="70" y1="48" x2="310" y2="48" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="190" y="42" font-size="11" text-anchor="middle" fill="#0b5fa5">L (hand centre to square drive)</text>
+<line x1="310" y1="64" x2="405" y2="64" stroke="#b91c1c" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="357" y="78" font-size="12" text-anchor="middle" font-weight="700" fill="#b91c1c">E</text>
+<text x="70" y="130" font-size="10" text-anchor="start" fill="#5b6577">pull here, slowly, one click</text>
+<text x="40" y="165" font-size="13" text-anchor="start" font-weight="700" fill="#1a2233">wrench setting = target × L ÷ (L + E)</text>
+<text x="40" y="185" font-size="11" text-anchor="start" fill="#1a2233">example: target 100 ft·lb, L 18 in, E 3 in → set 100 × 18 ÷ 21 = 86 ft·lb</text>
+<text x="40" y="205" font-size="11" text-anchor="start" fill="#166534">crowfoot at 90° to the wrench: E = 0, no correction</text>
+<text x="250" y="232" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Sockets add no length; only offsets in line with the wrench do.</text>
+</svg>

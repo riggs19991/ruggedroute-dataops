@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Service factor selection</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="320" fill="#ffffff"/>
+<rect x="30" y="30" width="200" height="44" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5" rx="6"/><text x="130" y="48.975" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233"><tspan x="130" dy="0">motor hp × service factor</tspan><tspan x="130" dy="13.75">= required rating</tspan></text>
+<rect x="250" y="30" width="200" height="18" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="42.24" font-size="10" text-anchor="start" font-weight="600" fill="#1a2233">load</text>
+<text x="346" y="42.24" font-size="10" text-anchor="start" font-weight="600" fill="#1a2233">≤ 10 h</text>
+<text x="401" y="42.24" font-size="10" text-anchor="start" font-weight="600" fill="#1a2233">&gt; 10 h</text>
+<rect x="250" y="48" width="200" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="60.24" font-size="10" text-anchor="start" fill="#1a2233">uniform</text>
+<text x="346" y="60.24" font-size="10" text-anchor="start" fill="#1a2233">1.00</text>
+<text x="401" y="60.24" font-size="10" text-anchor="start" fill="#1a2233">1.25</text>
+<rect x="250" y="66" width="200" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="78.24" font-size="10" text-anchor="start" fill="#1a2233">moderate</text>
+<text x="346" y="78.24" font-size="10" text-anchor="start" fill="#1a2233">1.25</text>
+<text x="401" y="78.24" font-size="10" text-anchor="start" fill="#1a2233">1.50</text>
+<rect x="250" y="84" width="200" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="96.24" font-size="10" text-anchor="start" fill="#1a2233">heavy shock</text>
+<text x="346" y="96.24" font-size="10" text-anchor="start" fill="#1a2233">1.50</text>
+<text x="401" y="96.24" font-size="10" text-anchor="start" fill="#1a2233">1.75</text>
+<line x1="130" y1="74" x2="130" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="30" y="96" width="200" height="36" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="130" y="117.85" font-size="11" text-anchor="middle" fill="#1a2233">mechanical rating ≥ required?</text>
+<line x1="130" y1="132" x2="130" y2="152" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="30" y="152" width="200" height="36" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="130" y="173.85" font-size="11" text-anchor="middle" fill="#1a2233">thermal rating ≥ motor hp?</text>
+<line x1="130" y1="188" x2="130" y2="208" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="30" y="208" width="200" height="36" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="130" y="229.85" font-size="11" text-anchor="middle" fill="#1a2233">ratio = input ÷ output rpm</text>
+<line x1="130" y1="244" x2="130" y2="264" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="30" y="264" width="200" height="30" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="130" y="282.85" font-size="11" text-anchor="middle" fill="#1a2233">overhung load ≤ allowable</text>
+<text x="250" y="130" font-size="10" text-anchor="start" fill="#5b6577"><tspan x="250" dy="0">no → next size up</tspan><tspan x="250" dy="12.5">(gears and bearings)</tspan></text>
+<text x="250" y="178" font-size="10" text-anchor="start" fill="#5b6577"><tspan x="250" dy="0">no → fan, cooler, bigger box</tspan><tspan x="250" dy="12.5">(worm boxes fail here first)</tspan></text>
+<text x="250" y="234" font-size="10" text-anchor="start" fill="#5b6577"><tspan x="250" dy="0">pick nearest catalogue ratio;</tspan><tspan x="250" dy="12.5">trim with the belt drive</tspan></text>
+<text x="250" y="278" font-size="10" text-anchor="start" fill="#5b6577">OHL = 126,000 × hp × K ÷ (rpm × PD)</text>
+<text x="250" y="312" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Select on whichever of mechanical and thermal rating is smaller.</text>
+</svg>

@@ -1176,5 +1176,169 @@
    "alt": "How a manual gets into the library",
    "after": "## Steps"
   }
+ ],
+ "reading-a-vernier-caliper": [
+  {
+   "img": "measurement/vernier-caliper-parts.svg",
+   "alt": "The four measurements a caliper makes",
+   "after": "## The four measurements"
+  },
+  {
+   "img": "measurement/vernier-scale-reading.svg",
+   "alt": "Reading an inch vernier: 1.436 in step by step",
+   "after": "## Reading a vernier caliper (inch, 0.001 in)"
+  }
+ ],
+ "telescoping-and-bore-gauges": [
+  {
+   "img": "measurement/telescoping-gauge-technique.svg",
+   "alt": "Rock the telescoping gauge through the centre, then measure it with a micrometer",
+   "after": "## Telescoping gauge technique"
+  }
+ ],
+ "feeler-gauges-and-thickness-measurement": [
+  {
+   "img": "measurement/feeler-gauge-technique.svg",
+   "alt": "Light drag both ways; stack blades for in-between sizes",
+   "after": "## Technique"
+  }
+ ],
+ "torque-wrench-use-and-calibration": [
+  {
+   "img": "measurement/torque-wrench-extension.svg",
+   "alt": "Correcting the wrench setting for a crowfoot or extension",
+   "after": "## Extensions and crowfoot adapters"
+  }
+ ],
+ "surface-plate-height-gauge-and-squares": [
+  {
+   "img": "measurement/height-gauge-and-sine-bar.svg",
+   "alt": "Height gauge and sine bar on the surface plate",
+   "after": "## Height gauge"
+  }
+ ],
+ "propane-and-propylene-cutting": [
+  {
+   "img": "oxy-fuel/propane-vs-acetylene.svg",
+   "alt": "Propane needs a two-piece tip, more oxygen and a longer preheat",
+   "after": "## The gases compared"
+  }
+ ],
+ "oxy-fuel-welding-and-braze-welding-tips": [
+  {
+   "img": "oxy-fuel/oaw-braze-technique.svg",
+   "alt": "Forehand torch and rod angles; bronze rod tins first",
+   "after": "## Technique"
+  }
+ ],
+ "field-balancing-basics-single-plane": [
+  {
+   "img": "condition-monitoring/single-plane-balancing-vectors.svg",
+   "alt": "Vector diagram: original, original plus trial, and the trial effect",
+   "after": "## Single-plane vector method (with phase)"
+  }
+ ],
+ "bearing-defect-frequencies-and-envelope": [
+  {
+   "img": "condition-monitoring/bearing-defect-frequencies.svg",
+   "alt": "BPFO, BPFI, BSF and FTF with rule-of-thumb multiples",
+   "after": "## The four frequencies"
+  }
+ ],
+ "gearbox-rebuild-and-shimming-procedure": [
+  {
+   "img": "gearboxes/shim-pack-preload.svg",
+   "alt": "Shim pack under the bearing cap sets the tapered bearing end play",
+   "after": "## Setting tapered roller bearing preload with shims"
+  },
+  {
+   "img": "gearboxes/bevel-contact-pattern.svg",
+   "alt": "Reading the bevel gear contact pattern",
+   "after": "## Setting bevel gear position"
+  }
+ ],
+ "reducer-selection-and-service-factor": [
+  {
+   "img": "gearboxes/service-factor-selection.svg",
+   "alt": "Five checks for selecting a reducer",
+   "after": "## The idea"
+  }
+ ],
+ "how-to-read-a-pump-curve-sheet": [
+  {
+   "img": "manuals/pump-curve-sheet-anatomy.svg",
+   "alt": "An annotated manufacturer pump curve sheet",
+   "after": "## What is on the sheet"
+  }
+ ],
+ "how-to-read-a-bearing-catalogue-page": [
+  {
+   "img": "manuals/bearing-catalogue-row.svg",
+   "alt": "One row of a bearing catalogue table explained",
+   "after": "## The page layout"
+  }
+ ],
+ "how-to-read-a-coupling-and-sheave-selection-table": [
+  {
+   "img": "manuals/belt-selection-steps.svg",
+   "alt": "V-belt drive selection steps with a worked example",
+   "after": "## Sheave and belt selection page"
+  }
+ ],
+ "quiz-welding-and-cutting": [
+  {
+   "img": "welding/polarity.svg",
+   "alt": "Review figure: polarity and where the heat goes",
+   "after": "top"
+  }
+ ],
+ "quiz-alignment-and-installation": [
+  {
+   "img": "alignment/offset-and-angularity.svg",
+   "alt": "Review figure: offset and angularity",
+   "after": "top"
+  }
+ ],
+ "quiz-bearings-and-drives": [
+  {
+   "img": "bearings/bearing-parts-and-number.svg",
+   "alt": "Review figure: bearing parts and number",
+   "after": "top"
+  }
+ ],
+ "quiz-hydraulics-and-lubrication": [
+  {
+   "img": "hydraulics/iso-4406-codes.svg",
+   "alt": "Review figure: ISO 4406 cleanliness codes",
+   "after": "top"
+  }
+ ],
+ "quiz-rigging-and-lifting": [
+  {
+   "img": "rigging/sling-angles-and-hitches.svg",
+   "alt": "Review figure: sling angles and hitches",
+   "after": "top"
+  }
+ ],
+ "quiz-safety": [
+  {
+   "img": "safety/lockout-steps.svg",
+   "alt": "Review figure: lockout steps",
+   "after": "top"
+  }
+ ],
+ "quiz-pumps-conveyors-and-troubleshooting": [
+  {
+   "img": "pumps-seals/pump-curve.svg",
+   "alt": "Review figure: the pump curve and BEP",
+   "after": "top"
+  }
+ ],
+ "millwright-glossary": [
+  {
+   "img": "study/glossary-lookup.svg",
+   "alt": "How to use the glossary",
+   "after": "top"
+  }
  ]
 }

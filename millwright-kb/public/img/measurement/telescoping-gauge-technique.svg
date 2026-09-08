@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280" width="500" height="280" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Telescoping gauge technique</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="280" fill="#ffffff"/>
+<text x="120" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">1. Rock through the centre</text>
+<circle cx="120" cy="130" r="80" fill="#f1f5f9" stroke="#1a2233" stroke-width="2"/>
+<circle cx="120" cy="130" r="66" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="120" y1="64" x2="120" y2="196" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
+<circle cx="120" cy="64" r="5" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="120" cy="196" r="5" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="120" y1="130" x2="120" y2="230" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+<rect x="112" y="226" width="16" height="14" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<line x1="64" y1="96" x2="176" y2="164" stroke="#0b5fa5" stroke-width="1.2" stroke-dasharray="4 3" stroke-linecap="round"/>
+<line x1="64" y1="164" x2="176" y2="96" stroke="#0b5fa5" stroke-width="1.2" stroke-dasharray="4 3" stroke-linecap="round"/>
+<path d="M167,211.40638795573722 A94,94 0 0 1 73.00000000000003,211.40638795573724" fill="none" stroke="#0b5fa5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="130" y="250" font-size="10" text-anchor="middle" fill="#5b6577">lock lightly as you pass the centre</text>
+<text x="370" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">2. Measure the gauge</text>
+<path d="M300,90 L300,170 L330,190 L440,190 L440,150 L400,150 L400,110 L330,110 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="400" y="118" width="60" height="24" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="455" y="116" width="12" height="28" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="330" y1="130" x2="400" y2="130" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
+<circle cx="330" cy="130" r="5" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="400" cy="130" r="5" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="370" y="215" font-size="10" text-anchor="middle" fill="#5b6577"><tspan x="370" dy="0">same light feel as on the bore;</tspan><tspan x="370" dy="12.5">repeat three times, readings within 0.0005 in</tspan></text>
+<text x="250" y="272" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Rocking finds the shortest line across the bore: the true diameter.</text>
+</svg>

@@ -134,6 +134,10 @@ a.card:hover { text-decoration: none; border-color: var(--accent); }
 .md h1 { font-size: 1.5rem; margin-top: 1.2em; }
 .md h2 { font-size: 1.25rem; margin-top: 1.4em; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
 .md h3 { margin-top: 1.2em; }
+.md details { border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; margin: 6px 0 14px; background: var(--surface); }
+.md details[open] { background: var(--bg); }
+.md summary { cursor: pointer; font-weight: 600; color: var(--accent-dark); user-select: none; }
+.md summary:hover { text-decoration: underline; }
 .md table { display: block; overflow-x: auto; border-collapse: collapse; margin: 12px 0; max-width: 100%; font-size: 0.92rem; }
 .md th, .md td { border: 1px solid var(--border); padding: 5px 9px; text-align: left; vertical-align: top; white-space: nowrap; }
 .md th { background: var(--surface-2); }

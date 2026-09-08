@@ -2,169 +2,176 @@
   {
     "slug": "alignment",
     "name": "Shaft Alignment",
-    "icon": "🎯",
+    "icon": "\ud83c\udfaf",
     "sort_order": 10,
     "description": "Rim-and-face, reverse dial, laser alignment, soft foot, thermal growth and tolerances."
   },
   {
     "slug": "installation",
     "name": "Machine Installation & Foundations",
-    "icon": "🧱",
+    "icon": "\ud83e\uddf1",
     "sort_order": 15,
     "description": "Anchor bolts, grouting, leveling, baseplates and sole plates, precision levels, optical and wire alignment, moving machinery."
   },
   {
     "slug": "bearings",
     "name": "Bearings",
-    "icon": "⚙️",
+    "icon": "\u2699\ufe0f",
     "sort_order": 20,
     "description": "Mounting, dismounting, clearance, fits, taper-bore drive-up, heating and designation codes."
   },
   {
     "slug": "oxy-fuel",
     "name": "Oxy-Fuel Cutting & Welding",
-    "icon": "🔥",
+    "icon": "\ud83d\udd25",
     "sort_order": 30,
     "description": "Torch setup, Victor tip charts, pressures, flame adjustment, shutdown and safety."
   },
   {
     "slug": "welding",
     "name": "Welding & Fabrication",
-    "icon": "⚡",
+    "icon": "\u26a1",
     "sort_order": 35,
     "description": "Stick, MIG (all transfer modes), flux-core, TIG and SAW setup charts, filler selection, joint prep, distortion, symbols, brazing."
   },
   {
     "slug": "cutting-gouging",
     "name": "Cutting & Gouging",
-    "icon": "✂️",
+    "icon": "\u2702\ufe0f",
     "sort_order": 36,
     "description": "Plasma cut charts, piercing and keyholing, carbon-arc gouging, saws, grinders and abrasives, field hole making."
   },
   {
     "slug": "layout-templates",
     "name": "Layout & Templates",
-    "icon": "📐",
+    "icon": "\ud83d\udcd0",
     "sort_order": 37,
     "description": "Pipe saddles, miters and laterals, sheet-metal developments, hole patterns, wrap-arounds, shim and gasket templates, jigs."
   },
   {
     "slug": "power-transmission",
     "name": "Belts, Chains & Couplings",
-    "icon": "🔗",
+    "icon": "\ud83d\udd17",
     "sort_order": 40,
     "description": "V-belt tensioning, roller chain, sheave alignment, coupling types and gap."
   },
   {
     "slug": "conveyors",
     "name": "Conveyors & Material Handling",
-    "icon": "🎢",
+    "icon": "\ud83c\udfa2",
     "sort_order": 45,
     "description": "Belt tracking, splicing, idlers and pulleys, screw conveyors, bucket elevators, conveyor safety."
   },
   {
     "slug": "gearboxes",
     "name": "Gearboxes & Reducers",
-    "icon": "🛠️",
+    "icon": "\ud83d\udee0\ufe0f",
     "sort_order": 50,
     "description": "Speed reducers, shaft-mount reducers, lubrication, backlash, inspection."
   },
   {
     "slug": "lubrication",
     "name": "Lubrication",
-    "icon": "🛢️",
+    "icon": "\ud83d\udee2\ufe0f",
     "sort_order": 55,
     "description": "Grease types and compatibility, regreasing intervals and quantities, oil viscosity, oil analysis, lube routes."
   },
   {
     "slug": "condition-monitoring",
     "name": "Vibration & Condition Monitoring",
-    "icon": "📈",
+    "icon": "\ud83d\udcc8",
     "sort_order": 56,
     "description": "Vibration basics and ISO severity, fault signatures, thermography, ultrasound, condition-based maintenance."
   },
   {
     "slug": "motors-electrical",
     "name": "Motors, VFDs & Electrical Awareness",
-    "icon": "🔌",
+    "icon": "\ud83d\udd0c",
     "sort_order": 57,
     "description": "Motor nameplates, 9 and 12 lead connections, VFD basics, megger testing, PLC and instrumentation awareness, electrical safety."
   },
   {
     "slug": "pumps-seals",
     "name": "Pumps & Seals",
-    "icon": "💧",
+    "icon": "\ud83d\udca7",
     "sort_order": 60,
     "description": "Centrifugal pumps, mechanical seals, packing, cavitation troubleshooting."
   },
   {
     "slug": "rigging",
     "name": "Rigging & Lifting",
-    "icon": "🏗️",
+    "icon": "\ud83c\udfd7\ufe0f",
     "sort_order": 70,
     "description": "Sling angles, hitches, load calculation, inspection and hand signals."
   },
   {
     "slug": "measurement",
     "name": "Precision Measurement",
-    "icon": "📏",
+    "icon": "\ud83d\udccf",
     "sort_order": 80,
     "description": "Micrometers, dial indicators, feeler gauges, levels and layout."
   },
   {
     "slug": "machining",
     "name": "Shop Machining Basics",
-    "icon": "🧲",
+    "icon": "\ud83e\uddf2",
     "sort_order": 85,
     "description": "Drill press speeds and feeds, tapping and thread repair, broken bolt removal, lathe and mill basics, grinding."
   },
   {
     "slug": "fasteners",
     "name": "Fasteners & Torque",
-    "icon": "🔩",
+    "icon": "\ud83d\udd29",
     "sort_order": 90,
     "description": "Bolt grades, torque charts, thread identification, anti-seize and locking methods."
   },
   {
     "slug": "hydraulics",
     "name": "Hydraulics & Pneumatics",
-    "icon": "🧰",
+    "icon": "\ud83e\uddf0",
     "sort_order": 100,
     "description": "Fluid power basics, symbols, cylinders, valves, contamination control."
   },
   {
     "slug": "troubleshooting",
     "name": "Troubleshooting & Failure Analysis",
-    "icon": "🔍",
+    "icon": "\ud83d\udd0d",
     "sort_order": 105,
     "description": "Bearing, belt, seal, coupling and gear failure patterns, what they mean and what to fix."
   },
   {
     "slug": "maintenance",
     "name": "Preventive Maintenance & Inspection",
-    "icon": "📋",
+    "icon": "\ud83d\udccb",
     "sort_order": 106,
     "description": "PM checklists, inspection routes, records, spare parts and bearing storage."
   },
   {
     "slug": "safety",
     "name": "Safety & Lockout",
-    "icon": "🦺",
+    "icon": "\ud83e\uddba",
     "sort_order": 110,
     "description": "Lockout/tagout, confined space, hot work, PPE, compressed gas handling."
   },
   {
     "slug": "manuals",
     "name": "Manufacturer Manuals",
-    "icon": "📚",
+    "icon": "\ud83d\udcda",
     "sort_order": 120,
     "description": "Uploaded OEM manuals and datasheets: Dodge, Baldor, SKF, Timken, Falk, Rexnord and more."
   },
   {
     "slug": "shop-reference",
     "name": "Shop Math & Reference",
-    "icon": "🧮",
+    "icon": "\ud83e\uddee",
     "sort_order": 130,
     "description": "Conversions, formulas, decimal equivalents, tap drill sizes, trig for millwrights."
+  },
+  {
+    "slug": "study",
+    "name": "Test Yourself & Glossary",
+    "icon": "\ud83c\udf93",
+    "description": "Practice questions with answers for the Red Seal and apprenticeship exams, and an A-Z glossary of millwright terms.",
+    "sort_order": 140
   }
 ]

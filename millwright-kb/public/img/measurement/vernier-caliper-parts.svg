@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Vernier caliper parts</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<rect x="120" y="90" width="340" height="26" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="126" y1="90" x2="126" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="136" y1="90" x2="136" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="146" y1="90" x2="146" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="156" y1="90" x2="156" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="166" y1="90" x2="166" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="176" y1="90" x2="176" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="186" y1="90" x2="186" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="196" y1="90" x2="196" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="206" y1="90" x2="206" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="216" y1="90" x2="216" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="226" y1="90" x2="226" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="236" y1="90" x2="236" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="246" y1="90" x2="246" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="256" y1="90" x2="256" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="266" y1="90" x2="266" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="276" y1="90" x2="276" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="286" y1="90" x2="286" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="296" y1="90" x2="296" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="306" y1="90" x2="306" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="316" y1="90" x2="316" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="326" y1="90" x2="326" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="336" y1="90" x2="336" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="346" y1="90" x2="346" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="356" y1="90" x2="356" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="366" y1="90" x2="366" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="376" y1="90" x2="376" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="386" y1="90" x2="386" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="396" y1="90" x2="396" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="406" y1="90" x2="406" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="416" y1="90" x2="416" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="426" y1="90" x2="426" y2="100" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="436" y1="90" x2="436" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="446" y1="90" x2="446" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="456" y1="90" x2="456" y2="96" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<path d="M120,116 L120,190 L140,190 L150,116 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M120,90 L120,50 L132,50 L140,90 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="170" y="80" width="70" height="46" fill="#64748b" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<path d="M170,126 L160,190 L180,190 L200,126 Z" fill="#64748b" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M176,80 L166,50 L178,50 L186,80 Z" fill="#64748b" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="226" cy="103" r="6" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="456" y="98" width="24" height="8" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="170" y1="90" x2="170" y2="80" stroke="#b45309" stroke-width="2" stroke-linecap="round"/>
+<circle cx="150" cy="200" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="150" y="204" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text>
+<circle cx="154" cy="40" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="154" y="44" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text>
+<circle cx="470" cy="122" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="470" y="126" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text>
+<circle cx="190" cy="68" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="190" y="72" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text>
+<circle cx="259" cy="146" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="259" y="150" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text><text x="274" y="150" font-size="11" text-anchor="start" fill="#1a2233">outside: jaws close on the part</text>
+<circle cx="259" cy="163" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="259" y="167" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text><text x="274" y="167" font-size="11" text-anchor="start" fill="#1a2233">inside: knife edges open into a bore</text>
+<circle cx="259" cy="180" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="259" y="184" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text><text x="274" y="184" font-size="11" text-anchor="start" fill="#1a2233">depth: rod from the beam end</text>
+<circle cx="259" cy="197" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="259" y="201" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text><text x="274" y="201" font-size="11" text-anchor="start" fill="#1a2233">step: head face to beam end</text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Read all four on the same scale; zero the jaws closed before you start.</text>
+</svg>
