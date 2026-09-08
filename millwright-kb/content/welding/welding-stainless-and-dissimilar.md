@@ -64,6 +64,10 @@ Stainless does not conduct heat away: the puddle forms fast and stays. Move fast
 
 Any open root (pipe, tanks, box sections) exposed to air while hot oxidises into a black crust ("sugaring") that has no corrosion resistance and cracks. Purge with argon (procedure in [gas selection and flow](/article/gas-selection-and-flow)) until oxygen < 0.1% and keep the purge on until the root is below about 800°F.
 
+![Heat tint colours from silver to black and what each means](/img/welding/heat-tint-scale.svg)
+
+*Heat tint colours from silver to black and what each means*
+
 | Heat tint colour on the weld and HAZ | Meaning |
 |---|---|
 | Silver, pale straw | Correct shielding; acceptable for all services |

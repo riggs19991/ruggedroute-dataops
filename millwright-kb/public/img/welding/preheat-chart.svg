@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" width="500" height="350" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Preheat chart</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="350" fill="#ffffff"/>
+<rect x="70" y="30" width="400" height="220" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<line x1="70" y1="250" x2="470" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="254" font-size="11" text-anchor="end" fill="#5b6577">0</text>
+<line x1="70" y1="206" x2="470" y2="206" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="210" font-size="11" text-anchor="end" fill="#5b6577">100</text>
+<line x1="70" y1="162" x2="470" y2="162" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="166" font-size="11" text-anchor="end" fill="#5b6577">200</text>
+<line x1="70" y1="118" x2="470" y2="118" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="122" font-size="11" text-anchor="end" fill="#5b6577">300</text>
+<line x1="70" y1="74" x2="470" y2="74" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="78" font-size="11" text-anchor="end" fill="#5b6577">400</text>
+<line x1="70" y1="30" x2="470" y2="30" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="34" font-size="11" text-anchor="end" fill="#5b6577">500</text>
+<line x1="70" y1="30" x2="70" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="70" y="264" font-size="11" text-anchor="middle" fill="#5b6577">0</text>
+<line x1="136.66666666666666" y1="30" x2="136.66666666666666" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="136.66666666666666" y="264" font-size="11" text-anchor="middle" fill="#5b6577">0.5</text>
+<line x1="203.33333333333331" y1="30" x2="203.33333333333331" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="203.33333333333331" y="264" font-size="11" text-anchor="middle" fill="#5b6577">1</text>
+<line x1="270" y1="30" x2="270" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="270" y="264" font-size="11" text-anchor="middle" fill="#5b6577">1.5</text>
+<line x1="336.66666666666663" y1="30" x2="336.66666666666663" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="336.66666666666663" y="264" font-size="11" text-anchor="middle" fill="#5b6577">2</text>
+<line x1="403.33333333333337" y1="30" x2="403.33333333333337" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="403.33333333333337" y="264" font-size="11" text-anchor="middle" fill="#5b6577">2.5</text>
+<line x1="470" y1="30" x2="470" y2="250" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="470" y="264" font-size="11" text-anchor="middle" fill="#5b6577">3</text>
+<text x="270" y="280" font-size="12" text-anchor="middle" fill="#5b6577">Thickest part at the joint (in)</text>
+<text x="36" y="140" font-size="12" text-anchor="middle" fill="#5b6577" transform="rotate(-90 36 140)">Minimum preheat °F</text>
+<path d="M70,228 L170,228 L171.33333333333334,228 L270,228 L271.3333333333333,184 L403.33333333333337,184 L404.66666666666663,151 L470,151" fill="none" stroke="#166534" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="80" y="290" width="14" height="4" fill="#166534" stroke="none" stroke-width="1.5"/>
+<text x="100" y="296" font-size="11" text-anchor="start" fill="#1a2233">A36 / low CE ≤ 0.40 (7018)</text>
+<path d="M70,184 L170,184 L171.33333333333334,151 L270,151 L271.3333333333333,118 L470,118" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="80" y="306" width="14" height="4" fill="#b45309" stroke="none" stroke-width="1.5"/>
+<text x="100" y="312" font-size="11" text-anchor="start" fill="#1a2233">CE 0.40-0.50 (1045, A572)</text>
+<path d="M70,118 L170,118 L171.33333333333334,74 L270,74 L271.3333333333333,30 L470,30" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="80" y="322" width="14" height="4" fill="#b91c1c" stroke="none" stroke-width="1.5"/>
+<text x="100" y="328" font-size="11" text-anchor="start" fill="#1a2233">CE over 0.50 (4140, 4340)</text>
+<text x="300" y="296" font-size="10" text-anchor="start" fill="#5b6577"><tspan x="300" dy="0">bands after AWS D1.1 Table 3.3</tspan><tspan x="300" dy="12.5">CE = C + Mn/6 + (Cr+Mo+V)/5</tspan><tspan x="300" dy="12.5">     + (Ni+Cu)/15</tspan></text>
+<text x="250" y="342" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Higher restraint, hydrogen or cold steel: go up a band. Check the WPS.</text>
+</svg>

@@ -55,6 +55,10 @@ Flux does three jobs: shows temperature (goes clear and watery at brazing heat),
 
 Capillary action works only in a **narrow, uniform gap** at brazing temperature:
 
+![Capillary joint clearance, overlap and where the heat goes](/img/welding/brazing-joint.svg)
+
+*Capillary joint clearance, overlap and where the heat goes*
+
 | Filler | Clearance at brazing temperature |
 |---|---|
 | BAg silver alloys, flux | **0.001-0.005" (0.025-0.13 mm)** |

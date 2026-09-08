@@ -14,6 +14,10 @@ A **discontinuity** is any interruption in the weld; it becomes a **defect** onl
 
 ## The defects and their causes
 
+![Undercut, overlap, porosity, lack of fusion and incomplete penetration in section](/img/welding/weld-defects.svg)
+
+*Undercut, overlap, porosity, lack of fusion and incomplete penetration in section*
+
 | Defect | What it looks like | Main causes | Fix |
 |---|---|---|---|
 | **Porosity** (surface, cluster, linear, piping/wormhole) | Round holes, elongated holes at the surface, "worm tracks" | Gas shielding lost (low/high flow, wind, leak, clogged nozzle, wrong gas), contaminated base (rust, oil, paint, galvanising, moisture), damp electrodes, long arc, wrong polarity on flux-core, too fast travel | Fix the gas and the cleaning first; rods from the oven; polarity check; shorten arc |

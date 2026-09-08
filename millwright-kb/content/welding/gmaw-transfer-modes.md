@@ -10,6 +10,10 @@ summary: "What each transfer mode is, when it happens, what gas and current it n
 
 ## The four modes at a glance
 
+![Short-circuit, globular, spray and pulsed spray with the transition current](/img/welding/mig-transfer-modes.svg)
+
+*Short-circuit, globular, spray and pulsed spray with the transition current*
+
 | Mode | How metal crosses the arc | Current / voltage | Gas | Positions | Thickness | Spatter |
 |---|---|---|---|---|---|---|
 | **Short-circuit (GMAW-S)** | Wire touches the puddle 90-200 times/s; each short melts off a droplet | Low: roughly 40-200 A, 14-22 V | C25, 100% CO2, tri-mix for stainless | **All** | Sheet to 1/8" ideal; thicker with care (lack of fusion risk) | Some |

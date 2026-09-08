@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="500" height="400" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Welding polarity</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="400" fill="#ffffff"/>
+<text x="130" y="32" font-size="14" text-anchor="middle" font-weight="700" fill="#1a2233">DCEP (reverse polarity)</text>
+<rect x="20" y="40" width="100" height="64" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<text x="70" y="64.7" font-size="12" text-anchor="middle" font-weight="600" fill="#1a2233"><tspan x="70" dy="0">Welding</tspan><tspan x="70" dy="15">machine</tspan></text>
+<circle cx="48" cy="92" r="6" fill="#b91c1c" stroke="#1a2233" stroke-width="1.5"/>
+<text x="48" y="96" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">+</text>
+<circle cx="92" cy="92" r="6" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<text x="92" y="96" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">−</text>
+<rect x="130" y="158" width="100" height="14" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<text x="180" y="186" font-size="12" text-anchor="middle" fill="#1a2233">work</text>
+<line x1="190" y1="86" x2="190" y2="150" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<rect x="182" y="70" width="16" height="22" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<text x="190" y="60" font-size="11" text-anchor="middle" fill="#1a2233">electrode</text>
+<path d="M48,98 C48,135 190,45 190,70" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M92,98 C92,178 130,188 134,172" fill="none" stroke="#1a2233" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="130" y="204" font-size="11" text-anchor="middle" fill="#5b6577">electrode +, work −</text>
+<text x="130" y="218" font-size="11" text-anchor="middle" fill="#5b6577">about 2/3 of the heat at the electrode</text>
+<text x="370" y="32" font-size="14" text-anchor="middle" font-weight="700" fill="#1a2233">DCEN (straight polarity)</text>
+<rect x="260" y="40" width="100" height="64" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<text x="310" y="64.7" font-size="12" text-anchor="middle" font-weight="600" fill="#1a2233"><tspan x="310" dy="0">Welding</tspan><tspan x="310" dy="15">machine</tspan></text>
+<circle cx="288" cy="92" r="6" fill="#b91c1c" stroke="#1a2233" stroke-width="1.5"/>
+<text x="288" y="96" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">+</text>
+<circle cx="332" cy="92" r="6" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<text x="332" y="96" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">−</text>
+<rect x="370" y="158" width="100" height="14" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<text x="420" y="186" font-size="12" text-anchor="middle" fill="#1a2233">work</text>
+<line x1="430" y1="86" x2="430" y2="150" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<rect x="422" y="70" width="16" height="22" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<text x="430" y="60" font-size="11" text-anchor="middle" fill="#1a2233">electrode</text>
+<path d="M332,98 C332,135 430,45 430,70" fill="none" stroke="#1a2233" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M288,98 C288,178 370,188 374,172" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="370" y="204" font-size="11" text-anchor="middle" fill="#5b6577">electrode −, work +</text>
+<text x="370" y="218" font-size="11" text-anchor="middle" fill="#5b6577">about 2/3 of the heat in the work</text>
+<rect x="20" y="240" width="460" height="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="254.96" font-size="11.5" text-anchor="start" font-weight="600" fill="#1a2233">Process</text>
+<text x="356" y="254.96" font-size="11.5" text-anchor="start" font-weight="600" fill="#1a2233">Polarity</text>
+<rect x="20" y="262" width="460" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="276.96" font-size="11.5" text-anchor="start" fill="#1a2233">Stick 7018 / 6010, MIG, gas-shielded flux-core</text>
+<text x="356" y="276.96" font-size="11.5" text-anchor="start" fill="#1a2233">DCEP</text>
+<rect x="20" y="284" width="460" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="298.96" font-size="11.5" text-anchor="start" fill="#1a2233">TIG on steel, stainless, copper, titanium</text>
+<text x="356" y="298.96" font-size="11.5" text-anchor="start" fill="#1a2233">DCEN</text>
+<rect x="20" y="306" width="460" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="320.96" font-size="11.5" text-anchor="start" fill="#1a2233">Self-shielded flux-core (E71T-11, T-8)</text>
+<text x="356" y="320.96" font-size="11.5" text-anchor="start" fill="#1a2233">DCEN</text>
+<rect x="20" y="328" width="460" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="342.96" font-size="11.5" text-anchor="start" fill="#1a2233">TIG aluminium; stick when arc blow is bad</text>
+<text x="356" y="342.96" font-size="11.5" text-anchor="start" fill="#1a2233">AC</text>
+<text x="250" y="392" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Wrong polarity is the first check on a spattery, porous weld.</text>
+</svg>

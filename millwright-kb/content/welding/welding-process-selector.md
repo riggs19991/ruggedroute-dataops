@@ -12,6 +12,10 @@ summary: "A decision table for picking the process before you set anything up: m
 
 Ask these in order. The first row that fits usually decides it.
 
+![Which process for the job: a quick decision tree](/img/welding/process-selector.svg)
+
+*Which process for the job: a quick decision tree*
+
 | Situation | Use | Why |
 |---|---|---|
 | Outdoors, windy, dirty or rusty steel, no gas bottle handy | **Stick (SMAW)** with E6010/E6011 or E7018, or **self-shielded flux-core (FCAW-S)** | No shielding gas to blow away; flux cleans through mill scale and light rust |

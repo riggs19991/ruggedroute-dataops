@@ -63,6 +63,10 @@ The usual shop sizes are **1/4" on a 400 A machine and 5/16" or 3/8" on a 500-60
 
 ## Technique
 
+![Air jet under the electrode, 35-45° angle, 5-7 in extension](/img/cutting-gouging/carbon-arc-gouging.svg)
+
+*Air jet under the electrode, 35-45° angle, 5-7 in extension*
+
 - **Air on first, then strike**; air stays on until the arc is off and the electrode has cooled a second (the air also cools the electrode).
 - Hold the torch like a stick electrode holder, with **both hands** for a straight groove: one on the torch, one steadying the cable.
 - **Push angle 35-45°** to the plate for gouging, electrode pointed in the direction of travel; the air blows the melt ahead and out.

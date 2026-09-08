@@ -90,6 +90,10 @@ Pulsed MIG (synergic "aluminium 4043 .035" program) is the best way to weld 1/16
 
 AC, 2% lanthanated tungsten, argon 15-25 cfh, balance 65-75% EN, 100-150 Hz on inverters; amperage **1 A per 0.001" plus 20-30%**. Full settings in [TIG setup](/article/gtaw-tig-setup) and the [material tables](/article/gtaw-settings-by-material). Technique: torch 10-15° push, tight arc (1/16-1/8"), wait for the shiny puddle, dab filler generously into the leading edge, keep the rod inside the shield, taper off with the pedal while adding a last dab into the crater. Thick parts and castings: preheat 200-300°F, then the puddle forms in seconds instead of soaking.
 
+![AC balance: EN penetrates, EP cleans](/img/welding/ac-balance.svg)
+
+*AC balance: EN penetrates, EP cleans*
+
 ## Preheat
 
 - Not needed under 1/4" on a warm day; on cold or thick parts **200-300°F (95-150°C)** to start the puddle and drive out moisture.

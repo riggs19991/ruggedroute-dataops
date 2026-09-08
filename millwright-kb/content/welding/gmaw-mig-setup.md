@@ -14,6 +14,10 @@ summary: "A complete MIG setup walk-through with the chart most students want: v
 
 ## 1. Machine and polarity
 
+![MIG runs DCEP: gun lead to positive](/img/welding/polarity.svg)
+
+*MIG runs DCEP: gun lead to positive*
+
 - **Constant-voltage (CV)** power source. You set **voltage** on the machine and **wire feed speed (WFS)**; the machine supplies whatever **amperage** the wire feed demands. WFS is the amperage knob; voltage is the arc length / bead width knob.
 - **DCEP (DC+)** for solid wire and gas-shielded flux-core: gun lead on **+**, ground on **−**. (Self-shielded flux-core is the exception: DC−.)
 - Synergic / "auto-set" machines: pick wire size, gas and thickness; the machine sets both. Fine-tune from there.
@@ -65,6 +69,10 @@ Notes on using the chart:
 - Aluminium with a spool gun (.035 ER4043, 100% Ar): 22-24 V / 480-740 ipm (85-190 A) on 1/8-1/4"; stainless (.035 ER308L, tri-mix): 23-24 V / 265-335 ipm on 18 ga-1/8".
 
 ## 5. Physical setup
+
+![Contact-tip-to-work distance, stickout and push angle](/img/welding/mig-stickout.svg)
+
+*Contact-tip-to-work distance, stickout and push angle*
 
 1. **Drive-roll tension**: just enough that the wire cannot be stopped by pinching it lightly at the tip with gloved fingers; too tight deforms the wire and flakes copper into the liner. Test: feed the wire against a block of wood; it should slip at the rolls, not buckle.
 2. **Liner**: right size, not kinked, cut square, blown out with dry air when changing wire. Bird-nesting at the rolls = liner blocked or tip too small.

@@ -10,6 +10,10 @@ summary: "The consumables and service items on stick, MIG, flux-core and TIG equ
 
 ## MIG gun consumables
 
+![Liner, diffuser, contact tip and nozzle in order](/img/welding/mig-gun-parts.svg)
+
+*Liner, diffuser, contact tip and nozzle in order*
+
 ```
    [machine] ── power pin ── cable/liner ── gun handle/trigger ── neck ── diffuser ── contact tip ── nozzle
                                          drive rolls at the feeder push the wire through the liner

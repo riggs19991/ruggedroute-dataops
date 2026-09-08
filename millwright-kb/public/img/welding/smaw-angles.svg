@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Stick welding angles</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<text x="130" y="24" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Side view: travel angle</text>
+<rect x="20" y="200" width="220" height="16" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<text x="130" y="232" font-size="12" text-anchor="middle" fill="#5b6577">travel direction →</text>
+<g transform="translate(150,196) rotate(15)"><rect x="-4" y="-120" width="8" height="120" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="-6" y="-40" width="12" height="40" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" rx="2"/></g>
+<line x1="150" y1="196" x2="150" y2="90" stroke="#5b6577" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
+<path d="M150,136 A60,60 0 0 1 165.52914270615125,138.0444504226559" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/><text x="159.39788583984372" y="128.61596998108564" font-size="12" text-anchor="middle" fill="#0b5fa5">10-15° drag</text>
+<circle cx="150" cy="196" r="5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+<path d="M120,200 Q135,186 150,196" fill="none" stroke="#f8b878" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="150" y1="190" x2="150" y2="200" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="60" y="176" font-size="11" text-anchor="start" fill="#0b5fa5">arc length ≈ rod diameter</text>
+<text x="370" y="24" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">End view: work angle (fillet)</text>
+<rect x="280" y="200" width="200" height="16" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="370" y="90" width="16" height="110" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<g transform="translate(378,192) rotate(45)"><rect x="-4" y="-110" width="8" height="110" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="-6" y="-40" width="12" height="40" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" rx="2"/></g>
+<line x1="378" y1="192" x2="378" y2="100" stroke="#5b6577" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
+<line x1="378" y1="192" x2="470" y2="192" stroke="#5b6577" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
+<path d="M378,142 A50,50 0 0 1 413.3553390593274,156.64466094067262" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/><text x="401.7263728066356" y="138.71946898430022" font-size="12" text-anchor="middle" fill="#0b5fa5">45°</text>
+<path d="M370,200 L386,200 L386,184 Z" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Tight arc, drag the rod, split the fillet angle. Long arc = spatter.</text>
+</svg>

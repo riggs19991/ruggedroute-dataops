@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 260" width="500" height="260" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>AWS electrode classification</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="260" fill="#ffffff"/>
+<text x="250" y="50" font-size="34" text-anchor="middle" font-weight="700" fill="#1a2233" font-family="ui-monospace, Menlo, Consolas, monospace">E 70 1 8 - 1  H4 R</text>
+<line x1="118" y1="58" x2="118" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="118" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="118" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text>
+<line x1="163" y1="58" x2="163" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="163" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="163" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text>
+<line x1="214" y1="58" x2="214" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="214" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="214" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text>
+<line x1="246" y1="58" x2="246" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="246" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="246" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text>
+<line x1="300" y1="58" x2="300" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="300" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="300" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">5</text>
+<line x1="356" y1="58" x2="356" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="356" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="356" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">6</text>
+<line x1="402" y1="58" x2="402" y2="72" stroke="#0b5fa5" stroke-width="1" stroke-linecap="round"/>
+<circle cx="402" cy="82" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="402" y="86" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">7</text>
+<circle cx="39" cy="106" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="110" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text><text x="54" y="110" font-size="11.5" text-anchor="start" fill="#1a2233">E = electrode (stick); ER = wire or rod</text>
+<circle cx="39" cy="124" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="128" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text><text x="54" y="128" font-size="11.5" text-anchor="start" fill="#1a2233">70 = tensile strength × 1,000 psi (70 ksi)</text>
+<circle cx="39" cy="142" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="146" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text><text x="54" y="146" font-size="11.5" text-anchor="start" fill="#1a2233">1 = position: 1 all, 2 flat and horizontal, 4 vertical-down</text>
+<circle cx="39" cy="160" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="164" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text><text x="54" y="164" font-size="11.5" text-anchor="start" fill="#1a2233">8 = coating and current: low-hydrogen iron powder, AC or DCEP</text>
+<circle cx="39" cy="178" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="182" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">5</text><text x="54" y="182" font-size="11.5" text-anchor="start" fill="#1a2233">-1 = improved impact toughness (optional)</text>
+<circle cx="39" cy="196" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="200" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">6</text><text x="54" y="200" font-size="11.5" text-anchor="start" fill="#1a2233">H4 = diffusible hydrogen ≤ 4 mL per 100 g</text>
+<circle cx="39" cy="214" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="39" y="218" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">7</text><text x="54" y="218" font-size="11.5" text-anchor="start" fill="#1a2233">R = moisture-resistant coating</text>
+<text x="250" y="252" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Wires read the same way: ER70S-6 = rod, 70 ksi, solid, chemistry 6.</text>
+</svg>

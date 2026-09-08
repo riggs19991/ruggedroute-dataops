@@ -8,6 +8,10 @@ source: "AWS A5.1 (carbon steel covered electrodes), A5.5 (low-alloy covered), A
 summary: "How to read every filler-metal number you will meet on a box or a WPS: covered electrodes, solid MIG/TIG wire, flux-cored wire, stainless, aluminium and cast-iron rods, plus the Canadian CSA equivalents."
 ---
 
+![Decoding E7018-1 H4R digit by digit](/img/welding/aws-electrode-decoder.svg)
+
+*Decoding E7018-1 H4R digit by digit*
+
 ## Covered (stick) electrodes: AWS A5.1 and A5.5
 
 ```

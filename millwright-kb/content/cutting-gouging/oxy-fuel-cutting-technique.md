@@ -26,6 +26,10 @@ Tip size by thickness from the chart (1/4" → 00, 1/2" → 0, 1" → 2, 2" → 
 
 ## Straight cut, step by step
 
+![Straight cut, bevel cut and reading the drag lines](/img/cutting-gouging/oxy-cut-technique.svg)
+
+*Straight cut, bevel cut and reading the drag lines*
+
 1. Clean a strip along the line; mark with soapstone (silver pencil on dark plate); set the plate on supports so the flame and slag fall clear (not into your table's slats or a concrete floor: concrete spalls and pops).
 2. Light and set the flame; hold the torch with **both hands**: one guides at the head, the other pulls the lever. Sit or brace your elbows; move from the shoulder, not the wrist.
 3. **Preheat**: torch **90° to the plate** (for a square cut), tips **1/8-1/4" (3-6 mm) above the surface** (inner cones just off the metal), at the **edge** of the plate. Hold until the spot is **bright cherry red** (3-5 seconds on 1/4", 10-20 on 1").

@@ -12,6 +12,10 @@ summary: "Complete cylinder-to-shutdown procedure for a Victor oxy-acetylene out
 
 > **The two numbers everyone must know.** Acetylene working pressure is **never above 15 psig**; free acetylene becomes unstable above that. Never draw more than **1/7 of an acetylene cylinder's contents per hour** or you pull acetone out with the gas. Everything else in this procedure builds on those.
 
+![Cylinders, regulators, arrestors, check valves, hoses and torch](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+*Cylinders, regulators, arrestors, check valves, hoses and torch*
+
 ## 1. Cylinders
 
 1. Cylinders stand **upright**, chained or strapped to a cart or wall. Acetylene must always be upright (or lie flat and then stand for at least an hour before use so the acetone settles).
@@ -80,6 +84,10 @@ Welding tips (W-J / 100 series) run both gases at roughly the same low pressure:
 2. Purge each line separately: open the oxygen torch valve for a few seconds, close; open the acetylene valve for a few seconds, close. This clears air/mixed gas from the hoses. Purge away from ignition sources.
 
 ## 8. Lighting
+
+![Carburising, neutral and oxidising flames](/img/oxy-fuel/flame-types.svg)
+
+*Carburising, neutral and oxidising flames*
 
 1. Wear #5 shade goggles for cutting/heavy welding (#3-4 for light brazing), leather gloves, long sleeves, no synthetics.
 2. Open the torch **acetylene** valve about **1/8 to 1/4 turn**. Light with a **friction striker**. Never use a lighter or matches.

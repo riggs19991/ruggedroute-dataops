@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" width="500" height="350" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>TIG amps by thickness</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="350" fill="#ffffff"/>
+<rect x="60" y="30" width="400" height="230" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+<line x1="60" y1="260" x2="460" y2="260" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="54" y="264" font-size="11" text-anchor="end" fill="#5b6577">0</text>
+<line x1="60" y1="208.88888888888889" x2="460" y2="208.88888888888889" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="54" y="212.88888888888889" font-size="11" text-anchor="end" fill="#5b6577">100</text>
+<line x1="60" y1="157.77777777777777" x2="460" y2="157.77777777777777" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="54" y="161.77777777777777" font-size="11" text-anchor="end" fill="#5b6577">200</text>
+<line x1="60" y1="106.66666666666669" x2="460" y2="106.66666666666669" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="54" y="110.66666666666669" font-size="11" text-anchor="end" fill="#5b6577">300</text>
+<line x1="60" y1="55.55555555555557" x2="460" y2="55.55555555555557" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="54" y="59.55555555555557" font-size="11" text-anchor="end" fill="#5b6577">400</text>
+<line x1="60" y1="30" x2="60" y2="260" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="60" y="274" font-size="11" text-anchor="middle" fill="#5b6577">0</text>
+<line x1="160" y1="30" x2="160" y2="260" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="160" y="274" font-size="11" text-anchor="middle" fill="#5b6577">1/8</text>
+<line x1="260" y1="30" x2="260" y2="260" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="260" y="274" font-size="11" text-anchor="middle" fill="#5b6577">1/4</text>
+<line x1="360" y1="30" x2="360" y2="260" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="360" y="274" font-size="11" text-anchor="middle" fill="#5b6577">3/8</text>
+<line x1="460" y1="30" x2="460" y2="260" stroke="#e2e8f0" stroke-width="1" stroke-linecap="round"/>
+<text x="460" y="274" font-size="11" text-anchor="middle" fill="#5b6577">1/2</text>
+<text x="260" y="290" font-size="12" text-anchor="middle" fill="#5b6577">Thickness (in)</text>
+<text x="26" y="145" font-size="12" text-anchor="middle" fill="#5b6577" transform="rotate(-90 26 145)">Amps (max set)</text>
+<path d="M100,229.33333333333334 L134.4,206.33333333333334 L160,193.55555555555554 L210.4,168 L260,134.77777777777777 L360,86.22222222222223 L460,55.55555555555557" fill="none" stroke="#0b5fa5" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="70" y="300" width="14" height="4" fill="#0b5fa5" stroke="none" stroke-width="1.5"/>
+<text x="90" y="306" font-size="11" text-anchor="start" fill="#1a2233">Aluminium (AC)</text>
+<path d="M84,243.64444444444445 L108,224.22222222222223 L134.4,208.88888888888889 L160,196.11111111111111 L210.4,178.22222222222223 L260,145 L360,111.77777777777777 L460,81.11111111111111" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="70" y="316" width="14" height="4" fill="#b45309" stroke="none" stroke-width="1.5"/>
+<text x="90" y="322" font-size="11" text-anchor="start" fill="#1a2233">Mild steel (DCEN)</text>
+<path d="M84,247.22222222222223 L108,231.88888888888889 L134.4,219.11111111111111 L160,206.33333333333334 L210.4,185.88888888888889 L260,155.22222222222223 L360,127.11111111111111" fill="none" stroke="#166534" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="70" y="332" width="14" height="4" fill="#166534" stroke="none" stroke-width="1.5"/>
+<text x="90" y="338" font-size="11" text-anchor="start" fill="#1a2233">Stainless (DCEN)</text>
+<text x="250" y="306" font-size="11" text-anchor="start" fill="#5b6577"><tspan x="250" dy="0">Rule: 1 A per 0.001 in of steel;</tspan><tspan x="250" dy="13.75">aluminium +20-30%; stainless −10-20%</tspan></text>
+</svg>

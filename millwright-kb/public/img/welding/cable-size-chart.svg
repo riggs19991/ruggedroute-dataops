@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Welding cable size chart</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<text x="250" y="24" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Total lead length = electrode lead + work lead</text>
+<rect x="40" y="40" width="420" height="24" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="56.32" font-size="12" text-anchor="start" font-weight="600" fill="#1a2233">Output</text>
+<text x="126" y="56.32" font-size="12" text-anchor="start" font-weight="600" fill="#1a2233">≤ 50 ft</text>
+<text x="211" y="56.32" font-size="12" text-anchor="start" font-weight="600" fill="#1a2233">50-100</text>
+<text x="296" y="56.32" font-size="12" text-anchor="start" font-weight="600" fill="#1a2233">100-150</text>
+<text x="381" y="56.32" font-size="12" text-anchor="start" font-weight="600" fill="#1a2233">150-200</text>
+<rect x="40" y="64" width="420" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="80.32" font-size="12" text-anchor="start" fill="#1a2233">100 A</text>
+<text x="126" y="80.32" font-size="12" text-anchor="start" fill="#1a2233">#4</text>
+<text x="211" y="80.32" font-size="12" text-anchor="start" fill="#1a2233">#4</text>
+<text x="296" y="80.32" font-size="12" text-anchor="start" fill="#1a2233">#2</text>
+<text x="381" y="80.32" font-size="12" text-anchor="start" fill="#1a2233">#2</text>
+<rect x="40" y="88" width="420" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="104.32" font-size="12" text-anchor="start" fill="#1a2233">150 A</text>
+<text x="126" y="104.32" font-size="12" text-anchor="start" fill="#1a2233">#2</text>
+<text x="211" y="104.32" font-size="12" text-anchor="start" fill="#1a2233">#2</text>
+<text x="296" y="104.32" font-size="12" text-anchor="start" fill="#1a2233">#2</text>
+<text x="381" y="104.32" font-size="12" text-anchor="start" fill="#1a2233">1/0</text>
+<rect x="40" y="112" width="420" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="128.32" font-size="12" text-anchor="start" fill="#1a2233">200 A</text>
+<text x="126" y="128.32" font-size="12" text-anchor="start" fill="#1a2233">#2</text>
+<text x="211" y="128.32" font-size="12" text-anchor="start" fill="#1a2233">1/0</text>
+<text x="296" y="128.32" font-size="12" text-anchor="start" fill="#1a2233">2/0</text>
+<text x="381" y="128.32" font-size="12" text-anchor="start" fill="#1a2233">4/0</text>
+<rect x="40" y="136" width="420" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="152.32" font-size="12" text-anchor="start" fill="#1a2233">250 A</text>
+<text x="126" y="152.32" font-size="12" text-anchor="start" fill="#1a2233">1/0</text>
+<text x="211" y="152.32" font-size="12" text-anchor="start" fill="#1a2233">2/0</text>
+<text x="296" y="152.32" font-size="12" text-anchor="start" fill="#1a2233">3/0</text>
+<text x="381" y="152.32" font-size="12" text-anchor="start" fill="#1a2233">4/0</text>
+<rect x="40" y="160" width="420" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="176.32" font-size="12" text-anchor="start" fill="#1a2233">300 A</text>
+<text x="126" y="176.32" font-size="12" text-anchor="start" fill="#1a2233">2/0</text>
+<text x="211" y="176.32" font-size="12" text-anchor="start" fill="#1a2233">3/0</text>
+<text x="296" y="176.32" font-size="12" text-anchor="start" fill="#1a2233">4/0</text>
+<text x="381" y="176.32" font-size="12" text-anchor="start" fill="#1a2233">4/0</text>
+<rect x="40" y="184" width="420" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="200.32" font-size="12" text-anchor="start" fill="#1a2233">400 A</text>
+<text x="126" y="200.32" font-size="12" text-anchor="start" fill="#1a2233">3/0</text>
+<text x="211" y="200.32" font-size="12" text-anchor="start" fill="#1a2233">4/0</text>
+<text x="296" y="200.32" font-size="12" text-anchor="start" fill="#1a2233">4/0</text>
+<text x="381" y="200.32" font-size="12" text-anchor="start" fill="#1a2233">2 × 2/0</text>
+<text x="250" y="222" font-size="11" text-anchor="middle" fill="#5b6577">Warm cable or a weak arc on long leads means the cable is too small.</text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Bigger is always fine. #2 ≈ 35 mm², 1/0 ≈ 50, 2/0 ≈ 70, 4/0 ≈ 120 mm².</text>
+</svg>

@@ -14,6 +14,10 @@ summary: "The hazards of arc and gas welding in one place with the numbers that 
 
 Minimum shade from OSHA 1910.133(a)(5); "suggested" from ANSI Z49.1 for comfort. Start at the suggested shade and go lighter, not below the minimum. Auto-darkening helmets: set the shade number the same way; the resting state (shade 3-4) is only for setup.
 
+![Filter shade by process and amperage](/img/welding/lens-shade-chart.svg)
+
+*Filter shade by process and amperage*
+
 | Process | Electrode size / current | Minimum shade | Suggested shade |
 |---|---|---|---|
 | **Stick (SMAW)** | < 3/32" electrode, < 60 A | 7 | 10 |
@@ -82,6 +86,10 @@ Fume is the metal vapour condensed into fine particles, plus gases from the arc 
 ## Compressed gases
 
 Cylinders chained upright, caps on in transport, never used as rollers or anchor points, never welded on or near (arc strike on a cylinder = rupture), regulator backed out before opening, open slowly and stand to the side; acetylene never above **15 psig**; oxygen keeps oil, grease and gloves away; argon/CO2/nitrogen are asphyxiants (a leaking bottle in a tank or pit kills without warning; monitor O2). Full oxy-fuel rules in [oxy-fuel safety](/article/oxy-fuel-safety).
+
+![Oxygen and fuel gas storage separation](/img/oxy-fuel/cylinder-storage.svg)
+
+*Oxygen and fuel gas storage separation*
 
 ## Confined spaces
 

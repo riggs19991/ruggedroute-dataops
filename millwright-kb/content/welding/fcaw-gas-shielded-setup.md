@@ -102,6 +102,10 @@ Out of position: stay in the **lower third** of the WFS range, keep CTWD at 3/4"
 
 ## Technique notes
 
+![Drag angle and stickout for flux-cored wire](/img/welding/fcaw-drag-stickout.svg)
+
+*Drag angle and stickout for flux-cored wire*
+
 - Drag angle and a steady stickout; the slag should follow the puddle by a finger-width.
 - **Clean every pass** (chip and brush) on multi-pass; T-1 slag peels easily but leaves silicon islands that must go.
 - Weave width no more than 3× wire diameter on code work unless the WPS allows; vertical-up uses a slight side-to-side or triangle.

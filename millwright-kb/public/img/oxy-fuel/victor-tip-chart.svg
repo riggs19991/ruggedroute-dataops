@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Victor tip chart</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="320" fill="#ffffff"/>
+<text x="250" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Victor 1-101 cutting tip quick chart (acetylene)</text>
+<rect x="40" y="36" width="440" height="24" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="52.32" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Tip</text>
+<text x="106" y="52.32" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Cuts (in)</text>
+<text x="186" y="52.32" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Oxygen psi</text>
+<text x="286" y="52.32" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Acetylene psi</text>
+<text x="396" y="52.32" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Speed ipm</text>
+<rect x="40" y="60" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="76.32" font-size="11" text-anchor="start" fill="#1a2233">000</text>
+<text x="106" y="76.32" font-size="11" text-anchor="start" fill="#1a2233">1/8</text>
+<text x="186" y="76.32" font-size="11" text-anchor="start" fill="#1a2233">20-25</text>
+<text x="286" y="76.32" font-size="11" text-anchor="start" fill="#1a2233">3-5</text>
+<text x="396" y="76.32" font-size="11" text-anchor="start" fill="#1a2233">20-30</text>
+<rect x="40" y="84" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="100.32" font-size="11" text-anchor="start" fill="#1a2233">00</text>
+<text x="106" y="100.32" font-size="11" text-anchor="start" fill="#1a2233">1/4</text>
+<text x="186" y="100.32" font-size="11" text-anchor="start" fill="#1a2233">20-25</text>
+<text x="286" y="100.32" font-size="11" text-anchor="start" fill="#1a2233">3-5</text>
+<text x="396" y="100.32" font-size="11" text-anchor="start" fill="#1a2233">20-28</text>
+<rect x="40" y="108" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="124.32" font-size="11" text-anchor="start" fill="#1a2233">0</text>
+<text x="106" y="124.32" font-size="11" text-anchor="start" fill="#1a2233">3/8</text>
+<text x="186" y="124.32" font-size="11" text-anchor="start" fill="#1a2233">25-30</text>
+<text x="286" y="124.32" font-size="11" text-anchor="start" fill="#1a2233">3-5</text>
+<text x="396" y="124.32" font-size="11" text-anchor="start" fill="#1a2233">18-26</text>
+<rect x="40" y="132" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="148.32" font-size="11" text-anchor="start" fill="#1a2233">1</text>
+<text x="106" y="148.32" font-size="11" text-anchor="start" fill="#1a2233">1/2</text>
+<text x="186" y="148.32" font-size="11" text-anchor="start" fill="#1a2233">30-35</text>
+<text x="286" y="148.32" font-size="11" text-anchor="start" fill="#1a2233">3-5</text>
+<text x="396" y="148.32" font-size="11" text-anchor="start" fill="#1a2233">16-22</text>
+<rect x="40" y="156" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="172.32" font-size="11" text-anchor="start" fill="#1a2233">2</text>
+<text x="106" y="172.32" font-size="11" text-anchor="start" fill="#1a2233">3/4</text>
+<text x="186" y="172.32" font-size="11" text-anchor="start" fill="#1a2233">30-35</text>
+<text x="286" y="172.32" font-size="11" text-anchor="start" fill="#1a2233">3-6</text>
+<text x="396" y="172.32" font-size="11" text-anchor="start" fill="#1a2233">15-20</text>
+<rect x="40" y="180" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="196.32" font-size="11" text-anchor="start" fill="#1a2233">3</text>
+<text x="106" y="196.32" font-size="11" text-anchor="start" fill="#1a2233">1</text>
+<text x="186" y="196.32" font-size="11" text-anchor="start" fill="#1a2233">35-40</text>
+<text x="286" y="196.32" font-size="11" text-anchor="start" fill="#1a2233">3-6</text>
+<text x="396" y="196.32" font-size="11" text-anchor="start" fill="#1a2233">12-18</text>
+<rect x="40" y="204" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="220.32" font-size="11" text-anchor="start" fill="#1a2233">4</text>
+<text x="106" y="220.32" font-size="11" text-anchor="start" fill="#1a2233">2</text>
+<text x="186" y="220.32" font-size="11" text-anchor="start" fill="#1a2233">40-45</text>
+<text x="286" y="220.32" font-size="11" text-anchor="start" fill="#1a2233">4-8</text>
+<text x="396" y="220.32" font-size="11" text-anchor="start" fill="#1a2233">8-12</text>
+<rect x="40" y="228" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="244.32" font-size="11" text-anchor="start" fill="#1a2233">5</text>
+<text x="106" y="244.32" font-size="11" text-anchor="start" fill="#1a2233">3</text>
+<text x="186" y="244.32" font-size="11" text-anchor="start" fill="#1a2233">45-50</text>
+<text x="286" y="244.32" font-size="11" text-anchor="start" fill="#1a2233">5-11</text>
+<text x="396" y="244.32" font-size="11" text-anchor="start" fill="#1a2233">6-8</text>
+<rect x="40" y="252" width="440" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="46" y="268.32" font-size="11" text-anchor="start" fill="#1a2233">6</text>
+<text x="106" y="268.32" font-size="11" text-anchor="start" fill="#1a2233">4-5</text>
+<text x="186" y="268.32" font-size="11" text-anchor="start" fill="#1a2233">50-60</text>
+<text x="286" y="268.32" font-size="11" text-anchor="start" fill="#1a2233">6-13</text>
+<text x="396" y="268.32" font-size="11" text-anchor="start" fill="#1a2233">4-6</text>
+<text x="250" y="312" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Full chart in the article. Pressures at the regulator with 25 ft hose.</text>
+</svg>

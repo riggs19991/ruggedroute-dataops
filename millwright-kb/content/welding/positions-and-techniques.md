@@ -12,6 +12,10 @@ summary: "What each position code means for plate and pipe, the angles and bead 
 
 **Groove welds (G)** and **fillet welds (F)**; the number is the position.
 
+![1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe](/img/welding/positions.svg)
+
+*1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe*
+
 | Code | Plate | Pipe | The weld runs |
 |---|---|---|---|
 | **1G / 1F** | Flat | Pipe rolled, weld on top | Flat, puddle sits on top of the joint; easiest, hottest settings |
@@ -27,6 +31,10 @@ Qualifying in a harder position qualifies the easier ones: 3G+4G plate qualifies
 **Which side of the plate the weld runs on and where the plate is** define position; a fillet in a corner that is flat but on a tilted structure counts as whatever the joint angle makes it (D1.1 Figure 5.4 position diagram; ±15° of flat still counts as flat).
 
 ## The two angles
+
+![Travel angle and work angle](/img/welding/smaw-angles.svg)
+
+*Travel angle and work angle*
 
 - **Work angle**: the angle between the electrode and the plate surface, measured across the joint. Fillet: split the corner, **45°** (bias toward the thicker plate); butt: **90°**.
 - **Travel angle**: the tilt along the direction of travel. **Drag (pull)**: electrode points back at the finished weld: stick, flux-core, "drag if slag". **Push**: electrode points ahead into the unwelded joint: MIG with solid wire, TIG.

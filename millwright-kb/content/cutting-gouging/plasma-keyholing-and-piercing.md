@@ -26,6 +26,10 @@ summary: "The two ways to start a plasma cut in the middle of a plate (a straigh
 
 ## Rolling pierce (the hand-torch standard)
 
+![Tilt, pierce, rotate upright, square and cut](/img/cutting-gouging/plasma-pierce-sequence.svg)
+
+*Tilt, pierce, rotate upright, square and cut*
+
 1. Hold the torch at about **30° to the plate** (Hypertherm) with the tip **within 1/16" (1.5 mm)** of the surface, pointed **away from you**.
 2. Trigger. The molten metal blows out the far side of the puddle, away from the tip.
 3. As the arc digs in, **roll the torch upright** to 90° (2-3 seconds on 3/8"), keeping the tip at height.

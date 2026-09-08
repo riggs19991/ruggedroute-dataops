@@ -12,6 +12,10 @@ summary: "The Victor acetylene pressure card reproduced in full: tip size vs met
 
 All pressures are **psig at the regulator with the torch flowing**. Victor measured cutting-tip values through a 25 ft × 3/8" hose for tip 6 and larger. Torches fitted with flashback arrestors can need **up to 25% more pressure** as tip size goes up, but acetylene still tops out at **15 psig**.
 
+![1-101 cutting tips: size, thickness, pressures, speed](/img/oxy-fuel/victor-tip-chart.svg)
+
+*1-101 cutting tips: size, thickness, pressures, speed*
+
 ## Cutting tips - Series 1-101 and 3-101 (acetylene)
 
 | Metal thickness | Tip size | Cutting oxygen (psig) | Preheat oxygen (psig)* | Acetylene (psig) | Speed (ipm) | Kerf width (in) |

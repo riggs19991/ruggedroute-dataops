@@ -43,6 +43,10 @@ Typical values: A36 ≈ 0.25-0.40 (often quoted as ≤ 0.40 max); A572 Gr 50 ≈
 
 Thickness T is the thickest part at the point of welding. Temperatures are minimums at the joint, measured **3" (75 mm) from the joint** in all directions on the thickest part, held through the whole weld (interpass never falls below it).
 
+![Minimum preheat by thickness for three carbon-equivalent bands](/img/welding/preheat-chart.svg)
+
+*Minimum preheat by thickness for three carbon-equivalent bands*
+
 | T (thickest part) | Col. 1: A36 and similar (A53 B, A106 B, A500, A501, A516, A570, A709 Gr 36 ≤ 3/4") with **non-low-hydrogen** electrodes | Col. 2: same steels plus A572 Gr 42/50/55, A588, A529, A537, A633 A-D, A710 Cl 1 etc. with **low-hydrogen** electrodes | Col. 3: A572 Gr 60/65, A633 E, API 5L X52, A913 Gr 60/65, A709 Gr 70W, A852, API 2W/2Y Gr 60, **low-hydrogen** | Col. 4: A710 Gr A (all classes), A913 Gr 50/60/65 with **H8** low-hydrogen electrodes |
 |---|---|---|---|---|
 | 1/8" through 3/4" (3-20 mm) | 32°F (0°C) | 32°F (0°C) | 50°F (10°C) | 32°F (0°C) |

@@ -21,6 +21,10 @@ Multi-process machines switch between them; welding MIG on CC or stick on CV wor
 
 The nameplate rates output at a **duty cycle**: the percentage of a **10-minute** period the machine can weld at that amperage before it must cool.
 
+![Duty cycle falls with the square of the current ratio](/img/welding/duty-cycle.svg)
+
+*Duty cycle falls with the square of the current ratio*
+
 ```
 Allowed arc time per 10 min = duty cycle × 10 min
 Example: 200 A at 60% → 6 minutes welding, 4 minutes resting, repeating
@@ -55,6 +59,10 @@ Generator welding: a stick/TIG inverter needs a **clean** generator with ≥ 1.5
 
 Total circuit length = electrode lead **plus** work lead. Copper welding cable, 60% duty cycle, about 4 V drop (welders-supply chart). Bigger is always fine.
 
+![Cable size by output and total lead length](/img/welding/cable-size-chart.svg)
+
+*Cable size by output and total lead length*
+
 | Machine output | Up to 50 ft total | 50-100 ft | 100-150 ft | 150-200 ft |
 |---|---|---|---|---|
 | 100 A | #4 | #4 | #2 | #2 |
@@ -71,6 +79,10 @@ Signs your cable is too small or too long: cable warm to the touch, arc weaker a
 Metric: #2 ≈ 35 mm², 1/0 ≈ 50 mm², 2/0 ≈ 70 mm², 3/0 ≈ 95 mm², 4/0 ≈ 120 mm².
 
 ## Ground (work) clamp
+
+![Ground clamp on the part being welded, never across a bearing](/img/welding/ground-clamp-placement.svg)
+
+*Ground clamp on the part being welded, never across a bearing*
 
 - On **clean bare metal** on the piece being welded, as close to the arc as practical.
 - Never let welding current cross a **bearing, bushing, gear mesh, chain, hinge, slewing ring or hydraulic cylinder rod**: it arcs across the contact points and pits them (fluting). On rotating machinery clamp to the shaft or the same casting you are welding; on a vehicle disconnect the battery and clamp near the weld.

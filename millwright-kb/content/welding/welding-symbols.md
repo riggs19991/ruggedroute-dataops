@@ -10,6 +10,10 @@ summary: "How to read every part of a welding symbol on a drawing, with the rule
 
 ## Anatomy
 
+![Reference line, arrow side, other side, tail, size and length-pitch](/img/welding/welding-symbol-anatomy.svg)
+
+*Reference line, arrow side, other side, tail, size and length-pitch*
+
 ```
                     finish symbol ─┐
                   contour symbol ──┤     ┌── groove angle

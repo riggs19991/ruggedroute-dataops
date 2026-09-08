@@ -41,6 +41,10 @@ summary: "One table per process for which gas to buy and what flow to set, why e
 
 ## Setting flow
 
+![Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow](/img/welding/flowmeter-reading.svg)
+
+*Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow*
+
 - **Regulator** (two gauges, psi): reads pressure, not flow; the second gauge on a "regulator-flowgauge" is calibrated in cfh for one orifice: fine for MIG.
 - **Flowmeter** (ball in a tube, cfh or L/min): reads actual flow. Read at the **centre of the ball**, with gas **flowing** (trigger held or TIG purge button). Required for TIG.
 - Too little flow = porosity, grey welds. Too much = turbulence pulls in air = porosity, wasted gas. Bigger nozzle → more flow; draughts → more flow or a screen; overhead welding → slightly less flow (gas rises into the joint).

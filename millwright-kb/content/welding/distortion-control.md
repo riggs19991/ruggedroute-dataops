@@ -23,6 +23,10 @@ More heat input (amps × volts ÷ travel speed) = more distortion. Bigger weld t
 
 ## Control in order of effectiveness
 
+![Back-step and skip sequences, presetting and balanced welds](/img/welding/distortion-sequences.svg)
+
+*Back-step and skip sequences, presetting and balanced welds*
+
 ### 1. Design and prep (free)
 
 - **Do not over-weld**: a 1/4" fillet where 3/16" is called for has 78% more metal and shrinkage. Intermittent fillets (e.g. 2-6, 3-12 stagger) where the code allows.

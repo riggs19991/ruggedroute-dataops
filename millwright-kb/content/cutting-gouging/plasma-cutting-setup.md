@@ -28,6 +28,10 @@ Low air = the torch fires, then stutters and the "gas pressure" fault lights. Ch
 
 ## Consumable stack
 
+![Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle](/img/cutting-gouging/plasma-torch-consumables.svg)
+
+*Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle*
+
 ```
    torch body → electrode (hafnium insert) → swirl ring → nozzle (tip, orifice by amperage) → retaining cap → shield (drag shield for hand, deflector for machine)
 ```
@@ -60,6 +64,10 @@ Powermax45 XP maximum cut speeds on mild steel (hand, lab conditions): 1/4" 90 i
 ## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables
 
 Mechanized (CNC) data from the operator manual; hand cutting uses the same speeds as a guide with the drag shield on the plate. Torch-to-work (cut height) **0.06" (1.5 mm)**; pierce height **0.15" (3.8 mm), 250% of cut height**.
+
+![Cut speed versus thickness for 45, 65 and 85 A air plasma](/img/cutting-gouging/plasma-cut-chart.svg)
+
+*Cut speed versus thickness for 45, 65 and 85 A air plasma*
 
 | Thickness | Pierce delay (s) | Best quality: speed (ipm) | Best quality: arc volts | Production: speed (ipm) | Production: arc volts | Kerf (in) |
 |---|---|---|---|---|---|---|

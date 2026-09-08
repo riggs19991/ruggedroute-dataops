@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" width="500" height="220" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Hardfacing layers</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="220" fill="#ffffff"/>
+<text x="250" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Section through a rebuilt wear part</text>
+<rect x="60" y="140" width="380" height="40" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="60" y="120" width="380" height="20" fill="#dbeafe" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="60" y="90" width="380" height="30" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="60" y="60" width="380" height="30" fill="#fff4d6" stroke="#1a2233" stroke-width="1.5"/>
+<text x="70" y="164" font-size="10.5" text-anchor="start" fill="#1a2233">base metal (worn part, cleaned to bright metal)</text>
+<text x="70" y="134" font-size="10.5" text-anchor="start" fill="#1a2233">buffer: 309L, 312 or ENiFe on cast, manganese or high-carbon base</text>
+<text x="70" y="109" font-size="10.5" text-anchor="start" fill="#1a2233">build-up: 7018 or ER70S, unlimited layers</text>
+<text x="70" y="79" font-size="10.5" text-anchor="start" fill="#1a2233">hardfacing: 1-2 layers only; check cracks are normal on carbide alloys</text>
+<text x="250" y="212" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Match the alloy to the wear: abrasion, impact, metal-to-metal, heat.</text>
+</svg>

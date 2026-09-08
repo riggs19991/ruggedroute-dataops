@@ -10,6 +10,10 @@ summary: "The five joint types and the groove shapes cut into them, the dimensio
 
 ## The five joints
 
+![The five joints and the single-V groove terms](/img/welding/joint-types.svg)
+
+*The five joints and the single-V groove terms*
+
 | Joint | Where the parts meet | Typical welds |
 |---|---|---|
 | **Butt** | Edge to edge in the same plane | Square, V, bevel, U, J grooves |

@@ -27,6 +27,10 @@ summary: "Every way a millwright makes or enlarges a hole away from the drill pr
 
 An annular cutter cuts a **ring**, leaving a slug, so it removes a fraction of the metal a twist drill would; a 1" hole in 1" plate takes a minute with a 1/2 hp mag drill and no pilot hole.
 
+![Annular cutter versus twist drill](/img/cutting-gouging/mag-drill-annular-cutter.svg)
+
+*Annular cutter versus twist drill*
+
 ### Setup and the magnet rules
 
 1. **Clean, flat, bare steel** under the magnet, **3/8" (10 mm) minimum thickness**; the magnet's rated pull assumes 1" plate. On thinner steel or a rough surface, clamp or bolt a steel plate under it, and expect less holding force. Paint, rust and scale halve the pull; grind a spot.

@@ -10,6 +10,10 @@ summary: "How to pick a band saw blade by thickness and material with the TPI an
 
 ## Band saw blades
 
+![At least 3 and at most 24 teeth in the cut](/img/cutting-gouging/bandsaw-tpi-rule.svg)
+
+*At least 3 and at most 24 teeth in the cut*
+
 ### The 3-24 rule
 
 At least **3 teeth in the cut** at all times (or the teeth strip and the blade grabs) and **no more than 24** (or the gullets pack with chips and the blade stalls and rubs). Thin-wall tube and structurals are sized by the **wall thickness**, not the outside dimension, and want a **variable-pitch** blade (e.g. 10/14) because the teeth-in-cut changes as the blade passes through the walls.

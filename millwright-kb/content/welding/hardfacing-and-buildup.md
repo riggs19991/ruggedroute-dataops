@@ -23,6 +23,10 @@ summary: "How to match a hardfacing alloy to the kind of wear a part sees (abras
 
 ## Layers: build-up, buffer, hardfacing
 
+![Base metal, buffer, build-up and hardfacing layers in section](/img/welding/hardfacing-layers.svg)
+
+*Base metal, buffer, build-up and hardfacing layers in section*
+
 ```
    hardfacing (1-2 layers, HRC 40-65, may be non-machinable, may check-crack)
    ─────────────────────────────────────────────

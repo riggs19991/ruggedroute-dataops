@@ -1,0 +1,309 @@
+{
+ "welding-process-selector": [
+  {
+   "img": "welding/process-selector.svg",
+   "alt": "Which process for the job: a quick decision tree",
+   "after": "## The one-minute decision"
+  }
+ ],
+ "smaw-electrode-chart": [
+  {
+   "img": "welding/smaw-amperage-chart.svg",
+   "alt": "Amperage ranges by rod diameter for the common electrodes",
+   "after": "## The chart (amps)"
+  }
+ ],
+ "smaw-stick-setup": [
+  {
+   "img": "welding/polarity.svg",
+   "alt": "DCEP, DCEN and AC: which lead goes where and where the heat goes",
+   "after": "## 1. The machine"
+  },
+  {
+   "img": "welding/smaw-angles.svg",
+   "alt": "Arc length, travel angle and work angle for stick welding",
+   "after": "## 5. Strike and run"
+  }
+ ],
+ "aws-electrode-classification": [
+  {
+   "img": "welding/aws-electrode-decoder.svg",
+   "alt": "Decoding E7018-1 H4R digit by digit",
+   "after": "top"
+  }
+ ],
+ "gmaw-mig-setup": [
+  {
+   "img": "welding/polarity.svg",
+   "alt": "MIG runs DCEP: gun lead to positive",
+   "after": "## 1. Machine and polarity"
+  },
+  {
+   "img": "welding/mig-stickout.svg",
+   "alt": "Contact-tip-to-work distance, stickout and push angle",
+   "after": "## 5. Physical setup"
+  }
+ ],
+ "gmaw-transfer-modes": [
+  {
+   "img": "welding/mig-transfer-modes.svg",
+   "alt": "Short-circuit, globular, spray and pulsed spray with the transition current",
+   "after": "## The four modes at a glance"
+  }
+ ],
+ "fcaw-gas-shielded-setup": [
+  {
+   "img": "welding/fcaw-drag-stickout.svg",
+   "alt": "Drag angle and stickout for flux-cored wire",
+   "after": "## Technique notes"
+  }
+ ],
+ "fcaw-self-shielded-setup": [
+  {
+   "img": "welding/polarity.svg",
+   "alt": "Self-shielded flux-core runs DCEN: gun lead to negative",
+   "after": "## The three rules"
+  },
+  {
+   "img": "welding/fcaw-drag-stickout.svg",
+   "alt": "Drag angle and stickout by wire type",
+   "after": "## Technique"
+  }
+ ],
+ "gtaw-tig-setup": [
+  {
+   "img": "welding/polarity.svg",
+   "alt": "DCEN for steel and stainless, AC for aluminium",
+   "after": "## 1. Polarity and current type"
+  },
+  {
+   "img": "welding/tig-torch-setup.svg",
+   "alt": "Tungsten grind, stickout, torch angle and filler angle",
+   "after": "## 2. Tungsten"
+  }
+ ],
+ "gtaw-settings-by-material": [
+  {
+   "img": "welding/tig-amps-vs-thickness.svg",
+   "alt": "Amperage versus thickness for steel, stainless and aluminium",
+   "after": "top"
+  }
+ ],
+ "gas-selection-and-flow": [
+  {
+   "img": "welding/flowmeter-reading.svg",
+   "alt": "Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow",
+   "after": "## Setting flow"
+  }
+ ],
+ "machine-setup-and-duty-cycle": [
+  {
+   "img": "welding/duty-cycle.svg",
+   "alt": "Duty cycle falls with the square of the current ratio",
+   "after": "## Duty cycle"
+  },
+  {
+   "img": "welding/cable-size-chart.svg",
+   "alt": "Cable size by output and total lead length",
+   "after": "## Welding cable size chart"
+  },
+  {
+   "img": "welding/ground-clamp-placement.svg",
+   "alt": "Ground clamp on the part being welded, never across a bearing",
+   "after": "## Ground (work) clamp"
+  }
+ ],
+ "joint-design-and-fit-up": [
+  {
+   "img": "welding/joint-types.svg",
+   "alt": "The five joints and the single-V groove terms",
+   "after": "## The five joints"
+  }
+ ],
+ "positions-and-techniques": [
+  {
+   "img": "welding/positions.svg",
+   "alt": "1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe",
+   "after": "## Position codes"
+  },
+  {
+   "img": "welding/smaw-angles.svg",
+   "alt": "Travel angle and work angle",
+   "after": "## The two angles"
+  }
+ ],
+ "distortion-control": [
+  {
+   "img": "welding/distortion-sequences.svg",
+   "alt": "Back-step and skip sequences, presetting and balanced welds",
+   "after": "## Control in order of effectiveness"
+  }
+ ],
+ "preheat-interpass-and-carbon-equivalent": [
+  {
+   "img": "welding/preheat-chart.svg",
+   "alt": "Minimum preheat by thickness for three carbon-equivalent bands",
+   "after": "## Minimum preheat and interpass (AWS D1.1 Table 5.8, prequalified, stick electrodes)"
+  }
+ ],
+ "welding-stainless-and-dissimilar": [
+  {
+   "img": "welding/heat-tint-scale.svg",
+   "alt": "Heat tint colours from silver to black and what each means",
+   "after": "## Purging and colour"
+  }
+ ],
+ "welding-aluminium": [
+  {
+   "img": "welding/ac-balance.svg",
+   "alt": "AC balance: EN penetrates, EP cleans",
+   "after": "## TIG on aluminium"
+  }
+ ],
+ "welding-cast-iron-and-repairs": [
+  {
+   "img": "welding/cast-iron-repair.svg",
+   "alt": "Drill the crack ends, V it out, short stringers in sequence, peen",
+   "after": "## Crack repair procedure"
+  }
+ ],
+ "hardfacing-and-buildup": [
+  {
+   "img": "welding/hardfacing-layers.svg",
+   "alt": "Base metal, buffer, build-up and hardfacing layers in section",
+   "after": "## Layers: build-up, buffer, hardfacing"
+  }
+ ],
+ "weld-defects-and-inspection": [
+  {
+   "img": "welding/weld-defects.svg",
+   "alt": "Undercut, overlap, porosity, lack of fusion and incomplete penetration in section",
+   "after": "## The defects and their causes"
+  }
+ ],
+ "welding-symbols": [
+  {
+   "img": "welding/welding-symbol-anatomy.svg",
+   "alt": "Reference line, arrow side, other side, tail, size and length-pitch",
+   "after": "## Anatomy"
+  }
+ ],
+ "blueprint-reading-for-millwrights": [
+  {
+   "img": "welding/orthographic-views.svg",
+   "alt": "Third-angle projection views and the line types",
+   "after": "## Views and projection"
+  }
+ ],
+ "welder-maintenance-and-consumables": [
+  {
+   "img": "welding/mig-gun-parts.svg",
+   "alt": "Liner, diffuser, contact tip and nozzle in order",
+   "after": "## MIG gun consumables"
+  }
+ ],
+ "welding-safety-fumes-and-ppe": [
+  {
+   "img": "welding/lens-shade-chart.svg",
+   "alt": "Filter shade by process and amperage",
+   "after": "## Lens shade table"
+  },
+  {
+   "img": "oxy-fuel/cylinder-storage.svg",
+   "alt": "Oxygen and fuel gas storage separation",
+   "after": "## Compressed gases"
+  }
+ ],
+ "brazing-and-soldering": [
+  {
+   "img": "welding/brazing-joint.svg",
+   "alt": "Capillary joint clearance, overlap and where the heat goes",
+   "after": "## Joint clearance"
+  }
+ ],
+ "plasma-cutting-setup": [
+  {
+   "img": "cutting-gouging/plasma-torch-consumables.svg",
+   "alt": "Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle",
+   "after": "## Consumable stack"
+  },
+  {
+   "img": "cutting-gouging/plasma-cut-chart.svg",
+   "alt": "Cut speed versus thickness for 45, 65 and 85 A air plasma",
+   "after": "## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables"
+  }
+ ],
+ "plasma-keyholing-and-piercing": [
+  {
+   "img": "cutting-gouging/plasma-pierce-sequence.svg",
+   "alt": "Tilt, pierce, rotate upright, square and cut",
+   "after": "## Rolling pierce (the hand-torch standard)"
+  }
+ ],
+ "carbon-arc-gouging": [
+  {
+   "img": "cutting-gouging/carbon-arc-gouging.svg",
+   "alt": "Air jet under the electrode, 35-45\u00b0 angle, 5-7 in extension",
+   "after": "## Technique"
+  }
+ ],
+ "oxy-fuel-cutting-technique": [
+  {
+   "img": "cutting-gouging/oxy-cut-technique.svg",
+   "alt": "Straight cut, bevel cut and reading the drag lines",
+   "after": "## Straight cut, step by step"
+  }
+ ],
+ "saws-and-abrasives": [
+  {
+   "img": "cutting-gouging/bandsaw-tpi-rule.svg",
+   "alt": "At least 3 and at most 24 teeth in the cut",
+   "after": "## Band saw blades"
+  }
+ ],
+ "hole-making-in-the-field": [
+  {
+   "img": "cutting-gouging/mag-drill-annular-cutter.svg",
+   "alt": "Annular cutter versus twist drill",
+   "after": "## Mag drills and annular cutters"
+  }
+ ],
+ "oxy-acetylene-setup-victor": [
+  {
+   "img": "oxy-fuel/oxy-acetylene-hookup.svg",
+   "alt": "Cylinders, regulators, arrestors, check valves, hoses and torch",
+   "after": "top"
+  },
+  {
+   "img": "oxy-fuel/flame-types.svg",
+   "alt": "Carburising, neutral and oxidising flames",
+   "after": "## 8. Lighting"
+  }
+ ],
+ "oxy-fuel-heating-rosebud": [
+  {
+   "img": "oxy-fuel/flame-types.svg",
+   "alt": "Set a neutral flame before heating",
+   "after": "## Lighting and handling"
+  }
+ ],
+ "oxy-fuel-safety": [
+  {
+   "img": "oxy-fuel/cylinder-storage.svg",
+   "alt": "Oxygen 20 ft from fuel gas or behind a fire wall",
+   "after": "## Storage and transport"
+  },
+  {
+   "img": "oxy-fuel/oxy-acetylene-hookup.svg",
+   "alt": "Where the check valves and flashback arrestors go",
+   "after": "## Check valves and flashback arrestors"
+  }
+ ],
+ "victor-tip-chart-acetylene": [
+  {
+   "img": "oxy-fuel/victor-tip-chart.svg",
+   "alt": "1-101 cutting tips: size, thickness, pressures, speed",
+   "after": "top"
+  }
+ ]
+}

@@ -16,6 +16,10 @@ Flux-cored wire whose core makes its **own shielding** as it burns; no gas bottl
 
 ## The three rules
 
+![Self-shielded flux-core runs DCEN: gun lead to negative](/img/welding/polarity.svg)
+
+*Self-shielded flux-core runs DCEN: gun lead to negative*
+
 1. **Polarity: DC− (electrode negative).** Gun lead to **−**, ground to **+**. Run it on DC+ and you get a violent, porous, spattery mess. This is the first thing to check on any flux-core complaint.
 2. **Stickout is long**: **1/2" for .030-.035, 5/8-3/4" for .045-.068, 3/4-1" for 5/64 and up**. The wire has to preheat in the long stickout for the flux to work. Short stickout = porosity.
 3. **Drag, don't push**, 10-20°. "Drag if slag."
@@ -86,6 +90,10 @@ Lincoln's US procedure sheet for .035 spans **50-300 ipm at 13-16 V**; the .030 
 6. Set WFS and voltage from the table. On a tapped-voltage machine, pick the tap then trim WFS for a steady crackle.
 
 ## Technique
+
+![Drag angle and stickout by wire type](/img/welding/fcaw-drag-stickout.svg)
+
+*Drag angle and stickout by wire type*
 
 - Drag 10-20°, stickout per the rule, arc on the leading edge of the puddle.
 - Stringers or a slight side-to-side. Vertical-up with a slow inverted-V weave at the low end of the range; NR-211 also runs **vertical-down** well on sheet.

@@ -10,6 +10,10 @@ summary: "Starting-point tables for the TIG welder: for each material and thickn
 
 > These are starting points for butt and fillet welds in the flat position with argon. Set the machine's maximum 10-20% above the top of the range and drive with the pedal. Vertical and overhead: 10-15% less. Thick parts and heat sinks need more; small parts that heat-soak need less as you go.
 
+![Amperage versus thickness for steel, stainless and aluminium](/img/welding/tig-amps-vs-thickness.svg)
+
+*Amperage versus thickness for steel, stainless and aluminium*
+
 ## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)
 
 | Thickness | Amps | Tungsten | Filler | Cup | Argon |

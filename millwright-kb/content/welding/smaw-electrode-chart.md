@@ -16,6 +16,10 @@ summary: "Amperage ranges by rod diameter and polarity for every common mild-ste
 
 **"Out-of-position" group: cellulose electrodes (deep penetration, fast-freeze, thin slag). All positions, including vertical down.**
 
+![Amperage ranges by rod diameter for the common electrodes](/img/welding/smaw-amperage-chart.svg)
+
+*Amperage ranges by rod diameter for the common electrodes*
+
 | Electrode / AWS class | Polarity | 3/32" | 1/8" | 5/32" | 3/16" | 7/32" | 1/4" |
 |---|---|---|---|---|---|---|---|
 | Fleetweld 5P / **E6010** | DC+ | 40-70 | 75-130 | 90-175 | 140-225 | 200-275 | 220-325 |

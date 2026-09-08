@@ -14,6 +14,10 @@ summary: "Everything between plugging in the machine and laying a sound stick be
 
 Stick needs a **constant-current (CC)** power source: the amperage stays where you set it while the voltage swings with arc length. A MIG-only machine (constant voltage) will not stick weld well; a multi-process machine must be switched to "Stick / CC".
 
+![DCEP, DCEN and AC: which lead goes where and where the heat goes](/img/welding/polarity.svg)
+
+*DCEP, DCEN and AC: which lead goes where and where the heat goes*
+
 | Control | What it does | Typical setting |
 |---|---|---|
 | Amperage (output) | The one knob that matters | From the [electrode chart](/article/smaw-electrode-chart); mid-range to start |
@@ -47,6 +51,10 @@ Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, ru
 - Adjust in 5-10 A steps and listen: a good arc sounds like frying bacon; 7018 hums.
 
 ## 5. Strike and run
+
+![Arc length, travel angle and work angle for stick welding](/img/welding/smaw-angles.svg)
+
+*Arc length, travel angle and work angle for stick welding*
 
 1. **Position yourself** so you can see the puddle and move the whole bead length without shifting your feet. Brace the rod hand against the work or your other hand.
 2. **Strike**: scratch (like a match, then lift to arc length) or tap (touch and lift). Strike in the joint where the weld will cover the mark; stray arc strikes are defects on code work.

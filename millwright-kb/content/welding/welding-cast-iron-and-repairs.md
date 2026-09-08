@@ -51,6 +51,10 @@ Preheat uneven = cracks. If you cannot heat the whole casting evenly to at least
 
 ## Crack repair procedure
 
+![Drill the crack ends, V it out, short stringers in sequence, peen](/img/welding/cast-iron-repair.svg)
+
+*Drill the crack ends, V it out, short stringers in sequence, peen*
+
 1. **Find the ends** of the crack: clean, then dye penetrant, or heat with a torch and watch for oil sweat along the crack line. Cracks run further than they look.
 2. **Drill 1/8-1/4" holes at each end**, 1/4" beyond the visible end, to stop it running.
 3. **V it out** with a carbide burr or a grinder (not a torch: local heat cracks it) to a 60-90° groove, **half to two-thirds** through on thin walls, full depth with a backing where possible on thick. Round the bottom; no sharp corners. Grinding a cast iron often smears graphite over the surface: finish with a burr, and wipe with acetone.

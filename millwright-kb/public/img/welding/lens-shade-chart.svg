@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340" width="500" height="340" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Lens shade chart</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="340" fill="#ffffff"/>
+<text x="250" y="22" font-size="12.5" text-anchor="middle" font-weight="700" fill="#1a2233">Filter lens shade by process (OSHA minimum, suggested comfort)</text>
+<rect x="30" y="36" width="440" height="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="50.96" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Process</text>
+<text x="176" y="50.96" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Amps</text>
+<text x="276" y="50.96" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Minimum shade</text>
+<text x="386" y="50.96" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Suggested</text>
+<rect x="30" y="58" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="72.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">Stick</text>
+<text x="176" y="72.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">60-160</text>
+<text x="276" y="72.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">8</text>
+<text x="386" y="72.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<rect x="30" y="80" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="94.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">Stick</text>
+<text x="176" y="94.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">160-250</text>
+<text x="276" y="94.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<text x="386" y="94.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">12</text>
+<rect x="30" y="102" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="116.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">MIG / flux-core</text>
+<text x="176" y="116.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">60-160</text>
+<text x="276" y="116.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<text x="386" y="116.96000000000001" font-size="11" text-anchor="start" fill="#1a2233">11</text>
+<rect x="30" y="124" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="138.96" font-size="11" text-anchor="start" fill="#1a2233">MIG / flux-core</text>
+<text x="176" y="138.96" font-size="11" text-anchor="start" fill="#1a2233">160-250</text>
+<text x="276" y="138.96" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<text x="386" y="138.96" font-size="11" text-anchor="start" fill="#1a2233">12</text>
+<rect x="30" y="146" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="160.96" font-size="11" text-anchor="start" fill="#1a2233">MIG / flux-core</text>
+<text x="176" y="160.96" font-size="11" text-anchor="start" fill="#1a2233">250-500</text>
+<text x="276" y="160.96" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<text x="386" y="160.96" font-size="11" text-anchor="start" fill="#1a2233">14</text>
+<rect x="30" y="168" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="182.96" font-size="11" text-anchor="start" fill="#1a2233">TIG</text>
+<text x="176" y="182.96" font-size="11" text-anchor="start" fill="#1a2233">50-150</text>
+<text x="276" y="182.96" font-size="11" text-anchor="start" fill="#1a2233">8</text>
+<text x="386" y="182.96" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<rect x="30" y="190" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="204.96" font-size="11" text-anchor="start" fill="#1a2233">TIG</text>
+<text x="176" y="204.96" font-size="11" text-anchor="start" fill="#1a2233">150-500</text>
+<text x="276" y="204.96" font-size="11" text-anchor="start" fill="#1a2233">10</text>
+<text x="386" y="204.96" font-size="11" text-anchor="start" fill="#1a2233">12</text>
+<rect x="30" y="212" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="226.96" font-size="11" text-anchor="start" fill="#1a2233">Plasma cutting</text>
+<text x="176" y="226.96" font-size="11" text-anchor="start" fill="#1a2233">under 300</text>
+<text x="276" y="226.96" font-size="11" text-anchor="start" fill="#1a2233">8</text>
+<text x="386" y="226.96" font-size="11" text-anchor="start" fill="#1a2233">9</text>
+<rect x="30" y="234" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="248.96" font-size="11" text-anchor="start" fill="#1a2233">Carbon arc gouging</text>
+<text x="176" y="248.96" font-size="11" text-anchor="start" fill="#1a2233">light / heavy</text>
+<text x="276" y="248.96" font-size="11" text-anchor="start" fill="#1a2233">10 / 11</text>
+<text x="386" y="248.96" font-size="11" text-anchor="start" fill="#1a2233">12 / 14</text>
+<rect x="30" y="256" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="270.96" font-size="11" text-anchor="start" fill="#1a2233">Oxy-fuel cutting</text>
+<text x="176" y="270.96" font-size="11" text-anchor="start" fill="#1a2233">up to 6 in</text>
+<text x="276" y="270.96" font-size="11" text-anchor="start" fill="#1a2233">3-4</text>
+<text x="386" y="270.96" font-size="11" text-anchor="start" fill="#1a2233">4-5</text>
+<rect x="30" y="278" width="440" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="292.96" font-size="11" text-anchor="start" fill="#1a2233">Oxy-fuel welding</text>
+<text x="176" y="292.96" font-size="11" text-anchor="start" fill="#1a2233"></text>
+<text x="276" y="292.96" font-size="11" text-anchor="start" fill="#1a2233">4-5</text>
+<text x="386" y="292.96" font-size="11" text-anchor="start" fill="#1a2233">5-6</text>
+<text x="250" y="332" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Start dark and go lighter until you see the puddle; never below minimum.</text>
+</svg>

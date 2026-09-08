@@ -14,6 +14,10 @@ summary: "How to set up a TIG machine and torch from the cylinder to the arc: po
 
 ## 1. Polarity and current type
 
+![DCEN for steel and stainless, AC for aluminium](/img/welding/polarity.svg)
+
+*DCEN for steel and stainless, AC for aluminium*
+
 | Material | Current | Why |
 |---|---|---|
 | Mild steel, stainless, chrome-moly, copper, titanium, nickel | **DCEN (DC−, straight)**: torch on −, ground on + | 2/3 of the heat goes into the work; tungsten stays cool and pointed |
@@ -24,6 +28,10 @@ summary: "How to set up a TIG machine and torch from the cylinder to the arc: po
 ## 2. Tungsten
 
 **Types**
+
+![Tungsten grind, stickout, torch angle and filler angle](/img/welding/tig-torch-setup.svg)
+
+*Tungsten grind, stickout, torch angle and filler angle*
 
 | Tungsten | Colour band | Use |
 |---|---|---|

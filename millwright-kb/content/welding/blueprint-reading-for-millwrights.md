@@ -10,6 +10,10 @@ summary: "The parts of a drawing a millwright reads to install, fabricate or che
 
 ## Views and projection
 
+![Third-angle projection views and the line types](/img/welding/orthographic-views.svg)
+
+*Third-angle projection views and the line types*
+
 - **Orthographic projection**: the object is shown in flat views at 90° to each other. **Third-angle** (US and Canada): the top view is above the front view, the right side view is to the right (as if the object were unfolded toward you). **First-angle** (Europe, some equipment manuals): views are on the opposite sides (the right-side view appears on the left). The projection symbol in the title block (a truncated cone, small end left for third angle) tells you which.
 - Six possible views; drawings show as many as needed, usually front, top, right. Curved surfaces and holes look the same in one view and different in another: always read at least two.
 - **Section views** (A-A, B-B): the part is cut along the cutting-plane line (thick line with arrows; the arrows point in the direction you look) and the cut material is **hatched**. Full, half, offset, broken-out, revolved and removed sections. Shafts, bolts, keys, ribs and webs are conventionally **not** hatched even when the plane cuts them.

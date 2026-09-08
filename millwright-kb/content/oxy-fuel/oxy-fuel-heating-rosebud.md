@@ -44,6 +44,10 @@ A size 8 pulling 80 scfh needs **560 ft³ of connected cylinder**: a manifold of
 
 ## Lighting and handling
 
+![Set a neutral flame before heating](/img/oxy-fuel/flame-types.svg)
+
+*Set a neutral flame before heating*
+
 1. Rosebuds backfire easily if lit wrong. Set the pressures from the table for the size, purge each line, open the acetylene valve on the handle about **a half to one turn** (more than for a welding tip), light with a striker held to the side, and increase acetylene until the smoky flame just clears, then add oxygen until every one of the flame cones is neutral (sharp, no feather). A single soft cone means one orifice is blocked.
 2. If it **pops** while lighting: acetylene too low. Increase, or the flame settles back into the tip and the head overheats.
 3. Keep the flame **moving**; a rosebud held still in one place melts the surface in seconds on thin sections.

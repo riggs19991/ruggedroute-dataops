@@ -21,6 +21,10 @@ summary: "The safety rules behind every oxy-fuel job: gas properties, cylinder s
 
 ## Storage and transport
 
+![Oxygen 20 ft from fuel gas or behind a fire wall](/img/oxy-fuel/cylinder-storage.svg)
+
+*Oxygen 20 ft from fuel gas or behind a fire wall*
+
 - Store oxygen and fuel-gas cylinders **at least 20 ft apart**, or separated by a 5 ft, half-hour fire-rated barrier (OSHA 1910.253).
 - Upright, chained, capped, in a ventilated area away from heat, electrical panels and traffic. Acetylene never on its side in storage.
 - Move cylinders on a cart. Never roll acetylene cylinders on their edge, never drag them with a chain sling, never lift by the cap.
@@ -34,6 +38,10 @@ summary: "The safety rules behind every oxy-fuel job: gas properties, cylinder s
 - Use only leak-detection fluid approved for oxygen service.
 
 ## Check valves and flashback arrestors
+
+![Where the check valves and flashback arrestors go](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+*Where the check valves and flashback arrestors go*
 
 - **Reverse-flow check valve**: stops one gas backing up the other hose (higher-pressure oxygen into the acetylene line, for example). Fit at the torch inlets.
 - **Flashback arrestor**: quenches a flame front travelling back up the hose. Fit at the torch and/or regulator. Replace after any flashback.

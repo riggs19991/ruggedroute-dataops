@@ -2306,6 +2306,10 @@ The usual shop sizes are **1/4" on a 400 A machine and 5/16" or 3/8" on a 500-60
 
 ## Technique
 
+![Air jet under the electrode, 35-45° angle, 5-7 in extension](/img/cutting-gouging/carbon-arc-gouging.svg)
+
+*Air jet under the electrode, 35-45° angle, 5-7 in extension*
+
 - **Air on first, then strike**; air stays on until the arc is off and the electrode has cooled a second (the air also cools the electrode).
 - Hold the torch like a stick electrode holder, with **both hands** for a straight groove: one on the torch, one steadying the cable.
 - **Push angle 35-45°** to the plate for gouging, electrode pointed in the direction of travel; the air blows the melt ahead and out.
@@ -2376,6 +2380,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Mag drills and annular cutters
 
 An annular cutter cuts a **ring**, leaving a slug, so it removes a fraction of the metal a twist drill would; a 1" hole in 1" plate takes a minute with a 1/2 hp mag drill and no pilot hole.
+
+![Annular cutter versus twist drill](/img/cutting-gouging/mag-drill-annular-cutter.svg)
+
+*Annular cutter versus twist drill*
 
 ### Setup and the magnet rules
 
@@ -2529,6 +2537,10 @@ Tip size by thickness from the chart (1/4" → 00, 1/2" → 0, 1" → 2, 2" → 
 
 ## Straight cut, step by step
 
+![Straight cut, bevel cut and reading the drag lines](/img/cutting-gouging/oxy-cut-technique.svg)
+
+*Straight cut, bevel cut and reading the drag lines*
+
 1. Clean a strip along the line; mark with soapstone (silver pencil on dark plate); set the plate on supports so the flame and slag fall clear (not into your table's slats or a concrete floor: concrete spalls and pops).
 2. Light and set the flame; hold the torch with **both hands**: one guides at the head, the other pulls the lever. Sit or brace your elbows; move from the shoulder, not the wrist.
 3. **Preheat**: torch **90° to the plate** (for a square cut), tips **1/8-1/4" (3-6 mm) above the surface** (inner cones just off the metal), at the **edge** of the plate. Hold until the spot is **bright cherry red** (3-5 seconds on 1/4", 10-20 on 1").
@@ -2633,6 +2645,10 @@ Low air = the torch fires, then stutters and the "gas pressure" fault lights. Ch
 
 ## Consumable stack
 
+![Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle](/img/cutting-gouging/plasma-torch-consumables.svg)
+
+*Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle*
+
 ```
    torch body → electrode (hafnium insert) → swirl ring → nozzle (tip, orifice by amperage) → retaining cap → shield (drag shield for hand, deflector for machine)
 ```
@@ -2665,6 +2681,10 @@ Powermax45 XP maximum cut speeds on mild steel (hand, lab conditions): 1/4" 90 i
 ## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables
 
 Mechanized (CNC) data from the operator manual; hand cutting uses the same speeds as a guide with the drag shield on the plate. Torch-to-work (cut height) **0.06" (1.5 mm)**; pierce height **0.15" (3.8 mm), 250% of cut height**.
+
+![Cut speed versus thickness for 45, 65 and 85 A air plasma](/img/cutting-gouging/plasma-cut-chart.svg)
+
+*Cut speed versus thickness for 45, 65 and 85 A air plasma*
 
 | Thickness | Pierce delay (s) | Best quality: speed (ipm) | Best quality: arc volts | Production: speed (ipm) | Production: arc volts | Kerf (in) |
 |---|---|---|---|---|---|---|
@@ -2750,6 +2770,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Rolling pierce (the hand-torch standard)
 
+![Tilt, pierce, rotate upright, square and cut](/img/cutting-gouging/plasma-pierce-sequence.svg)
+
+*Tilt, pierce, rotate upright, square and cut*
+
 1. Hold the torch at about **30° to the plate** (Hypertherm) with the tip **within 1/16" (1.5 mm)** of the surface, pointed **away from you**.
 2. Trigger. The molten metal blows out the far side of the puddle, away from the tip.
 3. As the arc digs in, **roll the torch upright** to 90° (2-3 seconds on 3/8"), keeping the tip at height.
@@ -2826,6 +2850,10 @@ Stainless steel gouges slightly narrower and deeper at the same settings (Table 
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$saws-and-abrasives$mw$, $mw$Saws and Abrasives: Band Saw Blade TPI and Speed Charts (Horizontal and Portable), Blade Break-In, Chop Saws and Cut-Off Wheels, Angle Grinder Wheel Types and Grit, Wheel Markings, Ring Test, Guards and OSHA Grinder Rules, Cold Saws$mw$, $mw$How to pick a band saw blade by thickness and material with the TPI and blade-speed tables, break in a new blade, set up a horizontal saw and a portaband, choose and use abrasive chop-saw wheels and angle-grinder wheels and flap discs by type and grit, read a wheel marking, do the ring test, and set guards and tool rests to the OSHA numbers.$mw$, $mw$## Band saw blades
+
+![At least 3 and at most 24 teeth in the cut](/img/cutting-gouging/bandsaw-tpi-rule.svg)
+
+*At least 3 and at most 24 teeth in the cut*
 
 ### The 3-24 rule
 
@@ -8685,6 +8713,10 @@ The keypad shows a **status** (Ready, Running, Faulted, Stopped, At Speed), the 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$oxy-acetylene-setup-victor$mw$, $mw$Setting Up, Lighting and Shutting Down an Oxy-Acetylene Torch (Victor outfit)$mw$, $mw$Complete cylinder-to-shutdown procedure for a Victor oxy-acetylene outfit: regulator and hose hookup, tip selection, setting oxygen and acetylene pressures from the tip chart, leak test, lighting a neutral flame, cutting-attachment use, and the correct shutdown order.$mw$, $mw$> **The two numbers everyone must know.** Acetylene working pressure is **never above 15 psig**; free acetylene becomes unstable above that. Never draw more than **1/7 of an acetylene cylinder's contents per hour** or you pull acetone out with the gas. Everything else in this procedure builds on those.
 
+![Cylinders, regulators, arrestors, check valves, hoses and torch](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+*Cylinders, regulators, arrestors, check valves, hoses and torch*
+
 ## 1. Cylinders
 
 1. Cylinders stand **upright**, chained or strapped to a cart or wall. Acetylene must always be upright (or lie flat and then stand for at least an hour before use so the acetone settles).
@@ -8753,6 +8785,10 @@ Welding tips (W-J / 100 series) run both gases at roughly the same low pressure:
 2. Purge each line separately: open the oxygen torch valve for a few seconds, close; open the acetylene valve for a few seconds, close. This clears air/mixed gas from the hoses. Purge away from ignition sources.
 
 ## 8. Lighting
+
+![Carburising, neutral and oxidising flames](/img/oxy-fuel/flame-types.svg)
+
+*Carburising, neutral and oxidising flames*
 
 1. Wear #5 shade goggles for cutting/heavy welding (#3-4 for light brazing), leather gloves, long sleeves, no synthetics.
 2. Open the torch **acetylene** valve about **1/8 to 1/4 turn**. Light with a **friction striker**. Never use a lighter or matches.
@@ -8837,6 +8873,10 @@ Acetylene is dissolved in acetone in the cylinder; draw it out too fast and acet
 A size 8 pulling 80 scfh needs **560 ft³ of connected cylinder**: a manifold of two or three cylinders, or switch to propane. Signs you are over the limit: the flame shrinks and goes weak after a minute, frost on the cylinder, a sweet acetone smell, and pops.
 
 ## Lighting and handling
+
+![Set a neutral flame before heating](/img/oxy-fuel/flame-types.svg)
+
+*Set a neutral flame before heating*
 
 1. Rosebuds backfire easily if lit wrong. Set the pressures from the table for the size, purge each line, open the acetylene valve on the handle about **a half to one turn** (more than for a welding tip), light with a striker held to the side, and increase acetylene until the smoky flame just clears, then add oxygen until every one of the flame cones is neutral (sharp, no feather). A single soft cone means one orifice is blocked.
 2. If it **pops** while lighting: acetylene too low. Increase, or the flame settles back into the tip and the head overheats.
@@ -8924,6 +8964,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Storage and transport
 
+![Oxygen 20 ft from fuel gas or behind a fire wall](/img/oxy-fuel/cylinder-storage.svg)
+
+*Oxygen 20 ft from fuel gas or behind a fire wall*
+
 - Store oxygen and fuel-gas cylinders **at least 20 ft apart**, or separated by a 5 ft, half-hour fire-rated barrier (OSHA 1910.253).
 - Upright, chained, capped, in a ventilated area away from heat, electrical panels and traffic. Acetylene never on its side in storage.
 - Move cylinders on a cart. Never roll acetylene cylinders on their edge, never drag them with a chain sling, never lift by the cap.
@@ -8937,6 +8981,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - Use only leak-detection fluid approved for oxygen service.
 
 ## Check valves and flashback arrestors
+
+![Where the check valves and flashback arrestors go](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+*Where the check valves and flashback arrestors go*
 
 - **Reverse-flow check valve**: stops one gas backing up the other hose (higher-pressure oxygen into the acetylene line, for example). Fit at the torch inlets.
 - **Flashback arrestor**: quenches a flame front travelling back up the hose. Fit at the torch and/or regulator. Replace after any flashback.
@@ -8980,6 +9028,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$victor-tip-chart-acetylene$mw$, $mw$Victor Acetylene Tip Chart: Cutting (1-101 / 3-101), Welding (W-J / 100 series) and MFA Heating Tips$mw$, $mw$The Victor acetylene pressure card reproduced in full: tip size vs metal thickness with cutting-oxygen, preheat-oxygen and acetylene pressures, cutting speed and kerf; welding nozzle flow data with drill sizes; and MFA rosebud heating-tip pressures.$mw$, $mw$All pressures are **psig at the regulator with the torch flowing**. Victor measured cutting-tip values through a 25 ft × 3/8" hose for tip 6 and larger. Torches fitted with flashback arrestors can need **up to 25% more pressure** as tip size goes up, but acetylene still tops out at **15 psig**.
+
+![1-101 cutting tips: size, thickness, pressures, speed](/img/oxy-fuel/victor-tip-chart.svg)
+
+*1-101 cutting tips: size, thickness, pressures, speed*
 
 ## Cutting tips - Series 1-101 and 3-101 (acetylene)
 
@@ -14126,7 +14178,11 @@ Also: **heat hardening** (glazed, brittle, cracked when bent), **weather/ozone c
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$aws-electrode-classification$mw$, $mw$Decoding AWS Electrode and Wire Numbers: E7018-1 H4R, ER70S-6, E71T-1C, E308L-16, ER4043, E71T-11 and More$mw$, $mw$How to read every filler-metal number you will meet on a box or a WPS: covered electrodes, solid MIG/TIG wire, flux-cored wire, stainless, aluminium and cast-iron rods, plus the Canadian CSA equivalents.$mw$, $mw$## Covered (stick) electrodes: AWS A5.1 and A5.5
+  values ($mw$aws-electrode-classification$mw$, $mw$Decoding AWS Electrode and Wire Numbers: E7018-1 H4R, ER70S-6, E71T-1C, E308L-16, ER4043, E71T-11 and More$mw$, $mw$How to read every filler-metal number you will meet on a box or a WPS: covered electrodes, solid MIG/TIG wire, flux-cored wire, stainless, aluminium and cast-iron rods, plus the Canadian CSA equivalents.$mw$, $mw$![Decoding E7018-1 H4R digit by digit](/img/welding/aws-electrode-decoder.svg)
+
+*Decoding E7018-1 H4R digit by digit*
+
+## Covered (stick) electrodes: AWS A5.1 and A5.5
 
 ```
 E 70 1 8 - 1  H4 R
@@ -14271,6 +14327,10 @@ A welding procedure lists the classification, diameter, polarity, amperage/volta
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$blueprint-reading-for-millwrights$mw$, $mw$Blueprint Reading for Millwrights: Views and Projection, Line Types, Sections, Title Block and Revisions, Dimensions and Tolerances, Surface Finish, GD&T Essentials, Structural Shapes, Piping Isometrics and P&IDs$mw$, $mw$The parts of a drawing a millwright reads to install, fabricate or check a part: how views relate, what each line style means, how to read sections and details, the title block and revision level, dimensions and the tolerance rules, surface finish marks, the GD&T symbols that appear on baseplates and shafts, how structural steel and piping drawings label their members, and the P&ID symbols you need to trace a system.$mw$, $mw$## Views and projection
+
+![Third-angle projection views and the line types](/img/welding/orthographic-views.svg)
+
+*Third-angle projection views and the line types*
 
 - **Orthographic projection**: the object is shown in flat views at 90° to each other. **Third-angle** (US and Canada): the top view is above the front view, the right side view is to the right (as if the object were unfolded toward you). **First-angle** (Europe, some equipment manuals): views are on the opposite sides (the right-side view appears on the left). The projection symbol in the title block (a truncated cone, small end left for third angle) tells you which.
 - Six possible views; drawings show as many as needed, usually front, top, right. Curved surfaces and holes look the same in one view and different in another: always read at least two.
@@ -14443,6 +14503,10 @@ Flux does three jobs: shows temperature (goes clear and watery at brazing heat),
 
 Capillary action works only in a **narrow, uniform gap** at brazing temperature:
 
+![Capillary joint clearance, overlap and where the heat goes](/img/welding/brazing-joint.svg)
+
+*Capillary joint clearance, overlap and where the heat goes*
+
 | Filler | Clearance at brazing temperature |
 |---|---|
 | BAg silver alloys, flux | **0.001-0.005" (0.025-0.13 mm)** |
@@ -14539,6 +14603,10 @@ Weld metal and the plate next to it are put in at melting temperature and shrink
 More heat input (amps × volts ÷ travel speed) = more distortion. Bigger weld than needed = more distortion. One-sided welds = angular distortion. Welds away from the neutral axis = bowing.
 
 ## Control in order of effectiveness
+
+![Back-step and skip sequences, presetting and balanced welds](/img/welding/distortion-sequences.svg)
+
+*Back-step and skip sequences, presetting and balanced welds*
 
 ### 1. Design and prep (free)
 
@@ -14710,6 +14778,10 @@ Out of position: stay in the **lower third** of the WFS range, keep CTWD at 3/4"
 
 ## Technique notes
 
+![Drag angle and stickout for flux-cored wire](/img/welding/fcaw-drag-stickout.svg)
+
+*Drag angle and stickout for flux-cored wire*
+
 - Drag angle and a steady stickout; the slag should follow the puddle by a finger-width.
 - **Clean every pass** (chip and brush) on multi-pass; T-1 slag peels easily but leaves silicon islands that must go.
 - Weave width no more than 3× wire diameter on code work unless the WPS allows; vertical-up uses a slight side-to-side or triangle.
@@ -14747,6 +14819,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 Flux-cored wire whose core makes its **own shielding** as it burns; no gas bottle. Runs on any CV machine, including small 120 V units, and is the go-to for **outdoor, windy, rusty and portable** work. The trade-off: more spatter and smoke than gas-shielded wire, a colder-looking bead that needs correct technique, and single-pass or limited multi-pass ratings on the general-purpose wires.
 
 ## The three rules
+
+![Self-shielded flux-core runs DCEN: gun lead to negative](/img/welding/polarity.svg)
+
+*Self-shielded flux-core runs DCEN: gun lead to negative*
 
 1. **Polarity: DC− (electrode negative).** Gun lead to **−**, ground to **+**. Run it on DC+ and you get a violent, porous, spattery mess. This is the first thing to check on any flux-core complaint.
 2. **Stickout is long**: **1/2" for .030-.035, 5/8-3/4" for .045-.068, 3/4-1" for 5/64 and up**. The wire has to preheat in the long stickout for the flux to work. Short stickout = porosity.
@@ -14819,6 +14895,10 @@ Lincoln's US procedure sheet for .035 spans **50-300 ipm at 13-16 V**; the .030 
 
 ## Technique
 
+![Drag angle and stickout by wire type](/img/welding/fcaw-drag-stickout.svg)
+
+*Drag angle and stickout by wire type*
+
 - Drag 10-20°, stickout per the rule, arc on the leading edge of the puddle.
 - Stringers or a slight side-to-side. Vertical-up with a slow inverted-V weave at the low end of the range; NR-211 also runs **vertical-down** well on sheet.
 - Slag is heavy and glassy: chip and wire-brush every pass; multi-pass welds are limited to about 3 layers on general-purpose wire because of manganese build-up in the deposit (data sheet limit).
@@ -14883,6 +14963,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Setting flow
 
+![Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow](/img/welding/flowmeter-reading.svg)
+
+*Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow*
+
 - **Regulator** (two gauges, psi): reads pressure, not flow; the second gauge on a "regulator-flowgauge" is calibrated in cfh for one orifice: fine for MIG.
 - **Flowmeter** (ball in a tube, cfh or L/min): reads actual flow. Read at the **centre of the ball**, with gas **flowing** (trigger held or TIG purge button). Required for TIG.
 - Too little flow = porosity, grey welds. Too much = turbulence pulls in air = porosity, wasted gas. Bigger nozzle → more flow; draughts → more flow or a screen; overhead welding → slightly less flow (gas rises into the joint).
@@ -14927,6 +15011,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$gmaw-mig-setup$mw$, $mw$MIG Welding (GMAW) Setup: Machine, Wire, Gas, Voltage and Wire-Feed Charts by Thickness, Drive Rolls, Liner, Tips, Stickout and Technique$mw$, $mw$A complete MIG setup walk-through with the chart most students want: voltage and wire feed speed for .023, .030, .035 and .045 ER70S-6 wire on C25 from 22 gauge to 1/4 inch, plus the amps-per-ipm rules, polarity, gas and flow, drive roll and liner checks, contact tip and stickout, gun angles, and a troubleshooting table.$mw$, $mw$> MIG is easy to start and easy to do badly. Nine out of ten weak MIG welds are **cold**: the setting was fine for the sound of it but the wire never fused the root. Set by the chart, then push the settings until the bead flattens and wets into the plate, and check a cut-and-etch or a bend test when it matters.
 
 ## 1. Machine and polarity
+
+![MIG runs DCEP: gun lead to positive](/img/welding/polarity.svg)
+
+*MIG runs DCEP: gun lead to positive*
 
 - **Constant-voltage (CV)** power source. You set **voltage** on the machine and **wire feed speed (WFS)**; the machine supplies whatever **amperage** the wire feed demands. WFS is the amperage knob; voltage is the arc length / bead width knob.
 - **DCEP (DC+)** for solid wire and gas-shielded flux-core: gun lead on **+**, ground on **−**. (Self-shielded flux-core is the exception: DC−.)
@@ -14979,6 +15067,10 @@ Notes on using the chart:
 - Aluminium with a spool gun (.035 ER4043, 100% Ar): 22-24 V / 480-740 ipm (85-190 A) on 1/8-1/4"; stainless (.035 ER308L, tri-mix): 23-24 V / 265-335 ipm on 18 ga-1/8".
 
 ## 5. Physical setup
+
+![Contact-tip-to-work distance, stickout and push angle](/img/welding/mig-stickout.svg)
+
+*Contact-tip-to-work distance, stickout and push angle*
 
 1. **Drive-roll tension**: just enough that the wire cannot be stopped by pinching it lightly at the tip with gloved fingers; too tight deforms the wire and flakes copper into the liner. Test: feed the wire against a block of wood; it should slip at the rolls, not buckle.
 2. **Liner**: right size, not kinked, cut square, blown out with dry air when changing wire. Bird-nesting at the rolls = liner blocked or tip too small.
@@ -15033,6 +15125,10 @@ Trigger released, gas valve on the cylinder closed, bleed the line, wire retract
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$gmaw-transfer-modes$mw$, $mw$MIG Transfer Modes: Short-Circuit, Globular, Spray and Pulsed Spray, with Transition Currents, Gas Requirements and Settings$mw$, $mw$What each transfer mode is, when it happens, what gas and current it needs, what it is good and bad at, the transition currents where spray begins for each wire size, and starting settings for short-circuit, spray and pulse.$mw$, $mw$## The four modes at a glance
+
+![Short-circuit, globular, spray and pulsed spray with the transition current](/img/welding/mig-transfer-modes.svg)
+
+*Short-circuit, globular, spray and pulsed spray with the transition current*
 
 | Mode | How metal crosses the arc | Current / voltage | Gas | Positions | Thickness | Spatter |
 |---|---|---|---|---|---|---|
@@ -15128,6 +15224,10 @@ Metal-cored wire (E70C-6M) runs in spray at similar voltages with a wider, softe
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$gtaw-settings-by-material$mw$, $mw$TIG Settings by Material and Thickness: Amperage, Tungsten, Filler, Cup and Gas Flow for Steel, Stainless, Aluminium, Copper, Titanium and Chrome-Moly$mw$, $mw$Starting-point tables for the TIG welder: for each material and thickness the amperage range, tungsten diameter, filler diameter, cup size and argon flow, with the current type, the filler to use, and the material-specific rules (cleaning, purge, preheat, colour) that decide whether the weld is sound.$mw$, $mw$> These are starting points for butt and fillet welds in the flat position with argon. Set the machine's maximum 10-20% above the top of the range and drive with the pedal. Vertical and overhead: 10-15% less. Thick parts and heat sinks need more; small parts that heat-soak need less as you go.
 
+![Amperage versus thickness for steel, stainless and aluminium](/img/welding/tig-amps-vs-thickness.svg)
+
+*Amperage versus thickness for steel, stainless and aluminium*
+
 ## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)
 
 | Thickness | Amps | Tungsten | Filler | Cup | Argon |
@@ -15215,6 +15315,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## 1. Polarity and current type
 
+![DCEN for steel and stainless, AC for aluminium](/img/welding/polarity.svg)
+
+*DCEN for steel and stainless, AC for aluminium*
+
 | Material | Current | Why |
 |---|---|---|
 | Mild steel, stainless, chrome-moly, copper, titanium, nickel | **DCEN (DC−, straight)**: torch on −, ground on + | 2/3 of the heat goes into the work; tungsten stays cool and pointed |
@@ -15225,6 +15329,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## 2. Tungsten
 
 **Types**
+
+![Tungsten grind, stickout, torch angle and filler angle](/img/welding/tig-torch-setup.svg)
+
+*Tungsten grind, stickout, torch angle and filler angle*
 
 | Tungsten | Colour band | Use |
 |---|---|---|
@@ -15357,6 +15465,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Layers: build-up, buffer, hardfacing
 
+![Base metal, buffer, build-up and hardfacing layers in section](/img/welding/hardfacing-layers.svg)
+
+*Base metal, buffer, build-up and hardfacing layers in section*
+
 ```
    hardfacing (1-2 layers, HRC 40-65, may be non-machinable, may check-crack)
    ─────────────────────────────────────────────
@@ -15471,6 +15583,10 @@ Open-arc self-shielded hardfacing wires run long stickout and high voltage on pu
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$joint-design-and-fit-up$mw$, $mw$Weld Joint Design and Fit-Up: Groove Types, Bevel Angles, Root Opening and Land, Prequalified Joint Dimensions, Tacking Sequence and Fit-Up Tolerances$mw$, $mw$The five joint types and the groove shapes cut into them, the dimensions that matter (bevel angle, root opening, root face), the standard prequalified numbers for stick, MIG and flux-core, how much fit-up error is allowed, and the tacking sequence that keeps a joint from pulling out of square before you weld it.$mw$, $mw$## The five joints
+
+![The five joints and the single-V groove terms](/img/welding/joint-types.svg)
+
+*The five joints and the single-V groove terms*
 
 | Joint | Where the parts meet | Typical welds |
 |---|---|---|
@@ -15589,6 +15705,10 @@ Multi-process machines switch between them; welding MIG on CC or stick on CV wor
 
 The nameplate rates output at a **duty cycle**: the percentage of a **10-minute** period the machine can weld at that amperage before it must cool.
 
+![Duty cycle falls with the square of the current ratio](/img/welding/duty-cycle.svg)
+
+*Duty cycle falls with the square of the current ratio*
+
 ```
 Allowed arc time per 10 min = duty cycle × 10 min
 Example: 200 A at 60% → 6 minutes welding, 4 minutes resting, repeating
@@ -15623,6 +15743,10 @@ Generator welding: a stick/TIG inverter needs a **clean** generator with ≥ 1.5
 
 Total circuit length = electrode lead **plus** work lead. Copper welding cable, 60% duty cycle, about 4 V drop (welders-supply chart). Bigger is always fine.
 
+![Cable size by output and total lead length](/img/welding/cable-size-chart.svg)
+
+*Cable size by output and total lead length*
+
 | Machine output | Up to 50 ft total | 50-100 ft | 100-150 ft | 150-200 ft |
 |---|---|---|---|---|
 | 100 A | #4 | #4 | #2 | #2 |
@@ -15639,6 +15763,10 @@ Signs your cable is too small or too long: cable warm to the touch, arc weaker a
 Metric: #2 ≈ 35 mm², 1/0 ≈ 50 mm², 2/0 ≈ 70 mm², 3/0 ≈ 95 mm², 4/0 ≈ 120 mm².
 
 ## Ground (work) clamp
+
+![Ground clamp on the part being welded, never across a bearing](/img/welding/ground-clamp-placement.svg)
+
+*Ground clamp on the part being welded, never across a bearing*
 
 - On **clean bare metal** on the piece being welded, as close to the arc as practical.
 - Never let welding current cross a **bearing, bushing, gear mesh, chain, hinge, slewing ring or hydraulic cylinder rod**: it arcs across the contact points and pits them (fluting). On rotating machinery clamp to the shaft or the same casting you are welding; on a vehicle disconnect the battery and clamp near the weld.
@@ -15687,6 +15815,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **Groove welds (G)** and **fillet welds (F)**; the number is the position.
 
+![1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe](/img/welding/positions.svg)
+
+*1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe*
+
 | Code | Plate | Pipe | The weld runs |
 |---|---|---|---|
 | **1G / 1F** | Flat | Pipe rolled, weld on top | Flat, puddle sits on top of the joint; easiest, hottest settings |
@@ -15702,6 +15834,10 @@ Qualifying in a harder position qualifies the easier ones: 3G+4G plate qualifies
 **Which side of the plate the weld runs on and where the plate is** define position; a fillet in a corner that is flat but on a tilted structure counts as whatever the joint angle makes it (D1.1 Figure 5.4 position diagram; ±15° of flat still counts as flat).
 
 ## The two angles
+
+![Travel angle and work angle](/img/welding/smaw-angles.svg)
+
+*Travel angle and work angle*
 
 - **Work angle**: the angle between the electrode and the plate surface, measured across the joint. Fillet: split the corner, **45°** (bias toward the thicker plate); butt: **90°**.
 - **Travel angle**: the tilt along the direction of travel. **Drag (pull)**: electrode points back at the finished weld: stick, flux-core, "drag if slag". **Push**: electrode points ahead into the unwelded joint: MIG with solid wire, TIG.
@@ -15830,6 +15966,10 @@ Typical values: A36 ≈ 0.25-0.40 (often quoted as ≤ 0.40 max); A572 Gr 50 ≈
 
 Thickness T is the thickest part at the point of welding. Temperatures are minimums at the joint, measured **3" (75 mm) from the joint** in all directions on the thickest part, held through the whole weld (interpass never falls below it).
 
+![Minimum preheat by thickness for three carbon-equivalent bands](/img/welding/preheat-chart.svg)
+
+*Minimum preheat by thickness for three carbon-equivalent bands*
+
 | T (thickest part) | Col. 1: A36 and similar (A53 B, A106 B, A500, A501, A516, A570, A709 Gr 36 ≤ 3/4") with **non-low-hydrogen** electrodes | Col. 2: same steels plus A572 Gr 42/50/55, A588, A529, A537, A633 A-D, A710 Cl 1 etc. with **low-hydrogen** electrodes | Col. 3: A572 Gr 60/65, A633 E, API 5L X52, A913 Gr 60/65, A709 Gr 70W, A852, API 2W/2Y Gr 60, **low-hydrogen** | Col. 4: A710 Gr A (all classes), A913 Gr 50/60/65 with **H8** low-hydrogen electrodes |
 |---|---|---|---|---|
 | 1/8" through 3/4" (3-20 mm) | 32°F (0°C) | 32°F (0°C) | 50°F (10°C) | 32°F (0°C) |
@@ -15896,6 +16036,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## The chart (amps)
 
 **"Out-of-position" group: cellulose electrodes (deep penetration, fast-freeze, thin slag). All positions, including vertical down.**
+
+![Amperage ranges by rod diameter for the common electrodes](/img/welding/smaw-amperage-chart.svg)
+
+*Amperage ranges by rod diameter for the common electrodes*
 
 | Electrode / AWS class | Polarity | 3/32" | 1/8" | 5/32" | 3/16" | 7/32" | 1/4" |
 |---|---|---|---|---|---|---|---|
@@ -16032,6 +16176,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 Stick needs a **constant-current (CC)** power source: the amperage stays where you set it while the voltage swings with arc length. A MIG-only machine (constant voltage) will not stick weld well; a multi-process machine must be switched to "Stick / CC".
 
+![DCEP, DCEN and AC: which lead goes where and where the heat goes](/img/welding/polarity.svg)
+
+*DCEP, DCEN and AC: which lead goes where and where the heat goes*
+
 | Control | What it does | Typical setting |
 |---|---|---|
 | Amperage (output) | The one knob that matters | From the [electrode chart](/article/smaw-electrode-chart); mid-range to start |
@@ -16065,6 +16213,10 @@ Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, ru
 - Adjust in 5-10 A steps and listen: a good arc sounds like frying bacon; 7018 hums.
 
 ## 5. Strike and run
+
+![Arc length, travel angle and work angle for stick welding](/img/welding/smaw-angles.svg)
+
+*Arc length, travel angle and work angle for stick welding*
 
 1. **Position yourself** so you can see the puddle and move the whole bead length without shifting your feet. Brace the rod hand against the work or your other hand.
 2. **Strike**: scratch (like a match, then lift to arc length) or tap (touch and lift). Strike in the joint where the weld will cover the mark; stray arc strikes are defects on code work.
@@ -16128,6 +16280,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 A **discontinuity** is any interruption in the weld; it becomes a **defect** only when it exceeds the acceptance criteria of the code, drawing or WPS you are working to. Visual inspection (VT) is the first and cheapest test and finds most surface problems if it is done before the weld is painted.
 
 ## The defects and their causes
+
+![Undercut, overlap, porosity, lack of fusion and incomplete penetration in section](/img/welding/weld-defects.svg)
+
+*Undercut, overlap, porosity, lack of fusion and incomplete penetration in section*
 
 | Defect | What it looks like | Main causes | Fix |
 |---|---|---|---|
@@ -16236,6 +16392,10 @@ Guided bend of root and face (or side bends on thick plate) around a 1.5" radius
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$welder-maintenance-and-consumables$mw$, $mw$Welder Maintenance and Consumables: MIG Gun Liners, Contact Tips, Drive Rolls and Nozzles, TIG Torch Parts, Stick Holders and Cables, Machine Cleaning, Cooler Service, Consumable Storage and Troubleshooting Feed Problems$mw$, $mw$The consumables and service items on stick, MIG, flux-core and TIG equipment, how to size and replace each one, the daily and monthly machine checks, why liners and tips cause most MIG problems and how to fix feeding in five minutes, TIG torch anatomy and cooler care, cable and holder inspection, and how to store wire and rods so they weld clean.$mw$, $mw$## MIG gun consumables
+
+![Liner, diffuser, contact tip and nozzle in order](/img/welding/mig-gun-parts.svg)
+
+*Liner, diffuser, contact tip and nozzle in order*
 
 ```
    [machine] ── power pin ── cable/liner ── gun handle/trigger ── neck ── diffuser ── contact tip ── nozzle
@@ -16429,6 +16589,10 @@ Pulsed MIG (synergic "aluminium 4043 .035" program) is the best way to weld 1/16
 
 AC, 2% lanthanated tungsten, argon 15-25 cfh, balance 65-75% EN, 100-150 Hz on inverters; amperage **1 A per 0.001" plus 20-30%**. Full settings in [TIG setup](/article/gtaw-tig-setup) and the [material tables](/article/gtaw-settings-by-material). Technique: torch 10-15° push, tight arc (1/16-1/8"), wait for the shiny puddle, dab filler generously into the leading edge, keep the rod inside the shield, taper off with the pedal while adding a last dab into the crater. Thick parts and castings: preheat 200-300°F, then the puddle forms in seconds instead of soaking.
 
+![AC balance: EN penetrates, EP cleans](/img/welding/ac-balance.svg)
+
+*AC balance: EN penetrates, EP cleans*
+
 ## Preheat
 
 - Not needed under 1/4" on a warm day; on cold or thick parts **200-300°F (95-150°C)** to start the puddle and drive out moisture.
@@ -16512,6 +16676,10 @@ Preheat uneven = cracks. If you cannot heat the whole casting evenly to at least
 
 ## Crack repair procedure
 
+![Drill the crack ends, V it out, short stringers in sequence, peen](/img/welding/cast-iron-repair.svg)
+
+*Drill the crack ends, V it out, short stringers in sequence, peen*
+
 1. **Find the ends** of the crack: clean, then dye penetrant, or heat with a torch and watch for oil sweat along the crack line. Cracks run further than they look.
 2. **Drill 1/8-1/4" holes at each end**, 1/4" beyond the visible end, to stop it running.
 3. **V it out** with a carbide burr or a grinder (not a torch: local heat cracks it) to a 60-90° groove, **half to two-thirds** through on thin walls, full depth with a backing where possible on thick. Round the bottom; no sharp corners. Grinding a cast iron often smears graphite over the surface: finish with a burr, and wipe with acetone.
@@ -16561,6 +16729,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$welding-process-selector$mw$, $mw$Which Welding Process for the Job: Stick, MIG, Flux-Core, TIG, SAW, Oxy-Fuel and Brazing Compared$mw$, $mw$A decision table for picking the process before you set anything up: material, thickness, position, indoors or outdoors, quality required, and what equipment you have. Links to the setup chart for each process.$mw$, $mw$## The one-minute decision
 
 Ask these in order. The first row that fits usually decides it.
+
+![Which process for the job: a quick decision tree](/img/welding/process-selector.svg)
+
+*Which process for the job: a quick decision tree*
 
 | Situation | Use | Why |
 |---|---|---|
@@ -16638,6 +16810,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 Minimum shade from OSHA 1910.133(a)(5); "suggested" from ANSI Z49.1 for comfort. Start at the suggested shade and go lighter, not below the minimum. Auto-darkening helmets: set the shade number the same way; the resting state (shade 3-4) is only for setup.
 
+![Filter shade by process and amperage](/img/welding/lens-shade-chart.svg)
+
+*Filter shade by process and amperage*
+
 | Process | Electrode size / current | Minimum shade | Suggested shade |
 |---|---|---|---|
 | **Stick (SMAW)** | < 3/32" electrode, < 60 A | 7 | 10 |
@@ -16706,6 +16882,10 @@ Fume is the metal vapour condensed into fine particles, plus gases from the arc 
 ## Compressed gases
 
 Cylinders chained upright, caps on in transport, never used as rollers or anchor points, never welded on or near (arc strike on a cylinder = rupture), regulator backed out before opening, open slowly and stand to the side; acetylene never above **15 psig**; oxygen keeps oil, grease and gloves away; argon/CO2/nitrogen are asphyxiants (a leaking bottle in a tank or pit kills without warning; monitor O2). Full oxy-fuel rules in [oxy-fuel safety](/article/oxy-fuel-safety).
+
+![Oxygen and fuel gas storage separation](/img/oxy-fuel/cylinder-storage.svg)
+
+*Oxygen and fuel gas storage separation*
 
 ## Confined spaces
 
@@ -16807,6 +16987,10 @@ Stainless does not conduct heat away: the puddle forms fast and stays. Move fast
 
 Any open root (pipe, tanks, box sections) exposed to air while hot oxidises into a black crust ("sugaring") that has no corrosion resistance and cracks. Purge with argon (procedure in [gas selection and flow](/article/gas-selection-and-flow)) until oxygen < 0.1% and keep the purge on until the root is below about 800°F.
 
+![Heat tint colours from silver to black and what each means](/img/welding/heat-tint-scale.svg)
+
+*Heat tint colours from silver to black and what each means*
+
 | Heat tint colour on the weld and HAZ | Meaning |
 |---|---|
 | Silver, pale straw | Correct shielding; acceptable for all services |
@@ -16857,6 +17041,10 @@ Heat input window **0.5-2.5 kJ/mm (13-63 kJ/in)**, interpass **≤ 300°F (150°
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$welding-symbols$mw$, $mw$Welding Symbols (AWS A2.4): Reference Line, Arrow Side and Other Side, Fillet and Groove Symbols, Size, Length and Pitch, Contour and Finish, Weld-All-Around, Field Weld, Backing, Melt-Through, with Worked Examples$mw$, $mw$How to read every part of a welding symbol on a drawing, with the rules that trip people up (which side of the line is the arrow side, where size and length go, what a break in the arrow means, groove depth versus effective throat) and twelve worked examples read out in plain English. Includes the Canadian/ISO differences.$mw$, $mw$## Anatomy
+
+![Reference line, arrow side, other side, tail, size and length-pitch](/img/welding/welding-symbol-anatomy.svg)
+
+*Reference line, arrow side, other side, tail, size and length-pitch*
 
 ```
                     finish symbol ─┐

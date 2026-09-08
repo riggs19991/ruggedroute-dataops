@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Distortion control sequences</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<text x="120" y="24" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Back-step</text>
+<rect x="20" y="40" width="200" height="12" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="60" y1="46" x2="22" y2="46" stroke="#f8b878" stroke-width="5" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="41" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">1</text>
+<line x1="100" y1="46" x2="62" y2="46" stroke="#f8b878" stroke-width="5" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="81" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">2</text>
+<line x1="140" y1="46" x2="102" y2="46" stroke="#f8b878" stroke-width="5" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="121" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">3</text>
+<line x1="180" y1="46" x2="142" y2="46" stroke="#f8b878" stroke-width="5" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="161" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">4</text>
+<line x1="220" y1="46" x2="182" y2="46" stroke="#f8b878" stroke-width="5" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="201" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">5</text>
+<text x="120" y="88" font-size="10" text-anchor="middle" fill="#5b6577">progress →, each segment welded backwards</text>
+<text x="370" y="24" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Skip (wandering)</text>
+<rect x="270" y="40" width="210" height="12" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="272" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="285" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">1</text>
+<rect x="302" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="315" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">5</text>
+<rect x="332" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="345" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">3</text>
+<rect x="362" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="375" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">7</text>
+<rect x="392" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="405" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">2</text>
+<rect x="422" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="435" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">6</text>
+<rect x="452" y="42" width="26" height="8" fill="#f8b878" stroke="none" stroke-width="1.5"/>
+<text x="465" y="70" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">4</text>
+<text x="375" y="88" font-size="10.5" text-anchor="middle" fill="#5b6577">weld 1, 5, 3, 7, 2, 6, 4: spreads the heat</text>
+<text x="120" y="130" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Presetting a T</text>
+<rect x="30" y="200" width="180" height="12" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<g transform="translate(120,200) rotate(-6)"><rect x="-6" y="-60" width="12" height="60" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/></g>
+<line x1="120" y1="200" x2="120" y2="140" stroke="#5b6577" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
+<path d="M120,155 A45,45 0 0 0 115.2962191529556,155.2465147084277" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/><text x="117.01685049415221" y="147.0781165189893" font-size="12" text-anchor="middle" fill="#0b5fa5"></text>
+<text x="150" y="160" font-size="10.5" text-anchor="start" fill="#5b6577"><tspan x="150" dy="0">tilt 2-3° away</tspan><tspan x="150" dy="13.125">from the weld side;</tspan><tspan x="150" dy="13.125">shrinkage pulls it square</tspan></text>
+<path d="M114,200 L98,200 L114,184 Z" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="370" y="130" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Balance the welds</text>
+<rect x="290" y="200" width="170" height="12" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="368" y="140" width="12" height="60" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M368,200 L352,200 L368,184 Z" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M380,200 L396,200 L380,184 Z" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="374" y="232" font-size="10.5" text-anchor="middle" fill="#5b6577"><tspan x="374" dy="0">weld both sides alternately,</tspan><tspan x="374" dy="13.125">smallest fillet that meets the drawing</tspan></text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Less weld metal, spread out, both sides, clamped: that is distortion control.</text>
+</svg>
