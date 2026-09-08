@@ -29,6 +29,13 @@ export function InstallPage() {
         <li>Tap <b>Install app</b> on the home page, or open the <b>⋮</b> menu and tap <b>Add to Home screen</b> / <b>Install app</b>.</li>
         <li>Tap <b>Install</b>. The icon appears with your other apps.</li>
       </ol>
+      <h2>Android app file (APK)</h2>
+      <p>There is also a real Android app, built automatically from the same content. It is the same app as the home-screen install, in a package you can share and install without a browser.</p>
+      <ol>
+        <li>On the phone open <a href="https://github.com/riggs19991/ruggedroute-dataops/releases/download/android-latest/millwright-kb.apk">millwright-kb.apk</a> (latest build).</li>
+        <li>When the download finishes, tap it. If Android asks, allow Chrome to install apps from this source.</li>
+        <li>Tap <b>Install</b>. Newer builds install over the old one from the same link.</li>
+      </ol>
       <h2>Windows, Mac and Chromebook</h2>
       <p>In Chrome or Edge, click the install icon at the right end of the address bar, or use the browser menu and choose <b>Install Millwright KB</b>.</p>
       <h2>Signing in from the installed app</h2>

@@ -31,16 +31,37 @@ npm ci
 npm run cap:sync        # builds dist/ and copies it into android/ and ios/
 ```
 
-### Android (any computer with Android Studio)
+### Android: built by GitHub Actions, no computer needed
 
-1. Install Android Studio, open `millwright-kb/android`.
-2. Create a signing key once: Build → Generate Signed Bundle / APK → Create new keystore. Keep the
-   `.jks` file and both passwords somewhere safe and backed up: losing it means you can never
-   update the app again. (Play App Signing then manages the final key for you.)
-3. Build → Generate Signed Bundle → release. Upload the `.aab` in Play Console → Testing → Closed
-   testing first, then Production.
-4. For a quick test on your own phone without the store: Build → Build APK, copy the APK to the
-   phone and install it (allow "install unknown apps").
+The workflow `.github/workflows/millwright-kb-android.yml` runs on every push:
+
+- It always produces a **sideload APK** signed with the committed debug key
+  (`android/debug.keystore`, standard Android debug password) and publishes it to the rolling
+  release **android-latest**:
+  https://github.com/riggs19991/ruggedroute-dataops/releases/download/android-latest/millwright-kb.apk
+  Because the key is constant, each new build installs over the previous one. This key is for
+  sideloading only; it is public, so it must never be used for the store.
+- When these four repository secrets exist (GitHub → Settings → Secrets and variables → Actions)
+  it also builds the **signed Play Store bundle** `millwright-kb-release.aab` and a signed release
+  APK, attached to the same release and as a workflow artifact:
+  `ANDROID_KEYSTORE_BASE64` (the .jks file base64-encoded), `ANDROID_KEYSTORE_PASSWORD`,
+  `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`.
+- `versionCode` is the workflow run number (always increasing, as Play requires); `versionName`
+  is the `package.json` version.
+
+Creating the Play keystore without a computer: open the repository in **GitHub Codespaces** from
+the phone browser (Code → Codespaces → Create), then in its terminal run
+
+```
+keytool -genkeypair -keystore play.jks -alias millwrightkb -keyalg RSA -keysize 2048 -validity 10000
+base64 -w0 play.jks
+```
+
+and paste the printed text into the `ANDROID_KEYSTORE_BASE64` secret with the passwords and alias
+you chose. Download `play.jks` to somewhere safe as well: losing it means no more updates to the
+listing (Play App Signing keeps a copy of the final key, but you still need this upload key).
+Then upload the `.aab` from the release page in Play Console → Testing → Closed testing, then
+Production.
 
 ### iOS (needs macOS)
 

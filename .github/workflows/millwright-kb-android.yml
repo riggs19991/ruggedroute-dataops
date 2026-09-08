@@ -1,0 +1,97 @@
+name: millwright-kb-android
+# Builds the Android app (Capacitor wrapper around the web build) on every change.
+# Always produces a sideload APK signed with the committed debug key and publishes it to the
+# rolling "android-latest" release. When the Play Store keystore secrets exist, also builds the
+# signed release bundle (.aab) and release APK.
+
+on:
+  push:
+    branches: [main, claude/millwright-knowledge-database-pg5n1c]
+    paths: ["millwright-kb/**", ".github/workflows/millwright-kb-android.yml"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: millwright-kb-android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: millwright-kb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: millwright-kb/package-lock.json
+      - run: npm ci
+      - name: Build web app and copy it into the Android project
+        run: |
+          npm run build
+          npx cap sync android
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platforms;android-35 build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Read version
+        id: v
+        run: echo "name=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Build sideload APK (debug key)
+        working-directory: millwright-kb/android
+        run: ./gradlew assembleDebug -PversionCode=${{ github.run_number }} -PversionName=${{ steps.v.outputs.name }} --no-daemon
+      - name: Build signed Play Store bundle (only when keystore secrets exist)
+        working-directory: millwright-kb/android
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KS_B64" ]; then
+            echo "::notice::No ANDROID_KEYSTORE_BASE64 secret: skipping the signed release build (sideload APK still produced)."
+            exit 0
+          fi
+          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          ./gradlew bundleRelease assembleRelease --no-daemon \
+            -PversionCode=${{ github.run_number }} -PversionName=${{ steps.v.outputs.name }} \
+            -PMW_KEYSTORE_FILE="$RUNNER_TEMP/release.jks" -PMW_KEYSTORE_PASSWORD="$KS_PASS" \
+            -PMW_KEY_ALIAS="$KEY_ALIAS" -PMW_KEY_PASSWORD="$KEY_PASS"
+          rm -f "$RUNNER_TEMP/release.jks"
+      - name: Collect outputs
+        run: |
+          mkdir -p out
+          cp android/app/build/outputs/apk/debug/app-debug.apk out/millwright-kb.apk
+          cp android/app/build/outputs/bundle/release/app-release.aab out/millwright-kb-release.aab 2>/dev/null || true
+          cp android/app/build/outputs/apk/release/app-release.apk out/millwright-kb-release.apk 2>/dev/null || true
+          ls -la out
+          echo "### Android build ${{ github.run_number }} (v${{ steps.v.outputs.name }})" >> "$GITHUB_STEP_SUMMARY"
+          echo "Sideload APK: https://github.com/${{ github.repository }}/releases/download/android-latest/millwright-kb.apk" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: millwright-kb-android-${{ github.run_number }}
+          path: millwright-kb/out
+          retention-days: 30
+      - name: Publish rolling release (android-latest)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-latest
+          name: Millwright KB for Android (latest build)
+          prerelease: true
+          body: |
+            Sideload build of the Millwright Knowledge Base Android app, updated on every change.
+            Version ${{ steps.v.outputs.name }}, build ${{ github.run_number }}.
+
+            Install on an Android phone: download **millwright-kb.apk**, open it, allow installs from Chrome when asked, tap Install.
+            Updates install over the previous build. The web app at https://millwright-kb.riggs1991.workers.dev also installs to the home screen without this file.
+          files: millwright-kb/out/*
