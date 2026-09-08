@@ -29,6 +29,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 
 ## Storage
 
+![Storage separation for oxygen and fuel gas](/img/oxy-fuel/cylinder-storage.svg)
+
+*Storage separation for oxygen and fuel gas*
+
 - **Upright, secured** (chain, strap or rack) at all times, including "empties".
 - **Valve caps on** whenever the cylinder is not connected to a regulator or manifold.
 - **Oxygen separated from fuel gases** (acetylene, propane, hydrogen) by **at least 20 ft (6.1 m)** or a **5 ft high fire-resistant wall (1/2-hour rating)**. Also keep oxygen 20 ft from oil, grease, combustibles and flammable liquids.
@@ -46,6 +50,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 - Acetylene that has been on its side: **stand upright for at least an hour** (some suppliers say 24 h) before use so the acetone settles out of the valve.
 
 ## Connecting and opening
+
+![Regulator, arrestor and check valve positions](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+*Regulator, arrestor and check valve positions*
 
 1. Stand to the **side** of the outlet, valve pointing away from anyone, and **crack** the valve briefly (open and close a fraction of a turn) to blow dust out of the outlet. **Not acetylene near a flame, not in a confined space, and never crack hydrogen** (it can self-ignite).
 2. Check the regulator: correct CGA, gauges intact, **adjusting screw backed all the way out** (no spring load), oil-free on oxygen; inlet filter present; flashback arrestors and check valves on torches.

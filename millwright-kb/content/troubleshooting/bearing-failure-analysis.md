@@ -18,6 +18,10 @@ summary: "How to look at a failed bearing and say what killed it: first the load
 
 The rolling elements polish a **track** on each raceway where the load passes. Its position and width tell the story before you find any damage.
 
+![Running track patterns on the races](/img/troubleshooting/bearing-load-paths.svg)
+
+*Running track patterns on the races*
+
 | Track pattern | Meaning |
 |---|---|
 | **Inner ring: track all round, centred and uniform; outer ring: track over ~1/3 of the circumference in the load direction, centred** | Normal for a rotating inner ring with a fixed-direction radial load: the correct picture |

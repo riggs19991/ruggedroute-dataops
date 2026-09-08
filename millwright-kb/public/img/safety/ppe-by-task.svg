@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>PPE by task</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<rect x="20" y="30" width="470" height="24" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="46.32" font-size="9" text-anchor="start" font-weight="600" fill="#1a2233">Task</text>
+<text x="101" y="46.32" font-size="9" text-anchor="start" font-weight="600" fill="#1a2233">Eyes / face</text>
+<text x="201" y="46.32" font-size="9" text-anchor="start" font-weight="600" fill="#1a2233">Ears</text>
+<text x="241" y="46.32" font-size="9" text-anchor="start" font-weight="600" fill="#1a2233">Hands</text>
+<text x="301" y="46.32" font-size="9" text-anchor="start" font-weight="600" fill="#1a2233">Lungs</text>
+<text x="396" y="46.32" font-size="9" text-anchor="start" font-weight="600" fill="#1a2233">Other</text>
+<rect x="20" y="54" width="470" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="70.32" font-size="9" text-anchor="start" fill="#1a2233">Grinding</text>
+<text x="101" y="70.32" font-size="9" text-anchor="start" fill="#1a2233">glasses + shield</text>
+<text x="201" y="70.32" font-size="9" text-anchor="start" fill="#1a2233">yes</text>
+<text x="241" y="70.32" font-size="9" text-anchor="start" fill="#1a2233">A4 cut</text>
+<text x="301" y="70.32" font-size="9" text-anchor="start" fill="#1a2233">P100 long jobs</text>
+<text x="396" y="70.32" font-size="9" text-anchor="start" fill="#1a2233">no loose clothes</text>
+<rect x="20" y="78" width="470" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="94.32" font-size="9" text-anchor="start" fill="#1a2233">Arc welding</text>
+<text x="101" y="94.32" font-size="9" text-anchor="start" fill="#1a2233">helmet + glasses</text>
+<text x="201" y="94.32" font-size="9" text-anchor="start" fill="#1a2233">plugs</text>
+<text x="241" y="94.32" font-size="9" text-anchor="start" fill="#1a2233">gauntlets</text>
+<text x="301" y="94.32" font-size="9" text-anchor="start" fill="#1a2233">fume: P100 / PAPR</text>
+<text x="396" y="94.32" font-size="9" text-anchor="start" fill="#1a2233">leathers, boots</text>
+<rect x="20" y="102" width="470" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="118.32" font-size="9" text-anchor="start" fill="#1a2233">Rigging</text>
+<text x="101" y="118.32" font-size="9" text-anchor="start" fill="#1a2233">glasses</text>
+<text x="201" y="118.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="241" y="118.32" font-size="9" text-anchor="start" fill="#1a2233">leather</text>
+<text x="301" y="118.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="396" y="118.32" font-size="9" text-anchor="start" fill="#1a2233">hard hat, Mt boot</text>
+<rect x="20" y="126" width="470" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="142.32" font-size="9" text-anchor="start" fill="#1a2233">Hydraulics</text>
+<text x="101" y="142.32" font-size="9" text-anchor="start" fill="#1a2233">shield when opening</text>
+<text x="201" y="142.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="241" y="142.32" font-size="9" text-anchor="start" fill="#1a2233">nitrile</text>
+<text x="301" y="142.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="396" y="142.32" font-size="9" text-anchor="start" fill="#1a2233">no hands on leaks</text>
+<rect x="20" y="150" width="470" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="166.32" font-size="9" text-anchor="start" fill="#1a2233">Machining</text>
+<text x="101" y="166.32" font-size="9" text-anchor="start" fill="#1a2233">glasses / shield</text>
+<text x="201" y="166.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="241" y="166.32" font-size="9" text-anchor="start" fill="#1a2233">NONE</text>
+<text x="301" y="166.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="396" y="166.32" font-size="9" text-anchor="start" fill="#1a2233">no rings, sleeves</text>
+<rect x="20" y="174" width="470" height="24" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="190.32" font-size="9" text-anchor="start" fill="#1a2233">Chemicals</text>
+<text x="101" y="190.32" font-size="9" text-anchor="start" fill="#1a2233">goggles + shield</text>
+<text x="201" y="190.32" font-size="9" text-anchor="start" fill="#1a2233">-</text>
+<text x="241" y="190.32" font-size="9" text-anchor="start" fill="#1a2233">per SDS</text>
+<text x="301" y="190.32" font-size="9" text-anchor="start" fill="#1a2233">per SDS</text>
+<text x="396" y="190.32" font-size="9" text-anchor="start" fill="#1a2233">apron, eyewash</text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Z87+ glasses under every shield and helmet; no gloves on rotating tools.</text>
+</svg>

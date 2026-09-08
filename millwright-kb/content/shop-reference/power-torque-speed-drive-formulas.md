@@ -10,6 +10,10 @@ summary: "How power, torque and speed relate, how to get horsepower from motor n
 
 ## Power, torque, speed
 
+![Torque versus speed at constant power](/img/shop-reference/torque-speed-power.svg)
+
+*Torque versus speed at constant power*
+
 ```
 HP  = T (ft-lb) × rpm / 5 252
 HP  = T (in-lb) × rpm / 63 025

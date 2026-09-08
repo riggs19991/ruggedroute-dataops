@@ -32,6 +32,10 @@ Velocity is used for severity because it relates to the fatigue energy in the ma
 
 **Zones**: **A** = new-machine condition; **B** = acceptable for unrestricted long-term operation; **C** = unsatisfactory for continuous long-term operation, run for a limited time until repair; **D** = severe enough to cause damage.
 
+![ISO 20816-3 zones A to D](/img/condition-monitoring/iso-severity-zones.svg)
+
+*ISO 20816-3 zones A to D*
+
 | Machine group and support | Zone A/B boundary | Zone B/C boundary | Zone C/D boundary |
 |---|---|---|---|
 | **Group 1: large machines, 300 kW to 50 MW (motors with shaft height over 315 mm), rigid foundation** | 2.3 mm/s (0.09 in/s RMS) | **4.5 (0.18)** | 7.1 (0.28) |

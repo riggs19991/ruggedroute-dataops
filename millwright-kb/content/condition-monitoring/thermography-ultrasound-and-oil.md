@@ -10,6 +10,10 @@ summary: "The other two eyes of a condition-monitoring program beside vibration 
 
 ## Infrared thermography
 
+![Thermal comparison of twin bearings and an ultrasound dB trend](/img/condition-monitoring/thermography-and-ultrasound.svg)
+
+*Thermal comparison of twin bearings and an ultrasound dB trend*
+
 ### Getting a real temperature
 
 An IR camera or gun measures the **infrared energy leaving a surface** and converts it to a temperature assuming an **emissivity** (how well the surface radiates: a matte black surface 0.95; painted or oxidised steel 0.8-0.95; **bare shiny metal 0.1-0.3**: it reflects the room and reads far too low, and it reflects you, the lights and the sun). Rules:

@@ -25,6 +25,10 @@ The PAI's first question is **can this be done elsewhere or another way** (move 
 
 Within a **35 ft radius** of the arc or flame, and below it on every floor or level that sparks can reach:
 
+![The 35 ft hot work zone](/img/safety/hot-work-zone.svg)
+
+*The 35 ft hot work zone*
+
 1. **Remove** combustibles: paper, wood, rags, drums, pallets, plastic, oily absorbent, cardboard, lubricant stock.
 2. What cannot be moved gets **covered** with fire-resistant tarps, welding blankets or metal sheets (not a plastic tarp) and **wetted** where sensible (a wet floor is not a substitute for cover: it dries).
 3. **Floor**: sweep clean of dust, oil and grease; combustible floors wet down or covered with sand or fire-resistant blankets. Grating, expansion joints and floor drains get covered so slag cannot drop through.

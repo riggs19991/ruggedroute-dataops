@@ -10,6 +10,10 @@ source: "CEMA 350 Screw Conveyors for Bulk Materials (components, capacity table
 summary: "Two conveyors that are simple to look at and full of traps: the screw conveyor's parts, the hand-and-rotation rule that decides which way the material goes, the hanger bearings and coupling bolts that fail first, capacity and loading, flight repair and the jam problem; and the bucket elevator's types, the belt or chain, bucket bolting, the boot take-up and how the belt is tracked in a closed casing, the head section and throat plate, the inspection points and the dust-explosion rules that govern elevators in grain and food plants."
 ---
 
+![Screw conveyor and bucket elevator](/img/conveyors/screw-and-bucket-elevator.svg)
+
+*Screw conveyor and bucket elevator*
+
 ## Screw conveyors
 
 ### Parts

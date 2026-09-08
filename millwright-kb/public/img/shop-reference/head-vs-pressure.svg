@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" width="500" height="220" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Head vs pressure</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="220" fill="#ffffff"/>
+<rect x="80" y="30" width="40" height="160" fill="#cfe8ff" stroke="#0b5fa5" stroke-width="1.5"/>
+<line x1="140" y1="30" x2="140" y2="190" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="146" y="114" font-size="11" text-anchor="start" fill="#1a2233">2.31 ft of water</text>
+<rect x="60" y="190" width="80" height="12" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="100" cy="205" r="0" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="100" y="214" font-size="12" text-anchor="middle" font-weight="700" fill="#0b5fa5">1.0 psi</text>
+<rect x="262" y="40" width="240" height="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="268" y="54.96" font-size="10.5" text-anchor="start" font-weight="600" fill="#1a2233">Head</text>
+<text x="338" y="54.96" font-size="10.5" text-anchor="start" font-weight="600" fill="#1a2233">Water psi</text>
+<text x="418" y="54.96" font-size="10.5" text-anchor="start" font-weight="600" fill="#1a2233">Oil (SG 0.9)</text>
+<rect x="262" y="62" width="240" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="268" y="76.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">10 ft</text>
+<text x="338" y="76.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">4.3</text>
+<text x="418" y="76.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">3.9</text>
+<rect x="262" y="84" width="240" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="268" y="98.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">50 ft</text>
+<text x="338" y="98.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">21.6</text>
+<text x="418" y="98.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">19.5</text>
+<rect x="262" y="106" width="240" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="268" y="120.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">100 ft</text>
+<text x="338" y="120.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">43.3</text>
+<text x="418" y="120.96000000000001" font-size="10.5" text-anchor="start" fill="#1a2233">39.0</text>
+<rect x="262" y="128" width="240" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="268" y="142.96" font-size="10.5" text-anchor="start" fill="#1a2233">231 ft</text>
+<text x="338" y="142.96" font-size="10.5" text-anchor="start" fill="#1a2233">100</text>
+<text x="418" y="142.96" font-size="10.5" text-anchor="start" fill="#1a2233">90</text>
+<text x="370" y="170" font-size="9.5" text-anchor="middle" fill="#5b6577"><tspan x="370" dy="0">a pump gauge reads psi; the curve is in feet:</tspan><tspan x="370" dy="11.875">convert with the fluid’s specific gravity</tspan></text>
+</svg>

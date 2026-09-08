@@ -14,6 +14,10 @@ summary: "The pipe and flange numbers every millwright and pipefitter needs at t
 
 STD = standard weight (= Sch 40 up to NPS 10); XS = extra strong (= Sch 80 up to NPS 8); XXS = double extra strong.
 
+![Same OD, different wall by schedule](/img/shop-reference/pipe-schedule-walls.svg)
+
+*Same OD, different wall by schedule*
+
 | NPS | OD | Sch 10 wall | Sch 40 / STD wall | Sch 80 / XS wall | Sch 160 wall | XXS wall | Sch 40 ID |
 |---|---|---|---|---|---|---|---|
 | 1/8 | 0.405 | 0.049 | 0.068 | 0.095 | – | – | 0.269 |
@@ -74,6 +78,10 @@ Water in pipe (lb/ft) = 0.3405 × ID²                  (ID in inches; US gal/ft
 For rigging a filled pipe, add pipe and water (or product: multiply water by the specific gravity); flanges, valves and insulation are extra. See [geometry and weight formulas](/article/geometry-formulas-area-volume-weight).
 
 ## Flanges: ASME B16.5 Class 150 (inches)
+
+![Bolt holes straddle the centrelines](/img/layout-templates/bolt-circle-chord.svg)
+
+*Bolt holes straddle the centrelines*
 
 | NPS | Flange OD | Bolt circle | Number of bolts | Bolt size | Bolt hole | Flange thickness (min) | Raised face dia. |
 |---|---|---|---|---|---|---|---|

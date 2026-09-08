@@ -10,6 +10,10 @@ summary: "Conveyors kill more maintenance people than any other machine in bulk-
 
 ## Where people get hurt
 
+![In-running nip points on a belt conveyor](/img/conveyors/conveyor-nip-points.svg)
+
+*In-running nip points on a belt conveyor*
+
 - **Nip points**: where the belt meets a **pulley** (head, tail, snub, bend, take-up: the belt runs **into** the pulley on one side), where the belt runs onto a **return roll** or a carrying idler (the in-running side), the **drive** (chain, sheave, coupling), and **cleaners, plows and skirt seals** against the belt. A glove, a sleeve, a shovel or a rag drawn into a pulley nip pulls the arm in faster than anyone can react; MSHA's fatality reports are mostly people **cleaning a running belt** near the tail pulley or **freeing a stuck roll** on a running belt.
 - **Falls** from conveyor walkways and while crossing belts; **being struck** by material from a transfer point or a tripper; **caught** between a carriage (tripper, take-up) and the structure; **crushed** by a gravity take-up counterweight; **fire and dust explosions**.
 - The common thread: the belt was running, or was locked out but still had stored energy, or restarted on a remote signal.

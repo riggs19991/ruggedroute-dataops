@@ -12,6 +12,10 @@ summary: "Every conversion a millwright, welder or pipefitter reaches for, group
 
 ## Worth memorising
 
+![Pressure and torque ladders](/img/shop-reference/conversion-ladders.svg)
+
+*Pressure and torque ladders*
+
 ```
 1 in = 25.4 mm*             1 ft = 0.3048 m*           1 mil (0.001 in) = 25.4 µm*
 1 psi = 6.895 kPa = 0.0689 bar = 2.31 ft of water     1 bar = 14.5 psi

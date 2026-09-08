@@ -12,6 +12,10 @@ summary: "Symptom-by-symptom tables for V-belts, synchronous (timing) belts and 
 
 ## V-belts (classical A/B/C/D, narrow 3V/5V/8V, cogged)
 
+![V-belt wear patterns and what they mean](/img/troubleshooting/v-belt-wear-patterns.svg)
+
+*V-belt wear patterns and what they mean*
+
 | What you see | Cause | Fix |
 |---|---|---|
 | **Sidewalls glazed** (shiny, hard) and belt squeals on start or under load | **Slipping**: under-tensioned, overloaded, worn sheave grooves, oil | Retension to the deflection spec (see [V-belt installation](/article/v-belt-drive-installation-and-tensioning)); check groove wear with a gauge; check load; degrease |

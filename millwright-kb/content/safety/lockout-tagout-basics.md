@@ -23,6 +23,10 @@ A machine can have five or six points. The machine-specific **LOTO procedure** l
 
 ## The eight steps
 
+![The eight lockout steps in order](/img/safety/lockout-steps.svg)
+
+*The eight lockout steps in order*
+
 1. **Prepare**: identify every energy source and the isolation device for each. Get the locks, tags, hasps, valve covers, plug locks you need. Only **your** personal lock, one key, in your pocket.
 2. **Notify** affected employees (operators, other trades) that the machine is coming down.
 3. **Shut down** using the normal stop procedure (do not open a disconnect under load if it can be avoided).

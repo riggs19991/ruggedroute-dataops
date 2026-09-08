@@ -25,6 +25,10 @@ summary: "The pump math millwrights actually use, with the constants (2.31, 0.43
 
 ## Head, pressure and velocity
 
+![Head and pressure](/img/shop-reference/head-vs-pressure.svg)
+
+*Head and pressure*
+
 ```
 Head (ft)      = psi × 2.31 / SG
 psi            = head (ft) × SG / 2.31  = head × 0.433 × SG
@@ -60,6 +64,10 @@ Metric: shaft power (kW) = Q (m³/h) × H (m) × SG / (367 × η)
 ## Affinity (pump) laws
 
 For a given impeller when speed changes, or (approximately) for a given speed when impeller diameter is trimmed:
+
+![Pump curve and system curve](/img/pumps-seals/pump-curve.svg)
+
+*Pump curve and system curve*
 
 ```
 Flow      Q2 = Q1 × (N2 / N1)          or × (D2 / D1)

@@ -12,6 +12,10 @@ summary: "Gauge tables that answer what the number means in inches and millimetr
 
 ## Sheet and plate thickness by gauge (inches, mm)
 
+![Gauge to thickness bars](/img/shop-reference/gauge-thickness-bars.svg)
+
+*Gauge to thickness bars*
+
 | Gauge | Steel (MSG) | Galvanised steel | Stainless (US Std) | Aluminium (B&S/AWG) |
 |---|---|---|---|---|
 | 3 | 0.2391 (6.07) | – | 0.2500 (6.35) | 0.2294 (5.83) |

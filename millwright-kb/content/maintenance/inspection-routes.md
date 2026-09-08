@@ -38,6 +38,10 @@ summary: "How to set up an inspection route that catches failures early: decidin
 
 **Look**: leaks (oil, grease, water, product: where from, how much, new or old), oil level and colour in sight glasses, breathers, guards on and secure, belt dust, rust streaks (fretting) at flanges and bolted joints, cracked welds or paint at the base, loose bolts (paint witness lines broken), foundation cracks, misaligned or rubbing parts, wet insulation, build-up on fans and pulleys, condition of hoses and cables, gauge readings versus normal, sight-glass flow, e-stops and pull cords accessible.
 
+![Look, listen, feel, measure, record](/img/maintenance/route-look-listen-feel.svg)
+
+*Look, listen, feel, measure, record*
+
 **Listen**: pitch and rhythm compared to last week (a rising whine, a knock at shaft speed, a grinding or hiss, chain slap, belt squeal, cavitation gravel, relief valve chatter, air leaks).
 
 **Feel** (outside the guard, only where it is safe): vibration by hand on the housing and base (a buzz vs a shake), temperature by the back of a hand near (not on) the surface, air flow at the motor fan, pipe pulsation.

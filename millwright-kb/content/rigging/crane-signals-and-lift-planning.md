@@ -12,6 +12,10 @@ summary: "The standard hand signals a millwright must be able to give and read, 
 
 ## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)
 
+![The standard hand signals](/img/rigging/crane-hand-signals.svg)
+
+*The standard hand signals*
+
 | Signal | How |
 |---|---|
 | **Hoist (raise load)** | Forearm vertical, forefinger pointing up, move hand in small horizontal circles |

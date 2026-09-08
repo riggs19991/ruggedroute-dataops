@@ -12,6 +12,10 @@ Found a Dodge gearbox with no manual in the library? Got a PDF from the maker's 
 
 ## Steps
 
+![How a manual gets into the library](/img/manuals/add-a-manual-flow.svg)
+
+*How a manual gets into the library*
+
 1. Sign in, then open **Contribute** in the menu.
 2. Title: `<Manufacturer> <Model family> - <what the document is>`. Example: `Dodge Torque-Arm II TA4207H - Installation manual (MN1602)`.
 3. Category: **Manufacturer Manuals** (or the topic category if the document is a general procedure).

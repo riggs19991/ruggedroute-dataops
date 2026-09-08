@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 230" width="500" height="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Temper and heat colours</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="230" fill="#ffffff"/>
+<text x="250" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Temper colours (oxide film on polished steel)</text>
+<rect x="30" y="34" width="55" height="34" fill="#f5f0c8" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="57" y="84" font-size="9" text-anchor="middle" fill="#1a2233">faint straw</text>
+<text x="57" y="97" font-size="9" text-anchor="middle" fill="#5b6577">400°F</text>
+<rect x="85" y="34" width="55" height="34" fill="#efdc8a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="112" y="84" font-size="9" text-anchor="middle" fill="#1a2233">light straw</text>
+<text x="112" y="97" font-size="9" text-anchor="middle" fill="#5b6577">440°F</text>
+<rect x="140" y="34" width="55" height="34" fill="#d9a94a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="167" y="84" font-size="9" text-anchor="middle" fill="#1a2233">dark straw</text>
+<text x="167" y="97" font-size="9" text-anchor="middle" fill="#5b6577">465°F</text>
+<rect x="195" y="34" width="55" height="34" fill="#a8683a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="222" y="84" font-size="9" text-anchor="middle" fill="#1a2233">brown</text>
+<text x="222" y="97" font-size="9" text-anchor="middle" fill="#5b6577">500°F</text>
+<rect x="250" y="34" width="55" height="34" fill="#7a4a7a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="277" y="84" font-size="9" text-anchor="middle" fill="#1a2233">purple</text>
+<text x="277" y="97" font-size="9" text-anchor="middle" fill="#5b6577">540°F</text>
+<rect x="305" y="34" width="55" height="34" fill="#2f4a8a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="332" y="84" font-size="9" text-anchor="middle" fill="#1a2233">dark blue</text>
+<text x="332" y="97" font-size="9" text-anchor="middle" fill="#5b6577">560°F</text>
+<rect x="360" y="34" width="55" height="34" fill="#6f9ec9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="387" y="84" font-size="9" text-anchor="middle" fill="#1a2233">light blue</text>
+<text x="387" y="97" font-size="9" text-anchor="middle" fill="#5b6577">600°F</text>
+<rect x="415" y="34" width="55" height="34" fill="#9a9a9a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="442" y="84" font-size="9" text-anchor="middle" fill="#1a2233">grey</text>
+<text x="442" y="97" font-size="9" text-anchor="middle" fill="#5b6577">640°F</text>
+<text x="250" y="128" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Heat colours (in dim light)</text>
+<rect x="30" y="140" width="55" height="34" fill="#4a1a1a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="57" y="190" font-size="9" text-anchor="middle" fill="#1a2233">faint red</text>
+<text x="57" y="203" font-size="9" text-anchor="middle" fill="#5b6577">930°F</text>
+<rect x="85" y="140" width="55" height="34" fill="#7a1a1a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="112" y="190" font-size="9" text-anchor="middle" fill="#1a2233">blood red</text>
+<text x="112" y="203" font-size="9" text-anchor="middle" fill="#5b6577">1,075°F</text>
+<rect x="140" y="140" width="55" height="34" fill="#a52a2a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="167" y="190" font-size="9" text-anchor="middle" fill="#1a2233">dark cherry</text>
+<text x="167" y="203" font-size="9" text-anchor="middle" fill="#5b6577">1,175°F</text>
+<rect x="195" y="140" width="55" height="34" fill="#d23b2a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="222" y="190" font-size="9" text-anchor="middle" fill="#1a2233">cherry</text>
+<text x="222" y="203" font-size="9" text-anchor="middle" fill="#5b6577">1,375°F</text>
+<rect x="250" y="140" width="55" height="34" fill="#e8572a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="277" y="190" font-size="9" text-anchor="middle" fill="#1a2233">bright cherry</text>
+<text x="277" y="203" font-size="9" text-anchor="middle" fill="#5b6577">1,450°F</text>
+<rect x="305" y="140" width="55" height="34" fill="#f0862a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="332" y="190" font-size="9" text-anchor="middle" fill="#1a2233">orange</text>
+<text x="332" y="203" font-size="9" text-anchor="middle" fill="#5b6577">1,650°F</text>
+<rect x="360" y="140" width="55" height="34" fill="#f5c23a" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="387" y="190" font-size="9" text-anchor="middle" fill="#1a2233">yellow</text>
+<text x="387" y="203" font-size="9" text-anchor="middle" fill="#5b6577">1,830°F</text>
+<rect x="415" y="140" width="55" height="34" fill="#fff5c8" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="442" y="190" font-size="9" text-anchor="middle" fill="#1a2233">white</text>
+<text x="442" y="203" font-size="9" text-anchor="middle" fill="#5b6577">2,200°F</text>
+<text x="250" y="222" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Magnet stops sticking at 1,414°F: the hardening heat for carbon steel.</text>
+</svg>

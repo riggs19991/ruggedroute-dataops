@@ -10,6 +10,10 @@ summary: "The capacity tables riggers reach for: wire rope slings by diameter an
 
 > Always read the **tag** on the sling you are holding. Tables below are typical published ratings for the construction named; another maker's sling of the same size may be rated differently. Angles are measured **from horizontal**; capacities at 30° are the lowest and nothing is rated below 30°. Design factor: wire rope and web 5:1, Grade 100 chain 4:1 (some makers 5:1), Grade 80 chain 4:1.
 
+![Sling angles and hitches used in the tables](/img/rigging/sling-angles-and-hitches.svg)
+
+*Sling angles and hitches used in the tables*
+
 ## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice (lb)
 
 | Dia. | Vertical | Choker | Vertical basket | 2-leg 60° | 2-leg 45° | 2-leg 30° | 3-leg 60° | 3-leg 45° | 3-leg 30° |
@@ -86,6 +90,10 @@ Rules for chain: only **Grade 80 or 100 alloy** (marked "8", "80", "800", "10", 
 Web and round sling rules: keep them off **sharp edges** (corner protectors, the sling will cut at well under its rating), out of **weld spatter and heat** (nylon melts at ~480°F, derate above 194°F), out of acids (nylon) and alkalis (polyester), out of sunlight storage. Nylon stretches about 8-10% at rated load, polyester about 3%. A web sling with a red core yarn showing, cut edge, burn, missing tag or knot is scrap.
 
 ## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons
+
+![Shackle loading](/img/rigging/shackle-loading.svg)
+
+*Shackle loading*
 
 | Nominal size (bow dia.) | Pin dia. | WLL (t) | Inside width | Inside length |
 |---|---|---|---|---|

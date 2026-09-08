@@ -49,6 +49,10 @@ Snap hooks and carabiners **locking** type, never hooked to each other, never ho
 
 Clearance needed below the anchor:
 
+![Fall clearance stack-up and the 4:1 ladder angle](/img/safety/fall-clearance-and-ladder.svg)
+
+*Fall clearance stack-up and the 4:1 ladder angle*
+
 ```
 Lanyard length            6.0 ft
 + Deceleration (deployment)  3.5 ft

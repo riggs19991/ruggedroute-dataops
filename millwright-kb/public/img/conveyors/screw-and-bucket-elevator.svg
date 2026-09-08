@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Screw conveyor and bucket elevator</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<text x="140" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Screw conveyor</text>
+<rect x="30" y="80" width="220" height="70" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<line x1="30" y1="115" x2="250" y2="115" stroke="#1a2233" stroke-width="4" stroke-linecap="round"/>
+<path d="M45,88 q17,27 34,54" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M79,88 q17,27 34,54" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M113,88 q17,27 34,54" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M147,88 q17,27 34,54" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M181,88 q17,27 34,54" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M215,88 q17,27 34,54" fill="none" stroke="#64748b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="60" y1="60" x2="200" y2="60" stroke="#1a2233" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="130" y="52" font-size="9.5" text-anchor="middle" fill="#5b6577">flow (right-hand flight, clockwise)</text>
+<text x="140" y="175" font-size="9.5" text-anchor="middle" fill="#5b6577"><tspan x="140" dy="0">trough 30-45% full; hanger bearings mid-span;</tspan><tspan x="140" dy="11.875">never reach in: it is a permit space</tspan></text>
+<text x="385" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Bucket elevator</text>
+<rect x="340" y="40" width="90" height="190" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<circle cx="385" cy="60" r="18" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="385" cy="205" r="18" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="367" y1="60" x2="367" y2="205" stroke="#1a2233" stroke-width="4" stroke-linecap="round"/>
+<line x1="403" y1="60" x2="403" y2="205" stroke="#1a2233" stroke-width="4" stroke-linecap="round"/>
+<rect x="354" y="90" width="14" height="12" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="403" y="110" width="14" height="12" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="354" y="130" width="14" height="12" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="403" y="150" width="14" height="12" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="354" y="170" width="14" height="12" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="403" y="190" width="14" height="12" fill="#f59e0b" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M395,48 q30,-20 50,10" fill="none" stroke="#b45309" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="455" y="90" font-size="9.5" text-anchor="middle" fill="#5b6577">discharge</text>
+<text x="385" y="245" font-size="9" text-anchor="middle" fill="#5b6577">tension, tracking, boot clean-out, lagging</text>
+</svg>

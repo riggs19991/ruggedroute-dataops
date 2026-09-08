@@ -10,6 +10,10 @@ summary: "Every line on a three-phase motor nameplate and what it means to the m
 
 ## The lines and what they mean
 
+![A typical nameplate with the lines to read first](/img/motors-electrical/motor-nameplate.svg)
+
+*A typical nameplate with the lines to read first*
+
 | Nameplate item | Meaning | What you do with it |
 |---|---|---|
 | **HP (or kW)** | Rated mechanical output at the shaft (1 hp = 0.746 kW) | The replacement must match or exceed; the driven load's need decides |

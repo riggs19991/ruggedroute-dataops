@@ -42,6 +42,10 @@ Fine-thread (UNF) bolts of the same size take roughly 10% more.
 
 ## Head markings
 
+![Grade by head marking](/img/fasteners/bolt-head-markings.svg)
+
+*Grade by head marking*
+
 | Marking | Grade / class | Min tensile |
 |---|---|---|
 | No marks | SAE Grade 2 (low carbon) | 74 ksi (small sizes) |

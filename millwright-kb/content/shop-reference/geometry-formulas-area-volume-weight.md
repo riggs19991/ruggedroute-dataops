@@ -26,6 +26,10 @@ summary: "Every area and volume formula a millwright reaches for: circle and sha
 
 ## Circles, shafts and bores
 
+![Shaft, bore and annulus areas](/img/shop-reference/shaft-bore-annulus-areas.svg)
+
+*Shaft, bore and annulus areas*
+
 ```
 Area of a circle (solid shaft cross-section)      A = π r² = π d² / 4 = 0.7854 × d²
 Circumference                                     C = π d = 2 π r

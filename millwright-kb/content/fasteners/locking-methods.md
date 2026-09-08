@@ -21,6 +21,10 @@ The order of defence: **the right preload with a torque wrench on a clean, hard,
 
 ## The locking methods compared
 
+![Nylon insert, jam nut, castle nut, safety wire, threadlocker](/img/fasteners/locking-methods.svg)
+
+*Nylon insert, jam nut, castle nut, safety wire, threadlocker*
+
 | Method | How it works | Effective against transverse vibration? | Reusable? | Notes |
 |---|---|---|---|---|
 | **Correct preload** (torque/turn/stretch) | Friction in the threads and under the head | Yes, until the joint slips | Yes (new bolt after yield) | The foundation; a hardened flat washer under the turned element spreads the load and stops embedding |

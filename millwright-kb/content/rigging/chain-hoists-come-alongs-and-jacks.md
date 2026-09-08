@@ -27,6 +27,10 @@ summary: "How to inspect a chain hoist, lever hoist or jack before every use, wh
 
 ## Before every use (operator inspection)
 
+![Chain hoist inspection points](/img/rigging/hoist-inspection-points.svg)
+
+*Chain hoist inspection points*
+
 1. **Capacity plate / tag** legible and rating equal to or above the load. Rating is for a **straight, vertical, static** pull on a proper hook or anchor.
 2. **Hooks** (top and bottom): latch present and closing; no cracks, nicks, gouges, twists; throat opening not stretched. ASME B30.10: remove if throat is opened more than 5% or 1/4" over the original, or the hook is twisted more than 10°.
 3. **Load chain**: clean enough to see; no stretched, bent, gouged, corroded, nicked, welded or twisted links; chain runs freely over the pocket wheel without binding or "capsizing". A twisted chain on a two-fall hoist (the bottom block has flipped through the chain) will jam and can break: **untwist it before loading**.

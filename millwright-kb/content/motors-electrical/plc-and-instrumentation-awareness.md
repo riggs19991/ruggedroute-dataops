@@ -10,6 +10,10 @@ summary: "A millwright meets the control system every time a machine will not st
 
 ## The parts
 
+![Sensor to motor signal chain and where to check](/img/motors-electrical/plc-signal-chain.svg)
+
+*Sensor to motor signal chain and where to check*
+
 | Part | What it is | Millwright's interest |
 |---|---|---|
 | **PLC** (Allen-Bradley ControlLogix/CompactLogix/MicroLogix, Siemens S7, Omron, Automation Direct) | The computer that runs the machine's logic program: it reads inputs, decides, and sets outputs, scanning many times a second | The program's **permissives** (what must be true to start) and **interlocks** (what stops it) are what you are fighting when it will not run |

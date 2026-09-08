@@ -10,6 +10,10 @@ summary: "The parts of a belt conveyor a millwright maintains and how each affec
 
 ## Components
 
+![Troughing idler set, return idler and lagged drive pulley](/img/conveyors/idler-set-and-pulley.svg)
+
+*Troughing idler set, return idler and lagged drive pulley*
+
 | Component | Function | Maintenance notes |
 |---|---|---|
 | **Head (drive) pulley** | Drives the belt; usually at the discharge | **Lagging** (rubber, ceramic, diamond-grooved) for traction and wear; crowned on short belts; the drive is a motor/reducer with a backstop on inclines |
@@ -39,6 +43,10 @@ A **carcass** (plies of polyester/nylon fabric, or steel cords) between **covers
 A belt runs toward the side it is **pulled** to by: idlers or pulleys not square to the belt's centreline (the belt moves **toward the end of the roll it touches first**), a pulley that is not level (the belt walks toward the tighter, higher side), off-centre loading (the belt runs **away from** the side the load is on), material build-up on a pulley or idler (a local crown that steers it), a belt with a **camber** (a bow built into it, from manufacture or from a bad splice: it runs one way on a straight structure), a splice cut out of square, structure out of line or twisted, and idlers that do not turn.
 
 ## The two rules
+
+![How a tilted idler steers the belt](/img/conveyors/belt-tracking-rules.svg)
+
+*How a tilted idler steers the belt*
 
 1. **A belt moves toward the end of an idler roll it contacts first.** Skew a flat return roll or a troughing idler so that the side the belt is running **to** is **forward** (in the belt's direction of travel): the belt climbs back toward the centre. Memory aid: "**knock it in the direction of travel** on the side the belt runs to" (move the bracket on the drift side forward, or the opposite side back).
 2. **Pulleys are set square and level, never skewed to steer.** A pulley that is not square to the belt (one end forward) steers the belt toward the end that is back, and a tilted pulley walks it to the high side; a crowned pulley centres a short flat belt. Correct pulleys for **squareness and level** only, and never use them as training devices.

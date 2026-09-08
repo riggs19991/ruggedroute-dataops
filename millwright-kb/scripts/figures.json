@@ -714,5 +714,467 @@
    "alt": "Reading 0.333 in on the sleeve and thimble",
    "after": "## Reading an inch micrometer"
   }
+ ],
+ "belt-conveyor-components-and-tracking": [
+  {
+   "img": "conveyors/idler-set-and-pulley.svg",
+   "alt": "Troughing idler set, return idler and lagged drive pulley",
+   "after": "## Components"
+  },
+  {
+   "img": "conveyors/belt-tracking-rules.svg",
+   "alt": "How a tilted idler steers the belt",
+   "after": "## The two rules"
+  }
+ ],
+ "belt-splicing": [
+  {
+   "img": "conveyors/belt-end-squaring.svg",
+   "alt": "Squaring the belt end from the centreline",
+   "after": "## Squaring the belt end"
+  }
+ ],
+ "conveyor-safety-and-guarding": [
+  {
+   "img": "conveyors/conveyor-nip-points.svg",
+   "alt": "In-running nip points on a belt conveyor",
+   "after": "## Where people get hurt"
+  }
+ ],
+ "idlers-pulleys-and-lagging": [
+  {
+   "img": "conveyors/idler-set-and-pulley.svg",
+   "alt": "Idler set and lagged pulley",
+   "after": "## Idlers"
+  }
+ ],
+ "screw-conveyors-and-bucket-elevators": [
+  {
+   "img": "conveyors/screw-and-bucket-elevator.svg",
+   "alt": "Screw conveyor and bucket elevator",
+   "after": "top"
+  }
+ ],
+ "electrical-safety-for-mechanics": [
+  {
+   "img": "motors-electrical/approach-boundaries.svg",
+   "alt": "Arc flash, limited and restricted approach boundaries",
+   "after": "## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)"
+  }
+ ],
+ "megger-and-basic-motor-testing": [
+  {
+   "img": "motors-electrical/megger-test.svg",
+   "alt": "Megger connections and IEEE 43 minimums",
+   "after": "## Insulation resistance (megger) to ground"
+  }
+ ],
+ "motor-lead-connections": [
+  {
+   "img": "motors-electrical/nine-lead-wye.svg",
+   "alt": "9-lead wye low and high voltage connections",
+   "after": "## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)"
+  }
+ ],
+ "plc-and-instrumentation-awareness": [
+  {
+   "img": "motors-electrical/plc-signal-chain.svg",
+   "alt": "Sensor to motor signal chain and where to check",
+   "after": "## The parts"
+  }
+ ],
+ "reading-a-motor-nameplate": [
+  {
+   "img": "motors-electrical/motor-nameplate.svg",
+   "alt": "A typical nameplate with the lines to read first",
+   "after": "## The lines and what they mean"
+  }
+ ],
+ "vfd-basics-for-millwrights": [
+  {
+   "img": "motors-electrical/vfd-bearing-currents.svg",
+   "alt": "Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing",
+   "after": "## Bearing currents (the millwright's VFD problem)"
+  }
+ ],
+ "thermography-ultrasound-and-oil": [
+  {
+   "img": "condition-monitoring/thermography-and-ultrasound.svg",
+   "alt": "Thermal comparison of twin bearings and an ultrasound dB trend",
+   "after": "## Infrared thermography"
+  }
+ ],
+ "vibration-basics-and-iso-severity": [
+  {
+   "img": "condition-monitoring/iso-severity-zones.svg",
+   "alt": "ISO 20816-3 zones A to D",
+   "after": "## ISO 20816-3 severity zones (industrial machines 15 kW to 50 MW, measured on bearing housings, velocity mm/s RMS, 10-1,000 Hz)"
+  }
+ ],
+ "vibration-signatures": [
+  {
+   "img": "condition-monitoring/vibration-signatures.svg",
+   "alt": "Spectrum shapes for unbalance, misalignment, looseness and bearing defects",
+   "after": "## The signatures"
+  }
+ ],
+ "broken-bolt-and-stud-removal": [
+  {
+   "img": "machining/broken-bolt-nut-weld.svg",
+   "alt": "Welding a nut on a stub and a left-hand drill",
+   "after": "## Welding a nut on (the millwright's best trick)"
+  }
+ ],
+ "drill-press-speeds-and-feeds": [
+  {
+   "img": "machining/drill-rpm-chart.svg",
+   "alt": "rpm versus drill diameter for three materials",
+   "after": "## The formula"
+  }
+ ],
+ "grinding-and-abrasives-safety": [
+  {
+   "img": "machining/bench-grinder-gaps.svg",
+   "alt": "Tool rest and tongue guard gaps on a bench grinder",
+   "after": "## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)"
+  },
+  {
+   "img": "safety/grinder-guard-and-kickback.svg",
+   "alt": "Angle grinder guard position and kickback zone",
+   "after": "## Angle grinders, cut-off wheels and die grinders (1910.243)"
+  }
+ ],
+ "lathe-basics-for-millwrights": [
+  {
+   "img": "machining/lathe-parts.svg",
+   "alt": "Parts of an engine lathe",
+   "after": "## The machine"
+  }
+ ],
+ "milling-basics-and-keyway-cutting": [
+  {
+   "img": "machining/tram-and-keyway.svg",
+   "alt": "Tramming the head and cutting a shaft keyway",
+   "after": "## Tramming the head"
+  }
+ ],
+ "tapping-and-thread-repair": [
+  {
+   "img": "machining/tap-drill-and-tap-types.svg",
+   "alt": "Thread percentage and tap types",
+   "after": "## Tap types"
+  }
+ ],
+ "anti-seize-and-galling": [
+  {
+   "img": "fasteners/galling-and-anti-seize.svg",
+   "alt": "How galling starts and how anti-seize changes torque",
+   "after": "## Galling"
+  }
+ ],
+ "bolt-torque-chart-sae-metric": [
+  {
+   "img": "fasteners/bolt-head-markings.svg",
+   "alt": "Grade by head marking",
+   "after": "## Head markings"
+  }
+ ],
+ "flange-bolting-and-gaskets": [
+  {
+   "img": "fasteners/flange-star-pattern.svg",
+   "alt": "Star pattern numbering and torque passes",
+   "after": "## Part 1: flanges"
+  }
+ ],
+ "locking-methods": [
+  {
+   "img": "fasteners/locking-methods.svg",
+   "alt": "Nylon insert, jam nut, castle nut, safety wire, threadlocker",
+   "after": "## The locking methods compared"
+  }
+ ],
+ "thread-identification-and-gauges": [
+  {
+   "img": "fasteners/thread-identification.svg",
+   "alt": "Measuring major diameter and pitch; the look-alike families",
+   "after": "## Measuring a thread (three steps)"
+  }
+ ],
+ "chain-hoists-come-alongs-and-jacks": [
+  {
+   "img": "rigging/hoist-inspection-points.svg",
+   "alt": "Chain hoist inspection points",
+   "after": "## Before every use (operator inspection)"
+  }
+ ],
+ "crane-signals-and-lift-planning": [
+  {
+   "img": "rigging/crane-hand-signals.svg",
+   "alt": "The standard hand signals",
+   "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
+  }
+ ],
+ "cribbing-and-blocking": [
+  {
+   "img": "rigging/box-crib.svg",
+   "alt": "2x2 and 3x3 box cribs and the 3:1 height rule",
+   "after": "## Box crib rules"
+  }
+ ],
+ "rigging-basics-sling-angles-and-hitches": [
+  {
+   "img": "rigging/sling-angles-and-hitches.svg",
+   "alt": "Sling angle factors and the three hitches",
+   "after": "## Sling angle factor"
+  },
+  {
+   "img": "rigging/shackle-loading.svg",
+   "alt": "Correct shackle loading and side-load derating",
+   "after": "## Hardware"
+  }
+ ],
+ "wire-rope-and-chain-slings-detail": [
+  {
+   "img": "rigging/sling-angles-and-hitches.svg",
+   "alt": "Sling angles and hitches used in the tables",
+   "after": "top"
+  },
+  {
+   "img": "rigging/shackle-loading.svg",
+   "alt": "Shackle loading",
+   "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
+  }
+ ],
+ "compressed-gas-cylinder-handling": [
+  {
+   "img": "oxy-fuel/cylinder-storage.svg",
+   "alt": "Storage separation for oxygen and fuel gas",
+   "after": "## Storage"
+  },
+  {
+   "img": "oxy-fuel/oxy-acetylene-hookup.svg",
+   "alt": "Regulator, arrestor and check valve positions",
+   "after": "## Connecting and opening"
+  }
+ ],
+ "confined-space-entry": [
+  {
+   "img": "safety/confined-space-setup.svg",
+   "alt": "Entry setup: tripod, blower, entrant, attendant, monitor",
+   "after": "## Roles (every entry has all three)"
+  }
+ ],
+ "fall-protection-ladders-scaffolds": [
+  {
+   "img": "safety/fall-clearance-and-ladder.svg",
+   "alt": "Fall clearance stack-up and the 4:1 ladder angle",
+   "after": "## Fall clearance calculation (shock-absorbing lanyard)"
+  }
+ ],
+ "first-aid-for-shop-injuries": [
+  {
+   "img": "safety/first-aid-priorities.svg",
+   "alt": "First-minute priorities",
+   "after": "## First minute, any serious injury"
+  }
+ ],
+ "hand-and-power-tool-safety": [
+  {
+   "img": "safety/grinder-guard-and-kickback.svg",
+   "alt": "Guard position and kickback direction on an angle grinder",
+   "after": "## Angle grinders and abrasive wheels"
+  }
+ ],
+ "hot-work-permits-and-fire-watch": [
+  {
+   "img": "safety/hot-work-zone.svg",
+   "alt": "The 35 ft hot work zone",
+   "after": "## Preparing the area: the 35 ft (11 m) rule"
+  }
+ ],
+ "lockout-tagout-basics": [
+  {
+   "img": "safety/lockout-steps.svg",
+   "alt": "The eight lockout steps in order",
+   "after": "## The eight steps"
+  }
+ ],
+ "ppe-selection": [
+  {
+   "img": "safety/ppe-by-task.svg",
+   "alt": "PPE by task at a glance",
+   "after": "## By task"
+  }
+ ],
+ "inspection-routes": [
+  {
+   "img": "maintenance/route-look-listen-feel.svg",
+   "alt": "Look, listen, feel, measure, record",
+   "after": "## At each machine: look, listen, feel, measure"
+  }
+ ],
+ "pm-checklists": [
+  {
+   "img": "maintenance/pm-interval-chart.svg",
+   "alt": "Typical PM intervals by equipment",
+   "after": "## General rules for every route"
+  }
+ ],
+ "spare-parts-and-bearing-storage": [
+  {
+   "img": "maintenance/bearing-storage-rules.svg",
+   "alt": "Bearing storage rules",
+   "after": "## Bearings"
+  }
+ ],
+ "work-order-and-history-records": [
+  {
+   "img": "maintenance/mtbf-timeline.svg",
+   "alt": "MTBF, MTTR and availability on a timeline",
+   "after": "## MTBF, MTTR and availability (the simple version)"
+  }
+ ],
+ "bearing-failure-analysis": [
+  {
+   "img": "troubleshooting/bearing-load-paths.svg",
+   "alt": "Running track patterns on the races",
+   "after": "## Reading the load path (running track)"
+  }
+ ],
+ "belt-failure": [
+  {
+   "img": "troubleshooting/v-belt-wear-patterns.svg",
+   "alt": "V-belt wear patterns and what they mean",
+   "after": "## V-belts (classical A/B/C/D, narrow 3V/5V/8V, cogged)"
+  }
+ ],
+ "coupling-failure": [
+  {
+   "img": "troubleshooting/coupling-wear-signs.svg",
+   "alt": "What is under the guard for each coupling family",
+   "after": "## First: measure what the coupling saw"
+  }
+ ],
+ "machine-vibration-noise-heat-decision-tree": [
+  {
+   "img": "troubleshooting/machine-trouble-tree.svg",
+   "alt": "Vibrating, noisy or hot: the branches",
+   "after": "## The 10-minute running check"
+  }
+ ],
+ "seal-failure": [
+  {
+   "img": "troubleshooting/seal-face-patterns.svg",
+   "alt": "Seal face wear track patterns",
+   "after": "## Mechanical seals: reading the faces"
+  }
+ ],
+ "geometry-formulas-area-volume-weight": [
+  {
+   "img": "shop-reference/shaft-bore-annulus-areas.svg",
+   "alt": "Shaft, bore and annulus areas",
+   "after": "## Circles, shafts and bores"
+  }
+ ],
+ "hardness-conversion": [
+  {
+   "img": "shop-reference/hardness-scale-bar.svg",
+   "alt": "Rockwell C, Brinell and tensile side by side",
+   "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
+  }
+ ],
+ "metal-identification-and-spark-test": [
+  {
+   "img": "shop-reference/spark-test-patterns.svg",
+   "alt": "Spark stream patterns for four metals",
+   "after": "## Spark test chart"
+  }
+ ],
+ "pipe-schedule-and-flange-tables": [
+  {
+   "img": "shop-reference/pipe-schedule-walls.svg",
+   "alt": "Same OD, different wall by schedule",
+   "after": "## Steel pipe dimensions (ASME B36.10), inches"
+  },
+  {
+   "img": "layout-templates/bolt-circle-chord.svg",
+   "alt": "Bolt holes straddle the centrelines",
+   "after": "## Flanges: ASME B16.5 Class 150 (inches)"
+  }
+ ],
+ "power-torque-speed-drive-formulas": [
+  {
+   "img": "shop-reference/torque-speed-power.svg",
+   "alt": "Torque versus speed at constant power",
+   "after": "## Power, torque, speed"
+  }
+ ],
+ "pump-and-fluid-power-formulas": [
+  {
+   "img": "shop-reference/head-vs-pressure.svg",
+   "alt": "Head and pressure",
+   "after": "## Head, pressure and velocity"
+  },
+  {
+   "img": "pumps-seals/pump-curve.svg",
+   "alt": "Pump curve and system curve",
+   "after": "## Affinity (pump) laws"
+  }
+ ],
+ "set-me-up-for-a-task": [
+  {
+   "img": "shop-reference/task-workflow.svg",
+   "alt": "Every job in the same order",
+   "after": "top"
+  }
+ ],
+ "shaft-bearing-fastener-formulas": [
+  {
+   "img": "shop-reference/shaft-torsion-and-key-shear.svg",
+   "alt": "Shaft torsion and key shear",
+   "after": "## Shafts in torsion"
+  }
+ ],
+ "shop-reference-tables": [
+  {
+   "img": "shop-reference/fraction-decimal-ruler.svg",
+   "alt": "One inch in sixteenths with decimals and millimetres",
+   "after": "## Fraction - decimal - millimetre"
+  }
+ ],
+ "steel-grades-and-heat-colours": [
+  {
+   "img": "shop-reference/temper-and-heat-colours.svg",
+   "alt": "Temper colours and heat colours",
+   "after": "## Temper colour chart (oxide colours on bright steel as it is heated)"
+  }
+ ],
+ "trig-and-layout-formulas": [
+  {
+   "img": "shop-reference/right-triangle-and-offset.svg",
+   "alt": "Right triangle functions and offset factors",
+   "after": "## Right triangles"
+  }
+ ],
+ "unit-conversions-extended": [
+  {
+   "img": "shop-reference/conversion-ladders.svg",
+   "alt": "Pressure and torque ladders",
+   "after": "## Worth memorising"
+  }
+ ],
+ "wire-gauge-and-sheet-thickness": [
+  {
+   "img": "shop-reference/gauge-thickness-bars.svg",
+   "alt": "Gauge to thickness bars",
+   "after": "## Sheet and plate thickness by gauge (inches, mm)"
+  }
+ ],
+ "how-to-add-a-manual": [
+  {
+   "img": "manuals/add-a-manual-flow.svg",
+   "alt": "How a manual gets into the library",
+   "after": "## Steps"
+  }
  ]
 }

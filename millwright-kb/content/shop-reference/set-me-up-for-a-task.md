@@ -10,6 +10,10 @@ summary: "Start here when you have a job and want the right pages fast: each com
 
 > Type the task into search first; it usually lands on the right page. This index is for when you want the whole sequence for a job, or when you are studying and want to see how the pieces fit. Every job starts with [lockout/tagout](/article/lockout-tagout-basics) and the [PPE](/article/ppe-selection) for it.
 
+![Every job in the same order](/img/shop-reference/task-workflow.svg)
+
+*Every job in the same order*
+
 ## Welding and cutting
 
 | Task | Open these, in order |

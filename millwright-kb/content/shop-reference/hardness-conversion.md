@@ -12,6 +12,10 @@ summary: "One table to convert between Rockwell C, Rockwell B, Brinell, Vickers 
 
 ## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)
 
+![Rockwell C, Brinell and tensile side by side](/img/shop-reference/hardness-scale-bar.svg)
+
+*Rockwell C, Brinell and tensile side by side*
+
 | HRC | Vickers HV | Brinell HB (3,000 kg, 10 mm ball) | HRB | Approx. tensile (ksi) | Approx. tensile (MPa) | Typical of |
 |---|---|---|---|---|---|---|
 | 68 | 940 | – | – | – | – | Files, HSS at maximum |

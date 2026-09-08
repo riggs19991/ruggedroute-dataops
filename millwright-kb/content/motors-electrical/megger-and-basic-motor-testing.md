@@ -14,6 +14,10 @@ summary: "The tests a millwright or maintenance tech can do with a megger and a 
 
 Measures the resistance of the winding insulation to the frame (ground) in megohms; low or falling values mean moisture, dirt, oil, a cracked or overheated insulation, and a fault coming.
 
+![Megger connections and IEEE 43 minimums](/img/motors-electrical/megger-test.svg)
+
+*Megger connections and IEEE 43 minimums*
+
 **Test voltage (IEEE 43)**
 
 | Winding rated voltage | DC test voltage |

@@ -14,6 +14,10 @@ summary: "What the pieces under the coupling guard are telling you: black rubber
 
 Before blaming the part, record: the alignment as found (rim and face or laser), the gap or DBSE against the spec, the hub fits and set-screw/key condition, motor amps against nameplate, the number of starts per hour, any reversing or shock, the running temperature of the coupling (IR gun on the guard vents), and vibration at the bearings. See [coupling types, gap and installation](/article/coupling-types-gap-and-installation).
 
+![What is under the guard for each coupling family](/img/troubleshooting/coupling-wear-signs.svg)
+
+*What is under the guard for each coupling family*
+
 ## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)
 
 | What you see | Cause | Fix |

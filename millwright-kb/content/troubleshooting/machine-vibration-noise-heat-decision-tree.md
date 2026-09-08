@@ -12,6 +12,10 @@ summary: "A symptom-first checklist for the call every millwright gets: somethin
 
 ## The 10-minute running check
 
+![Vibrating, noisy or hot: the branches](/img/troubleshooting/machine-trouble-tree.svg)
+
+*Vibrating, noisy or hot: the branches*
+
 1. **Where is it worst?** Walk around with a hand on the housings (or the vibration pen): which bearing, which machine (driver or driven), which direction (horizontal, vertical, axial)?
 2. **Temperatures** by IR: every bearing housing, motor frame, gearbox, coupling guard, belt sheaves; compare ends and compare to the baseline.
 3. **Listen** with a stethoscope or screwdriver at each bearing and at the gear mesh: smooth hiss (fine), rough growl (bearing), whine rising with speed (gear or misalignment), knock once per revolution (looseness, damaged tooth, bent shaft), rattle at random (loose part), squeal (belt), gravel (cavitation).

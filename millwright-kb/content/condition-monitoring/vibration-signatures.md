@@ -16,6 +16,10 @@ Set the spectrum's maximum frequency to cover what you look for: **10× running 
 
 ## The signatures
 
+![Spectrum shapes for unbalance, misalignment, looseness and bearing defects](/img/condition-monitoring/vibration-signatures.svg)
+
+*Spectrum shapes for unbalance, misalignment, looseness and bearing defects*
+
 ### Unbalance
 
 - **1× dominant**, radial (horizontal usually higher than vertical on a foot-mounted machine), **low axial**, a clean single peak, amplitude rising with the **square of the speed** (a VFD-driven fan doubles its 1× four times going from half to full speed).

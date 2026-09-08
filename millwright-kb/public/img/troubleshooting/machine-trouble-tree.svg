@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Machine trouble tree</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="320" fill="#ffffff"/>
+<rect x="150" y="10" width="200" height="40" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="250" y="27.1125" font-size="10.5" text-anchor="middle" fill="#1a2233"><tspan x="250" dy="0">10-minute running check:</tspan><tspan x="250" dy="13.125">temps, vibration, listen, amps</tspan></text>
+<line x1="250" y1="50" x2="90" y2="80" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="20" y="80" width="140" height="30" fill="#dbeafe" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="90" y="99.025" font-size="11.5" text-anchor="middle" font-weight="700" fill="#1a2233">VIBRATING</text>
+<text x="26" y="132" font-size="10" text-anchor="start" fill="#1a2233">· 1× radial: unbalance</text>
+<text x="26" y="149" font-size="10" text-anchor="start" fill="#1a2233">· 2× / axial: misalignment</text>
+<text x="26" y="166" font-size="10" text-anchor="start" fill="#1a2233">· harmonics: looseness</text>
+<text x="26" y="183" font-size="10" text-anchor="start" fill="#1a2233">· random high: bearing</text>
+<text x="26" y="200" font-size="10" text-anchor="start" fill="#1a2233">· stops with power: electrical</text>
+<line x1="250" y1="50" x2="250" y2="80" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="180" y="80" width="140" height="30" fill="#dbeafe" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="250" y="99.025" font-size="11.5" text-anchor="middle" font-weight="700" fill="#1a2233">NOISY</text>
+<text x="186" y="132" font-size="10" text-anchor="start" fill="#1a2233">· squeal: belt slip</text>
+<text x="186" y="149" font-size="10" text-anchor="start" fill="#1a2233">· growl: bearing</text>
+<text x="186" y="166" font-size="10" text-anchor="start" fill="#1a2233">· whine: gears, oil</text>
+<text x="186" y="183" font-size="10" text-anchor="start" fill="#1a2233">· knock: loose, key</text>
+<text x="186" y="200" font-size="10" text-anchor="start" fill="#1a2233">· gravel: cavitation</text>
+<line x1="250" y1="50" x2="410" y2="80" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="340" y="80" width="140" height="30" fill="#dbeafe" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="410" y="99.025" font-size="11.5" text-anchor="middle" font-weight="700" fill="#1a2233">HOT</text>
+<text x="346" y="132" font-size="10" text-anchor="start" fill="#1a2233">· one bearing: grease, fit</text>
+<text x="346" y="149" font-size="10" text-anchor="start" fill="#1a2233">· motor: load, cooling</text>
+<text x="346" y="166" font-size="10" text-anchor="start" fill="#1a2233">· gearbox: oil level, grade</text>
+<text x="346" y="183" font-size="10" text-anchor="start" fill="#1a2233">· coupling: alignment</text>
+<text x="346" y="200" font-size="10" text-anchor="start" fill="#1a2233">· pump: dead-headed</text>
+<rect x="20" y="226" width="460" height="40" fill="#dcfce7" stroke="#1a2233" stroke-width="1.5" rx="6"/><text x="250" y="243.1125" font-size="10.5" text-anchor="middle" fill="#1a2233"><tspan x="250" dy="0">Write the readings and the finding on the work order;</tspan><tspan x="250" dy="13.125">set a new baseline after the repair</tspan></text>
+<text x="250" y="312" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Stop it first if a bearing is over 220°F, vibration doubled, or smoke.</text>
+</svg>

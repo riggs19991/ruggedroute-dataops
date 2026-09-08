@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Tap drill and tap types</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<text x="130" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Thread percentage</text>
+<rect x="40" y="60" width="180" height="60" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M50,60 L64,84 L78,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M78,60 L92,84 L106,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M106,60 L120,84 L134,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M134,60 L148,84 L162,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M162,60 L176,84 L190,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M190,60 L204,84 L218,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="40" y1="84" x2="220" y2="84" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round"/>
+<text x="130" y="138" font-size="10" text-anchor="middle" fill="#1a2233">75% thread: drill = major dia. − pitch</text>
+<text x="130" y="165" font-size="10" text-anchor="middle" fill="#5b6577"><tspan x="130" dy="0">1/2-13: 0.500 − 0.077 = 0.423 → 27/64 drill</tspan><tspan x="130" dy="12.5">M10 × 1.5: 10 − 1.5 = 8.5 mm drill</tspan></text>
+<text x="370" y="22" font-size="13" text-anchor="middle" font-weight="700" fill="#1a2233">Tap types</text>
+<rect x="290" y="60" width="120" height="18" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M410,60 L450,69 L410,78 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="280" y="62" width="12" height="14" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="370" y="92" font-size="10" text-anchor="middle" fill="#5b6577">taper (8-10 threads)</text>
+<rect x="290" y="105" width="120" height="18" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M410,105 L430,114 L410,123 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="280" y="107" width="12" height="14" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="370" y="137" font-size="10" text-anchor="middle" fill="#5b6577">plug (3-5)</text>
+<rect x="290" y="150" width="120" height="18" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M410,150 L418,159 L410,168 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="280" y="152" width="12" height="14" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="370" y="182" font-size="10" text-anchor="middle" fill="#5b6577">bottoming (1-2)</text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Taper or plug first, bottoming tap for blind holes; back off every half turn.</text>
+</svg>

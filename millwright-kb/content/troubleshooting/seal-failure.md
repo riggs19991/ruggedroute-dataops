@@ -14,6 +14,10 @@ summary: "How to read a failed seal like an inspector: what heat-checked, chippe
 
 Two lapped faces (usually a carbon rotating face against a silicon carbide or tungsten carbide stationary, or hard against hard for abrasive service) run on a film of the pumped liquid a few microns thick. Anything that breaks that film, tilts the faces, or attacks the parts shows up on the faces and the secondary seals.
 
+![Seal face wear track patterns](/img/troubleshooting/seal-face-patterns.svg)
+
+*Seal face wear track patterns*
+
 | What you see | What it means | Root cause and fix |
 |---|---|---|
 | **Heat checking**: fine radial cracks across the hard face (ceramic, tungsten carbide); carbon face may be glazed | **Dry running or loss of face lubrication**: film broke, faces got hot fast | Pump run dry or lost suction, vapour in the seal chamber (product flashing), no flush, vent not opened on a vertical pump; install a flush plan (11, 13, 32), vent before starting, low-flow protection; see [mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump) |

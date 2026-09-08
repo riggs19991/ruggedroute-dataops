@@ -1472,6 +1472,10 @@ Example: steel shaft, steel housing, bearings 20" apart, shaft 40°F hotter than
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$thermography-ultrasound-and-oil$mw$, $mw$Thermography, Ultrasound and Oil Analysis as Condition Monitoring: Infrared Camera Basics (Emissivity, Reflections, Distance), What to Scan (Bearings, Motors, Couplings, Electrical, Steam Traps, Refractory) and the Temperature Rules, Airborne and Contact Ultrasound (Leaks, Bearings, Greasing by Ultrasound, Electrical Discharge, Steam Traps), How the Three Fit with Vibration, Building a Route and a Decision Table$mw$, $mw$The other two eyes of a condition-monitoring program beside vibration and oil analysis: how to use an infrared camera or gun so the temperature you read is real, what temperatures and temperature differences mean on bearings, motors, couplings, electrical gear, steam traps and refractory, what an ultrasonic detector hears and how it finds leaks, failing bearings, the right amount of grease and electrical faults, and a table of which technology finds which failure so a route uses the right one.$mw$, $mw$## Infrared thermography
 
+![Thermal comparison of twin bearings and an ultrasound dB trend](/img/condition-monitoring/thermography-and-ultrasound.svg)
+
+*Thermal comparison of twin bearings and an ultrasound dB trend*
+
 ### Getting a real temperature
 
 An IR camera or gun measures the **infrared energy leaving a surface** and converts it to a temperature assuming an **emissivity** (how well the surface radiates: a matte black surface 0.95; painted or oxidised steel 0.8-0.95; **bare shiny metal 0.1-0.3**: it reflects the room and reads far too low, and it reflects you, the lights and the sun). Rules:
@@ -1599,6 +1603,10 @@ Velocity is used for severity because it relates to the fatigue energy in the ma
 
 **Zones**: **A** = new-machine condition; **B** = acceptable for unrestricted long-term operation; **C** = unsatisfactory for continuous long-term operation, run for a limited time until repair; **D** = severe enough to cause damage.
 
+![ISO 20816-3 zones A to D](/img/condition-monitoring/iso-severity-zones.svg)
+
+*ISO 20816-3 zones A to D*
+
 | Machine group and support | Zone A/B boundary | Zone B/C boundary | Zone C/D boundary |
 |---|---|---|---|
 | **Group 1: large machines, 300 kW to 50 MW (motors with shaft height over 315 mm), rigid foundation** | 2.3 mm/s (0.09 in/s RMS) | **4.5 (0.18)** | 7.1 (0.28) |
@@ -1680,6 +1688,10 @@ The spectrum shows amplitude (velocity, mm/s or in/s) against frequency (Hz, or 
 Set the spectrum's maximum frequency to cover what you look for: **10× running speed** for the mechanical faults (unbalance to looseness), **higher** (to 3-10 kHz or a high-frequency band) for bearings and gear mesh; resolution fine enough (1,600-3,200 lines) to separate 2× running speed from 2× line frequency on a 2-pole motor (3,580 rpm × 2 = 7,160 cpm vs 7,200 cpm: 40 cpm apart).
 
 ## The signatures
+
+![Spectrum shapes for unbalance, misalignment, looseness and bearing defects](/img/condition-monitoring/vibration-signatures.svg)
+
+*Spectrum shapes for unbalance, misalignment, looseness and bearing defects*
 
 ### Unbalance
 
@@ -1827,6 +1839,10 @@ Two or more faults at once are normal (misalignment **causes** bearing damage; l
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$belt-conveyor-components-and-tracking$mw$, $mw$Belt Conveyor Components and Belt Tracking: Pulleys, Idlers (CEMA Classes and Types), Take-Ups, Belt Construction and Specs, the Tracking Rules (Which Way to Move an Idler), the Tracking Sequence from Structure to Training Idlers, Symptom-Cause-Fix Table, Empty vs Loaded Tracking, Reversing and Crowned Pulleys$mw$, $mw$The parts of a belt conveyor a millwright maintains and how each affects the belt, how to read a belt specification, and the discipline of tracking: the two rules that decide which way to move an idler, the sequence that starts with the structure and pulleys and ends with training idlers only as a last resort, a symptom table for a belt that runs off in one place or everywhere, and the special cases of loaded tracking, reversing belts and crowned pulleys.$mw$, $mw$## Components
 
+![Troughing idler set, return idler and lagged drive pulley](/img/conveyors/idler-set-and-pulley.svg)
+
+*Troughing idler set, return idler and lagged drive pulley*
+
 | Component | Function | Maintenance notes |
 |---|---|---|
 | **Head (drive) pulley** | Drives the belt; usually at the discharge | **Lagging** (rubber, ceramic, diamond-grooved) for traction and wear; crowned on short belts; the drive is a motor/reducer with a backstop on inclines |
@@ -1856,6 +1872,10 @@ A **carcass** (plies of polyester/nylon fabric, or steel cords) between **covers
 A belt runs toward the side it is **pulled** to by: idlers or pulleys not square to the belt's centreline (the belt moves **toward the end of the roll it touches first**), a pulley that is not level (the belt walks toward the tighter, higher side), off-centre loading (the belt runs **away from** the side the load is on), material build-up on a pulley or idler (a local crown that steers it), a belt with a **camber** (a bow built into it, from manufacture or from a bad splice: it runs one way on a straight structure), a splice cut out of square, structure out of line or twisted, and idlers that do not turn.
 
 ## The two rules
+
+![How a tilted idler steers the belt](/img/conveyors/belt-tracking-rules.svg)
+
+*How a tilted idler steers the belt*
 
 1. **A belt moves toward the end of an idler roll it contacts first.** Skew a flat return roll or a troughing idler so that the side the belt is running **to** is **forward** (in the belt's direction of travel): the belt climbs back toward the centre. Memory aid: "**knock it in the direction of travel** on the side the belt runs to" (move the bracket on the drift side forward, or the opposite side back).
 2. **Pulleys are set square and level, never skewed to steer.** A pulley that is not square to the belt (one end forward) steers the belt toward the end that is back, and a tilted pulley walks it to the high side; a crowned pulley centres a short flat belt. Correct pulleys for **squareness and level** only, and never use them as training devices.
@@ -1926,6 +1946,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$belt-splicing$mw$, $mw$Belt Splicing: Squaring the Belt Ends (Centreline Method), Cutting, Mechanical Fasteners (Hinged, Solid Plate, Rivet, Alligator Lacing) Selection by Belt Thickness and Pulley Diameter, Installing Hinged and Plate Fasteners, Skiving, Vulcanized Splices (Hot and Cold, Step Splice, Bias), Splice Inspection and Records$mw$, $mw$A splice is only as good as the square cut behind it: this covers finding the belt's true centreline and squaring the ends, choosing a mechanical fastener by belt thickness, tension and the smallest pulley, installing hinged and solid-plate fasteners properly (including skiving the covers), the basics of hot and cold vulcanized step splices with the bias and step lengths, and inspecting splices so they are replaced before they fail.$mw$, $mw$## Squaring the belt end
 
 A crooked cut makes a splice that steers the belt every revolution; a tape across the belt is not square to a belt whose edges are not straight.
+
+![Squaring the belt end from the centreline](/img/conveyors/belt-end-squaring.svg)
+
+*Squaring the belt end from the centreline*
 
 **Centreline (five-point) method**
 
@@ -2020,6 +2044,10 @@ Life: a mechanical splice on a heavy bulk belt: months to a year; on a light bel
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$conveyor-safety-and-guarding$mw$, $mw$Conveyor Safety and Guarding: Nip Points and Where They Are, Guarding Rules (ASME B20.1, OSHA 1910.212/219), Pull-Cord and Safety Switches, Lockout of Conveyors Including the Gravity Take-Up and Inclines, Working Around Running Belts, Crossing and Riding Rules, Transfer Points and Dust, Start-Up Warnings and Inspection Checklist$mw$, $mw$Conveyors kill more maintenance people than any other machine in bulk-handling plants, almost always at a nip point on a belt that was running: this covers where the nip points are, what must be guarded and how, the safety switches and what they do and do not protect, a lockout procedure that includes the stored energy in take-ups and inclined belts, the rules for working near, crossing and never riding a belt, transfer-point hazards, and a pre-start and inspection checklist.$mw$, $mw$## Where people get hurt
 
+![In-running nip points on a belt conveyor](/img/conveyors/conveyor-nip-points.svg)
+
+*In-running nip points on a belt conveyor*
+
 - **Nip points**: where the belt meets a **pulley** (head, tail, snub, bend, take-up: the belt runs **into** the pulley on one side), where the belt runs onto a **return roll** or a carrying idler (the in-running side), the **drive** (chain, sheave, coupling), and **cleaners, plows and skirt seals** against the belt. A glove, a sleeve, a shovel or a rag drawn into a pulley nip pulls the arm in faster than anyone can react; MSHA's fatality reports are mostly people **cleaning a running belt** near the tail pulley or **freeing a stuck roll** on a running belt.
 - **Falls** from conveyor walkways and while crossing belts; **being struck** by material from a transfer point or a tripper; **caught** between a carriage (tripper, take-up) and the structure; **crushed** by a gravity take-up counterweight; **fire and dust explosions**.
 - The common thread: the belt was running, or was locked out but still had stored energy, or restarted on a remote signal.
@@ -2106,6 +2134,10 @@ Falling material, rebounding lumps, blinding dust; head-pulley transfer chutes a
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$idlers-pulleys-and-lagging$mw$, $mw$Conveyor Idlers, Pulleys and Lagging: Replacing an Idler and a Return Roll Safely, Idler Inspection (Stuck Rolls, Seized Bearings, Shell Wear), Pulley Construction and Failure, Replacing a Pulley (Bushings, Shaft, Bearings), Lagging Types (Rubber, Ceramic, Diamond, Slide-Lag) and Re-Lagging, Wing and Spiral Pulleys, Pulley Alignment$mw$, $mw$The two jobs a conveyor millwright does most: changing idlers and rolls, and dealing with pulleys and their lagging. It covers how to spot a bad idler on a running belt, changing rolls without getting into the nip, what pulleys are made of and how they fail, replacing a pulley with its bushings and bearings and getting it square, the lagging options and when each is right, and re-lagging in place versus in the shop.$mw$, $mw$## Idlers
+
+![Idler set and lagged pulley](/img/conveyors/idler-set-and-pulley.svg)
+
+*Idler set and lagged pulley*
 
 ### Inspection on the run (from outside the guards)
 
@@ -2202,7 +2234,11 @@ Self-cleaning at the tail: material falls through the wings; the trade-off is be
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$screw-conveyors-and-bucket-elevators$mw$, $mw$Screw Conveyors and Bucket Elevators: Screw Conveyor Parts, Hand and Rotation Rule, Hanger Bearings and Coupling Bolts, Trough Loading and Capacity, Flight Repair, Troubleshooting; Bucket Elevator Types, Belt and Chain, Buckets and Bolts, Boot Take-Up and Tracking, Head and Throat Plate, Inspection and Dust-Explosion Precautions$mw$, $mw$Two conveyors that are simple to look at and full of traps: the screw conveyor's parts, the hand-and-rotation rule that decides which way the material goes, the hanger bearings and coupling bolts that fail first, capacity and loading, flight repair and the jam problem; and the bucket elevator's types, the belt or chain, bucket bolting, the boot take-up and how the belt is tracked in a closed casing, the head section and throat plate, the inspection points and the dust-explosion rules that govern elevators in grain and food plants.$mw$, $mw$## Screw conveyors
+  values ($mw$screw-conveyors-and-bucket-elevators$mw$, $mw$Screw Conveyors and Bucket Elevators: Screw Conveyor Parts, Hand and Rotation Rule, Hanger Bearings and Coupling Bolts, Trough Loading and Capacity, Flight Repair, Troubleshooting; Bucket Elevator Types, Belt and Chain, Buckets and Bolts, Boot Take-Up and Tracking, Head and Throat Plate, Inspection and Dust-Explosion Precautions$mw$, $mw$Two conveyors that are simple to look at and full of traps: the screw conveyor's parts, the hand-and-rotation rule that decides which way the material goes, the hanger bearings and coupling bolts that fail first, capacity and loading, flight repair and the jam problem; and the bucket elevator's types, the belt or chain, bucket bolting, the boot take-up and how the belt is tracked in a closed casing, the head section and throat plate, the inspection points and the dust-explosion rules that govern elevators in grain and food plants.$mw$, $mw$![Screw conveyor and bucket elevator](/img/conveyors/screw-and-bucket-elevator.svg)
+
+*Screw conveyor and bucket elevator*
+
+## Screw conveyors
 
 ### Parts
 
@@ -3077,6 +3113,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 When two metal surfaces slide under pressure with no film between them, the microscopic peaks **weld** (adhesive wear); on threads the welded spots tear, the torn metal drags and welds again, and within a turn the nut is **seized solid**: it will not go on or come off, and the fastener is cut off. Metals that gall: **stainless steel** (300 series worst: it work-hardens and its oxide film is thin), **aluminium, titanium, nickel alloys**, and soft or unplated steel on itself under heavy load. It is worse with: **stainless on stainless of the same grade**, fine threads, high tightening speed (an impact wrench: the heat of friction), high preload, rough or damaged threads, a dry assembly, and high temperature.
 
+![How galling starts and how anti-seize changes torque](/img/fasteners/galling-and-anti-seize.svg)
+
+*How galling starts and how anti-seize changes torque*
+
 Prevent galling by: **lubricating the threads** (anti-seize is the lubricant of choice), **slow** tightening (hand tools, no impacts on stainless), **dissimilar hardness or grade** (a 304 bolt with a 316 nut, or a stainless bolt with a bronze or a coated/plated nut), rolled (not cut) threads, coarse threads over fine, a lower preload where the design allows, and **not** forcing a fastener that starts to bind (stop, back off, lubricate).
 
 ## Anti-seize types
@@ -3219,6 +3259,10 @@ Fine-thread (UNF) bolts of the same size take roughly 10% more.
 
 ## Head markings
 
+![Grade by head marking](/img/fasteners/bolt-head-markings.svg)
+
+*Grade by head marking*
+
 | Marking | Grade / class | Min tensile |
 |---|---|---|
 | No marks | SAE Grade 2 (low carbon) | 74 ksi (small sizes) |
@@ -3275,6 +3319,10 @@ K ≈ 0.20 dry steel, 0.15 lubricated, 0.12 anti-seize
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$flange-bolting-and-gaskets$mw$, $mw$Flange Bolting and Structural Bolting: Gasket Seating and the Star Pattern (ASME PCC-1 Sequence), Stud Torque Tables for Class 150 and 300 Flanges (B7 Studs, Lubricated), Flange Faces and Finishes, Hot Re-Torque, Leak Checks and Gasket Removal; Structural A325/A490 Bolting with Snug-Tight, Turn-of-Nut Table, DTI Washers and TC Bolts, Inspection and Reuse Rules$mw$, $mw$Two bolting jobs with their own rules: the pressure-boundary flange, where the gasket must be seated evenly by a stud stress that comes from a lubricated torque applied in a star pattern in steps, with the torque tables for the common flange classes and the checks before and after; and the structural steel connection, where the bolt must be pretensioned by turn-of-nut, a tension-control bolt or a tension indicator after a snug-tight pass, with the RCSC rotation table and the inspection and re-use rules.$mw$, $mw$## Part 1: flanges
+
+![Star pattern numbering and torque passes](/img/fasteners/flange-star-pattern.svg)
+
+*Star pattern numbering and torque passes*
 
 ### Before the bolts go in
 
@@ -3424,6 +3472,10 @@ A bolt that is **preloaded** correctly (stretched to 60-90% of its yield by the 
 The order of defence: **the right preload with a torque wrench on a clean, hard, flat joint** (which stops most loosening by itself); then **short grip lengths avoided** (a long bolt stretches more and keeps its clamp through settling; a bolt with a grip under about 2 × its diameter loosens easily: use a longer bolt with a hardened spacer); then a **locking method** chosen for the mechanism.
 
 ## The locking methods compared
+
+![Nylon insert, jam nut, castle nut, safety wire, threadlocker](/img/fasteners/locking-methods.svg)
+
+*Nylon insert, jam nut, castle nut, safety wire, threadlocker*
 
 | Method | How it works | Effective against transverse vibration? | Reusable? | Notes |
 |---|---|---|---|---|
@@ -3602,6 +3654,10 @@ Metric threads are called out as **M10×1.5** (diameter × pitch); a size with n
 Pipe-thread identification: measure the **OD** and count the **TPI**; check for **taper** (the diameter measured at the start and 5 threads in differs on a tapered thread; a straight thread is the same); check the angle with a **55° vs 60° gauge** (the Whitworth gauge's teeth are rounded; the 60° gauge fits an NPT thread's flanks without light at the crest); a parallel male with a shoulder and an O-ring/washer groove is BSPP/ORB; the 14 TPI 1/2" size is the classic NPT/BSPT mix-up.
 
 ## Measuring a thread (three steps)
+
+![Measuring major diameter and pitch; the look-alike families](/img/fasteners/thread-identification.svg)
+
+*Measuring major diameter and pitch; the look-alike families*
 
 1. **Major diameter** with a caliper (a male thread: over the crests; a female thread: measure across the crests inside for the minor diameter and add roughly 1.1 × the pitch to estimate the size, or measure a bolt that fits); inch and metric sizes are close in places: **the diameter alone is not enough**.
 2. **Pitch** with a **screw pitch gauge** (a set of blades marked in TPI for inch, mm for metric; a 55° Whitworth set for BSP): try blades until one sits **fully** in the thread with no light along its length; a blade that "almost" fits is the wrong one (a 1.5 mm blade on a 16 TPI thread (1.588 mm) looks close and is wrong). No gauge: count the threads in **1"** (or measure 10 threads with a caliper and divide: 10 threads over 0.625" = 16 TPI; 10 threads over 15 mm = 1.5 mm pitch).
@@ -6865,6 +6921,10 @@ Most "broken" bolts are seized bolts; before anything else:
 
 A nut welded to the stub gives a hex to turn, and the **weld's heat expands and shocks the bolt** in the hole: bolts that have defeated everything else come out with a nut welded on. It works on stubs proud, flush, and even slightly below the surface (a washer first, then a nut).
 
+![Welding a nut on a stub and a left-hand drill](/img/machining/broken-bolt-nut-weld.svg)
+
+*Welding a nut on a stub and a left-hand drill*
+
 1. Clean the stub's end; pick a **nut whose hole is a little larger than the stub** (a 1/2" nut for a 3/8" stub, or the stub's own size if it is proud enough to sit in the nut's bore) so the weld fills the gap between the nut's bore and the stub's end; for a stub below the surface, weld a **thick washer** on first (the hole in the washer over the stub, weld through the hole to the stub), then a nut on the washer.
 2. Protect the part: a copper or brass shim or a washer of the stub's size over the surrounding threads/bore if the weld could stick to the part (a threaded hole in aluminium: weld does not stick, but heat does damage: keep it quick), and shield anything nearby from spatter.
 3. **MIG** (the easiest): .035 wire at a fairly hot setting (about 130-160 A, 19-21 V), start the arc **in the centre of the nut on the stub's end**, fill the nut's bore with a puddle spiralling out to the nut's chamfer, 3-5 seconds; **TIG**: DCEN 100-150 A with ER70S-6 filler, the same fill; **stick**: 3/32" 7018 or 6011 at 80-100 A (harder to keep in the nut); on a stub deep in a hole, a **long-nozzle** MIG or a TIG torch reaches in.
@@ -6939,6 +6999,10 @@ Penetrant, shock, heat on the nut; a **nut splitter** (a chisel screwed into the
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$drill-press-speeds-and-feeds$mw$, $mw$Drill Press Speeds and Feeds: The RPM Formula, SFM by Material for HSS and Cobalt Drills, RPM Tables for Common Drill Sizes, Feed per Revolution, Drill Point Angles and Sharpening by Hand, Pilot Drills and Web Thickness, Countersinks, Counterbores and Reamers, Coolant and Lubricant, Work Holding and Drill Press Safety, Troubleshooting Drill Problems$mw$, $mw$Everything for making a good hole on the drill press: the formula and the surface-speed table that give the spindle rpm for any drill in any material, a ready rpm chart, how much to feed, drill point angles and how to sharpen a drill by hand so it cuts, when to pilot and how big, the follow-up tools (countersink, counterbore, reamer) and their speeds, what coolant to use, how to hold the work so it does not spin, and the fixes for a drill that walks, squeals, chips or breaks.$mw$, $mw$## The formula
+
+![rpm versus drill diameter for three materials](/img/machining/drill-rpm-chart.svg)
+
+*rpm versus drill diameter for three materials*
 
 ```
    rpm = (SFM × 12) ÷ (π × D) = (SFM × 3.82) ÷ D          D = drill diameter (in), SFM = cutting speed (surface feet per minute)
@@ -7105,6 +7169,10 @@ A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" whee
 
 ## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)
 
+![Tool rest and tongue guard gaps on a bench grinder](/img/machining/bench-grinder-gaps.svg)
+
+*Tool rest and tongue guard gaps on a bench grinder*
+
 | Rule | Why |
 |---|---|
 | **Work rest within 1/8" (3 mm)** of the wheel, adjusted as the wheel wears; rigid | A gap bigger than that lets the work (or a finger) wedge between the rest and the wheel: the wheel breaks or the hand goes in |
@@ -7129,6 +7197,10 @@ A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" whee
 ## Angle grinders, cut-off wheels and die grinders (1910.243)
 
 Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safety essentials:
+
+![Angle grinder guard position and kickback zone](/img/safety/grinder-guard-and-kickback.svg)
+
+*Angle grinder guard position and kickback zone*
 
 - **Guard on**, positioned between the wheel and you; the cut-off (closed) guard for Type 1/41 wheels; the wheel's rpm rating ≥ the grinder's; the right flanges and the lock nut for the wheel type (a Type 27 depressed-centre wheel needs the raised flange); no pipe flanges or washers as substitutes.
 - **Two hands** (the side handle on), the body out of the plane of the wheel, the **dead-man (paddle) switch** and **no lock-on**; a wheel that has been dropped is scrapped; run a new wheel a minute pointed away.
@@ -7221,6 +7293,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$lathe-basics-for-millwrights$mw$, $mw$Lathe Basics for Millwrights: The Parts and Controls, Work Holding (3-Jaw, 4-Jaw, Collets, Between Centres, Steady and Follower Rests), Tool Bits and Inserts, Speeds and Feeds by Material, Facing, Turning to a Diameter, Shoulders, Chamfers, Drilling and Boring a Bushing, Cutting a Thread, Turning a Shaft Between Centres, Measuring on the Lathe, Finish, and Lathe Safety$mw$, $mw$The lathe work a millwright does: making a bushing, a spacer, a sleeve, a shaft end, cleaning up a seat, cutting a thread on a shaft or in a nut. It covers the machine and its controls, holding the work so it runs true and cannot fly out, choosing and setting a tool, the speed and feed numbers, the basic operations step by step, single-point threading with the compound set at 29.5°, turning a shaft between centres, measuring as you go, and the safety rules that keep sleeves and hair out of the chuck.$mw$, $mw$## The machine
 
 **Headstock** (the spindle, the chuck, the speed gears/pulleys), **bed** with the ways, **carriage** (the saddle on the ways, the **cross-slide** across, the **compound (top) slide** at any angle, the **tool post**), **apron** (the carriage handwheel, the feed and thread engagement levers), **tailstock** (a Morse-taper quill for centres, drills and reamers; offset for tapers), the **lead screw** (threading) and **feed rod** (power feeds), the **quick-change gearbox** (feed and thread pitch selection), and the chip pan. Dials on the cross-slide and compound read in thousandths; many lathes' cross-slide dials read **diameter** reduction (a dial marked in "0.001 on diameter": moving 0.010" removes 0.010" from the diameter; others read radius: 0.010" on the dial takes 0.020" off the diameter: **know which** by a test cut).
+
+![Parts of an engine lathe](/img/machining/lathe-parts.svg)
+
+*Parts of an engine lathe*
 
 ## Work holding
 
@@ -7368,6 +7444,10 @@ A **vertical knee mill** (Bridgeport and clones): the **head** (a variable-speed
 
 The spindle must be **square to the table** or a face-milled surface is dished, a bored hole is tapered and a slot is wider at the top:
 
+![Tramming the head and cutting a shaft keyway](/img/machining/tram-and-keyway.svg)
+
+*Tramming the head and cutting a shaft keyway*
+
 1. A **dial indicator on an arm in the spindle** (a tramming bar or an indicator holder in a collet), the tip on the table (or on a parallel/ground plate on the table, or a ring gauge) at about a 6-10" radius.
 2. Rotate the spindle by hand: read at **front and back** (the head's tilt about the X axis: the nod) and at **left and right** (the swivel about Y).
 3. Adjust: loosen the head's bolts a little, tap or turn the adjusting worm until the front/back reads within **0.001" over the sweep** (and left/right), tighten in sequence, re-check (tightening moves it).
@@ -7499,6 +7579,10 @@ A keyway in a **bore** (a sprocket, a sheave, a coupling hub, a gear) is cut wit
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$tapping-and-thread-repair$mw$, $mw$Tapping and Thread Repair: Tap Types (Taper, Plug, Bottoming, Spiral Point, Spiral Flute, Forming), Tap Drill Rule and Thread Percentage, Hand and Power Tapping Technique, Tapping Fluids, Why Taps Break and How to Remove a Broken Tap, Thread Inserts (Heli-Coil and Time-Sert) with the STI Drill Table, Oversize Taps, Thread Chasers and Files, Repairing Threads in Castings and Aluminium$mw$, $mw$How to cut a thread that fits and lasts, by hand or on the press, how to choose the tap and the drill for the material and the hole (through or blind), the technique and fluid that stop taps breaking, what to do when one does, and how to repair a stripped or damaged thread with an insert (the Heli-Coil drill table), an oversize tap, a chaser or a file, including the special cases of aluminium and cast iron.$mw$, $mw$## Tap types
+
+![Thread percentage and tap types](/img/machining/tap-drill-and-tap-types.svg)
+
+*Thread percentage and tap types*
 
 | Tap | Shape | Use |
 |---|---|---|
@@ -7666,6 +7750,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **Look**: leaks (oil, grease, water, product: where from, how much, new or old), oil level and colour in sight glasses, breathers, guards on and secure, belt dust, rust streaks (fretting) at flanges and bolted joints, cracked welds or paint at the base, loose bolts (paint witness lines broken), foundation cracks, misaligned or rubbing parts, wet insulation, build-up on fans and pulleys, condition of hoses and cables, gauge readings versus normal, sight-glass flow, e-stops and pull cords accessible.
 
+![Look, listen, feel, measure, record](/img/maintenance/route-look-listen-feel.svg)
+
+*Look, listen, feel, measure, record*
+
 **Listen**: pitch and rhythm compared to last week (a rising whine, a knock at shaft speed, a grinding or hiss, chain slap, belt squeal, cavitation gravel, relief valve chatter, air leaks).
 
 **Feel** (outside the guard, only where it is safe): vibration by hand on the housing and base (a buzz vs a shake), temperature by the back of a hand near (not on) the surface, air flow at the motor fan, pipe pulsation.
@@ -7726,6 +7814,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$pm-checklists$mw$, $mw$Preventive Maintenance Checklists: Pumps, Motors, Gearboxes, Belt and Chain Drives, Conveyors, Compressors, Hydraulic Units and Fans, by Daily, Weekly, Monthly, Quarterly and Annual Interval$mw$, $mw$Ready-to-use PM checklists for the equipment on every millwright's route, organised by interval, with the specific numbers to compare against (temperatures, vibration, belt deflection, oil level, filter differential, relief valve tests) and links to the article that explains each check.$mw$, $mw$> A PM is only useful if the reading is **written down and compared to last time**. Trends (bearing temperature up 10°F over three months, vibration creeping from 0.1 to 0.2 in/s) catch failures; single readings rarely do. Every checklist below assumes the machine is **locked out** for anything that opens a guard.
 
 ## General rules for every route
+
+![Typical PM intervals by equipment](/img/maintenance/pm-interval-chart.svg)
+
+*Typical PM intervals by equipment*
 
 - Running checks first (noise, heat, vibration, leaks, gauges, amps) with the machine on; lockout for anything hands-on.
 - Take readings the **same way, same place, same load** each time; mark the measuring points with paint.
@@ -7897,6 +7989,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Bearings
 
+![Bearing storage rules](/img/maintenance/bearing-storage-rules.svg)
+
+*Bearing storage rules*
+
 - **Keep them in the original sealed wrapping** until the moment of fitting; the factory preservative is the corrosion protection. Do not wash new bearings (unless the maker says to remove a heavy preservative before grease-lubed use, and then only with clean solvent and immediate lubrication).
 - **Flat on the shelf**, not standing on the edge (large bearings can distort); large bearings on wooden pallets or racks, not concrete.
 - **Dry**: relative humidity under 60-65%, temperature steady (condensation from temperature swings is the enemy); away from doors, roof leaks and washdown.
@@ -8017,6 +8113,10 @@ Most CMMS use a three-level code: **component** (bearing, seal, coupling, belt, 
 
 ## MTBF, MTTR and availability (the simple version)
 
+![MTBF, MTTR and availability on a timeline](/img/maintenance/mtbf-timeline.svg)
+
+*MTBF, MTTR and availability on a timeline*
+
 ```
 MTBF (mean time between failures) = operating hours in the period ÷ number of failures
 MTTR (mean time to repair)         = total repair (downtime) hours ÷ number of failures
@@ -8063,6 +8163,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$how-to-add-a-manual$mw$, $mw$How to Add a Manufacturer Manual or Datasheet to This Library$mw$, $mw$Anyone signed in can upload a gearbox, motor, pump, coupling or bearing manual. This tip explains what to fill in so other students can find it by manufacturer, model number and topic.$mw$, $mw$Found a Dodge gearbox with no manual in the library? Got a PDF from the maker's website or a scan from the crib? Add it.
 
 ## Steps
+
+![How a manual gets into the library](/img/manuals/add-a-manual-flow.svg)
+
+*How a manual gets into the library*
 
 1. Sign in, then open **Contribute** in the menu.
 2. Title: `<Manufacturer> <Model family> - <what the document is>`. Example: `Dodge Torque-Arm II TA4207H - Installation manual (MN1602)`.
@@ -8247,6 +8351,10 @@ A **qualified person** has training in the construction and operation of the equ
 
 ## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)
 
+![Arc flash, limited and restricted approach boundaries](/img/motors-electrical/approach-boundaries.svg)
+
+*Arc flash, limited and restricted approach boundaries*
+
 | Nominal voltage | **Limited approach boundary** (unqualified persons stay outside; qualified escort to enter) | **Restricted approach boundary** (qualified persons only, with shock PPE and a plan) |
 |---|---|---|
 | 50-150 V (120 V control, 120/208 receptacles) | 3 ft 6 in (1.0 m) (exposed movable conductors: 10 ft) | Avoid contact |
@@ -8357,6 +8465,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Insulation resistance (megger) to ground
 
 Measures the resistance of the winding insulation to the frame (ground) in megohms; low or falling values mean moisture, dirt, oil, a cracked or overheated insulation, and a fault coming.
+
+![Megger connections and IEEE 43 minimums](/img/motors-electrical/megger-test.svg)
+
+*Megger connections and IEEE 43 minimums*
 
 **Test voltage (IEEE 43)**
 
@@ -8481,6 +8593,10 @@ A three-phase motor has three winding groups (phases) that are connected interna
 
 Leads T1-T9 are brought out; inside the motor, T7, T8 and T9 are joined to form the star point of one set of winding halves:
 
+![9-lead wye low and high voltage connections](/img/motors-electrical/nine-lead-wye.svg)
+
+*9-lead wye low and high voltage connections*
+
 ```
    HIGH voltage (460 V): series
       L1 – T1        L2 – T2        L3 – T3
@@ -8599,6 +8715,10 @@ Check the running currents on all three phases after any connection: balanced wi
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$plc-and-instrumentation-awareness$mw$, $mw$PLC and Instrumentation Awareness for Millwrights: How a Control System Is Built (PLC, I/O, HMI, Drives, Safety Relays), Digital and Analog Signals (24 VDC, 4-20 mA), the Sensors on Machinery (Proximity, Photo-Eye, Limit Switch, Encoder, Pressure, Temperature, Level, Flow, Vibration), Mounting and Adjusting Sensors, What to Check When a Machine Will Not Run, Reading I/O Lights and the HMI, What Not to Touch, and Working With the Controls Tech$mw$, $mw$A millwright meets the control system every time a machine will not start: this explains what the pieces are and how a machine's permissives, interlocks and sensors decide whether it runs, the signals and sensors bolted to the machinery and how to mount and set them correctly, a method for finding why a machine stopped using the I/O lights and the HMI before calling the controls tech, and the things a millwright does not touch.$mw$, $mw$## The parts
 
+![Sensor to motor signal chain and where to check](/img/motors-electrical/plc-signal-chain.svg)
+
+*Sensor to motor signal chain and where to check*
+
 | Part | What it is | Millwright's interest |
 |---|---|---|
 | **PLC** (Allen-Bradley ControlLogix/CompactLogix/MicroLogix, Siemens S7, Omron, Automation Direct) | The computer that runs the machine's logic program: it reads inputs, decides, and sets outputs, scanning many times a second | The program's **permissives** (what must be true to start) and **interlocks** (what stops it) are what you are fighting when it will not run |
@@ -8686,6 +8806,10 @@ Give them: the machine and the tag, what the HMI says, which LEDs you saw on and
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$reading-a-motor-nameplate$mw$, $mw$Reading a Motor Nameplate: HP and kW, Voltage and Dual Voltage, FLA and Service Factor, RPM and Slip, Frame Size (NEMA T-Frame Dimensions Table: Shaft Height and Diameter), Enclosure (ODP, TEFC, TENV, XP), Insulation Class and Temperature Rise, Duty, Design Letter (B, C, D), Code Letter, Efficiency, Bearings, Mounting, Inverter Duty$mw$, $mw$Every line on a three-phase motor nameplate and what it means to the millwright replacing or troubleshooting the motor: the power, voltage and current ratings and how the service factor is used, speed and slip, the NEMA frame number decoded into the shaft height and dimensions with a table of the T-frames, the enclosure types and where each belongs, insulation class and temperature rise, design and code letters, efficiency, bearing numbers and mounting, and what to match when you swap a motor.$mw$, $mw$## The lines and what they mean
+
+![A typical nameplate with the lines to read first](/img/motors-electrical/motor-nameplate.svg)
+
+*A typical nameplate with the lines to read first*
 
 | Nameplate item | Meaning | What you do with it |
 |---|---|---|
@@ -8829,6 +8953,10 @@ The electrician or the controls tech programs the drive; the millwright needs to
 ## Bearing currents (the millwright's VFD problem)
 
 The PWM output has a **common-mode voltage** that couples through the motor's capacitances to the shaft; the shaft voltage discharges through the **bearing's oil film** thousands of times a second: **EDM pitting → fluting** (the washboard raceway), grease turned black, a bearing that fails in months (see [bearing failure analysis](/article/bearing-failure-analysis)). Signs: a bearing failure pattern of fluting on a VFD-driven motor, often the **non-drive end** first, repeated failures after replacement, a rising vibration at bearing frequencies, and a shaft voltage measurable with a brush and an oscilloscope (over about 5-10 V peak is trouble).
+
+![Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing](/img/motors-electrical/vfd-bearing-currents.svg)
+
+*Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing*
 
 Fixes (the drive and the motor together):
 
@@ -10527,6 +10655,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Before every use (operator inspection)
 
+![Chain hoist inspection points](/img/rigging/hoist-inspection-points.svg)
+
+*Chain hoist inspection points*
+
 1. **Capacity plate / tag** legible and rating equal to or above the load. Rating is for a **straight, vertical, static** pull on a proper hook or anchor.
 2. **Hooks** (top and bottom): latch present and closing; no cracks, nicks, gouges, twists; throat opening not stretched. ASME B30.10: remove if throat is opened more than 5% or 1/4" over the original, or the hook is twisted more than 10°.
 3. **Load chain**: clean enough to see; no stretched, bent, gouged, corroded, nicked, welded or twisted links; chain runs freely over the pocket wheel without binding or "capsizing". A twisted chain on a two-fall hoist (the bottom block has flipped through the chain) will jam and can break: **untwist it before loading**.
@@ -10599,6 +10731,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$crane-signals-and-lift-planning$mw$, $mw$Crane Hand Signals, Radio Protocol and Lift Planning: Standard Signals, Critical Lift Criteria, Load Charts, Ground Bearing and the Pre-Lift Checklist$mw$, $mw$The standard hand signals a millwright must be able to give and read, the radio protocol used when the operator cannot see the load, what makes a lift critical and what a written lift plan contains, how to read a mobile crane load chart and check outrigger ground bearing, and the walk-through checklist before the hook comes tight.$mw$, $mw$> One signal person at a time. Anyone can give **STOP** or **EMERGENCY STOP**, and the operator obeys it from anyone. If the operator cannot see the signal person or hear the radio clearly, the lift stops.
 
 ## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)
+
+![The standard hand signals](/img/rigging/crane-hand-signals.svg)
+
+*The standard hand signals*
 
 | Signal | How |
 |---|---|
@@ -10721,6 +10857,10 @@ Keep cribbing in sets of uniform length (18", 24", 36" for 4x4; 24-48" for 6x6),
 
 ## Box crib rules
 
+![2x2 and 3x3 box cribs and the 3:1 height rule](/img/rigging/box-crib.svg)
+
+*2x2 and 3x3 box cribs and the 3:1 height rule*
+
 1. Layers at **90°** to each other, timbers at the **outside edges** of the stack (the load path is through the crossing points).
 2. **Two timbers per layer** minimum ("2x2 crib"); **three per layer** ("3x3") roughly doubles capacity because there are 9 crossing points instead of 4.
 3. **Height no more than 3 × the smallest base width** (a 24"-wide crib: 72" max) for a free-standing crib; 2:1 if the load could shift or the crib is on a marginal base. Tall cribs get racked and walk out.
@@ -10810,6 +10950,10 @@ The hook must be directly above the CG or the load will swing and tilt when it l
 
 When sling legs are not vertical, each leg carries **more** than its share. The angle is measured **from the horizontal**.
 
+![Sling angle factors and the three hitches](/img/rigging/sling-angles-and-hitches.svg)
+
+*Sling angle factors and the three hitches*
+
 | Horizontal sling angle | Load factor (multiply per-leg share by this) |
 |---|---|
 | 90° (vertical) | 1.000 |
@@ -10845,6 +10989,10 @@ Read the capacity from the **sling tag** for the hitch you are using. A sling wi
 Bending a sling around a small diameter cuts its strength. **D** = diameter of the object the sling bends around; **d** = sling diameter. Wire rope: keep D/d at **25 or more** for full rating; at D/d = 1 (a sling around a shackle pin of its own size) the rope is at roughly 50%. Synthetic round slings have similar limits; use their chart.
 
 ## Hardware
+
+![Correct shackle loading and side-load derating](/img/rigging/shackle-loading.svg)
+
+*Correct shackle loading and side-load derating*
 
 - **Shackles**: use the WLL stamped on the bow. Screw-pin shackles for temporary rigging, bolt-type (with nut and cotter) if the pin could rotate. Never replace the pin with a bolt. Side-loading a shackle derates it (45° ≈ 70%, 90° ≈ 50%). Pin in the hook or the fixed eye; the running sling goes in the bow.
 - **Hooks**: load in the bowl, never on the tip. Latch working. Throat opening stretched more than 5% = scrap.
@@ -10890,6 +11038,10 @@ Bending a sling around a small diameter cuts its strength. **D** = diameter of t
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$wire-rope-and-chain-slings-detail$mw$, $mw$Sling Capacity Tables: Wire Rope (EIPS IWRC), Grade 80 and Grade 100 Chain, Web Slings, Shackle WLL and Wire Rope Clip Torque$mw$, $mw$The capacity tables riggers reach for: wire rope slings by diameter and hitch, Grade 80 and Grade 100 chain by size and leg configuration, web slings by width and ply, screw-pin shackle working load limits by size, and the number, spacing and torque of wire rope clips, with the rules for reading them and the rejection criteria for each sling type.$mw$, $mw$> Always read the **tag** on the sling you are holding. Tables below are typical published ratings for the construction named; another maker's sling of the same size may be rated differently. Angles are measured **from horizontal**; capacities at 30° are the lowest and nothing is rated below 30°. Design factor: wire rope and web 5:1, Grade 100 chain 4:1 (some makers 5:1), Grade 80 chain 4:1.
+
+![Sling angles and hitches used in the tables](/img/rigging/sling-angles-and-hitches.svg)
+
+*Sling angles and hitches used in the tables*
 
 ## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice (lb)
 
@@ -10967,6 +11119,10 @@ Rules for chain: only **Grade 80 or 100 alloy** (marked "8", "80", "800", "10", 
 Web and round sling rules: keep them off **sharp edges** (corner protectors, the sling will cut at well under its rating), out of **weld spatter and heat** (nylon melts at ~480°F, derate above 194°F), out of acids (nylon) and alkalis (polyester), out of sunlight storage. Nylon stretches about 8-10% at rated load, polyester about 3%. A web sling with a red core yarn showing, cut edge, burn, missing tag or knot is scrap.
 
 ## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons
+
+![Shackle loading](/img/rigging/shackle-loading.svg)
+
+*Shackle loading*
 
 | Nominal size (bow dia.) | Pin dia. | WLL (t) | Inside width | Inside length |
 |---|---|---|---|---|
@@ -11057,6 +11213,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 
 ## Storage
 
+![Storage separation for oxygen and fuel gas](/img/oxy-fuel/cylinder-storage.svg)
+
+*Storage separation for oxygen and fuel gas*
+
 - **Upright, secured** (chain, strap or rack) at all times, including "empties".
 - **Valve caps on** whenever the cylinder is not connected to a regulator or manifold.
 - **Oxygen separated from fuel gases** (acetylene, propane, hydrogen) by **at least 20 ft (6.1 m)** or a **5 ft high fire-resistant wall (1/2-hour rating)**. Also keep oxygen 20 ft from oil, grease, combustibles and flammable liquids.
@@ -11074,6 +11234,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 - Acetylene that has been on its side: **stand upright for at least an hour** (some suppliers say 24 h) before use so the acetone settles out of the valve.
 
 ## Connecting and opening
+
+![Regulator, arrestor and check valve positions](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+*Regulator, arrestor and check valve positions*
 
 1. Stand to the **side** of the outlet, valve pointing away from anyone, and **crack** the valve briefly (open and close a fraction of a turn) to blow dust out of the outlet. **Not acetylene near a flame, not in a confined space, and never crack hydrogen** (it can self-ignite).
 2. Check the regulator: correct CGA, gauges intact, **adjusting screw backed all the way out** (no spring load), oil-free on oxygen; inlet filter present; flashback arrestors and check valves on torches.
@@ -11173,6 +11337,10 @@ Millwright examples: tanks, vessels, boilers, reactors, mixers, dryers, kilns, s
 
 ## Roles (every entry has all three)
 
+![Entry setup: tripod, blower, entrant, attendant, monitor](/img/safety/confined-space-setup.svg)
+
+*Entry setup: tripod, blower, entrant, attendant, monitor*
+
 | Role | Must |
 |---|---|
 | **Entry supervisor** | Verify tests, permit, rescue availability; authorise entry; cancel the permit when done or when conditions change |
@@ -11257,6 +11425,10 @@ Snap hooks and carabiners **locking** type, never hooked to each other, never ho
 
 Clearance needed below the anchor:
 
+![Fall clearance stack-up and the 4:1 ladder angle](/img/safety/fall-clearance-and-ladder.svg)
+
+*Fall clearance stack-up and the 4:1 ladder angle*
+
 ```
 Lanyard length            6.0 ft
 + Deceleration (deployment)  3.5 ft
@@ -11326,6 +11498,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$first-aid-for-shop-injuries$mw$, $mw$First Aid for Shop and Plant Injuries: Bleeding, Eye Injuries, Burns, Crush and Amputation, Electric Shock, Chemical Exposure, Heat Stress and When to Call for Help$mw$, $mw$What to do in the first minutes for the injuries millwrights actually get, in the order that saves the most: call for help, stop severe bleeding, protect the eye, cool the burn, keep the amputated part, treat electric shock and chemical splashes, recognise heat stroke, and what every shop first aid kit and person should have on hand.$mw$, $mw$> This is not a substitute for a first aid / CPR course; every crew should have at least one trained person and an AED within a 3-minute walk where 911 response is more than a few minutes away (OSHA 1910.151). **Call first** (911 / site emergency number) for anything involving heavy bleeding, unconsciousness, chest pain, breathing trouble, electric shock, eye penetration, amputation, crush, head or spine injury, serious burns, or chemical exposure with symptoms.
 
 ## First minute, any serious injury
+
+![First-minute priorities](/img/safety/first-aid-priorities.svg)
+
+*First-minute priorities*
 
 1. **Scene safe?** Isolate the machine, kill the power, stop the flow (lockout, e-stop, main valve), get the person out of the crush or the gas, without becoming the second casualty (confined space, electrical, chemical: see those articles).
 2. **Call** (or send someone with a clear message: location, what happened, how many, what is wrong) and send someone to meet the ambulance at the gate.
@@ -11437,6 +11613,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **Wheel selection**
 
+![Guard position and kickback direction on an angle grinder](/img/safety/grinder-guard-and-kickback.svg)
+
+*Guard position and kickback direction on an angle grinder*
+
 - The wheel's **rated rpm must be equal to or higher than the grinder's** no-load rpm (4-1/2" grinders run 10,000-11,000 rpm; wheels are marked 13,300 rpm; a 7" wheel rated 8,500 rpm on a 4-1/2" grinder **explodes**). Never fit a bigger wheel than the guard was made for.
 - Type 27 (depressed centre) for grinding at 15-30°; Type 1 (flat cut-off) for cutting only, never for side grinding (they snap); Type 41/42 cut-off wheels need the **Type 1 cut-off guard** (closed on the top and back). Never use a cut-off wheel for grinding or a grinding wheel for cutting.
 - Check the expiry date on resin-bonded wheels (3 years from manufacture, printed on the metal ring); dispose of expired, cracked, chipped, wet or dropped wheels.
@@ -11541,6 +11721,10 @@ The PAI's first question is **can this be done elsewhere or another way** (move 
 
 Within a **35 ft radius** of the arc or flame, and below it on every floor or level that sparks can reach:
 
+![The 35 ft hot work zone](/img/safety/hot-work-zone.svg)
+
+*The 35 ft hot work zone*
+
 1. **Remove** combustibles: paper, wood, rags, drums, pallets, plastic, oily absorbent, cardboard, lubricant stock.
 2. What cannot be moved gets **covered** with fire-resistant tarps, welding blankets or metal sheets (not a plastic tarp) and **wetted** where sensible (a wet floor is not a substitute for cover: it dries).
 3. **Floor**: sweep clean of dust, oil and grease; combustible floors wet down or covered with sand or fire-resistant blankets. Grating, expansion joints and floor drains get covered so slag cannot drop through.
@@ -11627,6 +11811,10 @@ A machine can have five or six points. The machine-specific **LOTO procedure** l
 
 ## The eight steps
 
+![The eight lockout steps in order](/img/safety/lockout-steps.svg)
+
+*The eight lockout steps in order*
+
 1. **Prepare**: identify every energy source and the isolation device for each. Get the locks, tags, hasps, valve covers, plug locks you need. Only **your** personal lock, one key, in your pocket.
 2. **Notify** affected employees (operators, other trades) that the machine is coming down.
 3. **Shut down** using the normal stop procedure (do not open a disconnect under load if it can be avoided).
@@ -11669,6 +11857,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$ppe-selection$mw$, $mw$PPE Selection for Millwrights: Eye and Face, Hearing, Head, Hand, Foot, Respiratory and Body Protection by Task, with Ratings to Look For$mw$, $mw$A task-by-task PPE table for the work a millwright actually does, then what each rating on the label means (Z87+, NRR, hard hat class, ANSI cut level, ASTM F2413 codes, respirator filter classes, arc-rated cal/cm2), how to fit-test and inspect it, and what PPE cannot do.$mw$, $mw$> PPE is the **last** line: guard the machine, isolate the energy, ventilate the fume, then put on the gear. A hazard assessment (written, signed, OSHA 1910.132(d)) decides what is required for each job; the table below is what that assessment usually says for millwright work.
 
 ## By task
+
+![PPE by task at a glance](/img/safety/ppe-by-task.svg)
+
+*PPE by task at a glance*
 
 | Task | Eyes / face | Hearing | Hands | Respiratory | Other |
 |---|---|---|---|---|---|
@@ -11753,6 +11945,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | 1 inch | 25.4 mm |
 
 ## Circles, shafts and bores
+
+![Shaft, bore and annulus areas](/img/shop-reference/shaft-bore-annulus-areas.svg)
+
+*Shaft, bore and annulus areas*
 
 ```
 Area of a circle (solid shaft cross-section)      A = π r² = π d² / 4 = 0.7854 × d²
@@ -11896,6 +12092,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$hardness-conversion$mw$, $mw$Hardness Conversion Chart: Rockwell C and B, Brinell, Vickers and Approximate Tensile Strength for Steel, with the File Test, Portable Testers and What Hardness Numbers Mean on Drawings$mw$, $mw$One table to convert between Rockwell C, Rockwell B, Brinell, Vickers and approximate tensile strength for carbon and alloy steel, the rules for when the conversion is valid, how to test hardness in the field with a file set, a Leeb tester or a portable Rockwell, and how to read hardness call-outs on drawings and bearing specs.$mw$, $mw$> Conversions are **approximate** and only for non-austenitic steels (carbon, alloy, tool, martensitic stainless). Aluminium, brass, austenitic stainless and cast iron have their own tables. A number converted twice is a guess. The tensile column is a rule of thumb, not a substitute for a test certificate.
 
 ## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)
+
+![Rockwell C, Brinell and tensile side by side](/img/shop-reference/hardness-scale-bar.svg)
+
+*Rockwell C, Brinell and tensile side by side*
 
 | HRC | Vickers HV | Brinell HB (3,000 kg, 10 mm ball) | HRB | Approx. tensile (ksi) | Approx. tensile (MPa) | Typical of |
 |---|---|---|---|---|---|---|
@@ -12042,6 +12242,10 @@ A 1 in × 1 in × 12 in bar: steel 3.4 lb, aluminium 1.2 lb, brass 3.7 lb, titan
 
 Bench or angle grinder, medium-grit wheel, dim light, moderate pressure, hold the sample so the sparks stream horizontally at eye level; compare against a **known** sample of 1018, 1045, tool steel and cast iron kept for the purpose. Watch four things: **stream length and volume, colour, the shape and number of bursts (sprigs, forks), and how close to the wheel the bursts start**. Carbon makes bursts: more carbon, more bursts, brighter and closer to the wheel.
 
+![Spark stream patterns for four metals](/img/shop-reference/spark-test-patterns.svg)
+
+*Spark stream patterns for four metals*
+
 | Metal | Stream | Colour | Bursts / shape |
 |---|---|---|---|
 | **Wrought iron / very low carbon** | Long, straight, large volume | Straw-yellow | Almost none; lines end in a small arrowhead swelling |
@@ -12112,6 +12316,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 STD = standard weight (= Sch 40 up to NPS 10); XS = extra strong (= Sch 80 up to NPS 8); XXS = double extra strong.
 
+![Same OD, different wall by schedule](/img/shop-reference/pipe-schedule-walls.svg)
+
+*Same OD, different wall by schedule*
+
 | NPS | OD | Sch 10 wall | Sch 40 / STD wall | Sch 80 / XS wall | Sch 160 wall | XXS wall | Sch 40 ID |
 |---|---|---|---|---|---|---|---|
 | 1/8 | 0.405 | 0.049 | 0.068 | 0.095 | – | – | 0.269 |
@@ -12172,6 +12380,10 @@ Water in pipe (lb/ft) = 0.3405 × ID²                  (ID in inches; US gal/ft
 For rigging a filled pipe, add pipe and water (or product: multiply water by the specific gravity); flanges, valves and insulation are extra. See [geometry and weight formulas](/article/geometry-formulas-area-volume-weight).
 
 ## Flanges: ASME B16.5 Class 150 (inches)
+
+![Bolt holes straddle the centrelines](/img/layout-templates/bolt-circle-chord.svg)
+
+*Bolt holes straddle the centrelines*
 
 | NPS | Flange OD | Bolt circle | Number of bolts | Bolt size | Bolt hole | Flange thickness (min) | Raised face dia. |
 |---|---|---|---|---|---|---|---|
@@ -12289,6 +12501,10 @@ Long-radius elbow centre-to-face = **1.5 × NPS**; short-radius = 1.0 × NPS; 45
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$power-torque-speed-drive-formulas$mw$, $mw$Power, Torque, Speed and Drive Formulas: Horsepower, Motors, Ratios, Belts, Chains, Gears, Conveyors and Mechanical Advantage$mw$, $mw$How power, torque and speed relate, how to get horsepower from motor nameplate data or amps, synchronous speed and slip, gear and sprocket geometry, belt and conveyor speed and capacity, torque to accelerate a load, and the simple machines (lever, pulley system, screw, hydraulic press), each with a worked example.$mw$, $mw$## Power, torque, speed
+
+![Torque versus speed at constant power](/img/shop-reference/torque-speed-power.svg)
+
+*Torque versus speed at constant power*
 
 ```
 HP  = T (ft-lb) × rpm / 5 252
@@ -12480,6 +12696,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Head, pressure and velocity
 
+![Head and pressure](/img/shop-reference/head-vs-pressure.svg)
+
+*Head and pressure*
+
 ```
 Head (ft)      = psi × 2.31 / SG
 psi            = head (ft) × SG / 2.31  = head × 0.433 × SG
@@ -12515,6 +12735,10 @@ Metric: shaft power (kW) = Q (m³/h) × H (m) × SG / (367 × η)
 ## Affinity (pump) laws
 
 For a given impeller when speed changes, or (approximately) for a given speed when impeller diameter is trimmed:
+
+![Pump curve and system curve](/img/pumps-seals/pump-curve.svg)
+
+*Pump curve and system curve*
 
 ```
 Flow      Q2 = Q1 × (N2 / N1)          or × (D2 / D1)
@@ -12745,6 +12969,10 @@ Duct velocity        fpm = cfm / duct area (ft²)
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$set-me-up-for-a-task$mw$, $mw$Set Me Up for a Task: Index of Common Millwright Jobs and the Articles to Open for Each$mw$, $mw$Start here when you have a job and want the right pages fast: each common task (weld 1/4 in plate with MIG, install a pillow block, replace a hydraulic hose, align a pump, set up a plasma cutter, lift a gearbox) lists the articles to read in the order you will use them, from safety and setup through the procedure to the checks at the end.$mw$, $mw$> Type the task into search first; it usually lands on the right page. This index is for when you want the whole sequence for a job, or when you are studying and want to see how the pieces fit. Every job starts with [lockout/tagout](/article/lockout-tagout-basics) and the [PPE](/article/ppe-selection) for it.
 
+![Every job in the same order](/img/shop-reference/task-workflow.svg)
+
+*Every job in the same order*
+
 ## Welding and cutting
 
 | Task | Open these, in order |
@@ -12926,6 +13154,10 @@ If a job you do is not here, or a manufacturer's manual would help, use **Contri
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$shaft-bearing-fastener-formulas$mw$, $mw$Shaft, Bearing and Fastener Formulas: Torsional Stress, Shaft Sizing, Keys, Bearing L10 Life, Shrink Fits, Bolt Clamp Load and Stretch$mw$, $mw$The strength-of-materials formulas behind millwright decisions: shear stress in a solid or hollow shaft, sizing a shaft for a torque, angle of twist, bending stress, key sizing, bearing L10 life and what doubling the load does, dn speed limits, how hot to heat a hub for a shrink fit, bolt clamp load from torque, tensile stress area, proof load and bolt stretch, with worked examples that tie back to the torque chart.$mw$, $mw$## Shafts in torsion
 
+![Shaft torsion and key shear](/img/shop-reference/shaft-torsion-and-key-shear.svg)
+
+*Shaft torsion and key shear*
+
 ```
 Torque from power                 T (in-lb) = 63 025 × HP / rpm
 Shear stress, solid shaft         τ = 16 T / (π d³) = 5.09 × T / d³            (psi, T in-lb, d in)
@@ -13075,6 +13307,10 @@ Force on a blank flange / end cap F = P × 0.7854 × D²
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$shop-reference-tables$mw$, $mw$Shop Reference: Decimal Equivalents, Tap Drill Sizes, Conversions and Drive Formulas$mw$, $mw$One-page shop math for millwrights: fraction-decimal-mm equivalents, UNC/UNF and metric tap drills, unit conversions, pulley and sprocket speed ratios, belt length, and the 3-4-5 square and offset formulas.$mw$, $mw$## Fraction - decimal - millimetre
+
+![One inch in sixteenths with decimals and millimetres](/img/shop-reference/fraction-decimal-ruler.svg)
+
+*One inch in sixteenths with decimals and millimetres*
 
 | Fraction | Decimal | mm | | Fraction | Decimal | mm |
 |---|---|---|---|---|---|---|
@@ -13287,6 +13523,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 Used to temper hardened tools by eye, and to read how hot a part or bearing got. Colours appear in this order on a polished surface heated slowly; they are only valid on clean bright steel and shift with alloy content.
 
+![Temper colours and heat colours](/img/shop-reference/temper-and-heat-colours.svg)
+
+*Temper colours and heat colours*
+
 | Colour | °F | °C | Typical use of that temper |
 |---|---|---|---|
 | Faint straw / very pale yellow | 400 | 204 | Scrapers, lathe tools, engraving tools (maximum hardness retained) |
@@ -13364,6 +13604,10 @@ Rules: never quench a part with sharp inside corners or a mix of thick and thin 
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$trig-and-layout-formulas$mw$, $mw$Trig and Layout Formulas: Right Triangles, Offsets, Bolt Circles, Tapers, Sine Bars, Slopes and Leveling$mw$, $mw$The trig a millwright uses in the field: solving right triangles, laws of sines and cosines for any triangle, offsets and rolling offsets, bolt-circle chord and coordinate formulas with a table, taper per foot and taper angle, sine-bar heights, converting slope to degrees and percent, shimming from a level reading, squaring with 3-4-5 and diagonals, and finding the centre of a circle, all with worked examples.$mw$, $mw$## Right triangles
+
+![Right triangle functions and offset factors](/img/shop-reference/right-triangle-and-offset.svg)
+
+*Right triangle functions and offset factors*
 
 ```
 Pythagoras      c² = a² + b²        c = hypotenuse
@@ -13540,6 +13784,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$unit-conversions-extended$mw$, $mw$Unit Conversions for Millwrights: Length, Area, Volume, Mass and Force, Pressure and Head, Torque, Power and Energy, Flow, Speed, Temperature, Viscosity and Vibration, with the Ones to Memorise$mw$, $mw$Every conversion a millwright, welder or pipefitter reaches for, grouped by quantity with the exact factor and a rounded shop factor, including the ones that trip people up (head vs pressure, mass vs force, cSt vs SUS, mils vs microns, in/s vs mm/s vibration), and a short list worth memorising.$mw$, $mw$> The [basic shop table](/article/shop-reference-tables) has the dozen everyday conversions. This page is the full list. **Multiply** the "from" quantity by the factor. Factors marked with an asterisk are exact.
 
 ## Worth memorising
+
+![Pressure and torque ladders](/img/shop-reference/conversion-ladders.svg)
+
+*Pressure and torque ladders*
 
 ```
 1 in = 25.4 mm*             1 ft = 0.3048 m*           1 mil (0.001 in) = 25.4 µm*
@@ -13826,6 +14074,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Sheet and plate thickness by gauge (inches, mm)
 
+![Gauge to thickness bars](/img/shop-reference/gauge-thickness-bars.svg)
+
+*Gauge to thickness bars*
+
 | Gauge | Steel (MSG) | Galvanised steel | Stainless (US Std) | Aluminium (B&S/AWG) |
 |---|---|---|---|---|
 | 3 | 0.2391 (6.07) | – | 0.2500 (6.35) | 0.2294 (5.83) |
@@ -13956,6 +14208,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 The rolling elements polish a **track** on each raceway where the load passes. Its position and width tell the story before you find any damage.
 
+![Running track patterns on the races](/img/troubleshooting/bearing-load-paths.svg)
+
+*Running track patterns on the races*
+
 | Track pattern | Meaning |
 |---|---|
 | **Inner ring: track all round, centred and uniform; outer ring: track over ~1/3 of the circumference in the load direction, centred** | Normal for a rotating inner ring with a fixed-direction radial load: the correct picture |
@@ -14060,6 +14316,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## V-belts (classical A/B/C/D, narrow 3V/5V/8V, cogged)
 
+![V-belt wear patterns and what they mean](/img/troubleshooting/v-belt-wear-patterns.svg)
+
+*V-belt wear patterns and what they mean*
+
 | What you see | Cause | Fix |
 |---|---|---|
 | **Sidewalls glazed** (shiny, hard) and belt squeals on start or under load | **Slipping**: under-tensioned, overloaded, worn sheave grooves, oil | Retension to the deflection spec (see [V-belt installation](/article/v-belt-drive-installation-and-tensioning)); check groove wear with a gauge; check load; degrease |
@@ -14145,6 +14405,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## First: measure what the coupling saw
 
 Before blaming the part, record: the alignment as found (rim and face or laser), the gap or DBSE against the spec, the hub fits and set-screw/key condition, motor amps against nameplate, the number of starts per hour, any reversing or shock, the running temperature of the coupling (IR gun on the guard vents), and vibration at the bearings. See [coupling types, gap and installation](/article/coupling-types-gap-and-installation).
+
+![What is under the guard for each coupling family](/img/troubleshooting/coupling-wear-signs.svg)
+
+*What is under the guard for each coupling family*
 
 ## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)
 
@@ -14239,6 +14503,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## The 10-minute running check
 
+![Vibrating, noisy or hot: the branches](/img/troubleshooting/machine-trouble-tree.svg)
+
+*Vibrating, noisy or hot: the branches*
+
 1. **Where is it worst?** Walk around with a hand on the housings (or the vibration pen): which bearing, which machine (driver or driven), which direction (horizontal, vertical, axial)?
 2. **Temperatures** by IR: every bearing housing, motor frame, gearbox, coupling guard, belt sheaves; compare ends and compare to the baseline.
 3. **Listen** with a stethoscope or screwdriver at each bearing and at the gear mesh: smooth hiss (fine), rough growl (bearing), whine rising with speed (gear or misalignment), knock once per revolution (looseness, damaged tooth, bent shaft), rattle at random (loose part), squeal (belt), gravel (cavitation).
@@ -14329,6 +14597,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Mechanical seals: reading the faces
 
 Two lapped faces (usually a carbon rotating face against a silicon carbide or tungsten carbide stationary, or hard against hard for abrasive service) run on a film of the pumped liquid a few microns thick. Anything that breaks that film, tilts the faces, or attacks the parts shows up on the faces and the secondary seals.
+
+![Seal face wear track patterns](/img/troubleshooting/seal-face-patterns.svg)
+
+*Seal face wear track patterns*
 
 | What you see | What it means | Root cause and fix |
 |---|---|---|

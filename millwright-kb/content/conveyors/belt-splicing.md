@@ -14,6 +14,10 @@ summary: "A splice is only as good as the square cut behind it: this covers find
 
 A crooked cut makes a splice that steers the belt every revolution; a tape across the belt is not square to a belt whose edges are not straight.
 
+![Squaring the belt end from the centreline](/img/conveyors/belt-end-squaring.svg)
+
+*Squaring the belt end from the centreline*
+
 **Centreline (five-point) method**
 
 1. Mark the belt's **centre** at **five places** over 8-10 ft of the end: at each, measure the belt's width and mark the mid-point (not from one edge to a fixed distance: belts are not uniform).

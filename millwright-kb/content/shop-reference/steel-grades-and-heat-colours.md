@@ -99,6 +99,10 @@ summary: "The grades a millwright meets in bar racks, shafts, keys, sprockets, t
 
 Used to temper hardened tools by eye, and to read how hot a part or bearing got. Colours appear in this order on a polished surface heated slowly; they are only valid on clean bright steel and shift with alloy content.
 
+![Temper colours and heat colours](/img/shop-reference/temper-and-heat-colours.svg)
+
+*Temper colours and heat colours*
+
 | Colour | °F | °C | Typical use of that temper |
 |---|---|---|---|
 | Faint straw / very pale yellow | 400 | 204 | Scrapers, lathe tools, engraving tools (maximum hardness retained) |

@@ -21,6 +21,10 @@ A **qualified person** has training in the construction and operation of the equ
 
 ## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)
 
+![Arc flash, limited and restricted approach boundaries](/img/motors-electrical/approach-boundaries.svg)
+
+*Arc flash, limited and restricted approach boundaries*
+
 | Nominal voltage | **Limited approach boundary** (unqualified persons stay outside; qualified escort to enter) | **Restricted approach boundary** (qualified persons only, with shock PPE and a plan) |
 |---|---|---|
 | 50-150 V (120 V control, 120/208 receptacles) | 3 ft 6 in (1.0 m) (exposed movable conductors: 10 ft) | Avoid contact |

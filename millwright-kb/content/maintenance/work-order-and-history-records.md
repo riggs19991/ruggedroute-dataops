@@ -58,6 +58,10 @@ Most CMMS use a three-level code: **component** (bearing, seal, coupling, belt, 
 
 ## MTBF, MTTR and availability (the simple version)
 
+![MTBF, MTTR and availability on a timeline](/img/maintenance/mtbf-timeline.svg)
+
+*MTBF, MTTR and availability on a timeline*
+
 ```
 MTBF (mean time between failures) = operating hours in the period ÷ number of failures
 MTTR (mean time to repair)         = total repair (downtime) hours ÷ number of failures

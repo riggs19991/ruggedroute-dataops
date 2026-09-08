@@ -21,6 +21,10 @@ summary: "Which spares a maintenance department must hold and how to decide, the
 
 ## Bearings
 
+![Bearing storage rules](/img/maintenance/bearing-storage-rules.svg)
+
+*Bearing storage rules*
+
 - **Keep them in the original sealed wrapping** until the moment of fitting; the factory preservative is the corrosion protection. Do not wash new bearings (unless the maker says to remove a heavy preservative before grease-lubed use, and then only with clean solvent and immediate lubrication).
 - **Flat on the shelf**, not standing on the edge (large bearings can distort); large bearings on wooden pallets or racks, not concrete.
 - **Dry**: relative humidity under 60-65%, temperature steady (condensation from temperature swings is the enemy); away from doors, roof leaks and washdown.

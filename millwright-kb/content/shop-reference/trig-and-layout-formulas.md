@@ -10,6 +10,10 @@ summary: "The trig a millwright uses in the field: solving right triangles, laws
 
 ## Right triangles
 
+![Right triangle functions and offset factors](/img/shop-reference/right-triangle-and-offset.svg)
+
+*Right triangle functions and offset factors*
+
 ```
 Pythagoras      c² = a² + b²        c = hypotenuse
 sin θ = opposite / hypotenuse       cos θ = adjacent / hypotenuse       tan θ = opposite / adjacent

@@ -10,6 +10,10 @@ summary: "The strength-of-materials formulas behind millwright decisions: shear 
 
 ## Shafts in torsion
 
+![Shaft torsion and key shear](/img/shop-reference/shaft-torsion-and-key-shear.svg)
+
+*Shaft torsion and key shear*
+
 ```
 Torque from power                 T (in-lb) = 63 025 × HP / rpm
 Shear stress, solid shaft         τ = 16 T / (π d³) = 5.09 × T / d³            (psi, T in-lb, d in)

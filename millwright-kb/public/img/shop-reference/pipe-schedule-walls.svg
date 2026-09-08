@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" width="500" height="220" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Pipe schedule walls</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="220" fill="#ffffff"/>
+<text x="90" y="30" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Sch 40</text>
+<circle cx="90" cy="110" r="60" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="90" cy="110" r="53.68000000000001" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="90" y="190" font-size="10" text-anchor="middle" fill="#5b6577">wall 0.237 in · 4.026 in ID</text>
+<text x="250" y="30" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Sch 80</text>
+<circle cx="250" cy="110" r="60" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="250" cy="110" r="51.013333333333335" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="190" font-size="10" text-anchor="middle" fill="#5b6577">wall 0.337 in · 3.826 in ID</text>
+<text x="410" y="30" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Sch 160</text>
+<circle cx="410" cy="110" r="60" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="410" cy="110" r="45.84" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="410" y="190" font-size="10" text-anchor="middle" fill="#5b6577">wall 0.531 in · 3.438 in ID</text>
+<text x="250" y="212" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Above NPS 12 the OD equals the nominal size; below it does not.</text>
+</svg>

@@ -23,6 +23,10 @@ summary: "The specific rules for the tools a millwright uses every day: abrasive
 
 **Wheel selection**
 
+![Guard position and kickback direction on an angle grinder](/img/safety/grinder-guard-and-kickback.svg)
+
+*Guard position and kickback direction on an angle grinder*
+
 - The wheel's **rated rpm must be equal to or higher than the grinder's** no-load rpm (4-1/2" grinders run 10,000-11,000 rpm; wheels are marked 13,300 rpm; a 7" wheel rated 8,500 rpm on a 4-1/2" grinder **explodes**). Never fit a bigger wheel than the guard was made for.
 - Type 27 (depressed centre) for grinding at 15-30°; Type 1 (flat cut-off) for cutting only, never for side grinding (they snap); Type 41/42 cut-off wheels need the **Type 1 cut-off guard** (closed on the top and back). Never use a cut-off wheel for grinding or a grinding wheel for cutting.
 - Check the expiry date on resin-bonded wheels (3 years from manufacture, printed on the metal ring); dispose of expired, cracked, chipped, wet or dropped wheels.

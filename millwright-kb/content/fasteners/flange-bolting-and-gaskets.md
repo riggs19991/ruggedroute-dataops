@@ -10,6 +10,10 @@ summary: "Two bolting jobs with their own rules: the pressure-boundary flange, w
 
 ## Part 1: flanges
 
+![Star pattern numbering and torque passes](/img/fasteners/flange-star-pattern.svg)
+
+*Star pattern numbering and torque passes*
+
 ### Before the bolts go in
 
 1. **Flange faces**: clean to bare metal (no old gasket, no rust scale, no sealant), inspected for **radial scratches** across the seating surface (a leak path; a scratch that catches a fingernail on a raised face is a re-facing job), pits, warping (a straightedge across the face in two directions: within about 0.005-0.010"), and the **finish**: **125-250 µin (serrated, "stock finish")** for soft/sheet and spiral-wound gaskets; smoother (63-125) for PTFE and metal; RTJ grooves smooth and undamaged.

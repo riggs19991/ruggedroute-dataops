@@ -52,6 +52,10 @@ Millwright examples: tanks, vessels, boilers, reactors, mixers, dryers, kilns, s
 
 ## Roles (every entry has all three)
 
+![Entry setup: tripod, blower, entrant, attendant, monitor](/img/safety/confined-space-setup.svg)
+
+*Entry setup: tripod, blower, entrant, attendant, monitor*
+
 | Role | Must |
 |---|---|
 | **Entry supervisor** | Verify tests, permit, rescue availability; authorise entry; cancel the permit when done or when conditions change |

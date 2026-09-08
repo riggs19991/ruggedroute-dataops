@@ -18,6 +18,10 @@ A three-phase motor has three winding groups (phases) that are connected interna
 
 Leads T1-T9 are brought out; inside the motor, T7, T8 and T9 are joined to form the star point of one set of winding halves:
 
+![9-lead wye low and high voltage connections](/img/motors-electrical/nine-lead-wye.svg)
+
+*9-lead wye low and high voltage connections*
+
 ```
    HIGH voltage (460 V): series
       L1 – T1        L2 – T2        L3 – T3

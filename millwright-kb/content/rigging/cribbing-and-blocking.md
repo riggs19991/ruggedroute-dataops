@@ -25,6 +25,10 @@ Keep cribbing in sets of uniform length (18", 24", 36" for 4x4; 24-48" for 6x6),
 
 ## Box crib rules
 
+![2x2 and 3x3 box cribs and the 3:1 height rule](/img/rigging/box-crib.svg)
+
+*2x2 and 3x3 box cribs and the 3:1 height rule*
+
 1. Layers at **90°** to each other, timbers at the **outside edges** of the stack (the load path is through the crossing points).
 2. **Two timbers per layer** minimum ("2x2 crib"); **three per layer** ("3x3") roughly doubles capacity because there are 9 crossing points instead of 4.
 3. **Height no more than 3 × the smallest base width** (a 24"-wide crib: 72" max) for a free-standing crib; 2:1 if the load could shift or the crib is on a marginal base. Tall cribs get racked and walk out.

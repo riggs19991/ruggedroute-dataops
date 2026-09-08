@@ -41,6 +41,10 @@ Most "broken" bolts are seized bolts; before anything else:
 
 A nut welded to the stub gives a hex to turn, and the **weld's heat expands and shocks the bolt** in the hole: bolts that have defeated everything else come out with a nut welded on. It works on stubs proud, flush, and even slightly below the surface (a washer first, then a nut).
 
+![Welding a nut on a stub and a left-hand drill](/img/machining/broken-bolt-nut-weld.svg)
+
+*Welding a nut on a stub and a left-hand drill*
+
 1. Clean the stub's end; pick a **nut whose hole is a little larger than the stub** (a 1/2" nut for a 3/8" stub, or the stub's own size if it is proud enough to sit in the nut's bore) so the weld fills the gap between the nut's bore and the stub's end; for a stub below the surface, weld a **thick washer** on first (the hole in the washer over the stub, weld through the hole to the stub), then a nut on the washer.
 2. Protect the part: a copper or brass shim or a washer of the stub's size over the surrounding threads/bore if the weld could stick to the part (a threaded hole in aluminium: weld does not stick, but heat does damage: keep it quick), and shield anything nearby from spatter.
 3. **MIG** (the easiest): .035 wire at a fairly hot setting (about 130-160 A, 19-21 V), start the arc **in the centre of the nut on the stub's end**, fill the nut's bore with a puddle spiralling out to the nut's chamfer, 3-5 seconds; **TIG**: DCEN 100-150 A with ER70S-6 filler, the same fill; **stick**: 3/32" 7018 or 6011 at 80-100 A (harder to keep in the nut); on a stub deep in a hole, a **long-nozzle** MIG or a TIG torch reaches in.

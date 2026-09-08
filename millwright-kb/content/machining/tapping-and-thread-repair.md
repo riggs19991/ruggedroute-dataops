@@ -12,6 +12,10 @@ summary: "How to cut a thread that fits and lasts, by hand or on the press, how 
 
 ## Tap types
 
+![Thread percentage and tap types](/img/machining/tap-drill-and-tap-types.svg)
+
+*Thread percentage and tap types*
+
 | Tap | Shape | Use |
 |---|---|---|
 | **Taper (starter)** | 8-10 threads chamfered | Starting a thread by hand, through holes, a hand set's first tap |

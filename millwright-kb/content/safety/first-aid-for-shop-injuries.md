@@ -12,6 +12,10 @@ summary: "What to do in the first minutes for the injuries millwrights actually 
 
 ## First minute, any serious injury
 
+![First-minute priorities](/img/safety/first-aid-priorities.svg)
+
+*First-minute priorities*
+
 1. **Scene safe?** Isolate the machine, kill the power, stop the flow (lockout, e-stop, main valve), get the person out of the crush or the gas, without becoming the second casualty (confined space, electrical, chemical: see those articles).
 2. **Call** (or send someone with a clear message: location, what happened, how many, what is wrong) and send someone to meet the ambulance at the gate.
 3. **Bleeding** that is spurting or pooling: stop it now (below).

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200" width="500" height="200" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Shaft, bore and annulus areas</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="200" fill="#ffffff"/>
+<text x="85" y="24" font-size="11.5" text-anchor="middle" font-weight="600" fill="#1a2233">Shaft</text>
+<circle cx="85" cy="90" r="45" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<text x="85" y="160" font-size="11" text-anchor="middle" font-weight="600" fill="#0b5fa5">A = 0.7854 × D²</text>
+<text x="250" y="24" font-size="11.5" text-anchor="middle" font-weight="600" fill="#1a2233">Bore</text>
+<rect x="195" y="40" width="110" height="100" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="250" cy="90" r="45" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="160" font-size="11" text-anchor="middle" font-weight="600" fill="#0b5fa5">A = 0.7854 × D²</text>
+<text x="415" y="24" font-size="11.5" text-anchor="middle" font-weight="600" fill="#1a2233">Annulus (rod side)</text>
+<circle cx="415" cy="90" r="45" fill="#dbeafe" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="415" cy="90" r="20" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<text x="415" y="160" font-size="11" text-anchor="middle" font-weight="600" fill="#0b5fa5">A = 0.7854 × (D² − d²)</text>
+<text x="250" y="192" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">4 in bore, 2 in rod: cap side 12.57 in², rod side 12.57 − 3.14 = 9.42 in².</text>
+</svg>

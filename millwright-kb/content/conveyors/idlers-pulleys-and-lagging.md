@@ -10,6 +10,10 @@ summary: "The two jobs a conveyor millwright does most: changing idlers and roll
 
 ## Idlers
 
+![Idler set and lagged pulley](/img/conveyors/idler-set-and-pulley.svg)
+
+*Idler set and lagged pulley*
+
 ### Inspection on the run (from outside the guards)
 
 - **A roll that does not turn** (a shiny flat wearing on it, a squeal or a rumble, a hot roll: feel with an IR gun from outside): the bearing has seized or the shaft has spun in the frame; the roll wears a flat, heats the belt, and can ignite it (coal, grain, sulphur); replace now.

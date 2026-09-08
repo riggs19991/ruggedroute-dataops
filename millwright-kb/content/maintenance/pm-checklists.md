@@ -12,6 +12,10 @@ summary: "Ready-to-use PM checklists for the equipment on every millwright's rou
 
 ## General rules for every route
 
+![Typical PM intervals by equipment](/img/maintenance/pm-interval-chart.svg)
+
+*Typical PM intervals by equipment*
+
 - Running checks first (noise, heat, vibration, leaks, gauges, amps) with the machine on; lockout for anything hands-on.
 - Take readings the **same way, same place, same load** each time; mark the measuring points with paint.
 - Record: date, reading, who, and what was done (topped up 2 oz grease, tightened belts to 1/2 in deflection).

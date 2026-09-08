@@ -10,6 +10,10 @@ summary: "One-page shop math for millwrights: fraction-decimal-mm equivalents, U
 
 ## Fraction - decimal - millimetre
 
+![One inch in sixteenths with decimals and millimetres](/img/shop-reference/fraction-decimal-ruler.svg)
+
+*One inch in sixteenths with decimals and millimetres*
+
 | Fraction | Decimal | mm | | Fraction | Decimal | mm |
 |---|---|---|---|---|---|---|
 | 1/64 | .0156 | 0.397 | | 33/64 | .5156 | 13.097 |

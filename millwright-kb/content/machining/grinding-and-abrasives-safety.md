@@ -14,6 +14,10 @@ A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" whee
 
 ## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)
 
+![Tool rest and tongue guard gaps on a bench grinder](/img/machining/bench-grinder-gaps.svg)
+
+*Tool rest and tongue guard gaps on a bench grinder*
+
 | Rule | Why |
 |---|---|
 | **Work rest within 1/8" (3 mm)** of the wheel, adjusted as the wheel wears; rigid | A gap bigger than that lets the work (or a finger) wedge between the rest and the wheel: the wheel breaks or the hand goes in |
@@ -38,6 +42,10 @@ A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" whee
 ## Angle grinders, cut-off wheels and die grinders (1910.243)
 
 Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safety essentials:
+
+![Angle grinder guard position and kickback zone](/img/safety/grinder-guard-and-kickback.svg)
+
+*Angle grinder guard position and kickback zone*
 
 - **Guard on**, positioned between the wheel and you; the cut-off (closed) guard for Type 1/41 wheels; the wheel's rpm rating ≥ the grinder's; the right flanges and the lock nut for the wheel type (a Type 27 depressed-centre wheel needs the raised flange); no pipe flanges or washers as substitutes.
 - **Two hands** (the side handle on), the body out of the plane of the wheel, the **dead-man (paddle) switch** and **no lock-on**; a wheel that has been dropped is scrapped; run a new wheel a minute pointed away.

@@ -47,6 +47,10 @@ The electrician or the controls tech programs the drive; the millwright needs to
 
 The PWM output has a **common-mode voltage** that couples through the motor's capacitances to the shaft; the shaft voltage discharges through the **bearing's oil film** thousands of times a second: **EDM pitting → fluting** (the washboard raceway), grease turned black, a bearing that fails in months (see [bearing failure analysis](/article/bearing-failure-analysis)). Signs: a bearing failure pattern of fluting on a VFD-driven motor, often the **non-drive end** first, repeated failures after replacement, a rising vibration at bearing frequencies, and a shaft voltage measurable with a brush and an oscilloscope (over about 5-10 V peak is trouble).
 
+![Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing](/img/motors-electrical/vfd-bearing-currents.svg)
+
+*Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing*
+
 Fixes (the drive and the motor together):
 
 1. **Shaft grounding ring** (AEGIS SGR or similar carbon-fibre brush ring, or a maintenance-free brush) on the motor shaft, usually at the drive end, giving the current a path to the frame instead of through the bearing; a **conductive** grease under it; install per the ring's instructions (the shaft area cleaned to bare metal and coated with the conductive epoxy where specified; the ring's fibres on a clean shaft, not painted or rusted).

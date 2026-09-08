@@ -78,6 +78,10 @@ Pipe-thread identification: measure the **OD** and count the **TPI**; check for 
 
 ## Measuring a thread (three steps)
 
+![Measuring major diameter and pitch; the look-alike families](/img/fasteners/thread-identification.svg)
+
+*Measuring major diameter and pitch; the look-alike families*
+
 1. **Major diameter** with a caliper (a male thread: over the crests; a female thread: measure across the crests inside for the minor diameter and add roughly 1.1 × the pitch to estimate the size, or measure a bolt that fits); inch and metric sizes are close in places: **the diameter alone is not enough**.
 2. **Pitch** with a **screw pitch gauge** (a set of blades marked in TPI for inch, mm for metric; a 55° Whitworth set for BSP): try blades until one sits **fully** in the thread with no light along its length; a blade that "almost" fits is the wrong one (a 1.5 mm blade on a 16 TPI thread (1.588 mm) looks close and is wrong). No gauge: count the threads in **1"** (or measure 10 threads with a caliper and divide: 10 threads over 0.625" = 16 TPI; 10 threads over 15 mm = 1.5 mm pitch).
 3. **Match** the diameter and the pitch to the tables; check the **angle** (55° vs 60°) on anything that could be pipe; check the **hand** (hold the bolt horizontal and look at the threads on the side facing you: on a right-hand thread they slope **up to the left**; the reliable test is that a right-hand nut goes on clockwise); check **taper** on pipe threads.

@@ -12,6 +12,10 @@ summary: "A task-by-task PPE table for the work a millwright actually does, then
 
 ## By task
 
+![PPE by task at a glance](/img/safety/ppe-by-task.svg)
+
+*PPE by task at a glance*
+
 | Task | Eyes / face | Hearing | Hands | Respiratory | Other |
 |---|---|---|---|---|---|
 | General plant / shop | Z87+ safety glasses with side shields | Plugs or muffs above 85 dBA (most plant floors) | Task gloves | | Hard hat where overhead work or cranes; safety boots |

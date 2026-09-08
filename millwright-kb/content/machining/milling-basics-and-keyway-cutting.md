@@ -16,6 +16,10 @@ A **vertical knee mill** (Bridgeport and clones): the **head** (a variable-speed
 
 The spindle must be **square to the table** or a face-milled surface is dished, a bored hole is tapered and a slot is wider at the top:
 
+![Tramming the head and cutting a shaft keyway](/img/machining/tram-and-keyway.svg)
+
+*Tramming the head and cutting a shaft keyway*
+
 1. A **dial indicator on an arm in the spindle** (a tramming bar or an indicator holder in a collet), the tip on the table (or on a parallel/ground plate on the table, or a ring gauge) at about a 6-10" radius.
 2. Rotate the spindle by hand: read at **front and back** (the head's tilt about the X axis: the nod) and at **left and right** (the swivel about Y).
 3. Adjust: loosen the head's bolts a little, tap or turn the adjusting worm until the front/back reads within **0.001" over the sweep** (and left/right), tighten in sequence, re-check (tightening moves it).

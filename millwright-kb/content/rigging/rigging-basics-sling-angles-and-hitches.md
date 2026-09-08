@@ -29,6 +29,10 @@ The hook must be directly above the CG or the load will swing and tilt when it l
 
 When sling legs are not vertical, each leg carries **more** than its share. The angle is measured **from the horizontal**.
 
+![Sling angle factors and the three hitches](/img/rigging/sling-angles-and-hitches.svg)
+
+*Sling angle factors and the three hitches*
+
 | Horizontal sling angle | Load factor (multiply per-leg share by this) |
 |---|---|
 | 90° (vertical) | 1.000 |
@@ -64,6 +68,10 @@ Read the capacity from the **sling tag** for the hitch you are using. A sling wi
 Bending a sling around a small diameter cuts its strength. **D** = diameter of the object the sling bends around; **d** = sling diameter. Wire rope: keep D/d at **25 or more** for full rating; at D/d = 1 (a sling around a shackle pin of its own size) the rope is at roughly 50%. Synthetic round slings have similar limits; use their chart.
 
 ## Hardware
+
+![Correct shackle loading and side-load derating](/img/rigging/shackle-loading.svg)
+
+*Correct shackle loading and side-load derating*
 
 - **Shackles**: use the WLL stamped on the bow. Screw-pin shackles for temporary rigging, bolt-type (with nut and cotter) if the pin could rotate. Never replace the pin with a bolt. Side-loading a shackle derates it (45° ≈ 70%, 90° ≈ 50%). Pin in the hook or the fixed eye; the running sling goes in the bow.
 - **Hooks**: load in the bowl, never on the tip. Latch working. Throat opening stretched more than 5% = scrap.

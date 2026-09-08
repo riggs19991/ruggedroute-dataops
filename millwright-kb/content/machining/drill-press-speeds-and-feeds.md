@@ -10,6 +10,10 @@ summary: "Everything for making a good hole on the drill press: the formula and 
 
 ## The formula
 
+![rpm versus drill diameter for three materials](/img/machining/drill-rpm-chart.svg)
+
+*rpm versus drill diameter for three materials*
+
 ```
    rpm = (SFM × 12) ÷ (π × D) = (SFM × 3.82) ÷ D          D = drill diameter (in), SFM = cutting speed (surface feet per minute)
    metric: rpm = (V × 1000) ÷ (π × D) = (V × 318) ÷ D    V in m/min, D in mm

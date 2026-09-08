@@ -12,6 +12,10 @@ summary: "Galling is the cold-welding of threads that turns a stainless bolt int
 
 When two metal surfaces slide under pressure with no film between them, the microscopic peaks **weld** (adhesive wear); on threads the welded spots tear, the torn metal drags and welds again, and within a turn the nut is **seized solid**: it will not go on or come off, and the fastener is cut off. Metals that gall: **stainless steel** (300 series worst: it work-hardens and its oxide film is thin), **aluminium, titanium, nickel alloys**, and soft or unplated steel on itself under heavy load. It is worse with: **stainless on stainless of the same grade**, fine threads, high tightening speed (an impact wrench: the heat of friction), high preload, rough or damaged threads, a dry assembly, and high temperature.
 
+![How galling starts and how anti-seize changes torque](/img/fasteners/galling-and-anti-seize.svg)
+
+*How galling starts and how anti-seize changes torque*
+
 Prevent galling by: **lubricating the threads** (anti-seize is the lubricant of choice), **slow** tightening (hand tools, no impacts on stainless), **dissimilar hardness or grade** (a 304 bolt with a 316 nut, or a stainless bolt with a bronze or a coated/plated nut), rolled (not cut) threads, coarse threads over fine, a lower preload where the design allows, and **not** forcing a fastener that starts to bind (stop, back off, lubricate).
 
 ## Anti-seize types
