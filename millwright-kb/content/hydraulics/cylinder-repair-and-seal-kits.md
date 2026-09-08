@@ -63,15 +63,15 @@ Lay everything out in order on a clean bench; photograph the seal stack in the g
 
 ```
    ROD END (gland), from outside in:
-     wiper (scraper) — lip facing OUT (scrapes dirt off the rod on the return stroke)
-     rod seal (U-cup, or PTFE with an energiser) — lip facing IN toward the pressure (the sealing lip sees the oil)
-     buffer seal (on high-pressure/impulse cylinders) — behind the rod seal, facing the pressure
-     gland bearing / wear ring — guides the rod
+     wiper (scraper) : lip facing OUT (scrapes dirt off the rod on the return stroke)
+     rod seal (U-cup, or PTFE with an energiser) : lip facing IN toward the pressure (the sealing lip sees the oil)
+     buffer seal (on high-pressure/impulse cylinders) : behind the rod seal, facing the pressure
+     gland bearing / wear ring : guides the rod
      gland O-ring (static, between the gland and the head/barrel) with a backup ring on the LOW-pressure side of the O-ring
 
    PISTON:
-     piston seal — a double-acting T-seal / PTFE cap with an O-ring energiser (symmetric), or two U-cups back to back with the lips facing AWAY from each other (each sees its own pressure side)
-     wear rings (guide rings) — one each side of the seal, they take the side load; never omit them
+     piston seal : a double-acting T-seal / PTFE cap with an O-ring energiser (symmetric), or two U-cups back to back with the lips facing AWAY from each other (each sees its own pressure side)
+     wear rings (guide rings) : one each side of the seal, they take the side load; never omit them
      piston-to-rod O-ring (static) under the piston
    TUBE SEALS: O-rings (with backup rings on the outside on high pressure) between the tube ends and the heads
 ```

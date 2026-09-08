@@ -4081,15 +4081,15 @@ Lay everything out in order on a clean bench; photograph the seal stack in the g
 
 ```
    ROD END (gland), from outside in:
-     wiper (scraper) — lip facing OUT (scrapes dirt off the rod on the return stroke)
-     rod seal (U-cup, or PTFE with an energiser) — lip facing IN toward the pressure (the sealing lip sees the oil)
-     buffer seal (on high-pressure/impulse cylinders) — behind the rod seal, facing the pressure
-     gland bearing / wear ring — guides the rod
+     wiper (scraper) : lip facing OUT (scrapes dirt off the rod on the return stroke)
+     rod seal (U-cup, or PTFE with an energiser) : lip facing IN toward the pressure (the sealing lip sees the oil)
+     buffer seal (on high-pressure/impulse cylinders) : behind the rod seal, facing the pressure
+     gland bearing / wear ring : guides the rod
      gland O-ring (static, between the gland and the head/barrel) with a backup ring on the LOW-pressure side of the O-ring
 
    PISTON:
-     piston seal — a double-acting T-seal / PTFE cap with an O-ring energiser (symmetric), or two U-cups back to back with the lips facing AWAY from each other (each sees its own pressure side)
-     wear rings (guide rings) — one each side of the seal, they take the side load; never omit them
+     piston seal : a double-acting T-seal / PTFE cap with an O-ring energiser (symmetric), or two U-cups back to back with the lips facing AWAY from each other (each sees its own pressure side)
+     wear rings (guide rings) : one each side of the seal, they take the side load; never omit them
      piston-to-rod O-ring (static) under the piston
    TUBE SEALS: O-rings (with backup rings on the outside on high pressure) between the tube ends and the heads
 ```
@@ -5961,7 +5961,7 @@ Choose the shim size so the shim covers **most of the foot** (at least 75-80% of
 - After alignment, record the shim pack under each foot on the alignment sheet.
 - Never use washers, split shims, coins, hacksaw blades or shims with paint on them.
 
-Soft foot rules and the sequence for checking it: [soft foot](/article/soft-foot-correction)... see the alignment articles.
+Soft foot rules and the sequence for checking it: [soft foot](/article/soft-foot-correction) and the alignment articles.
 
 ## Cutting custom shims
 
@@ -11605,6 +11605,401 @@ Same formulas; keep every length in **mm** and you get mm² and mm³. 1 000 mm³
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hardness-conversion$mw$, $mw$Hardness Conversion Chart: Rockwell C and B, Brinell, Vickers and Approximate Tensile Strength for Steel, with the File Test, Portable Testers and What Hardness Numbers Mean on Drawings$mw$, $mw$One table to convert between Rockwell C, Rockwell B, Brinell, Vickers and approximate tensile strength for carbon and alloy steel, the rules for when the conversion is valid, how to test hardness in the field with a file set, a Leeb tester or a portable Rockwell, and how to read hardness call-outs on drawings and bearing specs.$mw$, $mw$> Conversions are **approximate** and only for non-austenitic steels (carbon, alloy, tool, martensitic stainless). Aluminium, brass, austenitic stainless and cast iron have their own tables. A number converted twice is a guess. The tensile column is a rule of thumb, not a substitute for a test certificate.
+
+## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)
+
+| HRC | Vickers HV | Brinell HB (3,000 kg, 10 mm ball) | HRB | Approx. tensile (ksi) | Approx. tensile (MPa) | Typical of |
+|---|---|---|---|---|---|---|
+| 68 | 940 | – | – | – | – | Files, HSS at maximum |
+| 65 | 832 | – | – | – | – | HSS cutters, 52100 bearings, carbide-tipped |
+| 62 | 746 | (688 W) | – | – | – | O1/W1 knives and punches, bearing races (58-64) |
+| 60 | 697 | (654 W) | – | – | – | Hardened tool steel, ball bearings, hardfacing (chromium carbide) |
+| 58 | 653 | (615 W) | – | – | – | Case-hardened gears (58-62), induction-hardened shafts |
+| 55 | 595 | 560 | – | – | – | Shear blades, hard chrome plate (65-70 HRC) sits above this |
+| 52 | 544 | 512 | – | (270) | (1,860) | Springs, hardened 4140 (54-57 as quenched) |
+| 50 | 513 | 481 | – | 246 | 1,700 | Flame-hardened 1045 journals (50-58), S7 chisels |
+| 48 | 484 | 455 | – | 232 | 1,600 | |
+| 46 | 458 | 432 | – | 220 | 1,520 | Hardened bolts (Grade 8 tops at 39), hardfacing (martensitic) |
+| 45 | 446 | 421 | – | 212 | 1,460 | |
+| 44 | 434 | 409 | – | 204 | 1,410 | H13 hot-work tooling (44-52) |
+| 42 | 412 | 390 | – | 196 | 1,350 | |
+| 40 | 392 | 371 | – | 182 | 1,260 | 4340 Q&T high-strength shafts (36-40), 410 stainless hardened |
+| 38 | 372 | 353 | – | 171 | 1,180 | AR400 plate (360-440 HB), Grade 8 bolts (33-39) |
+| 36 | 354 | 336 | – | 162 | 1,120 | |
+| 34 | 336 | 319 | – | 152 | 1,050 | |
+| 32 | 318 | 301 | – | 146 | 1,010 | **4140 pre-hard (28-32)**, Grade 8 bolts low end, P20 |
+| 30 | 302 | 286 | – | 138 | 950 | Grade 5 bolts (25-34), 17-4 H1150 |
+| 28 | 286 | 271 | – | 131 | 900 | 4140 Q&T low end |
+| 26 | 272 | 258 | – | 124 | 850 | Ductile iron 80-55-06 (about 240-300 HB) |
+| 24 | 260 | 247 | (101) | 118 | 815 | 1144 Stressproof (250 HB) |
+| 22 | 248 | 237 | 100 | 112 | 770 | Weld deposit E7018 (about 200-240 HB) |
+| 20 | 238 | 226 | 98 | 107 | 740 | 4140 annealed (197 HB) is just below |
+| (18) | 228 | 217 | 96 | 105 | 725 | Ductile 65-45-12 (170-230 HB), grey iron class 40 |
+| (15) | 210 | 200 | 93 | 95 | 655 | Grey iron class 30 (180-220 HB), 1045 HR (163 HB) is below |
+| (12) | 190 | 180 | 89 | 87 | 600 | |
+| (8) | 170 | 163 | 85 | 80 | 550 | 1045 hot-rolled, A572-50 |
+| (3) | 155 | 149 | 80 | 73 | 500 | |
+| – | 143 | 137 | 76 | 67 | 460 | A36 plate (about 120-160 HB), 1018 CR (126 HB) |
+| – | 127 | 121 | 70 | 60 | 415 | 1018 HR, 1020 |
+| – | 117 | 111 | 65 | 55 | 380 | Low-carbon, annealed |
+| – | 105 | 100 | 58 | 50 | 345 | Dead-soft steel |
+
+Notes: "W" = tungsten carbide ball (the steel ball is not valid above 444 HB / 47 HRC). HRB is used below about 20 HRC (HRB 100 ≈ 20-22 HRC); the scales overlap between HRB 90 and 100 but neither is accurate there, which is why drawings for soft parts call out HB. Bracketed HRC values below 20 are extrapolations and not a real Rockwell C reading.
+
+**Rule of thumb for steel**: **tensile (ksi) ≈ 0.5 × HB** (more exactly 0.485-0.5 up to about 400 HB); **tensile (MPa) ≈ 3.45 × HB**. Yield is roughly 0.75-0.85 of tensile for Q&T steels, 0.5-0.6 for hot-rolled mild steel. 1 HRC point ≈ 8-10 HB in the 20-40 HRC range.
+
+## Other scales you will see
+
+| Scale | Indenter / load | Used for |
+|---|---|---|
+| **HRC** (Rockwell C) | 120° diamond cone, 150 kg | Hardened steel, 20-70 HRC; the shop standard |
+| **HRB** (Rockwell B) | 1/16 in ball, 100 kg | Soft steel, brass, aluminium, 0-100 HRB |
+| **HRA** | Diamond, 60 kg | Carbides (85-93 HRA), thin case-hardened layers |
+| **HR15N / 30N / 45N** (superficial) | Diamond, 15/30/45 kg | Thin cases, nitrided surfaces, sheet; HR15N 90 ≈ 60 HRC |
+| **HB** (Brinell) | 10 mm ball, 3,000 kg (500 kg for aluminium/soft metals) | Castings, forgings, plate, structural, AR plate (large indent averages a coarse structure) |
+| **HV** (Vickers) | Diamond pyramid, 1-120 kg | Labs, welds (HV10 across a HAZ), thin layers; single continuous scale |
+| **HK** (Knoop) | Elongated diamond, light loads | Micro-hardness, coatings |
+| **HL** (Leeb) | Rebound of a tungsten-carbide ball | Portable testers (Equotip type); converts to HRC/HB by the instrument, only accurate on heavy (over about 10 lb), rigid, clean, finished parts |
+| **Shore scleroscope** | Drop hammer rebound | Old drawings; Shore 90 ≈ 65 HRC |
+| **Mohs** | Scratch | Minerals, not metals |
+| **Shore A / D durometer** | Rubber and plastics | O-rings (70 A typical), urethane (90 A), Hytrel (55 D); not comparable to metal scales |
+
+Aluminium: 6061-T6 ≈ 95 HB (500 kg) ≈ 60 HRB; 7075-T6 ≈ 150 HB; cast 356-T6 ≈ 80 HB. Copper alloys: C932 bronze ≈ 65 HB; C954 aluminium bronze ≈ 170 HB; brass 360 ≈ 60 HRB. Austenitic stainless: 304 annealed ≈ 150-200 HB (up to 300+ cold-worked); no HRC (they are in HRB or HB).
+
+## Field testing
+
+**File test (hardness file set)**: six files hardened to **40, 45, 50, 55, 60 and 65 HRC**, colour-coded. Draw each file across an edge with firm pressure starting from the softest: the first file that **skates** (will not bite) means the part is at or above that file's hardness; the last that bites is below it. Accuracy about ±3 HRC on a clean, unscaled corner. Without a set: a new mill file (about 62-64 HRC) bites into anything under about 55-58 HRC and skates on hardened bearing races and tool steel; a scratch awl (55-60) tells you soft from hard. Test on a ground spot, not on scale or a case that may be thin.
+
+**Portable Leeb (rebound) tester**: quick and non-marking; needs a mass over about 10 lb (or coupling to a block), a smooth ground spot (under 1.6 µm Ra for the D probe), thickness over 3/16 in (or coupled), and a reading taken as the average of 5 impacts at least 1/8 in apart; reads high on thin sections and on parts that ring. Calibrate on the test block that comes with it before a job that matters.
+
+**Portable Rockwell or Brinell (clamp-on)**: accurate on the part when the anvil and indenter are square and the surface is prepared; the King portable Brinell is the standard for plate and castings in the field.
+
+**Bench Rockwell** rules: flat, clean, scale-free surface, ground both sides for thin parts; part thickness at least 10× the indent depth (about 1/16 in for 20 HRC, thinner for harder); indents at least 3 diameters apart and from the edge; the first reading after changing the anvil or indenter is discarded; verify on the test block daily.
+
+## Reading hardness on drawings and specs
+
+- **"HRC 58-62"** on a shaft journal or gear tooth: surface hardness, usually with a case depth call-out: "**effective case depth 0.030-0.040 in at 50 HRC**" means the depth at which hardness has dropped to 50 HRC. Total case depth is deeper. A regrind that takes 0.020 in off a 0.030 in case leaves nothing.
+- **"Through-hardened 28-32 HRC"**: pre-hard 4140 or Q&T; the whole section. Machinable with carbide.
+- **"Induction-hardened 0.060 in min, 55 HRC min"**: the hardened zone is local (a journal, a tooth flank); the rest of the shaft is the base hardness (about 20 HRC for 1045).
+- **"250-300 HB"** on a plate or casting: Brinell, because it is soft or coarse.
+- **"Hard chrome 0.002-0.003 in, 65-70 HRC"**: a plated layer; the substrate is whatever the base was.
+- **Bearing steel** (52100 rings and rollers) is 58-64 HRC; a shaft seat should be **over 300 HB (about 32 HRC)** for heavy interference fits on rotating shafts to avoid fretting, and a set-screw insert bearing wants a shaft under about 35 HRC so the screw can bite.
+- **Weld deposits**: E7018 about 200-240 HB; hardfacing 45-62 HRC; a HAZ over 350 HV on a carbon steel means it hardened and may crack (that number is why preheat exists; see [preheat and CE](/article/preheat-interpass-and-carbon-equivalent)).
+- **Bolts**: Grade 5 25-34 HRC, Grade 8 33-39 HRC, 8.8 22-32, 10.9 32-39, 12.9 39-44.
+
+## Worked example
+
+A drawing says a sprocket tooth is "58 HRC min, case 0.040 in". You have a file set: the 55 file skates, the 60 file bites lightly. Result: about 55-60 HRC at the surface: borderline; a Leeb tester on the hub face (the hub is soft: 20 HRC, that is normal) and on a ground flat on the tooth reads 59 HRC: accept. A worn tooth reground 0.045 in deep is below the case: the tooth is now 20 HRC and will wear in weeks.
+
+## Related
+
+- [Steel grades and heat colours (tempering hardness table)](/article/steel-grades-and-heat-colours)
+- [Metal identification and spark test](/article/metal-identification-and-spark-test)
+- [Bolt torque chart and bolt grades](/article/bolt-torque-chart-sae-metric)
+- [Bearing clearance and fits](/article/bearing-clearance-and-fits-tables)
+- [Hardfacing and build-up](/article/hardfacing-and-buildup)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$hardness conversion$mw$,$mw$Rockwell C$mw$,$mw$HRC$mw$,$mw$Rockwell B$mw$,$mw$HRB$mw$,$mw$Brinell$mw$,$mw$HB$mw$,$mw$BHN$mw$,$mw$Vickers$mw$,$mw$HV$mw$,$mw$tensile from hardness$mw$,$mw$hardness to tensile$mw$,$mw$file hardness test$mw$,$mw$hardness files$mw$,$mw$Leeb tester$mw$,$mw$portable hardness tester$mw$,$mw$shaft hardness$mw$,$mw$HRC to HB$mw$,$mw$HB to HRC$mw$,$mw$surface hardness$mw$,$mw$case depth$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASTM E140 (Standard Hardness Conversion Tables for Metals, non-austenitic steels) and ASTM A370 (hardness-tensile relationship); ISO 18265; SAE J417; Machinery's Handbook; file hardness test set data (Flexbar / Tsubosan).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$metal-identification-and-spark-test$mw$, $mw$Metal Identification in the Shop: Spark Test Chart, Magnet, Weight, Colour, Sound, File and Chip Tests, Spot Tests for Stainless Grades and Reading Mill Markings$mw$, $mw$How to work out what an unknown piece of metal is before you weld, machine or heat it: the spark test chart for carbon steels, cast iron, stainless, tool steels and alloys, then the magnet, weight, colour, sound, file, chip and spot tests, with a density table, the rules for reading stamped and painted mill markings, and what to assume when you still cannot tell.$mw$, $mw$> Identifying the metal decides the preheat, the filler, the cutting speed and whether the part will crack. When in doubt after every test below: **treat an unknown steel as a hardenable alloy** (preheat, low-hydrogen filler, slow cool) and an unknown cast as grey iron (nickel rod, peen, no quench). See [preheat and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent).
+
+## First: read what is written on it
+
+- **Mill stencil or stamp** on bar and plate: grade (A36, 1045, 4140, 304), heat number, size, producer. Cut-offs lose the stencil, which is why stock racks get labelled and off-cuts get the grade written on them in paint stick.
+- **Bar-stock colour codes** (paint on the end): **not standardised**; every supplier has a chart, and the plant's rack chart should be posted. Common but unreliable: cold-rolled 1018 = plain or green, 1045 = yellow, 4140 = red/orange, 12L14 = blue, O1 = white/gold, A2 = red/silver, D2 = purple. Use the supplier's chart, not memory.
+- **Castings** carry a pattern number and often the material (e.g. "65-45-12" is ductile iron, "CL30" grey iron, "A216 WCB" cast steel, "CF8M" cast 316).
+- **Fasteners**: head markings give the grade (see [bolt torque chart](/article/bolt-torque-chart-sae-metric)).
+- **Pipe and structural**: stencilled grade (A53, A106 Gr B, A500, A992).
+
+## Quick physical tests (no tools beyond a magnet, a file and a scale)
+
+| Test | Do | Result |
+|---|---|---|
+| **Magnet** | Touch a strong magnet | **Strong pull**: carbon and low-alloy steel, cast iron, 400-series stainless (410, 416, 420, 430), 17-4 PH, nickel, cobalt. **No or weak pull**: 300-series stainless (304, 316: a slight pull where cold-worked, e.g. at a sheared edge or a cold-drawn bar), aluminium, copper, brass, bronze, titanium, magnesium, zinc, lead, Monel is slightly magnetic, manganese (Hadfield) steel is non-magnetic |
+| **Weight / density** | Weigh a measured piece; compare to the table below | Steel and stainless 0.28-0.29 lb/in³; aluminium 0.10; titanium 0.16; brass/bronze/copper 0.30-0.32; lead 0.41; magnesium 0.065 |
+| **Colour** (fresh-ground or filed) | Grind a bright spot | Steel: bright grey; stainless: bright silver-white, stays bright; cast iron: dull grey with graphite flecks, darker; aluminium: white silver, very light; copper: red; brass: yellow; bronze: reddish-gold; titanium: dark grey-silver, greys quickly; nickel/Monel: silver-white, heavy |
+| **Sound** | Tap with a hammer, suspended | Steel: clear ring; cast iron: dull, short; aluminium: dull thud; brass/bronze: bright bell-like ring; a crack kills the ring in any of them |
+| **File** | Draw a new mill file across a corner | File skates = hardened steel (over about 60 HRC, files barely mark it: hardened tool steel, case hardening, chilled cast iron, carbide); bites easily = soft steel, aluminium, brass; grey smear and graphite dust = cast iron; see [hardness conversion](/article/hardness-conversion) for the file-set method |
+| **Chip** | Chisel or drill a chip | Low-carbon steel: long continuous curly chip, smooth; high-carbon or alloy: shorter, harder chips, breaks; cast iron: crumbles, small grey fragments, no curl; stainless: tough, stringy, work-hardens under a slow dull drill; aluminium: long continuous soft chip; brass: short brittle chips; bronze: short, tougher chips |
+| **Fracture** (a broken piece) | Look at the fracture face | Grey cast iron: dark grey, grainy, dull; ductile iron: silvery, some deformation; white iron: bright white crystalline, very hard; steel: fibrous silvery, deformation before breaking; a "fisheye" (bright spot) in steel is hydrogen cracking |
+| **Heat colour / oxidation** | Watch while heating | Steel goes through temper colours then red; stainless tints straw-blue-black; aluminium does not change colour before it melts (1,220°F); copper darkens |
+| **Spark** | Grinder, below | Chart below |
+
+## Density table (lb/in³, kg/dm³)
+
+| Metal | lb/in³ | kg/dm³ | Notes |
+|---|---|---|---|
+| Magnesium | 0.065 | 1.74 | Very light; burns |
+| Aluminium alloys | 0.097-0.101 | 2.70-2.80 | About 1/3 of steel |
+| Titanium | 0.163 | 4.51 | Between aluminium and steel; sparks brilliant white |
+| Zinc (die-cast) | 0.24-0.26 | 6.6-7.1 | |
+| Grey cast iron | 0.25-0.26 | 7.0-7.2 | |
+| Ductile iron | 0.256-0.26 | 7.1 | |
+| **Carbon and alloy steel** | **0.283** | **7.85** | |
+| Stainless 300 series | 0.289 | 8.0 | 400 series 0.28 |
+| Brass (yellow, 360) | 0.307 | 8.5 | |
+| Bronze (phosphor, aluminium) | 0.30-0.32 | 8.3-8.9 | |
+| Nickel, Monel, Inconel | 0.30-0.32 | 8.4-8.9 | |
+| Copper | 0.323 | 8.94 | |
+| Lead | 0.41 | 11.3 | |
+| Tungsten carbide | 0.53-0.56 | 14.5-15.6 | |
+
+A 1 in × 1 in × 12 in bar: steel 3.4 lb, aluminium 1.2 lb, brass 3.7 lb, titanium 2.0 lb. Weight formulas: [geometry and weight](/article/geometry-formulas-area-volume-weight).
+
+## Spark test chart
+
+Bench or angle grinder, medium-grit wheel, dim light, moderate pressure, hold the sample so the sparks stream horizontally at eye level; compare against a **known** sample of 1018, 1045, tool steel and cast iron kept for the purpose. Watch four things: **stream length and volume, colour, the shape and number of bursts (sprigs, forks), and how close to the wheel the bursts start**. Carbon makes bursts: more carbon, more bursts, brighter and closer to the wheel.
+
+| Metal | Stream | Colour | Bursts / shape |
+|---|---|---|---|
+| **Wrought iron / very low carbon** | Long, straight, large volume | Straw-yellow | Almost none; lines end in a small arrowhead swelling |
+| **Low-carbon steel (1018, A36, 1020)** | Long (about 70 in on a bench grinder), large volume | Straw to white | Few, small forks at the ends of the lines |
+| **Medium carbon (1045, 1141)** | Long, large volume | Brighter white | Many more bursts, larger stars, starting closer to the wheel |
+| **High carbon (1095, W1, files, springs)** | Shorter (about 55 in), very large volume | Brilliant white | Dense, bushy, repeating bursts starting right at the wheel |
+| **Grey cast iron** | Short (about 25 in), small volume, streams droop | Dull red near the wheel, straw at the tips | Many fine repeating small bursts (like sparklers) close to the wheel |
+| **Ductile iron** | Similar to grey but slightly longer and brighter | Red to straw | Fine bursts; some longer lines than grey |
+| **White cast iron** | Very short, few, hard to grind | Red | Few bursts |
+| **Malleable iron** | Moderate, larger than grey iron | Straw to white | Bright bursts at the tips |
+| **Alloy steel 4140 / 4340** | Moderate length, moderate volume | White to slightly orange | Bursts smaller and fewer than plain carbon of the same carbon; chromium gives orange-tinged, spearpoint tips; nickel adds forked tongues |
+| **Stainless 300 series (304, 316)** | Moderate length, low volume | Straw to orange (dull) | **No bursts**; smooth wavy lines that end in a slight swelling; non-magnetic |
+| **Stainless 400 series (410, 420, 430)** | Moderate to long | Straw to white | Some bursts (420 has more, it is hardenable); magnetic |
+| **Manganese (Hadfield) steel** | Moderate | Bright white | Many small bursts with fine sprigs; **non-magnetic**; work-hardens when struck |
+| **High-speed steel (M2, T1)** | Short, small volume | Dark red to orange, dull | Few; lines interrupted and swell at the ends (tungsten); "spearpoints"; skates a file |
+| **Tool steel D2 / high-chrome** | Short, low volume | Red-orange | Few fine bursts, spearpoint tips |
+| **Tool steel O1, A2, S7** | Moderate | White with orange tinge | Bursts present but smaller than 1095; A2 slightly fewer |
+| **Tungsten carbide** | Very short, a few dull sparks, glazes the wheel | Dull red | None; extremely hard, use a diamond wheel |
+| **Nickel / Monel / Inconel** | Short, low volume | Orange, dull | None; wavy lines |
+| **Titanium** | Long, very large volume | **Brilliant white** with an intense flash | Bright bursts; unmistakable, and the dust burns |
+| **Aluminium, copper, brass, bronze, lead, zinc, magnesium** | **No sparks** (loads the wheel; magnesium burns white) | | Do not spark-test magnesium in a dusty area |
+
+Reading tip: 1018 vs 1045 vs 1095 is the volume and closeness of bursts; cast iron vs steel is the length and the red colour; stainless vs mild steel is the absence of bursts (plus the magnet).
+
+## Stainless grades and other spot tests
+
+- **304 vs 316**: molybdenum spot test kits (a drop of reagent turns red-brown on 316 within a minute, stays pale on 304); or send for XRF. Magnet and spark cannot tell them apart.
+- **Stainless vs mild steel under paint or scale**: file a spot; a drop of **copper sulphate** solution plates copper (pink) onto carbon steel and low-alloy steel within seconds and does nothing on stainless.
+- **Carbon steel vs cast iron on a casting-like part**: chip test (crumbles = cast) and spark (red, short = cast); many "castings" on machinery are cast steel or ductile: weld accordingly.
+- **Aluminium alloy family**: no shop test tells 6061 from 5052 from 7075 reliably; the temper marking or an XRF gun does. 7075 (aircraft, dark grey oxide, heavy for aluminium, often anodised) is not weldable; 2024 nearly so. Assume 6061 for structural extrusions and 5052 for sheet if unmarked and welding must be done, with the crack-risk caveats in [welding aluminium](/article/welding-aluminium).
+- **Brass vs bronze**: brass yellow, files easily, cheap; bronze reddish-gold, harder, rings; aluminium bronze is gold-brown and very tough (spark: none; it is magnetic-slightly if it contains iron).
+- **Galvanised vs plain steel**: spangle pattern or dull grey matte; scrape: zinc is soft and bright underneath; weld fume is white; see [welding safety](/article/welding-safety-fumes-and-ppe).
+- **Case-hardened vs through-hardened**: file skates on the surface, bites on a ground-down corner = case (8620, 1018 carburised).
+- **XRF (handheld X-ray fluorescence)** analysers give the alloy in seconds and are worth borrowing from a scrap dealer or a supplier for a job that matters (pressure parts, lifting gear, a crack repair on a shaft).
+
+## What it means for the job
+
+| Identified as | Weld | Machine | Heat / bend |
+|---|---|---|---|
+| Low-carbon steel | Any process, no preheat under 1 in | Easy, 100-130 SFM HSS | Bends and forms freely |
+| Medium carbon (1045) | Preheat 300-500°F, 7018/ER70S, slow cool; see [preheat](/article/preheat-interpass-and-carbon-equivalent) | 70-90 SFM | Hardens if quenched from red: never water-cool a torch-heated 1045 shaft |
+| Alloy (4140, 4340) | Preheat 400-600°F, low hydrogen, post-heat; expect hardening | 60-80 SFM annealed; hard if pre-hard | Hardens in air on thick sections |
+| High carbon / tool steel | Only with preheat 500-800°F and matching or nickel filler, or do not weld; see [hardfacing and build-up](/article/hardfacing-and-buildup) | Anneal first | Hardens in oil/air; cracks if quenched wrong |
+| Grey cast iron | Nickel rod, preheat or cold-peen method; see [welding cast iron](/article/welding-cast-iron-and-repairs) | Easy, dusty, no coolant needed | Never quench; cracks with thermal shock |
+| Ductile iron | As grey but more forgiving | Easy | |
+| 300 stainless | 308L/316L/309L, keep cool, purge roots; see [welding stainless](/article/welding-stainless-and-dissimilar) | 40-70 SFM, keep feeding, work-hardens | Forms well |
+| 400 stainless | Preheat, 410 or 309 filler, temper after | | Hardens (420) |
+| Aluminium | AC TIG or MIG spool gun, 4043/5356; see [welding aluminium](/article/welding-aluminium) | 300-600+ SFM | Loses temper when heated over 400°F |
+| Copper / brass / bronze | Braze or TIG with matching filler; brass fumes zinc | Brass easy; copper gummy | |
+| Titanium | TIG with full argon shielding only | Slow, sharp tools, no chlorinated coolant | Never heat in air without shielding |
+
+## Related
+
+- [Steel grades and heat colours](/article/steel-grades-and-heat-colours)
+- [Hardness conversion and the file test](/article/hardness-conversion)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Welding process selector](/article/welding-process-selector)
+- [Geometry and weight formulas](/article/geometry-formulas-area-volume-weight)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$metal identification$mw$,$mw$spark test$mw$,$mw$spark test chart$mw$,$mw$identify steel$mw$,$mw$identify cast iron$mw$,$mw$identify stainless$mw$,$mw$magnet test$mw$,$mw$304 vs 316$mw$,$mw$density of metals$mw$,$mw$weight of metals$mw$,$mw$file test$mw$,$mw$chip test$mw$,$mw$colour code steel$mw$,$mw$bar stock colour$mw$,$mw$mill markings$mw$,$mw$unknown metal$mw$,$mw$weldability unknown steel$mw$,$mw$aluminum identification$mw$,$mw$brass vs bronze$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS Welding Handbook (spark testing); ASM Metals Handbook (identification and density data); Machinery's Handbook (density table); Lincoln Electric Procedure Handbook; ASTM A700 (marking); common bar-stock colour codes (not standardised, supplier dependent).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pipe-schedule-and-flange-tables$mw$, $mw$Pipe Schedule, Weight and Flange Tables: ASME B36.10 NPS Dimensions (Sch 10 to XXS), Weight per Foot, ASME B16.5 Class 150 and 300 Flange Bolt Patterns, Pressure Ratings and NPT Thread Data$mw$, $mw$The pipe and flange numbers every millwright and pipefitter needs at the bench: NPS outside diameters and wall thickness by schedule, weight per foot and water weight, Class 150 and 300 flange OD, bolt circle, bolt count and bolt size, the raised-face and pressure-temperature basics, NPT threads per inch, tap drills and the hand-tight plus wrench-turn rule.$mw$, $mw$> **NPS is a name, not a dimension.** A 2 in pipe is 2.375 in OD in every schedule; the schedule changes the **wall** and therefore the ID. Above NPS 12 the OD equals the NPS. Tube is the opposite: named by its OD. Hydraulic and instrument tubing tables are in [hydraulic hose and fittings](/article/hydraulic-hose-assembly-and-fittings).
+
+## Steel pipe dimensions (ASME B36.10), inches
+
+STD = standard weight (= Sch 40 up to NPS 10); XS = extra strong (= Sch 80 up to NPS 8); XXS = double extra strong.
+
+| NPS | OD | Sch 10 wall | Sch 40 / STD wall | Sch 80 / XS wall | Sch 160 wall | XXS wall | Sch 40 ID |
+|---|---|---|---|---|---|---|---|
+| 1/8 | 0.405 | 0.049 | 0.068 | 0.095 | – | – | 0.269 |
+| 1/4 | 0.540 | 0.065 | 0.088 | 0.119 | – | – | 0.364 |
+| 3/8 | 0.675 | 0.065 | 0.091 | 0.126 | – | – | 0.493 |
+| **1/2** | **0.840** | 0.083 | **0.109** | **0.147** | 0.188 | 0.294 | 0.622 |
+| **3/4** | **1.050** | 0.083 | **0.113** | **0.154** | 0.219 | 0.308 | 0.824 |
+| **1** | **1.315** | 0.109 | **0.133** | **0.179** | 0.250 | 0.358 | 1.049 |
+| 1-1/4 | 1.660 | 0.109 | 0.140 | 0.191 | 0.250 | 0.382 | 1.380 |
+| **1-1/2** | **1.900** | 0.109 | **0.145** | **0.200** | 0.281 | 0.400 | 1.610 |
+| **2** | **2.375** | 0.109 | **0.154** | **0.218** | 0.344 | 0.436 | 2.067 |
+| 2-1/2 | 2.875 | 0.120 | 0.203 | 0.276 | 0.375 | 0.552 | 2.469 |
+| **3** | **3.500** | 0.120 | **0.216** | **0.300** | 0.438 | 0.600 | 3.068 |
+| 3-1/2 | 4.000 | 0.120 | 0.226 | 0.318 | – | – | 3.548 |
+| **4** | **4.500** | 0.120 | **0.237** | **0.337** | 0.531 | 0.674 | 4.026 |
+| 5 | 5.563 | 0.134 | 0.258 | 0.375 | 0.625 | 0.750 | 5.047 |
+| **6** | **6.625** | 0.134 | **0.280** | **0.432** | 0.719 | 0.864 | 6.065 |
+| **8** | **8.625** | 0.148 | **0.322** | **0.500** | 0.906 | 0.875 | 7.981 |
+| 10 | 10.750 | 0.165 | 0.365 (STD) | 0.500 (XS) / 0.594 (Sch 80) | 1.125 | 1.000 | 10.020 |
+| 12 | 12.750 | 0.180 | 0.375 (STD) / 0.406 (Sch 40) | 0.500 (XS) / 0.688 (Sch 80) | 1.312 | 1.000 | 11.938 |
+| 14 | 14.000 | 0.250 | 0.375 (STD) / 0.438 (Sch 40) | 0.500 (XS) / 0.750 (Sch 80) | 1.406 | – | 13.124 |
+| 16 | 16.000 | 0.250 | 0.375 (STD) / 0.500 (Sch 40) | 0.500 (XS) / 0.844 (Sch 80) | 1.594 | – | 15.000 |
+| 18 | 18.000 | 0.250 | 0.375 (STD) / 0.562 (Sch 40) | 0.500 (XS) / 0.938 (Sch 80) | 1.781 | – | 16.876 |
+| 20 | 20.000 | 0.250 | 0.375 (STD) / 0.594 (Sch 40) | 0.500 (XS) / 1.031 (Sch 80) | 1.969 | – | 18.812 |
+| 24 | 24.000 | 0.250 | 0.375 (STD) / 0.688 (Sch 40) | 0.500 (XS) / 1.219 (Sch 80) | 2.344 | – | 22.624 |
+
+Sch 5S and 10S (stainless, B36.19) are thin-wall: e.g. 2 in Sch 10S = 0.109 in, 4 in Sch 10S = 0.120 in, 6 in Sch 10S = 0.134 in. Stainless "40S" equals carbon Sch 40 up to NPS 12.
+
+## Weight per foot (plain-end carbon steel, lb/ft) and water content
+
+```
+Pipe weight (lb/ft) = 10.69 × (OD − wall) × wall      (OD and wall in inches)
+Water in pipe (lb/ft) = 0.3405 × ID²                  (ID in inches; US gal/ft = 0.0408 × ID²)
+```
+
+| NPS | Sch 40 lb/ft | Sch 80 lb/ft | Water, Sch 40 (lb/ft) | Gal/ft, Sch 40 |
+|---|---|---|---|---|
+| 1/2 | 0.85 | 1.09 | 0.13 | 0.016 |
+| 3/4 | 1.13 | 1.47 | 0.23 | 0.028 |
+| 1 | 1.68 | 2.17 | 0.37 | 0.045 |
+| 1-1/4 | 2.27 | 3.00 | 0.65 | 0.078 |
+| 1-1/2 | 2.72 | 3.63 | 0.88 | 0.106 |
+| 2 | 3.65 | 5.02 | 1.45 | 0.174 |
+| 2-1/2 | 5.79 | 7.66 | 2.07 | 0.249 |
+| 3 | 7.58 | 10.25 | 3.20 | 0.384 |
+| 4 | 10.79 | 14.98 | 5.52 | 0.661 |
+| 5 | 14.62 | 20.78 | 8.67 | 1.04 |
+| 6 | 18.97 | 28.57 | 12.5 | 1.50 |
+| 8 | 28.55 | 43.39 | 21.7 | 2.60 |
+| 10 | 40.48 | 54.74 (XS) | 34.2 | 4.10 |
+| 12 | 53.52 | 65.42 (XS) | 48.5 | 5.82 |
+| 14 | 63.44 (Sch 40) | 72.09 (XS) | 58.6 | 7.03 |
+| 16 | 82.77 (Sch 40) | 82.77 (XS) | 76.6 | 9.18 |
+| 18 | 104.67 (Sch 40) | 93.45 (XS) | 97.0 | 11.6 |
+| 20 | 123.11 (Sch 40) | 104.13 (XS) | 120.5 | 14.5 |
+| 24 | 171.29 (Sch 40) | 125.49 (XS) | 174.3 | 20.9 |
+
+For rigging a filled pipe, add pipe and water (or product: multiply water by the specific gravity); flanges, valves and insulation are extra. See [geometry and weight formulas](/article/geometry-formulas-area-volume-weight).
+
+## Flanges: ASME B16.5 Class 150 (inches)
+
+| NPS | Flange OD | Bolt circle | Number of bolts | Bolt size | Bolt hole | Flange thickness (min) | Raised face dia. |
+|---|---|---|---|---|---|---|---|
+| 1/2 | 3.50 | 2.38 | 4 | 1/2 | 5/8 | 0.44 | 1.38 |
+| 3/4 | 3.88 | 2.75 | 4 | 1/2 | 5/8 | 0.50 | 1.69 |
+| 1 | 4.25 | 3.12 | 4 | 1/2 | 5/8 | 0.56 | 2.00 |
+| 1-1/4 | 4.62 | 3.50 | 4 | 1/2 | 5/8 | 0.62 | 2.50 |
+| 1-1/2 | 5.00 | 3.88 | 4 | 1/2 | 5/8 | 0.69 | 2.88 |
+| **2** | **6.00** | **4.75** | **4** | **5/8** | 3/4 | 0.75 | 3.62 |
+| 2-1/2 | 7.00 | 5.50 | 4 | 5/8 | 3/4 | 0.88 | 4.12 |
+| **3** | **7.50** | **6.00** | **4** | **5/8** | 3/4 | 0.94 | 5.00 |
+| **4** | **9.00** | **7.50** | **8** | **5/8** | 3/4 | 0.94 | 6.19 |
+| 5 | 10.00 | 8.50 | 8 | 3/4 | 7/8 | 0.94 | 7.31 |
+| **6** | **11.00** | **9.50** | **8** | **3/4** | 7/8 | 1.00 | 8.50 |
+| **8** | **13.50** | **11.75** | **8** | **3/4** | 7/8 | 1.12 | 10.62 |
+| 10 | 16.00 | 14.25 | 12 | 7/8 | 1 | 1.19 | 12.75 |
+| 12 | 19.00 | 17.00 | 12 | 7/8 | 1 | 1.25 | 15.00 |
+| 14 | 21.00 | 18.75 | 12 | 1 | 1-1/8 | 1.38 | 16.25 |
+| 16 | 23.50 | 21.25 | 16 | 1 | 1-1/8 | 1.44 | 18.50 |
+| 18 | 25.00 | 22.75 | 16 | 1-1/8 | 1-1/4 | 1.56 | 21.00 |
+| 20 | 27.50 | 25.00 | 20 | 1-1/8 | 1-1/4 | 1.69 | 23.00 |
+| 24 | 32.00 | 29.50 | 20 | 1-1/4 | 1-3/8 | 1.88 | 27.25 |
+
+## Flanges: ASME B16.5 Class 300 (inches)
+
+| NPS | Flange OD | Bolt circle | Number of bolts | Bolt size | Flange thickness (min) |
+|---|---|---|---|---|---|
+| 1/2 | 3.75 | 2.62 | 4 | 1/2 | 0.56 |
+| 3/4 | 4.62 | 3.25 | 4 | 5/8 | 0.62 |
+| 1 | 4.88 | 3.50 | 4 | 5/8 | 0.69 |
+| 1-1/4 | 5.25 | 3.88 | 4 | 5/8 | 0.75 |
+| 1-1/2 | 6.12 | 4.50 | 4 | 3/4 | 0.81 |
+| **2** | **6.50** | **5.00** | **8** | **5/8** | 0.88 |
+| 2-1/2 | 7.50 | 5.88 | 8 | 3/4 | 1.00 |
+| **3** | **8.25** | **6.62** | **8** | **3/4** | 1.12 |
+| **4** | **10.00** | **7.88** | **8** | **3/4** | 1.25 |
+| 5 | 11.00 | 9.25 | 8 | 3/4 | 1.38 |
+| **6** | **12.50** | **10.62** | **12** | **3/4** | 1.44 |
+| **8** | **15.00** | **13.00** | **12** | **7/8** | 1.62 |
+| 10 | 17.50 | 15.25 | 16 | 1 | 1.88 |
+| 12 | 20.50 | 17.75 | 16 | 1-1/8 | 2.00 |
+| 14 | 23.00 | 20.25 | 20 | 1-1/8 | 2.12 |
+| 16 | 25.50 | 22.50 | 20 | 1-1/4 | 2.25 |
+| 18 | 28.00 | 24.75 | 24 | 1-1/4 | 2.38 |
+| 20 | 30.50 | 27.00 | 24 | 1-1/4 | 2.50 |
+| 24 | 36.00 | 32.00 | 24 | 1-1/2 | 2.75 |
+
+Raised face height: **1/16 in** for Class 150 and 300 (included in the thickness above per the 2020 edition's convention; older drawings list thickness without it); **1/4 in** for Class 400 and above. Flat-face (FF) flanges are used against cast iron and plastic flanges: never bolt a raised-face steel flange to a flat-face cast iron flange with a ring gasket (it cracks the iron); use a full-face gasket and a flat-face steel flange, or accept the risk only with a full-face gasket and controlled torque.
+
+Bolt lengths: stud length ≈ 2 × flange thickness + gasket + 2 × nut height + 2 threads showing; the B16.5 Annex tables give the exact stud lengths per size and class. Quick figure for Class 150 RF with a 1/16 in gasket: 2 in NPS 5/8 × 3-1/4 in machine bolts; 4 in NPS 5/8 × 3-1/2 in; 6 in NPS 3/4 × 3-3/4 in; 8 in NPS 3/4 × 4 in; 12 in NPS 7/8 × 4-1/2 in (confirm against the flange pair and the gasket in hand).
+
+Bolt-hole layout: holes **straddle the centrelines** (no hole on the vertical or horizontal centreline); the bolt circle chord factor method for laying out a template is in [hole patterns and flange templates](/article/hole-patterns-and-flange-templates). Torque and the star pattern: [flange bolting and gaskets](/article/flange-bolting-and-gaskets).
+
+## Pressure-temperature ratings (B16.5, Group 1.1: A105 forged / A216 WCB cast carbon steel), psig
+
+| Temperature | Class 150 | Class 300 | Class 600 |
+|---|---|---|---|
+| −20 to 100°F | **285** | **740** | 1,480 |
+| 200°F | 260 | 680 | 1,360 |
+| 300°F | 230 | 655 | 1,310 |
+| 400°F | 200 | 635 | 1,265 |
+| 500°F | 170 | 605 | 1,205 |
+| 600°F | 140 | 570 | 1,135 |
+| 700°F | 110 | 530 | 1,060 |
+| 800°F | 80 | 410 | 825 |
+
+Stainless (316, Group 2.2) Class 150 is 275 psi at 100°F and drops faster; cast iron Class 125 flanges (B16.1) are 175-200 psi cold water and are **not** rated for shock or bending. "150 lb" on a flange is the class, not its working pressure at temperature.
+
+## NPT pipe threads (ASME B1.20.1)
+
+| NPS | Threads per inch | Tap drill | Hand-tight engagement (turns) | Effective (hand + wrench) engagement |
+|---|---|---|---|---|
+| 1/16 | 27 | "C" (0.242) | 4.3 | about 0.26 in |
+| **1/8** | **27** | R (0.339) or 11/32 | 4.4 | 0.26 in |
+| **1/4** | **18** | 7/16 | 4.5 | 0.40 in |
+| **3/8** | **18** | 37/64 | 4.6 | 0.41 in |
+| **1/2** | **14** | 23/32 | 4.5 | 0.53 in |
+| **3/4** | **14** | 59/64 | 4.6 | 0.55 in |
+| **1** | **11-1/2** | 1-5/32 | 4.7 | 0.68 in |
+| 1-1/4 | 11-1/2 | 1-1/2 | 4.7 | 0.71 in |
+| 1-1/2 | 11-1/2 | 1-47/64 | 4.7 | 0.72 in |
+| 2 | 11-1/2 | 2-7/32 | 5.0 | 0.76 in |
+| 2-1/2 | 8 | 2-5/8 | 5.6 | 1.14 in |
+| 3 | 8 | 3-1/4 | 6.1 | 1.20 in |
+| 4 | 8 | 4-1/4 | 6.3 | 1.30 in |
+
+Rules: NPT is tapered **1 in 16 on diameter** (3/4 in per foot; 1° 47′ per side) and seals on the thread flanks with a sealant (PTFE tape 2-3 wraps clockwise looking at the end, or paste); make up **hand-tight plus 1-1/2 to 3 turns** with a wrench (more is cracking the fitting); NPTF (dryseal) seals without sealant on a fresh fitting; **NPT vs BSPT**: 1/2 and 3/4 NPT are 14 TPI like BSP, but 1/8 (27 vs 28), 1/4 and 3/8 (18 vs 19) differ, and the thread angle is 60° vs 55°: they will screw together and leak. Straight pipe threads (NPSM, BSPP/G) seal on a washer or O-ring, not the threads. Identification and gauges: [thread identification](/article/thread-identification-and-gauges).
+
+## Fitting take-outs (butt-weld, B16.9), centre to face
+
+| NPS | 90° LR elbow (1.5 D) | 45° LR elbow | Tee (run and outlet) | Concentric reducer length |
+|---|---|---|---|---|
+| 2 | 3 | 1-3/8 | 2-1/2 | 3 |
+| 3 | 4-1/2 | 2 | 3-3/8 | 3-1/2 |
+| 4 | 6 | 2-1/2 | 4-1/8 | 4 |
+| 6 | 9 | 3-3/4 | 5-5/8 | 5-1/2 |
+| 8 | 12 | 5 | 7 | 6 |
+| 10 | 15 | 6-1/4 | 8-1/2 | 7 |
+| 12 | 18 | 7-1/2 | 10 | 8 |
+
+Long-radius elbow centre-to-face = **1.5 × NPS**; short-radius = 1.0 × NPS; 45° LR ≈ 0.625 × NPS (tabulated values above). Threaded and socket-weld fittings (B16.11, B16.3) have their own take-outs: measure them. Pipe cut length = centre-to-centre − take-outs + (for socket weld) the socket depth minus the 1/16 in gap. Miter and saddle layouts: [pipe miter layout](/article/pipe-miter-layout) and [saddle templates](/article/pipe-saddle-and-lateral-templates).
+
+## Related
+
+- [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
+- [Hole patterns and flange templates](/article/hole-patterns-and-flange-templates)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Hydraulic hose, tube and fitting identification](/article/hydraulic-hose-assembly-and-fittings)
+- [Geometry and weight formulas](/article/geometry-formulas-area-volume-weight)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$pipe schedule chart$mw$,$mw$schedule 40$mw$,$mw$schedule 80$mw$,$mw$pipe OD$mw$,$mw$NPS$mw$,$mw$nominal pipe size$mw$,$mw$pipe wall thickness$mw$,$mw$pipe weight per foot$mw$,$mw$flange bolt pattern$mw$,$mw$class 150 flange$mw$,$mw$class 300 flange$mw$,$mw$bolt circle$mw$,$mw$flange bolt size$mw$,$mw$ASME B16.5$mw$,$mw$raised face$mw$,$mw$flange pressure rating$mw$,$mw$NPT threads per inch$mw$,$mw$NPT tap drill$mw$,$mw$pipe thread engagement$mw$,$mw$pipe ID$mw$,$mw$water in pipe$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B36.10M (welded and seamless wrought steel pipe) and B36.19M (stainless); ASME B16.5-2020 (pipe flanges and flanged fittings, Class 150/300 dimensions and pressure-temperature ratings for Group 1.1 A105/A106 materials); ASME B1.20.1 (NPT threads); Machinery's Handbook.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$power-torque-speed-drive-formulas$mw$, $mw$Power, Torque, Speed and Drive Formulas: Horsepower, Motors, Ratios, Belts, Chains, Gears, Conveyors and Mechanical Advantage$mw$, $mw$How power, torque and speed relate, how to get horsepower from motor nameplate data or amps, synchronous speed and slip, gear and sprocket geometry, belt and conveyor speed and capacity, torque to accelerate a load, and the simple machines (lever, pulley system, screw, hydraulic press), each with a worked example.$mw$, $mw$## Power, torque, speed
 
 ```
@@ -12060,6 +12455,187 @@ Duct velocity        fpm = cfm / duct area (ft²)
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$set-me-up-for-a-task$mw$, $mw$Set Me Up for a Task: Index of Common Millwright Jobs and the Articles to Open for Each$mw$, $mw$Start here when you have a job and want the right pages fast: each common task (weld 1/4 in plate with MIG, install a pillow block, replace a hydraulic hose, align a pump, set up a plasma cutter, lift a gearbox) lists the articles to read in the order you will use them, from safety and setup through the procedure to the checks at the end.$mw$, $mw$> Type the task into search first; it usually lands on the right page. This index is for when you want the whole sequence for a job, or when you are studying and want to see how the pieces fit. Every job starts with [lockout/tagout](/article/lockout-tagout-basics) and the [PPE](/article/ppe-selection) for it.
+
+## Welding and cutting
+
+| Task | Open these, in order |
+|---|---|
+| **Pick a process** for a job | [Welding process selector](/article/welding-process-selector) → [joint design and fit-up](/article/joint-design-and-fit-up) → [welding safety](/article/welding-safety-fumes-and-ppe) |
+| **Stick-weld 1/4 in plate with 7018** | [Stick setup](/article/smaw-stick-setup) → [electrode amperage chart](/article/smaw-electrode-chart) → [positions and techniques](/article/positions-and-techniques) → [weld defects](/article/weld-defects-and-inspection) |
+| **MIG-weld 1/4 in steel** (short-circuit) | [MIG setup](/article/gmaw-mig-setup) → [gas selection and flow](/article/gas-selection-and-flow) → [machine setup, breaker and cable](/article/machine-setup-and-duty-cycle) |
+| **Set up spray or pulsed spray transfer** | [MIG transfer modes](/article/gmaw-transfer-modes) → [gas selection](/article/gas-selection-and-flow) |
+| **Flux-core outdoors, no gas** | [Self-shielded flux-core](/article/fcaw-self-shielded-setup) → [AWS wire classification](/article/aws-electrode-classification) |
+| **Flux-core in the shop with gas** (E71T-1) | [Gas-shielded flux-core](/article/fcaw-gas-shielded-setup) |
+| **TIG steel or stainless** | [TIG setup](/article/gtaw-tig-setup) → [TIG settings by material](/article/gtaw-settings-by-material) → [welding stainless](/article/welding-stainless-and-dissimilar) |
+| **TIG or MIG aluminium** | [Welding aluminium](/article/welding-aluminium) → [TIG setup (AC balance and frequency)](/article/gtaw-tig-setup) → [TIG settings by material](/article/gtaw-settings-by-material) |
+| **Weld thick or alloy steel** (4140, 1045, 1 in plate) | [Metal identification](/article/metal-identification-and-spark-test) → [preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent) → [steel grades](/article/steel-grades-and-heat-colours) → [distortion control](/article/distortion-control) |
+| **Repair a cast iron housing** | [Welding cast iron](/article/welding-cast-iron-and-repairs) → [brazing](/article/brazing-and-soldering) |
+| **Build up and hardface a worn part** | [Hardfacing and build-up](/article/hardfacing-and-buildup) → [hardness conversion](/article/hardness-conversion) |
+| **Read a fabrication drawing** | [Blueprint reading](/article/blueprint-reading-for-millwrights) → [welding symbols](/article/welding-symbols) |
+| **Set up a plasma cutter** | [Plasma cutting setup and cut charts](/article/plasma-cutting-setup) → [piercing, keyholing and gouging](/article/plasma-keyholing-and-piercing) |
+| **Gouge out a weld or crack** | [Carbon-arc gouging](/article/carbon-arc-gouging) or [plasma gouging](/article/plasma-keyholing-and-piercing) → [hot work permit](/article/hot-work-permits-and-fire-watch) |
+| **Cut with oxy-fuel** | [Oxy-acetylene setup](/article/oxy-acetylene-setup-victor) → [Victor tip chart](/article/victor-tip-chart-acetylene) → [cutting technique](/article/oxy-fuel-cutting-technique) → [oxy-fuel safety](/article/oxy-fuel-safety) |
+| **Heat a part** (bearing, stuck nut, bending) with a rosebud | [Heating with a rosebud](/article/oxy-fuel-heating-rosebud) → [cylinder handling (acetylene withdrawal limit)](/article/compressed-gas-cylinder-handling) |
+| **Cut stock on the band saw or chop saw** | [Saws and abrasives](/article/saws-and-abrasives) → [hand and power tool safety](/article/hand-and-power-tool-safety) |
+| **Drill holes in a beam on site** | [Hole making in the field](/article/hole-making-in-the-field) → [drill speeds and feeds](/article/drill-press-speeds-and-feeds) |
+| **Silver-braze a fitting** | [Brazing and soldering](/article/brazing-and-soldering) |
+| **Keep the welder running** | [Welder maintenance and consumables](/article/welder-maintenance-and-consumables) |
+| **Weld inside a tank or on a drum** | [Confined space entry](/article/confined-space-entry) → [hot work permits (containers)](/article/hot-work-permits-and-fire-watch) → [welding safety](/article/welding-safety-fumes-and-ppe) |
+
+## Layout and templates
+
+| Task | Open these |
+|---|---|
+| **Make a saddle template** for a branch pipe | [Pipe saddle and lateral templates](/article/pipe-saddle-and-lateral-templates) → [trig and layout formulas](/article/trig-and-layout-formulas) |
+| **Lay out a mitred elbow** | [Pipe miter layout](/article/pipe-miter-layout) → [pipe schedule tables](/article/pipe-schedule-and-flange-tables) |
+| **Make a flange or bolt-circle template** | [Hole patterns and flange templates](/article/hole-patterns-and-flange-templates) → [flange tables](/article/pipe-schedule-and-flange-tables) |
+| **Develop a cone, transition or chute** in sheet | [Sheet-metal developments](/article/sheet-metal-developments) → [sheet gauge tables](/article/wire-gauge-and-sheet-thickness) |
+| **Cut shims or a gasket** | [Shim and gasket making](/article/shim-and-gasket-making) |
+| **Make a story pole, jig or drilling template** | [Story poles and fixtures](/article/making-a-story-pole-and-fixtures) → [layout tools and scribing](/article/layout-tools-and-scribing) |
+
+## Bearings
+
+| Task | Open these |
+|---|---|
+| **Identify a bearing from its number** | [Bearing designation codes](/article/bearing-designation-codes) |
+| **Heat and install a bearing on a shaft** | [Mounting bearings with heat](/article/bearing-mounting-with-heat) → [clearance and fits tables](/article/bearing-clearance-and-fits-tables) |
+| **Fit a tapered-bore spherical roller bearing** on an adapter sleeve | [Adapter sleeve procedure (SKF)](/article/taper-bore-bearing-adapter-sleeve-skf) → [SKF drive-up card](/article/skf-drive-up-card) |
+| **Set a tapered roller bearing** (end play or preload) | [Tapered roller bearing setting](/article/tapered-roller-bearing-setting) → [dial indicator use](/article/dial-indicator-use) |
+| **Pull a bearing off** | [Bearing removal: pullers and heating](/article/bearing-removal-pullers-and-heating) |
+| **Install a pillow block or insert bearing** | [Pillow block and insert bearings](/article/pillow-block-and-insert-bearings) → [regreasing](/article/regreasing-intervals-and-quantities) |
+| **Find out why a bearing failed** | [Bearing failure analysis](/article/bearing-failure-analysis) → [work orders and history](/article/work-order-and-history-records) |
+| **Grease a bearing the right amount** | [Regreasing intervals and quantities](/article/regreasing-intervals-and-quantities) → [grease compatibility](/article/grease-types-and-compatibility) |
+
+## Alignment and installation
+
+| Task | Open these |
+|---|---|
+| **Align a motor to a pump** (laser) | [Alignment fundamentals](/article/shaft-alignment-fundamentals) → [soft foot](/article/soft-foot-correction) → [laser alignment procedure](/article/laser-alignment-procedure) → [thermal growth](/article/thermal-growth-alignment) |
+| **Align with dial indicators** | [Rim and face](/article/rim-and-face-alignment) or [reverse dial](/article/reverse-dial-alignment) → [dial indicator use](/article/dial-indicator-use) |
+| **Install a coupling** | [Coupling types, gap and hubs](/article/coupling-types-gap-and-installation) → [grid, gear and disc couplings](/article/grid-gear-and-disc-coupling-installation) → [keys and keyways](/article/keys-and-keyways) |
+| **Set a new machine on a foundation** | [Anchor bolts and foundations](/article/anchor-bolts-and-foundations) → [moving and setting heavy machinery](/article/moving-and-setting-heavy-machinery) → [leveling and machine setting](/article/leveling-and-machine-setting) → [grouting baseplates](/article/grouting-baseplates) → [pipe strain](/article/pipe-strain-and-flange-alignment) → [guarding and commissioning](/article/machine-guarding-and-commissioning) |
+| **Level a long machine or align bores** | [Optical and laser levels, piano wire](/article/optical-and-laser-levels-piano-wire) |
+| **Move a 10-ton machine across the floor** | [Moving heavy machinery](/article/moving-and-setting-heavy-machinery) → [chain hoists and jacks](/article/chain-hoists-come-alongs-and-jacks) → [cribbing and blocking](/article/cribbing-and-blocking) |
+
+## Drives, gearboxes, conveyors
+
+| Task | Open these |
+|---|---|
+| **Install and tension V-belts** | [V-belt installation and tensioning](/article/v-belt-drive-installation-and-tensioning) → [QD and Taper-Lock bushings](/article/qd-and-taper-lock-bushings) |
+| **Fit a timing belt** | [Timing belts and synchronous drives](/article/timing-belts-and-synchronous-drives) |
+| **Install or size roller chain** | [Roller chain drives](/article/roller-chain-drives) |
+| **Change a shaft-mount reducer** | [Dodge Torque-Arm reducer](/article/dodge-torque-arm-shaft-mount-reducer) → [gearbox lubrication](/article/gearbox-lubrication-and-inspection) |
+| **Inspect gears / find why teeth failed** | [Gear inspection and tooth failure](/article/gear-inspection-and-tooth-failure) → [worm, planetary and cycloidal reducers](/article/planetary-and-worm-reducers) |
+| **Pick the gear oil** | [Oil viscosity and selection](/article/oil-viscosity-and-selection) → [gearbox lubrication](/article/gearbox-lubrication-and-inspection) |
+| **Track a conveyor belt** | [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking) → [idlers, pulleys and lagging](/article/idlers-pulleys-and-lagging) |
+| **Splice a conveyor belt** | [Belt splicing](/article/belt-splicing) → [conveyor safety](/article/conveyor-safety-and-guarding) |
+| **Work on a screw conveyor or bucket elevator** | [Screw conveyors and bucket elevators](/article/screw-conveyors-and-bucket-elevators) |
+| **Figure out why a belt keeps failing** | [Belt failure](/article/belt-failure) |
+| **Figure out why a coupling keeps failing** | [Coupling failure](/article/coupling-failure) |
+
+## Pumps, seals, compressors
+
+| Task | Open these |
+|---|---|
+| **Replace a mechanical seal** | [Mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump) → [seal failure (read the old one first)](/article/seal-failure) |
+| **Repack a pump** | [Pump packing and stuffing box](/article/pump-packing-and-stuffing-box) |
+| **Set impeller clearance / replace wear rings** | [Impeller clearance and wear rings](/article/impeller-clearance-and-wear-rings) |
+| **Pump is cavitating, no flow, or vibrating** | [Pump troubleshooting](/article/pump-troubleshooting) → [pump and fluid-power formulas](/article/pump-and-fluid-power-formulas) |
+| **Service an air compressor** | [Air compressors PM](/article/air-compressors-pm) → [pneumatic systems and FRL](/article/pneumatic-systems-frl-and-cylinders) |
+
+## Hydraulics and pneumatics
+
+| Task | Open these |
+|---|---|
+| **Read a hydraulic schematic** | [Hydraulic basics and symbols](/article/hydraulic-system-basics-and-symbols) |
+| **Make up a hydraulic hose** | [Hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings) → [hand and power tool safety (injection injury)](/article/hand-and-power-tool-safety) |
+| **Reseal a cylinder** | [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits) → [seal failure (O-ring modes)](/article/seal-failure) |
+| **Change filters, sample and flush** | [Filters, fluid and contamination](/article/filters-fluid-and-contamination) → [oil analysis and sampling](/article/oil-analysis-and-sampling) |
+| **Check or charge an accumulator** | [Accumulator precharge and safety](/article/accumulator-precharge-and-safety) → [cylinder handling (nitrogen)](/article/compressed-gas-cylinder-handling) |
+| **Set up an FRL / fix air leaks** | [Pneumatic systems](/article/pneumatic-systems-frl-and-cylinders) |
+
+## Motors, electrical and controls
+
+| Task | Open these |
+|---|---|
+| **Replace a motor** | [Reading a motor nameplate](/article/reading-a-motor-nameplate) → [motor lead connections](/article/motor-lead-connections) → [electrical safety](/article/electrical-safety-for-mechanics) → align it |
+| **Test a motor before fitting it** | [Megger and basic motor testing](/article/megger-and-basic-motor-testing) |
+| **Machine on a VFD is hot or noisy** | [VFD basics](/article/vfd-basics-for-millwrights) |
+| **Sensor or PLC input is not working** | [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness) |
+| **Open a panel or work near live parts** | [Electrical safety for mechanics](/article/electrical-safety-for-mechanics) → [lockout/tagout](/article/lockout-tagout-basics) |
+
+## Machining and fasteners
+
+| Task | Open these |
+|---|---|
+| **Drill and tap a hole** | [Drill press speeds and feeds](/article/drill-press-speeds-and-feeds) → [tapping and thread repair](/article/tapping-and-thread-repair) → [shop reference tables (tap drills)](/article/shop-reference-tables) |
+| **Remove a broken bolt** | [Broken bolt and stud removal](/article/broken-bolt-and-stud-removal) |
+| **Turn a bushing or shaft on the lathe** | [Lathe basics](/article/lathe-basics-for-millwrights) → [reading a micrometer](/article/reading-a-micrometer) |
+| **Cut a keyway** | [Milling basics and keyway cutting](/article/milling-basics-and-keyway-cutting) → [keys and keyways](/article/keys-and-keyways) |
+| **Sharpen a drill / use the grinder safely** | [Grinding and abrasives safety](/article/grinding-and-abrasives-safety) |
+| **Identify a thread** | [Thread identification and gauges](/article/thread-identification-and-gauges) → [NPT data](/article/pipe-schedule-and-flange-tables) |
+| **Torque bolts** | [Bolt torque chart](/article/bolt-torque-chart-sae-metric) → [locking methods](/article/locking-methods) → [anti-seize and galling](/article/anti-seize-and-galling) |
+| **Bolt up a flange** | [Flange bolting and gaskets](/article/flange-bolting-and-gaskets) → [flange tables](/article/pipe-schedule-and-flange-tables) |
+| **Work out what metal a part is** | [Metal identification and spark test](/article/metal-identification-and-spark-test) → [steel grades and heat colours](/article/steel-grades-and-heat-colours) → [hardness conversion](/article/hardness-conversion) |
+| **Harden and temper a tool** | [Steel grades and heat colours (heat treating)](/article/steel-grades-and-heat-colours) |
+
+## Rigging and lifting
+
+| Task | Open these |
+|---|---|
+| **Lift a gearbox with the overhead crane** | [Rigging basics](/article/rigging-basics-sling-angles-and-hitches) → [sling, shackle and clip tables](/article/wire-rope-and-chain-slings-detail) → [crane signals and lift planning](/article/crane-signals-and-lift-planning) → [geometry and weight formulas](/article/geometry-formulas-area-volume-weight) |
+| **Use a chain fall or come-along** | [Chain hoists, lever hoists and jacks](/article/chain-hoists-come-alongs-and-jacks) |
+| **Jack up and block a machine** | [Cribbing and blocking](/article/cribbing-and-blocking) |
+| **Plan a crane lift** | [Crane signals and lift planning](/article/crane-signals-and-lift-planning) |
+
+## Lubrication and condition monitoring
+
+| Task | Open these |
+|---|---|
+| **Set up a lube route** | [Lube routes and single-point lubricators](/article/lube-routes-and-single-point-lubricators) → [regreasing intervals](/article/regreasing-intervals-and-quantities) |
+| **Choose a grease or check compatibility** | [Grease types and compatibility](/article/grease-types-and-compatibility) |
+| **Take an oil sample** | [Oil analysis and sampling](/article/oil-analysis-and-sampling) |
+| **Take vibration readings and judge them** | [Vibration basics and ISO severity](/article/vibration-basics-and-iso-severity) → [vibration signatures](/article/vibration-signatures) |
+| **Use the thermal camera or ultrasound gun** | [Thermography, ultrasound and oil](/article/thermography-ultrasound-and-oil) |
+| **A machine is vibrating, noisy or hot** | [Machine trouble decision tree](/article/machine-vibration-noise-heat-decision-tree) |
+
+## Maintenance planning
+
+| Task | Open these |
+|---|---|
+| **Write a PM for a pump, motor or conveyor** | [PM checklists](/article/pm-checklists) |
+| **Walk an inspection route** | [Inspection routes](/article/inspection-routes) |
+| **Write up a repair** | [Work orders and history records](/article/work-order-and-history-records) |
+| **Set up the spares room** | [Spare parts and bearing storage](/article/spare-parts-and-bearing-storage) |
+
+## Safety
+
+| Situation | Open these |
+|---|---|
+| Any job that opens a guard or a line | [Lockout/tagout](/article/lockout-tagout-basics) |
+| Welding, cutting or grinding outside the shop | [Hot work permits and fire watch](/article/hot-work-permits-and-fire-watch) |
+| Entering a tank, pit, mixer or silo | [Confined space entry](/article/confined-space-entry) |
+| Working over 4 ft up, on a ladder, scaffold or lift | [Fall protection, ladders, scaffolds and lifts](/article/fall-protection-ladders-scaffolds) |
+| Handling gas cylinders | [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling) |
+| Choosing PPE for a job | [PPE selection](/article/ppe-selection) |
+| Using grinders, drills, air and hydraulic tools | [Hand and power tool safety](/article/hand-and-power-tool-safety) |
+| Working near conveyors | [Conveyor safety and guarding](/article/conveyor-safety-and-guarding) |
+| Someone is hurt | [First aid for shop injuries](/article/first-aid-for-shop-injuries) |
+
+## Formulas and tables
+
+[Geometry, area, volume and weight](/article/geometry-formulas-area-volume-weight) · [Trig and layout](/article/trig-and-layout-formulas) · [Power, torque, speed and drives](/article/power-torque-speed-drive-formulas) · [Pumps and fluid power](/article/pump-and-fluid-power-formulas) · [Shafts, bearings and fasteners](/article/shaft-bearing-fastener-formulas) · [Decimal equivalents, tap drills and basic conversions](/article/shop-reference-tables) · [Unit conversions (extended)](/article/unit-conversions-extended) · [Sheet and wire gauges](/article/wire-gauge-and-sheet-thickness) · [Pipe schedules and flanges](/article/pipe-schedule-and-flange-tables) · [Hardness conversion](/article/hardness-conversion) · [Steel grades and heat colours](/article/steel-grades-and-heat-colours) · [Metal identification](/article/metal-identification-and-spark-test)
+
+## Add what is missing
+
+If a job you do is not here, or a manufacturer's manual would help, use **Contribute** to add a page or upload the document: see [how to add a manual](/article/how-to-add-a-manual).$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$task index$mw$,$mw$how do I$mw$,$mw$where do I start$mw$,$mw$job setup$mw$,$mw$what to read$mw$,$mw$index$mw$,$mw$getting started$mw$,$mw$checklist$mw$,$mw$start here$mw$,$mw$millwright tasks$mw$,$mw$student guide$mw$,$mw$apprentice$mw$,$mw$Red Seal$mw$,$mw$quick reference$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Index of the articles in this library.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$shaft-bearing-fastener-formulas$mw$, $mw$Shaft, Bearing and Fastener Formulas: Torsional Stress, Shaft Sizing, Keys, Bearing L10 Life, Shrink Fits, Bolt Clamp Load and Stretch$mw$, $mw$The strength-of-materials formulas behind millwright decisions: shear stress in a solid or hollow shaft, sizing a shaft for a torque, angle of twist, bending stress, key sizing, bearing L10 life and what doubling the load does, dn speed limits, how hot to heat a hub for a shrink fit, bolt clamp load from torque, tensile stress area, proof load and bolt stretch, with worked examples that tie back to the torque chart.$mw$, $mw$## Shafts in torsion
 
 ```
@@ -12332,6 +12908,173 @@ Eight holes on a 12" bolt circle: 12 × sin 22.5° = 12 × 0.3827 = **4.592"** b
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$steel-grades-and-heat-colours$mw$, $mw$Steel and Metal Grades for Millwrights: AISI/SAE Carbon and Alloy Steels, Structural Grades, Tool Steels, Stainless, Aluminium, Bronze and Cast Irons, Plus Temper and Incandescent Heat Colour Charts and Basic Heat Treating$mw$, $mw$The grades a millwright meets in bar racks, shafts, keys, sprockets, tool steel and repairs, with what each is for, its typical strength and hardness, how it machines, welds and hardens, then the temper colour chart (400-640°F), the incandescent heat colour chart (900-2,400°F) and the basic hardening, tempering, annealing and normalising rules for the common grades.$mw$, $mw$> The number tells you the chemistry. In the AISI/SAE system the **last two digits are carbon in hundredths of a percent** (1045 = 0.45% C) and the **first two are the alloy family** (10xx plain carbon, 11xx resulphurised free-machining, 12xx free-machining with lead/phosphorus, 41xx chrome-moly, 43xx nickel-chrome-moly, 86xx nickel-chrome-moly low alloy, 51xx/52xx chromium, 92xx silicon-manganese spring). Carbon above about 0.30% means the steel **hardens** when quenched from red, which is why welding and torch-heating 1045 and 4140 need care.
+
+## Carbon and alloy steels (bar, shafting, keys, sprockets)
+
+| Grade | What it is | Typical condition / strength | Machining | Welding | Where you meet it |
+|---|---|---|---|---|---|
+| **1018 / 1020** | Low-carbon (0.18% C), cold-rolled or hot-rolled | CR: 64 ksi tensile, 54 yield, 126 HB; HR: 58/32 | Easy, gummy finish (78% machinability) | Any process, no preheat | General fabrication, brackets, shafting where strength is not critical, case-hardened parts (carburised to 60 HRC skin) |
+| **1045** | Medium-carbon (0.45%) | HR: 82 ksi / 45 yield, 163 HB; can be hardened to 55 HRC, usually used as-rolled or normalised, or induction-hardened | Good (55-60%) | Preheat 300-500°F, low-hydrogen, slow cool | **The default shaft and keystock material**; sprockets, gears, pins, axles |
+| **1141 / 1144 (Stressproof)** | Medium-carbon resulphurised (free-machining); 1144 cold-drawn and stress-relieved = "Stressproof" | 1144 SP: 115 ksi tensile / 100 yield, 250 HB, stable when machined | Excellent (80%) | Poor (sulphur cracks); avoid welding | Shafts that need machining without distortion; hydraulic rods |
+| **12L14** | Low-carbon leaded free-machining | 78 ksi / 60 yield | Best of all (160% of 1212) | Do not weld (lead) | Fittings, bushings, screw-machine parts |
+| **4140 / 4142** | Chrome-moly medium carbon | Annealed: 95 ksi / 60 yield, 197 HB; **pre-hard (Q&T) 28-32 HRC: 130-150 ksi**; hardens to 54-59 HRC | Fair in pre-hard (65%), good annealed | Preheat 400-600°F, low-hydrogen (7018/ER80S-D2 or 70S-6), post-heat 1,100-1,200°F for critical parts; hardens under the weld | **High-strength shafts**, gears, bolts (Grade 8 is often 4140), pins, couplings, tooling, pinion shafts |
+| **4340** | Nickel-chrome-moly | Q&T 28-34 HRC: 150-180 ksi; through-hardens in large sections | Fair | Same as 4140, more preheat (500-700°F) | Heavy-duty shafts, crankshafts, gears, high-load pins |
+| **8620** | Nickel-chrome-moly low carbon (0.20%) | Core 90-120 ksi; carburised case 58-62 HRC | Good | Weldable with preheat 300°F (before carburising) | **Carburised gears, pinions, sprockets, cam rollers**; anything with a hard skin and tough core |
+| **1095 / 1080 / 1075** | High-carbon | Spring or hardened 55-62 HRC | Annealed only | Effectively no (cracks) | Springs, blades, files (1095), scrapers, saw blades |
+| **5160 / 9260** | Chromium / silicon-manganese spring steels | Q&T 45-50 HRC leaf springs | | No | Leaf and coil springs; 5160 for hand-forged tools |
+| **52100** | 1% carbon, 1.5% chromium | 60-64 HRC | Annealed | No | Bearing rings and balls, rollers |
+| **E4340 / 300M / 4330V** | Aerospace-grade alloys | 200-290 ksi | | Specialist | Landing gear, high-strength pins: do not weld or heat |
+
+**Shaft material choice**: 1045 for general shafts (cold-drawn, TG&P = turned, ground and polished for bearing seats); 4140 pre-hard for high torque or shock; 1144 Stressproof when the shaft will be heavily machined; 316/17-4 stainless for wet or corrosive service; 8620 carburised where a hard journal is needed. Keystock: 1018 cold-drawn or 1045 (harder key for hardened hubs), see [keys and keyways](/article/keys-and-keyways).
+
+## Structural and pipe grades
+
+| Grade | Use | Yield / tensile | Notes |
+|---|---|---|---|
+| **A36** | Plate, angle, channel, flat bar, general structural | 36 ksi / 58-80 ksi | Weldable, no preheat under 1-1/2 in; the default fabrication steel |
+| **A572 Gr 50** / A992 | Wide-flange beams (A992), higher-strength plate | 50 ksi / 65 ksi | Weldable; A992 is the standard W-shape grade |
+| **A500 Gr B/C** | HSS (square/rectangular/round tube) | 46-50 ksi / 58-62 ksi | Weldable; check for seam location when bending |
+| **A513** | Mechanical tubing (DOM = drawn over mandrel, ERW) | 1020 DOM: 70-80 ksi tensile | Precise ID/OD; bushings, rollers, spacers |
+| **A53 / A106 Gr B** | Pipe (A53: general, A106: high-temp pressure) | 35 ksi / 60 ksi | Weldable; see [pipe schedules](/article/pipe-schedule-and-flange-tables) |
+| **A514 (T-1)** | Quenched-and-tempered high-strength plate | 100 ksi / 110-130 ksi | Weldable with low-hydrogen, preheat, limited heat input (do not over-heat: loses strength); crane booms, heavy-equipment frames |
+| **AR400 / AR500** | Abrasion-resistant plate (Hardox, etc.) | 400 / 500 HB | Weldable with 7018 and preheat (see [hardfacing](/article/hardfacing-and-buildup)), plasma or oxy cut with care; liners, chutes, buckets |
+| **A588 (Cor-Ten)** | Weathering steel | 50 ksi | Weldable with matching (8018-W) or 7018 for non-exposed welds |
+| **A588 / A242 / A709** | Bridge steels | | Structural welding to AWS D1.5 |
+
+## Tool steels
+
+| Grade | Type | Quench | Working hardness | Use |
+|---|---|---|---|---|
+| **W1** | Water-hardening, plain carbon (1.0% C) | Water/brine | 58-64 HRC, shallow-hardening | Punches, chisels, cold chisels, hand tools, springs |
+| **O1** | Oil-hardening | Oil | 57-62 HRC | **General-purpose shop tool steel**: gauges, punches, dies, jigs, knives; ground flat stock; stable, easy to harden with a torch |
+| **A2** | Air-hardening (5% Cr) | Air | 57-62 HRC | Dies, punches, shear blades; less distortion than O1 |
+| **D2** | High-carbon high-chrome (12% Cr) | Air | 58-62 HRC | Long-run blanking dies, shear blades, wear parts; very wear-resistant, brittle, hard to grind |
+| **S7** | Shock-resisting | Air/oil | 54-58 HRC | Chisels, hammers, punches, shear blades under impact, rivet sets |
+| **H13** | Hot-work (Cr-Mo-V) | Air | 44-52 HRC | Hot forging and die-casting dies, hot punches, extrusion; keeps hardness at 1,000°F |
+| **M2** | High-speed steel (Mo-W) | Oil/air/salt | 62-65 HRC | Drills, taps, end mills, lathe tools |
+| **P20** | Mould steel, pre-hard 28-32 HRC | | | Plastic moulds, holder blocks |
+| **4140 pre-hard** | Not a tool steel but used as one | | 28-32 HRC | Fixtures, holders, wear plates |
+
+## Stainless and heat-resisting
+
+| Grade | Family | Magnetic | Strength (annealed) | Notes |
+|---|---|---|---|---|
+| **304 / 304L** | Austenitic (18-8) | No (slight when cold-worked) | 75 ksi / 30 yield | General corrosion resistance; food, water; work-hardens; welds with 308L |
+| **316 / 316L** | Austenitic (Mo-bearing) | No | 75 / 30 | Chlorides, chemicals, marine; 316L filler |
+| **303** | Free-machining austenitic | No | | Do not weld; fittings and shafts machined dry |
+| **321 / 347** | Stabilised austenitic | No | | High temperature (exhaust, 1,500°F) |
+| **309 / 310** | High-Cr-Ni austenitic | No | | Furnace parts; 309 as the dissimilar-weld filler |
+| **410 / 420** | Martensitic (12-13% Cr) | Yes | Hardens to 40 HRC (410) / 50+ (420) | Pump shafts, valve trim, knives (420); preheat and temper when welding |
+| **416** | Free-machining martensitic | Yes | | Shafts, screws; not weldable |
+| **430** | Ferritic (17% Cr) | Yes | 65 / 40 | Trim, appliances; welds with 308/309 but embrittles |
+| **17-4 PH** | Precipitation-hardening | Yes | H900: 190 ksi; H1150: 145 ksi | Pump shafts, impellers, high-strength corrosion-resistant parts; weldable, then age |
+| **2205 duplex** | Ferritic-austenitic | Yes (partly) | 90 / 65 | Chloride cracking resistance; process piping, pumps |
+| **Nitronic 60** | Anti-galling austenitic | No | | Bushings and fasteners that would gall in 304/316 |
+
+## Aluminium, copper alloys and cast irons
+
+| Alloy | Notes |
+|---|---|
+| **6061-T6** | The general structural aluminium: 45 ksi / 40 yield; extrusions, plate, bar; weldable (loses about 30-40% strength in the HAZ; re-heat-treat or design for it); machines well; 4043 or 5356 filler |
+| **5052-H32** | Sheet and tank alloy: 33 ksi / 28 yield; excellent weldability and corrosion resistance; forms well; 5356 filler |
+| **5083 / 5086** | Marine plate; weldable; 5356/5183 filler |
+| **6063** | Architectural extrusions; softer; weldable |
+| **2024-T3** | Aircraft; high strength; **not weldable** (arc); fasten mechanically |
+| **7075-T6** | Highest strength common alloy (83 ksi): tooling plate, aircraft; **not weldable**; galls in threads |
+| **A356 / 356** | Cast aluminium (pump housings, gearbox covers); weldable with 4043 after cleaning |
+| **Cast aluminium unknown** | Assume 356 or 319-type; degrease, preheat 300°F, 4043 |
+| **C360 brass** | Free-machining yellow brass: fittings, bushings; not for welding (zinc) |
+| **C932 (SAE 660) bearing bronze** | Leaded tin bronze: **the standard bushing bronze**; machines well; runs on steel shafts; 25 ksi yield |
+| **C954 aluminium bronze** | High strength (50 ksi yield), wear and corrosion resistant; heavy-duty bushings, wear plates, gears, pump parts; weldable with ERCuAl-A2 |
+| **C905 / C907 tin bronze** | Gear bronze (worm wheels), heavy loads |
+| **C863 manganese bronze** | Very high strength (50-60 ksi yield); heavy wear plates, screw-down nuts |
+| **Class 30 grey iron** | 30 ksi tensile; machine bases, housings, pulleys; damps vibration; brittle; see [welding cast iron](/article/welding-cast-iron-and-repairs) |
+| **65-45-12 ductile iron** | 65 ksi tensile / 45 yield / 12% elongation; gear housings, sprockets, hubs, pipe; tougher than grey; weldable with nickel rods |
+| **80-55-06 ductile** | Stronger, less ductile; gears, crank parts |
+| **Malleable iron** | Pipe fittings, hardware; weldable with care |
+| **Ni-Hard / high-chrome white iron** | Pump liners, chute liners: 600+ HB, brittle, not weldable except for hardfacing overlays |
+
+## Temper colour chart (oxide colours on bright steel as it is heated)
+
+Used to temper hardened tools by eye, and to read how hot a part or bearing got. Colours appear in this order on a polished surface heated slowly; they are only valid on clean bright steel and shift with alloy content.
+
+| Colour | °F | °C | Typical use of that temper |
+|---|---|---|---|
+| Faint straw / very pale yellow | 400 | 204 | Scrapers, lathe tools, engraving tools (maximum hardness retained) |
+| Light straw | 430-440 | 220-227 | Drills, taps, dies, files, hammers faces |
+| Dark straw / golden | 460-470 | 240-245 | Punches, reamers, milling cutters, wood chisels |
+| Brown | 490-500 | 255-260 | Cold chisels, twist drills for soft metal, axes |
+| Brown-purple / bronze | 510-520 | 265-270 | Cold chisels for steel, centre punches |
+| Purple | 530-540 | 275-280 | Hand punches, screwdrivers, springs (light) |
+| Dark blue | 550-570 | 290-300 | Springs, screwdrivers, saw blades, needles |
+| Light / pale blue | 590-610 | 310-320 | Springs (heavier), scrapers for wood |
+| Grey-blue to grey | 630-650 | 330-345 | Very soft temper; beyond this the colours fade to grey |
+
+**Reading heat damage**: a bearing race or shaft with straw-to-blue tint has been over 400-550°F; blue-black or grey means 600°F or more and the hardness is gone. Weld heat tint on stainless (straw, blue, black) follows the same sequence and tells you how far the heat-affected zone went.
+
+## Incandescent heat colour chart (in dim light)
+
+| Colour | °F | °C | What is happening |
+|---|---|---|---|
+| Faint red (just visible in the dark) | 900-930 | 480-500 | Stress relief range starts (1,100-1,250°F for steel) |
+| Blood red / dull red | 1,050-1,100 | 565-595 | Sub-critical; low-temperature tempering of 4140 |
+| Dark cherry red | 1,175 | 635 | |
+| Medium cherry red | 1,275 | 690 | Annealing sub-critical (spheroidise) |
+| **Cherry red (full)** | **1,375** | **745** | Lower critical (A1) is 1,333°F; steel begins to transform |
+| **Bright cherry red** | **1,450** | **790** | **Curie point 1,414°F: a magnet stops sticking**; hardening temperature for W1, O1 and 1095 (1,450-1,500°F) |
+| Salmon / light red | 1,550 | 845 | Hardening for 4140 (1,550-1,600°F), 5160, normalising for 1045 (1,600-1,650°F) |
+| Orange | 1,650 | 900 | Hardening for A2 (1,750°F) starts here; forging range starts |
+| Bright orange / light orange | 1,750 | 955 | D2 hardening (1,850°F), forging |
+| Lemon yellow | 1,830-1,900 | 1,000-1,040 | Forging heat for carbon steel |
+| Light yellow | 1,975-2,050 | 1,080-1,120 | Full forging heat; carburising range (1,650-1,750°F) is below this |
+| **White / dazzling** | 2,200-2,400 | 1,200-1,300 | Burning heat for carbon steel: sparks, grain damage; welding heat for forge welds |
+| Steel melts | 2,500-2,750 | 1,370-1,510 | |
+
+Temperature sticks (Tempilstik) are more accurate than colour and are what the preheat and interpass procedures use; see [preheat and interpass](/article/preheat-interpass-and-carbon-equivalent).
+
+## Basic heat treating for the shop
+
+| Operation | Purpose | How (common grades) |
+|---|---|---|
+| **Anneal** (full) | Soften for machining, remove hardness from a weld zone | Heat to 50°F above the upper critical (1,450-1,600°F for most carbon/alloy steels; 1,400-1,450°F for O1), soak 1 h per inch, **cool very slowly** in the furnace, vermiculite, lime or ash (under 50°F/h) |
+| **Normalise** | Refine grain after forging or heavy welding, uniform structure | Heat to 100°F above the upper critical (1,600-1,700°F for 1045), soak, **cool in still air** |
+| **Stress relieve** | Remove residual stress after welding or machining without changing hardness much | 1,100-1,250°F for carbon and low-alloy steel (below the critical), soak 1 h per inch, slow cool; for 4140 pre-hard keep it 50°F below its original tempering temperature |
+| **Harden** | Maximum hardness | Heat to the hardening temperature (W1 1,450-1,500°F, O1 1,450-1,500°F, 1045 1,500-1,550°F, 4140 1,550-1,600°F, A2 1,750-1,800°F, D2 1,850-1,875°F, S7 1,725-1,750°F), soak, **quench**: W1 and 10xx in water or brine (agitate, plunge point first), O1 and 4140 and 5160 in warm oil (100-150°F), A2/D2/S7/H13 in still air or a fan |
+| **Temper** | Reduce brittleness to the working hardness; **always temper within an hour of hardening** | Reheat to the temper temperature (see below), hold 1-2 h, air cool; double-temper air-hardening grades |
+| **Case harden** | Hard skin on a soft core (1018, 8620) | Carburise in a carbon compound (Kasenit-type or pack) at 1,650-1,700°F for a 0.010-0.030 in case in 1-4 h, quench in water; or send out for gas carburising |
+| **Flame / induction harden** | Hard surface on 1045/4140 shafts and gear teeth | Heat the surface fast to 1,550-1,600°F with a torch or coil, quench with water spray immediately, temper at 350-400°F; typical 50-58 HRC skin |
+
+**Tempering hardness (approximate)**
+
+| Temper temp | O1 | W1 / 1095 | 4140 (from 55-57 HRC) | S7 | A2 |
+|---|---|---|---|---|---|
+| As quenched | 63-65 | 65-67 | 55-57 | 60-61 | 62-64 |
+| 300°F | 62-63 | 64-65 | 54-55 | 58-59 | 61-62 |
+| 400°F | 61-62 | 62-63 | 53-54 | 57-58 | 60-61 |
+| 500°F | 59-60 | 59-61 | 51-53 | 56-57 | 59-60 |
+| 600°F | 56-58 | 55-57 | 49-51 | 55-56 | 58-59 |
+| 800°F | 51-53 | 48-50 | 45-47 | 53-54 | 57-58 |
+| 1,000°F | 44-46 | 40-42 | 38-40 | 46-48 | 55-57 (peak secondary) |
+| 1,100°F | 40-42 | | 33-35 | 42-44 | 50-52 |
+| 1,200°F | 35-37 | | 28-30 | 36-38 | 40-44 |
+
+Rules: never quench a part with sharp inside corners or a mix of thick and thin without expecting cracks; quench point-down and agitate; wear a face shield (oil flashes, water spits); do not heat 4140 or 1045 shafts with a torch and let them air-cool from red without expecting a hard, brittle zone; anything hardened is tempered before it is used or dropped.
+
+## Related
+
+- [Metal identification and spark test](/article/metal-identification-and-spark-test)
+- [Hardness conversion](/article/hardness-conversion)
+- [Preheat, interpass and carbon equivalent](/article/preheat-interpass-and-carbon-equivalent)
+- [Welding cast iron and repairs](/article/welding-cast-iron-and-repairs)
+- [Welding stainless and dissimilar](/article/welding-stainless-and-dissimilar)
+- [Keys and keyways](/article/keys-and-keyways)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$steel grades$mw$,$mw$1018$mw$,$mw$1045$mw$,$mw$4140$mw$,$mw$4340$mw$,$mw$8620$mw$,$mw$1095$mw$,$mw$A36$mw$,$mw$A572$mw$,$mw$A500$mw$,$mw$A513$mw$,$mw$12L14$mw$,$mw$O1$mw$,$mw$A2$mw$,$mw$D2$mw$,$mw$S7$mw$,$mw$H13$mw$,$mw$304$mw$,$mw$316$mw$,$mw$410$mw$,$mw$17-4$mw$,$mw$6061$mw$,$mw$5052$mw$,$mw$7075$mw$,$mw$932 bronze$mw$,$mw$954 bronze$mw$,$mw$grey iron$mw$,$mw$ductile iron$mw$,$mw$temper colour chart$mw$,$mw$heat colour chart$mw$,$mw$cherry red temperature$mw$,$mw$hardening$mw$,$mw$tempering$mw$,$mw$annealing$mw$,$mw$quench$mw$,$mw$normalizing$mw$,$mw$case hardening$mw$,$mw$shaft material$mw$,$mw$keystock material$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASM Metals Handbook and ASM Heat Treater's Guide; SAE J403/J404 (steel grades); ASTM A36, A572, A500, A513, A108, A29; AISI tool steel classifications; Aluminum Association alloy data; CDA bronze data; Machinery's Handbook (temper colours and heat colour tables).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$trig-and-layout-formulas$mw$, $mw$Trig and Layout Formulas: Right Triangles, Offsets, Bolt Circles, Tapers, Sine Bars, Slopes and Leveling$mw$, $mw$The trig a millwright uses in the field: solving right triangles, laws of sines and cosines for any triangle, offsets and rolling offsets, bolt-circle chord and coordinate formulas with a table, taper per foot and taper angle, sine-bar heights, converting slope to degrees and percent, shimming from a level reading, squaring with 3-4-5 and diagonals, and finding the centre of a circle, all with worked examples.$mw$, $mw$## Right triangles
 
 ```
@@ -12501,6 +13244,415 @@ Degrees, minutes, seconds                12°30'15" = 12 + 30/60 + 15/3600 = 12.
 - [Tapered-bore bearing on an adapter sleeve](/article/taper-bore-bearing-adapter-sleeve-skf)
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
           array[$mw$formulas$mw$,$mw$trigonometry$mw$,$mw$right triangle$mw$,$mw$sine$mw$,$mw$cosine$mw$,$mw$tangent$mw$,$mw$pythagorean$mw$,$mw$law of sines$mw$,$mw$law of cosines$mw$,$mw$offset$mw$,$mw$travel$mw$,$mw$run$mw$,$mw$bolt circle$mw$,$mw$hole coordinates$mw$,$mw$chord$mw$,$mw$taper per foot$mw$,$mw$taper angle$mw$,$mw$sine bar$mw$,$mw$slope$mw$,$mw$grade$mw$,$mw$rise over run$mw$,$mw$level$mw$,$mw$shim by slope$mw$,$mw$hexagon$mw$,$mw$square$mw$,$mw$3-4-5$mw$,$mw$centre of a circle$mw$,$mw$degrees to radians$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Machinery's Handbook; standard trigonometry.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$unit-conversions-extended$mw$, $mw$Unit Conversions for Millwrights: Length, Area, Volume, Mass and Force, Pressure and Head, Torque, Power and Energy, Flow, Speed, Temperature, Viscosity and Vibration, with the Ones to Memorise$mw$, $mw$Every conversion a millwright, welder or pipefitter reaches for, grouped by quantity with the exact factor and a rounded shop factor, including the ones that trip people up (head vs pressure, mass vs force, cSt vs SUS, mils vs microns, in/s vs mm/s vibration), and a short list worth memorising.$mw$, $mw$> The [basic shop table](/article/shop-reference-tables) has the dozen everyday conversions. This page is the full list. **Multiply** the "from" quantity by the factor. Factors marked with an asterisk are exact.
+
+## Worth memorising
+
+```
+1 in = 25.4 mm*             1 ft = 0.3048 m*           1 mil (0.001 in) = 25.4 µm*
+1 psi = 6.895 kPa = 0.0689 bar = 2.31 ft of water     1 bar = 14.5 psi
+1 ft-lb = 1.356 N·m          1 N·m = 0.7376 ft-lb       1 in-lb = 0.113 N·m
+1 hp = 0.746 kW              1 kW = 1.341 hp            1 hp = 33,000 ft-lb/min = 2,545 BTU/h
+1 US gal = 3.785 L           1 gpm = 0.227 m³/h = 3.785 L/min
+1 lb = 0.4536 kg             1 kg = 2.205 lb            1 short ton = 2,000 lb; 1 tonne = 2,205 lb
+°C = (°F − 32) × 5/9         °F = °C × 9/5 + 32         a 10°C change = 18°F
+1 in/s (vibration) = 25.4 mm/s*                        1 mil p-p = 25.4 µm p-p
+```
+
+## Length
+
+| From | To | Multiply by |
+|---|---|---|
+| inch | mm | 25.4* |
+| inch | cm | 2.54* |
+| mm | inch | 0.03937 |
+| mil (0.001 in) | µm (micron) | 25.4* |
+| µm | mil | 0.03937 |
+| µm | inch | 0.00003937 (1 µm ≈ 0.00004 in; 0.0001 in = 2.54 µm) |
+| foot | m | 0.3048* |
+| m | foot | 3.281 |
+| yard | m | 0.9144* |
+| mile | km | 1.609 |
+| km | mile | 0.6214 |
+| µin (surface finish Ra) | µm | 0.0254* (32 µin ≈ 0.8 µm; 63 µin ≈ 1.6 µm; 125 µin ≈ 3.2 µm) |
+
+## Area
+
+| From | To | Multiply by |
+|---|---|---|
+| in² | mm² | 645.16* |
+| in² | cm² | 6.452 |
+| ft² | m² | 0.0929 |
+| m² | ft² | 10.76 |
+| circular mil | in² | 7.854 × 10⁻⁷ (1 kcmil = 0.5067 mm²) |
+| mm² (cable) | AWG-equivalent kcmil | ÷ 0.5067 |
+
+## Volume and capacity
+
+| From | To | Multiply by |
+|---|---|---|
+| in³ | cm³ (mL) | 16.387* |
+| in³ | US gal | 0.004329 (231 in³ = 1 gal*) |
+| ft³ | US gal | 7.481 |
+| ft³ | L | 28.32 |
+| ft³ | m³ | 0.02832 |
+| US gal | L | 3.785 |
+| US gal | in³ | 231* |
+| US gal | imperial gal | 0.8327 |
+| imperial gal | US gal | 1.201 |
+| imperial gal | L | 4.546 |
+| L | US gal | 0.2642 |
+| L | in³ | 61.02 |
+| m³ | US gal | 264.2 |
+| fl oz (US) | mL | 29.57 |
+| US quart | L | 0.9464 |
+| bbl (oil, 42 gal) | L | 158.99 |
+
+Grease: 1 oz by weight of grease ≈ 1.9 in³ ≈ 31 mL (grease is about 0.9 g/mL); a standard grease gun stroke delivers about 1-1.5 g (0.05 oz), so check yours by weighing 10 strokes; see [regreasing quantities](/article/regreasing-intervals-and-quantities).
+
+## Mass, force and weight
+
+| From | To | Multiply by |
+|---|---|---|
+| lb (mass) | kg | 0.4536 |
+| kg | lb | 2.205 |
+| oz | g | 28.35 |
+| short ton (2,000 lb) | kg | 907.2 |
+| short ton | tonne (1,000 kg) | 0.9072 |
+| long ton (2,240 lb) | kg | 1,016 |
+| tonne | lb | 2,205 |
+| **lbf (force)** | **N** | **4.448** |
+| N | lbf | 0.2248 |
+| kN | lbf | 224.8 |
+| kgf (kilopond) | N | 9.807 |
+| kgf | lbf | 2.205 |
+| kip (1,000 lbf) | kN | 4.448 |
+
+Rigging: a 5 t (metric) shackle is 11,023 lb WLL; a "5 ton" US shackle is 10,000 lb. Read which ton the tag means (see [sling tables](/article/wire-rope-and-chain-slings-detail)).
+
+## Pressure, head and stress
+
+| From | To | Multiply by |
+|---|---|---|
+| psi | kPa | 6.895 |
+| psi | bar | 0.06895 |
+| psi | MPa | 0.006895 |
+| psi | kg/cm² | 0.0703 |
+| psi | **ft of water** (4°C) | **2.31** |
+| psi | in of mercury | 2.036 |
+| psi | in of water | 27.68 |
+| bar | psi | 14.50 |
+| bar | kPa | 100* |
+| kPa | psi | 0.1450 |
+| MPa | psi | 145.0 |
+| kg/cm² | psi | 14.22 |
+| atm | psi | 14.70 |
+| atm | bar | 1.013 |
+| **ft of water** | **psi** | **0.4335** |
+| m of water | kPa | 9.807 |
+| m of water | psi | 1.422 |
+| in of mercury (vacuum) | psi | 0.4912 |
+| in of mercury | kPa | 3.386 |
+| in of water | Pa | 249.1 |
+| torr (mm Hg) | kPa | 0.1333 |
+| **ksi** | **MPa** | **6.895** |
+| MPa | ksi | 0.1450 |
+| N/mm² | MPa | 1* |
+
+Head to pressure for any liquid: **psi = head (ft) × SG ÷ 2.31**; pressure to head: **ft = psi × 2.31 ÷ SG**. See [pump formulas](/article/pump-and-fluid-power-formulas). Vacuum: 29.92 in Hg is a perfect vacuum at sea level; "20 in Hg vacuum" = 9.8 psia.
+
+## Torque
+
+| From | To | Multiply by |
+|---|---|---|
+| ft-lb | N·m | 1.356 |
+| ft-lb | in-lb | 12* |
+| ft-lb | kgf·m | 0.1383 |
+| in-lb | N·m | 0.1130 |
+| in-lb | ft-lb | 0.08333 |
+| in-oz | N·m | 0.00706 |
+| N·m | ft-lb | 0.7376 |
+| N·m | in-lb | 8.851 |
+| N·m | kgf·m | 0.1020 |
+| kgf·m | ft-lb | 7.233 |
+| kgf·m | N·m | 9.807 |
+
+Wrench math: 100 ft-lb applied with a 2 ft extension is 100 ft-lb; a torque wrench with a crowfoot that adds 2 in to a 12 in wrench reads low: set the wrench to Target × 12 ÷ 14. See [bolt torque chart](/article/bolt-torque-chart-sae-metric).
+
+## Power, energy and heat
+
+| From | To | Multiply by |
+|---|---|---|
+| hp (mechanical) | kW | 0.7457 |
+| hp | ft-lb/min | 33,000* |
+| hp | ft-lb/s | 550* |
+| hp | BTU/h | 2,545 |
+| kW | hp | 1.341 |
+| kW | BTU/h | 3,412 |
+| hp (metric, PS/CV) | kW | 0.7355 |
+| BTU | kJ | 1.055 |
+| BTU | ft-lb | 778.2 |
+| kJ | BTU | 0.9478 |
+| kWh | BTU | 3,412 |
+| kWh | MJ | 3.6* |
+| ft-lb (energy) | J | 1.356 |
+| J | ft-lb | 0.7376 |
+| ton of refrigeration | BTU/h | 12,000* |
+| ton of refrigeration | kW | 3.517 |
+| therm | BTU | 100,000* |
+| cal | J | 4.187 |
+| BTU/(lb·°F) | kJ/(kg·K) | 4.187 |
+| BTU/(h·ft²·°F) | W/(m²·K) | 5.678 |
+| cfm of compressed air at 100 psi | hp to make it | ≈ 0.2-0.25 hp per cfm (rule of thumb) |
+
+Torque-speed-power: hp = torque (ft-lb) × rpm ÷ 5,252; kW = torque (N·m) × rpm ÷ 9,549. See [power, torque and speed formulas](/article/power-torque-speed-drive-formulas).
+
+## Flow
+
+| From | To | Multiply by |
+|---|---|---|
+| US gpm | L/min | 3.785 |
+| US gpm | m³/h | 0.2271 |
+| US gpm | L/s | 0.06309 |
+| US gpm | ft³/s | 0.002228 |
+| US gpm | imperial gpm | 0.8327 |
+| imperial gpm | L/min | 4.546 |
+| L/min | US gpm | 0.2642 |
+| m³/h | US gpm | 4.403 |
+| L/s | US gpm | 15.85 |
+| ft³/min (cfm) | L/min | 28.32 |
+| cfm | m³/h | 1.699 |
+| cfm | L/s | 0.4719 |
+| cfm | **cfh** | **60*** |
+| m³/h | cfm | 0.5886 |
+| L/min | cfm | 0.03531 |
+| scfm | Nm³/h (0°C, 1.013 bar) | ≈ 1.608 (standard conditions differ: check) |
+| lb/h of water | gpm | 0.002 (500 lb/h ≈ 1 gpm) |
+| gpm of water | lb/h | 500 |
+
+Shielding gas: 20 cfh ≈ 9.4 L/min; 15 L/min ≈ 32 cfh; see [gas selection and flow](/article/gas-selection-and-flow). Pipe velocity: v (ft/s) = 0.4085 × gpm ÷ ID² (in).
+
+## Speed and rotation
+
+| From | To | Multiply by |
+|---|---|---|
+| ft/min (fpm) | m/s | 0.00508* |
+| ft/min | m/min | 0.3048* |
+| m/s | ft/min | 196.9 |
+| mph | km/h | 1.609 |
+| mph | ft/s | 1.467 |
+| km/h | m/s | 0.2778 |
+| knot | mph | 1.151 |
+| rpm | rad/s | 0.1047 |
+| rpm | Hz (rev/s) | 0.01667 (1,800 rpm = 30 Hz) |
+| Hz | rpm | 60* |
+| rad/s | rpm | 9.549 |
+| SFM (surface ft/min) | m/min | 0.3048 |
+| SFM | rpm on a diameter D (in) | 3.82 × SFM ÷ D (see [drill press speeds](/article/drill-press-speeds-and-feeds)) |
+
+Belt speed (fpm) = 0.262 × sheave dia (in) × rpm; see [shop reference tables](/article/shop-reference-tables).
+
+## Temperature
+
+| From | To | Formula |
+|---|---|---|
+| °F | °C | (°F − 32) × 5/9 |
+| °C | °F | °C × 9/5 + 32 |
+| °F difference | °C difference | × 5/9 (a rise of 90°F = 50°C) |
+| °C difference | °F difference | × 1.8 |
+| °C | K | + 273.15 |
+| °F | °R (Rankine) | + 459.67 |
+
+Anchors: −40 is the same in both; 32°F = 0°C; 100°F = 37.8°C; 212°F = 100°C; 250°F = 121°C (bearing heater limit); 300°F = 149°C; 400°F = 204°C; 500°F = 260°C; 1,000°F = 538°C; 1,414°F = 768°C (Curie); 1,500°F = 816°C; 2,000°F = 1,093°C; 2,750°F = 1,510°C (steel melts). Thermal expansion of steel: 0.0000065 in per inch per °F (6.5 µin/in/°F; 11.7 µm/m/°C); a 12 in bore heated 150°F grows 0.0117 in; see [bearing mounting with heat](/article/bearing-mounting-with-heat) and [thermal growth](/article/thermal-growth-alignment).
+
+## Viscosity
+
+Kinematic: **cSt (mm²/s)** is the SI unit; **SUS (Saybolt Universal Seconds)** is the old US unit; ISO VG grades are cSt at 40°C.
+
+| cSt at 100°F/40°C | SUS (approx.) | ISO VG | AGMA | SAE (approx.) |
+|---|---|---|---|---|
+| 32 | 150 | 32 | – | 10W |
+| 46 | 215 | 46 | 1 | 10W/20 |
+| 68 | 315 | 68 | 2 | 20 |
+| 100 | 465 | 100 | 3 | 30 |
+| 150 | 700 | 150 | 4 | 40 |
+| 220 | 1,000 | 220 | 5 | 50 / 90 gear |
+| 320 | 1,500 | 320 | 6 | 140 gear |
+| 460 | 2,150 | 460 | 7 | |
+| 680 | 3,150 | 680 | 8 | 250 gear |
+
+Conversion (ASTM D2161): above 70 cSt, **SUS ≈ 4.632 × cSt** at 100°F (4.664 at 210°F); between 30-70 cSt use SUS ≈ 4.63 × cSt + small correction; below 30 cSt use the standard table. Dynamic viscosity (cP) = cSt × density (g/mL); for oil (SG ≈ 0.88) cP ≈ 0.88 × cSt. See [oil viscosity and selection](/article/oil-viscosity-and-selection).
+
+## Vibration and small measures
+
+| From | To | Multiply by |
+|---|---|---|
+| in/s (velocity, pk) | mm/s (pk) | 25.4* |
+| in/s pk | in/s RMS | 0.7071 (sinusoid) |
+| mm/s RMS | in/s pk | 0.0557 |
+| mil (displacement, p-p) | µm p-p | 25.4* |
+| g (acceleration) | in/s² | 386.1 |
+| g | m/s² | 9.807 |
+| cpm (cycles/min) | Hz | 0.01667 |
+
+ISO 20816 zone boundaries are in mm/s RMS; US charts in in/s peak: 0.1 in/s pk ≈ 1.8 mm/s RMS; 0.3 in/s pk ≈ 5.4 mm/s RMS; 0.6 in/s pk ≈ 10.8 mm/s RMS. See [vibration basics and ISO severity](/article/vibration-basics-and-iso-severity).
+
+Other small measures: 1 thou = 1 mil = 0.001 in = 0.0254 mm; "a tenth" in a machine shop = 0.0001 in = 2.54 µm; 1 µm ≈ 0.00004 in ("four hundred-thousandths"); ISO cleanliness particle sizes are in µm (4, 6, 14 µm): a human hair is about 70 µm, the eye sees about 40 µm; see [filters and contamination](/article/filters-fluid-and-contamination).
+
+## Angles and slopes
+
+| From | To | Multiply by / formula |
+|---|---|---|
+| degrees | radians | 0.01745 |
+| radians | degrees | 57.30 |
+| degrees | mils/in of slope (angular misalignment) | tan(θ) × 1,000 (1° = 17.5 mils/in; 0.05° ≈ 0.9 mil/in) |
+| mils/in | degrees | atan(mils ÷ 1,000) |
+| 1 in per 10 ft (offset) | degrees | 0.477° |
+| pipe slope 1/8 in per ft | percent | 1.04% |
+| percent grade | degrees | atan(% ÷ 100) |
+| minutes of arc | degrees | 0.01667 |
+| level sensitivity 0.0005 in/ft per division | seconds of arc | ≈ 8.6 arc-seconds; ≈ 0.0024° |
+
+Right-triangle and offset math: [trig and layout formulas](/article/trig-and-layout-formulas).
+
+## Related
+
+- [Shop reference tables (basic conversions, decimals, tap drills)](/article/shop-reference-tables)
+- [Pump and fluid-power formulas (head, pressure, flow)](/article/pump-and-fluid-power-formulas)
+- [Power, torque, speed and drive formulas](/article/power-torque-speed-drive-formulas)
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection)
+- [Wire gauge and sheet thickness tables](/article/wire-gauge-and-sheet-thickness)
+- [Geometry and weight formulas](/article/geometry-formulas-area-volume-weight)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$unit conversion$mw$,$mw$conversion table$mw$,$mw$psi to bar$mw$,$mw$psi to kPa$mw$,$mw$bar to psi$mw$,$mw$ft-lb to Nm$mw$,$mw$Nm to ft-lb$mw$,$mw$hp to kW$mw$,$mw$kW to hp$mw$,$mw$gpm to lpm$mw$,$mw$gpm to m3/h$mw$,$mw$feet of head to psi$mw$,$mw$psi to feet of head$mw$,$mw$cSt to SUS$mw$,$mw$SUS to cSt$mw$,$mw$inches to mm$mw$,$mw$mm to inches$mw$,$mw$mils to microns$mw$,$mw$microns to inches$mw$,$mw$rpm to rad/s$mw$,$mw$in/s to mm/s$mw$,$mw$mils vibration$mw$,$mw$Fahrenheit to Celsius$mw$,$mw$BTU$mw$,$mw$kJ$mw$,$mw$ton refrigeration$mw$,$mw$metric conversions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NIST SP 811 (Guide for the Use of SI Units) conversion factors; ASTM D2161 (SUS-cSt); Machinery's Handbook; ISO 80000.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$wire-gauge-and-sheet-thickness$mw$, $mw$Sheet Metal Gauge and Wire Gauge Tables: Steel, Galvanised, Stainless and Aluminium Sheet Thickness by Gauge, Plate Weight per Square Foot, AWG Wire Diameter and Ampacity, Welding Cable and Drill Rod Sizes$mw$, $mw$Gauge tables that answer what the number means in inches and millimetres for steel, galvanised, stainless and aluminium sheet, the weight of plate and sheet per square foot for lifting and ordering, the AWG copper wire table with NEC ampacity and the breaker sizes a millwright sees on motors and tools, plus welding cable and extension cord guidance.$mw$, $mw$> There is no single gauge system. **Steel sheet** uses the Manufacturers' Standard Gauge, **galvanised** its own (thicker for the same number), **stainless** the US Standard Gauge, **aluminium and copper** the Brown and Sharpe (AWG) gauge. The same "16 gauge" is 0.0598 in in steel, 0.0635 in galvanised, 0.0625 in stainless and 0.0508 in aluminium. Order and measure in **inches or millimetres**, and use the gauge only as a name.
+
+## Sheet and plate thickness by gauge (inches, mm)
+
+| Gauge | Steel (MSG) | Galvanised steel | Stainless (US Std) | Aluminium (B&S/AWG) |
+|---|---|---|---|---|
+| 3 | 0.2391 (6.07) | – | 0.2500 (6.35) | 0.2294 (5.83) |
+| 4 | 0.2242 (5.69) | – | 0.2344 (5.95) | 0.2043 (5.19) |
+| 5 | 0.2092 (5.31) | – | 0.2188 (5.56) | 0.1819 (4.62) |
+| 6 | 0.1943 (4.94) | – | 0.2031 (5.16) | 0.1620 (4.11) |
+| **7** | **0.1793 (4.55)** | – | 0.1875 (4.76) | 0.1443 (3.67) |
+| 8 | 0.1644 (4.18) | 0.1681 (4.27) | 0.1719 (4.37) | 0.1285 (3.26) |
+| 9 | 0.1495 (3.80) | 0.1532 (3.89) | 0.1562 (3.97) | 0.1144 (2.91) |
+| **10** | **0.1345 (3.42)** | 0.1382 (3.51) | 0.1406 (3.57) | 0.1019 (2.59) |
+| **11** | **0.1196 (3.04)** | 0.1233 (3.13) | 0.1250 (3.18) | 0.0907 (2.30) |
+| **12** | **0.1046 (2.66)** | 0.1084 (2.75) | 0.1094 (2.78) | 0.0808 (2.05) |
+| 13 | 0.0897 (2.28) | 0.0934 (2.37) | 0.0938 (2.38) | 0.0720 (1.83) |
+| **14** | **0.0747 (1.90)** | 0.0785 (1.99) | 0.0781 (1.98) | 0.0641 (1.63) |
+| 15 | 0.0673 (1.71) | 0.0710 (1.80) | 0.0703 (1.79) | 0.0571 (1.45) |
+| **16** | **0.0598 (1.52)** | 0.0635 (1.61) | 0.0625 (1.59) | 0.0508 (1.29) |
+| 17 | 0.0538 (1.37) | 0.0575 (1.46) | 0.0562 (1.43) | 0.0453 (1.15) |
+| **18** | **0.0478 (1.21)** | 0.0516 (1.31) | 0.0500 (1.27) | 0.0403 (1.02) |
+| 19 | 0.0418 (1.06) | 0.0456 (1.16) | 0.0438 (1.11) | 0.0359 (0.91) |
+| **20** | **0.0359 (0.91)** | 0.0396 (1.01) | 0.0375 (0.95) | 0.0320 (0.81) |
+| 21 | 0.0329 (0.84) | 0.0366 (0.93) | 0.0344 (0.87) | 0.0285 (0.72) |
+| **22** | **0.0299 (0.76)** | 0.0336 (0.85) | 0.0312 (0.79) | 0.0253 (0.64) |
+| 23 | 0.0269 (0.68) | 0.0306 (0.78) | 0.0281 (0.71) | 0.0226 (0.57) |
+| **24** | **0.0239 (0.61)** | 0.0276 (0.70) | 0.0250 (0.64) | 0.0201 (0.51) |
+| 26 | 0.0179 (0.45) | 0.0217 (0.55) | 0.0188 (0.48) | 0.0159 (0.40) |
+| 28 | 0.0149 (0.38) | 0.0187 (0.47) | 0.0156 (0.40) | 0.0126 (0.32) |
+| 30 | 0.0120 (0.30) | 0.0157 (0.40) | 0.0125 (0.32) | 0.0100 (0.25) |
+
+Quick memory pegs: **10 ga ≈ 1/8 in (a hair over)**, 7 ga ≈ 3/16 in, 3 ga ≈ 1/4 in, 14 ga ≈ 5/64 in, 16 ga ≈ 1/16 in, 20 ga ≈ 1/28 in; each gauge step is about 10-12% in thickness. Welding: 16 ga is the sheet-metal MIG threshold (.023-.030 wire), 11-10 ga is where .035 wire and stick become comfortable; see [MIG setup](/article/gmaw-mig-setup). Above 3/16 in, steel is sold as **plate** by fraction: 1/4, 5/16, 3/8, 1/2, 5/8, 3/4, 1 in and up.
+
+## Weight per square foot
+
+Steel: **40.8 lb/ft² per inch of thickness** (0.2836 lb/in³). Stainless 41.9; aluminium 14.1; copper 46.5; brass 44.2; titanium 23.5; lead 59.
+
+| Thickness | Steel lb/ft² | Aluminium lb/ft² | 4 ft × 8 ft sheet, steel (lb) | 4 ft × 10 ft plate, steel (lb) |
+|---|---|---|---|---|
+| 24 ga (0.024) | 1.0 | 0.34 | 32 | 40 |
+| 20 ga (0.036) | 1.5 | 0.51 | 47 | 59 |
+| 18 ga (0.048) | 2.0 | 0.68 | 63 | 78 |
+| 16 ga (0.060) | 2.5 | 0.85 | 78 | 98 |
+| 14 ga (0.075) | 3.1 | 1.06 | 98 | 122 |
+| 12 ga (0.105) | 4.4 | 1.48 | 137 | 171 |
+| 11 ga (0.120) | 4.9 | 1.69 | 156 | 195 |
+| 10 ga (0.135) | 5.6 | 1.90 | 176 | 220 |
+| 3/16 in (7 ga) | 7.7 | 2.64 | 245 | 306 |
+| **1/4 in** | **10.2** | 3.53 | **327** | 408 |
+| 5/16 in | 12.8 | 4.41 | 408 | 510 |
+| **3/8 in** | **15.3** | 5.29 | **490** | 613 |
+| **1/2 in** | **20.4** | 7.05 | **653** | 816 |
+| 5/8 in | 25.5 | 8.81 | 816 | 1,020 |
+| 3/4 in | 30.6 | 10.6 | 980 | 1,224 |
+| 1 in | 40.8 | 14.1 | 1,306 | 1,632 |
+| 1-1/2 in | 61.2 | 21.2 | 1,958 | 2,448 |
+| 2 in | 81.6 | 28.2 | 2,611 | 3,264 |
+
+A 4 ft × 8 ft × 1/2 in plate is over 650 lb: two people and a forklift, not two people. Formulas for shapes: [geometry and weight formulas](/article/geometry-formulas-area-volume-weight).
+
+## AWG copper wire: diameter, resistance and NEC ampacity
+
+Ampacity per NEC 2023 Table 310.16, copper, not more than three current-carrying conductors in raceway, 30°C ambient; the **75°C column** is what most terminations allow. Overcurrent protection for small conductors is capped by 240.4(D): 14 AWG 15 A, 12 AWG 20 A, 10 AWG 30 A regardless of insulation. This is for awareness (motor branch circuits, tool cords); electricians size circuits, and motor circuits follow Article 430 (conductors at 125% of FLA, breakers up to 250% for inverse-time types).
+
+| AWG | Diameter (in / mm) | Area (kcmil / mm²) | Ohms per 1,000 ft | 60°C amps | **75°C amps** | 90°C amps | Common use |
+|---|---|---|---|---|---|---|---|
+| 18 | 0.0403 / 1.02 | 1.62 / 0.82 | 6.39 | – | – | 14 (control) | Control wiring, lamp cord |
+| 16 | 0.0508 / 1.29 | 2.58 / 1.31 | 4.02 | – | – | 18 | Light extension cords (13 A max) |
+| **14** | 0.0641 / 1.63 | 4.11 / 2.08 | 2.53 | 15 | **20 (15 A breaker)** | 25 | 15 A circuits, light cords |
+| **12** | 0.0808 / 2.05 | 6.53 / 3.31 | 1.59 | 20 | **25 (20 A breaker)** | 30 | 20 A circuits, heavy extension cords |
+| **10** | 0.1019 / 2.59 | 10.4 / 5.26 | 1.00 | 30 | **35 (30 A breaker)** | 40 | 30 A circuits, 5 hp 240 V 1-ph motors, welder outlets |
+| 8 | 0.1285 / 3.26 | 16.5 / 8.37 | 0.628 | 40 | **50** | 55 | 40-50 A circuits, 240 V welders |
+| 6 | 0.1620 / 4.11 | 26.2 / 13.3 | 0.395 | 55 | **65** | 75 | 60 A feeders, 20 hp 460 V motors |
+| 4 | 0.2043 / 5.19 | 41.7 / 21.2 | 0.249 | 70 | **85** | 95 | |
+| 3 | 0.2294 / 5.83 | 52.6 / 26.7 | 0.197 | 85 | 100 | 115 | |
+| 2 | 0.2576 / 6.54 | 66.4 / 33.6 | 0.156 | 95 | **115** | 130 | 50 hp 460 V motors |
+| 1 | 0.2893 / 7.35 | 83.7 / 42.4 | 0.124 | 110 | 130 | 145 | |
+| 1/0 | 0.3249 / 8.25 | 106 / 53.5 | 0.098 | 125 | **150** | 170 | |
+| 2/0 | 0.3648 / 9.27 | 133 / 67.4 | 0.078 | 145 | 175 | 195 | |
+| 3/0 | 0.4096 / 10.4 | 168 / 85.0 | 0.062 | 165 | 200 | 225 | 100 hp 460 V motors |
+| 4/0 | 0.4600 / 11.7 | 212 / 107 | 0.049 | 195 | **230** | 260 | |
+| 250 kcmil | 0.575 / 14.6 | 250 / 127 | 0.042 | 215 | 255 | 290 | |
+| 500 kcmil | 0.813 / 20.7 | 500 / 253 | 0.021 | 320 | 380 | 430 | |
+
+Rules of thumb: each **3 AWG steps halves the area** (and doubles the resistance); each 6 steps halves the diameter; each 10 steps is 10× the area. Aluminium conductors are about 1.6 sizes larger for the same ampacity (4 AWG Al ≈ 6 AWG Cu). **Voltage drop**: keep under 3% on a branch circuit; for 120 V, 20 A on 12 AWG that is about 50 ft one-way, on 10 AWG about 80 ft. Motor full-load amps by hp: [motor nameplate](/article/reading-a-motor-nameplate).
+
+## Welding cable and extension cords
+
+Welding cable (fine-stranded, flexible, 600 V): size by total lead length and duty cycle, see the chart in [machine setup and duty cycle](/article/machine-setup-and-duty-cycle). Short version: 200 A up to 50 ft total = #2; 100 ft = 1/0; 250 A 100 ft = 2/0; 300 A 100 ft = 3/0.
+
+Extension cords for tools (120 V):
+
+| Tool amps | Up to 25 ft | 50 ft | 100 ft | 150 ft |
+|---|---|---|---|---|
+| 0-5 A | 16 AWG | 16 | 16 | 14 |
+| 5-10 A | 16 | 16 | 14 | 12 |
+| **10-15 A** (grinder, circular saw, mag drill) | **14** | **12** | **12** | **10** |
+| 15-20 A (240 V welder inputs, large compressors) | 12 | 10 | 10 | 8 |
+
+Use SJTW/SOOW or better cords, three-prong, GFCI-protected; a cord that is warm to the touch is undersized. See [hand and power tool safety](/article/hand-and-power-tool-safety).
+
+## Drill rod, music wire and welding wire sizes
+
+- **Drill rod** (O1, W1, A2 precision ground): sold in fractional (1/16 to 1-1/2 in), letter (A to Z) and number (#1 to #60) drill sizes and in metric; the diameter matches the drill of the same name so a rod fits a reamed or drilled hole; see the decimal table in [shop reference tables](/article/shop-reference-tables).
+- **Music (spring) wire** uses the Washburn and Moen / US Steel Wire Gauge for springs: e.g. #10 = 0.135 in, #16 = 0.062 in, #20 = 0.035 in (close to but not identical to sheet gauges).
+- **MIG wire**: .023, .030, .035, .045, .052, 1/16 in (0.6, 0.8, 0.9, 1.2, 1.4, 1.6 mm); **TIG filler**: 1/16, 3/32, 1/8, 5/32 in (1.6, 2.4, 3.2, 4.0 mm); **stick electrodes**: 3/32, 1/8, 5/32, 3/16, 1/4 in (2.4, 3.2, 4.0, 4.8, 6.4 mm). Charts: [stick electrode chart](/article/smaw-electrode-chart), [MIG setup](/article/gmaw-mig-setup), [TIG settings](/article/gtaw-settings-by-material).
+- **Tungsten**: 0.040, 1/16, 3/32, 1/8, 5/32, 3/16 in.
+- **Wire rope** is by diameter (1/4 to 2 in and up), see [sling tables](/article/wire-rope-and-chain-slings-detail); **chain** by link stock diameter (9/32, 5/16, 3/8, 1/2 in).
+
+## Related
+
+- [Shop reference tables: decimal equivalents, tap drills](/article/shop-reference-tables)
+- [Geometry and weight formulas](/article/geometry-formulas-area-volume-weight)
+- [MIG (GMAW) setup by thickness](/article/gmaw-mig-setup)
+- [Welding machine setup, breakers and cable sizes](/article/machine-setup-and-duty-cycle)
+- [Sheet-metal developments](/article/sheet-metal-developments)
+- [Unit conversions (extended)](/article/unit-conversions-extended)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$shop-reference$mw$),
+          array[$mw$sheet metal gauge chart$mw$,$mw$gauge to inches$mw$,$mw$16 gauge thickness$mw$,$mw$14 gauge$mw$,$mw$11 gauge$mw$,$mw$10 gauge$mw$,$mw$galvanized gauge$mw$,$mw$stainless gauge$mw$,$mw$aluminum gauge$mw$,$mw$plate weight per square foot$mw$,$mw$AWG wire gauge$mw$,$mw$wire diameter$mw$,$mw$wire ampacity$mw$,$mw$NEC 310.16$mw$,$mw$welding cable ampacity$mw$,$mw$extension cord gauge$mw$,$mw$drill rod sizes$mw$,$mw$sheet weight$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Manufacturers' Standard Gauge for sheet steel (US); Galvanized Sheet Gauge; US Standard Gauge (stainless); Brown and Sharpe / AWG (aluminium and non-ferrous, copper wire); NEC 2023 Table 310.16 (60/75/90°C copper); Machinery's Handbook; welding cable maker tables (Lincoln, Direct Wire).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';

@@ -204,3 +204,12 @@ a.card:hover { text-decoration: none; border-color: var(--accent); }
 .picker .options button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 12px; cursor: pointer; }
 .picker .options button:hover { background: var(--surface-2); }
 .member { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+
+.hero-links { margin-top: 12px; font-size: 0.95rem; }
+.index-filter { width: 100%; max-width: 480px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: inherit; font-size: 1rem; margin: 6px 0 12px; }
+.index-jump { justify-content: flex-start; margin-bottom: 16px; }
+.index-group { margin-bottom: 22px; }
+.index-group h2 { font-size: 1.1rem; margin: 0 0 6px; }
+.index-group ul { margin: 0; padding-left: 18px; columns: 2; column-gap: 28px; }
+.index-group li { break-inside: avoid; margin-bottom: 4px; }
+@media (max-width: 720px) { .index-group ul { columns: 1; } }

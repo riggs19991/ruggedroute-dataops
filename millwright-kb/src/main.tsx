@@ -5,6 +5,7 @@ import './index.css'
 import { AuthProvider, useAuth } from './lib/auth'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
+import { IndexPage } from './pages/Index'
 import { Search } from './pages/Search'
 import { CategoryPage } from './pages/Category'
 import { ArticlePage } from './pages/Article'
@@ -30,6 +31,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/index" element={<IndexPage />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/signin" element={<SignIn />} />

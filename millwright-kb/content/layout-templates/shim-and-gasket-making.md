@@ -35,7 +35,7 @@ Choose the shim size so the shim covers **most of the foot** (at least 75-80% of
 - After alignment, record the shim pack under each foot on the alignment sheet.
 - Never use washers, split shims, coins, hacksaw blades or shims with paint on them.
 
-Soft foot rules and the sequence for checking it: [soft foot](/article/soft-foot-correction)... see the alignment articles.
+Soft foot rules and the sequence for checking it: [soft foot](/article/soft-foot-correction) and the alignment articles.
 
 ## Cutting custom shims
 

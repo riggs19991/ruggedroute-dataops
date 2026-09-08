@@ -12,20 +12,34 @@ app is a static Vite + React build that talks to Supabase directly with the publ
 | Area | What it does |
 |---|---|
 | **Search** | Postgres full-text search with weighting (title and tags first, then manufacturer and model numbers, then summary, then body), typo tolerance via trigram similarity, and exact model-number matching (`TA4207H`, `22220 EK`). Anyone can search, signed in or not. |
-| **Browse** | 13 topic categories: alignment, bearings, oxy-fuel, belts/chains/couplings, gearboxes, pumps and seals, rigging, measurement, fasteners, hydraulics, safety, manufacturer manuals, shop math. |
+| **Browse** | 24 topic categories: welding and fabrication, cutting and gouging, oxy-fuel, layout and templates, alignment, installation and foundations, bearings, belts/chains/couplings, gearboxes, pumps and seals, conveyors, hydraulics and pneumatics, lubrication, vibration and condition monitoring, motors/VFDs/electrical awareness, shop machining, fasteners, rigging, safety, preventive maintenance, troubleshooting, measurement, manufacturer manuals, shop reference. Plus an A-Z index page and a task index article ("Set me up for a task"). |
 | **Articles** | Markdown with tables, procedures, charts. Kinds: procedure, reference, chart, manual, tip, safety. Attachments (PDF, images, documents, 50 MB each) in private storage with signed links. Bookmarks, view counts, print. |
 | **Contribute** | Any signed-in user can write an article or upload a manual. Students' public submissions wait for a **teacher review**; teachers publish directly. Anything shared with a group is visible to that group immediately. |
 | **Groups** | A teacher creates a group (class) and gets a 6-character join code. Students join with the code. The teacher posts to **week N** with a message, a linked library article and files. The term start date tells everyone which week is "this week". |
 | **Roles** | Everyone signs up as a student. A teacher unlocks teacher tools on the profile page with the **teacher access code** (see below). |
 
-Seed content (26 articles) covers, among others: shaft-to-shaft alignment (fundamentals
-and tolerance table, rim-and-face with shim math, reverse dial, laser, soft foot, thermal
-growth), setting a tapered-bore spherical roller bearing on an adapter sleeve with the full
-SKF drive-up card (PUB BU/P9 14231 EN) and the FAG inch table, the Victor acetylene tip
-chart (form 65-2505: cutting, welding and heating tips with pressures), oxy-acetylene
-setup/lighting/shutdown, bearing designation codes, hot mounting, V-belts, roller chain,
-couplings, gearbox lubrication, Dodge Torque-Arm installation, mechanical seals, rigging,
-micrometers, dial indicators, bolt torque, lockout/tagout and shop reference tables.
+Seed content (154 articles) is written for the shop bench, imperial first with metric
+alongside, US OSHA/AWS practice with Red Seal/CSA notes where they differ, and every chart
+cites its source. It covers: complete welder setup for every process (stick electrode
+amperage chart, MIG voltage/wire-feed charts and transfer modes, gas-shielded and
+self-shielded flux-core, TIG by material, gas selection and flow, duty cycle and cable
+sizing), joints, positions, distortion, preheat and carbon equivalent, stainless,
+aluminium, cast iron, hardfacing, weld defects, symbols and blueprint reading; plasma cut
+charts, keyholing, carbon-arc gouging, oxy-fuel (Victor tip chart, cutting, rosebud
+heating); pipe saddle, miter, sheet-metal and flange-template layout; anchors, grouting,
+leveling, optical levels and heavy moves; alignment (rim-and-face, reverse dial, laser,
+soft foot, thermal growth); bearings (designation codes, hot mounting, SKF drive-up card,
+tapered roller setting, pullers, fits and clearances, failure analysis); belts, chains,
+bushings, keys and couplings; gearboxes; pumps, seals, packing and compressors;
+hydraulics, hoses, cylinders, filtration, accumulators and pneumatics; grease and oil
+selection and regreasing; conveyors; motor nameplates, lead connections, megger, VFDs and
+PLC awareness; vibration severity and signatures; drill press, tapping, thread repair,
+broken bolts, lathe and mill basics; thread ID, torque, locking and flange bolting;
+sling, shackle and hoist tables, crane signals, cribbing; lockout, confined space, hot
+work, fall protection, PPE, tool safety, cylinders and first aid; PM checklists, routes,
+work orders and spares; belt, seal, coupling and machine-trouble decision trees; and
+formula and reference sheets (geometry, trig, power and torque, pumps, shafts, pipe
+schedules and flanges, hardness, steel grades and heat colours, gauges, unit conversions).
 
 ## Layout
 

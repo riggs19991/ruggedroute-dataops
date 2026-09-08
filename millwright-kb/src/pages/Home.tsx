@@ -5,7 +5,7 @@ import type { Article, Category } from '../lib/types'
 import { SearchBox } from '../components/SearchBox'
 import { ArticleCard } from '../components/ArticleCard'
 
-const EXAMPLES = ['shaft to shaft alignment', 'SKF bearing reduction card', 'Victor tip chart', 'oxygen acetylene pressure', 'bolt torque', 'sling angle', 'Dodge Torque-Arm']
+const EXAMPLES = ['7018 amperage', 'MIG settings 1/4 plate', 'TIG aluminum', 'plasma cut chart', 'bearing heater', 'laser alignment', 'grease compatibility', 'belt tracking', 'sling capacity', 'megger test', 'tap drill', 'Victor tip chart']
 
 type Lite = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer' | 'view_count' | 'created_at'> & { category: Pick<Category, 'name'> | null }
 
@@ -33,11 +33,14 @@ export function Home() {
     <>
       <section className="hero">
         <h1>Millwright Knowledge Base</h1>
-        <p>Procedures, charts and manuals for the trade: alignment, bearings, oxy-fuel, rigging, drives, gearboxes. Search it, use it in the shop, add what is missing.</p>
+        <p>Procedures, charts and manuals for the trade: welding and cutting setup, alignment, bearings, drives, hydraulics, rigging, installation, troubleshooting and safety. Search it, use it in the shop, add what is missing.</p>
         <SearchBox big autoFocus />
         <div className="chips">
           {EXAMPLES.map((e) => <Link key={e} className="chip" to={`/search?q=${encodeURIComponent(e)}`}>{e}</Link>)}
         </div>
+        <p className="hero-links">
+          <Link to="/article/set-me-up-for-a-task">Set me up for a task</Link> · <Link to="/index">A-Z index of every article</Link>
+        </p>
       </section>
 
       <section className="section">
