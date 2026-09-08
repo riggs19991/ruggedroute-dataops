@@ -126,7 +126,7 @@ of every article. The donation link is a Stripe Payment Link from the company's 
 (customer chooses the amount, no backend, no secret key in the repo). The donation button
 points at `VITE_DONATE_URL`, which both workflows read from the
 repository variable `DONATE_URL` (GitHub → Settings → Secrets and variables → Actions →
-Variables); or hard-code it in `src/lib/site.ts`; until it is set, the button opens `/support`. Company
+Variables); or hard-code it in `src/lib/site.ts`; the default in `src/lib/site.ts` is the live Stripe link, so the variable is only needed to override it. Company
 name, contact email and copyright year live in `src/lib/site.ts`.
 
 ### Re-seeding content from `content/`
