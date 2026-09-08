@@ -15,9 +15,9 @@ export function Privacy() {
       <p>Accounts, content and files are hosted by Supabase (Postgres database and file storage) and the website is served by Cloudflare. Both encrypt data in transit and at rest.</p>
       <h2>Who can see what</h2>
       <ul>
-        <li>Published articles are public. Draft and pending articles are visible to you and to teachers.</li>
+        <li>Published articles are public. Drafts are visible only to you (and to the site moderator).</li>
         <li>Group posts and files are visible to members of that group.</li>
-        <li>Teachers can review and edit contributions and manage their groups.</li>
+        <li>Community contributions are not reviewed before they appear. Anyone can edit or delete their own articles; the site moderator can remove anything. Upvotes are stored with your account so you can undo them.</li>
       </ul>
       <h2>Your choices</h2>
       <p>You can edit your name and school on the profile page and delete files you uploaded. To delete your account and everything linked to it, ask your instructor or email the site owner; it is removed within a few days.</p>

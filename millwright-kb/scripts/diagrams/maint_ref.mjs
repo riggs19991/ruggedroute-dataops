@@ -191,9 +191,9 @@ fig('shop-reference/conversion-ladders.svg', 'Pressure and torque side by side: 
 }
 
 // ---------- Add a manual flow ----------
-fig('manuals/add-a-manual-flow.svg', 'Adding a manual: Contribute, fill the title, manufacturer and model numbers, attach the PDF, submit; a teacher reviews and publishes',
+fig('manuals/add-a-manual-flow.svg', 'Adding a manual: Contribute, fill the title, manufacturer and model numbers, attach the PDF, confirm the statement and publish; the community upvotes it',
   svg(500, 170, [
-    ...[['Contribute\nbutton', C.grey], ['Title, maker,\nmodel, tags', C.blueSoft], ['Attach PDF\n(50 MB max)', C.blueSoft], ['Submit for\nreview', C.soft], ['Teacher\npublishes', C.greenSoft]].map(([n, c], i) => box(20 + i * 94, 40, 86, 60, n, { fill: c, size: 10.5 })),
+    ...[['Contribute\nbutton', C.grey], ['Title, maker,\nmodel, tags', C.blueSoft], ['Attach PDF\n(50 MB max)', C.blueSoft], ['Confirm and\npublish', C.soft], ['Live at once;\ncommunity upvotes', C.greenSoft]].map(([n, c], i) => box(20 + i * 94, 40, 86, 60, n, { fill: c, size: 10.5 })),
     ...[0, 1, 2, 3].map((i) => line(106 + i * 94, 70, 114 + i * 94, 70, { width: 2, arrow: 'end' })),
     caption(500, 170, 'Model numbers in the fields make the manual searchable by part number.'),
   ], { title: 'Add a manual flow' }))

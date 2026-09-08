@@ -4,7 +4,7 @@ import { useAuth } from '../lib/auth'
 import { SearchBox } from './SearchBox'
 
 export function Layout() {
-  const { user, profile, isTeacher, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   const onHome = location.pathname === '/'
@@ -25,11 +25,10 @@ export function Layout() {
             <NavLink to="/" end>Browse</NavLink>
             <NavLink to="/a-z">A-Z</NavLink>
             {user && <NavLink to="/groups">Groups</NavLink>}
-            {isTeacher && <NavLink to="/review">Review</NavLink>}
             <NavLink to="/contribute" className="pill">+ Contribute</NavLink>
             {user ? (
               <>
-                <NavLink to="/profile">{profile?.display_name || 'Profile'}{isTeacher ? ' (teacher)' : ''}</NavLink>
+                <NavLink to="/profile">{profile?.display_name || 'Profile'}</NavLink>
                 <button type="button" onClick={async () => { await signOut(); navigate('/') }}>Sign out</button>
               </>
             ) : (
@@ -44,7 +43,7 @@ export function Layout() {
       </main>
       <footer className="site-footer">
         Millwright Knowledge Base. Reference values are starting points: the equipment manual and your instructor always win.
-        Content is contributed by students and teachers and reviewed before publishing.
+        Content is contributed by the millwright community and is not reviewed before it appears: verify before you rely on it.
         <div className="footer-links"><Link to="/install">Install on your phone</Link> · <Link to="/privacy">Privacy</Link> · <Link to="/article/set-me-up-for-a-task">Task index</Link></div>
       </footer>
     </>

@@ -14,19 +14,17 @@ import { SignIn } from './pages/SignIn'
 import { ProfilePage } from './pages/Profile'
 import { Groups } from './pages/Groups'
 import { GroupPage } from './pages/Group'
-import { Review } from './pages/Review'
 import { InstallPage } from './pages/Install'
 import { AuthConfirmed } from './pages/AuthConfirmed'
 import { AuthReset } from './pages/AuthReset'
 import { Privacy } from './pages/Privacy'
 import { registerSW } from 'virtual:pwa-register'
 
-function RequireAuth({ children, teacher = false }: { children: React.ReactElement; teacher?: boolean }) {
-  const { user, loading, isTeacher } = useAuth()
+function RequireAuth({ children }: { children: React.ReactElement }) {
+  const { user, loading } = useAuth()
   const location = useLocation()
   if (loading) return <p className="loading">Loading…</p>
   if (!user) return <Navigate to="/signin" state={{ from: location.pathname + location.search }} replace />
-  if (teacher && !isTeacher) return <div className="notice warn">This page is for teachers. Enter the teacher access code on your profile page to unlock it.</div>
   return children
 }
 
@@ -49,7 +47,6 @@ function App() {
         <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
         <Route path="/groups" element={<RequireAuth><Groups /></RequireAuth>} />
         <Route path="/groups/:id" element={<RequireAuth><GroupPage /></RequireAuth>} />
-        <Route path="/review" element={<RequireAuth teacher><Review /></RequireAuth>} />
         <Route path="*" element={<div className="empty">Page not found.</div>} />
       </Route>
     </Routes>

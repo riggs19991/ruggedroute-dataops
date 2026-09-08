@@ -77,7 +77,7 @@ export function SignIn() {
       </button>
       {mode === 'signin' && <p className="hint small" style={{ marginTop: 10 }}><button type="button" className="linklike" onClick={() => { setMode('forgot'); setMsg(null) }}>Forgot password?</button></p>}
       <p className="hint small muted" style={{ marginTop: 12 }}>
-        Students and teachers both start with a regular account. Teachers unlock the group and review tools with the teacher access code on their profile page.
+        One account for everyone. Instructors create a group for their class and share its join code; students join with the code.
         You can read everything without signing in; sign in to contribute, join a group, bookmark, or open attachments.
       </p>
     </form>

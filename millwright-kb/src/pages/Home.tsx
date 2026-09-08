@@ -8,13 +8,14 @@ import { InstallPrompt } from '../components/InstallPrompt'
 
 const EXAMPLES = ['7018 amperage', 'MIG settings 1/4 plate', 'TIG aluminum', 'plasma cut chart', 'bearing heater', 'laser alignment', 'grease compatibility', 'belt tracking', 'sling capacity', 'megger test', 'tap drill', 'Victor tip chart']
 
-type Lite = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer' | 'view_count' | 'created_at'> & { category: Pick<Category, 'name'> | null }
+type Lite = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer' | 'view_count' | 'upvotes' | 'author_id' | 'created_at'> & { category: Pick<Category, 'name'> | null }
 
 export function Home() {
   const [cats, setCats] = useState<Category[]>([])
   const [counts, setCounts] = useState<Record<string, number>>({})
   const [popular, setPopular] = useState<Lite[]>([])
   const [recent, setRecent] = useState<Lite[]>([])
+  const [top, setTop] = useState<Lite[]>([])
 
   useEffect(() => {
     supabase.from('mw_categories').select('*').order('sort_order').then(({ data }) => setCats((data as Category[]) ?? []))
@@ -23,11 +24,13 @@ export function Home() {
       for (const r of (data as { category_id: string | null }[]) ?? []) if (r.category_id) c[r.category_id] = (c[r.category_id] ?? 0) + 1
       setCounts(c)
     })
-    const sel = 'slug, title, summary, kind, tags, manufacturer, view_count, created_at, category:mw_categories(name)'
+    const sel = 'slug, title, summary, kind, tags, manufacturer, view_count, upvotes, author_id, created_at, category:mw_categories(name)'
     supabase.from('mw_articles').select(sel).eq('status', 'published').is('group_id', null).order('view_count', { ascending: false }).limit(5)
       .then(({ data }) => setPopular((data as unknown as Lite[]) ?? []))
     supabase.from('mw_articles').select(sel).eq('status', 'published').is('group_id', null).order('created_at', { ascending: false }).limit(5)
       .then(({ data }) => setRecent((data as unknown as Lite[]) ?? []))
+    supabase.from('mw_articles').select(sel).eq('status', 'published').is('group_id', null).not('author_id', 'is', null).gt('upvotes', 0).order('upvotes', { ascending: false }).limit(5)
+      .then(({ data }) => setTop((data as unknown as Lite[]) ?? []))
   }, [])
 
   return (
@@ -73,6 +76,13 @@ export function Home() {
             {recent.map((a) => <ArticleCard key={a.slug} item={{ ...a, category_name: a.category?.name }} />)}
           </div>
         </div>
+      </section>
+
+      <section className="section">
+        <div className="section-head"><h2>Top rated by the community</h2><Link to="/contribute" className="small">Share what you know →</Link></div>
+        {top.length === 0
+          ? <div className="empty">Nothing upvoted yet. Contributions from members appear here once other millwrights upvote them.</div>
+          : <div className="list">{top.map((a) => <ArticleCard key={a.slug} item={{ ...a, category_name: a.category?.name }} />)}</div>}
       </section>
     </>
   )

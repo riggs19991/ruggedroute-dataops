@@ -8,12 +8,13 @@ import { FileList } from '../components/FileList'
 
 export function ArticlePage() {
   const { slug } = useParams()
-  const { user, isTeacher } = useAuth()
+  const { user, isAdmin } = useAuth()
   const navigate = useNavigate()
   const [article, setArticle] = useState<Article | null | undefined>(undefined)
   const [files, setFiles] = useState<FileRow[]>([])
   const [bookmarked, setBookmarked] = useState(false)
-  const [note, setNote] = useState('')
+  const [voted, setVoted] = useState(false)
+  const [votes, setVotes] = useState(0)
   const [msg, setMsg] = useState<string | null>(null)
 
   useEffect(() => {
@@ -26,12 +27,16 @@ export function ArticlePage() {
         const a = (data as unknown as Article) ?? null
         setArticle(a)
         if (!a) return
+        setVotes(a.upvotes ?? 0)
+        setVoted(false)
         supabase.rpc('mw_bump_view', { article_slug: slug }).then(() => {})
         const { data: f } = await supabase.from('mw_files').select('*').eq('article_id', a.id).order('created_at')
         setFiles((f as FileRow[]) ?? [])
         if (user) {
           const { data: b } = await supabase.from('mw_bookmarks').select('article_id').eq('user_id', user.id).eq('article_id', a.id).maybeSingle()
           setBookmarked(!!b)
+          const { data: v } = await supabase.from('mw_votes').select('article_id').eq('user_id', user.id).eq('article_id', a.id).maybeSingle()
+          setVoted(!!v)
         }
       })
   }, [slug, user])
@@ -43,12 +48,17 @@ export function ArticlePage() {
     setBookmarked(!bookmarked)
   }
 
-  async function setStatus(status: Article['status']) {
-    if (!article) return
-    const { error } = await supabase.from('mw_articles').update({ status, review_note: note, reviewed_by: user?.id ?? null }).eq('id', article.id)
-    if (error) { setMsg(error.message); return }
-    setArticle({ ...article, status, review_note: note })
-    setMsg(status === 'published' ? 'Published to everyone.' : 'Sent back to the author.')
+  async function toggleVote() {
+    if (!user || !article) return
+    if (voted) {
+      const { error } = await supabase.from('mw_votes').delete().eq('user_id', user.id).eq('article_id', article.id)
+      if (error) { setMsg(error.message); return }
+      setVoted(false); setVotes(Math.max(0, votes - 1))
+    } else {
+      const { error } = await supabase.from('mw_votes').insert({ user_id: user.id, article_id: article.id })
+      if (error) { setMsg(error.message); return }
+      setVoted(true); setVotes(votes + 1)
+    }
   }
 
   async function remove() {
@@ -61,7 +71,8 @@ export function ArticlePage() {
   if (article === undefined) return <p className="loading">Loading…</p>
   if (article === null) return <div className="empty">Article not found, or it is not published yet.</div>
 
-  const canEdit = !!user && (user.id === article.author_id || isTeacher)
+  const canEdit = !!user && (user.id === article.author_id || isAdmin)
+  const community = !!article.author_id
 
   return (
     <article>
@@ -70,6 +81,7 @@ export function ArticlePage() {
           {article.category && <Link to={`/category/${article.category.slug}`}>{article.category.icon} {article.category.name}</Link>}
           <span className={`badge ${article.kind}`}>{article.kind}</span>
           {article.status !== 'published' && <span className={`badge ${article.status}`}>{article.status}</span>}
+          {community && <span className="badge community">community</span>}
           {article.group_id && <span className="badge">group only</span>}
         </div>
         <h1>{article.title}</h1>
@@ -79,8 +91,12 @@ export function ArticlePage() {
           <span>By {article.author?.display_name ?? 'Millwright KB'}</span>
           <span>Updated {formatDate(article.updated_at)}</span>
           <span>{article.view_count} views</span>
+          <span>▲ {votes} upvote{votes === 1 ? '' : 's'}</span>
         </div>
         <div className="article-actions">
+          {user
+            ? <button type="button" className={`btn small vote-btn${voted ? ' active' : ''}`} onClick={toggleVote} title={voted ? 'Remove your upvote' : 'Well done and useful? Upvote it'}>{voted ? '▲ Upvoted' : '▲ Upvote'} {votes}</button>
+            : <Link to="/signin" className="btn small vote-btn" title="Sign in to upvote">▲ {votes}</Link>}
           {user && <button type="button" className="btn small" onClick={toggleBookmark}>{bookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>}
           {canEdit && <Link to={`/contribute/${article.slug}`} className="btn small">Edit</Link>}
           {canEdit && <button type="button" className="btn small danger" onClick={remove}>Delete</button>}
@@ -88,22 +104,13 @@ export function ArticlePage() {
         </div>
       </div>
 
-      {article.status === 'pending' && (
-        <div className="notice warn">
-          This submission is waiting for a teacher to review it. Only the author and teachers can see it.
-          {isTeacher && (
-            <div style={{ marginTop: 8 }}>
-              <input type="text" placeholder="Note to the author (optional)" value={note} onChange={(e) => setNote(e.target.value)} style={{ width: '100%', padding: 8, marginBottom: 8 }} />
-              <div className="btn-row">
-                <button type="button" className="btn primary small" onClick={() => setStatus('published')}>Approve and publish</button>
-                <button type="button" className="btn small" onClick={() => setStatus('rejected')}>Send back</button>
-              </div>
-            </div>
-          )}
+      {article.status === 'draft' && <div className="notice info">Draft. Only you can see it. Edit and publish when ready.</div>}
+      {community && article.status === 'published' && (
+        <div className="disclaimer">
+          <strong>Community contribution</strong> by {article.author?.display_name ?? 'a member'}, {formatDate(article.created_at)}.
+          It has not been reviewed by the app. Verify it against the manufacturer's manual and your site rules before relying on it, and upvote it if it helped you.
         </div>
       )}
-      {article.status === 'rejected' && <div className="notice error">Sent back by a teacher{article.review_note ? `: ${article.review_note}` : '.'} Edit it and resubmit.</div>}
-      {article.status === 'draft' && <div className="notice info">Draft. Only you can see it. Edit and submit when ready.</div>}
       {msg && <div className="notice ok">{msg}</div>}
 
       <Markdown source={article.body} />

@@ -1,8 +1,8 @@
 # Millwright Knowledge Base
 
 A searchable library of millwright procedures, charts and manufacturer manuals that any
-student at any school can open, search, and add to. Teachers create a group for their
-class, hand out a join code, and post each week's reading, handouts and files to it.
+millwright, student or instructor can open, search, and add to. Anyone can create a group
+for their class, hand out a join code, and post each week's reading, handouts and files to it.
 
 Live data lives in the shared Supabase project (all tables are prefixed `mw_`). The web
 app is a static Vite + React build that talks to Supabase directly with the publishable key.
@@ -12,11 +12,12 @@ app is a static Vite + React build that talks to Supabase directly with the publ
 | Area | What it does |
 |---|---|
 | **Search** | Postgres full-text search with weighting (title and tags first, then manufacturer and model numbers, then summary, then body), typo tolerance via trigram similarity, and exact model-number matching (`TA4207H`, `22220 EK`). Anyone can search, signed in or not. |
-| **Browse** | 24 topic categories: welding and fabrication, cutting and gouging, oxy-fuel, layout and templates, alignment, installation and foundations, bearings, belts/chains/couplings, gearboxes, pumps and seals, conveyors, hydraulics and pneumatics, lubrication, vibration and condition monitoring, motors/VFDs/electrical awareness, shop machining, fasteners, rigging, safety, preventive maintenance, troubleshooting, measurement, manufacturer manuals, shop reference. Plus an A-Z index page and a task index article ("Set me up for a task"). |
+| **Browse** | 25 topic categories: welding and fabrication, cutting and gouging, oxy-fuel, layout and templates, alignment, installation and foundations, bearings, belts/chains/couplings, gearboxes, pumps and seals, conveyors, hydraulics and pneumatics, lubrication, vibration and condition monitoring, motors/VFDs/electrical awareness, shop machining, fasteners, rigging, safety, preventive maintenance, troubleshooting, measurement, manufacturer manuals, shop reference. Plus an A-Z index page and a task index article ("Set me up for a task"). |
 | **Articles** | Markdown with tables, procedures, charts. Kinds: procedure, reference, chart, manual, tip, safety. Attachments (PDF, images, documents, 50 MB each) in private storage with signed links. Bookmarks, view counts, print. |
-| **Contribute** | Any signed-in user can write an article or upload a manual. Students' public submissions wait for a **teacher review**; teachers publish directly. Anything shared with a group is visible to that group immediately. |
-| **Groups** | A teacher creates a group (class) and gets a 6-character join code. Students join with the code. The teacher posts to **week N** with a message, a linked library article and files. The term start date tells everyone which week is "this week". |
-| **Roles** | Everyone signs up as a student. A teacher unlocks teacher tools on the profile page with the **teacher access code** (see below). |
+| **Contribute** | Any signed-in user can write an article or upload a manual and it is live at once, marked as a **community contribution** with a disclaimer banner. The contributor confirms an accuracy statement before publishing; there is no review queue. Anything shared with a group is visible only to that group. |
+| **Groups** | Anyone can create a group (class) and becomes its instructor; the app issues a 6-character join code. Students join with the code. The instructor posts to **week N** with a message, a linked library article and files. The term start date tells everyone which week is "this week". |
+| **Upvotes** | Signed-in members can upvote an article once (and undo it). Counts show on cards and articles, the home page lists the top-rated community contributions, and category pages can sort by votes. |
+| **Roles** | One kind of account. No teacher code. A quiet **moderator flag** (`mw_profiles.is_admin`, set only by SQL) lets the site owner edit or remove anything (see below). |
 
 Seed content (176 articles in 25 categories, including practice quizzes and a glossary) is written for the shop bench, imperial first with metric
 alongside, US OSHA/AWS practice with Red Seal/CSA notes where they differ, and every chart
@@ -92,23 +93,28 @@ Migrations in `supabase/migrations/` have already been applied to project
 editor, `supabase db push`, or the MCP `apply_migration` tool), then seed.
 
 Tables: `mw_profiles`, `mw_categories`, `mw_articles`, `mw_files`, `mw_groups`,
-`mw_group_members`, `mw_group_posts`, `mw_bookmarks`, `mw_settings` (no API access).
+`mw_group_members`, `mw_group_posts`, `mw_bookmarks`, `mw_votes`, `mw_settings` (no API access).
 Storage bucket: `mw-files` (private; uploads go to `<user id>/…`).
 
 Row-level security in one paragraph: published community articles are readable by
-everyone; pending/draft/rejected ones only by the author and teachers; group articles and
-group posts only by group members and the group's teacher; students can only insert
-draft/pending; only teachers can set `published`; files inherit the visibility of their
-article or post; profiles are readable (names show as authors) and editable only by the
-owner; the `role` column can only change through the `mw_become_teacher` RPC.
+everyone; drafts only by the author (and the moderator); group articles and group posts
+only by group members and the group's instructor; anyone signed in can insert
+draft/published articles under their own id and edit or delete their own; the moderator
+can edit or delete anything; votes are one row per user per article, readable by all,
+insertable and deletable only by their owner, and a trigger keeps `mw_articles.upvotes`
+in step; files inherit the visibility of their article or post; profiles are readable
+(names show as authors) and editable only by the owner; `is_admin` can only change
+from the SQL editor.
 
-### Teacher access code
+### Moderator flag
 
-Stored in `mw_settings` (never readable through the API). Default is
-`MILLWRIGHT-TEACHER`. **Change it before handing the app out:**
+There is no teacher code. To let an account edit or remove any content, run this as the
+database owner (SQL editor), replacing the email:
 
 ```sql
-update public.mw_settings set value = 'YOUR-NEW-CODE' where key = 'teacher_access_code';
+select set_config('mw.allow_role_change', 'on', true);
+update public.mw_profiles set is_admin = true
+where id = (select id from auth.users where email = 'owner@example.com');
 ```
 
 ### Re-seeding content from `content/`
@@ -183,16 +189,17 @@ The app is a static site. Any of these work:
 After deploying, add the site URL to Supabase → Authentication → URL Configuration
 (Site URL and Redirect URLs) so confirmation and magic-link emails land back on the app.
 
-## Adding a manual (for students and teachers)
+## Adding a manual
 
 Sign in → Contribute → pick *Manufacturer Manuals*, type the manufacturer and the exact
 model numbers from the nameplate, paste the key numbers (torques, oil quantities) into
-the body so they are searchable, attach the PDF, submit. A teacher approves it.
+the body so they are searchable, attach the PDF, confirm the contribution statement and
+publish. It is live at once with a community-contribution banner; members can upvote it.
 The in-app article *How to add a manufacturer manual* walks through this.
 
 ## Testing
 
 `npm run build` runs `tsc -b` and Vite. An end-to-end Playwright smoke test (anonymous
-search and article rendering, teacher code, group creation, weekly post with file, student
-join, student submission, teacher review, publish) was run against the live project during
+search and article rendering, group creation, weekly post with file, student join,
+community publishing, upvote and un-vote) was run against the live project during
 development; it is not checked in because it needs throwaway accounts.

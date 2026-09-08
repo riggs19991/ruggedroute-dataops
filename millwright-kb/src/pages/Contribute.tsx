@@ -38,7 +38,7 @@ const TEMPLATE = `## What you need
 export function Contribute() {
   const { slug } = useParams()
   const [params] = useSearchParams()
-  const { user, isTeacher } = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
 
   const [cats, setCats] = useState<Category[]>([])
@@ -57,7 +57,7 @@ export function Contribute() {
   const [models, setModels] = useState('')
   const [source, setSource] = useState('')
   const [shareWith, setShareWith] = useState<string>(params.get('group') ?? '')
-  const [publishNow, setPublishNow] = useState(true)
+  const [agreed, setAgreed] = useState(false)
   const [preview, setPreview] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -81,7 +81,7 @@ export function Contribute() {
       setExisting(a)
       setTitle(a.title); setCategory(a.category_id ?? ''); setKind(a.kind); setSummary(a.summary); setBody(a.body)
       setTags(a.tags.join(', ')); setManufacturer(a.manufacturer); setModels(a.model_numbers.join(', ')); setSource(a.source)
-      setShareWith(a.group_id ?? ''); setPublishNow(a.status === 'published')
+      setShareWith(a.group_id ?? ''); setAgreed(true)
       const { data: f } = await supabase.from('mw_files').select('*').eq('article_id', a.id)
       setFiles((f as FileRow[]) ?? [])
     })
@@ -91,9 +91,10 @@ export function Contribute() {
     e.preventDefault()
     if (!user) return
     if (!title.trim() || !body.trim()) { setError('Title and body are required.'); return }
+    if (!asDraft && !agreed) { setError('Please confirm the contribution statement before publishing.'); return }
     setBusy(true); setError(null)
     try {
-      const status: Article['status'] = asDraft ? 'draft' : isTeacher && publishNow ? 'published' : 'pending'
+      const status: Article['status'] = asDraft ? 'draft' : 'published'
       const row = {
         title: title.trim(),
         summary: summary.trim(),
@@ -136,7 +137,7 @@ export function Contribute() {
       <h1>{existing ? 'Edit article' : 'Contribute to the knowledge base'}</h1>
       {!existing && (
         <p className="muted">
-          Write a procedure, a chart, a tip, or attach a manufacturer manual. {isTeacher ? 'As a teacher you can publish directly.' : 'A teacher reviews submissions before they go live for everyone; sharing with your own group is immediate.'}{' '}
+          Write a procedure, a chart, a tip, or attach a manufacturer manual. It goes live as soon as you publish, marked as a community contribution, and other millwrights can upvote it.{' '}
           <Link to="/article/how-to-add-a-manual">How to add a manual →</Link>
         </p>
       )}
@@ -208,15 +209,15 @@ export function Contribute() {
             </select>
             <div className="hint">Group-only articles are visible to that group right away.</div>
           </div>
-          {isTeacher && !shareWith && (
-            <div className="field">
-              <label>Publishing</label>
-              <label style={{ fontWeight: 400 }}><input type="checkbox" checked={publishNow} onChange={(e) => setPublishNow(e.target.checked)} /> Publish immediately (teacher)</label>
-            </div>
-          )}
+        </div>
+        <div className="field disclaimer-check">
+          <label style={{ fontWeight: 400 }}>
+            <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />{' '}
+            I confirm this is my own work or properly credited, is accurate to the best of my knowledge, and I understand that readers will verify it against the manufacturer's manual and their site rules before relying on it. Contributions are not reviewed before they appear.
+          </label>
         </div>
         <div className="btn-row">
-          <button type="submit" className="btn primary" disabled={busy}>{busy ? 'Saving…' : existing ? 'Save changes' : isTeacher && publishNow && !shareWith ? 'Publish' : shareWith ? 'Share with group' : 'Submit for review'}</button>
+          <button type="submit" className="btn primary" disabled={busy}>{busy ? 'Saving…' : existing ? 'Save changes' : shareWith ? 'Share with group' : 'Publish'}</button>
           <button type="button" className="btn" disabled={busy} onClick={(e) => submit(e, true)}>Save as draft</button>
           {existing && <Link to={`/article/${existing.slug}`} className="btn">Cancel</Link>}
         </div>

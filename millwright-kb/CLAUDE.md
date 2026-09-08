@@ -1,6 +1,6 @@
 # Millwright KB: working notes for Claude
 
-Knowledge-base app for millwright students and teachers. Vite + React + TypeScript front end,
+Knowledge-base app for millwright students, instructors and the wider trade. Community model: one kind of account, no teacher code; anyone can create a group (its instructor) or publish an article (live at once with a disclaimer, upvotable); a SQL-only `is_admin` flag is the only moderation role. Vite + React + TypeScript front end,
 Supabase back end (all objects prefixed `mw_`), content as markdown under `content/`, deployed to
 Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
 

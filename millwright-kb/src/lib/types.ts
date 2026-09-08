@@ -1,9 +1,7 @@
-export type Role = 'student' | 'teacher'
-
 export interface Profile {
   id: string
   display_name: string
-  role: Role
+  is_admin: boolean
   school: string
 }
 
@@ -45,6 +43,7 @@ export interface Article {
   review_note: string
   group_id: string | null
   view_count: number
+  upvotes: number
   created_at: string
   updated_at: string
   category?: Category | null
@@ -63,6 +62,7 @@ export interface SearchHit {
   category_name: string | null
   rank: number
   headline: string
+  upvotes: number
 }
 
 export interface FileRow {

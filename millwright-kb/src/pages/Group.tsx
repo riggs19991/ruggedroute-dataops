@@ -30,7 +30,7 @@ export function GroupPage() {
   const [busy, setBusy] = useState(false)
   const [showForm, setShowForm] = useState(false)
 
-  const isTeacher = !!group && group.teacher_id === user?.id
+  const isOwner = !!group && group.teacher_id === user?.id
   const thisWeek = currentWeek(group?.term_start ?? null)
 
   const load = useCallback(async () => {
@@ -111,7 +111,7 @@ export function GroupPage() {
           <h1 style={{ marginBottom: 2 }}>{group.name}</h1>
           <div className="muted small">{group.school}{group.term_start ? ` · term started ${formatDate(group.term_start)}` : ''}{thisWeek ? ` · week ${thisWeek}` : ''} · {members.length} student{members.length === 1 ? '' : 's'}</div>
         </div>
-        {isTeacher ? (
+        {isOwner ? (
           <div className="btn-row">
             <span className="small muted">Join code</span>
             <span className="join-code">{group.join_code}</span>
@@ -128,7 +128,7 @@ export function GroupPage() {
       </div>
       {msg && <div className={`notice ${msg.kind}`}>{msg.text}</div>}
 
-      {isTeacher && showMembers && (
+      {isOwner && showMembers && (
         <div className="form" style={{ marginBottom: 16 }}>
           <h3>Students ({members.length})</h3>
           {members.length === 0 && <p className="muted small">Nobody yet. Share the join code <strong>{group.join_code}</strong>.</p>}
@@ -141,7 +141,7 @@ export function GroupPage() {
         </div>
       )}
 
-      {isTeacher && (
+      {isOwner && (
         <div style={{ marginBottom: 16 }}>
           {!showForm ? (
             <button type="button" className="btn primary" onClick={() => setShowForm(true)}>+ Post to the group</button>
@@ -164,7 +164,7 @@ export function GroupPage() {
         </div>
       )}
 
-      {posts.length === 0 && <div className="empty">{isTeacher ? 'No posts yet. Post this week\'s reading, handouts or lab sheet.' : 'Your teacher has not posted anything yet.'}</div>}
+      {posts.length === 0 && <div className="empty">{isOwner ? 'No posts yet. Post this week\'s reading, handouts or lab sheet.' : 'Your instructor has not posted anything yet.'}</div>}
 
       {weeks.map((w) => (
         <section className="week" key={w}>
@@ -174,11 +174,11 @@ export function GroupPage() {
               <div className="title">{p.pinned && <span title="Pinned">📌</span>}{p.title}</div>
               {p.body && <Markdown source={p.body} />}
               {p.article && <p><Link to={`/article/${p.article.slug}`} className="btn small">📖 Read: {p.article.title}</Link></p>}
-              <FileList files={(p.files ?? []) as FileRow[]} canDelete={isTeacher} onDeleted={() => load()} />
+              <FileList files={(p.files ?? []) as FileRow[]} canDelete={isOwner} onDeleted={() => load()} />
               <div className="foot">
                 <span>{formatDate(p.created_at)}</span>
-                {isTeacher && <button type="button" className="btn small" onClick={() => togglePin(p)}>{p.pinned ? 'Unpin' : 'Pin'}</button>}
-                {isTeacher && <button type="button" className="btn small danger" onClick={() => deletePost(p)}>Delete</button>}
+                {isOwner && <button type="button" className="btn small" onClick={() => togglePin(p)}>{p.pinned ? 'Unpin' : 'Pin'}</button>}
+                {isOwner && <button type="button" className="btn small danger" onClick={() => deletePost(p)}>Delete</button>}
               </div>
             </div>
           ))}

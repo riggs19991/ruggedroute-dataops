@@ -8523,14 +8523,14 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 6. Summary: two sentences on what is inside (sizes covered, mounting positions, oil quantities, torque tables, parts list).
 7. Body: paste the important numbers straight into the page so they show up in search without opening the PDF: bushing torques, oil quantities per position, belt tensions, backstop rotation, seal part numbers.
 8. Attach the file. PDFs, images and Word documents up to 50 MB.
-9. Submit. A teacher reviews it and publishes it to everyone.
+9. Tick the contribution statement and publish. It is live for everyone at once, marked as a community contribution. Other millwrights can upvote it, and you can edit or delete it later from the article page.
 
 ## Rules
 
 - Only upload documents you are allowed to share (manufacturer manuals are public; your employer's internal procedures may not be).
 - Do not upload anything with personal information.
 - Cite where it came from in the **Source** field (URL, "scanned from crib copy", etc.).
-- If you are correcting something in an existing article, mention it in the summary so the teacher can merge it.
+- If you are correcting something in an existing article, say so in the summary and name the article, so readers can compare the two.
 
 ## Manufacturer sites with free manuals
 

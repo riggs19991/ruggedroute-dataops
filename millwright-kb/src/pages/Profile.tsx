@@ -2,16 +2,16 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
-import type { Article } from '../lib/types'
+import type { Article, Group } from '../lib/types'
 import { ArticleCard } from '../components/ArticleCard'
 
 type Lite = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer' | 'status'>
 
 export function ProfilePage() {
-  const { user, profile, isTeacher, refreshProfile } = useAuth()
+  const { user, profile, isAdmin, refreshProfile } = useAuth()
   const [name, setName] = useState(profile?.display_name ?? '')
   const [school, setSchool] = useState(profile?.school ?? '')
-  const [code, setCode] = useState('')
+  const [groups, setGroups] = useState<Group[]>([])
   const [msg, setMsg] = useState<{ kind: 'ok' | 'error'; text: string } | null>(null)
   const [mine, setMine] = useState<Lite[]>([])
   const [bookmarks, setBookmarks] = useState<Lite[]>([])
@@ -22,6 +22,8 @@ export function ProfilePage() {
     if (!user) return
     supabase.from('mw_articles').select('slug, title, summary, kind, tags, manufacturer, status').eq('author_id', user.id).order('updated_at', { ascending: false })
       .then(({ data }) => setMine((data as Lite[]) ?? []))
+    supabase.from('mw_groups').select('*').eq('teacher_id', user.id).order('created_at', { ascending: false })
+      .then(({ data }) => setGroups((data as Group[]) ?? []))
     supabase.from('mw_bookmarks').select('article:mw_articles(slug, title, summary, kind, tags, manufacturer, status)').eq('user_id', user.id).order('created_at', { ascending: false })
       .then(({ data }) => setBookmarks(((data as unknown as { article: Lite | null }[]) ?? []).map((r) => r.article).filter((a): a is Lite => !!a)))
   }, [user])
@@ -34,15 +36,6 @@ export function ProfilePage() {
     await refreshProfile()
   }
 
-  async function becomeTeacher(e: FormEvent) {
-    e.preventDefault()
-    const { error } = await supabase.rpc('mw_become_teacher', { code })
-    if (error) { setMsg({ kind: 'error', text: error.message }); return }
-    setMsg({ kind: 'ok', text: 'You are now a teacher. Group and review tools are unlocked.' })
-    setCode('')
-    await refreshProfile()
-  }
-
   return (
     <>
       <h1>Your profile</h1>
@@ -52,27 +45,20 @@ export function ProfilePage() {
           <div className="field"><label>Display name</label><input type="text" value={name} onChange={(e) => setName(e.target.value)} required /></div>
           <div className="field"><label>School</label><input type="text" value={school} onChange={(e) => setSchool(e.target.value)} /></div>
           <div className="field"><label>Email</label><input type="text" value={user?.email ?? ''} readOnly /></div>
-          <div className="field"><label>Role</label><input type="text" value={isTeacher ? 'Teacher' : 'Student'} readOnly /></div>
+          {isAdmin && <div className="field"><label>Role</label><input type="text" value="Site moderator" readOnly /></div>}
           <button type="submit" className="btn primary">Save</button>
         </form>
-        {!isTeacher ? (
-          <form className="form" onSubmit={becomeTeacher}>
-            <h3>Are you an instructor?</h3>
-            <p className="small muted">Enter the teacher access code from the app administrator to unlock groups, weekly sharing and submission review.</p>
-            <div className="field"><label>Teacher access code</label><input type="text" value={code} onChange={(e) => setCode(e.target.value)} required /></div>
-            <button type="submit" className="btn">Unlock teacher tools</button>
-          </form>
-        ) : (
-          <div className="form">
-            <h3>Teacher tools</h3>
-            <ul>
-              <li><Link to="/groups">Create a group</Link> and give students the join code.</li>
-              <li>Post each week's material to the group feed.</li>
-              <li><Link to="/review">Review student submissions</Link> before they go public.</li>
-              <li>Edit or delete any article.</li>
-            </ul>
-          </div>
-        )}
+        <div className="form">
+          <h3>Your groups</h3>
+          <p className="small muted">Anyone can create a group for their class. You are the instructor of the groups you create; students join with the join code.</p>
+          {groups.length === 0
+            ? <p className="small"><Link to="/groups">Create a group</Link> or join one with a code.</p>
+            : <ul>{groups.map((g) => <li key={g.id}><Link to={`/groups/${g.id}`}>{g.name}</Link> · join code <code>{g.join_code}</code></li>)}</ul>}
+          <ul className="small muted">
+            <li>Post each week's material to your group feed.</li>
+            <li>Anything you publish to the library is live at once and marked as a community contribution.</li>
+          </ul>
+        </div>
       </div>
 
       <section className="section">

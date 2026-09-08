@@ -8,7 +8,7 @@ interface AuthState {
   user: User | null
   profile: Profile | null
   loading: boolean
-  isTeacher: boolean
+  isAdmin: boolean
   refreshProfile: () => Promise<void>
   signOut: () => Promise<void>
 }
@@ -16,17 +16,17 @@ interface AuthState {
 const AuthContext = createContext<AuthState | null>(null)
 
 async function loadProfile(user: User): Promise<Profile | null> {
-  const { data } = await supabase.from('mw_profiles').select('id, display_name, role, school').eq('id', user.id).maybeSingle()
+  const { data } = await supabase.from('mw_profiles').select('id, display_name, is_admin, school').eq('id', user.id).maybeSingle()
   if (data) return data as Profile
   // Profile row missing (e.g. user created before the trigger existed): create it.
   const meta = (user.user_metadata ?? {}) as Record<string, string>
   const fallback: Profile = {
     id: user.id,
     display_name: meta.display_name || (user.email ?? '').split('@')[0],
-    role: 'student',
+    is_admin: false,
     school: meta.school || '',
   }
-  const { data: created } = await supabase.from('mw_profiles').insert(fallback).select('id, display_name, role, school').maybeSingle()
+  const { data: created } = await supabase.from('mw_profiles').insert({ id: fallback.id, display_name: fallback.display_name, school: fallback.school }).select('id, display_name, is_admin, school').maybeSingle()
   return (created as Profile) ?? fallback
 }
 
@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user: session?.user ?? null,
     profile,
     loading,
-    isTeacher: profile?.role === 'teacher',
+    isAdmin: !!profile?.is_admin,
     refreshProfile,
     signOut,
   }
