@@ -31,7 +31,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/index" element={<IndexPage />} />
+        <Route path="/a-z" element={<IndexPage />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/signin" element={<SignIn />} />

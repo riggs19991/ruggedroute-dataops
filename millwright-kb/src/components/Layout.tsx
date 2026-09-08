@@ -16,7 +16,7 @@ export function Layout() {
           {!onHome && <div className="header-search"><SearchBox /></div>}
           <nav className="site-nav">
             <NavLink to="/" end>Browse</NavLink>
-            <NavLink to="/index">A-Z</NavLink>
+            <NavLink to="/a-z">A-Z</NavLink>
             {user && <NavLink to="/groups">Groups</NavLink>}
             {isTeacher && <NavLink to="/review">Review</NavLink>}
             <NavLink to="/contribute" className="pill">+ Contribute</NavLink>
