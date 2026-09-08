@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { COMPANY, CONTACT_EMAIL, COPYRIGHT_YEAR } from '../lib/site'
+import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL, COPYRIGHT_YEAR, GOVERNING_LAW } from '../lib/site'
 
 export function Terms() {
   return (
@@ -8,7 +8,7 @@ export function Terms() {
       <p><em>Last updated September {COPYRIGHT_YEAR}.</em></p>
       <p>
         Millwright Knowledge Base (the "app", including the website, the installable web app and the Android and iOS
-        apps) is owned and operated by <strong>{COMPANY}</strong> ("we", "us"). By using the app you agree to these
+        apps) is owned and operated by <strong>{COMPANY}</strong>, an Idaho limited liability company based in {COMPANY_LOCATION} ("we", "us"). By using the app you agree to these
         terms. If you do not agree, do not use the app.
       </p>
 
@@ -107,13 +107,14 @@ export function Terms() {
 
       <h2>11. Governing law</h2>
       <p>
-        These terms are governed by the laws of the jurisdiction in which {COMPANY} is registered, without regard to
-        conflict-of-law rules, and disputes are subject to the courts there. If a part of these terms is found
-        unenforceable, the rest still applies.
+        These terms are governed by the laws of {GOVERNING_LAW}, without regard to conflict-of-law rules. Any dispute
+        arising from the app or these terms will be brought in the state or federal courts serving Bonner County,
+        Idaho, and you consent to their jurisdiction. If a part of these terms is found unenforceable, the rest still
+        applies.
       </p>
 
       <h2>12. Contact</h2>
-      <p>{COMPANY}, <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+      <p>{COMPANY}, {COMPANY_LOCATION}. Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
     </div>
   )
 }

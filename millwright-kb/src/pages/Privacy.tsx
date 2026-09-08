@@ -1,11 +1,11 @@
-import { COMPANY, CONTACT_EMAIL } from '../lib/site'
+import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL } from '../lib/site'
 
 export function Privacy() {
   return (
     <div className="md" style={{ maxWidth: 720 }}>
       <h1>Privacy</h1>
       <p><em>Last updated September 2026.</em></p>
-      <p>Millwright Knowledge Base is operated by <strong>{COMPANY}</strong>. It is a study and reference tool for millwrights, apprentices and instructors. This page says what the app stores and why.</p>
+      <p>Millwright Knowledge Base is operated by <strong>{COMPANY}</strong>, an Idaho limited liability company ({COMPANY_LOCATION}). It is a study and reference tool for millwrights, apprentices and instructors. This page says what the app stores and why.</p>
       <h2>What we store</h2>
       <ul>
         <li><b>Account</b>: your email address, a password (stored hashed by our provider), the display name and school you enter. Needed to sign in, to show who wrote a contribution and to run class groups.</li>
@@ -27,7 +27,7 @@ export function Privacy() {
       <h2>Children</h2>
       <p>The app is intended for trade-school students and adults. It is not directed at children under 13.</p>
       <h2>Contact</h2>
-      <p>{COMPANY}, <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. See also the <a href="/terms">terms of use</a>.</p>
+      <p>{COMPANY}, {COMPANY_LOCATION}. Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. See also the <a href="/terms">terms of use</a>.</p>
     </div>
   )
 }

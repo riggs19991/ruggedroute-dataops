@@ -103,4 +103,5 @@ Both stores ask for these; they are live pages in the app:
 - Privacy policy: https://millwright-kb.riggs1991.workers.dev/privacy
 - Terms of use: https://millwright-kb.riggs1991.workers.dev/terms
 - Support / contact: https://millwright-kb.riggs1991.workers.dev/support (email riggs1991@gmail.com)
-- Developer name on the listing: Addictive Media Productions LLC
+- Developer name on the listing: Addictive Media Productions LLC, Blanchard, Bonner County, Idaho (an Idaho LLC)
+- Donation link: a Stripe Payment Link ("Support Millwright KB", customer chooses the amount) from the company's existing Stripe account, stored in the GitHub repository variable `DONATE_URL`.

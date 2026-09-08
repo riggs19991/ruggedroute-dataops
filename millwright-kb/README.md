@@ -122,7 +122,9 @@ where id = (select id from auth.users where email = 'owner@example.com');
 The app is operated by Addictive Media Productions LLC. `/terms` (terms of use, safety
 disclaimer, community-content licence, copyright, liability, donations), `/privacy` and
 `/support` (a polite donation ask) are linked from the footer, the home page and the end
-of every article. The donation button points at `VITE_DONATE_URL`, which both workflows read from the
+of every article. The donation link is a Stripe Payment Link from the company's existing Stripe account
+(customer chooses the amount, no backend, no secret key in the repo). The donation button
+points at `VITE_DONATE_URL`, which both workflows read from the
 repository variable `DONATE_URL` (GitHub → Settings → Secrets and variables → Actions →
 Variables); or hard-code it in `src/lib/site.ts`; until it is set, the button opens `/support`. Company
 name, contact email and copyright year live in `src/lib/site.ts`.

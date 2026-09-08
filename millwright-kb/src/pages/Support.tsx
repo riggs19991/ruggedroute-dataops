@@ -1,4 +1,4 @@
-import { COMPANY, CONTACT_EMAIL, DONATE_URL } from '../lib/site'
+import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL, DONATE_URL } from '../lib/site'
 
 export function SupportPage() {
   return (
@@ -25,7 +25,7 @@ export function SupportPage() {
         <li>Tell an apprentice or an instructor about the app.</li>
         <li>Report mistakes to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</li>
       </ul>
-      <p className="small muted">Donations go to {COMPANY}, which operates this app. They are gifts, not purchases, and are not tax deductible.</p>
+      <p className="small muted">Donations go to {COMPANY} ({COMPANY_LOCATION}), which operates this app, and are processed securely by Stripe; card details never touch the app's own servers. They are gifts, not purchases, and are not tax deductible.</p>
     </div>
   )
 }
