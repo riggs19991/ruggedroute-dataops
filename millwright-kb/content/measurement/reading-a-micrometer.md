@@ -37,6 +37,10 @@ Common trap: a thimble line looks aligned but the next sleeve line is *almost* u
 
 ## Using it
 
+![An outside micrometer: hold the frame, turn the ratchet, read square to the scale](/photos/measurement/outside-micrometer.jpg)
+
+*An outside micrometer: hold the frame, turn the ratchet, read square to the scale. Photo: Rrudzik, CC BY-SA 4.0, via commons*
+
 - Clean the anvil and spindle faces (close on a piece of paper and pull it out).
 - Hold the frame in the palm with the small finger, thumb and forefinger on the thimble. Or clamp the frame in a mic stand for repeat work.
 - Bring the spindle to the part gently; use the **ratchet or friction thimble** for the last bit so everyone gets the same pressure (2-3 clicks). Never crank the thimble tight.
@@ -52,6 +56,10 @@ Common trap: a thimble line looks aligned but the next sleeve line is *almost* u
 4. Store with the anvils **open** a little so temperature changes do not stress the frame, and never leave it in a drawer of loose tools.
 
 ## Types you will meet
+
+![A set of micrometers with standards: each covers a one-inch range](/photos/measurement/micrometer-set.jpg)
+
+*A set of micrometers with standards: each covers a one-inch range. Photo: Splarka at English Wikipedia, Public domain, via commons*
 
 | Type | Use |
 |---|---|

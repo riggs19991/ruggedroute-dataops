@@ -20,6 +20,10 @@ Before blaming the part, record: the alignment as found (rim and face or laser),
 
 ## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)
 
+![Jaw coupling: rubber dust under it means the spider is being worked by misalignment](/photos/power-transmission/jaw-coupling.jpg)
+
+*Jaw coupling: rubber dust under it means the spider is being worked by misalignment. Photo: Aruland, CC BY-SA 3.0, via commons*
+
 | What you see | Cause | Fix |
 |---|---|---|
 | **Fine rubber or urethane dust under the coupling**, spider lugs thinned on the sides | **Misalignment** (working the element every revolution); mild overload | Align to the coupling maker's limit (most jaw couplings: 0.010-0.015 in offset, 1° angular is the maximum, not the target; align to shaft alignment tolerances, see [shaft alignment fundamentals](/article/shaft-alignment-fundamentals)); check gap |

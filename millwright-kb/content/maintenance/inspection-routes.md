@@ -21,6 +21,10 @@ summary: "How to set up an inspection route that catches failures early: decidin
 
 ## What to carry
 
+![The route toolbox: what you carry decides what you can measure](/photos/maintenance/toolbox.jpg)
+
+*The route toolbox: what you carry decides what you can measure. Photo: Visitor7, CC BY-SA 3.0, via commons*
+
 | Tool | Use | Notes |
 |---|---|---|
 | **IR thermometer** (or a thermal camera) | Bearings, motors, couplings, belts, gearboxes, electrical connections, steam traps | Emissivity: painted or oxidised surfaces read fine; shiny metal reads low; aim at the same spot, 1:1 spot ratio at close range (a 12:1 gun at 12 in sees a 1 in spot) |

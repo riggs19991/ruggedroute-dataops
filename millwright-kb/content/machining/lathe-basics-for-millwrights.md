@@ -12,6 +12,10 @@ summary: "The lathe work a millwright does: making a bushing, a spacer, a sleeve
 
 **Headstock** (the spindle, the chuck, the speed gears/pulleys), **bed** with the ways, **carriage** (the saddle on the ways, the **cross-slide** across, the **compound (top) slide** at any angle, the **tool post**), **apron** (the carriage handwheel, the feed and thread engagement levers), **tailstock** (a Morse-taper quill for centres, drills and reamers; offset for tapers), the **lead screw** (threading) and **feed rod** (power feeds), the **quick-change gearbox** (feed and thread pitch selection), and the chip pan. Dials on the cross-slide and compound read in thousandths; many lathes' cross-slide dials read **diameter** reduction (a dial marked in "0.001 on diameter": moving 0.010" removes 0.010" from the diameter; others read radius: 0.010" on the dial takes 0.020" off the diameter: **know which** by a test cut).
 
+![An engine lathe: headstock, carriage, tailstock and bed](/photos/machining/engine-lathe.jpg)
+
+*An engine lathe: headstock, carriage, tailstock and bed. Photo: Watertown Arsenal (Mass.), Public domain, via commons*
+
 ![Parts of an engine lathe](/img/machining/lathe-parts.svg)
 
 *Parts of an engine lathe*

@@ -16,6 +16,10 @@ A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" whee
 
 ![Tool rest and tongue guard gaps on a bench grinder](/img/machining/bench-grinder-gaps.svg)
 
+![A bench grinder: tool rest and tongue guard set to the wheel](/photos/machining/bench-grinder.jpg)
+
+*A bench grinder: tool rest and tongue guard set to the wheel. Photo: Palagiri, CC BY-SA 3.0, via commons*
+
 *Tool rest and tongue guard gaps on a bench grinder*
 
 | Rule | Why |
@@ -56,6 +60,10 @@ Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safe
 
 ## Wheel and abrasive selection for sharpening
 
+![The right wheel throws a clean stream of sparks and does not load up](/photos/machining/grinding-wheel-sparks.jpg)
+
+*The right wheel throws a clean stream of sparks and does not load up. Photo: Aryan Patidar, CC BY 4.0, via commons*
+
 | Abrasive | Colour / look | For |
 |---|---|---|
 | **Aluminium oxide (A)**, grey/brown; white/pink/ruby (friable, cooler) | The general steel and HSS wheel; **white AO (WA)** for HSS tools without burning | HSS tool bits, drills, chisels, punches, steel deburring |
@@ -69,6 +77,10 @@ Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safe
 ## Sharpening technique
 
 **Tool rest set close, the wheel dressed, a can of water for HSS (dip often: a blued edge is softened), never quench carbide (cracks), light pressure, keep the tool moving across the face (grooves), the eye shield down, glasses on.**
+
+![Grinding steel: sparks down and away, light pressure, keep it moving](/photos/machining/grinder-sparks.jpg)
+
+*Grinding steel: sparks down and away, light pressure, keep it moving. Photo: P.syamlal, CC BY-SA 3.0, via commons*
 
 | Tool | Angles | Method |
 |---|---|---|

@@ -14,6 +14,10 @@ summary: "One table to convert between Rockwell C, Rockwell B, Brinell, Vickers 
 
 ![Rockwell C, Brinell and tensile side by side](/img/shop-reference/hardness-scale-bar.svg)
 
+![A bench Rockwell hardness tester](/photos/shop-reference/rockwell-tester.jpg)
+
+*A bench Rockwell hardness tester. Photo: Three-quarter-ten, CC BY-SA 3.0, via commons*
+
 *Rockwell C, Brinell and tensile side by side*
 
 | HRC | Vickers HV | Brinell HB (3,000 kg, 10 mm ball) | HRB | Approx. tensile (ksi) | Approx. tensile (MPa) | Typical of |
@@ -57,6 +61,10 @@ Notes: "W" = tungsten carbide ball (the steel ball is not valid above 444 HB / 4
 **Rule of thumb for steel**: **tensile (ksi) ≈ 0.5 × HB** (more exactly 0.485-0.5 up to about 400 HB); **tensile (MPa) ≈ 3.45 × HB**. Yield is roughly 0.75-0.85 of tensile for Q&T steels, 0.5-0.6 for hot-rolled mild steel. 1 HRC point ≈ 8-10 HB in the 20-40 HRC range.
 
 ## Other scales you will see
+
+![A Vickers diamond indentation in case-hardened steel](/photos/shop-reference/vickers-indent.jpg)
+
+*A Vickers diamond indentation in case-hardened steel. Photo: Dennis M. Clarke, CC BY-SA 3.0, via commons*
 
 | Scale | Indenter / load | Used for |
 |---|---|---|

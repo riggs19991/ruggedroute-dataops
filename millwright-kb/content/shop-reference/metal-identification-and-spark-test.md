@@ -57,6 +57,10 @@ A 1 in × 1 in × 12 in bar: steel 3.4 lb, aluminium 1.2 lb, brass 3.7 lb, titan
 
 Bench or angle grinder, medium-grit wheel, dim light, moderate pressure, hold the sample so the sparks stream horizontally at eye level; compare against a **known** sample of 1018, 1045, tool steel and cast iron kept for the purpose. Watch four things: **stream length and volume, colour, the shape and number of bursts (sprigs, forks), and how close to the wheel the bursts start**. Carbon makes bursts: more carbon, more bursts, brighter and closer to the wheel.
 
+![Spark testing: hold the piece lightly on the wheel and read the stream against a dark background](/photos/shop-reference/spark-test.jpg)
+
+*Spark testing: hold the piece lightly on the wheel and read the stream against a dark background. Photo: unknown, Public domain, via commons*
+
 ![Spark stream patterns for four metals](/img/shop-reference/spark-test-patterns.svg)
 
 *Spark stream patterns for four metals*

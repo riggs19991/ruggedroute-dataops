@@ -14,6 +14,10 @@ summary: "The main coupling families millwrights meet, what each tolerates, how 
 
 ![Coupling gap and the four common families](/img/power-transmission/coupling-gap-and-types.svg)
 
+![A jaw coupling: two hubs and an elastomer spider between them](/photos/power-transmission/jaw-coupling.jpg)
+
+*A jaw coupling: two hubs and an elastomer spider between them. Photo: Aruland, CC BY-SA 3.0, via commons*
+
 *Coupling gap and the four common families*
 
 | Type | Example | Misalignment tolerance | Lubrication | Notes |

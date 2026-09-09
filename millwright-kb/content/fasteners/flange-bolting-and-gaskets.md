@@ -12,6 +12,10 @@ summary: "Two bolting jobs with their own rules: the pressure-boundary flange, w
 
 ![Star pattern numbering and torque passes](/img/fasteners/flange-star-pattern.svg)
 
+![A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence](/photos/fasteners/flanged-valve.jpg)
+
+*A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence. Photo: Audriusa (Audrius Meskauskas), CC BY-SA 3.0, via commons*
+
 *Star pattern numbering and torque passes*
 
 ### Before the bolts go in

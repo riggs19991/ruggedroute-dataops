@@ -71,6 +71,10 @@ Thin-on-top works on adjusting screws (a jack bolt, a stop screw) where the thin
 
 ## Threadlockers (Loctite numbers; other brands cross-reference)
 
+![Threadlocker applied to clean threads: a drop, not a coat](/photos/fasteners/threadlocker-applied.jpg)
+
+*Threadlocker applied to clean threads: a drop, not a coat. Photo: Paul Breen, CC BY-SA 4.0, via commons*
+
 | Grade | Colour | Strength | Use | Removal |
 |---|---|---|---|---|
 | **222** | Purple | Low | Small screws (**under 1/4"**, adjusting screws, set screws in soft metals) that must be adjustable | Hand tools |

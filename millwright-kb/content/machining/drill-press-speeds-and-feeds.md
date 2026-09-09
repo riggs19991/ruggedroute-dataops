@@ -66,6 +66,10 @@ Pick the belt step or the gear nearest **below** the number. A drill press with 
 
 Feed is the advance per revolution; on a hand-fed drill press it is the pressure that keeps a **continuous chip** coming:
 
+![A floor drill press: change the belt position to change the speed](/photos/machining/drill-press.jpg)
+
+*A floor drill press: change the belt position to change the speed. Photo: Hardyplants, CC0, via commons*
+
 | Drill diameter | Feed (in/rev) steel | Notes |
 |---|---|---|
 | under 1/8" | 0.001-0.002 | Light; small drills break on feed, not speed |
@@ -134,6 +138,10 @@ A **drill sharpener** (Drill Doctor and better) does it repeatably; a shop that 
 Apply **before** the drill gets hot, and keep it coming (a brush or a squeeze bottle on a drill press; a flood on a mill); pecking (withdrawing every diameter or two of depth) clears the chips on deep holes (over 3× the diameter) and lets the oil in; a drill that packs with chips breaks.
 
 ## Work holding and safety
+
+![Work clamped to the table, chuck key out, sleeves rolled up](/photos/machining/drill-press-use.jpg)
+
+*Work clamped to the table, chuck key out, sleeves rolled up. Photo: LHOON, CC BY-SA 2.5, via commons*
 
 - The work **clamped**: a drill press vise bolted or clamped to the table, T-slot clamps and step blocks, a V-block for round stock, a clamp on the far side so the work cannot **spin** when the drill grabs at break-through (a piece of plate spinning on a 1/2" drill is a propeller that breaks wrists); **never hand-hold** anything but a small piece against a fence with the drill under 1/4".
 - The drill in the chuck **tight** (all three chuck key holes on a big drill), the chuck key **out** before the switch; Morse-taper drills seated with a tap, drifted out with a drift and a hand under the drill.

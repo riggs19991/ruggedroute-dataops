@@ -12,6 +12,10 @@ summary: "The vertical milling work a millwright needs: setting up a Bridgeport-
 
 A **vertical knee mill** (Bridgeport and clones): the **head** (a variable-speed or step-pulley spindle with an R8 (or 40-taper) spindle, a **quill** that feeds down like a drill press with a fine-feed handwheel and a depth stop, a head that tilts and swivels), the **ram**, the **table** (X longitudinal, Y cross) on the **saddle** and the **knee** (Z: the table rises to the cutter), **table locks** for each axis, a **power feed** on X, and often a **DRO** (digital readout) on X-Y(-Z). Dials read 0.001" (0.200" per turn on most); backlash in the leadscrews means you approach a dimension from the **same direction** every time (or trust the DRO).
 
+![A universal milling machine with a vertical head](/photos/machining/universal-mill.jpg)
+
+*A universal milling machine with a vertical head. Photo: Frobles, CC BY-SA 4.0, via commons*
+
 ## Tramming the head
 
 The spindle must be **square to the table** or a face-milled surface is dished, a bored hole is tapered and a slot is wider at the top:
@@ -26,6 +30,10 @@ The spindle must be **square to the table** or a face-milled surface is dished, 
 4. Tram after any head tilt, after a crash, and on a new job that matters.
 
 ## Work holding
+
+![Mill table with T-slots: clamp the work, then find the edge](/photos/machining/mill-table.jpg)
+
+*Mill table with T-slots: clamp the work, then find the edge. Photo: Photograph by Clem Rutter, Rochester, Kent. (www.clemrutter.net)., CC BY-SA 3.0, via commons*
 
 - **Milling vise** (a 6" Kurt type): bolted to the table with its **fixed jaw trammed parallel to X** (an indicator along the jaw while traversing: within 0.001" over the jaw); the work on **parallels** so it sits above the jaws, tapped down with a dead-blow until the parallels are tight (no rock); a round part in a **V-block** or in the vise's V; soft jaws for finished surfaces; the work held on enough of its height (at least 1/3) to not lift under the cutter.
 - **Table clamps** (T-slot clamps, step blocks, strap clamps: the clamp bar level or slightly higher at the bolt end, the bolt near the work): for plates and castings; **stops** against the work's edge on the side the cutter pushes; a **fixture plate** for repeat parts.

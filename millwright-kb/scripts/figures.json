@@ -867,6 +867,11 @@
    "img": "power-transmission/coupling-gap-and-types.svg",
    "alt": "Coupling gap and the four common families",
    "after": "## Families"
+  },
+  {
+   "photo": "power-transmission/jaw-coupling.jpg",
+   "alt": "A jaw coupling: two hubs and an elastomer spider between them",
+   "after": "## Families"
   }
  ],
  "grid-gear-and-disc-coupling-installation": [
@@ -1201,6 +1206,11 @@
    "img": "measurement/dial-indicator-runout.svg",
    "alt": "Measuring runout and avoiding cosine error",
    "after": "## Runout on a shaft"
+  },
+  {
+   "photo": "measurement/dial-test-indicator.jpg",
+   "alt": "A lever (test) indicator: the tip swings, so it reaches where a plunger cannot",
+   "after": "## Two kinds"
   }
  ],
  "reading-a-micrometer": [
@@ -1208,6 +1218,16 @@
    "img": "measurement/micrometer-reading.svg",
    "alt": "Reading 0.333 in on the sleeve and thimble",
    "after": "## Reading an inch micrometer"
+  },
+  {
+   "photo": "measurement/outside-micrometer.jpg",
+   "alt": "An outside micrometer: hold the frame, turn the ratchet, read square to the scale",
+   "after": "## Using it"
+  },
+  {
+   "photo": "measurement/micrometer-set.jpg",
+   "alt": "A set of micrometers with standards: each covers a one-inch range",
+   "after": "## Types you will meet"
   }
  ],
  "belt-conveyor-components-and-tracking": [
@@ -1393,6 +1413,16 @@
    "img": "machining/broken-bolt-nut-weld.svg",
    "alt": "Welding a nut on a stub and a left-hand drill",
    "after": "## Welding a nut on (the millwright's best trick)"
+  },
+  {
+   "photo": "machining/screw-extractors.jpg",
+   "alt": "Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap",
+   "after": "## Extractors: spiral, spline and left-hand drills"
+  },
+  {
+   "photo": "machining/extractor-t-wrench.jpg",
+   "alt": "Extractor in a T-wrench: steady, square, no side load",
+   "after": "## Drilling out"
   }
  ],
  "drill-press-speeds-and-feeds": [
@@ -1400,6 +1430,16 @@
    "img": "machining/drill-rpm-chart.svg",
    "alt": "rpm versus drill diameter for three materials",
    "after": "## The formula"
+  },
+  {
+   "photo": "machining/drill-press.jpg",
+   "alt": "A floor drill press: change the belt position to change the speed",
+   "after": "## Feed"
+  },
+  {
+   "photo": "machining/drill-press-use.jpg",
+   "alt": "Work clamped to the table, chuck key out, sleeves rolled up",
+   "after": "## Work holding and safety"
   }
  ],
  "grinding-and-abrasives-safety": [
@@ -1412,12 +1452,32 @@
    "img": "safety/grinder-guard-and-kickback.svg",
    "alt": "Angle grinder guard position and kickback zone",
    "after": "## Angle grinders, cut-off wheels and die grinders (1910.243)"
+  },
+  {
+   "photo": "machining/bench-grinder.jpg",
+   "alt": "A bench grinder: tool rest and tongue guard set to the wheel",
+   "after": "## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)"
+  },
+  {
+   "photo": "machining/grinder-sparks.jpg",
+   "alt": "Grinding steel: sparks down and away, light pressure, keep it moving",
+   "after": "## Sharpening technique"
+  },
+  {
+   "photo": "machining/grinding-wheel-sparks.jpg",
+   "alt": "The right wheel throws a clean stream of sparks and does not load up",
+   "after": "## Wheel and abrasive selection for sharpening"
   }
  ],
  "lathe-basics-for-millwrights": [
   {
    "img": "machining/lathe-parts.svg",
    "alt": "Parts of an engine lathe",
+   "after": "## The machine"
+  },
+  {
+   "photo": "machining/engine-lathe.jpg",
+   "alt": "An engine lathe: headstock, carriage, tailstock and bed",
    "after": "## The machine"
   }
  ],
@@ -1426,6 +1486,16 @@
    "img": "machining/tram-and-keyway.svg",
    "alt": "Tramming the head and cutting a shaft keyway",
    "after": "## Tramming the head"
+  },
+  {
+   "photo": "machining/universal-mill.jpg",
+   "alt": "A universal milling machine with a vertical head",
+   "after": "## The machine"
+  },
+  {
+   "photo": "machining/mill-table.jpg",
+   "alt": "Mill table with T-slots: clamp the work, then find the edge",
+   "after": "## Work holding"
   }
  ],
  "tapping-and-thread-repair": [
@@ -1433,6 +1503,16 @@
    "img": "machining/tap-drill-and-tap-types.svg",
    "alt": "Thread percentage and tap types",
    "after": "## Tap types"
+  },
+  {
+   "photo": "machining/tap-wrenches.jpg",
+   "alt": "Tap wrenches: the T-handle for small taps, the bar handle for big ones",
+   "after": "## Hand tapping technique"
+  },
+  {
+   "photo": "machining/tap-and-t-wrench.jpg",
+   "alt": "A tap in a T-wrench: back it off every half turn to break the chip",
+   "after": "## Why taps break, and getting one out"
   }
  ],
  "anti-seize-and-galling": [
@@ -1447,12 +1527,22 @@
    "img": "fasteners/bolt-head-markings.svg",
    "alt": "Grade by head marking",
    "after": "## Head markings"
+  },
+  {
+   "photo": "fasteners/hex-bolt-marking.jpg",
+   "alt": "Head marking on a metric bolt: maker and property class",
+   "after": "## Head markings"
   }
  ],
  "flange-bolting-and-gaskets": [
   {
    "img": "fasteners/flange-star-pattern.svg",
    "alt": "Star pattern numbering and torque passes",
+   "after": "## Part 1: flanges"
+  },
+  {
+   "photo": "fasteners/flanged-valve.jpg",
+   "alt": "A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence",
    "after": "## Part 1: flanges"
   }
  ],
@@ -1461,6 +1551,11 @@
    "img": "fasteners/locking-methods.svg",
    "alt": "Nylon insert, jam nut, castle nut, safety wire, threadlocker",
    "after": "## The locking methods compared"
+  },
+  {
+   "photo": "fasteners/threadlocker-applied.jpg",
+   "alt": "Threadlocker applied to clean threads: a drop, not a coat",
+   "after": "## Threadlockers (Loctite numbers; other brands cross-reference)"
   }
  ],
  "thread-identification-and-gauges": [
@@ -1468,6 +1563,11 @@
    "img": "fasteners/thread-identification.svg",
    "alt": "Measuring major diameter and pitch; the look-alike families",
    "after": "## Measuring a thread (three steps)"
+  },
+  {
+   "photo": "fasteners/thread-types.jpg",
+   "alt": "Bolts of different thread types: measure the pitch before you assume",
+   "after": "## Unified inch threads (ASME B1.1)"
   }
  ],
  "chain-hoists-come-alongs-and-jacks": [
@@ -1682,7 +1782,7 @@
   },
   {
    "photo": "safety/ppe-worker.jpg",
-   "alt": "Helmet, hearing protection and eye protection at the machine",
+   "alt": "Helmet, hearing protection and hi-vis on a dusty cutting job",
    "after": "## By task"
   },
   {
@@ -1701,6 +1801,11 @@
    "img": "maintenance/route-look-listen-feel.svg",
    "alt": "Look, listen, feel, measure, record",
    "after": "## At each machine: look, listen, feel, measure"
+  },
+  {
+   "photo": "maintenance/toolbox.jpg",
+   "alt": "The route toolbox: what you carry decides what you can measure",
+   "after": "## What to carry"
   }
  ],
  "pm-checklists": [
@@ -1729,6 +1834,11 @@
    "img": "troubleshooting/bearing-load-paths.svg",
    "alt": "Running track patterns on the races",
    "after": "## Reading the load path (running track)"
+  },
+  {
+   "photo": "bearings/false-brinelling.jpg",
+   "alt": "False brinelling on test bearings: polished depressions at ball spacing",
+   "after": "## Damage modes (ISO 15243)"
   }
  ],
  "belt-failure": [
@@ -1743,6 +1853,11 @@
    "img": "troubleshooting/coupling-wear-signs.svg",
    "alt": "What is under the guard for each coupling family",
    "after": "## First: measure what the coupling saw"
+  },
+  {
+   "photo": "power-transmission/jaw-coupling.jpg",
+   "alt": "Jaw coupling: rubber dust under it means the spider is being worked by misalignment",
+   "after": "## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)"
   }
  ],
  "machine-vibration-noise-heat-decision-tree": [
@@ -1771,12 +1886,27 @@
    "img": "shop-reference/hardness-scale-bar.svg",
    "alt": "Rockwell C, Brinell and tensile side by side",
    "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
+  },
+  {
+   "photo": "shop-reference/rockwell-tester.jpg",
+   "alt": "A bench Rockwell hardness tester",
+   "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
+  },
+  {
+   "photo": "shop-reference/vickers-indent.jpg",
+   "alt": "A Vickers diamond indentation in case-hardened steel",
+   "after": "## Other scales you will see"
   }
  ],
  "metal-identification-and-spark-test": [
   {
    "img": "shop-reference/spark-test-patterns.svg",
    "alt": "Spark stream patterns for four metals",
+   "after": "## Spark test chart"
+  },
+  {
+   "photo": "shop-reference/spark-test.jpg",
+   "alt": "Spark testing: hold the piece lightly on the wheel and read the stream against a dark background",
    "after": "## Spark test chart"
   }
  ],
@@ -1790,6 +1920,11 @@
    "img": "layout-templates/bolt-circle-chord.svg",
    "alt": "Bolt holes straddle the centrelines",
    "after": "## Flanges: ASME B16.5 Class 150 (inches)"
+  },
+  {
+   "photo": "shop-reference/pipe-yard.jpg",
+   "alt": "Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule",
+   "after": "## Steel pipe dimensions (ASME B36.10), inches"
   }
  ],
  "power-torque-speed-drive-formulas": [
@@ -1877,6 +2012,16 @@
    "img": "measurement/vernier-scale-reading.svg",
    "alt": "Reading an inch vernier: 1.436 in step by step",
    "after": "## Reading a vernier caliper (inch, 0.001 in)"
+  },
+  {
+   "photo": "measurement/digital-caliper.jpg",
+   "alt": "A digital caliper: zero it closed, then measure",
+   "after": "## Digital caliper"
+  },
+  {
+   "photo": "measurement/vernier-caliper.jpg",
+   "alt": "A vernier caliper: clean jaws, light touch, read straight on",
+   "after": "## Before you trust a reading"
   }
  ],
  "telescoping-and-bore-gauges": [
@@ -1884,6 +2029,11 @@
    "img": "measurement/telescoping-gauge-technique.svg",
    "alt": "Rock the telescoping gauge through the centre, then measure it with a micrometer",
    "after": "## Telescoping gauge technique"
+  },
+  {
+   "photo": "measurement/bore-gauge-head.jpg",
+   "alt": "Dial bore gauge head: measuring anvil, centring shoes and the contact point",
+   "after": "## Dial bore gauge"
   }
  ],
  "feeler-gauges-and-thickness-measurement": [
@@ -1891,6 +2041,11 @@
    "img": "measurement/feeler-gauge-technique.svg",
    "alt": "Light drag both ways; stack blades for in-between sizes",
    "after": "## Technique"
+  },
+  {
+   "photo": "measurement/feeler-gauge-fan.jpg",
+   "alt": "A feeler gauge set: blades fanned out, thickness stamped on each",
+   "after": "## The set"
   }
  ],
  "torque-wrench-use-and-calibration": [
@@ -1898,6 +2053,16 @@
    "img": "measurement/torque-wrench-extension.svg",
    "alt": "Correcting the wrench setting for a crowfoot or extension",
    "after": "## Extensions and crowfoot adapters"
+  },
+  {
+   "photo": "measurement/beam-torque-wrench.jpg",
+   "alt": "Beam torque wrench: read the pointer on the scale while pulling",
+   "after": "## Types"
+  },
+  {
+   "photo": "measurement/click-torque-wrench.jpg",
+   "alt": "Click torque wrench: set the scale, pull smoothly, stop at the click",
+   "after": "## Using a click wrench"
   }
  ],
  "surface-plate-height-gauge-and-squares": [

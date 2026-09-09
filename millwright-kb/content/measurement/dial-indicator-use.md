@@ -10,6 +10,10 @@ summary: "Plunger (AGD) versus lever (test) indicators, how to mount them so the
 
 ## Two kinds
 
+![A lever (test) indicator: the tip swings, so it reaches where a plunger cannot](/photos/measurement/dial-test-indicator.jpg)
+
+*A lever (test) indicator: the tip swings, so it reaches where a plunger cannot. Photo: Solaris2006, CC BY-SA 3.0, via commons*
+
 | | Plunger (AGD dial indicator) | Lever (dial test indicator) |
 |---|---|---|
 | Movement | Plunger travels in a straight line, 0.25-1" range | Small stylus swings, 0.008-0.030" range |

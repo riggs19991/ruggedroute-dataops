@@ -14,6 +14,10 @@ summary: "The feel that makes feeler gauge readings repeatable, how to stack bla
 
 Blades from 0.0015 to 0.035 in (0.04 to 1.0 mm) in a folding holder; long blades (12 in) for bearing housings and machine bases; bent-tip blades for spark plugs and tight spots. Keep them oiled, straight and free of burrs; a bent blade reads thick. Metric and inch sets are not interchangeable at the thin end (0.002 in = 0.05 mm, but 0.0015 in has no metric twin).
 
+![A feeler gauge set: blades fanned out, thickness stamped on each](/photos/measurement/feeler-gauge-fan.jpg)
+
+*A feeler gauge set: blades fanned out, thickness stamped on each. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
+
 ## Technique
 
 ![Light drag both ways; stack blades for in-between sizes](/img/measurement/feeler-gauge-technique.svg)

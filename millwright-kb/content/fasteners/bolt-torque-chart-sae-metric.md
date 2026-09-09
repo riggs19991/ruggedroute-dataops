@@ -44,6 +44,10 @@ Fine-thread (UNF) bolts of the same size take roughly 10% more.
 
 ![Grade by head marking](/img/fasteners/bolt-head-markings.svg)
 
+![Head marking on a metric bolt: maker and property class](/photos/fasteners/hex-bolt-marking.jpg)
+
+*Head marking on a metric bolt: maker and property class. Photo: R. Henrik Nilsson, CC BY 4.0, via commons*
+
 *Grade by head marking*
 
 | Marking | Grade / class | Min tensile |

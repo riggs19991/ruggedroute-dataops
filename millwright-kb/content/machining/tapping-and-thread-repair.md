@@ -48,6 +48,10 @@ Common inch tap drills (75%): **#6-32: #36; #8-32: #29; #10-24: #25; #10-32: #21
 
 ## Hand tapping technique
 
+![Tap wrenches: the T-handle for small taps, the bar handle for big ones](/photos/machining/tap-wrenches.jpg)
+
+*Tap wrenches: the T-handle for small taps, the bar handle for big ones. Photo: Glenn McKechnie, CC BY-SA 3.0, via commons*
+
 1. Drill the hole at the right size and **square** (a drill press; a tapping block or a square used from two sides by hand), **chamfer** the hole mouth with a countersink (the first thread is otherwise a torn burr that jams the tap), and clean the chips out.
 2. **Tapping fluid** (a proper tapping fluid: sulphur-chlorinated for steel and stainless, a wax or kerosene for aluminium, none or a light oil for brass, dry on cast iron); coat the tap.
 3. Start with the taper tap (or a plug on a clean hole) in a **T-handle tap wrench** sized to the tap (a big wrench on a small tap is how they break); **square** it to the hole: a square against the tap from two sides, or a tapping guide/block; the first two turns decide whether the thread is straight.
@@ -66,6 +70,10 @@ Common inch tap drills (75%): **#6-32: #36; #8-32: #29; #10-24: #25; #10-32: #21
 ## Why taps break, and getting one out
 
 Causes: chips packed in a blind hole, too much thread (a drill too small or the wrong drill), a dull tap, a tap not square (the flutes bind on one side), the wrong tap for the material (a hand tap in stainless), no lubricant, work-hardened stainless, a wrench too big, forcing past a bind, a hole with a hard inclusion or a weld.
+
+![A tap in a T-wrench: back it off every half turn to break the chip](/photos/machining/tap-and-t-wrench.jpg)
+
+*A tap in a T-wrench: back it off every half turn to break the chip. Photo: User:Omegatron, CC BY-SA 3.0, via commons*
 
 Removal, in order of gentleness:
 

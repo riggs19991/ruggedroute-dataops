@@ -54,6 +54,10 @@ A nut welded to the stub gives a hex to turn, and the **weld's heat expands and 
 
 ## Extractors: spiral, spline and left-hand drills
 
+![Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap](/photos/machining/screw-extractors.jpg)
+
+*Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap. Photo: Original uploader was Bushytails at en.wikipedia, CC BY-SA 3.0, via commons*
+
 - **Left-hand drill bits** first: drill a centre punch mark exactly in the stub's centre (a **centre punch that is truly centred**: a transfer punch or a drill guide bushing on the hole), then drill with a **left-hand cobalt drill** at slow speed and firm feed **in reverse**; a bolt that is loose enough spins out on the drill; if it does not, the hole is ready for an extractor or the next drill.
 - **Spiral (EZ-out) extractors**: a tapered, left-hand-spiral hardened tool that wedges into the drilled hole and turns the bolt; the wedge **expands** the stub in the hole (making a seized bolt tighter), and the tool is **brittle**: **they snap** in a seized bolt, leaving a hardened plug that only EDM removes. Use only on a bolt that is **not seized** (a fatigue or a shear break with free threads, a loosened bolt): drill the correct size (the set's chart), tap the extractor in lightly, turn with a tap wrench **gently** with a light back-and-forth; the moment it stops moving, stop.
 - **Spline (straight-flute) extractors**: hardened splines driven into a drilled hole; they do not expand the bolt as much; the same brittleness; the same rules; better than spirals.
@@ -63,6 +67,10 @@ A nut welded to the stub gives a hex to turn, and the **weld's heat expands and 
 ## Drilling out
 
 When the stub will not turn: drill it out to the **tap drill size** and re-tap; the drill must be **centred** and **square**, or it walks into the parent thread.
+
+![Extractor in a T-wrench: steady, square, no side load](/photos/machining/extractor-t-wrench.jpg)
+
+*Extractor in a T-wrench: steady, square, no side load. Photo: User:Omegatron, CC BY-SA 3.0, via commons*
 
 1. **Centre**: file the stub flat; find the centre (a centre-finder, calipers across the hole, a transfer punch sized to the hole if the stub is below the surface, or a **drill guide bushing** made to fit the hole/counterbore and a hole in its centre the size of the pilot); centre punch; a **spotting drill** or a centre drill to start.
 2. **Pilot** with a small (1/8") cobalt drill, checked for centre (look from the top: equal wall all round; correct by slanting the pilot slightly toward the thick side before going deep).

@@ -12,6 +12,10 @@ summary: "How to get the torque the chart asks for onto the bolt: the right wren
 
 ## Types
 
+![Beam torque wrench: read the pointer on the scale while pulling](/photos/measurement/beam-torque-wrench.jpg)
+
+*Beam torque wrench: read the pointer on the scale while pulling. Photo: EncMstr, CC BY-SA 3.0, via commons*
+
 | Type | Accuracy (new) | Notes |
 |---|---|---|
 | **Click (micrometer adjust)** | ±4% clockwise, often ±6% counter-clockwise | The shop standard; set, pull until the click, stop. Wind back to the lowest setting for storage (spring relaxes) |
@@ -24,6 +28,10 @@ summary: "How to get the torque the chart asks for onto the bolt: the right wren
 | Impact wrench "torque sticks" | ±20-30% at best | Not a torque wrench: final tightening by a real wrench |
 
 ## Using a click wrench
+
+![Click torque wrench: set the scale, pull smoothly, stop at the click](/photos/measurement/click-torque-wrench.jpg)
+
+*Click torque wrench: set the scale, pull smoothly, stop at the click. Photo: J.C. Fields (Talk) (Uploads), CC BY-SA 3.0, via commons*
 
 1. Pick a wrench whose range covers the target in its **middle 20-80%**: a 250 ft-lb wrench is wrong for 25 ft-lb.
 2. Set the value: unlock, turn the handle to the main scale + the vernier on the handle (e.g. 90 + 5 = 95 ft-lb), lock.

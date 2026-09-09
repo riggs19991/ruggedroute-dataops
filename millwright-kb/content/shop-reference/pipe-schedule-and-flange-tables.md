@@ -14,6 +14,10 @@ summary: "The pipe and flange numbers every millwright and pipefitter needs at t
 
 STD = standard weight (= Sch 40 up to NPS 10); XS = extra strong (= Sch 80 up to NPS 8); XXS = double extra strong.
 
+![Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule](/photos/shop-reference/pipe-yard.jpg)
+
+*Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule. Photo: PROJECT_MANAGER, CC BY-SA 2.0, via commons*
+
 ![Same OD, different wall by schedule](/img/shop-reference/pipe-schedule-walls.svg)
 
 *Same OD, different wall by schedule*

@@ -10,6 +10,10 @@ summary: "How to know which thread you have before you buy, tap or force it: the
 
 ## Unified inch threads (ASME B1.1)
 
+![Bolts of different thread types: measure the pitch before you assume](/photos/fasteners/thread-types.jpg)
+
+*Bolts of different thread types: measure the pitch before you assume. Photo: ChristophRoser. Please credit "Christoph Roser at AllAboutLean.com"., CC BY-SA 4.0, via commons*
+
 | Size | Major diameter (in) | **UNC (coarse) TPI** | **UNF (fine) TPI** | UNEF | Tap drill UNC / UNF |
 |---|---|---|---|---|---|
 | #4 | 0.112 | 40 | 48 | | #43 / #42 |

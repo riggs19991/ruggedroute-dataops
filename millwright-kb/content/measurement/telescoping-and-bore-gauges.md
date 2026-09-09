@@ -38,6 +38,10 @@ Small-hole gauge: expand the ball until it drags lightly when rocked through the
 
 ## Dial bore gauge
 
+![Dial bore gauge head: measuring anvil, centring shoes and the contact point](/photos/measurement/bore-gauge-head.jpg)
+
+*Dial bore gauge head: measuring anvil, centring shoes and the contact point. Photo: Solaris2006, CC BY-SA 3.0, via commons*
+
 1. Fit the anvil and extension for the size; set the range so the dial sits near the middle of its travel at the nominal size.
 2. **Zero** it: in a setting ring of the nominal size (best) or between the anvils of an outside micrometer set to the nominal and clamped in a stand. Rock the gauge until the needle reverses; set the bezel zero at the reversal point.
 3. In the bore: insert, rock through square in the plane of the anvils; the reading at the **needle reversal** is the diameter's difference from nominal. Plus means bigger than nominal on most gauges: check which way yours reads.

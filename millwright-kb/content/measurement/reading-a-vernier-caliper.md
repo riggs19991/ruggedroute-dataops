@@ -44,7 +44,15 @@ Main scale in 0.1 in; the dial makes one turn per 0.1 in with 100 divisions of 0
 
 Zero with the jaws closed and clean (the "ZERO/ABS" button); the "INC" mode lets you zero at any point to measure a difference. Metric/inch toggle; battery low = drifting readings, replace it. Never store it with the jaws slammed closed; never use it on a running lathe.
 
+![A digital caliper: zero it closed, then measure](/photos/measurement/digital-caliper.jpg)
+
+*A digital caliper: zero it closed, then measure. Photo: Jacek Halicki, CC BY-SA 4.0, via commons*
+
 ## Before you trust a reading
+
+![A vernier caliper: clean jaws, light touch, read straight on](/photos/measurement/vernier-caliper.jpg)
+
+*A vernier caliper: clean jaws, light touch, read straight on. Photo: Santeri Viinamäki, CC BY-SA 4.0, via commons*
 
 1. **Zero**: close the jaws, hold up to the light: no gap visible, reading 0.000. A light line means worn or bent jaws.
 2. **Jaw wear**: measure a gauge block or a good micrometer standard (1.000 in) at the tips and deep in the jaws; readings must agree within 0.001 in.

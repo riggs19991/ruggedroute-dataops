@@ -14,9 +14,9 @@ summary: "A task-by-task PPE table for the work a millwright actually does, then
 
 ![PPE by task at a glance](/img/safety/ppe-by-task.svg)
 
-![Helmet, hearing protection and eye protection at the machine](/photos/safety/ppe-worker.jpg)
+![Helmet, hearing protection and hi-vis on a dusty cutting job](/photos/safety/ppe-worker.jpg)
 
-*Helmet, hearing protection and eye protection at the machine. Photo: Sascha Kohlmann, CC BY-SA 3.0, via commons*
+*Helmet, hearing protection and hi-vis on a dusty cutting job. Photo: Sascha Kohlmann, CC BY-SA 3.0, via commons*
 
 *PPE by task at a glance*
 

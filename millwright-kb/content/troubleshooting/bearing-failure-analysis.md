@@ -36,6 +36,10 @@ The rolling elements polish a **track** on each raceway where the load passes. I
 
 ## Damage modes (ISO 15243)
 
+![False brinelling on test bearings: polished depressions at ball spacing](/photos/bearings/false-brinelling.jpg)
+
+*False brinelling on test bearings: polished depressions at ball spacing. Photo: DirkDrees, CC BY-SA 4.0, via commons*
+
 ### 1. Fatigue (spalling / flaking)
 
 - **Subsurface-initiated**: flakes with a smooth crater and a coarse bottom, starting in the load zone in the middle of the track, spreading in the rolling direction; the end of the design life, or a heavily overloaded bearing. Cause: load higher than expected (belt over-tension, misalignment, unbalance), the end of life. Fix: correct the load; bigger bearing; check the L10 calculation.
