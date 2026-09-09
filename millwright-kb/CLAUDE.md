@@ -41,8 +41,11 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
 
 ## App shell rules
 
-- The site is an installable PWA (`vite-plugin-pwa`, config in `vite.config.ts`). Never cache
-  `/auth/**` or `/storage/**`; keep `/img/**` cache-first and REST article reads stale-while-revalidate.
+- The site is an installable PWA (`vite-plugin-pwa`, config in `vite.config.ts`, `autoUpdate`). Never
+  cache `/auth/**` or `/storage/**`. `/img/**` and `/photos/**` are cache-first but every figure URL
+  carries the build id (`figureUrl` in `src/lib/site.ts`, applied by the markdown renderer), so a
+  redrawn diagram shows on the next build without anyone clearing data; REST article reads are
+  network-first with an offline fallback, so a re-seed shows on the next online open.
 - Auth email links must point at `/auth/confirmed` (sign-up, magic link) and `/auth/reset`
   (password reset); the Supabase Site URL and redirect allow-list are owner settings.
 - Uploads go through `src/lib/files.ts` (folder = user id, images downscaled first) and the

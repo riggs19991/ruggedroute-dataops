@@ -292,12 +292,11 @@ a.card:hover { text-decoration: none; border-color: var(--accent); }
 
 /* ---------- installed app ---------- */
 .offline-bar { background: var(--accent-soft); color: var(--text); text-align: center; font-size: 0.9rem; padding: 6px 12px; border-bottom: 1px solid var(--accent); }
-.update-bar { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--brand); color: var(--brand-text); padding: 10px 14px; border-radius: 10px; display: flex; gap: 12px; align-items: center; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); z-index: 50; font-size: 0.95rem; }
-.update-bar button { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 6px; padding: 6px 12px; font-weight: 600; cursor: pointer; }
+.footer-build { opacity: 0.7; font-variant-numeric: tabular-nums; }
 
 /* ---------- print ---------- */
 @media print {
-  .site-header, .site-footer, .article-actions, .support-card, .install-card, .update-bar, .offline-bar, .disclaimer-check { display: none !important; }
+  .site-header, .site-footer, .article-actions, .support-card, .install-card, .offline-bar, .disclaimer-check { display: none !important; }
   body { background: #fff; color: #000; }
   main { max-width: none; padding: 0; }
   .md { border: 0; box-shadow: none; padding: 0; }

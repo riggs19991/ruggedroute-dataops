@@ -4,7 +4,7 @@ import { useAuth } from '../lib/auth'
 import { SearchBox } from './SearchBox'
 import { Logo } from './Logo'
 import { Icon } from '../lib/icons'
-import { COMPANY, COPYRIGHT_YEAR, DONATE_URL, donateHref } from '../lib/site'
+import { BUILD_ID, COMPANY, COPYRIGHT_YEAR, DONATE_URL, donateHref } from '../lib/site'
 import { resolvedTheme, toggleTheme } from '../lib/theme'
 
 export function Layout() {
@@ -62,7 +62,7 @@ export function Layout() {
           </div>
           <div className="footer-amp">
             <img src="/brand/amp-logo.png" alt="Addictive Media Productions" width="640" height="289" />
-            <div>Millwright KB is a product of <b>{COMPANY}</b><br /><span className="footer-copy">© {COPYRIGHT_YEAR} {COMPANY}, Blanchard, Idaho. All rights reserved.</span></div>
+            <div>Millwright KB is a product of <b>{COMPANY}</b><br /><span className="footer-copy">© {COPYRIGHT_YEAR} {COMPANY}, Blanchard, Idaho. All rights reserved. <span className="footer-build">build {BUILD_ID}</span></span></div>
           </div>
         </div>
       </footer>

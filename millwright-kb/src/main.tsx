@@ -61,15 +61,11 @@ function App() {
   )
 }
 
-// Service worker: precached shell, cached diagrams and articles. When a new build is published,
-// show a small bar offering to reload (content changes often).
-const updateSW = registerSW({
-  onNeedRefresh() {
-    const bar = document.createElement('div')
-    bar.className = 'update-bar'
-    bar.innerHTML = '<span>A new version is ready.</span><button type="button">Reload</button>'
-    bar.querySelector('button')!.onclick = () => updateSW(true)
-    document.body.appendChild(bar)
+// Service worker: precached shell, cached diagrams and articles. A new build installs and reloads
+// on its own (autoUpdate); long-lived tabs check for one every hour.
+registerSW({
+  onRegisteredSW(_url, registration) {
+    if (registration) setInterval(() => registration.update(), 60 * 60 * 1000)
   },
 })
 

@@ -1,3 +1,4 @@
+import { figureUrl } from '../lib/site'
 import { useEffect, useState } from 'react'
 
 type Credit = { title: string; author: string; license: string; licenseUrl: string; source: string; sourceUrl: string }
@@ -5,7 +6,7 @@ type Credit = { title: string; author: string; license: string; licenseUrl: stri
 /** Attribution for every photograph used in the knowledge base (public/photos/credits.json). */
 export function CreditsPage() {
   const [credits, setCredits] = useState<Record<string, Credit> | null>(null)
-  useEffect(() => { fetch('/photos/credits.json').then((r) => r.json()).then(setCredits).catch(() => setCredits({})) }, [])
+  useEffect(() => { fetch(figureUrl('/photos/credits.json')).then((r) => r.json()).then(setCredits).catch(() => setCredits({})) }, [])
   const entries = Object.entries(credits ?? {}).sort((a, b) => a[0].localeCompare(b[0]))
   return (
     <div className="md" style={{ maxWidth: 820 }}>

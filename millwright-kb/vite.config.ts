@@ -5,13 +5,17 @@ import { VitePWA } from 'vite-plugin-pwa'
 // VITE_BASE lets the same build serve from a sub-path (GitHub Pages: /ruggedroute-dataops/).
 // Leave it unset for root hosting and for the Capacitor native apps.
 const SUPABASE_HOST = 'tzucpijgyjhpgwukjsau.supabase.co'
+// Build id: the commit on CI, the time locally. Figure URLs carry it (?v=) so a new build never
+// shows a diagram the service worker cached from an older one.
+const BUILD_ID = (process.env.GITHUB_SHA || '').slice(0, 7) || String(Date.now()).slice(-7)
 
 export default defineConfig({
   base: process.env.VITE_BASE || '/',
+  define: { __BUILD_ID__: JSON.stringify(BUILD_ID) },
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       includeAssets: ['icon-180.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'logo.svg', 'brand/amp-logo.png'],
       manifest: {
         id: '/',
@@ -40,17 +44,18 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
-            // The 155 diagrams: cache on first view, keep for a month.
+            // Diagrams and photos: cache on first view, keep for a month. URLs are versioned per
+            // build (?v=BUILD_ID), so a redrawn figure with the same file name is fetched fresh.
             urlPattern: ({ url }) => url.pathname.startsWith('/img/') || url.pathname.startsWith('/photos/'),
             handler: 'CacheFirst',
             options: { cacheName: 'mw-diagrams', expiration: { maxEntries: 900, maxAgeSeconds: 30 * 24 * 3600 }, cacheableResponse: { statuses: [0, 200] } },
           },
           {
-            // Articles, categories and bookmarks read through the REST API: serve the last copy
-            // while refreshing, so opened articles and the A-Z index work offline.
+            // Articles, categories and bookmarks read through the REST API: network first so a
+            // re-seed shows at once; fall back to the last copy so opened articles work offline.
             urlPattern: ({ url, request }) => url.host === SUPABASE_HOST && request.method === 'GET' && /^\/rest\/v1\/(mw_articles|mw_categories|mw_bookmarks)/.test(url.pathname),
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'mw-api', expiration: { maxEntries: 600, maxAgeSeconds: 7 * 24 * 3600 }, cacheableResponse: { statuses: [0, 200] } },
+            handler: 'NetworkFirst',
+            options: { cacheName: 'mw-api', networkTimeoutSeconds: 4, expiration: { maxEntries: 600, maxAgeSeconds: 7 * 24 * 3600 }, cacheableResponse: { statuses: [0, 200] } },
           },
         ],
       },
