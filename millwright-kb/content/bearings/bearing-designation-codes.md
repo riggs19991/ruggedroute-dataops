@@ -28,6 +28,10 @@ summary: "How to read any metric rolling-bearing designation: the type digit, di
 
 ## Type (first digit or letters)
 
+![Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring](/photos/bearings/ball-bearing-cutaway.jpg)
+
+*Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring. Photo: Silberwolf, CC BY 2.5, via commons*
+
 | Code | Bearing type |
 |---|---|
 | **1** | Self-aligning ball bearing (12xx, 13xx, 22xx, 23xx with "E") |
@@ -46,6 +50,10 @@ summary: "How to read any metric rolling-bearing designation: the type digit, di
 ## Dimension series
 
 The digit(s) after the type give the **width series** and **diameter series** (ISO 15). For a given bore, a higher diameter series is a bigger, stronger bearing:
+
+![Cylindrical roller bearing (type N/NU): same bore code, different series and load rating](/photos/bearings/cylindrical-roller-cutaway.jpg)
+
+*Cylindrical roller bearing (type N/NU): same bore code, different series and load rating. Photo: Silberwolf, CC BY 2.5, via commons*
 
 | Series | Example for 25 mm bore | Outside diameter | Width |
 |---|---|---|---|

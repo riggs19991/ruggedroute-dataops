@@ -14,6 +14,10 @@ summary: "The two tapered bushings that hold sheaves, sprockets and couplings on
 
 ![QD flange bushing versus flangeless Taper-Lock](/img/power-transmission/qd-vs-taperlock.svg)
 
+![A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws](/photos/power-transmission/taper-lock-hub.jpg)
+
+*A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws. Photo: Miessen, CC0, via commons*
+
 *QD flange bushing versus flangeless Taper-Lock*
 
 | | **QD (Quick Detachable)** | **Taper-Lock** |

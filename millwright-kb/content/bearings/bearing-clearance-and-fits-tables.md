@@ -83,6 +83,10 @@ Bearing bore tolerance (normal class, PN): 18-30 mm: 0 / −0.0004"; 30-50: 0 / 
 
 Radial internal clearance (RIC) is the total play between the rings measured on the unmounted bearing; the **mounted** clearance is less by the fit reductions, and the **operating** clearance is less again by the temperature difference between the rings (the inner runs hotter and expands). The target is a **small positive operating clearance**.
 
+![A deep groove ball bearing: clearance is measured between the balls and the outer raceway](/photos/bearings/ball-bearing.jpg)
+
+*A deep groove ball bearing: clearance is measured between the balls and the outer raceway. Photo: R. Henrik Nilsson, CC BY 4.0, via commons*
+
 | Class | Meaning | Use |
 |---|---|---|
 | C2 | Less than normal | Precision, preloaded pairs |

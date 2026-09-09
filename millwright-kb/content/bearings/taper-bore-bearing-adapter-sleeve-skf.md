@@ -25,6 +25,10 @@ summary: "Step-by-step mounting of a K (1:12 taper) spherical roller bearing on 
 
 Read the suffix on the bearing:
 
+![Double-row spherical roller bearing: barrel rollers on one spherical outer raceway](/photos/bearings/spherical-roller-cutaway.jpg)
+
+*Double-row spherical roller bearing: barrel rollers on one spherical outer raceway. Photo: Silberwolf, CC BY 2.5, via commons*
+
 | Suffix | Meaning |
 |---|---|
 | **K** | Tapered bore, taper 1:12 (most 222xx / 223xx / 230xx / 231xx / 232xx series) |

@@ -69,6 +69,10 @@ with K = 1.00 for chain sprockets, 1.25 for gears, 1.50 for V-belt sheaves, 2.50
 
 ## Choosing a replacement
 
+![Reducers of the same frame size come in many ratios: read the nameplate, not the housing](/photos/gearboxes/industrial-gearboxes.jpg)
+
+*Reducers of the same frame size come in many ratios: read the nameplate, not the housing. Photo: Yuexin indonesia, CC BY-SA 4.0, via commons*
+
 1. Read the nameplate: model, ratio, input hp, mounting position, and the **frame size** (the catalogue family).
 2. Confirm it was not undersized: work out the SF from the application and check the old box rating. If it failed early, upsize now.
 3. Match: ratio (nearest, or a different ratio with a belt change), shaft sizes and centre distance (or plan new couplings and base), mounting position, output rotation, and thermal rating.

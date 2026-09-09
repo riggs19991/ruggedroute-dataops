@@ -83,6 +83,10 @@ A worm box also needs its **thermal** rating checked separately (input hp contin
 
 Match: ratio (or the output speed), input hp and thermal rating, output torque and service factor, shaft sizes and directions (the worm box's output can be left, right or both), mounting position and base dimensions, the direction of rotation (the output turns opposite to the input on a single-stage worm and on a single-stage spur; same on a double), and the oil. Fill to the level for the **new** position; a box shipped with oil is usually shipped **without** its vent (a shipping plug): fit the vent before starting or the seals blow.
 
+![Industrial reducers ready to ship: match ratio, mounting, shaft and service factor](/photos/gearboxes/industrial-gearboxes.jpg)
+
+*Industrial reducers ready to ship: match ratio, mounting, shaft and service factor. Photo: Yuexin indonesia, CC BY-SA 4.0, via commons*
+
 ## Common mistakes
 
 - Helical EP oil in a worm box: the bronze wheel dissolves into the oil in a year.

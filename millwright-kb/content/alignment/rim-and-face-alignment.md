@@ -21,6 +21,10 @@ Rotate both shafts together (or, if the movable cannot be turned, rotate only th
 
 ![Rim and face indicator setup with the A, B and C dimensions](/img/alignment/rim-and-face-setup.svg)
 
+![A plunger dial indicator: 0.001 in graduations, one inch of travel](/photos/alignment/dial-indicator.jpg)
+
+*A plunger dial indicator: 0.001 in graduations, one inch of travel. Photo: Solaris2006, CC BY-SA 3.0, via commons*
+
 *Rim and face indicator setup with the A, B and C dimensions*
 
 - Rim-and-face bracket (chain or clamp type) with rigid rods; the shorter the rods, the less sag

@@ -14,6 +14,10 @@ summary: "A tapered roller bearing does not have a built-in clearance: you set i
 
 A tapered roller bearing is two separable parts: the **cone** (inner ring with rollers and cage) and the **cup** (outer ring). Mounted in **pairs** facing each other (direct or indirect mounting), the axial position of one cup or cone relative to the other decides the internal clearance of both bearings at once:
 
+![Cup and cone of a tapered roller bearing: separable, so the setting is up to you](/photos/bearings/tapered-roller-cup-cone.jpg)
+
+*Cup and cone of a tapered roller bearing: separable, so the setting is up to you. Photo: Rankin Kennedy C.E., Public domain, via commons*
+
 - **End play**: an axial clearance; the shaft can be moved end to end a measurable amount. Rollers are not all loaded; the bearing runs cool and tolerates thermal expansion.
 - **Preload**: an axial interference; the rollers are all loaded and the shaft has zero end play plus a set force. Stiffer, more accurate, higher load capacity from more rollers sharing, but heat and life fall sharply if the preload is too high.
 - **Zero (line-to-line)**: the transition. Timken's life curve peaks at **near-zero to slight preload**; because you cannot hit zero exactly and because hot running changes the setting, most industrial machinery is set with **a small end play cold** that closes toward zero when hot.
@@ -67,6 +71,10 @@ The shaft grows longer than the housing when it runs warmer (gearbox shafts run 
 Example: steel shaft, steel housing, bearings 20" apart, shaft 40°F hotter than the housing: 20 × 6.5 × 10⁻⁶ × 40 = **0.0052" reduction** in end play. If you set 0.003" cold, it runs 0.002" preloaded: fine for a gearbox, but a longer shaft or a bigger ΔT can turn a "safe" cold end play into heavy preload and a hot bearing. Indirect (X) mounting and direct (O) mounting respond in opposite directions to radial expansion; the manual's cold number already accounts for it. Do not "improve" the manual's number.
 
 ## Cups, cones and fits
+
+![Tapered roller bearing in section: cup, cone, rollers and cage](/photos/bearings/tapered-roller-cutaway.jpg)
+
+*Tapered roller bearing in section: cup, cone, rollers and cage. Photo: Silberwolf, CC BY 2.5, via commons*
 
 - Rotating cone (most shafts): **tight** on the shaft (interference fit per the fit tables); cup stationary in a housing: slip fit for the adjustable cup, tight where it is the fixed one. The **adjustable member must be the loose-fitted one** or you cannot adjust it (Timken's "loose fitted member for adjustment").
 - Seat the cup: press or drive with a driver on the cup's face, never on the rib; a cup carrier lets you shim behind it.

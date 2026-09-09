@@ -12,6 +12,10 @@ summary: "What misalignment is, how it is described (vertical and horizontal off
 
 A flexible coupling tolerates *some* misalignment. It does not remove the forces. Misaligned shafts push a bending load into the bearings and seals once per revolution. Typical results of poor alignment: hot bearings, seal leaks, coupling wear and rubber dust, foundation bolt loosening, and vibration at 1× and 2× running speed. Good alignment is the cheapest reliability improvement a millwright can make.
 
+![Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools](/photos/alignment/turbine-shaft-alignment.jpg)
+
+*Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools. Photo: Alfred T. Palmer, Public domain, via commons*
+
 ## Describing misalignment
 
 Two shafts can be out in four independent ways. You correct all four.

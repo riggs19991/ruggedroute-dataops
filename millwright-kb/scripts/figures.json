@@ -630,6 +630,21 @@
    "img": "installation/anchor-types.svg",
    "alt": "Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance",
    "after": "## Anchor types"
+  },
+  {
+   "photo": "installation/wind-anchor-bolts.jpg",
+   "alt": "Embedded anchor bolts in a foundation before the base goes down",
+   "after": "## Foundations"
+  },
+  {
+   "photo": "installation/wedge-anchor.jpg",
+   "alt": "A wedge anchor: the clip expands as the bolt is tightened",
+   "after": "## Anchor types"
+  },
+  {
+   "photo": "installation/j-bolt.jpg",
+   "alt": "A J-bolt set in concrete, threads protected until the base arrives",
+   "after": "## Building and setting an anchor-bolt template"
   }
  ],
  "grouting-baseplates": [
@@ -698,6 +713,11 @@
    "img": "alignment/rim-and-face-setup.svg",
    "alt": "Rim and face indicator setup with the A, B and C dimensions",
    "after": "## Tools"
+  },
+  {
+   "photo": "alignment/dial-indicator.jpg",
+   "alt": "A plunger dial indicator: 0.001 in graduations, one inch of travel",
+   "after": "## Tools"
   }
  ],
  "shaft-alignment-fundamentals": [
@@ -710,6 +730,11 @@
    "img": "alignment/alignment-tolerances.svg",
    "alt": "Offset tolerance falls as speed rises",
    "after": "## General alignment tolerances"
+  },
+  {
+   "photo": "alignment/turbine-shaft-alignment.jpg",
+   "alt": "Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools",
+   "after": "## Why we align"
   }
  ],
  "soft-foot-correction": [
@@ -717,6 +742,11 @@
    "img": "alignment/soft-foot-types.svg",
    "alt": "Parallel, angular, squishy and induced soft foot",
    "after": "## Types"
+  },
+  {
+   "photo": "alignment/feeler-gauge.jpg",
+   "alt": "Feeler gauge blades find the gap under a soft foot",
+   "after": "## Check (dial indicator method)"
   }
  ],
  "thermal-growth-alignment": [
@@ -731,6 +761,11 @@
    "img": "bearings/fits-rotating-load.svg",
    "alt": "Which ring is tight depends on which ring rotates relative to the load",
    "after": "## The rule that decides everything"
+  },
+  {
+   "photo": "bearings/ball-bearing.jpg",
+   "alt": "A deep groove ball bearing: clearance is measured between the balls and the outer raceway",
+   "after": "## Internal clearance"
   }
  ],
  "bearing-designation-codes": [
@@ -738,6 +773,16 @@
    "img": "bearings/bearing-parts-and-number.svg",
    "alt": "Bearing parts and the meaning of 6205-2RS C3",
    "after": "## Basic layout"
+  },
+  {
+   "photo": "bearings/ball-bearing-cutaway.jpg",
+   "alt": "Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring",
+   "after": "## Type (first digit or letters)"
+  },
+  {
+   "photo": "bearings/cylindrical-roller-cutaway.jpg",
+   "alt": "Cylindrical roller bearing (type N/NU): same bore code, different series and load rating",
+   "after": "## Dimension series"
   }
  ],
  "bearing-mounting-with-heat": [
@@ -759,6 +804,26 @@
    "img": "bearings/pillow-block-anatomy.svg",
    "alt": "Housing, insert, locking collar, fixed and floating ends",
    "after": "## Anatomy"
+  },
+  {
+   "photo": "bearings/pillow-block.jpg",
+   "alt": "A cast pillow block with its insert bearing",
+   "after": "## Anatomy"
+  },
+  {
+   "photo": "bearings/stainless-pillow-block.jpg",
+   "alt": "Stainless pillow block: set-screw collar on the wide inner ring",
+   "after": "## Locking methods"
+  },
+  {
+   "photo": "lubrication/grease-gun-use.jpg",
+   "alt": "Grease gun on the fitting: a few strokes, not a full tube",
+   "after": "## Greasing inserts"
+  },
+  {
+   "photo": "bearings/split-pillow-block.jpg",
+   "alt": "Split housing opened: spherical roller bearing on an adapter sleeve",
+   "after": "## Split pillow blocks (SAF / SNL / SD) with spherical roller bearings"
   }
  ],
  "skf-drive-up-card": [
@@ -773,6 +838,11 @@
    "img": "bearings/adapter-sleeve-drive-up.svg",
    "alt": "Measuring clearance over the top roller on an adapter sleeve mounting",
    "after": "## Step 1 - Measure and record the unmounted radial internal clearance"
+  },
+  {
+   "photo": "bearings/spherical-roller-cutaway.jpg",
+   "alt": "Double-row spherical roller bearing: barrel rollers on one spherical outer raceway",
+   "after": "## Step 0 - Identify the bearing and taper"
   }
  ],
  "tapered-roller-bearing-setting": [
@@ -780,6 +850,16 @@
    "img": "bearings/tapered-roller-end-play.svg",
    "alt": "Cups, cones and measuring end play with an indicator on the shaft end",
    "after": "## Manual setting with a dial indicator (gearbox, pulley, pump)"
+  },
+  {
+   "photo": "bearings/tapered-roller-cup-cone.jpg",
+   "alt": "Cup and cone of a tapered roller bearing: separable, so the setting is up to you",
+   "after": "## What \"setting\" means"
+  },
+  {
+   "photo": "bearings/tapered-roller-cutaway.jpg",
+   "alt": "Tapered roller bearing in section: cup, cone, rollers and cage",
+   "after": "## Cups, cones and fits"
   }
  ],
  "coupling-types-gap-and-installation": [
@@ -808,6 +888,11 @@
    "img": "power-transmission/qd-vs-taperlock.svg",
    "alt": "QD flange bushing versus flangeless Taper-Lock",
    "after": "## Which is which"
+  },
+  {
+   "photo": "power-transmission/taper-lock-hub.jpg",
+   "alt": "A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws",
+   "after": "## Which is which"
   }
  ],
  "roller-chain-drives": [
@@ -815,6 +900,11 @@
    "img": "power-transmission/chain-sag-and-wear.svg",
    "alt": "Chain sag, sprocket alignment and wear measurement",
    "after": "## Alignment"
+  },
+  {
+   "photo": "power-transmission/chain-sprocket.jpg",
+   "alt": "Roller chain on a sprocket: look for hooked teeth and chain riding high",
+   "after": "## Sprockets"
   }
  ],
  "timing-belts-and-synchronous-drives": [
@@ -822,6 +912,16 @@
    "img": "power-transmission/timing-belt-tension.svg",
    "alt": "Synchronous belt with flanges and deflection tensioning",
    "after": "## Tensioning"
+  },
+  {
+   "photo": "power-transmission/timing-belt.jpg",
+   "alt": "A toothed (synchronous) belt: the tooth pitch must match the pulley",
+   "after": "## Pitch families"
+  },
+  {
+   "photo": "power-transmission/timing-belt-pulleys.jpg",
+   "alt": "Synchronous belt on flanged pulleys",
+   "after": "## Flanges and alignment"
   }
  ],
  "v-belt-drive-installation-and-tensioning": [
@@ -829,6 +929,11 @@
    "img": "power-transmission/v-belt-deflection.svg",
    "alt": "Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge",
    "after": "## Tension - deflection method"
+  },
+  {
+   "photo": "power-transmission/multi-v-belt-drive.jpg",
+   "alt": "A multiple V-belt drive: replace the whole set as a matched group",
+   "after": "## Identify the belt"
   }
  ],
  "dodge-torque-arm-shaft-mount-reducer": [
@@ -857,6 +962,11 @@
    "img": "gearboxes/worm-and-planetary.svg",
    "alt": "Worm and wheel versus sun, planets and ring",
    "after": "top"
+  },
+  {
+   "photo": "gearboxes/industrial-gearboxes.jpg",
+   "alt": "Industrial reducers ready to ship: match ratio, mounting, shaft and service factor",
+   "after": "## Replacing a reducer"
   }
  ],
  "air-compressors-pm": [
@@ -1542,6 +1652,11 @@
    "img": "gearboxes/service-factor-selection.svg",
    "alt": "Five checks for selecting a reducer",
    "after": "## The idea"
+  },
+  {
+   "photo": "gearboxes/industrial-gearboxes.jpg",
+   "alt": "Reducers of the same frame size come in many ratios: read the nameplate, not the housing",
+   "after": "## Choosing a replacement"
   }
  ],
  "how-to-read-a-pump-curve-sheet": [

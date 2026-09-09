@@ -12,6 +12,10 @@ summary: "What a machine foundation must be and how long it must cure, the ancho
 
 ## Foundations
 
+![Embedded anchor bolts in a foundation before the base goes down](/photos/installation/wind-anchor-bolts.jpg)
+
+*Embedded anchor bolts in a foundation before the base goes down. Photo: Walter Baxter, CC BY-SA 2.0, via commons*
+
 - **Mass**: a rotating machine's foundation block should weigh **at least 3× the machine (machine + driver + base)**, a reciprocating machine's **5×** (API 686, Ch. 4), sized so the combined centre of gravity is low and the block does not rock. Isolated from the floor slab with an expansion joint so machine vibration does not travel and floor loads do not tilt the block.
 - **Concrete**: 3,000-4,000 psi minimum; reinforced; the top left rough (not trowelled) if grout will go on it, and **chipped to expose aggregate** before grouting (see [grouting](/article/grouting-baseplates)).
 - **Cure**: concrete reaches design strength at **28 days**; API 686 wants the foundation at full design strength before grouting and machinery loads; a practical minimum before grouting is **7 days** (and the grout maker's own requirement, epoxy grouts want the concrete **dry**: 28 days or a moisture test). Do not set anchors in green concrete.
@@ -20,6 +24,10 @@ summary: "What a machine foundation must be and how long it must cure, the ancho
 ## Anchor types
 
 ![Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance](/img/installation/anchor-types.svg)
+
+![A wedge anchor: the clip expands as the bolt is tightened](/photos/installation/wedge-anchor.jpg)
+
+*A wedge anchor: the clip expands as the bolt is tightened. Photo: Dmitry G, CC BY-SA 3.0, via commons*
 
 *Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance*
 
@@ -58,6 +66,10 @@ Other common wedge anchors (Simpson Wedge-All, Red Head): 3/8" 25-30 ft-lb, 1/2"
 6. Record the batch, the temperature and the time; special inspection is required on adhesive anchors in many jurisdictions for overhead and sustained tension.
 
 ## Building and setting an anchor-bolt template
+
+![A J-bolt set in concrete, threads protected until the base arrives](/photos/installation/j-bolt.jpg)
+
+*A J-bolt set in concrete, threads protected until the base arrives. Photo: ほーるだうん, CC BY-SA 3.0, via commons*
 
 1. From the **actual baseplate** (or its certified drawing): measure hole centres, diagonals and the hole diameters; mark the baseplate's centrelines and a datum corner.
 2. Template: 3/4" plywood or a welded frame of angle/flat bar, big enough to span the form; drill the bolt holes **at the baseplate's hole size** (or the bolt size for a snug fit that will not let the bolt tilt); mark centrelines and "NORTH" or the driver end.

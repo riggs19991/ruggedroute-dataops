@@ -14,11 +14,19 @@ summary: "How to install the ball-bearing pillow blocks, flange units and take-u
 
 A **mounted bearing** is a bearing **insert** (a ball or roller bearing with a wide inner ring and a spherical outside) in a **housing** (pillow block, 2- or 4-bolt flange, take-up frame, hanger, cartridge). The spherical seat lets the insert self-align to a few degrees of shaft misalignment (static only: it does not accommodate a bent shaft that changes angle each revolution). The wide inner ring locks to the shaft with one of the methods below.
 
+![A cast pillow block with its insert bearing](/photos/bearings/pillow-block.jpg)
+
+*A cast pillow block with its insert bearing. Photo: Dodge Manufacturing Company, Public domain, via commons*
+
 ![Housing, insert, locking collar, fixed and floating ends](/img/bearings/pillow-block-anatomy.svg)
 
 *Housing, insert, locking collar, fixed and floating ends*
 
 ## Locking methods
+
+![Stainless pillow block: set-screw collar on the wide inner ring](/photos/bearings/stainless-pillow-block.jpg)
+
+*Stainless pillow block: set-screw collar on the wide inner ring. Photo: Mdijke, CC BY-SA 4.0, via commons*
 
 | Type | How it holds | Best for | Watch |
 |---|---|---|---|
@@ -72,9 +80,17 @@ Two bearings on one shaft: **one holds the shaft axially (fixed), the other must
 
 Sealed inserts with a grease fitting need **small, regular** shots: a stroke or two of a compatible grease (lithium or lithium-complex NLGI 2 in most units; check the maker) every 1-6 months depending on speed, temperature and dirt (see [regreasing intervals](/article/regreasing-intervals-and-quantities)); grease should purge slightly at the seal, which is how the seal keeps dirt out. Over-greasing blows the seals and heats the bearing; a bearing with **no** fitting is lubed for life. Washdown (food) units use food-grade H1 grease and are greased more often to purge water.
 
+![Grease gun on the fitting: a few strokes, not a full tube](/photos/lubrication/grease-gun-use.jpg)
+
+*Grease gun on the fitting: a few strokes, not a full tube. Photo: U.S. Navy photo by Mass Communication Specialist Seaman Apprentice Kyle Steckler, Public domain, via commons*
+
 ## Split pillow blocks (SAF / SNL / SD) with spherical roller bearings
 
 The heavy-duty pillow block for conveyor pulleys, fans, crushers: a **split housing** (base and cap), a **spherical roller bearing** on an **adapter sleeve** with a lock nut and lock washer, **seals** (labyrinth, taconite, felt, V-ring) and **locating (stabilising) rings** that fix the bearing in the housing on the fixed side.
+
+![Split housing opened: spherical roller bearing on an adapter sleeve](/photos/bearings/split-pillow-block.jpg)
+
+*Split housing opened: spherical roller bearing on an adapter sleeve. Photo: SamuelFreli, CC BY-SA 3.0, via commons*
 
 1. Mount the bearing on the sleeve on the shaft with the [drive-up / clearance-reduction method](/article/skf-drive-up-card); the sleeve nut faces away from the shoulder or the pulley as the drawing shows.
 2. Fit the seals (they sit in grooves in the housing halves, and the seal rings on the shaft).

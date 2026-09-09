@@ -30,6 +30,10 @@ Last digit: **0** = standard roller chain, **1** = lightweight, **5** = rollerle
 
 ## Sprockets
 
+![Roller chain on a sprocket: look for hooked teeth and chain riding high](/photos/power-transmission/chain-sprocket.jpg)
+
+*Roller chain on a sprocket: look for hooked teeth and chain riding high. Photo: Frank Vincentz, CC BY-SA 3.0, via commons*
+
 - Tooth count and pitch must match the chain. Hardened teeth for high speed or abrasive service.
 - Worn sprocket teeth look **hooked** (undercut on the driving side). Replace chain and sprockets together; a new chain on hooked sprockets wears out in weeks.
 - Minimum 17 teeth on the small sprocket for smooth running at speed; odd tooth counts spread wear.

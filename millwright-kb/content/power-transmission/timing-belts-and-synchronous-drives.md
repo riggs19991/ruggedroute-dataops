@@ -16,6 +16,10 @@ A synchronous belt **cannot slip**: the teeth engage sprocket grooves, so the ra
 
 ## Pitch families
 
+![A toothed (synchronous) belt: the tooth pitch must match the pulley](/photos/power-transmission/timing-belt.jpg)
+
+*A toothed (synchronous) belt: the tooth pitch must match the pulley. Photo: Logansenf, CC BY-SA 4.0, via commons*
+
 | Family | Tooth profile | Pitches | Use |
 |---|---|---|---|
 | **Classical trapezoidal** (MXL, XL, L, H, XH, XXH) | Trapezoid | MXL 0.080", XL 1/5", **L 3/8", H 1/2"**, XH 7/8", XXH 1-1/4" | Older machines, light drives, positioning; being replaced |
@@ -38,6 +42,10 @@ Sprockets must match the belt's pitch **and** profile (an HTD 8M belt on a GT 8M
 ## Flanges and alignment
 
 A synchronous belt tracks toward one side (they all do, because of cord twist and slight misalignment), so **at least one sprocket must be flanged**: both flanges on one sprocket, or one flange on each sprocket on opposite sides; on a drive with a centre distance over 8× the small sprocket's diameter, **both** sprockets flanged. Belts that ride hard against a flange wear the edge and shed cords: the drive is misaligned.
+
+![Synchronous belt on flanged pulleys](/photos/power-transmission/timing-belt-pulleys.jpg)
+
+*Synchronous belt on flanged pulleys. Photo: Best Tech Nick 25, CC BY-SA 4.0, via commons*
 
 **Alignment tolerance**: much tighter than V-belts: **≤ 1/4° (0.25°) combined angular and parallel** (Gates: 1/16" per foot of centre distance as the practical limit, tighter, 1/32" per foot, on drives over 5 m/s and on Poly Chain). Check:
 

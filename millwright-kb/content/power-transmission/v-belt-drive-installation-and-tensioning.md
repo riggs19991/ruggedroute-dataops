@@ -12,6 +12,10 @@ summary: "How to identify belts, check and align sheaves, install a matched set 
 
 ## Identify the belt
 
+![A multiple V-belt drive: replace the whole set as a matched group](/photos/power-transmission/multi-v-belt-drive.jpg)
+
+*A multiple V-belt drive: replace the whole set as a matched group. Photo: Three-quarter-ten, CC BY-SA 3.0, via commons*
+
 | Section | Top width | Typical use |
 |---|---|---|
 | A / AX | 1/2" | Fractional to 10 hp |

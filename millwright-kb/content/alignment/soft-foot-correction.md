@@ -27,6 +27,10 @@ Soft foot is a machine foot that does not sit flat on the base when the bolts ar
 
 ## Check (dial indicator method)
 
+![Feeler gauge blades find the gap under a soft foot](/photos/alignment/feeler-gauge.jpg)
+
+*Feeler gauge blades find the gap under a soft foot. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
+
 1. Machine rough-aligned, all four bolts torqued.
 2. Set a magnetic-base dial indicator on the base with the plunger on the top of foot #1 near the bolt.
 3. Zero. Loosen bolt #1 fully. Read the lift. Re-tighten.
