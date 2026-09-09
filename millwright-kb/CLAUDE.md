@@ -28,7 +28,16 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
    themes must work; icons come from `src/lib/icons.tsx`, never emoji; the AMP company lockup
    stays in the footer and legal pages, the gear-and-wrench mark in the header.
 8. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
-   the sandbox) and look at the PNG before shipping it.
+   the sandbox) and look at the PNG before shipping it. Judge every diagram against the real object
+   first: a miter must read as 45°, a flame as a cone, a bearing as a bearing. Redraws that override
+   an original live in `scripts/diagrams/zz_redraw.mjs`; the verdict list is `scripts/diagrams/audit.md`.
+9. **Real photos wherever a photo shows the thing better.** Every section that describes a real tool,
+   setup, defect or flame gets a free-licensed photo when one exists (public domain, CC0, CC BY or
+   CC BY-SA only); diagrams stay for geometry, charts and anything a photo cannot show. Find candidates
+   with `node scripts/photos/find.mjs "<query>"`, fetch with `scripts/photos/fetch.mjs` (downscales to
+   1200 px and writes `public/photos/credits.json`), place with a `{photo, alt, after}` entry in
+   `scripts/figures.json`. The caption credit and the `/credits` page are mandatory; `build-seed.mjs`
+   fails on a photo without a credit entry.
 
 ## App shell rules
 

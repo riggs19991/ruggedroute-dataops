@@ -82,6 +82,10 @@ Lincoln's US procedure sheet for .035 spans **50-300 ipm at 13-16 V**; the .030 
 
 ## Setup
 
+![A small wire-feed machine set up for self-shielded flux-cored wire](/photos/welding/fcaw-feeder.jpg)
+
+*A small wire-feed machine set up for self-shielded flux-cored wire. Photo: Mgschuler, CC BY 3.0, via commons*
+
 1. CV machine, **DC−**. Small 120 V machines: use .030 or .035 wire only.
 2. **Knurled** drive rolls; tension light (tube wire crushes).
 3. Liner sized for the wire. Remove the gas nozzle if the gun has one and fit the flux-core **insulated nozzle** or run with the tip exposed as the maker recommends; a MIG nozzle traps spatter.

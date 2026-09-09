@@ -47,6 +47,10 @@ Rule: replace the tip first (cheapest), then clean or replace the liner, then ch
 
 ## TIG torch parts
 
+![Every TIG torch consumable laid out: replace cups and collets when they crack or arc](/photos/welding/tig-torch-parts.jpg)
+
+*Every TIG torch consumable laid out: replace cups and collets when they crack or arc. Photo: Nutzdatenbegleiter, CC BY-SA 4.0, via commons*
+
 | Part | Notes |
 |---|---|
 | **Collet** | Sized to the tungsten diameter (1/16, 3/32, 1/8); replace when it will not grip or is arced |
@@ -79,6 +83,10 @@ Rule: replace the tip first (cheapest), then clean or replace the liner, then ch
 Signs of trouble: the arc got "soft" or erratic on all settings (loose output connections, failing rectifier, or just a bad ground), duty cycle tripping early (dust-clogged, fan failed), humming louder (loose laminations), a smell (overheating insulation: stop).
 
 ## Gas equipment
+
+![Regulator and flow gauge: check for creep with the torch valve closed](/photos/welding/mig-regulator.jpg)
+
+*Regulator and flow gauge: check for creep with the torch valve closed. Photo: Mimzy, CC0, via commons*
 
 - Regulator/flowmeter: gauges read zero with no gas; creep (outlet pressure rising with the valve closed) means a bad seat: replace; cracked gauge lens; inlet filter. Never oil oxygen regulators.
 - Hoses: leak test with soapy water at every shift change; replace cracked or spliced hose.

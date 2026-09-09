@@ -18,6 +18,10 @@ Not to be confused with **self-shielded** flux-core (E71T-11, NR-211) which runs
 
 ## Setup checklist
 
+![Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle](/photos/welding/mig-machine.jpg)
+
+*Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle. Photo: Luke Haggart, CC BY-SA 4.0, via commons*
+
 | Item | Setting |
 |---|---|
 | Power source | CV (MIG) machine, **DC+ (electrode positive)** |

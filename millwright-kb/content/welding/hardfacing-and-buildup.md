@@ -105,6 +105,10 @@ Open-arc self-shielded hardfacing wires run long stickout and high voltage on pu
 
 ## Procedure
 
+![Hardfacing: wide beads, low dilution, let the layer check-crack as it cools](/photos/welding/hardfacing-arc.jpg)
+
+*Hardfacing: wide beads, low dilution, let the layer check-crack as it cools. Photo: Lreames, CC BY-SA 4.0, via commons*
+
 1. Identify the base metal (spark test, drawings, magnet); identify the wear type from the surface.
 2. Remove the old hardfacing if it is cracked, spalled or a third layer would result: grind, gouge (carbon-arc works on carbide overlay; grind the carbon off), or machine.
 3. Clean to bright metal; preheat per the table.

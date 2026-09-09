@@ -12,6 +12,10 @@ summary: "What each position code means for plate and pipe, the angles and bead 
 
 **Groove welds (G)** and **fillet welds (F)**; the number is the position.
 
+![Pipe in the 6G position: the welder changes angle all the way round](/photos/welding/pipe-tig.jpg)
+
+*Pipe in the 6G position: the welder changes angle all the way round. Photo: Christopher.S.rcbc, CC BY-SA 4.0, via commons*
+
 ![1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe](/img/welding/positions.svg)
 
 *1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe*
@@ -58,6 +62,10 @@ Qualifying in a harder position qualifies the easier ones: 3G+4G plate qualifies
 
 ## Position by position
 
+![Overhead welding: keep the arc short and the puddle small](/photos/welding/overhead-welding.jpg)
+
+*Overhead welding: keep the arc short and the puddle small. Photo: U.S. Navy photo by Photographer's Mate Airman Dexter Roberts, Public domain, via commons*
+
 ### Flat (1G/1F)
 
 Hottest settings from the charts; the puddle supports itself. Fillet: 45° work angle, 10-15° drag or push, stringer or slight weave. Big single-pass fillets (5/16") are fine here. Put the arc on the leading edge of the puddle and let the puddle size set the travel speed.
@@ -94,6 +102,10 @@ Sheet metal and pipeline root passes (E6010 on API 1104 pipe). Fast, shallow, ne
 Root (E6010 open root or TIG), hot pass, fill and cap, each pass **around the pipe in halves** from bottom (6 o'clock) to top (12 o'clock) so the whole weld is vertical-up, or downhill root then uphill fill on some pipeline procedures. Change your angle continuously to keep the electrode perpendicular to the pipe surface at every clock position. Grind the start and stop of each half to a taper so the next tie-in fuses.
 
 ## Multi-pass welds
+
+![Macro section of a multi-pass V-butt weld: each pass numbered, root to cap](/photos/welding/v-butt-macro.jpg)
+
+*Macro section of a multi-pass V-butt weld: each pass numbered, root to cap. Photo: Alu.cz, Public domain, via commons*
 
 1. **Root**: penetration and fusion at the root, nothing else. 1/8" 6010 or 3/32" TIG on pipe; 3/32 or 1/8" 7018 in a backed groove.
 2. **Hot pass** (pipe): right after the root, hotter, to burn out root wagon tracks and reinforce a thin root before it cracks.

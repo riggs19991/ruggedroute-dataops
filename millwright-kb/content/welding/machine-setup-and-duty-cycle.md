@@ -106,6 +106,10 @@ On DC the magnetic field around the arc gets pushed by the field in the plate: t
 
 ## Daily checks before striking an arc
 
+![Daily checks: leads, clamps, gas, feeder, fan intake](/photos/welding/mig-machine.jpg)
+
+*Daily checks: leads, clamps, gas, feeder, fan intake. Photo: Luke Haggart, CC BY-SA 4.0, via commons*
+
 1. Cables: cuts, exposed copper, warm lugs.
 2. Ground clamp jaws clean and spring strong.
 3. Electrode holder insulation intact; MIG gun trigger and nozzle.

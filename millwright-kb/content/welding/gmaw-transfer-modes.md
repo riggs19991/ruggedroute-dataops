@@ -23,6 +23,10 @@ summary: "What each transfer mode is, when it happens, what gas and current it n
 
 ## Short-circuit transfer
 
+![Short-circuit transfer is the mode for out-of-position work like this overhead weld](/photos/welding/mig-overhead.jpg)
+
+*Short-circuit transfer is the mode for out-of-position work like this overhead weld. Photo: Prowelder87, CC BY-SA 4.0, via commons*
+
 - The everyday shop mode with .030/.035 wire and C25. Low heat input, all positions, bridges gaps.
 - Needs a tight consistent stickout (3/8-1/2") because it runs cold.
 - Weakness: **lack of fusion** on thick plate. Many fabricators limit GMAW-S to 3/16" or require a qualified procedure above that. AWS D1.1 treats short-circuit GMAW as needing procedure qualification.

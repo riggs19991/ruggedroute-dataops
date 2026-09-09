@@ -85,6 +85,10 @@ Quenched-and-tempered A514/A517: D1.1 gives its own row (about 50°F ≤ 3/4", 1
 
 ## Cold-weather rule set
 
+![Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter](/photos/welding/pipe-welder.jpg)
+
+*Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter. Photo: Newfoundlandguy, CC BY-SA 4.0, via commons*
+
 - Below 32°F: preheat everything to 70°F minimum and keep it there.
 - Windbreaks for gas-shielded processes above 5 mph.
 - Rods and wire stored inside; an open 7018 can at 10°F is a hydrogen sponge.

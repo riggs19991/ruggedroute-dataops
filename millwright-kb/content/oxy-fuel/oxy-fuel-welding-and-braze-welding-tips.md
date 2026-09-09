@@ -28,6 +28,10 @@ Equal pressures for welding tips is the Victor convention; other makers list sli
 
 ## Flame
 
+![Neutral flame: inner cone sharp and bright, no acetylene feather](/photos/oxy-fuel/flame-cone.jpg)
+
+*Neutral flame: inner cone sharp and bright, no acetylene feather. Photo: Sheila, CC BY 2.0, via commons*
+
 - Light the acetylene, raise it until the smoke clears, then add oxygen until the acetylene feather **just disappears** into a sharp inner cone: **neutral**. Welding steel is done with a neutral flame; a carburising flame (feather showing) adds carbon and makes a hard, porous weld; an oxidising flame (short, hissing, pointed cone) burns the steel and foams the puddle.
 - Flame types are pictured in the [flame guide](/article/oxy-acetylene-setup-victor).
 - Inner cone tip held **1/16-1/8 in** above the puddle; the cone never touches the metal.
@@ -35,6 +39,10 @@ Equal pressures for welding tips is the Victor convention; other makers list sli
 ## Technique
 
 ![Forehand torch and rod angles; bronze rod tins first](/img/oxy-fuel/oaw-braze-technique.svg)
+
+![Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle](/photos/oxy-fuel/oxy-welding.jpg)
+
+*Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle. Photo: Konstantin Brizhnichenko, CC BY-SA 4.0, via commons*
 
 *Forehand torch and rod angles; bronze rod tins first*
 

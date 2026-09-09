@@ -71,6 +71,10 @@ A fillet gauge reads **the smaller leg**. A 1/4" fillet with one leg 1/4" and th
 
 ## Inspection sequence
 
+![Chip and brush the slag before you inspect: slag hides undercut and porosity](/photos/welding/chipping.jpg)
+
+*Chip and brush the slag before you inspect: slag hides undercut and porosity. Photo: Airman Jenna Caldwell, Public domain, via commons*
+
 1. **Before welding**: material ID, fit-up (gap, bevel, land, hi-lo), cleanliness, tack quality, preheat, consumable class and storage, machine settings against the WPS.
 2. **During**: interpass temperature, interpass cleaning, bead placement, root pass before it is covered (this is the only time you will see it), travel and technique.
 3. **After**: clean (chip, brush, no paint), lighting (flashlight at a low angle shows undercut and cold lap), magnification 2-5× for cracks, gauges on size and profile, mark defects with paint stick, record.
@@ -79,6 +83,10 @@ A fillet gauge reads **the smaller leg**. A 1/4" fillet with one leg 1/4" and th
 ## Dye penetrant (PT) for surface cracks
 
 Works on any non-porous material (steel, stainless, aluminium, cast iron), finds only **surface-breaking** defects.
+
+![Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out](/photos/welding/dye-penetrant.jpg)
+
+*Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out. Photo: U.S. Navy Photo by Photographer’s Mate 2nd Class John Collins., Public domain, via commons*
 
 1. Clean: solvent (cleaner/remover), no paint, no rust, no oil; let it dry fully. Do not sandblast or heavily grind first (it smears metal over cracks); if you grinded, etch or wait.
 2. Apply **penetrant** (red, visible type): spray or brush a thin film; **dwell 5-10 minutes** (10-30 on aluminium and castings; longer when cold; 50-125°F surface range for most kits).
@@ -90,6 +98,10 @@ Works on any non-porous material (steel, stainless, aluminium, cast iron), finds
 ## Magnetic particle (MT) for ferrous surfaces
 
 Finds surface and slightly subsurface (to about 1/8") cracks in **ferromagnetic** steel only (not austenitic stainless or aluminium). A **yoke** (AC for surface, DC/HWDC for subsurface) is placed across the area; with the legs 3-8" apart the field runs between them, so cracks **perpendicular to the leg line** show; do it twice at 90°. Dust dry powder (visible, grey/red) while the yoke is energised and blow off the excess gently, or use wet fluorescent particles under UV. A crack collects a tight line of particles. Check the yoke lifts a **10 lb** weight (AC) or 40 lb (DC) as the daily calibration.
+
+![Magnetic particle inspection with a yoke under UV light](/photos/welding/magnetic-particle.jpg)
+
+*Magnetic particle inspection with a yoke under UV light. Photo: U.S. Navy photo by Photographer’s Mate Airman Konstandinos Goumenidis., Public domain, via commons*
 
 ## UT and RT
 

@@ -4,6 +4,11 @@
    "img": "welding/process-selector.svg",
    "alt": "Which process for the job: a quick decision tree",
    "after": "## The one-minute decision"
+  },
+  {
+   "photo": "welding/mig-bench.jpg",
+   "alt": "MIG at the bench: the fastest way to lay clean beads on mild steel",
+   "after": "## Process character in one line each"
   }
  ],
  "smaw-electrode-chart": [
@@ -11,6 +16,11 @@
    "img": "welding/smaw-amperage-chart.svg",
    "alt": "Amperage ranges by rod diameter for the common electrodes",
    "after": "## The chart (amps)"
+  },
+  {
+   "photo": "welding/electrode-types.jpg",
+   "alt": "Common stick electrodes side by side: coating colour and end marking tell them apart",
+   "after": "## Which rod, in plain terms"
   }
  ],
  "smaw-stick-setup": [
@@ -23,6 +33,21 @@
    "img": "welding/smaw-angles.svg",
    "alt": "Arc length, travel angle and work angle for stick welding",
    "after": "## 5. Strike and run"
+  },
+  {
+   "photo": "welding/smaw-accessories.jpg",
+   "alt": "Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike",
+   "after": "## 2. Cables and ground"
+  },
+  {
+   "photo": "welding/electrodes-and-holder.jpg",
+   "alt": "Stick electrodes and the holder: keep low-hydrogen rods dry",
+   "after": "## 3. Pick the rod"
+  },
+  {
+   "photo": "welding/smaw-arc.jpg",
+   "alt": "Running a stick bead: watch the puddle, not the arc",
+   "after": "## 5. Strike and run"
   }
  ],
  "aws-electrode-classification": [
@@ -30,6 +55,11 @@
    "img": "welding/aws-electrode-decoder.svg",
    "alt": "Decoding E7018-1 H4R digit by digit",
    "after": "top"
+  },
+  {
+   "photo": "welding/electrode-types.jpg",
+   "alt": "The classification is printed on every rod near the bare end",
+   "after": "## Covered (stick) electrodes: AWS A5.1 and A5.5"
   }
  ],
  "gmaw-mig-setup": [
@@ -42,6 +72,26 @@
    "img": "welding/mig-stickout.svg",
    "alt": "Contact-tip-to-work distance, stickout and push angle",
    "after": "## 5. Physical setup"
+  },
+  {
+   "photo": "welding/mig-machine.jpg",
+   "alt": "A MIG machine with the gun, work lead and shielding gas bottle",
+   "after": "## 1. Machine and polarity"
+  },
+  {
+   "photo": "welding/mig-wire-spool.jpg",
+   "alt": "A spool of solid MIG wire: keep it clean, dry and under a cover",
+   "after": "## 2. Wire"
+  },
+  {
+   "photo": "welding/mig-regulator.jpg",
+   "alt": "Cylinder regulator with the flow gauge for a MIG setup",
+   "after": "## 3. Gas"
+  },
+  {
+   "photo": "welding/mig-welding.jpg",
+   "alt": "MIG welding: short stickout, steady gun angle, eyes on the puddle",
+   "after": "## 6. Technique"
   }
  ],
  "gmaw-transfer-modes": [
@@ -49,6 +99,11 @@
    "img": "welding/mig-transfer-modes.svg",
    "alt": "Short-circuit, globular, spray and pulsed spray with the transition current",
    "after": "## The four modes at a glance"
+  },
+  {
+   "photo": "welding/mig-overhead.jpg",
+   "alt": "Short-circuit transfer is the mode for out-of-position work like this overhead weld",
+   "after": "## Short-circuit transfer"
   }
  ],
  "fcaw-gas-shielded-setup": [
@@ -56,6 +111,11 @@
    "img": "welding/fcaw-drag-stickout.svg",
    "alt": "Drag angle and stickout for flux-cored wire",
    "after": "## Technique notes"
+  },
+  {
+   "photo": "welding/mig-machine.jpg",
+   "alt": "Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle",
+   "after": "## Setup checklist"
   }
  ],
  "fcaw-self-shielded-setup": [
@@ -68,6 +128,11 @@
    "img": "welding/fcaw-drag-stickout.svg",
    "alt": "Drag angle and stickout by wire type",
    "after": "## Technique"
+  },
+  {
+   "photo": "welding/fcaw-feeder.jpg",
+   "alt": "A small wire-feed machine set up for self-shielded flux-cored wire",
+   "after": "## Setup"
   }
  ],
  "gtaw-tig-setup": [
@@ -80,6 +145,26 @@
    "img": "welding/tig-torch-setup.svg",
    "alt": "Tungsten grind, stickout, torch angle and filler angle",
    "after": "## 2. Tungsten"
+  },
+  {
+   "photo": "welding/tig-torch-parts.jpg",
+   "alt": "TIG torch parts: back cap, collet, collet body, tungsten, cups",
+   "after": "## 2. Tungsten"
+  },
+  {
+   "photo": "welding/tig-torch.jpg",
+   "alt": "An air-cooled TIG torch with cup and back cap fitted",
+   "after": "## 4. Torch"
+  },
+  {
+   "photo": "welding/tig-machine.jpg",
+   "alt": "A TIG power source: AC/DC, high-frequency start, gas solenoid",
+   "after": "## 5. Machine settings"
+  },
+  {
+   "photo": "welding/tig-arc.jpg",
+   "alt": "TIG arc: tight arc, filler dipped at the leading edge of the puddle",
+   "after": "## 7. Technique"
   }
  ],
  "gtaw-settings-by-material": [
@@ -87,6 +172,11 @@
    "img": "welding/tig-amps-vs-thickness.svg",
    "alt": "Amperage versus thickness for steel, stainless and aluminium",
    "after": "top"
+  },
+  {
+   "photo": "welding/tig-welder.jpg",
+   "alt": "TIG on steel: DCEN, argon, ER70S filler",
+   "after": "## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)"
   }
  ],
  "gas-selection-and-flow": [
@@ -94,6 +184,11 @@
    "img": "welding/flowmeter-reading.svg",
    "alt": "Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow",
    "after": "## Setting flow"
+  },
+  {
+   "photo": "welding/gas-cylinders.jpg",
+   "alt": "Shielding gas cylinders capped and bundled for storage",
+   "after": "## Cylinders"
   }
  ],
  "machine-setup-and-duty-cycle": [
@@ -111,6 +206,11 @@
    "img": "welding/ground-clamp-placement.svg",
    "alt": "Ground clamp on the part being welded, never across a bearing",
    "after": "## Ground (work) clamp"
+  },
+  {
+   "photo": "welding/mig-machine.jpg",
+   "alt": "Daily checks: leads, clamps, gas, feeder, fan intake",
+   "after": "## Daily checks before striking an arc"
   }
  ],
  "joint-design-and-fit-up": [
@@ -118,6 +218,11 @@
    "img": "welding/joint-types.svg",
    "alt": "The five joints and the single-V groove terms",
    "after": "## The five joints"
+  },
+  {
+   "photo": "welding/v-butt-macro.jpg",
+   "alt": "Single-V butt weld in section: root, fill and cap passes",
+   "after": "## Which groove for which thickness (steel)"
   }
  ],
  "positions-and-techniques": [
@@ -130,6 +235,21 @@
    "img": "welding/smaw-angles.svg",
    "alt": "Travel angle and work angle",
    "after": "## The two angles"
+  },
+  {
+   "photo": "welding/pipe-tig.jpg",
+   "alt": "Pipe in the 6G position: the welder changes angle all the way round",
+   "after": "## Position codes"
+  },
+  {
+   "photo": "welding/overhead-welding.jpg",
+   "alt": "Overhead welding: keep the arc short and the puddle small",
+   "after": "## Position by position"
+  },
+  {
+   "photo": "welding/v-butt-macro.jpg",
+   "alt": "Macro section of a multi-pass V-butt weld: each pass numbered, root to cap",
+   "after": "## Multi-pass welds"
   }
  ],
  "distortion-control": [
@@ -144,6 +264,11 @@
    "img": "welding/preheat-chart.svg",
    "alt": "Minimum preheat by thickness for three carbon-equivalent bands",
    "after": "## Minimum preheat and interpass (AWS D1.1 Table 5.8, prequalified, stick electrodes)"
+  },
+  {
+   "photo": "welding/pipe-welder.jpg",
+   "alt": "Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter",
+   "after": "## Cold-weather rule set"
   }
  ],
  "welding-stainless-and-dissimilar": [
@@ -165,6 +290,11 @@
    "img": "welding/cast-iron-repair.svg",
    "alt": "Drill the crack ends, V it out, short stringers in sequence, peen",
    "after": "## Crack repair procedure"
+  },
+  {
+   "photo": "welding/brazing-torch.jpg",
+   "alt": "Braze welding keeps the casting cooler than any arc process",
+   "after": "## Brazing instead"
   }
  ],
  "hardfacing-and-buildup": [
@@ -172,6 +302,11 @@
    "img": "welding/hardfacing-layers.svg",
    "alt": "Base metal, buffer, build-up and hardfacing layers in section",
    "after": "## Layers: build-up, buffer, hardfacing"
+  },
+  {
+   "photo": "welding/hardfacing-arc.jpg",
+   "alt": "Hardfacing: wide beads, low dilution, let the layer check-crack as it cools",
+   "after": "## Procedure"
   }
  ],
  "weld-defects-and-inspection": [
@@ -179,6 +314,21 @@
    "img": "welding/weld-defects.svg",
    "alt": "Undercut, overlap, porosity, lack of fusion and incomplete penetration in section",
    "after": "## The defects and their causes"
+  },
+  {
+   "photo": "welding/chipping.jpg",
+   "alt": "Chip and brush the slag before you inspect: slag hides undercut and porosity",
+   "after": "## Inspection sequence"
+  },
+  {
+   "photo": "welding/dye-penetrant.jpg",
+   "alt": "Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out",
+   "after": "## Dye penetrant (PT) for surface cracks"
+  },
+  {
+   "photo": "welding/magnetic-particle.jpg",
+   "alt": "Magnetic particle inspection with a yoke under UV light",
+   "after": "## Magnetic particle (MT) for ferrous surfaces"
   }
  ],
  "welding-symbols": [
@@ -200,6 +350,16 @@
    "img": "welding/mig-gun-parts.svg",
    "alt": "Liner, diffuser, contact tip and nozzle in order",
    "after": "## MIG gun consumables"
+  },
+  {
+   "photo": "welding/tig-torch-parts.jpg",
+   "alt": "Every TIG torch consumable laid out: replace cups and collets when they crack or arc",
+   "after": "## TIG torch parts"
+  },
+  {
+   "photo": "welding/mig-regulator.jpg",
+   "alt": "Regulator and flow gauge: check for creep with the torch valve closed",
+   "after": "## Gas equipment"
   }
  ],
  "welding-safety-fumes-and-ppe": [
@@ -212,6 +372,16 @@
    "img": "oxy-fuel/cylinder-storage.svg",
    "alt": "Oxygen and fuel gas storage separation",
    "after": "## Compressed gases"
+  },
+  {
+   "photo": "welding/welder-ppe.jpg",
+   "alt": "Welding PPE: helmet, leathers, gloves, safety glasses under the hood",
+   "after": "## PPE"
+  },
+  {
+   "photo": "welding/speedglas.jpg",
+   "alt": "An auto-darkening helmet: check the shade setting and the battery before the first arc",
+   "after": "## Lens shade table"
   }
  ],
  "brazing-and-soldering": [
@@ -219,6 +389,16 @@
    "img": "welding/brazing-joint.svg",
    "alt": "Capillary joint clearance, overlap and where the heat goes",
    "after": "## Joint clearance"
+  },
+  {
+   "photo": "welding/brazing-kit.jpg",
+   "alt": "Brazing kit: torch, silver alloy rods, flux, goggles",
+   "after": "## Filler metals"
+  },
+  {
+   "photo": "welding/brazing-torch.jpg",
+   "alt": "Torch brazing: heat the joint, not the rod; the filler follows the heat",
+   "after": "## Torch brazing procedure (silver brazing a steel-to-copper or copper-to-copper joint)"
   }
  ],
  "plasma-cutting-setup": [
@@ -231,6 +411,16 @@
    "img": "cutting-gouging/plasma-cut-chart.svg",
    "alt": "Cut speed versus thickness for 45, 65 and 85 A air plasma",
    "after": "## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables"
+  },
+  {
+   "photo": "cutting-gouging/plasma-cnc.jpg",
+   "alt": "A CNC plasma table cutting plate",
+   "after": "## How it works, in one paragraph"
+  },
+  {
+   "photo": "cutting-gouging/plasma-hand.jpg",
+   "alt": "Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square",
+   "after": "## Hand cutting technique"
   }
  ],
  "plasma-keyholing-and-piercing": [
@@ -243,7 +433,7 @@
  "carbon-arc-gouging": [
   {
    "img": "cutting-gouging/carbon-arc-gouging.svg",
-   "alt": "Air jet under the electrode, 35-45\u00b0 angle, 5-7 in extension",
+   "alt": "Air jet under the electrode, 35-45° angle, 5-7 in extension",
    "after": "## Technique"
   }
  ],
@@ -252,6 +442,21 @@
    "img": "cutting-gouging/oxy-cut-technique.svg",
    "alt": "Straight cut, bevel cut and reading the drag lines",
    "after": "## Straight cut, step by step"
+  },
+  {
+   "photo": "cutting-gouging/oxy-cut-hand.jpg",
+   "alt": "A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf",
+   "after": "## How the cut works"
+  },
+  {
+   "photo": "cutting-gouging/oxy-cut-edge.jpg",
+   "alt": "A cut edge: the drag lines and slag tell you whether speed and oxygen were right",
+   "after": "## Reading the cut edge (AWS C4.1 language)"
+  },
+  {
+   "photo": "cutting-gouging/oxy-cut-goggles.jpg",
+   "alt": "Goggles, gloves, a steady two-handed hold and a clear path for the slag",
+   "after": "## Common mistakes"
   }
  ],
  "saws-and-abrasives": [
@@ -259,6 +464,21 @@
    "img": "cutting-gouging/bandsaw-tpi-rule.svg",
    "alt": "At least 3 and at most 24 teeth in the cut",
    "after": "## Band saw blades"
+  },
+  {
+   "photo": "cutting-gouging/band-saw.jpg",
+   "alt": "Horizontal band saw: let the weight of the arm do the cutting",
+   "after": "## Band saw blades"
+  },
+  {
+   "photo": "cutting-gouging/chop-saw.jpg",
+   "alt": "Abrasive chop saw: sparks and the cut-off piece go away from you",
+   "after": "## Chop saws (abrasive cut-off)"
+  },
+  {
+   "photo": "cutting-gouging/angle-grinder.jpg",
+   "alt": "Angle grinder with the guard on: sparks directed down and away",
+   "after": "## Angle grinder wheels and discs"
   }
  ],
  "hole-making-in-the-field": [
@@ -266,6 +486,16 @@
    "img": "cutting-gouging/mag-drill-annular-cutter.svg",
    "alt": "Annular cutter versus twist drill",
    "after": "## Mag drills and annular cutters"
+  },
+  {
+   "photo": "cutting-gouging/mag-drill.jpg",
+   "alt": "A magnetic drill press clamped to steel",
+   "after": "## Mag drills and annular cutters"
+  },
+  {
+   "photo": "cutting-gouging/hole-saw.jpg",
+   "alt": "Bi-metal hole saw kit with arbor",
+   "after": "## Hole saws"
   }
  ],
  "oxy-acetylene-setup-victor": [
@@ -278,12 +508,42 @@
    "img": "oxy-fuel/flame-types.svg",
    "alt": "Carburising, neutral and oxidising flames",
    "after": "## 8. Lighting"
+  },
+  {
+   "photo": "oxy-fuel/cylinders-regulators.jpg",
+   "alt": "Oxygen and acetylene cylinders with regulators fitted, chained upright",
+   "after": "## 1. Cylinders"
+  },
+  {
+   "photo": "oxy-fuel/regulator-gauges.jpg",
+   "alt": "Two gauges on each regulator: cylinder pressure and working pressure",
+   "after": "## 2. Regulators"
+  },
+  {
+   "photo": "oxy-fuel/torch-cart.jpg",
+   "alt": "A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook",
+   "after": "## 4. Torch and tip"
+  },
+  {
+   "photo": "oxy-fuel/flame-types-photo.jpg",
+   "alt": "The three flames in a photo: carburizing with its feather, neutral, oxidizing",
+   "after": "## 8. Lighting"
+  },
+  {
+   "photo": "oxy-fuel/cutting-closeup.jpg",
+   "alt": "Cutting torch at work: preheat flames on the plate, oxygen lever pressed",
+   "after": "## 9. Making a cut (mild steel)"
   }
  ],
  "oxy-fuel-heating-rosebud": [
   {
    "img": "oxy-fuel/flame-types.svg",
    "alt": "Set a neutral flame before heating",
+   "after": "## Lighting and handling"
+  },
+  {
+   "photo": "oxy-fuel/flame-cone.jpg",
+   "alt": "A neutral flame: the bright inner cone and the pale outer envelope",
    "after": "## Lighting and handling"
   }
  ],
@@ -297,6 +557,16 @@
    "img": "oxy-fuel/oxy-acetylene-hookup.svg",
    "alt": "Where the check valves and flashback arrestors go",
    "after": "## Check valves and flashback arrestors"
+  },
+  {
+   "photo": "oxy-fuel/gas-cylinder-rack.jpg",
+   "alt": "Cylinders stored upright, capped and chained, full and empty separated",
+   "after": "## Storage and transport"
+  },
+  {
+   "photo": "oxy-fuel/gas-goggles.jpg",
+   "alt": "Shade 5 gas welding goggles",
+   "after": "## Personal protection"
   }
  ],
  "victor-tip-chart-acetylene": [
@@ -1228,6 +1498,16 @@
   {
    "img": "oxy-fuel/oaw-braze-technique.svg",
    "alt": "Forehand torch and rod angles; bronze rod tins first",
+   "after": "## Technique"
+  },
+  {
+   "photo": "oxy-fuel/flame-cone.jpg",
+   "alt": "Neutral flame: inner cone sharp and bright, no acetylene feather",
+   "after": "## Flame"
+  },
+  {
+   "photo": "oxy-fuel/oxy-welding.jpg",
+   "alt": "Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle",
    "after": "## Technique"
   }
  ],

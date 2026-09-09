@@ -41,6 +41,10 @@ summary: "The five joint types and the groove shapes cut into them, the dimensio
 
 ## Which groove for which thickness (steel)
 
+![Single-V butt weld in section: root, fill and cap passes](/photos/welding/v-butt-macro.jpg)
+
+*Single-V butt weld in section: root, fill and cap passes. Photo: Alu.cz, Public domain, via commons*
+
 | Thickness | Joint | Notes |
 |---|---|---|
 | ≤ 3/16" (5 mm) | **Square groove**, gap 0 to 1/16-1/8" | Full penetration from one side with a gap and MIG/stick; from two sides with no gap up to 1/4" |

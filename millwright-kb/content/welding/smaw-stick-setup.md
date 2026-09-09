@@ -30,11 +30,19 @@ Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, ru
 
 ## 2. Cables and ground
 
+![Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike](/photos/welding/smaw-accessories.jpg)
+
+*Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike. Photo: Mgschuler, CC BY 3.0, via commons*
+
 - Cable size for the amperage and total length: [cable chart](/article/machine-setup-and-duty-cycle).
 - **Ground clamp** on clean bare metal, as close to the weld as practical, on the same piece (not through a bearing, a hinge, a chain or a machine table with a rotating part between clamp and weld: welding current through a bearing pits the raceways).
 - Electrode holder jaws clean and tight; a hot holder handle means a loose cable lug.
 
 ## 3. Pick the rod
+
+![Stick electrodes and the holder: keep low-hydrogen rods dry](/photos/welding/electrodes-and-holder.jpg)
+
+*Stick electrodes and the holder: keep low-hydrogen rods dry. Photo: unknown, Public domain, via commons*
 
 1. Steel type and strength → class (E60XX for mild steel general; E70XX for structural; low-alloy for special steels).
 2. Position → E6010/E6011/E7018 for vertical and overhead; E7024/E7028 only flat and horizontal.
@@ -53,6 +61,10 @@ Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, ru
 ## 5. Strike and run
 
 ![Arc length, travel angle and work angle for stick welding](/img/welding/smaw-angles.svg)
+
+![Running a stick bead: watch the puddle, not the arc](/photos/welding/smaw-arc.jpg)
+
+*Running a stick bead: watch the puddle, not the arc. Photo: Prowelder87, CC BY-SA 4.0, via commons*
 
 *Arc length, travel angle and work angle for stick welding*
 

@@ -14,6 +14,10 @@ summary: "How to read every filler-metal number you will meet on a box or a WPS:
 
 ## Covered (stick) electrodes: AWS A5.1 and A5.5
 
+![The classification is printed on every rod near the bare end](/photos/welding/electrode-types.jpg)
+
+*The classification is printed on every rod near the bare end. Photo: Ghasemimoshref, CC BY-SA 4.0, via commons*
+
 ```
 E 70 1 8 - 1  H4 R
 │ │  │ │   │   │  └ R = moisture-resistant coating (9 h exposure instead of 4)

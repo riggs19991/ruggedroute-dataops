@@ -27,6 +27,10 @@ summary: "Every way a millwright makes or enlarges a hole away from the drill pr
 
 An annular cutter cuts a **ring**, leaving a slug, so it removes a fraction of the metal a twist drill would; a 1" hole in 1" plate takes a minute with a 1/2 hp mag drill and no pilot hole.
 
+![A magnetic drill press clamped to steel](/photos/cutting-gouging/mag-drill.jpg)
+
+*A magnetic drill press clamped to steel. Photo: RBR1986, CC BY-SA 4.0, via commons*
+
 ![Annular cutter versus twist drill](/img/cutting-gouging/mag-drill-annular-cutter.svg)
 
 *Annular cutter versus twist drill*
@@ -72,6 +76,10 @@ Bad signs: squealing (dull cutter or too light, or dry), the drill walking (magn
 Teeth are ground with a specific geometry; **resharpen** on a cutter grinder or replace; a chipped tooth chips the next one. Store in the tube. Twist drills with 3/4" Weldon shanks fit the mag drill for tapping-size holes and countersinks; a chuck adaptor lets you run ordinary drills.
 
 ## Hole saws
+
+![Bi-metal hole saw kit with arbor](/photos/cutting-gouging/hole-saw.jpg)
+
+*Bi-metal hole saw kit with arbor. Photo: Joost J. Bakker IJmuiden, CC BY 2.0, via commons*
 
 ### RPM chart (bi-metal hole saws)
 

@@ -16,6 +16,10 @@ summary: "The technique side of oxy-fuel cutting once the torch is set (setup an
 
 The preheat flames bring a spot of steel to **kindling temperature (about 1600°F, bright cherry red)**; the cutting-oxygen jet then **burns** the iron (iron + oxygen → iron oxide, releasing heat) and blows the liquid oxide out of the kerf. The steel is oxidised, not melted; that is why:
 
+![A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf](/photos/cutting-gouging/oxy-cut-hand.jpg)
+
+*A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf. Photo: Toby Hudson, CC BY-SA 3.0, via commons*
+
 - It only works on metals whose oxide melts **below** the metal: **carbon and low-alloy steel** (and, with care, wrought iron). Cast iron's graphite and high carbon fight it (see below).
 - **Stainless** (chromium oxide is refractory) and **aluminium** (aluminium oxide melts at 3700°F) **cannot be oxy-fuel cut**: use plasma, carbon-arc or a saw.
 - Rust, scale, paint and galvanising insulate the surface and interrupt the reaction: clean the line first.
@@ -63,6 +67,10 @@ Tip size by thickness from the chart (1/4" → 00, 1/2" → 0, 1" → 2, 2" → 
 
 ## Reading the cut edge (AWS C4.1 language)
 
+![A cut edge: the drag lines and slag tell you whether speed and oxygen were right](/photos/cutting-gouging/oxy-cut-edge.jpg)
+
+*A cut edge: the drag lines and slag tell you whether speed and oxygen were right. Photo: August Geyler, CC BY-SA 4.0, via commons*
+
 | What you see | Cause | Fix |
 |---|---|---|
 | **Drag lines** (the curved lines on the face) vertical and light | Correct speed | |
@@ -94,6 +102,10 @@ Oxy-fuel cuts grey cast iron only with a **carburising flame, a bigger tip than 
 Gouging nozzles (Victor sells them by series like the cutting tips) lay a low-angle (**5-20°**) jet along the surface to scoop out a groove for removing welds or defects on carbon steel. Preheat to red, tilt the torch low, press the lever and push a wave of molten oxide ahead of the jet; depth set by the angle and speed. Less accurate than carbon-arc but quiet and needs no power.
 
 ## Common mistakes
+
+![Goggles, gloves, a steady two-handed hold and a clear path for the slag](/photos/cutting-gouging/oxy-cut-goggles.jpg)
+
+*Goggles, gloves, a steady two-handed hold and a clear path for the slag. Photo: Konstantin Brizhnichenko, CC BY-SA 4.0, via commons*
 
 - Preheat flames too far off the plate: never gets to kindling temperature; too close: tip pops and the top edge melts.
 - Trying to cut galvanised or painted steel without cleaning: cut stops every inch and the fume is toxic.

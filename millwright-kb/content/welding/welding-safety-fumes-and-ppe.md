@@ -14,6 +14,10 @@ summary: "The hazards of arc and gas welding in one place with the numbers that 
 
 Minimum shade from OSHA 1910.133(a)(5); "suggested" from ANSI Z49.1 for comfort. Start at the suggested shade and go lighter, not below the minimum. Auto-darkening helmets: set the shade number the same way; the resting state (shade 3-4) is only for setup.
 
+![An auto-darkening helmet: check the shade setting and the battery before the first arc](/photos/welding/speedglas.jpg)
+
+*An auto-darkening helmet: check the shade setting and the battery before the first arc. Photo: Ergonomidesign, CC BY-SA 3.0, via commons*
+
 ![Filter shade by process and amperage](/img/welding/lens-shade-chart.svg)
 
 *Filter shade by process and amperage*
@@ -96,6 +100,10 @@ Cylinders chained upright, caps on in transport, never used as rollers or anchor
 Welding inside a tank, pit, vessel, duct or between tight bulkheads: permit-required confined space entry (OSHA 1910.146): atmosphere tested (O2 19.5-23.5%, LEL < 10%, toxics) and **continuously monitored**, forced ventilation, cylinders and the machine **outside**, gas shut off at the cylinder and torches removed when you leave (a leaking torch fills the tank with fuel gas or argon), attendant, retrieval line, VRD on the machine, no chlorinated solvents inside, a fire watch outside. See [confined space entry](/article/confined-space-entry).
 
 ## PPE
+
+![Welding PPE: helmet, leathers, gloves, safety glasses under the hood](/photos/welding/welder-ppe.jpg)
+
+*Welding PPE: helmet, leathers, gloves, safety glasses under the hood. Photo: NAVFAC, CC BY 2.0, via commons*
 
 | Item | Spec |
 |---|---|

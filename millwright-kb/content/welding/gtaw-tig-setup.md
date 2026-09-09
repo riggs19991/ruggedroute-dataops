@@ -29,6 +29,10 @@ summary: "How to set up a TIG machine and torch from the cylinder to the arc: po
 
 **Types**
 
+![TIG torch parts: back cap, collet, collet body, tungsten, cups](/photos/welding/tig-torch-parts.jpg)
+
+*TIG torch parts: back cap, collet, collet body, tungsten, cups. Photo: Nutzdatenbegleiter, CC BY-SA 4.0, via commons*
+
 ![Tungsten grind, stickout, torch angle and filler angle](/img/welding/tig-torch-setup.svg)
 
 *Tungsten grind, stickout, torch angle and filler angle*
@@ -83,6 +87,10 @@ Back-purge stainless and titanium roots: see [gas selection and flow](/article/g
 
 ## 4. Torch
 
+![An air-cooled TIG torch with cup and back cap fitted](/photos/welding/tig-torch.jpg)
+
+*An air-cooled TIG torch with cup and back cap fitted. Photo: Nutzdatenbegleiter, CC BY-SA 4.0, via commons*
+
 | Torch | Cooling | Rated | Use |
 |---|---|---|---|
 | #17 (WP-17) | air | 150 A DC / 115 A AC | Light, everyday steel and stainless |
@@ -93,6 +101,10 @@ Back-purge stainless and titanium roots: see [gas selection and flow](/article/g
 Air-cooled torches get too hot to hold above about 150 A for more than a couple of minutes: that is what water coolers are for. Flexible heads and short back caps get you into corners.
 
 ## 5. Machine settings
+
+![A TIG power source: AC/DC, high-frequency start, gas solenoid](/photos/welding/tig-machine.jpg)
+
+*A TIG power source: AC/DC, high-frequency start, gas solenoid. Photo: unknown, Public domain, via commons*
 
 | Control | Setting |
 |---|---|
@@ -116,6 +128,10 @@ Air-cooled torches get too hot to hold above about 150 A for more than a couple 
 Match the base metal: ER70S-2 for steel, ER308L/316L/309L for stainless, ER4043/5356 for aluminium, ERCuSi-A for copper/braze-welding. Diameter ≈ tungsten diameter, one size smaller on thin sheet. Keep it clean (wipe with acetone), cut off the oxidised end, and keep the hot end **inside the gas shield** between dabs.
 
 ## 7. Technique
+
+![TIG arc: tight arc, filler dipped at the leading edge of the puddle](/photos/welding/tig-arc.jpg)
+
+*TIG arc: tight arc, filler dipped at the leading edge of the puddle. Photo: Mak04 at Slovenian Wikipedia, Public domain, via commons*
 
 1. Clean: grind steel bright; stainless brush (dedicated) and acetone; aluminium: degrease, then stainless-brush to break the oxide, weld within an hour.
 2. Torch angle **10-15° push**, tungsten 1/8" from the plate (arc length ≈ tungsten diameter). Filler enters at 15-20° low from the front, into the leading edge of the puddle, not into the arc.

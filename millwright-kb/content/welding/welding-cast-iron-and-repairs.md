@@ -73,6 +73,10 @@ For thick, load-bearing sections, screw **steel studs** (1/4-3/8" NC, 3/8-1/2" i
 
 Braze welding with **low-fuming bronze (RBCuZn-C)** and an oxy-acetylene torch at about **1200-1600°F** (dull red) puts no fusion into the iron and rarely cracks it. Right for: thin sections, cracked pump housings not exposed to heat over 500°F, missing lugs, water jackets. Wrong for: parts running hot, parts that will be painted and must be colour-matched (bronze shows), and for high-load structural cracks. Procedure in [brazing and soldering](/article/brazing-and-soldering): the casting must be preheated to a dull red at the joint, tinned with bronze (the flux flows and the bronze wets grey iron only when the graphite has been burned off the surface), then filled.
 
+![Braze welding keeps the casting cooler than any arc process](/photos/welding/brazing-torch.jpg)
+
+*Braze welding keeps the casting cooler than any arc process. Photo: Petty Officer 3rd Class Jennifer Kimball, Public domain, via commons*
+
 ## Other options
 
 - **Cold stitching / metal stitching** (Lock-N-Stitch, Metalock): drilled and tapped locks and stitching pins across the crack; no heat at all; the professional repair for engine blocks and large frames.

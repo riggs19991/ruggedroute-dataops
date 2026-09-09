@@ -16,6 +16,10 @@ summary: "Starting-point tables for the TIG welder: for each material and thickn
 
 ## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)
 
+![TIG on steel: DCEN, argon, ER70S filler](/photos/welding/tig-welder.jpg)
+
+*TIG on steel: DCEN, argon, ER70S filler. Photo: U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin, Public domain, via commons*
+
 | Thickness | Amps | Tungsten | Filler | Cup | Argon |
 |---|---|---|---|---|---|
 | 0.020-0.040" (24-20 ga) | 15-50 | 1/16" | 1/16" | #4-5 | 10-15 cfh |

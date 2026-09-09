@@ -1,1 +1,394 @@
-{}
+{
+ "welding/smaw-arc.jpg": {
+  "title": "Shielded Metal Arc Welding .jpg",
+  "author": "Prowelder87",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AShielded%20Metal%20Arc%20Welding%20.jpg"
+ },
+ "welding/smaw-accessories.jpg": {
+  "title": "SMAW accessories.jpg",
+  "author": "Mgschuler",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASMAW%20accessories.jpg"
+ },
+ "welding/mig-welding.jpg": {
+  "title": "GMAW.welding.af.ncs.jpg",
+  "author": "William M. Plate Jr.",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AGMAW.welding.af.ncs.jpg"
+ },
+ "welding/mig-regulator.jpg": {
+  "title": "Gas regulator GMAW MIG MAG.jpg",
+  "author": "Mimzy",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AGas%20regulator%20GMAW%20MIG%20MAG.jpg"
+ },
+ "welding/mig-wire-spool.jpg": {
+  "title": "White Mountains Community College Advanced Welding Teaching Lab - 13764731094.jpg",
+  "author": "AMPedNH",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AWhite%20Mountains%20Community%20College%20Advanced%20Welding%20Teaching%20Lab%20-%2013764731094.jpg"
+ },
+ "welding/tig-torch-parts.jpg": {
+  "title": "Wig-sr17-teile.jpg",
+  "author": "Nutzdatenbegleiter",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AWig-sr17-teile.jpg"
+ },
+ "welding/tig-torch.jpg": {
+  "title": "Wig-sr17-ganz.jpg",
+  "author": "Nutzdatenbegleiter",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AWig-sr17-ganz.jpg"
+ },
+ "welding/tig-arc.jpg": {
+  "title": "TIG welding.jpg",
+  "author": "Mak04 at Slovenian Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATIG%20welding.jpg"
+ },
+ "welding/tig-machine.jpg": {
+  "title": "Welding power supply-Miller-Syncrowave350LX-front-triddle.jpg",
+  "author": "unknown",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AWelding%20power%20supply-Miller-Syncrowave350LX-front-triddle.jpg"
+ },
+ "welding/tig-welder.jpg": {
+  "title": "US Navy 090715-N-5821P-002 Aviation Support Equipment Technician Airman Anthony Hammond performs tungsten inert gas welding during a training evolution.jpg",
+  "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AUS%20Navy%20090715-N-5821P-002%20Aviation%20Support%20Equipment%20Technician%20Airman%20Anthony%20Hammond%20performs%20tungsten%20inert%20gas%20welding%20during%20a%20training%20evolution.jpg"
+ },
+ "welding/fcaw-feeder.jpg": {
+  "title": "FCAW Wire Feeder.jpg",
+  "author": "Mgschuler",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AFCAW%20Wire%20Feeder.jpg"
+ },
+ "welding/welder-ppe.jpg": {
+  "title": "Condenser Water Supply is Welded by Monaco (8268314628).jpg",
+  "author": "NAVFAC",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ACondenser%20Water%20Supply%20is%20Welded%20by%20Monaco%20(8268314628).jpg"
+ },
+ "cutting-gouging/plasma-hand.jpg": {
+  "title": "Yokota plasma cutter.jpg",
+  "author": "U.S. Air Force photo by Senior Airman Michael Washburn",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AYokota%20plasma%20cutter.jpg"
+ },
+ "cutting-gouging/plasma-cnc.jpg": {
+  "title": "STEP-NC plasma cutting.jpg",
+  "author": "Loffredo",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASTEP-NC%20plasma%20cutting.jpg"
+ },
+ "cutting-gouging/oxy-cut-hand.jpg": {
+  "title": "Oxy-fuel cutting.JPG",
+  "author": "Toby Hudson",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-fuel%20cutting.JPG"
+ },
+ "cutting-gouging/oxy-cut-edge.jpg": {
+  "title": "Schnittkante durch autogenes Brennschneiden an einer Stahlnietenbrücke.jpg",
+  "author": "August Geyler",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASchnittkante%20durch%20autogenes%20Brennschneiden%20an%20einer%20Stahlnietenbr%C3%BCcke.jpg"
+ },
+ "cutting-gouging/oxy-cut-goggles.jpg": {
+  "title": "Oxy-fuel cutting R1 DM 142.jpg",
+  "author": "Konstantin Brizhnichenko",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-fuel%20cutting%20R1%20DM%20142.jpg"
+ },
+ "oxy-fuel/flame-cone.jpg": {
+  "title": "Oxy-fuel welding - flame1.jpg",
+  "author": "Sheila",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-fuel%20welding%20-%20flame1.jpg"
+ },
+ "oxy-fuel/cylinders-regulators.jpg": {
+  "title": "Oxy-fuel welding set.jpg",
+  "author": "James Halliday",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-fuel%20welding%20set.jpg"
+ },
+ "oxy-fuel/torch-cart.jpg": {
+  "title": "Oxy-Acetylene welding set.jpg",
+  "author": "Paul Anderson",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-Acetylene%20welding%20set.jpg"
+ },
+ "oxy-fuel/oxy-welding.jpg": {
+  "title": "Oxy-fuel welding MINI DM 273.jpg",
+  "author": "Konstantin Brizhnichenko",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-fuel%20welding%20MINI%20DM%20273.jpg"
+ },
+ "oxy-fuel/cutting-closeup.jpg": {
+  "title": "Oxy-fuel cutting1.jpg",
+  "author": "Jonas Boni",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AOxy-fuel%20cutting1.jpg"
+ },
+ "welding/brazing-kit.jpg": {
+  "title": "Brazing Equipment.jpg",
+  "author": "Phil Gradwell from Culcheth, England",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ABrazing%20Equipment.jpg"
+ },
+ "welding/brazing-torch.jpg": {
+  "title": "Repairing a water fountain aboard USS Ronald Reagan DVIDS93983.jpg",
+  "author": "Petty Officer 3rd Class Jennifer Kimball",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ARepairing%20a%20water%20fountain%20aboard%20USS%20Ronald%20Reagan%20DVIDS93983.jpg"
+ },
+ "cutting-gouging/angle-grinder.jpg": {
+  "title": "Tech. Sgt. Vincent Holmes, an aircraft metals technology technician with the 911th Maintenance Squadron, uses an angle grinder.jpg",
+  "author": "Tech. Sgt. Jeffrey Grossi",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATech.%20Sgt.%20Vincent%20Holmes%2C%20an%20aircraft%20metals%20technology%20technician%20with%20the%20911th%20Maintenance%20Squadron%2C%20uses%20an%20angle%20grinder.jpg"
+ },
+ "welding/v-butt-macro.jpg": {
+  "title": "V-butt-weld.jpg",
+  "author": "Alu.cz",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AV-butt-weld.jpg"
+ },
+ "welding/overhead-welding.jpg": {
+  "title": "US Navy 050124-N-7506R-002 Hull Technician Third Class Joshua McHaffey of Wilson, Arkansas welds a support brace in the overhead of the Master-At-Arms office aboard amphibious assault ship USS Kearsarge (LHD 3).jpg",
+  "author": "U.S. Navy photo by Photographer's Mate Airman Dexter Roberts",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AUS%20Navy%20050124-N-7506R-002%20Hull%20Technician%20Third%20Class%20Joshua%20McHaffey%20of%20Wilson%2C%20Arkansas%20welds%20a%20support%20brace%20in%20the%20overhead%20of%20the%20Master-At-Arms%20office%20aboard%20amphibious%20assault%20ship%20USS%20Kearsarge%20(LHD%203).jpg"
+ },
+ "welding/pipe-tig.jpg": {
+  "title": "Tig Pipe Welder.jpg",
+  "author": "Christopher.S.rcbc",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATig%20Pipe%20Welder.jpg"
+ },
+ "welding/pipe-welder.jpg": {
+  "title": "Welding pipe.jpg",
+  "author": "Newfoundlandguy",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AWelding%20pipe.jpg"
+ },
+ "welding/electrode-types.jpg": {
+  "title": "Types of welding electrode.jpg",
+  "author": "Ghasemimoshref",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATypes%20of%20welding%20electrode.jpg"
+ },
+ "welding/electrodes-and-holder.jpg": {
+  "title": "Arc welding electrodes and electrode holder.triddle.jpg",
+  "author": "unknown",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AArc%20welding%20electrodes%20and%20electrode%20holder.triddle.jpg"
+ },
+ "welding/mig-machine.jpg": {
+  "title": "Mig wielder.jpg",
+  "author": "Luke Haggart",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMig%20wielder.jpg"
+ },
+ "welding/mig-bench.jpg": {
+  "title": "Mig Welding Lesson 1 at Milwaukee Makerspace (photo by Jason Gessner).jpg",
+  "author": "jason gessner",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMig%20Welding%20Lesson%201%20at%20Milwaukee%20Makerspace%20(photo%20by%20Jason%20Gessner).jpg"
+ },
+ "welding/gas-cylinders.jpg": {
+  "title": "2008-07-24 Bundle of compressed gas bottles.jpg",
+  "author": "Ildar Sagdejev (Specious)",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A2008-07-24%20Bundle%20of%20compressed%20gas%20bottles.jpg"
+ },
+ "oxy-fuel/flame-types-photo.jpg": {
+  "title": "Types of oxyacetylene flames.png",
+  "author": "Lajoswinkler",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATypes%20of%20oxyacetylene%20flames.png"
+ },
+ "welding/hardfacing-arc.jpg": {
+  "title": "Hardface Welding.jpg",
+  "author": "Lreames",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AHardface%20Welding.jpg"
+ },
+ "oxy-fuel/regulator-gauges.jpg": {
+  "title": "Fľaše na zváranie (budíky).jpg",
+  "author": "J.Dncsn",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AF%C4%BEa%C5%A1e%20na%20zv%C3%A1ranie%20(bud%C3%ADky).jpg"
+ },
+ "oxy-fuel/gas-cylinder-rack.jpg": {
+  "title": "Gas cylinders in France.jpg",
+  "author": "Cjp24",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AGas%20cylinders%20in%20France.jpg"
+ },
+ "cutting-gouging/mag-drill.jpg": {
+  "title": "Magnetic drill press using twist drill bits.jpg",
+  "author": "RBR1986",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMagnetic%20drill%20press%20using%20twist%20drill%20bits.jpg"
+ },
+ "cutting-gouging/annular-cutter.jpg": {
+  "title": "Annular Cutter.jpg",
+  "author": "Rohan von Indien",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AAnnular%20Cutter.jpg"
+ },
+ "cutting-gouging/hole-saw.jpg": {
+  "title": "7 piece Hole Saw (51883934902).jpg",
+  "author": "Joost J. Bakker IJmuiden",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A7%20piece%20Hole%20Saw%20(51883934902).jpg"
+ },
+ "cutting-gouging/band-saw.jpg": {
+  "title": "US Navy 071101-N-7981E-023 Aviation Structural Mechanic 3rd Class Christopher Hoard uses a band saw to cut apart a damaged tow bar tongue in the Aviation Intermediate Maintenance Department sheet metal shop aboard Nimitz-class.jpg",
+  "author": "U.S. Navy photo by Mass Communication Specialist 3rd Class James R. Evans",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AUS%20Navy%20071101-N-7981E-023%20Aviation%20Structural%20Mechanic%203rd%20Class%20Christopher%20Hoard%20uses%20a%20band%20saw%20to%20cut%20apart%20a%20damaged%20tow%20bar%20tongue%20in%20the%20Aviation%20Intermediate%20Maintenance%20Department%20sheet%20metal%20shop%20aboard%20Nimitz-class.jpg"
+ },
+ "cutting-gouging/chop-saw.jpg": {
+  "title": "Let the Sparks Fly - The Makita 2414NB Abrasive Cut Off Saw (4070957523).jpg",
+  "author": "Mark Hunter",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ALet%20the%20Sparks%20Fly%20-%20The%20Makita%202414NB%20Abrasive%20Cut%20Off%20Saw%20(4070957523).jpg"
+ },
+ "welding/dye-penetrant.jpg": {
+  "title": "US Navy 021025-N-8726C-004 Dye-penetrant inspection while conducting maintenance on a P-3 Orion.jpg",
+  "author": "U.S. Navy Photo by Photographer’s Mate 2nd Class John Collins.",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AUS%20Navy%20021025-N-8726C-004%20Dye-penetrant%20inspection%20while%20conducting%20maintenance%20on%20a%20P-3%20Orion.jpg"
+ },
+ "welding/magnetic-particle.jpg": {
+  "title": "US Navy 031215-N-8213G-001 Aviation Structural Mechanic 1st Class Nagorniuk Artem, from Keiv, Ukraine, performs a magnetic particle inspection.jpg",
+  "author": "U.S. Navy photo by Photographer’s Mate Airman Konstandinos Goumenidis.",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AUS%20Navy%20031215-N-8213G-001%20Aviation%20Structural%20Mechanic%201st%20Class%20Nagorniuk%20Artem%2C%20from%20Keiv%2C%20Ukraine%2C%20performs%20a%20magnetic%20particle%20inspection.jpg"
+ },
+ "welding/speedglas.jpg": {
+  "title": "Speedglas.jpg",
+  "author": "Ergonomidesign",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASpeedglas.jpg"
+ },
+ "oxy-fuel/gas-goggles.jpg": {
+  "title": "Gas-welding-goggles.jpg",
+  "author": "BenTheWikiMan at Dutch Wikipedia",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AGas-welding-goggles.jpg"
+ },
+ "welding/mig-overhead.jpg": {
+  "title": "Mig Welding Overhead.jpg",
+  "author": "Prowelder87",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMig%20Welding%20Overhead.jpg"
+ },
+ "welding/chipping.jpg": {
+  "title": "Welding processes 160303-F-OV732-016.jpg",
+  "author": "Airman Jenna Caldwell",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AWelding%20processes%20160303-F-OV732-016.jpg"
+ }
+}

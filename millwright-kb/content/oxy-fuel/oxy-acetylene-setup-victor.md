@@ -18,12 +18,20 @@ summary: "Complete cylinder-to-shutdown procedure for a Victor oxy-acetylene out
 
 ## 1. Cylinders
 
+![Oxygen and acetylene cylinders with regulators fitted, chained upright](/photos/oxy-fuel/cylinders-regulators.jpg)
+
+*Oxygen and acetylene cylinders with regulators fitted, chained upright. Photo: James Halliday, CC BY-SA 2.0, via commons*
+
 1. Cylinders stand **upright**, chained or strapped to a cart or wall. Acetylene must always be upright (or lie flat and then stand for at least an hour before use so the acetone settles).
 2. Caps stay on until the cylinder is secured. Never lift a cylinder by the cap.
 3. Look at the cylinder valve outlets. If dirt is present, stand to the side and **crack** the valve open and closed for an instant to blow it out ("cracking"). Do this **away from sparks, flame or people**, and never crack an acetylene cylinder near an ignition source.
 4. Check the hydrostatic test date on the cylinder collar. Out-of-date cylinders go back to the supplier.
 
 ## 2. Regulators
+
+![Two gauges on each regulator: cylinder pressure and working pressure](/photos/oxy-fuel/regulator-gauges.jpg)
+
+*Two gauges on each regulator: cylinder pressure and working pressure. Photo: J.Dncsn, CC BY-SA 3.0, via commons*
 
 | Gas | Thread on the cylinder nut | Hose colour | Hose fitting |
 |---|---|---|---|
@@ -41,6 +49,10 @@ summary: "Complete cylinder-to-shutdown procedure for a Victor oxy-acetylene out
 3. Inspect hoses for cuts, burns, and bulges. A hose repaired with tape is scrap.
 
 ## 4. Torch and tip
+
+![A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook](/photos/oxy-fuel/torch-cart.jpg)
+
+*A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook. Photo: Paul Anderson, CC BY 2.0, via commons*
 
 1. Connect the torch handle to the hoses. Snug with a wrench.
 2. For **welding**, screw the welding tip/mixer straight onto the handle. For **cutting**, attach the cutting attachment (CA2460 on a 315 handle, CA1350 on a 100 handle) and open the handle's **oxygen valve fully**; preheat oxygen is then controlled with the attachment's preheat valve.
@@ -87,6 +99,10 @@ Welding tips (W-J / 100 series) run both gases at roughly the same low pressure:
 
 ![Carburising, neutral and oxidising flames](/img/oxy-fuel/flame-types.svg)
 
+![The three flames in a photo: carburizing with its feather, neutral, oxidizing](/photos/oxy-fuel/flame-types-photo.jpg)
+
+*The three flames in a photo: carburizing with its feather, neutral, oxidizing. Photo: Lajoswinkler, CC BY-SA 4.0, via commons*
+
 *Carburising, neutral and oxidising flames*
 
 1. Wear #5 shade goggles for cutting/heavy welding (#3-4 for light brazing), leather gloves, long sleeves, no synthetics.
@@ -98,6 +114,10 @@ Welding tips (W-J / 100 series) run both gases at roughly the same low pressure:
 5. For a cutting attachment: after the preheat flame is neutral, press the **cutting-oxygen lever** and re-check the preheat flame; adjust the preheat oxygen valve until it is neutral *with the lever pressed*, since the cutting jet steals a little preheat oxygen.
 
 ## 9. Making a cut (mild steel)
+
+![Cutting torch at work: preheat flames on the plate, oxygen lever pressed](/photos/oxy-fuel/cutting-closeup.jpg)
+
+*Cutting torch at work: preheat flames on the plate, oxygen lever pressed. Photo: Jonas Boni, CC BY 2.0, via commons*
 
 1. Hold the tip so the preheat cones are about **1/16" to 1/8" above** the plate, torch perpendicular to the surface (tilt slightly into the direction of travel for thin plate).
 2. Preheat the edge until it is bright cherry red.

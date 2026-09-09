@@ -14,6 +14,10 @@ summary: "How a plasma cutter is set up from the compressor to the tip: air qual
 
 A pilot arc inside the torch ionises the air; when the torch is near the plate the main arc transfers to the work and the swirl of compressed air through a small nozzle orifice constricts it to a 30,000°F jet that melts and blows the metal out of the kerf. It cuts **anything conductive** (steel, stainless, aluminium, copper, cast iron), needs only electricity and dry air, and leaves a narrow kerf with a small heat-affected zone. The consumables (electrode with a hafnium insert, nozzle) are the wear parts; the air quality decides how long they last.
 
+![A CNC plasma table cutting plate](/photos/cutting-gouging/plasma-cnc.jpg)
+
+*A CNC plasma table cutting plate. Photo: Loffredo, CC BY-SA 4.0, via commons*
+
 ## Air supply
 
 | Item | Requirement |
@@ -99,6 +103,10 @@ Stainless and aluminium have their own tables in the manual: roughly the same sp
 6. Safety: **shade 8** (up to 300 A) per the table in [welding safety](/article/welding-safety-fumes-and-ppe), gloves, leathers, hearing protection (plasma is loud), fume extraction on stainless (hex chrome) and galvanised, fire watch (sparks go 20 ft), nothing flammable under the table.
 
 ## Hand cutting technique
+
+![Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square](/photos/cutting-gouging/plasma-hand.jpg)
+
+*Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square. Photo: U.S. Air Force photo by Senior Airman Michael Washburn, Public domain, via commons*
 
 - **Drag the shield on the plate** with shielded consumables; with unshielded, hold **1/16-1/8" standoff**. Torch **90° to the plate**; tilt only for bevels.
 - Start on the edge: torch at the edge, trigger, wait for the arc to punch through, then move. Circles and inside cuts: **pierce** with the torch tilted 30-45° away from you so the blow-back does not hit the shield, rotate upright as it goes through (see [piercing and keyholing](/article/plasma-keyholing-and-piercing)).

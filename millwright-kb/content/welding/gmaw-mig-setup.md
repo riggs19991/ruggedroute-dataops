@@ -16,6 +16,10 @@ summary: "A complete MIG setup walk-through with the chart most students want: v
 
 ![MIG runs DCEP: gun lead to positive](/img/welding/polarity.svg)
 
+![A MIG machine with the gun, work lead and shielding gas bottle](/photos/welding/mig-machine.jpg)
+
+*A MIG machine with the gun, work lead and shielding gas bottle. Photo: Luke Haggart, CC BY-SA 4.0, via commons*
+
 *MIG runs DCEP: gun lead to positive*
 
 - **Constant-voltage (CV)** power source. You set **voltage** on the machine and **wire feed speed (WFS)**; the machine supplies whatever **amperage** the wire feed demands. WFS is the amperage knob; voltage is the arc length / bead width knob.
@@ -23,6 +27,10 @@ summary: "A complete MIG setup walk-through with the chart most students want: v
 - Synergic / "auto-set" machines: pick wire size, gas and thickness; the machine sets both. Fine-tune from there.
 
 ## 2. Wire
+
+![A spool of solid MIG wire: keep it clean, dry and under a cover](/photos/welding/mig-wire-spool.jpg)
+
+*A spool of solid MIG wire: keep it clean, dry and under a cover. Photo: AMPedNH, CC BY 2.0, via commons*
 
 | Wire | Amperage range | Thickness sweet spot | WFS per amp (rule) |
 |---|---|---|---|
@@ -34,6 +42,10 @@ summary: "A complete MIG setup walk-through with the chart most students want: v
 ER70S-6 is the default steel wire (tolerates mill scale). Match **drive rolls** (V-groove for solid steel, U-groove for aluminium, knurled for flux-core), **liner** (steel liner for steel; PTFE/nylon for aluminium), and **contact tip** (stamped size; a worn oval tip causes erratic arc) to the wire diameter.
 
 ## 3. Gas
+
+![Cylinder regulator with the flow gauge for a MIG setup](/photos/welding/mig-regulator.jpg)
+
+*Cylinder regulator with the flow gauge for a MIG setup. Photo: Mimzy, CC0, via commons*
 
 | Gas | Use | Flow |
 |---|---|---|
@@ -83,6 +95,10 @@ Notes on using the chart:
 7. **Gun cable** straight, not coiled around things; a tight coil makes feeding erratic.
 
 ## 6. Technique
+
+![MIG welding: short stickout, steady gun angle, eyes on the puddle](/photos/welding/mig-welding.jpg)
+
+*MIG welding: short stickout, steady gun angle, eyes on the puddle. Photo: William M. Plate Jr., Public domain, via commons*
 
 - **Gun angle**: **push** 10-15° for solid wire with gas (cleaner, better shielding, flatter bead); drag for flux-core ("drag if slag"). Work angle 45° on fillets, 90° on butts.
 - **Travel**: keep the arc on the **leading edge** of the puddle. If you are welding on top of the puddle you are laying cold metal.

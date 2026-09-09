@@ -23,6 +23,10 @@ summary: "The safety rules behind every oxy-fuel job: gas properties, cylinder s
 
 ![Oxygen 20 ft from fuel gas or behind a fire wall](/img/oxy-fuel/cylinder-storage.svg)
 
+![Cylinders stored upright, capped and chained, full and empty separated](/photos/oxy-fuel/gas-cylinder-rack.jpg)
+
+*Cylinders stored upright, capped and chained, full and empty separated. Photo: Cjp24, CC BY-SA 4.0, via commons*
+
 *Oxygen 20 ft from fuel gas or behind a fire wall*
 
 - Store oxygen and fuel-gas cylinders **at least 20 ft apart**, or separated by a 5 ft, half-hour fire-rated barrier (OSHA 1910.253).
@@ -55,6 +59,10 @@ summary: "The safety rules behind every oxy-fuel job: gas properties, cylinder s
 | **Flashback** | Shrill whistle/hiss, black smoke, flame burning back in the torch or hose | Mixed gases in the hose (no purge), wrong pressures, leaking mixer | **Close oxygen torch valve, then fuel valve**, then cylinder valves. Let cool. Inspect torch, replace arrestors, find the cause before relighting |
 
 ## Personal protection
+
+![Shade 5 gas welding goggles](/photos/oxy-fuel/gas-goggles.jpg)
+
+*Shade 5 gas welding goggles. Photo: BenTheWikiMan at Dutch Wikipedia, Public domain, via commons*
 
 - Shade **#5** goggles for cutting; #3-4 for light brazing/soldering. Face shield over goggles for overhead work.
 - Leather gloves, leather or FR cotton clothing, no cuffs, no synthetics, boots. Long sleeves buttoned.

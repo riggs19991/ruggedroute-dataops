@@ -89,6 +89,10 @@ summary: "Amperage ranges by rod diameter and polarity for every common mild-ste
 
 ## Which rod, in plain terms
 
+![Common stick electrodes side by side: coating colour and end marking tell them apart](/photos/welding/electrode-types.jpg)
+
+*Common stick electrodes side by side: coating colour and end marking tell them apart. Photo: Ghasemimoshref, CC BY-SA 4.0, via commons*
+
 | Rod | Personality | Reach for it when |
 |---|---|---|
 | **E6010** | Fierce, digging arc; thin fast-freezing slag; DC+ only | Open-root pipe, rusty or painted steel, vertical down, whipping technique; needs a DC machine with good arc force |

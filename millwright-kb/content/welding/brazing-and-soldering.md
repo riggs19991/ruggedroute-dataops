@@ -18,6 +18,10 @@ Strength comes from the joint design (overlap area), not from a fat fillet: a br
 
 ## Filler metals
 
+![Brazing kit: torch, silver alloy rods, flux, goggles](/photos/welding/brazing-kit.jpg)
+
+*Brazing kit: torch, silver alloy rods, flux, goggles. Photo: Phil Gradwell from Culcheth, England, CC BY 2.0, via commons*
+
 | AWS class | Common names (Harris and others) | Composition | Solidus-liquidus °F (°C) | Flux | Use |
 |---|---|---|---|---|---|
 | **BCuP-5** | **Sil-Fos 15**, Phos-copper 15% Ag | 15 Ag, 80 Cu, 5 P | 1190-1475 (640-800) | **None on copper-to-copper** (phosphorus self-fluxes); flux on brass | HVAC/refrigeration copper lines, copper to brass; ductile, gap-filling |
@@ -70,6 +74,10 @@ Capillary action works only in a **narrow, uniform gap** at brazing temperature:
 Dissimilar metals move the gap when heated: a steel bushing in a copper block opens up; a copper sleeve on a steel shaft tightens and can close the joint. Allow for expansion so the gap is right **at temperature**. Design the joint as a lap or sleeve, never a butt, and put the filler where gravity and capillary pull it through the joint (feed from the top or the side, watch it appear on the far side).
 
 ## Torch brazing procedure (silver brazing a steel-to-copper or copper-to-copper joint)
+
+![Torch brazing: heat the joint, not the rod; the filler follows the heat](/photos/welding/brazing-torch.jpg)
+
+*Torch brazing: heat the joint, not the rod; the filler follows the heat. Photo: Petty Officer 3rd Class Jennifer Kimball, Public domain, via commons*
 
 1. **Clean**: bright metal, no oil, oxide or paint: emery, wire brush, then solvent. Clean parts braze; dirty parts do not.
 2. **Flux** both faces (except BCuP on copper-to-copper), assemble, support so nothing moves; keep the gap uniform.

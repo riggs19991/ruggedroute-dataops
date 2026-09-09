@@ -38,6 +38,10 @@ Ask these in order. The first row that fits usually decides it.
 
 ## Process character in one line each
 
+![MIG at the bench: the fastest way to lay clean beads on mild steel](/photos/welding/mig-bench.jpg)
+
+*MIG at the bench: the fastest way to lay clean beads on mild steel. Photo: jason gessner, CC BY-SA 2.0, via commons*
+
 | Process | Power source | Electrode | Shielding | Deposition | Skill | Best at |
 |---|---|---|---|---|---|---|
 | SMAW (stick) | CC, AC or DC | consumable coated rod | flux slag and gas from coating | 1-4 lb/h | medium | portable, all positions, wind, dirty steel |

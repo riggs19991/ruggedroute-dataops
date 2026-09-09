@@ -12,6 +12,10 @@ summary: "How to pick a band saw blade by thickness and material with the TPI an
 
 ![At least 3 and at most 24 teeth in the cut](/img/cutting-gouging/bandsaw-tpi-rule.svg)
 
+![Horizontal band saw: let the weight of the arm do the cutting](/photos/cutting-gouging/band-saw.jpg)
+
+*Horizontal band saw: let the weight of the arm do the cutting. Photo: U.S. Navy photo by Mass Communication Specialist 3rd Class James R. Evans, Public domain, via commons*
+
 *At least 3 and at most 24 teeth in the cut*
 
 ### The 3-24 rule
@@ -89,6 +93,10 @@ New blades have razor tooth edges that chip if fed hard at first. **First 50-100
 
 ## Chop saws (abrasive cut-off)
 
+![Abrasive chop saw: sparks and the cut-off piece go away from you](/photos/cutting-gouging/chop-saw.jpg)
+
+*Abrasive chop saw: sparks and the cut-off piece go away from you. Photo: Mark Hunter, CC BY 2.0, via commons*
+
 - 14" reinforced Type 1 (Type 41) wheels at **up to 4,400 rpm** (some saws 5,400: match the wheel's rating), A24-A36 grit resinoid for steel; a stainless-rated (iron-free, "INOX") wheel for stainless; masonry wheels only on masonry saws.
 - Clamp the work in the vise tight; cut with a **steady, moderate pressure**: pushing hard glazes and heats the wheel, and it wears fast; let the sparks fly straight down.
 - Wheel wobbling, chipped edge, cracked, or soaked in water: throw it out. Store flat, dry, off the floor.
@@ -97,6 +105,10 @@ New blades have razor tooth edges that chip if fed hard at first. **First 50-100
 - **Dry-cut carbide saws** (Evolution, DeWalt) and **cold saws** (slow-turning HSS circular blade with coolant) cut cooler, square and burr-free, and are the better choice for tube and structural; use the blade the maker rates for the material, never a wood blade on steel.
 
 ## Angle grinder wheels and discs
+
+![Angle grinder with the guard on: sparks directed down and away](/photos/cutting-gouging/angle-grinder.jpg)
+
+*Angle grinder with the guard on: sparks directed down and away. Photo: Tech. Sgt. Jeffrey Grossi, Public domain, via commons*
 
 ### Types
 

@@ -52,6 +52,10 @@ summary: "One table per process for which gas to buy and what flow to set, why e
 
 ## Cylinders
 
+![Shielding gas cylinders capped and bundled for storage](/photos/welding/gas-cylinders.jpg)
+
+*Shielding gas cylinders capped and bundled for storage. Photo: Ildar Sagdejev (Specious), CC BY-SA 4.0, via commons*
+
 | Size (US common names) | Contents (ft³) | Height | Notes |
 |---|---|---|---|
 | 20 / 40 | 20-40 | 14-17" | Home shop |
