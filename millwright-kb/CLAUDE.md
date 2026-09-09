@@ -24,7 +24,10 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
 6. Study articles (`content/study/`): quizzes are 20 numbered questions, each answer in a
    single-line `<details><summary>Answer</summary>...</details>` block that names the article to
    review; the review figure at the top reuses an existing diagram.
-7. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
+7. UI styling: use the CSS tokens in `src/index.css` (never hard-coded hex in components); both
+   themes must work; icons come from `src/lib/icons.tsx`, never emoji; the AMP company lockup
+   stays in the footer and legal pages, the gear-and-wrench mark in the header.
+8. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
    the sandbox) and look at the PNG before shipping it.
 
 ## App shell rules

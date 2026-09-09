@@ -12,7 +12,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['icon-180.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'],
+      includeAssets: ['icon-180.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'logo.svg', 'brand/amp-logo.png'],
       manifest: {
         id: '/',
         name: 'Millwright Knowledge Base',
@@ -21,8 +21,8 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         display: 'standalone',
-        background_color: '#0f172a',
-        theme_color: '#0f172a',
+        background_color: '#0f1b2d',
+        theme_color: '#0f1b2d',
         orientation: 'any',
         categories: ['education', 'productivity'],
         icons: [
@@ -33,8 +33,8 @@ export default defineConfig({
       },
       workbox: {
         // App shell: everything Vite emits plus the icons. Diagrams are cached on first view (below).
-        globPatterns: ['**/*.{js,css,html,png,webmanifest}'],
-        globIgnores: ['img/**'],
+        globPatterns: ['**/*.{js,css,html,png,svg,woff2,webmanifest}'],
+        globIgnores: ['img/**', '**/*.woff'],
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/img\//, /^\/assets\//, /\.[a-z0-9]+$/i],
         cleanupOutdatedCaches: true,

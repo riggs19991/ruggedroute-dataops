@@ -1,7 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import './fonts.css'
 import './index.css'
+import { initTheme } from './lib/theme'
 import { AuthProvider, useAuth } from './lib/auth'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
@@ -68,6 +70,8 @@ const updateSW = registerSW({
     document.body.appendChild(bar)
   },
 })
+
+initTheme()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

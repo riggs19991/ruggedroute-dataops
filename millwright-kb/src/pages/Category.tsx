@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { Article, Category } from '../lib/types'
 import { ArticleCard } from '../components/ArticleCard'
+import { CategoryIcon, Icon } from '../lib/icons'
 
 type Lite = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer' | 'upvotes' | 'author_id' | 'view_count'>
 type Sort = 'title' | 'views' | 'votes'
@@ -32,21 +33,26 @@ export function CategoryPage() {
 
   return (
     <>
-      <div className="section-head">
-        <h1>{cat.icon} {cat.name}</h1>
-        <Link to={`/contribute?category=${cat.slug}`} className="btn small">+ Add to this topic</Link>
+      <div className="page-head">
+        <div className="tile" style={{ padding: 0 }}><div className="sq"><CategoryIcon slug={cat.slug} /></div></div>
+        <h1 style={{ flex: 1 }}>{cat.name}</h1>
+        <Link to={`/contribute?category=${cat.slug}`} className="btn primary small"><Icon name="plus" size={18} />Add</Link>
       </div>
       <p className="muted">{cat.description}</p>
-      {items.length > 1 && (
-        <div className="sort-row">
-          <label htmlFor="sort">Sort</label>
-          <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-            <option value="title">A to Z</option>
-            <option value="views">Most used</option>
-            <option value="votes">Top rated</option>
-          </select>
-        </div>
-      )}
+      <div className="sort-row">
+        <span>{items.length} article{items.length === 1 ? '' : 's'}</span>
+        <span style={{ flex: 1 }} />
+        {items.length > 1 && (
+          <>
+            <label htmlFor="sort">Sort</label>
+            <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+              <option value="title">A to Z</option>
+              <option value="views">Most used</option>
+              <option value="votes">Top rated</option>
+            </select>
+          </>
+        )}
+      </div>
       {items.length === 0
         ? <div className="empty">No published articles here yet. <Link to={`/contribute?category=${cat.slug}`}>Be the first.</Link></div>
         : <div className="list">{sorted.map((a) => <ArticleCard key={a.slug} item={a} />)}</div>}

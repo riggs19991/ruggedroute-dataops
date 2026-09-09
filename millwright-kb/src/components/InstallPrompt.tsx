@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { isAndroid, isIOS, isStandalone, type BeforeInstallPromptEvent } from '../lib/pwa'
+import { Icon } from '../lib/icons'
 
 const KEY = 'mw-install-dismissed'
 
@@ -34,18 +35,21 @@ export function InstallPrompt() {
   return (
     <div className="install-card" role="region" aria-label="Install the app">
       <div className="install-text">
-        <strong>Put it on your home screen.</strong>{' '}
-        {ios
-          ? <>In Safari tap <span className="share-icon" aria-label="Share">⎋</span> Share, then <b>Add to Home Screen</b>. It opens like an app and keeps what you have read available offline.</>
-          : deferred
-            ? <>One tap installs it as an app: works offline for what you have read, opens full screen.</>
-            : android
-              ? <>In Chrome open the menu <b>⋮</b> and tap <b>Add to Home screen</b> or <b>Install app</b>.</>
-              : <>Install it from your browser's menu or address bar to open it like an app and keep articles offline.</>}
-        {' '}<Link to="/install">How to install</Link>
+        <Icon name="phone" size={24} />
+        <span>
+          <strong>Install on your phone.</strong>{' '}
+          {ios
+            ? <>In Safari tap <span className="share-icon" aria-label="Share">⎋</span> Share, then <b>Add to Home Screen</b>. Works offline and opens like an app.</>
+            : deferred
+              ? <>Works offline and opens like an app.</>
+              : android
+                ? <>In Chrome open the menu <b>⋮</b> and tap <b>Add to Home screen</b>, or get the Android app.</>
+                : <>Install it from your browser's menu to open it like an app and keep articles offline.</>}
+          {' '}<Link to="/install">How</Link>
+        </span>
       </div>
       <div className="install-actions">
-        {deferred && <button type="button" className="btn primary small" onClick={install}>Install app</button>}
+        {deferred ? <button type="button" className="btn primary small" onClick={install}>Install</button> : <Link to="/install" className="btn primary small">Install</Link>}
         <button type="button" className="btn small" onClick={dismiss} aria-label="Dismiss">Not now</button>
       </div>
     </div>

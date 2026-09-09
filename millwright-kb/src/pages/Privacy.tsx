@@ -1,9 +1,11 @@
 import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL } from '../lib/site'
+import { AmpLockup } from '../components/AmpLockup'
 
 export function Privacy() {
   return (
     <div className="md" style={{ maxWidth: 720 }}>
       <h1>Privacy</h1>
+      <AmpLockup text={<>Operated by <b>{COMPANY}</b>, {COMPANY_LOCATION}.</>} />
       <p><em>Last updated September 2026.</em></p>
       <p>Millwright Knowledge Base is operated by <strong>{COMPANY}</strong>, an Idaho limited liability company ({COMPANY_LOCATION}). It is a study and reference tool for millwrights, apprentices and instructors. This page says what the app stores and why.</p>
       <h2>What we store</h2>

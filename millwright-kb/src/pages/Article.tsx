@@ -6,6 +6,7 @@ import { formatDate, type Article, type FileRow } from '../lib/types'
 import { Markdown } from '../components/Markdown'
 import { FileList } from '../components/FileList'
 import { SupportAsk } from '../components/SupportAsk'
+import { Icon } from '../lib/icons'
 
 export function ArticlePage() {
   const { slug } = useParams()
@@ -79,29 +80,30 @@ export function ArticlePage() {
     <article>
       <div className="article-head">
         <div className="meta">
-          {article.category && <Link to={`/category/${article.category.slug}`}>{article.category.icon} {article.category.name}</Link>}
+          {article.category && <Link className="crumb" to={`/category/${article.category.slug}`}>{article.category.name}</Link>}
+          {article.category && <span>›</span>}
           <span className={`badge ${article.kind}`}>{article.kind}</span>
           {article.status !== 'published' && <span className={`badge ${article.status}`}>{article.status}</span>}
           {community && <span className="badge community">community</span>}
           {article.group_id && <span className="badge">group only</span>}
         </div>
         <h1>{article.title}</h1>
-        {article.summary && <p className="muted">{article.summary}</p>}
+        {article.summary && <p className="summary">{article.summary}</p>}
         <div className="meta">
           {article.manufacturer && <span><strong>{article.manufacturer}</strong>{article.model_numbers.length > 0 && <> · {article.model_numbers.join(', ')}</>}</span>}
-          <span>By {article.author?.display_name ?? 'Millwright KB'}</span>
+          <span>By <strong>{article.author?.display_name ?? 'Millwright KB'}</strong></span>
           <span>Updated {formatDate(article.updated_at)}</span>
           <span>{article.view_count} views</span>
-          <span>▲ {votes} upvote{votes === 1 ? '' : 's'}</span>
+          <span className="votes"><Icon name="up" size={14} />{votes} upvote{votes === 1 ? '' : 's'}</span>
         </div>
         <div className="article-actions">
           {user
-            ? <button type="button" className={`btn small vote-btn${voted ? ' active' : ''}`} onClick={toggleVote} title={voted ? 'Remove your upvote' : 'Well done and useful? Upvote it'}>{voted ? '▲ Upvoted' : '▲ Upvote'} {votes}</button>
-            : <Link to="/signin" className="btn small vote-btn" title="Sign in to upvote">▲ {votes}</Link>}
-          {user && <button type="button" className="btn small" onClick={toggleBookmark}>{bookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>}
-          {canEdit && <Link to={`/contribute/${article.slug}`} className="btn small">Edit</Link>}
-          {canEdit && <button type="button" className="btn small danger" onClick={remove}>Delete</button>}
-          <button type="button" className="btn small" onClick={() => window.print()}>Print</button>
+            ? <button type="button" className={`btn small vote-btn${voted ? ' active' : ''}`} onClick={toggleVote} title={voted ? 'Remove your upvote' : 'Well done and useful? Upvote it'}><Icon name="up" size={18} />{voted ? 'Upvoted' : 'Upvote'} · {votes}</button>
+            : <Link to="/signin" className="btn small vote-btn" title="Sign in to upvote"><Icon name="up" size={18} />Upvote · {votes}</Link>}
+          {user && <button type="button" className="btn small" onClick={toggleBookmark}><Icon name="bookmark" size={18} />{bookmarked ? 'Bookmarked' : 'Bookmark'}</button>}
+          <button type="button" className="btn small" onClick={() => window.print()}><Icon name="print" size={18} />Print</button>
+          {canEdit && <Link to={`/contribute/${article.slug}`} className="btn small"><Icon name="edit" size={18} />Edit</Link>}
+          {canEdit && <button type="button" className="btn small danger" onClick={remove}><Icon name="trash" size={18} />Delete</button>}
         </div>
       </div>
 

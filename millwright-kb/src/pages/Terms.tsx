@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL, COPYRIGHT_YEAR, GOVERNING_LAW } from '../lib/site'
+import { AmpLockup } from '../components/AmpLockup'
 
 export function Terms() {
   return (
     <div className="md" style={{ maxWidth: 760 }}>
       <h1>Terms of use and legal notices</h1>
+      <AmpLockup text={<>Operated by <b>{COMPANY}</b>, {COMPANY_LOCATION}.</>} />
       <p><em>Last updated September {COPYRIGHT_YEAR}.</em></p>
       <p>
         Millwright Knowledge Base (the "app", including the website, the installable web app and the Android and iOS

@@ -30,15 +30,15 @@ export function Search() {
 
   return (
     <>
-      <div className="section-head">
-        <h1>{q ? <>Results for “{q}”</> : 'Search'}</h1>
-        <label className="small">
-          Topic:{' '}
-          <select value={cat} onChange={(e) => { const n = new URLSearchParams(params); if (e.target.value) n.set('cat', e.target.value); else n.delete('cat'); setParams(n) }}>
-            <option value="">All topics</option>
-            {cats.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
-          </select>
-        </label>
+      <h1>{q ? <>Results for “{q}”</> : 'Search'}</h1>
+      <div className="sort-row">
+        {hits && q && <span>{hits.length} result{hits.length === 1 ? '' : 's'}</span>}
+        <span style={{ flex: 1 }} />
+        <label htmlFor="cat">Topic</label>
+        <select id="cat" value={cat} onChange={(e) => { const n = new URLSearchParams(params); if (e.target.value) n.set('cat', e.target.value); else n.delete('cat'); setParams(n) }}>
+          <option value="">All topics</option>
+          {cats.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+        </select>
       </div>
       {error && <div className="notice error">{error}</div>}
       {hits === null && <p className="loading">Searching…</p>}

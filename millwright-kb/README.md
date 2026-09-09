@@ -117,6 +117,20 @@ update public.mw_profiles set is_admin = true
 where id = (select id from auth.users where email = 'owner@example.com');
 ```
 
+### Look and feel
+
+Industrial workshop theme: navy, steel greys and safety amber, Barlow type (self-hosted latin
+subset in `src/fonts.css`, precached for offline use), light and dark themes that follow the
+phone with a sun/moon toggle in the header (`src/lib/theme.ts`, stored as `mw-theme`). All
+colours are CSS tokens at the top of `src/index.css`; the dark set is defined twice (media query
+and `data-theme="dark"`) so the toggle always wins. Icons are inline SVG in `src/lib/icons.tsx`
+(category icons keyed by slug). The app mark is the gear-and-wrench in `src/components/Logo.tsx`;
+`node scripts/make-icons.mjs` regenerates `public/logo.svg`, the PWA icons and the store icon
+and feature graphic (needs Playwright on `NODE_PATH`); `npx @capacitor/assets generate --android`
+regenerates the Android launcher icons and splash from `assets/`. Store screenshots live in
+`docs/store/`. The Addictive Media Productions lockup (`public/brand/amp-logo.png`) sits in the
+footer of every page and heads the Terms, Privacy and Support pages.
+
 ### Donations and legal pages
 
 The app is operated by Addictive Media Productions LLC. `/terms` (terms of use, safety
