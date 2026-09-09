@@ -55,7 +55,7 @@ export function Layout() {
       </main>
       <footer className="site-footer">
         <div className="inner">
-          <div className="footer-links"><Link to="/install">Install on your phone</Link><Link to="/article/set-me-up-for-a-task">Task index</Link><Link to="/terms">Terms and legal</Link><Link to="/privacy">Privacy</Link><Link to="/support">Support the creator</Link></div>
+          <div className="footer-links"><Link to="/install">Install on your phone</Link><Link to="/article/set-me-up-for-a-task">Task index</Link><Link to="/terms">Terms and legal</Link><Link to="/privacy">Privacy</Link><Link to="/credits">Photo credits</Link><Link to="/support">Support the creator</Link></div>
           <div className="footer-row">
             <span>Free to use, no ads, built by one person. Reference values are starting points: the equipment manual and your instructor always win. Community contributions are not reviewed before they appear; verify before you rely on them.</span>
             {support}

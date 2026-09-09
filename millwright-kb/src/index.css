@@ -177,6 +177,7 @@ a.card:hover { text-decoration: none; border-color: var(--accent); }
 .md blockquote { margin: 12px 0; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
 .md blockquote p:last-child { margin-bottom: 0; }
 .md img { display: block; max-width: 100%; height: auto; margin: 14px auto 4px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--figure); padding: 4px; }
+.md img[src^="/photos/"] { padding: 0; background: transparent; }
 .md img + p > em:only-child { display: block; text-align: center; color: var(--muted); font-size: 0.86rem; margin: 0 0 14px; }
 .md ul, .md ol { padding-left: 1.4em; }
 .md li { margin: 4px 0; }

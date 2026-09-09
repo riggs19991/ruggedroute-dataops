@@ -15,7 +15,8 @@
 <rect x="-5" y="-70" width="10" height="36" fill="#d4a017" stroke="#b45309" stroke-width="1.5"/>
 <line x1="0" y1="-34" x2="0" y2="0" stroke="#1a2233" stroke-width="2.5" stroke-linecap="round"/></g>
 <line x1="190" y1="226" x2="190" y2="70" stroke="#5b6577" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
-<path d="M190,136 A90,90 0 0 1 213.29371405922686,139.06667563398383" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/><text x="203.31367160644527" y="128.87262413987133" font-size="12" text-anchor="middle" fill="#0b5fa5">10-20° drag</text>
+<path d="M190,136 A90,90 0 0 1 213.29371405922686,139.06667563398383" fill="none" stroke="#0b5fa5" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/><text x="203.31367160644527" y="128.87262413987133" font-size="12" text-anchor="middle" fill="#0b5fa5"></text>
+<text x="120" y="118" font-size="11" text-anchor="start" fill="#0b5fa5">10-20° drag</text>
 <circle cx="190" cy="226" r="6" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
 <path d="M140,234 Q165,214 190,226" fill="none" stroke="#f8b878" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
 <rect x="140" y="224" width="40" height="6" fill="#64748b" stroke="none" stroke-width="1.5"/>

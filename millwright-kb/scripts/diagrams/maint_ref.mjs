@@ -84,16 +84,6 @@ fig('shop-reference/shaft-bore-annulus-areas.svg', 'Areas: solid shaft π D² ÷
     caption(500, 200, '4 in bore, 2 in rod: cap side 12.57 in², rod side 12.57 − 3.14 = 9.42 in².'),
   ], { title: 'Shaft, bore and annulus areas' }))
 
-// ---------- Hardness scale bar ----------
-fig('shop-reference/hardness-scale-bar.svg', 'Hardness scales side by side: Rockwell C, Brinell and approximate tensile strength, with where common parts sit',
-  svg(500, 240, [
-    rect(60, 40, 380, 24, { fill: 'url(#hatch)', stroke: C.ink }), ...[[20, '20'], [30, '30'], [40, '40'], [50, '50'], [60, '60'], [65, '65']].map(([v, l]) => [line(60 + (v - 20) * 8.44, 64, 60 + (v - 20) * 8.44, 72, { width: 1 }), text(60 + (v - 20) * 8.44, 84, l, { anchor: 'middle', size: 10 })]), text(30, 56, 'HRC', { size: 10.5, weight: 700, anchor: 'end' }),
-    ...[[226, 20], [286, 30], [371, 40], [481, 50], [654, 60]].map(([hb, v]) => text(60 + (v - 20) * 8.44, 106, String(hb), { anchor: 'middle', size: 10 })), text(30, 106, 'HB', { size: 10.5, weight: 700, anchor: 'end' }),
-    ...[[107, 20], [138, 30], [182, 40], [246, 50]].map(([t, v]) => text(60 + (v - 20) * 8.44, 126, t + ' ksi', { anchor: 'middle', size: 10 })), text(30, 126, 'ksi', { size: 10.5, weight: 700, anchor: 'end' }),
-    ...[[22, 'A36 (HB 140) is below this scale', -1], [30, '4140 pre-hard', 1], [38, 'Grade 8 bolt, AR400', 1], [50, 'flame-hardened journal', 1], [60, 'bearing race', 1]].map(([v, l, s], i) => { const x = 60 + (v - 20) * 8.44; return [line(x, 40, x, 150 + i * 16, { width: 1, stroke: C.blue, dash: '2 2' }), text(x + 4, 154 + i * 16, l, { size: 9.5, fill: C.blue })] }),
-    caption(500, 240, 'Tensile (ksi) ≈ 0.5 × HB. Files skate at about 60 HRC.'),
-  ], { title: 'Hardness scale bar' }))
-
 // ---------- Spark patterns ----------
 fig('shop-reference/spark-test-patterns.svg', 'Spark test patterns: low carbon long straw streams with few forks, high carbon bright bushy bursts, cast iron short red sprays, stainless no bursts',
   svg(500, 290, [
@@ -117,7 +107,7 @@ fig('shop-reference/pipe-schedule-walls.svg', 'Same nominal size, same OD, diffe
 // ---------- Torque speed power ----------
 {
   const ch = chart({ x: 60, y: 30, w: 400, h: 150, xmin: 0, xmax: 3600, ymin: 0, ymax: 300, xticks: [0, 900, 1800, 3600], yticks: [0, 100, 200, 300], xlabel: 'rpm', ylabel: 'torque (ft-lb)' })
-  const hp = (h, c) => { const pts = []; for (let n = 300; n <= 3600; n += 50) { const t = h * 5252 / n; if (t <= 300) pts.push([n, t]) } return [path(pts.map((p, k) => (k ? 'L' : 'M') + ch.sx(p[0]) + ',' + ch.sy(p[1])).join(' '), { stroke: c, width: 2.5 }), text(ch.sx(pts[pts.length - 1][0]) - 4, ch.sy(pts[pts.length - 1][1]) - 6, h + ' hp', { size: 10, fill: c, weight: 600, anchor: 'end' })] }
+  const hp = (h, c) => { const pts = []; for (let n = 300; n <= 3600; n += 50) { const t = h * 5252 / n; if (t <= 300) pts.push([n, t]) } return [path(pts.map((p, k) => (k ? 'L' : 'M') + ch.sx(p[0]) + ',' + ch.sy(p[1])).join(' '), { stroke: c, width: 2.5 }), h === 10 ? text(ch.sx(1300), ch.sy(10 * 5252 / 1300) - 8, '10 hp', { size: 10, fill: c, weight: 600 }) : text(ch.sx(pts[pts.length - 1][0]) - 4, ch.sy(pts[pts.length - 1][1]) - 6, h + ' hp', { size: 10, fill: c, weight: 600, anchor: 'end' })] }
   fig('shop-reference/torque-speed-power.svg', 'hp = torque × rpm ÷ 5,252: at the same power, halving the speed doubles the torque', svg(500, 240, [ch.el, hp(10, C.blue), hp(25, C.accentDark), hp(50, C.red), note(250, 225, '25 hp at 1,800 rpm = 73 ft-lb; through a 4:1 reducer at 450 rpm = 292 ft-lb (less losses)', { anchor: 'middle', size: 10 })], { title: 'Torque, speed, power' }))
 }
 
@@ -132,7 +122,7 @@ fig('shop-reference/head-vs-pressure.svg', 'Head and pressure: a column of water
 // ---------- Task workflow ----------
 fig('shop-reference/task-workflow.svg', 'Every job in the same order: isolate and permit, gather the setup data, do the procedure, check and record',
   svg(500, 170, [
-    ...[['1 Safety\nlockout, permit, PPE', C.redSoft], ['2 Setup data\ncharts, torque, settings', C.blueSoft], ['3 Procedure\nstep by step', C.grey], ['4 Check + record\nreadings, work order', C.greenSoft]].map(([n, c], i) => box(20 + i * 118, 40, 108, 60, n, { fill: c, size: 9.5 })),
+    ...[['1 Safety\nlockout, permit, PPE', C.redSoft], ['2 Setup data\ncharts, torque', C.blueSoft], ['3 Procedure\nstep by step', C.grey], ['4 Check + record\nreadings, W/O', C.greenSoft]].map(([n, c], i) => box(20 + i * 118, 40, 108, 60, n, { fill: c, size: 9.5 })),
     ...[0, 1, 2].map((i) => line(128 + i * 118, 70, 138 + i * 118, 70, { width: 2, arrow: 'end' })),
     caption(500, 170, 'The task index lists the articles for each step of the common jobs.'),
   ], { title: 'Task workflow' }))
@@ -193,7 +183,7 @@ fig('shop-reference/conversion-ladders.svg', 'Pressure and torque side by side: 
 // ---------- Add a manual flow ----------
 fig('manuals/add-a-manual-flow.svg', 'Adding a manual: Contribute, fill the title, manufacturer and model numbers, attach the PDF, confirm the statement and publish; the community upvotes it',
   svg(500, 170, [
-    ...[['Contribute\nbutton', C.grey], ['Title, maker,\nmodel, tags', C.blueSoft], ['Attach PDF\n(50 MB max)', C.blueSoft], ['Confirm and\npublish', C.soft], ['Live at once;\ncommunity upvotes', C.greenSoft]].map(([n, c], i) => box(20 + i * 94, 40, 86, 60, n, { fill: c, size: 10.5 })),
+    ...[['Contribute\nbutton', C.grey], ['Title, maker,\nmodel, tags', C.blueSoft], ['Attach PDF\n(50 MB max)', C.blueSoft], ['Confirm and\npublish', C.soft], ['Live at once;\nupvotable', C.greenSoft]].map(([n, c], i) => box(20 + i * 94, 40, 86, 60, n, { fill: c, size: 10 })),
     ...[0, 1, 2, 3].map((i) => line(106 + i * 94, 70, 114 + i * 94, 70, { width: 2, arrow: 'end' })),
     caption(500, 170, 'Model numbers in the fields make the manual searchable by part number.'),
   ], { title: 'Add a manual flow' }))

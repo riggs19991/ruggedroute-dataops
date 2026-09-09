@@ -21,7 +21,7 @@ fig('conveyors/belt-end-squaring.svg', 'Squaring a belt end by the centreline me
     rect(40, 60, 420, 120, { fill: C.soft, stroke: C.accentDark }), line(40, 120, 460, 120, { dash: '6 4', width: 1.5, stroke: C.blue }), note(250, 112, 'centreline from 5 width measurements', { anchor: 'middle', size: 10, fill: C.blue }),
     ...[100, 180, 260, 340, 420].map((x) => [line(x, 60, x, 180, { width: 0.8, stroke: C.muted }), circle(x, 120, 2.5, { fill: C.blue, stroke: 'none' })]),
     line(400, 58, 400, 182, { stroke: C.red, width: 2 }), note(400, 200, 'cut line square to the centreline', { anchor: 'middle', size: 10, fill: C.red }),
-    rect(388, 100, 60, 40, { fill: 'none', stroke: C.ink, width: 1.5 }), note(418, 96, 'square', { anchor: 'middle', size: 9 }),
+    rect(388, 100, 60, 40, { fill: 'none', stroke: C.ink, width: 1.5 }), note(418, 152, 'square', { anchor: 'middle', size: 9 }),
     caption(500, 240, 'Edges are never straight: a splice squared from an edge mistracks forever.'),
   ], { title: 'Belt end squaring' }))
 
@@ -35,28 +35,6 @@ fig('conveyors/conveyor-nip-points.svg', 'Conveyor nip points: where the belt me
     line(200, 60, 300, 60, { width: 2, arrow: 'end' }), note(250, 52, 'travel', { anchor: 'middle', size: 10 }),
     caption(500, 240, 'Red = in-running nip: guard it or fence it; pull cord along the whole run.'),
   ], { title: 'Conveyor nip points' }))
-
-// ---------- Idler set and pulley ----------
-fig('conveyors/idler-set-and-pulley.svg', 'Troughing idler set (20°, 35° or 45°), return idler and a lagged drive pulley',
-  svg(500, 230, [
-    text(140, 22, 'Troughing idler', { anchor: 'middle', weight: 700 }), rect(40, 130, 200, 10, { fill: C.steelDark }),
-    rect(100, 100, 80, 16, { fill: C.grey }), g([rect(0, -8, 62, 16, { fill: C.grey })], { transform: 'translate(40,120) rotate(-35)' }), g([rect(-62, -8, 62, 16, { fill: C.grey })], { transform: 'translate(240,120) rotate(35)' }),
-    path('M50,88 L100,100 L180,100 L230,88', { stroke: C.accentDark, width: 4 }), angle(240, 120, 40, 180, 215, ''), note(200, 150, '35° trough', { size: 10, fill: C.blue }),
-    note(140, 175, 'return idler: single flat roll under the return belt', { anchor: 'middle', size: 10 }), rect(90, 185, 100, 12, { fill: C.grey }),
-    text(380, 22, 'Drive pulley with lagging', { anchor: 'middle', weight: 700 }), circle(380, 120, 60, { fill: C.grey }), circle(380, 120, 60, { fill: 'none', stroke: '#333', width: 8 }), ...[0, 45, 90, 135].map((a) => line(380 - 60 * Math.cos(a * P), 120 - 60 * Math.sin(a * P), 380 + 60 * Math.cos(a * P), 120 + 60 * Math.sin(a * P), { stroke: C.paper, width: 1, dash: '3 6' })),
-    circle(380, 120, 10, { fill: C.steelDark }), note(380, 200, 'rubber or ceramic lagging; crowned tail\npulley for tracking; worn smooth = slip', { anchor: 'middle', size: 9.5 }),
-  ], { title: 'Idler set and pulley' }))
-
-// ---------- Screw conveyor and bucket elevator ----------
-fig('conveyors/screw-and-bucket-elevator.svg', 'Screw conveyor (hand of the flight sets the direction) and a centrifugal-discharge bucket elevator',
-  svg(500, 250, [
-    text(140, 22, 'Screw conveyor', { anchor: 'middle', weight: 700 }), rect(30, 80, 220, 70, { fill: C.grey, rx: 6 }), line(30, 115, 250, 115, { width: 4 }),
-    ...[0, 1, 2, 3, 4, 5].map((i) => path(`M${45 + i * 34},88 q17,27 34,54`, { stroke: C.steelDark, width: 3 })), line(60, 60, 200, 60, { width: 2, arrow: 'end' }), note(130, 52, 'flow (right-hand flight, clockwise)', { anchor: 'middle', size: 9.5 }),
-    note(140, 175, 'trough 30-45% full; hanger bearings mid-span;\nnever reach in: it is a permit space', { anchor: 'middle', size: 9.5 }),
-    text(385, 22, 'Bucket elevator', { anchor: 'middle', weight: 700 }), rect(340, 40, 90, 190, { fill: C.grey, rx: 6 }), circle(385, 60, 18, { fill: C.steelDark }), circle(385, 205, 18, { fill: C.steelDark }), line(367, 60, 367, 205, { width: 4 }), line(403, 60, 403, 205, { width: 4 }),
-    ...[90, 130, 170].map((y) => [rect(354, y, 14, 12, { fill: C.accent }), rect(403, y + 20, 14, 12, { fill: C.accent })]), path('M395,48 q30,-20 50,10', { stroke: C.accentDark, width: 2, arrow: 'end' }), note(455, 90, 'discharge', { anchor: 'middle', size: 9.5 }),
-    note(385, 245, 'tension, tracking, boot clean-out, lagging', { anchor: 'middle', size: 9 }),
-  ], { title: 'Screw conveyor and bucket elevator' }))
 
 // ---------- Approach boundaries ----------
 fig('motors-electrical/approach-boundaries.svg', 'NFPA 70E boundaries around exposed energised parts: arc flash boundary, limited, restricted; only qualified persons with PPE inside',
@@ -86,7 +64,7 @@ fig('motors-electrical/nine-lead-wye.svg', '9-lead wye-connected dual-voltage mo
     ...[[130, 'Low voltage (230 V)', [['L1', '1, 7'], ['L2', '2, 8'], ['L3', '3, 9'], ['join', '4, 5, 6']]], [370, 'High voltage (460 V)', [['L1', '1'], ['L2', '2'], ['L3', '3'], ['join', '4-7, 5-8, 6-9']]]].map(([cx, n, rows]) => [
       text(cx, 22, n, { anchor: 'middle', weight: 700, size: 12 }),
       ...[90, 210, 330].map((a, i) => [line(cx, 110, cx + 60 * Math.cos(a * P), 110 + 60 * Math.sin(a * P), { width: 3, stroke: C.copper }), circle(cx + 30 * Math.cos(a * P), 110 + 30 * Math.sin(a * P), 4, { fill: C.ink }), text(cx + 72 * Math.cos(a * P), 114 + 72 * Math.sin(a * P), String(i + 1), { anchor: 'middle', size: 10, weight: 700 }), text(cx + 22 * Math.cos(a * P) + (a === 90 ? 10 : 0), 114 + 22 * Math.sin(a * P), String(i + 4), { anchor: 'middle', size: 9, fill: C.blue }), text(cx + 44 * Math.cos(a * P) + (a === 90 ? 10 : 0), 114 + 44 * Math.sin(a * P), String(i + 7), { anchor: 'middle', size: 9, fill: C.blue })]),
-      table(cx - 80, 185, rows, [50, 110], { rowH: 18, size: 10, head: false }),
+      table(cx - 80, 194, rows, [50, 110], { rowH: 18, size: 10, head: false }),
     ]),
     caption(500, 280, 'Delta-connected 9-lead motors differ: read the plate; megger first.'),
   ], { title: '9-lead wye connections' }))
@@ -147,5 +125,5 @@ fig('condition-monitoring/thermography-and-ultrasound.svg', 'Thermography compar
     text(130, 22, 'Thermal image', { anchor: 'middle', weight: 700 }), rect(30, 40, 200, 120, { fill: '#1a1a4a' }), rect(50, 90, 160, 30, { fill: '#3a3a9a' }), circle(80, 105, 26, { fill: '#e8b400' }), circle(80, 105, 12, { fill: '#ff2a00' }), circle(180, 105, 26, { fill: '#6a5acd' }),
     text(80, 150, '198°F', { anchor: 'middle', size: 11, fill: '#fff', weight: 700 }), text(180, 150, '126°F', { anchor: 'middle', size: 11, fill: '#fff', weight: 700 }), note(130, 180, 'DE bearing 72°F hotter than the NDE:\nlubrication or damage, act now', { anchor: 'middle', size: 10 }),
     text(370, 22, 'Ultrasound trend (dB)', { anchor: 'middle', weight: 700 }), rect(280, 40, 190, 120, { fill: C.paper, stroke: C.line }), path('M290,140 L330,138 L370,135 L400,125 L430,105 L460,70', { stroke: C.red, width: 2.5 }), line(280, 132, 470, 132, { stroke: C.green, width: 1, dash: '4 3' }), line(280, 116, 470, 116, { stroke: C.accentDark, width: 1, dash: '4 3' }),
-    text(465, 128, 'baseline', { anchor: 'end', size: 9, fill: C.green }), text(465, 112, '+8 dB: lubricate', { anchor: 'end', size: 9, fill: C.accentDark }), text(440, 60, '+16 dB: failing', { anchor: 'end', size: 9, fill: C.red }), note(375, 180, 'grease while listening: dB drops then\nsettles = right amount', { anchor: 'middle', size: 10 }),
+    text(465, 128, 'baseline', { anchor: 'end', size: 9, fill: C.green }), text(300, 112, '+8 dB: lubricate', { anchor: 'start', size: 9, fill: C.accentDark }), text(440, 60, '+16 dB: failing', { anchor: 'end', size: 9, fill: C.red }), note(375, 180, 'grease while listening: dB drops then\nsettles = right amount', { anchor: 'middle', size: 10 }),
   ], { title: 'Thermography and ultrasound' }))

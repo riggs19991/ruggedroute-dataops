@@ -34,19 +34,6 @@ const P = Math.PI / 180
     ], { title: 'Saddle template ordinates' }))
 }
 
-// ---------- Miter layout ----------
-fig('layout-templates/miter-elbow-layout.svg', 'Mitered elbows: cut angle = elbow angle ÷ (2 × number of welds); 2-piece 90° = 45° cuts',
-  svg(500, 365, [
-    text(120, 24, '2-piece 90° (one weld)', { anchor: 'middle', weight: 700, size: 12 }),
-    poly([[30, 120], [130, 120], [130, 220], [90, 220], [90, 160], [30, 160]], { fill: C.steel }), line(90, 160, 130, 120, { stroke: C.red, width: 2 }), angle(130, 120, 30, 90, 135, '45°'),
-    text(360, 24, '3-piece 90° (two welds)', { anchor: 'middle', weight: 700, size: 12 }),
-    poly([[270, 120], [370, 120], [370, 220], [330, 220], [330, 160], [270, 160]], { fill: C.steel }), path('M330,160 L340,132 L370,120', { stroke: C.red, width: 2 }), path('M330,160 L338,141 L354,127 L370,120', { stroke: C.red, width: 1, dash: '3 2' }),
-    note(370, 100, 'end cuts 22.5°, middle piece 45°', { anchor: 'middle', size: 10.5 }),
-    table(60, 232, [['Elbow', 'Pieces', 'Welds', 'End cut', 'Middle cuts'], ['90°', '2', '1', '45°', '-'], ['90°', '3', '2', '22.5°', '45°'], ['90°', '4', '3', '15°', '30°'], ['45°', '2', '1', '22.5°', '-']], [70, 70, 70, 80, 100], { rowH: 19, size: 10.5 }),
-    note(250, 344, 'end cut = elbow angle ÷ (2 × welds); middle cut = elbow angle ÷ welds', { anchor: 'middle', size: 11 }),
-    caption(500, 365, 'More pieces = smoother flow, less pressure drop, more welds.'),
-  ], { title: 'Miter elbow layout' }))
-
 // ---------- Cone development ----------
 {
   const R = 110, r = 40, h = 100
@@ -77,19 +64,6 @@ fig('layout-templates/shim-stacking.svg', 'Shim rules: thick shims on the bottom
     caption(500, 230, 'Burrs off, shims clean and dry, slot centred on the bolt, no overhang.'),
   ], { title: 'Shim stacking rules' }))
 
-// ---------- Finding centre of round stock ----------
-fig('layout-templates/centre-finding.svg', 'Finding the centre of round stock: two scribed lines with a centre head, or three with a surface gauge on V-blocks',
-  svg(500, 250, [
-    text(120, 24, 'Centre head', { anchor: 'middle', weight: 700 }), circle(120, 140, 60, { fill: C.steel }),
-    line(120 - 60 * Math.cos(45 * P), 140 - 60 * Math.sin(45 * P), 120 + 60 * Math.cos(45 * P), 140 + 60 * Math.sin(45 * P), { stroke: C.red, width: 1.5 }), line(120 - 60 * Math.cos(135 * P), 140 - 60 * Math.sin(135 * P), 120 + 60 * Math.cos(135 * P), 140 + 60 * Math.sin(135 * P), { stroke: C.red, width: 1.5 }),
-    poly([[120, 82], [56, 50], [120, 50]], { fill: C.grey, opacity: 0.85 }), circle(120, 140, 3, { fill: C.red, stroke: 'none' }),
-    note(120, 218, 'head on the rim: scribe,\nturn 90°, scribe again', { anchor: 'middle', size: 10 }),
-    text(370, 24, 'Surface gauge on V-blocks', { anchor: 'middle', weight: 700 }), poly([[300, 200], [440, 200], [440, 170], [370, 110], [300, 170]], { fill: C.grey }), circle(370, 130, 45, { fill: C.steel }),
-    ...[0, 120, 240].map((a) => line(370 - 45 * Math.cos(a * P), 130 - 45 * Math.sin(a * P), 370 + 45 * Math.cos(a * P), 130 + 45 * Math.sin(a * P), { stroke: C.red, width: 1.2 })),
-    line(470, 130, 300, 130, { stroke: C.blue, width: 1, dash: '4 3' }),
-    note(370, 218, 'scribe at half height, turn 120°,\ntwice: centre = the small triangle', { anchor: 'middle', size: 10 }),
-  ], { title: 'Finding centre of round stock' }))
-
 // ---------- Story pole ----------
 fig('layout-templates/story-pole.svg', 'Story pole: one stick carries every elevation or spacing, so every part is marked from the same reference',
   svg(500, 220, [
@@ -110,7 +84,7 @@ fig('installation/anchor-types.svg', 'Anchor types: cast-in J or L bolt, wedge, 
       ['Sleeve', (x) => [line(x, 60, x, 200, { width: 5 }), rect(x - 8, 120, 16, 80, { fill: C.steel, stroke: C.steelDark }), poly([[x - 6, 195], [x + 6, 195], [x + 10, 208], [x - 10, 208]], { fill: C.steelDark }), rect(x - 12, 70, 24, 10, { fill: C.steelDark }), rect(x - 30, 60, 60, 4, { fill: C.grey })]],
       ['Adhesive (epoxy)', (x) => [rect(x - 9, 120, 18, 110, { fill: C.soft, stroke: C.accentDark }), line(x, 60, x, 226, { width: 5 }), rect(x - 12, 70, 24, 10, { fill: C.steelDark }), rect(x - 30, 60, 60, 4, { fill: C.grey })]]]
       .map(([n, d], i) => { const x = 80 + i * 115; return [...d(x), text(x, 48, n, { anchor: 'middle', size: 11, weight: 600 })] }),
-    dim(455, 120, 455, 226, 'embed.', { size: 10, side: 1 }), dim(20, 275, 80, 275, 'edge dist.', { size: 10.5 }),
+    dim(455, 120, 455, 226, 'embed.', { size: 10, side: -1 }), dim(20, 275, 80, 275, 'edge dist.', { size: 10.5 }),
     caption(500, 300, 'Wedge: 8-10 × dia. from an edge; adhesive: clean, dry, brushed hole.'),
   ], { title: 'Anchor types' }))
 
@@ -138,7 +112,7 @@ fig('installation/leveling-with-jack-bolts.svg', 'Leveling a baseplate: precisio
     ...[100, 400].map((x) => [line(x, 138, x, 190, { width: 4, stroke: C.blue }), rect(x - 10, 176, 20, 14, { fill: C.steelDark }), rect(x - 14, 120, 28, 8, { fill: C.ink })]),
     rect(150, 80, 40, 20, { fill: '#2b6cb0', rx: 3 }), rect(160, 84, 20, 8, { fill: '#cfe8ff' }), circle(170, 88, 3, { fill: C.paper }),
     line(150, 70, 250, 70, { width: 1, arrow: 'both', stroke: C.muted }), note(250, 60, 'level each pad, both directions, then diagonally', { size: 9.5 }),
-    dim(80, 160, 420, 160, 'target: 0.001-0.002 in/ft (0.005 in/ft ok for general machines)', { size: 10.5 }),
+    note(250, 163, 'target: 0.001-0.002 in/ft', { anchor: 'middle', size: 10, fill: C.ink, weight: 600 }), note(250, 177, '(0.005 in/ft is fine for general machines)', { anchor: 'middle', size: 9.5 }),
     callout(1, 100, 205), callout(2, 170, 50),
     legend(20, 258, ['jack bolts on a landing plate; back them out after the grout cures', 'precision level (0.0005 in/ft per division) on a clean machined pad'], { size: 10, gap: 13 }).replace('</text>', '</text>'),
   ], { title: 'Leveling with jack bolts' }))
@@ -177,16 +151,3 @@ fig('installation/optical-level-and-wire.svg', 'Optical level: one line of sight
     dim(375, 90, 375, 104, 'sag', { size: 10, side: -1 }), note(375, 190, 'sag = w L² ÷ (8 T): known from tables\nfor the wire size, span and weight;\nmeasure to the wire with a mic, add the sag', { anchor: 'middle', size: 10 }),
     caption(500, 260, 'Both need a steady instrument, no heat shimmer and the same reader each time.'),
   ], { title: 'Optical level and piano wire' }))
-
-// ---------- Pipe strain check ----------
-fig('installation/pipe-strain-check.svg', 'Pipe strain test: indicators on the pump shaft (vertical and horizontal); loosen the flange bolts; more than 0.002 in movement is pipe strain',
-  svg(500, 305, [
-    rect(60, 120, 120, 80, { fill: C.grey, rx: 6 }), rect(180, 150, 70, 20, { fill: C.steel }), rect(250, 130, 20, 60, { fill: C.steelDark }), rect(280, 130, 20, 60, { fill: C.steelDark }), rect(300, 145, 160, 30, { fill: C.steel }),
-    ...[[270, 130, 290, 130], [270, 190, 290, 190]].map(([x1, y1, x2, y2]) => line(x1 - 5, y1, x2 + 5, y2, { width: 3 })),
-    line(215, 150, 215, 100, { width: 1.5 }), circle(215, 88, 12, { fill: C.paper }), line(215, 88, 219, 80, { width: 1 }), note(215, 68, 'vertical', { anchor: 'middle', size: 10 }),
-    line(215, 170, 215, 210, { width: 1.5 }), circle(215, 222, 12, { fill: C.paper }), line(215, 222, 220, 215, { width: 1 }), note(215, 248, 'horizontal', { anchor: 'middle', size: 10 }),
-    note(120, 110, 'pump', { anchor: 'middle', size: 11 }), note(380, 135, 'piping', { anchor: 'middle', size: 11 }), note(285, 118, 'flange bolts\nloosened', { anchor: 'middle', size: 9.5 }),
-    dim(275, 205, 285, 205, 'gap', { size: 9.5 }),
-    note(390, 232, 'limits before bolting: faces parallel\nwithin 0.010 in, offset 0.030 in,\ngap within the gasket thickness', { anchor: 'middle', size: 9.5 }),
-    caption(500, 305, 'Fix the pipe, not the pump: never pull a flange in with the bolts.'),
-  ], { title: 'Pipe strain check' }))

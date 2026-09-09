@@ -41,7 +41,7 @@
 <path d="M114,47.14285714285714 L160,130 L210,172.85714285714286 L260,195.71428571428572 L310,207.14285714285714 L360,214 L460,221.42857142857142" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M160,81.42857142857142 L210,144.28571428571428 L260,172.85714285714286 L310,191.14285714285714 L360,204.28571428571428 L460,215.71428571428572" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="96" y="39.71428571428572" font-size="11" text-anchor="start" font-weight="600" fill="#0b5fa5">45 A</text>
-<text x="180" y="122" font-size="11" text-anchor="start" font-weight="600" fill="#b45309">65 A</text>
+<text x="148" y="90.57142857142858" font-size="11" text-anchor="start" font-weight="600" fill="#b45309">65 A</text>
 <text x="280" y="162.85714285714286" font-size="11" text-anchor="start" font-weight="600" fill="#b91c1c">85 A</text>
 <text x="250" y="292" font-size="10.5" text-anchor="middle" fill="#5b6577">Read your machine’s own cut chart for the exact number; speeds fall fast with thickness.</text>
 </svg>

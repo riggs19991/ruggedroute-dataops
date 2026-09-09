@@ -34,16 +34,16 @@ export default defineConfig({
       workbox: {
         // App shell: everything Vite emits plus the icons. Diagrams are cached on first view (below).
         globPatterns: ['**/*.{js,css,html,png,svg,woff2,webmanifest}'],
-        globIgnores: ['img/**', '**/*.woff'],
+        globIgnores: ['img/**', 'photos/**', '**/*.woff'],
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/img\//, /^\/assets\//, /\.[a-z0-9]+$/i],
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             // The 155 diagrams: cache on first view, keep for a month.
-            urlPattern: ({ url }) => url.pathname.startsWith('/img/'),
+            urlPattern: ({ url }) => url.pathname.startsWith('/img/') || url.pathname.startsWith('/photos/'),
             handler: 'CacheFirst',
-            options: { cacheName: 'mw-diagrams', expiration: { maxEntries: 400, maxAgeSeconds: 30 * 24 * 3600 }, cacheableResponse: { statuses: [0, 200] } },
+            options: { cacheName: 'mw-diagrams', expiration: { maxEntries: 900, maxAgeSeconds: 30 * 24 * 3600 }, cacheableResponse: { statuses: [0, 200] } },
           },
           {
             // Articles, categories and bookmarks read through the REST API: serve the last copy

@@ -23,23 +23,6 @@ fig('welding/polarity.svg', 'DCEP, DCEN and AC: which terminal the electrode lea
     caption(500, 400, 'Wrong polarity is the first check on a spattery, porous weld.'),
   ], { title: 'Welding polarity' }))
 
-// ---------- Stick angles ----------
-fig('welding/smaw-angles.svg', 'Stick welding: arc length about the rod diameter, 10-15° drag travel angle, 45° work angle in a fillet',
-  svg(500, 300, [
-    text(130, 24, 'Side view: travel angle', { anchor: 'middle', weight: 700 }),
-    plate(20, 200, 220, 16), note(130, 232, 'travel direction →', { anchor: 'middle', size: 12 }),
-    g([rect(-4, -120, 8, 120, { fill: C.grey }), rect(-6, -40, 12, 40, { fill: C.ink, rx: 2 })], { transform: 'translate(150,196) rotate(15)' }),
-    line(150, 196, 150, 90, { dash: '4 3', width: 1, stroke: C.muted }), angle(150, 196, 60, -90, -75, '10-15° drag'),
-    circle(150, 196, 5, { fill: C.accent, stroke: C.accentDark }), path('M120,200 Q135,186 150,196', { stroke: C.weld, width: 4 }),
-    line(150, 190, 150, 200, { width: 1, arrow: 'both', stroke: C.blue }), note(60, 176, 'arc length ≈ rod diameter', { fill: C.blue }),
-    text(370, 24, 'End view: work angle (fillet)', { anchor: 'middle', weight: 700 }),
-    plate(280, 200, 200, 16), plate(370, 90, 16, 110),
-    g([rect(-4, -110, 8, 110, { fill: C.grey }), rect(-6, -40, 12, 40, { fill: C.ink, rx: 2 })], { transform: 'translate(378,192) rotate(45)' }),
-    line(378, 192, 378, 100, { dash: '4 3', width: 1, stroke: C.muted }), line(378, 192, 470, 192, { dash: '4 3', width: 1, stroke: C.muted }),
-    angle(378, 192, 50, -90, -45, '45°'), path('M370,200 L386,200 L386,184 Z', { fill: C.weld, stroke: C.accentDark }),
-    caption(500, 300, 'Tight arc, drag the rod, split the fillet angle. Long arc = spatter.'),
-  ], { title: 'Stick welding angles' }))
-
 // ---------- Stick amperage chart ----------
 {
   const rods = [['E6010', [[3, 40, 80], [4, 75, 130], [5, 90, 175], [6, 140, 225]]], ['E6013', [[3, 40, 90], [4, 80, 130], [5, 105, 180], [6, 150, 230]]], ['E7014', [[3, 80, 125], [4, 110, 160], [5, 150, 210], [6, 200, 275]]], ['E7018', [[3, 70, 100], [4, 90, 150], [5, 120, 200], [6, 200, 275]]], ['E7024', [[4, 140, 190], [5, 180, 250], [6, 230, 305]]], ['E308L', [[3, 50, 80], [4, 75, 110], [5, 100, 150]]]]
@@ -64,20 +47,6 @@ fig('welding/aws-electrode-decoder.svg', 'Decoding E7018-1 H4R',
     caption(500, 260, 'Wires read the same way: ER70S-6 = rod, 70 ksi, solid, chemistry 6.'),
   ], { title: 'AWS electrode classification' }))
 
-// ---------- MIG stickout ----------
-fig('welding/mig-stickout.svg', 'MIG gun: CTWD, stickout and push angle',
-  svg(500, 330, [
-    plate(30, 200, 300, 16), note(180, 232, 'travel direction →', { anchor: 'middle', size: 12 }),
-    g([rect(-26, -170, 52, 120, { fill: C.grey, rx: 8 }), rect(-20, -60, 40, 50, { fill: C.copper, stroke: C.accentDark, rx: 4 }), rect(-5, -70, 10, 40, { fill: C.brass, stroke: C.accentDark }), line(0, -30, 0, 0, { stroke: C.ink, width: 2.5 })], { transform: 'translate(200,196) rotate(-12)' }),
-    line(200, 196, 200, 40, { dash: '4 3', width: 1, stroke: C.muted }), arc(200, 196, 150, -90, -102, { stroke: C.blue, width: 1 }), text(150, 40, '10-15° push', { size: 12, fill: C.blue, anchor: 'end' }),
-    circle(200, 196, 6, { fill: C.accent, stroke: C.accentDark }), path('M162,202 Q182,184 200,196', { stroke: C.weld, width: 5 }),
-    dim(300, 196, 300, 148, 'CTWD', { off: 0, size: 12 }),
-    callout(1, 232, 128), callout(2, 226, 160), callout(3, 212, 178), callout(4, 175, 60),
-    legend(335, 40, ['nozzle: 1/2-5/8 in ID,\nkeep spatter out', 'contact tip sized to the\nwire; recessed 1/8 in\nfor spray, flush for\nshort-circuit', 'stickout (wire past tip)\n3/8-1/2 in short-circuit\n3/4-1 in spray or FCAW', 'gun body and liner'], { gap: 44, size: 10.5 }),
-    note(180, 275, 'CTWD = contact tip to work distance.\nLonger = less current, more spatter; shorter = hotter.', { anchor: 'middle', size: 10.5 }),
-    caption(500, 330, 'Push 10-15° on steel short-circuit and spray; drag on flux-core.'),
-  ], { title: 'MIG stickout and gun angle' }))
-
 // ---------- Transfer modes ----------
 {
   const modes = [['Short-circuit', 'wire touches the puddle\n20-100 times per second', '16-22 V', 'thin, all positions', (x, y) => [line(x, y - 60, x, y + 4, { width: 4, stroke: C.steelDark }), path(`M${x - 22},${y + 8} Q${x},${y - 6} ${x + 22},${y + 8}`, { stroke: C.weld, width: 5 })]],
@@ -96,33 +65,13 @@ fig('welding/fcaw-drag-stickout.svg', 'Flux-core: drag angle and stickout',
   svg(500, 300, [
     plate(30, 230, 260, 16), note(160, 262, 'travel direction →', { anchor: 'middle', size: 12 }),
     g([rect(-24, -160, 48, 110, { fill: C.grey, rx: 8 }), rect(-18, -60, 36, 44, { fill: C.copper, stroke: C.accentDark, rx: 4 }), rect(-5, -70, 10, 36, { fill: C.brass, stroke: C.accentDark }), line(0, -34, 0, 0, { stroke: C.ink, width: 2.5 })], { transform: 'translate(190,226) rotate(15)' }),
-    line(190, 226, 190, 70, { dash: '4 3', width: 1, stroke: C.muted }), angle(190, 226, 90, -90, -75, '10-20° drag'),
+    line(190, 226, 190, 70, { dash: '4 3', width: 1, stroke: C.muted }), angle(190, 226, 90, -90, -75, ''), text(120, 118, '10-20° drag', { size: 11, fill: C.blue }),
     circle(190, 226, 6, { fill: C.accent, stroke: C.accentDark }), path('M140,234 Q165,214 190,226', { stroke: C.weld, width: 6 }), rect(140, 224, 40, 6, { fill: C.steelDark, stroke: 'none' }), note(120, 218, 'slag', { anchor: 'end' }),
     dim(250, 226, 250, 192, 'stickout', { size: 12 }),
     table(310, 40, [['Wire', 'Stickout', 'Pol.'], ['E71T-1 gas', '3/4-1 in', 'DCEP'], ['E71T-11', '1/2-3/4 in', 'DCEN'], ['E71T-8', '3/4-1 in', 'DCEN']], [70, 68, 42], { rowH: 22, size: 11 }),
     note(400, 150, '"Drag if slag":\nthe arc rides the\nleading edge of\nthe puddle, slag\nfollows behind', { anchor: 'middle' }),
     caption(500, 300, 'Short stickout on self-shielded wire = porosity: the wire must preheat.'),
   ], { title: 'Flux-core gun angle and stickout' }))
-
-// ---------- TIG torch setup ----------
-fig('welding/tig-torch-setup.svg', 'TIG torch, tungsten and filler setup',
-  svg(500, 360, [
-    text(110, 24, 'Tungsten grind (DC)', { anchor: 'middle', weight: 700 }),
-    poly([[30, 50], [150, 50], [150, 66], [30, 66]], { fill: C.grey }), poly([[150, 50], [200, 57], [200, 59], [150, 66]], { fill: C.steelDark }),
-    dim(150, 74, 200, 74, '2-2.5 × d', { size: 11 }), dim(24, 50, 24, 66, 'd', { size: 11, side: -1 }),
-    ...[0, 1, 2, 3, 4].map((i) => line(152 + i * 10, 52 + i * 1.5, 190, 55.5 + i * 0.5, { stroke: C.paper, width: 0.6 })),
-    note(20, 100, 'grind marks lengthwise, tiny flat on the tip;\nAC inverter: same or truncated; transformer: ball'),
-    text(360, 24, 'Torch and filler', { anchor: 'middle', weight: 700 }),
-    plate(230, 250, 250, 16), note(355, 282, 'travel direction ←', { anchor: 'middle', size: 12 }),
-    g([rect(-22, -190, 44, 120, { fill: C.grey, rx: 8 }), poly([[-16, -70], [16, -70], [13, -14], [-13, -14]], { fill: '#f5d0a9', stroke: C.accentDark }), line(0, -70, 0, 0, { stroke: C.steelDark, width: 3 })], { transform: 'translate(380,246) rotate(12)' }),
-    line(380, 246, 380, 110, { dash: '4 3', width: 1, stroke: C.muted }), angle(380, 246, 90, -90, -78, '10-15°'),
-    g([line(0, 0, 130, 0, { stroke: C.copper, width: 3 })], { transform: 'translate(372,242) rotate(-17)' }),
-    line(372, 242, 240, 242, { dash: '4 3', width: 1, stroke: C.muted }), arc(372, 242, 60, 180, 163, { stroke: C.blue, width: 1 }), text(296, 228, '15-20°', { size: 12, fill: C.blue, anchor: 'end' }),
-    circle(380, 246, 6, { fill: C.accent, stroke: C.accentDark }), path('M380,246 Q405,230 430,248', { stroke: C.weld, width: 5 }),
-    callout(1, 395, 215), callout(2, 383, 190), callout(3, 300, 218), callout(4, 366, 110),
-    legend(20, 140, ['stickout ≈ cup diameter (2× with a gas lens)', 'arc length ≈ tungsten diameter', 'filler into the front edge of the puddle', 'ceramic cup #6-#8, gas lens for stainless'], { size: 11 }),
-    caption(500, 360, 'Never touch the tungsten to the puddle or rod: regrind if you do.'),
-  ], { title: 'TIG torch setup' }))
 
 // ---------- TIG amps ----------
 {
@@ -152,7 +101,7 @@ fig('welding/flowmeter-reading.svg', 'Flowmeter versus regulator gauge',
   const ch = chart({ x: 70, y: 30, w: 380, h: 200, xmin: 100, xmax: 350, ymin: 0, ymax: 100, xticks: [100, 150, 200, 250, 300, 350], yticks: [0, 20, 40, 60, 80, 100], xlabel: 'Output amps', ylabel: 'Duty cycle %', yfmt: (v) => v + '%' })
   const pts = []; for (let a = 100; a <= 350; a += 5) pts.push([a, Math.min(100, 40 * (250 / a) ** 2)])
   const curve = path(pts.map((p, k) => (k ? 'L' : 'M') + ch.sx(p[0]) + ',' + ch.sy(p[1])).join(' '), { stroke: C.blue, width: 2.5 })
-  const mk = [[250, 40, 'rated: 250 A at 40%', 'start'], [160, 98, '160 A: continuous', 'start'], [300, 28, '300 A: 28% = 2.8 min in 10', 'end']].map(([a, d, l, an]) => [circle(ch.sx(a), ch.sy(d), 4, { fill: C.red, stroke: 'none' }), text(ch.sx(a) + (an === 'end' ? -8 : 8), ch.sy(d) - 8, l, { size: 11, anchor: an })])
+  const mk = [[250, 40, 'rated: 250 A at 40%', 'start'], [160, 98, '160 A: continuous', 'start'], [300, 28, '300 A: 28% = 2.8 min in 10', 'below']].map(([a, d, l, an]) => [circle(ch.sx(a), ch.sy(d), 4, { fill: C.red, stroke: 'none' }), text(ch.sx(a) + (an === 'below' ? -6 : 8), ch.sy(d) + (an === 'below' ? 20 : -8), l, { size: 11, anchor: an === 'below' ? 'end' : an })])
   fig('welding/duty-cycle.svg', 'Duty cycle curve for a 250 A at 40% machine', svg(500, 290, [ch.el, curve, mk, note(250, 275, 'duty at I ≈ rated duty × (I rated ÷ I)²', { anchor: 'middle', size: 12 })], { title: 'Duty cycle curve' }))
 }
 
@@ -163,10 +112,10 @@ fig('welding/ground-clamp-placement.svg', 'Ground clamp placement',
     ...[0, 250].map((ox) => [rect(ox + 40, 150, 170, 40, { fill: C.grey }), circle(ox + 90, 170, 22, { fill: C.paper }), circle(ox + 90, 170, 12, { fill: C.steel }), note(ox + 90, 208, 'bearing', { anchor: 'middle' }), rect(ox + 140, 100, 12, 70, { fill: C.steel }), circle(ox + 146, 104, 5, { fill: C.accent, stroke: C.accentDark }), note(ox + 160, 96, 'weld')]),
     rect(160, 118, 22, 12, { fill: C.copper, stroke: C.accentDark }), path('M182,124 C215,124 215,60 240,60', { stroke: C.ink, width: 2.5 }), note(215, 52, 'to machine'),
     path('M164,116 L148,108', { stroke: C.green, width: 2.5, arrow: 'end' }),
-    box(20, 225, 210, 40, 'clamp on the bracket being welded:\ncurrent stays in the part', { fill: C.greenSoft, stroke: C.green, size: 11 }),
+    box(20, 225, 210, 40, 'clamp on the bracket being welded:\ncurrent stays in the part', { fill: C.greenSoft, stroke: C.green, size: 10 }),
     rect(300, 156, 22, 12, { fill: C.copper, stroke: C.accentDark }), path('M300,162 C270,162 270,60 250,60', { stroke: C.ink, width: 2.5 }),
     path('M322,162 L340,170 L360,150 L390,140 L396,108', { stroke: C.red, width: 2, dash: '5 3', arrow: 'end' }),
-    box(270, 225, 210, 40, 'clamp on the housing: current crosses\nthe bearing and pits the races', { fill: C.redSoft, stroke: C.red, size: 11 }),
+    box(270, 225, 210, 40, 'clamp on the housing: current crosses\nthe bearing and pits the races', { fill: C.redSoft, stroke: C.red, size: 10 }),
     caption(500, 290, 'Never across a bearing, gear mesh, hinge, cylinder rod or chain.'),
   ], { title: 'Ground clamp placement' }))
 

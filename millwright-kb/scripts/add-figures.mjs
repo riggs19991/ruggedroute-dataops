@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { globSync } from 'node:fs'
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const manifest = JSON.parse(readFileSync(join(root, 'scripts', 'figures.json'), 'utf8'))
+const credits = existsSync(join(root, 'public', 'photos', 'credits.json')) ? JSON.parse(readFileSync(join(root, 'public', 'photos', 'credits.json'), 'utf8')) : {}
 const files = Object.fromEntries(globSync('content/*/*.md', { cwd: root }).map((f) => [f.replace(/^.*\//, '').replace(/\.md$/, ''), join(root, f)]))
 let inserted = 0, skipped = 0, missing = []
 for (const [slug, figs] of Object.entries(manifest)) {
@@ -13,10 +14,14 @@ for (const [slug, figs] of Object.entries(manifest)) {
   if (!file) { missing.push('article:' + slug); continue }
   let md = readFileSync(file, 'utf8')
   for (const f of figs) {
-    if (!existsSync(join(root, 'public', 'img', f.img))) { missing.push('image:' + f.img); continue }
-    const ref = `![${f.alt}](/img/${f.img})`
-    if (md.includes(`(/img/${f.img})`)) { skipped++; continue }
-    const block = `\n${ref}\n\n*${f.alt}*\n`
+    const isPhoto = !!f.photo
+    const src = isPhoto ? `/photos/${f.photo}` : `/img/${f.img}`
+    if (!existsSync(join(root, 'public', isPhoto ? 'photos' : 'img', isPhoto ? f.photo : f.img))) { missing.push('image:' + (f.photo || f.img)); continue }
+    const ref = `![${f.alt}](${src})`
+    if (md.includes(`(${src})`)) { skipped++; continue }
+    let cap = f.alt
+    if (isPhoto) { const c = credits[f.photo]; if (!c) { missing.push('credit:' + f.photo); continue } cap = `${f.alt}. Photo: ${c.author || 'unknown'}, ${c.license}, via ${String(c.source).replace(/^openverse:/, '')}` }
+    const block = `\n${ref}\n\n*${cap}*\n`
     const lines = md.split('\n')
     let idx = -1
     if (f.after === 'top' || !f.after) {

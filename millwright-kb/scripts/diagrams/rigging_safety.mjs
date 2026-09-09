@@ -43,50 +43,6 @@ fig('rigging/box-crib.svg', 'Box crib: two or three timbers per layer at the out
     caption(500, 240, 'Timbers at the edges, full contact, no overhang, wedges in pairs on top.'),
   ], { title: 'Box crib' }))
 
-// ---------- Sling angles and hitches ----------
-fig('rigging/sling-angles-and-hitches.svg', 'Sling angle multiplies leg tension: 60° × 1.15, 45° × 1.41, 30° × 2.0; vertical, choker (80%) and basket (200%) hitches',
-  svg(500, 300, [
-    text(130, 22, 'Sling angle (from horizontal)', { anchor: 'middle', weight: 700, size: 12 }), rect(40, 150, 180, 30, { fill: C.grey }),
-    ...[[60, C.green, '60°: × 1.15'], [45, C.accentDark, '45°: × 1.41'], [30, C.red, '30°: × 2.00']].map(([a, c, l], i) => { const h = 60 * Math.tan(a * P); return [line(70, 150, 130, 150 - h, { stroke: c, width: 2 }), line(190, 150, 130, 150 - h, { stroke: c, width: 2 }), note(196, 150 - h + 4, l, { size: 10, fill: c, anchor: 'start' })] }),
-    line(40, 150, 220, 150, { dash: '3 3', width: 1, stroke: C.muted }), note(130, 200, 'leg tension = (load ÷ legs) × factor\n2,000 lb on two legs at 30° = 2,000 lb per leg', { anchor: 'middle', size: 10 }),
-    text(370, 22, 'Hitches', { anchor: 'middle', weight: 700, size: 12 }),
-    ...[['Vertical\n100%', (x) => [line(x, 50, x, 110, { width: 3 }), rect(x - 20, 110, 40, 30, { fill: C.grey })]], ['Choker\n80%', (x) => [line(x + 6, 50, x + 6, 100, { width: 3 }), path(`M${x + 6},100 L${x - 22},112 L${x - 22},140 L${x + 22},140 L${x + 22},112 L${x + 6},100`, { width: 3, fill: 'none' }), rect(x - 20, 110, 40, 30, { fill: C.grey })]], ['Basket\n200%', (x) => [line(x - 14, 50, x - 14, 140, { width: 3 }), line(x + 14, 50, x + 14, 140, { width: 3 }), line(x - 14, 140, x + 14, 140, { width: 3 }), rect(x - 20, 110, 40, 30, { fill: C.grey })]]]
-      .map(([n, d], i) => { const x = 300 + i * 70; return [...d(x), text(x, 170, n, { anchor: 'middle', size: 10, weight: 600 })] }),
-    note(370, 215, 'choker angle under 120° derates further;\nbasket needs D/d ≥ 25 for full rating', { anchor: 'middle', size: 9.5 }),
-    caption(500, 300, 'Nothing is rated below 30°. Read the tag for the hitch you are using.'),
-  ], { title: 'Sling angles and hitches' }))
-
-// ---------- Shackle loading ----------
-fig('rigging/shackle-loading.svg', 'Shackle loading: the running sling in the bow, the fixed eye or hook on the pin; side loads derate 45° to 70% and 90° to 50%; mouse the pin',
-  svg(500, 230, [
-    ...[['Right', C.green, 0], ['Side load 45°: 70%', C.accentDark, 45], ['Side load 90°: 50%', C.red, 90]].map(([n, c, a], i) => { const x = 90 + i * 160, y = 120; return [path(`M${x - 25},${y + 20} L${x - 25},${y - 10} A25,25 0 0 1 ${x + 25},${y - 10} L${x + 25},${y + 20}`, { width: 8, stroke: C.steelDark }), rect(x - 32, y + 16, 64, 8, { fill: C.ink }), g([line(0, 0, 0, -70, { stroke: c, width: 4 })], { transform: `translate(${x},${y - 30}) rotate(${-a})` }), text(x, 190, n, { anchor: 'middle', size: 10.5, weight: 600, fill: c })] }),
-    note(250, 40, 'sling bears on the bow, load pulls along the shackle axis', { anchor: 'middle', size: 10 }),
-    caption(500, 230, 'WLL forged on the bow; two slings in one bow: 120° included angle max.'),
-  ], { title: 'Shackle loading' }))
-
-// ---------- Confined space roles ----------
-fig('safety/confined-space-setup.svg', 'Confined space entry: tested atmosphere, blower ducted to the bottom, entrant on a harness and retrieval line, attendant at the opening, supervisor with the permit, rescue on call',
-  svg(500, 300, [
-    rect(120, 100, 260, 160, { fill: C.grey }), rect(220, 80, 60, 20, { fill: C.steelDark }), rect(228, 60, 44, 20, { fill: C.paper, stroke: C.ink }),
-    path('M250,20 L250,62', { width: 2 }), path('M200,20 L300,20 L250,62 Z', { fill: 'none', width: 2 }), circle(250, 30, 6, { fill: C.steelDark }), line(250, 62, 250, 170, { width: 1.5, stroke: C.blue }),
-    circle(250, 180, 10, { fill: C.grey }), line(250, 190, 250, 225, { width: 3 }), line(250, 205, 232, 220, { width: 3 }), line(250, 205, 268, 220, { width: 3 }), rect(244, 192, 12, 20, { fill: C.accent }),
-    rect(40, 120, 50, 40, { fill: C.blueSoft, stroke: C.blue, rx: 4 }), path('M90,140 L120,140 L130,250', { stroke: C.blue, width: 6, fill: 'none' }), line(135, 250, 160, 250, { stroke: C.blue, width: 3, arrow: 'end' }),
-    circle(320, 50, 8, { fill: C.grey }), line(320, 58, 320, 80, { width: 3 }), rect(340, 40, 30, 20, { fill: C.greenSoft, stroke: C.green }), text(355, 54, '20.9', { anchor: 'middle', size: 8 }),
-    ...[[1, 250, 22 - 12], [2, 65, 105], [3, 250, 235], [4, 320, 30], [5, 410, 120]].map(([n, x, y]) => callout(n, x, y, { r: 8 })),
-    legend(392, 140, ['tripod + winch', 'blower to bottom', 'entrant: harness,\nmonitor', 'attendant: never\nenters', 'permit, rescue'], { size: 9, gap: 13 }),
-    caption(500, 300, 'Oxygen 19.5-23.5%, LEL under 10%, H2S under 10 ppm, CO under 25 ppm.'),
-  ], { title: 'Confined space setup' }))
-
-// ---------- Fall clearance ----------
-fig('safety/fall-clearance-and-ladder.svg', 'Fall clearance with a 6 ft lanyard: lanyard 6 + deceleration 3.5 + harness stretch 1 + worker below D-ring 5 + safety 3 = 18.5 ft below the anchor; ladder at 4:1',
-  svg(500, 300, [
-    text(130, 22, 'Fall clearance', { anchor: 'middle', weight: 700 }), rect(40, 40, 200, 12, { fill: C.steelDark }), circle(70, 46, 5, { fill: C.accent }),
-    ...[[52, 100, '6 ft lanyard', C.ink], [100, 128, '3.5 ft deceleration', C.red], [128, 136, '1 ft stretch', C.accentDark], [136, 176, '5 ft to feet', C.blue], [176, 200, '3 ft safety', C.green]].map(([y1, y2, l, c]) => [line(70, y1, 70, y2, { stroke: c, width: 4 }), line(90, y1, 90, y2, { width: 1, arrow: 'both', stroke: c }), text(98, (y1 + y2) / 2 + 4, l, { size: 10, fill: c })]),
-    line(40, 200, 240, 200, { width: 2 }), text(130, 222, '18.5 ft anchor to obstruction', { anchor: 'middle', size: 11, weight: 700 }), note(130, 240, 'anchor at the feet adds up to 6 ft more;\nuse an overhead anchor or an SRL', { anchor: 'middle', size: 9.5 }),
-    text(380, 22, 'Ladder angle 4:1', { anchor: 'middle', weight: 700 }), rect(430, 40, 12, 200, { fill: C.grey }), line(310, 240, 430, 40, { width: 4, stroke: '#8b5a2b' }), line(322, 246, 442, 46, { width: 4, stroke: '#8b5a2b' }), ...[0, 1, 2, 3, 4, 5, 6].map((i) => line(310 + i * 17.1 + 3, 240 - i * 28.6, 322 + i * 17.1 + 3, 246 - i * 28.6, { width: 3, stroke: '#8b5a2b' })),
-    dim(310, 262, 430, 262, '1 out', { size: 10 }), dim(470, 40, 470, 240, '4 up', { size: 10 }), note(380, 288, '3 ft above the landing; tie off the top', { anchor: 'middle', size: 9.5 }),
-  ], { title: 'Fall clearance and ladder' }))
-
 // ---------- First aid priorities ----------
 fig('safety/first-aid-priorities.svg', 'First minute: make the scene safe, call, stop severe bleeding, start CPR and get the AED, then treat and keep warm',
   svg(500, 200, [
@@ -106,16 +62,6 @@ fig('safety/grinder-guard-and-kickback.svg', 'Angle grinder: guard between the w
     note(120, 175, 'wheel rpm rating ≥ grinder rpm;\nType 1 cut-off wheel = closed guard;\nno lock-on trigger for cutting', { anchor: 'middle', size: 10 }),
     caption(500, 240, 'Sparks go down and away from you, gas bottles and rags.'),
   ], { title: 'Grinder guard and kickback' }))
-
-// ---------- Hot work zone ----------
-fig('safety/hot-work-zone.svg', 'Hot work zone: 35 ft (11 m) radius cleared or covered, openings sealed, extinguisher and fire watch present, other side of walls checked',
-  svg(500, 260, [
-    circle(220, 130, 105, { fill: C.soft, stroke: C.accentDark, dash: '6 4' }), circle(220, 130, 8, { fill: C.accent, stroke: C.accentDark }), dim(220, 130, 325, 130, '35 ft', { size: 11 }),
-    rect(150, 60, 30, 20, { fill: C.grey }), line(148, 58, 182, 82, { stroke: C.red, width: 2 }), note(165, 52, 'combustibles out', { anchor: 'middle', size: 9 }),
-    rect(260, 180, 40, 14, { fill: C.steelDark }), note(280, 210, 'floor opening covered', { anchor: 'middle', size: 9 }),
-    circle(330, 200, 8, { fill: C.grey }), line(330, 208, 330, 235, { width: 3 }), rect(342, 212, 10, 20, { fill: C.red }), note(340, 250, 'fire watch + extinguisher, 30-60 min after', { anchor: 'middle', size: 9.5 }),
-    rect(50, 60, 12, 140, { fill: C.steelDark }), note(70, 215, 'wall: check the far side', { anchor: 'middle', size: 9 }), rect(380, 40, 100, 200, { fill: C.grey }), note(430, 140, 'welding blankets\non what cannot\nbe moved', { anchor: 'middle', size: 9.5 }),
-  ], { title: 'Hot work zone' }))
 
 // ---------- Lockout steps ----------
 fig('safety/lockout-steps.svg', 'Lockout in order: notify, identify every energy source, shut down, isolate, lock and tag, release stored energy, verify zero energy, then work',

@@ -16,8 +16,8 @@
 <text x="360" y="111.975" font-size="11" text-anchor="middle" fill="#1a2233"><tspan x="360" dy="0">pump</tspan><tspan x="360" dy="13.75">hot: 180°F</tspan></text>
 <line x1="200" y1="110" x2="300" y2="110" stroke="#0b5fa5" stroke-width="2" stroke-linecap="round"/>
 <line x1="200" y1="100" x2="300" y2="100" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 3" stroke-linecap="round"/>
-<line x1="260" y1="100" x2="260" y2="110" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
-<text x="266" y="109" font-size="10" text-anchor="start" fill="#1a2233">growth</text>
+<line x1="240" y1="100" x2="240" y2="110" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="234" y="109" font-size="10" text-anchor="end" fill="#1a2233">growth</text>
 <text x="250" y="200" font-size="10.5" text-anchor="middle" fill="#5b6577">example: 12 in base to shaft, ΔT = 110°F: 12 × 6.5e-6 × 110 = 0.0086 in</text>
 <text x="250" y="218" font-size="10.5" text-anchor="middle" fill="#b91c1c">so set the pump shaft 0.009 in LOW cold (or the motor 0.009 in high)</text>
 <text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Use the maker’s numbers where given; verify with a hot alignment check.</text>

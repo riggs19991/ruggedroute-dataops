@@ -15,7 +15,7 @@ fig('machining/broken-bolt-nut-weld.svg', 'Broken bolt removal: weld a nut onto 
 // ---------- Drill rpm chart ----------
 {
   const ch = chart({ x: 60, y: 30, w: 400, h: 200, xmin: 0, xmax: 1, ymin: 0, ymax: 3000, xticks: [0, 0.25, 0.5, 0.75, 1], yticks: [0, 500, 1000, 1500, 2000, 2500, 3000], xfmt: (v) => v === 0 ? '0' : ({ 0.25: '1/4', 0.5: '1/2', 0.75: '3/4', 1: '1' }[v]), xlabel: 'Drill diameter (in)', ylabel: 'rpm' })
-  const ln = (sfm, c, n) => { const pts = []; for (let d = 0.11; d <= 1; d += 0.02) pts.push([d, Math.min(3000, 3.82 * sfm / d)]); return [path(pts.map((p, k) => (k ? 'L' : 'M') + ch.sx(p[0]) + ',' + ch.sy(p[1])).join(' '), { stroke: c, width: 2.5 }), text(ch.sx(0.5) + 4, ch.sy(3.82 * sfm / 0.5) - 6, n, { size: 10.5, fill: c, weight: 600 })] }
+  const ln = (sfm, c, n) => { const pts = []; for (let d = 0.11; d <= 1; d += 0.02) pts.push([d, Math.min(3000, 3.82 * sfm / d)]); return [path(pts.map((p, k) => (k ? 'L' : 'M') + ch.sx(p[0]) + ',' + ch.sy(p[1])).join(' '), { stroke: c, width: 2.5 }), text(ch.sx(0.5) + 4, ch.sy(3.82 * sfm / 0.5) + (sfm === 50 ? 16 : -6), n, { size: 10.5, fill: c, weight: 600 })] }
   fig('machining/drill-rpm-chart.svg', 'Drill rpm = 3.82 × SFM ÷ diameter: mild steel 90 SFM, stainless 50, aluminium 300 (HSS)', svg(500, 290, [ch.el, ln(50, C.green, 'stainless 50 SFM'), ln(90, C.blue, 'mild steel 90 SFM'), ln(300, C.accentDark, 'aluminium 300 SFM'), note(250, 275, '1/2 in drill in mild steel: 3.82 × 90 ÷ 0.5 = 690 rpm; halve it for carbon steel over 0.4% C', { anchor: 'middle', size: 10 })], { title: 'Drill rpm chart' }))
 }
 
@@ -24,7 +24,7 @@ fig('machining/bench-grinder-gaps.svg', 'Bench grinder: tool rest within 1/8 in 
   svg(500, 255, [
     circle(200, 120, 80, { fill: C.grey }), circle(200, 120, 15, { fill: C.steelDark }), arc(200, 120, 95, 60, 330, { stroke: C.ink, width: 10 }),
     rect(280, 116, 70, 10, { fill: C.steelDark }), line(280, 116, 280, 100, { width: 1, arrow: 'both', stroke: C.red }), note(292, 100, '1/8 in max', { size: 10, fill: C.red }),
-    path('M200,40 L260,40 L262,52', { stroke: C.steelDark, width: 8 }), line(262, 52, 262, 62, { width: 1, arrow: 'both', stroke: C.red }), note(272, 60, '1/4 in max', { size: 10, fill: C.red }),
+    path('M200,40 L260,40 L262,52', { stroke: C.steelDark, width: 8 }), line(262, 52, 262, 62, { width: 1, arrow: 'both', stroke: C.red }), note(280, 66, '1/4 in max', { size: 10, fill: C.red }),
     note(250, 242, 'readjust the rest and tongue guard as the wheel wears; ring-test wheels first', { anchor: 'middle', size: 10 }),
     note(410, 150, 'exposure: 90° max\n(65° above the\nhorizontal)', { anchor: 'middle', size: 10 }),
   ], { title: 'Bench grinder gaps' }))
@@ -40,15 +40,6 @@ fig('machining/lathe-parts.svg', 'Engine lathe: headstock and chuck, tool post o
     legend(20, 244, [], {}),
     note(20, 240, '1 headstock · 2 chuck · 3 tool post on compound and cross slide · 4 carriage\n5 tailstock · 6 lead screw · 7 feed rod', { size: 9.5 }),
   ], { title: 'Lathe parts' }))
-
-// ---------- Tramming and keyway ----------
-fig('machining/tram-and-keyway.svg', 'Tramming the mill head: sweep an indicator on the table in a 10 in circle, both axes, to zero; cut a shaft keyway to depth W/2 centred with an edge finder',
-  svg(500, 250, [
-    text(130, 22, 'Tramming the head', { anchor: 'middle', weight: 700 }), rect(30, 170, 200, 16, { fill: C.grey }), rect(100, 60, 60, 60, { fill: C.steelDark, rx: 4 }), line(130, 120, 130, 150, { width: 3 }), path('M130,150 L180,150 L180,168', { width: 2 }), circle(180, 158, 8, { fill: C.paper }),
-    arc(130, 170, 50, 180, 360, { stroke: C.blue, width: 1, dash: '4 3', arrow: 'end' }), note(130, 205, 'sweep 180° front-back and side-side;\nadjust the head until the reading repeats', { anchor: 'middle', size: 9.5 }),
-    text(370, 22, 'Shaft keyway', { anchor: 'middle', weight: 700 }), circle(370, 120, 55, { fill: C.steel }), rect(352, 65, 36, 30, { fill: C.paper, stroke: C.ink }), dim(352, 58, 388, 58, 'W', { size: 10 }), dim(400, 65, 400, 95, 'W/2 + a hair', { size: 10 }),
-    poly([[370, 20], [376, 30], [364, 30]], { fill: C.ink }), note(370, 205, 'edge-find both sides, centre = half the shaft\ndiameter; cut in 2-3 passes; deburr', { anchor: 'middle', size: 9.5 }),
-  ], { title: 'Tramming and keyway' }))
 
 // ---------- Tap drill and tap types ----------
 fig('machining/tap-drill-and-tap-types.svg', 'Tap drill gives 75% thread (full strength, half the torque to tap); taper, plug and bottoming taps by chamfer length',
@@ -104,7 +95,7 @@ fig('fasteners/locking-methods.svg', 'Locking methods: prevailing torque (nylon 
 // ---------- Thread identification ----------
 fig('fasteners/thread-identification.svg', 'Identify a thread: measure the major diameter with calipers, match the pitch gauge, note taper for NPT; UNC/UNF, metric coarse/fine and pipe threads look alike',
   svg(500, 240, [
-    rect(40, 90, 200, 30, { fill: C.steel }), ...Array.from({ length: 12 }, (_, i) => poly([[48 + i * 16, 90], [56 + i * 16, 80], [64 + i * 16, 90]], { fill: C.steel, stroke: C.ink })), dim(48, 70, 64, 70, 'pitch', { size: 10 }), line(255, 80, 255, 120, { width: 1, arrow: 'both' }), text(255, 72, 'major dia.', { anchor: 'middle', size: 10 }),
+    rect(40, 90, 200, 30, { fill: C.steel }), ...Array.from({ length: 12 }, (_, i) => poly([[48 + i * 16, 90], [56 + i * 16, 80], [64 + i * 16, 90]], { fill: C.steel, stroke: C.ink })), dim(48, 70, 64, 70, 'pitch', { size: 10 }), line(255, 80, 255, 120, { width: 1, arrow: 'both' }), text(258, 132, 'major dia.', { anchor: 'middle', size: 10 }),
     rect(60, 130, 120, 14, { fill: C.grey }), ...Array.from({ length: 10 }, (_, i) => poly([[66 + i * 12, 130], [72 + i * 12, 122], [78 + i * 12, 130]], { fill: C.grey, stroke: C.ink })), note(125, 160, 'pitch gauge blade: no light showing', { anchor: 'middle', size: 9.5 }),
     table(280, 40, [['Thread', 'Example', 'Tell-tale'], ['UNC', '1/2-13', '13 TPI'], ['UNF', '1/2-20', '20 TPI'], ['Metric', 'M12 × 1.75', 'pitch in mm'], ['NPT', '1/2-14 NPT', 'taper, 0.840 OD'], ['BSPP (G)', 'G 1/2', '55°, straight']], [55, 72, 85], { rowH: 20, size: 9.5 }),
     caption(500, 240, '1/2 NPT is 0.840 in OD, not 0.500: pipe sizes are nominal.'),

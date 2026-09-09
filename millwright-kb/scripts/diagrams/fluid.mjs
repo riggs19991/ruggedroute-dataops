@@ -75,21 +75,9 @@ fig('hydraulics/accumulator-precharge.svg', 'Bladder accumulator: nitrogen only,
     caption(500, 280, 'Bleed-down valve before any hydraulic work; accumulator = stored energy.'),
   ], { title: 'Accumulator precharge' }))
 
-// ---------- Cylinder seals ----------
-fig('hydraulics/cylinder-seal-orientation.svg', 'Cylinder seals: wiper lip out, rod seal lip toward the pressure, wear rings each side of the piston seal, piston seals face their own pressure side',
-  svg(500, 240, [
-    rect(40, 70, 400, 100, { fill: C.grey }), rect(60, 84, 360, 72, { fill: C.soft, stroke: 'none' }), rect(200, 110, 300, 20, { fill: C.steel }), rect(250, 84, 40, 72, { fill: C.steelDark }),
-    rect(400, 84, 40, 72, { fill: C.grey }), rect(400, 100, 40, 40, { fill: C.paper, stroke: 'none' }),
-    ...[[406, 'wiper', '#333', 1], [418, 'rod seal', C.blue, -1], [430, 'bearing', C.brass, 0]].map(([x, n, c, d]) => [rect(x, 100, 8, 10, { fill: c }), rect(x, 130, 8, 10, { fill: c }), d ? line(x + 4, 96, x + 4 + d * 6, 92, { stroke: c, width: 2, arrow: 'end' }) : '']),
-    rect(256, 84, 6, 72, { fill: C.brass }), rect(278, 84, 6, 72, { fill: C.brass }), rect(266, 84, 8, 6, { fill: C.blue }), rect(266, 150, 8, 6, { fill: C.blue }),
-    callout(1, 410, 60), callout(2, 422, 180), callout(3, 434, 60), callout(4, 259, 60), callout(5, 270, 180),
-    note(20, 205, '1 wiper: lip OUT · 2 rod seal: lip IN toward the oil · 3 gland bearing / wear ring', { size: 9.5 }),
-    note(20, 222, '4 piston wear rings both sides  ·  5 piston seal: T-seal or two U-cups back to back', { size: 10 }),
-  ], { title: 'Cylinder seal orientation' }))
-
 // ---------- ISO cleanliness ----------
 {
-  const rows = [['ISO 4406 code', 'Particles/mL >4 µm / >6 µm / >14 µm', 'Typical target'], ['22/20/17', '20,000-40,000 / 5,000-10,000 / 640-1,300', 'new oil from the drum (dirty!)'], ['20/18/15', '5,000-10,000 / 1,300-2,500 / 160-320', 'gear pumps, low pressure'], ['18/16/13', '1,300-2,500 / 320-640 / 40-80', 'general hydraulics, piston'], ['16/14/11', '320-640 / 80-160 / 10-20', 'servo and proportional valves'], ['14/12/9', '80-160 / 20-40 / 2.5-5', 'high-pressure servo systems']]
+  const rows = [['ISO code', 'Particles/mL >4 µm / >6 µm / >14 µm', 'Typical target'], ['22/20/17', '20,000-40,000 / 5,000-10,000 / 640-1,300', 'new oil from the drum (dirty!)'], ['20/18/15', '5,000-10,000 / 1,300-2,500 / 160-320', 'gear pumps, low pressure'], ['18/16/13', '1,300-2,500 / 320-640 / 40-80', 'general hydraulics, piston'], ['16/14/11', '320-640 / 80-160 / 10-20', 'servo and proportional valves'], ['14/12/9', '80-160 / 20-40 / 2.5-5', 'high-pressure servo systems']]
   fig('hydraulics/iso-4406-codes.svg', 'ISO 4406 cleanliness codes: each step up doubles the particle count; new oil is often dirtier than the system needs',
     svg(500, 230, [text(250, 22, 'ISO 4406 cleanliness code: three numbers = counts at 4, 6 and 14 µm', { anchor: 'middle', weight: 700, size: 11.5 }), table(20, 36, rows, [78, 236, 166], { rowH: 24, size: 9.5 }), caption(500, 230, 'Filter new oil going in; sample from a live line at mid-level, running.')], { title: 'ISO 4406 codes' }))
 }
@@ -158,7 +146,7 @@ fig('lubrication/regrease-quantity.svg', 'Regrease quantity: G (grams) = 0.005 �
 {
   const ch = chart({ x: 60, y: 30, w: 400, h: 190, xmin: 40, xmax: 210, ymin: 0.5, ymax: 3.2, xticks: [40, 100, 150, 210], yticks: [1, 1.5, 2, 2.5, 3], xlabel: 'Oil temperature (°F)', ylabel: 'viscosity cSt (log)', yfmt: (v) => Math.round(10 ** v) })
   const lines = [[32, C.blue], [68, C.green], [150, C.accentDark], [320, C.red]].map(([vg, c]) => { const pts = [[40, Math.log10(vg * 2.8)], [104, Math.log10(vg)], [150, Math.log10(vg * 0.42)], [210, Math.log10(vg * 0.15)]]; return [path(pts.map((p, k) => (k ? 'L' : 'M') + ch.sx(p[0]) + ',' + ch.sy(p[1])).join(' '), { stroke: c, width: 2.5 }), text(ch.sx(42), ch.sy(Math.log10(vg * 2.8)) - 6, 'VG ' + vg, { size: 10, fill: c, weight: 600 })] })
-  fig('lubrication/viscosity-vs-temperature.svg', 'Viscosity falls fast with temperature: an ISO VG 150 gear oil at 150°F is thinner than VG 68 at 100°F', svg(500, 280, [ch.el, lines, rect(ch.sx(100), ch.sy(1.3), ch.sx(210) - ch.sx(100), ch.sy(1.0) - ch.sy(1.3), { fill: C.redSoft, stroke: 'none', opacity: 0.6 }), text(ch.sx(160), ch.sy(1.12), 'below 10-13 cSt: film too thin', { anchor: 'middle', size: 10, fill: C.red }), caption(500, 280, 'Pick the grade for the running temperature, not the room temperature.')], { title: 'Viscosity vs temperature' }))
+  fig('lubrication/viscosity-vs-temperature.svg', 'Viscosity falls fast with temperature: an ISO VG 150 gear oil at 150°F is thinner than VG 68 at 100°F', svg(500, 280, [ch.el, lines, rect(ch.sx(100), ch.sy(1.3), ch.sx(210) - ch.sx(100), ch.sy(1.0) - ch.sy(1.3), { fill: C.redSoft, stroke: 'none', opacity: 0.6 }), text(ch.sx(70), ch.sy(1.08), 'below 10-13 cSt: film too thin', { anchor: 'middle', size: 10, fill: C.red }), caption(500, 280, 'Pick the grade for the running temperature, not the room temperature.')], { title: 'Viscosity vs temperature' }))
 }
 
 // ---------- Oil sampling point ----------

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 420" width="500" height="420" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
 <title>Oxy-fuel flame types</title>
 <defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
@@ -7,22 +7,69 @@
 <pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
 <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
 </defs>
-<rect width="500" height="250" fill="#ffffff"/>
-<rect x="30" y="40" width="40" height="20" fill="#b87333" stroke="#b45309" stroke-width="1.5"/>
-<path d="M70,42 L120,47 L120,53 L70,58 Z" fill="#eaf3ff" stroke="#0b5fa5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M70,45 L160,48 L160,52 L70,55 Z" fill="none" stroke="#9bd" stroke-width="1.5" stroke-dasharray="2 2" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M70,38 L300,50 L70,62 Z" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="318" y="42" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Carburising (excess C2H2)</text>
-<text x="318" y="58" font-size="9.5" text-anchor="start" fill="#5b6577"><tspan x="318" dy="0">feather past the cone;</tspan><tspan x="318" dy="11.875">hardfacing, bronze</tspan></text>
-<rect x="30" y="108" width="40" height="20" fill="#b87333" stroke="#b45309" stroke-width="1.5"/>
-<path d="M70,110 L120,115 L120,121 L70,126 Z" fill="#eaf3ff" stroke="#0b5fa5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M70,106 L300,118 L70,130 Z" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="318" y="110" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Neutral (1:1)</text>
-<text x="318" y="126" font-size="9.5" text-anchor="start" fill="#5b6577"><tspan x="318" dy="0">sharp cone, no feather;</tspan><tspan x="318" dy="11.875">cut, weld, heat</tspan></text>
-<rect x="30" y="176" width="40" height="20" fill="#b87333" stroke="#b45309" stroke-width="1.5"/>
-<path d="M70,180 L102,184 L102,188 L70,192 Z" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M70,176 L240,186 L70,196 Z" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="318" y="178" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">Oxidising (excess O2)</text>
-<text x="318" y="194" font-size="9.5" text-anchor="start" fill="#5b6577"><tspan x="318" dy="0">short hissing cone;</tspan><tspan x="318" dy="11.875">brass only, burns steel</tspan></text>
-<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Set neutral by adding oxygen until the feather just disappears into the cone.</text>
+<rect width="500" height="420" fill="#ffffff"/>
+<rect x="20" y="12" width="460" height="220" fill="#0f1b2d" stroke="#1a2233" stroke-width="1.5" rx="8"/>
+<rect x="30" y="44" width="40" height="12" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="16" y="41" width="14" height="18" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="64" y="46" width="6" height="8" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M70,37.65 C136.5,36.415 222,43.825 260,50 C222,56.175 136.5,63.585 70,62.35Z" fill="rgba(120,175,255,0.34)" stroke="rgba(160,200,255,0.7)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70,41.45 C110.375,44.015 138.6375,47.8625 150.75,50 C138.6375,52.1375 110.375,55.985 70,58.55Z" fill="rgba(255,250,235,0.8)" stroke="rgba(255,240,200,0.95)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70,44.3 C84.25,46.01 94.225,48.575 98.5,50 C94.225,51.425 84.25,53.99 70,55.7Z" fill="#eaf6ff" stroke="#8ec5ff" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="290" y="38" font-size="11" text-anchor="start" font-weight="700" fill="#f5f7fa">Carburising (extra acetylene)</text>
+<text x="292" y="54" font-size="9.5" text-anchor="start" fill="#c9d3e0"><tspan x="292" dy="0">white feather around the cone;</tspan><tspan x="292" dy="11.875">hardfacing, bronze, aluminium</tspan></text>
+<rect x="30" y="112" width="40" height="12" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="16" y="109" width="14" height="18" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="64" y="114" width="6" height="8" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M70,107.55 C126.525,106.505 199.20000000000002,112.775 231.5,118 C199.20000000000002,123.225 126.525,129.495 70,128.45Z" fill="rgba(120,175,255,0.34)" stroke="rgba(160,200,255,0.7)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70,112.3 C83.3,114.01 92.61,116.575 96.6,118 C92.61,119.425 83.3,121.99 70,123.7Z" fill="#eaf6ff" stroke="#8ec5ff" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="290" y="106" font-size="11" text-anchor="start" font-weight="700" fill="#f5f7fa">Neutral (1:1)</text>
+<text x="292" y="122" font-size="9.5" text-anchor="start" fill="#c9d3e0"><tspan x="292" dy="0">sharp bright inner cone, no feather;</tspan><tspan x="292" dy="11.875">cutting, welding, heating</tspan></text>
+<rect x="30" y="180" width="40" height="12" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="16" y="177" width="14" height="18" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="64" y="182" width="6" height="8" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M70,177.45 C109.9,176.595 161.2,181.725 184,186 C161.2,190.275 109.9,195.405 70,194.55Z" fill="rgba(120,175,255,0.28)" stroke="rgba(160,200,255,0.7)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70,181.25 C79.5,182.675 86.15,184.8125 89,186 C86.15,187.1875 79.5,189.325 70,190.75Z" fill="#f0f4ff" stroke="#a8b8ff" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="290" y="174" font-size="11" text-anchor="start" font-weight="700" fill="#f5f7fa">Oxidising (excess oxygen)</text>
+<text x="292" y="190" font-size="9.5" text-anchor="start" fill="#c9d3e0"><tspan x="292" dy="0">short pointed cone, harsh hiss;</tspan><tspan x="292" dy="11.875">brass only, it burns steel</tspan></text>
+<text x="250" y="258" font-size="12.5" text-anchor="middle" font-weight="700" fill="#1a2233">Dialing in a neutral flame</text>
+<rect x="22" y="272" width="110" height="108" fill="#0f1b2d" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<circle cx="34" cy="284" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="34" y="288" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text>
+<rect x="30" y="302" width="16" height="8" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="16" y="299" width="14" height="14" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="40" y="304" width="6" height="4" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M46,302.4 C62,295.6 94,294 106,303.6 C98,310 70,311.6 46,309.6Z" fill="#f7b733" stroke="#e08a00" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90" cy="297.2" r="0.8800000000000001" fill="#333" stroke="none" stroke-width="1.5"/>
+<circle cx="97.2" cy="294" r="0.8800000000000001" fill="#333" stroke="none" stroke-width="1.5"/>
+<circle cx="104.4" cy="297.2" r="0.8800000000000001" fill="#333" stroke="none" stroke-width="1.5"/>
+<circle cx="111.60000000000001" cy="294" r="0.8800000000000001" fill="#333" stroke="none" stroke-width="1.5"/>
+<text x="77" y="342" font-size="8.4" text-anchor="middle" fill="#e7ebf1"><tspan x="77" dy="0">Open acetylene 1/4 turn</tspan><tspan x="77" dy="10.5">and light it: yellow,</tspan><tspan x="77" dy="10.5">smoky, soot in the air</tspan></text>
+<rect x="137" y="272" width="110" height="108" fill="#0f1b2d" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<circle cx="149" cy="284" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="149" y="288" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text>
+<rect x="145" y="302" width="16" height="8" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="131" y="299" width="14" height="14" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="155" y="304" width="6" height="4" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M161,301.5 C181,293 221,291 236,303 C226,311 191,313 161,310.5Z" fill="#f7b733" stroke="#e08a00" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="216" cy="295" r="1.1" fill="#333" stroke="none" stroke-width="1.5"/>
+<circle cx="225" cy="291" r="1.1" fill="#333" stroke="none" stroke-width="1.5"/>
+<circle cx="234" cy="295" r="1.1" fill="#333" stroke="none" stroke-width="1.5"/>
+<circle cx="243" cy="291" r="1.1" fill="#333" stroke="none" stroke-width="1.5"/>
+<text x="192" y="342" font-size="8.4" text-anchor="middle" fill="#e7ebf1"><tspan x="192" dy="0">Add acetylene until</tspan><tspan x="192" dy="10.5">the soot clears and the</tspan><tspan x="192" dy="10.5">flame lifts off the tip</tspan></text>
+<rect x="252" y="272" width="110" height="108" fill="#0f1b2d" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<circle cx="264" cy="284" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="264" y="288" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text>
+<rect x="260" y="302" width="16" height="8" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="246" y="299" width="14" height="14" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="270" y="304" width="6" height="4" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M276,301.32 C301.2,300.852 333.6,303.66 348,306 C333.6,308.34 301.2,311.148 276,310.68Z" fill="rgba(120,175,255,0.34)" stroke="rgba(160,200,255,0.7)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M276,302.76 C291.3,303.732 302.01,305.19 306.6,306 C302.01,306.81 291.3,308.268 276,309.24Z" fill="rgba(255,250,235,0.8)" stroke="rgba(255,240,200,0.95)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M276,303.84 C281.4,304.488 285.18,305.46 286.8,306 C285.18,306.54 281.4,307.512 276,308.16Z" fill="#eaf6ff" stroke="#8ec5ff" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="307" y="342" font-size="8.4" text-anchor="middle" fill="#e7ebf1"><tspan x="307" dy="0">Open the oxygen: an</tspan><tspan x="307" dy="10.5">inner cone and a white</tspan><tspan x="307" dy="10.5">feather appear</tspan></text>
+<rect x="367" y="272" width="110" height="108" fill="#0f1b2d" stroke="#1a2233" stroke-width="1.5" rx="6"/>
+<circle cx="379" cy="284" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="379" y="288" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text>
+<rect x="375" y="302" width="16" height="8" fill="#d4a017" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="361" y="299" width="14" height="14" fill="#b87333" stroke="#b45309" stroke-width="1.5" rx="2"/>
+<rect x="385" y="304" width="6" height="4" fill="#8a5a1a" stroke="none" stroke-width="1.5"/>
+<path d="M391,302.04 C412.42,301.644 439.96,304.02 452.2,306 C439.96,307.98 412.42,310.356 391,309.96Z" fill="rgba(120,175,255,0.34)" stroke="rgba(160,200,255,0.7)" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M391,303.84 C396.04,304.488 399.568,305.46 401.08,306 C399.568,306.54 396.04,307.512 391,308.16Z" fill="#eaf6ff" stroke="#8ec5ff" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="422" y="342" font-size="8.4" text-anchor="middle" fill="#e7ebf1"><tspan x="422" dy="0">Add oxygen until the</tspan><tspan x="422" dy="10.5">feather just disappears:</tspan><tspan x="422" dy="10.5">neutral flame</tspan></text>
+<text x="250" y="412" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Neutral is the reference: less oxygen carburises, more oxidises.</text>
 </svg>

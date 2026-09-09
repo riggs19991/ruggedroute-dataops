@@ -22,6 +22,7 @@ import { AuthReset } from './pages/AuthReset'
 import { Privacy } from './pages/Privacy'
 import { Terms } from './pages/Terms'
 import { SupportPage } from './pages/Support'
+import { CreditsPage } from './pages/Credits'
 import { registerSW } from 'virtual:pwa-register'
 
 function RequireAuth({ children }: { children: React.ReactElement }) {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/support" element={<SupportPage />} />
+        <Route path="/credits" element={<CreditsPage />} />
         <Route path="/contribute" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/contribute/:slug" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />

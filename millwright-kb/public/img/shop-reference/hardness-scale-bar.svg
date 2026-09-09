@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" width="500" height="240" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
 <title>Hardness scale bar</title>
 <defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
@@ -7,41 +7,70 @@
 <pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
 <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
 </defs>
-<rect width="500" height="240" fill="#ffffff"/>
-<rect x="60" y="40" width="380" height="24" fill="url(#hatch)" stroke="#1a2233" stroke-width="1.5"/>
-<line x1="60" y1="64" x2="60" y2="72" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
-<text x="60" y="84" font-size="10" text-anchor="middle" fill="#1a2233">20</text>
-<line x1="144.39999999999998" y1="64" x2="144.39999999999998" y2="72" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
-<text x="144.39999999999998" y="84" font-size="10" text-anchor="middle" fill="#1a2233">30</text>
-<line x1="228.79999999999998" y1="64" x2="228.79999999999998" y2="72" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
-<text x="228.79999999999998" y="84" font-size="10" text-anchor="middle" fill="#1a2233">40</text>
-<line x1="313.2" y1="64" x2="313.2" y2="72" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
-<text x="313.2" y="84" font-size="10" text-anchor="middle" fill="#1a2233">50</text>
-<line x1="397.59999999999997" y1="64" x2="397.59999999999997" y2="72" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
-<text x="397.59999999999997" y="84" font-size="10" text-anchor="middle" fill="#1a2233">60</text>
-<line x1="439.79999999999995" y1="64" x2="439.79999999999995" y2="72" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
-<text x="439.79999999999995" y="84" font-size="10" text-anchor="middle" fill="#1a2233">65</text>
-<text x="30" y="56" font-size="10.5" text-anchor="end" font-weight="700" fill="#1a2233">HRC</text>
-<text x="60" y="106" font-size="10" text-anchor="middle" fill="#1a2233">226</text>
-<text x="144.39999999999998" y="106" font-size="10" text-anchor="middle" fill="#1a2233">286</text>
-<text x="228.79999999999998" y="106" font-size="10" text-anchor="middle" fill="#1a2233">371</text>
-<text x="313.2" y="106" font-size="10" text-anchor="middle" fill="#1a2233">481</text>
-<text x="397.59999999999997" y="106" font-size="10" text-anchor="middle" fill="#1a2233">654</text>
-<text x="30" y="106" font-size="10.5" text-anchor="end" font-weight="700" fill="#1a2233">HB</text>
-<text x="60" y="126" font-size="10" text-anchor="middle" fill="#1a2233">107 ksi</text>
-<text x="144.39999999999998" y="126" font-size="10" text-anchor="middle" fill="#1a2233">138 ksi</text>
-<text x="228.79999999999998" y="126" font-size="10" text-anchor="middle" fill="#1a2233">182 ksi</text>
-<text x="313.2" y="126" font-size="10" text-anchor="middle" fill="#1a2233">246 ksi</text>
-<text x="30" y="126" font-size="10.5" text-anchor="end" font-weight="700" fill="#1a2233">ksi</text>
-<line x1="76.88" y1="40" x2="76.88" y2="150" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
-<text x="80.88" y="154" font-size="9.5" text-anchor="start" fill="#0b5fa5">A36 (HB 140) is below this scale</text>
-<line x1="144.39999999999998" y1="40" x2="144.39999999999998" y2="166" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
-<text x="148.39999999999998" y="170" font-size="9.5" text-anchor="start" fill="#0b5fa5">4140 pre-hard</text>
-<line x1="211.92" y1="40" x2="211.92" y2="182" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
-<text x="215.92" y="186" font-size="9.5" text-anchor="start" fill="#0b5fa5">Grade 8 bolt, AR400</text>
-<line x1="313.2" y1="40" x2="313.2" y2="198" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
-<text x="317.2" y="202" font-size="9.5" text-anchor="start" fill="#0b5fa5">flame-hardened journal</text>
-<line x1="397.59999999999997" y1="40" x2="397.59999999999997" y2="214" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
-<text x="401.59999999999997" y="218" font-size="9.5" text-anchor="start" fill="#0b5fa5">bearing race</text>
-<text x="250" y="232" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Tensile (ksi) ≈ 0.5 × HB. Files skate at about 60 HRC.</text>
+<rect width="500" height="250" fill="#ffffff"/>
+<text x="250" y="22" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Rockwell C ↔ Brinell ↔ tensile (approx.)</text>
+<rect x="64" y="60" width="40.6" height="22" fill="hsl(210, 70%, 88%)" stroke="none" stroke-width="1.5"/>
+<rect x="104.6" y="60" width="40.6" height="22" fill="hsl(190, 70%, 83%)" stroke="none" stroke-width="1.5"/>
+<rect x="145.2" y="60" width="40.6" height="22" fill="hsl(170, 70%, 78%)" stroke="none" stroke-width="1.5"/>
+<rect x="185.8" y="60" width="40.6" height="22" fill="hsl(150, 70%, 73%)" stroke="none" stroke-width="1.5"/>
+<rect x="226.4" y="60" width="40.6" height="22" fill="hsl(130, 70%, 68%)" stroke="none" stroke-width="1.5"/>
+<rect x="267" y="60" width="40.6" height="22" fill="hsl(110, 70%, 63%)" stroke="none" stroke-width="1.5"/>
+<rect x="307.6" y="60" width="40.6" height="22" fill="hsl(90, 70%, 58%)" stroke="none" stroke-width="1.5"/>
+<rect x="348.2" y="60" width="40.6" height="22" fill="hsl(70, 70%, 53%)" stroke="none" stroke-width="1.5"/>
+<rect x="388.8" y="60" width="40.6" height="22" fill="hsl(50, 70%, 48%)" stroke="none" stroke-width="1.5"/>
+<rect x="429.4" y="60" width="40.6" height="22" fill="hsl(30, 70%, 43%)" stroke="none" stroke-width="1.5"/>
+<rect x="64" y="60" width="406" height="22" fill="none" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="64" y1="54" x2="64" y2="60" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="64" y="50" font-size="10.5" text-anchor="middle" font-weight="700" fill="#1a2233">20</text>
+<line x1="145.2" y1="54" x2="145.2" y2="60" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="145.2" y="50" font-size="10.5" text-anchor="middle" font-weight="700" fill="#1a2233">30</text>
+<line x1="226.4" y1="54" x2="226.4" y2="60" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="226.4" y="50" font-size="10.5" text-anchor="middle" font-weight="700" fill="#1a2233">40</text>
+<line x1="307.6" y1="54" x2="307.6" y2="60" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="307.6" y="50" font-size="10.5" text-anchor="middle" font-weight="700" fill="#1a2233">50</text>
+<line x1="388.8" y1="54" x2="388.8" y2="60" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="388.8" y="50" font-size="10.5" text-anchor="middle" font-weight="700" fill="#1a2233">60</text>
+<line x1="470" y1="54" x2="470" y2="60" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="470" y="50" font-size="10.5" text-anchor="middle" font-weight="700" fill="#1a2233">70</text>
+<text x="58" y="50" font-size="9.5" text-anchor="end" fill="#5b6577">HRC</text>
+<line x1="64" y1="82" x2="64" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="64" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">226</text>
+<line x1="104.6" y1="82" x2="104.6" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="104.6" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">253</text>
+<line x1="145.2" y1="82" x2="145.2" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="145.2" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">286</text>
+<line x1="185.8" y1="82" x2="185.8" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="185.8" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">327</text>
+<line x1="226.4" y1="82" x2="226.4" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="226.4" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">371</text>
+<line x1="267" y1="82" x2="267" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="267" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">421</text>
+<line x1="307.6" y1="82" x2="307.6" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="307.6" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">481</text>
+<line x1="348.2" y1="82" x2="348.2" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="348.2" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">560</text>
+<line x1="388.8" y1="82" x2="388.8" y2="88" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="388.8" y="100" font-size="9.5" text-anchor="middle" fill="#1a2233">654</text>
+<text x="58" y="100" font-size="9.5" text-anchor="end" fill="#5b6577">HB</text>
+<text x="64" y="116" font-size="9.5" text-anchor="middle" fill="#5b6577">113</text>
+<text x="145.2" y="116" font-size="9.5" text-anchor="middle" fill="#5b6577">143</text>
+<text x="226.4" y="116" font-size="9.5" text-anchor="middle" fill="#5b6577">186</text>
+<text x="307.6" y="116" font-size="9.5" text-anchor="middle" fill="#5b6577">241</text>
+<text x="388.8" y="116" font-size="9.5" text-anchor="middle" fill="#5b6577">327</text>
+<text x="58" y="116" font-size="9.5" text-anchor="end" fill="#5b6577">ksi</text>
+<line x1="80.24000000000001" y1="82" x2="80.24000000000001" y2="144" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<text x="80.24000000000001" y="154" font-size="9.5" text-anchor="middle" fill="#0b5fa5">4140 pre-hard</text>
+<line x1="169.56" y1="82" x2="169.56" y2="162" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<text x="169.56" y="172" font-size="9.5" text-anchor="middle" fill="#0b5fa5">Grade 8 bolt</text>
+<line x1="226.4" y1="82" x2="226.4" y2="144" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<text x="226.4" y="154" font-size="9.5" text-anchor="middle" fill="#0b5fa5">AR400 plate</text>
+<line x1="348.2" y1="82" x2="348.2" y2="162" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<text x="348.2" y="172" font-size="9.5" text-anchor="middle" fill="#0b5fa5">flame-hardened journal</text>
+<line x1="405.03999999999996" y1="82" x2="405.03999999999996" y2="144" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<text x="405.03999999999996" y="154" font-size="9.5" text-anchor="middle" fill="#0b5fa5">bearing race</text>
+<line x1="437.52000000000004" y1="82" x2="437.52000000000004" y2="162" stroke="#0b5fa5" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<text x="437.52000000000004" y="172" font-size="9.5" text-anchor="middle" fill="#0b5fa5">HSS drill</text>
+<text x="250" y="200" font-size="9.5" text-anchor="middle" fill="#5b6577">A36 (HB 140, about 65 ksi) is below the left end of this bar</text>
+<text x="250" y="216" font-size="9.5" text-anchor="middle" fill="#5b6577">a file (about 62 HRC) skates on anything harder than 60 HRC</text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Tensile (ksi) ≈ 0.5 × HB. Conversions are approximate: test the part.</text>
 </svg>

@@ -41,6 +41,6 @@
 <circle cx="161.2" cy="34" r="4" fill="#b91c1c" stroke="none" stroke-width="1.5"/>
 <text x="169.2" y="26" font-size="11" text-anchor="start" fill="#1a2233">160 A: continuous</text>
 <circle cx="374" cy="174" r="4" fill="#b91c1c" stroke="none" stroke-width="1.5"/>
-<text x="366" y="166" font-size="11" text-anchor="end" fill="#1a2233">300 A: 28% = 2.8 min in 10</text>
+<text x="368" y="194" font-size="11" text-anchor="end" fill="#1a2233">300 A: 28% = 2.8 min in 10</text>
 <text x="250" y="275" font-size="12" text-anchor="middle" fill="#5b6577">duty at I ≈ rated duty × (I rated ÷ I)²</text>
 </svg>

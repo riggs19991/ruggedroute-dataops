@@ -1,24 +1,5 @@
 import { svg, text, line, rect, circle, path, poly, g, dim, angle, arc, plate, chart, table, caption, box, callout, legend, note, fig, C } from './lib.mjs'
 
-// ---------- Joint types and groove terms ----------
-fig('welding/joint-types.svg', 'The five basic joints and the groove terms',
-  svg(500, 330, [
-    ...[['Butt', (x, y) => [plate(x - 50, y, 46, 14), plate(x + 4, y, 46, 14), path(`M${x - 4},${y} Q${x},${y - 8} ${x + 4},${y}`, { stroke: C.weld, width: 5 })]],
-      ['T (fillet)', (x, y) => [plate(x - 50, y, 100, 14), plate(x - 7, y - 50, 14, 50), path(`M${x - 7},${y} L${x - 22},${y} L${x - 7},${y - 15} Z`, { fill: C.weld, stroke: C.accentDark }), path(`M${x + 7},${y} L${x + 22},${y} L${x + 7},${y - 15} Z`, { fill: C.weld, stroke: C.accentDark })]],
-      ['Lap', (x, y) => [plate(x - 50, y, 70, 14), plate(x - 20, y - 14, 70, 14), path(`M${x + 20},${y} L${x + 34},${y} L${x + 20},${y - 14} Z`, { fill: C.weld, stroke: C.accentDark })]],
-      ['Corner', (x, y) => [plate(x - 40, y, 80, 14), plate(x + 26, y - 50, 14, 50), path(`M${x + 26},${y - 50} L${x + 40},${y - 50} L${x + 40},${y - 36} Z`, { fill: C.weld, stroke: C.accentDark })]],
-      ['Edge', (x, y) => [plate(x - 12, y - 50, 12, 64), plate(x, y - 50, 12, 64), path(`M${x - 12},${y - 50} Q${x},${y - 58} ${x + 12},${y - 50}`, { stroke: C.weld, width: 5 })]]]
-      .map(([n, draw], i) => { const x = 60 + i * 95, y = 90; return [text(x, 24, n, { anchor: 'middle', weight: 700, size: 12.5 }), ...draw(x, y)] }),
-    // groove terms: single-V butt
-    text(250, 150, 'Single-V groove terms', { anchor: 'middle', weight: 700 }),
-    poly([[60, 190], [200, 190], [232, 260], [232, 275], [60, 275]], { fill: C.steel }), poly([[440, 190], [300, 190], [268, 260], [268, 275], [440, 275]], { fill: C.steel }),
-    angle(250, 175, 40, 65, 115, ''), text(250, 172, '60° groove angle', { anchor: 'middle', size: 11, fill: C.blue }),
-    dim(232, 292, 268, 292, 'root opening 1/16-1/8 in', { size: 11 }), line(268, 267, 300, 258, { width: 1, stroke: C.blue }), text(304, 262, 'root face 1/16-1/8 in', { size: 11, fill: C.blue }),
-    angle(200, 190, 34, 90, 65, ''), text(178, 232, '30° bevel', { size: 11, fill: C.blue, anchor: 'end' }),
-    dim(450, 190, 450, 275, 'T', { size: 11 }),
-    note(250, 318, 'Root face stops burn-through; root opening lets the root fuse.', { anchor: 'middle' }),
-  ], { title: 'Weld joint types' }))
-
 // ---------- Positions ----------
 fig('welding/positions.svg', 'Welding positions for plate and pipe',
   svg(500, 330, [
@@ -69,40 +50,6 @@ fig('welding/heat-tint-scale.svg', 'Stainless heat tint: what the colour of the 
     caption(500, 200, 'Titanium: silver only. Corrosive service: remove blue and darker.'),
   ], { title: 'Heat tint scale' }))
 
-// ---------- AC balance waveform ----------
-{
-  const ch = { x: 40, y: 40, w: 420, h: 120 }
-  const wave = (bal, y0, label) => {
-    const per = 140, out = []
-    for (let k = 0; k < 3; k++) {
-      const x0 = ch.x + k * per, en = per * bal
-      out.push(rect(x0, y0, en, 40, { fill: C.blueSoft, stroke: C.blue })); out.push(rect(x0 + en, y0 - 40, per - en, 40, { fill: C.redSoft, stroke: C.red }))
-    }
-    out.push(text(ch.x + 6, y0 - 48, label, { size: 11, weight: 600 }))
-    return out
-  }
-  fig('welding/ac-balance.svg', 'AC balance for aluminium TIG: EN half-cycle penetrates, EP half-cycle cleans',
-    svg(500, 285, [
-      text(250, 22, 'AC square wave: electrode negative (EN) vs electrode positive (EP)', { anchor: 'middle', weight: 700, size: 12.5 }),
-      line(40, 90, 460, 90, { width: 1, stroke: C.muted }), wave(0.7, 90, '70% EN'),
-      line(40, 200, 460, 200, { width: 1, stroke: C.muted }), wave(0.5, 200, '50% EN'),
-      text(30, 70, 'EP', { size: 10, fill: C.red, anchor: 'end' }), text(30, 120, 'EN', { size: 10, fill: C.blue, anchor: 'end' }),
-      note(250, 148, 'more EN = more penetration, cooler tungsten, narrower cleaning band (start here, 65-75%)', { anchor: 'middle', size: 10.5 }),
-      note(250, 256, 'more EP = wider cleaning, hotter tungsten, wider bead (dirty or cast aluminium)', { anchor: 'middle', size: 10.5 }),
-      caption(500, 285, 'Frequency 100-150 Hz tightens the arc; 60-80 Hz widens it.'),
-    ], { title: 'AC balance' }))
-}
-
-// ---------- Cast iron repair ----------
-fig('welding/cast-iron-repair.svg', 'Cast iron crack repair: drill the ends, V it out, short stringers, peen each one',
-  svg(500, 250, [
-    rect(40, 60, 420, 120, { fill: C.grey }), path('M120,90 Q220,140 340,110', { stroke: C.ink, width: 2 }),
-    circle(120, 90, 7, { fill: C.paper }), circle(340, 110, 7, { fill: C.paper }),
-    ...[0, 1, 2, 3, 4].map((i) => { const t = 0.12 + i * 0.19; const x = 120 + (340 - 120) * t, y = 90 + 2 * (140 - 90) * t * (1 - t) + (110 - 90) * t; return [rect(x - 14, y - 6, 28, 12, { fill: C.weld, stroke: C.accentDark, rx: 3 }), text(x, y + 4, String([1, 4, 2, 5, 3][i]), { anchor: 'middle', size: 10, weight: 700 })] }),
-    callout(1, 120, 70), callout(2, 230, 150), callout(3, 340, 130),
-    legend(40, 205, ['drill 1/8-3/16 in holes at each crack end (stops it running)', 'grind or gouge a V, weld 1 in stringers in the numbered order, peen each', 'hot method: preheat 500-1,200°F; cold method: keep it under 150°F'], { size: 10.5, gap: 15 }),
-  ], { title: 'Cast iron crack repair' }))
-
 // ---------- Hardfacing layers ----------
 fig('welding/hardfacing-layers.svg', 'Hardfacing build-up: base metal, buffer layer, build-up, hardfacing (2 layers max)',
   svg(500, 220, [
@@ -142,47 +89,8 @@ fig('welding/welding-symbol-anatomy.svg', 'The parts of a welding symbol',
     text(250, 24, 'Reference line, arrow, symbols, dimensions', { anchor: 'middle', weight: 700 }),
   ], { title: 'Welding symbol anatomy' }))
 
-// ---------- Blueprint views ----------
-fig('welding/orthographic-views.svg', 'Third-angle projection: top view above the front view, right side view to the right',
-  svg(500, 300, [
-    text(250, 22, 'Third-angle projection (US): what you see from each side', { anchor: 'middle', weight: 700, size: 12.5 }),
-    // top view
-    rect(80, 40, 140, 60, { fill: C.grey }), circle(190, 70, 14, { fill: C.paper }), text(150, 118, 'TOP', { anchor: 'middle', size: 11, weight: 600 }),
-    // front view
-    poly([[80, 150], [220, 150], [220, 240], [150, 240], [150, 200], [80, 200]], { fill: C.grey }), line(176, 150, 176, 240, { dash: '5 3', width: 1 }), line(204, 150, 204, 240, { dash: '5 3', width: 1 }), text(150, 258, 'FRONT', { anchor: 'middle', size: 11, weight: 600 }),
-    // right side
-    poly([[260, 150], [320, 150], [320, 240], [300, 240], [300, 200], [260, 200]], { fill: C.grey }), text(290, 258, 'RIGHT SIDE', { anchor: 'middle', size: 11, weight: 600 }),
-    line(80, 110, 80, 145, { dash: '3 3', width: 0.8, stroke: C.muted }), line(220, 110, 220, 145, { dash: '3 3', width: 0.8, stroke: C.muted }), line(230, 150, 255, 150, { dash: '3 3', width: 0.8, stroke: C.muted }), line(230, 240, 255, 240, { dash: '3 3', width: 0.8, stroke: C.muted }),
-    table(340, 40, [['Line', 'Means'], ['solid thick', 'visible edge'], ['dashed', 'hidden edge'], ['thin chain', 'centre line'], ['thin + arrows', 'dimension'], ['zigzag', 'break'], ['thick chain', 'cutting plane']], [75, 85], { rowH: 22, size: 10.5 }),
-    caption(500, 300, 'First-angle (ISO) puts the top view below the front view: check the symbol.'),
-  ], { title: 'Orthographic views' }))
-
-// ---------- MIG gun parts ----------
-fig('welding/mig-gun-parts.svg', 'MIG gun consumables in order: liner, gas diffuser, contact tip, nozzle',
-  svg(500, 215, [
-    rect(20, 80, 150, 40, { fill: C.grey, rx: 10 }), text(95, 72, 'gun neck', { anchor: 'middle', size: 11 }),
-    rect(170, 88, 70, 24, { fill: C.steelDark, rx: 3 }), rect(240, 84, 60, 32, { fill: C.copper, stroke: C.accentDark, rx: 3 }), rect(300, 92, 60, 16, { fill: C.brass, stroke: C.accentDark }), rect(365, 76, 110, 48, { fill: C.copper, stroke: C.accentDark, rx: 6 }),
-    line(20, 100, 480, 100, { stroke: C.ink, width: 1.5, dash: '2 3' }),
-    callout(1, 60, 60), callout(2, 205, 60), callout(3, 270, 60), callout(4, 330, 60), callout(5, 420, 60),
-    legend(20, 140, ['liner: sized to the wire, cut square, replace when feeding drags', 'diffuser / retaining head: gas ports clear, threads tight', 'contact tip: replace when oval, burnt or feeding stutters', 'nozzle: 1/2-5/8 in ID, anti-spatter, tip recessed for spray', 'wire path: kinks, dirt or a worn liner cause bird-nests'], { size: 10.5, gap: 14 }),
-  ], { title: 'MIG gun parts' }))
-
 // ---------- Shade number chart ----------
 {
   const rows = [['Process', 'Amps', 'Minimum shade', 'Suggested'], ['Stick', '60-160', '8', '10'], ['Stick', '160-250', '10', '12'], ['MIG / flux-core', '60-160', '10', '11'], ['MIG / flux-core', '160-250', '10', '12'], ['MIG / flux-core', '250-500', '10', '14'], ['TIG', '50-150', '8', '10'], ['TIG', '150-500', '10', '12'], ['Plasma cutting', 'under 300', '8', '9'], ['Carbon arc gouging', 'light / heavy', '10 / 11', '12 / 14'], ['Oxy-fuel cutting', 'up to 6 in', '3-4', '4-5'], ['Oxy-fuel welding', '', '4-5', '5-6']]
   fig('welding/lens-shade-chart.svg', 'Lens shade numbers by process and amperage (OSHA 1910.133 / ANSI Z49.1)', svg(500, 340, [text(250, 22, 'Filter lens shade by process (OSHA minimum, suggested comfort)', { anchor: 'middle', weight: 700, size: 12.5 }), table(30, 36, rows, [140, 100, 110, 90], { rowH: 22, size: 11 }), caption(500, 340, 'Start dark and go lighter until you see the puddle; never below minimum.')], { title: 'Lens shade chart' }))
 }
-
-// ---------- Brazing joint ----------
-fig('welding/brazing-joint.svg', 'Silver brazing: capillary gap 0.002-0.005 in, heat the parts not the filler, overlap 3-4 × wall',
-  svg(500, 230, [
-    text(250, 22, 'Capillary joint: heat pulls the filler in; the torch does not push it', { anchor: 'middle', weight: 700, size: 11.5 }),
-    rect(60, 90, 220, 50, { fill: C.copper, stroke: C.accentDark }), rect(60, 104, 220, 22, { fill: C.paper, stroke: 'none' }),
-    rect(200, 82, 200, 66, { fill: C.copper, stroke: C.accentDark }), rect(200, 90, 200, 50, { fill: C.paper, stroke: 'none' }), rect(200, 104, 80, 22, { fill: C.copper, stroke: 'none' }),
-    rect(200, 90, 80, 14, { fill: '#c0c0c0' }), rect(200, 126, 80, 14, { fill: '#c0c0c0' }),
-    dim(200, 160, 280, 160, 'overlap 3-4 × wall', { size: 11 }),
-    line(200, 84, 200, 56, { width: 1, stroke: C.muted }), note(200, 50, 'gap 0.002-0.005 in per side (silver); 0.003-0.01 bronze', { anchor: 'middle', size: 10.5 }),
-    path('M330,40 L300,80', { stroke: C.red, width: 3, arrow: 'end' }), note(340, 40, 'flame on the heavy\nsection, moving; feed\nrod at the joint edge\nwhen the flux runs clear', { size: 10.5 }),
-    rect(150, 92, 40, 10, { fill: '#c0c0c0', stroke: 'none' }), note(150, 76, 'filler flows toward the heat', { anchor: 'middle', size: 10.5 }),
-    caption(500, 230, 'Clean, flux, fit, heat evenly, feed, let it cool, wash off the flux.'),
-  ], { title: 'Brazing joint' }))

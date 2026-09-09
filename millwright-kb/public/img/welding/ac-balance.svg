@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 285" width="500" height="285" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
 <title>AC balance</title>
 <defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
@@ -7,27 +7,43 @@
 <pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
 <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
 </defs>
-<rect width="500" height="285" fill="#ffffff"/>
-<text x="250" y="22" font-size="12.5" text-anchor="middle" font-weight="700" fill="#1a2233">AC square wave: electrode negative (EN) vs electrode positive (EP)</text>
-<line x1="40" y1="90" x2="460" y2="90" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
-<rect x="40" y="90" width="98" height="40" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
-<rect x="138" y="50" width="42" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
-<rect x="180" y="90" width="98" height="40" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
-<rect x="278" y="50" width="42" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
-<rect x="320" y="90" width="98" height="40" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
-<rect x="418" y="50" width="42" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
-<text x="46" y="42" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">70% EN</text>
-<line x1="40" y1="200" x2="460" y2="200" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
-<rect x="40" y="200" width="70" height="40" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
-<rect x="110" y="160" width="70" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
-<rect x="180" y="200" width="70" height="40" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
-<rect x="250" y="160" width="70" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
-<rect x="320" y="200" width="70" height="40" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
-<rect x="390" y="160" width="70" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
-<text x="46" y="152" font-size="11" text-anchor="start" font-weight="600" fill="#1a2233">50% EN</text>
-<text x="30" y="70" font-size="10" text-anchor="end" fill="#b91c1c">EP</text>
-<text x="30" y="120" font-size="10" text-anchor="end" fill="#0b5fa5">EN</text>
-<text x="250" y="148" font-size="10.5" text-anchor="middle" fill="#5b6577">more EN = more penetration, cooler tungsten, narrower cleaning band (start here, 65-75%)</text>
-<text x="250" y="256" font-size="10.5" text-anchor="middle" fill="#5b6577">more EP = wider cleaning, hotter tungsten, wider bead (dirty or cast aluminium)</text>
-<text x="250" y="277" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Frequency 100-150 Hz tightens the arc; 60-80 Hz widens it.</text>
+<rect width="500" height="300" fill="#ffffff"/>
+<text x="250" y="20" font-size="11" text-anchor="middle" font-weight="600" fill="#1a2233">AC square wave: EN heats the work, EP cleans the oxide</text>
+<rect x="40" y="80" width="66.5" height="30" fill="#dbeafe" stroke="none" stroke-width="1.5"/>
+<rect x="106.5" y="50" width="28.5" height="30" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<path d="M40,80 L40,110 L106.5,110 L106.5,50 L135,50 L135,80" fill="none" stroke="#1a2233" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="135" y="80" width="66.5" height="30" fill="#dbeafe" stroke="none" stroke-width="1.5"/>
+<rect x="201.5" y="50" width="28.5" height="30" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<path d="M135,80 L135,110 L201.5,110 L201.5,50 L230,50 L230,80" fill="none" stroke="#1a2233" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="40" y1="80" x2="230" y2="80" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
+<text x="135" y="130" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">70% EN</text>
+<text x="73.25" y="102" font-size="9.5" text-anchor="middle" font-weight="700" fill="#0b5fa5">EN</text>
+<text x="120.75" y="66" font-size="9.5" text-anchor="middle" font-weight="700" fill="#b91c1c">EP</text>
+<rect x="270" y="80" width="47.5" height="30" fill="#dbeafe" stroke="none" stroke-width="1.5"/>
+<rect x="317.5" y="50" width="47.5" height="30" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<path d="M270,80 L270,110 L317.5,110 L317.5,50 L365,50 L365,80" fill="none" stroke="#1a2233" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="365" y="80" width="47.5" height="30" fill="#dbeafe" stroke="none" stroke-width="1.5"/>
+<rect x="412.5" y="50" width="47.5" height="30" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<path d="M365,80 L365,110 L412.5,110 L412.5,50 L460,50 L460,80" fill="none" stroke="#1a2233" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="270" y1="80" x2="460" y2="80" stroke="#5b6577" stroke-width="1" stroke-linecap="round"/>
+<text x="365" y="130" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">50% EN</text>
+<text x="293.75" y="102" font-size="9.5" text-anchor="middle" font-weight="700" fill="#0b5fa5">EN</text>
+<text x="341.25" y="66" font-size="9.5" text-anchor="middle" font-weight="700" fill="#b91c1c">EP</text>
+<rect x="75" y="170" width="120" height="26" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M113,170 Q135,188 157,170" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M113,170 Q135,158 157,170" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="105" y="168" width="8" height="2" fill="#e9e9e9" stroke="none" stroke-width="1.5"/>
+<rect x="157" y="168" width="8" height="2" fill="#e9e9e9" stroke="none" stroke-width="1.5"/>
+<line x1="105" y1="204" x2="165" y2="204" stroke="#5b6577" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="135" y="218" font-size="9" text-anchor="middle" fill="#5b6577">deeper, narrow cleaning band</text>
+<rect x="305" y="170" width="120" height="26" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M343,170 Q365,180 387,170" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M343,170 Q365,158 387,170" fill="#f8b878" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="323" y="168" width="20" height="2" fill="#e9e9e9" stroke="none" stroke-width="1.5"/>
+<rect x="387" y="168" width="20" height="2" fill="#e9e9e9" stroke="none" stroke-width="1.5"/>
+<line x1="323" y1="204" x2="407" y2="204" stroke="#5b6577" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="365" y="218" font-size="9" text-anchor="middle" fill="#5b6577">shallower, wide cleaning band</text>
+<text x="250" y="240" font-size="9.5" text-anchor="middle" fill="#5b6577">more EN = more penetration, cooler tungsten, narrower etched band (start at 65-75% EN)</text>
+<text x="250" y="256" font-size="9.5" text-anchor="middle" fill="#5b6577">more EP = wider cleaning, hotter tungsten, wider bead (dirty or cast aluminium)</text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Frequency 100-150 Hz tightens the arc; 60-80 Hz widens it.</text>
 </svg>

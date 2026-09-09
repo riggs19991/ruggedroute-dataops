@@ -28,10 +28,10 @@
 <path d="M182,124 C215,124 215,60 240,60" fill="none" stroke="#1a2233" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="215" y="52" font-size="11" text-anchor="start" fill="#5b6577">to machine</text>
 <path d="M164,116 L148,108" fill="none" stroke="#166534" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arr)"/>
-<rect x="20" y="225" width="210" height="40" fill="#dcfce7" stroke="#166534" stroke-width="1.5" rx="6"/><text x="125" y="241.975" font-size="11" text-anchor="middle" fill="#1a2233"><tspan x="125" dy="0">clamp on the bracket being welded:</tspan><tspan x="125" dy="13.75">current stays in the part</tspan></text>
+<rect x="20" y="225" width="210" height="40" fill="#dcfce7" stroke="#166534" stroke-width="1.5" rx="6"/><text x="125" y="242.25" font-size="10" text-anchor="middle" fill="#1a2233"><tspan x="125" dy="0">clamp on the bracket being welded:</tspan><tspan x="125" dy="12.5">current stays in the part</tspan></text>
 <rect x="300" y="156" width="22" height="12" fill="#b87333" stroke="#b45309" stroke-width="1.5"/>
 <path d="M300,162 C270,162 270,60 250,60" fill="none" stroke="#1a2233" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M322,162 L340,170 L360,150 L390,140 L396,108" fill="none" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arr)"/>
-<rect x="270" y="225" width="210" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" rx="6"/><text x="375" y="241.975" font-size="11" text-anchor="middle" fill="#1a2233"><tspan x="375" dy="0">clamp on the housing: current crosses</tspan><tspan x="375" dy="13.75">the bearing and pits the races</tspan></text>
+<rect x="270" y="225" width="210" height="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" rx="6"/><text x="375" y="242.25" font-size="10" text-anchor="middle" fill="#1a2233"><tspan x="375" dy="0">clamp on the housing: current crosses</tspan><tspan x="375" dy="12.5">the bearing and pits the races</tspan></text>
 <text x="250" y="282" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Never across a bearing, gear mesh, hinge, cylinder rod or chain.</text>
 </svg>

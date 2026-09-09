@@ -14,7 +14,7 @@
 <text x="220" y="159" font-size="10" text-anchor="start" fill="#5b6577">0°</text>
 <text x="123" y="51" font-size="10" text-anchor="start" fill="#5b6577">90°</text>
 <line x1="115" y1="155" x2="164.02684435961459" y2="113.86159298006149" stroke="#1a2233" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>
-<text x="98.02684435961459" y="133.8615929800615" font-size="11" text-anchor="start" font-weight="700" fill="#1a2233">O = 8 at 40°</text>
+<text x="120.02684435961459" y="155.8615929800615" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">O = 8 at 40°</text>
 <line x1="115" y1="155" x2="99.71896036531014" y2="68.33691773492569" stroke="#0b5fa5" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>
 <text x="14" y="30" font-size="11" text-anchor="start" font-weight="700" fill="#0b5fa5">O+T = 11 mils at 100°</text>
 <line x1="164.02684435961459" y1="113.86159298006149" x2="99.71896036531014" y2="68.33691773492569" stroke="#b91c1c" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>

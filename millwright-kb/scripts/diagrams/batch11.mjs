@@ -10,7 +10,7 @@ const P = Math.PI / 180
     svg(500, 300, [
       circle(cx, cy, 98, { fill: C.grey, stroke: C.line, width: 1 }), line(cx - 102, cy, cx + 102, cy, { stroke: C.line, width: 1 }), line(cx, cy - 102, cx, cy + 102, { stroke: C.line, width: 1 }),
       text(cx + 105, cy + 4, '0°', { size: 10, fill: C.muted }), text(cx + 8, cy - 104, '90°', { size: 10, fill: C.muted }),
-      line(cx, cy, O[0], O[1], { width: 2.5, arrow: 'end', stroke: C.ink }), text(O[0] - 66, O[1] + 20, 'O = 8 at 40°', { size: 11, weight: 700 }),
+      line(cx, cy, O[0], O[1], { width: 2.5, arrow: 'end', stroke: C.ink }), text(O[0] - 44, O[1] + 42, 'O = 8 at 40°', { size: 11, weight: 700, anchor: 'middle' }),
       line(cx, cy, OT[0], OT[1], { width: 2.5, arrow: 'end', stroke: C.blue }), text(14, 30, 'O+T = 11 mils at 100°', { size: 11, weight: 700, fill: C.blue }),
       line(O[0], O[1], OT[0], OT[1], { width: 2.5, arrow: 'end', stroke: C.red }), text((O[0] + OT[0]) / 2 + 8, (O[1] + OT[1]) / 2 + 2, 'T', { size: 13, weight: 700, fill: C.red }),
       text(240, 50, '1. Run: read O (amplitude, phase)', { size: 10.5 }),
@@ -43,27 +43,6 @@ fig('condition-monitoring/bearing-defect-frequencies.svg', 'The four bearing def
     note(250, 250, 'defect frequencies are not whole\nmultiples of shaft speed: that is\nhow you tell them from looseness', { size: 10 }),
     caption(500, 300, 'Use the bearing number and the analyzer database for exact values.'),
   ], { title: 'Bearing defect frequencies' }))
-
-// ---------- Shim pack preload ----------
-fig('gearboxes/shim-pack-preload.svg', 'Tapered roller bearings are set by the shim pack under the cap: measure end play with a trial pack, then shim = trial pack + end play − target',
-  svg(500, 270, [
-    rect(40, 60, 400, 150, { fill: C.grey, stroke: C.ink }), rect(60, 118, 360, 34, { fill: C.steel }), // housing and shaft
-    // bearings
-    poly([[90, 92], [130, 92], [124, 118], [96, 118]], { fill: C.paper, stroke: C.ink }), poly([[90, 178], [130, 178], [124, 152], [96, 152]], { fill: C.paper, stroke: C.ink }),
-    poly([[350, 92], [390, 92], [384, 118], [356, 118]], { fill: C.paper, stroke: C.ink }), poly([[350, 178], [390, 178], [384, 152], [356, 152]], { fill: C.paper, stroke: C.ink }),
-    // gear
-    rect(220, 80, 60, 110, { fill: C.steelDark, rx: 3 }),
-    // caps and shims
-    rect(40, 76, 22, 118, { fill: C.steel, stroke: C.ink }), rect(62, 76, 6, 118, { fill: C.accent, stroke: C.accentDark }),
-    rect(418, 76, 22, 118, { fill: C.steel, stroke: C.ink }), rect(412, 76, 6, 118, { fill: C.accent, stroke: C.accentDark }),
-    leader(65, 80, 110, 40, 'shim pack', { size: 11, fill: C.accentDark }), leader(415, 80, 380, 40, 'shim pack', { size: 11, fill: C.accentDark, anchor: 'end' }),
-    // indicator
-    rect(446, 128, 22, 14, { fill: C.ink }), line(440, 135, 446, 135, { width: 2 }), line(457, 128, 457, 112, { width: 2 }), note(462, 122, 'indicator', { size: 9, anchor: 'middle' }),
-    line(392, 102, 410, 102, { width: 2, arrow: 'both', stroke: C.blue }), note(401, 90, 'end play', { size: 9, anchor: 'middle', fill: C.blue }),
-    text(40, 232, 'shims = trial pack + end play − target (0.001 to 0.003 in cold)', { size: 11, weight: 700 }),
-    text(40, 250, 'rotate the shaft while pushing to seat the rollers; check both directions', { size: 11 }),
-    caption(500, 270, 'Thick shims mid-pack, thin outside; keep each pack with its cap.'),
-  ], { title: 'Shim pack preload' }))
 
 // ---------- Bevel contact pattern ----------
 {
@@ -118,7 +97,7 @@ fig('gearboxes/service-factor-selection.svg', 'Reducer selection in five checks:
       line(ch.sx(200), ch.sy(35), ch.sx(1100), ch.sy(110), { stroke: C.blue, width: 1, dash: '2 3' }), line(ch.sx(200), ch.sy(20), ch.sx(1100), ch.sy(80), { stroke: C.blue, width: 1, dash: '2 3' }),
       callout(1, ch.sx(300), ch.sy(269)), callout(2, ch.sx(650), ch.sy(150)), callout(3, ch.sx(700) + 14, ch.sy(220) - 14), callout(4, ch.sx(1000), ch.sy(60)), callout(5, ch.sx(950), ch.sy(105)),
       legend(372, 48, ['shut-off head', 'efficiency islands', 'BEP: 70 to 120%', 'NPSHr curve', 'power (bhp) lines'], { size: 9.5, gap: 16 }),
-      note(372, 200, 'header: 3x4-13,\n1750 rpm, curve no.,\nwater at 20 °C', { size: 9.5 }),
+      note(392, 214, 'header: 3x4-13,\n1750 rpm, curve no.,\nwater at 20 °C', { size: 9.5 }),
       caption(500, 300, 'Find your head on the gauges, cross to your impeller diameter, read the flow.'),
     ], { title: 'Pump curve sheet anatomy' }))
 }
@@ -147,8 +126,8 @@ fig('manuals/belt-selection-steps.svg', 'V-belt drive selection from the catalog
     // arc of contact sketch
     circle(400, 110, 22, { fill: C.steel }), circle(460, 110, 40, { fill: C.steel }),
     line(392, 89, 445, 72, { width: 2.5 }), line(392, 131, 445, 148, { width: 2.5 }), arc(400, 110, 22, 110, 250, { width: 2.5 }), arc(460, 110, 40, -70, 70, { width: 2.5 }),
-    arc(400, 110, 30, 110, 250, { stroke: C.red, width: 1.5 }), text(400, 168, 'arc < 180° on the small sheave', { size: 9.5, anchor: 'middle', fill: C.red }),
-    note(432, 178, 'factor: 0.99 at 170°,\n0.95 at 150°,\n0.89 at 130°', { size: 9.5, anchor: 'middle' }),
+    arc(400, 110, 30, 110, 250, { stroke: C.red, width: 1.5 }), text(362, 182, 'arc < 180° on small sheave', { size: 9.5, anchor: 'start', fill: C.red }),
+    note(420, 198, 'factor 0.99 at 170°,\n0.95 at 150°, 0.89 at 130°', { size: 9, anchor: 'middle' }),
     note(400, 282, 'matched belt set,\nsame groove count sheaves', { size: 9.5, anchor: 'middle' }),
     caption(500, 320, 'Round belt count up; one belt short overloads the whole set.'),
   ], { title: 'Belt selection steps' }))
