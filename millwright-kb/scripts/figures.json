@@ -974,6 +974,11 @@
    "img": "pumps-seals/compressor-types.svg",
    "alt": "Reciprocating and screw compressors with the receiver",
    "after": "## Types"
+  },
+  {
+   "photo": "pumps-seals/piston-compressor.jpg",
+   "alt": "A small reciprocating compressor: pump, motor, receiver, pressure switch",
+   "after": "## Types"
   }
  ],
  "impeller-clearance-and-wear-rings": [
@@ -981,6 +986,16 @@
    "img": "pumps-seals/impeller-clearance.svg",
    "alt": "Open impeller clearance and enclosed impeller wear rings",
    "after": "## Why it matters"
+  },
+  {
+   "photo": "pumps-seals/pump-impeller-open.jpg",
+   "alt": "Casing off: the impeller and its clearance to the casing wall",
+   "after": "## Why it matters"
+  },
+  {
+   "photo": "pumps-seals/impellers.jpg",
+   "alt": "Enclosed impellers: the wear ring runs on the shroud eye",
+   "after": "## Enclosed impellers: wear rings"
   }
  ],
  "mechanical-seal-replacement-centrifugal-pump": [
@@ -988,6 +1003,11 @@
    "img": "pumps-seals/mechanical-seal-parts.svg",
    "alt": "Rotary unit, faces, gland and O-rings of a component seal",
    "after": "## Installing a component seal (rotary + stationary)"
+  },
+  {
+   "photo": "pumps-seals/seal-faces.jpg",
+   "alt": "Seal faces lapped flat: a fingerprint is enough to make them leak",
+   "after": "## Why seals fail"
   }
  ],
  "pump-packing-and-stuffing-box": [
@@ -995,6 +1015,11 @@
    "img": "pumps-seals/packing-box.svg",
    "alt": "Packing rings, lantern ring and gland in the stuffing box",
    "after": "## How packing works"
+  },
+  {
+   "photo": "pumps-seals/gland-packing.jpg",
+   "alt": "Packing rings in the stuffing box, gland follower ready to go on",
+   "after": "## Installation"
   }
  ],
  "pump-troubleshooting": [
@@ -1002,6 +1027,16 @@
    "img": "pumps-seals/pump-curve.svg",
    "alt": "Pump curve, system curve and the best efficiency zone",
    "after": "## The pump curve"
+  },
+  {
+   "photo": "pumps-seals/slurry-pump.jpg",
+   "alt": "A large slurry pump: suction and discharge gauges are the first check",
+   "after": "## Start with the gauges"
+  },
+  {
+   "photo": "pumps-seals/pump-pair.jpg",
+   "alt": "Two pumps on a common base: compare the healthy one with the suspect",
+   "after": "## Field checks in order"
   }
  ],
  "accumulator-precharge-and-safety": [
@@ -1016,6 +1051,21 @@
    "img": "hydraulics/cylinder-seal-orientation.svg",
    "alt": "Wiper, rod seal, wear rings and piston seal orientation",
    "after": "## Seals and where they go"
+  },
+  {
+   "photo": "hydraulics/double-acting-cylinder.jpg",
+   "alt": "Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them",
+   "after": "## Identify the cylinder and order the kit"
+  },
+  {
+   "photo": "hydraulics/cylinder-parts.jpg",
+   "alt": "Clevises, caps and heads laid out in order of removal",
+   "after": "## Disassembly"
+  },
+  {
+   "photo": "hydraulics/piston-rod.jpg",
+   "alt": "Piston rod: look for scoring, pitting and chrome flaking under a fingernail",
+   "after": "## Inspection"
   }
  ],
  "filters-fluid-and-contamination": [
@@ -1030,6 +1080,21 @@
    "img": "hydraulics/fitting-types.svg",
    "alt": "JIC, ORFS, ORB, NPT and BSPP fitting seats",
    "after": "## Fitting identification"
+  },
+  {
+   "photo": "hydraulics/hose-fittings.jpg",
+   "alt": "Hydraulic hose fittings: measure the thread and look at the seat before you guess",
+   "after": "## Fitting identification"
+  },
+  {
+   "photo": "hydraulics/hose-crimper.jpg",
+   "alt": "Hose crimper with the die set for the hose size",
+   "after": "## Making a hose assembly"
+  },
+  {
+   "photo": "hydraulics/crimped-hose-ends.jpg",
+   "alt": "Crimped hose ends: check the crimp diameter against the chart",
+   "after": "## Inspection and replacement"
   }
  ],
  "hydraulic-system-basics-and-symbols": [
@@ -1037,6 +1102,21 @@
    "img": "hydraulics/schematic-symbols.svg",
    "alt": "The basic ISO 1219 schematic symbols",
    "after": "## Reading the schematic (ISO 1219)"
+  },
+  {
+   "photo": "hydraulics/gear-pump-cutaway.jpg",
+   "alt": "Internal gear pump cut away: the crescent separates suction from pressure",
+   "after": "## Components"
+  },
+  {
+   "photo": "hydraulics/gauge-panel.jpg",
+   "alt": "Gauges tell the story: set the relief first, then compensator, then reducing valves",
+   "after": "## Pressure settings and the order to set them"
+  },
+  {
+   "photo": "hydraulics/gear-pump-open.jpg",
+   "alt": "A gear pump opened: scored side plates mean contamination",
+   "after": "## Troubleshooting logic"
   }
  ],
  "pneumatic-systems-frl-and-cylinders": [
@@ -1044,6 +1124,11 @@
    "img": "hydraulics/frl-unit.svg",
    "alt": "Filter, regulator, lubricator in order of flow",
    "after": "## FRL: filter, regulator, lubricator"
+  },
+  {
+   "photo": "hydraulics/pneumatic-cylinders.jpg",
+   "alt": "Compact pneumatic cylinders with adjustable cushions",
+   "after": "## Pneumatic cylinders"
   }
  ],
  "grease-types-and-compatibility": [
@@ -1051,6 +1136,11 @@
    "img": "lubrication/grease-compatibility-matrix.svg",
    "alt": "Thickener compatibility matrix",
    "after": "## Compatibility chart"
+  },
+  {
+   "photo": "lubrication/grease-tub.jpg",
+   "alt": "Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest",
+   "after": "## What a grease is"
   }
  ],
  "lube-routes-and-single-point-lubricators": [
@@ -1058,6 +1148,16 @@
    "img": "lubrication/lube-point-tags.svg",
    "alt": "Colour and shape coded lube point tags",
    "after": "## Survey and tag every point"
+  },
+  {
+   "photo": "lubrication/grease-gun.jpg",
+   "alt": "Lever grease gun with a flexible hose and coupler",
+   "after": "## Grease guns"
+  },
+  {
+   "photo": "lubrication/oil-can.jpg",
+   "alt": "Pump oiler for the oil points on the route",
+   "after": "## Oil level devices"
   }
  ],
  "oil-analysis-and-sampling": [
@@ -1065,6 +1165,11 @@
    "img": "lubrication/oil-sampling-point.svg",
    "alt": "Sample from a live zone at mid-level, not the drain",
    "after": "## Taking the sample"
+  },
+  {
+   "photo": "lubrication/oil-analysis-report.jpg",
+   "alt": "An oil analysis report: wear metals, contaminants, viscosity and the trend",
+   "after": "## Reading the report"
   }
  ],
  "oil-viscosity-and-selection": [
@@ -1079,6 +1184,16 @@
    "img": "lubrication/regrease-quantity.svg",
    "alt": "The grease quantity formula from bearing OD and width",
    "after": "## How much: the SKF formula"
+  },
+  {
+   "photo": "lubrication/grease-gun-use.jpg",
+   "alt": "Wipe the fitting, pump slowly, watch the seal",
+   "after": "## The procedure"
+  },
+  {
+   "photo": "lubrication/greased-bearing.jpg",
+   "alt": "A bearing packed by hand: fill the bearing, not the housing",
+   "after": "## Over-greasing"
   }
  ],
  "dial-indicator-use": [
@@ -1105,6 +1220,11 @@
    "img": "conveyors/belt-tracking-rules.svg",
    "alt": "How a tilted idler steers the belt",
    "after": "## The two rules"
+  },
+  {
+   "photo": "conveyors/covered-belt.jpg",
+   "alt": "A covered field conveyor: return idlers underneath, carrying idlers on top",
+   "after": "## Belt construction and specification"
   }
  ],
  "belt-splicing": [
@@ -1133,6 +1253,16 @@
    "img": "conveyors/screw-and-bucket-elevator.svg",
    "alt": "Screw conveyor and bucket elevator",
    "after": "top"
+  },
+  {
+   "photo": "conveyors/screw-trough.jpg",
+   "alt": "A screw conveyor in an open trough: flight, trough and hanger bearing",
+   "after": "## Screw conveyors"
+  },
+  {
+   "photo": "conveyors/auger-hopper.jpg",
+   "alt": "Feed auger at a hopper: the flight hand sets the direction of flow",
+   "after": "## Screw conveyors"
   }
  ],
  "electrical-safety-for-mechanics": [
@@ -1140,6 +1270,11 @@
    "img": "motors-electrical/approach-boundaries.svg",
    "alt": "Arc flash, limited and restricted approach boundaries",
    "after": "## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)"
+  },
+  {
+   "photo": "safety/lockout-panel.jpg",
+   "alt": "Locking out a breaker: lock, tag, then try to start it",
+   "after": "## Locking out electrical energy"
   }
  ],
  "megger-and-basic-motor-testing": [
@@ -1147,6 +1282,21 @@
    "img": "motors-electrical/megger-test.svg",
    "alt": "Megger connections and IEEE 43 minimums",
    "after": "## Insulation resistance (megger) to ground"
+  },
+  {
+   "photo": "motors-electrical/insulation-tester.jpg",
+   "alt": "Insulation resistance tester: 500 or 1,000 V DC, read at one minute",
+   "after": "## Insulation resistance (megger) to ground"
+  },
+  {
+   "photo": "motors-electrical/stator-rotor.jpg",
+   "alt": "Stator and rotor of an induction motor",
+   "after": "## Winding resistance and continuity"
+  },
+  {
+   "photo": "motors-electrical/motor-opened.jpg",
+   "alt": "Motor opened: windings, bearings and air gap all inspected",
+   "after": "## When it goes to the shop"
   }
  ],
  "motor-lead-connections": [
@@ -1154,6 +1304,11 @@
    "img": "motors-electrical/nine-lead-wye.svg",
    "alt": "9-lead wye low and high voltage connections",
    "after": "## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)"
+  },
+  {
+   "photo": "motors-electrical/stator-rotor.jpg",
+   "alt": "The windings live in the stator; a squirrel-cage rotor has no connections",
+   "after": "## The windings"
   }
  ],
  "plc-and-instrumentation-awareness": [
@@ -1161,6 +1316,21 @@
    "img": "motors-electrical/plc-signal-chain.svg",
    "alt": "Sensor to motor signal chain and where to check",
    "after": "## The parts"
+  },
+  {
+   "photo": "motors-electrical/plc-rack.jpg",
+   "alt": "A PLC rack: power supply, CPU, I/O cards",
+   "after": "## The parts"
+  },
+  {
+   "photo": "motors-electrical/hmi-panel.jpg",
+   "alt": "HMI screen and E-stop: read the fault before you touch anything",
+   "after": "## Why the machine will not run: a method"
+  },
+  {
+   "photo": "motors-electrical/plc-wiring.jpg",
+   "alt": "Terminating a PLC panel: the controls tech's territory",
+   "after": "## Working with the controls tech"
   }
  ],
  "reading-a-motor-nameplate": [
@@ -1168,6 +1338,11 @@
    "img": "motors-electrical/motor-nameplate.svg",
    "alt": "A typical nameplate with the lines to read first",
    "after": "## The lines and what they mean"
+  },
+  {
+   "photo": "motors-electrical/motor-cutaway.jpg",
+   "alt": "Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor",
+   "after": "## Enclosures"
   }
  ],
  "vfd-basics-for-millwrights": [
@@ -1175,6 +1350,16 @@
    "img": "motors-electrical/vfd-bearing-currents.svg",
    "alt": "Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing",
    "after": "## Bearing currents (the millwright's VFD problem)"
+  },
+  {
+   "photo": "motors-electrical/vfd.jpg",
+   "alt": "A variable frequency drive: keypad, display, cooling fan",
+   "after": "## What a drive does"
+  },
+  {
+   "photo": "motors-electrical/vfd-terminals.jpg",
+   "alt": "Drive terminals: shielded motor cable, grounded at both ends",
+   "after": "## Cable and installation rules (why the drive \"faults for no reason\")"
   }
  ],
  "thermography-ultrasound-and-oil": [
@@ -1182,6 +1367,11 @@
    "img": "condition-monitoring/thermography-and-ultrasound.svg",
    "alt": "Thermal comparison of twin bearings and an ultrasound dB trend",
    "after": "## Infrared thermography"
+  },
+  {
+   "photo": "condition-monitoring/ultrasonic-detector.jpg",
+   "alt": "An ultrasonic leak detector in use",
+   "after": "## Ultrasound"
   }
  ],
  "vibration-basics-and-iso-severity": [
@@ -1285,6 +1475,16 @@
    "img": "rigging/hoist-inspection-points.svg",
    "alt": "Chain hoist inspection points",
    "after": "## Before every use (operator inspection)"
+  },
+  {
+   "photo": "rigging/chain-hoist.jpg",
+   "alt": "Manual chain hoist: hand chain, load chain, hook with latch",
+   "after": "## Types and where each fits"
+  },
+  {
+   "photo": "rigging/electric-chain-hoist.jpg",
+   "alt": "Electric chain hoist with pendant: same inspection points, plus the brake",
+   "after": "## Operating rules"
   }
  ],
  "crane-signals-and-lift-planning": [
@@ -1292,6 +1492,16 @@
    "img": "rigging/crane-hand-signals.svg",
    "alt": "The standard hand signals",
    "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
+  },
+  {
+   "photo": "rigging/signalling-crane.jpg",
+   "alt": "A rigger guides the crane operator with hand signals",
+   "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
+  },
+  {
+   "photo": "rigging/rigger-load.jpg",
+   "alt": "Riggers steady a load on tag lines while the signaller watches the hook",
+   "after": "## Who does what"
   }
  ],
  "cribbing-and-blocking": [
@@ -1311,6 +1521,21 @@
    "img": "rigging/shackle-loading.svg",
    "alt": "Correct shackle loading and side-load derating",
    "after": "## Hardware"
+  },
+  {
+   "photo": "rigging/beam-slings.jpg",
+   "alt": "Two slings on a spreader beam: legs vertical, no angle factor",
+   "after": "## Hitches"
+  },
+  {
+   "photo": "rigging/hook-safety-latch.jpg",
+   "alt": "Hook with a spring latch: the latch closes the throat, it does not carry load",
+   "after": "## Hardware"
+  },
+  {
+   "photo": "rigging/shackles.jpg",
+   "alt": "Screw-pin bow and D shackles: the WLL is forged on the bow",
+   "after": "## Hardware"
   }
  ],
  "wire-rope-and-chain-slings-detail": [
@@ -1322,6 +1547,21 @@
   {
    "img": "rigging/shackle-loading.svg",
    "alt": "Shackle loading",
+   "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
+  },
+  {
+   "photo": "rigging/wire-rope-splice.jpg",
+   "alt": "A swaged (mechanical splice) eye on wire rope",
+   "after": "## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice"
+  },
+  {
+   "photo": "rigging/round-sling-lift.jpg",
+   "alt": "Round slings and a spreader on a scaffold lift",
+   "after": "## Web slings (nylon or polyester, lb)"
+  },
+  {
+   "photo": "rigging/shackle-bollard.jpg",
+   "alt": "A screw-pin shackle in use: pull in line with the bow, pin moused",
    "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
   }
  ],
@@ -1335,6 +1575,16 @@
    "img": "oxy-fuel/oxy-acetylene-hookup.svg",
    "alt": "Regulator, arrestor and check valve positions",
    "after": "## Connecting and opening"
+  },
+  {
+   "photo": "oxy-fuel/gas-cylinder-rack.jpg",
+   "alt": "Cylinders upright, capped, chained, full and empty separated",
+   "after": "## Storage"
+  },
+  {
+   "photo": "oxy-fuel/regulator-gauges.jpg",
+   "alt": "Regulator fitted: cylinder gauge on the right, working pressure on the left",
+   "after": "## Connecting and opening"
   }
  ],
  "confined-space-entry": [
@@ -1342,6 +1592,16 @@
    "img": "safety/confined-space-setup.svg",
    "alt": "Entry setup: tripod, blower, entrant, attendant, monitor",
    "after": "## Roles (every entry has all three)"
+  },
+  {
+   "photo": "safety/confined-space-manway.jpg",
+   "alt": "Looking down into a permit space: one way in, one way out",
+   "after": "## Is it a confined space?"
+  },
+  {
+   "photo": "safety/confined-space-tripod.jpg",
+   "alt": "Tripod and winch rigged over the entry for retrieval",
+   "after": "## Rescue"
   }
  ],
  "fall-protection-ladders-scaffolds": [
@@ -1349,6 +1609,16 @@
    "img": "safety/fall-clearance-and-ladder.svg",
    "alt": "Fall clearance stack-up and the 4:1 ladder angle",
    "after": "## Fall clearance calculation (shock-absorbing lanyard)"
+  },
+  {
+   "photo": "safety/harness-dring.jpg",
+   "alt": "Full-body harness: the dorsal D-ring sits between the shoulder blades",
+   "after": "## When fall protection is required"
+  },
+  {
+   "photo": "safety/harness-worker.jpg",
+   "alt": "Harness, shock-absorbing lanyard and anchor: check all three before the climb",
+   "after": "## Personal fall arrest system (PFAS)"
   }
  ],
  "first-aid-for-shop-injuries": [
@@ -1363,6 +1633,11 @@
    "img": "safety/grinder-guard-and-kickback.svg",
    "alt": "Guard position and kickback direction on an angle grinder",
    "after": "## Angle grinders and abrasive wheels"
+  },
+  {
+   "photo": "cutting-gouging/angle-grinder.jpg",
+   "alt": "Guard on, both hands on the grinder, sparks away from you",
+   "after": "## Angle grinders and abrasive wheels"
   }
  ],
  "hot-work-permits-and-fire-watch": [
@@ -1370,6 +1645,11 @@
    "img": "safety/hot-work-zone.svg",
    "alt": "The 35 ft hot work zone",
    "after": "## Preparing the area: the 35 ft (11 m) rule"
+  },
+  {
+   "photo": "safety/fire-extinguisher.jpg",
+   "alt": "A rated extinguisher within reach of the work: pin in, gauge in the green",
+   "after": "## Extinguishers"
   }
  ],
  "lockout-tagout-basics": [
@@ -1377,6 +1657,21 @@
    "img": "safety/lockout-steps.svg",
    "alt": "The eight lockout steps in order",
    "after": "## The eight steps"
+  },
+  {
+   "photo": "safety/lockout-hoist-brake.jpg",
+   "alt": "A personal lock on an isolation point",
+   "after": "## The eight steps"
+  },
+  {
+   "photo": "safety/lockout-hasp.jpg",
+   "alt": "Multi-lock hasp: every worker adds a lock, nobody removes another person's",
+   "after": "## Group lockout"
+  },
+  {
+   "photo": "safety/lockout-board.jpg",
+   "alt": "Lockout board: every lock and tag accounted for before restart",
+   "after": "## Restart"
   }
  ],
  "ppe-selection": [
@@ -1384,6 +1679,21 @@
    "img": "safety/ppe-by-task.svg",
    "alt": "PPE by task at a glance",
    "after": "## By task"
+  },
+  {
+   "photo": "safety/ppe-worker.jpg",
+   "alt": "Helmet, hearing protection and eye protection at the machine",
+   "after": "## By task"
+  },
+  {
+   "photo": "safety/ppe-industrial.jpg",
+   "alt": "Respirator, gloves and hard hat for dusty industrial work",
+   "after": "## Inspection and care"
+  },
+  {
+   "photo": "safety/no-ppe.jpg",
+   "alt": "Working without proper safety equipment: the photo NIOSH uses as the wrong example",
+   "after": "## Common mistakes"
   }
  ],
  "inspection-routes": [
@@ -1626,6 +1936,21 @@
    "img": "condition-monitoring/single-plane-balancing-vectors.svg",
    "alt": "Vector diagram: original, original plus trial, and the trial effect",
    "after": "## Single-plane vector method (with phase)"
+  },
+  {
+   "photo": "condition-monitoring/portable-balancer.jpg",
+   "alt": "A portable balancer kit: two accelerometers, a tach and the analyzer",
+   "after": "## Equipment"
+  },
+  {
+   "photo": "condition-monitoring/balancing-centrifuge.jpg",
+   "alt": "Field balancing a decanter centrifuge",
+   "after": "## Equipment"
+  },
+  {
+   "photo": "condition-monitoring/rotor-balance-drill.jpg",
+   "alt": "A motor rotor balanced by drilling: material removed, not added",
+   "after": "## Fixing weights"
   }
  ],
  "bearing-defect-frequencies-and-envelope": [

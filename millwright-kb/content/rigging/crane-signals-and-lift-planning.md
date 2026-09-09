@@ -14,6 +14,10 @@ summary: "The standard hand signals a millwright must be able to give and read, 
 
 ![The standard hand signals](/img/rigging/crane-hand-signals.svg)
 
+![A rigger guides the crane operator with hand signals](/photos/rigging/signalling-crane.jpg)
+
+*A rigger guides the crane operator with hand signals. Photo: NPS Photo, Public domain, via commons*
+
 *The standard hand signals*
 
 | Signal | How |
@@ -54,6 +58,10 @@ Used when the operator cannot see the signal person. Protocol (OSHA 1926.1421): 
 Rules: the operator does not move until a signal is given; the signal person keeps talking ("swing left, swing left") during the motion so the operator knows the radio is still live and stops the motion if the voice stops; a dedicated channel; a test call before the lift; never "ok" or "yes" as a command; "**stop**" from anyone stops the crane. Hand signals are prohibited on the same lift unless agreed beforehand. In Canada (CSA Z150) the signals and the "one signaller" rule are the same; some provinces require a certified signaller card.
 
 ## Who does what
+
+![Riggers steady a load on tag lines while the signaller watches the hook](/photos/rigging/rigger-load.jpg)
+
+*Riggers steady a load on tag lines while the signaller watches the hook. Photo: U.S. Marine Corps photo by Lance Cpl. Isabella Ramos, Public domain, via commons*
 
 | Role | Responsibility |
 |---|---|

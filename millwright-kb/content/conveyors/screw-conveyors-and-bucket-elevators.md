@@ -16,6 +16,14 @@ summary: "Two conveyors that are simple to look at and full of traps: the screw 
 
 ## Screw conveyors
 
+![A screw conveyor in an open trough: flight, trough and hanger bearing](/photos/conveyors/screw-trough.jpg)
+
+![Feed auger at a hopper: the flight hand sets the direction of flow](/photos/conveyors/auger-hopper.jpg)
+
+*Feed auger at a hopper: the flight hand sets the direction of flow. Photo: Agne27, CC BY-SA 3.0, via commons*
+
+*A screw conveyor in an open trough: flight, trough and hanger bearing. Photo: Dsm22, CC BY 3.0, via commons*
+
 ### Parts
 
 A **screw** (helical **flighting** welded to a **pipe** with **coupling shafts** at each end) turns in a **U-trough** (or a tube) and pushes the material along. Parts: the **drive** (a shaft-mount reducer or a motor-reducer on the **drive shaft** at one end: the material is usually **pulled** toward the drive), **trough end plates** with the **end bearings** (roller bearings outside the trough with seals/packing), **hanger bearings** every 10-12 ft (a sleeve bearing on a hanger frame that supports the screw between sections and joins two screw sections with a **coupling shaft**), **coupling bolts** (through the pipe and the coupling shaft, 2 or 3 per end), **trough covers**, **inlet and discharge spouts**, and **flight types**: standard (full pitch = diameter), short pitch (2/3, for inclines and feeders), variable pitch (feeders: pitch increasing under the hopper for even draw-off), **cut flight** and **cut-and-folded** (mixing), **ribbon** (sticky materials, mixing), paddle, double flight.

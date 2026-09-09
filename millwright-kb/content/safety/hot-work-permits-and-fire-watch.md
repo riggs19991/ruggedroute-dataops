@@ -54,6 +54,10 @@ The fire watch:
 
 ## Extinguishers
 
+![A rated extinguisher within reach of the work: pin in, gauge in the green](/photos/safety/fire-extinguisher.jpg)
+
+*A rated extinguisher within reach of the work: pin in, gauge in the green. Photo: Denis kasozi, CC BY 4.0, via commons*
+
 | Type | Rating | Use | Notes |
 |---|---|---|---|
 | **ABC dry chemical** (monoammonium phosphate) | e.g. 4A:60B:C for a 10 lb | The general hot-work extinguisher: wood, paper, liquids, electrical | Corrosive residue on electronics and machinery; 10 lb minimum at hot work (20 lb in many programs) |

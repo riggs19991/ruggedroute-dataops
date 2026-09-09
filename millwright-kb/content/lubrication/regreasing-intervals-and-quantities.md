@@ -112,6 +112,10 @@ Table 4, **amount of grease to add** (the large, shaft-end bearing of each frame
 
 ## The procedure
 
+![Wipe the fitting, pump slowly, watch the seal](/photos/lubrication/grease-gun-use.jpg)
+
+*Wipe the fitting, pump slowly, watch the seal. Photo: U.S. Navy photo by Mass Communication Specialist Seaman Apprentice Kyle Steckler, Public domain, via commons*
+
 1. Identify the bearing and the grease (the tag, the CMMS, the motor nameplate); the **right gun** (labelled), the nozzle **wiped**, the fitting **wiped** (dirt on the fitting goes straight into the bearing).
 2. Machine **running** if it is safe (the grease distributes and purges) and **warm**; the Baldor manual says grease while stationary and warm and then run 15 minutes; either way not cold.
 3. **Remove the drain (relief) plug** on housings and motors that have one (the plug opposite the fitting, at the bottom of the bearing cap); clean the drain of hardened grease with a wire; on motors with a **grease relief fitting** or a spring relief, check it is not plugged.
@@ -121,6 +125,10 @@ Table 4, **amount of grease to add** (the large, shaft-end bearing of each frame
 7. Do not grease: **sealed bearings (2RS)** (no path in; the grease blows the seal), bearings with **no fitting** (lubed for life), **shielded bearings with a fitting** only per the maker (the shield lets grease pass slowly), TEFC motor fans (no), variable-speed drives' bearings on the inverter's own schedule.
 
 ## Over-greasing
+
+![A bearing packed by hand: fill the bearing, not the housing](/photos/lubrication/greased-bearing.jpg)
+
+*A bearing packed by hand: fill the bearing, not the housing. Photo: User:SkyMWard, CC BY-SA 3.0, via commons*
 
 | Sign | What is happening |
 |---|---|

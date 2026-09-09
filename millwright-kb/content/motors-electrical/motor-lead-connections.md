@@ -14,6 +14,10 @@ summary: "The connection diagrams for the three-phase motors a millwright reconn
 
 A three-phase motor has three winding groups (phases) that are connected internally or at the box in a **wye (star: all three joined at a common point)** or a **delta (each end joined to the next: a triangle)**. Dual-voltage motors have each phase in **two halves** brought out so the halves can be connected in **series** (high voltage: each half sees half the line voltage) or in **parallel** (low voltage: each half sees the full, lower voltage): the same winding current per half either way, which is why the FLA at 230 V is twice the FLA at 460 V.
 
+![The windings live in the stator; a squirrel-cage rotor has no connections](/photos/motors-electrical/stator-rotor.jpg)
+
+*The windings live in the stator; a squirrel-cage rotor has no connections. Photo: Zureks, CC BY-SA 3.0, via commons*
+
 ## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)
 
 Leads T1-T9 are brought out; inside the motor, T7, T8 and T9 are joined to form the star point of one set of winding halves:

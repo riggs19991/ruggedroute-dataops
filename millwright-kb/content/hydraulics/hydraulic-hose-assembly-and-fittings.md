@@ -44,6 +44,10 @@ Dash number = hose ID in **1/16"** (−8 = 1/2"). Working pressure is the maximu
 
 Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wrong mate looks like it screws on and then leaks or cracks.
 
+![Hydraulic hose fittings: measure the thread and look at the seat before you guess](/photos/hydraulics/hose-fittings.jpg)
+
+*Hydraulic hose fittings: measure the thread and look at the seat before you guess. Photo: Jstapko, CC BY-SA 3.0, via commons*
+
 ![JIC, ORFS, ORB, NPT and BSPP fitting seats](/img/hydraulics/fitting-types.svg)
 
 *JIC, ORFS, ORB, NPT and BSPP fitting seats*
@@ -69,6 +73,10 @@ Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wron
 Identify: measure the thread OD with a caliper (male) or ID (female), count the tpi with a pitch gauge (or measure the pitch in mm), check whether the thread is **tapered** (the diameter changes along it: pipe) or **parallel**, look at the sealing surface (a cone, a flat face with an O-ring, a flat shoulder), and check the cone angle with a seat gauge. Then match against the table; when in doubt, a fitting identification kit (Parker, Gates) has the gauges.
 
 ## Making a hose assembly
+
+![Hose crimper with the die set for the hose size](/photos/hydraulics/hose-crimper.jpg)
+
+*Hose crimper with the die set for the hose size. Photo: Jstapko, CC BY-SA 3.0, via commons*
 
 1. **Length**: measure the old hose or the route **fitting face to fitting face** (or as the catalogue defines the overall length: usually the cut length plus the fitting lengths; the crimper's chart gives the "cut-off factor" for each fitting). Allow **slack for pressure changes**: a hose **shortens by up to 4%** and thickens under pressure, so a straight hose between two fixed points needs a few percent extra length and a slight curve, never taut.
 2. **Cut** square with a hose saw (a fine-tooth abrasive or a shear cutter; a cut-off wheel makes rubber dust and burned wire: acceptable with a vacuum and the ends cleaned); **clean the bore** (a projectile/foam plug shot through, or compressed air and a swab: rubber dust and wire particles in the bore end up in the servo valve).
@@ -97,6 +105,10 @@ Identify: measure the thread OD with a caliper (male) or ID (female), count the 
 ## Inspection and replacement
 
 Check weekly on machines, at every PM on plants: **cover cracks and abrasion** (wire showing = replace now), **blisters or bulges** (an inner tube failure), **leaks at the fitting** (crimp slipping = replace), **kinks or crushed sections**, **hardening or cracking** (heat, age), corroded fittings, damaged or missing guards and clamps, hoses stretched taut at machine travel. Replacement rules: any hose with exposed reinforcement, any hose leaking at the coupling, any hose over the maker's or the plant's service life (mobile equipment: 5-10 years; critical hoses on a schedule), and both hoses of a pair if one has failed from age.
+
+![Crimped hose ends: check the crimp diameter against the chart](/photos/hydraulics/crimped-hose-ends.jpg)
+
+*Crimped hose ends: check the crimp diameter against the chart. Photo: Jstapko, CC BY-SA 3.0, via commons*
 
 ## Common mistakes
 

@@ -25,6 +25,10 @@ A machine can have five or six points. The machine-specific **LOTO procedure** l
 
 ![The eight lockout steps in order](/img/safety/lockout-steps.svg)
 
+![A personal lock on an isolation point](/photos/safety/lockout-hoist-brake.jpg)
+
+*A personal lock on an isolation point. Photo: Wtshymanski, CC BY-SA 4.0, via commons*
+
 *The eight lockout steps in order*
 
 1. **Prepare**: identify every energy source and the isolation device for each. Get the locks, tags, hasps, valve covers, plug locks you need. Only **your** personal lock, one key, in your pocket.
@@ -40,7 +44,15 @@ A machine can have five or six points. The machine-specific **LOTO procedure** l
 
 Each worker puts their **own lock** on the hasp or lock box. The last person off removes the last lock. Never remove another person's lock. If someone leaves with their lock on, the supervisor follows the written **lock-removal procedure** (confirm the person is clear, document, then cut). Shift change: the incoming crew locks on before the outgoing crew locks off.
 
+![Multi-lock hasp: every worker adds a lock, nobody removes another person's](/photos/safety/lockout-hasp.jpg)
+
+*Multi-lock hasp: every worker adds a lock, nobody removes another person's. Photo: Wtshymanski, CC BY-SA 4.0, via commons*
+
 ## Restart
+
+![Lockout board: every lock and tag accounted for before restart](/photos/safety/lockout-board.jpg)
+
+*Lockout board: every lock and tag accounted for before restart. Photo: NAVFAC, Public domain, via commons*
 
 1. Inspect the work area: tools out, guards on, blocks removed, personnel clear.
 2. Notify affected employees.

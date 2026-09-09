@@ -22,6 +22,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 
 ## Components
 
+![Internal gear pump cut away: the crescent separates suction from pressure](/photos/hydraulics/gear-pump-cutaway.jpg)
+
+*Internal gear pump cut away: the crescent separates suction from pressure. Photo: S.J. de Waard, CC BY 2.5, via commons*
+
 | Component | What it does | Field notes |
 |---|---|---|
 | **Reservoir** | Holds, cools, deaerates, settles the oil; the breather and the level | Level checked with all cylinders **retracted** (or per the machine); the breather is a **filter** (replace it; a desiccant breather in damp plants); the suction strainer (100-mesh) inside; the baffle separates return from suction |
@@ -63,6 +67,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 
 ## Pressure settings and the order to set them
 
+![Gauges tell the story: set the relief first, then compensator, then reducing valves](/photos/hydraulics/gauge-panel.jpg)
+
+*Gauges tell the story: set the relief first, then compensator, then reducing valves. Photo: U.S. Navy photo by Seaman Eboni C. Cameron, Public domain, via commons*
+
 1. **Main relief** first, with everything else backed off: set it to the design pressure (with a gauge on the pump outlet, the actuators dead-headed or blocked; turn the adjuster in slowly while reading; **lock** it).
 2. **Pump compensator** (pressure-compensated piston pump): set **below** the relief by 150-300 psi (the relief becomes a safety valve; the pump destrokes at the compensator pressure and makes no heat).
 3. **Reducing valves** in the branches.
@@ -71,6 +79,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 6. Record every setting on the schematic and the machine's log; never adjust a valve without a gauge and without knowing what it does.
 
 ## Troubleshooting logic
+
+![A gear pump opened: scored side plates mean contamination](/photos/hydraulics/gear-pump-open.jpg)
+
+*A gear pump opened: scored side plates mean contamination. Photo: Ll1324, CC0, via commons*
 
 1. **What is the machine doing wrong?** (No motion, slow, weak, drifts, erratic, hot, noisy, leaking.) Which actuators, which step of the sequence.
 2. **Electrical or hydraulic?** Is the solenoid energised at that step (the light, a test lamp, the PLC output; a solenoid that is energised but not shifting the spool: sticking from contamination or a burned coil; manual override pin on the valve shifts it by hand).

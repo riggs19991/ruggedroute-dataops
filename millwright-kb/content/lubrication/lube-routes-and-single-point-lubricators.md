@@ -30,6 +30,10 @@ summary: "The routine side of lubrication that decides whether the right grease 
 
 ## Grease guns
 
+![Lever grease gun with a flexible hose and coupler](/photos/lubrication/grease-gun.jpg)
+
+*Lever grease gun with a flexible hose and coupler. Photo: Bryn Pinzgauer, CC BY 2.0, via commons*
+
 - **One gun per grease**, labelled and colour-coded, loaded from **cartridges** (bulk loading takes in dirt and air unless from a filtered bulk loader); the coupler wiped and **capped** between points; a gun kept in a clean box, not the truck bed.
 - **Calibrate** each gun: 10 strokes into a cup on a scale → grams per stroke, written on the gun; re-check when a gun is serviced or the grease changes; battery/pneumatic guns per stroke as well (they vary from 0.5 to 2 g).
 - Guns develop 3,000-10,000 psi: enough to blow a seal or inject grease into a hand: never hold a fitting with a bare hand while pumping; a gun that will not pump (a plugged fitting) is not "pumped harder".
@@ -54,6 +58,10 @@ Setting the rate: quantity needed per interval from the [regreasing calculation]
 A pump (electric, air or hand) feeds a network of **metering valves** (progressive dividers: each piston moves the next, so one blocked outlet stops the whole block; or injectors on a single-line parallel system) to dozens of points on a timer. Millwright duties: keep the **reservoir filled** with the specified grease (NLGI 0-1 usually; a wrong grease plugs the dividers), check the **cycle indicator pin** on progressive systems moves each cycle (a stalled pin = a blocked line or bearing somewhere downstream, found by disconnecting outlets one at a time; a progressive system with one blocked outlet delivers nothing to any point), check the **pressure** and the **relief/vent** (a relief spitting grease = a blockage), inspect the lines for leaks and crushed tubing (a leak starves everything after it on a progressive block), confirm grease actually arrives at the far points (a purge at the seal), and replace the **filter** on the fill line. Adjust the timer from the evidence, not the default.
 
 ## Oil level devices
+
+![Pump oiler for the oil points on the route](/photos/lubrication/oil-can.jpg)
+
+*Pump oiler for the oil points on the route. Photo: Wammes Waggel, CC BY-SA 3.0, via commons*
 
 - **Sight glass / level window**: read with the machine **stopped** (unless the plate says running: circulating and some splash boxes) and **level**; the mark or the centre of the glass; a glass **darkened with varnish** or **fogged** is not a level: replace it (bull's-eye glasses fail slowly and lie).
 - **Dipstick**: as marked; wipe, insert without screwing (or screwed, per the stick), read.

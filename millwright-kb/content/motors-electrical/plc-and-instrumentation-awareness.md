@@ -12,6 +12,10 @@ summary: "A millwright meets the control system every time a machine will not st
 
 ![Sensor to motor signal chain and where to check](/img/motors-electrical/plc-signal-chain.svg)
 
+![A PLC rack: power supply, CPU, I/O cards](/photos/motors-electrical/plc-rack.jpg)
+
+*A PLC rack: power supply, CPU, I/O cards. Photo: Elmschrat Coaching-Blog, CC BY-SA 3.0, via commons*
+
 *Sensor to motor signal chain and where to check*
 
 | Part | What it is | Millwright's interest |
@@ -54,6 +58,10 @@ Sensor mounting rules: **rigid** brackets (a bracket that vibrates gives a chatt
 
 ## Why the machine will not run: a method
 
+![HMI screen and E-stop: read the fault before you touch anything](/photos/motors-electrical/hmi-panel.jpg)
+
+*HMI screen and E-stop: read the fault before you touch anything. Photo: Quist161, CC BY-SA 4.0, via commons*
+
 1. **Read the HMI**: the active alarm or fault (e-stop pressed, guard open, drive fault, high temperature, low level, a permissive not made); acknowledge/reset if it is cleared. The alarm text usually names the device (the tag) and the location.
 2. **Check the physical thing named**: the guard actually closed and the interlock aligned (the switch's LED); the e-stop **released** (turn to reset; all of them on the line: one pressed in a remote spot stops everything); the level/pressure actually there; the drive not faulted (its display).
 3. **The permissive list** on the HMI's diagnostic screen (green/red) or in the sequence table; the first red item from the top is the one to fix (the logic usually stops at the first missing condition).
@@ -75,6 +83,10 @@ Sensor mounting rules: **rigid** brackets (a bracket that vibrates gives a chatt
 ## Working with the controls tech
 
 Give them: the machine and the tag, what the HMI says, which LEDs you saw on and off, what you checked mechanically, what changed (a new sensor, a moved bracket, a motor replaced, a drive replaced: the parameters), and the wire/terminal numbers you looked at. Ask for: the permissive list, the sensor types and set gaps on the drawings, and a copy of the sensor settings for the machine's file. A sensor that is replaced and works "sometimes" is a gap or an alignment or a PNP/NPN mix: sort it with them before the machine is handed over.
+
+![Terminating a PLC panel: the controls tech's territory](/photos/motors-electrical/plc-wiring.jpg)
+
+*Terminating a PLC panel: the controls tech's territory. Photo: MTA Capital Construction Mega Projects, CC BY 2.0, via commons*
 
 ## Common mistakes
 

@@ -12,6 +12,10 @@ summary: "Enough about variable frequency drives to work safely around them and 
 
 A VFD rectifies the incoming AC to a **DC bus** (about 650 V DC on a 460 V drive), then switches it into a variable-frequency, variable-voltage output with transistors (IGBTs) using **pulse-width modulation**: the motor sees a synthesised AC whose frequency sets the speed and whose voltage keeps the **volts-per-hertz ratio** (460 V ÷ 60 Hz = 7.67 V/Hz) constant so the motor's flux and torque stay normal. Speed = the frequency the drive makes: 30 Hz on a 4-pole motor = about 880 rpm.
 
+![A variable frequency drive: keypad, display, cooling fan](/photos/motors-electrical/vfd.jpg)
+
+*A variable frequency drive: keypad, display, cooling fan. Photo: Suyash.dwivedi, CC BY-SA 4.0, via commons*
+
 For **fans and pumps** the affinity laws make a drive the biggest energy saver in a plant: **flow ∝ speed, head/pressure ∝ speed², power ∝ speed³**: a fan at 80% speed uses about **51%** of the power; a pump at 50% speed uses 12.5% (if the system has little static head; see [pump formulas](/article/pump-and-fluid-power-formulas)). For conveyors and constant-torque loads, the drive gives speed control and soft starting; the power falls in proportion to speed.
 
 Other things a drive gives: soft start (no inrush, no belt squeal, the ratio of start current set by the accel time), controlled deceleration (with a braking resistor or a regenerative drive to absorb an overhauling load), reversing by a parameter, built-in motor overload protection, run/fault contacts and analog speed inputs for the PLC, and a display of current, speed and faults that is useful for troubleshooting.
@@ -61,6 +65,10 @@ Fixes (the drive and the motor together):
 6. Insulated couplings do **not** protect the motor bearing; they protect the driven machine.
 
 ## Cable and installation rules (why the drive "faults for no reason")
+
+![Drive terminals: shielded motor cable, grounded at both ends](/photos/motors-electrical/vfd-terminals.jpg)
+
+*Drive terminals: shielded motor cable, grounded at both ends. Photo: Suyash.dwivedi, CC BY-SA 4.0, via commons*
 
 - Motor cable: VFD-rated, shielded, in its own conduit/tray **separated** from control and signal cables (at least 8-12", crossing at 90°); the shield to the drive's ground bar and the motor's frame at both ends; the cable as short as practical.
 - Input: a line reactor or DC choke where the supply is stiff or the drive is large (harmonics, drive protection); the drive's ground to the panel ground bar.

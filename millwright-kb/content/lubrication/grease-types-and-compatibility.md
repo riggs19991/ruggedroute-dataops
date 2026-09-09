@@ -12,6 +12,10 @@ summary: "What a grease is made of and why the thickener decides almost everythi
 
 **Base oil (70-95%)** held in a **thickener** (a soap or a non-soap sponge, 5-25%) with **additives** (5-10%). The oil does the lubricating; the thickener holds it in place and releases it under shear and heat; the additives protect against wear, rust and oxidation.
 
+![Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest](/photos/lubrication/grease-tub.jpg)
+
+*Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest. Photo: Surv1v4l1st, CC BY-SA 4.0, via commons*
+
 | Property | Set by | What it means to you |
 |---|---|---|
 | **Consistency (NLGI grade)** | The amount of thickener | How stiff it is: how it pumps and stays put; **not** how "heavy" it lubricates |

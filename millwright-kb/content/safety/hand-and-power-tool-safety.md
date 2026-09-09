@@ -23,6 +23,10 @@ summary: "The specific rules for the tools a millwright uses every day: abrasive
 
 **Wheel selection**
 
+![Guard on, both hands on the grinder, sparks away from you](/photos/cutting-gouging/angle-grinder.jpg)
+
+*Guard on, both hands on the grinder, sparks away from you. Photo: Tech. Sgt. Jeffrey Grossi, Public domain, via commons*
+
 ![Guard position and kickback direction on an angle grinder](/img/safety/grinder-guard-and-kickback.svg)
 
 *Guard position and kickback direction on an angle grinder*

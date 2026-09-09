@@ -14,6 +14,10 @@ summary: "A task-by-task PPE table for the work a millwright actually does, then
 
 ![PPE by task at a glance](/img/safety/ppe-by-task.svg)
 
+![Helmet, hearing protection and eye protection at the machine](/photos/safety/ppe-worker.jpg)
+
+*Helmet, hearing protection and eye protection at the machine. Photo: Sascha Kohlmann, CC BY-SA 3.0, via commons*
+
 *PPE by task at a glance*
 
 | Task | Eyes / face | Hearing | Hands | Respiratory | Other |
@@ -53,6 +57,10 @@ summary: "A task-by-task PPE table for the work a millwright actually does, then
 
 ## Inspection and care
 
+![Respirator, gloves and hard hat for dusty industrial work](/photos/safety/ppe-industrial.jpg)
+
+*Respirator, gloves and hard hat for dusty industrial work. Photo: CEphoto, Uwe Aranas, CC BY-SA 3.0, via commons*
+
 - Before each use: cracks in lenses and shields, cuts in gloves, crushed toes, torn harness webbing, cartridge dates, shell dents; discard on damage.
 - Eyewear: rinse under water before wiping (grit scratches); replace scratched lenses (they weaken and impair vision).
 - Store respirators sealed in a bag away from the dust they filter; clean the facepiece after each shift.
@@ -60,6 +68,10 @@ summary: "A task-by-task PPE table for the work a millwright actually does, then
 - Hearing: reusable plugs washed daily, replaced every few months; foam plugs one use.
 
 ## Common mistakes
+
+![Working without proper safety equipment: the photo NIOSH uses as the wrong example](/photos/safety/no-ppe.jpg)
+
+*Working without proper safety equipment: the photo NIOSH uses as the wrong example. Photo: National Institute for Occupational Safety and Health (NIOSH) from USA, Public domain, via commons*
 
 - Face shield without glasses underneath.
 - "Just a quick grind" with no shield, or glasses on the forehead.

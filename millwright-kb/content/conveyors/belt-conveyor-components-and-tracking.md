@@ -38,6 +38,10 @@ summary: "The parts of a belt conveyor a millwright maintains and how each affec
 
 A **carcass** (plies of polyester/nylon fabric, or steel cords) between **covers** (rubber, thick on the top/carrying side). Reading a spec: **"3-ply 330 PIW, 3/16 × 1/16, Grade 2, 36" wide"** = 3 plies, **330 lb per inch of width working tension** (PIW; also quoted as the total tension rating), top cover 3/16", bottom cover 1/16", RMA Grade 2 cover (Grade 1 is more abrasion-resistant; special: oil-resistant, heat-resistant, fire-resistant MSHA), width 36". Steel-cord belts are rated **ST-1000** etc. (N/mm). Replacement belt must match the tension rating (the take-up weight and the pulleys are sized for it), the width, the cover grade for the material, the trough-ability (a stiff belt will not sit in a 45° trough), and the **minimum pulley diameter** for the carcass (a 3-ply 330 needs about 16-24" head pulley; using a smaller pulley cracks the plies and the splice).
 
+![A covered field conveyor: return idlers underneath, carrying idlers on top](/photos/conveyors/covered-belt.jpg)
+
+*A covered field conveyor: return idlers underneath, carrying idlers on top. Photo: Eileen Henderson, CC BY-SA 2.0, via commons*
+
 ## Why belts drift
 
 A belt runs toward the side it is **pulled** to by: idlers or pulleys not square to the belt's centreline (the belt moves **toward the end of the roll it touches first**), a pulley that is not level (the belt walks toward the tighter, higher side), off-centre loading (the belt runs **away from** the side the load is on), material build-up on a pulley or idler (a local crown that steers it), a belt with a **camber** (a bow built into it, from manufacture or from a bad splice: it runs one way on a straight structure), a splice cut out of square, structure out of line or twisted, and idlers that do not turn.

@@ -14,6 +14,10 @@ summary: "How to recognise a confined space and decide whether it needs a permit
 
 A space is **confined** if all three are true (OSHA 1910.146):
 
+![Looking down into a permit space: one way in, one way out](/photos/safety/confined-space-manway.jpg)
+
+*Looking down into a permit space: one way in, one way out. Photo: U.S. Air Force photo by Karen Abeyasekere, Public domain, via commons*
+
 1. Large enough to enter and do work.
 2. **Limited or restricted** means of entry or exit (manway, ladder, hatch, crawl).
 3. **Not designed for continuous occupancy**.
@@ -65,6 +69,10 @@ Millwright examples: tanks, vessels, boilers, reactors, mixers, dryers, kilns, s
 The attendant may not do other work that distracts from the space. One attendant may cover more than one space only if the program allows and they can respond to all.
 
 ## Rescue
+
+![Tripod and winch rigged over the entry for retrieval](/photos/safety/confined-space-tripod.jpg)
+
+*Tripod and winch rigged over the entry for retrieval. Photo: Georgia National Guard from United States, CC BY 2.0, via commons*
 
 - **Non-entry retrieval**: full-body harness with a dorsal or shoulder D-ring, lifeline to a **tripod and winch** (or davit) at the opening for vertical spaces up to 5 ft deep or any space where the line will not snag. Chest or shoulder attachment for a straight vertical pull through a manway.
 - **Entry rescue**: a trained team with SCBA or supplied air, on-site or with a verified response time (the fire department is only an acceptable plan if they have confirmed capability and time; many cannot do vessel rescue).

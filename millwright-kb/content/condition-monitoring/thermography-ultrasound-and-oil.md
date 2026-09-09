@@ -52,6 +52,10 @@ An IR camera or gun measures the **infrared energy leaving a surface** and conve
 
 An ultrasonic detector "hears" high-frequency sound (20-100 kHz) that people cannot: **turbulence** (gas escaping through a leak, a vacuum drawing air), **friction and impacts** (a bearing's rolling contact, a rubbing seal), and **electrical discharge** (corona, tracking, arcing); it translates them down to audible sound in the headphones and reads a level in **dB**. Two modes: **airborne** (a scanning module or a parabolic dish for distance: leaks, electrical, steam) and **contact** (a probe touched on the bearing housing, the trap, the valve: bearings, valves, traps).
 
+![An ultrasonic leak detector in use](/photos/condition-monitoring/ultrasonic-detector.jpg)
+
+*An ultrasonic leak detector in use. Photo: Christopher Cassidy, Public domain, via commons*
+
 | Use | Method | Reading it |
 |---|---|---|
 | **Compressed air / gas leaks** | Airborne, scan the fittings, couplers, hoses, drains, valve packings; the rushing sound peaks at the leak; a tag and the dB level (the software estimates the cfm and cost) | The single fastest payback in most plants (see [pneumatics](/article/pneumatic-systems-frl-and-cylinders)); vacuum leaks the same way |

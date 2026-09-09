@@ -14,6 +14,10 @@ summary: "Step-by-step seal replacement on a typical back pull-out ANSI process 
 
 Most seals do not wear out; they are killed. Dry running (no flush, pump not vented), shaft runout, pipe strain, misalignment, cavitation, wrong setting dimension, and elastomers damaged during installation account for nearly all early failures. Fix the cause or you will be back in a month.
 
+![Seal faces lapped flat: a fingerprint is enough to make them leak](/photos/pumps-seals/seal-faces.jpg)
+
+*Seal faces lapped flat: a fingerprint is enough to make them leak. Photo: ENERGY.GOV, Public domain, via commons*
+
 ## Before you start
 
 1. Lockout/tagout motor. Close suction and discharge valves, **vent and drain** the pump. Confirm the fluid is safe to handle; wear the right gloves and face shield.

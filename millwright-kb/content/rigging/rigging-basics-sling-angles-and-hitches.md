@@ -52,6 +52,10 @@ Rule of thumb: if each sling leg (hook to pick point) is as long as the distance
 
 ## Hitches
 
+![Two slings on a spreader beam: legs vertical, no angle factor](/photos/rigging/beam-slings.jpg)
+
+*Two slings on a spreader beam: legs vertical, no angle factor. Photo: Alox, CC BY-SA 4.0, via commons*
+
 | Hitch | Capacity relative to the sling's vertical rating |
 |---|---|
 | **Vertical** (straight) | 100% |
@@ -70,6 +74,14 @@ Bending a sling around a small diameter cuts its strength. **D** = diameter of t
 ## Hardware
 
 ![Correct shackle loading and side-load derating](/img/rigging/shackle-loading.svg)
+
+![Screw-pin bow and D shackles: the WLL is forged on the bow](/photos/rigging/shackles.jpg)
+
+*Screw-pin bow and D shackles: the WLL is forged on the bow. Photo: Pline, CC BY-SA 3.0, via commons*
+
+![Hook with a spring latch: the latch closes the throat, it does not carry load](/photos/rigging/hook-safety-latch.jpg)
+
+*Hook with a spring latch: the latch closes the throat, it does not carry load. Photo: W.carter, CC BY-SA 4.0, via commons*
 
 *Correct shackle loading and side-load derating*
 

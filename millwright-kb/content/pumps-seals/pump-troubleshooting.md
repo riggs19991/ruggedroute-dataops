@@ -12,6 +12,10 @@ summary: "How to find out why a centrifugal pump is not doing its job before pul
 
 A pump complaint is a **system** complaint until the gauges say otherwise. Fit or read: **suction pressure** (or vacuum), **discharge pressure**, motor **amps** (all three phases), and if possible flow; note the liquid temperature and the tank level. Then:
 
+![A large slurry pump: suction and discharge gauges are the first check](/photos/pumps-seals/slurry-pump.jpg)
+
+*A large slurry pump: suction and discharge gauges are the first check. Photo: Bernard S. Janse, CC BY 2.5, via commons*
+
 ```
    differential head (ft) = (P_discharge − P_suction, psi) × 2.31 ÷ SG        (correct the gauges to the pump centreline)
    compare with the curve at the flow you think you have; the amps tell you the power and therefore roughly the flow
@@ -68,6 +72,10 @@ Do not mistake **bearing noise** (a whine or growl at the bearing housing, felt 
 | **Discharge pressure pulsing** | Air entrainment; cavitation; a check valve fluttering; two pumps in parallel fighting; a VFD hunting |
 
 ## Field checks in order
+
+![Two pumps on a common base: compare the healthy one with the suspect](/photos/pumps-seals/pump-pair.jpg)
+
+*Two pumps on a common base: compare the healthy one with the suspect. Photo: ceedub13, CC BY 2.0, via commons*
 
 1. Gauges and amps (above); tank level and temperature; valve positions on suction and discharge, including any bypass and the recirculation line.
 2. **Rotation** (bump uncoupled if in doubt; arrows on the casing).

@@ -14,6 +14,10 @@ summary: "The tests a millwright or maintenance tech can do with a megger and a 
 
 Measures the resistance of the winding insulation to the frame (ground) in megohms; low or falling values mean moisture, dirt, oil, a cracked or overheated insulation, and a fault coming.
 
+![Insulation resistance tester: 500 or 1,000 V DC, read at one minute](/photos/motors-electrical/insulation-tester.jpg)
+
+*Insulation resistance tester: 500 or 1,000 V DC, read at one minute. Photo: HIOKI E.E. Corporation, CC BY-SA 4.0, via commons*
+
 ![Megger connections and IEEE 43 minimums](/img/motors-electrical/megger-test.svg)
 
 *Megger connections and IEEE 43 minimums*
@@ -66,6 +70,10 @@ A quick version is the **dielectric absorption ratio** (60 s ÷ 30 s): ≥ 1.25 
 
 With a **low-ohms meter** (a milliohm meter or a good multimeter on its lowest range; a standard multimeter reads small motors only roughly), measure between each pair of leads (T1-T2, T2-T3, T1-T3 on a 3-lead motor; each winding half on 9-lead motors with the leads separated):
 
+![Stator and rotor of an induction motor](/photos/motors-electrical/stator-rotor.jpg)
+
+*Stator and rotor of an induction motor. Photo: Zureks, CC BY-SA 3.0, via commons*
+
 - **Balance**: the three readings should be **within about 1-3% of each other** (larger motors read fractions of an ohm: a milliohm meter or the shop's Kelvin bridge); a phase reading **open** (infinite) = a broken lead or coil; **higher** than the others = a bad joint, a burned turn; **lower** = a **shorted turn** (a turn-to-turn short: the motor runs hot, hums, trips, and it will fail; a surge test at the shop confirms).
 - Compare with the previous record or with an identical motor; a 9-lead motor's halves should match each other (T1-T4 = T2-T5 = T3-T6 and T7-T8 = T8-T9 = T7-T9 on the wye group).
 - Phase-to-phase on a wye motor reads twice the phase resistance; on a delta, two-thirds of it: the value itself does not matter, the balance does.
@@ -99,6 +107,10 @@ With a **low-ohms meter** (a milliohm meter or a good multimeter on its lowest r
 - Shaft currents on a VFD (fluting in the bearing: see [bearing failure analysis](/article/bearing-failure-analysis)).
 
 ## When it goes to the shop
+
+![Motor opened: windings, bearings and air gap all inspected](/photos/motors-electrical/motor-opened.jpg)
+
+*Motor opened: windings, bearings and air gap all inspected. Photo: Moteuralioth, CC BY-SA 3.0, via commons*
 
 - Insulation resistance below the minimum after drying; a PI under 1.5; a ground fault; a shorted turn (unbalanced resistance, a surge test needed); a broken rotor bar suspected (current swing, high slip); a burned winding smell; a bearing failure that has let the rotor rub the stator (a scored rotor and stator: a rewind or a replacement); explosion-proof motors (the flame paths must be checked and the repair certified).
 - The shop's tests: surge comparison (turn-to-turn), hipot, core loss, rotor bar tests, dynamic balancing; the repair per EASA AR100 with the winding data recorded.

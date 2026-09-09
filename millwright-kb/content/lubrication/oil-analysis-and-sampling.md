@@ -47,6 +47,10 @@ Consistency beats perfection: the same valve, flush, temperature and bottle ever
 
 ## Reading the report
 
+![An oil analysis report: wear metals, contaminants, viscosity and the trend](/photos/lubrication/oil-analysis-report.jpg)
+
+*An oil analysis report: wear metals, contaminants, viscosity and the trend. Photo: Oil lab &amp; --Hermannk (talk) 11:37, 13 November 2020 (UTC), Public domain, via commons*
+
 | Line | What it measures | What a change means |
 |---|---|---|
 | **Viscosity at 40°C (and 100°C)** | The oil's thickness vs the grade's nominal | **Up** (+10-15%): oxidation, a thicker oil added, soot, water emulsion; **down** (−10-15%): a thinner oil or fuel/solvent added, shear-down of a VI improver, coolant |

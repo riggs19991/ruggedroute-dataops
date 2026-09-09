@@ -20,6 +20,14 @@ Single-plane balancing is enough when the rotor is a narrow disc (length under a
 
 Vibration meter with **phase** (a tachometer or strobe referenced to a piece of reflective tape on the shaft) is the standard tool; a plain overall meter can use the four-run method below. Trial weights: washers, clamp-on weights, tape-on test weights (removed after), a scale for weighing them, chalk and a protractor for marking the rotor, lockout for every stop.
 
+![Field balancing a decanter centrifuge](/photos/condition-monitoring/balancing-centrifuge.jpg)
+
+*Field balancing a decanter centrifuge. Photo: NotecA, CC BY-SA 4.0, via commons*
+
+![A portable balancer kit: two accelerometers, a tach and the analyzer](/photos/condition-monitoring/portable-balancer.jpg)
+
+*A portable balancer kit: two accelerometers, a tach and the analyzer. Photo: NotecA, CC BY-SA 4.0, via commons*
+
 ## Trial weight size
 
 Start with a weight that produces a centrifugal force of about **10% of the rotor weight** (some use 5-10% of rotor weight in force, or a rule of thumb of 30 g at the rim per 100 lb of rotor at 1,800 rpm):
@@ -60,6 +68,10 @@ For a meter with amplitude only:
 Slower (four starts) but no phase instrument.
 
 ## Fixing weights
+
+![A motor rotor balanced by drilling: material removed, not added](/photos/condition-monitoring/rotor-balance-drill.jpg)
+
+*A motor rotor balanced by drilling: material removed, not added. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
 
 - Fans: clip-on balance clips on the wheel's back plate rim, or a welded washer (weld on the back, away from the airstream; a weld adds its own weight: weigh a test weld first). Never drill blades unless the maker allows.
 - Pulleys and flywheels: drill a hole at the light spot to remove weight (mass removed = same effect as adding opposite); keep the hole shallow and off the rim edge.

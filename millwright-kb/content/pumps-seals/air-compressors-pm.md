@@ -14,6 +14,10 @@ summary: "What each compressor type is and how it is controlled, the oil and fil
 
 ![Reciprocating and screw compressors with the receiver](/img/pumps-seals/compressor-types.svg)
 
+![A small reciprocating compressor: pump, motor, receiver, pressure switch](/photos/pumps-seals/piston-compressor.jpg)
+
+*A small reciprocating compressor: pump, motor, receiver, pressure switch. Photo: Sirotmusic, CC BY-SA 4.0, via commons*
+
 *Reciprocating and screw compressors with the receiver*
 
 | Type | How | Where | Character |

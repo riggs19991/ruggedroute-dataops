@@ -53,6 +53,10 @@ Round the cross-section **down** to the standard size (1/4, 5/16, 3/8, 7/16, 1/2
 
 ## Installation
 
+![Packing rings in the stuffing box, gland follower ready to go on](/photos/pumps-seals/gland-packing.jpg)
+
+*Packing rings in the stuffing box, gland follower ready to go on. Photo: Miya.m, CC BY-SA 3.0, via commons*
+
 1. Lockout; isolate and drain the pump; remove the gland; **remove all old packing** with a packing extractor (corkscrew) and hook, **including the lantern ring** (and the rings below it, which is where people stop); flush the box; check the flush port is open.
 2. **Inspect the sleeve**: scoring, grooves you can feel with a fingernail (over about 0.005" deep), pitting or a step under the old packing: **replace or resurface the sleeve**; new packing on a scored sleeve leaks and dies in a week. Check the shaft runout at the box (≤ 0.002-0.003") and the box bore for corrosion.
 3. Lubricate rings lightly if the maker says (a silicone or PTFE lube on synthetic packing, none on graphite that is pre-lubricated; never oil a packing for oxygen or food service).

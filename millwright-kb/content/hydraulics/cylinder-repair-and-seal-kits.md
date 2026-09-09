@@ -21,6 +21,10 @@ summary: "How to rebuild a leaking or drifting hydraulic cylinder: getting the r
 
 Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**, mounting style, seal class (standard nitrile, high-temperature Viton, water-glycol EPDM, low-friction PTFE), the pressure rating. Seal kits are sold by **series + bore + rod**; a "Parker 2H 3-1/4 bore, 1-3/8 rod, class 1 seals" kit contains the rod seal, wiper, piston seals, wear rings, gland O-ring/backup and the tube O-rings. No nameplate: measure the bore (the barrel ID), the rod, the gland seal groove dimensions and the piston groove dimensions with calipers and a seal profile gauge, and a seal supplier (Hercules and the like) will match them; measure **before** cleaning the old seals off, and keep the old seals to compare.
 
+![Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them](/photos/hydraulics/double-acting-cylinder.jpg)
+
+*Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them. Photo: Rstom03, CC BY-SA 3.0, via commons*
+
 ## Safety before disassembly
 
 - The cylinder can hold **pressure** with the lines disconnected (a POC valve, a blocked port, a trapped column of oil that expands as it warms): open both ports slowly with a rag over them.
@@ -31,6 +35,10 @@ Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**
 ## Disassembly
 
 **Tie-rod cylinders (Parker 2H/3L, Eaton, most industrial)**
+
+![Clevises, caps and heads laid out in order of removal](/photos/hydraulics/cylinder-parts.jpg)
+
+*Clevises, caps and heads laid out in order of removal. Photo: Rstom03, CC BY-SA 3.0, via commons*
 
 1. Clean the outside; mark the **orientation** of the heads, the ports and the mounts (a paint stripe across the rod end head, tube and cap end) so the ports come back in the same relationship.
 2. Clamp the cylinder by a mount or in soft jaws on the barrel (never on the rod); loosen the **tie-rod nuts in a cross pattern**, evenly, a turn at a time (unequal loosening cocks the heads); remove the nuts and the rod-end head (it may need a tap with a soft mallet; the tube seals hold it).
@@ -47,6 +55,10 @@ Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**
 Lay everything out in order on a clean bench; photograph the seal stack in the gland and the piston **before** removing the old seals; note the direction the seal lips face.
 
 ## Inspection
+
+![Piston rod: look for scoring, pitting and chrome flaking under a fingernail](/photos/hydraulics/piston-rod.jpg)
+
+*Piston rod: look for scoring, pitting and chrome flaking under a fingernail. Photo: Rstom03, CC BY-SA 3.0, via commons*
 
 | Part | Check | Acceptable | Scrap / repair |
 |---|---|---|---|

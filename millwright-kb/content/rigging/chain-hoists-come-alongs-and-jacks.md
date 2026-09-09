@@ -12,6 +12,10 @@ summary: "How to inspect a chain hoist, lever hoist or jack before every use, wh
 
 ## Types and where each fits
 
+![Manual chain hoist: hand chain, load chain, hook with latch](/photos/rigging/chain-hoist.jpg)
+
+*Manual chain hoist: hand chain, load chain, hook with latch. Photo: HardMediaGroup, CC BY-SA 3.0, via commons*
+
 | Tool | Typical capacity | Pull ratio | Use | Never |
 |---|---|---|---|---|
 | **Hand chain hoist** (chain fall, chain block) | 1/4-20 t | Hand chain to load chain about 30-50:1 | Vertical lifts from a beam, tripod or trolley | Pull sideways, lift people, exceed the plate |
@@ -58,6 +62,10 @@ Never repair a load chain (no welding, no replacement links); replace with the m
 - **Two-block**: stop before the bottom hook reaches the body; on electric hoists test the upper limit switch with no load every shift.
 
 ## Operating rules
+
+![Electric chain hoist with pendant: same inspection points, plus the brake](/photos/rigging/electric-chain-hoist.jpg)
+
+*Electric chain hoist with pendant: same inspection points, plus the brake. Photo: Streetcrane, CC BY-SA 4.0, via commons*
 
 - One person on the hand chain or lever; **no cheater bars**. If you cannot move it by hand, the hoist is too small or something is jammed.
 - Lift a few inches, stop, check the brake, the rigging and the balance, then continue.

@@ -61,6 +61,10 @@ They look alike and do not mate: **Industrial interchange (Milton M-style, 1/4" 
 
 ## Pneumatic cylinders
 
+![Compact pneumatic cylinders with adjustable cushions](/photos/hydraulics/pneumatic-cylinders.jpg)
+
+*Compact pneumatic cylinders with adjustable cushions. Photo: Grummelbacke, CC BY-SA 4.0, via commons*
+
 - **Types**: double-acting (the standard), single-acting spring return, rodless (magnetic or band), compact, guided, rotary actuators; **NFPA interchange** tie-rod cylinders (bores 1-1/2 to 8", rod sizes standard) and ISO 15552 metric (32-320 mm bore).
 - **Force** = pressure × piston area (a 2" bore at 80 psi: 3.14 × 80 = 251 lb extend, less on retract by the rod area); size for **50-70% of the theoretical force** so it moves briskly.
 - **Cushions**: adjustable needle screws at each end that trap air to slow the piston before it hits the head; set so the piston decelerates without slamming and without bouncing; a slammed cylinder breaks its rod end and the machine's stop.

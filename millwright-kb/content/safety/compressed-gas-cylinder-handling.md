@@ -31,6 +31,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 
 ![Storage separation for oxygen and fuel gas](/img/oxy-fuel/cylinder-storage.svg)
 
+![Cylinders upright, capped, chained, full and empty separated](/photos/oxy-fuel/gas-cylinder-rack.jpg)
+
+*Cylinders upright, capped, chained, full and empty separated. Photo: Cjp24, CC BY-SA 4.0, via commons*
+
 *Storage separation for oxygen and fuel gas*
 
 - **Upright, secured** (chain, strap or rack) at all times, including "empties".
@@ -52,6 +56,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 ## Connecting and opening
 
 ![Regulator, arrestor and check valve positions](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+![Regulator fitted: cylinder gauge on the right, working pressure on the left](/photos/oxy-fuel/regulator-gauges.jpg)
+
+*Regulator fitted: cylinder gauge on the right, working pressure on the left. Photo: J.Dncsn, CC BY-SA 3.0, via commons*
 
 *Regulator, arrestor and check valve positions*
 

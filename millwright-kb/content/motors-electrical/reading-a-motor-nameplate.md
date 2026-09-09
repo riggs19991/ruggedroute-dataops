@@ -72,6 +72,10 @@ The frame number encodes the **shaft height D**: the first two digits ÷ 4 for t
 
 ## Enclosures
 
+![Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor](/photos/motors-electrical/motor-cutaway.jpg)
+
+*Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor. Photo: Own work, Public domain, via commons*
+
 | Type | Meaning | Where |
 |---|---|---|
 | **ODP** (open drip-proof) | Openings for cooling air, drips from above cannot enter | Clean, dry indoor: the cheapest; dust and washdown kill it |

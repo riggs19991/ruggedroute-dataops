@@ -14,6 +14,10 @@ summary: "The clearance between an open impeller and the casing (or the wear rin
 
 In an **open-impeller** pump (ANSI B73.1 process pumps: Goulds 3196, Durco Mark 3 and their copies) the front of the impeller vanes runs a few thousandths from the casing (or the suction cover); liquid that slips back across that gap from the discharge side to the suction is lost work. As a rule of thumb, **doubling the design clearance drops the efficiency several points and the head a few percent**, raises the power, and moves the pump off its curve; too little clearance rubs when the pump warms up (galling, seizure, a broken shaft on start). The clearance wears open with abrasives and corrosion and is **re-set** (the impeller is moved forward) two or three times in its life before it needs replacing.
 
+![Casing off: the impeller and its clearance to the casing wall](/photos/pumps-seals/pump-impeller-open.jpg)
+
+*Casing off: the impeller and its clearance to the casing wall. Photo: Matt, Public domain, via commons*
+
 ![Open impeller clearance and enclosed impeller wear rings](/img/pumps-seals/impeller-clearance.svg)
 
 *Open impeller clearance and enclosed impeller wear rings*
@@ -60,6 +64,10 @@ The vanes are on the **back** of the impeller and run against the **rear cover (
 ## Enclosed impellers: wear rings
 
 Clearance is **diametral** (the difference in diameters between the ring on the impeller and the ring in the casing), measured with a micrometer on the impeller ring OD and a bore gauge on the casing ring ID (not with feelers in place, which read the radial gap on one side).
+
+![Enclosed impellers: the wear ring runs on the shroud eye](/photos/pumps-seals/impellers.jpg)
+
+*Enclosed impellers: the wear ring runs on the shroud eye. Photo: Meisam, CC BY-SA 3.0, via commons*
 
 **API 610 minimum running clearance (new; diametral, for rings of the same material with a galling tendency, e.g. cast iron/bronze at ≤ 500°F)**:
 

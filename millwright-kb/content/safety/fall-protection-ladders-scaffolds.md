@@ -12,6 +12,10 @@ summary: "The heights at which fall protection is required in general industry (
 
 ## When fall protection is required
 
+![Full-body harness: the dorsal D-ring sits between the shoulder blades](/photos/safety/harness-dring.jpg)
+
+*Full-body harness: the dorsal D-ring sits between the shoulder blades. Photo: National Institute for Occupational Safety and Health (NIOSH) from USA, Public domain, via commons*
+
 | Setting | Trigger height | Rule |
 |---|---|---|
 | General industry (plants, mills, shops): unprotected sides and edges, holes, platforms, mezzanines | **4 ft (1.2 m)** | OSHA 1910.28 |
@@ -28,6 +32,10 @@ summary: "The heights at which fall protection is required in general industry (
 ## Personal fall arrest system (PFAS)
 
 **Anchor**: **5,000 lb (22 kN) per person** attached, or engineered to 2× the maximum arresting force under a qualified person's design. Structural steel beam, a rated beam clamp or strap, a certified anchor point. Not: pipe, conduit, cable tray, handrails (unless certified), sprinkler lines, ductwork, the lift's guardrail (use the designed anchor in the basket), a forklift, a scissor lift railing on an adjoining lift. Anchor **above the D-ring** whenever possible.
+
+![Harness, shock-absorbing lanyard and anchor: check all three before the climb](/photos/safety/harness-worker.jpg)
+
+*Harness, shock-absorbing lanyard and anchor: check all three before the climb. Photo: National Institute for Occupational Safety and Health (NIOSH) from USA, Public domain, via commons*
 
 **Harness**: full body only (body belts are not for arrest). Fit: chest strap at mid-chest (armpit level, not the throat), leg straps snug (a flat hand slides in, a fist does not), D-ring between the shoulder blades, no twisted webbing, all keepers used. Inspect before each use: cuts, frays, burns, chemical damage, stitching, distorted hardware, impact indicator deployed (tag or fold stitching burst) = out of service. Manufacturer's label legible; retire on the maker's schedule or after any fall.
 

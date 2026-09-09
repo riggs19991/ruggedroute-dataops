@@ -71,6 +71,10 @@ The label on the MCC bucket, the panel, the disconnect: **nominal voltage**; **a
 
 The [lockout basics](/article/lockout-tagout-basics) article has the full procedure; the electrical specifics:
 
+![Locking out a breaker: lock, tag, then try to start it](/photos/safety/lockout-panel.jpg)
+
+*Locking out a breaker: lock, tag, then try to start it. Photo: PEO ACWA, CC BY 2.0, via commons*
+
 1. **Identify** the disconnect(s) that feed the machine (the drawing, the label on the disconnect, the motor tag: a machine can have more than one source: the motor's 480 V, a 120 V control circuit from another panel, a heater circuit, a VFD with a separate control power supply, a UPS-fed PLC).
 2. **Shut down** the machine at its controls (stop), then **open the disconnect** (the handle to OFF; on an MCC bucket, the door-mounted handle; stand to the **side**, face away, in the PPE, and do not stand in front of the door when operating: this is the moment an arc happens on a failed device).
 3. **Lock** the handle with your lock and tag (a hasp for multiple locks; each person their own lock); **try** the machine's start button (the "try" step); on a VFD wait the bus discharge time.

@@ -16,6 +16,10 @@ summary: "The capacity tables riggers reach for: wire rope slings by diameter an
 
 ## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice (lb)
 
+![A swaged (mechanical splice) eye on wire rope](/photos/rigging/wire-rope-splice.jpg)
+
+*A swaged (mechanical splice) eye on wire rope. Photo: Bachelot Pierre J-P, CC BY-SA 3.0, via commons*
+
 | Dia. | Vertical | Choker | Vertical basket | 2-leg 60° | 2-leg 45° | 2-leg 30° | 3-leg 60° | 3-leg 45° | 3-leg 30° |
 |---|---|---|---|---|---|---|---|---|---|
 | 1/4" | 1,300 | 960 | 2,600 | 2,200 | 1,820 | 1,300 | 3,400 | 2,800 | 1,940 |
@@ -73,6 +77,10 @@ Rules for chain: only **Grade 80 or 100 alloy** (marked "8", "80", "800", "10", 
 
 **Eye-and-eye (EE), flat eyes**
 
+![Round slings and a spreader on a scaffold lift](/photos/rigging/round-sling-lift.jpg)
+
+*Round slings and a spreader on a scaffold lift. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
+
 | Width | 1-ply vertical | 1-ply choker | 1-ply basket | 2-ply vertical | 2-ply choker | 2-ply basket |
 |---|---|---|---|---|---|---|
 | 1" | 1,600 | 1,280 | 3,200 | 3,100 | 2,480 | 6,200 |
@@ -92,6 +100,10 @@ Web and round sling rules: keep them off **sharp edges** (corner protectors, the
 ## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons
 
 ![Shackle loading](/img/rigging/shackle-loading.svg)
+
+![A screw-pin shackle in use: pull in line with the bow, pin moused](/photos/rigging/shackle-bollard.jpg)
+
+*A screw-pin shackle in use: pull in line with the bow, pin moused. Photo: Bachelot Pierre, CC BY-SA 3.0, via commons*
 
 *Shackle loading*
 
