@@ -302,6 +302,10 @@ Rotate both shafts together (or, if the movable cannot be turned, rotate only th
 
 ![Rim and face indicator setup with the A, B and C dimensions](/img/alignment/rim-and-face-setup.svg)
 
+![A plunger dial indicator: 0.001 in graduations, one inch of travel](/photos/alignment/dial-indicator.jpg)
+
+*A plunger dial indicator: 0.001 in graduations, one inch of travel. Photo: Solaris2006, CC BY-SA 3.0, via commons*
+
 *Rim and face indicator setup with the A, B and C dimensions*
 
 - Rim-and-face bracket (chain or clamp type) with rigid rods; the shorter the rods, the less sag
@@ -422,6 +426,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A flexible coupling tolerates *some* misalignment. It does not remove the forces. Misaligned shafts push a bending load into the bearings and seals once per revolution. Typical results of poor alignment: hot bearings, seal leaks, coupling wear and rubber dust, foundation bolt loosening, and vibration at 1× and 2× running speed. Good alignment is the cheapest reliability improvement a millwright can make.
 
+![Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools](/photos/alignment/turbine-shaft-alignment.jpg)
+
+*Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools. Photo: Alfred T. Palmer, Public domain, via commons*
+
 ## Describing misalignment
 
 Two shafts can be out in four independent ways. You correct all four.
@@ -532,6 +540,10 @@ Soft foot is a machine foot that does not sit flat on the base when the bolts ar
 | **Induced soft foot** | External force, usually pipe strain or a warped base, pulls the frame | Fix the piping/base; nothing you do at the foot will hold |
 
 ## Check (dial indicator method)
+
+![Feeler gauge blades find the gap under a soft foot](/photos/alignment/feeler-gauge.jpg)
+
+*Feeler gauge blades find the gap under a soft foot. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
 
 1. Machine rough-aligned, all four bolts torqued.
 2. Set a magnetic-base dial indicator on the base with the plunger on the top of foot #1 near the bolt.
@@ -701,6 +713,10 @@ Bearing bore tolerance (normal class, PN): 18-30 mm: 0 / −0.0004"; 30-50: 0 / 
 
 Radial internal clearance (RIC) is the total play between the rings measured on the unmounted bearing; the **mounted** clearance is less by the fit reductions, and the **operating** clearance is less again by the temperature difference between the rings (the inner runs hotter and expands). The target is a **small positive operating clearance**.
 
+![A deep groove ball bearing: clearance is measured between the balls and the outer raceway](/photos/bearings/ball-bearing.jpg)
+
+*A deep groove ball bearing: clearance is measured between the balls and the outer raceway. Photo: R. Henrik Nilsson, CC BY 4.0, via commons*
+
 | Class | Meaning | Use |
 |---|---|---|
 | C2 | Less than normal | Precision, preloaded pairs |
@@ -788,6 +804,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Type (first digit or letters)
 
+![Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring](/photos/bearings/ball-bearing-cutaway.jpg)
+
+*Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring. Photo: Silberwolf, CC BY 2.5, via commons*
+
 | Code | Bearing type |
 |---|---|
 | **1** | Self-aligning ball bearing (12xx, 13xx, 22xx, 23xx with "E") |
@@ -806,6 +826,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Dimension series
 
 The digit(s) after the type give the **width series** and **diameter series** (ISO 15). For a given bore, a higher diameter series is a bigger, stronger bearing:
+
+![Cylindrical roller bearing (type N/NU): same bore code, different series and load rating](/photos/bearings/cylindrical-roller-cutaway.jpg)
+
+*Cylindrical roller bearing (type N/NU): same bore code, different series and load rating. Photo: Silberwolf, CC BY 2.5, via commons*
 
 | Series | Example for 25 mm bore | Outside diameter | Width |
 |---|---|---|---|
@@ -1056,11 +1080,19 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A **mounted bearing** is a bearing **insert** (a ball or roller bearing with a wide inner ring and a spherical outside) in a **housing** (pillow block, 2- or 4-bolt flange, take-up frame, hanger, cartridge). The spherical seat lets the insert self-align to a few degrees of shaft misalignment (static only: it does not accommodate a bent shaft that changes angle each revolution). The wide inner ring locks to the shaft with one of the methods below.
 
+![A cast pillow block with its insert bearing](/photos/bearings/pillow-block.jpg)
+
+*A cast pillow block with its insert bearing. Photo: Dodge Manufacturing Company, Public domain, via commons*
+
 ![Housing, insert, locking collar, fixed and floating ends](/img/bearings/pillow-block-anatomy.svg)
 
 *Housing, insert, locking collar, fixed and floating ends*
 
 ## Locking methods
+
+![Stainless pillow block: set-screw collar on the wide inner ring](/photos/bearings/stainless-pillow-block.jpg)
+
+*Stainless pillow block: set-screw collar on the wide inner ring. Photo: Mdijke, CC BY-SA 4.0, via commons*
 
 | Type | How it holds | Best for | Watch |
 |---|---|---|---|
@@ -1114,9 +1146,17 @@ Two bearings on one shaft: **one holds the shaft axially (fixed), the other must
 
 Sealed inserts with a grease fitting need **small, regular** shots: a stroke or two of a compatible grease (lithium or lithium-complex NLGI 2 in most units; check the maker) every 1-6 months depending on speed, temperature and dirt (see [regreasing intervals](/article/regreasing-intervals-and-quantities)); grease should purge slightly at the seal, which is how the seal keeps dirt out. Over-greasing blows the seals and heats the bearing; a bearing with **no** fitting is lubed for life. Washdown (food) units use food-grade H1 grease and are greased more often to purge water.
 
+![Grease gun on the fitting: a few strokes, not a full tube](/photos/lubrication/grease-gun-use.jpg)
+
+*Grease gun on the fitting: a few strokes, not a full tube. Photo: U.S. Navy photo by Mass Communication Specialist Seaman Apprentice Kyle Steckler, Public domain, via commons*
+
 ## Split pillow blocks (SAF / SNL / SD) with spherical roller bearings
 
 The heavy-duty pillow block for conveyor pulleys, fans, crushers: a **split housing** (base and cap), a **spherical roller bearing** on an **adapter sleeve** with a lock nut and lock washer, **seals** (labyrinth, taconite, felt, V-ring) and **locating (stabilising) rings** that fix the bearing in the housing on the fixed side.
+
+![Split housing opened: spherical roller bearing on an adapter sleeve](/photos/bearings/split-pillow-block.jpg)
+
+*Split housing opened: spherical roller bearing on an adapter sleeve. Photo: SamuelFreli, CC BY-SA 3.0, via commons*
 
 1. Mount the bearing on the sleeve on the shaft with the [drive-up / clearance-reduction method](/article/skf-drive-up-card); the sleeve nut faces away from the shoulder or the pulley as the drawing shows.
 2. Fit the seals (they sit in grooves in the housing halves, and the seal rings on the shaft).
@@ -1229,6 +1269,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Step 0 - Identify the bearing and taper
 
 Read the suffix on the bearing:
+
+![Double-row spherical roller bearing: barrel rollers on one spherical outer raceway](/photos/bearings/spherical-roller-cutaway.jpg)
+
+*Double-row spherical roller bearing: barrel rollers on one spherical outer raceway. Photo: Silberwolf, CC BY 2.5, via commons*
 
 | Suffix | Meaning |
 |---|---|
@@ -1384,6 +1428,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A tapered roller bearing is two separable parts: the **cone** (inner ring with rollers and cage) and the **cup** (outer ring). Mounted in **pairs** facing each other (direct or indirect mounting), the axial position of one cup or cone relative to the other decides the internal clearance of both bearings at once:
 
+![Cup and cone of a tapered roller bearing: separable, so the setting is up to you](/photos/bearings/tapered-roller-cup-cone.jpg)
+
+*Cup and cone of a tapered roller bearing: separable, so the setting is up to you. Photo: Rankin Kennedy C.E., Public domain, via commons*
+
 - **End play**: an axial clearance; the shaft can be moved end to end a measurable amount. Rollers are not all loaded; the bearing runs cool and tolerates thermal expansion.
 - **Preload**: an axial interference; the rollers are all loaded and the shaft has zero end play plus a set force. Stiffer, more accurate, higher load capacity from more rollers sharing, but heat and life fall sharply if the preload is too high.
 - **Zero (line-to-line)**: the transition. Timken's life curve peaks at **near-zero to slight preload**; because you cannot hit zero exactly and because hot running changes the setting, most industrial machinery is set with **a small end play cold** that closes toward zero when hot.
@@ -1437,6 +1485,10 @@ The shaft grows longer than the housing when it runs warmer (gearbox shafts run 
 Example: steel shaft, steel housing, bearings 20" apart, shaft 40°F hotter than the housing: 20 × 6.5 × 10⁻⁶ × 40 = **0.0052" reduction** in end play. If you set 0.003" cold, it runs 0.002" preloaded: fine for a gearbox, but a longer shaft or a bigger ΔT can turn a "safe" cold end play into heavy preload and a hot bearing. Indirect (X) mounting and direct (O) mounting respond in opposite directions to radial expansion; the manual's cold number already accounts for it. Do not "improve" the manual's number.
 
 ## Cups, cones and fits
+
+![Tapered roller bearing in section: cup, cone, rollers and cage](/photos/bearings/tapered-roller-cutaway.jpg)
+
+*Tapered roller bearing in section: cup, cone, rollers and cage. Photo: Silberwolf, CC BY 2.5, via commons*
 
 - Rotating cone (most shafts): **tight** on the shaft (interference fit per the fit tables); cup stationary in a housing: slip fit for the adjustable cup, tight where it is the fixed one. The **adjustable member must be the loose-fitted one** or you cannot adjust it (Timken's "loose fitted member for adjustment").
 - Seat the cup: press or drive with a driver on the cup's face, never on the rib; a cup carrier lets you shim behind it.
@@ -1556,6 +1608,14 @@ Single-plane balancing is enough when the rotor is a narrow disc (length under a
 
 Vibration meter with **phase** (a tachometer or strobe referenced to a piece of reflective tape on the shaft) is the standard tool; a plain overall meter can use the four-run method below. Trial weights: washers, clamp-on weights, tape-on test weights (removed after), a scale for weighing them, chalk and a protractor for marking the rotor, lockout for every stop.
 
+![Field balancing a decanter centrifuge](/photos/condition-monitoring/balancing-centrifuge.jpg)
+
+*Field balancing a decanter centrifuge. Photo: NotecA, CC BY-SA 4.0, via commons*
+
+![A portable balancer kit: two accelerometers, a tach and the analyzer](/photos/condition-monitoring/portable-balancer.jpg)
+
+*A portable balancer kit: two accelerometers, a tach and the analyzer. Photo: NotecA, CC BY-SA 4.0, via commons*
+
 ## Trial weight size
 
 Start with a weight that produces a centrifugal force of about **10% of the rotor weight** (some use 5-10% of rotor weight in force, or a rule of thumb of 30 g at the rim per 100 lb of rotor at 1,800 rpm):
@@ -1596,6 +1656,10 @@ For a meter with amplitude only:
 Slower (four starts) but no phase instrument.
 
 ## Fixing weights
+
+![A motor rotor balanced by drilling: material removed, not added](/photos/condition-monitoring/rotor-balance-drill.jpg)
+
+*A motor rotor balanced by drilling: material removed, not added. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
 
 - Fans: clip-on balance clips on the wheel's back plate rim, or a welded washer (weld on the back, away from the airstream; a weld adds its own weight: weigh a test weld first). Never drill blades unless the maker allows.
 - Pulleys and flywheels: drill a hole at the light spot to remove weight (mass removed = same effect as adding opposite); keep the hole shallow and off the rim edge.
@@ -1671,6 +1735,10 @@ An IR camera or gun measures the **infrared energy leaving a surface** and conve
 ## Ultrasound
 
 An ultrasonic detector "hears" high-frequency sound (20-100 kHz) that people cannot: **turbulence** (gas escaping through a leak, a vacuum drawing air), **friction and impacts** (a bearing's rolling contact, a rubbing seal), and **electrical discharge** (corona, tracking, arcing); it translates them down to audible sound in the headphones and reads a level in **dB**. Two modes: **airborne** (a scanning module or a parabolic dish for distance: leaks, electrical, steam) and **contact** (a probe touched on the bearing housing, the trap, the valve: bearings, valves, traps).
+
+![An ultrasonic leak detector in use](/photos/condition-monitoring/ultrasonic-detector.jpg)
+
+*An ultrasonic leak detector in use. Photo: Christopher Cassidy, Public domain, via commons*
 
 | Use | Method | Reading it |
 |---|---|---|
@@ -2024,6 +2092,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Belt construction and specification
 
 A **carcass** (plies of polyester/nylon fabric, or steel cords) between **covers** (rubber, thick on the top/carrying side). Reading a spec: **"3-ply 330 PIW, 3/16 × 1/16, Grade 2, 36" wide"** = 3 plies, **330 lb per inch of width working tension** (PIW; also quoted as the total tension rating), top cover 3/16", bottom cover 1/16", RMA Grade 2 cover (Grade 1 is more abrasion-resistant; special: oil-resistant, heat-resistant, fire-resistant MSHA), width 36". Steel-cord belts are rated **ST-1000** etc. (N/mm). Replacement belt must match the tension rating (the take-up weight and the pulleys are sized for it), the width, the cover grade for the material, the trough-ability (a stiff belt will not sit in a 45° trough), and the **minimum pulley diameter** for the carcass (a 3-ply 330 needs about 16-24" head pulley; using a smaller pulley cracks the plies and the splice).
+
+![A covered field conveyor: return idlers underneath, carrying idlers on top](/photos/conveyors/covered-belt.jpg)
+
+*A covered field conveyor: return idlers underneath, carrying idlers on top. Photo: Eileen Henderson, CC BY-SA 2.0, via commons*
 
 ## Why belts drift
 
@@ -2398,6 +2470,14 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Screw conveyors
 
+![A screw conveyor in an open trough: flight, trough and hanger bearing](/photos/conveyors/screw-trough.jpg)
+
+![Feed auger at a hopper: the flight hand sets the direction of flow](/photos/conveyors/auger-hopper.jpg)
+
+*Feed auger at a hopper: the flight hand sets the direction of flow. Photo: Agne27, CC BY-SA 3.0, via commons*
+
+*A screw conveyor in an open trough: flight, trough and hanger bearing. Photo: Dsm22, CC BY 3.0, via commons*
+
 ### Parts
 
 A **screw** (helical **flighting** welded to a **pipe** with **coupling shafts** at each end) turns in a **U-trough** (or a tube) and pushes the material along. Parts: the **drive** (a shaft-mount reducer or a motor-reducer on the **drive shaft** at one end: the material is usually **pulled** toward the drive), **trough end plates** with the **end bearings** (roller bearings outside the trough with seals/packing), **hanger bearings** every 10-12 ft (a sleeve bearing on a hanger frame that supports the screw between sections and joins two screw sections with a **coupling shaft**), **coupling bolts** (through the pipe and the coupling shaft, 2 or 3 per end), **trough covers**, **inlet and discharge spouts**, and **flight types**: standard (full pitch = diameter), short pitch (2/3, for inclines and feeders), variable pitch (feeders: pitch increasing under the hopper for even draw-off), **cut flight** and **cut-and-folded** (mixing), **ribbon** (sticky materials, mixing), paddle, double flight.
@@ -2635,6 +2715,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 An annular cutter cuts a **ring**, leaving a slug, so it removes a fraction of the metal a twist drill would; a 1" hole in 1" plate takes a minute with a 1/2 hp mag drill and no pilot hole.
 
+![A magnetic drill press clamped to steel](/photos/cutting-gouging/mag-drill.jpg)
+
+*A magnetic drill press clamped to steel. Photo: RBR1986, CC BY-SA 4.0, via commons*
+
 ![Annular cutter versus twist drill](/img/cutting-gouging/mag-drill-annular-cutter.svg)
 
 *Annular cutter versus twist drill*
@@ -2680,6 +2764,10 @@ Bad signs: squealing (dull cutter or too light, or dry), the drill walking (magn
 Teeth are ground with a specific geometry; **resharpen** on a cutter grinder or replace; a chipped tooth chips the next one. Store in the tube. Twist drills with 3/4" Weldon shanks fit the mag drill for tapping-size holes and countersinks; a chuck adaptor lets you run ordinary drills.
 
 ## Hole saws
+
+![Bi-metal hole saw kit with arbor](/photos/cutting-gouging/hole-saw.jpg)
+
+*Bi-metal hole saw kit with arbor. Photo: Joost J. Bakker IJmuiden, CC BY 2.0, via commons*
 
 ### RPM chart (bi-metal hole saws)
 
@@ -2781,6 +2869,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 The preheat flames bring a spot of steel to **kindling temperature (about 1600°F, bright cherry red)**; the cutting-oxygen jet then **burns** the iron (iron + oxygen → iron oxide, releasing heat) and blows the liquid oxide out of the kerf. The steel is oxidised, not melted; that is why:
 
+![A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf](/photos/cutting-gouging/oxy-cut-hand.jpg)
+
+*A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf. Photo: Toby Hudson, CC BY-SA 3.0, via commons*
+
 - It only works on metals whose oxide melts **below** the metal: **carbon and low-alloy steel** (and, with care, wrought iron). Cast iron's graphite and high carbon fight it (see below).
 - **Stainless** (chromium oxide is refractory) and **aluminium** (aluminium oxide melts at 3700°F) **cannot be oxy-fuel cut**: use plasma, carbon-arc or a saw.
 - Rust, scale, paint and galvanising insulate the surface and interrupt the reaction: clean the line first.
@@ -2828,6 +2920,10 @@ Tip size by thickness from the chart (1/4" → 00, 1/2" → 0, 1" → 2, 2" → 
 
 ## Reading the cut edge (AWS C4.1 language)
 
+![A cut edge: the drag lines and slag tell you whether speed and oxygen were right](/photos/cutting-gouging/oxy-cut-edge.jpg)
+
+*A cut edge: the drag lines and slag tell you whether speed and oxygen were right. Photo: August Geyler, CC BY-SA 4.0, via commons*
+
 | What you see | Cause | Fix |
 |---|---|---|
 | **Drag lines** (the curved lines on the face) vertical and light | Correct speed | |
@@ -2860,6 +2956,10 @@ Gouging nozzles (Victor sells them by series like the cutting tips) lay a low-an
 
 ## Common mistakes
 
+![Goggles, gloves, a steady two-handed hold and a clear path for the slag](/photos/cutting-gouging/oxy-cut-goggles.jpg)
+
+*Goggles, gloves, a steady two-handed hold and a clear path for the slag. Photo: Konstantin Brizhnichenko, CC BY-SA 4.0, via commons*
+
 - Preheat flames too far off the plate: never gets to kindling temperature; too close: tip pops and the top edge melts.
 - Trying to cut galvanised or painted steel without cleaning: cut stops every inch and the fume is toxic.
 - Pressing the lever before bright red: the jet just cools the spot.
@@ -2884,6 +2984,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$plasma-cutting-setup$mw$, $mw$Plasma Cutting Setup and Cut Charts: Air Supply, Consumable Stack, Hypertherm Powermax45 XP / 65 / 85 / 105 Capacities, Mild Steel Cut Chart (Amps, Thickness, Speed, Voltage, Kerf), Hand Cutting Technique, Dross and Bevel Troubleshooting$mw$, $mw$How a plasma cutter is set up from the compressor to the tip: air quality and flow, the consumable stack and when to change each part, what the capacity numbers mean, the full Powermax45 XP mild steel cut chart with pierce heights, delays, speeds and arc voltages for hand and CNC use, capacity and air figures for the 65/85/105, and the technique and troubleshooting for clean square cuts.$mw$, $mw$## How it works, in one paragraph
 
 A pilot arc inside the torch ionises the air; when the torch is near the plate the main arc transfers to the work and the swirl of compressed air through a small nozzle orifice constricts it to a 30,000°F jet that melts and blows the metal out of the kerf. It cuts **anything conductive** (steel, stainless, aluminium, copper, cast iron), needs only electricity and dry air, and leaves a narrow kerf with a small heat-affected zone. The consumables (electrode with a hafnium insert, nozzle) are the wear parts; the air quality decides how long they last.
+
+![A CNC plasma table cutting plate](/photos/cutting-gouging/plasma-cnc.jpg)
+
+*A CNC plasma table cutting plate. Photo: Loffredo, CC BY-SA 4.0, via commons*
 
 ## Air supply
 
@@ -2970,6 +3074,10 @@ Stainless and aluminium have their own tables in the manual: roughly the same sp
 6. Safety: **shade 8** (up to 300 A) per the table in [welding safety](/article/welding-safety-fumes-and-ppe), gloves, leathers, hearing protection (plasma is loud), fume extraction on stainless (hex chrome) and galvanised, fire watch (sparks go 20 ft), nothing flammable under the table.
 
 ## Hand cutting technique
+
+![Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square](/photos/cutting-gouging/plasma-hand.jpg)
+
+*Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square. Photo: U.S. Air Force photo by Senior Airman Michael Washburn, Public domain, via commons*
 
 - **Drag the shield on the plate** with shielded consumables; with unshielded, hold **1/16-1/8" standoff**. Torch **90° to the plate**; tilt only for bevels.
 - Start on the edge: torch at the edge, trigger, wait for the arc to punch through, then move. Circles and inside cuts: **pierce** with the torch tilted 30-45° away from you so the blow-back does not hit the shield, rotate upright as it goes through (see [piercing and keyholing](/article/plasma-keyholing-and-piercing)).
@@ -3107,6 +3215,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![At least 3 and at most 24 teeth in the cut](/img/cutting-gouging/bandsaw-tpi-rule.svg)
 
+![Horizontal band saw: let the weight of the arm do the cutting](/photos/cutting-gouging/band-saw.jpg)
+
+*Horizontal band saw: let the weight of the arm do the cutting. Photo: U.S. Navy photo by Mass Communication Specialist 3rd Class James R. Evans, Public domain, via commons*
+
 *At least 3 and at most 24 teeth in the cut*
 
 ### The 3-24 rule
@@ -3184,6 +3296,10 @@ New blades have razor tooth edges that chip if fed hard at first. **First 50-100
 
 ## Chop saws (abrasive cut-off)
 
+![Abrasive chop saw: sparks and the cut-off piece go away from you](/photos/cutting-gouging/chop-saw.jpg)
+
+*Abrasive chop saw: sparks and the cut-off piece go away from you. Photo: Mark Hunter, CC BY 2.0, via commons*
+
 - 14" reinforced Type 1 (Type 41) wheels at **up to 4,400 rpm** (some saws 5,400: match the wheel's rating), A24-A36 grit resinoid for steel; a stainless-rated (iron-free, "INOX") wheel for stainless; masonry wheels only on masonry saws.
 - Clamp the work in the vise tight; cut with a **steady, moderate pressure**: pushing hard glazes and heats the wheel, and it wears fast; let the sparks fly straight down.
 - Wheel wobbling, chipped edge, cracked, or soaked in water: throw it out. Store flat, dry, off the floor.
@@ -3192,6 +3308,10 @@ New blades have razor tooth edges that chip if fed hard at first. **First 50-100
 - **Dry-cut carbide saws** (Evolution, DeWalt) and **cold saws** (slow-turning HSS circular blade with coolant) cut cooler, square and burr-free, and are the better choice for tube and structural; use the blade the maker rates for the material, never a wood blade on steel.
 
 ## Angle grinder wheels and discs
+
+![Angle grinder with the guard on: sparks directed down and away](/photos/cutting-gouging/angle-grinder.jpg)
+
+*Angle grinder with the guard on: sparks directed down and away. Photo: Tech. Sgt. Jeffrey Grossi, Public domain, via commons*
 
 ### Types
 
@@ -3419,6 +3539,10 @@ Fine-thread (UNF) bolts of the same size take roughly 10% more.
 
 ![Grade by head marking](/img/fasteners/bolt-head-markings.svg)
 
+![Head marking on a metric bolt: maker and property class](/photos/fasteners/hex-bolt-marking.jpg)
+
+*Head marking on a metric bolt: maker and property class. Photo: R. Henrik Nilsson, CC BY 4.0, via commons*
+
 *Grade by head marking*
 
 | Marking | Grade / class | Min tensile |
@@ -3479,6 +3603,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$flange-bolting-and-gaskets$mw$, $mw$Flange Bolting and Structural Bolting: Gasket Seating and the Star Pattern (ASME PCC-1 Sequence), Stud Torque Tables for Class 150 and 300 Flanges (B7 Studs, Lubricated), Flange Faces and Finishes, Hot Re-Torque, Leak Checks and Gasket Removal; Structural A325/A490 Bolting with Snug-Tight, Turn-of-Nut Table, DTI Washers and TC Bolts, Inspection and Reuse Rules$mw$, $mw$Two bolting jobs with their own rules: the pressure-boundary flange, where the gasket must be seated evenly by a stud stress that comes from a lubricated torque applied in a star pattern in steps, with the torque tables for the common flange classes and the checks before and after; and the structural steel connection, where the bolt must be pretensioned by turn-of-nut, a tension-control bolt or a tension indicator after a snug-tight pass, with the RCSC rotation table and the inspection and re-use rules.$mw$, $mw$## Part 1: flanges
 
 ![Star pattern numbering and torque passes](/img/fasteners/flange-star-pattern.svg)
+
+![A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence](/photos/fasteners/flanged-valve.jpg)
+
+*A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence. Photo: Audriusa (Audrius Meskauskas), CC BY-SA 3.0, via commons*
 
 *Star pattern numbering and torque passes*
 
@@ -3681,6 +3809,10 @@ Thin-on-top works on adjusting screws (a jack bolt, a stop screw) where the thin
 
 ## Threadlockers (Loctite numbers; other brands cross-reference)
 
+![Threadlocker applied to clean threads: a drop, not a coat](/photos/fasteners/threadlocker-applied.jpg)
+
+*Threadlocker applied to clean threads: a drop, not a coat. Photo: Paul Breen, CC BY-SA 4.0, via commons*
+
 | Grade | Colour | Strength | Use | Removal |
 |---|---|---|---|---|
 | **222** | Purple | Low | Small screws (**under 1/4"**, adjusting screws, set screws in soft metals) that must be adjustable | Hand tools |
@@ -3744,6 +3876,10 @@ New: cotter pins, safety wire, tab washers, split washers (if used at all), nylo
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$thread-identification-and-gauges$mw$, $mw$Thread Identification and Gauges: UNC/UNF Sizes and TPI, Metric Coarse and Fine, Thread Classes, Left-Hand Marking, Pipe Threads (NPT, NPTF, NPSM, BSPT, BSPP) and How to Tell Them Apart, Measuring with a Caliper and a Pitch Gauge, the Look-Alike Traps (1/2-13 vs M12, 5/16-18 vs M8, 3/8-24 vs M10×1), Thread Callouts on Drawings, Go/No-Go Gauges and Thread Wires$mw$, $mw$How to know which thread you have before you buy, tap or force it: the size tables for inch and metric threads with their diameters and pitches, the pipe threads and their tells, a three-step measuring method with a caliper and a pitch gauge, the pairs that look identical and are not, how threads are called out on drawings, and how threads are gauged when it matters.$mw$, $mw$## Unified inch threads (ASME B1.1)
+
+![Bolts of different thread types: measure the pitch before you assume](/photos/fasteners/thread-types.jpg)
+
+*Bolts of different thread types: measure the pitch before you assume. Photo: ChristophRoser. Please credit "Christoph Roser at AllAboutLean.com"., CC BY-SA 4.0, via commons*
 
 | Size | Major diameter (in) | **UNC (coarse) TPI** | **UNF (fine) TPI** | UNEF | Tap drill UNC / UNF |
 |---|---|---|---|---|---|
@@ -4323,6 +4459,10 @@ A worm box also needs its **thermal** rating checked separately (input hp contin
 
 Match: ratio (or the output speed), input hp and thermal rating, output torque and service factor, shaft sizes and directions (the worm box's output can be left, right or both), mounting position and base dimensions, the direction of rotation (the output turns opposite to the input on a single-stage worm and on a single-stage spur; same on a double), and the oil. Fill to the level for the **new** position; a box shipped with oil is usually shipped **without** its vent (a shipping plug): fit the vent before starting or the seals blow.
 
+![Industrial reducers ready to ship: match ratio, mounting, shaft and service factor](/photos/gearboxes/industrial-gearboxes.jpg)
+
+*Industrial reducers ready to ship: match ratio, mounting, shaft and service factor. Photo: Yuexin indonesia, CC BY-SA 4.0, via commons*
+
 ## Common mistakes
 
 - Helical EP oil in a worm box: the bronze wheel dissolves into the oil in a year.
@@ -4404,6 +4544,10 @@ OHL (lb) = 126,000 × hp × K ÷ (rpm × pitch diameter in inches)
 with K = 1.00 for chain sprockets, 1.25 for gears, 1.50 for V-belt sheaves, 2.50 for flat belts. If the calculated OHL exceeds the allowable, use a larger pitch diameter, move the sheave closer to the bearing, or use an outboard bearing. Shaft-mount reducers (Torque-Arm type) avoid the problem because the output is the driven shaft itself.
 
 ## Choosing a replacement
+
+![Reducers of the same frame size come in many ratios: read the nameplate, not the housing](/photos/gearboxes/industrial-gearboxes.jpg)
+
+*Reducers of the same frame size come in many ratios: read the nameplate, not the housing. Photo: Yuexin indonesia, CC BY-SA 4.0, via commons*
 
 1. Read the nameplate: model, ratio, input hp, mounting position, and the **frame size** (the catalogue family).
 2. Confirm it was not undersized: work out the SF from the application and check the old box rating. If it failed early, upsize now.
@@ -4550,6 +4694,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**, mounting style, seal class (standard nitrile, high-temperature Viton, water-glycol EPDM, low-friction PTFE), the pressure rating. Seal kits are sold by **series + bore + rod**; a "Parker 2H 3-1/4 bore, 1-3/8 rod, class 1 seals" kit contains the rod seal, wiper, piston seals, wear rings, gland O-ring/backup and the tube O-rings. No nameplate: measure the bore (the barrel ID), the rod, the gland seal groove dimensions and the piston groove dimensions with calipers and a seal profile gauge, and a seal supplier (Hercules and the like) will match them; measure **before** cleaning the old seals off, and keep the old seals to compare.
 
+![Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them](/photos/hydraulics/double-acting-cylinder.jpg)
+
+*Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them. Photo: Rstom03, CC BY-SA 3.0, via commons*
+
 ## Safety before disassembly
 
 - The cylinder can hold **pressure** with the lines disconnected (a POC valve, a blocked port, a trapped column of oil that expands as it warms): open both ports slowly with a rag over them.
@@ -4560,6 +4708,10 @@ Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**
 ## Disassembly
 
 **Tie-rod cylinders (Parker 2H/3L, Eaton, most industrial)**
+
+![Clevises, caps and heads laid out in order of removal](/photos/hydraulics/cylinder-parts.jpg)
+
+*Clevises, caps and heads laid out in order of removal. Photo: Rstom03, CC BY-SA 3.0, via commons*
 
 1. Clean the outside; mark the **orientation** of the heads, the ports and the mounts (a paint stripe across the rod end head, tube and cap end) so the ports come back in the same relationship.
 2. Clamp the cylinder by a mount or in soft jaws on the barrel (never on the rod); loosen the **tie-rod nuts in a cross pattern**, evenly, a turn at a time (unequal loosening cocks the heads); remove the nuts and the rod-end head (it may need a tap with a soft mallet; the tube seals hold it).
@@ -4576,6 +4728,10 @@ Read the nameplate or the drawing: maker, series, **bore, rod diameter, stroke**
 Lay everything out in order on a clean bench; photograph the seal stack in the gland and the piston **before** removing the old seals; note the direction the seal lips face.
 
 ## Inspection
+
+![Piston rod: look for scoring, pitting and chrome flaking under a fingernail](/photos/hydraulics/piston-rod.jpg)
+
+*Piston rod: look for scoring, pitting and chrome flaking under a fingernail. Photo: Rstom03, CC BY-SA 3.0, via commons*
 
 | Part | Check | Acceptable | Scrap / repair |
 |---|---|---|---|
@@ -4844,6 +5000,10 @@ Dash number = hose ID in **1/16"** (−8 = 1/2"). Working pressure is the maximu
 
 Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wrong mate looks like it screws on and then leaks or cracks.
 
+![Hydraulic hose fittings: measure the thread and look at the seat before you guess](/photos/hydraulics/hose-fittings.jpg)
+
+*Hydraulic hose fittings: measure the thread and look at the seat before you guess. Photo: Jstapko, CC BY-SA 3.0, via commons*
+
 ![JIC, ORFS, ORB, NPT and BSPP fitting seats](/img/hydraulics/fitting-types.svg)
 
 *JIC, ORFS, ORB, NPT and BSPP fitting seats*
@@ -4869,6 +5029,10 @@ Get it right with a **caliper, a thread pitch gauge and a seat gauge**; the wron
 Identify: measure the thread OD with a caliper (male) or ID (female), count the tpi with a pitch gauge (or measure the pitch in mm), check whether the thread is **tapered** (the diameter changes along it: pipe) or **parallel**, look at the sealing surface (a cone, a flat face with an O-ring, a flat shoulder), and check the cone angle with a seat gauge. Then match against the table; when in doubt, a fitting identification kit (Parker, Gates) has the gauges.
 
 ## Making a hose assembly
+
+![Hose crimper with the die set for the hose size](/photos/hydraulics/hose-crimper.jpg)
+
+*Hose crimper with the die set for the hose size. Photo: Jstapko, CC BY-SA 3.0, via commons*
 
 1. **Length**: measure the old hose or the route **fitting face to fitting face** (or as the catalogue defines the overall length: usually the cut length plus the fitting lengths; the crimper's chart gives the "cut-off factor" for each fitting). Allow **slack for pressure changes**: a hose **shortens by up to 4%** and thickens under pressure, so a straight hose between two fixed points needs a few percent extra length and a slight curve, never taut.
 2. **Cut** square with a hose saw (a fine-tooth abrasive or a shear cutter; a cut-off wheel makes rubber dust and burned wire: acceptable with a vacuum and the ends cleaned); **clean the bore** (a projectile/foam plug shot through, or compressed air and a swab: rubber dust and wire particles in the bore end up in the servo valve).
@@ -4897,6 +5061,10 @@ Identify: measure the thread OD with a caliper (male) or ID (female), count the 
 ## Inspection and replacement
 
 Check weekly on machines, at every PM on plants: **cover cracks and abrasion** (wire showing = replace now), **blisters or bulges** (an inner tube failure), **leaks at the fitting** (crimp slipping = replace), **kinks or crushed sections**, **hardening or cracking** (heat, age), corroded fittings, damaged or missing guards and clamps, hoses stretched taut at machine travel. Replacement rules: any hose with exposed reinforcement, any hose leaking at the coupling, any hose over the maker's or the plant's service life (mobile equipment: 5-10 years; critical hoses on a schedule), and both hoses of a pair if one has failed from age.
+
+![Crimped hose ends: check the crimp diameter against the chart](/photos/hydraulics/crimped-hose-ends.jpg)
+
+*Crimped hose ends: check the crimp diameter against the chart. Photo: Jstapko, CC BY-SA 3.0, via commons*
 
 ## Common mistakes
 
@@ -4935,6 +5103,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 Full formulas (cylinder force, motor torque, pump displacement) in [pump and fluid-power formulas](/article/pump-and-fluid-power-formulas). A system that runs **hot (over 140°F / 60°C)** is wasting power somewhere: a relief valve dumping, a leaking cylinder, a pump compensator set above the relief, an undersized cooler.
 
 ## Components
+
+![Internal gear pump cut away: the crescent separates suction from pressure](/photos/hydraulics/gear-pump-cutaway.jpg)
+
+*Internal gear pump cut away: the crescent separates suction from pressure. Photo: S.J. de Waard, CC BY 2.5, via commons*
 
 | Component | What it does | Field notes |
 |---|---|---|
@@ -4977,6 +5149,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 
 ## Pressure settings and the order to set them
 
+![Gauges tell the story: set the relief first, then compensator, then reducing valves](/photos/hydraulics/gauge-panel.jpg)
+
+*Gauges tell the story: set the relief first, then compensator, then reducing valves. Photo: U.S. Navy photo by Seaman Eboni C. Cameron, Public domain, via commons*
+
 1. **Main relief** first, with everything else backed off: set it to the design pressure (with a gauge on the pump outlet, the actuators dead-headed or blocked; turn the adjuster in slowly while reading; **lock** it).
 2. **Pump compensator** (pressure-compensated piston pump): set **below** the relief by 150-300 psi (the relief becomes a safety valve; the pump destrokes at the compensator pressure and makes no heat).
 3. **Reducing valves** in the branches.
@@ -4985,6 +5161,10 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 6. Record every setting on the schematic and the machine's log; never adjust a valve without a gauge and without knowing what it does.
 
 ## Troubleshooting logic
+
+![A gear pump opened: scored side plates mean contamination](/photos/hydraulics/gear-pump-open.jpg)
+
+*A gear pump opened: scored side plates mean contamination. Photo: Ll1324, CC0, via commons*
 
 1. **What is the machine doing wrong?** (No motion, slow, weak, drifts, erratic, hot, noisy, leaking.) Which actuators, which step of the sequence.
 2. **Electrical or hydraulic?** Is the solenoid energised at that step (the light, a test lamp, the PLC output; a solenoid that is energised but not shifting the spool: sticking from contamination or a burned coil; manual override pin on the valve shifts it by hand).
@@ -5080,6 +5260,10 @@ They look alike and do not mate: **Industrial interchange (Milton M-style, 1/4" 
 
 ## Pneumatic cylinders
 
+![Compact pneumatic cylinders with adjustable cushions](/photos/hydraulics/pneumatic-cylinders.jpg)
+
+*Compact pneumatic cylinders with adjustable cushions. Photo: Grummelbacke, CC BY-SA 4.0, via commons*
+
 - **Types**: double-acting (the standard), single-acting spring return, rodless (magnetic or band), compact, guided, rotary actuators; **NFPA interchange** tie-rod cylinders (bores 1-1/2 to 8", rod sizes standard) and ISO 15552 metric (32-320 mm bore).
 - **Force** = pressure × piston area (a 2" bore at 80 psi: 3.14 × 80 = 251 lb extend, less on retract by the rod area); size for **50-70% of the theoretical force** so it moves briskly.
 - **Cushions**: adjustable needle screws at each end that trap air to slow the piston before it hits the head; set so the piston decelerates without slamming and without bouncing; a slammed cylinder breaks its rod end and the machine's stop.
@@ -5136,6 +5320,10 @@ A hissing plant leaks 20-30% of its air; a 1/16" hole at 100 psi costs about 6 c
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$anchor-bolts-and-foundations$mw$, $mw$Anchor Bolts and Foundations: Foundation Mass and Cure Rules, Cast-In J-Bolts with Sleeves, Wedge, Sleeve, Drop-In and Adhesive Anchors (Selection, Embedment, Hole Sizes, Torque, Cure), Building an Anchor-Bolt Template, Setting Bolts for a Pour, Edge Distance and Spacing$mw$, $mw$What a machine foundation must be and how long it must cure, the anchor types and when to use each with their embedment, hole size, torque and cure numbers, how to build and set an anchor-bolt template so the bolts land where the baseplate wants them, sleeves and free-stretch length, and the edge-distance and spacing rules that keep an anchor from splitting the concrete.$mw$, $mw$## Foundations
 
+![Embedded anchor bolts in a foundation before the base goes down](/photos/installation/wind-anchor-bolts.jpg)
+
+*Embedded anchor bolts in a foundation before the base goes down. Photo: Walter Baxter, CC BY-SA 2.0, via commons*
+
 - **Mass**: a rotating machine's foundation block should weigh **at least 3× the machine (machine + driver + base)**, a reciprocating machine's **5×** (API 686, Ch. 4), sized so the combined centre of gravity is low and the block does not rock. Isolated from the floor slab with an expansion joint so machine vibration does not travel and floor loads do not tilt the block.
 - **Concrete**: 3,000-4,000 psi minimum; reinforced; the top left rough (not trowelled) if grout will go on it, and **chipped to expose aggregate** before grouting (see [grouting](/article/grouting-baseplates)).
 - **Cure**: concrete reaches design strength at **28 days**; API 686 wants the foundation at full design strength before grouting and machinery loads; a practical minimum before grouting is **7 days** (and the grout maker's own requirement, epoxy grouts want the concrete **dry**: 28 days or a moisture test). Do not set anchors in green concrete.
@@ -5144,6 +5332,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Anchor types
 
 ![Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance](/img/installation/anchor-types.svg)
+
+![A wedge anchor: the clip expands as the bolt is tightened](/photos/installation/wedge-anchor.jpg)
+
+*A wedge anchor: the clip expands as the bolt is tightened. Photo: Dmitry G, CC BY-SA 3.0, via commons*
 
 *Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance*
 
@@ -5182,6 +5374,10 @@ Other common wedge anchors (Simpson Wedge-All, Red Head): 3/8" 25-30 ft-lb, 1/2"
 6. Record the batch, the temperature and the time; special inspection is required on adhesive anchors in many jurisdictions for overhead and sustained tension.
 
 ## Building and setting an anchor-bolt template
+
+![A J-bolt set in concrete, threads protected until the base arrives](/photos/installation/j-bolt.jpg)
+
+*A J-bolt set in concrete, threads protected until the base arrives. Photo: ほーるだうん, CC BY-SA 3.0, via commons*
 
 1. From the **actual baseplate** (or its certified drawing): measure hole centres, diagonals and the hole diameters; mark the baseplate's centrelines and a datum corner.
 2. Template: 3/4" plywood or a welded frame of angle/flat bar, big enough to span the form; drill the bolt holes **at the baseplate's hole size** (or the bolt size for a snug fit that will not let the bolt tilt); mark centrelines and "NORTH" or the driver end.
@@ -6634,6 +6830,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **Base oil (70-95%)** held in a **thickener** (a soap or a non-soap sponge, 5-25%) with **additives** (5-10%). The oil does the lubricating; the thickener holds it in place and releases it under shear and heat; the additives protect against wear, rust and oxidation.
 
+![Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest](/photos/lubrication/grease-tub.jpg)
+
+*Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest. Photo: Surv1v4l1st, CC BY-SA 4.0, via commons*
+
 | Property | Set by | What it means to you |
 |---|---|---|
 | **Consistency (NLGI grade)** | The amount of thickener | How stiff it is: how it pumps and stays put; **not** how "heavy" it lubricates |
@@ -6794,6 +6994,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Grease guns
 
+![Lever grease gun with a flexible hose and coupler](/photos/lubrication/grease-gun.jpg)
+
+*Lever grease gun with a flexible hose and coupler. Photo: Bryn Pinzgauer, CC BY 2.0, via commons*
+
 - **One gun per grease**, labelled and colour-coded, loaded from **cartridges** (bulk loading takes in dirt and air unless from a filtered bulk loader); the coupler wiped and **capped** between points; a gun kept in a clean box, not the truck bed.
 - **Calibrate** each gun: 10 strokes into a cup on a scale → grams per stroke, written on the gun; re-check when a gun is serviced or the grease changes; battery/pneumatic guns per stroke as well (they vary from 0.5 to 2 g).
 - Guns develop 3,000-10,000 psi: enough to blow a seal or inject grease into a hand: never hold a fitting with a bare hand while pumping; a gun that will not pump (a plugged fitting) is not "pumped harder".
@@ -6818,6 +7022,10 @@ Setting the rate: quantity needed per interval from the [regreasing calculation]
 A pump (electric, air or hand) feeds a network of **metering valves** (progressive dividers: each piston moves the next, so one blocked outlet stops the whole block; or injectors on a single-line parallel system) to dozens of points on a timer. Millwright duties: keep the **reservoir filled** with the specified grease (NLGI 0-1 usually; a wrong grease plugs the dividers), check the **cycle indicator pin** on progressive systems moves each cycle (a stalled pin = a blocked line or bearing somewhere downstream, found by disconnecting outlets one at a time; a progressive system with one blocked outlet delivers nothing to any point), check the **pressure** and the **relief/vent** (a relief spitting grease = a blockage), inspect the lines for leaks and crushed tubing (a leak starves everything after it on a progressive block), confirm grease actually arrives at the far points (a purge at the seal), and replace the **filter** on the fill line. Adjust the timer from the evidence, not the default.
 
 ## Oil level devices
+
+![Pump oiler for the oil points on the route](/photos/lubrication/oil-can.jpg)
+
+*Pump oiler for the oil points on the route. Photo: Wammes Waggel, CC BY-SA 3.0, via commons*
 
 - **Sight glass / level window**: read with the machine **stopped** (unless the plate says running: circulating and some splash boxes) and **level**; the mark or the centre of the glass; a glass **darkened with varnish** or **fogged** is not a level: replace it (bull's-eye glasses fail slowly and lie).
 - **Dipstick**: as marked; wipe, insert without screwing (or screwed, per the stick), read.
@@ -6889,6 +7097,10 @@ The rule: **from the same point, in the same way, with the machine at operating 
 Consistency beats perfection: the same valve, flush, temperature and bottle every time gives a trend; a different method each time gives noise.
 
 ## Reading the report
+
+![An oil analysis report: wear metals, contaminants, viscosity and the trend](/photos/lubrication/oil-analysis-report.jpg)
+
+*An oil analysis report: wear metals, contaminants, viscosity and the trend. Photo: Oil lab &amp; --Hermannk (talk) 11:37, 13 November 2020 (UTC), Public domain, via commons*
 
 | Line | What it measures | What a change means |
 |---|---|---|
@@ -7194,6 +7406,10 @@ Table 4, **amount of grease to add** (the large, shaft-end bearing of each frame
 
 ## The procedure
 
+![Wipe the fitting, pump slowly, watch the seal](/photos/lubrication/grease-gun-use.jpg)
+
+*Wipe the fitting, pump slowly, watch the seal. Photo: U.S. Navy photo by Mass Communication Specialist Seaman Apprentice Kyle Steckler, Public domain, via commons*
+
 1. Identify the bearing and the grease (the tag, the CMMS, the motor nameplate); the **right gun** (labelled), the nozzle **wiped**, the fitting **wiped** (dirt on the fitting goes straight into the bearing).
 2. Machine **running** if it is safe (the grease distributes and purges) and **warm**; the Baldor manual says grease while stationary and warm and then run 15 minutes; either way not cold.
 3. **Remove the drain (relief) plug** on housings and motors that have one (the plug opposite the fitting, at the bottom of the bearing cap); clean the drain of hardened grease with a wire; on motors with a **grease relief fitting** or a spring relief, check it is not plugged.
@@ -7203,6 +7419,10 @@ Table 4, **amount of grease to add** (the large, shaft-end bearing of each frame
 7. Do not grease: **sealed bearings (2RS)** (no path in; the grease blows the seal), bearings with **no fitting** (lubed for life), **shielded bearings with a fitting** only per the maker (the shield lets grease pass slowly), TEFC motor fans (no), variable-speed drives' bearings on the inverter's own schedule.
 
 ## Over-greasing
+
+![A bearing packed by hand: fill the bearing, not the housing](/photos/lubrication/greased-bearing.jpg)
+
+*A bearing packed by hand: fill the bearing, not the housing. Photo: User:SkyMWard, CC BY-SA 3.0, via commons*
 
 | Sign | What is happening |
 |---|---|
@@ -7281,6 +7501,10 @@ A nut welded to the stub gives a hex to turn, and the **weld's heat expands and 
 
 ## Extractors: spiral, spline and left-hand drills
 
+![Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap](/photos/machining/screw-extractors.jpg)
+
+*Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap. Photo: Original uploader was Bushytails at en.wikipedia, CC BY-SA 3.0, via commons*
+
 - **Left-hand drill bits** first: drill a centre punch mark exactly in the stub's centre (a **centre punch that is truly centred**: a transfer punch or a drill guide bushing on the hole), then drill with a **left-hand cobalt drill** at slow speed and firm feed **in reverse**; a bolt that is loose enough spins out on the drill; if it does not, the hole is ready for an extractor or the next drill.
 - **Spiral (EZ-out) extractors**: a tapered, left-hand-spiral hardened tool that wedges into the drilled hole and turns the bolt; the wedge **expands** the stub in the hole (making a seized bolt tighter), and the tool is **brittle**: **they snap** in a seized bolt, leaving a hardened plug that only EDM removes. Use only on a bolt that is **not seized** (a fatigue or a shear break with free threads, a loosened bolt): drill the correct size (the set's chart), tap the extractor in lightly, turn with a tap wrench **gently** with a light back-and-forth; the moment it stops moving, stop.
 - **Spline (straight-flute) extractors**: hardened splines driven into a drilled hole; they do not expand the bolt as much; the same brittleness; the same rules; better than spirals.
@@ -7290,6 +7514,10 @@ A nut welded to the stub gives a hex to turn, and the **weld's heat expands and 
 ## Drilling out
 
 When the stub will not turn: drill it out to the **tap drill size** and re-tap; the drill must be **centred** and **square**, or it walks into the parent thread.
+
+![Extractor in a T-wrench: steady, square, no side load](/photos/machining/extractor-t-wrench.jpg)
+
+*Extractor in a T-wrench: steady, square, no side load. Photo: User:Omegatron, CC BY-SA 3.0, via commons*
 
 1. **Centre**: file the stub flat; find the centre (a centre-finder, calipers across the hole, a transfer punch sized to the hole if the stub is below the surface, or a **drill guide bushing** made to fit the hole/counterbore and a hole in its centre the size of the pilot); centre punch; a **spotting drill** or a centre drill to start.
 2. **Pilot** with a small (1/8") cobalt drill, checked for centre (look from the top: equal wall all round; correct by slanting the pilot slightly toward the thick side before going deep).
@@ -7403,6 +7631,10 @@ Pick the belt step or the gear nearest **below** the number. A drill press with 
 
 Feed is the advance per revolution; on a hand-fed drill press it is the pressure that keeps a **continuous chip** coming:
 
+![A floor drill press: change the belt position to change the speed](/photos/machining/drill-press.jpg)
+
+*A floor drill press: change the belt position to change the speed. Photo: Hardyplants, CC0, via commons*
+
 | Drill diameter | Feed (in/rev) steel | Notes |
 |---|---|---|
 | under 1/8" | 0.001-0.002 | Light; small drills break on feed, not speed |
@@ -7472,6 +7704,10 @@ Apply **before** the drill gets hot, and keep it coming (a brush or a squeeze bo
 
 ## Work holding and safety
 
+![Work clamped to the table, chuck key out, sleeves rolled up](/photos/machining/drill-press-use.jpg)
+
+*Work clamped to the table, chuck key out, sleeves rolled up. Photo: LHOON, CC BY-SA 2.5, via commons*
+
 - The work **clamped**: a drill press vise bolted or clamped to the table, T-slot clamps and step blocks, a V-block for round stock, a clamp on the far side so the work cannot **spin** when the drill grabs at break-through (a piece of plate spinning on a 1/2" drill is a propeller that breaks wrists); **never hand-hold** anything but a small piece against a fence with the drill under 1/4".
 - The drill in the chuck **tight** (all three chuck key holes on a big drill), the chuck key **out** before the switch; Morse-taper drills seated with a tap, drifted out with a drift and a hand under the drill.
 - Speed set for the drill and the material (the belt or the gears with the power off); the table locked; the depth stop for blind holes.
@@ -7518,6 +7754,10 @@ A grinding wheel is a **brittle disc spinning at 5,000-6,000 ft/min** (a 8" whee
 
 ![Tool rest and tongue guard gaps on a bench grinder](/img/machining/bench-grinder-gaps.svg)
 
+![A bench grinder: tool rest and tongue guard set to the wheel](/photos/machining/bench-grinder.jpg)
+
+*A bench grinder: tool rest and tongue guard set to the wheel. Photo: Palagiri, CC BY-SA 3.0, via commons*
+
 *Tool rest and tongue guard gaps on a bench grinder*
 
 | Rule | Why |
@@ -7558,6 +7798,10 @@ Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safe
 
 ## Wheel and abrasive selection for sharpening
 
+![The right wheel throws a clean stream of sparks and does not load up](/photos/machining/grinding-wheel-sparks.jpg)
+
+*The right wheel throws a clean stream of sparks and does not load up. Photo: Aryan Patidar, CC BY 4.0, via commons*
+
 | Abrasive | Colour / look | For |
 |---|---|---|
 | **Aluminium oxide (A)**, grey/brown; white/pink/ruby (friable, cooler) | The general steel and HSS wheel; **white AO (WA)** for HSS tools without burning | HSS tool bits, drills, chisels, punches, steel deburring |
@@ -7571,6 +7815,10 @@ Covered in detail in [saws and abrasives](/article/saws-and-abrasives); the safe
 ## Sharpening technique
 
 **Tool rest set close, the wheel dressed, a can of water for HSS (dip often: a blued edge is softened), never quench carbide (cracks), light pressure, keep the tool moving across the face (grooves), the eye shield down, glasses on.**
+
+![Grinding steel: sparks down and away, light pressure, keep it moving](/photos/machining/grinder-sparks.jpg)
+
+*Grinding steel: sparks down and away, light pressure, keep it moving. Photo: P.syamlal, CC BY-SA 3.0, via commons*
 
 | Tool | Angles | Method |
 |---|---|---|
@@ -7640,6 +7888,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$lathe-basics-for-millwrights$mw$, $mw$Lathe Basics for Millwrights: The Parts and Controls, Work Holding (3-Jaw, 4-Jaw, Collets, Between Centres, Steady and Follower Rests), Tool Bits and Inserts, Speeds and Feeds by Material, Facing, Turning to a Diameter, Shoulders, Chamfers, Drilling and Boring a Bushing, Cutting a Thread, Turning a Shaft Between Centres, Measuring on the Lathe, Finish, and Lathe Safety$mw$, $mw$The lathe work a millwright does: making a bushing, a spacer, a sleeve, a shaft end, cleaning up a seat, cutting a thread on a shaft or in a nut. It covers the machine and its controls, holding the work so it runs true and cannot fly out, choosing and setting a tool, the speed and feed numbers, the basic operations step by step, single-point threading with the compound set at 29.5°, turning a shaft between centres, measuring as you go, and the safety rules that keep sleeves and hair out of the chuck.$mw$, $mw$## The machine
 
 **Headstock** (the spindle, the chuck, the speed gears/pulleys), **bed** with the ways, **carriage** (the saddle on the ways, the **cross-slide** across, the **compound (top) slide** at any angle, the **tool post**), **apron** (the carriage handwheel, the feed and thread engagement levers), **tailstock** (a Morse-taper quill for centres, drills and reamers; offset for tapers), the **lead screw** (threading) and **feed rod** (power feeds), the **quick-change gearbox** (feed and thread pitch selection), and the chip pan. Dials on the cross-slide and compound read in thousandths; many lathes' cross-slide dials read **diameter** reduction (a dial marked in "0.001 on diameter": moving 0.010" removes 0.010" from the diameter; others read radius: 0.010" on the dial takes 0.020" off the diameter: **know which** by a test cut).
+
+![An engine lathe: headstock, carriage, tailstock and bed](/photos/machining/engine-lathe.jpg)
+
+*An engine lathe: headstock, carriage, tailstock and bed. Photo: Watertown Arsenal (Mass.), Public domain, via commons*
 
 ![Parts of an engine lathe](/img/machining/lathe-parts.svg)
 
@@ -7787,6 +8039,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A **vertical knee mill** (Bridgeport and clones): the **head** (a variable-speed or step-pulley spindle with an R8 (or 40-taper) spindle, a **quill** that feeds down like a drill press with a fine-feed handwheel and a depth stop, a head that tilts and swivels), the **ram**, the **table** (X longitudinal, Y cross) on the **saddle** and the **knee** (Z: the table rises to the cutter), **table locks** for each axis, a **power feed** on X, and often a **DRO** (digital readout) on X-Y(-Z). Dials read 0.001" (0.200" per turn on most); backlash in the leadscrews means you approach a dimension from the **same direction** every time (or trust the DRO).
 
+![A universal milling machine with a vertical head](/photos/machining/universal-mill.jpg)
+
+*A universal milling machine with a vertical head. Photo: Frobles, CC BY-SA 4.0, via commons*
+
 ## Tramming the head
 
 The spindle must be **square to the table** or a face-milled surface is dished, a bored hole is tapered and a slot is wider at the top:
@@ -7801,6 +8057,10 @@ The spindle must be **square to the table** or a face-milled surface is dished, 
 4. Tram after any head tilt, after a crash, and on a new job that matters.
 
 ## Work holding
+
+![Mill table with T-slots: clamp the work, then find the edge](/photos/machining/mill-table.jpg)
+
+*Mill table with T-slots: clamp the work, then find the edge. Photo: Photograph by Clem Rutter, Rochester, Kent. (www.clemrutter.net)., CC BY-SA 3.0, via commons*
 
 - **Milling vise** (a 6" Kurt type): bolted to the table with its **fixed jaw trammed parallel to X** (an indicator along the jaw while traversing: within 0.001" over the jaw); the work on **parallels** so it sits above the jaws, tapped down with a dead-blow until the parallels are tight (no rock); a round part in a **V-block** or in the vise's V; soft jaws for finished surfaces; the work held on enough of its height (at least 1/3) to not lift under the cutter.
 - **Table clamps** (T-slot clamps, step blocks, strap clamps: the clamp bar level or slightly higher at the bolt end, the bolt near the work): for plates and castings; **stops** against the work's edge on the side the cutter pushes; a **fixture plate** for repeat parts.
@@ -7963,6 +8223,10 @@ Common inch tap drills (75%): **#6-32: #36; #8-32: #29; #10-24: #25; #10-32: #21
 
 ## Hand tapping technique
 
+![Tap wrenches: the T-handle for small taps, the bar handle for big ones](/photos/machining/tap-wrenches.jpg)
+
+*Tap wrenches: the T-handle for small taps, the bar handle for big ones. Photo: Glenn McKechnie, CC BY-SA 3.0, via commons*
+
 1. Drill the hole at the right size and **square** (a drill press; a tapping block or a square used from two sides by hand), **chamfer** the hole mouth with a countersink (the first thread is otherwise a torn burr that jams the tap), and clean the chips out.
 2. **Tapping fluid** (a proper tapping fluid: sulphur-chlorinated for steel and stainless, a wax or kerosene for aluminium, none or a light oil for brass, dry on cast iron); coat the tap.
 3. Start with the taper tap (or a plug on a clean hole) in a **T-handle tap wrench** sized to the tap (a big wrench on a small tap is how they break); **square** it to the hole: a square against the tap from two sides, or a tapping guide/block; the first two turns decide whether the thread is straight.
@@ -7981,6 +8245,10 @@ Common inch tap drills (75%): **#6-32: #36; #8-32: #29; #10-24: #25; #10-32: #21
 ## Why taps break, and getting one out
 
 Causes: chips packed in a blind hole, too much thread (a drill too small or the wrong drill), a dull tap, a tap not square (the flutes bind on one side), the wrong tap for the material (a hand tap in stainless), no lubricant, work-hardened stainless, a wrench too big, forcing past a bind, a hole with a hard inclusion or a weld.
+
+![A tap in a T-wrench: back it off every half turn to break the chip](/photos/machining/tap-and-t-wrench.jpg)
+
+*A tap in a T-wrench: back it off every half turn to break the chip. Photo: User:Omegatron, CC BY-SA 3.0, via commons*
 
 Removal, in order of gentleness:
 
@@ -8079,6 +8347,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 6. Print or load the route sheet with the **last three readings** shown beside each point so the walker sees the trend on the spot.
 
 ## What to carry
+
+![The route toolbox: what you carry decides what you can measure](/photos/maintenance/toolbox.jpg)
+
+*The route toolbox: what you carry decides what you can measure. Photo: Visitor7, CC BY-SA 3.0, via commons*
 
 | Tool | Use | Notes |
 |---|---|---|
@@ -8763,6 +9035,10 @@ Attach the curve sheet, the data sheet and the sectional drawing to the pump's a
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$dial-indicator-use$mw$, $mw$Dial Indicators: Types, Setup, Reading Runout and Avoiding Cosine Error$mw$, $mw$Plunger (AGD) versus lever (test) indicators, how to mount them so the reading is real, measuring shaft and hub runout, reading TIR and sign, and the cosine-error correction for tilted test indicators.$mw$, $mw$## Two kinds
 
+![A lever (test) indicator: the tip swings, so it reaches where a plunger cannot](/photos/measurement/dial-test-indicator.jpg)
+
+*A lever (test) indicator: the tip swings, so it reaches where a plunger cannot. Photo: Solaris2006, CC BY-SA 3.0, via commons*
+
 | | Plunger (AGD dial indicator) | Lever (dial test indicator) |
 |---|---|---|
 | Movement | Plunger travels in a straight line, 0.25-1" range | Small stylus swings, 0.008-0.030" range |
@@ -8839,6 +9115,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## The set
 
 Blades from 0.0015 to 0.035 in (0.04 to 1.0 mm) in a folding holder; long blades (12 in) for bearing housings and machine bases; bent-tip blades for spark plugs and tight spots. Keep them oiled, straight and free of burrs; a bent blade reads thick. Metric and inch sets are not interchangeable at the thin end (0.002 in = 0.05 mm, but 0.0015 in has no metric twin).
+
+![A feeler gauge set: blades fanned out, thickness stamped on each](/photos/measurement/feeler-gauge-fan.jpg)
+
+*A feeler gauge set: blades fanned out, thickness stamped on each. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
 
 ## Technique
 
@@ -8934,6 +9214,10 @@ Common trap: a thimble line looks aligned but the next sleeve line is *almost* u
 
 ## Using it
 
+![An outside micrometer: hold the frame, turn the ratchet, read square to the scale](/photos/measurement/outside-micrometer.jpg)
+
+*An outside micrometer: hold the frame, turn the ratchet, read square to the scale. Photo: Rrudzik, CC BY-SA 4.0, via commons*
+
 - Clean the anvil and spindle faces (close on a piece of paper and pull it out).
 - Hold the frame in the palm with the small finger, thumb and forefinger on the thimble. Or clamp the frame in a mic stand for repeat work.
 - Bring the spindle to the part gently; use the **ratchet or friction thimble** for the last bit so everyone gets the same pressure (2-3 clicks). Never crank the thimble tight.
@@ -8949,6 +9233,10 @@ Common trap: a thimble line looks aligned but the next sleeve line is *almost* u
 4. Store with the anvils **open** a little so temperature changes do not stress the frame, and never leave it in a drawer of loose tools.
 
 ## Types you will meet
+
+![A set of micrometers with standards: each covers a one-inch range](/photos/measurement/micrometer-set.jpg)
+
+*A set of micrometers with standards: each covers a one-inch range. Photo: Splarka at English Wikipedia, Public domain, via commons*
 
 | Type | Use |
 |---|---|
@@ -9004,7 +9292,15 @@ Main scale in 0.1 in; the dial makes one turn per 0.1 in with 100 divisions of 0
 
 Zero with the jaws closed and clean (the "ZERO/ABS" button); the "INC" mode lets you zero at any point to measure a difference. Metric/inch toggle; battery low = drifting readings, replace it. Never store it with the jaws slammed closed; never use it on a running lathe.
 
+![A digital caliper: zero it closed, then measure](/photos/measurement/digital-caliper.jpg)
+
+*A digital caliper: zero it closed, then measure. Photo: Jacek Halicki, CC BY-SA 4.0, via commons*
+
 ## Before you trust a reading
+
+![A vernier caliper: clean jaws, light touch, read straight on](/photos/measurement/vernier-caliper.jpg)
+
+*A vernier caliper: clean jaws, light touch, read straight on. Photo: Santeri Viinamäki, CC BY-SA 4.0, via commons*
 
 1. **Zero**: close the jaws, hold up to the light: no gap visible, reading 0.000. A light line means worn or bent jaws.
 2. **Jaw wear**: measure a gauge block or a good micrometer standard (1.000 in) at the tips and deep in the jaws; readings must agree within 0.001 in.
@@ -9142,6 +9438,10 @@ Small-hole gauge: expand the ball until it drags lightly when rocked through the
 
 ## Dial bore gauge
 
+![Dial bore gauge head: measuring anvil, centring shoes and the contact point](/photos/measurement/bore-gauge-head.jpg)
+
+*Dial bore gauge head: measuring anvil, centring shoes and the contact point. Photo: Solaris2006, CC BY-SA 3.0, via commons*
+
 1. Fit the anvil and extension for the size; set the range so the dial sits near the middle of its travel at the nominal size.
 2. **Zero** it: in a setting ring of the nominal size (best) or between the anvils of an outside micrometer set to the nominal and clamped in a stand. Rock the gauge until the needle reverses; set the bezel zero at the reversal point.
 3. In the bore: insert, rock through square in the plane of the anvils; the reading at the **needle reversal** is the diameter's difference from nominal. Plus means bigger than nominal on most gauges: check which way yours reads.
@@ -9186,6 +9486,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Types
 
+![Beam torque wrench: read the pointer on the scale while pulling](/photos/measurement/beam-torque-wrench.jpg)
+
+*Beam torque wrench: read the pointer on the scale while pulling. Photo: EncMstr, CC BY-SA 3.0, via commons*
+
 | Type | Accuracy (new) | Notes |
 |---|---|---|
 | **Click (micrometer adjust)** | ±4% clockwise, often ±6% counter-clockwise | The shop standard; set, pull until the click, stop. Wind back to the lowest setting for storage (spring relaxes) |
@@ -9198,6 +9502,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | Impact wrench "torque sticks" | ±20-30% at best | Not a torque wrench: final tightening by a real wrench |
 
 ## Using a click wrench
+
+![Click torque wrench: set the scale, pull smoothly, stop at the click](/photos/measurement/click-torque-wrench.jpg)
+
+*Click torque wrench: set the scale, pull smoothly, stop at the click. Photo: J.C. Fields (Talk) (Uploads), CC BY-SA 3.0, via commons*
 
 1. Pick a wrench whose range covers the target in its **middle 20-80%**: a 250 ft-lb wrench is wrong for 25 ft-lb.
 2. Set the value: unlock, turn the handle to the main scale + the vernier on the handle (e.g. 90 + 5 = 95 ft-lb), lock.
@@ -9327,6 +9635,10 @@ The label on the MCC bucket, the panel, the disconnect: **nominal voltage**; **a
 
 The [lockout basics](/article/lockout-tagout-basics) article has the full procedure; the electrical specifics:
 
+![Locking out a breaker: lock, tag, then try to start it](/photos/safety/lockout-panel.jpg)
+
+*Locking out a breaker: lock, tag, then try to start it. Photo: PEO ACWA, CC BY 2.0, via commons*
+
 1. **Identify** the disconnect(s) that feed the machine (the drawing, the label on the disconnect, the motor tag: a machine can have more than one source: the motor's 480 V, a 120 V control circuit from another panel, a heater circuit, a VFD with a separate control power supply, a UPS-fed PLC).
 2. **Shut down** the machine at its controls (stop), then **open the disconnect** (the handle to OFF; on an MCC bucket, the door-mounted handle; stand to the **side**, face away, in the PPE, and do not stand in front of the door when operating: this is the moment an arc happens on a failed device).
 3. **Lock** the handle with your lock and tag (a hasp for multiple locks; each person their own lock); **try** the machine's start button (the "try" step); on a VFD wait the bus discharge time.
@@ -9392,6 +9704,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 Measures the resistance of the winding insulation to the frame (ground) in megohms; low or falling values mean moisture, dirt, oil, a cracked or overheated insulation, and a fault coming.
 
+![Insulation resistance tester: 500 or 1,000 V DC, read at one minute](/photos/motors-electrical/insulation-tester.jpg)
+
+*Insulation resistance tester: 500 or 1,000 V DC, read at one minute. Photo: HIOKI E.E. Corporation, CC BY-SA 4.0, via commons*
+
 ![Megger connections and IEEE 43 minimums](/img/motors-electrical/megger-test.svg)
 
 *Megger connections and IEEE 43 minimums*
@@ -9444,6 +9760,10 @@ A quick version is the **dielectric absorption ratio** (60 s ÷ 30 s): ≥ 1.25 
 
 With a **low-ohms meter** (a milliohm meter or a good multimeter on its lowest range; a standard multimeter reads small motors only roughly), measure between each pair of leads (T1-T2, T2-T3, T1-T3 on a 3-lead motor; each winding half on 9-lead motors with the leads separated):
 
+![Stator and rotor of an induction motor](/photos/motors-electrical/stator-rotor.jpg)
+
+*Stator and rotor of an induction motor. Photo: Zureks, CC BY-SA 3.0, via commons*
+
 - **Balance**: the three readings should be **within about 1-3% of each other** (larger motors read fractions of an ohm: a milliohm meter or the shop's Kelvin bridge); a phase reading **open** (infinite) = a broken lead or coil; **higher** than the others = a bad joint, a burned turn; **lower** = a **shorted turn** (a turn-to-turn short: the motor runs hot, hums, trips, and it will fail; a surge test at the shop confirms).
 - Compare with the previous record or with an identical motor; a 9-lead motor's halves should match each other (T1-T4 = T2-T5 = T3-T6 and T7-T8 = T8-T9 = T7-T9 on the wye group).
 - Phase-to-phase on a wye motor reads twice the phase resistance; on a delta, two-thirds of it: the value itself does not matter, the balance does.
@@ -9477,6 +9797,10 @@ With a **low-ohms meter** (a milliohm meter or a good multimeter on its lowest r
 - Shaft currents on a VFD (fluting in the bearing: see [bearing failure analysis](/article/bearing-failure-analysis)).
 
 ## When it goes to the shop
+
+![Motor opened: windings, bearings and air gap all inspected](/photos/motors-electrical/motor-opened.jpg)
+
+*Motor opened: windings, bearings and air gap all inspected. Photo: Moteuralioth, CC BY-SA 3.0, via commons*
 
 - Insulation resistance below the minimum after drying; a PI under 1.5; a ground fault; a shorted turn (unbalanced resistance, a surge test needed); a broken rotor bar suspected (current swing, high slip); a burned winding smell; a bearing failure that has let the rotor rub the stator (a scored rotor and stator: a rewind or a replacement); explosion-proof motors (the flame paths must be checked and the repair certified).
 - The shop's tests: surge comparison (turn-to-turn), hipot, core loss, rotor bar tests, dynamic balancing; the repair per EASA AR100 with the winding data recorded.
@@ -9514,6 +9838,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## The windings
 
 A three-phase motor has three winding groups (phases) that are connected internally or at the box in a **wye (star: all three joined at a common point)** or a **delta (each end joined to the next: a triangle)**. Dual-voltage motors have each phase in **two halves** brought out so the halves can be connected in **series** (high voltage: each half sees half the line voltage) or in **parallel** (low voltage: each half sees the full, lower voltage): the same winding current per half either way, which is why the FLA at 230 V is twice the FLA at 460 V.
+
+![The windings live in the stator; a squirrel-cage rotor has no connections](/photos/motors-electrical/stator-rotor.jpg)
+
+*The windings live in the stator; a squirrel-cage rotor has no connections. Photo: Zureks, CC BY-SA 3.0, via commons*
 
 ## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)
 
@@ -9643,6 +9971,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![Sensor to motor signal chain and where to check](/img/motors-electrical/plc-signal-chain.svg)
 
+![A PLC rack: power supply, CPU, I/O cards](/photos/motors-electrical/plc-rack.jpg)
+
+*A PLC rack: power supply, CPU, I/O cards. Photo: Elmschrat Coaching-Blog, CC BY-SA 3.0, via commons*
+
 *Sensor to motor signal chain and where to check*
 
 | Part | What it is | Millwright's interest |
@@ -9685,6 +10017,10 @@ Sensor mounting rules: **rigid** brackets (a bracket that vibrates gives a chatt
 
 ## Why the machine will not run: a method
 
+![HMI screen and E-stop: read the fault before you touch anything](/photos/motors-electrical/hmi-panel.jpg)
+
+*HMI screen and E-stop: read the fault before you touch anything. Photo: Quist161, CC BY-SA 4.0, via commons*
+
 1. **Read the HMI**: the active alarm or fault (e-stop pressed, guard open, drive fault, high temperature, low level, a permissive not made); acknowledge/reset if it is cleared. The alarm text usually names the device (the tag) and the location.
 2. **Check the physical thing named**: the guard actually closed and the interlock aligned (the switch's LED); the e-stop **released** (turn to reset; all of them on the line: one pressed in a remote spot stops everything); the level/pressure actually there; the drive not faulted (its display).
 3. **The permissive list** on the HMI's diagnostic screen (green/red) or in the sequence table; the first red item from the top is the one to fix (the logic usually stops at the first missing condition).
@@ -9706,6 +10042,10 @@ Sensor mounting rules: **rigid** brackets (a bracket that vibrates gives a chatt
 ## Working with the controls tech
 
 Give them: the machine and the tag, what the HMI says, which LEDs you saw on and off, what you checked mechanically, what changed (a new sensor, a moved bracket, a motor replaced, a drive replaced: the parameters), and the wire/terminal numbers you looked at. Ask for: the permissive list, the sensor types and set gaps on the drawings, and a copy of the sensor settings for the machine's file. A sensor that is replaced and works "sometimes" is a gap or an alignment or a PNP/NPN mix: sort it with them before the machine is handed over.
+
+![Terminating a PLC panel: the controls tech's territory](/photos/motors-electrical/plc-wiring.jpg)
+
+*Terminating a PLC panel: the controls tech's territory. Photo: MTA Capital Construction Mega Projects, CC BY 2.0, via commons*
 
 ## Common mistakes
 
@@ -9795,6 +10135,10 @@ The frame number encodes the **shaft height D**: the first two digits ÷ 4 for t
 
 ## Enclosures
 
+![Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor](/photos/motors-electrical/motor-cutaway.jpg)
+
+*Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor. Photo: Own work, Public domain, via commons*
+
 | Type | Meaning | Where |
 |---|---|---|
 | **ODP** (open drip-proof) | Openings for cooling air, drips from above cannot enter | Clean, dry indoor: the cheapest; dust and washdown kill it |
@@ -9845,6 +10189,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A VFD rectifies the incoming AC to a **DC bus** (about 650 V DC on a 460 V drive), then switches it into a variable-frequency, variable-voltage output with transistors (IGBTs) using **pulse-width modulation**: the motor sees a synthesised AC whose frequency sets the speed and whose voltage keeps the **volts-per-hertz ratio** (460 V ÷ 60 Hz = 7.67 V/Hz) constant so the motor's flux and torque stay normal. Speed = the frequency the drive makes: 30 Hz on a 4-pole motor = about 880 rpm.
 
+![A variable frequency drive: keypad, display, cooling fan](/photos/motors-electrical/vfd.jpg)
+
+*A variable frequency drive: keypad, display, cooling fan. Photo: Suyash.dwivedi, CC BY-SA 4.0, via commons*
+
 For **fans and pumps** the affinity laws make a drive the biggest energy saver in a plant: **flow ∝ speed, head/pressure ∝ speed², power ∝ speed³**: a fan at 80% speed uses about **51%** of the power; a pump at 50% speed uses 12.5% (if the system has little static head; see [pump formulas](/article/pump-and-fluid-power-formulas)). For conveyors and constant-torque loads, the drive gives speed control and soft starting; the power falls in proportion to speed.
 
 Other things a drive gives: soft start (no inrush, no belt squeal, the ratio of start current set by the accel time), controlled deceleration (with a braking resistor or a regenerative drive to absorb an overhauling load), reversing by a parameter, built-in motor overload protection, run/fault contacts and analog speed inputs for the PLC, and a display of current, speed and faults that is useful for troubleshooting.
@@ -9894,6 +10242,10 @@ Fixes (the drive and the motor together):
 6. Insulated couplings do **not** protect the motor bearing; they protect the driven machine.
 
 ## Cable and installation rules (why the drive "faults for no reason")
+
+![Drive terminals: shielded motor cable, grounded at both ends](/photos/motors-electrical/vfd-terminals.jpg)
+
+*Drive terminals: shielded motor cable, grounded at both ends. Photo: Suyash.dwivedi, CC BY-SA 4.0, via commons*
 
 - Motor cable: VFD-rated, shielded, in its own conduit/tray **separated** from control and signal cables (at least 8-12", crossing at 90°); the shield to the drive's ground bar and the motor's frame at both ends; the cable as short as practical.
 - Input: a line reactor or DC choke where the supply is stiff or the drive is large (harmonics, drive protection); the drive's ground to the panel ground bar.
@@ -9961,12 +10313,20 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## 1. Cylinders
 
+![Oxygen and acetylene cylinders with regulators fitted, chained upright](/photos/oxy-fuel/cylinders-regulators.jpg)
+
+*Oxygen and acetylene cylinders with regulators fitted, chained upright. Photo: James Halliday, CC BY-SA 2.0, via commons*
+
 1. Cylinders stand **upright**, chained or strapped to a cart or wall. Acetylene must always be upright (or lie flat and then stand for at least an hour before use so the acetone settles).
 2. Caps stay on until the cylinder is secured. Never lift a cylinder by the cap.
 3. Look at the cylinder valve outlets. If dirt is present, stand to the side and **crack** the valve open and closed for an instant to blow it out ("cracking"). Do this **away from sparks, flame or people**, and never crack an acetylene cylinder near an ignition source.
 4. Check the hydrostatic test date on the cylinder collar. Out-of-date cylinders go back to the supplier.
 
 ## 2. Regulators
+
+![Two gauges on each regulator: cylinder pressure and working pressure](/photos/oxy-fuel/regulator-gauges.jpg)
+
+*Two gauges on each regulator: cylinder pressure and working pressure. Photo: J.Dncsn, CC BY-SA 3.0, via commons*
 
 | Gas | Thread on the cylinder nut | Hose colour | Hose fitting |
 |---|---|---|---|
@@ -9984,6 +10344,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 3. Inspect hoses for cuts, burns, and bulges. A hose repaired with tape is scrap.
 
 ## 4. Torch and tip
+
+![A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook](/photos/oxy-fuel/torch-cart.jpg)
+
+*A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook. Photo: Paul Anderson, CC BY 2.0, via commons*
 
 1. Connect the torch handle to the hoses. Snug with a wrench.
 2. For **welding**, screw the welding tip/mixer straight onto the handle. For **cutting**, attach the cutting attachment (CA2460 on a 315 handle, CA1350 on a 100 handle) and open the handle's **oxygen valve fully**; preheat oxygen is then controlled with the attachment's preheat valve.
@@ -10030,6 +10394,10 @@ Welding tips (W-J / 100 series) run both gases at roughly the same low pressure:
 
 ![Carburising, neutral and oxidising flames](/img/oxy-fuel/flame-types.svg)
 
+![The three flames in a photo: carburizing with its feather, neutral, oxidizing](/photos/oxy-fuel/flame-types-photo.jpg)
+
+*The three flames in a photo: carburizing with its feather, neutral, oxidizing. Photo: Lajoswinkler, CC BY-SA 4.0, via commons*
+
 *Carburising, neutral and oxidising flames*
 
 1. Wear #5 shade goggles for cutting/heavy welding (#3-4 for light brazing), leather gloves, long sleeves, no synthetics.
@@ -10041,6 +10409,10 @@ Welding tips (W-J / 100 series) run both gases at roughly the same low pressure:
 5. For a cutting attachment: after the preheat flame is neutral, press the **cutting-oxygen lever** and re-check the preheat flame; adjust the preheat oxygen valve until it is neutral *with the lever pressed*, since the cutting jet steals a little preheat oxygen.
 
 ## 9. Making a cut (mild steel)
+
+![Cutting torch at work: preheat flames on the plate, oxygen lever pressed](/photos/oxy-fuel/cutting-closeup.jpg)
+
+*Cutting torch at work: preheat flames on the plate, oxygen lever pressed. Photo: Jonas Boni, CC BY 2.0, via commons*
 
 1. Hold the tip so the preheat cones are about **1/16" to 1/8" above** the plate, torch perpendicular to the surface (tilt slightly into the direction of travel for thin plate).
 2. Preheat the edge until it is bright cherry red.
@@ -10117,6 +10489,10 @@ A size 8 pulling 80 scfh needs **560 ft³ of connected cylinder**: a manifold of
 ## Lighting and handling
 
 ![Set a neutral flame before heating](/img/oxy-fuel/flame-types.svg)
+
+![A neutral flame: the bright inner cone and the pale outer envelope](/photos/oxy-fuel/flame-cone.jpg)
+
+*A neutral flame: the bright inner cone and the pale outer envelope. Photo: Sheila, CC BY 2.0, via commons*
 
 *Set a neutral flame before heating*
 
@@ -10208,6 +10584,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![Oxygen 20 ft from fuel gas or behind a fire wall](/img/oxy-fuel/cylinder-storage.svg)
 
+![Cylinders stored upright, capped and chained, full and empty separated](/photos/oxy-fuel/gas-cylinder-rack.jpg)
+
+*Cylinders stored upright, capped and chained, full and empty separated. Photo: Cjp24, CC BY-SA 4.0, via commons*
+
 *Oxygen 20 ft from fuel gas or behind a fire wall*
 
 - Store oxygen and fuel-gas cylinders **at least 20 ft apart**, or separated by a 5 ft, half-hour fire-rated barrier (OSHA 1910.253).
@@ -10240,6 +10620,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | **Flashback** | Shrill whistle/hiss, black smoke, flame burning back in the torch or hose | Mixed gases in the hose (no purge), wrong pressures, leaking mixer | **Close oxygen torch valve, then fuel valve**, then cylinder valves. Let cool. Inspect torch, replace arrestors, find the cause before relighting |
 
 ## Personal protection
+
+![Shade 5 gas welding goggles](/photos/oxy-fuel/gas-goggles.jpg)
+
+*Shade 5 gas welding goggles. Photo: BenTheWikiMan at Dutch Wikipedia, Public domain, via commons*
 
 - Shade **#5** goggles for cutting; #3-4 for light brazing/soldering. Face shield over goggles for overhead work.
 - Leather gloves, leather or FR cotton clothing, no cuffs, no synthetics, boots. Long sleeves buttoned.
@@ -10289,6 +10673,10 @@ Equal pressures for welding tips is the Victor convention; other makers list sli
 
 ## Flame
 
+![Neutral flame: inner cone sharp and bright, no acetylene feather](/photos/oxy-fuel/flame-cone.jpg)
+
+*Neutral flame: inner cone sharp and bright, no acetylene feather. Photo: Sheila, CC BY 2.0, via commons*
+
 - Light the acetylene, raise it until the smoke clears, then add oxygen until the acetylene feather **just disappears** into a sharp inner cone: **neutral**. Welding steel is done with a neutral flame; a carburising flame (feather showing) adds carbon and makes a hard, porous weld; an oxidising flame (short, hissing, pointed cone) burns the steel and foams the puddle.
 - Flame types are pictured in the [flame guide](/article/oxy-acetylene-setup-victor).
 - Inner cone tip held **1/16-1/8 in** above the puddle; the cone never touches the metal.
@@ -10296,6 +10684,10 @@ Equal pressures for welding tips is the Victor convention; other makers list sli
 ## Technique
 
 ![Forehand torch and rod angles; bronze rod tins first](/img/oxy-fuel/oaw-braze-technique.svg)
+
+![Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle](/photos/oxy-fuel/oxy-welding.jpg)
+
+*Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle. Photo: Konstantin Brizhnichenko, CC BY-SA 4.0, via commons*
 
 *Forehand torch and rod angles; bronze rod tins first*
 
@@ -10523,6 +10915,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$coupling-types-gap-and-installation$mw$, $mw$Shaft Couplings: Types, Setting the Gap, and Hub Installation$mw$, $mw$The main coupling families millwrights meet, what each tolerates, how to set the gap between hubs, and how to install hubs without hammering them onto the shaft.$mw$, $mw$## Families
 
 ![Coupling gap and the four common families](/img/power-transmission/coupling-gap-and-types.svg)
+
+![A jaw coupling: two hubs and an elastomer spider between them](/photos/power-transmission/jaw-coupling.jpg)
+
+*A jaw coupling: two hubs and an elastomer spider between them. Photo: Aruland, CC BY-SA 3.0, via commons*
 
 *Coupling gap and the four common families*
 
@@ -10812,6 +11208,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![QD flange bushing versus flangeless Taper-Lock](/img/power-transmission/qd-vs-taperlock.svg)
 
+![A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws](/photos/power-transmission/taper-lock-hub.jpg)
+
+*A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws. Photo: Miessen, CC0, via commons*
+
 *QD flange bushing versus flangeless Taper-Lock*
 
 | | **QD (Quick Detachable)** | **Taper-Lock** |
@@ -10932,6 +11332,10 @@ Last digit: **0** = standard roller chain, **1** = lightweight, **5** = rollerle
 
 ## Sprockets
 
+![Roller chain on a sprocket: look for hooked teeth and chain riding high](/photos/power-transmission/chain-sprocket.jpg)
+
+*Roller chain on a sprocket: look for hooked teeth and chain riding high. Photo: Frank Vincentz, CC BY-SA 3.0, via commons*
+
 - Tooth count and pitch must match the chain. Hardened teeth for high speed or abrasive service.
 - Worn sprocket teeth look **hooked** (undercut on the driving side). Replace chain and sprockets together; a new chain on hooked sprockets wears out in weeks.
 - Minimum 17 teeth on the small sprocket for smooth running at speed; odd tooth counts spread wear.
@@ -11014,6 +11418,10 @@ A synchronous belt **cannot slip**: the teeth engage sprocket grooves, so the ra
 
 ## Pitch families
 
+![A toothed (synchronous) belt: the tooth pitch must match the pulley](/photos/power-transmission/timing-belt.jpg)
+
+*A toothed (synchronous) belt: the tooth pitch must match the pulley. Photo: Logansenf, CC BY-SA 4.0, via commons*
+
 | Family | Tooth profile | Pitches | Use |
 |---|---|---|---|
 | **Classical trapezoidal** (MXL, XL, L, H, XH, XXH) | Trapezoid | MXL 0.080", XL 1/5", **L 3/8", H 1/2"**, XH 7/8", XXH 1-1/4" | Older machines, light drives, positioning; being replaced |
@@ -11036,6 +11444,10 @@ Sprockets must match the belt's pitch **and** profile (an HTD 8M belt on a GT 8M
 ## Flanges and alignment
 
 A synchronous belt tracks toward one side (they all do, because of cord twist and slight misalignment), so **at least one sprocket must be flanged**: both flanges on one sprocket, or one flange on each sprocket on opposite sides; on a drive with a centre distance over 8× the small sprocket's diameter, **both** sprockets flanged. Belts that ride hard against a flange wear the edge and shed cords: the drive is misaligned.
+
+![Synchronous belt on flanged pulleys](/photos/power-transmission/timing-belt-pulleys.jpg)
+
+*Synchronous belt on flanged pulleys. Photo: Best Tech Nick 25, CC BY-SA 4.0, via commons*
 
 **Alignment tolerance**: much tighter than V-belts: **≤ 1/4° (0.25°) combined angular and parallel** (Gates: 1/16" per foot of centre distance as the practical limit, tighter, 1/32" per foot, on drives over 5 m/s and on Poly Chain). Check:
 
@@ -11124,6 +11536,10 @@ Storage: hang or lay flat, no tight coils (kinks crack cords), dry, out of sunli
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$v-belt-drive-installation-and-tensioning$mw$, $mw$V-Belt Drives: Sheave Alignment, Installation and Tensioning (Deflection Method)$mw$, $mw$How to identify belts, check and align sheaves, install a matched set without prying, tension by the 1/64 inch per inch of span deflection method, and re-tension after run-in.$mw$, $mw$## Identify the belt
 
+![A multiple V-belt drive: replace the whole set as a matched group](/photos/power-transmission/multi-v-belt-drive.jpg)
+
+*A multiple V-belt drive: replace the whole set as a matched group. Photo: Three-quarter-ten, CC BY-SA 3.0, via commons*
+
 | Section | Top width | Typical use |
 |---|---|---|
 | A / AX | 1/2" | Fractional to 10 hp |
@@ -11207,6 +11623,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$air-compressors-pm$mw$, $mw$Air Compressors: Reciprocating, Rotary Screw and Vane Types, Controls, Oil and Filters, Dryers and Dew Point, Receiver and Safety Valve Rules, the PM Schedule by Interval, Condensate and Leak Surveys, Troubleshooting and Safety$mw$, $mw$What each compressor type is and how it is controlled, the oil and filter rules that decide its life, how dryers and receivers work and how they fail, the PM schedule by daily, weekly, monthly, quarterly and annual items with the typical hours, the condensate and leak surveys that save the most money, the troubleshooting table, and the safety rules for receivers, safety valves and compressed air on people.$mw$, $mw$## Types
 
 ![Reciprocating and screw compressors with the receiver](/img/pumps-seals/compressor-types.svg)
+
+![A small reciprocating compressor: pump, motor, receiver, pressure switch](/photos/pumps-seals/piston-compressor.jpg)
+
+*A small reciprocating compressor: pump, motor, receiver, pressure switch. Photo: Sirotmusic, CC BY-SA 4.0, via commons*
 
 *Reciprocating and screw compressors with the receiver*
 
@@ -11322,6 +11742,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 In an **open-impeller** pump (ANSI B73.1 process pumps: Goulds 3196, Durco Mark 3 and their copies) the front of the impeller vanes runs a few thousandths from the casing (or the suction cover); liquid that slips back across that gap from the discharge side to the suction is lost work. As a rule of thumb, **doubling the design clearance drops the efficiency several points and the head a few percent**, raises the power, and moves the pump off its curve; too little clearance rubs when the pump warms up (galling, seizure, a broken shaft on start). The clearance wears open with abrasives and corrosion and is **re-set** (the impeller is moved forward) two or three times in its life before it needs replacing.
 
+![Casing off: the impeller and its clearance to the casing wall](/photos/pumps-seals/pump-impeller-open.jpg)
+
+*Casing off: the impeller and its clearance to the casing wall. Photo: Matt, Public domain, via commons*
+
 ![Open impeller clearance and enclosed impeller wear rings](/img/pumps-seals/impeller-clearance.svg)
 
 *Open impeller clearance and enclosed impeller wear rings*
@@ -11368,6 +11792,10 @@ The vanes are on the **back** of the impeller and run against the **rear cover (
 ## Enclosed impellers: wear rings
 
 Clearance is **diametral** (the difference in diameters between the ring on the impeller and the ring in the casing), measured with a micrometer on the impeller ring OD and a bore gauge on the casing ring ID (not with feelers in place, which read the radial gap on one side).
+
+![Enclosed impellers: the wear ring runs on the shroud eye](/photos/pumps-seals/impellers.jpg)
+
+*Enclosed impellers: the wear ring runs on the shroud eye. Photo: Meisam, CC BY-SA 3.0, via commons*
 
 **API 610 minimum running clearance (new; diametral, for rings of the same material with a galling tendency, e.g. cast iron/bronze at ≤ 500°F)**:
 
@@ -11433,6 +11861,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$mechanical-seal-replacement-centrifugal-pump$mw$, $mw$Replacing a Mechanical Seal on a Centrifugal Pump (Component and Cartridge Seals)$mw$, $mw$Step-by-step seal replacement on a typical back pull-out ANSI process pump: disassembly, the shaft and stuffing-box checks that decide whether the new seal survives, component-seal setting dimension, cartridge-seal clips, impeller clearance and start-up.$mw$, $mw$## Why seals fail
 
 Most seals do not wear out; they are killed. Dry running (no flush, pump not vented), shaft runout, pipe strain, misalignment, cavitation, wrong setting dimension, and elastomers damaged during installation account for nearly all early failures. Fix the cause or you will be back in a month.
+
+![Seal faces lapped flat: a fingerprint is enough to make them leak](/photos/pumps-seals/seal-faces.jpg)
+
+*Seal faces lapped flat: a fingerprint is enough to make them leak. Photo: ENERGY.GOV, Public domain, via commons*
 
 ## Before you start
 
@@ -11556,6 +11988,10 @@ Round the cross-section **down** to the standard size (1/4, 5/16, 3/8, 7/16, 1/2
 
 ## Installation
 
+![Packing rings in the stuffing box, gland follower ready to go on](/photos/pumps-seals/gland-packing.jpg)
+
+*Packing rings in the stuffing box, gland follower ready to go on. Photo: Miya.m, CC BY-SA 3.0, via commons*
+
 1. Lockout; isolate and drain the pump; remove the gland; **remove all old packing** with a packing extractor (corkscrew) and hook, **including the lantern ring** (and the rings below it, which is where people stop); flush the box; check the flush port is open.
 2. **Inspect the sleeve**: scoring, grooves you can feel with a fingernail (over about 0.005" deep), pitting or a step under the old packing: **replace or resurface the sleeve**; new packing on a scored sleeve leaks and dies in a week. Check the shaft runout at the box (≤ 0.002-0.003") and the box bore for corrosion.
 3. Lubricate rings lightly if the maker says (a silicone or PTFE lube on synthetic packing, none on graphite that is pre-lubricated; never oil a packing for oxygen or food service).
@@ -11622,6 +12058,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A pump complaint is a **system** complaint until the gauges say otherwise. Fit or read: **suction pressure** (or vacuum), **discharge pressure**, motor **amps** (all three phases), and if possible flow; note the liquid temperature and the tank level. Then:
 
+![A large slurry pump: suction and discharge gauges are the first check](/photos/pumps-seals/slurry-pump.jpg)
+
+*A large slurry pump: suction and discharge gauges are the first check. Photo: Bernard S. Janse, CC BY 2.5, via commons*
+
 ```
    differential head (ft) = (P_discharge − P_suction, psi) × 2.31 ÷ SG        (correct the gauges to the pump centreline)
    compare with the curve at the flow you think you have; the amps tell you the power and therefore roughly the flow
@@ -11679,6 +12119,10 @@ Do not mistake **bearing noise** (a whine or growl at the bearing housing, felt 
 
 ## Field checks in order
 
+![Two pumps on a common base: compare the healthy one with the suspect](/photos/pumps-seals/pump-pair.jpg)
+
+*Two pumps on a common base: compare the healthy one with the suspect. Photo: ceedub13, CC BY 2.0, via commons*
+
 1. Gauges and amps (above); tank level and temperature; valve positions on suction and discharge, including any bypass and the recirculation line.
 2. **Rotation** (bump uncoupled if in doubt; arrows on the casing).
 3. Strainer ΔP or pull the basket; the suction line for air leaks (soap on a suction under vacuum shows nothing: **pressurise** the suction line or watch for bubbles in a sight glass; a vacuum gauge that reads high with the strainer clean = restriction).
@@ -11734,6 +12178,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Types and where each fits
 
+![Manual chain hoist: hand chain, load chain, hook with latch](/photos/rigging/chain-hoist.jpg)
+
+*Manual chain hoist: hand chain, load chain, hook with latch. Photo: HardMediaGroup, CC BY-SA 3.0, via commons*
+
 | Tool | Typical capacity | Pull ratio | Use | Never |
 |---|---|---|---|---|
 | **Hand chain hoist** (chain fall, chain block) | 1/4-20 t | Hand chain to load chain about 30-50:1 | Vertical lifts from a beam, tripod or trolley | Pull sideways, lift people, exceed the plate |
@@ -11780,6 +12228,10 @@ Never repair a load chain (no welding, no replacement links); replace with the m
 - **Two-block**: stop before the bottom hook reaches the body; on electric hoists test the upper limit switch with no load every shift.
 
 ## Operating rules
+
+![Electric chain hoist with pendant: same inspection points, plus the brake](/photos/rigging/electric-chain-hoist.jpg)
+
+*Electric chain hoist with pendant: same inspection points, plus the brake. Photo: Streetcrane, CC BY-SA 4.0, via commons*
 
 - One person on the hand chain or lever; **no cheater bars**. If you cannot move it by hand, the hoist is too small or something is jammed.
 - Lift a few inches, stop, check the brake, the rigging and the balance, then continue.
@@ -11828,6 +12280,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![The standard hand signals](/img/rigging/crane-hand-signals.svg)
 
+![A rigger guides the crane operator with hand signals](/photos/rigging/signalling-crane.jpg)
+
+*A rigger guides the crane operator with hand signals. Photo: NPS Photo, Public domain, via commons*
+
 *The standard hand signals*
 
 | Signal | How |
@@ -11868,6 +12324,10 @@ Used when the operator cannot see the signal person. Protocol (OSHA 1926.1421): 
 Rules: the operator does not move until a signal is given; the signal person keeps talking ("swing left, swing left") during the motion so the operator knows the radio is still live and stops the motion if the voice stops; a dedicated channel; a test call before the lift; never "ok" or "yes" as a command; "**stop**" from anyone stops the crane. Hand signals are prohibited on the same lift unless agreed beforehand. In Canada (CSA Z150) the signals and the "one signaller" rule are the same; some provinces require a certified signaller card.
 
 ## Who does what
+
+![Riggers steady a load on tag lines while the signaller watches the hook](/photos/rigging/rigger-load.jpg)
+
+*Riggers steady a load on tag lines while the signaller watches the hook. Photo: U.S. Marine Corps photo by Lance Cpl. Isabella Ramos, Public domain, via commons*
 
 | Role | Responsibility |
 |---|---|
@@ -12067,6 +12527,10 @@ Rule of thumb: if each sling leg (hook to pick point) is as long as the distance
 
 ## Hitches
 
+![Two slings on a spreader beam: legs vertical, no angle factor](/photos/rigging/beam-slings.jpg)
+
+*Two slings on a spreader beam: legs vertical, no angle factor. Photo: Alox, CC BY-SA 4.0, via commons*
+
 | Hitch | Capacity relative to the sling's vertical rating |
 |---|---|
 | **Vertical** (straight) | 100% |
@@ -12085,6 +12549,14 @@ Bending a sling around a small diameter cuts its strength. **D** = diameter of t
 ## Hardware
 
 ![Correct shackle loading and side-load derating](/img/rigging/shackle-loading.svg)
+
+![Screw-pin bow and D shackles: the WLL is forged on the bow](/photos/rigging/shackles.jpg)
+
+*Screw-pin bow and D shackles: the WLL is forged on the bow. Photo: Pline, CC BY-SA 3.0, via commons*
+
+![Hook with a spring latch: the latch closes the throat, it does not carry load](/photos/rigging/hook-safety-latch.jpg)
+
+*Hook with a spring latch: the latch closes the throat, it does not carry load. Photo: W.carter, CC BY-SA 4.0, via commons*
 
 *Correct shackle loading and side-load derating*
 
@@ -12138,6 +12610,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 *Sling angles and hitches used in the tables*
 
 ## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice (lb)
+
+![A swaged (mechanical splice) eye on wire rope](/photos/rigging/wire-rope-splice.jpg)
+
+*A swaged (mechanical splice) eye on wire rope. Photo: Bachelot Pierre J-P, CC BY-SA 3.0, via commons*
 
 | Dia. | Vertical | Choker | Vertical basket | 2-leg 60° | 2-leg 45° | 2-leg 30° | 3-leg 60° | 3-leg 45° | 3-leg 30° |
 |---|---|---|---|---|---|---|---|---|---|
@@ -12196,6 +12672,10 @@ Rules for chain: only **Grade 80 or 100 alloy** (marked "8", "80", "800", "10", 
 
 **Eye-and-eye (EE), flat eyes**
 
+![Round slings and a spreader on a scaffold lift](/photos/rigging/round-sling-lift.jpg)
+
+*Round slings and a spreader on a scaffold lift. Photo: Raimond Spekking, CC BY-SA 4.0, via commons*
+
 | Width | 1-ply vertical | 1-ply choker | 1-ply basket | 2-ply vertical | 2-ply choker | 2-ply basket |
 |---|---|---|---|---|---|---|
 | 1" | 1,600 | 1,280 | 3,200 | 3,100 | 2,480 | 6,200 |
@@ -12215,6 +12695,10 @@ Web and round sling rules: keep them off **sharp edges** (corner protectors, the
 ## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons
 
 ![Shackle loading](/img/rigging/shackle-loading.svg)
+
+![A screw-pin shackle in use: pull in line with the bow, pin moused](/photos/rigging/shackle-bollard.jpg)
+
+*A screw-pin shackle in use: pull in line with the bow, pin moused. Photo: Bachelot Pierre, CC BY-SA 3.0, via commons*
 
 *Shackle loading*
 
@@ -12309,6 +12793,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 
 ![Storage separation for oxygen and fuel gas](/img/oxy-fuel/cylinder-storage.svg)
 
+![Cylinders upright, capped, chained, full and empty separated](/photos/oxy-fuel/gas-cylinder-rack.jpg)
+
+*Cylinders upright, capped, chained, full and empty separated. Photo: Cjp24, CC BY-SA 4.0, via commons*
+
 *Storage separation for oxygen and fuel gas*
 
 - **Upright, secured** (chain, strap or rack) at all times, including "empties".
@@ -12330,6 +12818,10 @@ Read the **label**, not the colour (colours are not standardised in the US; supp
 ## Connecting and opening
 
 ![Regulator, arrestor and check valve positions](/img/oxy-fuel/oxy-acetylene-hookup.svg)
+
+![Regulator fitted: cylinder gauge on the right, working pressure on the left](/photos/oxy-fuel/regulator-gauges.jpg)
+
+*Regulator fitted: cylinder gauge on the right, working pressure on the left. Photo: J.Dncsn, CC BY-SA 3.0, via commons*
 
 *Regulator, arrestor and check valve positions*
 
@@ -12393,6 +12885,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 A space is **confined** if all three are true (OSHA 1910.146):
 
+![Looking down into a permit space: one way in, one way out](/photos/safety/confined-space-manway.jpg)
+
+*Looking down into a permit space: one way in, one way out. Photo: U.S. Air Force photo by Karen Abeyasekere, Public domain, via commons*
+
 1. Large enough to enter and do work.
 2. **Limited or restricted** means of entry or exit (manway, ladder, hatch, crawl).
 3. **Not designed for continuous occupancy**.
@@ -12445,6 +12941,10 @@ The attendant may not do other work that distracts from the space. One attendant
 
 ## Rescue
 
+![Tripod and winch rigged over the entry for retrieval](/photos/safety/confined-space-tripod.jpg)
+
+*Tripod and winch rigged over the entry for retrieval. Photo: Georgia National Guard from United States, CC BY 2.0, via commons*
+
 - **Non-entry retrieval**: full-body harness with a dorsal or shoulder D-ring, lifeline to a **tripod and winch** (or davit) at the opening for vertical spaces up to 5 ft deep or any space where the line will not snag. Chest or shoulder attachment for a straight vertical pull through a manway.
 - **Entry rescue**: a trained team with SCBA or supplied air, on-site or with a verified response time (the fire department is only an acceptable plan if they have confirmed capability and time; many cannot do vessel rescue).
 - Rescue equipment set up **before** entry; a practice rescue at least annually.
@@ -12482,6 +12982,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## When fall protection is required
 
+![Full-body harness: the dorsal D-ring sits between the shoulder blades](/photos/safety/harness-dring.jpg)
+
+*Full-body harness: the dorsal D-ring sits between the shoulder blades. Photo: National Institute for Occupational Safety and Health (NIOSH) from USA, Public domain, via commons*
+
 | Setting | Trigger height | Rule |
 |---|---|---|
 | General industry (plants, mills, shops): unprotected sides and edges, holes, platforms, mezzanines | **4 ft (1.2 m)** | OSHA 1910.28 |
@@ -12498,6 +13002,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Personal fall arrest system (PFAS)
 
 **Anchor**: **5,000 lb (22 kN) per person** attached, or engineered to 2× the maximum arresting force under a qualified person's design. Structural steel beam, a rated beam clamp or strap, a certified anchor point. Not: pipe, conduit, cable tray, handrails (unless certified), sprinkler lines, ductwork, the lift's guardrail (use the designed anchor in the basket), a forklift, a scissor lift railing on an adjoining lift. Anchor **above the D-ring** whenever possible.
+
+![Harness, shock-absorbing lanyard and anchor: check all three before the climb](/photos/safety/harness-worker.jpg)
+
+*Harness, shock-absorbing lanyard and anchor: check all three before the climb. Photo: National Institute for Occupational Safety and Health (NIOSH) from USA, Public domain, via commons*
 
 **Harness**: full body only (body belts are not for arrest). Fit: chest strap at mid-chest (armpit level, not the throat), leg straps snug (a flat hand slides in, a fist does not), D-ring between the shoulder blades, no twisted webbing, all keepers used. Inspect before each use: cuts, frays, burns, chemical damage, stitching, distorted hardware, impact indicator deployed (tag or fold stitching burst) = out of service. Manufacturer's label legible; retire on the maker's schedule or after any fall.
 
@@ -12707,6 +13215,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **Wheel selection**
 
+![Guard on, both hands on the grinder, sparks away from you](/photos/cutting-gouging/angle-grinder.jpg)
+
+*Guard on, both hands on the grinder, sparks away from you. Photo: Tech. Sgt. Jeffrey Grossi, Public domain, via commons*
+
 ![Guard position and kickback direction on an angle grinder](/img/safety/grinder-guard-and-kickback.svg)
 
 *Guard position and kickback direction on an angle grinder*
@@ -12844,6 +13356,10 @@ The fire watch:
 
 ## Extinguishers
 
+![A rated extinguisher within reach of the work: pin in, gauge in the green](/photos/safety/fire-extinguisher.jpg)
+
+*A rated extinguisher within reach of the work: pin in, gauge in the green. Photo: Denis kasozi, CC BY 4.0, via commons*
+
 | Type | Rating | Use | Notes |
 |---|---|---|---|
 | **ABC dry chemical** (monoammonium phosphate) | e.g. 4A:60B:C for a 10 lb | The general hot-work extinguisher: wood, paper, liquids, electrical | Corrosive residue on electronics and machinery; 10 lb minimum at hot work (20 lb in many programs) |
@@ -12907,6 +13423,10 @@ A machine can have five or six points. The machine-specific **LOTO procedure** l
 
 ![The eight lockout steps in order](/img/safety/lockout-steps.svg)
 
+![A personal lock on an isolation point](/photos/safety/lockout-hoist-brake.jpg)
+
+*A personal lock on an isolation point. Photo: Wtshymanski, CC BY-SA 4.0, via commons*
+
 *The eight lockout steps in order*
 
 1. **Prepare**: identify every energy source and the isolation device for each. Get the locks, tags, hasps, valve covers, plug locks you need. Only **your** personal lock, one key, in your pocket.
@@ -12922,7 +13442,15 @@ A machine can have five or six points. The machine-specific **LOTO procedure** l
 
 Each worker puts their **own lock** on the hasp or lock box. The last person off removes the last lock. Never remove another person's lock. If someone leaves with their lock on, the supervisor follows the written **lock-removal procedure** (confirm the person is clear, document, then cut). Shift change: the incoming crew locks on before the outgoing crew locks off.
 
+![Multi-lock hasp: every worker adds a lock, nobody removes another person's](/photos/safety/lockout-hasp.jpg)
+
+*Multi-lock hasp: every worker adds a lock, nobody removes another person's. Photo: Wtshymanski, CC BY-SA 4.0, via commons*
+
 ## Restart
+
+![Lockout board: every lock and tag accounted for before restart](/photos/safety/lockout-board.jpg)
+
+*Lockout board: every lock and tag accounted for before restart. Photo: NAVFAC, Public domain, via commons*
 
 1. Inspect the work area: tools out, guards on, blocks removed, personnel clear.
 2. Notify affected employees.
@@ -12953,6 +13481,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## By task
 
 ![PPE by task at a glance](/img/safety/ppe-by-task.svg)
+
+![Helmet, hearing protection and hi-vis on a dusty cutting job](/photos/safety/ppe-worker.jpg)
+
+*Helmet, hearing protection and hi-vis on a dusty cutting job. Photo: Sascha Kohlmann, CC BY-SA 3.0, via commons*
 
 *PPE by task at a glance*
 
@@ -12993,6 +13525,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Inspection and care
 
+![Respirator, gloves and hard hat for dusty industrial work](/photos/safety/ppe-industrial.jpg)
+
+*Respirator, gloves and hard hat for dusty industrial work. Photo: CEphoto, Uwe Aranas, CC BY-SA 3.0, via commons*
+
 - Before each use: cracks in lenses and shields, cuts in gloves, crushed toes, torn harness webbing, cartridge dates, shell dents; discard on damage.
 - Eyewear: rinse under water before wiping (grit scratches); replace scratched lenses (they weaken and impair vision).
 - Store respirators sealed in a bag away from the dust they filter; clean the facepiece after each shift.
@@ -13000,6 +13536,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - Hearing: reusable plugs washed daily, replaced every few months; foam plugs one use.
 
 ## Common mistakes
+
+![Working without proper safety equipment: the photo NIOSH uses as the wrong example](/photos/safety/no-ppe.jpg)
+
+*Working without proper safety equipment: the photo NIOSH uses as the wrong example. Photo: National Institute for Occupational Safety and Health (NIOSH) from USA, Public domain, via commons*
 
 - Face shield without glasses underneath.
 - "Just a quick grind" with no shield, or glasses on the forehead.
@@ -13189,6 +13729,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![Rockwell C, Brinell and tensile side by side](/img/shop-reference/hardness-scale-bar.svg)
 
+![A bench Rockwell hardness tester](/photos/shop-reference/rockwell-tester.jpg)
+
+*A bench Rockwell hardness tester. Photo: Three-quarter-ten, CC BY-SA 3.0, via commons*
+
 *Rockwell C, Brinell and tensile side by side*
 
 | HRC | Vickers HV | Brinell HB (3,000 kg, 10 mm ball) | HRB | Approx. tensile (ksi) | Approx. tensile (MPa) | Typical of |
@@ -13232,6 +13776,10 @@ Notes: "W" = tungsten carbide ball (the steel ball is not valid above 444 HB / 4
 **Rule of thumb for steel**: **tensile (ksi) ≈ 0.5 × HB** (more exactly 0.485-0.5 up to about 400 HB); **tensile (MPa) ≈ 3.45 × HB**. Yield is roughly 0.75-0.85 of tensile for Q&T steels, 0.5-0.6 for hot-rolled mild steel. 1 HRC point ≈ 8-10 HB in the 20-40 HRC range.
 
 ## Other scales you will see
+
+![A Vickers diamond indentation in case-hardened steel](/photos/shop-reference/vickers-indent.jpg)
+
+*A Vickers diamond indentation in case-hardened steel. Photo: Dennis M. Clarke, CC BY-SA 3.0, via commons*
 
 | Scale | Indenter / load | Used for |
 |---|---|---|
@@ -13336,6 +13884,10 @@ A 1 in × 1 in × 12 in bar: steel 3.4 lb, aluminium 1.2 lb, brass 3.7 lb, titan
 
 Bench or angle grinder, medium-grit wheel, dim light, moderate pressure, hold the sample so the sparks stream horizontally at eye level; compare against a **known** sample of 1018, 1045, tool steel and cast iron kept for the purpose. Watch four things: **stream length and volume, colour, the shape and number of bursts (sprigs, forks), and how close to the wheel the bursts start**. Carbon makes bursts: more carbon, more bursts, brighter and closer to the wheel.
 
+![Spark testing: hold the piece lightly on the wheel and read the stream against a dark background](/photos/shop-reference/spark-test.jpg)
+
+*Spark testing: hold the piece lightly on the wheel and read the stream against a dark background. Photo: unknown, Public domain, via commons*
+
 ![Spark stream patterns for four metals](/img/shop-reference/spark-test-patterns.svg)
 
 *Spark stream patterns for four metals*
@@ -13409,6 +13961,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Steel pipe dimensions (ASME B36.10), inches
 
 STD = standard weight (= Sch 40 up to NPS 10); XS = extra strong (= Sch 80 up to NPS 8); XXS = double extra strong.
+
+![Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule](/photos/shop-reference/pipe-yard.jpg)
+
+*Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule. Photo: PROJECT_MANAGER, CC BY-SA 2.0, via commons*
 
 ![Same OD, different wall by schedule](/img/shop-reference/pipe-schedule-walls.svg)
 
@@ -16295,6 +16851,10 @@ The rolling elements polish a **track** on each raceway where the load passes. I
 
 ## Damage modes (ISO 15243)
 
+![False brinelling on test bearings: polished depressions at ball spacing](/photos/bearings/false-brinelling.jpg)
+
+*False brinelling on test bearings: polished depressions at ball spacing. Photo: DirkDrees, CC BY-SA 4.0, via commons*
+
 ### 1. Fatigue (spalling / flaking)
 
 - **Subsurface-initiated**: flakes with a smooth crater and a coarse bottom, starting in the load zone in the middle of the track, spreading in the rolling direction; the end of the design life, or a heavily overloaded bearing. Cause: load higher than expected (belt over-tension, misalignment, unbalance), the end of life. Fix: correct the load; bigger bearing; check the L10 calculation.
@@ -16480,6 +17040,10 @@ Before blaming the part, record: the alignment as found (rim and face or laser),
 *What is under the guard for each coupling family*
 
 ## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)
+
+![Jaw coupling: rubber dust under it means the spider is being worked by misalignment](/photos/power-transmission/jaw-coupling.jpg)
+
+*Jaw coupling: rubber dust under it means the spider is being worked by misalignment. Photo: Aruland, CC BY-SA 3.0, via commons*
 
 | What you see | Cause | Fix |
 |---|---|---|
@@ -16760,6 +17324,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 *Decoding E7018-1 H4R digit by digit*
 
 ## Covered (stick) electrodes: AWS A5.1 and A5.5
+
+![The classification is printed on every rod near the bare end](/photos/welding/electrode-types.jpg)
+
+*The classification is printed on every rod near the bare end. Photo: Ghasemimoshref, CC BY-SA 4.0, via commons*
 
 ```
 E 70 1 8 - 1  H4 R
@@ -17043,6 +17611,10 @@ Strength comes from the joint design (overlap area), not from a fat fillet: a br
 
 ## Filler metals
 
+![Brazing kit: torch, silver alloy rods, flux, goggles](/photos/welding/brazing-kit.jpg)
+
+*Brazing kit: torch, silver alloy rods, flux, goggles. Photo: Phil Gradwell from Culcheth, England, CC BY 2.0, via commons*
+
 | AWS class | Common names (Harris and others) | Composition | Solidus-liquidus °F (°C) | Flux | Use |
 |---|---|---|---|---|---|
 | **BCuP-5** | **Sil-Fos 15**, Phos-copper 15% Ag | 15 Ag, 80 Cu, 5 P | 1190-1475 (640-800) | **None on copper-to-copper** (phosphorus self-fluxes); flux on brass | HVAC/refrigeration copper lines, copper to brass; ductile, gap-filling |
@@ -17095,6 +17667,10 @@ Capillary action works only in a **narrow, uniform gap** at brazing temperature:
 Dissimilar metals move the gap when heated: a steel bushing in a copper block opens up; a copper sleeve on a steel shaft tightens and can close the joint. Allow for expansion so the gap is right **at temperature**. Design the joint as a lap or sleeve, never a butt, and put the filler where gravity and capillary pull it through the joint (feed from the top or the side, watch it appear on the far side).
 
 ## Torch brazing procedure (silver brazing a steel-to-copper or copper-to-copper joint)
+
+![Torch brazing: heat the joint, not the rod; the filler follows the heat](/photos/welding/brazing-torch.jpg)
+
+*Torch brazing: heat the joint, not the rod; the filler follows the heat. Photo: Petty Officer 3rd Class Jennifer Kimball, Public domain, via commons*
 
 1. **Clean**: bright metal, no oil, oxide or paint: emery, wire brush, then solvent. Clean parts braze; dirty parts do not.
 2. **Flux** both faces (except BCuP on copper-to-copper), assemble, support so nothing moves; keep the gap uniform.
@@ -17270,6 +17846,10 @@ A tubular wire with flux inside, run on a **CV** machine with **DC+** and a shie
 Not to be confused with **self-shielded** flux-core (E71T-11, NR-211) which runs **DC−** with **no gas**: see [self-shielded flux-core setup](/article/fcaw-self-shielded-setup).
 
 ## Setup checklist
+
+![Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle](/photos/welding/mig-machine.jpg)
+
+*Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle. Photo: Luke Haggart, CC BY-SA 4.0, via commons*
 
 | Item | Setting |
 |---|---|
@@ -17463,6 +18043,10 @@ Lincoln's US procedure sheet for .035 spans **50-300 ipm at 13-16 V**; the .030 
 
 ## Setup
 
+![A small wire-feed machine set up for self-shielded flux-cored wire](/photos/welding/fcaw-feeder.jpg)
+
+*A small wire-feed machine set up for self-shielded flux-cored wire. Photo: Mgschuler, CC BY 3.0, via commons*
+
 1. CV machine, **DC−**. Small 120 V machines: use .030 or .035 wire only.
 2. **Knurled** drive rolls; tension light (tube wire crushes).
 3. Liner sized for the wire. Remove the gas nozzle if the gun has one and fit the flux-core **insulated nozzle** or run with the tip exposed as the maker recommends; a MIG nozzle traps spatter.
@@ -17551,6 +18135,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Cylinders
 
+![Shielding gas cylinders capped and bundled for storage](/photos/welding/gas-cylinders.jpg)
+
+*Shielding gas cylinders capped and bundled for storage. Photo: Ildar Sagdejev (Specious), CC BY-SA 4.0, via commons*
+
 | Size (US common names) | Contents (ft³) | Height | Notes |
 |---|---|---|---|
 | 20 / 40 | 20-40 | 14-17" | Home shop |
@@ -17591,6 +18179,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ![MIG runs DCEP: gun lead to positive](/img/welding/polarity.svg)
 
+![A MIG machine with the gun, work lead and shielding gas bottle](/photos/welding/mig-machine.jpg)
+
+*A MIG machine with the gun, work lead and shielding gas bottle. Photo: Luke Haggart, CC BY-SA 4.0, via commons*
+
 *MIG runs DCEP: gun lead to positive*
 
 - **Constant-voltage (CV)** power source. You set **voltage** on the machine and **wire feed speed (WFS)**; the machine supplies whatever **amperage** the wire feed demands. WFS is the amperage knob; voltage is the arc length / bead width knob.
@@ -17598,6 +18190,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - Synergic / "auto-set" machines: pick wire size, gas and thickness; the machine sets both. Fine-tune from there.
 
 ## 2. Wire
+
+![A spool of solid MIG wire: keep it clean, dry and under a cover](/photos/welding/mig-wire-spool.jpg)
+
+*A spool of solid MIG wire: keep it clean, dry and under a cover. Photo: AMPedNH, CC BY 2.0, via commons*
 
 | Wire | Amperage range | Thickness sweet spot | WFS per amp (rule) |
 |---|---|---|---|
@@ -17609,6 +18205,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ER70S-6 is the default steel wire (tolerates mill scale). Match **drive rolls** (V-groove for solid steel, U-groove for aluminium, knurled for flux-core), **liner** (steel liner for steel; PTFE/nylon for aluminium), and **contact tip** (stamped size; a worn oval tip causes erratic arc) to the wire diameter.
 
 ## 3. Gas
+
+![Cylinder regulator with the flow gauge for a MIG setup](/photos/welding/mig-regulator.jpg)
+
+*Cylinder regulator with the flow gauge for a MIG setup. Photo: Mimzy, CC0, via commons*
 
 | Gas | Use | Flow |
 |---|---|---|
@@ -17658,6 +18258,10 @@ Notes on using the chart:
 7. **Gun cable** straight, not coiled around things; a tight coil makes feeding erratic.
 
 ## 6. Technique
+
+![MIG welding: short stickout, steady gun angle, eyes on the puddle](/photos/welding/mig-welding.jpg)
+
+*MIG welding: short stickout, steady gun angle, eyes on the puddle. Photo: William M. Plate Jr., Public domain, via commons*
 
 - **Gun angle**: **push** 10-15° for solid wire with gas (cleaner, better shielding, flatter bead); drag for flux-core ("drag if slag"). Work angle 45° on fillets, 90° on butts.
 - **Travel**: keep the arc on the **leading edge** of the puddle. If you are welding on top of the puddle you are laying cold metal.
@@ -17715,6 +18319,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | **Pulsed spray (GMAW-P)** | Power source pulses 30-400 times/s between a peak (spray droplet) and a low background current | Average current below the transition current | ≥ 80% argon | **All** | 18 ga to heavy plate | Very little |
 
 ## Short-circuit transfer
+
+![Short-circuit transfer is the mode for out-of-position work like this overhead weld](/photos/welding/mig-overhead.jpg)
+
+*Short-circuit transfer is the mode for out-of-position work like this overhead weld. Photo: Prowelder87, CC BY-SA 4.0, via commons*
 
 - The everyday shop mode with .030/.035 wire and C25. Low heat input, all positions, bridges gaps.
 - Needs a tight consistent stickout (3/8-1/2") because it runs cold.
@@ -17806,6 +18414,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 *Amperage versus thickness for steel, stainless and aluminium*
 
 ## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)
+
+![TIG on steel: DCEN, argon, ER70S filler](/photos/welding/tig-welder.jpg)
+
+*TIG on steel: DCEN, argon, ER70S filler. Photo: U.S. Navy photo by Mass Communication Specialist 2nd Class Jason T. Poplin, Public domain, via commons*
 
 | Thickness | Amps | Tungsten | Filler | Cup | Argon |
 |---|---|---|---|---|---|
@@ -17907,6 +18519,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **Types**
 
+![TIG torch parts: back cap, collet, collet body, tungsten, cups](/photos/welding/tig-torch-parts.jpg)
+
+*TIG torch parts: back cap, collet, collet body, tungsten, cups. Photo: Nutzdatenbegleiter, CC BY-SA 4.0, via commons*
+
 ![Tungsten grind, stickout, torch angle and filler angle](/img/welding/tig-torch-setup.svg)
 
 *Tungsten grind, stickout, torch angle and filler angle*
@@ -17961,6 +18577,10 @@ Back-purge stainless and titanium roots: see [gas selection and flow](/article/g
 
 ## 4. Torch
 
+![An air-cooled TIG torch with cup and back cap fitted](/photos/welding/tig-torch.jpg)
+
+*An air-cooled TIG torch with cup and back cap fitted. Photo: Nutzdatenbegleiter, CC BY-SA 4.0, via commons*
+
 | Torch | Cooling | Rated | Use |
 |---|---|---|---|
 | #17 (WP-17) | air | 150 A DC / 115 A AC | Light, everyday steel and stainless |
@@ -17971,6 +18591,10 @@ Back-purge stainless and titanium roots: see [gas selection and flow](/article/g
 Air-cooled torches get too hot to hold above about 150 A for more than a couple of minutes: that is what water coolers are for. Flexible heads and short back caps get you into corners.
 
 ## 5. Machine settings
+
+![A TIG power source: AC/DC, high-frequency start, gas solenoid](/photos/welding/tig-machine.jpg)
+
+*A TIG power source: AC/DC, high-frequency start, gas solenoid. Photo: unknown, Public domain, via commons*
 
 | Control | Setting |
 |---|---|
@@ -17994,6 +18618,10 @@ Air-cooled torches get too hot to hold above about 150 A for more than a couple 
 Match the base metal: ER70S-2 for steel, ER308L/316L/309L for stainless, ER4043/5356 for aluminium, ERCuSi-A for copper/braze-welding. Diameter ≈ tungsten diameter, one size smaller on thin sheet. Keep it clean (wipe with acetone), cut off the oxidised end, and keep the hot end **inside the gas shield** between dabs.
 
 ## 7. Technique
+
+![TIG arc: tight arc, filler dipped at the leading edge of the puddle](/photos/welding/tig-arc.jpg)
+
+*TIG arc: tight arc, filler dipped at the leading edge of the puddle. Photo: Mak04 at Slovenian Wikipedia, Public domain, via commons*
 
 1. Clean: grind steel bright; stainless brush (dedicated) and acetone; aluminium: degrease, then stainless-brush to break the oxide, weld within an hour.
 2. Torch angle **10-15° push**, tungsten 1/8" from the plate (arc length ≈ tungsten diameter). Filler enters at 15-20° low from the front, into the leading edge of the puddle, not into the arc.
@@ -18124,6 +18752,10 @@ Open-arc self-shielded hardfacing wires run long stickout and high voltage on pu
 
 ## Procedure
 
+![Hardfacing: wide beads, low dilution, let the layer check-crack as it cools](/photos/welding/hardfacing-arc.jpg)
+
+*Hardfacing: wide beads, low dilution, let the layer check-crack as it cools. Photo: Lreames, CC BY-SA 4.0, via commons*
+
 1. Identify the base metal (spark test, drawings, magnet); identify the wear type from the surface.
 2. Remove the old hardfacing if it is cracked, spalled or a third layer would result: grind, gouge (carbon-arc works on carbide overlay; grind the carbon off), or machine.
 3. Clean to bright metal; preheat per the table.
@@ -18191,6 +18823,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Back-gouge**: grinding or arc-gouging the root from the second side down to sound metal before welding the second side.
 
 ## Which groove for which thickness (steel)
+
+![Single-V butt weld in section: root, fill and cap passes](/photos/welding/v-butt-macro.jpg)
+
+*Single-V butt weld in section: root, fill and cap passes. Photo: Alu.cz, Public domain, via commons*
 
 | Thickness | Joint | Notes |
 |---|---|---|
@@ -18367,6 +19003,10 @@ On DC the magnetic field around the arc gets pushed by the field in the plate: t
 
 ## Daily checks before striking an arc
 
+![Daily checks: leads, clamps, gas, feeder, fan intake](/photos/welding/mig-machine.jpg)
+
+*Daily checks: leads, clamps, gas, feeder, fan intake. Photo: Luke Haggart, CC BY-SA 4.0, via commons*
+
 1. Cables: cuts, exposed copper, warm lugs.
 2. Ground clamp jaws clean and spring strong.
 3. Electrode holder insulation intact; MIG gun trigger and nozzle.
@@ -18391,6 +19031,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
   values ($mw$positions-and-techniques$mw$, $mw$Welding Positions and Techniques: 1G-6G and 1F-4F Explained, Travel and Work Angles, Stringer vs Weave, Vertical-Up and Vertical-Down, Overhead, Restarts and Tie-Ins$mw$, $mw$What each position code means for plate and pipe, the angles and bead types that work in each one for stick, MIG, flux-core and TIG, how to lay multi-pass welds, and how to restart and tie in without defects.$mw$, $mw$## Position codes
 
 **Groove welds (G)** and **fillet welds (F)**; the number is the position.
+
+![Pipe in the 6G position: the welder changes angle all the way round](/photos/welding/pipe-tig.jpg)
+
+*Pipe in the 6G position: the welder changes angle all the way round. Photo: Christopher.S.rcbc, CC BY-SA 4.0, via commons*
 
 ![1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe](/img/welding/positions.svg)
 
@@ -18438,6 +19082,10 @@ Qualifying in a harder position qualifies the easier ones: 3G+4G plate qualifies
 
 ## Position by position
 
+![Overhead welding: keep the arc short and the puddle small](/photos/welding/overhead-welding.jpg)
+
+*Overhead welding: keep the arc short and the puddle small. Photo: U.S. Navy photo by Photographer's Mate Airman Dexter Roberts, Public domain, via commons*
+
 ### Flat (1G/1F)
 
 Hottest settings from the charts; the puddle supports itself. Fillet: 45° work angle, 10-15° drag or push, stringer or slight weave. Big single-pass fillets (5/16") are fine here. Put the arc on the leading edge of the puddle and let the puddle size set the travel speed.
@@ -18474,6 +19122,10 @@ Sheet metal and pipeline root passes (E6010 on API 1104 pipe). Fast, shallow, ne
 Root (E6010 open root or TIG), hot pass, fill and cap, each pass **around the pipe in halves** from bottom (6 o'clock) to top (12 o'clock) so the whole weld is vertical-up, or downhill root then uphill fill on some pipeline procedures. Change your angle continuously to keep the electrode perpendicular to the pipe surface at every clock position. Grind the start and stop of each half to a taper so the next tie-in fuses.
 
 ## Multi-pass welds
+
+![Macro section of a multi-pass V-butt weld: each pass numbered, root to cap](/photos/welding/v-butt-macro.jpg)
+
+*Macro section of a multi-pass V-butt weld: each pass numbered, root to cap. Photo: Alu.cz, Public domain, via commons*
 
 1. **Root**: penetration and fusion at the root, nothing else. 1/8" 6010 or 3/32" TIG on pipe; 3/32 or 1/8" 7018 in a backed groove.
 2. **Hot pass** (pipe): right after the root, hotter, to burn out root wagon tracks and reinforce a thin root before it cracks.
@@ -18585,6 +19237,10 @@ Quenched-and-tempered A514/A517: D1.1 gives its own row (about 50°F ≤ 3/4", 1
 
 ## Cold-weather rule set
 
+![Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter](/photos/welding/pipe-welder.jpg)
+
+*Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter. Photo: Newfoundlandguy, CC BY-SA 4.0, via commons*
+
 - Below 32°F: preheat everything to 70°F minimum and keep it there.
 - Windbreaks for gas-shielded processes above 5 mph.
 - Rods and wire stored inside; an open 7018 can at 10°F is a hydrogen sponge.
@@ -18687,6 +19343,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Which rod, in plain terms
 
+![Common stick electrodes side by side: coating colour and end marking tell them apart](/photos/welding/electrode-types.jpg)
+
+*Common stick electrodes side by side: coating colour and end marking tell them apart. Photo: Ghasemimoshref, CC BY-SA 4.0, via commons*
+
 | Rod | Personality | Reach for it when |
 |---|---|---|
 | **E6010** | Fierce, digging arc; thin fast-freezing slag; DC+ only | Open-root pipe, rusty or painted steel, vertical down, whipping technique; needs a DC machine with good arc force |
@@ -18769,11 +19429,19 @@ Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, ru
 
 ## 2. Cables and ground
 
+![Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike](/photos/welding/smaw-accessories.jpg)
+
+*Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike. Photo: Mgschuler, CC BY 3.0, via commons*
+
 - Cable size for the amperage and total length: [cable chart](/article/machine-setup-and-duty-cycle).
 - **Ground clamp** on clean bare metal, as close to the weld as practical, on the same piece (not through a bearing, a hinge, a chain or a machine table with a rotating part between clamp and weld: welding current through a bearing pits the raceways).
 - Electrode holder jaws clean and tight; a hot holder handle means a loose cable lug.
 
 ## 3. Pick the rod
+
+![Stick electrodes and the holder: keep low-hydrogen rods dry](/photos/welding/electrodes-and-holder.jpg)
+
+*Stick electrodes and the holder: keep low-hydrogen rods dry. Photo: unknown, Public domain, via commons*
 
 1. Steel type and strength → class (E60XX for mild steel general; E70XX for structural; low-alloy for special steels).
 2. Position → E6010/E6011/E7018 for vertical and overhead; E7024/E7028 only flat and horizontal.
@@ -18792,6 +19460,10 @@ Engine drives (Bobcat, Ranger, Trailblazer): set to CC-Stick, check the fuel, ru
 ## 5. Strike and run
 
 ![Arc length, travel angle and work angle for stick welding](/img/welding/smaw-angles.svg)
+
+![Running a stick bead: watch the puddle, not the arc](/photos/welding/smaw-arc.jpg)
+
+*Running a stick bead: watch the puddle, not the arc. Photo: Prowelder87, CC BY-SA 4.0, via commons*
 
 *Arc length, travel angle and work angle for stick welding*
 
@@ -18915,6 +19587,10 @@ A fillet gauge reads **the smaller leg**. A 1/4" fillet with one leg 1/4" and th
 
 ## Inspection sequence
 
+![Chip and brush the slag before you inspect: slag hides undercut and porosity](/photos/welding/chipping.jpg)
+
+*Chip and brush the slag before you inspect: slag hides undercut and porosity. Photo: Airman Jenna Caldwell, Public domain, via commons*
+
 1. **Before welding**: material ID, fit-up (gap, bevel, land, hi-lo), cleanliness, tack quality, preheat, consumable class and storage, machine settings against the WPS.
 2. **During**: interpass temperature, interpass cleaning, bead placement, root pass before it is covered (this is the only time you will see it), travel and technique.
 3. **After**: clean (chip, brush, no paint), lighting (flashlight at a low angle shows undercut and cold lap), magnification 2-5× for cracks, gauges on size and profile, mark defects with paint stick, record.
@@ -18923,6 +19599,10 @@ A fillet gauge reads **the smaller leg**. A 1/4" fillet with one leg 1/4" and th
 ## Dye penetrant (PT) for surface cracks
 
 Works on any non-porous material (steel, stainless, aluminium, cast iron), finds only **surface-breaking** defects.
+
+![Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out](/photos/welding/dye-penetrant.jpg)
+
+*Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out. Photo: U.S. Navy Photo by Photographer’s Mate 2nd Class John Collins., Public domain, via commons*
 
 1. Clean: solvent (cleaner/remover), no paint, no rust, no oil; let it dry fully. Do not sandblast or heavily grind first (it smears metal over cracks); if you grinded, etch or wait.
 2. Apply **penetrant** (red, visible type): spray or brush a thin film; **dwell 5-10 minutes** (10-30 on aluminium and castings; longer when cold; 50-125°F surface range for most kits).
@@ -18934,6 +19614,10 @@ Works on any non-porous material (steel, stainless, aluminium, cast iron), finds
 ## Magnetic particle (MT) for ferrous surfaces
 
 Finds surface and slightly subsurface (to about 1/8") cracks in **ferromagnetic** steel only (not austenitic stainless or aluminium). A **yoke** (AC for surface, DC/HWDC for subsurface) is placed across the area; with the legs 3-8" apart the field runs between them, so cracks **perpendicular to the leg line** show; do it twice at 90°. Dust dry powder (visible, grey/red) while the yoke is energised and blow off the excess gently, or use wet fluorescent particles under UV. A crack collects a tight line of particles. Check the yoke lifts a **10 lb** weight (AC) or 40 lb (DC) as the daily calibration.
+
+![Magnetic particle inspection with a yoke under UV light](/photos/welding/magnetic-particle.jpg)
+
+*Magnetic particle inspection with a yoke under UV light. Photo: U.S. Navy photo by Photographer’s Mate Airman Konstandinos Goumenidis., Public domain, via commons*
 
 ## UT and RT
 
@@ -19007,6 +19691,10 @@ Rule: replace the tip first (cheapest), then clean or replace the liner, then ch
 
 ## TIG torch parts
 
+![Every TIG torch consumable laid out: replace cups and collets when they crack or arc](/photos/welding/tig-torch-parts.jpg)
+
+*Every TIG torch consumable laid out: replace cups and collets when they crack or arc. Photo: Nutzdatenbegleiter, CC BY-SA 4.0, via commons*
+
 | Part | Notes |
 |---|---|
 | **Collet** | Sized to the tungsten diameter (1/16, 3/32, 1/8); replace when it will not grip or is arced |
@@ -19039,6 +19727,10 @@ Rule: replace the tip first (cheapest), then clean or replace the liner, then ch
 Signs of trouble: the arc got "soft" or erratic on all settings (loose output connections, failing rectifier, or just a bad ground), duty cycle tripping early (dust-clogged, fan failed), humming louder (loose laminations), a smell (overheating insulation: stop).
 
 ## Gas equipment
+
+![Regulator and flow gauge: check for creep with the torch valve closed](/photos/welding/mig-regulator.jpg)
+
+*Regulator and flow gauge: check for creep with the torch valve closed. Photo: Mimzy, CC0, via commons*
 
 - Regulator/flowmeter: gauges read zero with no gas; creep (outlet pressure rising with the valve closed) means a bad seat: replace; cracked gauge lens; inlet filter. Never oil oxygen regulators.
 - Hoses: leak test with soapy water at every shift change; replace cracked or spliced hose.
@@ -19275,6 +19967,10 @@ For thick, load-bearing sections, screw **steel studs** (1/4-3/8" NC, 3/8-1/2" i
 
 Braze welding with **low-fuming bronze (RBCuZn-C)** and an oxy-acetylene torch at about **1200-1600°F** (dull red) puts no fusion into the iron and rarely cracks it. Right for: thin sections, cracked pump housings not exposed to heat over 500°F, missing lugs, water jackets. Wrong for: parts running hot, parts that will be painted and must be colour-matched (bronze shows), and for high-load structural cracks. Procedure in [brazing and soldering](/article/brazing-and-soldering): the casting must be preheated to a dull red at the joint, tinned with bronze (the flux flows and the bronze wets grey iron only when the graphite has been burned off the surface), then filled.
 
+![Braze welding keeps the casting cooler than any arc process](/photos/welding/brazing-torch.jpg)
+
+*Braze welding keeps the casting cooler than any arc process. Photo: Petty Officer 3rd Class Jennifer Kimball, Public domain, via commons*
+
 ## Other options
 
 - **Cold stitching / metal stitching** (Lock-N-Stitch, Metalock): drilled and tapped locks and stitching pins across the crack; no heat at all; the professional repair for engine blocks and large frames.
@@ -19333,6 +20029,10 @@ Ask these in order. The first row that fits usually decides it.
 
 ## Process character in one line each
 
+![MIG at the bench: the fastest way to lay clean beads on mild steel](/photos/welding/mig-bench.jpg)
+
+*MIG at the bench: the fastest way to lay clean beads on mild steel. Photo: jason gessner, CC BY-SA 2.0, via commons*
+
 | Process | Power source | Electrode | Shielding | Deposition | Skill | Best at |
 |---|---|---|---|---|---|---|
 | SMAW (stick) | CC, AC or DC | consumable coated rod | flux slag and gas from coating | 1-4 lb/h | medium | portable, all positions, wind, dirty steel |
@@ -19386,6 +20086,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Lens shade table
 
 Minimum shade from OSHA 1910.133(a)(5); "suggested" from ANSI Z49.1 for comfort. Start at the suggested shade and go lighter, not below the minimum. Auto-darkening helmets: set the shade number the same way; the resting state (shade 3-4) is only for setup.
+
+![An auto-darkening helmet: check the shade setting and the battery before the first arc](/photos/welding/speedglas.jpg)
+
+*An auto-darkening helmet: check the shade setting and the battery before the first arc. Photo: Ergonomidesign, CC BY-SA 3.0, via commons*
 
 ![Filter shade by process and amperage](/img/welding/lens-shade-chart.svg)
 
@@ -19469,6 +20173,10 @@ Cylinders chained upright, caps on in transport, never used as rollers or anchor
 Welding inside a tank, pit, vessel, duct or between tight bulkheads: permit-required confined space entry (OSHA 1910.146): atmosphere tested (O2 19.5-23.5%, LEL < 10%, toxics) and **continuously monitored**, forced ventilation, cylinders and the machine **outside**, gas shut off at the cylinder and torches removed when you leave (a leaking torch fills the tank with fuel gas or argon), attendant, retrieval line, VRD on the machine, no chlorinated solvents inside, a fire watch outside. See [confined space entry](/article/confined-space-entry).
 
 ## PPE
+
+![Welding PPE: helmet, leathers, gloves, safety glasses under the hood](/photos/welding/welder-ppe.jpg)
+
+*Welding PPE: helmet, leathers, gloves, safety glasses under the hood. Photo: NAVFAC, CC BY 2.0, via commons*
 
 | Item | Spec |
 |---|---|
