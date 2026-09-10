@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Article, SearchHit } from '../lib/types'
 import { sanitizeInline } from '../lib/markdown'
-import { Icon } from '../lib/icons'
 
 type Item = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer'> & {
   category_name?: string | null
@@ -26,7 +25,7 @@ export function ArticleCard({ item }: { item: Item | SearchHit }) {
         {categoryName && <span>{categoryName}</span>}
         {item.manufacturer && <span>{item.manufacturer}</span>}
         {community && <span className="badge community">community</span>}
-        {upvotes > 0 && <span className="votes"><Icon name="up" size={14} />{upvotes}</span>}
+        {upvotes > 0 && <span className="votes">▲ {upvotes}</span>}
       </div>
       {headline
         ? <p className="snippet" dangerouslySetInnerHTML={{ __html: sanitizeInline(headline) }} />

@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL, DONATE_URL } from '../lib/site'
-import { Icon } from '../lib/icons'
 import { AmpLockup } from '../components/AmpLockup'
 
 export function SupportPage() {
   const amounts = ['$3', '$5', '$10', 'Any amount']
   return (
     <div style={{ maxWidth: 720 }}>
-      <div className="page-head"><Icon name="heart" size={26} /><h1>Support the creator</h1></div>
+      <div className="page-head"><span className="glyph big" aria-hidden="true">☕</span><h1>Support the creator</h1></div>
       <p>
         Millwright Knowledge Base is free to use, free of ads and free of tracking. One person writes the reference
         material, draws the diagrams and pays for the hosting and the time it takes to keep it going.
@@ -21,7 +20,7 @@ export function SupportPage() {
         {DONATE_URL ? (
           <>
             <div className="amounts">{amounts.map((a, i) => <a key={a} className={`chip${i === 1 ? ' primary' : ''}`} href={DONATE_URL} target="_blank" rel="noopener noreferrer" style={i === 1 ? { background: 'var(--accent)', color: 'var(--accent-ink)', borderColor: 'var(--accent)' } : undefined}>{a}</a>)}</div>
-            <a className="btn primary" href={DONATE_URL} target="_blank" rel="noopener noreferrer"><Icon name="heart" size={20} />Donate securely with Stripe</a>
+            <a className="btn primary" href={DONATE_URL} target="_blank" rel="noopener noreferrer">☕ Donate securely with Stripe</a>
           </>
         ) : (
           <div className="notice info" style={{ margin: 0 }}>The donation page is being set up. In the meantime you can reach the creator at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</div>

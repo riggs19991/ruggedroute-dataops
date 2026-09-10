@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { isAndroid, isIOS, isStandalone, type BeforeInstallPromptEvent } from '../lib/pwa'
-import { Icon } from '../lib/icons'
 
 const KEY = 'mw-install-dismissed'
 
@@ -35,7 +34,7 @@ export function InstallPrompt() {
   return (
     <div className="install-card" role="region" aria-label="Install the app">
       <div className="install-text">
-        <Icon name="phone" size={24} />
+        <span className="glyph" aria-hidden="true">📲</span>
         <span>
           <strong>Install on your phone.</strong>{' '}
           {ios

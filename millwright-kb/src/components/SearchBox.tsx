@@ -1,6 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Icon } from '../lib/icons'
 
 export function SearchBox({ big = false, autoFocus = false }: { big?: boolean; autoFocus?: boolean }) {
   const [params] = useSearchParams()
@@ -20,7 +19,6 @@ export function SearchBox({ big = false, autoFocus = false }: { big?: boolean; a
   return (
     <form className={`searchbox${big ? ' big' : ''}`} onSubmit={submit} role="search">
       <div className="field-wrap">
-        <Icon name="search" size={20} />
         <input
           type="search"
           value={q}
@@ -30,7 +28,7 @@ export function SearchBox({ big = false, autoFocus = false }: { big?: boolean; a
           autoFocus={autoFocus}
         />
       </div>
-      <button type="submit" aria-label="Search">{big ? <>Search</> : <Icon name="search" size={20} />}</button>
+      <button type="submit" aria-label="Search">{big ? 'Search' : '🔍'}</button>
     </form>
   )
 }

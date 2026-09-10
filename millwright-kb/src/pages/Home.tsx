@@ -5,7 +5,6 @@ import type { Article, Category } from '../lib/types'
 import { SearchBox } from '../components/SearchBox'
 import { ArticleCard } from '../components/ArticleCard'
 import { InstallPrompt } from '../components/InstallPrompt'
-import { CategoryIcon } from '../lib/icons'
 
 const EXAMPLES = ['7018 amps', 'MIG settings 1/4 plate', 'TIG aluminum', 'plasma cut chart', 'laser alignment', 'grease compatibility', 'belt tracking', 'sling capacity', 'Victor tip chart']
 
@@ -60,7 +59,7 @@ export function Home() {
         <div className="grid">
           {(showAll ? cats : cats.slice(0, 9)).map((c) => (
             <Link key={c.id} to={`/category/${c.slug}`} className="card tile">
-              <div className="sq"><CategoryIcon slug={c.slug} size={22} /></div>
+              <div className="sq" aria-hidden="true">{c.icon}</div>
               <h3>{c.name}</h3>
               <p className="desc">{c.description}</p>
               <div className="count">{counts[c.id] ?? 0} article{(counts[c.id] ?? 0) === 1 ? '' : 's'}</div>

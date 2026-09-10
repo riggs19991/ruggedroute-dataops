@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { Article, Category } from '../lib/types'
 import { ArticleCard } from '../components/ArticleCard'
-import { CategoryIcon, Icon } from '../lib/icons'
 
 type Lite = Pick<Article, 'slug' | 'title' | 'summary' | 'kind' | 'tags' | 'manufacturer' | 'upvotes' | 'author_id' | 'view_count'>
 type Sort = 'title' | 'views' | 'votes'
@@ -34,9 +33,9 @@ export function CategoryPage() {
   return (
     <>
       <div className="page-head">
-        <div className="tile" style={{ padding: 0 }}><div className="sq"><CategoryIcon slug={cat.slug} /></div></div>
+        <div className="tile" style={{ padding: 0 }}><div className="sq" aria-hidden="true">{cat.icon}</div></div>
         <h1 style={{ flex: 1 }}>{cat.name}</h1>
-        <Link to={`/contribute?category=${cat.slug}`} className="btn primary small"><Icon name="plus" size={18} />Add</Link>
+        <Link to={`/contribute?category=${cat.slug}`} className="btn primary small">+ Add</Link>
       </div>
       <p className="muted">{cat.description}</p>
       <div className="sort-row">

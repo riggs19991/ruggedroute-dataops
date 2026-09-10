@@ -3,7 +3,6 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useAuth } from '../lib/auth'
 import { SearchBox } from './SearchBox'
 import { Logo } from './Logo'
-import { Icon } from '../lib/icons'
 import { BUILD_ID, COMPANY, COPYRIGHT_YEAR, DONATE_URL, donateHref } from '../lib/site'
 import { resolvedTheme, toggleTheme } from '../lib/theme'
 
@@ -21,8 +20,8 @@ export function Layout() {
   }, [])
 
   const support = DONATE_URL
-    ? <a className="btn primary small" href={DONATE_URL} target="_blank" rel="noopener noreferrer"><Icon name="heart" size={18} />Support the creator</a>
-    : <Link className="btn primary small" to={donateHref}><Icon name="heart" size={18} />Support the creator</Link>
+    ? <a className="btn primary small" href={DONATE_URL} target="_blank" rel="noopener noreferrer">☕ Support the creator</a>
+    : <Link className="btn primary small" to={donateHref}>☕ Support the creator</Link>
 
   return (
     <>
@@ -44,7 +43,7 @@ export function Layout() {
               <NavLink to="/signin">Sign in</NavLink>
             )}
             <button type="button" className="iconbtn" onClick={() => setDark(toggleTheme() === 'dark')} aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} title={dark ? 'Light theme' : 'Dark theme'}>
-              <Icon name={dark ? 'sun' : 'moon'} size={20} />
+              <span aria-hidden="true">{dark ? '☀️' : '🌙'}</span>
             </button>
           </nav>
         </div>
