@@ -28,7 +28,9 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
    themes must work; topic (category) icons are the emoji in `content/categories.json` (the database
    `icon` column, rendered as `{cat.icon}`), and buttons are text with the small glyph set
    `▲ ☕ 📲 📱 🔍 ☀️ 🌙 ⎋ ⋮`; there is no SVG icon set; the AMP company lockup
-   stays in the footer and legal pages, the gear-and-wrench mark in the header.
+   stays in the footer and legal pages, the gear-and-wrench mark in the header. The mark has one
+   source, `src/brand/mark.mjs` (used by `Logo.tsx` and `scripts/make-icons.mjs`); after changing
+   it run `npm run icons`, the splash script and `npx @capacitor/assets generate --android`.
 8. To check a diagram visually, render it through headless Chromium (Playwright is preinstalled in
    the sandbox) and look at the PNG before shipping it. Judge every diagram against the real object
    first: a miter must read as 45°, a flame as a cone, a bearing as a bearing. Redraws that override
