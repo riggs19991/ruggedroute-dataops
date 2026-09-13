@@ -2225,5 +2225,257 @@
    "alt": "How to use the glossary",
    "after": "top"
   }
+ ],
+ "hydraulic-pumps-types-controls-and-testing": [
+  {
+   "photo": "hydraulics/piston-pump-cutaway.jpg",
+   "alt": "Bent-axis piston pump sectioned: the pistons stroke in the barrel because it sits at an angle to the shaft",
+   "after": "## Pump types"
+  },
+  {
+   "img": "hydraulics/pump-controls.svg",
+   "alt": "Pressure-compensated and load-sensing pump controls",
+   "after": "## Displacement controls on a variable pump"
+  },
+  {
+   "img": "hydraulics/case-drain-flow-test.svg",
+   "alt": "Case drain flow test: measure the leakage from the pump case",
+   "after": "## Test 1: case drain flow (piston and some vane pumps)"
+  },
+  {
+   "img": "hydraulics/pump-flow-vs-pressure.svg",
+   "alt": "Flow against pressure: a worn pump falls away as the pressure rises",
+   "after": "## Test 2: flow at pressure (any pump)"
+  },
+  {
+   "photo": "hydraulics/power-unit.jpg",
+   "alt": "Industrial power unit: reservoir, motor-pump sets, return filters and gauges; the case drains and suction are the start-up checks",
+   "after": "## Start-up after a pump change"
+  },
+  {
+   "photo": "hydraulics/vane-pump.jpg",
+   "alt": "Vane rotor and sliding vanes opened up (a vane compressor, same principle): vane tips and the ring are the wear parts",
+   "after": "## Failure analysis: reading a dead pump"
+  }
+ ],
+ "directional-control-valves-spools-and-solenoids": [
+  {
+   "photo": "hydraulics/solenoid-valve.jpg",
+   "alt": "Directional valves: a sectional bank, a lever valve and a double-solenoid subplate valve with DIN plugs",
+   "after": "## Naming a valve"
+  },
+  {
+   "img": "hydraulics/dcv-mounting-patterns.svg",
+   "alt": "Subplate mounting patterns and flow capacity by size",
+   "after": "## Sizes and mounting patterns (ISO 4401 / NFPA)"
+  },
+  {
+   "img": "hydraulics/spool-center-conditions.svg",
+   "alt": "Spool centre conditions: what each does to the pump and the load",
+   "after": "## Spool centre conditions"
+  },
+  {
+   "img": "hydraulics/solenoid-checks.svg",
+   "alt": "Wet-armature solenoid: what to check with a meter",
+   "after": "## Solenoids"
+  },
+  {
+   "img": "hydraulics/pilot-operated-dcv.svg",
+   "alt": "Two-stage valve: pilot valve on top, X and Y ports, pilot choke",
+   "after": "## Two-stage pilot-operated valves"
+  }
+ ],
+ "stack-valves-and-sectional-valve-banks": [
+  {
+   "img": "hydraulics/stack-valve-order.svg",
+   "alt": "A D03 stack from the manifold up: each module acts on named ports",
+   "after": "## Industrial stack (sandwich) valves"
+  },
+  {
+   "photo": "hydraulics/valve-stack.jpg",
+   "alt": "Power pack with double-solenoid valves stacked on modular sandwiches over a bar manifold",
+   "after": "### The order of the stack"
+  },
+  {
+   "img": "hydraulics/sectional-valve-bank.svg",
+   "alt": "Sectional valve bank: inlet, work sections, outlet and the LS line",
+   "after": "## Mobile sectional and monoblock valves"
+  },
+  {
+   "photo": "hydraulics/valve-bank.jpg",
+   "alt": "Mobile sectional valve bank with hand levers: one work section per function between the inlet and outlet",
+   "after": "### Spool types in a section"
+  }
+ ],
+ "cartridge-and-logic-valves": [
+  {
+   "photo": "hydraulics/cartridge-manifold.jpg",
+   "alt": "Aluminium manifold with screw-in solenoid cartridge valves on a small power unit",
+   "after": "## Why valves live in blocks"
+  },
+  {
+   "img": "hydraulics/cartridge-valve-cavity.svg",
+   "alt": "Screw-in cartridge in its cavity: seals, ports, torque",
+   "after": "## Screw-in cartridge valves"
+  },
+  {
+   "photo": "hydraulics/relief-valve.jpg",
+   "alt": "Screw-in pressure cartridges: relief and load-holding valves, and a solenoid pressure valve on a block",
+   "after": "### Types and what goes wrong"
+  },
+  {
+   "img": "hydraulics/logic-valve-cross-section.svg",
+   "alt": "Logic element: poppet, sleeve, cover and the areas that decide it",
+   "after": "## Slip-in logic valves (ISO 7368 two-way cartridges)"
+  }
+ ],
+ "pressure-and-flow-control-valves-in-depth": [
+  {
+   "photo": "hydraulics/relief-valve.jpg",
+   "alt": "Pressure valves as cartridges: relief, load-holding and a solenoid-controlled pressure valve",
+   "after": "## The four questions for any pressure valve"
+  },
+  {
+   "img": "hydraulics/pilot-operated-relief.svg",
+   "alt": "Pilot-operated relief: main stage, pilot poppet and the vent port",
+   "after": "## Relief valves"
+  },
+  {
+   "img": "hydraulics/counterbalance-pilot-ratio.svg",
+   "alt": "Counterbalance valve: pilot ratio, setting and the stable choice",
+   "after": "## Counterbalance and brake valves"
+  },
+  {
+   "img": "hydraulics/flow-control-placement.svg",
+   "alt": "Meter-in, meter-out and bleed-off: where the flow control goes",
+   "after": "## Flow controls"
+  }
+ ],
+ "hydraulic-fitting-identification-and-thread-tables": [
+  {
+   "img": "hydraulics/fitting-identification-steps.svg",
+   "alt": "Identify a fitting: measure, check taper, look at the seat, read the table",
+   "after": "## The five measurements"
+  },
+  {
+   "photo": "hydraulics/fitting-assortment.jpg",
+   "alt": "JIC 37° flare: the male cone and the female swivel nut; the cone, not the thread, is the identity",
+   "after": "## Look-up by dash size (inch fittings)"
+  },
+  {
+   "img": "hydraulics/thread-od-lookup.svg",
+   "alt": "Measured diameter and pitch to fitting family",
+   "after": "## Pipe threads"
+  },
+  {
+   "img": "hydraulics/din-bite-ring-assembly.svg",
+   "alt": "DIN 24° bite-ring fitting: L and S series, pre-assembly and final turn",
+   "after": "## Metric tube fittings (DIN 2353 / ISO 8434-1, 24° cone)"
+  },
+  {
+   "img": "hydraulics/code-61-62-flange.svg",
+   "alt": "Code 61 and Code 62 flanges: same nominal size, different bolt pattern",
+   "after": "## SAE 4-bolt flanges (J518 / ISO 6162)"
+  },
+  {
+   "photo": "hydraulics/hose-fittings.jpg",
+   "alt": "An assortment of hydraulic fittings and adapters: keep a labelled tray of each family and cap every open port",
+   "after": "## Adapters: the survival list"
+  }
+ ],
+ "hydraulic-fluids-types-and-compatibility": [
+  {
+   "img": "hydraulics/fluid-classes.svg",
+   "alt": "How the fluid families relate and where each belongs",
+   "after": "## Start with the machine, not the drum"
+  },
+  {
+   "img": "hydraulics/viscosity-window-by-pump.svg",
+   "alt": "Viscosity windows: each pump type has a cold-start limit and a running band",
+   "after": "## Viscosity: the window that matters"
+  },
+  {
+   "img": "hydraulics/fluid-seal-compatibility.svg",
+   "alt": "Seal materials against fluid families: check before a fluid change",
+   "after": "## Seals and paint"
+  },
+  {
+   "photo": "hydraulics/hydraulic-oil-drums.jpg",
+   "alt": "Used hydraulic fluid going to the waste drum: a conversion drains everything, and the old and new fluids never share a container",
+   "after": "## Converting a system to a different fluid"
+  }
+ ],
+ "hydraulic-troubleshooting-advanced-diagnostics": [
+  {
+   "img": "hydraulics/troubleshooting-decision-tree.svg",
+   "alt": "Decision tree: from the symptom to the test to the cause",
+   "after": "## The method"
+  },
+  {
+   "photo": "hydraulics/pressure-gauges.jpg",
+   "alt": "A high-pressure test gauge: pick a range 1.5 to 2 times the working pressure and read it at the test point",
+   "after": "## Instruments"
+  },
+  {
+   "img": "hydraulics/cylinder-bypass-test.svg",
+   "alt": "Cylinder bypass test: prove the piston seals before condemning the pump",
+   "after": "## The standard tests"
+  },
+  {
+   "photo": "hydraulics/hot-oil-thermal.jpg",
+   "alt": "Infrared thermometer with a contact probe: the hot component is the one passing oil across a pressure drop",
+   "after": "## Symptom trees"
+  },
+  {
+   "img": "hydraulics/heat-balance.svg",
+   "alt": "Heat balance: where the horsepower goes and what the cooler must remove",
+   "after": "## Heat balance"
+  }
+ ],
+ "load-sensing-proportional-and-servo-systems": [
+  {
+   "img": "hydraulics/load-sense-margin.svg",
+   "alt": "Load-sense circuit: the pump holds a margin above the highest load",
+   "after": "## Load sensing"
+  },
+  {
+   "img": "hydraulics/proportional-valve-loop.svg",
+   "alt": "Proportional valve loop: command, amplifier, solenoid, spool, LVDT feedback",
+   "after": "## Proportional valves"
+  },
+  {
+   "img": "hydraulics/servo-valve-stages.svg",
+   "alt": "Servo valve: torque motor, flapper and nozzles, spool with feedback wire",
+   "after": "## Servo valves"
+  },
+  {
+   "photo": "hydraulics/servo-valve.jpg",
+   "alt": "A servo valve disassembled: the block, the spool, the torque-motor parts and the springs; nothing here is a field repair",
+   "after": "### Servo faults and checks"
+  }
+ ],
+ "hydraulic-motors-and-hydrostatic-drives": [
+  {
+   "photo": "hydraulics/hydraulic-motor.jpg",
+   "alt": "Orbital (gerotor) motor on a machine: the nameplate gives displacement, pressure and the case-drain requirement",
+   "after": "## Motor types"
+  },
+  {
+   "img": "hydraulics/hydrostatic-drive-loop.svg",
+   "alt": "Closed-loop hydrostatic transmission: every valve in the loop",
+   "after": "## Hydrostatic transmissions (closed loop)"
+  },
+  {
+   "photo": "hydraulics/hydrostatic-transmission.jpg",
+   "alt": "Hydrostatic drive unit on a compactor drum: the hoses are the loop, the small ones the case drain and charge",
+   "after": "### The diagnostic sequence"
+  }
+ ],
+ "quiz-hydraulics-advanced-troubleshooting": [
+  {
+   "img": "hydraulics/troubleshooting-decision-tree.svg",
+   "alt": "Review figure: from the symptom to the test to the cause",
+   "after": "top"
+  }
  ]
 }

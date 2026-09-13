@@ -43,7 +43,12 @@ Search this page with your browser's find function, or use the app search box wi
 ## C
 
 - **C and C0**: the dynamic and static basic load ratings of a bearing from the catalogue.
+- **Cartridge valve**: a complete hydraulic valve that screws (or slips) into a machined cavity in a manifold block; sealed by O-rings on the cavity steps.
+- **Case drain**: the line that returns internal leakage from a piston pump or motor case to tank; its flow measures wear and it must never be restricted.
 - **Cavitation**: vapour bubbles forming in a pump or hydraulic pump inlet at low pressure and collapsing violently downstream.
+- **Charge pump**: the small pump on a hydrostatic transmission that keeps the closed loop full, supplies the controls and sets the charge pressure.
+- **Code 61 / Code 62**: the SAE 4-bolt hydraulic flange standards for 3,000 and 6,000 psi; same nominal size, different bolt spacing, not interchangeable.
+- **Counterbalance valve**: a load-holding valve in a cylinder or motor line that holds a load against gravity and opens only as far as pilot pressure from the other line asks.
 - **Centre of gravity**: the point where a load's weight acts; the hook must be above it for a level lift.
 - **Choker hitch**: a sling passed around the load and through its own eye, capacity about 75 to 80 percent of vertical.
 - **Clearance (bearing)**: the internal play between rings and rolling elements; C2 less than normal, CN normal, C3 and C4 greater.
@@ -58,6 +63,7 @@ Search this page with your browser's find function, or use the app search box wi
 - **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
 - **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
 - **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
+- **DIN 24° fitting (L / S series)**: the metric bite-ring tube fitting; L (light) and S (heavy) series share some threads but have different cone diameters, so they are named by tube OD.
 - **Dowel**: a hardened pin that fixes the position of a machine or cover after alignment.
 - **Drive-up**: the axial distance a tapered-bore bearing is pushed up its seat to reach the correct fit reduction.
 - **Duty cycle**: the percentage of a 10 minute period a welding machine can run at a given current; also machine operating hours per day for service factors.
@@ -92,7 +98,9 @@ Search this page with your browser's find function, or use the app search box wi
 
 - **Head**: the energy a pump adds, in feet or metres of the pumped liquid; independent of density.
 - **HAZ (heat-affected zone)**: base metal next to a weld whose structure has been changed by heat.
+- **HFC / HFD fluids**: fire-resistant hydraulic fluids: HFC is water-glycol (pumps derated), HFDR phosphate ester (needs FKM or EPDM seals), HFDU polyol ester.
 - **Hydraulic nut**: a piston-type nut used to press bearings and couplings onto tapered seats.
+- **Hydrostatic transmission**: a variable pump and a motor joined in a closed loop, with a charge pump, cross-port reliefs and a flushing valve; speed and direction come from the pump's swashplate.
 - **Hypoid**: a bevel gear set with offset axes, as in a differential.
 
 ## I
@@ -119,12 +127,15 @@ Search this page with your browser's find function, or use the app search box wi
 - **Lagging**: the rubber or ceramic covering on a conveyor drive pulley that increases belt friction.
 - **Laminar pattern**: see contact pattern.
 - **Lay (wire rope)**: the direction and manner in which wires and strands are twisted; regular lay or lang lay.
+- **Load sensing**: a hydraulic control in which the pump holds its outlet a fixed margin above the highest load pressure fed back on the LS line, making only the flow the valves ask for.
 - **Lockout**: isolating and locking every energy source of a machine before work on it.
+- **Logic valve**: a slip-in two-way poppet element (ISO 7368) for large flows; its cover's pilot circuit makes it a directional, check, relief or throttle function.
 - **Low-hydrogen electrode**: E7018 and related rods whose coating is kept dry to avoid hydrogen cracking.
 
 ## M
 
 - **Magnetic base**: a switchable magnet holding a dial indicator to steel.
+- **Margin pressure**: the fixed difference (typically 200-350 psi) a load-sensing pump holds between its outlet and the LS signal.
 - **Mechanical seal**: a shaft seal with two lapped faces, one rotating and one stationary, riding on a thin liquid film.
 - **Micrometer**: a screw-thread gauge reading to 0.001 in (0.0001 in with a vernier) or 0.01 mm.
 - **Misalignment**: offset, angularity or both between two coupled shafts.
@@ -140,12 +151,14 @@ Search this page with your browser's find function, or use the app search box wi
 
 - **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
 - **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
+- **ORB / ORFS**: SAE O-ring boss (a straight-thread port fitting sealed by an O-ring at its shoulder) and O-ring face seal (a flat-faced fitting with an O-ring in its face); neither seals on the thread.
 - **Oxidizing / carburizing flame**: an oxy-fuel flame with excess oxygen or excess fuel; neutral is in between.
 
 ## P
 
 - **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
 - **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
+- **Pilot ratio**: on a counterbalance valve, how much more effective the external pilot is than the load pressure at opening it (3:1 stable, 10:1 efficient).
 - **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
 - **Pillow block**: a bearing housing with a flat base and two bolt holes.
 - **Pipe strain**: force from misfitted piping distorting a pump and shifting its shaft.
@@ -177,8 +190,10 @@ Search this page with your browser's find function, or use the app search box wi
 - **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
 - **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
 - **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
+- **Servo valve**: a two-stage electro-hydraulic valve (torque motor, flapper-nozzle or jet-pipe pilot, spool with feedback) that positions its spool from a milliamp signal; needs 3 µm filtration.
 - **Specific gravity**: density of a liquid relative to water; converts head to pressure.
 - **Spreader bar**: a rigid bar that keeps sling legs vertical on wide loads.
+- **Stack (sandwich) valve**: a modular valve with the ISO 4401 face pattern bolted under a directional valve to add a check, flow control, reducing or counterbalance function to one station.
 - **Stick-out**: electrode extension from the contact tip to the arc in wire welding.
 - **Surface plate**: a flat granite reference plane for layout and measurement.
 
@@ -202,6 +217,7 @@ Search this page with your browser's find function, or use the app search box wi
 
 - **Vernier**: the auxiliary scale on a caliper or height gauge that subdivides the main scale.
 - **VFD**: variable frequency drive; changes motor speed by changing supply frequency.
+- **VI improver**: a polymer additive that flattens an oil's viscosity-temperature curve (multigrade, HV oils); it can shear down permanently in piston pumps and servo valves.
 - **Viscosity index**: how little an oil's viscosity changes with temperature; higher is better.
 
 ## W
@@ -217,6 +233,7 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## Z
 
+- **ZDDP**: zinc dialkyldithiophosphate, the anti-wear additive in most AW hydraulic oils; avoided in zinc-free fluids for silver-plated and yellow-metal parts.
 - **Zerk (grease fitting)**: the nipple through which grease is pumped into a bearing housing.
 - **Zone (ISO 10816)**: vibration severity bands A (new) to D (damaging) by machine class.
 

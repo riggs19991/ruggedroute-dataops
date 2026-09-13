@@ -137,3 +137,5 @@ On the machine: bleed the lines, cycle without load, check the mounts for alignm
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [O-rings and seals (materials)](/article/seal-failure)
 - [Pump and fluid-power formulas (cylinder force and speed)](/article/pump-and-fluid-power-formulas)
+- [Advanced hydraulic troubleshooting (the cylinder bypass test)](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Hydraulic fluids: types and compatibility (seal materials)](/article/hydraulic-fluids-types-and-compatibility)

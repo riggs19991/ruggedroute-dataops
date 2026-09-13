@@ -126,5 +126,6 @@ Check weekly on machines, at every PM on plants: **cover cracks and abrasion** (
 - [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Hydraulic fitting identification and thread tables](/article/hydraulic-fitting-identification-and-thread-tables)
 - [Thread identification and gauges](/article/thread-identification-and-gauges)
 - [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)

@@ -108,4 +108,5 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - [Hydraulic Filters, Fluid and Contamination Control](/article/filters-fluid-and-contamination)
 - [Grease Types and Compatibility](/article/grease-types-and-compatibility)
 - [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
+- [Test yourself: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting)
 - [Millwright Glossary A to Z](/article/millwright-glossary)

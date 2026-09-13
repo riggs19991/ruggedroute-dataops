@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="500" height="400" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Thread OD look-up</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="400" fill="#ffffff"/>
+<text x="250" y="20" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Male thread major diameter and pitch → candidates (the seat decides)</text>
+<rect x="14" y="30" width="472" height="18" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="42.24" font-size="8.8" text-anchor="start" font-weight="600" fill="#1a2233">measured OD</text>
+<text x="124" y="42.24" font-size="8.8" text-anchor="start" font-weight="600" fill="#1a2233">tpi / pitch</text>
+<text x="186" y="42.24" font-size="8.8" text-anchor="start" font-weight="600" fill="#1a2233">form</text>
+<text x="240" y="42.24" font-size="8.8" text-anchor="start" font-weight="600" fill="#1a2233">it is (or could be)</text>
+<rect x="14" y="48" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="60.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.437" · 11.1 mm</text>
+<text x="124" y="60.24" font-size="8.8" text-anchor="start" fill="#1a2233">20</text>
+<text x="186" y="60.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="60.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC/ORB −4 · SAE 45° −4</text>
+<rect x="14" y="66" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="78.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.518" · 13.2</text>
+<text x="124" y="78.24" font-size="8.8" text-anchor="start" fill="#1a2233">19</text>
+<text x="186" y="78.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="78.24" font-size="8.8" text-anchor="start" fill="#1a2233">G 1/4 BSPP · JIS 30° 1/4</text>
+<rect x="14" y="84" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="96.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.540" · 13.7</text>
+<text x="124" y="96.24" font-size="8.8" text-anchor="start" fill="#1a2233">18</text>
+<text x="186" y="96.24" font-size="8.8" text-anchor="start" fill="#1a2233">tapered</text>
+<text x="240" y="96.24" font-size="8.8" text-anchor="start" fill="#1a2233">1/4 NPT</text>
+<rect x="14" y="102" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="114.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.562" · 14.3</text>
+<text x="124" y="114.24" font-size="8.8" text-anchor="start" fill="#1a2233">18</text>
+<text x="186" y="114.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="114.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC/ORB −6 · ORFS −4</text>
+<rect x="14" y="120" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="132.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.675" · 17.1</text>
+<text x="124" y="132.24" font-size="8.8" text-anchor="start" fill="#1a2233">18</text>
+<text x="186" y="132.24" font-size="8.8" text-anchor="start" fill="#1a2233">tapered</text>
+<text x="240" y="132.24" font-size="8.8" text-anchor="start" fill="#1a2233">3/8 NPT</text>
+<rect x="14" y="138" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="150.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.687" · 17.5</text>
+<text x="124" y="150.24" font-size="8.8" text-anchor="start" fill="#1a2233">16</text>
+<text x="186" y="150.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="150.24" font-size="8.8" text-anchor="start" fill="#1a2233">ORFS −6</text>
+<rect x="14" y="156" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="168.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.750" · 19.0</text>
+<text x="124" y="168.24" font-size="8.8" text-anchor="start" fill="#1a2233">16</text>
+<text x="186" y="168.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="168.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC/ORB −8 · SAE 45° −8 (1/2")</text>
+<rect x="14" y="174" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="186.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.825" · 20.9</text>
+<text x="124" y="186.24" font-size="8.8" text-anchor="start" fill="#1a2233">14</text>
+<text x="186" y="186.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="186.24" font-size="8.8" text-anchor="start" fill="#1a2233">G 1/2 BSPP · JIS 30° 1/2</text>
+<rect x="14" y="192" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="204.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.840" · 21.3</text>
+<text x="124" y="204.24" font-size="8.8" text-anchor="start" fill="#1a2233">14</text>
+<text x="186" y="204.24" font-size="8.8" text-anchor="start" fill="#1a2233">tapered</text>
+<text x="240" y="204.24" font-size="8.8" text-anchor="start" fill="#1a2233">1/2 NPT</text>
+<rect x="14" y="210" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="222.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.875" · 22.2</text>
+<text x="124" y="222.24" font-size="8.8" text-anchor="start" fill="#1a2233">14</text>
+<text x="186" y="222.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="222.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC/ORB −10 (M22×1.5 is 0.866")</text>
+<rect x="14" y="228" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="240.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.000" · 25.4</text>
+<text x="124" y="240.24" font-size="8.8" text-anchor="start" fill="#1a2233">14</text>
+<text x="186" y="240.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="240.24" font-size="8.8" text-anchor="start" fill="#1a2233">ORFS −10</text>
+<rect x="14" y="246" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="258.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.062" · 27.0</text>
+<text x="124" y="258.24" font-size="8.8" text-anchor="start" fill="#1a2233">12</text>
+<text x="186" y="258.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="258.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC/ORB −12</text>
+<rect x="14" y="264" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="276.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.187" · 30.2</text>
+<text x="124" y="276.24" font-size="8.8" text-anchor="start" fill="#1a2233">12</text>
+<text x="186" y="276.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="276.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC −14 · ORFS −12</text>
+<rect x="14" y="282" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="294.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.312" · 33.3</text>
+<text x="124" y="294.24" font-size="8.8" text-anchor="start" fill="#1a2233">12</text>
+<text x="186" y="294.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="294.24" font-size="8.8" text-anchor="start" fill="#1a2233">JIC/ORB −16</text>
+<rect x="14" y="300" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="312.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.472" · M12</text>
+<text x="124" y="312.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.5 mm</text>
+<text x="186" y="312.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="312.24" font-size="8.8" text-anchor="start" fill="#1a2233">DIN 6L · ISO 6149 M12</text>
+<rect x="14" y="318" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="330.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.630" · M16</text>
+<text x="124" y="330.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.5 mm</text>
+<text x="186" y="330.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="330.24" font-size="8.8" text-anchor="start" fill="#1a2233">DIN 10L or 8S · ISO 6149 M16</text>
+<rect x="14" y="336" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="348.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.709" · M18</text>
+<text x="124" y="348.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.5 mm</text>
+<text x="186" y="348.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="348.24" font-size="8.8" text-anchor="start" fill="#1a2233">DIN 12L or 10S · ISO 6149 M18</text>
+<rect x="14" y="354" width="472" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="20" y="366.24" font-size="8.8" text-anchor="start" fill="#1a2233">0.866" · M22</text>
+<text x="124" y="366.24" font-size="8.8" text-anchor="start" fill="#1a2233">1.5 mm</text>
+<text x="186" y="366.24" font-size="8.8" text-anchor="start" fill="#1a2233">parallel</text>
+<text x="240" y="366.24" font-size="8.8" text-anchor="start" fill="#1a2233">DIN 15L or 14S · ISO 6149 M22</text>
+<text x="250" y="392" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Diameters ±0.010"; pitch 1.5 mm ≈ 17 tpi, 2 mm ≈ 12.7 tpi.</text>
+</svg>

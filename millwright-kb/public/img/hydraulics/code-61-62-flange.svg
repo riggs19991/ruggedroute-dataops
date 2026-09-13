@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 254" width="500" height="254" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Code 61 vs 62 flange</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="254" fill="#ffffff"/>
+<text x="120" y="30" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Code 61 · 3,000 psi</text>
+<rect x="35.120000000000005" y="46.56" width="169.76" height="106.88" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="8"/>
+<circle cx="120" cy="100" r="22" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
+<circle cx="120" cy="100" r="27" fill="none" stroke="#333" stroke-width="3"/>
+<circle cx="57.120000000000005" cy="68.56" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="182.88" cy="68.56" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="57.120000000000005" cy="131.44" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="182.88" cy="131.44" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<line x1="57.120000000000005" y1="161.44" x2="182.88" y2="161.44" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="120" y="157.44" font-size="9" text-anchor="middle" fill="#1a2233">2.062"</text>
+<line x1="212.88" y1="68.56" x2="212.88" y2="131.44" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="218.88" y="104" font-size="9" text-anchor="start" fill="#1a2233">1.031"</text>
+<text x="120" y="190" font-size="9.5" text-anchor="middle" fill="#1a2233">bolts 3/8-16 / M10</text>
+<text x="120" y="204" font-size="9.5" text-anchor="middle" fill="#5b6577">O-ring −219</text>
+<text x="360" y="30" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Code 62 · 6,000 psi</text>
+<rect x="269.36" y="44.64" width="181.28" height="110.72" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="8"/>
+<circle cx="360" cy="100" r="22" fill="#dbeafe" stroke="#0b5fa5" stroke-width="1.5"/>
+<circle cx="360" cy="100" r="27" fill="none" stroke="#333" stroke-width="3"/>
+<circle cx="291.36" cy="66.64" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="428.64" cy="66.64" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="291.36" cy="133.36" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<circle cx="428.64" cy="133.36" r="5" fill="#64748b" stroke="none" stroke-width="1.5"/>
+<line x1="291.36" y1="163.36" x2="428.64" y2="163.36" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="360" y="159.36" font-size="9" text-anchor="middle" fill="#1a2233">2.250"</text>
+<line x1="458.64" y1="66.64" x2="458.64" y2="133.36" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)" marker-start="url(#arr)"/>
+<text x="464.64" y="104" font-size="9" text-anchor="start" fill="#1a2233">1.094"</text>
+<text x="360" y="190" font-size="9.5" text-anchor="middle" fill="#1a2233">bolts 7/16-14 / M12</text>
+<text x="360" y="204" font-size="9.5" text-anchor="middle" fill="#5b6577">O-ring −219</text>
+<text x="250" y="226" font-size="9" text-anchor="middle" fill="#5b6577">Code 62 head is thicker: a 61 head in a 62 clamp seats, holds at idle, blows under load</text>
+<text x="250" y="246" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Cross pattern, three stages, halves parallel to the face.</text>
+</svg>

@@ -111,6 +111,15 @@ summary: "Start here when you have a job and want the right pages fast: each com
 | **Change filters, sample and flush** | [Filters, fluid and contamination](/article/filters-fluid-and-contamination) → [oil analysis and sampling](/article/oil-analysis-and-sampling) |
 | **Check or charge an accumulator** | [Accumulator precharge and safety](/article/accumulator-precharge-and-safety) → [cylinder handling (nitrogen)](/article/compressed-gas-cylinder-handling) |
 | **Set up an FRL / fix air leaks** | [Pneumatic systems](/article/pneumatic-systems-frl-and-cylinders) |
+| **Identify an unknown fitting or port** | [Fitting identification and thread tables](/article/hydraulic-fitting-identification-and-thread-tables) → [hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings) |
+| **Machine is slow, weak or hot** | [Advanced troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics) → [pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing) → [pressure and flow control valves](/article/pressure-and-flow-control-valves-in-depth) |
+| **Cylinder drifts or will not hold** | [Advanced troubleshooting (decay and bypass tests)](/article/hydraulic-troubleshooting-advanced-diagnostics) → [pressure and flow control valves (counterbalance, POC)](/article/pressure-and-flow-control-valves-in-depth) → [cylinder repair](/article/cylinder-repair-and-seal-kits) |
+| **Valve will not shift or a coil keeps burning** | [Directional valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids) |
+| **Fault in a valve stack or a mobile valve bank** | [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks) → [cartridge and logic valves](/article/cartridge-and-logic-valves) |
+| **Choose, check or change the hydraulic fluid** | [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility) → [oil viscosity and selection](/article/oil-viscosity-and-selection) → [filters, fluid and contamination](/article/filters-fluid-and-contamination) |
+| **Load-sense machine dead, proportional or servo valve fault** | [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems) |
+| **Hydrostatic drive will not move or loses power hot** | [Hydraulic motors and hydrostatic drives](/article/hydraulic-motors-and-hydrostatic-drives) |
+| **Test yourself on advanced hydraulics** | [Quiz: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting) |
 
 ## Motors, electrical and controls
 

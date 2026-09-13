@@ -152,3 +152,5 @@ A failed pump or motor spreads metal through the whole system; a new pump instal
 - [Oil viscosity and selection](/article/oil-viscosity-and-selection)
 - [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
 - [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)

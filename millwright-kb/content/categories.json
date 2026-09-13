@@ -130,7 +130,7 @@
     "name": "Hydraulics & Pneumatics",
     "icon": "\ud83e\uddf0",
     "sort_order": 100,
-    "description": "Fluid power basics, symbols, cylinders, valves, contamination control."
+    "description": "Fluid power basics, symbols, pumps, valves (directional, pressure, flow, stack, cartridge and logic), fittings, fluids, cylinders, contamination control and advanced diagnostics."
   },
   {
     "slug": "troubleshooting",

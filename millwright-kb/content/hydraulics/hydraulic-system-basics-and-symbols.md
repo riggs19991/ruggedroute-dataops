@@ -121,3 +121,7 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 - [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
 - [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
 - [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)

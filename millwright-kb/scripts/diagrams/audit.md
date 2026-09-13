@@ -28,3 +28,17 @@ alignment/laser-alignment-positions, thermal-growth; condition-monitoring/bearin
 
 ## Photo added beside the schematic
 bearings/induction-heater-mounting; condition-monitoring/thermography-and-ultrasound; fasteners/locking-methods; hydraulics/fitting-types; machining/broken-bolt-nut-weld, lathe-parts; motors-electrical/vfd-bearing-currents; oxy-fuel/flame-types, propane-vs-acetylene; power-transmission/coupling-gap-and-types, qd-vs-taperlock; pumps-seals/compressor-types, impeller-clearance, mechanical-seal-parts; rigging/hoist-inspection-points; safety/grinder-guard-and-kickback; shop-reference/spark-test-patterns; troubleshooting/coupling-wear-signs, seal-face-patterns, v-belt-wear-patterns; welding/flowmeter-reading, weld-defects
+
+## Advanced hydraulics batch (hydraulics2.mjs, September 2026)
+All 28 rendered through headless Chromium and checked at 2× on a 500 px canvas; every overflow
+warning cleared; captions kept under 70 characters. Verdict KEEP for: pump-controls,
+case-drain-flow-test, pump-flow-vs-pressure, spool-center-conditions, dcv-mounting-patterns,
+solenoid-checks, pilot-operated-dcv, stack-valve-order, sectional-valve-bank,
+logic-valve-cross-section, cartridge-valve-cavity, pilot-operated-relief, counterbalance-pilot-ratio,
+flow-control-placement, fitting-identification-steps, thread-od-lookup, code-61-62-flange,
+din-bite-ring-assembly, viscosity-window-by-pump (ASTM D341 fit through VG 32/46/68),
+fluid-seal-compatibility, fluid-classes, troubleshooting-decision-tree, cylinder-bypass-test,
+heat-balance, load-sense-margin, proportional-valve-loop, servo-valve-stages, hydrostatic-drive-loop.
+PHOTO added beside: pump types (bent-axis cutaway, vane rotor), solenoid valves, valve stack and
+sectional bank, cartridge manifold and pressure cartridges, JIC fitting, test gauge, IR thermometer,
+servo valve disassembled, orbital motor, hydrostatic drive unit, fluid handling.

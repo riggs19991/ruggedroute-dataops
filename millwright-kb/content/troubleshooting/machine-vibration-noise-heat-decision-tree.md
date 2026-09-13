@@ -95,3 +95,4 @@ Whatever you find, the readings, the cause and the fix go on the work order (see
 - [Pump troubleshooting](/article/pump-troubleshooting)
 - [Inspection routes](/article/inspection-routes)
 - [PM checklists](/article/pm-checklists)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)

@@ -122,4 +122,5 @@ Minimum required viscosity at the **operating temperature** depends on speed and
 - [Gearbox lubrication and inspection](/article/gearbox-lubrication-and-inspection)
 - [Planetary and worm reducers (worm gear oils)](/article/planetary-and-worm-reducers)
 - [Filters, fluid and contamination (hydraulic fluid)](/article/filters-fluid-and-contamination)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Roller chain drives](/article/roller-chain-drives)

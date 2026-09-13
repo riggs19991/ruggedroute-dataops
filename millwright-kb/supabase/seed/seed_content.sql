@@ -56,7 +56,7 @@ insert into public.mw_categories (slug, name, description, icon, sort_order) val
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$fasteners$mw$, $mw$Fasteners & Torque$mw$, $mw$Bolt grades, torque charts, thread identification, anti-seize and locking methods.$mw$, $mw$🔩$mw$, 90)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
-insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$hydraulics$mw$, $mw$Hydraulics & Pneumatics$mw$, $mw$Fluid power basics, symbols, cylinders, valves, contamination control.$mw$, $mw$🧰$mw$, 100)
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$hydraulics$mw$, $mw$Hydraulics & Pneumatics$mw$, $mw$Fluid power basics, symbols, pumps, valves (directional, pressure, flow, stack, cartridge and logic), fittings, fluids, cylinders, contamination control and advanced diagnostics.$mw$, $mw$🧰$mw$, 100)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$troubleshooting$mw$, $mw$Troubleshooting & Failure Analysis$mw$, $mw$Bearing, belt, seal, coupling and gear failure patterns, what they mean and what to fix.$mw$, $mw$🔍$mw$, 105)
@@ -4676,8 +4676,167 @@ Bladder life: 5-10 years, less with high cycle rates, high temperature, or a wro
 - [Lockout / tagout basics](/article/lockout-tagout-basics)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling)
-- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
+- [Pressure and flow control valves (unloading valves)](/article/pressure-and-flow-control-valves-in-depth)
+- [Cartridge and logic valves (press manifolds)](/article/cartridge-and-logic-valves)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$accumulator$mw$,$mw$hydraulic accumulator$mw$,$mw$precharge$mw$,$mw$pre-charge$mw$,$mw$nitrogen precharge$mw$,$mw$accumulator charging$mw$,$mw$charging kit$mw$,$mw$bladder accumulator$mw$,$mw$piston accumulator$mw$,$mw$diaphragm accumulator$mw$,$mw$precharge pressure$mw$,$mw$90 percent rule$mw$,$mw$accumulator temperature correction$mw$,$mw$accumulator bleed down$mw$,$mw$accumulator safety$mw$,$mw$accumulator dump valve$mw$,$mw$gas valve core$mw$,$mw$bladder replacement$mw$,$mw$lost precharge$mw$,$mw$accumulator stored energy$mw$,$mw$lockout accumulator$mw$,$mw$nitrogen bottle CGA 580$mw$]::text[], $mw$Parker / Hydac / Tobul / Bosch Rexroth (generic)$mw$, array[$mw$Parker ACP$mw$,$mw$Parker A2$mw$,$mw$Hydac SB330$mw$,$mw$Hydac SK$mw$,$mw$Tobul$mw$,$mw$Bosch Rexroth HAB$mw$,$mw$Greer$mw$]::text[], $mw$Tobul (FST) nitrogen pre-charging instructions (precharge 90% energy storage, 75% shock, 70% pulsation; piston 100 psi below minimum, bladder 175 psi below minimum; hose ratings CGA 580 to 3,000 psi, CGA 677 to 5,000 psi; stabilise 10-15 min); Parker accumulator catalogue (temperature correction factor method); Hydac accumulator operating manuals; Fluid Power Safety Institute guidance on accumulator lockout.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$cartridge-and-logic-valves$mw$, $mw$Cartridge and Logic Valves: Screw-In Cartridge Valves (Cavity Sizes, 2/3/4-Way and Solenoid Types, Reading the Code, Installation Torque, O-Ring and Back-Up Kits, Cavity Damage) and Slip-In Logic Elements (ISO 7368 Poppet, Sleeve and Cover, Area Ratios and the Force Balance, How the Cover Makes a Directional, Check, Relief or Throttle Function, Diagnosing Drift, Stuck Poppets and Instability)$mw$, $mw$The two kinds of valve that live inside a manifold block: the screw-in cartridge (how to read what it is from the code and the cavity, how to install one without cutting the seals or cracking the block, and the faults each type produces) and the slip-in logic element used for high flows (what the poppet, sleeve and cover do, how the area ratio and the pilot pressure at X decide whether it opens, how one element becomes a check, a directional valve, a relief or a throttle depending on its cover, and how to find the leaking pilot or the stuck poppet behind a drifting press or an unstable pressure).$mw$, $mw$## Why valves live in blocks
+
+A **manifold** (a drilled aluminium or ductile-iron block) replaces pipes, fittings and subplates with internal passages; the valves screw or slip into machined **cavities** in it. Fewer leak points, less space, and the machine's whole logic is in one block with a drawing. The cost: nothing is visible; every diagnosis starts from the **manifold drawing** (the circuit with each cavity numbered) and the **cavity stamping** on the block. Never pull a cartridge without the drawing: the same-looking valve in the next cavity does something else.
+
+![Aluminium manifold with screw-in solenoid cartridge valves on a small power unit](/photos/hydraulics/cartridge-manifold.jpg)
+
+*Aluminium manifold with screw-in solenoid cartridge valves on a small power unit. Photo: Simon Speed, CC0, via commons*
+
+## Screw-in cartridge valves
+
+![Screw-in cartridge in its cavity: seals, ports, torque](/img/hydraulics/cartridge-valve-cavity.svg)
+
+*Screw-in cartridge in its cavity: seals, ports, torque*
+
+A screw-in cartridge is a complete valve (a poppet or spool, a spring, a seat, an adjuster or a solenoid tube) in a threaded steel body with **O-rings and back-up rings** separating the ports along its length. The cavity is a stepped bore: each step is a port. The threads only hold it in; the O-rings do the sealing.
+
+### Cavities
+
+Cavities are standardised **within a maker's family** and not always across makers: a Sun Hydraulics T-11A, a HydraForce VC10-2, a Parker C10-2 and an ISO 7789 10-size 2-way cavity are similar but not interchangeable in every case. Know the family before ordering.
+
+| Common family | Thread (typical) | Nominal flow | Ports (ways) | Typical uses |
+|---|---|---|---|---|
+| **08 size** (SAE-08, Sun T-8A, HF 08) | 3/4-16 UNF | 5-8 gpm (20-30 L/min) | 2, 3, 4 | Small solenoid valves, pilot reliefs, checks, orifices |
+| **10 size** (SAE-10, Sun T-10A/T-11A, HF 10) | 7/8-14 UNF | 12-25 gpm (45-95 L/min) | 2, 3, 4 | The workhorse: reliefs, counterbalance, solenoid poppets, flow controls |
+| **12 size** (Sun T-13A/T-3A, HF 12) | 1-1/16-12 UN | 25-40 gpm (95-150 L/min) | 2, 3, 4 | Main reliefs, larger solenoid valves, counterbalance on cranes |
+| **16 size** (Sun T-17A/T-5A, HF 16) | 1-5/16-12 UN | 40-80 gpm (150-300 L/min) | 2, 3 | Main reliefs, unloading, large checks |
+| **20 / 24 size** | 1-5/8-12, 1-7/8-12 UN | 80-150 gpm | 2, 3 | Large checks and reliefs (logic elements take over above this) |
+| **M-series metric** (ISO 7789, Rexroth, Hydac) | M20×1.5, M27×2, M33×2, M42×2 | | | European manifolds |
+
+The cavity is identified by the maker's tool stamping on the block face or the drawing; the number of **O-ring grooves** on the cartridge tells you the number of ports (a 2-way has two seals, a 3-way three, a 4-way four). The port numbering on the cartridge drawing (1 at the nose, 2 the first side port, 3 the next, 4 the top) matches the cavity's steps from the bottom up.
+
+### Types and what goes wrong
+
+![Screw-in pressure cartridges: relief and load-holding valves, and a solenoid pressure valve on a block](/photos/hydraulics/relief-valve.jpg)
+
+*Screw-in pressure cartridges: relief and load-holding valves, and a solenoid pressure valve on a block. Photo: HAWE Hydraulik, CC BY-SA 4.0, via commons*
+
+| Type | Element | Function | Typical faults |
+|---|---|---|---|
+| **Check** | Ball or poppet, spring | One-way; cracking 5-75 psi | Debris on the seat: leaks (a load drifts); a broken spring: chatter |
+| **Pilot-operated check** | Poppet with a pilot piston | Leak-free load holding, opens on pilot pressure (ratio 3:1 to 4:1) | Pilot piston stuck, seat damage, pilot ratio too low for the load |
+| **Relief** (direct or pilot-operated) | Poppet and spring, adjuster | Limits pressure; a pilot-operated cartridge relief has a small pilot poppet and a main poppet | Adjuster backed out by vibration (no lock nut), seat wear (creeping setting), pilot orifice blocked (relief will not open: dangerous), chatter when set near a compensator |
+| **Pressure reducing / reducing-relieving** | Spool, spring, adjuster | Lower pressure downstream; the relieving version also vents downstream over-pressure | Drain blocked: will not regulate; spool stuck: full pressure downstream |
+| **Sequence, unloading** | Spool or poppet with a pilot port | Sequencing; unloading a pump on a pressure signal | Drain plugged, pilot line leaking |
+| **Counterbalance (motion control)** | Poppet, spring, pilot piston, adjuster | Load holding plus controlled lowering; pilot ratio 3:1, 4.5:1 or 10:1 | Set too low: load creeps; too high: heat and slow lowering; wrong ratio: instability (a shuddering boom) |
+| **Flow control** (needle, pressure-compensated, priority, proportional) | Needle or spool with a compensator | Speed | Compensator spool stuck (speed varies with load), needle damaged by over-tightening |
+| **Flow divider / combiner** | Spool | Splits flow to two motors | Spool stuck: one wheel spins |
+| **Solenoid, 2-way poppet** (NO or NC) | Poppet pushed by a wet-armature solenoid | Leak-free on/off; blocking one direction only unless a bidirectional type | Poppet seat contamination, coil failures, **flow direction** (many block in one direction only: check the arrow), reverse flow pushing the poppet open |
+| **Solenoid, 2/3/4-way spool** | Spool | Directional, small flows | Spool leakage (never leak-free), silting |
+| **Proportional (solenoid) cartridges** | Spool or poppet with a proportional solenoid | Pressure or flow from a current signal | Contamination, coil drift, needs its amplifier settings |
+| **Shuttle, orifice, plug** | | Logic; fixed restriction; a blank | An orifice fitted the wrong size or in the wrong cavity |
+| **Pressure switch / transducer cartridges** | | | |
+
+### Reading a cartridge
+
+The body is stamped (or laser-marked) with the maker's model code, and often a date code and the pressure adjust range. Decode it in the catalogue: for example a Sun code such as `CBCA-LHN` reads as a counterbalance (CB), size (C = T-11A cavity), pilot ratio (A = 3:1), adjust range and seals; a HydraForce `SV10-24` is a 10-size 2-way solenoid valve, NC, and its coil is a separate part number. **Never** identify a cartridge by shape and colour alone: the same body machined with a different poppet is a different valve. Photograph the marking before it goes back in.
+
+### Installation
+
+1. Lockout, bleed; know what the cavity feeds. Clean the block face around the cavity before removing anything; cap open cavities at once.
+2. Remove with a six-point socket or the correct hex, straight; a stuck cartridge: back and forth gently, never pry; count the seals that come out (a seal left in the cavity blocks the next cartridge from seating).
+3. Inspect the cavity with a light: the seats between steps must be **smooth and unscored** (a nick across a step = a leak from one port to the next; cavities can be re-machined with the maker's tool, or the block replaced); flush the cavity and the passages with clean solvent and blow dry; no rags that shed.
+4. **Seals**: a new kit every time (O-rings with PTFE **back-up rings** on the pressure side of each O-ring: the back-up goes **away** from the pressure, so it supports the O-ring against extrusion into the gap; the kit drawing shows the order); the right material for the fluid (Buna-N standard, FKM for high temperature and phosphate ester, EPDM for some water glycols and brake fluids: see [hydraulic fluids](/article/hydraulic-fluids-types-and-compatibility)); lubricate with the system oil.
+5. **Install straight**: start it by hand, feel it seat through each step (a cocked cartridge cuts the O-ring on a step edge and leaks between ports), then torque with a torque wrench to the maker's number: as a guide **08 size: 20-25 ft-lb (27-34 N·m); 10 size: 30-35 ft-lb (40-47 N·m); 12 size: 45-55 ft-lb (60-75 N·m); 16 size: 100-150 ft-lb (135-200 N·m); 20 size: 150-200 ft-lb**; steel blocks slightly higher, aluminium blocks at the low end. Over-torque distorts the body and binds the spool or poppet; under-torque and the cartridge backs out under pressure pulses.
+6. Solenoid coils: slide on, the retaining nut **hand-tight plus a quarter turn (about 4-6 ft-lb / 5-8 N·m)**: an over-tightened nut crushes the tube and the armature sticks. Plug gasket in.
+7. Set adjustable cartridges with a gauge on the right port, record the setting, and tighten the lock nut (or fit the tamper cap).
+8. Pressure up slowly and look for leaks at the hex and between ports (an internal port-to-port leak shows as a hot block, a function that drifts or a pressure that will not build).
+
+### Manifold diagnosis
+
+- Get the **drawing**: cavity numbers, the valve in each, the port each passage connects to, the test points. Identify the block by its part number stamping.
+- **Temperature mapping** with an IR gun: a hot cartridge is passing oil across a pressure drop (a relief dumping, a check leaking, a reducing valve relieving).
+- Use the **test points** (a gauge at each) to see the pressure at each stage; no test point = fit one at a spare port.
+- Swap identical cartridges between two similar circuits to see whether the fault follows the valve.
+- A drift or leak that persists after a new cartridge is a **cavity** fault (a scored step) or a **passage** fault (a cross-drilled hole not plugged, a plug leaking: expansion plugs and set-screw plugs in the block ends are sealed passages too).
+- A cartridge that works on the bench and not in the block: wrong cavity family (it screws in and the ports do not line up), wrong seal kit thickness, or debris lying at the bottom of the cavity.
+
+## Slip-in logic valves (ISO 7368 two-way cartridges)
+
+![Logic element: poppet, sleeve, cover and the areas that decide it](/img/hydraulics/logic-valve-cross-section.svg)
+
+*Logic element: poppet, sleeve, cover and the areas that decide it*
+
+Above about 80-100 gpm a spool valve becomes huge; a **logic element** does the job. It is a **poppet** in a **sleeve**, pushed into a standard cavity (ISO 7368 / DIN 24342 sizes **16, 25, 32, 40, 50, 63, 80, 100** mm nominal) in a manifold and held down by a **cover** (control cover) that carries the pilot circuit. Each element is only ever a **2-way valve**: open or closed between port **A** (the nose, on the axis) and port **B** (the side, radial). What makes it a directional valve, a check, a relief or a throttle is **what the cover does with the pilot pressure on top of the poppet** (the spring chamber, port **X**).
+
+### The force balance
+
+The poppet has three areas: **A_A** (the nose seat area, facing port A), **A_B** (the annulus facing port B) and **A_X** (the full top area facing the spring chamber, = A_A + A_B). With p_A, p_B and p_X the pressures at each:
+
+```
+   opens when   p_A × A_A  +  p_B × A_B   >   p_X × A_X  +  spring
+   closes when  p_X × A_X  +  spring       >   p_A × A_A  +  p_B × A_B
+```
+
+- **Pilot chamber connected to tank** (p_X = 0): the element opens whenever A or B has more pressure than the light spring needs (typically 15-60 psi / 1-4 bar cracking): it is an **open valve** in both directions.
+- **Pilot chamber connected to the higher of A or B** (through a shuttle in the cover): p_X equals the highest port pressure, and because A_X is the largest area the element is held **closed** against flow from either side: a **leak-free directional element**. A small pilot valve (a D03 solenoid valve on the cover) switches X between the shuttle and tank: energise it and the element opens.
+- **Pilot chamber connected to port B** (p_X = p_B): the B terms cancel and the poppet lifts when p_A exceeds p_B by the spring's cracking pressure: a **check valve that passes A to B and blocks B to A**. Connect X to port A instead and it passes B to A and blocks A to B, but now only the small annulus A_B works against the spring, so the cracking pressure is higher: that is why check elements for B-to-A duty use the 1:1.5 or 1:2 area ratios.
+- **Pilot chamber controlled by a small relief valve** on the cover (X vented through the relief): the element becomes a **pilot-operated relief valve** of very high capacity: p_X is held at the pilot setting, and the poppet opens to dump A to B (tank) when p_A exceeds it; the same cover with a solenoid vent makes an **unloading** valve.
+- **Cover with a stroke limiter** (a screw that stops the poppet short): the element becomes a **throttle** (a flow control at high flow); with a proportional pilot, a proportional throttle.
+- **Cover with an orifice** in the X line: slows the opening or closing (damping) to avoid shock.
+
+### Area ratios
+
+The **area ratio** A_A : A_X is stamped on the poppet or sleeve and listed in the drawing: **1:1** (A_B is zero: a pure pressure/relief element; the poppet is a piston with no annulus, pressure at B does nothing), **1:1.1** or **1:1.07** (a small annulus: directional and check duty where B pressure should barely influence it), **1:1.5** and **1:2** (a large annulus: B pressure helps open it; used for check functions from B to A with low pressure drop and for throttle elements). Fit a poppet with the wrong ratio in a rebuild and a directional element leaks open when B pressure rises, or a relief element's setting changes with the tank pressure. The poppet nose is either a **sharp seat** (leak-free, directional and check) or has a **damping nose** (a tapered spigot that enters the seat bore before the seat closes: soft closing for relief and throttle duty; the nose also delays opening slightly).
+
+### Reading a logic manifold
+
+A press manifold may hold ten elements: two for the pump-to-cylinder directions, two for the return paths, one as the main relief, one as a decompression valve, one as a pre-fill for the big cylinder, one for a regeneration path. The drawing shows each as a poppet symbol with its cover's pilot circuit in a dashed enclosure; the small pilot valves on the covers are the only things that move with a solenoid. To follow a fault: **which elements should be open at this step of the sequence** (from the sequence table), and **what pilot pressure is at each X** (test points on the covers, or a gauge at the pilot valve's ports).
+
+### Faults and diagnosis
+
+| Symptom | Cause | Check |
+|---|---|---|
+| Cylinder or press ram **drifts** with the pump off | An element that should be closed is leaking: **debris on the seat**, a scored seat or poppet, a **leaking pilot** (the X chamber loses pressure through a leaking pilot valve, a leaking cover O-ring or a cracked pilot line, so the poppet lifts), a wrong area ratio, a broken spring | Feel the element's cover and the B line for warmth; gauge at X: it should equal the higher port pressure; isolate the pilot valve; pull the element and look at the seat under a glass |
+| Element **will not open** | No pilot switching (pilot solenoid dead, pilot supply lost, the shuttle stuck sending the high pressure to X), an orifice in the X line blocked, a poppet stuck in the sleeve (contamination, varnish, a burr), a stroke limiter screwed down | Gauge at X while commanding: it must drop to tank; manual override on the pilot valve; pull the element: does the poppet slide freely by hand? |
+| Element **will not close**, function will not hold or pressure will not build | Poppet stuck open, debris, the shuttle stuck feeding X to the low side, pilot valve stuck open to tank, the X orifice open too far | As above |
+| **Relief function unstable** (hunts, screams, hammers) | Wrong or missing damping nose, a missing or wrong X orifice, the pilot relief too close to another pressure setting, air in the pilot lines, a poppet ratio wrong | Compare with the drawing's ratio and orifice sizes; bleed |
+| Shock on switching | X orifice missing (the element slams), stroke limiter too open, no decompression step in the sequence | |
+| Element **leaks between A and B when new** | Seat damaged in installation (a poppet dropped into the cavity), sleeve O-rings wrong or cut, the cover bolts not torqued evenly so the sleeve is not seated | |
+| Oil at the cover | Cover O-rings, the cover bolts (torque: size 16: M8 about 25 ft-lb; 25: M12 about 75 ft-lb; 32: M16 about 200 ft-lb; per the drawing), a cracked cover from over-torque | |
+
+### Servicing an element
+
+1. Lockout, bleed the press circuit **including the accumulators and the cylinder** (a press ram must be blocked or at bottom); decompress: the trapped oil in a big cylinder at 4,000 psi is a bomb.
+2. Remove the pilot valve and the cover (bolts in a cross pattern); lift the cover straight (the poppet spring is under it; some covers have a dowel and an orifice plug that falls out).
+3. Draw the sleeve and poppet out with the maker's puller or a suitable bolt in the threaded top; keep each element with its own cover and cavity number.
+4. Inspect the poppet seat and the sleeve seat under magnification (a bright line or a nick = leak), the poppet's sliding surface for scoring, the damping nose for chips, the spring for length against a new one, the sleeve O-rings and back-ups, the cavity for scoring.
+5. Replace the poppet and sleeve **as a matched pair** with the same area ratio and nose type; lap only per the maker; new seals; oil everything; install the sleeve square until it seats, the poppet, the spring, the cover with its O-rings and any orifice plugs; torque the cover bolts in stages.
+6. Refit the pilot valve, bleed the pilot lines, and re-set any pilot relief with a gauge.
+
+## Common mistakes
+
+- Pulling a cartridge without the manifold drawing and putting it back in the wrong cavity.
+- Cocking a cartridge on the way in and cutting an O-ring on a step.
+- Old seals reused, or the back-up ring on the wrong side of the O-ring.
+- Torquing an aluminium block to a steel-block value: cracked cavity.
+- Coil nut tightened with pliers: the tube is crushed, the armature sticks.
+- Assuming a 2-way solenoid poppet blocks in both directions.
+- Rebuilding a logic element with a poppet of a different area ratio because "it fitted".
+- Forgetting the X-line orifice plug: the element slams and the press shakes.
+- Working on a press manifold with the accumulator still charged.
+
+## Related
+
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
+- [Hydraulic fluids: types and compatibility (seal materials)](/article/hydraulic-fluids-types-and-compatibility)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$cartridge valve$mw$,$mw$screw-in cartridge$mw$,$mw$hydraulic cartridge valve$mw$,$mw$cartridge cavity$mw$,$mw$08 cavity$mw$,$mw$10 cavity$mw$,$mw$12 cavity$mw$,$mw$16 cavity$mw$,$mw$SAE cavity$mw$,$mw$ISO 7789$mw$,$mw$Sun Hydraulics$mw$,$mw$HydraForce$mw$,$mw$cartridge torque$mw$,$mw$cartridge O-ring kit$mw$,$mw$back-up ring$mw$,$mw$cavity damage$mw$,$mw$solenoid cartridge$mw$,$mw$poppet cartridge$mw$,$mw$spool cartridge$mw$,$mw$cartridge relief valve$mw$,$mw$cartridge counterbalance$mw$,$mw$cartridge flow control$mw$,$mw$manifold block$mw$,$mw$hydraulic manifold$mw$,$mw$logic valve$mw$,$mw$logic element$mw$,$mw$slip-in cartridge$mw$,$mw$ISO 7368$mw$,$mw$DIN 24342$mw$,$mw$two way cartridge valve$mw$,$mw$poppet area ratio$mw$,$mw$logic valve cover$mw$,$mw$pilot control cover$mw$,$mw$logic valve drift$mw$,$mw$stuck poppet$mw$,$mw$damping nose$mw$,$mw$stroke limiter$mw$,$mw$cartridge valve troubleshooting$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Sun Hydraulics and HydraForce cartridge valve catalogues and technical tips (cavity families, torque, seal kits, installation); Parker, Eaton Vickers and Bosch Rexroth cartridge valve data; ISO 7368 / DIN 24342 (two-way slip-in cartridge valves: sizes 16-100, area ratios); Bosch Rexroth Hydraulic Trainer volume 4 (logic elements: function, pilot control, applications); Fluid Power Society technician study manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -4809,8 +4968,142 @@ On the machine: bleed the lines, cycle without load, check the mounts for alignm
 - [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [O-rings and seals (materials)](/article/seal-failure)
-- [Pump and fluid-power formulas (cylinder force and speed)](/article/pump-and-fluid-power-formulas)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Pump and fluid-power formulas (cylinder force and speed)](/article/pump-and-fluid-power-formulas)
+- [Advanced hydraulic troubleshooting (the cylinder bypass test)](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Hydraulic fluids: types and compatibility (seal materials)](/article/hydraulic-fluids-types-and-compatibility)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulic cylinder repair$mw$,$mw$cylinder rebuild$mw$,$mw$seal kit$mw$,$mw$cylinder seal kit$mw$,$mw$rod seal$mw$,$mw$wiper seal$mw$,$mw$buffer seal$mw$,$mw$piston seal$mw$,$mw$wear ring$mw$,$mw$cylinder gland$mw$,$mw$tie rod cylinder$mw$,$mw$welded cylinder$mw$,$mw$cylinder honing$mw$,$mw$scored rod$mw$,$mw$bent rod$mw$,$mw$chrome rod$mw$,$mw$cylinder drift$mw$,$mw$cylinder bypass$mw$,$mw$bench test cylinder$mw$,$mw$tie rod torque$mw$,$mw$gland nut$mw$,$mw$seal orientation$mw$,$mw$polyurethane seal$mw$,$mw$PTFE seal$mw$,$mw$O-ring cylinder$mw$,$mw$cushion cylinder$mw$,$mw$spanner wrench cylinder$mw$]::text[], $mw$Parker / Eaton / Prince / Hercules (generic)$mw$, array[$mw$Parker 2H$mw$,$mw$Parker 3L$mw$,$mw$Parker 2A$mw$,$mw$Eaton Vickers TZ$mw$,$mw$Prince welded$mw$,$mw$Hercules seal kits$mw$]::text[], $mw$Parker Cylinder Division 2H/3L service bulletins (disassembly, tie-rod torque and sequence, seal installation); Hercules Sealing Products seal identification and installation guidance; Eaton and Prince cylinder service manuals; Parker O-Ring Handbook (seal handling); general hydraulic shop practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$directional-control-valves-spools-and-solenoids$mw$, $mw$Directional Control Valves: D03/D05/D07/D08 (CETOP 3/5/7/8, NG6/10/16/25) Sizes and Port Patterns, Spool Centre Conditions and What Each Does to the Machine, Solenoids (DC and AC, Coil Checks, Burnout, Manual Override), Two-Stage Pilot-Operated Valves and Their X and Y Ports, Silting and Stiction, Spool Leakage Testing and Valve Replacement$mw$, $mw$Everything about the valve that decides where the oil goes: the standard sizes and what flow each carries, how to read a mounting face, the centre conditions and the machine behaviour each one produces (pump loading, load holding, drift, regeneration), how solenoids work and fail and how to test a coil and a plug in a minute, how a two-stage valve is piloted and drained and what happens when the X or Y port is wrong, why spools stick and how to free and prevent it, how to test a valve for internal leakage, and how to change one so it does not leak or shift wrong.$mw$, $mw$## Naming a valve
+
+A **4/3 valve** has four ports (P pressure, T tank, A and B to the actuator) and three positions; a **4/2** has two positions, a **3/2** three ports (single-acting cylinder, pilot signal), a **2/2** is a shut-off. The **spool** is the sliding piece inside; the **operator** shifts it (solenoid, lever, pilot pressure, cam, air); the **return** is a spring (spring-centred to the middle, spring-offset to one end) or a **detent** (stays where it was put). The schematic box for each position shows the flow paths; the ports are drawn on the box the valve sits in with no operator energised (the centre of a spring-centred 4/3). Basics are in [hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols).
+
+![Directional valves: a sectional bank, a lever valve and a double-solenoid subplate valve with DIN plugs](/photos/hydraulics/solenoid-valve.jpg)
+
+*Directional valves: a sectional bank, a lever valve and a double-solenoid subplate valve with DIN plugs. Photo: HAWE Hydraulik, CC BY-SA 4.0, via commons*
+
+## Sizes and mounting patterns (ISO 4401 / NFPA)
+
+![Subplate mounting patterns and flow capacity by size](/img/hydraulics/dcv-mounting-patterns.svg)
+
+*Subplate mounting patterns and flow capacity by size*
+
+| NFPA | CETOP | Rexroth NG | Port dia. | Typical rated flow | Bolts | Bolt torque (dry, grade 10.9 / 12.9) | Notes |
+|---|---|---|---|---|---|---|---|
+| **D03** | 3 | NG6 | 0.30" (7.5 mm) | **20 gpm** (75 L/min); direct solenoid | 4 × M5 (10-24 on some US) | 6-7 ft-lb (8-9 N·m) | The commonest industrial valve; stack (sandwich) valves fit under it |
+| **D05** | 5 | NG10 | 0.44" (11 mm) | **30-40 gpm** (120-160 L/min); direct solenoid up to about 30 gpm, pilot-operated above | 4 × M6 | 11-13 ft-lb (15 N·m) | D05H (high flow) has a fifth bolt |
+| **D07** | 7 | NG16 | 0.75" (19 mm) | **80 gpm** (300 L/min); always pilot-operated | 4 × M10 + 2 × M6 | 40-45 ft-lb (55-60 N·m) for M10 | X and Y ports appear in the pattern |
+| **D08** | 8 | NG25 | 1.0" (25 mm) | **120-160 gpm** (450-650 L/min); pilot-operated | 6 × M12 | 70-80 ft-lb (100 N·m) | |
+| D10 | 10 | NG32 | 1.25"-1.5" | 260 gpm (1,000 L/min) | 6 × M20 | 250 ft-lb | Presses, large machines; logic valves often replace these |
+
+The pattern is the same across makers, so a Parker D03 valve fits a Rexroth NG6 subplate: check the **spool function, solenoid voltage and connector**, not just the face. Look at the face before fitting: the O-rings sit in the valve's face grooves (five for a D03: P, T, A, B and a blank, sometimes a sixth), the subplate face must be clean and unscratched, and the pattern has an **orientation** (the odd bolt hole or the port layout: A and B swapped puts the cylinder in reverse).
+
+## Spool centre conditions
+
+![Spool centre conditions: what each does to the pump and the load](/img/hydraulics/spool-center-conditions.svg)
+
+*Spool centre conditions: what each does to the pump and the load*
+
+The centre (de-energised) position decides what the machine does at rest, so it is the first thing to read when a machine drifts, overheats or will not hold.
+
+| Centre | Symbol (P T A B) | Pump at rest | Load at rest | Where used | Watch for |
+|---|---|---|---|---|---|
+| **Closed** (all ports blocked) | P, T, A, B all blocked | Dead-headed: goes over the **relief** (heat) unless the pump is pressure-compensated or unloaded elsewhere | Held by the spool (but a spool always leaks a little: **slow drift** is normal, use a pilot-operated check or counterbalance for true holding) | Multiple valves in parallel off one compensated pump, accumulator circuits | Heat on a fixed pump; pressure trapped in the lines (thermal expansion can crack a gauge; a relief or a bleed path is needed) |
+| **Open** (all ports to tank) | P, T, A, B connected | Unloaded: pump flow to tank at low pressure, cool | **Free to move**: a cylinder under a load drifts down; a motor freewheels | Single-valve circuits where the load is not held | Cannot run two valves in series or parallel; no load holding |
+| **Tandem** (P to T, A and B blocked) | P-T, A and B blocked | Unloaded through the centre | Held by the spool (slow drift) | The classic single-pump, series-connected mobile valve and many machine circuits | Valves in **series**: the downstream valve is fed through the upstream one's tandem centre; back-pressure at T; cannot run functions at once |
+| **Float** (P blocked, A and B to T) | P blocked, A-B-T | Dead-headed (relief or compensator) | Actuator **floats**: a blade follows the ground, a motor coasts to a stop without cavitating | Dozer blades, hydraulic motors (avoids cavitation on stopping), any function that must go limp | Pilot-operated checks needed if the load must also hold |
+| **Regenerative** (P to A and B, T blocked) | P-A-B, T blocked | Pressure on both sides of the piston | The cylinder **extends fast** at reduced force (rod-side oil is added to the cap side); the force is only pressure × rod area | Rapid-advance on presses and cylinders | Never for a motor; the retract force is tiny |
+| P blocked, A and B blocked, T open (open T) | | Dead-headed | Held | Some valve stacks | |
+| **Partially open centres** (P-A-T with B blocked, A-T with P and B blocked, etc.) | | | | Special machine sequences, brakes, motor circuits | Read the box; the maker's spool code letter (Vickers 0, 1, 2, 3, 6, 7, 8, 9, 11, 33; Rexroth E, F, G, H, J, L, M, P, Q, R, U, V, W) is the only reliable name |
+
+**Transient (crossover) conditions**: as the spool travels between positions it passes through an intermediate state that is either **open crossover** (all ports briefly connected: smooth, no pressure spike, but a load can drop a fraction) or **closed crossover** (all blocked: no drop, but a pressure spike and shock in a fast circuit). The maker's catalogue shows it as a dotted box between the positions. A valve replaced with the same centre but the other crossover can shake a press or let a load dip.
+
+**Spool leakage** is inherent: a new D03 spool leaks about 0.5-5 in³/min (10-80 mL/min) per land at 1,000-3,000 psi, more when worn and hot. That is why a spool valve never holds a load overnight and a **poppet** or a pilot-operated check does. A cylinder that creeps 1/4 inch over an hour with a closed-centre spool is behaving normally; creeping inches in minutes is a worn spool or a bypassing piston.
+
+## Solenoids
+
+![Wet-armature solenoid: what to check with a meter](/img/hydraulics/solenoid-checks.svg)
+
+*Wet-armature solenoid: what to check with a meter*
+
+Modern valves use a **wet-armature (wet-pin) solenoid**: the armature and push pin run in oil inside a sealed tube, the coil slips over the tube and is held by a nut. The coil can be changed without opening the hydraulics. Older and some mobile valves have dry (air-gap) solenoids with a seal on the pin.
+
+| | DC (12 V, 24 V the standard) | AC (110/120 V, 220/240 V) |
+|---|---|---|
+| Force and speed | Softer, slower shift (40-60 ms), no inrush | Strong pull-in, fast (15-25 ms); a large **inrush** current (3-5× holding) until the armature seats |
+| Failure when the spool does not fully shift | The coil just runs warm at its normal current; the valve **half-shifts** | The inrush never falls: the coil **burns out** in minutes (a burned coil smell and a discoloured coil = the spool did not stroke: find out why before fitting the new coil) |
+| Failure when energised with the spool blocked | Coil survives | Coil burns |
+| Coil resistance (cold, a rough guide) | 24 V DC, 30 W: about **18-25 Ω**; 12 V DC: 4-6 Ω | 120 V AC: about 20-40 Ω DC resistance (the impedance in operation is much higher); 240 V: 80-150 Ω |
+| Power | 20-40 W continuous | 40-70 VA inrush 150-300 VA |
+| Extras | A **surge suppression diode** or varistor in the plug protects the PLC output; **LED plugs** show the coil is powered (a lit LED with no shift = hydraulic problem, not electrical) | Rectified-AC coils (a DC coil with a bridge in the plug) are common on newer valves: AC in, DC behaviour |
+
+**Checks with a meter**: (1) voltage at the coil terminals while the PLC commands it: no voltage = wiring, fuse, output, interlock; (2) voltage present but low under load (a 24 V coil at 17 V from a long thin cable or a tired supply will not shift a spool against high flow forces; check the PLC card's own rating); (3) coil resistance with the plug off: open = burned; far below the rated value = shorted turns; compare with the twin coil on the same valve; (4) a **magnetic field tester** (a pocket screwdriver held to the coil nut, or a proper solenoid tester that lights up) shows the coil is magnetised; (5) the **manual override**: the pin in the end of the solenoid tube pushed in with a small tool shifts the spool by hand: **if the machine moves on the override but not on the solenoid, the fault is electrical; if it does not move on the override either, the fault is hydraulic (or the spool is stuck)**. Know what will move before you push it, and keep hands clear.
+
+Connectors: the square **DIN 43650 form A** plug (three pins plus earth, a screw in the middle, a gasket that must be there or the coil corrodes), the smaller form B and C, Deutsch DT plugs on mobile equipment, and M12 on newer machines. A loose plug screw and a missing gasket cause more "intermittent valve" calls than the coils do.
+
+## Two-stage pilot-operated valves
+
+![Two-stage valve: pilot valve on top, X and Y ports, pilot choke](/img/hydraulics/pilot-operated-dcv.svg)
+
+*Two-stage valve: pilot valve on top, X and Y ports, pilot choke*
+
+Above about 30 gpm the flow forces are too high for a solenoid, so a small **pilot valve** (a D03 solenoid valve) sits on top of the **main stage** and uses hydraulic pressure to push the big spool. The pilot valve needs a **pilot supply** (X) and a **pilot drain** (Y):
+
+- **Internal pilot**: the pilot supply comes from the main valve's own P port. Only works if P always has pressure: with an **open or tandem centre** the P pressure at rest is near zero, so the main spool cannot shift. Then a **back-pressure check (about 75 psi / 5 bar) in the T line** or an **external pilot** supply is used. The plug in the main body (a small screw plug or an orifice plug under the pilot valve) selects internal or external: the commonest mistake after a rebuild is the plug in the wrong hole.
+- **External pilot** (X port on the mounting face or the body): a separate line from a constant pressure source (the pump outlet, a reducing valve at 150-300 psi, or a pilot pump); needed on open-centre systems and load-sense systems where P can be low.
+- **Internal drain**: the pilot exhaust returns through the main valve's T port; any back-pressure in T (a return filter, a cooler, other valves) acts against the pilot and can prevent shifting or cause a slow shift. **External drain** (Y port) runs the pilot exhaust straight to tank, and is required when the T line carries back-pressure above about 100-150 psi or surges.
+- **Minimum pilot pressure**: usually **50-150 psi (4-10 bar)**; maximum 3,000-4,500 psi (some need a reducing plate above about 3,000 psi). No pilot pressure = the main spool never moves however loud the solenoid clicks.
+- **Pilot choke (throttle) plate** between the pilot and the main stage: two needle valves meter the pilot flow to slow the main spool's shift (soft starts and stops on a big cylinder). Meter-out is the usual type; they are also the first thing someone screws shut and "fixes" a fast machine into a dead one.
+- **Spring-centred vs pressure-centred**: a pressure-centred main stage uses pilot pressure on both ends to hold centre; it needs pilot pressure even at rest, so the X supply matters.
+- **Stroke limiters** (screws in the end caps) limit the main spool travel to meter flow; **spool position switches** or LVDTs report the position to the PLC.
+
+When a two-stage valve will not shift: check the pilot solenoid (LED, override on the pilot valve), then the **pilot pressure at X** with a gauge, then the drain at Y (back-pressure), then the choke plate settings, then pull the pilot valve and look for a stuck main spool (push it with a brass drift, with the system locked out and bled).
+
+## Silting, stiction and a stuck spool
+
+A spool is a precision fit (0.0002-0.0004" / 5-10 µm clearance). Fine particles pack into the clearance (**silting**) when the spool sits still under pressure, and the spool needs more force to break away than the solenoid has. Symptoms: a valve that works after the machine has been cycling but sticks on the first shift of the morning, or sticks in one direction, or shifts only with the override. Causes: dirty oil (a valve is a filter for particles about the size of its clearance), **varnish** from hot or oxidised oil (a brown lacquer in the bore, worst on servo and proportional valves), a burr from a pressure spike, a bent spool from over-torqued mounting bolts on an uneven subplate, thermal lock (a hot spool in a cold body), or a coil too weak (low voltage).
+
+Freeing one: lock out and bleed, remove the coil and solenoid tube, push the spool through with a brass or plastic drift and feel for the tight spot; clean the spool and bore with solvent and lint-free wipes (never abrasives, never a wire brush; a fingernail catches a burr), lubricate with clean oil, refit. **Lapping** a spool is a specialist job. Prevention: cleanliness (ISO 18/16/13 or better for solenoid valves, 16/14/11 for proportional), oil below 140°F, a **dither** or periodic cycling on valves that sit for months, and correct bolt torque on a flat subplate.
+
+## Testing a valve for internal leakage
+
+1. Lock out; block the A and B ports (or disconnect the cylinder lines and cap them with rated caps), pressurise P with the spool centred, and measure the flow from T with a measuring cylinder over a minute at working pressure and temperature: compare with the maker's leakage figure (a D03: typically under 10 in³/min / 150 mL/min total at 3,000 psi; a D05 up to 20-30 in³/min). Much more = worn spool or body.
+2. In place: with a load held on a closed-centre spool and the pump running, feel the T line and the A/B lines for temperature (a leaking land warms the T line); watch the cylinder drift rate with the pilot-operated checks (if any) bypassed.
+3. Swap test: exchange the valve with an identical one from a working function; if the fault moves, the valve is the fault.
+
+## Replacing a valve
+
+1. Lockout, bleed to zero at the gauge, block or lower loads; note the **orientation** (photograph it), the plug positions and the solenoid wiring (A solenoid, B solenoid: the solenoid at the A end usually connects P to **B** on a spring-centred spool, but conventions differ: check the schematic).
+2. Remove the bolts in a cross pattern; lift the valve straight up; catch the oil; cover the subplate face at once (a clean cap or clean lint-free cloth).
+3. Clean the subplate face; inspect for scratches across a port land (a scratch = a leak: lap or replace the plate); check that all O-rings came off with the old valve (an O-ring left behind doubles up and splits).
+4. New valve: verify model code, spool, voltage, connector; fit **new O-rings** (in the valve's grooves, a smear of clean oil, never grease that traps dirt); check the internal/external pilot and drain plugs on a two-stage valve against the schematic.
+5. Set it down square, bolts finger-tight in a cross pattern, torque in two stages to the table; over-torque distorts the body and binds the spool; under-torque blows the O-rings out at pressure.
+6. Reconnect plugs (gaskets in, screws tight, cable strain relieved); restore pressure slowly; check for shift (the LED and the machine), leaks, and the sequence; re-check the bolt torque after the first warm cycle.
+
+## Common mistakes
+
+- Fitting a new coil to a valve with a stuck spool: the second coil burns too (AC).
+- Reversing the A and B lines or the valve orientation so the machine runs backwards on the first cycle.
+- A two-stage valve replaced with the pilot plug in the internal position on an open-centre system: it never shifts.
+- Screwing the pilot choke shut to "fix" a shock, then the valve will not shift at all.
+- Tightening the four bolts with an impact gun: bent body, sticking spool.
+- Assuming a lit LED means the valve shifted.
+- Grease on the O-rings, which then holds every particle that passes.
+- Expecting a spool valve to hold a load: it never will.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$directional control valve$mw$,$mw$DCV$mw$,$mw$D03$mw$,$mw$D05$mw$,$mw$D07$mw$,$mw$D08$mw$,$mw$CETOP 3$mw$,$mw$CETOP 5$mw$,$mw$NG6$mw$,$mw$NG10$mw$,$mw$NG16$mw$,$mw$NG25$mw$,$mw$ISO 4401$mw$,$mw$subplate mounting$mw$,$mw$valve mounting pattern$mw$,$mw$spool center$mw$,$mw$closed center$mw$,$mw$open center$mw$,$mw$tandem center$mw$,$mw$float center$mw$,$mw$regenerative center$mw$,$mw$4/3 valve$mw$,$mw$4/2 valve$mw$,$mw$spool type$mw$,$mw$solenoid valve$mw$,$mw$wet armature solenoid$mw$,$mw$DC solenoid$mw$,$mw$AC solenoid$mw$,$mw$coil burnout$mw$,$mw$solenoid inrush$mw$,$mw$coil resistance$mw$,$mw$manual override$mw$,$mw$DIN 43650 connector$mw$,$mw$pilot operated directional valve$mw$,$mw$two stage valve$mw$,$mw$X port$mw$,$mw$Y port$mw$,$mw$pilot choke$mw$,$mw$internal pilot$mw$,$mw$external drain$mw$,$mw$spring centered$mw$,$mw$pressure centered$mw$,$mw$spool stiction$mw$,$mw$silting$mw$,$mw$valve leakage test$mw$,$mw$spool leakage$mw$,$mw$valve bolt torque$mw$,$mw$valve replacement$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 4401 and NFPA T3.5.1 (mounting surfaces D03-D10); Eaton Vickers, Parker and Bosch Rexroth directional valve catalogues and service data (flow ratings, spool types, solenoid data, pilot pressure limits, leakage figures); Fluid Power Society technician manuals (solenoid testing); Rexroth Hydraulic Trainer volume 1 (spool functions and two-stage valve operation).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -4959,8 +5252,390 @@ A failed pump or motor spreads metal through the whole system; a new pump instal
 - [Oil analysis and sampling](/article/oil-analysis-and-sampling)
 - [Oil viscosity and selection](/article/oil-viscosity-and-selection)
 - [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
-- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulic filter$mw$,$mw$ISO 4406$mw$,$mw$cleanliness code$mw$,$mw$18/16/13$mw$,$mw$16/14/11$mw$,$mw$beta ratio$mw$,$mw$micron rating$mw$,$mw$absolute vs nominal$mw$,$mw$filter bypass$mw$,$mw$filter indicator$mw$,$mw$return filter$mw$,$mw$pressure filter$mw$,$mw$suction strainer$mw$,$mw$offline filter$mw$,$mw$kidney loop$mw$,$mw$desiccant breather$mw$,$mw$reservoir cleaning$mw$,$mw$hydraulic fluid$mw$,$mw$ISO VG 32 46 68$mw$,$mw$AW hydraulic oil$mw$,$mw$water in hydraulic oil$mw$,$mw$aeration$mw$,$mw$foaming$mw$,$mw$hydraulic oil sample$mw$,$mw$particle count$mw$,$mw$flushing hydraulic system$mw$,$mw$filter cart$mw$,$mw$contamination control$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 4406:2021 (solid contamination code) and ISO 11171 (particle counter calibration); ISO 16889 (multi-pass test, beta ratio); Parker, Donaldson, Hydac and Pall filtration guides (target cleanliness codes by component, filter placement); Noria/Machinery Lubrication contamination control guidance; Eaton Vickers system cleanliness recommendations.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-fitting-identification-and-thread-tables$mw$, $mw$Hydraulic Fitting Identification and Thread Tables: the Five-Measurement Method (OD, Pitch, Taper, Seat, Cone Angle), Complete Look-Up Tables for JIC 37°, SAE ORB, ORFS, NPT/NPTF, BSPP/BSPT, DIN 24° L and S Series, Metric ORB, JIS and Komatsu, O-Ring Sizes by Dash, Code 61 vs Code 62 Flange Dimensions, the Pairs That Almost Fit, Tube Flaring and Bite-Ring Assembly, Torque by Family$mw$, $mw$How to identify any hydraulic fitting from five measurements and a look at the seat, with the tables that turn a caliper reading and a pitch count into a name: every common family by dash size with the thread and actual diameter, the O-ring that goes with each ORB and ORFS size, the bolt pattern that tells Code 61 from Code 62, the DIN L and S series by tube size, and the list of fittings that thread together and leak. Then how to flare a tube, assemble a bite ring and torque each family so the joint stays dry.$mw$, $mw$## The five measurements
+
+![Identify a fitting: measure, check taper, look at the seat, read the table](/img/hydraulics/fitting-identification-steps.svg)
+
+*Identify a fitting: measure, check taper, look at the seat, read the table*
+
+Tools: a **caliper**, a **thread pitch gauge** (inch tpi and metric mm), a **seat (cone) angle gauge** (37°, 45°, 30°, 24°, 60°: in every fitting-ID kit), and this article. Never identify by eye: a 3/4-16 JIC, a 3/4-16 ORB and a 3/4-16 SAE 45° flare are three different fittings with one thread.
+
+1. **Male or female, and the diameter**: measure the male thread's **major diameter** (over the crests) or the female's **minor diameter** (across the crests, inside). Measure at the first full threads for a tapered thread and note whether it changes along the length.
+2. **Pitch**: fit the pitch gauge leaves until one sits without light showing; read threads per inch (tpi) or the metric pitch. 12, 14, 16, 18, 20 tpi are the UN family; 1.5 mm and 2 mm are metric; 11, 14, 19 and 28 tpi with a 55° form are British pipe; 11.5, 14, 18 and 27 tpi are NPT.
+3. **Tapered or parallel**: lay a straight edge or the caliper jaws along the thread; a taper is visible (about 1° 47', 1 in 16 on the diameter) and the fitting has **no sealing face**, it seals on the thread. Parallel threads always have a seat, a face or an O-ring somewhere.
+4. **The sealing surface**: a **cone** (male) or a flare (female) = 37° JIC, 45° SAE, 30° JIS/Komatsu, 24° DIN or 60° BSP cone; a **flat face with an O-ring groove** = ORFS; an **O-ring at the base of a straight thread against a shoulder** = ORB (SAE) or metric ORB (ISO 6149); a **flat face with a bonded washer** or an O-ring in the female's chamfer = BSPP; a **4-bolt flange head** = SAE flange; a **bite ring or a nut with a captive ring** = DIN 24°.
+5. **Cone angle** with the seat gauge, and then the table. The angle is measured on the male cone or the female flare; 37° and 30° look alike, 37° and 45° look alike, and neither seals against the other.
+
+Then check the mate the same way: the fitting and its port are two identifications, not one.
+
+## Look-up by dash size (inch fittings)
+
+Dash = the tube or hose size in 1/16 inch. The major diameters below are what the caliper reads on a male thread (± 0.010").
+
+![JIC 37° flare: the male cone and the female swivel nut; the cone, not the thread, is the identity](/photos/hydraulics/fitting-assortment.jpg)
+
+*JIC 37° flare: the male cone and the female swivel nut; the cone, not the thread, is the identity. Photo: PRR, CC BY-SA 3.0, via commons*
+
+| Dash | Tube OD | **JIC 37° / SAE ORB** thread (UN/UNF) | JIC/ORB major dia. | **ORFS** thread | ORFS major dia. | **ORB O-ring** | **ORFS O-ring** | SAE 45° flare (J512) |
+|---|---|---|---|---|---|---|---|---|
+| −2 | 1/8" | 5/16-24 | 0.312" (7.9 mm) | | | −902 | | 5/16-24 |
+| −3 | 3/16" | 3/8-24 | 0.375" (9.5) | | | −903 | | 3/8-24 |
+| **−4** | 1/4" | **7/16-20** | 0.437" (11.1) | **9/16-18** | 0.562" (14.3) | −904 | −011 | 7/16-20 |
+| −5 | 5/16" | 1/2-20 | 0.500" (12.7) | | | −905 | | 1/2-20 |
+| **−6** | 3/8" | **9/16-18** | 0.562" (14.3) | **11/16-16** | 0.687" (17.5) | −906 | −012 | 5/8-18 |
+| **−8** | 1/2" | **3/4-16** | 0.750" (19.0) | **13/16-16** | 0.812" (20.6) | −908 | −014 | 3/4-16 |
+| **−10** | 5/8" | **7/8-14** | 0.875" (22.2) | **1-14** | 1.000" (25.4) | −910 | −016 | 7/8-14 |
+| **−12** | 3/4" | **1-1/16-12** | 1.062" (27.0) | **1-3/16-12** | 1.187" (30.2) | −912 | −018 | 1-1/16-14 |
+| −14 | 7/8" | 1-3/16-12 | 1.187" (30.2) | 1-3/16-12 | 1.187" | −914 | −018 | |
+| **−16** | 1" | **1-5/16-12** | 1.312" (33.3) | **1-7/16-12** | 1.437" (36.5) | −916 | −021 | |
+| −20 | 1-1/4" | 1-5/8-12 | 1.625" (41.3) | 1-11/16-12 | 1.687" (42.9) | −920 | −025 | |
+| −24 | 1-1/2" | 1-7/8-12 | 1.875" (47.6) | 2-12 | 2.000" (50.8) | −924 | −029 | |
+| −32 | 2" | 2-1/2-12 | 2.500" (63.5) | | | −932 | | |
+
+- The **same thread** serves JIC (37° cone on the male, flare in the female nut) and ORB (straight thread with an O-ring under the shoulder, into a **port** with a chamfer). A JIC male will thread into an ORB port and leak forever; an ORB fitting has no cone.
+- ORB O-rings are the **900 series** (a special cross-section, 90 durometer for high pressure): a standard 2-series O-ring of similar diameter is thinner and extrudes.
+- **SAE 45° flare** (refrigeration, fuel, low pressure) shares the −4, −5, −8 and −10 threads with JIC and has a different cone: it screws on and weeps.
+- **ORFS −4 (9/16-18) is the same thread as JIC −6**; **ORFS −12 is the same as JIC −14**: the flat face and O-ring tell them apart.
+
+## Pipe threads
+
+![Measured diameter and pitch to fitting family](/img/hydraulics/thread-od-lookup.svg)
+
+*Measured diameter and pitch to fitting family*
+
+| Nominal | **NPT / NPTF** tpi | NPT major dia. at the large end | **BSPP (G) / BSPT (R)** tpi | BSP major dia. | Tell them apart |
+|---|---|---|---|---|---|
+| 1/8" | 27 | 0.405" (10.3 mm) | 28 | 0.383" (9.7 mm) | Pitch gauge: 27 vs 28 |
+| 1/4" | 18 | 0.540" (13.7) | 19 | 0.518" (13.2) | 18 vs 19 tpi |
+| 3/8" | 18 | 0.675" (17.1) | 19 | 0.656" (16.7) | 18 vs 19 |
+| **1/2"** | **14** | **0.840" (21.3)** | **14** | **0.825" (20.9)** | Same pitch! Thread form 60° vs 55°; NPT tapered, G parallel; R tapered: measure the OD carefully and look for the seat |
+| **3/4"** | **14** | **1.050" (26.7)** | **14** | **1.041" (26.4)** | Same trap as 1/2" |
+| 1" | 11.5 | 1.315" (33.4) | 11 | 1.309" (33.2) | 11.5 vs 11 |
+| 1-1/4" | 11.5 | 1.660" (42.2) | 11 | 1.650" (41.9) | |
+| 1-1/2" | 11.5 | 1.900" (48.3) | 11 | 1.882" (47.8) | |
+| 2" | 11.5 | 2.375" (60.3) | 11 | 2.347" (59.6) | |
+
+- **NPT** seals on the thread with a sealant (anaerobic paste; never PTFE tape in hydraulics: it shreds into the valves); **NPTF (dryseal)** has crests and roots that interfere for a seal without sealant in theory: still use paste. Tighten 2-3 turns past hand tight; more cracks the port.
+- **BSPP (G, parallel)** seals on a **bonded (Dowty) washer** under the shoulder, an O-ring in a chamfered port (ISO 1179-2), or a 60° cone in the female (BSP cone/swivel fittings on European hoses); **BSPT (R, tapered)** seals on the thread like NPT.
+- A 1/2 NPT started in a G 1/2 port cross-cuts the 55° form with a 60° one and neither will seal again.
+
+## Metric tube fittings (DIN 2353 / ISO 8434-1, 24° cone)
+
+![DIN 24° bite-ring fitting: L and S series, pre-assembly and final turn](/img/hydraulics/din-bite-ring-assembly.svg)
+
+*DIN 24° bite-ring fitting: L and S series, pre-assembly and final turn*
+
+The body has a 24° internal cone; the tube is gripped by a **cutting (bite) ring** or sealed by a **soft-seal ring (DKO / O-ring cone)**, and the nut pulls the ring into the cone. Two series with **different cone diameters for the same thread**: **L (light)** and **S (heavy)**. Named by **tube OD**.
+
+| Tube OD | **L series** thread | L pressure (typical) | Tube OD | **S series** thread | S pressure (typical) |
+|---|---|---|---|---|---|
+| 6 mm | **M12×1.5** | 4,500 psi (315 bar) | 6 mm | **M14×1.5** | 9,000 psi (630 bar) |
+| 8 | **M14×1.5** | 4,500 (315) | 8 | **M16×1.5** | 9,000 (630) |
+| 10 | **M16×1.5** | 4,500 (315) | 10 | **M18×1.5** | 9,000 (630) |
+| 12 | **M18×1.5** | 4,500 (315) | 12 | **M20×1.5** | 9,000 (630) |
+| 15 | **M22×1.5** | 4,500 (315) | 14 | **M22×1.5** | 9,000 (630) |
+| 18 | **M26×1.5** | 4,500 (315) | 16 | **M24×1.5** | 6,000 (400) |
+| 22 | **M30×2** | 2,300 (160) | 20 | **M30×2** | 6,000 (420) |
+| 28 | **M36×2** | 2,300 (160) | 25 | **M36×2** | 6,000 (420) |
+| 35 | **M45×2** | 2,300 (160) | 30 | **M42×2** | 6,000 (420) |
+| 42 | **M52×2** | 2,300 (160) | 38 | **M52×2** | 6,000 (420) |
+
+The traps, one thread serving two sizes: **8L and 6S** share M14×1.5; **10L and 8S** share M16×1.5; **12L and 10S** share M18×1.5; 15L and 14S share M22×1.5; 22L and 20S share M30×2; 28L and 25S share M36×2; 42L and 38S share M52×2. The nut starts, the ring is the wrong size for the cone, and it leaks or the tube blows out. Identify by **tube OD and the cone diameter** (measure the bore of the body's cone mouth: L is smaller than S for the same thread), or by the stamping on the nut (e.g. "15L", "12S").
+
+**Metric ORB / ISO 6149 ports** (straight metric thread, O-ring at the shoulder, a chamfered port): M10×1, **M12×1.5, M14×1.5, M16×1.5, M18×1.5, M22×1.5, M27×2, M33×2, M42×2, M48×2**. A DIN 24° fitting's thread (M22×1.5) fits an ISO 6149 M22 port thread but a DIN body has no O-ring and no shoulder seal: it leaks. Look for the O-ring and the flat shoulder.
+
+**JIS B 8363 30° flare**: a 30° cone on **BSPP threads** (G 1/4, G 3/8, G 1/2, G 3/4, G 1) on Japanese machines (Komatsu, Hitachi, Kobelco, Kubota); looks like JIC and BSP cone, seals against neither. **Komatsu 30° flare**: 30° cone on **metric fine threads** (M14×1.5, M18×1.5, M22×1.5, M24×1.5, M30×1.5, M33×1.5, M36×1.5, M42×1.5). **French GAZ** (24° cone on metric threads with a bonded seal), **BSP 60° cone** (British hoses) and the old **Ermeto** metric are the other Europeans you will meet on imported machines.
+
+## SAE 4-bolt flanges (J518 / ISO 6162)
+
+![Code 61 and Code 62 flanges: same nominal size, different bolt pattern](/img/hydraulics/code-61-62-flange.svg)
+
+*Code 61 and Code 62 flanges: same nominal size, different bolt pattern*
+
+A flanged hose end or adapter is clamped to a flat port face by a split (two-piece) or one-piece flange with four bolts; an **O-ring** in the flange head's groove seals on the face. **Code 61 (3,000 psi / 210 bar nominal; small sizes rated to 5,000 by some makers)** and **Code 62 (6,000 psi / 420 bar)** have different bolt spacings for the same nominal size, and **Code 62 heads are thicker**. Measure the bolt spacing (centre to centre, long and short sides).
+
+| Size | **Code 61** bolt spacing (long × short) | Code 61 bolt | **Code 62** bolt spacing | Code 62 bolt | O-ring |
+|---|---|---|---|---|---|
+| 1/2" | 1.500 × 0.688" (38.1 × 17.5 mm) | 5/16-18 / M8 | 1.594 × 0.718" (40.5 × 18.2 mm) | 5/16-18 / M8 | −210 |
+| 3/4" | 1.875 × 0.875" (47.6 × 22.2) | 3/8-16 / M10 | 2.000 × 0.938" (50.8 × 23.8) | 3/8-16 / M10 | −214 |
+| 1" | 2.062 × 1.031" (52.4 × 26.2) | 3/8-16 / M10 | 2.250 × 1.094" (57.2 × 27.8) | 7/16-14 / M12 | −219 |
+| 1-1/4" | 2.312 × 1.188" (58.7 × 30.2) | 7/16-14 / M10 | 2.625 × 1.250" (66.7 × 31.8) | 1/2-13 / M14 | −222 |
+| 1-1/2" | 2.750 × 1.406" (69.9 × 35.7) | 1/2-13 / M12 | 3.125 × 1.438" (79.4 × 36.5) | 5/8-11 / M16 | −225 |
+| 2" | 3.062 × 1.688" (77.8 × 42.9) | 1/2-13 / M12 | 3.812 × 1.750" (96.8 × 44.5) | 3/4-10 / M20 | −228 |
+| 2-1/2" | 3.500 × 2.000" (88.9 × 50.8) | 1/2-13 / M12 | | | −232 |
+| 3" | 4.188 × 2.438" (106.4 × 61.9) | 5/8-11 / M16 | | | −237 |
+
+Installation: face and O-ring clean and dry (a smear of oil on the ring only), the head square to the face, the halves of a split flange **parallel to the face** and touching the head evenly, bolts finger-tight then torqued in a **cross pattern in three stages** (a flange tightened one bolt at a time tips the head and pinches the O-ring: a leak that appears at pressure). Torque (grade 8 / 10.9 bolts, lubricated threads, approximate): Code 61: 1/2" 15-20 ft-lb (20-27 N·m), 3/4" 25-35 (34-47), 1" 30-40 (40-54), 1-1/4" 45-55 (61-75), 1-1/2" and 2" 55-70 (75-95). Code 62: 1/2" 20-25 (27-34), 3/4" 35-45 (47-61), 1" 55-65 (75-88), 1-1/4" 85-95 (115-130), 1-1/2" 160-180 (215-245), 2" 260-300 (350-400). A Code 61 hose head in a Code 62 clamp seats and then blows the O-ring; a Code 62 head in a Code 61 clamp will not sit down.
+
+## The pairs that almost fit
+
+| Will thread together | Why it leaks or fails | Tell them apart |
+|---|---|---|
+| **JIC −8 male into an ORB −8 port** (both 3/4-16) | No O-ring, the cone lands on the port chamfer | The ORB fitting has a flat shoulder with an O-ring; the JIC a 37° cone |
+| **SAE 45° flare into a JIC** (same thread at −4, −5, −8, −10) | 45° cone on a 37° flare: a line contact that weeps | Seat gauge |
+| **ORFS −4 (9/16-18) nut onto a JIC −6 male** | A flat face against a cone | The ORFS sleeve is flat |
+| **1/2 or 3/4 NPT into a G 1/2 or G 3/4 port** (both 14 tpi) | 60° tapered form cross-cuts the 55° parallel port; leaks and the port is ruined | Taper, OD (0.840 vs 0.825"), the G port has a chamfer or a spot face for a washer |
+| **BSPT (R) into an NPT port** (same nominal, close tpi) | 55° vs 60°, pitch differs at most sizes | Pitch gauge |
+| **JIS 30° (G thread) onto a BSP 60° cone or a BSPP washer fitting** | Cone angles differ | Seat gauge |
+| **JIS 30° vs JIC 37°** | Different threads at most sizes, but the cones look alike and adapters get mixed | Thread pitch (JIS is BSPP: 19 or 14 tpi) |
+| **DIN 8L and 6S, 10L and 8S, 12L and 10S, 15L and 14S, 22L and 20S, 28L and 25S, 42L and 38S** (each pair shares a thread) | Ring and cone diameters differ; the ring does not bite or the tube blows out | Tube OD, cone bore, the L/S stamping |
+| **DIN M22×1.5 body into an ISO 6149 M22 port** | No O-ring, no shoulder | The port has a chamfer and an O-ring |
+| **Code 61 head in a Code 62 clamp** | Head too thin: the clamp bottoms before it loads the O-ring | Bolt spacing, head thickness |
+| **Metric M12×1.5 into 1/2-20 UNF, M14×1.5 into 9/16-18** | Diameters and pitches close enough to start (12.0 vs 12.7 mm; 14.0 vs 14.3 mm) | Pitch gauge (1.5 mm ≈ 16.9 tpi) |
+| **Push-lock barb into a high-pressure hose** | Blows off | |
+
+## Tube flaring and bite-ring assembly
+
+**37° flare (steel or stainless tube for JIC)**: cut the tube square (a tube cutter, then deburr inside and out: a burr cracks the flare), slide the **nut then the sleeve** on (facing the right way: the sleeve's cone toward the end), clamp the tube in the flaring tool's die with the correct protrusion (the tool's gauge or about 1/3 of the tube wall above the die), lubricate the cone, form the flare in one steady action (a rolling or a **power flaring tool** for 0.065" wall and heavier; a hand tool splits thick tube), inspect: the flare should fill the sleeve without cracks, be concentric and square, and its OD should match the tool's gauge; assemble to the male by hand, then torque or by flats (JIC by flats: −4: 2 flats; −6: 1.5; −8: 1.5; −10: 1-1.5; −12: 1; −16: 3/4-1; from wrench-tight, with a second wrench holding the body).
+
+**DIN 24° bite ring**: cut square, deburr, mark the insertion depth; slide the nut, then the ring (the **cutting edge toward the fitting body**, the sharp lip forward), push the tube **to the bottom** of the body cone (it must stay bottomed during pre-assembly or the ring bites in the wrong place); **pre-assemble** in a hardened pre-assembly tool or the fitting body: tighten the nut **about 1-1/4 to 1-1/2 turns past the point of resistance** (the ring cuts a visible collar of material ahead of its edge; check by loosening: the ring must not turn on the tube and the collar should fill the ring's front by at least 80% of the circumference); **final assembly**: nut hand-tight, then a further **1/4 to 1/2 turn** (a **re-assembly** after opening needs only 1/4 turn once resistance is felt). Over-tightening a bite ring compresses the tube and cracks the nut. Stainless tube needs a stainless (or specially hardened) ring and an anti-seize on the thread only. **DKO (soft seal) versions** have an O-ring in the 24° cone of a mating sleeve on the tube: no biting, replace the O-ring at each disconnect.
+
+## Torque by family (steel fittings; brass and aluminium 50-60%; stainless slightly higher; the maker's table governs)
+
+| Family | −4 | −6 | −8 | −10 | −12 | −16 | −20 | −24 |
+|---|---|---|---|---|---|---|---|---|
+| **JIC 37°** (ft-lb) | 11-13 | 18-20 | 27-33 | 36-40 | 60-70 | 85-95 | 110-130 | 140-160 |
+| **JIC 37°** (flats from wrench-tight) | 2 | 1.5 | 1.5 | 1-1.5 | 1 | 3/4-1 | 3/4 | 1/2-3/4 |
+| **ORFS** (ft-lb) | 10-12 | 18-20 | 27-33 | 40-45 | 60-70 | 85-95 | 115-125 | 140-160 |
+| **ORB port fittings** (ft-lb) | 14-16 | 18-22 | 30-35 | 40-45 | 60-70 | 95-105 | 125-140 | 150-170 |
+| Adjustable ORB (elbow) | Back the lock nut off, screw in until the O-ring touches the port face, back out to position (up to one turn), tighten the lock nut to the ORB torque | | | | | | | |
+| **NPT** | 2-3 turns past hand tight with anaerobic sealant; never more | | | | | | | |
+| **BSPP with bonded washer** | About the same as ORB for the same OD; the washer must sit on a **spot-faced** flat | | | | | | | |
+| **DIN 24° L/S** | Pre-assembly 1-1/4 to 1-1/2 turns; final 1/4 to 1/2 turn; per the maker's N·m table where one exists | | | | | | | |
+| **Code 61 / 62 flanges** | Table above; cross pattern, three stages | | | | | | | |
+
+Two wrenches always: one on the body, one on the nut; a swivel nut tightened with the body free twists the hose (a 7° twist cuts hose life by most of its length) or unscrews the adapter behind it. A JIC that leaks after correct torque has a scored cone, a cracked flare or a foreign body: **replace it, never keep tightening**.
+
+## Adapters: the survival list
+
+JIC male × ORB male (the commonest port adapter), JIC male × NPT male (old machines), JIC male × BSPP male with a bonded washer (European ports), JIC male × metric ORB male, JIC female swivel × DIN 24° male (imported hoses to North American ports), ORFS × ORB, JIC bulkhead unions, Code 61 flange × JIC. Keep a labelled tray of each in −6, −8, −12 and −16 and the caps and plugs for every family: an uncapped open port is the biggest contamination source on a job. Buy adapters with **forged bodies** rated for the system pressure; cast brass plumbing tees have no place at 3,000 psi.
+
+![An assortment of hydraulic fittings and adapters: keep a labelled tray of each family and cap every open port](/photos/hydraulics/hose-fittings.jpg)
+
+*An assortment of hydraulic fittings and adapters: keep a labelled tray of each family and cap every open port. Photo: Jstapko, CC BY-SA 3.0, via commons*
+
+## Common mistakes
+
+- Identifying by thread alone: JIC, ORB and 45° flare on one thread.
+- NPT in a BSPP port on a European press: the port is ruined the first time.
+- 10L ring in an 8S body because the nut fitted.
+- A Code 61 hose end in a Code 62 clamp: it seats, it holds at idle, it blows under load.
+- A 2-series O-ring in an ORB port instead of the 900 series.
+- Bite ring assembled without the tube bottomed: the ring bites short and the tube blows out.
+- PTFE tape on anything hydraulic.
+- One wrench on a swivel: the hose twisted, the adapter behind it loosened.
+- Flaring 0.083" wall tube with a hand tool: a split flare that weeps.
+
+## Related
+
+- [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic fitting identification$mw$,$mw$identify hydraulic fitting$mw$,$mw$thread identification$mw$,$mw$fitting thread table$mw$,$mw$dash size chart$mw$,$mw$JIC thread size$mw$,$mw$37 degree flare$mw$,$mw$SAE ORB thread$mw$,$mw$O-ring boss$mw$,$mw$ORFS thread size$mw$,$mw$O-ring face seal$mw$,$mw$NPT thread OD$mw$,$mw$NPTF$mw$,$mw$BSPP thread$mw$,$mw$G thread$mw$,$mw$BSPT$mw$,$mw$R thread$mw$,$mw$DIN 2353$mw$,$mw$ISO 8434-1$mw$,$mw$24 degree cone$mw$,$mw$bite ring$mw$,$mw$cutting ring$mw$,$mw$L series$mw$,$mw$S series$mw$,$mw$metric tube fitting$mw$,$mw$ISO 6149$mw$,$mw$metric ORB$mw$,$mw$JIS 30 degree flare$mw$,$mw$Komatsu fitting$mw$,$mw$SAE 45 degree flare$mw$,$mw$Code 61 flange dimensions$mw$,$mw$Code 62 flange dimensions$mw$,$mw$SAE J518$mw$,$mw$ISO 6162$mw$,$mw$split flange$mw$,$mw$flange O-ring size$mw$,$mw$ORB O-ring size$mw$,$mw$ORFS O-ring size$mw$,$mw$fitting almost fits$mw$,$mw$cross thread$mw$,$mw$thread pitch gauge$mw$,$mw$seat gauge$mw$,$mw$fitting torque$mw$,$mw$JIC torque flats$mw$,$mw$tube flaring 37 degree$mw$,$mw$bite ring assembly$mw$,$mw$hydraulic adapter$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SAE J514 (37° flare and straight thread O-ring boss), SAE J1926 / ISO 11926 (ORB ports), SAE J1453 (ORFS), SAE J518 / ISO 6162-1 and -2 (Code 61 and Code 62 flanges), ASME B1.20.1 (NPT) and SAE J476 (NPTF), ISO 228-1 and ISO 7-1 (BSPP and BSPT), DIN 2353 / ISO 8434-1 (24° cone tube fittings), ISO 6149 (metric ports), JIS B 8363 (30° flare); Parker Tube Fittings Division and Gates fitting identification guides and torque tables; Eaton Aeroquip and Brennan thread charts.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-fluids-types-and-compatibility$mw$, $mw$Hydraulic Fluids: Types and Compatibility, and Why an Oil Works in One Machine and Fails in Another: ISO 6743-4 and DIN 51524 Classes (HL, HLP, HVLP, HLPD), Zinc vs Zinc-Free Anti-Wear and the Pump Tests That Qualify an Oil, Viscosity Windows by Pump Type, VI Improvers and Shear, Engine Oils and Tractor Fluids with Wet-Brake Additives, Fire-Resistant HFA/HFB/HFC/HFDR/HFDU with Pump Derating, Biodegradable HETG/HEES/HEPG, Food Grade, Seal and Paint Compatibility, Foam, Air Release, Demulsibility, Varnish, Mixing and Fluid Conversion$mw$, $mw$The article to read before pouring anything into a reservoir: how hydraulic fluids are classed and what the letters on the drum promise, what the additive package does and which machines it hurts, why the pump maker's viscosity window and approval list matter more than the ISO grade, why a tractor fluid, an engine oil and an industrial AW oil are all called hydraulic oil and are not interchangeable, how fire-resistant and biodegradable fluids change the pump rating, the seals, the paint and the filters, how to read a seal compatibility chart before a fluid change, why one reservoir foams and another does not, what varnish is and why it stops servo valves, what happens when fluids are mixed, and how to convert a system from one fluid to another.$mw$, $mw$## Start with the machine, not the drum
+
+Three things decide whether a fluid works in a machine: **viscosity at the running temperature** (inside the pump maker's window, at start-up as well as at full heat), **the additive chemistry** (matched to the metals, seals and duty of the system) and **the fluid's approvals** (the pump maker's list or a named specification the fluid has passed). A fluid can be excellent and still wrong: the classic failures are a good industrial AW oil in a tractor with wet brakes (brake chatter), a zinc AW oil in a pump with silver-plated parts (corrosion), a high-VI multigrade in a high-shear piston pump (it thins permanently), an engine oil in a servo system (detergents hold water, varnish sticks the valve), a water-glycol at 3,000 psi in a pump rated for it only at 2,000, a mineral oil topped into an ester system (foam, seals), a PAG topped into a mineral system (gel). Every one of these has been called "a bad pump".
+
+![How the fluid families relate and where each belongs](/img/hydraulics/fluid-classes.svg)
+
+*How the fluid families relate and where each belongs*
+
+## Classes and what the letters mean
+
+| Class (ISO 6743-4 / DIN 51524) | What it is | Where it belongs | Where it fails |
+|---|---|---|---|
+| **HH** | Plain mineral oil, no additives | Nowhere modern | Rust, oxidation, wear |
+| **HL** (DIN 51524-1) | Mineral oil with rust and oxidation inhibitors (**R&O**), no anti-wear | Low-pressure systems, some old gear-pump units, systems with silver or where AW is banned; turbine-type duty | Vane and piston pumps above about 1,000-1,500 psi: scuffing |
+| **HM** (DIN **HLP**, 51524-2) | HL plus **anti-wear** additives (usually zinc dialkyldithiophosphate, **ZDDP**): the standard **AW hydraulic oil** | Industrial and mobile systems with vane, gear and piston pumps, indoor or steady temperature | Very wide temperature swings (use HV); machines that forbid zinc; wet brakes |
+| **HV** (DIN **HVLP**, 51524-3) | HM plus **viscosity index improvers** (VI 140-200) for a flatter viscosity-temperature curve | Mobile equipment outdoors, cold starts, machines that run cold and hot; "multigrade hydraulic" | High-shear piston pumps and servo valves can shear the VI improver permanently: check the **shear stability** (the viscosity after shear, DIN 51350-6 / ASTM D5621 or the 35VQ25 result) or the oil ends up two grades thin |
+| **HLPD** (DIN convention) | HLP with **detergent/dispersant** additives that keep water and dirt suspended | Machine tools and presses with water or coolant ingress, mobile machines with cyclic condensation: the water is carried through the filters and out rather than pooling; also cleans varnish | Systems that rely on water **settling** to the tank bottom (large industrial units with a drain routine); systems with fine filters that the suspended sludge blinds; hydrostatic drives that specify HLP |
+| **HG** | HM with anti-stick-slip (friction modifier) | Machine tool slideways fed from the hydraulic system | Elsewhere it is unnecessary |
+| **HEES, HETG, HEPG, HEPR** (ISO 15380) | Environmentally acceptable: saturated/unsaturated synthetic esters, vegetable oils, PAG, PAO | Forestry, marine, waterways, municipal | See the biodegradable section: heat, water, seals, mixing |
+| **HFAE, HFAS, HFB, HFC, HFDR, HFDU** (ISO 12922) | Fire-resistant | Foundries, steel mills, die-casting, mines, near furnaces | See the fire-resistant section: derating, temperature, seals |
+| **Zinc-free / ashless HM** | AW from sulphur-phosphorus chemistry without zinc | Pumps with silver or yellow-metal parts, some servo systems, environmentally sensitive, some makers' lists | Fine everywhere else; some are less good with water |
+
+The **ISO VG** number (32, 46, 68) is the viscosity at 40°C only: a fluid is named by its class **and** its grade: "HM 46", "HV 32", "HLPD 68". The grade answers the viscosity question; the class answers the chemistry question. Grade selection tables are in [oil viscosity and selection](/article/oil-viscosity-and-selection).
+
+## Anti-wear chemistry: zinc, zinc-free, and the pump tests
+
+**ZDDP** forms a sacrificial film on steel under boundary contact (vane tips on the cam ring, slippers on the swashplate). It also attacks **silver** (silver-plated bushings and bearing cages in some older piston pumps and certain servo valves), is aggressive to some **bronze** at high temperature and in the presence of water (the zinc compound hydrolyses to acids), and its ash forms deposits. **Zinc-free (ashless) AW** oils use sulphur-phosphorus or other chemistries: same or better wear protection in modern tests, kinder to yellow metals and silver, better filterability with water, and increasingly the default for servo and high-pressure piston systems. Neither is universally better: **the pump maker's specification** decides.
+
+The real qualification of a hydraulic oil is a **pump test**, not the class letters:
+
+| Specification | Test | What it guarantees |
+|---|---|---|
+| **Eaton Vickers 35VQ25** (M-2950-S mobile, I-286-S industrial) | A 35VQ25 vane pump run at 3,000 psi, 2,400 rpm, 200°F for 50 hours: cam ring and vane weight loss must be below the limits | The oil protects a vane pump at high pressure and temperature; the classic AW oil test |
+| **Parker Denison HF-0** | Vane (T6C) and piston (P46) pump tests, dry and **with 1% water**; plus filterability with water; HF-1 (piston only) and HF-2 (vane only) are its subsets | Suitable for both vane and piston pumps, and tolerates water contamination without losing filterability: the most demanding common approval |
+| **Bosch Rexroth RD 90220 / 90235** | Fluid rating for Rexroth pumps and motors; includes a piston pump test and requirements for cleanliness, air release, foam, filterability | Approved for Rexroth axial piston units |
+| **DIN 51524-2/-3** | FZG gear test (stage 10 or better), vane pump test (DIN 51389 / ASTM D2882: ring and vane wear under 120 mg), demulsibility, air release, foam, oxidation | Minimum quality for HLP/HVLP; most quality oils exceed it |
+| **ISO 11158 HM/HV**, ASTM D6158 | Similar minimums | |
+| **Cincinnati Machine P-68/P-69/P-70** | Thermal stability with copper and steel rods | Machine tool systems: no sludge or copper attack |
+
+A bargain "hydraulic oil" that lists none of these may be a re-refined HL with a little zinc: fine in a log splitter, a pump killer in a 4,000 psi piston system. If the machine's manual names a specification, buy a fluid that lists it on the data sheet.
+
+## Viscosity: the window that matters
+
+![Viscosity windows: each pump type has a cold-start limit and a running band](/img/hydraulics/viscosity-window-by-pump.svg)
+
+*Viscosity windows: each pump type has a cold-start limit and a running band*
+
+The pump sees the viscosity **at its own inlet temperature**, at start-up and at full heat. Typical limits (the maker's data sheet for the exact pump governs):
+
+| Pump type | Maximum at cold start (cSt) | Optimum running range (cSt) | Minimum at full temperature (cSt) | Below the minimum | Above the maximum |
+|---|---|---|---|---|---|
+| **Gear** | 1,000-2,000 | 20-100 | 10-12 | Internal leakage, wear of plates and bushings, loss of flow | Cavitation on the inlet, noisy, seal blow-out |
+| **Vane** | 850-1,000 | **16-40** (Eaton: 14-54) | **10-13** | Vane tip and ring scuffing, ring rippling, flow loss; vane pumps are the least tolerant of thin oil | Vanes fail to follow the ring (no oil film behind them), cavitation, chatter |
+| **Axial piston** | 1,000 (some 1,600 with a warm-up procedure) | **16-36** | **10** (some 8) | Slipper and valve-plate scoring, high case drain | Cavitation, slipper lift-off, **dry start damage** at low temperature; a cold piston pump must be warmed slowly at low pressure |
+| Servo and proportional valves | | 15-45 | 10 | Leakage and instability | Slow response, high pressure drop, sticking |
+| Hydrostatic transmissions | 1,000-1,600 (Danfoss: 1,600 cold start, max continuous 100) | 12-60 | 7-9 | Charge pressure lost, hot | Cavitation, charge pump starved |
+
+So: the reservoir temperature decides the grade. An indoor press at 120-130°F sump uses **HM 46** (about 28 cSt at 120°F); the same press running 160°F wants **HM 68**; a mobile machine started at 10°F and worked at 180°F wants **HV 46** (or HV 32 in the far north) because a straight HM 46 is 1,500 cSt at 10°F (over the piston pump's limit: cavitation and slipper damage until it warms) and an HM 68 is thicker still; a cold room forklift wants HV 32 or 22. The chart in [oil viscosity and selection](/article/oil-viscosity-and-selection) gives the temperature curves.
+
+**Viscosity index improvers** are long polymer molecules that uncoil as the oil warms and hold the viscosity up. Two costs: **temporary shear thinning** (the oil is thinner in a high-shear gap than its rating) and **permanent shear loss** (the molecules are chopped up by piston pumps and servo valves: a "46" that measures 35 after 500 hours). Quality HV oils use shear-stable polymers and lose under 10-15%; cheap ones lose a third. Where a machine is hot all the time (a stationary press in a heated plant) a straight HM is better than an HV: nothing to shear, higher oxidation life.
+
+## Engine oils, tractor fluids and ATF
+
+| Fluid | What it is | Why it works where it is specified | Why it fails elsewhere |
+|---|---|---|---|
+| **Engine oil (SAE 10W, 10W-30, 15W-40)** in a hydraulic system | A detergent-dispersant crankcase oil with ZDDP | Specified by some makers (older Cat machines, some trucks, shared engine/hydraulic sumps) because the fleet carries one oil, the detergents suspend soot and water, and the ZDDP level is high; 10W ≈ ISO 32-46 | In industrial systems: detergents **emulsify water** (it will not settle and drain: rust, filter blinding), poor air release (foam), high ash forms varnish on hot servo valves, and the viscosity grade is a rough fit; multigrades shear |
+| **Cat HYDO Advanced 10 / 30** | Cat's own hydraulic oil (a 10W or 30 with a defined additive pack) | Cat machines: matched to Cat pumps and a long drain | It is a mobile HV-type oil: fine in most mobile piston systems, not a servo or machine-tool oil |
+| **Cat TO-4, Allison C-4** | Transmission and drive train oils (friction-modified for wet clutches and brakes) | Transmissions, final drives and hydraulics on machines that call for TO-4 in the hydraulic tank too | The friction modifiers and high additive levels are wasted or harmful in industrial systems |
+| **UTTO / tractor hydraulic fluid** (John Deere Hy-Gard, Case Hy-Tran, New Holland Ambra, Kubota Super UDT, Massey Permatran) | Universal Tractor Transmission Oil: hydraulic oil plus gear oil plus **wet-brake and wet-clutch friction modifiers**, about ISO 46-68 viscosity with a multigrade curve | A tractor's hydraulics, transmission, differential and **oil-immersed brakes** share one sump; the friction modifiers stop the brakes **chattering and squealing** and give the PTO clutch its grip | Put an industrial HM 46 in the tractor: the pump is happy, the **brakes chatter** within days and the clutch packs glaze. Put UTTO in an industrial press: it works, but it is the wrong viscosity curve, the friction modifiers and EP additives are wasted, its demulsibility is poor and the maker's warranty is void |
+| **"303" tractor fluid** | An obsolete 1960s John Deere spec still sold generically | Nothing modern; often low quality | Brake and pump wear in tractors that call for a current UTTO |
+| **ATF (Dexron, Mercon)** | Automatic transmission fluid: low viscosity (ISO 32-ish), friction-modified, red dye, good cold flow | Power steering, some small power units, some snow-plough and tailgate pumps, machine tool circuits that specify it | In a 3,000 psi industrial system its viscosity is on the thin edge at temperature and its AW package is not tested for pumps |
+| **MIL-PRF-5606 (red), 83282, 87257** | Aviation mineral and synthetic hydrocarbon fluids, very low viscosity (ISO 15) | Aircraft, ground support equipment and some test rigs at −65°F | Too thin for an industrial pump at temperature |
+| **Brake fluid (DOT 3/4, glycol ether)** | Not a hydraulic oil at all | Automotive brakes with EPDM seals | Destroys nitrile seals, absorbs water, no lubricity: never in a hydraulic system |
+
+## Fire-resistant fluids
+
+Used where a spray from a burst hose would meet a furnace, molten metal, hot slag or a hot die. Each type changes the machine.
+
+| Type | Composition | Max temperature | Pump derating (typical) | Seals | Paint | Notes |
+|---|---|---|---|---|---|---|
+| **HFAE / HFAS** | 95% water, 5% oil emulsion or synthetic concentrate | 120°F (50°C) | Special pumps only (water-hydraulics); 500-1,000 psi | NBR ok | | Mines, roof supports; bacteria, corrosion, freezing |
+| **HFB** | Water-in-oil (invert) emulsion, 40% water | 120°F (50°C) | 30-50%, speed reduced | NBR | | Mining; water content must be checked (it evaporates) |
+| **HFC** | **Water-glycol**: 35-50% water, glycol, thickener, additives | **120-140°F (50-60°C)**; above that the water boils off and the fluid thickens | Pressure to about **2,000-2,500 psi** and speed to 1,200-1,800 rpm on most pumps (about 30-50% derating), roller bearings' life cut by 50-80% (some makers require special pumps); higher specific gravity (1.08): inlet conditions tighter (max 3-5 in Hg vacuum) | NBR and FKM ok; **not polyurethane** (hydrolyses) and check leather | Most epoxy and two-pack paints ok; alkyd and ordinary enamels lift and clog filters; zinc and cadmium plating attacked (no galvanised fittings, no zinc-plated filter bowls, no zinc AW additive mixing) | Steel mills, die casting, foundries; monitor **water content** (refractometer) and top up with distilled water, monitor pH and reserve alkalinity; filters rated for it; no mineral oil above 0.5% |
+| **HFDR** | **Phosphate ester** (synthetic) | 250°F (120°C) | None or little for pressure; some speed limits | **FKM (Viton), EPDM, PTFE, butyl only: destroys NBR and polyurethane in days** | Attacks most paints: epoxy-phenolic or unpainted inside | Steam turbine controls, some presses and aluminium die-casting; hydrolyses with water to acids (needs ion-exchange or Fuller's earth treatment), skin and eye irritant, denser than water (1.13) |
+| **HFDU** | **Polyol ester** (or PAG) synthetic, water-free | 220-250°F (105-120°C) | Little (specific gravity 0.92, close to oil) | NBR usually ok (check), FKM ok, some polyurethane not | Most paints ok | The modern replacement for HFC in many plants: near-mineral-oil pump life, biodegradable versions; costs 5-10× mineral oil |
+
+Converting a machine from mineral oil to HFC or HFDR is a **rebuild**: drain, flush, change seals (HFDR), change paint or strip the tank, change filters, check plating, derate the pump settings, retrain the operators for the water checks. A machine converted "by draining and filling" fails in the first month.
+
+## Biodegradable and food-grade fluids
+
+| Type | Base | Character | Compatibility |
+|---|---|---|---|
+| **HETG** | Vegetable (rapeseed, canola, soy) triglyceride | Cheap, very biodegradable, high VI, but poor oxidation stability (max 160°F), thickens and goes rancid, poor with water, low-temperature gelling | NBR ok, mixes with mineral oil (but then it is no longer biodegradable); short drain intervals |
+| **HEES** (unsaturated) | Synthetic ester | Better oxidation, wider temperature | Some swelling of NBR; check |
+| **HEES** (saturated) | Fully saturated synthetic ester | The good one: long life, 200°F+, high VI, excellent lubricity | NBR ok, FKM ok; some paint softening; mixes with mineral oil in small amounts; Panolin, Mobil EAL, Shell Naturelle class |
+| **HEPG** | **Polyalkylene glycol** | High VI, clean, water-soluble grades exist | **Not miscible with mineral oil or esters**: forms sludge and gel; attacks some paints and polyurethane; a full flush and seal review for conversion |
+| **HEPR** | PAO and related hydrocarbons | Mineral-like | Mixes with mineral oil; less biodegradable |
+| **Food grade H1 hydraulic** (NSF H1) | White mineral oil or PAO with H1-approved additives | Incidental food contact allowed; weaker AW packages than industrial oils (check pump approvals: some are HF-0 approved) | Keep the whole system H1 including the grease on the hoses; label; never top up with an H2 or industrial oil |
+
+Forestry and marine machines run HEES saturated esters with **the ester-rated filters and hoses** (ester swells some hose inner tubes and lifts some reservoir paints); the water limit is tighter (esters hydrolyse) and the drain interval set by oil analysis (acid number).
+
+## Seals and paint
+
+![Seal materials against fluid families: check before a fluid change](/img/hydraulics/fluid-seal-compatibility.svg)
+
+*Seal materials against fluid families: check before a fluid change*
+
+| Seal material | Mineral HM/HV | HFC water-glycol | HFDR phosphate ester | HFDU polyol ester | HEES ester | HEPG (PAG) | Brake fluid (glycol) | Temperature range |
+|---|---|---|---|---|---|---|---|---|
+| **NBR (Buna-N, nitrile)** | Yes | Yes | **No** (swells and softens in hours) | Usually (check) | Yes (check swell) | Check | No | −30 to 230°F (−35 to 110°C) |
+| **HNBR** | Yes | Yes | No | Yes | Yes | Check | No | −20 to 300°F |
+| **FKM (Viton, fluorocarbon)** | Yes | Yes (check grade) | **Yes** | Yes | Yes | Yes | No | 0 to 400°F (−20 to 200°C); poor at very low temperature |
+| **EPDM** | **No** (swells and dissolves in mineral oil) | Yes | **Yes** | No | No | Yes | **Yes** | −60 to 300°F |
+| **Polyurethane (AU/EU)** (rod and piston seals, wipers) | Yes, the standard | **No** (hydrolysis) | No | Check | Check | No | No | −30 to 200°F; hydrolyses with hot water in any fluid |
+| **PTFE (with an energiser)** | Yes | Yes | Yes | Yes | Yes | Yes | Yes | −300 to 500°F; no elastic memory: needs a back-up O-ring |
+| Leather, fabric-reinforced NBR | Yes | Check | No | | | | | Old cylinders |
+| Silicone | Static only | | | | | | | Not a hydraulic seal (poor tear strength) |
+
+Why a seal fails after a fluid change: the new fluid swells the compound (softens, extrudes, drags: EPDM in mineral oil grows 30-50% and turns to jelly), shrinks it (leaks), or leaches its plasticiser (hardens and cracks: NBR in phosphate ester). A **fluid conversion needs a seal list** for every cylinder, valve, pump shaft seal, accumulator bladder (NBR standard; FKM or EPDM for HFD and HFC respectively; check), hose inner tube (NBR standard; some hoses have polyurethane or thermoplastic tubes) and filter bowl seal. Ask the fluid supplier for the compatibility sheet for **their** fluid; charts differ by formulation.
+
+**Paint**: the inside of a reservoir painted with an alkyd enamel and filled with water-glycol or phosphate ester sheds flakes into the strainer within weeks. Epoxy and epoxy-phenolic linings resist most fluids; the safest tank for HFD is unpainted, pickled steel or stainless. Zinc-rich primers, galvanising and cadmium plating react with water-glycols to form soaps that blind filters: remove or avoid them.
+
+## Foam, air release, water and varnish: the fluid in the reservoir
+
+- **Foam** (bubbles on the surface) and **entrained air** (bubbles inside the oil) are different problems. Foam collapses with an **anti-foam** additive (silicone); too much anti-foam **slows air release** (the small bubbles stay in the oil). An oil can pass the foam test (ASTM D892) and fail air release (ASTM D3427: good hydraulic oils release air in under 5-10 minutes at 50°C). The same oil foams in one reservoir and not another because the reservoir is different: a small tank with a short dwell time, a return line above the surface, a suction close to the return, a pump inlet leak, a badly placed baffle. Fix the tank before changing the oil.
+- **Silicone contamination** (from a silicone sealant on a fitting or a hatch, a silicone grease, a silicone-based defoamer overdose) ruins an oil's air release across the whole system: foam that no new oil cures until the silicone is flushed out.
+- **Demulsibility** (ASTM D1401): an industrial HM oil should separate from water in under 30 minutes at 54°C, so water sinks to the tank bottom and is drained; an HLPD or an engine oil holds it as an emulsion (milky) on purpose. Choose which behaviour the machine needs: a large tank with a bottom drain wants demulsibility; a machine tool with coolant splashing in and no drain routine wants HLPD. Water limits: **under 200-500 ppm** for servo and piston systems; visible cloud at about 0.1%.
+- **Oxidation**: the oil's life halves for every 18°F (10°C) above about 140°F (60°C). Products: acids (rising acid number), sludge and **varnish** (a hard, thin, brown-to-black lacquer of oxidation products that come out of solution on cooler surfaces and in tight clearances). Varnish sticks **servo and proportional valve spools** (a machine that misbehaves first thing in the morning and cures itself when warm), blinds coolers, coats the tank walls and darkens sight glasses. Group II and III base oils (most modern oils) hold varnish precursors less well than old Group I oils, so hot systems now varnish sooner: keep the oil under 140°F, avoid micro-dieseling (air being compressed at the pump), fix electrostatic discharge (a crackling sound in fine filters on dry oil), test with **MPC (membrane patch colorimetry)** and RULER (remaining antioxidant), and clean with an electrostatic or resin varnish-removal loop before it becomes a valve problem.
+- **Additive depletion**: the AW, antioxidant and anti-foam packages are consumed; a 10-year-old oil that "looks fine" has none of them left. Oil analysis (see [oil analysis and sampling](/article/oil-analysis-and-sampling)) tracks the additive metals (zinc, phosphorus, calcium), the acid number, viscosity and water.
+
+## Mixing rules
+
+| Mixing | Result |
+|---|---|
+| Two mineral HM oils of different brands, same grade | Usually acceptable in an emergency; different additive packages can react (foam, haze, sludge); do not make a habit of it; log it |
+| HM 32 topped with HM 68 | A viscosity between: the pump gets an oil off its curve; drain and refill |
+| HM and HV | Acceptable: the VI improver is diluted, the cold performance lost |
+| Zinc AW into a zinc-free system | The silver or yellow-metal protection is lost; some servo makers void the warranty |
+| Mineral into HFC water-glycol | Gel and sludge; the AW zinc reacts with the water; filters blind; keep under 0.5% |
+| Mineral into HFDR phosphate ester | Foam, seal confusion, the fire resistance drops fast: keep under 1-2% |
+| Mineral into HFDU polyol ester or HEES | Tolerated in small amounts (a few percent) but the fluid loses its rating and its biodegradability |
+| Mineral, ester or PAO into HEPG (PAG) or PAG into any of them | **Not miscible**: gel, sludge, blocked filters, pump failure; full flush |
+| Detergent oil into a demulsifying system | The water it was settling out becomes an emulsion |
+| Anything into a food-grade H1 system | The whole charge is no longer H1 |
+
+## Converting a system to a different fluid
+
+![Used hydraulic fluid going to the waste drum: a conversion drains everything, and the old and new fluids never share a container](/photos/hydraulics/hydraulic-oil-drums.jpg)
+
+*Used hydraulic fluid going to the waste drum: a conversion drains everything, and the old and new fluids never share a container. Photo: MCSN James E. Veal, Public domain, via commons*
+
+1. Confirm with the pump, valve, cylinder, hose, filter and accumulator makers that every component is rated for the new fluid, and what derating and seal changes apply; get the fluid supplier's conversion procedure and compatibility sheet.
+2. Drain completely at operating temperature: reservoir, cylinders (full stroke, both ends), accumulators (discharged), coolers, filter housings, low points in the pipework; blow out lines that can be opened.
+3. Clean the reservoir by hand; strip incompatible paint; replace the breather and every filter element (with elements rated for the new fluid), the suction strainer, and the seals the makers list.
+4. Fill with a **flushing charge** of the new fluid (or the supplier's flushing fluid) to the minimum level, run at low pressure with all actuators cycling and the filter cart on for 4-8 hours warm, drain again completely; change the elements.
+5. Fill with the new fluid through a filter cart; run; sample after 24 hours and a week; test for the old fluid's residue (the supplier's test) and for water; re-set the relief and the compensator to the derated values if the new fluid requires it.
+6. Relabel the reservoir, the fill point and the drum store; brief everyone who tops up.
+
+## Reading a data sheet
+
+Check, in order: the **specifications and approvals** (35VQ25, HF-0, RD 90220, DIN 51524 part 2 or 3, the OEM's own number); the **viscosity at 40°C and 100°C** and the **VI** (draw the line on the temperature chart against the pump window); the **pour point** (at least 15-20°F below the coldest start); the **flash point** (safety); the **air release** (under 10 minutes), **foam** (low) and **demulsibility** (per the system's need); the **shear stability** for HV; the **zinc content** (ppm; zero for zinc-free); the **seal compatibility statement**; and the **FZG** load stage for gear pumps and hydrostatic drives. A sheet that lists only "meets or exceeds industry standards" tells you nothing.
+
+## Common mistakes
+
+- Industrial HM 46 in a tractor with wet brakes: the brakes chatter in a week.
+- Tractor UTTO in a press because "it is hydraulic oil".
+- An HV multigrade in a hot stationary piston system: it shears to a 32 and the pump runs hot.
+- A straight HM 68 in a mobile machine started at 10°F: cavitation and slippers every winter.
+- Engine oil in a servo system: varnish and a sticking valve.
+- Water-glycol at mineral-oil pressure and speed: pump bearings gone in months.
+- Phosphate ester with nitrile seals: everything leaks within days.
+- PAG topped up with mineral oil, or the reverse: gel in the filters.
+- Silicone sealant on a tank hatch: permanent foam.
+- Judging a fluid by its colour or its price instead of its approvals.
+- Converting fluid by draining and filling, with the old paint, old seals and old elements.
+
+## Related
+
+- [Oil viscosity and selection](/article/oil-viscosity-and-selection)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Oil analysis and sampling](/article/oil-analysis-and-sampling)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Seal failure](/article/seal-failure)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Grease types and compatibility](/article/grease-types-and-compatibility)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic fluid$mw$,$mw$hydraulic oil types$mw$,$mw$ISO 6743-4$mw$,$mw$HM$mw$,$mw$HV$mw$,$mw$HL$mw$,$mw$HG$mw$,$mw$DIN 51524$mw$,$mw$HLP$mw$,$mw$HVLP$mw$,$mw$HLPD$mw$,$mw$AW hydraulic oil$mw$,$mw$anti-wear additive$mw$,$mw$ZDDP$mw$,$mw$zinc free hydraulic oil$mw$,$mw$ashless hydraulic oil$mw$,$mw$Denison HF-0$mw$,$mw$HF-1$mw$,$mw$HF-2$mw$,$mw$Eaton 35VQ25$mw$,$mw$Vickers 35VQ25 pump test$mw$,$mw$Bosch Rexroth RD 90220$mw$,$mw$viscosity window$mw$,$mw$pump viscosity limits$mw$,$mw$cold start viscosity$mw$,$mw$viscosity index improver$mw$,$mw$shear stability$mw$,$mw$multigrade hydraulic oil$mw$,$mw$engine oil in hydraulics$mw$,$mw$10W hydraulic$mw$,$mw$Cat HYDO$mw$,$mw$TO-4$mw$,$mw$UTTO$mw$,$mw$tractor hydraulic fluid$mw$,$mw$Hy-Gard$mw$,$mw$wet brake chatter$mw$,$mw$ATF hydraulic$mw$,$mw$Dexron$mw$,$mw$fire resistant hydraulic fluid$mw$,$mw$HFA$mw$,$mw$HFB$mw$,$mw$HFC$mw$,$mw$water glycol$mw$,$mw$HFDR$mw$,$mw$phosphate ester$mw$,$mw$HFDU$mw$,$mw$polyol ester$mw$,$mw$pump derating water glycol$mw$,$mw$biodegradable hydraulic fluid$mw$,$mw$HETG$mw$,$mw$HEES$mw$,$mw$HEPG$mw$,$mw$PAG hydraulic$mw$,$mw$food grade hydraulic oil H1$mw$,$mw$MIL-PRF-5606$mw$,$mw$brake fluid$mw$,$mw$seal compatibility$mw$,$mw$NBR$mw$,$mw$FKM$mw$,$mw$Viton$mw$,$mw$EPDM$mw$,$mw$polyurethane seals$mw$,$mw$PTFE$mw$,$mw$HNBR$mw$,$mw$paint compatibility$mw$,$mw$foaming hydraulic oil$mw$,$mw$air release$mw$,$mw$demulsibility$mw$,$mw$detergent hydraulic oil$mw$,$mw$varnish$mw$,$mw$servo valve sticking$mw$,$mw$oil oxidation$mw$,$mw$mixing hydraulic oils$mw$,$mw$fluid conversion$mw$,$mw$hydraulic oil data sheet$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 6743-4 and ISO 11158 (hydraulic fluid classes and specifications); DIN 51524 parts 1-3 (HL, HLP, HVLP) and the HLPD convention; ISO 12922 (fire-resistant fluids) and ISO 15380 (environmentally acceptable fluids); Parker Denison HF-0/HF-1/HF-2 specification, Eaton Vickers 35VQ25 (I-286-S, M-2950-S) and Bosch Rexroth RD 90220/90221 fluid requirements; Eaton Vickers and Parker pump viscosity limits; Caterpillar, John Deere and Case IH fluid specifications (HYDO Advanced, TO-4, Hy-Gard, Hy-Tran); Parker O-ring handbook and Trelleborg seal compatibility data; Noria/Machinery Lubrication guidance on varnish, air release and foam; ASTM D892, D3427, D1401, D2882 test methods.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -5082,9 +5757,307 @@ Check weekly on machines, at every PM on plants: **cover cracks and abrasion** (
 - [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Hydraulic fitting identification and thread tables](/article/hydraulic-fitting-identification-and-thread-tables)
 - [Thread identification and gauges](/article/thread-identification-and-gauges)
 - [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulic hose$mw$,$mw$hydraulic fittings$mw$,$mw$100R1$mw$,$mw$100R2$mw$,$mw$100R12$mw$,$mw$100R13$mw$,$mw$hose pressure rating$mw$,$mw$hose dash size$mw$,$mw$hose layline$mw$,$mw$JIC fitting$mw$,$mw$37 degree flare$mw$,$mw$ORFS$mw$,$mw$O-ring face seal$mw$,$mw$ORB$mw$,$mw$O-ring boss$mw$,$mw$NPT hydraulic$mw$,$mw$BSPP$mw$,$mw$flange fitting code 61$mw$,$mw$code 62$mw$,$mw$metric hydraulic fitting$mw$,$mw$thread identification hydraulic$mw$,$mw$hose crimp$mw$,$mw$crimp diameter$mw$,$mw$reusable fitting$mw$,$mw$hose length$mw$,$mw$hose bend radius$mw$,$mw$hose routing$mw$,$mw$hose torque$mw$,$mw$hydraulic leak$mw$,$mw$hose inspection$mw$,$mw$hose replacement$mw$,$mw$STAMPED$mw$]::text[], $mw$Parker / Gates / Eaton (generic)$mw$, array[$mw$SAE 100R1AT$mw$,$mw$100R2AT$mw$,$mw$100R12$mw$,$mw$100R13$mw$,$mw$100R16$mw$,$mw$100R17$mw$,$mw$Parker 43 series$mw$,$mw$Gates MegaCrimp$mw$,$mw$Code 61$mw$,$mw$Code 62$mw$,$mw$JIC 37$mw$]::text[], $mw$SAE J517 (100R series hose working pressures and bend radii, as published in Parker and Gates hose catalogues); SAE J514 (37° flare and ORB), SAE J1453 (ORFS), SAE J518 (Code 61/62 flanges), ASME B1.20.1 (NPT); Parker fitting identification guide and torque tables; Gates hydraulic hose assembly and STAMPED guidance; NAHAD hose assembly guidelines.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-motors-and-hydrostatic-drives$mw$, $mw$Hydraulic Motors and Hydrostatic Drives: Gear, Gerotor and Orbital, Vane, Axial and Radial Piston Motors, Case Drains, Freewheeling and Shaft-Seal Limits, Torque and Speed Math, Closed-Loop Hydrostatic Transmissions (Charge Pump and Charge Pressure, Charge Relief, Cross-Port Reliefs, Flushing Valve, Neutral and Displacement Adjustment, Tow Bypass), the Diagnostic Sequence (Charge Pressure First) and the Symptoms of a Dying Hydrostat$mw$, $mw$The rotary half of hydraulics: how each motor type makes torque, what its case drain, back-pressure and shaft-seal limits are and why motors die of a plugged drain, how to calculate torque and speed and check them against a flow meter, and the closed-loop hydrostatic transmission that drives loaders, skid steers, combines, mowers and rollers: what every valve in the loop does, why the charge pressure is the first reading in any hydrostatic diagnosis, how to adjust neutral and displacement, and the symptom list that separates a tired pump from a tired motor from a leaking loop.$mw$, $mw$## Motor types
+
+![Orbital (gerotor) motor on a machine: the nameplate gives displacement, pressure and the case-drain requirement](/photos/hydraulics/hydraulic-motor.jpg)
+
+*Orbital (gerotor) motor on a machine: the nameplate gives displacement, pressure and the case-drain requirement. Photo: Simiprof, CC0, via commons*
+
+| Type | How | Speed range | Torque | Pressure | Efficiency | Notes |
+|---|---|---|---|---|---|---|
+| **Gear** | An external gear pump run backwards | 500-3,000 rpm | Low | 2,000-3,000 psi | 80-85% overall | Cheap, tolerant, poor at low speed (cogging, low starting torque: about 70% of running); fans, conveyors, augers |
+| **Gerotor / geroler (orbital, LSHT)** (Char-Lynn, Danfoss OMP/OMR/OMS, White) | An inner rotor orbits inside a fixed outer ring with rollers; a valve (spool or disc) commutates the flow; the orbiting motion is taken out through a **dogbone (drive link)** | 10-800 rpm | High at low speed | 2,000-3,000 psi; to 4,500 on heavy series | 75-85% | The universal wheel, auger, conveyor and winch motor; 1-40 in³/rev; a spline or a splined dogbone that strips is the classic failure; needs a case drain above about 100-300 psi return pressure (a **drain port** on most) |
+| **Vane** | Vanes held out by springs (a motor cannot rely on centrifugal force at start) | 100-2,500 rpm | Medium | 2,000-2,500 psi | 80-85% | Quiet, smooth; machine tools, winches; contamination-sensitive |
+| **Axial piston, swashplate** (fixed or variable) | The pump in reverse; a variable motor changes its displacement to give a two-speed or stepless output (small displacement = high speed, low torque) | 50-5,000 rpm | High | 4,000-6,000 psi | 90-95% | Hydrostatic drive motors, winches, mixers, presses' rotary tables; always a case drain; contamination-sensitive |
+| **Bent axis piston** (fixed or variable) | Barrel angled to the shaft; the most efficient motor | 50-8,000 rpm | Very high | 5,000-6,500 psi | 92-96% | Track drives, excavator swing and travel, winches, two-speed wheel motors |
+| **Radial piston (cam lobe, multi-lobe) LSHT** (Poclain, Hägglunds, Rexroth MCR, Black Bruin) | Pistons push rollers against a multi-lobe cam ring; enormous torque at a few rpm, often direct-drive onto a wheel or a drum | 0.5-300 rpm | Enormous (to 100,000+ ft-lb) | 4,000-6,500 psi | 90-95% | Wheel motors on rollers and harvesters, mill drives, conveyor pulleys, winches; two-speed by disabling half the pistons; a **freewheel** position for towing |
+| **Wheel motor / track drive** (a motor with an integral planetary gearbox and a parking brake) | A piston or orbital motor plus a 20:1-100:1 reduction and a spring-applied, pressure-released **brake** | | | | | The brake needs 200-400 psi to release: no charge pressure = a locked wheel; the gearbox has its own oil |
+
+**Torque and speed**:
+
+```
+   Torque (in-lb) = displacement (in³/rev) × ΔP (psi) ÷ (2π) × ηm       (ηm mechanical efficiency 0.85-0.95; divide by 12 for ft-lb)
+   Speed (rpm) = flow (gpm) × 231 ÷ displacement (in³/rev) × ηv          (ηv volumetric efficiency 0.90-0.97)
+   Output hp = torque (ft-lb) × rpm ÷ 5,252
+   Metric: T (N·m) = V (cm³/rev) × Δp (bar) ÷ 62.8 × ηm;   n (rpm) = Q (L/min) × 1000 ÷ V × ηv
+```
+
+Example: an orbital motor of 12.2 in³/rev (200 cm³) fed 10 gpm at a 2,000 psi drop, ηv 0.92, ηm 0.88: speed = 10 × 231 ÷ 12.2 × 0.92 = **174 rpm**; torque = 12.2 × 2,000 ÷ 6.28 × 0.88 = **3,420 in-lb (285 ft-lb)**; 9.4 hp. If the flow meter shows 10 gpm going in and the motor turns at 120 rpm, ηv is 0.63: the motor is worn (or the case drain will show it: over 10% of the inlet flow).
+
+**Starting torque** is lower than running torque (50-70% for gear and gerotor motors, 80-90% for piston motors): a load that just moves at speed may not start; a motor that has to start under load is sized on its starting torque.
+
+## Case drain, back-pressure and the shaft seal
+
+- Piston motors and most orbital motors have a **case drain** (a port marked L, T1, or a small hose to tank) because their internal leakage collects in the case and their **shaft seal is rated for only 15-150 psi (1-10 bar)** depending on the type. The drain must go **straight to tank, unrestricted, not into the return line** (a return line carries back-pressure from filters and coolers: 50-150 psi, spikes to 300; that pressure sits on the shaft seal). A **blown shaft seal** (oil pouring from the shaft) is almost always a case pressure problem: a plugged, kinked, undersized or wrongly connected drain, a motor run with the return blocked, or a drain line frozen or filled with a return pulse.
+- **Back-pressure** at the motor outlet reduces the ΔP (and so the torque) one-for-one, and on orbital motors without a drain (some small ones drain internally to the low-pressure port) it acts on the shaft seal: check the maker's limit (often 75-300 psi with a drain, less without).
+- **Freewheeling**: a motor driven by its load (a fan coasting, a vehicle rolling) becomes a pump; if the inlet is blocked it cavitates and destroys itself, and if the outlet is blocked it stalls with a pressure spike. Motor circuits need a **motor spool** (both ports to tank at centre) or **cross-port reliefs with anti-cavitation checks**, and a **make-up** supply. A fan motor that screams when the valve centres is cavitating.
+- **Case drain flow** as a wear test: same as pumps, at working pressure and speed; under about 5-10% of the inlet flow is healthy (the maker's number governs); a hot case is a leaking motor.
+- **Shaft loads**: a sprocket or pulley overhung on a motor shaft not rated for side load kills the bearing in months; check the catalogue's radial load at the shaft position; use an outboard bearing.
+- **Speed limits**: orbital motors have a maximum (the commutator valve's), and a minimum for smooth running (under about 10 rpm the leakage makes them jerky: cogging); a two-speed piston motor must not be shifted at full speed under load unless designed for it.
+
+## Hydrostatic transmissions (closed loop)
+
+![Closed-loop hydrostatic transmission: every valve in the loop](/img/hydraulics/hydrostatic-drive-loop.svg)
+
+*Closed-loop hydrostatic transmission: every valve in the loop*
+
+An **HST** connects a variable-displacement over-centre piston pump to one or more motors in a **closed loop**: the motor's return goes straight back to the pump inlet, not to tank. The pump's swashplate angle sets speed and direction (over centre = reverse), so there is no directional valve, no relief dumping to tank, and the machine has stepless speed, dynamic braking and reversing with one lever. Everything else in the circuit exists to keep the loop full, cool and protected:
+
+| Component | Job | Typical value | Fault |
+|---|---|---|---|
+| **Charge pump** (a small gear or gerotor pump on the back of the main pump, 10-20% of main flow) | Replaces the loop's leakage (the pump's and the motor's case drain), keeps the low-pressure side full (no cavitation), supplies the **servo control** that moves the swashplate, releases the brakes, feeds the flushing valve | | Worn charge pump = low charge pressure = everything below |
+| **Charge pressure** (measured at the charge gauge port with the loop in neutral and at full stroke under load) | The pressure of the low side of the loop | **200-350 psi (14-24 bar)** in neutral for most machines (Danfoss 90: 320-370; small mowers 60-150; check the manual), dropping no more than 10-15% under full load | **Low charge pressure**: no drive, weak, cavitation, sluggish response, brakes dragging; **the first reading in any hydrostatic fault** |
+| **Charge relief** | Sets the charge pressure, dumping the excess into the pump case (to flush and cool it) | As above | Stuck open: low charge; stuck shut: high case pressure, blown seals |
+| **Charge (suction) filter** and the **reservoir** | The charge pump's inlet from the tank (a 10 µm filter, often with a bypass and an indicator or a vacuum gauge) | Vacuum under 5-10 in Hg | A blinded charge filter starves the charge pump: low charge pressure hot, fine after a filter change: the classic |
+| **Loop check valves (make-up checks)** | Let charge oil into whichever side of the loop is low | | Stuck or leaking: one direction weak or charge pressure falls in one direction only |
+| **High-pressure (cross-port) reliefs** (often combined with the checks as **multi-function valves**) | Limit the loop pressure by passing oil from the high side to the low side (a short circuit, not to tank): protects against shock and stall, and **make heat fast** if held open | 4,000-6,500 psi (280-450 bar) | A stalled machine sits on the reliefs: the oil temperature climbs 10°F a minute; a relief that leaks = weak in that direction and hot |
+| **Pressure limiter / pressure override** (on the pump control) | Destrokes the pump before the reliefs open: efficient stall | Set 200-500 psi below the reliefs | Set above the reliefs: heat at stall |
+| **Bypass (tow) valve** | Opens the loop across so the machine can be pushed or towed with the engine dead | A screw or a lever on the pump or the multi-function valves | Left open: no drive; towing without it: the motors pump and cavitate |
+| **Loop flushing (hot oil shuttle) valve** in the motor (or the pump) | A shuttle picks the low-pressure side and bleeds a set flow (1-3 gpm) through a small **flushing relief** (set slightly below the charge relief) into the motor case and back to the cooler: exchanges the hot loop oil for cool charge oil | Flushing relief about 20-40 psi below charge | Stuck shuttle: no flushing, the loop overheats; the flushing relief set above charge: same; set too low: it steals charge pressure |
+| **Case drains** on the pump and motors | Back to the cooler and tank; the case pressure limit 40-70 psi | | A restricted drain: shaft seal blown, charge relief cannot dump |
+| **Cooler** on the case drain and charge return | The only place heat leaves a closed loop | Oil under 180°F (80°C) at the case drain; the reservoir under 160°F | A fouled cooler on a hydrostatic machine shows first as loss of power hot |
+| **Servo control / displacement control** (manual, hydraulic pilot, electric proportional, EDC) with a **neutral (centring) mechanism** | Moves the swashplate; springs return it to neutral | | Neutral out of adjustment: **creep** (the machine moves with the lever centred); a servo piston leaking: sluggish, drifts |
+| **Displacement (stroke) limiters** | Set the maximum swashplate angle each way | | Screwed in: top speed lost |
+| **Speed sensors, pressure sensors, EDC coils** | On electronic controls | | A failed sensor puts the control in limp mode |
+
+Two-motor and multi-motor loops (skid steers: two pumps and two motors; combines: one pump, one motor; rollers: one pump, two wheel motors in parallel with a flow divider or an anti-spin valve) follow the same rules.
+
+### The diagnostic sequence
+
+![Hydrostatic drive unit on a compactor drum: the hoses are the loop, the small ones the case drain and charge](/photos/hydraulics/hydrostatic-transmission.jpg)
+
+*Hydrostatic drive unit on a compactor drum: the hoses are the loop, the small ones the case drain and charge. Photo: Vivan755, CC BY-SA 3.0, via commons*
+
+1. **Oil level, filter indicator, cooler condition, oil temperature, the tow valve position**, and whether anyone has adjusted anything.
+2. **Charge pressure** at the charge gauge port: in neutral at low idle and at high idle (it should be at the manual's value, and steady); then with the machine driving against a load or stalled against a bank at full stroke (it should drop no more than about 10-15%). Low in neutral = the charge pump, the charge relief, the charge filter, the suction line, the level, or a leak somewhere the charge pump cannot keep up with (a pump case drain running high). Good in neutral but **collapsing under load** = the loop is leaking faster than the charge pump can make up: a worn pump or motor (go to step 4), a leaking multi-function valve or flushing valve, a stuck loop check.
+3. **High pressure** at the loop gauge ports (one each side; system pressure gauges 0-6,000 psi): stall the machine gently against a solid object (brakes on) in forward and reverse: the pressure should reach the relief/limiter setting and hold. Low in one direction only = that side's relief or check; low both = the pump's limiter or a worn pump; reaches setting but the machine is weak = the motor or the brakes or the mechanical drive.
+4. **Case drain flow** of the pump and the motor separately, at working pressure and temperature, into a measure (the case must remain full: keep the outlet high). More than about 10% of the rated flow (or the manual's number: for a Series 90 pump roughly 2-3 gpm at stall is the limit for the smaller frames) = worn. A motor case drain that rises with pressure is a worn motor; a pump whose charge pressure falls under load with a low motor drain is a worn pump.
+5. **Neutral and creep**: with the wheels off the ground (or the machine chocked and the drive disconnected), engine at idle, lever centred, the loop gauges should read equal (both at charge pressure); if one side is higher the pump is off neutral: adjust per the manual (the neutral adjustment screw or eccentric on the control, with the linkage disconnected so you are adjusting the pump and not the linkage; then set the linkage). Creep that appears only hot = a servo piston or control valve leaking.
+6. **Response and top speed**: slow to respond = low charge pressure, a servo control problem, air in the servo lines, an EDC coil or its current; low top speed = stroke limiters, the engine speed, the motor's displacement (a two-speed motor stuck in slow), a worn pump.
+7. **Heat**: over 180°F at the case drain: the flushing valve, the cooler, the reliefs (a machine that works against its reliefs all day, e.g. a stalled auger), the oil viscosity, the charge relief dumping too much.
+8. Write the numbers on the job card: charge in neutral, charge under load, high pressure each direction, case drain, temperatures.
+
+### Symptoms
+
+| Symptom | Likely | Test |
+|---|---|---|
+| No drive either direction, engine fine | Tow valve open, charge pressure zero (charge pump, coupling, a sheared key or spline between the engine and the pump, the charge filter), the control linkage disconnected, brakes not releasing (charge pressure) | Charge gauge |
+| No drive in one direction | That side's multi-function valve (relief or check) stuck or leaking, a servo pilot line for that direction, the control valve | Loop gauges each direction |
+| Weak, slow, gets worse hot | Worn pump or motor (case drain), low charge hot (filter, thin oil), the cooler | Case drain hot; charge under load |
+| Creeps in neutral | Neutral adjustment, linkage, a servo leak, a control valve worn, a stuck shuttle in the flushing valve pushing the loop pressures apart | Loop gauges equal in neutral? |
+| Jerky, surging, oscillating | Air in the servo lines or the loop (after a repair: bleed), low charge pressure, an EDC fault, a sticking control spool, a flushing valve hunting | Charge gauge needle steady? |
+| Loses power at temperature, recovers cool | Charge filter blinding hot, the cooler, internal leakage rising with thin oil (worn parts), the wrong viscosity | Charge under load hot vs cold |
+| Overheats | Flushing valve, cooler, relief operation, viscosity, a leaking multi-function valve circulating oil across the loop, the machine worked at stall | Case drain temperature; the flushing relief setting |
+| Oil from the pump or motor shaft | Case pressure: drain restricted, charge relief dumping into a blocked case line, a return connected to the case | Case pressure gauge (should be under about 40 psi) |
+| Noise: whine | Charge pump cavitating (filter, suction, level, cold thick oil) | Vacuum at the charge inlet |
+| Noise: knock or growl under load | Pump or motor failing internally, a spline or dogbone worn | Case drain; metal in the filter |
+| One wheel slips, the other stalls | The anti-spin / flow divider, or one motor worn (its case drain) | Compare motor case drains |
+| Brakes drag, machine sluggish and hot | Brake release pressure (from charge) low, a brake valve, a brake stuck | Pressure at the brake port |
+
+### Repair notes
+
+- **Cleanliness**: a closed loop cannot filter its own oil (the loop oil only passes the filter through the flushing and case-drain path); ISO 18/16/13 or better; a failed pump or motor spreads metal through the loop, the cooler and the other unit: **flush the cooler and lines, change the filters, and inspect the other unit** (often replaced as a pair on small machines).
+- **Start-up after a pump or motor change**: fill the cases through the top drain ports, fill the loop lines and the charge filter, bleed the servo lines, start at low idle with the machine on stands or chocked and the tow valve closed, check charge pressure within seconds (stop if it is not there in 10-15 seconds), run in neutral 5-10 minutes, then slowly stroke each way with no load, watch the charge pressure, then load gradually; check the neutral; change the filter after the first hours.
+- **Adjustments** (neutral, charge relief, high-pressure reliefs, displacement limiters, pressure limiter, flushing relief) are all interdependent and all in the manual with a specified sequence; never turn a relief up to cure weakness.
+- Small **integrated hydrostats** (mowers, garden tractors: Hydro-Gear, Tuff Torq) are sealed units with a shared oil sump and an internal filter or screen; they die of old oil, air, a slipping input pulley, and towing without the bypass; purge air after any oil change exactly per the maker (a lever-and-wheel procedure), or they will not drive.
+
+## Common mistakes
+
+- Motor case drain teed into the return line: shaft seal blown.
+- A fan or vehicle motor on a spool that blocks its ports: cavitation on every stop.
+- A hydrostatic fault chased for a day without reading the charge pressure.
+- Turning up the high-pressure reliefs to "get more power": the loop cooks.
+- Towing a hydrostatic machine without opening the bypass.
+- Neutral adjusted at the linkage with the pump off neutral.
+- A new pump fitted to a loop full of the old motor's metal.
+- Air left in the servo lines after a repair, then a "control fault".
+- A sprocket overhung on a motor shaft rated for no side load.
+
+## Related
+
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic motor$mw$,$mw$gear motor$mw$,$mw$gerotor motor$mw$,$mw$orbital motor$mw$,$mw$Char-Lynn$mw$,$mw$Danfoss OMP$mw$,$mw$vane motor$mw$,$mw$axial piston motor$mw$,$mw$bent axis motor$mw$,$mw$radial piston motor$mw$,$mw$LSHT motor$mw$,$mw$low speed high torque$mw$,$mw$cam lobe motor$mw$,$mw$motor case drain$mw$,$mw$motor freewheeling$mw$,$mw$motor back pressure$mw$,$mw$motor shaft seal$mw$,$mw$hydraulic motor torque$mw$,$mw$motor displacement$mw$,$mw$motor speed calculation$mw$,$mw$motor volumetric efficiency$mw$,$mw$hydrostatic transmission$mw$,$mw$hydrostatic drive$mw$,$mw$closed loop hydraulic$mw$,$mw$HST$mw$,$mw$charge pump$mw$,$mw$charge pressure$mw$,$mw$charge relief$mw$,$mw$charge filter$mw$,$mw$cross port relief$mw$,$mw$high pressure relief$mw$,$mw$multi-function valve$mw$,$mw$flushing valve$mw$,$mw$hot oil shuttle$mw$,$mw$loop flushing$mw$,$mw$neutral adjustment$mw$,$mw$hydrostatic creep$mw$,$mw$displacement control$mw$,$mw$servo control$mw$,$mw$tow valve$mw$,$mw$bypass valve$mw$,$mw$hydrostatic troubleshooting$mw$,$mw$skid steer hydrostat$mw$,$mw$zero turn mower hydrostat$mw$,$mw$combine hydrostatic$mw$,$mw$wheel motor$mw$,$mw$track drive motor$mw$,$mw$two speed motor$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Danfoss (Sauer-Danfoss) Series 90, Series 40 and H1 service manuals and Hydrostatic Transmission Troubleshooting Guide (charge pressure, case drain, adjustment and test procedures); Danfoss OMP/OMR/OMS orbital motor technical information; Eaton Vickers Mobile Hydraulics Manual (motor types, closed-loop circuits); Eaton (Char-Lynn) motor service data; Parker and Bosch Rexroth motor catalogues (case drain and shaft seal limits); Hydro-Gear and Tuff Torq service manuals (small hydrostats); Fluid Power Society technician manuals.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-pumps-types-controls-and-testing$mw$, $mw$Hydraulic Pumps: Gear, Vane and Piston Types Compared, Variable-Displacement Controls (Pressure Compensator, Load Sensing, Torque Limiter), Reading the Nameplate and Displacement Math, the Case-Drain and Flow-Meter Tests That Prove a Pump Is Worn, Cavitation vs Aeration, Start-Up After a Pump Change and Pump Failure Analysis$mw$, $mw$How each pump type works, wears and fails, what the controls on a variable-displacement pump actually do and in what order they are set, how to read a nameplate and calculate what the pump should deliver, the two tests that separate a worn pump from a circuit problem (case drain flow and flow at pressure), the difference between cavitation and aeration by sound and damage, the start-up sequence that keeps a new pump alive, and what the wear pattern on a dead pump tells you.$mw$, $mw$## The rule that governs every pump test
+
+A pump makes **flow**. Resistance makes pressure. So a pump is judged by **how much flow it still delivers at working pressure**, never by the gauge reading alone: a badly worn pump can still show full pressure against a dead-headed cylinder because a trickle of flow is enough to hold a gauge, and the machine is slow. The whole of this article comes back to that one test.
+
+```
+   Theoretical flow (gpm) = displacement (in³/rev) × rpm ÷ 231
+   Volumetric efficiency ηv = actual flow at pressure ÷ theoretical flow      (new: 0.90-0.97; replace at about 0.80-0.85)
+   Input hp = gpm × psi ÷ (1714 × overall efficiency)                          (overall 0.80-0.90 new)
+   Metric: L/min = cm³/rev × rpm ÷ 1000
+```
+
+## Pump types
+
+![Bent-axis piston pump sectioned: the pistons stroke in the barrel because it sits at an angle to the shaft](/photos/hydraulics/piston-pump-cutaway.jpg)
+
+*Bent-axis piston pump sectioned: the pistons stroke in the barrel because it sits at an angle to the shaft. Photo: StromBer, CC BY 3.0, via commons*
+
+| Type | How it works | Pressure (continuous) | Efficiency (new) | Tolerates | Typical use | How it fails |
+|---|---|---|---|---|---|---|
+| **External gear** | Two meshing gears carry oil round the outside of the teeth from inlet to outlet; the mesh seals it | 2,500-3,500 psi (170-240 bar); some to 4,000 | ηv 0.85-0.92 | Dirt best of all, aeration moderately, cheap to replace | Mobile equipment, log splitters, power units, lube pumps | Wear plates (side plates) score, then the gears cut into the housing on the inlet side ("track"); flow falls gradually; noisy at the end |
+| **Internal gear / crescent** | Pinion inside a ring gear, a crescent separates inlet from outlet | 3,000-4,500 psi | 0.90-0.95 | Dirt fairly well | Quiet industrial units, presses, machine tools, injection moulding | Crescent and side plates wear; quiet until suddenly weak |
+| **Gerotor** | Inner rotor one tooth fewer than the outer, no crescent | To about 2,000 psi | 0.80-0.90 | | Charge pumps, lube, low-pressure circuits | Rotor tips score |
+| **Vane (fixed)** | Vanes in a slotted rotor slide against a cam ring; a **cartridge** (ring, rotor, vanes, port plates) is the wear kit | 2,000-3,000 psi (intra-vane to 3,000-4,000) | 0.90-0.95 | Dirt poorly (vane tips and ring), aeration badly | Industrial power units, machine tools, injection moulding | Ring scores or ripples, vane tips wear, port plates score; whines; replace the cartridge (1-2 hours) |
+| **Vane (pressure-compensated variable)** | The ring is moved off-centre by a spring; system pressure pushes it back to reduce displacement at the set pressure | To about 2,000-2,500 psi | 0.85-0.92 | | Small industrial units where a fixed pump would overheat | Compensator spring, ring pivot; hunting |
+| **Axial piston, swashplate** | Pistons in a rotating barrel ride shoes (slippers) on an angled plate; the angle sets the stroke, so the displacement can be varied by tilting the plate | 3,000-5,000 psi (210-350 bar); some to 6,000 | 0.93-0.97 | Dirt badly (slippers, valve plate, control spool); aeration badly | Presses, mobile main pumps, hydrostatic drives, injection moulding | Slipper faces and swashplate score, valve plate and barrel face score, piston-to-bore wear; case drain rises; hot case; failure spreads metal everywhere |
+| **Axial piston, bent axis** | The barrel is angled to the shaft; pistons stroke by the angle | 5,000-6,500 psi | 0.95-0.97 | | Mobile motors and high-pressure pumps (winches, excavator travel) | Same as above; tapered pistons and rings |
+| **Radial piston** | Pistons stroke radially against a cam or eccentric | 6,000-10,000 psi (400-700 bar) and above | 0.95+ | | Presses, clamping, test rigs, low flow at very high pressure | Cam wear; individual piston check valves |
+| **Hand pump** | Single or two-stage piston | To 10,000 psi | | | Jacks, test, emergency | Check valves |
+
+**Screw pumps** (two or three meshing screws) are the quiet, pulse-free choice for lube oil and fuel; low pressure. **Multiple pumps** on one shaft (a **tandem** or **double** pump: two gear stages, or a piston main pump with a gear charge pump on the back) are common on mobile machines; each section has its own outlet and often its own circuit.
+
+## Displacement controls on a variable pump
+
+![Pressure-compensated and load-sensing pump controls](/img/hydraulics/pump-controls.svg)
+
+*Pressure-compensated and load-sensing pump controls*
+
+A variable-displacement pump has a **control** (a small spool valve bolted on the side) that ports oil to a **stroking piston** against a **bias spring** to move the swashplate. Read the control from its schematic box; the adjusting screws are usually under caps and each one has a different job.
+
+| Control | What it does | How to set it | Symptom when wrong |
+|---|---|---|---|
+| **Pressure compensator** (the standard control) | Destrokes the pump to near zero flow when the outlet reaches the set pressure; holds that pressure with only the leakage flow; makes almost no heat at stand-by | With the outlet dead-headed (a valve closed) and a gauge on the outlet, turn the compensator screw to the design pressure; the relief valve is set **150-300 psi (10-20 bar) higher** as a backup | Compensator above the relief: the relief dumps full flow, the tank boils in an hour. Compensator too low: weak machine. Compensator stuck: full flow over the relief (hot) or no pressure |
+| **Load sensing (LS)** | A second spool holds the pump outlet a fixed **margin** (typically 200-350 psi / 14-24 bar) above the highest load pressure fed back by the LS line; the pump only makes the flow the valves ask for | Set the **margin** with the LS port vented to tank (the outlet then reads the margin), then the compensator (the maximum) with the LS port blocked or the function stalled; see [load-sensing and proportional systems](/article/load-sensing-proportional-and-servo-systems) | Lost LS signal (leak, blocked orifice): the pump idles at margin pressure and nothing moves, or it goes to full pressure. Margin too low: slow, sluggish under multiple functions |
+| **Torque / power (horsepower) limiter** | Reduces displacement as pressure rises so pressure × flow stays under the prime mover's power; a curve, often two springs | Per the maker's curve; usually left alone | Engine stalls under load (limiter set too high or springs wrong); machine slow at high pressure (set too low) |
+| **Remote compensator** | The compensator pilot is vented through an external port to a remote relief or a proportional valve: several pressure settings from the console | The remote valve sets the pressure; the pump's own compensator must be **higher** than any remote setting | Remote line leak: pump goes to the local compensator setting |
+| **Electro-proportional displacement control** | A solenoid sets the swashplate angle (or the pressure) from a current signal, with a swashplate feedback | Card or PLC parameters; a null and a max adjustment | Feedback sensor drift: wrong flow for the command |
+| **Manual / servo displacement (hydrostatic pumps)** | A lever or pilot pressure sets the swashplate both sides of centre (over-centre pumps reverse flow) | Neutral adjustment with the machine on stands; see [hydrostatic drives](/article/hydraulic-motors-and-hydrostatic-drives) | Creep in neutral |
+
+Order of adjustment on a system with a compensated pump: **relief valve first** (the pump destroked or the compensator screwed in fully so it does not interfere), then **the compensator 150-300 psi below the relief**, then the LS margin, then the branch valves. Both screws locked, both values written on the pump.
+
+## The nameplate
+
+A pump plate carries the maker's model code (which encodes the type, displacement, control, rotation, shaft, ports and seals), the **displacement** (cm³/rev or in³/rev), the **maximum speed**, the **rated and peak pressure**, the **rotation** (viewed from the shaft end: CW or CCW, or an arrow on the housing), a serial number and often the date. Decode it against the maker's catalogue before ordering anything: a model with the wrong rotation, control or shaft spline bolts up and does not work.
+
+Worked example: an axial piston pump, 45 cm³/rev (2.75 in³/rev) at 1,800 rpm. Theoretical flow = 2.75 × 1,800 ÷ 231 = **21.4 gpm** (81 L/min). New at 3,000 psi with ηv 0.95: 20.3 gpm. If the flow meter reads 16 gpm at 3,000 psi the pump is at 75% volumetric efficiency: **worn out**. Input power at 3,000 psi and 20 gpm: 20 × 3,000 ÷ (1714 × 0.85) = **41 hp**; the 40 hp motor on it is at its limit, and a compensator set above design overloads it.
+
+## Test 1: case drain flow (piston and some vane pumps)
+
+![Case drain flow test: measure the leakage from the pump case](/img/hydraulics/case-drain-flow-test.svg)
+
+*Case drain flow test: measure the leakage from the pump case*
+
+Internal leakage past the pistons, slippers and valve plate collects in the pump case and returns to tank through the **case drain line**. That flow is a direct measure of internal wear.
+
+1. Warm the system to operating temperature (cold oil halves the leakage and hides a worn pump).
+2. Lockout and bleed; disconnect the case drain line at the tank end (or fit a tee with a flow meter or a hose into a calibrated container). The case must stay **full**: keep the drain outlet above the pump's top port, and never restrict it (a restricted case drain blows the shaft seal: the case is rated for about 15-30 psi / 1-2 bar).
+3. Run the pump at working pressure against a load or a dead-headed function (the compensator holding pressure), and time the flow for 30-60 seconds. Repeat at low pressure for comparison.
+4. Judge: **new pump 1-3% of rated flow; up to about 10% acceptable; over 10-15% at working pressure: replace or rebuild**. The maker's service manual gives the exact number for that model (for a 20 gpm pump: new about 0.5 gpm, worn at 2-3 gpm). A leak that rises quickly across a few weeks is a pump dying, whatever the absolute number.
+5. Feel the case: a case drain hotter than the outlet by 20°F or more (10°C) means high internal leakage.
+
+## Test 2: flow at pressure (any pump)
+
+The definitive test, with a **hydraulic tester** (flow meter, load valve and gauge in one body) or a flow meter plus the machine's own load.
+
+1. Tee the tester into the pump outlet line (after the relief if you want the delivered flow, before it to test the pump alone), the tester's load valve fully open, the return to tank in a full-size hose.
+2. Run at rated rpm, oil at operating temperature; read the flow at near-zero pressure: that is the pump's maximum delivery (compare with theoretical: a low number here at no pressure is a **suction** problem or wrong rpm, not wear).
+3. Close the load valve slowly to raise the pressure in steps (500, 1,000, 1,500 psi, up to working pressure but **never above the relief setting**); record the flow at each step.
+4. Plot or table it: a healthy pump loses only a few percent of flow from zero to full pressure; a worn pump's flow drops steeply as pressure rises. Below **about 80-85% of theoretical at working pressure, the pump is worn**. If the flow at the pump is good but the machine is slow, the loss is downstream (a bypassing cylinder, a relief cracking early, a valve leak): go to [advanced diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics).
+
+![Flow against pressure: a worn pump falls away as the pressure rises](/img/hydraulics/pump-flow-vs-pressure.svg)
+
+*Flow against pressure: a worn pump falls away as the pressure rises*
+
+A cheaper version without a flow meter: time a cylinder of known bore through its stroke at no load and at full load; flow = area × stroke ÷ time (in³/min ÷ 231 = gpm). A flow that halves under load points at the pump or a bypassing actuator; the case drain test then separates them.
+
+## Cavitation vs aeration
+
+| | Cavitation | Aeration |
+|---|---|---|
+| What it is | The inlet pressure falls below the oil's vapour pressure; vapour bubbles form and **implode** at the outlet | Air bubbles drawn in or mixed in and **compressed** at the outlet |
+| Sound | A steady high-pitched **whine or scream** that changes with rpm and inlet restriction | An irregular **rattle, crackle, knocking**; like gravel |
+| Oil | Looks normal in the tank | **Foam** on the tank, milky or bubbly oil, spongy actuators |
+| Pressure gauge | Steady or slightly low | Needle flickers, erratic |
+| Cause | Restricted suction (a clogged strainer, a collapsed hose, a closed valve, a kinked line), oil too thick (cold, wrong grade), pump too high above the tank, rpm too high, a plugged breather (vacuum in the tank), a suction line too small or too long | A leaking suction joint (sucks air, does not drip oil), low oil level, a return line above the oil, a worn pump shaft seal, a cylinder rod seal drawing air on the return stroke, a whirlpool at the suction, oil with poor air release |
+| Damage | **Pitting** on the outlet side of the port plate, cam ring or gear housing: a frosted, sand-blasted look with sharp-edged craters; flow loss | Pitting too but milder, **oil oxidation and varnish** (compressed air heats to hundreds of degrees: micro-dieseling), burned seals, noise |
+| Test | A **vacuum gauge on the inlet**: most pumps want no more than **5 in Hg (127 mm Hg) for piston, 5-7 for vane, 7-10 for gear** at operating temperature; over that is a restriction (check the strainer first) | Spray a little oil or smear grease on each suction joint while running: the noise stops for a moment when the leak is sealed; check the level and the return-line position |
+
+Either one destroys a pump in weeks: find the cause on the day you hear it.
+
+## Start-up after a pump change
+
+![Industrial power unit: reservoir, motor-pump sets, return filters and gauges; the case drains and suction are the start-up checks](/photos/hydraulics/power-unit.jpg)
+
+*Industrial power unit: reservoir, motor-pump sets, return filters and gauges; the case drains and suction are the start-up checks. Photo: Sensenschmied, CC BY-SA 3.0, via commons*
+
+1. **Confirm the pump**: model, displacement, rotation (the arrow on the housing; an electric motor's rotation checked with a bump before the coupling is fitted), shaft and seal type, port sizes. Running a pump backwards for seconds can destroy the shaft seal and the vanes.
+2. **Flush the system first** if the old pump failed (its metal is in every line): see [flushing after a failure](/article/filters-fluid-and-contamination). New filter elements everywhere. A new pump into a dirty system dies in weeks; that is the commonest "the new pump was faulty" story.
+3. **Fill the case** through the highest case port with clean filtered oil (piston pumps and many vane pumps: a dry case burns the slippers in the first minute). Connect the case drain to the **top** port so the case stays full, the drain running to tank **below** the oil level with no restriction.
+4. Fill the suction line and prime; open the suction valve (a lockable valve with a switch on many units: closed = pump death); check the breather and the level.
+5. **Back the relief valve out** or set the compensator low, so the pump starts unloaded; open the directional valves to tank if possible (an open-centre spool, or a manual bypass).
+6. **Jog** the motor for one second, check rotation, then run for a few seconds and stop: listen. Repeat while the pump primes (a gear pump primes in seconds; a piston pump may need the outlet cracked to bleed the air). Never run a dry, screaming pump more than a few seconds.
+7. Run unloaded 10-15 minutes, bleed the air at the highest points and at the actuators (cylinders cycled slowly, full stroke, several times), watch the tank for foam and the level dropping as the lines fill: top up.
+8. Raise the relief to the design setting, then the compensator 150-300 psi below it, then any remaining valves; load the machine in stages; check case drain temperature and flow, noise, leaks; change the filters again after 24-50 hours, and sample the oil.
+9. Write the settings, the date, the hours and the pump serial number on the machine log.
+
+## Failure analysis: reading a dead pump
+
+![Vane rotor and sliding vanes opened up (a vane compressor, same principle): vane tips and the ring are the wear parts](/photos/hydraulics/vane-pump.jpg)
+
+*Vane rotor and sliding vanes opened up (a vane compressor, same principle): vane tips and the ring are the wear parts. Photo: Original uploader was Xlory at fr.wikipedia, CC BY-SA 3.0, via commons*
+
+| What you see | Cause |
+|---|---|
+| Side plates / port plate **scored with fine circular grooves**, gears or barrel face scored to match | **Contamination** (hard particles): filters bypassing, dirty new oil, a failed component upstream, a breather missing |
+| **Frosted, pitted** surfaces on the outlet side of the housing, cam ring, port plate | **Cavitation** |
+| Pitting plus dark varnish, burned or hardened seals, dark oil | **Aeration** and overheating |
+| Gear housing cut deeply on the inlet side (a track), shaft bushings worn | Normal long-life wear, or high pressure beyond rating, or misalignment loading the shaft |
+| Vane tips rounded and chipped, cam ring rippled (washboard) | Thin oil (hot, wrong grade), pressure beyond rating, cavitation |
+| Vanes broken, rotor slots wallowed | Contamination lock, running the vane pump backwards, aeration pounding |
+| Slippers (piston shoes) torn off or their faces galled, swashplate scored | **Dry start** (case not filled), cavitation, low oil viscosity, over-speed, a blocked case drain |
+| Barrel face and valve plate deeply scored, bronze smeared | Contamination; oil too thin; over-pressure |
+| Piston bores scored, pistons seized | Contamination; oil breakdown; extreme heat |
+| **Shaft seal blown** out, oil from the shaft | Case pressure too high: a restricted or too-small case drain line, a case drain connected to a pressurised return, or a worn pump pumping into its own case |
+| Shaft broken at the keyway or spline, spline fretted (red dust) | Misalignment, coupling loose or wrong, torsional shock; no grease on the spline |
+| Shaft sheared cleanly with a smooth fatigue face | Reversing shock loads, coupling misalignment; check the coupling gap and alignment |
+| Bearing failed, shaft blue | Side load from a belt drive on a pump not rated for it, misalignment, no lubrication (case not full) |
+| Housing cracked at a port | Over-torqued fitting, water freezing, a pressure spike (a valve slamming shut with no accumulator or relief close by) |
+
+Keep the failed parts and photograph them; the analysis decides whether the fix is a pump or a system change.
+
+## Common mistakes
+
+- Judging the pump by the pressure gauge: full pressure against a stalled cylinder proves nothing about flow.
+- Replacing a pump that was cavitating because the strainer was blocked: the new one screams too.
+- Not filling the case of a piston pump: it lasts one minute.
+- Running a new pump in the old pump's metal.
+- Compensator set above the relief: full flow over the relief, the tank at 180°F, everyone blaming the cooler.
+- Testing a "weak pump" on cold oil: it passes; at temperature it fails.
+- Restricting the case drain (a small fitting, a long thin hose, a filter with no bypass) and blowing the shaft seal.
+- Ordering by "a 20 gpm pump" without the rotation, shaft and control code.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
+- [Hydraulic motors and hydrostatic drives](/article/hydraulic-motors-and-hydrostatic-drives)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic pump$mw$,$mw$gear pump$mw$,$mw$internal gear pump$mw$,$mw$gerotor$mw$,$mw$vane pump$mw$,$mw$intra-vane$mw$,$mw$vane cartridge$mw$,$mw$piston pump$mw$,$mw$axial piston$mw$,$mw$swashplate$mw$,$mw$bent axis$mw$,$mw$radial piston$mw$,$mw$variable displacement$mw$,$mw$pressure compensator$mw$,$mw$load sensing pump$mw$,$mw$torque limiter$mw$,$mw$power limiter$mw$,$mw$horsepower limiter$mw$,$mw$pump displacement$mw$,$mw$pump nameplate$mw$,$mw$volumetric efficiency$mw$,$mw$case drain test$mw$,$mw$case drain flow$mw$,$mw$flow meter test$mw$,$mw$hydraulic tester$mw$,$mw$pump wear$mw$,$mw$cavitation$mw$,$mw$aeration$mw$,$mw$inlet vacuum$mw$,$mw$pump start-up$mw$,$mw$pump priming$mw$,$mw$pump rotation$mw$,$mw$pump failure analysis$mw$,$mw$scored side plates$mw$,$mw$slipper wear$mw$,$mw$valve plate$mw$,$mw$pump shaft seal$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Eaton Vickers Industrial Hydraulics Manual and Mobile Hydraulics Manual (pump types, efficiencies, inlet conditions, compensator setting); Parker and Bosch Rexroth axial piston pump service manuals (case drain limits, start-up and commissioning); Danfoss and Sauer hydrostatic service literature; Fluid Power Society (IFPS) mechanic and technician study manuals (pump testing procedure); Noria and Machinery Lubrication pump failure analysis guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -5202,8 +6175,302 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
 - [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
-- [Lockout / tagout basics](/article/lockout-tagout-basics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulics basics$mw$,$mw$hydraulic schematic$mw$,$mw$hydraulic symbols$mw$,$mw$ISO 1219$mw$,$mw$reading hydraulic drawings$mw$,$mw$directional control valve$mw$,$mw$4/3 valve$mw$,$mw$spool valve$mw$,$mw$relief valve$mw$,$mw$pressure reducing valve$mw$,$mw$sequence valve$mw$,$mw$counterbalance valve$mw$,$mw$check valve$mw$,$mw$pilot operated check$mw$,$mw$flow control$mw$,$mw$pressure compensated$mw$,$mw$gear pump$mw$,$mw$vane pump$mw$,$mw$piston pump$mw$,$mw$variable displacement$mw$,$mw$hydraulic cylinder$mw$,$mw$hydraulic motor$mw$,$mw$reservoir$mw$,$mw$hydraulic filter$mw$,$mw$accumulator symbol$mw$,$mw$pilot line$mw$,$mw$drain line$mw$,$mw$hydraulic pressure flow horsepower$mw$,$mw$relief valve setting$mw$,$mw$injection injury$mw$,$mw$hydraulic safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 1219-1 (fluid power symbols) and ISO 1219-2 (circuit diagrams); Parker, Eaton Vickers and Bosch Rexroth industrial hydraulics training manuals (component function and adjustment order); Fluid Power Safety Institute (injection injury and lockout of hydraulic energy); NFPA/T2 fluid power standards.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-troubleshooting-advanced-diagnostics$mw$, $mw$Advanced Hydraulic Troubleshooting and Diagnostics: the Method (Define, Split the Circuit, Test with Instruments), the Instruments (Gauges and Test Points, Flow Meters and Testers, Infrared Heat Mapping, Transducers and Loggers, Ultrasonic, Meters for Solenoids), the Standard Tests with Pass/Fail Numbers (Pump Flow, Relief, Cylinder Bypass, Spool Leakage, Motor Case Drain, Holding-Valve Decay, Cooler ΔT, Suction Vacuum), Symptom Trees, Heat Balance and Cooler Sizing, Electrical Checks and Start-Up After Repair$mw$, $mw$The method a hydraulic troubleshooter uses instead of parts-swapping: define the symptom at the step it happens, read the schematic and split the circuit at a test point, and test with instruments that give numbers. It covers the instruments and where to connect them, each standard test step by step with its pass and fail values, a symptom-by-symptom tree from no pressure to intermittent faults, the heat balance that tells you whether a hot system has a cooler problem or a leakage problem, the electrical checks that separate the PLC from the valve, and the start-up sequence after a repair that keeps the fix alive.$mw$, $mw$## The method
+
+1. **Define the symptom precisely**: which actuator, which direction, at which step of the sequence, under what load, hot or cold, always or sometimes, since when, what changed (a repair, a new oil, a new operator, the weather). "The press is slow" becomes "the ram's pressing stroke takes 9 seconds instead of 4 after the machine has run an hour; rapid advance is normal; the tank is at 165°F".
+2. **Read the schematic and the sequence table** before touching the machine: what should be energised and what pressure should be where at that step. If there is no schematic, sketch one from the machine: the diagnosis is worth it.
+3. **Look, listen, feel** (the ten-minute walk-around in the [machine decision tree](/article/machine-vibration-noise-heat-decision-tree)): level, temperature, filter indicators, noise, leaks, gauge readings, solenoid LEDs, the smell of hot oil, the colour of the oil.
+4. **Split the circuit**: find the point where you can prove one half is good. The pump is good if it delivers full flow at pressure (Test 1); the pressure controls are good if the pressure at the valve inlet is right (Test 2); the actuator is good if it does not bypass (Test 3); the valve is good if it shifts and does not leak (Tests 4 and 5). Each test halves the problem.
+5. **Measure with instruments**: a gauge at a test point, a flow meter, a thermometer, a stopwatch on a cylinder stroke, a meter on a coil. Numbers, compared with the design values on the schematic and the maker's data.
+6. **Change one thing**, retest, and write down what you found and what you changed. Parts swapped without a test are a cost, not a diagnosis.
+
+![Decision tree: from the symptom to the test to the cause](/img/hydraulics/troubleshooting-decision-tree.svg)
+
+*Decision tree: from the symptom to the test to the cause*
+
+## Instruments
+
+![A high-pressure test gauge: pick a range 1.5 to 2 times the working pressure and read it at the test point](/photos/hydraulics/pressure-gauges.jpg)
+
+*A high-pressure test gauge: pick a range 1.5 to 2 times the working pressure and read it at the test point. Photo: CEphoto, Uwe Aranas, CC BY-SA 3.0, via commons*
+
+| Instrument | What it tells you | Where |
+|---|---|---|
+| **Pressure gauges** (glycerine-filled, a range 1.5-2× the working pressure; a **test gauge** of 0.5% class for setting valves) and **test points** (Minimess/Stauff M16×2 quick-test couplings with a captive ball: connect under pressure without leaks) | Pressure at that point at that moment | Pump outlet, before and after every pressure valve, both actuator ports, the LS line, the pilot supply, the case drain, the return line, the accumulator; fit test points permanently at the design stage: a machine with test points at every branch is diagnosed in an hour, one without in a day |
+| **Vacuum/compound gauge** (30 in Hg to 30 psi) | Inlet condition | Pump suction: the strainer, the line, the oil |
+| **Flow meter** (turbine or variable-area, sized for the flow) and the **hydraulic tester** (flow meter, load valve, pressure gauge and thermometer in one body, often with a pressure relief for protection) | Flow **at pressure**: the health of a pump, a motor, a valve, a cylinder | In the pump outlet, in a work line, in the case drain, in a motor return |
+| **Infrared thermometer / thermal camera** | Which component is dropping pressure across itself (turning power into heat) | Every valve, cylinder, motor, line, the cooler in and out; a 20°F difference from its neighbours is a lead |
+| **Stopwatch and a tape** | Cylinder speed = flow; drift rate = leakage | Any cylinder |
+| **Pressure transducers and a data logger / hydraulic multimeter** | Pressure against time in milliseconds: spikes, decay, the sequence timing, pump ripple, two pressures compared (LS margin, pilot vs main) | Fast circuits, intermittent faults, servo and proportional systems, load-sense systems |
+| **Ultrasonic detector** (contact probe) | Turbulence from internal leakage: a bypassing relief, a leaking check, a cylinder piston passing oil, a cavitating pump | On the valve body or cylinder while the load is held |
+| **Multimeter, clamp meter, a solenoid tester, LED plugs** | Voltage at the coil, current, coil resistance, the PLC output | Every solenoid |
+| **Particle counter, water test, viscosity comparator** | The oil | Sample point |
+| **Oil sample bottles, a clean container and a measuring jug** | Case drain volume, leakage volumes | |
+| **A gauge with a snubber**, a hose for the accumulator charging kit, blanking caps and plugs for every fitting family, jumper hoses rated for the pressure | | |
+
+**Reading a gauge properly**: at operating temperature; watch it during the whole cycle (a needle that dips as the actuator starts to move is a pump or a supply problem; one that climbs slowly is a flow problem); note the pressure at **which the function moves** (the load-induced pressure) as well as the maximum; compare the pump outlet with the actuator port at the same moment (the difference is the pressure drop through the valves and lines: more than 150-300 psi is a restriction, a bypassing valve or an undersized line).
+
+## The standard tests
+
+![Cylinder bypass test: prove the piston seals before condemning the pump](/img/hydraulics/cylinder-bypass-test.svg)
+
+*Cylinder bypass test: prove the piston seals before condemning the pump*
+
+| # | Test | How | Pass | Fail means |
+|---|---|---|---|---|
+| **1** | **Pump flow at pressure** | Flow meter or tester in the pump outlet; record flow at 0, 25, 50, 75, 100% of working pressure at operating temperature and rated rpm | Within about 10-15% of theoretical at working pressure (ηv > 0.85); a nearly flat line | A steep fall = worn pump; low at zero pressure = suction problem or rpm; see [pumps](/article/hydraulic-pumps-types-controls-and-testing) |
+| **1b** | **Case drain flow** | Case drain into a measure or a flow meter at working pressure | Under about 10% of rated flow (the maker's number) | A worn piston or vane pump/motor |
+| **2** | **Relief valve** | Gauge at the pump outlet; dead-head the flow (block the actuator or close the tester's load valve) with the compensator screwed in above the relief; read where the pressure stops climbing; then open the load valve slowly and read the pressure at which flow begins to pass (the cracking pressure) | Full-flow pressure at the setting on the schematic; cracking within 5-10% below it for a pilot-operated valve (20-30% for a direct-acting) | Setting drifted, seat worn (a large cracking-to-full-flow gap: heat and slow), stuck, vent open |
+| **3** | **Cylinder piston bypass** | Lockout; extend the cylinder fully (rod out, against its stop, so the piston seals see pressure but the cylinder cannot move); disconnect the **rod-end** line at the cylinder and cap the line (the cylinder port open into a container); pressurise the **cap end** to working pressure with the DCV; measure what comes out of the rod-end port over a minute; repeat retracted with the ports swapped | A few drops to a thin trickle (new: under 1-3 in³/min; tolerable in service: a few in³/min depending on bore) | A steady stream = piston seals or a scored bore: [cylinder repair](/article/cylinder-repair-and-seal-kits). The test with the cylinder mid-stroke against a block is valid only with the DCV centred and both lines gauged |
+| **3b** | **Cylinder drift** | Load held, DCV centred, pump off, holding valves in circuit; measure the rod movement in 10 minutes; then bypass or isolate the holding valve to separate the cylinder from the valve | Per the machine spec; typically under 1/16-1/8 in (2-3 mm) per 10 min with a poppet-type holding valve | Drift with the holding valve isolated = piston seals (or the rod seal if oil appears outside); drift only with it in circuit = the holding valve or its pilot |
+| **4** | **DCV spool leakage** | A and B lines disconnected and capped; P at working pressure, spool centred; measure the flow from T | Per the maker; a D03 about under 10 in³/min (150 mL/min) total at 3,000 psi; a D05 20-30 | Worn spool or body, or a scored subplate face |
+| **4b** | **Valve shift** | LED and voltage at the coil while commanding; then the manual override | Shifts on the solenoid | Shifts on the override only = electrical; shifts on neither = hydraulic (pilot pressure, stuck spool): [directional valves](/article/directional-control-valves-spools-and-solenoids) |
+| **5** | **Motor case drain and leakage** | Case drain flow at working pressure and speed, or with the shaft stalled against a brake | Under 5-10% of the motor's rated flow (the maker's number) | Worn motor: low torque, slow, hot; see [motors](/article/hydraulic-motors-and-hydrostatic-drives) |
+| **6** | **Holding valve (POC, counterbalance, logic element) pressure decay** | Gauge on the held line, pump off; read the pressure every minute for 10 minutes | A poppet-type valve holds within a few percent | A steady decay = a leaking seat or pilot; check the cylinder separately (Test 3) |
+| **7** | **Accumulator precharge** | Pump off, system bled, watch the gauge fall as the accumulator empties: the sudden drop to zero happens at the precharge pressure; or a charging kit on the gas valve | 80-90% of the minimum working pressure (energy storage) or per the drawing | Lost precharge or a failed bladder: [accumulators](/article/accumulator-precharge-and-safety) |
+| **8** | **Cooler ΔT** | IR thermometer on the oil in and out of the cooler and on the water or air in and out | Oil out 10-25°F (5-15°C) below oil in at full flow through it; the water or air side warming correspondingly | Little ΔT with the cooler hot = a bypass open or oil not flowing through it; little ΔT with the cooler cold = the oil side blocked or the thermostat closed; both sides hot = fouled or too small |
+| **9** | **Suction vacuum** | Compound gauge on the pump inlet, at temperature and full flow | Under 5 in Hg (piston), 5-7 (vane), 7-10 (gear) | A blocked strainer, a collapsed hose, thick oil, a plugged breather |
+| **10** | **Pressure drop across a filter, a valve, a line** | Gauges each side at full flow | Filter: under the bypass setting (25-50 psi) at temperature; a DCV: 50-150 psi per path at rated flow; a line: a few psi per foot | A blocked element, an undersized valve or hose, a collapsed hose liner, a kinked line |
+| **11** | **LS margin** | Gauges on the pump outlet and the LS line while a function moves | Margin per the pump setting (200-350 psi) | See [load-sensing systems](/article/load-sensing-proportional-and-servo-systems) |
+| **12** | **Heat mapping** | IR on every component 20 minutes after a warm start | Everything within about 10-20°F of the tank, the cooler outlet cooler | The hottest component is passing oil across a pressure drop: a dumping relief, a bypassing cylinder, a leaking check, a compensator fighting a relief |
+
+## Symptom trees
+
+![Infrared thermometer with a contact probe: the hot component is the one passing oil across a pressure drop](/photos/hydraulics/hot-oil-thermal.jpg)
+
+*Infrared thermometer with a contact probe: the hot component is the one passing oil across a pressure drop. Photo: KalWadin, CC BY-SA 4.0, via commons*
+
+| Symptom | Order of checks |
+|---|---|
+| **No pressure, no motion, pump running** | Rotation (a new pump!); coupling and key; suction valve open, level, strainer; relief set to zero, stuck open or vent open; a DCV not shifting (Test 4b); an open-centre or tandem spool with the pump unloading normally (read the schematic: the "no pressure" may be normal at rest); a burst line; compensator screwed out |
+| **Low maximum pressure** | Relief (Test 2); compensator; a second relief or a reducing valve in the branch; internal leakage somewhere big (heat map); a worn pump (Test 1: a worn pump makes pressure only against a small leak) |
+| **Slow, all functions, full pressure available** | Pump flow (Test 1); rpm (a VFD, a belt, an engine at low idle); oil too thick (cold) or too thin (hot, sheared); a flow control in the main line; a partly open relief or unloading valve (heat); a bypassing actuator in a series circuit |
+| **Slow, one function** | That function's flow control, its counterbalance (set too high), its POC pilot, a blocked orifice in its sandwich, a port relief cracking, that cylinder bypassing (Test 3) or that motor worn (Test 5), a kinked hose, a valve section's spool not fully shifting (low pilot pressure, a stroke limiter) |
+| **Slow when hot, fine when cold** | Internal leakage that grows with thin oil: a worn pump (Test 1 hot), a bypassing cylinder, a worn valve; oil grade too light or sheared; a cooler that is not cooling |
+| **Slow when cold, fine when hot** | Viscosity too high for the pump (an HV grade or heaters), cavitation on the inlet when cold, a cold-sticking spool, a cold PLC ramp |
+| **Weak (stalls under load) but full speed at no load** | A pressure problem: a relief or port relief cracking early, a reducing valve, a compensator low, a load check or POC restricting, a cylinder bypassing under load only (Test 3), a motor leaking under load (Test 5); the gauge at the actuator port while it stalls tells you where the pressure is lost |
+| **Cylinder drifts (creeps) under load** | Test 3b: holding valve or cylinder; a DCV spool centre that is not meant to hold (open or float); a POC held open by pilot pressure from a closed-centre spool; a leaking port relief or anti-cav check; thermal contraction of the oil (a hot cylinder cooling drifts a little: normal) |
+| **Erratic, jerky, spongy** | **Air**: foam in the tank, a suction leak, a low level, a cylinder not bled after repair, a pump seal drawing air; then a sticking spool, a hunting counterbalance or compensator, a flow control fighting a counterbalance, a stick-slip cylinder (rod bent, seals dry), a cavitating pump, a failing accumulator |
+| **Shock, hammer, bang** | A fast valve with a closed crossover, no cushion or the cushion screw out, a counterbalance too fast (10:1 on a springy load), a relief too slow, an accumulator with no precharge, a check valve slamming, a long line with no accumulator, a pilot choke missing |
+| **Overheating** | The heat balance below; the heat map: a relief dumping (compensator above relief, relief low, stuck), a compensator fighting an LS signal, a bypassing cylinder or valve, a POC held open, a reducing-relieving valve relieving, a closed-centre valve on a fixed pump, an unloading valve not unloading, a cooler fouled or bypassed, water off, a fan reversed, low oil, a tank too small, the wrong viscosity, a hydrostatic flushing valve stuck |
+| **Noisy pump** | Cavitation vs aeration (the [pump article](/article/hydraulic-pumps-types-controls-and-testing)); a worn pump; a coupling or alignment; a relief chattering near the compensator; a resonating line (a clamp) |
+| **Foaming, milky oil** | Air or water: [filters and fluid](/article/filters-fluid-and-contamination) |
+| **Will not hold pressure with the pump off** (an accumulator circuit, a clamp) | A leaking check or POC (Test 6), a leaking relief (the tank line warm), a bypassing cylinder, a lost precharge, an internal leak in a valve stack |
+| **Intermittent** | Electrical first (a loose plug, a chafed wire, a marginal voltage, a PLC output going soft under load, a proximity switch): monitor the coil voltage with the meter's min/max or a logger through the fault; then thermal (a spool that sticks only hot or only cold, a coil that opens when hot), then contamination (a particle that moves), then air, then a failing accumulator; a **data logger on the pressure and the coil voltage** catches what a gauge and eyes miss |
+| **Works on the manual override, not on the solenoid** | Electrical: voltage at the coil, the coil, the plug, the output |
+| **Works after a filter change, then slows again in a week** | A component shedding metal (find it: a pump or a cylinder) or a fluid problem (varnish, water); check the old element |
+| **Machine fine, but the operator says it is slow** | Measure the cycle against the design time before chasing anything |
+
+## Heat balance
+
+![Heat balance: where the horsepower goes and what the cooler must remove](/img/hydraulics/heat-balance.svg)
+
+*Heat balance: where the horsepower goes and what the cooler must remove*
+
+Every horsepower the pump takes that does not come out as work becomes heat: **1 hp = 2,545 BTU/h = 0.746 kW**. A typical industrial system turns **20-30% of its input power into heat** in normal operation (pump and motor inefficiency, valve pressure drops, relief and compensator losses); a badly set or leaking system turns most of it into heat.
+
+```
+   Heat load (BTU/h) = (input hp − useful hp) × 2,545
+   Pressure drop heat: hp lost = gpm × psi dropped ÷ 1714           (10 gpm over a relief at 2,000 psi = 11.7 hp = 30,000 BTU/h)
+   Reservoir dissipation (bare steel tank, still air, 40°F above ambient): about 0.001 hp per ft² per °F,
+        i.e. a 100 gal tank (about 30 ft² of wetted wall) sheds roughly 1-1.5 hp: almost nothing on a 50 hp system
+   Oil temperature rise across a leak: ΔT (°F) = psi dropped ÷ 900 (approx.)  (3,000 psi across a relief warms the oil about 3.3°F per pass; through a small orifice the local temperature is far higher)
+   Cooler sizing: heat load ÷ (cooler's rating in BTU/h per °F of approach) with the approach = oil in − water (or air) in
+```
+
+Use it two ways. **Diagnosis**: if the tank runs at 170°F and the cooler is clean and flowing, calculate the heat you can account for; a system that should make 10 hp of heat and needs 30 hp of cooling has 20 hp of leakage or dumping somewhere: go to the heat map. **Sizing**: after a relief was "fixed" by adding a bigger cooler, the power bill and the pump wear continue; the cooler was never the fault. Target oil temperature: **110-130°F (45-55°C)** in the tank; every 18°F (10°C) above 140°F halves the oil life and softens the seals.
+
+## Electrical-side checks
+
+| Check | How | Reading |
+|---|---|---|
+| Is the output on? | The PLC output LED or the HMI's I/O screen at the step | On = go to the wiring; off = the logic, an interlock, a sensor |
+| Voltage at the coil under load | Meter across the coil pins with the plug connected (back-probe) while commanded | Within 10% of rated (24 V DC: 21.6-26.4; 120 V AC: 108-132); a large drop from the panel to the coil = an undersized or corroded cable, a shared common |
+| Current | Clamp meter (DC clamp for DC) | Near the rated (24 V, 30 W: about 1.2 A); AC: the inrush falling to holding within 100 ms; a steady high AC current = a spool not stroking |
+| Coil resistance | Plug off, ohms | Per the nameplate (24 V DC 30 W: about 19 Ω); open = burned; low = shorted; compare with its twin |
+| Connector | Pull, look, wiggle: the gasket, the screw, corrosion, a broken conductor at the strain relief | |
+| Surge diode | A diode across the coil (in the plug) tested with the meter's diode range | Shorted diode = the coil never energises and the output fuse blows |
+| Proportional / servo | Command signal (V or mA) and the feedback at the amplifier while commanding; the card's LEDs; the enable signal | See [proportional and servo systems](/article/load-sensing-proportional-and-servo-systems) |
+| Sensors | Pressure switches against a gauge; a proximity switch's LED; a level or temperature switch bypassed for a test only with the permit | |
+| Grounding and noise | A proportional valve that twitches: the shield, the ground loop, a VFD nearby | |
+
+## Start-up after a repair
+
+1. Clean the outside of everything opened; every open port capped until the moment of connection; new elements; the reservoir level right, the oil the correct type (label).
+2. Bleed the pump case and the suction; relief backed off or compensator low; DCVs in a position that passes flow to tank if possible.
+3. Jog: rotation, noise; run unloaded; bleed the cylinders at the ports (rod up, low pressure, full strokes, the bleed screws or a cracked fitting into a rag), bleed the pilot lines and the accumulators' oil side; fill and bleed motor cases.
+4. Set the pressures in order (relief, compensator, LS margin, reducing, sequence, counterbalance, port reliefs), then the flow controls and cushions; check the pressure switches.
+5. Run the sequence at low speed and pressure, then normal; watch the temperature settle (it should level under 130°F within an hour); heat map; listen.
+6. Re-check the filter indicators and change the elements after the first day; sample the oil at a week; record the settings and the test numbers so the next troubleshooter has a baseline.
+
+## Common mistakes
+
+- Replacing the pump because the pressure was low, without a flow test.
+- Turning the relief up to fix a weak machine (the relief was fine: something else was leaking).
+- Reading the pressure at the pump and never at the actuator.
+- Diagnosing a hot system by buying a cooler.
+- Feeling for a leak with a hand.
+- Testing a bypassing cylinder cold: it passes.
+- Swapping parts with no record of what was tried.
+- Believing the sight glass on a tank that has cylinders extended.
+- Starting a rebuilt system at full pressure with the relief where it was.
+- No test points on the machine, so every test starts with a wrench.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)
+- [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
+- [Hydraulic motors and hydrostatic drives](/article/hydraulic-motors-and-hydrostatic-drives)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
+- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$hydraulic troubleshooting$mw$,$mw$hydraulic diagnostics$mw$,$mw$hydraulic fault finding$mw$,$mw$hydraulic test point$mw$,$mw$Minimess$mw$,$mw$Stauff test point$mw$,$mw$hydraulic flow meter$mw$,$mw$hydraulic tester$mw$,$mw$flow pressure temperature tester$mw$,$mw$infrared thermometer hydraulics$mw$,$mw$heat mapping$mw$,$mw$thermal imaging hydraulic$mw$,$mw$pressure transducer$mw$,$mw$data logger hydraulic$mw$,$mw$pressure trace$mw$,$mw$ultrasonic leak detection internal$mw$,$mw$hydraulic multimeter$mw$,$mw$solenoid coil test$mw$,$mw$pump flow test$mw$,$mw$relief valve test$mw$,$mw$cylinder bypass test$mw$,$mw$piston seal leakage test$mw$,$mw$spool leakage test$mw$,$mw$motor case drain test$mw$,$mw$pressure decay test$mw$,$mw$counterbalance leak test$mw$,$mw$cooler delta T$mw$,$mw$suction vacuum gauge$mw$,$mw$hydraulic symptom chart$mw$,$mw$slow hydraulic$mw$,$mw$weak hydraulic$mw$,$mw$cylinder drift$mw$,$mw$erratic hydraulic$mw$,$mw$hydraulic overheating$mw$,$mw$noisy pump$mw$,$mw$intermittent hydraulic fault$mw$,$mw$one function slow$mw$,$mw$heat balance$mw$,$mw$cooler sizing$mw$,$mw$hydraulic heat load$mw$,$mw$BTU per hp$mw$,$mw$reservoir cooling$mw$,$mw$start-up after repair$mw$,$mw$hydraulic commissioning$mw$,$mw$hydraulic troubleshooting checklist$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Eaton Vickers Industrial Hydraulics Manual (troubleshooting logic, testing procedures); Parker Hannifin Hydraulic Troubleshooting Guide and test point practice; Fluid Power Society (IFPS) mechanic and technician certification study manuals (system testing); Webtec and Hedland flow tester application guides; Bosch Rexroth commissioning and troubleshooting notes; Fluke infrared thermography application notes; Brendan Casey (Hydraulics Pro Club) diagnostic method publications; NFPA/T2 fluid power practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$load-sensing-proportional-and-servo-systems$mw$, $mw$Load-Sensing, Proportional and Servo Systems: How a Load-Sense Pump and Valve Work Together, Margin Pressure, LS Lines and Shuttle Networks, Pre- and Post-Compensated Sections and Flow Sharing, Priority Valves, the Faults of a Lost or Blocked LS Signal, Electro-Hydraulic Proportional Valves (LVDT Spool Feedback, Amplifier Cards, Ramps, Deadband, Gain, Dither), Servo Valves (Torque Motor, Flapper-Nozzle and Jet-Pipe Pilots, Null, 3 µm Filtration), Checks with a Meter and When to Swap or Send Out$mw$, $mw$The systems where the hydraulics are told what to do by a signal rather than a lever: how a load-sensing pump keeps a fixed margin above the highest load, how the valve bank feeds that signal back through shuttles, why pre- and post-compensation behave differently when several functions move, what a priority valve protects, and the faults that lost, leaking or blocked LS signals produce; then the proportional valve (what the amplifier does with the command, why the spool has a position sensor, what ramps, deadband, gain and dither adjust, and how to check command against feedback with a meter) and the servo valve (how a milliamp signal becomes hundreds of horsepower, why null and 3 µm filtration decide its life, and how to test one before deciding to send it out).$mw$, $mw$## Load sensing
+
+![Load-sense circuit: the pump holds a margin above the highest load](/img/hydraulics/load-sense-margin.svg)
+
+*Load-sense circuit: the pump holds a margin above the highest load*
+
+A fixed pump makes full flow always; a pressure-compensated pump makes full pressure always. A **load-sensing (LS) system** makes only the pressure and the flow the work needs: the pump is a variable-displacement unit with an **LS control** (a second spool on the compensator) that holds the pump outlet at a fixed **margin (standby, differential) pressure**, typically **200-350 psi (14-24 bar)**, above the pressure in the **LS line**. The LS line carries the **highest load pressure** among the working functions back to the pump. With no function operating the LS line is vented to tank and the pump idles at the margin pressure (a few hundred psi at almost no flow: cool and quiet). Move a function and the LS line reports its load pressure; the pump strokes up until the outlet is load plus margin; the flow is set by the spool opening in the valve because the pressure drop across that opening is always the margin.
+
+- **Margin** too low: functions are slow and sluggish, several functions starve each other. Too high: heat and harsh response. It is set on the pump's LS spool with the LS port vented (the outlet then reads the margin) or by reading outlet minus LS line while a function moves.
+- The pump's **pressure compensator** (the maximum) still exists and is set above the LS relief in the valve (which limits the LS signal, and so the system pressure, to the working maximum).
+- **LS relief** (in the valve inlet) is small and cheap: it only vents the LS signal, and the pump then holds LS relief setting plus the margin. The pump compensator is the backup. Order: LS relief (working pressure minus margin), then pump compensator 150-300 psi above the resulting pressure.
+- **LS line orifice and bleed**: a small orifice (0.6-1.0 mm) damps the signal and a bleed to tank lets it decay when the valves centre; blocked bleed = the pump stays at pressure after the lever is released (heat, harsh).
+- **Shuttle network**: each work section has a **shuttle** (a ball between the A-side and B-side pressure and the LS gallery) that passes the higher of its own two ports; the sections' shuttles compare in a chain so the gallery carries the highest of all. On many valves the shuttle balls are the first thing to stick or drop out during a rebuild.
+
+**Pre-compensated** sections (a compensator before the metering spool) hold a fixed drop across each spool independently; when the pump runs out of flow (several functions moving), the highest-pressure function loses out (it slows or stops while the others run). **Post-compensated / flow-sharing** sections (Danfoss PVG, Rexroth LUDV, Parker L90LS: the compensator after the spool, referenced to the LS gallery) share the available flow in proportion to the spool openings, so all functions slow together: better for an operator running boom and swing at once. A machine that "loses the boom when I swing" with a pre-compensated valve is behaving as designed.
+
+**Priority valves**: a compensated flow control that gives a critical function (steering, brakes) its flow first and passes the rest ("EF", excess flow) to the main valve; its LS port from the steering unit tells it how much steering is demanded. A priority valve stuck in the excess position = no steering when the loader digs; stuck in the priority position = the loader is dead while steering is fine.
+
+### LS faults
+
+| Symptom | Cause | Test |
+|---|---|---|
+| Nothing moves (or everything is very slow); pump outlet stays at margin (200-300 psi) | **LS signal lost**: a broken or leaking LS line, a shuttle missing after a rebuild, the LS relief stuck open, the LS bleed too large | Gauges on the pump outlet and the LS port; move a function: the LS should rise to the load pressure and the outlet to load plus margin. If the LS stays at zero: the valve side. Tee a gauge into the LS line at the valve |
+| Pump goes to full compensator pressure at idle; hot | LS line **blocked** or the LS bleed/orifice plugged (the signal cannot decay), the LS spool on the pump stuck, an LS line pressurised by a leaking shuttle from a held load | LS pressure at idle should be near zero |
+| One function slow, others fine | That section's compensator stuck, its shuttle stuck low, its spool not stroking (pilot pressure, a stroke limiter) | Compare the section's port pressure with the LS gallery |
+| Slow when several functions move | Margin too low, pump flow limit reached (normal), pre-compensated valve behaving normally, a worn pump that cannot make the flow | Flow test on the pump; margin reading |
+| Harsh, jerky, oscillating | Margin too high, the LS damping orifice missing, air, a leaking LS line making the pump hunt, a compensator spring broken | Log the LS and outlet pressure together |
+| Pressure will not reach maximum | LS relief set low or leaking, pump compensator low | Gauge at the LS gallery while a function stalls |
+| Steering slow or dead when working | Priority valve, its LS line from the steering unit | Gauge on the priority valve's CF and EF ports |
+| Fine cold, loses functions hot | A leaking LS line or shuttle that seals when cold; thin oil past the compensators | |
+
+## Proportional valves
+
+![Proportional valve loop: command, amplifier, solenoid, spool, LVDT feedback](/img/hydraulics/proportional-valve-loop.svg)
+
+*Proportional valve loop: command, amplifier, solenoid, spool, LVDT feedback*
+
+A **proportional solenoid** produces a force proportional to its current over a working stroke (unlike an on-off solenoid, which slams). Against a spring, that positions a spool **in proportion to the command**: a proportional directional valve meters flow smoothly, a proportional relief sets pressure from a signal, a proportional flow control sets speed. Two grades:
+
+- **Open-loop (no feedback)**: the spool position depends on the solenoid force against the spring, so flow forces, friction and temperature shift it; hysteresis 3-7%; fine for ramps and softer motion.
+- **Closed-loop (with an LVDT)**: a **linear variable differential transformer** on the spool reports its position to the amplifier, which corrects the current until the spool is where the command says: hysteresis under 1%, repeatable; "high-response proportional" valves close the gap to servo valves. Pilot-operated proportional valves (large flows) have an LVDT on the main spool too, or on both.
+
+The **amplifier** (a card in the panel, or integrated on the valve as **OBE, on-board electronics**) takes the **command** (±10 V, 0-10 V or 4-20 mA from the PLC, or a joystick), and drives the solenoid with a **PWM current** (pulse-width modulated; the current, not the voltage, is what the solenoid feels), with these adjustments:
+
+| Adjustment | What it does | Symptom when wrong |
+|---|---|---|
+| **Ramp up / ramp down** | Limits how fast the output follows a step in the command: soft starts and stops | Too long: sluggish, the operator over-commands; too short: shock |
+| **Deadband compensation (jump, step)** | Adds a current step at the start so the spool jumps its overlap (the dead zone where the spool moves but no flow passes) at once | Too little: a dead zone at low command; too much: a jerk at the start |
+| **Gain (max current, Imax)** | Sets the current at full command | Too high: the solenoid saturates and overheats, no control at the top; too low: the valve never fully opens |
+| **Min current (Imin, offset)** | The current at zero command (holds the spool at the edge of the overlap) | Too high: the function creeps at zero command |
+| **Dither** | A small AC ripple (100-500 Hz) on the current keeps the spool micro-moving so it never sticks: overcomes static friction | Too little: hysteresis, sticking; too much: audible buzz, wear, a visible tremor in the actuator |
+| **Feedback gain / P-I-D** (closed-loop) | How hard the loop corrects the spool position error | Too high: oscillation (a buzzing spool, an unstable actuator); too low: slow |
+| **Enable** | A digital input that must be present or the output is zero | Missing enable = a dead valve with a good command |
+
+### Proportional faults and checks
+
+1. **Command**: measure the signal at the card's input while the PLC commands (0-10 V or ±10 V on a meter; 4-20 mA in series or across the card's shunt): a missing or wrong command is a PLC problem.
+2. **Enable and supply**: the card's enable input and its 24 V supply; the card's LEDs (power, enable, fault, cable break).
+3. **Output current**: the card's test points (usually 1 V per amp) or a clamp meter on the solenoid lead: should follow the command; a good command and no current = the card (or a shorted or open solenoid tripping its protection: measure the coil, typically 5-25 Ω, and compare with the twin).
+4. **Feedback**: the LVDT signal at the card's test point should follow the command; a feedback that does not move with a moving current = a stuck spool or a broken LVDT; one that moves with no flow result = the hydraulics (pilot pressure, a blocked line).
+5. **Pilot pressure** (pilot-operated proportional valves): 100-300 psi minimum at X; external or internal, drain at Y; no pilot = no main spool motion however good the electrics.
+6. **Hydraulic**: filtration (ISO **17/15/12 to 16/14/11**), varnish (a valve that is sticky first thing in the morning), oil temperature (the electronics and the coil derate above 140°F), a return line back-pressure into the drain.
+7. **Swap**: a proportional valve of the same code swapped from a twin axis, with its own OBE (an integrated valve carries its calibration; a card-driven valve needs the card's settings re-done: photograph the pots or read out the parameters first).
+8. **Grounding and noise**: shielded cables grounded at one end, separated from VFD cables; a twitching valve is often a wiring problem.
+
+## Servo valves
+
+![Servo valve: torque motor, flapper and nozzles, spool with feedback wire](/img/hydraulics/servo-valve-stages.svg)
+
+*Servo valve: torque motor, flapper and nozzles, spool with feedback wire*
+
+A **servo valve** positions its spool to within a fraction of a micron in a few milliseconds from a signal of a few milliamps, and is used with position, force or velocity feedback from the load (a closed loop around the actuator: injection moulding, flight simulators, test rigs, rolling mills, paper machines, turbine governors). Two-stage construction:
+
+1. **Torque motor** (the first stage): coils around an armature between permanent magnets; the coil current (typically ±8 to ±40 mA, or ±10 to ±200 mA for larger valves) tilts the armature a few thousandths of an inch.
+2. **Pilot stage**: **flapper-nozzle** (the armature carries a flapper between two opposed nozzles fed through fixed orifices; tilting it restricts one nozzle and raises that side's pressure) or **jet pipe** (the armature swings a jet across two receiver holes; more contamination-tolerant, fails toward centre). The pressure difference (up to hundreds of psi) drives the spool.
+3. **Spool** (second stage) with **mechanical feedback**: a feedback wire (cantilever spring) from the flapper to the spool, so the spool moves until the wire's force balances the torque motor's: spool position proportional to current. Electrical-feedback (LVDT) servo valves and three-stage valves exist for large flows.
+
+**Null**: the current at which the spool is exactly centred and the actuator does not move. Null drifts with temperature, supply pressure and contamination; a servo system that drifts one way at zero command has a null offset: adjusted with the null screw on the valve (a small hex under a plug, a fraction of a turn) or a bias in the controller; the maker's procedure with the load disconnected or safe.
+
+**Filtration is the servo valve's life**: the flapper-nozzle clearances are 25-50 µm and the fixed orifices 100-200 µm; a particle in an orifice or a chip on a nozzle sends the spool hard over (a "hard-over" failure on a flapper valve, a runaway actuator): a **3 µm (β₃ ≥ 200) non-bypass pressure filter right before the valve** and an ISO **16/14/11 to 14/12/9** system, with a last-chance screen in the valve. **Contamination lock** (silt around the spool) shows first as rising hysteresis and a wandering null.
+
+### Servo faults and checks
+
+![A servo valve disassembled: the block, the spool, the torque-motor parts and the springs; nothing here is a field repair](/photos/hydraulics/servo-valve.jpg)
+
+*A servo valve disassembled: the block, the spool, the torque-motor parts and the springs; nothing here is a field repair. Photo: Unknown authorUnknown author or not provided, Public domain, via commons*
+
+| Symptom | Cause | Check |
+|---|---|---|
+| Actuator drifts one way at zero command | Null shift (temperature, contamination, a bent feedback wire), a leaking cylinder biasing the loop, the controller's offset | Measure the current at which the actuator stops; adjust null per the manual; check the cylinder bypass (a leaking piston makes the loop push one way constantly) |
+| Sluggish, slow response, poor repeatability | Contamination (partially blocked orifice or nozzle), rising hysteresis, low supply pressure, a fouled 3 µm filter (check its indicator), low oil temperature (thick oil), a torque motor coil degraded | Command a small square wave and watch the response on the controller or a logger; compare with the twin axis; the filter |
+| Oscillation, hum, hunting | Loop gain too high (after a mechanical change: a lighter load, a stiffer mount), air in the cylinder, a loose feedback transducer, a resonating hose | Reduce the gain; bleed; check the transducer mounting |
+| Hard-over (runs to one end) | A blocked nozzle or orifice, a broken feedback wire, a coil open, a broken cable, a controller fault | Coil resistance (typically 20-1,000 Ω per coil depending on the valve; compare both coils), cable continuity; no adjustment fixes a blocked nozzle: send out |
+| Dead, no response | No supply, no enable, no pilot pressure (some valves need 200+ psi at P before the pilot works), coils open, the controller's output disabled | Current at the coils; pressure at P |
+| Erratic under load | Electrical noise, a failing transducer, low supply, air | Shielding and grounds; logger on command and feedback |
+
+**Swap or send out**: a servo valve is not a field-repair item. In the field you can measure coil resistance and insulation, check the null, check the filter, flush the manifold, and swap the valve with a spare (**cap every port instantly**; a valve carried across the shop open collects the particle that kills it). Anything internal (a nozzle, an orifice, the feedback wire, the spool) goes to the maker or a certified shop for cleaning, re-nulling and a flow-gain test on a bench. Before installing a new or repaired valve, **flush the line with a flushing plate** in place of the valve until a particle count meets the target, then fit the valve; run in at low gain.
+
+## Working safely on controlled systems
+
+A proportional or servo system with feedback will do exactly what the loop demands: disconnecting a transducer, swapping a valve or a cable with the system live can send an axis hard-over at full force. Isolate, block the load, and bring it up with the controller in manual or at low gain and the pressure reduced. Every adjustment on a card or a null screw is written down before and after.
+
+## Common mistakes
+
+- "The pump is weak" on an LS machine with a leaking LS line: the pump never got the signal.
+- Setting the pump's compensator below the LS relief: the LS relief never governs, the machine is slow.
+- A shuttle ball left out of one section: that function dead, the others fine.
+- A proportional valve replaced without the card re-set or the OBE parameters transferred.
+- Screwing dither to zero to stop the buzz: the valve now sticks.
+- A 10 µm bypass filter feeding a servo valve.
+- Adjusting null with the load connected and the pressure up.
+- A swapped servo valve carried across the shop with open ports.
+- Chasing a "hydraulic" fault that is a grounding or shield problem on the command cable.
+
+## Related
+
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic fluids: types and compatibility (varnish)](/article/hydraulic-fluids-types-and-compatibility)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$load sensing$mw$,$mw$load sense pump$mw$,$mw$LS pump$mw$,$mw$margin pressure$mw$,$mw$standby pressure$mw$,$mw$LS line$mw$,$mw$load sense signal$mw$,$mw$LS shuttle$mw$,$mw$shuttle network$mw$,$mw$LS orifice$mw$,$mw$LS relief$mw$,$mw$pre-compensated$mw$,$mw$post-compensated$mw$,$mw$flow sharing$mw$,$mw$LUDV$mw$,$mw$priority valve$mw$,$mw$steering priority$mw$,$mw$load sense troubleshooting$mw$,$mw$LS signal lost$mw$,$mw$proportional valve$mw$,$mw$proportional directional valve$mw$,$mw$electro-hydraulic proportional$mw$,$mw$LVDT$mw$,$mw$spool position feedback$mw$,$mw$amplifier card$mw$,$mw$proportional amplifier$mw$,$mw$ramp time$mw$,$mw$deadband compensation$mw$,$mw$gain adjustment$mw$,$mw$dither$mw$,$mw$PWM solenoid$mw$,$mw$proportional solenoid$mw$,$mw$command signal$mw$,$mw$4-20 mA$mw$,$mw$0-10 V$mw$,$mw$servo valve$mw$,$mw$servovalve$mw$,$mw$torque motor$mw$,$mw$flapper nozzle$mw$,$mw$jet pipe$mw$,$mw$feedback wire$mw$,$mw$servo valve null$mw$,$mw$null adjust$mw$,$mw$servo valve filtration$mw$,$mw$3 micron filter$mw$,$mw$contamination lock$mw$,$mw$servo valve troubleshooting$mw$,$mw$proportional valve troubleshooting$mw$,$mw$hydraulic control systems$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Bosch Rexroth Hydraulic Trainer volume 2 (proportional and servo valve technology) and volume 3 (mobile load-sensing systems, LUDV); Danfoss PVG 32 technical information and PVG service manual (LS, flow sharing, LS relief, shuttle network); Eaton Vickers Mobile Hydraulics Manual (load sensing pumps and valves, priority valves); Moog servovalve technical bulletins (nozzle-flapper operation, null, filtration, contamination); Parker proportional valve and amplifier card manuals; Fluid Power Society technician study manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -5311,8 +6578,287 @@ A hissing plant leaks 20-30% of its air; a 1/16" hole at 100 psi costs about 6 c
 - [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
 - [Lockout / tagout basics](/article/lockout-tagout-basics)
 - [Hand and power tool safety](/article/hand-and-power-tool-safety)
-- [PLC and instrumentation awareness (valves and sensors)](/article/plc-and-instrumentation-awareness)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [PLC and instrumentation awareness (valves and sensors)](/article/plc-and-instrumentation-awareness)
+- [Directional control valves, spools and solenoids (hydraulic)](/article/directional-control-valves-spools-and-solenoids)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$pneumatics$mw$,$mw$FRL$mw$,$mw$filter regulator lubricator$mw$,$mw$air regulator$mw$,$mw$air lubricator drops per minute$mw$,$mw$air filter bowl$mw$,$mw$auto drain$mw$,$mw$air tool cfm$mw$,$mw$air hose size$mw$,$mw$air pressure drop$mw$,$mw$drip leg$mw$,$mw$air piping$mw$,$mw$quick coupler$mw$,$mw$Milton coupler$mw$,$mw$industrial interchange$mw$,$mw$pneumatic cylinder$mw$,$mw$air cylinder$mw$,$mw$cylinder cushion$mw$,$mw$pneumatic valve$mw$,$mw$5/2 valve$mw$,$mw$solenoid valve$mw$,$mw$air cylinder seal kit$mw$,$mw$air leaks$mw$,$mw$whip check$mw$,$mw$30 psi cleaning rule$mw$,$mw$lockout air$mw$,$mw$pneumatic safety$mw$,$mw$compressed air safety$mw$]::text[], $mw$Parker / SMC / Festo / Norgren / Ingersoll Rand (generic)$mw$, array[$mw$Parker P3$mw$,$mw$SMC AC series$mw$,$mw$Norgren Excelon$mw$,$mw$Festo MS$mw$,$mw$Bimba$mw$,$mw$Milton M-style$mw$,$mw$Industrial interchange$mw$,$mw$ARO$mw$,$mw$Chicago coupling$mw$]::text[], $mw$Parker and Norgren FRL installation and lubricator setting guidance; Ingersoll Rand and Chicago Pneumatic air tool consumption data; OSHA 1910.242(b) (compressed air for cleaning, 30 psi); OSHA 1910.147 (lockout of pneumatic energy); Compressed Air Challenge best practices (piping, leaks); SMC and Festo pneumatic component guidance.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pressure-and-flow-control-valves-in-depth$mw$, $mw$Pressure and Flow Control Valves in Depth: Direct-Acting vs Pilot-Operated Relief (Cracking, Full-Flow and Override, the Vent Port, Remote and Unloading Control), Reducing and Reducing-Relieving Valves, Sequence and Unloading Valves, Counterbalance and Brake Valves (Pilot Ratios 3:1, 4.5:1, 10:1 and Setting to 1.3× Load), Pressure Switches, Needle vs Pressure- and Temperature-Compensated Flow Controls, Meter-In, Meter-Out and Bleed-Off, Flow Dividers, Regeneration and Cushions$mw$, $mw$The valves that decide how hard and how fast a machine works, at the level a troubleshooter needs: what happens inside a relief valve between cracking and full flow and why a direct-acting one overrides so much more, what the vent port is for and how a remote or a solenoid uses it, how reducing, sequence and unloading valves differ in what they sense and where they drain, how a counterbalance valve holds and lowers a load and how the pilot ratio decides whether it is stable or efficient, the exact setting procedures with the gauge in the right place, how a compensated flow control keeps speed constant and where meter-in, meter-out and bleed-off each belong, flow dividers and their intensification trap, regeneration, cushions and the symptoms each valve gives when it fails.$mw$, $mw$## The four questions for any pressure valve
+
+![Pressure valves as cartridges: relief, load-holding and a solenoid-controlled pressure valve](/photos/hydraulics/relief-valve.jpg)
+
+*Pressure valves as cartridges: relief, load-holding and a solenoid-controlled pressure valve. Photo: HAWE Hydraulik, CC BY-SA 4.0, via commons*
+
+1. **Normally open or closed?** Relief, sequence, unloading and counterbalance valves are normally **closed**; a pressure-**reducing** valve is the only one normally **open**.
+2. **What does it sense?** Its own inlet (relief, sequence, counterbalance's internal pilot), its own outlet (reducing), or a remote line (unloading, counterbalance's external pilot, brake valves).
+3. **Where does it drain?** A valve whose outlet goes to tank drains internally (relief); a valve whose outlet is pressurised (reducing, sequence, unloading) needs an **external drain** to tank or it cannot move. A blocked drain is the commonest "valve failed" that is not the valve.
+4. **Direct-acting or pilot-operated?** Direct-acting: the spring works on the poppet directly; small flows, fast, large override. Pilot-operated: a small pilot valve controls a big main stage; large flows, small override, a vent port, slower.
+
+## Relief valves
+
+![Pilot-operated relief: main stage, pilot poppet and the vent port](/img/hydraulics/pilot-operated-relief.svg)
+
+*Pilot-operated relief: main stage, pilot poppet and the vent port*
+
+**Direct-acting**: a poppet or ball on a seat, a spring, an adjusting screw. Pressure lifts the poppet against the spring. As flow increases the poppet must open further, compressing the spring more, so the pressure rises with flow: from the **cracking pressure** (the first drop passes) to the **full-flow pressure** (rated flow passes) can be a **20-40% rise**: that is the **pressure override**. Fast (no pilot delay), good for shock and small flows (pilot stages, port reliefs, cross-port reliefs on motors), prone to **chatter** at low flows. A machine with a direct-acting main relief set "at 2,000 psi" may crack at 1,500 and waste power all day.
+
+**Pilot-operated (balanced piston)**: a main poppet or spool with a small **orifice** through it, so the same pressure sits on both sides and a light spring holds it shut; a small direct-acting **pilot poppet** on the spring side, set by the adjusting screw. When the inlet pressure reaches the pilot setting, the pilot poppet opens, a small pilot flow passes through the orifice, the pressure above the main poppet falls, and the main poppet lifts against its light spring and passes full flow at only a few percent above the pilot setting: **override 3-8%**. The space above the main poppet is brought out as the **vent port**:
+
+- **Vent to tank** (a solenoid valve opens the vent): the main poppet opens at the light spring pressure (**50-150 psi**): the pump is **unloaded** at almost no power; the standard way to idle a fixed pump between cycles.
+- **Vent through a remote small relief** (a direct-acting valve at the operator's console or a proportional relief): the system pressure follows the remote setting, which must be **below** the main valve's own setting; a solenoid selector between two or three remotes gives several pressures.
+- **Vent blocked** (plug) = normal operation at the local setting.
+
+Behaviour and faults:
+
+| Symptom | Cause |
+|---|---|
+| Pressure will not rise above a low value, system hot | Relief stuck open (debris under the pilot or main poppet), vent line open or leaking (a vent solenoid stuck, a cracked vent line: the relief thinks it is being told to unload), spring broken, setting turned out, main orifice enlarged by erosion |
+| Pressure rises **above** the setting or the relief never opens | **Pilot orifice blocked**: the main poppet cannot sense and stays shut: a dangerous fault, the system is unprotected; also a jammed main spool |
+| Setting creeps down over months, oil hot | Pilot poppet seat worn (wire-drawing from constant leakage), setting screw backing out (lock nut) |
+| Screaming or chatter | Direct-acting valve at low flow; a pilot-operated valve set within 100-200 psi of a compensator or another relief; air in the pilot; a damaged seat; too little back-pressure damping; vent line resonating |
+| Sudden pressure spikes on a fast circuit | Relief too slow (a pilot-operated valve responds in 20-50 ms; a shock needs a direct-acting relief or an accumulator close to the source) |
+
+**Setting a relief**: gauge on the pump outlet (or the valve's inlet port), a way to dead-head the flow (block the actuator, close a valve, stall a cylinder against its end **only if the cylinder is rated for it**), the compensator (if any) screwed in above the target or the pump on full stroke, the vent plugged; back the screw out, start, turn the screw in slowly while watching the gauge until it reads the design pressure with the pump at full flow; lock the nut and re-read; write it on the valve. On a compensated-pump system the relief is set **150-300 psi (10-20 bar) above** the compensator, so the relief only acts as a safety valve and never runs hot.
+
+## Pressure-reducing valves
+
+A spool held **open** by a spring; the **downstream** pressure is fed to the spool's end and pushes it toward closed. When the downstream reaches the setting the spool throttles to hold it there, whatever the upstream does. The spring chamber must **drain to tank** (external drain port, or through the T line on a sandwich) or the spool cannot move: a blocked drain = full upstream pressure downstream. Because a plain reducing valve cannot relieve pressure that builds downstream (thermal expansion, an over-running load), a **reducing-relieving** valve adds a relief function: the spool over-travels and vents downstream to the drain.
+
+Uses: a clamp circuit at 500 psi on a 3,000 psi machine, a pilot supply at 200-300 psi, a second lower pressure on one function of a manifold. Faults: downstream at full pressure (drain blocked, spool stuck open, seat damaged); downstream too low or nothing (set too low, spool stuck closed, upstream too low); heat (the relieving function dumping continuously because the downstream is being fed from elsewhere, a check leaking back).
+
+Setting: gauge **downstream** (on the reduced-pressure branch), the branch loaded or dead-headed, turn to the setting; check that the upstream is at least 150 psi higher than the setting.
+
+## Sequence valves
+
+Normally closed, sensing its **inlet**, opening to pass flow to a **second** circuit only when the inlet reaches the setting: clamp first, then drill; extend cylinder 1 to its stop, then cylinder 2. The outlet is pressurised, so the spring chamber needs an **external drain**. A **bypass check** lets the return flow pass backwards. Set it above the pressure the first operation needs to complete (clamp pressure plus a margin of 150-300 psi) and below the relief. Faults: the second stage starts early (set too low, spool leaking, worn seat) or never starts (drain blocked, set above the relief, first operation never reaches the setting because it is bypassing).
+
+## Unloading valves
+
+Normally closed, opened fully by a **remote pilot** signal (not its own inlet), dumping a pump to tank at near-zero pressure once another part of the system holds the pressure. Two classic circuits:
+
+- **Hi-lo (two-pump) circuit**: a large low-pressure pump for rapid traverse and a small high-pressure pump for the work stroke; when the pressure rises to the unloading setting (say 500 psi) the big pump dumps to tank and the small one continues to 3,000 psi. Symptom of a failed unloading valve: the big pump goes over the relief at high pressure and the motor overloads, or the machine crawls in rapid traverse.
+- **Accumulator charging**: an unloading valve with a **differential** (unloads at the set pressure, re-loads when the pressure falls 10-20% below); the check between pump and accumulator holds the charge. A valve that cycles constantly = a leaking check or a lost precharge.
+
+## Counterbalance and brake valves
+
+![Counterbalance valve: pilot ratio, setting and the stable choice](/img/hydraulics/counterbalance-pilot-ratio.svg)
+
+*Counterbalance valve: pilot ratio, setting and the stable choice*
+
+A **counterbalance (over-centre, motion control, load-holding) valve** sits in the line from the load side of a cylinder or motor. It is a relief valve with two pilots: the **internal pilot** (its own inlet, the load pressure) and an **external pilot** from the **opposite** actuator line (the pressure the directional valve is applying to lower the load), plus a free-flow **check** for raising. Set **above** the load-induced pressure, it holds the load leak-free (poppet type) with the directional valve centred; to lower, the DCV pressurises the other side of the cylinder, the external pilot pressure adds to the internal, and the valve opens **only as far as the pilot pressure demands**, so the load never runs away faster than the pump feeds the other side: no cavitation, no free fall, no over-speed.
+
+**Pilot ratio** = how much more effective the external pilot is than the internal: at a ratio R, the pilot pressure needed to open is roughly (setting − load pressure) ÷ R.
+
+| Ratio | Character | Where |
+|---|---|---|
+| **3:1** | Needs the most pilot pressure to open, so the valve stays partly closed and throttles: **most stable**, most heat, slowest lowering | Hydraulic motors, long booms and springy structures, long hoses, anything that shudders with a higher ratio |
+| **4.5:1** | The general-purpose compromise | Most cylinders on cranes, loaders, presses |
+| **10:1** | Opens with little pilot pressure: **most efficient**, least heat, fastest; the least stable (a small change in pilot pressure swings it wide open: with a springy load it hunts) | Rigid loads, short lines, machines with a stiff frame |
+
+**Setting**: measure the **load-induced pressure** with the load held and the DCV centred (gauge on the load line): say 1,200 psi. Set the counterbalance to about **1.3 × 1,200 = 1,560 psi**: with the load raised and the gauge on the load line, screw the adjuster in until the load cannot be lowered even with the DCV shifted, then back it out until the load just starts to lower, then turn it back in about 1/2-1 turn (or set by the gauge to 1.3×); lock. Too low: the load creeps down and cannot be held at the maximum reach. Too high: lowering needs high pilot pressure (the pump works against the valve: heat, slow lowering, the relief may open before the valve does and the load will not come down at all).
+
+**Instability** (a boom that shudders or hammers on lowering): a pilot ratio too high for the load, the setting too close to the load pressure, air in the lines, a **meter-out flow control between the DCV and the counterbalance** (the flow control's back-pressure feeds into the pilot line and the two fight: put speed control on the pilot side or in the DCV), a long pilot line, or back-pressure at the valve's outlet (an **internally vented** valve adds outlet pressure to its setting one-for-one; an **externally vented** version to tank avoids that when the return has back-pressure).
+
+**Brake valves** are counterbalance valves for hydraulic motors with a low pilot ratio and a large **internal pilot area** so the valve is fully open while driving (no back-pressure, no heat) and closes only when the pilot pressure falls: the motor brakes hydraulically when the operator centres the valve. A **cross-port relief pair plus anti-cavitation checks** across the motor completes the circuit.
+
+Counterbalance valves are **safety devices**: on a crane or a lift they may be certified with the machine. Never remove one to "fix a slow lower", never replace one with a different ratio without the designer's say, and never adjust one without a gauge.
+
+## Pressure switches and transducers
+
+A **pressure switch** (piston or diaphragm against a spring, with a micro-switch) has a **set point** and a **differential** (dead band) of typically 5-15% of the setting; a switch that chatters is set within its differential of the working pressure. Check it with a gauge on the same line and a meter on the contacts. A **transducer** gives 4-20 mA or 0-10 V; check the zero at atmospheric pressure and one point against a calibrated gauge; a transducer on a line with shock needs a snubber (an orifice) or it dies early. Both must be fitted with a **test point** beside them or you will never know which one is lying.
+
+## Flow controls
+
+![Meter-in, meter-out and bleed-off: where the flow control goes](/img/hydraulics/flow-control-placement.svg)
+
+*Meter-in, meter-out and bleed-off: where the flow control goes*
+
+- **Needle valve** (non-compensated): flow through an orifice varies with the **square root of the pressure drop** across it: double the ΔP and the flow rises about 41%. So a cylinder speed set with a needle valve changes when the load changes (slower under load, faster when the load runs away). Fine for constant loads, bleed lines, gauge snubbers and pilot damping.
+- **Pressure-compensated flow control**: a needle (or a fixed orifice) plus a **hydrostat** (a spring-biased spool) that holds a constant pressure drop across the needle (typically 50-100 psi / 3-7 bar) by throttling the excess: constant flow whatever the load, so long as the inlet pressure is at least the compensator's spring plus the load. **Restrictor type** (in-line; the excess flow goes over the relief: heat) or **bypass / priority type** (three ports; the excess goes to tank or to a second circuit at low pressure: efficient; used for steering priority on tractors). A compensated valve also has a **free-flow check** for the reverse direction on cylinder lines.
+- **Temperature compensation**: a sharp-edged orifice (flow nearly independent of viscosity) or a bimetal-adjusted needle, for machines whose speed must not change from a cold morning to a hot afternoon.
+- **Where it goes**:
+
+| Method | Position | Good for | Watch for |
+|---|---|---|---|
+| **Meter-in** | Between the DCV and the actuator inlet | Resistive loads that always push back (pressing, clamping, lifting), precise feed | Cannot control an **over-running** load (the cylinder runs ahead of the oil and cavitates); the excess pump flow goes over the relief (heat) with a fixed pump |
+| **Meter-out** | In the actuator's return line | The usual choice for cylinders and for **over-running** loads (a load lowering, a drill breaking through); holds the load back | **Pressure intensification**: with the rod end metered on a differential cylinder, the trapped rod-end pressure can reach the cap-end pressure × the area ratio (a 2:1 cylinder at 3,000 psi cap makes 6,000 psi rod-end: rod seals and hoses must take it); heat over the relief with a fixed pump |
+| **Bleed-off** | From the pressure line to tank, in parallel with the actuator | Efficient (only the metered flow is bled; the pump sees the load pressure, not the relief) | Least accurate (the actuator gets the pump flow minus the bleed, so pump wear changes the speed); no over-running control |
+
+- A flow control **never changes force**; it changes speed. A weak function with the flow control wide open is a pressure problem; a slow function at full pressure is a flow problem.
+
+**Flow dividers**: a **spool divider** (two compensated orifices sharing one spool) splits one flow 50/50 or another ratio to two actuators regardless of their loads, with 5-10% error, and often **combines** the return; a **gear (rotary) divider** (two or more gear sections on one shaft) splits more accurately and to several outlets, and **intensifies pressure**: if one outlet stalls, the sections driving it are turned by the others and can push its pressure far above the pump's (fit a relief on each outlet). Symptoms: one side runs ahead (a spool divider's compensator stuck, a gear section worn), or a blown hose on a stalled branch (no branch relief).
+
+**Regenerative circuits**: connecting the rod end to the cap end while extending (a regenerative spool centre, or a valve that switches the rod-end oil across) makes the cylinder extend fast (speed = pump flow ÷ rod area) at reduced force (force = pressure × **rod** area only); a second valve switches to normal extension for the work stroke. A press that advances fast but will not build tonnage is stuck in regeneration; one that advances slowly has lost it.
+
+**Cushions and deceleration**: a cylinder cushion is a spear or sleeve that enters a pocket near the end of stroke and forces the last of the return oil through an adjustable **needle** (the cushion screw, often with a check for a fast start out of the cushion). Set it so the piston decelerates without banging and without stalling short; a cushion screw fully in stalls the cylinder before the end; fully out gives a bang at each stroke. A **deceleration valve** is a cam-operated flow control on the machine slide that slows a fast traverse before the stop; a **shock (pressure) spike at the end of a fast stroke** wants a cushion, a deceleration valve, a ramp on a proportional valve or an accumulator, not a higher relief setting.
+
+## Setting order on a whole machine
+
+1. Main relief (everything else backed off or blocked).
+2. Pump compensator (150-300 psi below the relief), LS margin.
+3. Reducing valves.
+4. Sequence, unloading, counterbalance (1.3× load).
+5. Port and cross-port reliefs (10-20% above the main relief on holding functions, or per the drawing).
+6. Flow controls and cushions.
+7. Pressure switches and transducers checked against a gauge.
+8. Every value written on the schematic with the date.
+
+## Common mistakes
+
+- A direct-acting relief chosen for the main relief: it cracks 500 psi low and the tank runs hot.
+- The vent port left open (a fitting removed, a vent solenoid failed) and the "relief is stuck open".
+- A pilot orifice blocked and the relief never opens: a burst hose at 5,000 psi on a 3,000 psi machine.
+- A reducing valve with its drain plugged: full pressure downstream, a crushed part.
+- A counterbalance removed to speed up lowering; a 10:1 valve fitted to a springy boom.
+- A meter-out flow control fitted between the DCV and the counterbalance: the boom shudders.
+- Intensified rod-end pressure with meter-out on a 2:1 cylinder blowing the rod seal.
+- Opening the flow control to fix a weak function.
+- A gear flow divider with no branch reliefs: the stalled branch's hose bursts.
+- Setting valves without a gauge, or with the gauge at the pump when the valve is at the actuator.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)
+- [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$relief valve$mw$,$mw$direct acting relief$mw$,$mw$pilot operated relief$mw$,$mw$balanced piston relief$mw$,$mw$cracking pressure$mw$,$mw$full flow pressure$mw$,$mw$pressure override$mw$,$mw$relief valve vent port$mw$,$mw$remote relief$mw$,$mw$unloading relief$mw$,$mw$solenoid vent$mw$,$mw$pressure reducing valve$mw$,$mw$reducing relieving valve$mw$,$mw$sequence valve$mw$,$mw$unloading valve$mw$,$mw$hi-lo circuit$mw$,$mw$accumulator unloading$mw$,$mw$counterbalance valve$mw$,$mw$load holding valve$mw$,$mw$motion control valve$mw$,$mw$pilot ratio$mw$,$mw$3:1 pilot ratio$mw$,$mw$4.5:1$mw$,$mw$601$mw$,$mw$counterbalance setting$mw$,$mw$brake valve$mw$,$mw$overcenter valve$mw$,$mw$pressure switch$mw$,$mw$pressure transducer$mw$,$mw$flow control valve$mw$,$mw$needle valve$mw$,$mw$pressure compensated flow control$mw$,$mw$temperature compensated$mw$,$mw$hydrostat$mw$,$mw$priority flow control$mw$,$mw$bypass flow control$mw$,$mw$meter-in$mw$,$mw$meter-out$mw$,$mw$bleed-off$mw$,$mw$flow divider$mw$,$mw$spool flow divider$mw$,$mw$gear flow divider$mw$,$mw$pressure intensification$mw$,$mw$regenerative circuit$mw$,$mw$cylinder cushion$mw$,$mw$deceleration valve$mw$,$mw$setting hydraulic valves$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Eaton Vickers Industrial Hydraulics Manual (pressure and flow control valve operation, override, setting order); Sun Hydraulics counterbalance technical tips (pilot ratio selection and setting procedure); Parker and Bosch Rexroth pressure valve catalogues (override curves, vent and remote control, drain requirements); Rexroth Hydraulic Trainer volume 1 (flow control and flow divider theory); Fluid Power Society technician manuals; NFPA/T2 fluid power practice.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$stack-valves-and-sectional-valve-banks$mw$, $mw$Stack (Sandwich) Valves and Sectional Valve Banks: What Each Modular Valve Does and Which Port It Acts On, the Order of a D03/D05 Stack and Why It Matters, Tie-Rod Length and Torque, Reading a Stack from the Schematic, Fault-Finding by Module Swap, and Mobile Sectional and Monoblock Valves (Inlet, Work Sections, Port Reliefs, Anti-Cavitation Checks, Power Beyond, Load-Sense Shuttles)$mw$, $mw$How to read, service and fault-find the two commonest ways of packaging several valves in one assembly: the industrial stack of sandwich valves under a D03 or D05 directional valve (which module does what, to which port, in what order, with what bolts) and the mobile sectional valve bank (inlet, work sections, outlet, the reliefs and checks hidden in each section, the load-sense and power-beyond connections), with the leak, drift and no-flow faults each one produces.$mw$, $mw$## Industrial stack (sandwich) valves
+
+![A D03 stack from the manifold up: each module acts on named ports](/img/hydraulics/stack-valve-order.svg)
+
+*A D03 stack from the manifold up: each module acts on named ports*
+
+A **stack** is a directional control valve (DCV) mounted on top of one or more **sandwich (modular) valves**, all with the same ISO 4401 face pattern (D03 or D05; D07 sandwiches exist but are rare), bolted through with long **tie rods (stud bolts)** to a **subplate** or a **bar manifold** that carries P, T, A and B for each station. Each sandwich passes P, T, A and B straight through and performs one function on one or two of them. The whole stack is one station; a bar manifold carries four or six stations side by side sharing P and T.
+
+### What each module does and which port it acts on
+
+| Sandwich module | Acts on | Function | Adjust / notes |
+|---|---|---|---|
+| **Check valve, P line** | P | Stops the load driving oil back into the pump line when the pump unloads or another function drops the pressure; **load check** | Cracking 5-75 psi; none adjustable |
+| **Check, A or B, or T line** | A, B or T | One-way flow; a T-line check makes **back-pressure** (about 75 psi) to supply an internal pilot | |
+| **Pilot-operated check (POC)** | A, B or both | **Locks the cylinder** leak-free until pilot pressure from the opposite line opens it; the true load-holding module | Pilot ratio typically 3:1-4:1; needs a spool centre that vents A and B to tank (float or an open-centre spool: a closed centre traps pressure and the POC will not open, or opens with a bang) |
+| **Flow control, meter-in** | A, B or both (marked by arrows on the body) | Sets the speed **into** the actuator; for resistive loads | Needle (not compensated) or pressure-compensated; each side its own screw |
+| **Flow control, meter-out** | A, B or both | Sets the speed **out** of the actuator; the usual choice for cylinders and over-running loads | The commonest sandwich; the arrow on the body shows the metered direction; a free-flow check the other way |
+| **Flow control, P line** | P | Meters total flow to the station (both directions equally) | |
+| **Pressure-reducing valve** | P (or A or B) | A lower pressure for this station only (a clamp at 500 psi off a 2,000 psi system) | Has a drain: external through T or a separate port; the reducing valve is normally **open** |
+| **Pressure relief, A or B (port relief, cross-port relief)** | A, B | Limits the pressure in one work line (shock from a motor stopping, an over-running load); cross-port dumps A to B | Set above the working pressure of that line |
+| **Sequence valve** | A or B | Allows the second stage of a sequence to move only when the first has stalled at pressure | External drain |
+| **Counterbalance (load-holding with pilot assist)** | A or B (the line from the load side of the cylinder) | Holds a load against gravity **and** controls the lowering speed without cavitation; opens on pilot pressure from the other line | Set 1.3× load-induced pressure; pilot ratio decides stability: see [pressure and flow control valves](/article/pressure-and-flow-control-valves-in-depth) |
+| **Pressure switch plate / gauge plate** | P, A or B | A gauge port or a pressure switch for the PLC | |
+| **Blanking plate** | | Fills the space of a removed module | |
+| **Sandwich accumulator / shock module** | P or A/B | | |
+| **Orifice plate** | P, A, B or T | A fixed restriction (a slow-down, a pilot orifice) | Not adjustable; easily forgotten in a rebuild |
+
+Each module is stamped with the port it acts on (an arrow and A, B, P or T) and often has a letter code on the plate; **the same body machined for A or B looks identical from the outside**, so read the stamping, not the shape. The direction arrow on a flow control is the metered direction of flow, not the actuator's direction.
+
+### The order of the stack
+
+Order matters because each module sees only what the modules below it pass up. Reading from the **subplate up to the DCV**, a common, correct order is:
+
+![Power pack with double-solenoid valves stacked on modular sandwiches over a bar manifold](/photos/hydraulics/valve-stack.jpg)
+
+*Power pack with double-solenoid valves stacked on modular sandwiches over a bar manifold. Photo: Vedantengg, CC BY-SA 3.0, via commons*
+
+1. **Pressure-reducing valve** (P) at the bottom, so everything above it sees the reduced pressure, and its drain goes straight to the subplate T.
+2. **Check valve in P** (load check) above it.
+3. **Counterbalance or pilot-operated check** (A/B) next: closest to the actuator lines in the manifold, so what it holds is the actual load, not a flow control's back-pressure.
+4. **Flow controls** (meter-out A/B) above that, so the flow control meters the flow the DCV commands and the POC below still sees full pilot pressure.
+5. **Pressure switch or gauge plate** wherever it must read.
+6. **Directional valve** on top.
+
+Put the flow control **below** the POC and the pilot pressure to open the POC is throttled: the load lowers in jerks. Put the reducing valve **above** a POC and the pilot signal is at reduced pressure and may not open the check. The machine schematic shows the order as a column of symbols; when in doubt, draw the flow path for each spool position through each module and see what each one does to the port it acts on.
+
+### Tie rods, torque and seals
+
+- The **tie-rod kit** length is set by the number and height of modules: a D03 DCV is about 1.8" (46 mm) tall, each D03 sandwich 1.6" (40 mm); the maker's catalogue lists the bolt kit for one, two, three modules. A rod too short engages three threads and strips; too long bottoms out in a blind manifold hole and the stack is never clamped (it leaks at pressure and the spool binds). Threads engaged: at least 1× the diameter.
+- Torque **in a cross pattern in two or three stages**: D03 (M5): 6-7 ft-lb (8-9 N·m); D05 (M6): 11-13 ft-lb (15 N·m); D07 (M10): 40-45 ft-lb (55-60 N·m). Uneven torque bows the stack: a sticking spool in the DCV on top is often a bent stack, not a dirty spool.
+- **O-rings**: five (or four) on every face, in the groove of the module above, all replaced together; a stack leaks between modules when one O-ring is missing, pinched, cut on a sharp port edge, swollen by the wrong fluid or nicked by a face scratch. The face must be **flat and unmarked**: a scratch across a port land is a leak path at 3,000 psi.
+- A **stack that leaks externally** at pressure only: bolts stretched or under-torqued, or a rod bottomed. Leaks all the time: a damaged O-ring or face.
+
+### Reading and fault-finding a stack
+
+- Identify each module from its **plate code and stamping**, write the stack down top to bottom against the schematic, and note every adjusting screw and its lock nut position (mark them with paint before touching).
+- **Drift** at a station with a POC: the POC seat (a particle, a scored poppet), the wrong spool centre (closed centre keeps the pilot pressurised: the check opens and the load drifts), the POC fitted on the wrong port, or a bypassing cylinder (test the cylinder first: [cylinder repair](/article/cylinder-repair-and-seal-kits)).
+- **Slow in one direction only**: the meter-out screw on that side, a blocked check in the flow control, the counterbalance set too high or its pilot too weak.
+- **Will not move in one direction, moves in the other**: a POC that will not open (pilot pressure too low: a reducing valve above it, a flow control throttling the pilot, a ratio too low for a very high load pressure), a port relief stuck open, a stuck sandwich check.
+- **No flow at all, pump at relief**: a load check backwards, an orifice plate blocked, a reducing valve set to zero or its drain blocked (a reducing valve with no drain path stays shut).
+- **Overheats at rest**: a reducing valve's relief function dumping, a cross-port relief set too low, a POC held open.
+- **Module swap**: sandwiches are cheap and identical between stations: swap the suspect module with the same module from a working station (same port marking!) and see whether the fault moves. Clean the faces, new O-rings, correct torque; each swap is a chance to introduce dirt.
+- After any change, re-set the pressure modules with a gauge on the gauge plate and record the settings on the schematic.
+
+## Mobile sectional and monoblock valves
+
+![Sectional valve bank: inlet, work sections, outlet and the LS line](/img/hydraulics/sectional-valve-bank.svg)
+
+*Sectional valve bank: inlet, work sections, outlet and the LS line*
+
+The valve on a loader, crane, excavator or forestry machine is a bank of **work sections** (one spool per function) between an **inlet section** and an **outlet (end) section**, clamped by three or four **tie rods**. A **monoblock** is the same thing cast in one body (cheaper, no inter-section leaks, not expandable). Each section is a small hydraulic circuit on its own.
+
+| Part | What is in it | Typical settings and faults |
+|---|---|---|
+| **Inlet section** | The **main relief** (the whole valve's maximum), the P and T ports, on load-sense valves the **LS relief** and the **unloader/pressure compensator** for a fixed pump, on some a **priority** valve for steering | Main relief 2,000-3,500 psi (140-240 bar) on typical mobile machines; a main relief stuck partly open: everything weak and the tank hot |
+| **Work section** | The **spool** (open-centre, closed-centre, motor spool, float spool, regenerative), a **load check** (stops the load falling back when the spool opens before the pressure builds), **port reliefs** on A and/or B (limit the pressure trapped in a cylinder or motor line when the spool is centred: shock, boom hitting the stop), **anti-cavitation (make-up) checks** (let oil from T into a work port when the load runs faster than the pump feeds it, e.g. a boom dropping, a motor coasting), on LS valves a **pressure compensator** and an **LS shuttle**, spool centring spring and detent, spool seals and wipers, a lever or a pilot/solenoid actuator | Port reliefs usually 10-20% **above** the main relief on holding functions (so the main relief governs while working and the port relief only catches shock); a port relief set below the main relief makes that function weak in one direction only; an anti-cav check stuck open = that port bleeds to tank and the load drifts |
+| **Outlet section** | T port, sometimes a **power-beyond** sleeve (carries the unused open-centre flow on to another valve downstream rather than to tank: a separate high-pressure port), an LS return or bleed orifice | Power beyond plug fitted in place of the sleeve (or the reverse): the downstream valve gets nothing, or the T port sees full pressure and the section seals blow |
+| **Tie rods** | Three or four long studs | Torque per the maker (typically 15-25 ft-lb for 3/8" rods on small valves, 40-60 ft-lb for 1/2" and M12, up to 100+ ft-lb on large valves), cross pattern, in stages, with the valve on a flat surface and the sections aligned on their dowels; **over-torque bows the sections and the spools stick**; under-torque = leaks between sections at pressure and a valve that "creeps" all functions |
+
+**Open-centre banks** (fixed pump): flow passes through the centre of every spool in series to tank; moving a spool blocks the centre path progressively and diverts flow to the work port; the pressure is whatever the load needs; the functions interact (the highest-load function starves when another moves first, the order of sections matters: usually the most important function nearest the inlet). **Closed-centre banks** (pressure-compensated or LS pumps): the centre is blocked; each section gets flow on demand; LS valves add a compensator per section so several functions share flow in proportion (**flow sharing**, e.g. Danfoss PVG, Rexroth M4). See [load-sensing systems](/article/load-sensing-proportional-and-servo-systems).
+
+### Spool types in a section
+
+![Mobile sectional valve bank with hand levers: one work section per function between the inlet and outlet](/photos/hydraulics/valve-bank.jpg)
+
+*Mobile sectional valve bank with hand levers: one work section per function between the inlet and outlet. Photo: Kleuske, CC BY-SA 3.0, via commons*
+
+| Spool | Centre | Use |
+|---|---|---|
+| **Double-acting cylinder** (4-way, A and B blocked at centre) | Holds both ports | Most cylinders |
+| **Motor spool** (A and B to T at centre, or via checks) | Motor can coast, no cavitation, no trapped pressure | Hydraulic motors, winches with a separate brake |
+| **Float** (fourth position, A and B to T) | Blade follows the ground | Dozer blades, snow plough |
+| **Single-acting** (3-way, only A used) | | Dump bodies, single-acting rams |
+| **Regenerative** | P to A and B for fast extend | Log splitters, clam shells |
+| **Detented spool** | Stays in position | Motor functions, augers; a detent that releases on pressure (kick-out) for bucket return-to-dig |
+
+### Identifying and servicing a section
+
+- The casting number and the spool code are stamped on the section and on the spool end; the assembly drawing lists them by position. Sections of the same family but different spool codes look identical: order by the code, and write the position on each section before splitting a bank.
+- **Splitting a bank**: clean it outside, mark the order and orientation of every section, lay them out on a clean bench in order as the tie rods come out, keep the O-rings and the load-check poppets and springs with their sections (they fall out), inspect the faces for scoring, replace **every** inter-section O-ring (a kit), lubricate, align on the dowels, torque the rods in stages, then set the reliefs.
+- **Spool seals** (the O-ring and wiper at each spool end) are the commonest leak: replaceable in place with the spool cap off; a **bent spool** or a scored bore leaks at the seal forever: replace the section.
+- **Port relief and anti-cav cartridges** screw into the section: identify by the stamping; a relief cartridge dropped into an anti-cav cavity (or the reverse) bolts in and does something else entirely.
+- **Setting port reliefs**: gauge on the work port, spool held with the cylinder stalled (or a gauge and a needle valve on a test port), turn the adjuster; record; lock. A port relief that opens **below** the main relief makes the machine weak in that direction only: a classic hard-to-find fault.
+- **Section leak diagnosis**: oil weeping between sections at pressure = tie rods; from a spool end = spool seals; all functions weak and hot with a good pump = main relief; one function weak one way = port relief or a load check; one function drifting = the anti-cav check, the port relief seat, a bypassing cylinder, or the load check seat; all functions drift together = spool wear from contamination (the whole valve).
+
+## Common mistakes
+
+- Meter-out sandwich under the POC: the POC pilot is throttled, the load lowers in jerks.
+- Sandwich for port A fitted where the schematic says B.
+- Tie rods torqued unevenly or with an impact gun: the DCV on top sticks.
+- An orifice plate left out at reassembly.
+- Port relief set below the main relief.
+- Anti-cav and relief cartridges swapped.
+- Power-beyond plug and sleeve confused.
+- Sections reassembled in the wrong order: the functions swap.
+
+## Related
+
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)
+- [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+          array[$mw$stack valve$mw$,$mw$sandwich valve$mw$,$mw$modular valve$mw$,$mw$D03 stack$mw$,$mw$D05 stack$mw$,$mw$NG6 modular$mw$,$mw$sandwich flow control$mw$,$mw$sandwich check valve$mw$,$mw$sandwich counterbalance$mw$,$mw$sandwich reducing valve$mw$,$mw$sandwich pilot operated check$mw$,$mw$stack order$mw$,$mw$tie rod length$mw$,$mw$tie rod torque$mw$,$mw$manifold subplate$mw$,$mw$bar manifold$mw$,$mw$section O-rings$mw$,$mw$valve stack leak$mw$,$mw$sectional valve$mw$,$mw$sectional control valve$mw$,$mw$monoblock valve$mw$,$mw$mobile directional valve$mw$,$mw$inlet section$mw$,$mw$work section$mw$,$mw$outlet section$mw$,$mw$port relief$mw$,$mw$anti-cavitation check$mw$,$mw$power beyond$mw$,$mw$load check$mw$,$mw$load sense shuttle$mw$,$mw$valve bank tie rod$mw$,$mw$spool types mobile valve$mw$,$mw$open center valve bank$mw$,$mw$closed center valve bank$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Parker, Eaton Vickers, Bosch Rexroth, Daikin and Continental Hydraulics modular (sandwich) valve catalogues (functions, stack heights, bolt kits, torque); Danfoss PVG, Parker P70/VDP, Walvoil SD, Prince and Gresen sectional valve service manuals (section functions, tie-rod torque, spool options, relief settings); Fluid Power Society technician manuals; Rexroth Hydraulic Trainer volume 1.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -7297,6 +8843,7 @@ Minimum required viscosity at the **operating temperature** depends on speed and
 - [Gearbox lubrication and inspection](/article/gearbox-lubrication-and-inspection)
 - [Planetary and worm reducers (worm gear oils)](/article/planetary-and-worm-reducers)
 - [Filters, fluid and contamination (hydraulic fluid)](/article/filters-fluid-and-contamination)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Roller chain drives](/article/roller-chain-drives)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$lubrication$mw$),
           array[$mw$oil viscosity$mw$,$mw$ISO VG$mw$,$mw$ISO 220$mw$,$mw$ISO 320$mw$,$mw$ISO 460$mw$,$mw$ISO 68$mw$,$mw$SAE 90$mw$,$mw$SAE 30$mw$,$mw$AGMA number$mw$,$mw$viscosity comparison chart$mw$,$mw$viscosity index$mw$,$mw$cSt$mw$,$mw$SUS$mw$,$mw$gear oil selection$mw$,$mw$AGMA 9005$mw$,$mw$gearbox oil$mw$,$mw$hydraulic oil 46$mw$,$mw$bearing oil viscosity$mw$,$mw$compressor oil$mw$,$mw$chain oil$mw$,$mw$synthetic oil$mw$,$mw$PAO$mw$,$mw$PAG$mw$,$mw$ester oil$mw$,$mw$food grade oil$mw$,$mw$H1$mw$,$mw$oil storage$mw$,$mw$oil labeling$mw$,$mw$lubricant consolidation$mw$,$mw$EP gear oil$mw$,$mw$R&O oil$mw$,$mw$turbine oil$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 3448 (ISO VG grades); SAE J300 (engine) and J306 (automotive gear) grade definitions; AGMA 9005-F16 (industrial gear lubrication: viscosity by pitch-line velocity and ambient) and the AGMA lubricant number cross-reference; SKF bearing oil viscosity selection (minimum viscosity at operating temperature by speed and size); Noria/Machinery Lubrication viscosity comparison chart; pump and compressor maker guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
@@ -14720,6 +16267,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | **Change filters, sample and flush** | [Filters, fluid and contamination](/article/filters-fluid-and-contamination) → [oil analysis and sampling](/article/oil-analysis-and-sampling) |
 | **Check or charge an accumulator** | [Accumulator precharge and safety](/article/accumulator-precharge-and-safety) → [cylinder handling (nitrogen)](/article/compressed-gas-cylinder-handling) |
 | **Set up an FRL / fix air leaks** | [Pneumatic systems](/article/pneumatic-systems-frl-and-cylinders) |
+| **Identify an unknown fitting or port** | [Fitting identification and thread tables](/article/hydraulic-fitting-identification-and-thread-tables) → [hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings) |
+| **Machine is slow, weak or hot** | [Advanced troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics) → [pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing) → [pressure and flow control valves](/article/pressure-and-flow-control-valves-in-depth) |
+| **Cylinder drifts or will not hold** | [Advanced troubleshooting (decay and bypass tests)](/article/hydraulic-troubleshooting-advanced-diagnostics) → [pressure and flow control valves (counterbalance, POC)](/article/pressure-and-flow-control-valves-in-depth) → [cylinder repair](/article/cylinder-repair-and-seal-kits) |
+| **Valve will not shift or a coil keeps burning** | [Directional valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids) |
+| **Fault in a valve stack or a mobile valve bank** | [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks) → [cartridge and logic valves](/article/cartridge-and-logic-valves) |
+| **Choose, check or change the hydraulic fluid** | [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility) → [oil viscosity and selection](/article/oil-viscosity-and-selection) → [filters, fluid and contamination](/article/filters-fluid-and-contamination) |
+| **Load-sense machine dead, proportional or servo valve fault** | [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems) |
+| **Hydrostatic drive will not move or loses power hot** | [Hydraulic motors and hydrostatic drives](/article/hydraulic-motors-and-hydrostatic-drives) |
+| **Test yourself on advanced hydraulics** | [Quiz: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting) |
 
 ## Motors, electrical and controls
 
@@ -15883,7 +17439,12 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## C
 
 - **C and C0**: the dynamic and static basic load ratings of a bearing from the catalogue.
+- **Cartridge valve**: a complete hydraulic valve that screws (or slips) into a machined cavity in a manifold block; sealed by O-rings on the cavity steps.
+- **Case drain**: the line that returns internal leakage from a piston pump or motor case to tank; its flow measures wear and it must never be restricted.
 - **Cavitation**: vapour bubbles forming in a pump or hydraulic pump inlet at low pressure and collapsing violently downstream.
+- **Charge pump**: the small pump on a hydrostatic transmission that keeps the closed loop full, supplies the controls and sets the charge pressure.
+- **Code 61 / Code 62**: the SAE 4-bolt hydraulic flange standards for 3,000 and 6,000 psi; same nominal size, different bolt spacing, not interchangeable.
+- **Counterbalance valve**: a load-holding valve in a cylinder or motor line that holds a load against gravity and opens only as far as pilot pressure from the other line asks.
 - **Centre of gravity**: the point where a load's weight acts; the hook must be above it for a level lift.
 - **Choker hitch**: a sling passed around the load and through its own eye, capacity about 75 to 80 percent of vertical.
 - **Clearance (bearing)**: the internal play between rings and rolling elements; C2 less than normal, CN normal, C3 and C4 greater.
@@ -15898,6 +17459,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
 - **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
 - **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
+- **DIN 24° fitting (L / S series)**: the metric bite-ring tube fitting; L (light) and S (heavy) series share some threads but have different cone diameters, so they are named by tube OD.
 - **Dowel**: a hardened pin that fixes the position of a machine or cover after alignment.
 - **Drive-up**: the axial distance a tapered-bore bearing is pushed up its seat to reach the correct fit reduction.
 - **Duty cycle**: the percentage of a 10 minute period a welding machine can run at a given current; also machine operating hours per day for service factors.
@@ -15932,7 +17494,9 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - **Head**: the energy a pump adds, in feet or metres of the pumped liquid; independent of density.
 - **HAZ (heat-affected zone)**: base metal next to a weld whose structure has been changed by heat.
+- **HFC / HFD fluids**: fire-resistant hydraulic fluids: HFC is water-glycol (pumps derated), HFDR phosphate ester (needs FKM or EPDM seals), HFDU polyol ester.
 - **Hydraulic nut**: a piston-type nut used to press bearings and couplings onto tapered seats.
+- **Hydrostatic transmission**: a variable pump and a motor joined in a closed loop, with a charge pump, cross-port reliefs and a flushing valve; speed and direction come from the pump's swashplate.
 - **Hypoid**: a bevel gear set with offset axes, as in a differential.
 
 ## I
@@ -15959,12 +17523,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Lagging**: the rubber or ceramic covering on a conveyor drive pulley that increases belt friction.
 - **Laminar pattern**: see contact pattern.
 - **Lay (wire rope)**: the direction and manner in which wires and strands are twisted; regular lay or lang lay.
+- **Load sensing**: a hydraulic control in which the pump holds its outlet a fixed margin above the highest load pressure fed back on the LS line, making only the flow the valves ask for.
 - **Lockout**: isolating and locking every energy source of a machine before work on it.
+- **Logic valve**: a slip-in two-way poppet element (ISO 7368) for large flows; its cover's pilot circuit makes it a directional, check, relief or throttle function.
 - **Low-hydrogen electrode**: E7018 and related rods whose coating is kept dry to avoid hydrogen cracking.
 
 ## M
 
 - **Magnetic base**: a switchable magnet holding a dial indicator to steel.
+- **Margin pressure**: the fixed difference (typically 200-350 psi) a load-sensing pump holds between its outlet and the LS signal.
 - **Mechanical seal**: a shaft seal with two lapped faces, one rotating and one stationary, riding on a thin liquid film.
 - **Micrometer**: a screw-thread gauge reading to 0.001 in (0.0001 in with a vernier) or 0.01 mm.
 - **Misalignment**: offset, angularity or both between two coupled shafts.
@@ -15980,12 +17547,14 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
 - **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
+- **ORB / ORFS**: SAE O-ring boss (a straight-thread port fitting sealed by an O-ring at its shoulder) and O-ring face seal (a flat-faced fitting with an O-ring in its face); neither seals on the thread.
 - **Oxidizing / carburizing flame**: an oxy-fuel flame with excess oxygen or excess fuel; neutral is in between.
 
 ## P
 
 - **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
 - **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
+- **Pilot ratio**: on a counterbalance valve, how much more effective the external pilot is than the load pressure at opening it (3:1 stable, 10:1 efficient).
 - **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
 - **Pillow block**: a bearing housing with a flat base and two bolt holes.
 - **Pipe strain**: force from misfitted piping distorting a pump and shifting its shaft.
@@ -16017,8 +17586,10 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
 - **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
 - **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
+- **Servo valve**: a two-stage electro-hydraulic valve (torque motor, flapper-nozzle or jet-pipe pilot, spool with feedback) that positions its spool from a milliamp signal; needs 3 µm filtration.
 - **Specific gravity**: density of a liquid relative to water; converts head to pressure.
 - **Spreader bar**: a rigid bar that keeps sling legs vertical on wide loads.
+- **Stack (sandwich) valve**: a modular valve with the ISO 4401 face pattern bolted under a directional valve to add a check, flow control, reducing or counterbalance function to one station.
 - **Stick-out**: electrode extension from the contact tip to the arc in wire welding.
 - **Surface plate**: a flat granite reference plane for layout and measurement.
 
@@ -16042,6 +17613,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - **Vernier**: the auxiliary scale on a caliper or height gauge that subdivides the main scale.
 - **VFD**: variable frequency drive; changes motor speed by changing supply frequency.
+- **VI improver**: a polymer additive that flattens an oil's viscosity-temperature curve (multigrade, HV oils); it can shear down permanently in piston pumps and servo valves.
 - **Viscosity index**: how little an oil's viscosity changes with temperature; higher is better.
 
 ## W
@@ -16057,6 +17629,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Z
 
+- **ZDDP**: zinc dialkyldithiophosphate, the anti-wear additive in most AW hydraulic oils; avoided in zinc-free fluids for silver-plated and yellow-metal parts.
 - **Zerk (grease fitting)**: the nipple through which grease is pumped into a bearing housing.
 - **Zone (ISO 10816)**: vibration severity bands A (new) to D (damaging) by machine class.
 
@@ -16287,6 +17860,116 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-hydraulics-advanced-troubleshooting$mw$, $mw$Test Yourself: Advanced Hydraulics (20 Questions with Answers on Pump Testing, Spool Centres, Stack and Sectional Valves, Cartridge and Logic Valves, Counterbalance Ratios, Fitting Identification, Fluid Types, Load Sensing, Servo Valves, Hydrostatic Drives and Diagnostics)$mw$, $mw$Twenty practice questions for the technician level: pump flow and case-drain tests, what each spool centre does, stack order and sectional valve faults, cartridge cavities and logic element area ratios, counterbalance pilot ratios and settings, identifying fittings by measurement, choosing and converting fluids, load-sense margin, servo valve filtration, hydrostatic charge pressure, and the diagnostic method. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
+
+![Review figure: from the symptom to the test to the cause](/img/hydraulics/troubleshooting-decision-tree.svg)
+
+*Review figure: from the symptom to the test to the cause*
+
+## Questions
+
+**1.** A 2.75 in³/rev piston pump at 1,800 rpm delivers 15 gpm at 3,000 psi on the flow meter. What is its volumetric efficiency, and what do you conclude?
+
+<details><summary>Answer</summary>Theoretical flow = 2.75 × 1,800 ÷ 231 = 21.4 gpm; 15 ÷ 21.4 = 0.70. Below about 0.80-0.85 at working pressure the pump is worn: replace or rebuild, and flush the system before the new pump goes in. Review: hydraulic pumps, types, controls and testing.</details>
+
+**2.** Why can a badly worn pump still show full system pressure on the gauge?
+
+<details><summary>Answer</summary>Pressure comes from resistance to flow, not from the pump. Against a dead-headed cylinder even a trickle of flow holds the relief or compensator pressure on the gauge; the wear shows only as lost flow at pressure, so the machine is slow. Judge a pump by flow at pressure or by case drain flow, never by the gauge alone. Review: hydraulic pumps, types, controls and testing.</details>
+
+**3.** What is the case-drain rule of thumb for a piston pump, and what precaution protects the shaft seal during the test?
+
+<details><summary>Answer</summary>New pumps leak 1-3% of rated flow to the case; over about 10-15% at working pressure and temperature means worn. Keep the drain outlet above the pump's top port so the case stays full, and never restrict the drain: the case and shaft seal are rated for only about 15-30 psi. Review: hydraulic pumps, types, controls and testing.</details>
+
+**4.** A machine has a fixed-displacement pump and a directional valve with a closed centre. What happens at rest, and which centre would unload the pump while still blocking the cylinder ports?
+
+<details><summary>Answer</summary>With all ports blocked the pump flow goes over the relief valve at full pressure and turns to heat. A tandem centre (P to T, A and B blocked) unloads the pump to tank and still holds the cylinder against slow spool leakage. Review: directional control valves, spools and solenoids.</details>
+
+**5.** An AC-solenoid valve keeps burning coils every few weeks. What is the most likely cause?
+
+<details><summary>Answer</summary>The spool is not completing its stroke (contamination, silting, a bent stack, low pilot pressure on a two-stage valve), so the AC inrush current never falls to the holding value and the coil overheats. Find out why the spool sticks before fitting another coil; a DC coil would just run warm and half-shift. Review: directional control valves, spools and solenoids.</details>
+
+**6.** A D03 stack has a meter-out flow control sandwiched under a pilot-operated check. The load lowers in jerks. Why, and what is the fix?
+
+<details><summary>Answer</summary>The flow control throttles the pilot pressure that opens the pilot-operated check, so the check opens and closes as the pressure builds and drops. Put the pilot-operated check (or counterbalance) closest to the manifold and the flow control above it, under the directional valve. Review: stack valves and sectional valve banks.</details>
+
+**7.** On a mobile sectional valve one function is weak when lifting but normal when lowering; the main relief tests correctly. Where do you look?
+
+<details><summary>Answer</summary>That section's port relief on the lifting side (set or leaking below the main relief), or its load check. A port relief set below the main relief makes one function weak in one direction only. Gauge on the work port while the function stalls. Review: stack valves and sectional valve banks.</details>
+
+**8.** What decides whether an ISO 7368 logic element is open or closed, and what does a 1:1 area ratio mean?
+
+<details><summary>Answer</summary>The force balance: it opens when pressure at A times the nose area plus pressure at B times the annulus exceeds pressure at X (the spring chamber) times the full top area plus the spring. A 1:1 ratio has no B annulus, so port B pressure has no effect: a pure pressure or relief element. Review: cartridge and logic valves.</details>
+
+**9.** A screw-in cartridge leaks between two ports right after installation. Name three likely causes.
+
+<details><summary>Answer</summary>The cartridge was cocked on entry and an O-ring was cut on a cavity step; a back-up ring was fitted on the wrong side or a seal was left out; a scored step in the cavity; or a seal left in the cavity from the old cartridge stopping the new one from seating. Review: cartridge and logic valves.</details>
+
+**10.** A boom cylinder holds a load at 1,200 psi load-induced pressure. What setting do you give the counterbalance valve, and which pilot ratio would you avoid on a long springy boom?
+
+<details><summary>Answer</summary>About 1.3 × 1,200 = 1,560 psi, set with a gauge on the load line. Avoid the 10:1 ratio on a springy structure: it opens with little pilot pressure and hunts; 3:1 is the stable choice, 4.5:1 the usual compromise. Review: pressure and flow control valves in depth.</details>
+
+**11.** A pilot-operated relief valve's pilot orifice becomes blocked. Is the system over-protected or unprotected, and why?
+
+<details><summary>Answer</summary>Unprotected. The main poppet is held shut by equal pressure on both sides and only lifts when the pilot flow through the orifice lowers the pressure above it; with the orifice blocked the pilot stage cannot sense, the main poppet never opens, and the pressure can rise until something bursts. Review: pressure and flow control valves in depth.</details>
+
+**12.** You measure a male fitting: 0.750 in major diameter, 16 threads per inch, parallel, with a 37° cone. A second fitting has the same thread with a flat shoulder and an O-ring. Name both.
+
+<details><summary>Answer</summary>The first is a −8 JIC 37° flare (3/4-16 UNF). The second is a −8 SAE O-ring boss port fitting on the same 3/4-16 thread. A JIC will screw into an ORB port and leak because it has no O-ring and the cone lands on the chamfer. Review: hydraulic fitting identification and thread tables.</details>
+
+**13.** A 1/2 in NPT fitting is started in a G 1/2 BSPP port. Both are 14 threads per inch. What happens and how do you tell them apart?
+
+<details><summary>Answer</summary>The 60° tapered NPT form cross-cuts the 55° parallel BSPP port; it may seem to tighten but leaks and the port is ruined. Tell them apart by the taper (NPT tapers, G is parallel), the diameter (0.840 vs 0.825 in) and the G port's chamfer or spot face for a washer or O-ring. Review: hydraulic fitting identification and thread tables.</details>
+
+**14.** A tractor's oil-immersed brakes start chattering a week after the hydraulic and transmission sump was topped up with an industrial ISO 46 anti-wear oil. Explain.
+
+<details><summary>Answer</summary>Tractor fluid (UTTO) carries friction modifiers for wet brakes and clutches that industrial AW oil lacks; diluting it changes the friction characteristic so the brakes grab and chatter. Drain and refill with the maker's UTTO. The pump was never the problem. Review: hydraulic fluids, types and compatibility.</details>
+
+**15.** A plant converts a press from mineral oil to a phosphate ester fire-resistant fluid by draining and refilling. What fails first?
+
+<details><summary>Answer</summary>The nitrile and polyurethane seals: phosphate ester (HFDR) swells and softens NBR in days; the machine needs FKM, EPDM or PTFE seals throughout, compatible paint in the reservoir, new filters and a full flush. Review: hydraulic fluids, types and compatibility.</details>
+
+**16.** On a load-sensing machine the pump outlet sits at 250 psi and nothing moves when a lever is pulled. Where is the fault most likely?
+
+<details><summary>Answer</summary>The load-sense signal is not reaching the pump: a broken or leaking LS line, a missing or stuck shuttle in a valve section, or the LS relief stuck open. The pump is idling at its margin pressure because it has been told there is no load. Gauge the LS line while the function is commanded. Review: load-sensing, proportional and servo systems.</details>
+
+**17.** Why does a servo valve need a 3 µm non-bypass pressure filter directly upstream, and what is the typical failure when it does not have one?
+
+<details><summary>Answer</summary>The flapper-nozzle clearances are 25-50 µm and the fixed orifices 100-200 µm; a particle in an orifice or on a nozzle unbalances the pilot stage and the spool goes hard over, driving the actuator to one end at full force. Contamination lock also shows as rising hysteresis and a wandering null. Review: load-sensing, proportional and servo systems.</details>
+
+**18.** What is the first measurement in any hydrostatic transmission fault, what should it read, and what does a value that collapses under load tell you?
+
+<details><summary>Answer</summary>Charge pressure at the charge gauge port: typically 200-350 psi in neutral (the manual's figure), dropping no more than 10-15% at full stroke under load. Good in neutral but collapsing under load means the loop is leaking faster than the charge pump can make up: a worn pump or motor (measure the case drains), a leaking multi-function valve or flushing valve. Review: hydraulic motors and hydrostatic drives.</details>
+
+**19.** A hydraulic motor's shaft seal blows out repeatedly. What is the usual cause?
+
+<details><summary>Answer</summary>Case pressure above the seal's rating (often only 15-150 psi): the case drain is restricted, kinked, undersized, or teed into the return line where filter and cooler back-pressure sits on it. Run the drain straight to tank, unrestricted. Review: hydraulic motors and hydrostatic drives.</details>
+
+**20.** A press ram is slow only after an hour of running; the tank reaches 165°F. Describe the test sequence that separates a worn pump from a bypassing cylinder from a dumping relief.
+
+<details><summary>Answer</summary>Heat-map the components (the hottest one is passing oil across a pressure drop); flow-test the pump at working pressure when hot (a steep fall means the pump); run the cylinder bypass test hot (rod-end line off, cap end pressurised, measure the leakage); check the relief's cracking against its full-flow setting and its temperature. Fix the cause before touching the cooler. Review: advanced hydraulic troubleshooting and diagnostics.</details>
+
+## Scoring
+
+- 18 to 20: ready for the technician-level hydraulics section.
+- 14 to 17: review the articles named in the answers you missed.
+- Under 14: work through the hydraulics category from the basics article to the diagnostics article.
+
+## Related
+
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)
+- [Hydraulic fitting identification and thread tables](/article/hydraulic-fitting-identification-and-thread-tables)
+- [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
+- [Test yourself: hydraulics, pneumatics and lubrication](/article/quiz-hydraulics-and-lubrication)
+- [Millwright glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$advanced hydraulics questions$mw$,$mw$hydraulic troubleshooting quiz$mw$,$mw$load sensing questions$mw$,$mw$counterbalance valve questions$mw$,$mw$logic valve questions$mw$,$mw$fitting identification quiz$mw$,$mw$hydraulic fluid questions$mw$,$mw$hydrostatic transmission questions$mw$,$mw$servo valve questions$mw$,$mw$Red Seal practice$mw$,$mw$IFPS practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the advanced hydraulics articles in this knowledge base (Eaton Vickers, Parker, Bosch Rexroth, Danfoss and Sun Hydraulics training and service data; ISO 7368, SAE J514/J518/J1453, DIN 2353; Denison HF-0 and Eaton 35VQ25 fluid specifications).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$quiz-hydraulics-and-lubrication$mw$, $mw$Test Yourself: Hydraulics, Pneumatics and Lubrication (20 Questions with Answers on Pascal's Law, Pumps and Valves, Cylinder Force, Accumulators, Contamination Codes, Oil Grades, Grease Compatibility and Relubrication)$mw$, $mw$Twenty practice questions on fluid power and lubrication: pressure and force math, pump types, relief and directional valves, accumulator precharge, filtration and cleanliness codes, viscosity grades, grease thickener compatibility and relubrication practice. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
 
 ![Review figure: ISO 4406 cleanliness codes](/img/hydraulics/iso-4406-codes.svg)
@@ -16387,6 +18070,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Hydraulic Filters, Fluid and Contamination Control](/article/filters-fluid-and-contamination)
 - [Grease Types and Compatibility](/article/grease-types-and-compatibility)
 - [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
+- [Test yourself: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting)
 - [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$hydraulic test questions$mw$,$mw$pneumatics quiz$mw$,$mw$lubrication quiz$mw$,$mw$oil viscosity questions$mw$,$mw$grease compatibility questions$mw$,$mw$ISO 4406 questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the hydraulics, pneumatics and lubrication articles in this knowledge base (Parker and Eaton Vickers hydraulic training data, ISO 4406, ISO VG grades, NLGI grease grades, SKF and Noria lubrication practice).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
@@ -17218,7 +18902,8 @@ Whatever you find, the readings, the cause and the fix go on the work order (see
 - [Bearing failure analysis](/article/bearing-failure-analysis)
 - [Pump troubleshooting](/article/pump-troubleshooting)
 - [Inspection routes](/article/inspection-routes)
-- [PM checklists](/article/pm-checklists)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
+- [PM checklists](/article/pm-checklists)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$troubleshooting$mw$),
           array[$mw$troubleshooting$mw$,$mw$decision tree$mw$,$mw$machine vibrating$mw$,$mw$machine noisy$mw$,$mw$bearing hot$mw$,$mw$motor hot$mw$,$mw$gearbox hot$mw$,$mw$pump noisy$mw$,$mw$what to check$mw$,$mw$diagnosis$mw$,$mw$symptom$mw$,$mw$cause$mw$,$mw$quick check$mw$,$mw$first steps$mw$,$mw$noise diagnosis$mw$,$mw$heat diagnosis$mw$,$mw$vibration diagnosis$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Synthesis of the guides referenced in the linked articles: ISO 20816, vibration analysis charts (Technical Associates), SKF and Timken bearing damage guides, Gates belt guides, coupling and pump troubleshooting references, NEMA MG 1 motor guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,

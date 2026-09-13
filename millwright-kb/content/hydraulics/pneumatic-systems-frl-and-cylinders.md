@@ -113,3 +113,4 @@ A hissing plant leaks 20-30% of its air; a 1/16" hole at 100 psi costs about 6 c
 - [Lockout / tagout basics](/article/lockout-tagout-basics)
 - [Hand and power tool safety](/article/hand-and-power-tool-safety)
 - [PLC and instrumentation awareness (valves and sensors)](/article/plc-and-instrumentation-awareness)
+- [Directional control valves, spools and solenoids (hydraulic)](/article/directional-control-valves-spools-and-solenoids)

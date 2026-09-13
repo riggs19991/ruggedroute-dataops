@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 236" width="500" height="236" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Flow control placement</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="236" fill="#ffffff"/>
+<text x="90" y="24" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Meter-in</text>
+<rect x="50" y="36" width="80" height="24" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="82" y="36" width="5" height="24" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="87" y1="48" x2="156" y2="48" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="110" y1="60" x2="110" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M62,88 q8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M78,88 q-8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="60" y1="105" x2="80" y2="87" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="70" y1="60" x2="70" y2="88" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="70" y1="104" x2="70" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="54" y="130" width="72" height="24" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<text x="90" y="146" font-size="9" text-anchor="middle" fill="#1a2233">DCV</text>
+<line x1="90" y1="154" x2="90" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="90" cy="184" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M90,172 L96,183 L84,183 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+<text x="90" y="210" font-size="9" text-anchor="middle" fill="#5b6577">resistive loads · precise</text>
+<text x="255" y="24" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Meter-out</text>
+<rect x="215" y="36" width="80" height="24" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="247" y="36" width="5" height="24" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="252" y1="48" x2="321" y2="48" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<path d="M267,88 q8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M283,88 q-8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="265" y1="105" x2="285" y2="87" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="275" y1="60" x2="275" y2="88" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="275" y1="104" x2="275" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="235" y1="60" x2="235" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="219" y="130" width="72" height="24" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<text x="255" y="146" font-size="9" text-anchor="middle" fill="#1a2233">DCV</text>
+<line x1="255" y1="154" x2="255" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="255" cy="184" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M255,172 L261,183 L249,183 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+<text x="255" y="210" font-size="9" text-anchor="middle" fill="#5b6577">over-running loads · usual</text>
+<text x="420" y="24" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Bleed-off</text>
+<rect x="380" y="36" width="80" height="24" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="412" y="36" width="5" height="24" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="417" y1="48" x2="486" y2="48" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="400" y1="60" x2="400" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="440" y1="60" x2="440" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="400" y1="118" x2="360" y2="118" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M352,92 q8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M368,92 q-8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="350" y1="109" x2="370" y2="91" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="360" y1="92" x2="360" y2="80" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M352,68 L352,80 L368,80 L368,68" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="384" y="130" width="72" height="24" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<text x="420" y="146" font-size="9" text-anchor="middle" fill="#1a2233">DCV</text>
+<line x1="420" y1="154" x2="420" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="420" cy="184" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M420,172 L426,183 L414,183 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+<text x="420" y="210" font-size="9" text-anchor="middle" fill="#5b6577">efficient · least accurate</text>
+<text x="250" y="228" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">A flow control changes speed, never force.</text>
+</svg>
