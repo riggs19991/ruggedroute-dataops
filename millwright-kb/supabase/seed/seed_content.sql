@@ -10197,7 +10197,7 @@ Never let the pump be the anchor for the piping. Never leave the weight of a val
 - [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
 - [Pipe miter layout and take-outs](/article/pipe-miter-layout)
 - [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
           array[$mw$pipe strain$mw$,$mw$pipe stress$mw$,$mw$flange alignment$mw$,$mw$flange parallel$mw$,$mw$flange offset$mw$,$mw$bolt hole alignment$mw$,$mw$flange gap$mw$,$mw$pipe strain test$mw$,$mw$dial indicator pipe strain$mw$,$mw$0.002 pipe strain$mw$,$mw$API 686 pipe strain$mw$,$mw$pump nozzle loads$mw$,$mw$spring hanger$mw$,$mw$pipe support$mw$,$mw$pipe hanger$mw$,$mw$expansion joint$mw$,$mw$expansion loop$mw$,$mw$thermal growth piping$mw$,$mw$pipe anchor$mw$,$mw$pipe guide$mw$,$mw$flange bolting sequence$mw$,$mw$pump piping$mw$,$mw$suction piping$mw$,$mw$discharge piping$mw$,$mw$nozzle load$mw$]::text[], $mw$$mw$, array[]::text[], $mw$API RP 686 Chapter 6 (piping to machinery: flange fit-up tolerances and the shaft-movement test of 0.002 in / 0.05 mm); API 610 nozzle load criteria (Annex F); Hydraulic Institute ANSI/HI 9.6.2 (pump piping); pump manufacturer installation manuals (Goulds 3196, Flowserve); Piotrowski, Shaft Alignment Handbook; ASME B31.3 flange alignment guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -20433,7 +20433,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Reverse-Dial Indicator Alignment](/article/reverse-dial-alignment)
 - [Grouting Baseplates](/article/grouting-baseplates)
 - [Millwright Glossary A to Z](/article/millwright-glossary)
-- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- [Test yourself: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$alignment quiz$mw$,$mw$shaft alignment test$mw$,$mw$installation quiz$mw$,$mw$soft foot questions$mw$,$mw$reverse dial questions$mw$,$mw$laser alignment questions$mw$,$mw$grouting questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the alignment and installation articles in this knowledge base (Ludeca and Pruftechnik alignment guides, ANSI/ASA S2.75 alignment tolerances, API 686 machinery installation).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -20763,7 +20763,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Test yourself: hydraulics, pneumatics and lubrication](/article/quiz-hydraulics-and-lubrication)
 - [Millwright glossary A to Z](/article/millwright-glossary)
-- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- [Test yourself: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$advanced hydraulics questions$mw$,$mw$hydraulic troubleshooting quiz$mw$,$mw$load sensing questions$mw$,$mw$counterbalance valve questions$mw$,$mw$logic valve questions$mw$,$mw$fitting identification quiz$mw$,$mw$hydraulic fluid questions$mw$,$mw$hydrostatic transmission questions$mw$,$mw$servo valve questions$mw$,$mw$Red Seal practice$mw$,$mw$IFPS practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the advanced hydraulics articles in this knowledge base (Eaton Vickers, Parker, Bosch Rexroth, Danfoss and Sun Hydraulics training and service data; ISO 7368, SAE J514/J518/J1453, DIN 2353; Denison HF-0 and Eaton 35VQ25 fluid specifications).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -20872,7 +20872,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
 - [Test yourself: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting)
 - [Millwright Glossary A to Z](/article/millwright-glossary)
-- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- [Test yourself: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$hydraulic test questions$mw$,$mw$pneumatics quiz$mw$,$mw$lubrication quiz$mw$,$mw$oil viscosity questions$mw$,$mw$grease compatibility questions$mw$,$mw$ISO 4406 questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the hydraulics, pneumatics and lubrication articles in this knowledge base (Parker and Eaton Vickers hydraulic training data, ISO 4406, ISO VG grades, NLGI grease grades, SKF and Noria lubrication practice).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,

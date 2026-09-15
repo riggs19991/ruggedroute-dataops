@@ -109,4 +109,4 @@ Never let the pump be the anchor for the piping. Never leave the weight of a val
 - [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
 - [Pipe miter layout and take-outs](/article/pipe-miter-layout)
 - [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
