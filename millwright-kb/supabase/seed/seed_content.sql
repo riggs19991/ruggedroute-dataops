@@ -3516,9 +3516,9 @@ Structural drawings use **grid lines** (A, B, 1, 2) and **elevations** ("T/S EL.
 - [Layout tools and scribing](/article/layout-tools-and-scribing)
 - [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
 - [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
-- [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
 - [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
 - [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
           array[$mw$blueprint reading$mw$,$mw$reading drawings$mw$,$mw$mechanical drawings$mw$,$mw$orthographic projection$mw$,$mw$third angle$mw$,$mw$first angle$mw$,$mw$line types$mw$,$mw$hidden line$mw$,$mw$center line$mw$,$mw$section view$mw$,$mw$title block$mw$,$mw$revision block$mw$,$mw$bill of materials$mw$,$mw$tolerances$mw$,$mw$block tolerance$mw$,$mw$surface finish$mw$,$mw$Ra$mw$,$mw$GD&T$mw$,$mw$feature control frame$mw$,$mw$flatness$mw$,$mw$perpendicularity$mw$,$mw$position$mw$,$mw$runout$mw$,$mw$structural shapes$mw$,$mw$W12x26$mw$,$mw$HSS$mw$,$mw$piping isometric$mw$,$mw$P&ID$mw$,$mw$ISA symbols$mw$,$mw$assembly drawing$mw$,$mw$detail drawing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.100 (engineering drawing practices), Y14.3 (orthographic and pictorial views), Y14.5-2018 (GD&T), Y14.36 (surface texture); AISC Steel Construction Manual shape designations; ISA 5.1 instrumentation symbols; ASME B16.9 fitting dimensions.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
@@ -3691,9 +3691,9 @@ These are inputs the machine makes for itself; most of a millwright's sensor wor
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$gdt-symbols-and-feature-control-frames$mw$, $mw$GD&amp;T Symbols and Feature Control Frames: Why Geometric Tolerancing Exists, Reading the Frame Compartments, Datums and Datum Targets, the Fourteen Characteristics (Form, Orientation, Location, Profile, Runout) per ASME Y14.5-2018, MMC, LMC, RFS and Bonus Tolerance, Picturing the Tolerance Zones, a Worked Bearing Housing Example, and Checking Flatness, Perpendicularity, Position and Runout on the Shop Floor with Indicators, Surface Plate and CMM$mw$, $mw$A chart-style reference to geometric dimensioning and tolerancing as it appears on the shafts, housings, baseplates and bolt patterns a millwright fabricates, checks and installs: what the feature control frame compartments mean, how datums set the order of measurement, each of the fourteen characteristics described in words with its zone and typical use, material condition modifiers and the bonus tolerance they give, a worked bearing housing with position and total runout, and how each control is actually checked with a dial indicator, surface plate, V-blocks or a CMM.$mw$, $mw$Plus-minus tolerances describe size. They cannot say whether a face is flat, a bore is square to a face, or a hole pattern is in the right place as a group; geometric dimensioning and tolerancing (GD&T) does that with a small set of symbols. The [overview article](/article/blueprint-reading-for-millwrights) lists them; this one explains how to read a frame and how to check the part.
+  values ($mw$gdt-symbols-and-feature-control-frames$mw$, $mw$GD&T Symbols and Feature Control Frames: Why Geometric Tolerancing Exists, Reading the Frame Compartments, Datums and Datum Targets, the Fourteen Characteristics (Form, Orientation, Location, Profile, Runout) per ASME Y14.5-2018, MMC, LMC, RFS and Bonus Tolerance, Picturing the Tolerance Zones, a Worked Bearing Housing Example, and Checking Flatness, Perpendicularity, Position and Runout on the Shop Floor with Indicators, Surface Plate and CMM$mw$, $mw$A chart-style reference to geometric dimensioning and tolerancing as it appears on the shafts, housings, baseplates and bolt patterns a millwright fabricates, checks and installs: what the feature control frame compartments mean, how datums set the order of measurement, each of the fourteen characteristics described in words with its zone and typical use, material condition modifiers and the bonus tolerance they give, a worked bearing housing with position and total runout, and how each control is actually checked with a dial indicator, surface plate, V-blocks or a CMM.$mw$, $mw$Plus-minus tolerances describe size. They cannot say whether a face is flat, a bore is square to a face, or a hole pattern is in the right place as a group; geometric dimensioning and tolerancing (GD&T) does that with a small set of symbols. The [overview article](/article/blueprint-reading-for-millwrights) lists them; this one explains how to read a frame and how to check the part.
 
-## Why GD&amp;T exists
+## Why GD&T exists
 
 Take four 1/2 in bolt holes located plus or minus .005 in: each centre may lie anywhere in a .010 in square. But the bolt fits as long as the centre is within a **circle** through that square's corners, which has 57 percent more area, so the plus-minus scheme rejects good holes; and it says nothing about which face the holes are measured from.
 
@@ -3816,11 +3816,11 @@ Reading it as a job:
 
 If the housing fails 1 or 3, the shaft is forced out of alignment when the caps are torqued; if it fails 4, you file the slots. Shaft controls are in [bearing fits and clearance tables](/article/bearing-clearance-and-fits-tables).
 
-## Measuring against GD&amp;T on the shop floor
+## Measuring against GD&T on the shop floor
 
-![A coordinate measuring machine checks GD&amp;T callouts that a bench cannot](/photos/drawings/cmm-inspection.jpg)
+![A coordinate measuring machine checks GD&T callouts that a bench cannot](/photos/drawings/cmm-inspection.jpg)
 
-*A coordinate measuring machine checks GD&amp;T callouts that a bench cannot. Photo: AB Technology (Newark) Ltd., CC BY-SA 4.0, via commons*
+*A coordinate measuring machine checks GD&T callouts that a bench cannot. Photo: AB Technology (Newark) Ltd., CC BY-SA 4.0, via commons*
 
 | Control | Tool | Setup and reading |
 |---|---|---|
@@ -3854,7 +3854,7 @@ A **CMM** does all of this from a probed datum setup; ask the vendor for the CMM
 - [Bearing fits and clearance tables](/article/bearing-clearance-and-fits-tables)
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
 - [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
-          array[$mw$GD&amp;T$mw$,$mw$geometric dimensioning and tolerancing$mw$,$mw$ASME Y14.5$mw$,$mw$Y14.5-2018$mw$,$mw$ISO 1101$mw$,$mw$feature control frame$mw$,$mw$datum$mw$,$mw$datum feature symbol$mw$,$mw$datum target$mw$,$mw$datum reference frame$mw$,$mw$flatness$mw$,$mw$straightness$mw$,$mw$circularity$mw$,$mw$roundness$mw$,$mw$cylindricity$mw$,$mw$parallelism$mw$,$mw$perpendicularity$mw$,$mw$squareness$mw$,$mw$angularity$mw$,$mw$position tolerance$mw$,$mw$true position$mw$,$mw$bolt pattern position$mw$,$mw$profile of a surface$mw$,$mw$profile of a line$mw$,$mw$circular runout$mw$,$mw$total runout$mw$,$mw$concentricity$mw$,$mw$symmetry$mw$,$mw$MMC$mw$,$mw$maximum material condition$mw$,$mw$LMC$mw$,$mw$RFS$mw$,$mw$bonus tolerance$mw$,$mw$projected tolerance zone$mw$,$mw$tolerance zone$mw$,$mw$basic dimension$mw$,$mw$bearing housing tolerance$mw$,$mw$runout check$mw$,$mw$flatness check$mw$,$mw$V-blocks$mw$,$mw$CMM$mw$,$mw$geometric tolerance inspection$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.5-2018 (dimensioning and tolerancing), ASME Y14.5.1 (mathematical definition of dimensioning and tolerancing principles), ASME Y14.43 (dimensioning and tolerancing principles for gages and fixtures); ISO 1101 (geometrical tolerancing), ISO 5459 (datums), ISO 2692 (maximum material requirement), ISO 8015 (fundamental tolerancing principles); Machinery's Handbook GD&amp;T chapter; Alex Krulikowski, Fundamentals of GD&amp;T; SKF and Timken bearing housing and shaft geometric tolerance recommendations.$mw$, 'published')
+          array[$mw$GD&T$mw$,$mw$geometric dimensioning and tolerancing$mw$,$mw$ASME Y14.5$mw$,$mw$Y14.5-2018$mw$,$mw$ISO 1101$mw$,$mw$feature control frame$mw$,$mw$datum$mw$,$mw$datum feature symbol$mw$,$mw$datum target$mw$,$mw$datum reference frame$mw$,$mw$flatness$mw$,$mw$straightness$mw$,$mw$circularity$mw$,$mw$roundness$mw$,$mw$cylindricity$mw$,$mw$parallelism$mw$,$mw$perpendicularity$mw$,$mw$squareness$mw$,$mw$angularity$mw$,$mw$position tolerance$mw$,$mw$true position$mw$,$mw$bolt pattern position$mw$,$mw$profile of a surface$mw$,$mw$profile of a line$mw$,$mw$circular runout$mw$,$mw$total runout$mw$,$mw$concentricity$mw$,$mw$symmetry$mw$,$mw$MMC$mw$,$mw$maximum material condition$mw$,$mw$LMC$mw$,$mw$RFS$mw$,$mw$bonus tolerance$mw$,$mw$projected tolerance zone$mw$,$mw$tolerance zone$mw$,$mw$basic dimension$mw$,$mw$bearing housing tolerance$mw$,$mw$runout check$mw$,$mw$flatness check$mw$,$mw$V-blocks$mw$,$mw$CMM$mw$,$mw$geometric tolerance inspection$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.5-2018 (dimensioning and tolerancing), ASME Y14.5.1 (mathematical definition of dimensioning and tolerancing principles), ASME Y14.43 (dimensioning and tolerancing principles for gages and fixtures); ISO 1101 (geometrical tolerancing), ISO 5459 (datums), ISO 2692 (maximum material requirement), ISO 8015 (fundamental tolerancing principles); Machinery's Handbook GD&T chapter; Alex Krulikowski, Fundamentals of GD&T; SKF and Timken bearing housing and shaft geometric tolerance recommendations.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -4095,7 +4095,7 @@ All pressure valves share one convention: one square; an arrow inside for the fl
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$isa-instrument-tags-bubbles-and-letters$mw$, $mw$ISA Instrument Tags Chart: The Tag (Letters plus Loop Number), First Letters for the Measured Variable, Modifiers and Succeeding Letters, Bubble Shapes and Location Lines (Field, Panel, Behind Panel, Local Panel, DCS, PLC), Signal Line Types, Worked Tags (PIT-101, TIC-203, FSL-310, LAHH-405, ZSC-512, PSV-120), Reading One Control Loop, Transmitters versus Switches, Indicators and Controllers, and the Instrument Index$mw$, $mw$A word chart of the ISA-5.1 tagging system: how a tag is built from function letters and a loop number, the full first-letter table for the measured variable, the modifiers and the succeeding letters for readout and output functions, the bubble shapes and location lines that say where the instrument lives, the signal line types, a set of worked tags decoded letter by letter, one temperature loop read end to end, the difference between a transmitter, a switch, an indicator, a controller and a converter, and what each column of the instrument index tells you.$mw$, $mw$Every instrument on a P&amp;ID is a bubble with a code inside, and the code follows one rule set, ISA-5.1, on almost every plant in the US and Canada. Learn the letter table once and you can read the tag on any transmitter, switch or control valve, know what it measures, what it does and where its readout is. The P&amp;ID context is in [PFD and P&amp;ID reading](/article/pfd-and-pid-reading).
+  values ($mw$isa-instrument-tags-bubbles-and-letters$mw$, $mw$ISA Instrument Tags Chart: The Tag (Letters plus Loop Number), First Letters for the Measured Variable, Modifiers and Succeeding Letters, Bubble Shapes and Location Lines (Field, Panel, Behind Panel, Local Panel, DCS, PLC), Signal Line Types, Worked Tags (PIT-101, TIC-203, FSL-310, LAHH-405, ZSC-512, PSV-120), Reading One Control Loop, Transmitters versus Switches, Indicators and Controllers, and the Instrument Index$mw$, $mw$A word chart of the ISA-5.1 tagging system: how a tag is built from function letters and a loop number, the full first-letter table for the measured variable, the modifiers and the succeeding letters for readout and output functions, the bubble shapes and location lines that say where the instrument lives, the signal line types, a set of worked tags decoded letter by letter, one temperature loop read end to end, the difference between a transmitter, a switch, an indicator, a controller and a converter, and what each column of the instrument index tells you.$mw$, $mw$Every instrument on a P&ID is a bubble with a code inside, and the code follows one rule set, ISA-5.1, on almost every plant in the US and Canada. Learn the letter table once and you can read the tag on any transmitter, switch or control valve, know what it measures, what it does and where its readout is. The P&ID context is in [PFD and P&ID reading](/article/pfd-and-pid-reading).
 
 ## The tag: letters plus loop number
 
@@ -4111,10 +4111,10 @@ A tag has two parts separated by a hyphen: the **functional identification** (le
 | **Modifier** (optional) | D in PDT, F in FFC | Changes the meaning of the first letter (differential, ratio) |
 | **Succeeding letters** | I, T | The functions the instrument performs, in order: readout or passive functions first (I indicate), output functions after (T transmit) |
 | **Function modifiers** (optional) | H, L, HH, LL | High, low, high-high, low-low, on alarms and switches |
-| **Loop number** | 101 | Shared by every instrument in the same loop; often the first digit is the unit or P&amp;ID number |
+| **Loop number** | 101 | Shared by every instrument in the same loop; often the first digit is the unit or P&ID number |
 | **Suffix** (optional) | A, B | Duplicate instruments in one loop, or parts of one loop |
 
-The letters read in order and rarely exceed four. The loop number ties **FE-201, FT-201, FIC-201 and FV-201** together: same number, same loop. Some plants number loops per P&amp;ID sheet (sheet 10 carries 1001 to 1099), some per unit, some in a single series. Suffix letters distinguish parallel instruments (**PT-101A** and **PT-101B** voting on the same trip) and parts of one loop (**TV-203A** and **TV-203B** split-range valves). Canadian plants use ISA-5.1 as written; European vendor packages sometimes use ISO 3511 / ISO 14617, where a few letters differ.
+The letters read in order and rarely exceed four. The loop number ties **FE-201, FT-201, FIC-201 and FV-201** together: same number, same loop. Some plants number loops per P&ID sheet (sheet 10 carries 1001 to 1099), some per unit, some in a single series. Suffix letters distinguish parallel instruments (**PT-101A** and **PT-101B** voting on the same trip) and parts of one loop (**TV-203A** and **TV-203B** split-range valves). Canadian plants use ISA-5.1 as written; European vendor packages sometimes use ISO 3511 / ISO 14617, where a few letters differ.
 
 ## First letters: what is measured
 
@@ -4238,9 +4238,9 @@ The signal line direction is shown by arrows where it matters; a signal that lea
 
 ## Worked tags
 
-![Six worked tags drawn as they appear on a P&amp;ID](/img/drawings/isa-worked-tags.svg)
+![Six worked tags drawn as they appear on a P&ID](/img/drawings/isa-worked-tags.svg)
 
-*Six worked tags drawn as they appear on a P&amp;ID*
+*Six worked tags drawn as they appear on a P&ID*
 
 | Tag | Read as | What it is | Where it lives |
 |---|---|---|---|
@@ -4253,13 +4253,13 @@ The signal line direction is shown by arrows where it matters; a signal that lea
 | **TE / TT / TIC / TV-203** | Temperature element, transmitter, controller, valve | One temperature loop: thermocouple in the well, transmitter on its head, controller in the DCS, control valve in the line | Field, field, DCS, field |
 | **FE / FT / FIC / FY / FV-201** | Flow element, transmitter, controller, converter, valve | One flow loop: orifice plate, DP transmitter, controller, I/P converter, control valve | Field, field, DCS, on the valve, field |
 
-## Reading one control loop on the P&amp;ID
+## Reading one control loop on the P&ID
 
 Take temperature loop 203 on a heat exchanger outlet. Start at the pipe: a small bubble **TE-203** on the outlet line is the **element**, a thermocouple or RTD in a thermowell (**TW-203** may be tagged separately). A thin solid line runs from it to **TT-203**, the **transmitter**, drawn as a bare circle beside the pipe: it turns the millivolts into 4-20 mA. A dashed electric signal line leaves TT-203 and goes to **TIC-203**, drawn as a circle inside a square with a solid line through it: the **controller**, a DCS point on the operator's screen, which compares the measurement with the setpoint. From TIC-203 a dashed line runs to **TY-203**, a small circle beside the control valve with **I/P** in a box: the **converter** that turns 4-20 mA into 3-15 psi air. A pneumatic line with double slashes runs from TY-203 to the diaphragm on **TV-203**, the **control valve** on the cooling water to the exchanger, marked **FO** (fail open: on loss of air it opens and keeps cooling). A **TAH-203** bubble on the DCS shares the loop number and sounds when the outlet runs hot. Follow the loop number and you have read the whole thing: element, transmitter, controller, converter, valve, alarm. The loop diagram (ISA-5.4) for TIC-203 then gives every wire, terminal and tubing run between them.
 
-![One control loop on the P&amp;ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
+![One control loop on the P&ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
 
-*One control loop on the P&amp;ID from orifice to control valve*
+*One control loop on the P&ID from orifice to control valve*
 
 ## Transmitters, switches, indicators and controllers
 
@@ -4288,7 +4288,7 @@ The **instrument index** (instrument list) is the database behind the bubbles, o
 |---|---|
 | **Tag** | PIT-101 |
 | **Service** | What it measures: P-101A discharge pressure |
-| **P&amp;ID** | Drawing and sheet where the bubble is |
+| **P&ID** | Drawing and sheet where the bubble is |
 | **Loop** | Loop number and loop diagram reference |
 | **Type** | Instrument type: gauge pressure transmitter, RTD, magnetic flowmeter, limit switch |
 | **Range and setpoint** | 0-300 psig (0-20 bar); trip at 25 psig |
@@ -4312,13 +4312,13 @@ Use it to find the range of a gauge before you trust it, the I/O address when yo
 
 ## Related
 
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
-- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
+- [P&ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
 - [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
 - [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
 - [Electrical symbols NEMA and IEC](/article/electrical-symbols-nema-and-iec)
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
-- [Quiz: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
           array[$mw$ISA 5.1$mw$,$mw$ISA-5.1-2009$mw$,$mw$instrument tag$mw$,$mw$instrument bubble$mw$,$mw$instrument letters$mw$,$mw$tag letters$mw$,$mw$loop number$mw$,$mw$first letter$mw$,$mw$succeeding letter$mw$,$mw$modifier letter$mw$,$mw$PIT$mw$,$mw$TIC$mw$,$mw$FSL$mw$,$mw$LAHH$mw$,$mw$ZSC$mw$,$mw$PSV$mw$,$mw$TE$mw$,$mw$TT$mw$,$mw$FT$mw$,$mw$FIC$mw$,$mw$FY$mw$,$mw$FV$mw$,$mw$transmitter$mw$,$mw$switch$mw$,$mw$indicator$mw$,$mw$controller$mw$,$mw$converter$mw$,$mw$primary element$mw$,$mw$control valve tag$mw$,$mw$bubble shapes$mw$,$mw$shared display$mw$,$mw$DCS symbol$mw$,$mw$PLC symbol$mw$,$mw$field mounted$mw$,$mw$panel mounted$mw$,$mw$behind panel$mw$,$mw$local panel$mw$,$mw$signal lines$mw$,$mw$pneumatic signal$mw$,$mw$electric signal$mw$,$mw$control loop$mw$,$mw$loop diagram$mw$,$mw$instrument index$mw$,$mw$I/O address$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification (identification letters table, functional designations, instrument line symbols, general instrument or function symbols); ISA-5.3 graphic symbols for distributed control / shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (tagging and loop numbering practice); ISO 14617 and ISO 3511 for the ISO variants; company legend sheets and instrument indexes.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -4705,21 +4705,21 @@ What you do not do: open a live door to look at the overload, put a meter on the
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$pfd-and-pid-reading$mw$, $mw$PFD and P&amp;ID Reading for Millwrights: Process Flow Diagram versus P&amp;ID, the Legend Sheet, Anatomy of a P&amp;ID Sheet, Line Numbers, Spec Breaks and Insulation Codes, Equipment Tags and the Equipment List, Tracing a Line End to End, Reading a Pump Loop in Order, Instrument Bubbles and Control Loops, Off-Page Connectors, Tie-Ins and Holds, and What a Millwright Pulls off a P&amp;ID for Isolation and Equipment Work$mw$, $mw$What a process flow diagram shows and what only the P&amp;ID shows, why the legend sheet is read first, how a P&amp;ID sheet is laid out, how to break down line numbers, spec breaks and insulation codes, how equipment tags are built, a method for tracing a line from nozzle to nozzle, a pump loop read valve by valve in order, instrument bubbles and loops at overview level, off-page connectors, tie-ins, holds and clouds, and the isolation, drain, vent, bypass, valve-position and nozzle information a millwright takes off the sheet before opening anything.$mw$, $mw$The P&amp;ID is the drawing you read before you isolate a pump, open a flange or ask what a line carries. It has no dimensions and no scale; it shows every pipe, valve and instrument in a system and how they connect, which is exactly what a millwright needs for lockout, drain-down and pulling equipment. The symbols themselves are charted in [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines) and the instrument letters in [ISA instrument tags](/article/isa-instrument-tags-bubbles-and-letters).
+  values ($mw$pfd-and-pid-reading$mw$, $mw$PFD and P&ID Reading for Millwrights: Process Flow Diagram versus P&ID, the Legend Sheet, Anatomy of a P&ID Sheet, Line Numbers, Spec Breaks and Insulation Codes, Equipment Tags and the Equipment List, Tracing a Line End to End, Reading a Pump Loop in Order, Instrument Bubbles and Control Loops, Off-Page Connectors, Tie-Ins and Holds, and What a Millwright Pulls off a P&ID for Isolation and Equipment Work$mw$, $mw$What a process flow diagram shows and what only the P&ID shows, why the legend sheet is read first, how a P&ID sheet is laid out, how to break down line numbers, spec breaks and insulation codes, how equipment tags are built, a method for tracing a line from nozzle to nozzle, a pump loop read valve by valve in order, instrument bubbles and loops at overview level, off-page connectors, tie-ins, holds and clouds, and the isolation, drain, vent, bypass, valve-position and nozzle information a millwright takes off the sheet before opening anything.$mw$, $mw$The P&ID is the drawing you read before you isolate a pump, open a flange or ask what a line carries. It has no dimensions and no scale; it shows every pipe, valve and instrument in a system and how they connect, which is exactly what a millwright needs for lockout, drain-down and pulling equipment. The symbols themselves are charted in [P&ID symbols](/article/pid-symbols-valves-equipment-and-lines) and the instrument letters in [ISA instrument tags](/article/isa-instrument-tags-bubbles-and-letters).
 
-## PFD versus P&amp;ID
+## PFD versus P&ID
 
-The **process flow diagram (PFD)** is the overview a process engineer draws first. The **piping and instrumentation diagram (P&amp;ID)** is the detailed sheet everyone else works from.
+The **process flow diagram (PFD)** is the overview a process engineer draws first. The **piping and instrumentation diagram (P&ID)** is the detailed sheet everyone else works from.
 
-![A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page](/photos/drawings/pid-sheet.jpg)
+![A P&ID sheet: equipment, lines, valves and instrument bubbles on one page](/photos/drawings/pid-sheet.jpg)
 
-*A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page. Photo: Ub, CC BY-SA 3.0, via commons*
+*A P&ID sheet: equipment, lines, valves and instrument bubbles on one page. Photo: Ub, CC BY-SA 3.0, via commons*
 
-![The same pump on a PFD and on a P&amp;ID](/img/drawings/pfd-vs-pid.svg)
+![The same pump on a PFD and on a P&ID](/img/drawings/pfd-vs-pid.svg)
 
-*The same pump on a PFD and on a P&amp;ID*
+*The same pump on a PFD and on a P&ID*
 
-| | PFD | P&amp;ID |
+| | PFD | P&ID |
 |---|---|---|
 | Purpose | Explains the process | Defines every piece of hardware |
 | Equipment | Major items only (pumps, vessels, exchangers, columns), with duty and size | Every item including spares, with tag and nozzles |
@@ -4728,11 +4728,11 @@ The **process flow diagram (PFD)** is the overview a process engineer draws firs
 | Instruments | Main control loops only | Every instrument, switch, alarm and interlock |
 | Data | **Heat and material balance** table: flow, temperature, pressure, composition per stream; operating conditions on equipment | Line size, spec, insulation, set pressures, notes |
 
-Use the PFD to understand what the plant does: stream 12 at 180 F (82 C) and 60 psig (4 bar) tells you what to expect when the flange opens. Use the P&amp;ID for everything you actually touch. Canadian and ISO plants draw both to ISO 10628 and ISO 14617 with the same content and a few different symbols.
+Use the PFD to understand what the plant does: stream 12 at 180 F (82 C) and 60 psig (4 bar) tells you what to expect when the flange opens. Use the P&ID for everything you actually touch. Canadian and ISO plants draw both to ISO 10628 and ISO 14617 with the same content and a few different symbols.
 
 ## The legend sheet
 
-Every P&amp;ID set opens with one or more **legend sheets** (lead sheets): the key that says how this company draws a gate valve, what its line number means and what every abbreviation stands for. Read it first on any new site; a symbol you know from the last plant may mean something else here.
+Every P&ID set opens with one or more **legend sheets** (lead sheets): the key that says how this company draws a gate valve, what its line number means and what every abbreviation stands for. Read it first on any new site; a symbol you know from the last plant may mean something else here.
 
 ![Legend sheet extract: lines, valves, instrument locations and abbreviations](/img/drawings/pid-legend-extract.svg)
 
@@ -4740,13 +4740,13 @@ Every P&amp;ID set opens with one or more **legend sheets** (lead sheets): the k
 
 On the legend you will find: valve, equipment and instrument symbols; line types; line number format and service codes; spec class list; insulation and tracing codes; equipment tag prefixes; abbreviations (**NC**, **NO**, **LO**, **LC**, **CSO**, **CSC**, **FC**, **FO**); the off-page connector format; note and hold conventions; and the status stamps (**IFR** issued for review, **IFC** for construction, **AB** as-built).
 
-## Anatomy of a P&amp;ID
+## Anatomy of a P&ID
 
-A P&amp;ID sheet has a title block like any other drawing (number, sheet, revision, unit, title). Inside:
+A P&ID sheet has a title block like any other drawing (number, sheet, revision, unit, title). Inside:
 
-![Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line](/img/drawings/sample-pid-pump-loop.svg)
+![Sample P&ID of a feed pump loop with tank, pumps, header, control valve and min-flow line](/img/drawings/sample-pid-pump-loop.svg)
 
-*Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line*
+*Sample P&ID of a feed pump loop with tank, pumps, header, control valve and min-flow line*
 
 - **Flow runs left to right** where possible; inlets enter at the left border, outlets leave at the right, utilities from the top or bottom.
 - **Equipment** is drawn in outline, roughly to relative elevation (a pump low, a tank high), with its tag and a **title line** (name, size or duty, design conditions) in the top or bottom margin.
@@ -4756,7 +4756,7 @@ A P&amp;ID sheet has a title block like any other drawing (number, sheet, revisi
 
 ## Line numbers, spec breaks and insulation
 
-A line number on the P&amp;ID has the same parts as on the isometric: **6"-CWS-1501-A1A-IH** is size, service, sequence, spec class and insulation code (worked through in [piping isometrics](/article/piping-drawings-isometrics-and-spool-sheets)). On the P&amp;ID the number is written along the line and changes whenever the size, service or spec changes; a **reducer** symbol (a small trapezoid) marks a size change and the new size appears after it.
+A line number on the P&ID has the same parts as on the isometric: **6"-CWS-1501-A1A-IH** is size, service, sequence, spec class and insulation code (worked through in [piping isometrics](/article/piping-drawings-isometrics-and-spool-sheets)). On the P&ID the number is written along the line and changes whenever the size, service or spec changes; a **reducer** symbol (a small trapezoid) marks a size change and the new size appears after it.
 
 ![Line number decoder: size, service, sequence, spec and insulation](/img/drawings/line-number-decoder.svg)
 
@@ -4784,11 +4784,11 @@ Every piece of equipment has a **tag** made of a letter code, a number and somet
 | **R** | Reactor | **FL** or **S** | Filter, strainer, separator |
 | **PK** or **PKG** | Vendor package | **X** or **Z** | Miscellaneous |
 
-The number carries the unit (**1**) and a sequence, so P-101 is pump 01 in unit 1 and E-301 is exchanger 01 in unit 3. Suffixes **A/B** mark duplicate machines, usually a running pump and an installed spare on the same headers. The **equipment list** is the table behind the tags (description, P&amp;ID number, duty, driver power, materials, design conditions, weight, vendor and model): where you look up the motor horsepower and the weight before rigging a pump out.
+The number carries the unit (**1**) and a sequence, so P-101 is pump 01 in unit 1 and E-301 is exchanger 01 in unit 3. Suffixes **A/B** mark duplicate machines, usually a running pump and an installed spare on the same headers. The **equipment list** is the table behind the tags (description, P&ID number, duty, driver power, materials, design conditions, weight, vendor and model): where you look up the motor horsepower and the weight before rigging a pump out.
 
 ## Tracing a line end to end
 
-Reading a P&amp;ID is done one line at a time, with a finger or a highlighter. The method:
+Reading a P&ID is done one line at a time, with a finger or a highlighter. The method:
 
 ![A process diagram with its stream numbers and equipment tags](/photos/drawings/process-diagram-sample.jpg)
 
@@ -4809,9 +4809,9 @@ Reading a P&amp;ID is done one line at a time, with a finger or a highlighter. T
 
 A pump is read from suction to discharge, and the items are nearly always the same. Take **P-101A/B** taking suction from tank T-101:
 
-![A P&amp;ID on the control room wall: operators and millwrights read the same sheet](/photos/drawings/control-room-pid.jpg)
+![A P&ID on the control room wall: operators and millwrights read the same sheet](/photos/drawings/control-room-pid.jpg)
 
-*A P&amp;ID on the control room wall: operators and millwrights read the same sheet. Photo: PEO ACWA, CC BY 2.0, via commons*
+*A P&ID on the control room wall: operators and millwrights read the same sheet. Photo: PEO ACWA, CC BY 2.0, via commons*
 
 1. **Suction line** from the tank nozzle, larger than the discharge (8 in suction, 6 in discharge is typical), with its own line number.
 2. **Suction block valve** (a gate or butterfly, normally open, sometimes locked open, **LO**).
@@ -4829,13 +4829,13 @@ A pump is read from suction to discharge, and the items are nearly always the sa
 
 With that list you know what to close to isolate the pump (suction, discharge, recirculation, seal flush supply, any warm-up line), what to open to drain and vent it, and what to blind if the isolation must be positive.
 
-## Instruments and control loops on the P&amp;ID
+## Instruments and control loops on the P&ID
 
 Instruments appear as **bubbles** (circles) with a tag inside: letters for the function (**PIT** pressure indicating transmitter, **TIC** temperature indicating controller, **LSH** level switch high) and a **loop number** shared by every instrument in that loop. A bare circle is a field instrument, a circle with a horizontal line through it is on the control room panel, a circle in a square is a DCS point. Thin lines connect them: double slashes for a pneumatic signal, dashed for electrical, small circles for a software link.
 
-![One flow control loop read on the P&amp;ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
+![One flow control loop read on the P&ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
 
-*One flow control loop read on the P&amp;ID from orifice to control valve*
+*One flow control loop read on the P&ID from orifice to control valve*
 
 A **control loop** reads element, transmitter, controller, final element: **FE-201** (orifice plate) to **FT-201** (transmitter) to **FIC-201** (controller) to **FY-201** (converter) to **FV-201** (control valve). The control valve carries a **fail position** (**FC** fail closed, **FO** fail open, **FL** locked in place) and often a handwheel symbol. **Interlocks** appear as a diamond or a box with an interlock number (**I-5**) and a reference to the cause and effect chart. The full letter table, bubble shapes, signal lines and worked loops are in [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters).
 
@@ -4847,21 +4847,21 @@ A line leaving a sheet ends in an **off-page connector**: an arrow-shaped box ca
 
 *Off-page connectors, tie-in points, holds and package boundaries*
 
-- **Battery limit** or **by others** boundary: a dashed line with a label where the drawing responsibility changes, for example between a vendor package and the plant piping; anything inside is on the vendor P&amp;ID.
+- **Battery limit** or **by others** boundary: a dashed line with a label where the drawing responsibility changes, for example between a vendor package and the plant piping; anything inside is on the vendor P&ID.
 - **Tie-in point**: a numbered symbol (**TP-14** in a circle or hexagon) where new piping meets existing; the tie-in list gives the location, the method (hot tap, flange, cut and weld) and what must be isolated.
 - **Existing vs new**: existing lines light or dashed, new lines heavy, **future** dotted, **demolished** crossed out.
 - **Hold**: a cloud or box labelled **HOLD** with a number where the design is not final. Do not fabricate or install anything inside a hold.
 - **Notes**: a number in a triangle refers to the numbered notes; the note is often the instruction that matters (slope, no pockets, car seal).
 
-## What a millwright pulls off a P&amp;ID
+## What a millwright pulls off a P&ID
 
-The P&amp;ID is the isolation drawing. Before any work on a line or machine, take from it:
+The P&ID is the isolation drawing. Before any work on a line or machine, take from it:
 
 ![The pump loop marked up with isolation points for a P-101A job](/img/drawings/pump-loop-isolation-points.svg)
 
 *The pump loop marked up with isolation points for a P-101A job*
 
-| What you need | Where it is on the P&amp;ID |
+| What you need | Where it is on the P&ID |
 |---|---|
 | **Isolation points** for LOTO: every valve between the job and any energy source, including bypasses, recirculation, seal flush and drains to other systems | The traced line list |
 | **Positive isolation**: double block and bleed (two block valves with a bleed between), spectacle blinds, spades and spacers, removable spools | Figure-eight and paddle symbols; the DBB arrangement |
@@ -4871,21 +4871,21 @@ The P&amp;ID is the isolation drawing. Before any work on a line or machine, tak
 | **Spare equipment** and what changes when you take one machine out | A/B suffixes, common headers, the interlock that starts the spare |
 | **Nozzle sizes and ratings** to pull a pump or exchanger: which gaskets and bolts to have ready | Line sizes and spec classes at the equipment; the vendor drawing |
 
-Then **walk the line down** with the P&amp;ID in hand and mark every difference (a valve not on the drawing, a drain added, a blind missing) in red: those **redlines** become the **as-built**. The isolation register lists each valve by tag, and the P&amp;ID marked up with those numbers is the record. If the drawing and the pipe disagree, isolate what is really there and get the drawing corrected.
+Then **walk the line down** with the P&ID in hand and mark every difference (a valve not on the drawing, a drain added, a blind missing) in red: those **redlines** become the **as-built**. The isolation register lists each valve by tag, and the P&ID marked up with those numbers is the record. If the drawing and the pipe disagree, isolate what is really there and get the drawing corrected.
 
 ## Common mistakes
 
-- Trusting an unmarked, out-of-date P&amp;ID as the isolation drawing instead of walking the line down.
+- Trusting an unmarked, out-of-date P&ID as the isolation drawing instead of walking the line down.
 - Isolating the suction and discharge and forgetting the minimum-flow recirculation, the seal flush supply or the warm-up line that still feeds the pump.
 - Reading a line that crosses another as connected when there is no junction dot.
 - Assuming a service code (FW, PW, SW) from the last site.
-- Mixing up PFD stream numbers with P&amp;ID line numbers, or reading a PFD as if it showed every valve.
+- Mixing up PFD stream numbers with P&ID line numbers, or reading a PFD as if it showed every valve.
 - Ignoring the notes and the holds: the note is often the instruction, and the hold means the design is not done.
 - Forgetting that a spec break means different flanges, gaskets and bolts on each side of the joint.
 
 ## Related
 
-- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [P&ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
 - [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
 - [Piping isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
@@ -4893,21 +4893,21 @@ Then **walk the line down** with the P&amp;ID in hand and mark every difference 
 - [Pump troubleshooting](/article/pump-troubleshooting)
 - [Mechanical seal replacement on a centrifugal pump](/article/mechanical-seal-replacement-centrifugal-pump)
 - [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
-          array[$mw$P&amp;ID$mw$,$mw$PID reading$mw$,$mw$piping and instrumentation diagram$mw$,$mw$PFD$mw$,$mw$process flow diagram$mw$,$mw$legend sheet$mw$,$mw$lead sheet$mw$,$mw$line number$mw$,$mw$spec break$mw$,$mw$insulation code$mw$,$mw$tracing code$mw$,$mw$equipment tag$mw$,$mw$equipment list$mw$,$mw$pump tag$mw$,$mw$tracing a line$mw$,$mw$pump loop$mw$,$mw$suction strainer$mw$,$mw$check valve$mw$,$mw$minimum flow$mw$,$mw$recirculation$mw$,$mw$seal flush plan$mw$,$mw$spare pump$mw$,$mw$instrument bubble$mw$,$mw$control loop$mw$,$mw$off-page connector$mw$,$mw$tie-in point$mw$,$mw$hold$mw$,$mw$cloud$mw$,$mw$by others$mw$,$mw$double block and bleed$mw$,$mw$spectacle blind$mw$,$mw$drain$mw$,$mw$vent$mw$,$mw$bypass$mw$,$mw$normally closed$mw$,$mw$normally open$mw$,$mw$locked open$mw$,$mw$car seal$mw$,$mw$LOTO isolation$mw$,$mw$walk-down$mw$,$mw$redline$mw$,$mw$as-built$mw$,$mw$stream number$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification; ISA-5.3 graphic symbols for distributed control and shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (line numbering, equipment tagging, P&amp;ID content); ISO 10628 diagrams for the chemical and petrochemical industry (flow diagram content); ISO 14617 graphical symbols for diagrams; ASME B31.3 process piping; company legend sheets and equipment lists.$mw$, 'published')
+          array[$mw$P&ID$mw$,$mw$PID reading$mw$,$mw$piping and instrumentation diagram$mw$,$mw$PFD$mw$,$mw$process flow diagram$mw$,$mw$legend sheet$mw$,$mw$lead sheet$mw$,$mw$line number$mw$,$mw$spec break$mw$,$mw$insulation code$mw$,$mw$tracing code$mw$,$mw$equipment tag$mw$,$mw$equipment list$mw$,$mw$pump tag$mw$,$mw$tracing a line$mw$,$mw$pump loop$mw$,$mw$suction strainer$mw$,$mw$check valve$mw$,$mw$minimum flow$mw$,$mw$recirculation$mw$,$mw$seal flush plan$mw$,$mw$spare pump$mw$,$mw$instrument bubble$mw$,$mw$control loop$mw$,$mw$off-page connector$mw$,$mw$tie-in point$mw$,$mw$hold$mw$,$mw$cloud$mw$,$mw$by others$mw$,$mw$double block and bleed$mw$,$mw$spectacle blind$mw$,$mw$drain$mw$,$mw$vent$mw$,$mw$bypass$mw$,$mw$normally closed$mw$,$mw$normally open$mw$,$mw$locked open$mw$,$mw$car seal$mw$,$mw$LOTO isolation$mw$,$mw$walk-down$mw$,$mw$redline$mw$,$mw$as-built$mw$,$mw$stream number$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification; ISA-5.3 graphic symbols for distributed control and shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (line numbering, equipment tagging, P&ID content); ISO 10628 diagrams for the chemical and petrochemical industry (flow diagram content); ISO 14617 graphical symbols for diagrams; ASME B31.3 process piping; company legend sheets and equipment lists.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$pid-symbols-valves-equipment-and-lines$mw$, $mw$P&amp;ID Symbol Chart: Manual Valves (Gate, Globe, Ball, Butterfly, Plug, Needle, Diaphragm, Check, Three-Way, Angle, Relief, Rupture Disc), Control Valves, Actuators and Fail Positions, Pumps, Compressors and Drivers, Vessels, Tanks, Columns and Heat Exchangers, Filters, Strainers, Traps, Blinds and Inline Fittings, and Process, Utility and Signal Line Types$mw$, $mw$A word chart of every symbol a millwright meets on a P&amp;ID, described in tables so it can be read without the drawn sheet: manual valve bodies, control valves with their actuators and fail positions, pumps, compressors and drivers, vessels, tanks, columns and exchangers, strainers, traps, blinds and the small inline fittings, and every process, utility and instrument signal line type, with notes on where ISA, PIP, ISO and company legends differ.$mw$, $mw$A P&amp;ID uses a few hundred symbols, most built from a handful of shapes: a bow tie is a valve, a circle is a pump or an instrument, a capsule is a vessel. This chart describes each symbol in words so you can read a sheet without the drawn legend beside you. How to read the drawing as a whole is in [PFD and P&amp;ID reading](/article/pfd-and-pid-reading).
+  values ($mw$pid-symbols-valves-equipment-and-lines$mw$, $mw$P&ID Symbol Chart: Manual Valves (Gate, Globe, Ball, Butterfly, Plug, Needle, Diaphragm, Check, Three-Way, Angle, Relief, Rupture Disc), Control Valves, Actuators and Fail Positions, Pumps, Compressors and Drivers, Vessels, Tanks, Columns and Heat Exchangers, Filters, Strainers, Traps, Blinds and Inline Fittings, and Process, Utility and Signal Line Types$mw$, $mw$A word chart of every symbol a millwright meets on a P&ID, described in tables so it can be read without the drawn sheet: manual valve bodies, control valves with their actuators and fail positions, pumps, compressors and drivers, vessels, tanks, columns and exchangers, strainers, traps, blinds and the small inline fittings, and every process, utility and instrument signal line type, with notes on where ISA, PIP, ISO and company legends differ.$mw$, $mw$A P&ID uses a few hundred symbols, most built from a handful of shapes: a bow tie is a valve, a circle is a pump or an instrument, a capsule is a vessel. This chart describes each symbol in words so you can read a sheet without the drawn legend beside you. How to read the drawing as a whole is in [PFD and P&ID reading](/article/pfd-and-pid-reading).
 
 ## How to use this sheet
 
 Each table gives the symbol name, how it is drawn, what it means and a note on variations. The base standard in the US and Canada is **ISA-5.1** for instruments and signal lines, with **PIP PIC001** supplying the valve and equipment set most EPC contractors use; ISO plants use **ISO 10628 / ISO 14617**. The legend sheet wins over this chart. A size is written on a valve only where it differs from the line; letters beside a valve give its normal position (**NC**, **NO**, **LO**, **LC**, **CSO**, **CSC**).
 
-![A P&amp;ID drawn to the ISA symbol set: read it with the sheets below](/photos/drawings/pid-schema.jpg)
+![A P&ID drawn to the ISA symbol set: read it with the sheets below](/photos/drawings/pid-schema.jpg)
 
-*A P&amp;ID drawn to the ISA symbol set: read it with the sheets below. Photo: Evinfo, CC BY-SA 3.0, via commons*
+*A P&ID drawn to the ISA symbol set: read it with the sheets below. Photo: Evinfo, CC BY-SA 3.0, via commons*
 
 ## Manual valves
 
@@ -5068,20 +5068,20 @@ Where legends differ: ISA-5.1 governs signal lines and actuators in the US and C
 
 ## Related
 
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
 - [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
 - [Piping isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
 - [Hydraulic symbols ISO 1219](/article/hydraulic-symbols-iso-1219-complete)
 - [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading)
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
-- [Quiz: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
-          array[$mw$P&amp;ID symbols$mw$,$mw$PID symbol chart$mw$,$mw$valve symbols$mw$,$mw$gate valve symbol$mw$,$mw$globe valve symbol$mw$,$mw$ball valve symbol$mw$,$mw$butterfly valve symbol$mw$,$mw$plug valve symbol$mw$,$mw$needle valve symbol$mw$,$mw$diaphragm valve symbol$mw$,$mw$check valve symbol$mw$,$mw$three-way valve symbol$mw$,$mw$relief valve symbol$mw$,$mw$PSV symbol$mw$,$mw$rupture disc symbol$mw$,$mw$control valve symbol$mw$,$mw$actuator symbol$mw$,$mw$diaphragm actuator$mw$,$mw$piston actuator$mw$,$mw$MOV symbol$mw$,$mw$solenoid valve symbol$mw$,$mw$fail closed$mw$,$mw$fail open$mw$,$mw$pump symbol$mw$,$mw$centrifugal pump symbol$mw$,$mw$PD pump symbol$mw$,$mw$compressor symbol$mw$,$mw$blower symbol$mw$,$mw$motor symbol$mw$,$mw$turbine symbol$mw$,$mw$vessel symbol$mw$,$mw$tank symbol$mw$,$mw$column symbol$mw$,$mw$heat exchanger symbol$mw$,$mw$strainer symbol$mw$,$mw$steam trap symbol$mw$,$mw$spectacle blind symbol$mw$,$mw$expansion joint symbol$mw$,$mw$orifice plate symbol$mw$,$mw$line types$mw$,$mw$pneumatic signal line$mw$,$mw$electric signal line$mw$,$mw$software link$mw$,$mw$ISA-5.1$mw$,$mw$PIP PIC001$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification (signal lines, final control elements, actuators, fail positions); ISA-5.3 shared display symbols; PIP PIC001 piping and instrumentation diagram documentation criteria and the PIP symbol set (valves, equipment, inline items); ISO 10628 flow diagrams and ISO 14617 graphical symbols for diagrams (ISO and Canadian variants); ASME B16.5, B16.9 and B16.11 for the fittings the symbols represent; company legend sheets.$mw$, 'published')
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$P&ID symbols$mw$,$mw$PID symbol chart$mw$,$mw$valve symbols$mw$,$mw$gate valve symbol$mw$,$mw$globe valve symbol$mw$,$mw$ball valve symbol$mw$,$mw$butterfly valve symbol$mw$,$mw$plug valve symbol$mw$,$mw$needle valve symbol$mw$,$mw$diaphragm valve symbol$mw$,$mw$check valve symbol$mw$,$mw$three-way valve symbol$mw$,$mw$relief valve symbol$mw$,$mw$PSV symbol$mw$,$mw$rupture disc symbol$mw$,$mw$control valve symbol$mw$,$mw$actuator symbol$mw$,$mw$diaphragm actuator$mw$,$mw$piston actuator$mw$,$mw$MOV symbol$mw$,$mw$solenoid valve symbol$mw$,$mw$fail closed$mw$,$mw$fail open$mw$,$mw$pump symbol$mw$,$mw$centrifugal pump symbol$mw$,$mw$PD pump symbol$mw$,$mw$compressor symbol$mw$,$mw$blower symbol$mw$,$mw$motor symbol$mw$,$mw$turbine symbol$mw$,$mw$vessel symbol$mw$,$mw$tank symbol$mw$,$mw$column symbol$mw$,$mw$heat exchanger symbol$mw$,$mw$strainer symbol$mw$,$mw$steam trap symbol$mw$,$mw$spectacle blind symbol$mw$,$mw$expansion joint symbol$mw$,$mw$orifice plate symbol$mw$,$mw$line types$mw$,$mw$pneumatic signal line$mw$,$mw$electric signal line$mw$,$mw$software link$mw$,$mw$ISA-5.1$mw$,$mw$PIP PIC001$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification (signal lines, final control elements, actuators, fail positions); ISA-5.3 shared display symbols; PIP PIC001 piping and instrumentation diagram documentation criteria and the PIP symbol set (valves, equipment, inline items); ISO 10628 flow diagrams and ISO 14617 graphical symbols for diagrams (ISO and Canadian variants); ASME B16.5, B16.9 and B16.11 for the fittings the symbols represent; company legend sheets.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$piping-drawings-isometrics-and-spool-sheets$mw$, $mw$Piping Drawings for Millwrights: The Piping Drawing Set, General Arrangement Plans and Elevations, Isometrics (30-Degree Axes, North Arrow, Not to Scale), Line Number Anatomy and Pipe Spec Classes, Fitting and Joint Symbols, Valves on an Iso, Shop and Field Welds, Spool Numbers and Match Lines, Supports and Elevations, the Bill of Material, and Cut Lengths from Take-Outs and Fit-Up$mw$, $mw$How the piping drawing set fits together, how to read a general arrangement plan and an isometric, how to break a line number into size, service, sequence, spec class and insulation and follow the spec class to the line class sheet, the joint and fitting symbols on an iso, how shop welds, field welds, spool numbers and match lines work, what support tags and elevations tell you, what is in the bill of material, and how to turn centre-to-centre dimensions into cut lengths and check the fit-up.$mw$, $mw$A piping isometric is the sheet a fitter builds from and a millwright reads to find where a pump nozzle, a spec break or a field weld really is. It carries everything about one line that the P&amp;ID leaves out: route, dimensions, material, joints, supports and welds. It expands the short isometric paragraph in [blueprint reading for millwrights](/article/blueprint-reading-for-millwrights) into a full treatment.
+  values ($mw$piping-drawings-isometrics-and-spool-sheets$mw$, $mw$Piping Drawings for Millwrights: The Piping Drawing Set, General Arrangement Plans and Elevations, Isometrics (30-Degree Axes, North Arrow, Not to Scale), Line Number Anatomy and Pipe Spec Classes, Fitting and Joint Symbols, Valves on an Iso, Shop and Field Welds, Spool Numbers and Match Lines, Supports and Elevations, the Bill of Material, and Cut Lengths from Take-Outs and Fit-Up$mw$, $mw$How the piping drawing set fits together, how to read a general arrangement plan and an isometric, how to break a line number into size, service, sequence, spec class and insulation and follow the spec class to the line class sheet, the joint and fitting symbols on an iso, how shop welds, field welds, spool numbers and match lines work, what support tags and elevations tell you, what is in the bill of material, and how to turn centre-to-centre dimensions into cut lengths and check the fit-up.$mw$, $mw$A piping isometric is the sheet a fitter builds from and a millwright reads to find where a pump nozzle, a spec break or a field weld really is. It carries everything about one line that the P&ID leaves out: route, dimensions, material, joints, supports and welds. It expands the short isometric paragraph in [blueprint reading for millwrights](/article/blueprint-reading-for-millwrights) into a full treatment.
 
 ## The piping drawing set
 
@@ -5091,7 +5091,7 @@ The documents that describe a line, each answering a different question:
 
 *A piping isometric as issued: one line, its fittings, welds and dimensions on one sheet. Photo: Uhsambara, CC BY-SA 3.0, via commons*
 
-- **P&amp;ID**: what is in the line (every valve, instrument, size and spec); no dimensions. Isolation, drains and vents come from here ([PFD and P&amp;ID reading](/article/pfd-and-pid-reading)).
+- **P&ID**: what is in the line (every valve, instrument, size and spec); no dimensions. Isolation, drains and vents come from here ([PFD and P&ID reading](/article/pfd-and-pid-reading)).
 - **Pipe spec (line class sheets)**: material, schedule, flange rating, gaskets, bolts, valve types and branch table for each class.
 - **GA piping plans and sections**: to scale; where the line runs relative to columns, equipment and other lines.
 - **Isometric (iso)**: not to scale; route, dimensions, joints, welds, supports and material of one line. The fabrication and erection drawing.
@@ -5114,7 +5114,7 @@ An iso shows one line on three axes: **vertical stays vertical**, and the two ho
 
 *Worked isometric: north arrow, line number, elbows, riser, valve, field weld and spools*
 
-The iso is **not to scale**: a 40 ft (12 m) run and a 4 in (100 mm) stub can look the same. Everything is fixed by the dimensions, which run **centreline to centreline** between changes of direction and fitting centres, **to the face of flange** at any flanged end (nozzle, valve, blind), to the **centreline elevation** (EL) at every change of level, and to **coordinates** (N/E) at the ends and tie-ins. An **offset** that leaves the main axes sits inside a hatched triangle (the **offset box**) showing its plane; a **rolled offset** gets two triangles and the roll angle. US isos dimension in feet and inches, Canadian and ISO isos in millimetres (NPS 6 = DN 150). The border carries the line number, sheet number, P&amp;ID reference, design conditions, test pressure, **PWHT**, **NDE** percentage and the revision block.
+The iso is **not to scale**: a 40 ft (12 m) run and a 4 in (100 mm) stub can look the same. Everything is fixed by the dimensions, which run **centreline to centreline** between changes of direction and fitting centres, **to the face of flange** at any flanged end (nozzle, valve, blind), to the **centreline elevation** (EL) at every change of level, and to **coordinates** (N/E) at the ends and tie-ins. An **offset** that leaves the main axes sits inside a hatched triangle (the **offset box**) showing its plane; a **rolled offset** gets two triangles and the roll angle. US isos dimension in feet and inches, Canadian and ISO isos in millimetres (NPS 6 = DN 150). The border carries the line number, sheet number, P&ID reference, design conditions, test pressure, **PWHT**, **NDE** percentage and the revision block.
 
 ## Line numbers decoded
 
@@ -5159,7 +5159,7 @@ Canadian and ISO isos use the same marks with DN sizes and millimetre take-outs;
 
 ## Valves and inline items on an iso
 
-Valves use the P&amp;ID body symbols (bow tie for gate, with a solid disc for globe, with a circle for ball, a flapper for check; the full set is in [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines)) with the joint marks at each end. Each valve carries its **tag** (V-1501, HV-203, XV-105) and its **face-to-face** length appears in the dimensions.
+Valves use the P&ID body symbols (bow tie for gate, with a solid disc for globe, with a circle for ball, a flapper for check; the full set is in [P&ID symbols](/article/pid-symbols-valves-equipment-and-lines)) with the joint marks at each end. Each valve carries its **tag** (V-1501, HV-203, XV-105) and its **face-to-face** length appears in the dimensions.
 
 ![Valves, control valve, strainer, spec break and insulation on an iso](/img/drawings/iso-valves-inline.svg)
 
@@ -5255,8 +5255,8 @@ Fit-up checks before the tack: **bevel and land** per the WPS (37.5 degrees, 1/1
 ## Related
 
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
-- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
+- [P&ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
 - [Pipe miter layout and fitting take-outs](/article/pipe-miter-layout)
 - [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
 - [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
@@ -18983,16 +18983,16 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | Task | Open these, in order |
 |---|---|
 | **Handed a drawing set: is this the right sheet?** | [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics) |
-| **Read a machine or part drawing** (views, sections, fits, threads, finish) | [Mechanical drawings](/article/mechanical-drawings-views-sections-and-dimensions) → [GD&amp;T symbols](/article/gdt-symbols-and-feature-control-frames) |
-| **Check a part against a GD&amp;T callout** | [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames) → [dial indicator use](/article/dial-indicator-use) |
-| **Handed a P&amp;ID for an isolation** | [PFD and P&amp;ID reading](/article/pfd-and-pid-reading) → [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines) → [lockout/tagout](/article/lockout-tagout-basics) |
+| **Read a machine or part drawing** (views, sections, fits, threads, finish) | [Mechanical drawings](/article/mechanical-drawings-views-sections-and-dimensions) → [GD&T symbols](/article/gdt-symbols-and-feature-control-frames) |
+| **Check a part against a GD&T callout** | [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames) → [dial indicator use](/article/dial-indicator-use) |
+| **Handed a P&ID for an isolation** | [PFD and P&ID reading](/article/pfd-and-pid-reading) → [P&ID symbols](/article/pid-symbols-valves-equipment-and-lines) → [lockout/tagout](/article/lockout-tagout-basics) |
 | **What does this instrument tag mean?** | [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters) |
 | **Fit pipe from an isometric or spool sheet** | [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets) → [pipe miter layout](/article/pipe-miter-layout) |
 | **Read a hydraulic schematic on a machine plate** | [Hydraulic symbols (ISO 1219)](/article/hydraulic-symbols-iso-1219-complete) → [reading circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams) |
 | **Read a pneumatic circuit** | [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading) |
 | **Motor will not start, here is the schematic** | [Electrical symbols](/article/electrical-symbols-nema-and-iec) → [motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams) → [electrical safety for mechanics](/article/electrical-safety-for-mechanics) |
 | **Set a machine from the foundation drawing** | [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings) → [anchor bolts](/article/anchor-bolts-and-foundations) → [leveling](/article/leveling-and-machine-setting) |
-| **Test yourself on drawings** | [Drawings, schematics and P&amp;IDs quiz](/article/quiz-drawings-schematics-and-pids) |
+| **Test yourself on drawings** | [Drawings, schematics and P&IDs quiz](/article/quiz-drawings-schematics-and-pids) |
 
 ## Formulas and tables
 
@@ -20076,7 +20076,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Babbitt**: soft white-metal bearing alloy poured or bonded into sleeve bearings.
 - **Backlash**: the clearance between meshing gear teeth measured at the pitch line.
 - **Base metal**: the material being welded or cut.
-- **Basic dimension**: a boxed, theoretically exact dimension on a GD&amp;T drawing; the tolerance comes from the feature control frame, not from the box.
+- **Basic dimension**: a boxed, theoretically exact dimension on a GD&T drawing; the tolerance comes from the feature control frame, not from the box.
 - **Basket hitch**: a sling passed under the load with both ends on the hook.
 - **Bearing housing**: the casting that holds a bearing; pillow block, flange block or take-up.
 - **BEP (best efficiency point)**: the flow at which a pump is most efficient and its radial loads are lowest.
@@ -20085,7 +20085,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Bore**: the inside diameter of a bearing, sheave, hub or cylinder.
 - **BPFO, BPFI, BSF, FTF**: bearing defect frequencies for outer race, inner race, rolling element and cage.
 - **Brinelling**: indentation of a bearing raceway by static overload or hammer blows through the rolling elements (false brinelling is fretting wear from vibration while stationary).
-- **Bubble (instrument)**: the circle on a P&amp;ID that carries an instrument tag; its shape and the line across it say whether it lives in the field, on the panel or in the DCS.
+- **Bubble (instrument)**: the circle on a P&ID that carries an instrument tag; its shape and the line across it say whether it lives in the field, on the panel or in the DCS.
 - **Bushing**: a removable sleeve bearing, or the tapered hub (QD, taper-lock) that fixes a sheave to a shaft.
 
 ## C
@@ -20110,7 +20110,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## D
 
-- **Datum**: a surface, axis or point named on a drawing (A, B, C) from which GD&amp;T tolerances are measured; the part is rested on it in the order listed.
+- **Datum**: a surface, axis or point named on a drawing (A, B, C) from which GD&T tolerances are measured; the part is rested on it in the order listed.
 - **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
 - **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
 - **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
@@ -20142,7 +20142,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## G
 
-- **GD&amp;T**: geometric dimensioning and tolerancing (ASME Y14.5): the symbol language that controls form, orientation, location and runout, not just size.
+- **GD&T**: geometric dimensioning and tolerancing (ASME Y14.5): the symbol language that controls form, orientation, location and runout, not just size.
 - **General arrangement drawing**: the plan and elevation showing where each machine sits relative to column lines, with tags, centrelines and elevations.
 - **Gib**: an adjustable wedge or strip that takes up clearance in a slide.
 - **GMAW / FCAW / SMAW / GTAW**: gas metal arc (MIG), flux-cored arc, shielded metal arc (stick) and gas tungsten arc (TIG) welding.
@@ -20212,7 +20212,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## O
 
-- **Off-page connector**: the arrow-shaped symbol on a P&amp;ID or schematic that names the sheet a line continues on.
+- **Off-page connector**: the arrow-shaped symbol on a P&ID or schematic that names the sheet a line continues on.
 - **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
 - **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
 - **One-line diagram**: the electrical distribution drawing that shows each circuit as a single line from the utility through transformers and switchgear to the MCC and motors.
@@ -20221,7 +20221,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## P
 
-- **P&amp;ID**: piping and instrumentation diagram: the drawing that shows every line, valve, instrument, drain and connection of a process; isolations are planned from it.
+- **P&ID**: piping and instrumentation diagram: the drawing that shows every line, valve, instrument, drain and connection of a process; isolations are planned from it.
 - **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
 - **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
 - **PFD**: process flow diagram: the simplified flow sheet with equipment, main streams and conditions, without the valves and instruments.
@@ -20263,7 +20263,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
 - **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
 - **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
-- **Spec break**: the point on a line where the pipe class changes, marked on the P&amp;ID and iso with the two class codes.
+- **Spec break**: the point on a line where the pipe class changes, marked on the P&ID and iso with the two class codes.
 - **Specific gravity**: density of a liquid relative to water; converts head to pressure.
 - **Spectacle blind**: a figure-eight plate swung between flanges to give a positive isolation (solid side in) or a clear bore (open ring in).
 - **Spool**: a section of pipe with its fittings fabricated in the shop, joined to the next spool by field welds.
@@ -20320,7 +20320,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## Related
 
 - [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
-- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)
+- [Test yourself: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)
 - [Set Me Up for a Task](/article/set-me-up-for-a-task)
 - [Shop Reference](/article/shop-reference-tables)
 - [Test Yourself](/article/quiz-welding-and-cutting)
@@ -20547,11 +20547,11 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$quiz-drawings-schematics-and-pids$mw$, $mw$Test Yourself: Drawings, Schematics and P&amp;IDs (20 Questions with Answers on Title Blocks and Revisions, Projection and Line Types, Fits and GD&amp;T, Piping Isometrics and Spools, P&amp;ID Symbols and ISA Tags, Hydraulic and Pneumatic Symbols, Circuit Reading and Motor Control Schematics)$mw$, $mw$Twenty practice questions on reading the documents a millwright is handed: which revision to build to, projection angle, line types, fit callouts, feature control frames, isometric welds and spools, line numbers, P&amp;ID symbols and fail positions, ISA tags and bubbles, hydraulic centre conditions, pneumatic port numbers, meter-out, the three-wire start-stop rung, wire numbers and the MCC bucket schedule. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Several questions refer to the pump loop P&amp;ID in the review figure. Score yourself out of 20.
+  values ($mw$quiz-drawings-schematics-and-pids$mw$, $mw$Test Yourself: Drawings, Schematics and P&IDs (20 Questions with Answers on Title Blocks and Revisions, Projection and Line Types, Fits and GD&T, Piping Isometrics and Spools, P&ID Symbols and ISA Tags, Hydraulic and Pneumatic Symbols, Circuit Reading and Motor Control Schematics)$mw$, $mw$Twenty practice questions on reading the documents a millwright is handed: which revision to build to, projection angle, line types, fit callouts, feature control frames, isometric welds and spools, line numbers, P&ID symbols and fail positions, ISA tags and bubbles, hydraulic centre conditions, pneumatic port numbers, meter-out, the three-wire start-stop rung, wire numbers and the MCC bucket schedule. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Several questions refer to the pump loop P&ID in the review figure. Score yourself out of 20.
 
-![Review figure: the feed pump loop P&amp;ID used in several questions](/img/drawings/sample-pid-pump-loop.svg)
+![Review figure: the feed pump loop P&ID used in several questions](/img/drawings/sample-pid-pump-loop.svg)
 
-*Review figure: the feed pump loop P&amp;ID used in several questions*
+*Review figure: the feed pump loop P&ID used in several questions*
 
 ## Questions
 
@@ -20573,11 +20573,11 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **5.** A feature control frame reads position, Ø.014, circle-M, A, B, C. Read it as a sentence, and say what happens to the .014 if the hole is made larger than its minimum size.
 
-<details><summary>Answer</summary>The axis of the hole must lie inside a Ø.014 cylinder located from datum A, then B, then C, with the tolerance applying at maximum material condition. As the hole grows from MMC the allowed zone grows by the same amount: that is bonus tolerance. Review: GD&amp;T symbols and feature control frames.</details>
+<details><summary>Answer</summary>The axis of the hole must lie inside a Ø.014 cylinder located from datum A, then B, then C, with the tolerance applying at maximum material condition. As the hole grows from MMC the allowed zone grows by the same amount: that is bonus tolerance. Review: GD&T symbols and feature control frames.</details>
 
 **6.** What does the filled triangle on a leader from a square boxed letter A mean, and why does the order A, B, C in a frame matter?
 
-<details><summary>Answer</summary>It is a datum feature symbol: surface A is what the part is rested on for measurement. The order sets up the part: A first (three points, a plane), then B (two points), then C (one point); set up in a different order and you measure something else. Review: GD&amp;T symbols and feature control frames.</details>
+<details><summary>Answer</summary>It is a datum feature symbol: surface A is what the part is rested on for measurement. The order sets up the part: A first (three points, a plane), then B (two points), then C (one point); set up in a different order and you measure something else. Review: GD&T symbols and feature control frames.</details>
 
 **7.** On an isometric, one joint is a dot with a small flag and the rest are plain dots. What is the difference, and which welds will you make on site?
 
@@ -20593,15 +20593,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 **10.** On the review figure, which two valves isolate pump P-101A, and why is the check valve not one of them?
 
-<details><summary>Answer</summary>The gate valve on the suction line and the gate valve on the discharge after the check valve. A check valve only stops reverse flow when it seats; it leaks, cannot be locked and is never an isolation. Also isolate the minimum-flow line, which can feed back into the header. Review: PFD and P&amp;ID reading.</details>
+<details><summary>Answer</summary>The gate valve on the suction line and the gate valve on the discharge after the check valve. A check valve only stops reverse flow when it seats; it leaks, cannot be locked and is never an isolation. Also isolate the minimum-flow line, which can feed back into the header. Review: PFD and P&ID reading.</details>
 
-**11.** What is the difference between what a PFD and a P&amp;ID show, and which one do you use for a lockout?
+**11.** What is the difference between what a PFD and a P&ID show, and which one do you use for a lockout?
 
-<details><summary>Answer</summary>The PFD shows equipment, main flow paths, stream numbers and conditions; the P&amp;ID adds every valve, line number, instrument, drain, vent and connection. Lockout is planned from the P&amp;ID because the isolation valves and bleeds only appear there. Review: PFD and P&amp;ID reading.</details>
+<details><summary>Answer</summary>The PFD shows equipment, main flow paths, stream numbers and conditions; the P&ID adds every valve, line number, instrument, drain, vent and connection. Lockout is planned from the P&ID because the isolation valves and bleeds only appear there. Review: PFD and P&ID reading.</details>
 
-**12.** A control valve on the P&amp;ID has a diaphragm actuator and the letters FC beside it. What happens when the instrument air fails?
+**12.** A control valve on the P&ID has a diaphragm actuator and the letters FC beside it. What happens when the instrument air fails?
 
-<details><summary>Answer</summary>FC is fail closed: the spring in the actuator shuts the valve when the air signal is lost. FO would open it and FL would leave it where it was. Review: P&amp;ID symbols, valves, equipment and lines.</details>
+<details><summary>Answer</summary>FC is fail closed: the spring in the actuator shuts the valve when the air signal is lost. FO would open it and FL would leave it where it was. Review: P&ID symbols, valves, equipment and lines.</details>
 
 **13.** Read the tag LAHH-405 and say whether it lives in the field or the control room if it is drawn as a circle inside a square with a solid line across it.
 
@@ -20645,15 +20645,15 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
 - [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
-- [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
 - [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
 - [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
 - [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
 - [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)
 - [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
 - [Millwright glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
-          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$drawing reading quiz$mw$,$mw$blueprint quiz$mw$,$mw$P&amp;ID quiz$mw$,$mw$ISA tag questions$mw$,$mw$GD&amp;T questions$mw$,$mw$isometric questions$mw$,$mw$hydraulic symbol quiz$mw$,$mw$pneumatic symbol quiz$mw$,$mw$ladder diagram quiz$mw$,$mw$motor control questions$mw$,$mw$title block$mw$,$mw$revision$mw$,$mw$third angle$mw$,$mw$line types$mw$,$mw$fits$mw$,$mw$feature control frame$mw$,$mw$spool sheet$mw$,$mw$line number$mw$,$mw$off-page connector$mw$,$mw$fail closed$mw$,$mw$seal-in$mw$,$mw$wire numbers$mw$,$mw$MCC bucket$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the drawings, schematics and P&amp;ID articles in this knowledge base (ASME Y14.5 and Y14.100, ISO 1219-1, ISA-5.1, NEMA ICS 19, IEC 60617, ASME B31.3 and PIP piping practice).$mw$, 'published')
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$drawing reading quiz$mw$,$mw$blueprint quiz$mw$,$mw$P&ID quiz$mw$,$mw$ISA tag questions$mw$,$mw$GD&T questions$mw$,$mw$isometric questions$mw$,$mw$hydraulic symbol quiz$mw$,$mw$pneumatic symbol quiz$mw$,$mw$ladder diagram quiz$mw$,$mw$motor control questions$mw$,$mw$title block$mw$,$mw$revision$mw$,$mw$third angle$mw$,$mw$line types$mw$,$mw$fits$mw$,$mw$feature control frame$mw$,$mw$spool sheet$mw$,$mw$line number$mw$,$mw$off-page connector$mw$,$mw$fail closed$mw$,$mw$seal-in$mw$,$mw$wire numbers$mw$,$mw$MCC bucket$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the drawings, schematics and P&ID articles in this knowledge base (ASME Y14.5 and Y14.100, ISO 1219-1, ISA-5.1, NEMA ICS 19, IEC 60617, ASME B31.3 and PIP piping practice).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';

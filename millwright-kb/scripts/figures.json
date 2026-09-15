@@ -2561,7 +2561,7 @@
     {
       "img": "drawings/gdt-why.svg",
       "alt": "Square plus-minus tolerance zone versus the round position zone",
-      "after": "## Why GD&amp;T exists"
+      "after": "## Why GD&T exists"
     },
     {
       "img": "drawings/feature-control-frame-anatomy.svg",
@@ -2595,8 +2595,8 @@
     },
     {
       "photo": "drawings/cmm-inspection.jpg",
-      "alt": "A coordinate measuring machine checks GD&amp;T callouts that a bench cannot",
-      "after": "## Measuring against GD&amp;T on the shop floor"
+      "alt": "A coordinate measuring machine checks GD&T callouts that a bench cannot",
+      "after": "## Measuring against GD&T on the shop floor"
     }
   ],
   "piping-drawings-isometrics-and-spool-sheets": [
@@ -2654,13 +2654,13 @@
   "pfd-and-pid-reading": [
     {
       "img": "drawings/pfd-vs-pid.svg",
-      "alt": "The same pump on a PFD and on a P&amp;ID",
-      "after": "## PFD versus P&amp;ID"
+      "alt": "The same pump on a PFD and on a P&ID",
+      "after": "## PFD versus P&ID"
     },
     {
       "photo": "drawings/pid-sheet.jpg",
-      "alt": "A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page",
-      "after": "## PFD versus P&amp;ID"
+      "alt": "A P&ID sheet: equipment, lines, valves and instrument bubbles on one page",
+      "after": "## PFD versus P&ID"
     },
     {
       "img": "drawings/pid-legend-extract.svg",
@@ -2669,8 +2669,8 @@
     },
     {
       "img": "drawings/sample-pid-pump-loop.svg",
-      "alt": "Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line",
-      "after": "## Anatomy of a P&amp;ID"
+      "alt": "Sample P&ID of a feed pump loop with tank, pumps, header, control valve and min-flow line",
+      "after": "## Anatomy of a P&ID"
     },
     {
       "img": "drawings/line-number-decoder.svg",
@@ -2694,13 +2694,13 @@
     },
     {
       "photo": "drawings/control-room-pid.jpg",
-      "alt": "A P&amp;ID on the control room wall: operators and millwrights read the same sheet",
+      "alt": "A P&ID on the control room wall: operators and millwrights read the same sheet",
       "after": "## Reading a pump loop"
     },
     {
       "img": "drawings/isa-loop-on-pid.svg",
-      "alt": "One flow control loop read on the P&amp;ID from orifice to control valve",
-      "after": "## Instruments and control loops on the P&amp;ID"
+      "alt": "One flow control loop read on the P&ID from orifice to control valve",
+      "after": "## Instruments and control loops on the P&ID"
     },
     {
       "img": "drawings/off-page-connectors-tie-ins.svg",
@@ -2710,13 +2710,13 @@
     {
       "img": "drawings/pump-loop-isolation-points.svg",
       "alt": "The pump loop marked up with isolation points for a P-101A job",
-      "after": "## What a millwright pulls off a P&amp;ID"
+      "after": "## What a millwright pulls off a P&ID"
     }
   ],
   "pid-symbols-valves-equipment-and-lines": [
     {
       "photo": "drawings/pid-schema.jpg",
-      "alt": "A P&amp;ID drawn to the ISA symbol set: read it with the sheets below",
+      "alt": "A P&ID drawn to the ISA symbol set: read it with the sheets below",
       "after": "## How to use this sheet"
     },
     {
@@ -2778,13 +2778,13 @@
     },
     {
       "img": "drawings/isa-worked-tags.svg",
-      "alt": "Six worked tags drawn as they appear on a P&amp;ID",
+      "alt": "Six worked tags drawn as they appear on a P&ID",
       "after": "## Worked tags"
     },
     {
       "img": "drawings/isa-loop-on-pid.svg",
-      "alt": "One control loop on the P&amp;ID from orifice to control valve",
-      "after": "## Reading one control loop on the P&amp;ID"
+      "alt": "One control loop on the P&ID from orifice to control valve",
+      "after": "## Reading one control loop on the P&ID"
     },
     {
       "img": "drawings/isa-transmitter-vs-switch.svg",
@@ -3062,7 +3062,7 @@
   "quiz-drawings-schematics-and-pids": [
     {
       "img": "drawings/sample-pid-pump-loop.svg",
-      "alt": "Review figure: the feed pump loop P&amp;ID used in several questions",
+      "alt": "Review figure: the feed pump loop P&ID used in several questions",
       "after": "top"
     }
   ]

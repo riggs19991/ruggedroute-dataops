@@ -1,16 +1,16 @@
 ---
-title: "GD&amp;T Symbols and Feature Control Frames: Why Geometric Tolerancing Exists, Reading the Frame Compartments, Datums and Datum Targets, the Fourteen Characteristics (Form, Orientation, Location, Profile, Runout) per ASME Y14.5-2018, MMC, LMC, RFS and Bonus Tolerance, Picturing the Tolerance Zones, a Worked Bearing Housing Example, and Checking Flatness, Perpendicularity, Position and Runout on the Shop Floor with Indicators, Surface Plate and CMM"
+title: "GD&T Symbols and Feature Control Frames: Why Geometric Tolerancing Exists, Reading the Frame Compartments, Datums and Datum Targets, the Fourteen Characteristics (Form, Orientation, Location, Profile, Runout) per ASME Y14.5-2018, MMC, LMC, RFS and Bonus Tolerance, Picturing the Tolerance Zones, a Worked Bearing Housing Example, and Checking Flatness, Perpendicularity, Position and Runout on the Shop Floor with Indicators, Surface Plate and CMM"
 slug: gdt-symbols-and-feature-control-frames
 category: drawings
 kind: chart
-tags: [GD&amp;T, geometric dimensioning and tolerancing, ASME Y14.5, Y14.5-2018, ISO 1101, feature control frame, datum, datum feature symbol, datum target, datum reference frame, flatness, straightness, circularity, roundness, cylindricity, parallelism, perpendicularity, squareness, angularity, position tolerance, true position, bolt pattern position, profile of a surface, profile of a line, circular runout, total runout, concentricity, symmetry, MMC, maximum material condition, LMC, RFS, bonus tolerance, projected tolerance zone, tolerance zone, basic dimension, bearing housing tolerance, runout check, flatness check, V-blocks, CMM, geometric tolerance inspection]
-source: "ASME Y14.5-2018 (dimensioning and tolerancing), ASME Y14.5.1 (mathematical definition of dimensioning and tolerancing principles), ASME Y14.43 (dimensioning and tolerancing principles for gages and fixtures); ISO 1101 (geometrical tolerancing), ISO 5459 (datums), ISO 2692 (maximum material requirement), ISO 8015 (fundamental tolerancing principles); Machinery's Handbook GD&amp;T chapter; Alex Krulikowski, Fundamentals of GD&amp;T; SKF and Timken bearing housing and shaft geometric tolerance recommendations."
+tags: [GD&T, geometric dimensioning and tolerancing, ASME Y14.5, Y14.5-2018, ISO 1101, feature control frame, datum, datum feature symbol, datum target, datum reference frame, flatness, straightness, circularity, roundness, cylindricity, parallelism, perpendicularity, squareness, angularity, position tolerance, true position, bolt pattern position, profile of a surface, profile of a line, circular runout, total runout, concentricity, symmetry, MMC, maximum material condition, LMC, RFS, bonus tolerance, projected tolerance zone, tolerance zone, basic dimension, bearing housing tolerance, runout check, flatness check, V-blocks, CMM, geometric tolerance inspection]
+source: "ASME Y14.5-2018 (dimensioning and tolerancing), ASME Y14.5.1 (mathematical definition of dimensioning and tolerancing principles), ASME Y14.43 (dimensioning and tolerancing principles for gages and fixtures); ISO 1101 (geometrical tolerancing), ISO 5459 (datums), ISO 2692 (maximum material requirement), ISO 8015 (fundamental tolerancing principles); Machinery's Handbook GD&T chapter; Alex Krulikowski, Fundamentals of GD&T; SKF and Timken bearing housing and shaft geometric tolerance recommendations."
 summary: "A chart-style reference to geometric dimensioning and tolerancing as it appears on the shafts, housings, baseplates and bolt patterns a millwright fabricates, checks and installs: what the feature control frame compartments mean, how datums set the order of measurement, each of the fourteen characteristics described in words with its zone and typical use, material condition modifiers and the bonus tolerance they give, a worked bearing housing with position and total runout, and how each control is actually checked with a dial indicator, surface plate, V-blocks or a CMM."
 ---
 
 Plus-minus tolerances describe size. They cannot say whether a face is flat, a bore is square to a face, or a hole pattern is in the right place as a group; geometric dimensioning and tolerancing (GD&T) does that with a small set of symbols. The [overview article](/article/blueprint-reading-for-millwrights) lists them; this one explains how to read a frame and how to check the part.
 
-## Why GD&amp;T exists
+## Why GD&T exists
 
 Take four 1/2 in bolt holes located plus or minus .005 in: each centre may lie anywhere in a .010 in square. But the bolt fits as long as the centre is within a **circle** through that square's corners, which has 57 percent more area, so the plus-minus scheme rejects good holes; and it says nothing about which face the holes are measured from.
 
@@ -133,11 +133,11 @@ Reading it as a job:
 
 If the housing fails 1 or 3, the shaft is forced out of alignment when the caps are torqued; if it fails 4, you file the slots. Shaft controls are in [bearing fits and clearance tables](/article/bearing-clearance-and-fits-tables).
 
-## Measuring against GD&amp;T on the shop floor
+## Measuring against GD&T on the shop floor
 
-![A coordinate measuring machine checks GD&amp;T callouts that a bench cannot](/photos/drawings/cmm-inspection.jpg)
+![A coordinate measuring machine checks GD&T callouts that a bench cannot](/photos/drawings/cmm-inspection.jpg)
 
-*A coordinate measuring machine checks GD&amp;T callouts that a bench cannot. Photo: AB Technology (Newark) Ltd., CC BY-SA 4.0, via commons*
+*A coordinate measuring machine checks GD&T callouts that a bench cannot. Photo: AB Technology (Newark) Ltd., CC BY-SA 4.0, via commons*
 
 | Control | Tool | Setup and reading |
 |---|---|---|

@@ -1,18 +1,18 @@
 ---
-title: "Test Yourself: Drawings, Schematics and P&amp;IDs (20 Questions with Answers on Title Blocks and Revisions, Projection and Line Types, Fits and GD&amp;T, Piping Isometrics and Spools, P&amp;ID Symbols and ISA Tags, Hydraulic and Pneumatic Symbols, Circuit Reading and Motor Control Schematics)"
+title: "Test Yourself: Drawings, Schematics and P&IDs (20 Questions with Answers on Title Blocks and Revisions, Projection and Line Types, Fits and GD&T, Piping Isometrics and Spools, P&ID Symbols and ISA Tags, Hydraulic and Pneumatic Symbols, Circuit Reading and Motor Control Schematics)"
 slug: quiz-drawings-schematics-and-pids
 category: study
 kind: reference
-tags: [quiz, practice questions, drawing reading quiz, blueprint quiz, P&amp;ID quiz, ISA tag questions, GD&amp;T questions, isometric questions, hydraulic symbol quiz, pneumatic symbol quiz, ladder diagram quiz, motor control questions, title block, revision, third angle, line types, fits, feature control frame, spool sheet, line number, off-page connector, fail closed, seal-in, wire numbers, MCC bucket, Red Seal practice, apprenticeship exam, self test, study questions]
-source: "Questions written against the drawings, schematics and P&amp;ID articles in this knowledge base (ASME Y14.5 and Y14.100, ISO 1219-1, ISA-5.1, NEMA ICS 19, IEC 60617, ASME B31.3 and PIP piping practice)."
-summary: "Twenty practice questions on reading the documents a millwright is handed: which revision to build to, projection angle, line types, fit callouts, feature control frames, isometric welds and spools, line numbers, P&amp;ID symbols and fail positions, ISA tags and bubbles, hydraulic centre conditions, pneumatic port numbers, meter-out, the three-wire start-stop rung, wire numbers and the MCC bucket schedule. Tap each answer after you decide."
+tags: [quiz, practice questions, drawing reading quiz, blueprint quiz, P&ID quiz, ISA tag questions, GD&T questions, isometric questions, hydraulic symbol quiz, pneumatic symbol quiz, ladder diagram quiz, motor control questions, title block, revision, third angle, line types, fits, feature control frame, spool sheet, line number, off-page connector, fail closed, seal-in, wire numbers, MCC bucket, Red Seal practice, apprenticeship exam, self test, study questions]
+source: "Questions written against the drawings, schematics and P&ID articles in this knowledge base (ASME Y14.5 and Y14.100, ISO 1219-1, ISA-5.1, NEMA ICS 19, IEC 60617, ASME B31.3 and PIP piping practice)."
+summary: "Twenty practice questions on reading the documents a millwright is handed: which revision to build to, projection angle, line types, fit callouts, feature control frames, isometric welds and spools, line numbers, P&ID symbols and fail positions, ISA tags and bubbles, hydraulic centre conditions, pneumatic port numbers, meter-out, the three-wire start-stop rung, wire numbers and the MCC bucket schedule. Tap each answer after you decide."
 ---
 
-How to use this: read the question, decide on your answer, then tap **Answer**. Several questions refer to the pump loop P&amp;ID in the review figure. Score yourself out of 20.
+How to use this: read the question, decide on your answer, then tap **Answer**. Several questions refer to the pump loop P&ID in the review figure. Score yourself out of 20.
 
-![Review figure: the feed pump loop P&amp;ID used in several questions](/img/drawings/sample-pid-pump-loop.svg)
+![Review figure: the feed pump loop P&ID used in several questions](/img/drawings/sample-pid-pump-loop.svg)
 
-*Review figure: the feed pump loop P&amp;ID used in several questions*
+*Review figure: the feed pump loop P&ID used in several questions*
 
 ## Questions
 
@@ -34,11 +34,11 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 
 **5.** A feature control frame reads position, Ø.014, circle-M, A, B, C. Read it as a sentence, and say what happens to the .014 if the hole is made larger than its minimum size.
 
-<details><summary>Answer</summary>The axis of the hole must lie inside a Ø.014 cylinder located from datum A, then B, then C, with the tolerance applying at maximum material condition. As the hole grows from MMC the allowed zone grows by the same amount: that is bonus tolerance. Review: GD&amp;T symbols and feature control frames.</details>
+<details><summary>Answer</summary>The axis of the hole must lie inside a Ø.014 cylinder located from datum A, then B, then C, with the tolerance applying at maximum material condition. As the hole grows from MMC the allowed zone grows by the same amount: that is bonus tolerance. Review: GD&T symbols and feature control frames.</details>
 
 **6.** What does the filled triangle on a leader from a square boxed letter A mean, and why does the order A, B, C in a frame matter?
 
-<details><summary>Answer</summary>It is a datum feature symbol: surface A is what the part is rested on for measurement. The order sets up the part: A first (three points, a plane), then B (two points), then C (one point); set up in a different order and you measure something else. Review: GD&amp;T symbols and feature control frames.</details>
+<details><summary>Answer</summary>It is a datum feature symbol: surface A is what the part is rested on for measurement. The order sets up the part: A first (three points, a plane), then B (two points), then C (one point); set up in a different order and you measure something else. Review: GD&T symbols and feature control frames.</details>
 
 **7.** On an isometric, one joint is a dot with a small flag and the rest are plain dots. What is the difference, and which welds will you make on site?
 
@@ -54,15 +54,15 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 
 **10.** On the review figure, which two valves isolate pump P-101A, and why is the check valve not one of them?
 
-<details><summary>Answer</summary>The gate valve on the suction line and the gate valve on the discharge after the check valve. A check valve only stops reverse flow when it seats; it leaks, cannot be locked and is never an isolation. Also isolate the minimum-flow line, which can feed back into the header. Review: PFD and P&amp;ID reading.</details>
+<details><summary>Answer</summary>The gate valve on the suction line and the gate valve on the discharge after the check valve. A check valve only stops reverse flow when it seats; it leaks, cannot be locked and is never an isolation. Also isolate the minimum-flow line, which can feed back into the header. Review: PFD and P&ID reading.</details>
 
-**11.** What is the difference between what a PFD and a P&amp;ID show, and which one do you use for a lockout?
+**11.** What is the difference between what a PFD and a P&ID show, and which one do you use for a lockout?
 
-<details><summary>Answer</summary>The PFD shows equipment, main flow paths, stream numbers and conditions; the P&amp;ID adds every valve, line number, instrument, drain, vent and connection. Lockout is planned from the P&amp;ID because the isolation valves and bleeds only appear there. Review: PFD and P&amp;ID reading.</details>
+<details><summary>Answer</summary>The PFD shows equipment, main flow paths, stream numbers and conditions; the P&ID adds every valve, line number, instrument, drain, vent and connection. Lockout is planned from the P&ID because the isolation valves and bleeds only appear there. Review: PFD and P&ID reading.</details>
 
-**12.** A control valve on the P&amp;ID has a diaphragm actuator and the letters FC beside it. What happens when the instrument air fails?
+**12.** A control valve on the P&ID has a diaphragm actuator and the letters FC beside it. What happens when the instrument air fails?
 
-<details><summary>Answer</summary>FC is fail closed: the spring in the actuator shuts the valve when the air signal is lost. FO would open it and FL would leave it where it was. Review: P&amp;ID symbols, valves, equipment and lines.</details>
+<details><summary>Answer</summary>FC is fail closed: the spring in the actuator shuts the valve when the air signal is lost. FO would open it and FL would leave it where it was. Review: P&ID symbols, valves, equipment and lines.</details>
 
 **13.** Read the tag LAHH-405 and say whether it lives in the field or the control room if it is drawn as a circle inside a square with a solid line across it.
 
@@ -106,9 +106,9 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 
 - [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
 - [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
-- [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
 - [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
 - [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
 - [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
 - [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)

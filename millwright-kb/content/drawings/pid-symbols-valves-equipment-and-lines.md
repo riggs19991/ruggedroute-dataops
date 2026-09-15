@@ -1,22 +1,22 @@
 ---
-title: "P&amp;ID Symbol Chart: Manual Valves (Gate, Globe, Ball, Butterfly, Plug, Needle, Diaphragm, Check, Three-Way, Angle, Relief, Rupture Disc), Control Valves, Actuators and Fail Positions, Pumps, Compressors and Drivers, Vessels, Tanks, Columns and Heat Exchangers, Filters, Strainers, Traps, Blinds and Inline Fittings, and Process, Utility and Signal Line Types"
+title: "P&ID Symbol Chart: Manual Valves (Gate, Globe, Ball, Butterfly, Plug, Needle, Diaphragm, Check, Three-Way, Angle, Relief, Rupture Disc), Control Valves, Actuators and Fail Positions, Pumps, Compressors and Drivers, Vessels, Tanks, Columns and Heat Exchangers, Filters, Strainers, Traps, Blinds and Inline Fittings, and Process, Utility and Signal Line Types"
 slug: pid-symbols-valves-equipment-and-lines
 category: drawings
 kind: chart
-tags: [P&amp;ID symbols, PID symbol chart, valve symbols, gate valve symbol, globe valve symbol, ball valve symbol, butterfly valve symbol, plug valve symbol, needle valve symbol, diaphragm valve symbol, check valve symbol, three-way valve symbol, relief valve symbol, PSV symbol, rupture disc symbol, control valve symbol, actuator symbol, diaphragm actuator, piston actuator, MOV symbol, solenoid valve symbol, fail closed, fail open, pump symbol, centrifugal pump symbol, PD pump symbol, compressor symbol, blower symbol, motor symbol, turbine symbol, vessel symbol, tank symbol, column symbol, heat exchanger symbol, strainer symbol, steam trap symbol, spectacle blind symbol, expansion joint symbol, orifice plate symbol, line types, pneumatic signal line, electric signal line, software link, ISA-5.1, PIP PIC001]
+tags: [P&ID symbols, PID symbol chart, valve symbols, gate valve symbol, globe valve symbol, ball valve symbol, butterfly valve symbol, plug valve symbol, needle valve symbol, diaphragm valve symbol, check valve symbol, three-way valve symbol, relief valve symbol, PSV symbol, rupture disc symbol, control valve symbol, actuator symbol, diaphragm actuator, piston actuator, MOV symbol, solenoid valve symbol, fail closed, fail open, pump symbol, centrifugal pump symbol, PD pump symbol, compressor symbol, blower symbol, motor symbol, turbine symbol, vessel symbol, tank symbol, column symbol, heat exchanger symbol, strainer symbol, steam trap symbol, spectacle blind symbol, expansion joint symbol, orifice plate symbol, line types, pneumatic signal line, electric signal line, software link, ISA-5.1, PIP PIC001]
 source: "ISA-5.1-2009 instrumentation symbols and identification (signal lines, final control elements, actuators, fail positions); ISA-5.3 shared display symbols; PIP PIC001 piping and instrumentation diagram documentation criteria and the PIP symbol set (valves, equipment, inline items); ISO 10628 flow diagrams and ISO 14617 graphical symbols for diagrams (ISO and Canadian variants); ASME B16.5, B16.9 and B16.11 for the fittings the symbols represent; company legend sheets."
-summary: "A word chart of every symbol a millwright meets on a P&amp;ID, described in tables so it can be read without the drawn sheet: manual valve bodies, control valves with their actuators and fail positions, pumps, compressors and drivers, vessels, tanks, columns and exchangers, strainers, traps, blinds and the small inline fittings, and every process, utility and instrument signal line type, with notes on where ISA, PIP, ISO and company legends differ."
+summary: "A word chart of every symbol a millwright meets on a P&ID, described in tables so it can be read without the drawn sheet: manual valve bodies, control valves with their actuators and fail positions, pumps, compressors and drivers, vessels, tanks, columns and exchangers, strainers, traps, blinds and the small inline fittings, and every process, utility and instrument signal line type, with notes on where ISA, PIP, ISO and company legends differ."
 ---
 
-A P&amp;ID uses a few hundred symbols, most built from a handful of shapes: a bow tie is a valve, a circle is a pump or an instrument, a capsule is a vessel. This chart describes each symbol in words so you can read a sheet without the drawn legend beside you. How to read the drawing as a whole is in [PFD and P&amp;ID reading](/article/pfd-and-pid-reading).
+A P&ID uses a few hundred symbols, most built from a handful of shapes: a bow tie is a valve, a circle is a pump or an instrument, a capsule is a vessel. This chart describes each symbol in words so you can read a sheet without the drawn legend beside you. How to read the drawing as a whole is in [PFD and P&ID reading](/article/pfd-and-pid-reading).
 
 ## How to use this sheet
 
 Each table gives the symbol name, how it is drawn, what it means and a note on variations. The base standard in the US and Canada is **ISA-5.1** for instruments and signal lines, with **PIP PIC001** supplying the valve and equipment set most EPC contractors use; ISO plants use **ISO 10628 / ISO 14617**. The legend sheet wins over this chart. A size is written on a valve only where it differs from the line; letters beside a valve give its normal position (**NC**, **NO**, **LO**, **LC**, **CSO**, **CSC**).
 
-![A P&amp;ID drawn to the ISA symbol set: read it with the sheets below](/photos/drawings/pid-schema.jpg)
+![A P&ID drawn to the ISA symbol set: read it with the sheets below](/photos/drawings/pid-schema.jpg)
 
-*A P&amp;ID drawn to the ISA symbol set: read it with the sheets below. Photo: Evinfo, CC BY-SA 3.0, via commons*
+*A P&ID drawn to the ISA symbol set: read it with the sheets below. Photo: Evinfo, CC BY-SA 3.0, via commons*
 
 ## Manual valves
 
@@ -177,10 +177,10 @@ Where legends differ: ISA-5.1 governs signal lines and actuators in the US and C
 
 ## Related
 
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
 - [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
 - [Piping isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
 - [Hydraulic symbols ISO 1219](/article/hydraulic-symbols-iso-1219-complete)
 - [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading)
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
-- [Quiz: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)

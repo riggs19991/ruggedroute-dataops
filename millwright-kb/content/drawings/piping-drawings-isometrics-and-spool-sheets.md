@@ -8,7 +8,7 @@ source: "ASME B31.3 process piping (fabrication, assembly and erection); ASME B1
 summary: "How the piping drawing set fits together, how to read a general arrangement plan and an isometric, how to break a line number into size, service, sequence, spec class and insulation and follow the spec class to the line class sheet, the joint and fitting symbols on an iso, how shop welds, field welds, spool numbers and match lines work, what support tags and elevations tell you, what is in the bill of material, and how to turn centre-to-centre dimensions into cut lengths and check the fit-up."
 ---
 
-A piping isometric is the sheet a fitter builds from and a millwright reads to find where a pump nozzle, a spec break or a field weld really is. It carries everything about one line that the P&amp;ID leaves out: route, dimensions, material, joints, supports and welds. It expands the short isometric paragraph in [blueprint reading for millwrights](/article/blueprint-reading-for-millwrights) into a full treatment.
+A piping isometric is the sheet a fitter builds from and a millwright reads to find where a pump nozzle, a spec break or a field weld really is. It carries everything about one line that the P&ID leaves out: route, dimensions, material, joints, supports and welds. It expands the short isometric paragraph in [blueprint reading for millwrights](/article/blueprint-reading-for-millwrights) into a full treatment.
 
 ## The piping drawing set
 
@@ -18,7 +18,7 @@ The documents that describe a line, each answering a different question:
 
 *A piping isometric as issued: one line, its fittings, welds and dimensions on one sheet. Photo: Uhsambara, CC BY-SA 3.0, via commons*
 
-- **P&amp;ID**: what is in the line (every valve, instrument, size and spec); no dimensions. Isolation, drains and vents come from here ([PFD and P&amp;ID reading](/article/pfd-and-pid-reading)).
+- **P&ID**: what is in the line (every valve, instrument, size and spec); no dimensions. Isolation, drains and vents come from here ([PFD and P&ID reading](/article/pfd-and-pid-reading)).
 - **Pipe spec (line class sheets)**: material, schedule, flange rating, gaskets, bolts, valve types and branch table for each class.
 - **GA piping plans and sections**: to scale; where the line runs relative to columns, equipment and other lines.
 - **Isometric (iso)**: not to scale; route, dimensions, joints, welds, supports and material of one line. The fabrication and erection drawing.
@@ -41,7 +41,7 @@ An iso shows one line on three axes: **vertical stays vertical**, and the two ho
 
 *Worked isometric: north arrow, line number, elbows, riser, valve, field weld and spools*
 
-The iso is **not to scale**: a 40 ft (12 m) run and a 4 in (100 mm) stub can look the same. Everything is fixed by the dimensions, which run **centreline to centreline** between changes of direction and fitting centres, **to the face of flange** at any flanged end (nozzle, valve, blind), to the **centreline elevation** (EL) at every change of level, and to **coordinates** (N/E) at the ends and tie-ins. An **offset** that leaves the main axes sits inside a hatched triangle (the **offset box**) showing its plane; a **rolled offset** gets two triangles and the roll angle. US isos dimension in feet and inches, Canadian and ISO isos in millimetres (NPS 6 = DN 150). The border carries the line number, sheet number, P&amp;ID reference, design conditions, test pressure, **PWHT**, **NDE** percentage and the revision block.
+The iso is **not to scale**: a 40 ft (12 m) run and a 4 in (100 mm) stub can look the same. Everything is fixed by the dimensions, which run **centreline to centreline** between changes of direction and fitting centres, **to the face of flange** at any flanged end (nozzle, valve, blind), to the **centreline elevation** (EL) at every change of level, and to **coordinates** (N/E) at the ends and tie-ins. An **offset** that leaves the main axes sits inside a hatched triangle (the **offset box**) showing its plane; a **rolled offset** gets two triangles and the roll angle. US isos dimension in feet and inches, Canadian and ISO isos in millimetres (NPS 6 = DN 150). The border carries the line number, sheet number, P&ID reference, design conditions, test pressure, **PWHT**, **NDE** percentage and the revision block.
 
 ## Line numbers decoded
 
@@ -86,7 +86,7 @@ Canadian and ISO isos use the same marks with DN sizes and millimetre take-outs;
 
 ## Valves and inline items on an iso
 
-Valves use the P&amp;ID body symbols (bow tie for gate, with a solid disc for globe, with a circle for ball, a flapper for check; the full set is in [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines)) with the joint marks at each end. Each valve carries its **tag** (V-1501, HV-203, XV-105) and its **face-to-face** length appears in the dimensions.
+Valves use the P&ID body symbols (bow tie for gate, with a solid disc for globe, with a circle for ball, a flapper for check; the full set is in [P&ID symbols](/article/pid-symbols-valves-equipment-and-lines)) with the joint marks at each end. Each valve carries its **tag** (V-1501, HV-203, XV-105) and its **face-to-face** length appears in the dimensions.
 
 ![Valves, control valve, strainer, spec break and insulation on an iso](/img/drawings/iso-valves-inline.svg)
 
@@ -182,8 +182,8 @@ Fit-up checks before the tack: **bevel and land** per the WPS (37.5 degrees, 1/1
 ## Related
 
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
-- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
+- [P&ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
 - [Pipe miter layout and fitting take-outs](/article/pipe-miter-layout)
 - [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
 - [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)

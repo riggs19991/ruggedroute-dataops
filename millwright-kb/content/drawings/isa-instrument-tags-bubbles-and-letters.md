@@ -8,7 +8,7 @@ source: "ISA-5.1-2009 instrumentation symbols and identification (identification
 summary: "A word chart of the ISA-5.1 tagging system: how a tag is built from function letters and a loop number, the full first-letter table for the measured variable, the modifiers and the succeeding letters for readout and output functions, the bubble shapes and location lines that say where the instrument lives, the signal line types, a set of worked tags decoded letter by letter, one temperature loop read end to end, the difference between a transmitter, a switch, an indicator, a controller and a converter, and what each column of the instrument index tells you."
 ---
 
-Every instrument on a P&amp;ID is a bubble with a code inside, and the code follows one rule set, ISA-5.1, on almost every plant in the US and Canada. Learn the letter table once and you can read the tag on any transmitter, switch or control valve, know what it measures, what it does and where its readout is. The P&amp;ID context is in [PFD and P&amp;ID reading](/article/pfd-and-pid-reading).
+Every instrument on a P&ID is a bubble with a code inside, and the code follows one rule set, ISA-5.1, on almost every plant in the US and Canada. Learn the letter table once and you can read the tag on any transmitter, switch or control valve, know what it measures, what it does and where its readout is. The P&ID context is in [PFD and P&ID reading](/article/pfd-and-pid-reading).
 
 ## The tag: letters plus loop number
 
@@ -24,10 +24,10 @@ A tag has two parts separated by a hyphen: the **functional identification** (le
 | **Modifier** (optional) | D in PDT, F in FFC | Changes the meaning of the first letter (differential, ratio) |
 | **Succeeding letters** | I, T | The functions the instrument performs, in order: readout or passive functions first (I indicate), output functions after (T transmit) |
 | **Function modifiers** (optional) | H, L, HH, LL | High, low, high-high, low-low, on alarms and switches |
-| **Loop number** | 101 | Shared by every instrument in the same loop; often the first digit is the unit or P&amp;ID number |
+| **Loop number** | 101 | Shared by every instrument in the same loop; often the first digit is the unit or P&ID number |
 | **Suffix** (optional) | A, B | Duplicate instruments in one loop, or parts of one loop |
 
-The letters read in order and rarely exceed four. The loop number ties **FE-201, FT-201, FIC-201 and FV-201** together: same number, same loop. Some plants number loops per P&amp;ID sheet (sheet 10 carries 1001 to 1099), some per unit, some in a single series. Suffix letters distinguish parallel instruments (**PT-101A** and **PT-101B** voting on the same trip) and parts of one loop (**TV-203A** and **TV-203B** split-range valves). Canadian plants use ISA-5.1 as written; European vendor packages sometimes use ISO 3511 / ISO 14617, where a few letters differ.
+The letters read in order and rarely exceed four. The loop number ties **FE-201, FT-201, FIC-201 and FV-201** together: same number, same loop. Some plants number loops per P&ID sheet (sheet 10 carries 1001 to 1099), some per unit, some in a single series. Suffix letters distinguish parallel instruments (**PT-101A** and **PT-101B** voting on the same trip) and parts of one loop (**TV-203A** and **TV-203B** split-range valves). Canadian plants use ISA-5.1 as written; European vendor packages sometimes use ISO 3511 / ISO 14617, where a few letters differ.
 
 ## First letters: what is measured
 
@@ -151,9 +151,9 @@ The signal line direction is shown by arrows where it matters; a signal that lea
 
 ## Worked tags
 
-![Six worked tags drawn as they appear on a P&amp;ID](/img/drawings/isa-worked-tags.svg)
+![Six worked tags drawn as they appear on a P&ID](/img/drawings/isa-worked-tags.svg)
 
-*Six worked tags drawn as they appear on a P&amp;ID*
+*Six worked tags drawn as they appear on a P&ID*
 
 | Tag | Read as | What it is | Where it lives |
 |---|---|---|---|
@@ -166,13 +166,13 @@ The signal line direction is shown by arrows where it matters; a signal that lea
 | **TE / TT / TIC / TV-203** | Temperature element, transmitter, controller, valve | One temperature loop: thermocouple in the well, transmitter on its head, controller in the DCS, control valve in the line | Field, field, DCS, field |
 | **FE / FT / FIC / FY / FV-201** | Flow element, transmitter, controller, converter, valve | One flow loop: orifice plate, DP transmitter, controller, I/P converter, control valve | Field, field, DCS, on the valve, field |
 
-## Reading one control loop on the P&amp;ID
+## Reading one control loop on the P&ID
 
 Take temperature loop 203 on a heat exchanger outlet. Start at the pipe: a small bubble **TE-203** on the outlet line is the **element**, a thermocouple or RTD in a thermowell (**TW-203** may be tagged separately). A thin solid line runs from it to **TT-203**, the **transmitter**, drawn as a bare circle beside the pipe: it turns the millivolts into 4-20 mA. A dashed electric signal line leaves TT-203 and goes to **TIC-203**, drawn as a circle inside a square with a solid line through it: the **controller**, a DCS point on the operator's screen, which compares the measurement with the setpoint. From TIC-203 a dashed line runs to **TY-203**, a small circle beside the control valve with **I/P** in a box: the **converter** that turns 4-20 mA into 3-15 psi air. A pneumatic line with double slashes runs from TY-203 to the diaphragm on **TV-203**, the **control valve** on the cooling water to the exchanger, marked **FO** (fail open: on loss of air it opens and keeps cooling). A **TAH-203** bubble on the DCS shares the loop number and sounds when the outlet runs hot. Follow the loop number and you have read the whole thing: element, transmitter, controller, converter, valve, alarm. The loop diagram (ISA-5.4) for TIC-203 then gives every wire, terminal and tubing run between them.
 
-![One control loop on the P&amp;ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
+![One control loop on the P&ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
 
-*One control loop on the P&amp;ID from orifice to control valve*
+*One control loop on the P&ID from orifice to control valve*
 
 ## Transmitters, switches, indicators and controllers
 
@@ -201,7 +201,7 @@ The **instrument index** (instrument list) is the database behind the bubbles, o
 |---|---|
 | **Tag** | PIT-101 |
 | **Service** | What it measures: P-101A discharge pressure |
-| **P&amp;ID** | Drawing and sheet where the bubble is |
+| **P&ID** | Drawing and sheet where the bubble is |
 | **Loop** | Loop number and loop diagram reference |
 | **Type** | Instrument type: gauge pressure transmitter, RTD, magnetic flowmeter, limit switch |
 | **Range and setpoint** | 0-300 psig (0-20 bar); trip at 25 psig |
@@ -225,10 +225,10 @@ Use it to find the range of a gauge before you trust it, the I/O address when yo
 
 ## Related
 
-- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
-- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [PFD and P&ID reading](/article/pfd-and-pid-reading)
+- [P&ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
 - [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
 - [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
 - [Electrical symbols NEMA and IEC](/article/electrical-symbols-nema-and-iec)
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
-- [Quiz: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)

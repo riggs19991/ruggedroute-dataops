@@ -1,28 +1,28 @@
 ---
-title: "PFD and P&amp;ID Reading for Millwrights: Process Flow Diagram versus P&amp;ID, the Legend Sheet, Anatomy of a P&amp;ID Sheet, Line Numbers, Spec Breaks and Insulation Codes, Equipment Tags and the Equipment List, Tracing a Line End to End, Reading a Pump Loop in Order, Instrument Bubbles and Control Loops, Off-Page Connectors, Tie-Ins and Holds, and What a Millwright Pulls off a P&amp;ID for Isolation and Equipment Work"
+title: "PFD and P&ID Reading for Millwrights: Process Flow Diagram versus P&ID, the Legend Sheet, Anatomy of a P&ID Sheet, Line Numbers, Spec Breaks and Insulation Codes, Equipment Tags and the Equipment List, Tracing a Line End to End, Reading a Pump Loop in Order, Instrument Bubbles and Control Loops, Off-Page Connectors, Tie-Ins and Holds, and What a Millwright Pulls off a P&ID for Isolation and Equipment Work"
 slug: pfd-and-pid-reading
 category: drawings
 kind: reference
-tags: [P&amp;ID, PID reading, piping and instrumentation diagram, PFD, process flow diagram, legend sheet, lead sheet, line number, spec break, insulation code, tracing code, equipment tag, equipment list, pump tag, tracing a line, pump loop, suction strainer, check valve, minimum flow, recirculation, seal flush plan, spare pump, instrument bubble, control loop, off-page connector, tie-in point, hold, cloud, by others, double block and bleed, spectacle blind, drain, vent, bypass, normally closed, normally open, locked open, car seal, LOTO isolation, walk-down, redline, as-built, stream number]
-source: "ISA-5.1-2009 instrumentation symbols and identification; ISA-5.3 graphic symbols for distributed control and shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (line numbering, equipment tagging, P&amp;ID content); ISO 10628 diagrams for the chemical and petrochemical industry (flow diagram content); ISO 14617 graphical symbols for diagrams; ASME B31.3 process piping; company legend sheets and equipment lists."
-summary: "What a process flow diagram shows and what only the P&amp;ID shows, why the legend sheet is read first, how a P&amp;ID sheet is laid out, how to break down line numbers, spec breaks and insulation codes, how equipment tags are built, a method for tracing a line from nozzle to nozzle, a pump loop read valve by valve in order, instrument bubbles and loops at overview level, off-page connectors, tie-ins, holds and clouds, and the isolation, drain, vent, bypass, valve-position and nozzle information a millwright takes off the sheet before opening anything."
+tags: [P&ID, PID reading, piping and instrumentation diagram, PFD, process flow diagram, legend sheet, lead sheet, line number, spec break, insulation code, tracing code, equipment tag, equipment list, pump tag, tracing a line, pump loop, suction strainer, check valve, minimum flow, recirculation, seal flush plan, spare pump, instrument bubble, control loop, off-page connector, tie-in point, hold, cloud, by others, double block and bleed, spectacle blind, drain, vent, bypass, normally closed, normally open, locked open, car seal, LOTO isolation, walk-down, redline, as-built, stream number]
+source: "ISA-5.1-2009 instrumentation symbols and identification; ISA-5.3 graphic symbols for distributed control and shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (line numbering, equipment tagging, P&ID content); ISO 10628 diagrams for the chemical and petrochemical industry (flow diagram content); ISO 14617 graphical symbols for diagrams; ASME B31.3 process piping; company legend sheets and equipment lists."
+summary: "What a process flow diagram shows and what only the P&ID shows, why the legend sheet is read first, how a P&ID sheet is laid out, how to break down line numbers, spec breaks and insulation codes, how equipment tags are built, a method for tracing a line from nozzle to nozzle, a pump loop read valve by valve in order, instrument bubbles and loops at overview level, off-page connectors, tie-ins, holds and clouds, and the isolation, drain, vent, bypass, valve-position and nozzle information a millwright takes off the sheet before opening anything."
 ---
 
-The P&amp;ID is the drawing you read before you isolate a pump, open a flange or ask what a line carries. It has no dimensions and no scale; it shows every pipe, valve and instrument in a system and how they connect, which is exactly what a millwright needs for lockout, drain-down and pulling equipment. The symbols themselves are charted in [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines) and the instrument letters in [ISA instrument tags](/article/isa-instrument-tags-bubbles-and-letters).
+The P&ID is the drawing you read before you isolate a pump, open a flange or ask what a line carries. It has no dimensions and no scale; it shows every pipe, valve and instrument in a system and how they connect, which is exactly what a millwright needs for lockout, drain-down and pulling equipment. The symbols themselves are charted in [P&ID symbols](/article/pid-symbols-valves-equipment-and-lines) and the instrument letters in [ISA instrument tags](/article/isa-instrument-tags-bubbles-and-letters).
 
-## PFD versus P&amp;ID
+## PFD versus P&ID
 
-The **process flow diagram (PFD)** is the overview a process engineer draws first. The **piping and instrumentation diagram (P&amp;ID)** is the detailed sheet everyone else works from.
+The **process flow diagram (PFD)** is the overview a process engineer draws first. The **piping and instrumentation diagram (P&ID)** is the detailed sheet everyone else works from.
 
-![A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page](/photos/drawings/pid-sheet.jpg)
+![A P&ID sheet: equipment, lines, valves and instrument bubbles on one page](/photos/drawings/pid-sheet.jpg)
 
-*A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page. Photo: Ub, CC BY-SA 3.0, via commons*
+*A P&ID sheet: equipment, lines, valves and instrument bubbles on one page. Photo: Ub, CC BY-SA 3.0, via commons*
 
-![The same pump on a PFD and on a P&amp;ID](/img/drawings/pfd-vs-pid.svg)
+![The same pump on a PFD and on a P&ID](/img/drawings/pfd-vs-pid.svg)
 
-*The same pump on a PFD and on a P&amp;ID*
+*The same pump on a PFD and on a P&ID*
 
-| | PFD | P&amp;ID |
+| | PFD | P&ID |
 |---|---|---|
 | Purpose | Explains the process | Defines every piece of hardware |
 | Equipment | Major items only (pumps, vessels, exchangers, columns), with duty and size | Every item including spares, with tag and nozzles |
@@ -31,11 +31,11 @@ The **process flow diagram (PFD)** is the overview a process engineer draws firs
 | Instruments | Main control loops only | Every instrument, switch, alarm and interlock |
 | Data | **Heat and material balance** table: flow, temperature, pressure, composition per stream; operating conditions on equipment | Line size, spec, insulation, set pressures, notes |
 
-Use the PFD to understand what the plant does: stream 12 at 180 F (82 C) and 60 psig (4 bar) tells you what to expect when the flange opens. Use the P&amp;ID for everything you actually touch. Canadian and ISO plants draw both to ISO 10628 and ISO 14617 with the same content and a few different symbols.
+Use the PFD to understand what the plant does: stream 12 at 180 F (82 C) and 60 psig (4 bar) tells you what to expect when the flange opens. Use the P&ID for everything you actually touch. Canadian and ISO plants draw both to ISO 10628 and ISO 14617 with the same content and a few different symbols.
 
 ## The legend sheet
 
-Every P&amp;ID set opens with one or more **legend sheets** (lead sheets): the key that says how this company draws a gate valve, what its line number means and what every abbreviation stands for. Read it first on any new site; a symbol you know from the last plant may mean something else here.
+Every P&ID set opens with one or more **legend sheets** (lead sheets): the key that says how this company draws a gate valve, what its line number means and what every abbreviation stands for. Read it first on any new site; a symbol you know from the last plant may mean something else here.
 
 ![Legend sheet extract: lines, valves, instrument locations and abbreviations](/img/drawings/pid-legend-extract.svg)
 
@@ -43,13 +43,13 @@ Every P&amp;ID set opens with one or more **legend sheets** (lead sheets): the k
 
 On the legend you will find: valve, equipment and instrument symbols; line types; line number format and service codes; spec class list; insulation and tracing codes; equipment tag prefixes; abbreviations (**NC**, **NO**, **LO**, **LC**, **CSO**, **CSC**, **FC**, **FO**); the off-page connector format; note and hold conventions; and the status stamps (**IFR** issued for review, **IFC** for construction, **AB** as-built).
 
-## Anatomy of a P&amp;ID
+## Anatomy of a P&ID
 
-A P&amp;ID sheet has a title block like any other drawing (number, sheet, revision, unit, title). Inside:
+A P&ID sheet has a title block like any other drawing (number, sheet, revision, unit, title). Inside:
 
-![Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line](/img/drawings/sample-pid-pump-loop.svg)
+![Sample P&ID of a feed pump loop with tank, pumps, header, control valve and min-flow line](/img/drawings/sample-pid-pump-loop.svg)
 
-*Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line*
+*Sample P&ID of a feed pump loop with tank, pumps, header, control valve and min-flow line*
 
 - **Flow runs left to right** where possible; inlets enter at the left border, outlets leave at the right, utilities from the top or bottom.
 - **Equipment** is drawn in outline, roughly to relative elevation (a pump low, a tank high), with its tag and a **title line** (name, size or duty, design conditions) in the top or bottom margin.
@@ -59,7 +59,7 @@ A P&amp;ID sheet has a title block like any other drawing (number, sheet, revisi
 
 ## Line numbers, spec breaks and insulation
 
-A line number on the P&amp;ID has the same parts as on the isometric: **6"-CWS-1501-A1A-IH** is size, service, sequence, spec class and insulation code (worked through in [piping isometrics](/article/piping-drawings-isometrics-and-spool-sheets)). On the P&amp;ID the number is written along the line and changes whenever the size, service or spec changes; a **reducer** symbol (a small trapezoid) marks a size change and the new size appears after it.
+A line number on the P&ID has the same parts as on the isometric: **6"-CWS-1501-A1A-IH** is size, service, sequence, spec class and insulation code (worked through in [piping isometrics](/article/piping-drawings-isometrics-and-spool-sheets)). On the P&ID the number is written along the line and changes whenever the size, service or spec changes; a **reducer** symbol (a small trapezoid) marks a size change and the new size appears after it.
 
 ![Line number decoder: size, service, sequence, spec and insulation](/img/drawings/line-number-decoder.svg)
 
@@ -87,11 +87,11 @@ Every piece of equipment has a **tag** made of a letter code, a number and somet
 | **R** | Reactor | **FL** or **S** | Filter, strainer, separator |
 | **PK** or **PKG** | Vendor package | **X** or **Z** | Miscellaneous |
 
-The number carries the unit (**1**) and a sequence, so P-101 is pump 01 in unit 1 and E-301 is exchanger 01 in unit 3. Suffixes **A/B** mark duplicate machines, usually a running pump and an installed spare on the same headers. The **equipment list** is the table behind the tags (description, P&amp;ID number, duty, driver power, materials, design conditions, weight, vendor and model): where you look up the motor horsepower and the weight before rigging a pump out.
+The number carries the unit (**1**) and a sequence, so P-101 is pump 01 in unit 1 and E-301 is exchanger 01 in unit 3. Suffixes **A/B** mark duplicate machines, usually a running pump and an installed spare on the same headers. The **equipment list** is the table behind the tags (description, P&ID number, duty, driver power, materials, design conditions, weight, vendor and model): where you look up the motor horsepower and the weight before rigging a pump out.
 
 ## Tracing a line end to end
 
-Reading a P&amp;ID is done one line at a time, with a finger or a highlighter. The method:
+Reading a P&ID is done one line at a time, with a finger or a highlighter. The method:
 
 ![A process diagram with its stream numbers and equipment tags](/photos/drawings/process-diagram-sample.jpg)
 
@@ -112,9 +112,9 @@ Reading a P&amp;ID is done one line at a time, with a finger or a highlighter. T
 
 A pump is read from suction to discharge, and the items are nearly always the same. Take **P-101A/B** taking suction from tank T-101:
 
-![A P&amp;ID on the control room wall: operators and millwrights read the same sheet](/photos/drawings/control-room-pid.jpg)
+![A P&ID on the control room wall: operators and millwrights read the same sheet](/photos/drawings/control-room-pid.jpg)
 
-*A P&amp;ID on the control room wall: operators and millwrights read the same sheet. Photo: PEO ACWA, CC BY 2.0, via commons*
+*A P&ID on the control room wall: operators and millwrights read the same sheet. Photo: PEO ACWA, CC BY 2.0, via commons*
 
 1. **Suction line** from the tank nozzle, larger than the discharge (8 in suction, 6 in discharge is typical), with its own line number.
 2. **Suction block valve** (a gate or butterfly, normally open, sometimes locked open, **LO**).
@@ -132,13 +132,13 @@ A pump is read from suction to discharge, and the items are nearly always the sa
 
 With that list you know what to close to isolate the pump (suction, discharge, recirculation, seal flush supply, any warm-up line), what to open to drain and vent it, and what to blind if the isolation must be positive.
 
-## Instruments and control loops on the P&amp;ID
+## Instruments and control loops on the P&ID
 
 Instruments appear as **bubbles** (circles) with a tag inside: letters for the function (**PIT** pressure indicating transmitter, **TIC** temperature indicating controller, **LSH** level switch high) and a **loop number** shared by every instrument in that loop. A bare circle is a field instrument, a circle with a horizontal line through it is on the control room panel, a circle in a square is a DCS point. Thin lines connect them: double slashes for a pneumatic signal, dashed for electrical, small circles for a software link.
 
-![One flow control loop read on the P&amp;ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
+![One flow control loop read on the P&ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
 
-*One flow control loop read on the P&amp;ID from orifice to control valve*
+*One flow control loop read on the P&ID from orifice to control valve*
 
 A **control loop** reads element, transmitter, controller, final element: **FE-201** (orifice plate) to **FT-201** (transmitter) to **FIC-201** (controller) to **FY-201** (converter) to **FV-201** (control valve). The control valve carries a **fail position** (**FC** fail closed, **FO** fail open, **FL** locked in place) and often a handwheel symbol. **Interlocks** appear as a diamond or a box with an interlock number (**I-5**) and a reference to the cause and effect chart. The full letter table, bubble shapes, signal lines and worked loops are in [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters).
 
@@ -150,21 +150,21 @@ A line leaving a sheet ends in an **off-page connector**: an arrow-shaped box ca
 
 *Off-page connectors, tie-in points, holds and package boundaries*
 
-- **Battery limit** or **by others** boundary: a dashed line with a label where the drawing responsibility changes, for example between a vendor package and the plant piping; anything inside is on the vendor P&amp;ID.
+- **Battery limit** or **by others** boundary: a dashed line with a label where the drawing responsibility changes, for example between a vendor package and the plant piping; anything inside is on the vendor P&ID.
 - **Tie-in point**: a numbered symbol (**TP-14** in a circle or hexagon) where new piping meets existing; the tie-in list gives the location, the method (hot tap, flange, cut and weld) and what must be isolated.
 - **Existing vs new**: existing lines light or dashed, new lines heavy, **future** dotted, **demolished** crossed out.
 - **Hold**: a cloud or box labelled **HOLD** with a number where the design is not final. Do not fabricate or install anything inside a hold.
 - **Notes**: a number in a triangle refers to the numbered notes; the note is often the instruction that matters (slope, no pockets, car seal).
 
-## What a millwright pulls off a P&amp;ID
+## What a millwright pulls off a P&ID
 
-The P&amp;ID is the isolation drawing. Before any work on a line or machine, take from it:
+The P&ID is the isolation drawing. Before any work on a line or machine, take from it:
 
 ![The pump loop marked up with isolation points for a P-101A job](/img/drawings/pump-loop-isolation-points.svg)
 
 *The pump loop marked up with isolation points for a P-101A job*
 
-| What you need | Where it is on the P&amp;ID |
+| What you need | Where it is on the P&ID |
 |---|---|
 | **Isolation points** for LOTO: every valve between the job and any energy source, including bypasses, recirculation, seal flush and drains to other systems | The traced line list |
 | **Positive isolation**: double block and bleed (two block valves with a bleed between), spectacle blinds, spades and spacers, removable spools | Figure-eight and paddle symbols; the DBB arrangement |
@@ -174,21 +174,21 @@ The P&amp;ID is the isolation drawing. Before any work on a line or machine, tak
 | **Spare equipment** and what changes when you take one machine out | A/B suffixes, common headers, the interlock that starts the spare |
 | **Nozzle sizes and ratings** to pull a pump or exchanger: which gaskets and bolts to have ready | Line sizes and spec classes at the equipment; the vendor drawing |
 
-Then **walk the line down** with the P&amp;ID in hand and mark every difference (a valve not on the drawing, a drain added, a blind missing) in red: those **redlines** become the **as-built**. The isolation register lists each valve by tag, and the P&amp;ID marked up with those numbers is the record. If the drawing and the pipe disagree, isolate what is really there and get the drawing corrected.
+Then **walk the line down** with the P&ID in hand and mark every difference (a valve not on the drawing, a drain added, a blind missing) in red: those **redlines** become the **as-built**. The isolation register lists each valve by tag, and the P&ID marked up with those numbers is the record. If the drawing and the pipe disagree, isolate what is really there and get the drawing corrected.
 
 ## Common mistakes
 
-- Trusting an unmarked, out-of-date P&amp;ID as the isolation drawing instead of walking the line down.
+- Trusting an unmarked, out-of-date P&ID as the isolation drawing instead of walking the line down.
 - Isolating the suction and discharge and forgetting the minimum-flow recirculation, the seal flush supply or the warm-up line that still feeds the pump.
 - Reading a line that crosses another as connected when there is no junction dot.
 - Assuming a service code (FW, PW, SW) from the last site.
-- Mixing up PFD stream numbers with P&amp;ID line numbers, or reading a PFD as if it showed every valve.
+- Mixing up PFD stream numbers with P&ID line numbers, or reading a PFD as if it showed every valve.
 - Ignoring the notes and the holds: the note is often the instruction, and the hold means the design is not done.
 - Forgetting that a spec break means different flanges, gaskets and bolts on each side of the joint.
 
 ## Related
 
-- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [P&ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
 - [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
 - [Piping isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)

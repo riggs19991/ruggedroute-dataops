@@ -31,7 +31,7 @@ Search this page with your browser's find function, or use the app search box wi
 - **Babbitt**: soft white-metal bearing alloy poured or bonded into sleeve bearings.
 - **Backlash**: the clearance between meshing gear teeth measured at the pitch line.
 - **Base metal**: the material being welded or cut.
-- **Basic dimension**: a boxed, theoretically exact dimension on a GD&amp;T drawing; the tolerance comes from the feature control frame, not from the box.
+- **Basic dimension**: a boxed, theoretically exact dimension on a GD&T drawing; the tolerance comes from the feature control frame, not from the box.
 - **Basket hitch**: a sling passed under the load with both ends on the hook.
 - **Bearing housing**: the casting that holds a bearing; pillow block, flange block or take-up.
 - **BEP (best efficiency point)**: the flow at which a pump is most efficient and its radial loads are lowest.
@@ -40,7 +40,7 @@ Search this page with your browser's find function, or use the app search box wi
 - **Bore**: the inside diameter of a bearing, sheave, hub or cylinder.
 - **BPFO, BPFI, BSF, FTF**: bearing defect frequencies for outer race, inner race, rolling element and cage.
 - **Brinelling**: indentation of a bearing raceway by static overload or hammer blows through the rolling elements (false brinelling is fretting wear from vibration while stationary).
-- **Bubble (instrument)**: the circle on a P&amp;ID that carries an instrument tag; its shape and the line across it say whether it lives in the field, on the panel or in the DCS.
+- **Bubble (instrument)**: the circle on a P&ID that carries an instrument tag; its shape and the line across it say whether it lives in the field, on the panel or in the DCS.
 - **Bushing**: a removable sleeve bearing, or the tapered hub (QD, taper-lock) that fixes a sheave to a shaft.
 
 ## C
@@ -65,7 +65,7 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## D
 
-- **Datum**: a surface, axis or point named on a drawing (A, B, C) from which GD&amp;T tolerances are measured; the part is rested on it in the order listed.
+- **Datum**: a surface, axis or point named on a drawing (A, B, C) from which GD&T tolerances are measured; the part is rested on it in the order listed.
 - **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
 - **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
 - **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
@@ -97,7 +97,7 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## G
 
-- **GD&amp;T**: geometric dimensioning and tolerancing (ASME Y14.5): the symbol language that controls form, orientation, location and runout, not just size.
+- **GD&T**: geometric dimensioning and tolerancing (ASME Y14.5): the symbol language that controls form, orientation, location and runout, not just size.
 - **General arrangement drawing**: the plan and elevation showing where each machine sits relative to column lines, with tags, centrelines and elevations.
 - **Gib**: an adjustable wedge or strip that takes up clearance in a slide.
 - **GMAW / FCAW / SMAW / GTAW**: gas metal arc (MIG), flux-cored arc, shielded metal arc (stick) and gas tungsten arc (TIG) welding.
@@ -167,7 +167,7 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## O
 
-- **Off-page connector**: the arrow-shaped symbol on a P&amp;ID or schematic that names the sheet a line continues on.
+- **Off-page connector**: the arrow-shaped symbol on a P&ID or schematic that names the sheet a line continues on.
 - **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
 - **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
 - **One-line diagram**: the electrical distribution drawing that shows each circuit as a single line from the utility through transformers and switchgear to the MCC and motors.
@@ -176,7 +176,7 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## P
 
-- **P&amp;ID**: piping and instrumentation diagram: the drawing that shows every line, valve, instrument, drain and connection of a process; isolations are planned from it.
+- **P&ID**: piping and instrumentation diagram: the drawing that shows every line, valve, instrument, drain and connection of a process; isolations are planned from it.
 - **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
 - **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
 - **PFD**: process flow diagram: the simplified flow sheet with equipment, main streams and conditions, without the valves and instruments.
@@ -218,7 +218,7 @@ Search this page with your browser's find function, or use the app search box wi
 - **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
 - **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
 - **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
-- **Spec break**: the point on a line where the pipe class changes, marked on the P&amp;ID and iso with the two class codes.
+- **Spec break**: the point on a line where the pipe class changes, marked on the P&ID and iso with the two class codes.
 - **Specific gravity**: density of a liquid relative to water; converts head to pressure.
 - **Spectacle blind**: a figure-eight plate swung between flanges to give a positive isolation (solid side in) or a clear bore (open ring in).
 - **Spool**: a section of pipe with its fittings fabricated in the shop, joined to the next spool by field welds.
@@ -275,7 +275,7 @@ Search this page with your browser's find function, or use the app search box wi
 ## Related
 
 - [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
-- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)
+- [Test yourself: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)
 - [Set Me Up for a Task](/article/set-me-up-for-a-task)
 - [Shop Reference](/article/shop-reference-tables)
 - [Test Yourself](/article/quiz-welding-and-cutting)
