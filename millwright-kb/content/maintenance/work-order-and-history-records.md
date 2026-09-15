@@ -99,3 +99,4 @@ Start with the critical assets: for each, one page with the nameplate data, bear
 - [Spare parts and bearing storage](/article/spare-parts-and-bearing-storage)
 - [Bearing failure analysis](/article/bearing-failure-analysis)
 - [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)

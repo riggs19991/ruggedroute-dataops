@@ -109,3 +109,4 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - [Reverse-Dial Indicator Alignment](/article/reverse-dial-alignment)
 - [Grouting Baseplates](/article/grouting-baseplates)
 - [Millwright Glossary A to Z](/article/millwright-glossary)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)

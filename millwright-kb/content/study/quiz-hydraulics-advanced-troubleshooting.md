@@ -112,3 +112,4 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Test yourself: hydraulics, pneumatics and lubrication](/article/quiz-hydraulics-and-lubrication)
 - [Millwright glossary A to Z](/article/millwright-glossary)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)

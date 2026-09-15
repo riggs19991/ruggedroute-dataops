@@ -1,2481 +1,3069 @@
 {
- "welding-process-selector": [
-  {
-   "img": "welding/process-selector.svg",
-   "alt": "Which process for the job: a quick decision tree",
-   "after": "## The one-minute decision"
-  },
-  {
-   "photo": "welding/mig-bench.jpg",
-   "alt": "MIG at the bench: the fastest way to lay clean beads on mild steel",
-   "after": "## Process character in one line each"
-  }
- ],
- "smaw-electrode-chart": [
-  {
-   "img": "welding/smaw-amperage-chart.svg",
-   "alt": "Amperage ranges by rod diameter for the common electrodes",
-   "after": "## The chart (amps)"
-  },
-  {
-   "photo": "welding/electrode-types.jpg",
-   "alt": "Common stick electrodes side by side: coating colour and end marking tell them apart",
-   "after": "## Which rod, in plain terms"
-  }
- ],
- "smaw-stick-setup": [
-  {
-   "img": "welding/polarity.svg",
-   "alt": "DCEP, DCEN and AC: which lead goes where and where the heat goes",
-   "after": "## 1. The machine"
-  },
-  {
-   "img": "welding/smaw-angles.svg",
-   "alt": "Arc length, travel angle and work angle for stick welding",
-   "after": "## 5. Strike and run"
-  },
-  {
-   "photo": "welding/smaw-accessories.jpg",
-   "alt": "Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike",
-   "after": "## 2. Cables and ground"
-  },
-  {
-   "photo": "welding/electrodes-and-holder.jpg",
-   "alt": "Stick electrodes and the holder: keep low-hydrogen rods dry",
-   "after": "## 3. Pick the rod"
-  },
-  {
-   "photo": "welding/smaw-arc.jpg",
-   "alt": "Running a stick bead: watch the puddle, not the arc",
-   "after": "## 5. Strike and run"
-  }
- ],
- "aws-electrode-classification": [
-  {
-   "img": "welding/aws-electrode-decoder.svg",
-   "alt": "Decoding E7018-1 H4R digit by digit",
-   "after": "top"
-  },
-  {
-   "photo": "welding/electrode-types.jpg",
-   "alt": "The classification is printed on every rod near the bare end",
-   "after": "## Covered (stick) electrodes: AWS A5.1 and A5.5"
-  }
- ],
- "gmaw-mig-setup": [
-  {
-   "img": "welding/polarity.svg",
-   "alt": "MIG runs DCEP: gun lead to positive",
-   "after": "## 1. Machine and polarity"
-  },
-  {
-   "img": "welding/mig-stickout.svg",
-   "alt": "Contact-tip-to-work distance, stickout and push angle",
-   "after": "## 5. Physical setup"
-  },
-  {
-   "photo": "welding/mig-machine.jpg",
-   "alt": "A MIG machine with the gun, work lead and shielding gas bottle",
-   "after": "## 1. Machine and polarity"
-  },
-  {
-   "photo": "welding/mig-wire-spool.jpg",
-   "alt": "A spool of solid MIG wire: keep it clean, dry and under a cover",
-   "after": "## 2. Wire"
-  },
-  {
-   "photo": "welding/mig-regulator.jpg",
-   "alt": "Cylinder regulator with the flow gauge for a MIG setup",
-   "after": "## 3. Gas"
-  },
-  {
-   "photo": "welding/mig-welding.jpg",
-   "alt": "MIG welding: short stickout, steady gun angle, eyes on the puddle",
-   "after": "## 6. Technique"
-  }
- ],
- "gmaw-transfer-modes": [
-  {
-   "img": "welding/mig-transfer-modes.svg",
-   "alt": "Short-circuit, globular, spray and pulsed spray with the transition current",
-   "after": "## The four modes at a glance"
-  },
-  {
-   "photo": "welding/mig-overhead.jpg",
-   "alt": "Short-circuit transfer is the mode for out-of-position work like this overhead weld",
-   "after": "## Short-circuit transfer"
-  }
- ],
- "fcaw-gas-shielded-setup": [
-  {
-   "img": "welding/fcaw-drag-stickout.svg",
-   "alt": "Drag angle and stickout for flux-cored wire",
-   "after": "## Technique notes"
-  },
-  {
-   "photo": "welding/mig-machine.jpg",
-   "alt": "Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle",
-   "after": "## Setup checklist"
-  }
- ],
- "fcaw-self-shielded-setup": [
-  {
-   "img": "welding/polarity.svg",
-   "alt": "Self-shielded flux-core runs DCEN: gun lead to negative",
-   "after": "## The three rules"
-  },
-  {
-   "img": "welding/fcaw-drag-stickout.svg",
-   "alt": "Drag angle and stickout by wire type",
-   "after": "## Technique"
-  },
-  {
-   "photo": "welding/fcaw-feeder.jpg",
-   "alt": "A small wire-feed machine set up for self-shielded flux-cored wire",
-   "after": "## Setup"
-  }
- ],
- "gtaw-tig-setup": [
-  {
-   "img": "welding/polarity.svg",
-   "alt": "DCEN for steel and stainless, AC for aluminium",
-   "after": "## 1. Polarity and current type"
-  },
-  {
-   "img": "welding/tig-torch-setup.svg",
-   "alt": "Tungsten grind, stickout, torch angle and filler angle",
-   "after": "## 2. Tungsten"
-  },
-  {
-   "photo": "welding/tig-torch-parts.jpg",
-   "alt": "TIG torch parts: back cap, collet, collet body, tungsten, cups",
-   "after": "## 2. Tungsten"
-  },
-  {
-   "photo": "welding/tig-torch.jpg",
-   "alt": "An air-cooled TIG torch with cup and back cap fitted",
-   "after": "## 4. Torch"
-  },
-  {
-   "photo": "welding/tig-machine.jpg",
-   "alt": "A TIG power source: AC/DC, high-frequency start, gas solenoid",
-   "after": "## 5. Machine settings"
-  },
-  {
-   "photo": "welding/tig-arc.jpg",
-   "alt": "TIG arc: tight arc, filler dipped at the leading edge of the puddle",
-   "after": "## 7. Technique"
-  }
- ],
- "gtaw-settings-by-material": [
-  {
-   "img": "welding/tig-amps-vs-thickness.svg",
-   "alt": "Amperage versus thickness for steel, stainless and aluminium",
-   "after": "top"
-  },
-  {
-   "photo": "welding/tig-welder.jpg",
-   "alt": "TIG on steel: DCEN, argon, ER70S filler",
-   "after": "## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)"
-  }
- ],
- "gas-selection-and-flow": [
-  {
-   "img": "welding/flowmeter-reading.svg",
-   "alt": "Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow",
-   "after": "## Setting flow"
-  },
-  {
-   "photo": "welding/gas-cylinders.jpg",
-   "alt": "Shielding gas cylinders capped and bundled for storage",
-   "after": "## Cylinders"
-  }
- ],
- "machine-setup-and-duty-cycle": [
-  {
-   "img": "welding/duty-cycle.svg",
-   "alt": "Duty cycle falls with the square of the current ratio",
-   "after": "## Duty cycle"
-  },
-  {
-   "img": "welding/cable-size-chart.svg",
-   "alt": "Cable size by output and total lead length",
-   "after": "## Welding cable size chart"
-  },
-  {
-   "img": "welding/ground-clamp-placement.svg",
-   "alt": "Ground clamp on the part being welded, never across a bearing",
-   "after": "## Ground (work) clamp"
-  },
-  {
-   "photo": "welding/mig-machine.jpg",
-   "alt": "Daily checks: leads, clamps, gas, feeder, fan intake",
-   "after": "## Daily checks before striking an arc"
-  }
- ],
- "joint-design-and-fit-up": [
-  {
-   "img": "welding/joint-types.svg",
-   "alt": "The five joints and the single-V groove terms",
-   "after": "## The five joints"
-  },
-  {
-   "photo": "welding/v-butt-macro.jpg",
-   "alt": "Single-V butt weld in section: root, fill and cap passes",
-   "after": "## Which groove for which thickness (steel)"
-  }
- ],
- "positions-and-techniques": [
-  {
-   "img": "welding/positions.svg",
-   "alt": "1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe",
-   "after": "## Position codes"
-  },
-  {
-   "img": "welding/smaw-angles.svg",
-   "alt": "Travel angle and work angle",
-   "after": "## The two angles"
-  },
-  {
-   "photo": "welding/pipe-tig.jpg",
-   "alt": "Pipe in the 6G position: the welder changes angle all the way round",
-   "after": "## Position codes"
-  },
-  {
-   "photo": "welding/overhead-welding.jpg",
-   "alt": "Overhead welding: keep the arc short and the puddle small",
-   "after": "## Position by position"
-  },
-  {
-   "photo": "welding/v-butt-macro.jpg",
-   "alt": "Macro section of a multi-pass V-butt weld: each pass numbered, root to cap",
-   "after": "## Multi-pass welds"
-  }
- ],
- "distortion-control": [
-  {
-   "img": "welding/distortion-sequences.svg",
-   "alt": "Back-step and skip sequences, presetting and balanced welds",
-   "after": "## Control in order of effectiveness"
-  }
- ],
- "preheat-interpass-and-carbon-equivalent": [
-  {
-   "img": "welding/preheat-chart.svg",
-   "alt": "Minimum preheat by thickness for three carbon-equivalent bands",
-   "after": "## Minimum preheat and interpass (AWS D1.1 Table 5.8, prequalified, stick electrodes)"
-  },
-  {
-   "photo": "welding/pipe-welder.jpg",
-   "alt": "Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter",
-   "after": "## Cold-weather rule set"
-  }
- ],
- "welding-stainless-and-dissimilar": [
-  {
-   "img": "welding/heat-tint-scale.svg",
-   "alt": "Heat tint colours from silver to black and what each means",
-   "after": "## Purging and colour"
-  }
- ],
- "welding-aluminium": [
-  {
-   "img": "welding/ac-balance.svg",
-   "alt": "AC balance: EN penetrates, EP cleans",
-   "after": "## TIG on aluminium"
-  }
- ],
- "welding-cast-iron-and-repairs": [
-  {
-   "img": "welding/cast-iron-repair.svg",
-   "alt": "Drill the crack ends, V it out, short stringers in sequence, peen",
-   "after": "## Crack repair procedure"
-  },
-  {
-   "photo": "welding/brazing-torch.jpg",
-   "alt": "Braze welding keeps the casting cooler than any arc process",
-   "after": "## Brazing instead"
-  }
- ],
- "hardfacing-and-buildup": [
-  {
-   "img": "welding/hardfacing-layers.svg",
-   "alt": "Base metal, buffer, build-up and hardfacing layers in section",
-   "after": "## Layers: build-up, buffer, hardfacing"
-  },
-  {
-   "photo": "welding/hardfacing-arc.jpg",
-   "alt": "Hardfacing: wide beads, low dilution, let the layer check-crack as it cools",
-   "after": "## Procedure"
-  }
- ],
- "weld-defects-and-inspection": [
-  {
-   "img": "welding/weld-defects.svg",
-   "alt": "Undercut, overlap, porosity, lack of fusion and incomplete penetration in section",
-   "after": "## The defects and their causes"
-  },
-  {
-   "photo": "welding/chipping.jpg",
-   "alt": "Chip and brush the slag before you inspect: slag hides undercut and porosity",
-   "after": "## Inspection sequence"
-  },
-  {
-   "photo": "welding/dye-penetrant.jpg",
-   "alt": "Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out",
-   "after": "## Dye penetrant (PT) for surface cracks"
-  },
-  {
-   "photo": "welding/magnetic-particle.jpg",
-   "alt": "Magnetic particle inspection with a yoke under UV light",
-   "after": "## Magnetic particle (MT) for ferrous surfaces"
-  }
- ],
- "welding-symbols": [
-  {
-   "img": "welding/welding-symbol-anatomy.svg",
-   "alt": "Reference line, arrow side, other side, tail, size and length-pitch",
-   "after": "## Anatomy"
-  }
- ],
- "blueprint-reading-for-millwrights": [
-  {
-   "img": "welding/orthographic-views.svg",
-   "alt": "Third-angle projection views and the line types",
-   "after": "## Views and projection"
-  }
- ],
- "welder-maintenance-and-consumables": [
-  {
-   "img": "welding/mig-gun-parts.svg",
-   "alt": "Liner, diffuser, contact tip and nozzle in order",
-   "after": "## MIG gun consumables"
-  },
-  {
-   "photo": "welding/tig-torch-parts.jpg",
-   "alt": "Every TIG torch consumable laid out: replace cups and collets when they crack or arc",
-   "after": "## TIG torch parts"
-  },
-  {
-   "photo": "welding/mig-regulator.jpg",
-   "alt": "Regulator and flow gauge: check for creep with the torch valve closed",
-   "after": "## Gas equipment"
-  }
- ],
- "welding-safety-fumes-and-ppe": [
-  {
-   "img": "welding/lens-shade-chart.svg",
-   "alt": "Filter shade by process and amperage",
-   "after": "## Lens shade table"
-  },
-  {
-   "img": "oxy-fuel/cylinder-storage.svg",
-   "alt": "Oxygen and fuel gas storage separation",
-   "after": "## Compressed gases"
-  },
-  {
-   "photo": "welding/welder-ppe.jpg",
-   "alt": "Welding PPE: helmet, leathers, gloves, safety glasses under the hood",
-   "after": "## PPE"
-  },
-  {
-   "photo": "welding/speedglas.jpg",
-   "alt": "An auto-darkening helmet: check the shade setting and the battery before the first arc",
-   "after": "## Lens shade table"
-  }
- ],
- "brazing-and-soldering": [
-  {
-   "img": "welding/brazing-joint.svg",
-   "alt": "Capillary joint clearance, overlap and where the heat goes",
-   "after": "## Joint clearance"
-  },
-  {
-   "photo": "welding/brazing-kit.jpg",
-   "alt": "Brazing kit: torch, silver alloy rods, flux, goggles",
-   "after": "## Filler metals"
-  },
-  {
-   "photo": "welding/brazing-torch.jpg",
-   "alt": "Torch brazing: heat the joint, not the rod; the filler follows the heat",
-   "after": "## Torch brazing procedure (silver brazing a steel-to-copper or copper-to-copper joint)"
-  }
- ],
- "plasma-cutting-setup": [
-  {
-   "img": "cutting-gouging/plasma-torch-consumables.svg",
-   "alt": "Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle",
-   "after": "## Consumable stack"
-  },
-  {
-   "img": "cutting-gouging/plasma-cut-chart.svg",
-   "alt": "Cut speed versus thickness for 45, 65 and 85 A air plasma",
-   "after": "## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables"
-  },
-  {
-   "photo": "cutting-gouging/plasma-cnc.jpg",
-   "alt": "A CNC plasma table cutting plate",
-   "after": "## How it works, in one paragraph"
-  },
-  {
-   "photo": "cutting-gouging/plasma-hand.jpg",
-   "alt": "Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square",
-   "after": "## Hand cutting technique"
-  }
- ],
- "plasma-keyholing-and-piercing": [
-  {
-   "img": "cutting-gouging/plasma-pierce-sequence.svg",
-   "alt": "Tilt, pierce, rotate upright, square and cut",
-   "after": "## Rolling pierce (the hand-torch standard)"
-  }
- ],
- "carbon-arc-gouging": [
-  {
-   "img": "cutting-gouging/carbon-arc-gouging.svg",
-   "alt": "Air jet under the electrode, 35-45° angle, 5-7 in extension",
-   "after": "## Technique"
-  }
- ],
- "oxy-fuel-cutting-technique": [
-  {
-   "img": "cutting-gouging/oxy-cut-technique.svg",
-   "alt": "Straight cut, bevel cut and reading the drag lines",
-   "after": "## Straight cut, step by step"
-  },
-  {
-   "photo": "cutting-gouging/oxy-cut-hand.jpg",
-   "alt": "A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf",
-   "after": "## How the cut works"
-  },
-  {
-   "photo": "cutting-gouging/oxy-cut-edge.jpg",
-   "alt": "A cut edge: the drag lines and slag tell you whether speed and oxygen were right",
-   "after": "## Reading the cut edge (AWS C4.1 language)"
-  },
-  {
-   "photo": "cutting-gouging/oxy-cut-goggles.jpg",
-   "alt": "Goggles, gloves, a steady two-handed hold and a clear path for the slag",
-   "after": "## Common mistakes"
-  }
- ],
- "saws-and-abrasives": [
-  {
-   "img": "cutting-gouging/bandsaw-tpi-rule.svg",
-   "alt": "At least 3 and at most 24 teeth in the cut",
-   "after": "## Band saw blades"
-  },
-  {
-   "photo": "cutting-gouging/band-saw.jpg",
-   "alt": "Horizontal band saw: let the weight of the arm do the cutting",
-   "after": "## Band saw blades"
-  },
-  {
-   "photo": "cutting-gouging/chop-saw.jpg",
-   "alt": "Abrasive chop saw: sparks and the cut-off piece go away from you",
-   "after": "## Chop saws (abrasive cut-off)"
-  },
-  {
-   "photo": "cutting-gouging/angle-grinder.jpg",
-   "alt": "Angle grinder with the guard on: sparks directed down and away",
-   "after": "## Angle grinder wheels and discs"
-  }
- ],
- "hole-making-in-the-field": [
-  {
-   "img": "cutting-gouging/mag-drill-annular-cutter.svg",
-   "alt": "Annular cutter versus twist drill",
-   "after": "## Mag drills and annular cutters"
-  },
-  {
-   "photo": "cutting-gouging/mag-drill.jpg",
-   "alt": "A magnetic drill press clamped to steel",
-   "after": "## Mag drills and annular cutters"
-  },
-  {
-   "photo": "cutting-gouging/hole-saw.jpg",
-   "alt": "Bi-metal hole saw kit with arbor",
-   "after": "## Hole saws"
-  }
- ],
- "oxy-acetylene-setup-victor": [
-  {
-   "img": "oxy-fuel/oxy-acetylene-hookup.svg",
-   "alt": "Cylinders, regulators, arrestors, check valves, hoses and torch",
-   "after": "top"
-  },
-  {
-   "img": "oxy-fuel/flame-types.svg",
-   "alt": "Carburising, neutral and oxidising flames",
-   "after": "## 8. Lighting"
-  },
-  {
-   "photo": "oxy-fuel/cylinders-regulators.jpg",
-   "alt": "Oxygen and acetylene cylinders with regulators fitted, chained upright",
-   "after": "## 1. Cylinders"
-  },
-  {
-   "photo": "oxy-fuel/regulator-gauges.jpg",
-   "alt": "Two gauges on each regulator: cylinder pressure and working pressure",
-   "after": "## 2. Regulators"
-  },
-  {
-   "photo": "oxy-fuel/torch-cart.jpg",
-   "alt": "A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook",
-   "after": "## 4. Torch and tip"
-  },
-  {
-   "photo": "oxy-fuel/flame-types-photo.jpg",
-   "alt": "The three flames in a photo: carburizing with its feather, neutral, oxidizing",
-   "after": "## 8. Lighting"
-  },
-  {
-   "photo": "oxy-fuel/cutting-closeup.jpg",
-   "alt": "Cutting torch at work: preheat flames on the plate, oxygen lever pressed",
-   "after": "## 9. Making a cut (mild steel)"
-  }
- ],
- "oxy-fuel-heating-rosebud": [
-  {
-   "img": "oxy-fuel/flame-types.svg",
-   "alt": "Set a neutral flame before heating",
-   "after": "## Lighting and handling"
-  },
-  {
-   "photo": "oxy-fuel/flame-cone.jpg",
-   "alt": "A neutral flame: the bright inner cone and the pale outer envelope",
-   "after": "## Lighting and handling"
-  }
- ],
- "oxy-fuel-safety": [
-  {
-   "img": "oxy-fuel/cylinder-storage.svg",
-   "alt": "Oxygen 20 ft from fuel gas or behind a fire wall",
-   "after": "## Storage and transport"
-  },
-  {
-   "img": "oxy-fuel/oxy-acetylene-hookup.svg",
-   "alt": "Where the check valves and flashback arrestors go",
-   "after": "## Check valves and flashback arrestors"
-  },
-  {
-   "photo": "oxy-fuel/gas-cylinder-rack.jpg",
-   "alt": "Cylinders stored upright, capped and chained, full and empty separated",
-   "after": "## Storage and transport"
-  },
-  {
-   "photo": "oxy-fuel/gas-goggles.jpg",
-   "alt": "Shade 5 gas welding goggles",
-   "after": "## Personal protection"
-  }
- ],
- "victor-tip-chart-acetylene": [
-  {
-   "img": "oxy-fuel/victor-tip-chart.svg",
-   "alt": "1-101 cutting tips: size, thickness, pressures, speed",
-   "after": "top"
-  }
- ],
- "hole-patterns-and-flange-templates": [
-  {
-   "img": "layout-templates/bolt-circle-chord.svg",
-   "alt": "Stepping the chord around a bolt circle with dividers; holes straddle the centrelines",
-   "after": "## Chord factor table"
-  }
- ],
- "layout-tools-and-scribing": [
-  {
-   "img": "layout-templates/centre-finding.svg",
-   "alt": "Finding the centre of round stock with a centre head or a surface gauge",
-   "after": "## Finding the centre of round stock"
-  }
- ],
- "making-a-story-pole-and-fixtures": [
-  {
-   "img": "layout-templates/story-pole.svg",
-   "alt": "A story pole carries every spacing from one datum",
-   "after": "## Story pole"
-  }
- ],
- "pipe-miter-layout": [
-  {
-   "img": "layout-templates/miter-elbow-layout.svg",
-   "alt": "Two- and three-piece mitred elbows and the cut-angle rule",
-   "after": "## Mitered elbows"
-  }
- ],
- "pipe-saddle-and-lateral-templates": [
-  {
-   "img": "layout-templates/saddle-template-ordinates.svg",
-   "alt": "Saddle template by ordinates around the branch circumference",
-   "after": "## The idea"
-  }
- ],
- "sheet-metal-developments": [
-  {
-   "img": "layout-templates/cone-development.svg",
-   "alt": "Radial-line development of a cone: slant height and sector angle",
-   "after": "## Radial-line development: a cone and a truncated cone (hopper, reducer, funnel)"
-  }
- ],
- "shim-and-gasket-making": [
-  {
-   "img": "layout-templates/shim-stacking.svg",
-   "alt": "Shim stacking: thick to thin, few shims, full contact",
-   "after": "## Stacking rules"
-  }
- ],
- "anchor-bolts-and-foundations": [
-  {
-   "img": "installation/anchor-types.svg",
-   "alt": "Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance",
-   "after": "## Anchor types"
-  },
-  {
-   "photo": "installation/wind-anchor-bolts.jpg",
-   "alt": "Embedded anchor bolts in a foundation before the base goes down",
-   "after": "## Foundations"
-  },
-  {
-   "photo": "installation/wedge-anchor.jpg",
-   "alt": "A wedge anchor: the clip expands as the bolt is tightened",
-   "after": "## Anchor types"
-  },
-  {
-   "photo": "installation/j-bolt.jpg",
-   "alt": "A J-bolt set in concrete, threads protected until the base arrives",
-   "after": "## Building and setting an anchor-bolt template"
-  }
- ],
- "grouting-baseplates": [
-  {
-   "img": "installation/grout-pour.svg",
-   "alt": "Forms, head box, sleeved anchors and wrapped jack bolts for a grout pour",
-   "after": "## Mixing and pouring"
-  }
- ],
- "leveling-and-machine-setting": [
-  {
-   "img": "installation/leveling-with-jack-bolts.svg",
-   "alt": "Precision level on the machined pads, jack bolts at each anchor",
-   "after": "## Leveling a baseplate (before grout)"
-  },
-  {
-   "img": "layout-templates/shim-stacking.svg",
-   "alt": "Shim stacking rules under machine feet",
-   "after": "## Setting the machines"
-  }
- ],
- "machine-guarding-and-commissioning": [
-  {
-   "img": "installation/guard-opening-chart.svg",
-   "alt": "Maximum guard opening by distance from the nip point",
-   "after": "## Guarding rules"
-  }
- ],
- "moving-and-setting-heavy-machinery": [
-  {
-   "img": "installation/cg-and-skates.svg",
-   "alt": "Centre of gravity inside the skate footprint, push low",
-   "after": "## Weight and centre of gravity"
-  }
- ],
- "optical-and-laser-levels-piano-wire": [
-  {
-   "img": "installation/optical-level-and-wire.svg",
-   "alt": "Optical level staff readings and piano wire sag",
-   "after": "## Optical level (builder's / dumpy / automatic level)"
-  }
- ],
- "pipe-strain-and-flange-alignment": [
-  {
-   "img": "installation/pipe-strain-check.svg",
-   "alt": "Indicators on the pump shaft while the flange bolts are loosened",
-   "after": "## The pipe strain test"
-  }
- ],
- "laser-alignment-procedure": [
-  {
-   "img": "alignment/laser-alignment-positions.svg",
-   "alt": "Laser heads on both shafts, rotated together through 9, 12 and 3",
-   "after": "## Procedure"
-  }
- ],
- "reverse-dial-alignment": [
-  {
-   "img": "alignment/reverse-dial-setup.svg",
-   "alt": "Two brackets, each indicator reading the other shaft's rim, plotted on a graph",
-   "after": "## Setup"
-  }
- ],
- "rim-and-face-alignment": [
-  {
-   "img": "alignment/rim-and-face-setup.svg",
-   "alt": "Rim and face indicator setup with the A, B and C dimensions",
-   "after": "## Tools"
-  },
-  {
-   "photo": "alignment/dial-indicator.jpg",
-   "alt": "A plunger dial indicator: 0.001 in graduations, one inch of travel",
-   "after": "## Tools"
-  }
- ],
- "shaft-alignment-fundamentals": [
-  {
-   "img": "alignment/offset-and-angularity.svg",
-   "alt": "Parallel offset and angular misalignment in two planes",
-   "after": "## Describing misalignment"
-  },
-  {
-   "img": "alignment/alignment-tolerances.svg",
-   "alt": "Offset tolerance falls as speed rises",
-   "after": "## General alignment tolerances"
-  },
-  {
-   "photo": "alignment/turbine-shaft-alignment.jpg",
-   "alt": "Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools",
-   "after": "## Why we align"
-  }
- ],
- "soft-foot-correction": [
-  {
-   "img": "alignment/soft-foot-types.svg",
-   "alt": "Parallel, angular, squishy and induced soft foot",
-   "after": "## Types"
-  },
-  {
-   "photo": "alignment/feeler-gauge.jpg",
-   "alt": "Feeler gauge blades find the gap under a soft foot",
-   "after": "## Check (dial indicator method)"
-  }
- ],
- "thermal-growth-alignment": [
-  {
-   "img": "alignment/thermal-growth.svg",
-   "alt": "Set the hot machine low cold so it grows into line",
-   "after": "## Formula"
-  }
- ],
- "bearing-clearance-and-fits-tables": [
-  {
-   "img": "bearings/fits-rotating-load.svg",
-   "alt": "Which ring is tight depends on which ring rotates relative to the load",
-   "after": "## The rule that decides everything"
-  },
-  {
-   "photo": "bearings/ball-bearing.jpg",
-   "alt": "A deep groove ball bearing: clearance is measured between the balls and the outer raceway",
-   "after": "## Internal clearance"
-  }
- ],
- "bearing-designation-codes": [
-  {
-   "img": "bearings/bearing-parts-and-number.svg",
-   "alt": "Bearing parts and the meaning of 6205-2RS C3",
-   "after": "## Basic layout"
-  },
-  {
-   "photo": "bearings/ball-bearing-cutaway.jpg",
-   "alt": "Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring",
-   "after": "## Type (first digit or letters)"
-  },
-  {
-   "photo": "bearings/cylindrical-roller-cutaway.jpg",
-   "alt": "Cylindrical roller bearing (type N/NU): same bore code, different series and load rating",
-   "after": "## Dimension series"
-  }
- ],
- "bearing-mounting-with-heat": [
-  {
-   "img": "bearings/induction-heater-mounting.svg",
-   "alt": "Induction heater with the probe on the inner ring; push to the shoulder and hold",
-   "after": "## Procedure - induction heater, shaft fit"
-  }
- ],
- "bearing-removal-pullers-and-heating": [
-  {
-   "img": "bearings/puller-types.svg",
-   "alt": "Jaw puller and separator with push-puller, both on the inner ring",
-   "after": "## Puller types"
-  }
- ],
- "pillow-block-and-insert-bearings": [
-  {
-   "img": "bearings/pillow-block-anatomy.svg",
-   "alt": "Housing, insert, locking collar, fixed and floating ends",
-   "after": "## Anatomy"
-  },
-  {
-   "photo": "bearings/pillow-block.jpg",
-   "alt": "A cast pillow block with its insert bearing",
-   "after": "## Anatomy"
-  },
-  {
-   "photo": "bearings/stainless-pillow-block.jpg",
-   "alt": "Stainless pillow block: set-screw collar on the wide inner ring",
-   "after": "## Locking methods"
-  },
-  {
-   "photo": "lubrication/grease-gun-use.jpg",
-   "alt": "Grease gun on the fitting: a few strokes, not a full tube",
-   "after": "## Greasing inserts"
-  },
-  {
-   "photo": "bearings/split-pillow-block.jpg",
-   "alt": "Split housing opened: spherical roller bearing on an adapter sleeve",
-   "after": "## Split pillow blocks (SAF / SNL / SD) with spherical roller bearings"
-  }
- ],
- "skf-drive-up-card": [
-  {
-   "img": "bearings/adapter-sleeve-drive-up.svg",
-   "alt": "Feeler gauge over the top roller while the lock nut is tightened",
-   "after": "## How to read it"
-  }
- ],
- "taper-bore-bearing-adapter-sleeve-skf": [
-  {
-   "img": "bearings/adapter-sleeve-drive-up.svg",
-   "alt": "Measuring clearance over the top roller on an adapter sleeve mounting",
-   "after": "## Step 1 - Measure and record the unmounted radial internal clearance"
-  },
-  {
-   "photo": "bearings/spherical-roller-cutaway.jpg",
-   "alt": "Double-row spherical roller bearing: barrel rollers on one spherical outer raceway",
-   "after": "## Step 0 - Identify the bearing and taper"
-  }
- ],
- "tapered-roller-bearing-setting": [
-  {
-   "img": "bearings/tapered-roller-end-play.svg",
-   "alt": "Cups, cones and measuring end play with an indicator on the shaft end",
-   "after": "## Manual setting with a dial indicator (gearbox, pulley, pump)"
-  },
-  {
-   "photo": "bearings/tapered-roller-cup-cone.jpg",
-   "alt": "Cup and cone of a tapered roller bearing: separable, so the setting is up to you",
-   "after": "## What \"setting\" means"
-  },
-  {
-   "photo": "bearings/tapered-roller-cutaway.jpg",
-   "alt": "Tapered roller bearing in section: cup, cone, rollers and cage",
-   "after": "## Cups, cones and fits"
-  }
- ],
- "coupling-types-gap-and-installation": [
-  {
-   "img": "power-transmission/coupling-gap-and-types.svg",
-   "alt": "Coupling gap and the four common families",
-   "after": "## Families"
-  },
-  {
-   "photo": "power-transmission/jaw-coupling.jpg",
-   "alt": "A jaw coupling: two hubs and an elastomer spider between them",
-   "after": "## Families"
-  }
- ],
- "grid-gear-and-disc-coupling-installation": [
-  {
-   "img": "power-transmission/coupling-gap-and-types.svg",
-   "alt": "Hub gap and coupling families",
-   "after": "## Hub mounting (all types)"
-  }
- ],
- "keys-and-keyways": [
-  {
-   "img": "power-transmission/key-and-keyway.svg",
-   "alt": "Square key half in the shaft and half in the hub, with sizes by shaft diameter",
-   "after": "## Square key size by shaft diameter (ANSI B17.1, inch)"
-  }
- ],
- "qd-and-taper-lock-bushings": [
-  {
-   "img": "power-transmission/qd-vs-taperlock.svg",
-   "alt": "QD flange bushing versus flangeless Taper-Lock",
-   "after": "## Which is which"
-  },
-  {
-   "photo": "power-transmission/taper-lock-hub.jpg",
-   "alt": "A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws",
-   "after": "## Which is which"
-  }
- ],
- "roller-chain-drives": [
-  {
-   "img": "power-transmission/chain-sag-and-wear.svg",
-   "alt": "Chain sag, sprocket alignment and wear measurement",
-   "after": "## Alignment"
-  },
-  {
-   "photo": "power-transmission/chain-sprocket.jpg",
-   "alt": "Roller chain on a sprocket: look for hooked teeth and chain riding high",
-   "after": "## Sprockets"
-  }
- ],
- "timing-belts-and-synchronous-drives": [
-  {
-   "img": "power-transmission/timing-belt-tension.svg",
-   "alt": "Synchronous belt with flanges and deflection tensioning",
-   "after": "## Tensioning"
-  },
-  {
-   "photo": "power-transmission/timing-belt.jpg",
-   "alt": "A toothed (synchronous) belt: the tooth pitch must match the pulley",
-   "after": "## Pitch families"
-  },
-  {
-   "photo": "power-transmission/timing-belt-pulleys.jpg",
-   "alt": "Synchronous belt on flanged pulleys",
-   "after": "## Flanges and alignment"
-  }
- ],
- "v-belt-drive-installation-and-tensioning": [
-  {
-   "img": "power-transmission/v-belt-deflection.svg",
-   "alt": "Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge",
-   "after": "## Tension - deflection method"
-  },
-  {
-   "photo": "power-transmission/multi-v-belt-drive.jpg",
-   "alt": "A multiple V-belt drive: replace the whole set as a matched group",
-   "after": "## Identify the belt"
-  }
- ],
- "dodge-torque-arm-shaft-mount-reducer": [
-  {
-   "img": "gearboxes/torque-arm-reducer.svg",
-   "alt": "Shaft-mount reducer, torque arm and belt drive",
-   "after": "## What it is"
-  }
- ],
- "gear-inspection-and-tooth-failure": [
-  {
-   "img": "gearboxes/gear-contact-pattern.svg",
-   "alt": "Contact patterns: centred, toe, heel, tip and root",
-   "after": "## Contact pattern with bluing"
-  }
- ],
- "gearbox-lubrication-and-inspection": [
-  {
-   "img": "gearboxes/oil-level-and-breather.svg",
-   "alt": "Sight glass level, breather, magnetic plug and gear dip",
-   "after": "## Oil level"
-  }
- ],
- "planetary-and-worm-reducers": [
-  {
-   "img": "gearboxes/worm-and-planetary.svg",
-   "alt": "Worm and wheel versus sun, planets and ring",
-   "after": "top"
-  },
-  {
-   "photo": "gearboxes/industrial-gearboxes.jpg",
-   "alt": "Industrial reducers ready to ship: match ratio, mounting, shaft and service factor",
-   "after": "## Replacing a reducer"
-  }
- ],
- "air-compressors-pm": [
-  {
-   "img": "pumps-seals/compressor-types.svg",
-   "alt": "Reciprocating and screw compressors with the receiver",
-   "after": "## Types"
-  },
-  {
-   "photo": "pumps-seals/piston-compressor.jpg",
-   "alt": "A small reciprocating compressor: pump, motor, receiver, pressure switch",
-   "after": "## Types"
-  }
- ],
- "impeller-clearance-and-wear-rings": [
-  {
-   "img": "pumps-seals/impeller-clearance.svg",
-   "alt": "Open impeller clearance and enclosed impeller wear rings",
-   "after": "## Why it matters"
-  },
-  {
-   "photo": "pumps-seals/pump-impeller-open.jpg",
-   "alt": "Casing off: the impeller and its clearance to the casing wall",
-   "after": "## Why it matters"
-  },
-  {
-   "photo": "pumps-seals/impellers.jpg",
-   "alt": "Enclosed impellers: the wear ring runs on the shroud eye",
-   "after": "## Enclosed impellers: wear rings"
-  }
- ],
- "mechanical-seal-replacement-centrifugal-pump": [
-  {
-   "img": "pumps-seals/mechanical-seal-parts.svg",
-   "alt": "Rotary unit, faces, gland and O-rings of a component seal",
-   "after": "## Installing a component seal (rotary + stationary)"
-  },
-  {
-   "photo": "pumps-seals/seal-faces.jpg",
-   "alt": "Seal faces lapped flat: a fingerprint is enough to make them leak",
-   "after": "## Why seals fail"
-  }
- ],
- "pump-packing-and-stuffing-box": [
-  {
-   "img": "pumps-seals/packing-box.svg",
-   "alt": "Packing rings, lantern ring and gland in the stuffing box",
-   "after": "## How packing works"
-  },
-  {
-   "photo": "pumps-seals/gland-packing.jpg",
-   "alt": "Packing rings in the stuffing box, gland follower ready to go on",
-   "after": "## Installation"
-  }
- ],
- "pump-troubleshooting": [
-  {
-   "img": "pumps-seals/pump-curve.svg",
-   "alt": "Pump curve, system curve and the best efficiency zone",
-   "after": "## The pump curve"
-  },
-  {
-   "photo": "pumps-seals/slurry-pump.jpg",
-   "alt": "A large slurry pump: suction and discharge gauges are the first check",
-   "after": "## Start with the gauges"
-  },
-  {
-   "photo": "pumps-seals/pump-pair.jpg",
-   "alt": "Two pumps on a common base: compare the healthy one with the suspect",
-   "after": "## Field checks in order"
-  }
- ],
- "accumulator-precharge-and-safety": [
-  {
-   "img": "hydraulics/accumulator-precharge.svg",
-   "alt": "Bladder accumulator and the precharge rule",
-   "after": "## Precharge"
-  }
- ],
- "cylinder-repair-and-seal-kits": [
-  {
-   "img": "hydraulics/cylinder-seal-orientation.svg",
-   "alt": "Wiper, rod seal, wear rings and piston seal orientation",
-   "after": "## Seals and where they go"
-  },
-  {
-   "photo": "hydraulics/double-acting-cylinder.jpg",
-   "alt": "Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them",
-   "after": "## Identify the cylinder and order the kit"
-  },
-  {
-   "photo": "hydraulics/cylinder-parts.jpg",
-   "alt": "Clevises, caps and heads laid out in order of removal",
-   "after": "## Disassembly"
-  },
-  {
-   "photo": "hydraulics/piston-rod.jpg",
-   "alt": "Piston rod: look for scoring, pitting and chrome flaking under a fingernail",
-   "after": "## Inspection"
-  }
- ],
- "filters-fluid-and-contamination": [
-  {
-   "img": "hydraulics/iso-4406-codes.svg",
-   "alt": "ISO 4406 codes and typical targets",
-   "after": "## ISO 4406 codes"
-  }
- ],
- "hydraulic-hose-assembly-and-fittings": [
-  {
-   "img": "hydraulics/fitting-types.svg",
-   "alt": "JIC, ORFS, ORB, NPT and BSPP fitting seats",
-   "after": "## Fitting identification"
-  },
-  {
-   "photo": "hydraulics/hose-fittings.jpg",
-   "alt": "Hydraulic hose fittings: measure the thread and look at the seat before you guess",
-   "after": "## Fitting identification"
-  },
-  {
-   "photo": "hydraulics/hose-crimper.jpg",
-   "alt": "Hose crimper with the die set for the hose size",
-   "after": "## Making a hose assembly"
-  },
-  {
-   "photo": "hydraulics/crimped-hose-ends.jpg",
-   "alt": "Crimped hose ends: check the crimp diameter against the chart",
-   "after": "## Inspection and replacement"
-  }
- ],
- "hydraulic-system-basics-and-symbols": [
-  {
-   "img": "hydraulics/schematic-symbols.svg",
-   "alt": "The basic ISO 1219 schematic symbols",
-   "after": "## Reading the schematic (ISO 1219)"
-  },
-  {
-   "photo": "hydraulics/gear-pump-cutaway.jpg",
-   "alt": "Internal gear pump cut away: the crescent separates suction from pressure",
-   "after": "## Components"
-  },
-  {
-   "photo": "hydraulics/gauge-panel.jpg",
-   "alt": "Gauges tell the story: set the relief first, then compensator, then reducing valves",
-   "after": "## Pressure settings and the order to set them"
-  },
-  {
-   "photo": "hydraulics/gear-pump-open.jpg",
-   "alt": "A gear pump opened: scored side plates mean contamination",
-   "after": "## Troubleshooting logic"
-  }
- ],
- "pneumatic-systems-frl-and-cylinders": [
-  {
-   "img": "hydraulics/frl-unit.svg",
-   "alt": "Filter, regulator, lubricator in order of flow",
-   "after": "## FRL: filter, regulator, lubricator"
-  },
-  {
-   "photo": "hydraulics/pneumatic-cylinders.jpg",
-   "alt": "Compact pneumatic cylinders with adjustable cushions",
-   "after": "## Pneumatic cylinders"
-  }
- ],
- "grease-types-and-compatibility": [
-  {
-   "img": "lubrication/grease-compatibility-matrix.svg",
-   "alt": "Thickener compatibility matrix",
-   "after": "## Compatibility chart"
-  },
-  {
-   "photo": "lubrication/grease-tub.jpg",
-   "alt": "Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest",
-   "after": "## What a grease is"
-  }
- ],
- "lube-routes-and-single-point-lubricators": [
-  {
-   "img": "lubrication/lube-point-tags.svg",
-   "alt": "Colour and shape coded lube point tags",
-   "after": "## Survey and tag every point"
-  },
-  {
-   "photo": "lubrication/grease-gun.jpg",
-   "alt": "Lever grease gun with a flexible hose and coupler",
-   "after": "## Grease guns"
-  },
-  {
-   "photo": "lubrication/oil-can.jpg",
-   "alt": "Pump oiler for the oil points on the route",
-   "after": "## Oil level devices"
-  }
- ],
- "oil-analysis-and-sampling": [
-  {
-   "img": "lubrication/oil-sampling-point.svg",
-   "alt": "Sample from a live zone at mid-level, not the drain",
-   "after": "## Taking the sample"
-  },
-  {
-   "photo": "lubrication/oil-analysis-report.jpg",
-   "alt": "An oil analysis report: wear metals, contaminants, viscosity and the trend",
-   "after": "## Reading the report"
-  }
- ],
- "oil-viscosity-and-selection": [
-  {
-   "img": "lubrication/viscosity-vs-temperature.svg",
-   "alt": "Viscosity of ISO grades versus temperature",
-   "after": "## Viscosity: what the number is"
-  }
- ],
- "regreasing-intervals-and-quantities": [
-  {
-   "img": "lubrication/regrease-quantity.svg",
-   "alt": "The grease quantity formula from bearing OD and width",
-   "after": "## How much: the SKF formula"
-  },
-  {
-   "photo": "lubrication/grease-gun-use.jpg",
-   "alt": "Wipe the fitting, pump slowly, watch the seal",
-   "after": "## The procedure"
-  },
-  {
-   "photo": "lubrication/greased-bearing.jpg",
-   "alt": "A bearing packed by hand: fill the bearing, not the housing",
-   "after": "## Over-greasing"
-  }
- ],
- "dial-indicator-use": [
-  {
-   "img": "measurement/dial-indicator-runout.svg",
-   "alt": "Measuring runout and avoiding cosine error",
-   "after": "## Runout on a shaft"
-  },
-  {
-   "photo": "measurement/dial-test-indicator.jpg",
-   "alt": "A lever (test) indicator: the tip swings, so it reaches where a plunger cannot",
-   "after": "## Two kinds"
-  }
- ],
- "reading-a-micrometer": [
-  {
-   "img": "measurement/micrometer-reading.svg",
-   "alt": "Reading 0.333 in on the sleeve and thimble",
-   "after": "## Reading an inch micrometer"
-  },
-  {
-   "photo": "measurement/outside-micrometer.jpg",
-   "alt": "An outside micrometer: hold the frame, turn the ratchet, read square to the scale",
-   "after": "## Using it"
-  },
-  {
-   "photo": "measurement/micrometer-set.jpg",
-   "alt": "A set of micrometers with standards: each covers a one-inch range",
-   "after": "## Types you will meet"
-  }
- ],
- "belt-conveyor-components-and-tracking": [
-  {
-   "img": "conveyors/idler-set-and-pulley.svg",
-   "alt": "Troughing idler set, return idler and lagged drive pulley",
-   "after": "## Components"
-  },
-  {
-   "img": "conveyors/belt-tracking-rules.svg",
-   "alt": "How a tilted idler steers the belt",
-   "after": "## The two rules"
-  },
-  {
-   "photo": "conveyors/covered-belt.jpg",
-   "alt": "A covered field conveyor: return idlers underneath, carrying idlers on top",
-   "after": "## Belt construction and specification"
-  }
- ],
- "belt-splicing": [
-  {
-   "img": "conveyors/belt-end-squaring.svg",
-   "alt": "Squaring the belt end from the centreline",
-   "after": "## Squaring the belt end"
-  }
- ],
- "conveyor-safety-and-guarding": [
-  {
-   "img": "conveyors/conveyor-nip-points.svg",
-   "alt": "In-running nip points on a belt conveyor",
-   "after": "## Where people get hurt"
-  }
- ],
- "idlers-pulleys-and-lagging": [
-  {
-   "img": "conveyors/idler-set-and-pulley.svg",
-   "alt": "Idler set and lagged pulley",
-   "after": "## Idlers"
-  }
- ],
- "screw-conveyors-and-bucket-elevators": [
-  {
-   "img": "conveyors/screw-and-bucket-elevator.svg",
-   "alt": "Screw conveyor and bucket elevator",
-   "after": "top"
-  },
-  {
-   "photo": "conveyors/screw-trough.jpg",
-   "alt": "A screw conveyor in an open trough: flight, trough and hanger bearing",
-   "after": "## Screw conveyors"
-  },
-  {
-   "photo": "conveyors/auger-hopper.jpg",
-   "alt": "Feed auger at a hopper: the flight hand sets the direction of flow",
-   "after": "## Screw conveyors"
-  }
- ],
- "electrical-safety-for-mechanics": [
-  {
-   "img": "motors-electrical/approach-boundaries.svg",
-   "alt": "Arc flash, limited and restricted approach boundaries",
-   "after": "## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)"
-  },
-  {
-   "photo": "safety/lockout-panel.jpg",
-   "alt": "Locking out a breaker: lock, tag, then try to start it",
-   "after": "## Locking out electrical energy"
-  }
- ],
- "megger-and-basic-motor-testing": [
-  {
-   "img": "motors-electrical/megger-test.svg",
-   "alt": "Megger connections and IEEE 43 minimums",
-   "after": "## Insulation resistance (megger) to ground"
-  },
-  {
-   "photo": "motors-electrical/insulation-tester.jpg",
-   "alt": "Insulation resistance tester: 500 or 1,000 V DC, read at one minute",
-   "after": "## Insulation resistance (megger) to ground"
-  },
-  {
-   "photo": "motors-electrical/stator-rotor.jpg",
-   "alt": "Stator and rotor of an induction motor",
-   "after": "## Winding resistance and continuity"
-  },
-  {
-   "photo": "motors-electrical/motor-opened.jpg",
-   "alt": "Motor opened: windings, bearings and air gap all inspected",
-   "after": "## When it goes to the shop"
-  }
- ],
- "motor-lead-connections": [
-  {
-   "img": "motors-electrical/nine-lead-wye.svg",
-   "alt": "9-lead wye low and high voltage connections",
-   "after": "## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)"
-  },
-  {
-   "photo": "motors-electrical/stator-rotor.jpg",
-   "alt": "The windings live in the stator; a squirrel-cage rotor has no connections",
-   "after": "## The windings"
-  }
- ],
- "plc-and-instrumentation-awareness": [
-  {
-   "img": "motors-electrical/plc-signal-chain.svg",
-   "alt": "Sensor to motor signal chain and where to check",
-   "after": "## The parts"
-  },
-  {
-   "photo": "motors-electrical/plc-rack.jpg",
-   "alt": "A PLC rack: power supply, CPU, I/O cards",
-   "after": "## The parts"
-  },
-  {
-   "photo": "motors-electrical/hmi-panel.jpg",
-   "alt": "HMI screen and E-stop: read the fault before you touch anything",
-   "after": "## Why the machine will not run: a method"
-  },
-  {
-   "photo": "motors-electrical/plc-wiring.jpg",
-   "alt": "Terminating a PLC panel: the controls tech's territory",
-   "after": "## Working with the controls tech"
-  }
- ],
- "reading-a-motor-nameplate": [
-  {
-   "img": "motors-electrical/motor-nameplate.svg",
-   "alt": "A typical nameplate with the lines to read first",
-   "after": "## The lines and what they mean"
-  },
-  {
-   "photo": "motors-electrical/motor-cutaway.jpg",
-   "alt": "Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor",
-   "after": "## Enclosures"
-  }
- ],
- "vfd-basics-for-millwrights": [
-  {
-   "img": "motors-electrical/vfd-bearing-currents.svg",
-   "alt": "Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing",
-   "after": "## Bearing currents (the millwright's VFD problem)"
-  },
-  {
-   "photo": "motors-electrical/vfd.jpg",
-   "alt": "A variable frequency drive: keypad, display, cooling fan",
-   "after": "## What a drive does"
-  },
-  {
-   "photo": "motors-electrical/vfd-terminals.jpg",
-   "alt": "Drive terminals: shielded motor cable, grounded at both ends",
-   "after": "## Cable and installation rules (why the drive \"faults for no reason\")"
-  }
- ],
- "thermography-ultrasound-and-oil": [
-  {
-   "img": "condition-monitoring/thermography-and-ultrasound.svg",
-   "alt": "Thermal comparison of twin bearings and an ultrasound dB trend",
-   "after": "## Infrared thermography"
-  },
-  {
-   "photo": "condition-monitoring/ultrasonic-detector.jpg",
-   "alt": "An ultrasonic leak detector in use",
-   "after": "## Ultrasound"
-  }
- ],
- "vibration-basics-and-iso-severity": [
-  {
-   "img": "condition-monitoring/iso-severity-zones.svg",
-   "alt": "ISO 20816-3 zones A to D",
-   "after": "## ISO 20816-3 severity zones (industrial machines 15 kW to 50 MW, measured on bearing housings, velocity mm/s RMS, 10-1,000 Hz)"
-  }
- ],
- "vibration-signatures": [
-  {
-   "img": "condition-monitoring/vibration-signatures.svg",
-   "alt": "Spectrum shapes for unbalance, misalignment, looseness and bearing defects",
-   "after": "## The signatures"
-  }
- ],
- "broken-bolt-and-stud-removal": [
-  {
-   "img": "machining/broken-bolt-nut-weld.svg",
-   "alt": "Welding a nut on a stub and a left-hand drill",
-   "after": "## Welding a nut on (the millwright's best trick)"
-  },
-  {
-   "photo": "machining/screw-extractors.jpg",
-   "alt": "Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap",
-   "after": "## Extractors: spiral, spline and left-hand drills"
-  },
-  {
-   "photo": "machining/extractor-t-wrench.jpg",
-   "alt": "Extractor in a T-wrench: steady, square, no side load",
-   "after": "## Drilling out"
-  }
- ],
- "drill-press-speeds-and-feeds": [
-  {
-   "img": "machining/drill-rpm-chart.svg",
-   "alt": "rpm versus drill diameter for three materials",
-   "after": "## The formula"
-  },
-  {
-   "photo": "machining/drill-press.jpg",
-   "alt": "A floor drill press: change the belt position to change the speed",
-   "after": "## Feed"
-  },
-  {
-   "photo": "machining/drill-press-use.jpg",
-   "alt": "Work clamped to the table, chuck key out, sleeves rolled up",
-   "after": "## Work holding and safety"
-  }
- ],
- "grinding-and-abrasives-safety": [
-  {
-   "img": "machining/bench-grinder-gaps.svg",
-   "alt": "Tool rest and tongue guard gaps on a bench grinder",
-   "after": "## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)"
-  },
-  {
-   "img": "safety/grinder-guard-and-kickback.svg",
-   "alt": "Angle grinder guard position and kickback zone",
-   "after": "## Angle grinders, cut-off wheels and die grinders (1910.243)"
-  },
-  {
-   "photo": "machining/bench-grinder.jpg",
-   "alt": "A bench grinder: tool rest and tongue guard set to the wheel",
-   "after": "## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)"
-  },
-  {
-   "photo": "machining/grinder-sparks.jpg",
-   "alt": "Grinding steel: sparks down and away, light pressure, keep it moving",
-   "after": "## Sharpening technique"
-  },
-  {
-   "photo": "machining/grinding-wheel-sparks.jpg",
-   "alt": "The right wheel throws a clean stream of sparks and does not load up",
-   "after": "## Wheel and abrasive selection for sharpening"
-  }
- ],
- "lathe-basics-for-millwrights": [
-  {
-   "img": "machining/lathe-parts.svg",
-   "alt": "Parts of an engine lathe",
-   "after": "## The machine"
-  },
-  {
-   "photo": "machining/engine-lathe.jpg",
-   "alt": "An engine lathe: headstock, carriage, tailstock and bed",
-   "after": "## The machine"
-  }
- ],
- "milling-basics-and-keyway-cutting": [
-  {
-   "img": "machining/tram-and-keyway.svg",
-   "alt": "Tramming the head and cutting a shaft keyway",
-   "after": "## Tramming the head"
-  },
-  {
-   "photo": "machining/universal-mill.jpg",
-   "alt": "A universal milling machine with a vertical head",
-   "after": "## The machine"
-  },
-  {
-   "photo": "machining/mill-table.jpg",
-   "alt": "Mill table with T-slots: clamp the work, then find the edge",
-   "after": "## Work holding"
-  }
- ],
- "tapping-and-thread-repair": [
-  {
-   "img": "machining/tap-drill-and-tap-types.svg",
-   "alt": "Thread percentage and tap types",
-   "after": "## Tap types"
-  },
-  {
-   "photo": "machining/tap-wrenches.jpg",
-   "alt": "Tap wrenches: the T-handle for small taps, the bar handle for big ones",
-   "after": "## Hand tapping technique"
-  },
-  {
-   "photo": "machining/tap-and-t-wrench.jpg",
-   "alt": "A tap in a T-wrench: back it off every half turn to break the chip",
-   "after": "## Why taps break, and getting one out"
-  }
- ],
- "anti-seize-and-galling": [
-  {
-   "img": "fasteners/galling-and-anti-seize.svg",
-   "alt": "How galling starts and how anti-seize changes torque",
-   "after": "## Galling"
-  }
- ],
- "bolt-torque-chart-sae-metric": [
-  {
-   "img": "fasteners/bolt-head-markings.svg",
-   "alt": "Grade by head marking",
-   "after": "## Head markings"
-  },
-  {
-   "photo": "fasteners/hex-bolt-marking.jpg",
-   "alt": "Head marking on a metric bolt: maker and property class",
-   "after": "## Head markings"
-  }
- ],
- "flange-bolting-and-gaskets": [
-  {
-   "img": "fasteners/flange-star-pattern.svg",
-   "alt": "Star pattern numbering and torque passes",
-   "after": "## Part 1: flanges"
-  },
-  {
-   "photo": "fasteners/flanged-valve.jpg",
-   "alt": "A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence",
-   "after": "## Part 1: flanges"
-  }
- ],
- "locking-methods": [
-  {
-   "img": "fasteners/locking-methods.svg",
-   "alt": "Nylon insert, jam nut, castle nut, safety wire, threadlocker",
-   "after": "## The locking methods compared"
-  },
-  {
-   "photo": "fasteners/threadlocker-applied.jpg",
-   "alt": "Threadlocker applied to clean threads: a drop, not a coat",
-   "after": "## Threadlockers (Loctite numbers; other brands cross-reference)"
-  }
- ],
- "thread-identification-and-gauges": [
-  {
-   "img": "fasteners/thread-identification.svg",
-   "alt": "Measuring major diameter and pitch; the look-alike families",
-   "after": "## Measuring a thread (three steps)"
-  },
-  {
-   "photo": "fasteners/thread-types.jpg",
-   "alt": "Bolts of different thread types: measure the pitch before you assume",
-   "after": "## Unified inch threads (ASME B1.1)"
-  }
- ],
- "chain-hoists-come-alongs-and-jacks": [
-  {
-   "img": "rigging/hoist-inspection-points.svg",
-   "alt": "Chain hoist inspection points",
-   "after": "## Before every use (operator inspection)"
-  },
-  {
-   "photo": "rigging/chain-hoist.jpg",
-   "alt": "Manual chain hoist: hand chain, load chain, hook with latch",
-   "after": "## Types and where each fits"
-  },
-  {
-   "photo": "rigging/electric-chain-hoist.jpg",
-   "alt": "Electric chain hoist with pendant: same inspection points, plus the brake",
-   "after": "## Operating rules"
-  }
- ],
- "crane-signals-and-lift-planning": [
-  {
-   "img": "rigging/crane-hand-signals.svg",
-   "alt": "The standard hand signals",
-   "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
-  },
-  {
-   "photo": "rigging/signalling-crane.jpg",
-   "alt": "A rigger guides the crane operator with hand signals",
-   "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
-  },
-  {
-   "photo": "rigging/rigger-load.jpg",
-   "alt": "Riggers steady a load on tag lines while the signaller watches the hook",
-   "after": "## Who does what"
-  }
- ],
- "cribbing-and-blocking": [
-  {
-   "img": "rigging/box-crib.svg",
-   "alt": "2x2 and 3x3 box cribs and the 3:1 height rule",
-   "after": "## Box crib rules"
-  }
- ],
- "rigging-basics-sling-angles-and-hitches": [
-  {
-   "img": "rigging/sling-angles-and-hitches.svg",
-   "alt": "Sling angle factors and the three hitches",
-   "after": "## Sling angle factor"
-  },
-  {
-   "img": "rigging/shackle-loading.svg",
-   "alt": "Correct shackle loading and side-load derating",
-   "after": "## Hardware"
-  },
-  {
-   "photo": "rigging/beam-slings.jpg",
-   "alt": "Two slings on a spreader beam: legs vertical, no angle factor",
-   "after": "## Hitches"
-  },
-  {
-   "photo": "rigging/hook-safety-latch.jpg",
-   "alt": "Hook with a spring latch: the latch closes the throat, it does not carry load",
-   "after": "## Hardware"
-  },
-  {
-   "photo": "rigging/shackles.jpg",
-   "alt": "Screw-pin bow and D shackles: the WLL is forged on the bow",
-   "after": "## Hardware"
-  }
- ],
- "wire-rope-and-chain-slings-detail": [
-  {
-   "img": "rigging/sling-angles-and-hitches.svg",
-   "alt": "Sling angles and hitches used in the tables",
-   "after": "top"
-  },
-  {
-   "img": "rigging/shackle-loading.svg",
-   "alt": "Shackle loading",
-   "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
-  },
-  {
-   "photo": "rigging/wire-rope-splice.jpg",
-   "alt": "A swaged (mechanical splice) eye on wire rope",
-   "after": "## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice"
-  },
-  {
-   "photo": "rigging/round-sling-lift.jpg",
-   "alt": "Round slings and a spreader on a scaffold lift",
-   "after": "## Web slings (nylon or polyester, lb)"
-  },
-  {
-   "photo": "rigging/shackle-bollard.jpg",
-   "alt": "A screw-pin shackle in use: pull in line with the bow, pin moused",
-   "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
-  }
- ],
- "compressed-gas-cylinder-handling": [
-  {
-   "img": "oxy-fuel/cylinder-storage.svg",
-   "alt": "Storage separation for oxygen and fuel gas",
-   "after": "## Storage"
-  },
-  {
-   "img": "oxy-fuel/oxy-acetylene-hookup.svg",
-   "alt": "Regulator, arrestor and check valve positions",
-   "after": "## Connecting and opening"
-  },
-  {
-   "photo": "oxy-fuel/gas-cylinder-rack.jpg",
-   "alt": "Cylinders upright, capped, chained, full and empty separated",
-   "after": "## Storage"
-  },
-  {
-   "photo": "oxy-fuel/regulator-gauges.jpg",
-   "alt": "Regulator fitted: cylinder gauge on the right, working pressure on the left",
-   "after": "## Connecting and opening"
-  }
- ],
- "confined-space-entry": [
-  {
-   "img": "safety/confined-space-setup.svg",
-   "alt": "Entry setup: tripod, blower, entrant, attendant, monitor",
-   "after": "## Roles (every entry has all three)"
-  },
-  {
-   "photo": "safety/confined-space-manway.jpg",
-   "alt": "Looking down into a permit space: one way in, one way out",
-   "after": "## Is it a confined space?"
-  },
-  {
-   "photo": "safety/confined-space-tripod.jpg",
-   "alt": "Tripod and winch rigged over the entry for retrieval",
-   "after": "## Rescue"
-  }
- ],
- "fall-protection-ladders-scaffolds": [
-  {
-   "img": "safety/fall-clearance-and-ladder.svg",
-   "alt": "Fall clearance stack-up and the 4:1 ladder angle",
-   "after": "## Fall clearance calculation (shock-absorbing lanyard)"
-  },
-  {
-   "photo": "safety/harness-dring.jpg",
-   "alt": "Full-body harness: the dorsal D-ring sits between the shoulder blades",
-   "after": "## When fall protection is required"
-  },
-  {
-   "photo": "safety/harness-worker.jpg",
-   "alt": "Harness, shock-absorbing lanyard and anchor: check all three before the climb",
-   "after": "## Personal fall arrest system (PFAS)"
-  }
- ],
- "first-aid-for-shop-injuries": [
-  {
-   "img": "safety/first-aid-priorities.svg",
-   "alt": "First-minute priorities",
-   "after": "## First minute, any serious injury"
-  }
- ],
- "hand-and-power-tool-safety": [
-  {
-   "img": "safety/grinder-guard-and-kickback.svg",
-   "alt": "Guard position and kickback direction on an angle grinder",
-   "after": "## Angle grinders and abrasive wheels"
-  },
-  {
-   "photo": "cutting-gouging/angle-grinder.jpg",
-   "alt": "Guard on, both hands on the grinder, sparks away from you",
-   "after": "## Angle grinders and abrasive wheels"
-  }
- ],
- "hot-work-permits-and-fire-watch": [
-  {
-   "img": "safety/hot-work-zone.svg",
-   "alt": "The 35 ft hot work zone",
-   "after": "## Preparing the area: the 35 ft (11 m) rule"
-  },
-  {
-   "photo": "safety/fire-extinguisher.jpg",
-   "alt": "A rated extinguisher within reach of the work: pin in, gauge in the green",
-   "after": "## Extinguishers"
-  }
- ],
- "lockout-tagout-basics": [
-  {
-   "img": "safety/lockout-steps.svg",
-   "alt": "The eight lockout steps in order",
-   "after": "## The eight steps"
-  },
-  {
-   "photo": "safety/lockout-hoist-brake.jpg",
-   "alt": "A personal lock on an isolation point",
-   "after": "## The eight steps"
-  },
-  {
-   "photo": "safety/lockout-hasp.jpg",
-   "alt": "Multi-lock hasp: every worker adds a lock, nobody removes another person's",
-   "after": "## Group lockout"
-  },
-  {
-   "photo": "safety/lockout-board.jpg",
-   "alt": "Lockout board: every lock and tag accounted for before restart",
-   "after": "## Restart"
-  }
- ],
- "ppe-selection": [
-  {
-   "img": "safety/ppe-by-task.svg",
-   "alt": "PPE by task at a glance",
-   "after": "## By task"
-  },
-  {
-   "photo": "safety/ppe-worker.jpg",
-   "alt": "Helmet, hearing protection and hi-vis on a dusty cutting job",
-   "after": "## By task"
-  },
-  {
-   "photo": "safety/ppe-industrial.jpg",
-   "alt": "Respirator, gloves and hard hat for dusty industrial work",
-   "after": "## Inspection and care"
-  },
-  {
-   "photo": "safety/no-ppe.jpg",
-   "alt": "Working without proper safety equipment: the photo NIOSH uses as the wrong example",
-   "after": "## Common mistakes"
-  }
- ],
- "inspection-routes": [
-  {
-   "img": "maintenance/route-look-listen-feel.svg",
-   "alt": "Look, listen, feel, measure, record",
-   "after": "## At each machine: look, listen, feel, measure"
-  },
-  {
-   "photo": "maintenance/toolbox.jpg",
-   "alt": "The route toolbox: what you carry decides what you can measure",
-   "after": "## What to carry"
-  }
- ],
- "pm-checklists": [
-  {
-   "img": "maintenance/pm-interval-chart.svg",
-   "alt": "Typical PM intervals by equipment",
-   "after": "## General rules for every route"
-  }
- ],
- "spare-parts-and-bearing-storage": [
-  {
-   "img": "maintenance/bearing-storage-rules.svg",
-   "alt": "Bearing storage rules",
-   "after": "## Bearings"
-  }
- ],
- "work-order-and-history-records": [
-  {
-   "img": "maintenance/mtbf-timeline.svg",
-   "alt": "MTBF, MTTR and availability on a timeline",
-   "after": "## MTBF, MTTR and availability (the simple version)"
-  }
- ],
- "bearing-failure-analysis": [
-  {
-   "img": "troubleshooting/bearing-load-paths.svg",
-   "alt": "Running track patterns on the races",
-   "after": "## Reading the load path (running track)"
-  },
-  {
-   "photo": "bearings/false-brinelling.jpg",
-   "alt": "False brinelling on test bearings: polished depressions at ball spacing",
-   "after": "## Damage modes (ISO 15243)"
-  }
- ],
- "belt-failure": [
-  {
-   "img": "troubleshooting/v-belt-wear-patterns.svg",
-   "alt": "V-belt wear patterns and what they mean",
-   "after": "## V-belts (classical A/B/C/D, narrow 3V/5V/8V, cogged)"
-  }
- ],
- "coupling-failure": [
-  {
-   "img": "troubleshooting/coupling-wear-signs.svg",
-   "alt": "What is under the guard for each coupling family",
-   "after": "## First: measure what the coupling saw"
-  },
-  {
-   "photo": "power-transmission/jaw-coupling.jpg",
-   "alt": "Jaw coupling: rubber dust under it means the spider is being worked by misalignment",
-   "after": "## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)"
-  }
- ],
- "machine-vibration-noise-heat-decision-tree": [
-  {
-   "img": "troubleshooting/machine-trouble-tree.svg",
-   "alt": "Vibrating, noisy or hot: the branches",
-   "after": "## The 10-minute running check"
-  }
- ],
- "seal-failure": [
-  {
-   "img": "troubleshooting/seal-face-patterns.svg",
-   "alt": "Seal face wear track patterns",
-   "after": "## Mechanical seals: reading the faces"
-  }
- ],
- "geometry-formulas-area-volume-weight": [
-  {
-   "img": "shop-reference/shaft-bore-annulus-areas.svg",
-   "alt": "Shaft, bore and annulus areas",
-   "after": "## Circles, shafts and bores"
-  }
- ],
- "hardness-conversion": [
-  {
-   "img": "shop-reference/hardness-scale-bar.svg",
-   "alt": "Rockwell C, Brinell and tensile side by side",
-   "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
-  },
-  {
-   "photo": "shop-reference/rockwell-tester.jpg",
-   "alt": "A bench Rockwell hardness tester",
-   "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
-  },
-  {
-   "photo": "shop-reference/vickers-indent.jpg",
-   "alt": "A Vickers diamond indentation in case-hardened steel",
-   "after": "## Other scales you will see"
-  }
- ],
- "metal-identification-and-spark-test": [
-  {
-   "img": "shop-reference/spark-test-patterns.svg",
-   "alt": "Spark stream patterns for four metals",
-   "after": "## Spark test chart"
-  },
-  {
-   "photo": "shop-reference/spark-test.jpg",
-   "alt": "Spark testing: hold the piece lightly on the wheel and read the stream against a dark background",
-   "after": "## Spark test chart"
-  }
- ],
- "pipe-schedule-and-flange-tables": [
-  {
-   "img": "shop-reference/pipe-schedule-walls.svg",
-   "alt": "Same OD, different wall by schedule",
-   "after": "## Steel pipe dimensions (ASME B36.10), inches"
-  },
-  {
-   "img": "layout-templates/bolt-circle-chord.svg",
-   "alt": "Bolt holes straddle the centrelines",
-   "after": "## Flanges: ASME B16.5 Class 150 (inches)"
-  },
-  {
-   "photo": "shop-reference/pipe-yard.jpg",
-   "alt": "Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule",
-   "after": "## Steel pipe dimensions (ASME B36.10), inches"
-  }
- ],
- "power-torque-speed-drive-formulas": [
-  {
-   "img": "shop-reference/torque-speed-power.svg",
-   "alt": "Torque versus speed at constant power",
-   "after": "## Power, torque, speed"
-  }
- ],
- "pump-and-fluid-power-formulas": [
-  {
-   "img": "shop-reference/head-vs-pressure.svg",
-   "alt": "Head and pressure",
-   "after": "## Head, pressure and velocity"
-  },
-  {
-   "img": "pumps-seals/pump-curve.svg",
-   "alt": "Pump curve and system curve",
-   "after": "## Affinity (pump) laws"
-  }
- ],
- "set-me-up-for-a-task": [
-  {
-   "img": "shop-reference/task-workflow.svg",
-   "alt": "Every job in the same order",
-   "after": "top"
-  }
- ],
- "shaft-bearing-fastener-formulas": [
-  {
-   "img": "shop-reference/shaft-torsion-and-key-shear.svg",
-   "alt": "Shaft torsion and key shear",
-   "after": "## Shafts in torsion"
-  }
- ],
- "shop-reference-tables": [
-  {
-   "img": "shop-reference/fraction-decimal-ruler.svg",
-   "alt": "One inch in sixteenths with decimals and millimetres",
-   "after": "## Fraction - decimal - millimetre"
-  }
- ],
- "steel-grades-and-heat-colours": [
-  {
-   "img": "shop-reference/temper-and-heat-colours.svg",
-   "alt": "Temper colours and heat colours",
-   "after": "## Temper colour chart (oxide colours on bright steel as it is heated)"
-  }
- ],
- "trig-and-layout-formulas": [
-  {
-   "img": "shop-reference/right-triangle-and-offset.svg",
-   "alt": "Right triangle functions and offset factors",
-   "after": "## Right triangles"
-  }
- ],
- "unit-conversions-extended": [
-  {
-   "img": "shop-reference/conversion-ladders.svg",
-   "alt": "Pressure and torque ladders",
-   "after": "## Worth memorising"
-  }
- ],
- "wire-gauge-and-sheet-thickness": [
-  {
-   "img": "shop-reference/gauge-thickness-bars.svg",
-   "alt": "Gauge to thickness bars",
-   "after": "## Sheet and plate thickness by gauge (inches, mm)"
-  }
- ],
- "how-to-add-a-manual": [
-  {
-   "img": "manuals/add-a-manual-flow.svg",
-   "alt": "How a manual gets into the library",
-   "after": "## Steps"
-  }
- ],
- "reading-a-vernier-caliper": [
-  {
-   "img": "measurement/vernier-caliper-parts.svg",
-   "alt": "The four measurements a caliper makes",
-   "after": "## The four measurements"
-  },
-  {
-   "img": "measurement/vernier-scale-reading.svg",
-   "alt": "Reading an inch vernier: 1.436 in step by step",
-   "after": "## Reading a vernier caliper (inch, 0.001 in)"
-  },
-  {
-   "photo": "measurement/digital-caliper.jpg",
-   "alt": "A digital caliper: zero it closed, then measure",
-   "after": "## Digital caliper"
-  },
-  {
-   "photo": "measurement/vernier-caliper.jpg",
-   "alt": "A vernier caliper: clean jaws, light touch, read straight on",
-   "after": "## Before you trust a reading"
-  }
- ],
- "telescoping-and-bore-gauges": [
-  {
-   "img": "measurement/telescoping-gauge-technique.svg",
-   "alt": "Rock the telescoping gauge through the centre, then measure it with a micrometer",
-   "after": "## Telescoping gauge technique"
-  },
-  {
-   "photo": "measurement/bore-gauge-head.jpg",
-   "alt": "Dial bore gauge head: measuring anvil, centring shoes and the contact point",
-   "after": "## Dial bore gauge"
-  }
- ],
- "feeler-gauges-and-thickness-measurement": [
-  {
-   "img": "measurement/feeler-gauge-technique.svg",
-   "alt": "Light drag both ways; stack blades for in-between sizes",
-   "after": "## Technique"
-  },
-  {
-   "photo": "measurement/feeler-gauge-fan.jpg",
-   "alt": "A feeler gauge set: blades fanned out, thickness stamped on each",
-   "after": "## The set"
-  }
- ],
- "torque-wrench-use-and-calibration": [
-  {
-   "img": "measurement/torque-wrench-extension.svg",
-   "alt": "Correcting the wrench setting for a crowfoot or extension",
-   "after": "## Extensions and crowfoot adapters"
-  },
-  {
-   "photo": "measurement/beam-torque-wrench.jpg",
-   "alt": "Beam torque wrench: read the pointer on the scale while pulling",
-   "after": "## Types"
-  },
-  {
-   "photo": "measurement/click-torque-wrench.jpg",
-   "alt": "Click torque wrench: set the scale, pull smoothly, stop at the click",
-   "after": "## Using a click wrench"
-  }
- ],
- "surface-plate-height-gauge-and-squares": [
-  {
-   "img": "measurement/height-gauge-and-sine-bar.svg",
-   "alt": "Height gauge and sine bar on the surface plate",
-   "after": "## Height gauge"
-  }
- ],
- "propane-and-propylene-cutting": [
-  {
-   "img": "oxy-fuel/propane-vs-acetylene.svg",
-   "alt": "Propane needs a two-piece tip, more oxygen and a longer preheat",
-   "after": "## The gases compared"
-  }
- ],
- "oxy-fuel-welding-and-braze-welding-tips": [
-  {
-   "img": "oxy-fuel/oaw-braze-technique.svg",
-   "alt": "Forehand torch and rod angles; bronze rod tins first",
-   "after": "## Technique"
-  },
-  {
-   "photo": "oxy-fuel/flame-cone.jpg",
-   "alt": "Neutral flame: inner cone sharp and bright, no acetylene feather",
-   "after": "## Flame"
-  },
-  {
-   "photo": "oxy-fuel/oxy-welding.jpg",
-   "alt": "Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle",
-   "after": "## Technique"
-  }
- ],
- "field-balancing-basics-single-plane": [
-  {
-   "img": "condition-monitoring/single-plane-balancing-vectors.svg",
-   "alt": "Vector diagram: original, original plus trial, and the trial effect",
-   "after": "## Single-plane vector method (with phase)"
-  },
-  {
-   "photo": "condition-monitoring/portable-balancer.jpg",
-   "alt": "A portable balancer kit: two accelerometers, a tach and the analyzer",
-   "after": "## Equipment"
-  },
-  {
-   "photo": "condition-monitoring/balancing-centrifuge.jpg",
-   "alt": "Field balancing a decanter centrifuge",
-   "after": "## Equipment"
-  },
-  {
-   "photo": "condition-monitoring/rotor-balance-drill.jpg",
-   "alt": "A motor rotor balanced by drilling: material removed, not added",
-   "after": "## Fixing weights"
-  }
- ],
- "bearing-defect-frequencies-and-envelope": [
-  {
-   "img": "condition-monitoring/bearing-defect-frequencies.svg",
-   "alt": "BPFO, BPFI, BSF and FTF with rule-of-thumb multiples",
-   "after": "## The four frequencies"
-  }
- ],
- "gearbox-rebuild-and-shimming-procedure": [
-  {
-   "img": "gearboxes/shim-pack-preload.svg",
-   "alt": "Shim pack under the bearing cap sets the tapered bearing end play",
-   "after": "## Setting tapered roller bearing preload with shims"
-  },
-  {
-   "img": "gearboxes/bevel-contact-pattern.svg",
-   "alt": "Reading the bevel gear contact pattern",
-   "after": "## Setting bevel gear position"
-  }
- ],
- "reducer-selection-and-service-factor": [
-  {
-   "img": "gearboxes/service-factor-selection.svg",
-   "alt": "Five checks for selecting a reducer",
-   "after": "## The idea"
-  },
-  {
-   "photo": "gearboxes/industrial-gearboxes.jpg",
-   "alt": "Reducers of the same frame size come in many ratios: read the nameplate, not the housing",
-   "after": "## Choosing a replacement"
-  }
- ],
- "how-to-read-a-pump-curve-sheet": [
-  {
-   "img": "manuals/pump-curve-sheet-anatomy.svg",
-   "alt": "An annotated manufacturer pump curve sheet",
-   "after": "## What is on the sheet"
-  }
- ],
- "how-to-read-a-bearing-catalogue-page": [
-  {
-   "img": "manuals/bearing-catalogue-row.svg",
-   "alt": "One row of a bearing catalogue table explained",
-   "after": "## The page layout"
-  }
- ],
- "how-to-read-a-coupling-and-sheave-selection-table": [
-  {
-   "img": "manuals/belt-selection-steps.svg",
-   "alt": "V-belt drive selection steps with a worked example",
-   "after": "## Sheave and belt selection page"
-  }
- ],
- "quiz-welding-and-cutting": [
-  {
-   "img": "welding/polarity.svg",
-   "alt": "Review figure: polarity and where the heat goes",
-   "after": "top"
-  }
- ],
- "quiz-alignment-and-installation": [
-  {
-   "img": "alignment/offset-and-angularity.svg",
-   "alt": "Review figure: offset and angularity",
-   "after": "top"
-  }
- ],
- "quiz-bearings-and-drives": [
-  {
-   "img": "bearings/bearing-parts-and-number.svg",
-   "alt": "Review figure: bearing parts and number",
-   "after": "top"
-  }
- ],
- "quiz-hydraulics-and-lubrication": [
-  {
-   "img": "hydraulics/iso-4406-codes.svg",
-   "alt": "Review figure: ISO 4406 cleanliness codes",
-   "after": "top"
-  }
- ],
- "quiz-rigging-and-lifting": [
-  {
-   "img": "rigging/sling-angles-and-hitches.svg",
-   "alt": "Review figure: sling angles and hitches",
-   "after": "top"
-  }
- ],
- "quiz-safety": [
-  {
-   "img": "safety/lockout-steps.svg",
-   "alt": "Review figure: lockout steps",
-   "after": "top"
-  }
- ],
- "quiz-pumps-conveyors-and-troubleshooting": [
-  {
-   "img": "pumps-seals/pump-curve.svg",
-   "alt": "Review figure: the pump curve and BEP",
-   "after": "top"
-  }
- ],
- "millwright-glossary": [
-  {
-   "img": "study/glossary-lookup.svg",
-   "alt": "How to use the glossary",
-   "after": "top"
-  }
- ],
- "hydraulic-pumps-types-controls-and-testing": [
-  {
-   "photo": "hydraulics/piston-pump-cutaway.jpg",
-   "alt": "Bent-axis piston pump sectioned: the pistons stroke in the barrel because it sits at an angle to the shaft",
-   "after": "## Pump types"
-  },
-  {
-   "img": "hydraulics/pump-controls.svg",
-   "alt": "Pressure-compensated and load-sensing pump controls",
-   "after": "## Displacement controls on a variable pump"
-  },
-  {
-   "img": "hydraulics/case-drain-flow-test.svg",
-   "alt": "Case drain flow test: measure the leakage from the pump case",
-   "after": "## Test 1: case drain flow (piston and some vane pumps)"
-  },
-  {
-   "img": "hydraulics/pump-flow-vs-pressure.svg",
-   "alt": "Flow against pressure: a worn pump falls away as the pressure rises",
-   "after": "## Test 2: flow at pressure (any pump)"
-  },
-  {
-   "photo": "hydraulics/power-unit.jpg",
-   "alt": "Industrial power unit: reservoir, motor-pump sets, return filters and gauges; the case drains and suction are the start-up checks",
-   "after": "## Start-up after a pump change"
-  },
-  {
-   "photo": "hydraulics/vane-pump.jpg",
-   "alt": "Vane rotor and sliding vanes opened up (a vane compressor, same principle): vane tips and the ring are the wear parts",
-   "after": "## Failure analysis: reading a dead pump"
-  }
- ],
- "directional-control-valves-spools-and-solenoids": [
-  {
-   "photo": "hydraulics/solenoid-valve.jpg",
-   "alt": "Directional valves: a sectional bank, a lever valve and a double-solenoid subplate valve with DIN plugs",
-   "after": "## Naming a valve"
-  },
-  {
-   "img": "hydraulics/dcv-mounting-patterns.svg",
-   "alt": "Subplate mounting patterns and flow capacity by size",
-   "after": "## Sizes and mounting patterns (ISO 4401 / NFPA)"
-  },
-  {
-   "img": "hydraulics/spool-center-conditions.svg",
-   "alt": "Spool centre conditions: what each does to the pump and the load",
-   "after": "## Spool centre conditions"
-  },
-  {
-   "img": "hydraulics/solenoid-checks.svg",
-   "alt": "Wet-armature solenoid: what to check with a meter",
-   "after": "## Solenoids"
-  },
-  {
-   "img": "hydraulics/pilot-operated-dcv.svg",
-   "alt": "Two-stage valve: pilot valve on top, X and Y ports, pilot choke",
-   "after": "## Two-stage pilot-operated valves"
-  }
- ],
- "stack-valves-and-sectional-valve-banks": [
-  {
-   "img": "hydraulics/stack-valve-order.svg",
-   "alt": "A D03 stack from the manifold up: each module acts on named ports",
-   "after": "## Industrial stack (sandwich) valves"
-  },
-  {
-   "photo": "hydraulics/valve-stack.jpg",
-   "alt": "Power pack with double-solenoid valves stacked on modular sandwiches over a bar manifold",
-   "after": "### The order of the stack"
-  },
-  {
-   "img": "hydraulics/sectional-valve-bank.svg",
-   "alt": "Sectional valve bank: inlet, work sections, outlet and the LS line",
-   "after": "## Mobile sectional and monoblock valves"
-  },
-  {
-   "photo": "hydraulics/valve-bank.jpg",
-   "alt": "Mobile sectional valve bank with hand levers: one work section per function between the inlet and outlet",
-   "after": "### Spool types in a section"
-  }
- ],
- "cartridge-and-logic-valves": [
-  {
-   "photo": "hydraulics/cartridge-manifold.jpg",
-   "alt": "Aluminium manifold with screw-in solenoid cartridge valves on a small power unit",
-   "after": "## Why valves live in blocks"
-  },
-  {
-   "img": "hydraulics/cartridge-valve-cavity.svg",
-   "alt": "Screw-in cartridge in its cavity: seals, ports, torque",
-   "after": "## Screw-in cartridge valves"
-  },
-  {
-   "photo": "hydraulics/relief-valve.jpg",
-   "alt": "Screw-in pressure cartridges: relief and load-holding valves, and a solenoid pressure valve on a block",
-   "after": "### Types and what goes wrong"
-  },
-  {
-   "img": "hydraulics/logic-valve-cross-section.svg",
-   "alt": "Logic element: poppet, sleeve, cover and the areas that decide it",
-   "after": "## Slip-in logic valves (ISO 7368 two-way cartridges)"
-  }
- ],
- "pressure-and-flow-control-valves-in-depth": [
-  {
-   "photo": "hydraulics/relief-valve.jpg",
-   "alt": "Pressure valves as cartridges: relief, load-holding and a solenoid-controlled pressure valve",
-   "after": "## The four questions for any pressure valve"
-  },
-  {
-   "img": "hydraulics/pilot-operated-relief.svg",
-   "alt": "Pilot-operated relief: main stage, pilot poppet and the vent port",
-   "after": "## Relief valves"
-  },
-  {
-   "img": "hydraulics/counterbalance-pilot-ratio.svg",
-   "alt": "Counterbalance valve: pilot ratio, setting and the stable choice",
-   "after": "## Counterbalance and brake valves"
-  },
-  {
-   "img": "hydraulics/flow-control-placement.svg",
-   "alt": "Meter-in, meter-out and bleed-off: where the flow control goes",
-   "after": "## Flow controls"
-  }
- ],
- "hydraulic-fitting-identification-and-thread-tables": [
-  {
-   "img": "hydraulics/fitting-identification-steps.svg",
-   "alt": "Identify a fitting: measure, check taper, look at the seat, read the table",
-   "after": "## The five measurements"
-  },
-  {
-   "photo": "hydraulics/fitting-assortment.jpg",
-   "alt": "JIC 37° flare: the male cone and the female swivel nut; the cone, not the thread, is the identity",
-   "after": "## Look-up by dash size (inch fittings)"
-  },
-  {
-   "img": "hydraulics/thread-od-lookup.svg",
-   "alt": "Measured diameter and pitch to fitting family",
-   "after": "## Pipe threads"
-  },
-  {
-   "img": "hydraulics/din-bite-ring-assembly.svg",
-   "alt": "DIN 24° bite-ring fitting: L and S series, pre-assembly and final turn",
-   "after": "## Metric tube fittings (DIN 2353 / ISO 8434-1, 24° cone)"
-  },
-  {
-   "img": "hydraulics/code-61-62-flange.svg",
-   "alt": "Code 61 and Code 62 flanges: same nominal size, different bolt pattern",
-   "after": "## SAE 4-bolt flanges (J518 / ISO 6162)"
-  },
-  {
-   "photo": "hydraulics/hose-fittings.jpg",
-   "alt": "An assortment of hydraulic fittings and adapters: keep a labelled tray of each family and cap every open port",
-   "after": "## Adapters: the survival list"
-  }
- ],
- "hydraulic-fluids-types-and-compatibility": [
-  {
-   "img": "hydraulics/fluid-classes.svg",
-   "alt": "How the fluid families relate and where each belongs",
-   "after": "## Start with the machine, not the drum"
-  },
-  {
-   "img": "hydraulics/viscosity-window-by-pump.svg",
-   "alt": "Viscosity windows: each pump type has a cold-start limit and a running band",
-   "after": "## Viscosity: the window that matters"
-  },
-  {
-   "img": "hydraulics/fluid-seal-compatibility.svg",
-   "alt": "Seal materials against fluid families: check before a fluid change",
-   "after": "## Seals and paint"
-  },
-  {
-   "photo": "hydraulics/hydraulic-oil-drums.jpg",
-   "alt": "Used hydraulic fluid going to the waste drum: a conversion drains everything, and the old and new fluids never share a container",
-   "after": "## Converting a system to a different fluid"
-  }
- ],
- "hydraulic-troubleshooting-advanced-diagnostics": [
-  {
-   "img": "hydraulics/troubleshooting-decision-tree.svg",
-   "alt": "Decision tree: from the symptom to the test to the cause",
-   "after": "## The method"
-  },
-  {
-   "photo": "hydraulics/pressure-gauges.jpg",
-   "alt": "A high-pressure test gauge: pick a range 1.5 to 2 times the working pressure and read it at the test point",
-   "after": "## Instruments"
-  },
-  {
-   "img": "hydraulics/cylinder-bypass-test.svg",
-   "alt": "Cylinder bypass test: prove the piston seals before condemning the pump",
-   "after": "## The standard tests"
-  },
-  {
-   "photo": "hydraulics/hot-oil-thermal.jpg",
-   "alt": "Infrared thermometer with a contact probe: the hot component is the one passing oil across a pressure drop",
-   "after": "## Symptom trees"
-  },
-  {
-   "img": "hydraulics/heat-balance.svg",
-   "alt": "Heat balance: where the horsepower goes and what the cooler must remove",
-   "after": "## Heat balance"
-  }
- ],
- "load-sensing-proportional-and-servo-systems": [
-  {
-   "img": "hydraulics/load-sense-margin.svg",
-   "alt": "Load-sense circuit: the pump holds a margin above the highest load",
-   "after": "## Load sensing"
-  },
-  {
-   "img": "hydraulics/proportional-valve-loop.svg",
-   "alt": "Proportional valve loop: command, amplifier, solenoid, spool, LVDT feedback",
-   "after": "## Proportional valves"
-  },
-  {
-   "img": "hydraulics/servo-valve-stages.svg",
-   "alt": "Servo valve: torque motor, flapper and nozzles, spool with feedback wire",
-   "after": "## Servo valves"
-  },
-  {
-   "photo": "hydraulics/servo-valve.jpg",
-   "alt": "A servo valve disassembled: the block, the spool, the torque-motor parts and the springs; nothing here is a field repair",
-   "after": "### Servo faults and checks"
-  }
- ],
- "hydraulic-motors-and-hydrostatic-drives": [
-  {
-   "photo": "hydraulics/hydraulic-motor.jpg",
-   "alt": "Orbital (gerotor) motor on a machine: the nameplate gives displacement, pressure and the case-drain requirement",
-   "after": "## Motor types"
-  },
-  {
-   "img": "hydraulics/hydrostatic-drive-loop.svg",
-   "alt": "Closed-loop hydrostatic transmission: every valve in the loop",
-   "after": "## Hydrostatic transmissions (closed loop)"
-  },
-  {
-   "photo": "hydraulics/hydrostatic-transmission.jpg",
-   "alt": "Hydrostatic drive unit on a compactor drum: the hoses are the loop, the small ones the case drain and charge",
-   "after": "### The diagnostic sequence"
-  }
- ],
- "quiz-hydraulics-advanced-troubleshooting": [
-  {
-   "img": "hydraulics/troubleshooting-decision-tree.svg",
-   "alt": "Review figure: from the symptom to the test to the cause",
-   "after": "top"
-  }
- ]
+  "welding-process-selector": [
+    {
+      "img": "welding/process-selector.svg",
+      "alt": "Which process for the job: a quick decision tree",
+      "after": "## The one-minute decision"
+    },
+    {
+      "photo": "welding/mig-bench.jpg",
+      "alt": "MIG at the bench: the fastest way to lay clean beads on mild steel",
+      "after": "## Process character in one line each"
+    }
+  ],
+  "smaw-electrode-chart": [
+    {
+      "img": "welding/smaw-amperage-chart.svg",
+      "alt": "Amperage ranges by rod diameter for the common electrodes",
+      "after": "## The chart (amps)"
+    },
+    {
+      "photo": "welding/electrode-types.jpg",
+      "alt": "Common stick electrodes side by side: coating colour and end marking tell them apart",
+      "after": "## Which rod, in plain terms"
+    }
+  ],
+  "smaw-stick-setup": [
+    {
+      "img": "welding/polarity.svg",
+      "alt": "DCEP, DCEN and AC: which lead goes where and where the heat goes",
+      "after": "## 1. The machine"
+    },
+    {
+      "img": "welding/smaw-angles.svg",
+      "alt": "Arc length, travel angle and work angle for stick welding",
+      "after": "## 5. Strike and run"
+    },
+    {
+      "photo": "welding/smaw-accessories.jpg",
+      "alt": "Helmet, gloves, chipping hammer, brush and rods: lay them out before you strike",
+      "after": "## 2. Cables and ground"
+    },
+    {
+      "photo": "welding/electrodes-and-holder.jpg",
+      "alt": "Stick electrodes and the holder: keep low-hydrogen rods dry",
+      "after": "## 3. Pick the rod"
+    },
+    {
+      "photo": "welding/smaw-arc.jpg",
+      "alt": "Running a stick bead: watch the puddle, not the arc",
+      "after": "## 5. Strike and run"
+    }
+  ],
+  "aws-electrode-classification": [
+    {
+      "img": "welding/aws-electrode-decoder.svg",
+      "alt": "Decoding E7018-1 H4R digit by digit",
+      "after": "top"
+    },
+    {
+      "photo": "welding/electrode-types.jpg",
+      "alt": "The classification is printed on every rod near the bare end",
+      "after": "## Covered (stick) electrodes: AWS A5.1 and A5.5"
+    }
+  ],
+  "gmaw-mig-setup": [
+    {
+      "img": "welding/polarity.svg",
+      "alt": "MIG runs DCEP: gun lead to positive",
+      "after": "## 1. Machine and polarity"
+    },
+    {
+      "img": "welding/mig-stickout.svg",
+      "alt": "Contact-tip-to-work distance, stickout and push angle",
+      "after": "## 5. Physical setup"
+    },
+    {
+      "photo": "welding/mig-machine.jpg",
+      "alt": "A MIG machine with the gun, work lead and shielding gas bottle",
+      "after": "## 1. Machine and polarity"
+    },
+    {
+      "photo": "welding/mig-wire-spool.jpg",
+      "alt": "A spool of solid MIG wire: keep it clean, dry and under a cover",
+      "after": "## 2. Wire"
+    },
+    {
+      "photo": "welding/mig-regulator.jpg",
+      "alt": "Cylinder regulator with the flow gauge for a MIG setup",
+      "after": "## 3. Gas"
+    },
+    {
+      "photo": "welding/mig-welding.jpg",
+      "alt": "MIG welding: short stickout, steady gun angle, eyes on the puddle",
+      "after": "## 6. Technique"
+    }
+  ],
+  "gmaw-transfer-modes": [
+    {
+      "img": "welding/mig-transfer-modes.svg",
+      "alt": "Short-circuit, globular, spray and pulsed spray with the transition current",
+      "after": "## The four modes at a glance"
+    },
+    {
+      "photo": "welding/mig-overhead.jpg",
+      "alt": "Short-circuit transfer is the mode for out-of-position work like this overhead weld",
+      "after": "## Short-circuit transfer"
+    }
+  ],
+  "fcaw-gas-shielded-setup": [
+    {
+      "img": "welding/fcaw-drag-stickout.svg",
+      "alt": "Drag angle and stickout for flux-cored wire",
+      "after": "## Technique notes"
+    },
+    {
+      "photo": "welding/mig-machine.jpg",
+      "alt": "Gas-shielded FCAW runs on the same machine as MIG: feeder, gun and CO2 bottle",
+      "after": "## Setup checklist"
+    }
+  ],
+  "fcaw-self-shielded-setup": [
+    {
+      "img": "welding/polarity.svg",
+      "alt": "Self-shielded flux-core runs DCEN: gun lead to negative",
+      "after": "## The three rules"
+    },
+    {
+      "img": "welding/fcaw-drag-stickout.svg",
+      "alt": "Drag angle and stickout by wire type",
+      "after": "## Technique"
+    },
+    {
+      "photo": "welding/fcaw-feeder.jpg",
+      "alt": "A small wire-feed machine set up for self-shielded flux-cored wire",
+      "after": "## Setup"
+    }
+  ],
+  "gtaw-tig-setup": [
+    {
+      "img": "welding/polarity.svg",
+      "alt": "DCEN for steel and stainless, AC for aluminium",
+      "after": "## 1. Polarity and current type"
+    },
+    {
+      "img": "welding/tig-torch-setup.svg",
+      "alt": "Tungsten grind, stickout, torch angle and filler angle",
+      "after": "## 2. Tungsten"
+    },
+    {
+      "photo": "welding/tig-torch-parts.jpg",
+      "alt": "TIG torch parts: back cap, collet, collet body, tungsten, cups",
+      "after": "## 2. Tungsten"
+    },
+    {
+      "photo": "welding/tig-torch.jpg",
+      "alt": "An air-cooled TIG torch with cup and back cap fitted",
+      "after": "## 4. Torch"
+    },
+    {
+      "photo": "welding/tig-machine.jpg",
+      "alt": "A TIG power source: AC/DC, high-frequency start, gas solenoid",
+      "after": "## 5. Machine settings"
+    },
+    {
+      "photo": "welding/tig-arc.jpg",
+      "alt": "TIG arc: tight arc, filler dipped at the leading edge of the puddle",
+      "after": "## 7. Technique"
+    }
+  ],
+  "gtaw-settings-by-material": [
+    {
+      "img": "welding/tig-amps-vs-thickness.svg",
+      "alt": "Amperage versus thickness for steel, stainless and aluminium",
+      "after": "top"
+    },
+    {
+      "photo": "welding/tig-welder.jpg",
+      "alt": "TIG on steel: DCEN, argon, ER70S filler",
+      "after": "## Mild and low-alloy steel (DCEN, argon, filler ER70S-2 or ER70S-6)"
+    }
+  ],
+  "gas-selection-and-flow": [
+    {
+      "img": "welding/flowmeter-reading.svg",
+      "alt": "Read the flowmeter at the centre of the ball with gas flowing; a regulator gauge reads pressure, not flow",
+      "after": "## Setting flow"
+    },
+    {
+      "photo": "welding/gas-cylinders.jpg",
+      "alt": "Shielding gas cylinders capped and bundled for storage",
+      "after": "## Cylinders"
+    }
+  ],
+  "machine-setup-and-duty-cycle": [
+    {
+      "img": "welding/duty-cycle.svg",
+      "alt": "Duty cycle falls with the square of the current ratio",
+      "after": "## Duty cycle"
+    },
+    {
+      "img": "welding/cable-size-chart.svg",
+      "alt": "Cable size by output and total lead length",
+      "after": "## Welding cable size chart"
+    },
+    {
+      "img": "welding/ground-clamp-placement.svg",
+      "alt": "Ground clamp on the part being welded, never across a bearing",
+      "after": "## Ground (work) clamp"
+    },
+    {
+      "photo": "welding/mig-machine.jpg",
+      "alt": "Daily checks: leads, clamps, gas, feeder, fan intake",
+      "after": "## Daily checks before striking an arc"
+    }
+  ],
+  "joint-design-and-fit-up": [
+    {
+      "img": "welding/joint-types.svg",
+      "alt": "The five joints and the single-V groove terms",
+      "after": "## The five joints"
+    },
+    {
+      "photo": "welding/v-butt-macro.jpg",
+      "alt": "Single-V butt weld in section: root, fill and cap passes",
+      "after": "## Which groove for which thickness (steel)"
+    }
+  ],
+  "positions-and-techniques": [
+    {
+      "img": "welding/positions.svg",
+      "alt": "1G to 4G and 1F to 4F on plate; 1G, 2G, 5G and 6G on pipe",
+      "after": "## Position codes"
+    },
+    {
+      "img": "welding/smaw-angles.svg",
+      "alt": "Travel angle and work angle",
+      "after": "## The two angles"
+    },
+    {
+      "photo": "welding/pipe-tig.jpg",
+      "alt": "Pipe in the 6G position: the welder changes angle all the way round",
+      "after": "## Position codes"
+    },
+    {
+      "photo": "welding/overhead-welding.jpg",
+      "alt": "Overhead welding: keep the arc short and the puddle small",
+      "after": "## Position by position"
+    },
+    {
+      "photo": "welding/v-butt-macro.jpg",
+      "alt": "Macro section of a multi-pass V-butt weld: each pass numbered, root to cap",
+      "after": "## Multi-pass welds"
+    }
+  ],
+  "distortion-control": [
+    {
+      "img": "welding/distortion-sequences.svg",
+      "alt": "Back-step and skip sequences, presetting and balanced welds",
+      "after": "## Control in order of effectiveness"
+    }
+  ],
+  "preheat-interpass-and-carbon-equivalent": [
+    {
+      "img": "welding/preheat-chart.svg",
+      "alt": "Minimum preheat by thickness for three carbon-equivalent bands",
+      "after": "## Minimum preheat and interpass (AWS D1.1 Table 5.8, prequalified, stick electrodes)"
+    },
+    {
+      "photo": "welding/pipe-welder.jpg",
+      "alt": "Pipeline welding outdoors: wind, cold and moisture all call for preheat and shelter",
+      "after": "## Cold-weather rule set"
+    }
+  ],
+  "welding-stainless-and-dissimilar": [
+    {
+      "img": "welding/heat-tint-scale.svg",
+      "alt": "Heat tint colours from silver to black and what each means",
+      "after": "## Purging and colour"
+    }
+  ],
+  "welding-aluminium": [
+    {
+      "img": "welding/ac-balance.svg",
+      "alt": "AC balance: EN penetrates, EP cleans",
+      "after": "## TIG on aluminium"
+    }
+  ],
+  "welding-cast-iron-and-repairs": [
+    {
+      "img": "welding/cast-iron-repair.svg",
+      "alt": "Drill the crack ends, V it out, short stringers in sequence, peen",
+      "after": "## Crack repair procedure"
+    },
+    {
+      "photo": "welding/brazing-torch.jpg",
+      "alt": "Braze welding keeps the casting cooler than any arc process",
+      "after": "## Brazing instead"
+    }
+  ],
+  "hardfacing-and-buildup": [
+    {
+      "img": "welding/hardfacing-layers.svg",
+      "alt": "Base metal, buffer, build-up and hardfacing layers in section",
+      "after": "## Layers: build-up, buffer, hardfacing"
+    },
+    {
+      "photo": "welding/hardfacing-arc.jpg",
+      "alt": "Hardfacing: wide beads, low dilution, let the layer check-crack as it cools",
+      "after": "## Procedure"
+    }
+  ],
+  "weld-defects-and-inspection": [
+    {
+      "img": "welding/weld-defects.svg",
+      "alt": "Undercut, overlap, porosity, lack of fusion and incomplete penetration in section",
+      "after": "## The defects and their causes"
+    },
+    {
+      "photo": "welding/chipping.jpg",
+      "alt": "Chip and brush the slag before you inspect: slag hides undercut and porosity",
+      "after": "## Inspection sequence"
+    },
+    {
+      "photo": "welding/dye-penetrant.jpg",
+      "alt": "Dye penetrant: clean, apply the dye, wipe, develop, read the bleed-out",
+      "after": "## Dye penetrant (PT) for surface cracks"
+    },
+    {
+      "photo": "welding/magnetic-particle.jpg",
+      "alt": "Magnetic particle inspection with a yoke under UV light",
+      "after": "## Magnetic particle (MT) for ferrous surfaces"
+    }
+  ],
+  "welding-symbols": [
+    {
+      "img": "welding/welding-symbol-anatomy.svg",
+      "alt": "Reference line, arrow side, other side, tail, size and length-pitch",
+      "after": "## Anatomy"
+    }
+  ],
+  "blueprint-reading-for-millwrights": [
+    {
+      "img": "welding/orthographic-views.svg",
+      "alt": "Third-angle projection views and the line types",
+      "after": "## Views and projection"
+    }
+  ],
+  "welder-maintenance-and-consumables": [
+    {
+      "img": "welding/mig-gun-parts.svg",
+      "alt": "Liner, diffuser, contact tip and nozzle in order",
+      "after": "## MIG gun consumables"
+    },
+    {
+      "photo": "welding/tig-torch-parts.jpg",
+      "alt": "Every TIG torch consumable laid out: replace cups and collets when they crack or arc",
+      "after": "## TIG torch parts"
+    },
+    {
+      "photo": "welding/mig-regulator.jpg",
+      "alt": "Regulator and flow gauge: check for creep with the torch valve closed",
+      "after": "## Gas equipment"
+    }
+  ],
+  "welding-safety-fumes-and-ppe": [
+    {
+      "img": "welding/lens-shade-chart.svg",
+      "alt": "Filter shade by process and amperage",
+      "after": "## Lens shade table"
+    },
+    {
+      "img": "oxy-fuel/cylinder-storage.svg",
+      "alt": "Oxygen and fuel gas storage separation",
+      "after": "## Compressed gases"
+    },
+    {
+      "photo": "welding/welder-ppe.jpg",
+      "alt": "Welding PPE: helmet, leathers, gloves, safety glasses under the hood",
+      "after": "## PPE"
+    },
+    {
+      "photo": "welding/speedglas.jpg",
+      "alt": "An auto-darkening helmet: check the shade setting and the battery before the first arc",
+      "after": "## Lens shade table"
+    }
+  ],
+  "brazing-and-soldering": [
+    {
+      "img": "welding/brazing-joint.svg",
+      "alt": "Capillary joint clearance, overlap and where the heat goes",
+      "after": "## Joint clearance"
+    },
+    {
+      "photo": "welding/brazing-kit.jpg",
+      "alt": "Brazing kit: torch, silver alloy rods, flux, goggles",
+      "after": "## Filler metals"
+    },
+    {
+      "photo": "welding/brazing-torch.jpg",
+      "alt": "Torch brazing: heat the joint, not the rod; the filler follows the heat",
+      "after": "## Torch brazing procedure (silver brazing a steel-to-copper or copper-to-copper joint)"
+    }
+  ],
+  "plasma-cutting-setup": [
+    {
+      "img": "cutting-gouging/plasma-torch-consumables.svg",
+      "alt": "Electrode, swirl ring, nozzle, retaining cap and shield; standoff and torch angle",
+      "after": "## Consumable stack"
+    },
+    {
+      "img": "cutting-gouging/plasma-cut-chart.svg",
+      "alt": "Cut speed versus thickness for 45, 65 and 85 A air plasma",
+      "after": "## Powermax45 XP mild steel cut chart, 45 A, air, shielded consumables"
+    },
+    {
+      "photo": "cutting-gouging/plasma-cnc.jpg",
+      "alt": "A CNC plasma table cutting plate",
+      "after": "## How it works, in one paragraph"
+    },
+    {
+      "photo": "cutting-gouging/plasma-hand.jpg",
+      "alt": "Hand plasma cutting: drag the shield cup or hold a stand-off, keep the torch square",
+      "after": "## Hand cutting technique"
+    }
+  ],
+  "plasma-keyholing-and-piercing": [
+    {
+      "img": "cutting-gouging/plasma-pierce-sequence.svg",
+      "alt": "Tilt, pierce, rotate upright, square and cut",
+      "after": "## Rolling pierce (the hand-torch standard)"
+    }
+  ],
+  "carbon-arc-gouging": [
+    {
+      "img": "cutting-gouging/carbon-arc-gouging.svg",
+      "alt": "Air jet under the electrode, 35-45° angle, 5-7 in extension",
+      "after": "## Technique"
+    }
+  ],
+  "oxy-fuel-cutting-technique": [
+    {
+      "img": "cutting-gouging/oxy-cut-technique.svg",
+      "alt": "Straight cut, bevel cut and reading the drag lines",
+      "after": "## Straight cut, step by step"
+    },
+    {
+      "photo": "cutting-gouging/oxy-cut-hand.jpg",
+      "alt": "A hand cut in plate: preheat cones on the edge, oxygen stream through the kerf",
+      "after": "## How the cut works"
+    },
+    {
+      "photo": "cutting-gouging/oxy-cut-edge.jpg",
+      "alt": "A cut edge: the drag lines and slag tell you whether speed and oxygen were right",
+      "after": "## Reading the cut edge (AWS C4.1 language)"
+    },
+    {
+      "photo": "cutting-gouging/oxy-cut-goggles.jpg",
+      "alt": "Goggles, gloves, a steady two-handed hold and a clear path for the slag",
+      "after": "## Common mistakes"
+    }
+  ],
+  "saws-and-abrasives": [
+    {
+      "img": "cutting-gouging/bandsaw-tpi-rule.svg",
+      "alt": "At least 3 and at most 24 teeth in the cut",
+      "after": "## Band saw blades"
+    },
+    {
+      "photo": "cutting-gouging/band-saw.jpg",
+      "alt": "Horizontal band saw: let the weight of the arm do the cutting",
+      "after": "## Band saw blades"
+    },
+    {
+      "photo": "cutting-gouging/chop-saw.jpg",
+      "alt": "Abrasive chop saw: sparks and the cut-off piece go away from you",
+      "after": "## Chop saws (abrasive cut-off)"
+    },
+    {
+      "photo": "cutting-gouging/angle-grinder.jpg",
+      "alt": "Angle grinder with the guard on: sparks directed down and away",
+      "after": "## Angle grinder wheels and discs"
+    }
+  ],
+  "hole-making-in-the-field": [
+    {
+      "img": "cutting-gouging/mag-drill-annular-cutter.svg",
+      "alt": "Annular cutter versus twist drill",
+      "after": "## Mag drills and annular cutters"
+    },
+    {
+      "photo": "cutting-gouging/mag-drill.jpg",
+      "alt": "A magnetic drill press clamped to steel",
+      "after": "## Mag drills and annular cutters"
+    },
+    {
+      "photo": "cutting-gouging/hole-saw.jpg",
+      "alt": "Bi-metal hole saw kit with arbor",
+      "after": "## Hole saws"
+    }
+  ],
+  "oxy-acetylene-setup-victor": [
+    {
+      "img": "oxy-fuel/oxy-acetylene-hookup.svg",
+      "alt": "Cylinders, regulators, arrestors, check valves, hoses and torch",
+      "after": "top"
+    },
+    {
+      "img": "oxy-fuel/flame-types.svg",
+      "alt": "Carburising, neutral and oxidising flames",
+      "after": "## 8. Lighting"
+    },
+    {
+      "photo": "oxy-fuel/cylinders-regulators.jpg",
+      "alt": "Oxygen and acetylene cylinders with regulators fitted, chained upright",
+      "after": "## 1. Cylinders"
+    },
+    {
+      "photo": "oxy-fuel/regulator-gauges.jpg",
+      "alt": "Two gauges on each regulator: cylinder pressure and working pressure",
+      "after": "## 2. Regulators"
+    },
+    {
+      "photo": "oxy-fuel/torch-cart.jpg",
+      "alt": "A portable oxy-acetylene cart: cylinders chained, hoses coiled, torch on the hook",
+      "after": "## 4. Torch and tip"
+    },
+    {
+      "photo": "oxy-fuel/flame-types-photo.jpg",
+      "alt": "The three flames in a photo: carburizing with its feather, neutral, oxidizing",
+      "after": "## 8. Lighting"
+    },
+    {
+      "photo": "oxy-fuel/cutting-closeup.jpg",
+      "alt": "Cutting torch at work: preheat flames on the plate, oxygen lever pressed",
+      "after": "## 9. Making a cut (mild steel)"
+    }
+  ],
+  "oxy-fuel-heating-rosebud": [
+    {
+      "img": "oxy-fuel/flame-types.svg",
+      "alt": "Set a neutral flame before heating",
+      "after": "## Lighting and handling"
+    },
+    {
+      "photo": "oxy-fuel/flame-cone.jpg",
+      "alt": "A neutral flame: the bright inner cone and the pale outer envelope",
+      "after": "## Lighting and handling"
+    }
+  ],
+  "oxy-fuel-safety": [
+    {
+      "img": "oxy-fuel/cylinder-storage.svg",
+      "alt": "Oxygen 20 ft from fuel gas or behind a fire wall",
+      "after": "## Storage and transport"
+    },
+    {
+      "img": "oxy-fuel/oxy-acetylene-hookup.svg",
+      "alt": "Where the check valves and flashback arrestors go",
+      "after": "## Check valves and flashback arrestors"
+    },
+    {
+      "photo": "oxy-fuel/gas-cylinder-rack.jpg",
+      "alt": "Cylinders stored upright, capped and chained, full and empty separated",
+      "after": "## Storage and transport"
+    },
+    {
+      "photo": "oxy-fuel/gas-goggles.jpg",
+      "alt": "Shade 5 gas welding goggles",
+      "after": "## Personal protection"
+    }
+  ],
+  "victor-tip-chart-acetylene": [
+    {
+      "img": "oxy-fuel/victor-tip-chart.svg",
+      "alt": "1-101 cutting tips: size, thickness, pressures, speed",
+      "after": "top"
+    }
+  ],
+  "hole-patterns-and-flange-templates": [
+    {
+      "img": "layout-templates/bolt-circle-chord.svg",
+      "alt": "Stepping the chord around a bolt circle with dividers; holes straddle the centrelines",
+      "after": "## Chord factor table"
+    }
+  ],
+  "layout-tools-and-scribing": [
+    {
+      "img": "layout-templates/centre-finding.svg",
+      "alt": "Finding the centre of round stock with a centre head or a surface gauge",
+      "after": "## Finding the centre of round stock"
+    }
+  ],
+  "making-a-story-pole-and-fixtures": [
+    {
+      "img": "layout-templates/story-pole.svg",
+      "alt": "A story pole carries every spacing from one datum",
+      "after": "## Story pole"
+    }
+  ],
+  "pipe-miter-layout": [
+    {
+      "img": "layout-templates/miter-elbow-layout.svg",
+      "alt": "Two- and three-piece mitred elbows and the cut-angle rule",
+      "after": "## Mitered elbows"
+    }
+  ],
+  "pipe-saddle-and-lateral-templates": [
+    {
+      "img": "layout-templates/saddle-template-ordinates.svg",
+      "alt": "Saddle template by ordinates around the branch circumference",
+      "after": "## The idea"
+    }
+  ],
+  "sheet-metal-developments": [
+    {
+      "img": "layout-templates/cone-development.svg",
+      "alt": "Radial-line development of a cone: slant height and sector angle",
+      "after": "## Radial-line development: a cone and a truncated cone (hopper, reducer, funnel)"
+    }
+  ],
+  "shim-and-gasket-making": [
+    {
+      "img": "layout-templates/shim-stacking.svg",
+      "alt": "Shim stacking: thick to thin, few shims, full contact",
+      "after": "## Stacking rules"
+    }
+  ],
+  "anchor-bolts-and-foundations": [
+    {
+      "img": "installation/anchor-types.svg",
+      "alt": "Cast-in, wedge, sleeve and adhesive anchors with embedment and edge distance",
+      "after": "## Anchor types"
+    },
+    {
+      "photo": "installation/wind-anchor-bolts.jpg",
+      "alt": "Embedded anchor bolts in a foundation before the base goes down",
+      "after": "## Foundations"
+    },
+    {
+      "photo": "installation/wedge-anchor.jpg",
+      "alt": "A wedge anchor: the clip expands as the bolt is tightened",
+      "after": "## Anchor types"
+    },
+    {
+      "photo": "installation/j-bolt.jpg",
+      "alt": "A J-bolt set in concrete, threads protected until the base arrives",
+      "after": "## Building and setting an anchor-bolt template"
+    }
+  ],
+  "grouting-baseplates": [
+    {
+      "img": "installation/grout-pour.svg",
+      "alt": "Forms, head box, sleeved anchors and wrapped jack bolts for a grout pour",
+      "after": "## Mixing and pouring"
+    }
+  ],
+  "leveling-and-machine-setting": [
+    {
+      "img": "installation/leveling-with-jack-bolts.svg",
+      "alt": "Precision level on the machined pads, jack bolts at each anchor",
+      "after": "## Leveling a baseplate (before grout)"
+    },
+    {
+      "img": "layout-templates/shim-stacking.svg",
+      "alt": "Shim stacking rules under machine feet",
+      "after": "## Setting the machines"
+    }
+  ],
+  "machine-guarding-and-commissioning": [
+    {
+      "img": "installation/guard-opening-chart.svg",
+      "alt": "Maximum guard opening by distance from the nip point",
+      "after": "## Guarding rules"
+    }
+  ],
+  "moving-and-setting-heavy-machinery": [
+    {
+      "img": "installation/cg-and-skates.svg",
+      "alt": "Centre of gravity inside the skate footprint, push low",
+      "after": "## Weight and centre of gravity"
+    }
+  ],
+  "optical-and-laser-levels-piano-wire": [
+    {
+      "img": "installation/optical-level-and-wire.svg",
+      "alt": "Optical level staff readings and piano wire sag",
+      "after": "## Optical level (builder's / dumpy / automatic level)"
+    }
+  ],
+  "pipe-strain-and-flange-alignment": [
+    {
+      "img": "installation/pipe-strain-check.svg",
+      "alt": "Indicators on the pump shaft while the flange bolts are loosened",
+      "after": "## The pipe strain test"
+    }
+  ],
+  "laser-alignment-procedure": [
+    {
+      "img": "alignment/laser-alignment-positions.svg",
+      "alt": "Laser heads on both shafts, rotated together through 9, 12 and 3",
+      "after": "## Procedure"
+    }
+  ],
+  "reverse-dial-alignment": [
+    {
+      "img": "alignment/reverse-dial-setup.svg",
+      "alt": "Two brackets, each indicator reading the other shaft's rim, plotted on a graph",
+      "after": "## Setup"
+    }
+  ],
+  "rim-and-face-alignment": [
+    {
+      "img": "alignment/rim-and-face-setup.svg",
+      "alt": "Rim and face indicator setup with the A, B and C dimensions",
+      "after": "## Tools"
+    },
+    {
+      "photo": "alignment/dial-indicator.jpg",
+      "alt": "A plunger dial indicator: 0.001 in graduations, one inch of travel",
+      "after": "## Tools"
+    }
+  ],
+  "shaft-alignment-fundamentals": [
+    {
+      "img": "alignment/offset-and-angularity.svg",
+      "alt": "Parallel offset and angular misalignment in two planes",
+      "after": "## Describing misalignment"
+    },
+    {
+      "img": "alignment/alignment-tolerances.svg",
+      "alt": "Offset tolerance falls as speed rises",
+      "after": "## General alignment tolerances"
+    },
+    {
+      "photo": "alignment/turbine-shaft-alignment.jpg",
+      "alt": "Checking the alignment of a turbine shaft in 1942: the job has not changed, only the tools",
+      "after": "## Why we align"
+    }
+  ],
+  "soft-foot-correction": [
+    {
+      "img": "alignment/soft-foot-types.svg",
+      "alt": "Parallel, angular, squishy and induced soft foot",
+      "after": "## Types"
+    },
+    {
+      "photo": "alignment/feeler-gauge.jpg",
+      "alt": "Feeler gauge blades find the gap under a soft foot",
+      "after": "## Check (dial indicator method)"
+    }
+  ],
+  "thermal-growth-alignment": [
+    {
+      "img": "alignment/thermal-growth.svg",
+      "alt": "Set the hot machine low cold so it grows into line",
+      "after": "## Formula"
+    }
+  ],
+  "bearing-clearance-and-fits-tables": [
+    {
+      "img": "bearings/fits-rotating-load.svg",
+      "alt": "Which ring is tight depends on which ring rotates relative to the load",
+      "after": "## The rule that decides everything"
+    },
+    {
+      "photo": "bearings/ball-bearing.jpg",
+      "alt": "A deep groove ball bearing: clearance is measured between the balls and the outer raceway",
+      "after": "## Internal clearance"
+    }
+  ],
+  "bearing-designation-codes": [
+    {
+      "img": "bearings/bearing-parts-and-number.svg",
+      "alt": "Bearing parts and the meaning of 6205-2RS C3",
+      "after": "## Basic layout"
+    },
+    {
+      "photo": "bearings/ball-bearing-cutaway.jpg",
+      "alt": "Deep groove ball bearing (type 6) in section: inner ring, balls, cage, outer ring",
+      "after": "## Type (first digit or letters)"
+    },
+    {
+      "photo": "bearings/cylindrical-roller-cutaway.jpg",
+      "alt": "Cylindrical roller bearing (type N/NU): same bore code, different series and load rating",
+      "after": "## Dimension series"
+    }
+  ],
+  "bearing-mounting-with-heat": [
+    {
+      "img": "bearings/induction-heater-mounting.svg",
+      "alt": "Induction heater with the probe on the inner ring; push to the shoulder and hold",
+      "after": "## Procedure - induction heater, shaft fit"
+    }
+  ],
+  "bearing-removal-pullers-and-heating": [
+    {
+      "img": "bearings/puller-types.svg",
+      "alt": "Jaw puller and separator with push-puller, both on the inner ring",
+      "after": "## Puller types"
+    }
+  ],
+  "pillow-block-and-insert-bearings": [
+    {
+      "img": "bearings/pillow-block-anatomy.svg",
+      "alt": "Housing, insert, locking collar, fixed and floating ends",
+      "after": "## Anatomy"
+    },
+    {
+      "photo": "bearings/pillow-block.jpg",
+      "alt": "A cast pillow block with its insert bearing",
+      "after": "## Anatomy"
+    },
+    {
+      "photo": "bearings/stainless-pillow-block.jpg",
+      "alt": "Stainless pillow block: set-screw collar on the wide inner ring",
+      "after": "## Locking methods"
+    },
+    {
+      "photo": "lubrication/grease-gun-use.jpg",
+      "alt": "Grease gun on the fitting: a few strokes, not a full tube",
+      "after": "## Greasing inserts"
+    },
+    {
+      "photo": "bearings/split-pillow-block.jpg",
+      "alt": "Split housing opened: spherical roller bearing on an adapter sleeve",
+      "after": "## Split pillow blocks (SAF / SNL / SD) with spherical roller bearings"
+    }
+  ],
+  "skf-drive-up-card": [
+    {
+      "img": "bearings/adapter-sleeve-drive-up.svg",
+      "alt": "Feeler gauge over the top roller while the lock nut is tightened",
+      "after": "## How to read it"
+    }
+  ],
+  "taper-bore-bearing-adapter-sleeve-skf": [
+    {
+      "img": "bearings/adapter-sleeve-drive-up.svg",
+      "alt": "Measuring clearance over the top roller on an adapter sleeve mounting",
+      "after": "## Step 1 - Measure and record the unmounted radial internal clearance"
+    },
+    {
+      "photo": "bearings/spherical-roller-cutaway.jpg",
+      "alt": "Double-row spherical roller bearing: barrel rollers on one spherical outer raceway",
+      "after": "## Step 0 - Identify the bearing and taper"
+    }
+  ],
+  "tapered-roller-bearing-setting": [
+    {
+      "img": "bearings/tapered-roller-end-play.svg",
+      "alt": "Cups, cones and measuring end play with an indicator on the shaft end",
+      "after": "## Manual setting with a dial indicator (gearbox, pulley, pump)"
+    },
+    {
+      "photo": "bearings/tapered-roller-cup-cone.jpg",
+      "alt": "Cup and cone of a tapered roller bearing: separable, so the setting is up to you",
+      "after": "## What \"setting\" means"
+    },
+    {
+      "photo": "bearings/tapered-roller-cutaway.jpg",
+      "alt": "Tapered roller bearing in section: cup, cone, rollers and cage",
+      "after": "## Cups, cones and fits"
+    }
+  ],
+  "coupling-types-gap-and-installation": [
+    {
+      "img": "power-transmission/coupling-gap-and-types.svg",
+      "alt": "Coupling gap and the four common families",
+      "after": "## Families"
+    },
+    {
+      "photo": "power-transmission/jaw-coupling.jpg",
+      "alt": "A jaw coupling: two hubs and an elastomer spider between them",
+      "after": "## Families"
+    }
+  ],
+  "grid-gear-and-disc-coupling-installation": [
+    {
+      "img": "power-transmission/coupling-gap-and-types.svg",
+      "alt": "Hub gap and coupling families",
+      "after": "## Hub mounting (all types)"
+    }
+  ],
+  "keys-and-keyways": [
+    {
+      "img": "power-transmission/key-and-keyway.svg",
+      "alt": "Square key half in the shaft and half in the hub, with sizes by shaft diameter",
+      "after": "## Square key size by shaft diameter (ANSI B17.1, inch)"
+    }
+  ],
+  "qd-and-taper-lock-bushings": [
+    {
+      "img": "power-transmission/qd-vs-taperlock.svg",
+      "alt": "QD flange bushing versus flangeless Taper-Lock",
+      "after": "## Which is which"
+    },
+    {
+      "photo": "power-transmission/taper-lock-hub.jpg",
+      "alt": "A Taper-Lock bush and the sprocket it fits: split, flangeless, half-holes for the screws",
+      "after": "## Which is which"
+    }
+  ],
+  "roller-chain-drives": [
+    {
+      "img": "power-transmission/chain-sag-and-wear.svg",
+      "alt": "Chain sag, sprocket alignment and wear measurement",
+      "after": "## Alignment"
+    },
+    {
+      "photo": "power-transmission/chain-sprocket.jpg",
+      "alt": "Roller chain on a sprocket: look for hooked teeth and chain riding high",
+      "after": "## Sprockets"
+    }
+  ],
+  "timing-belts-and-synchronous-drives": [
+    {
+      "img": "power-transmission/timing-belt-tension.svg",
+      "alt": "Synchronous belt with flanges and deflection tensioning",
+      "after": "## Tensioning"
+    },
+    {
+      "photo": "power-transmission/timing-belt.jpg",
+      "alt": "A toothed (synchronous) belt: the tooth pitch must match the pulley",
+      "after": "## Pitch families"
+    },
+    {
+      "photo": "power-transmission/timing-belt-pulleys.jpg",
+      "alt": "Synchronous belt on flanged pulleys",
+      "after": "## Flanges and alignment"
+    }
+  ],
+  "v-belt-drive-installation-and-tensioning": [
+    {
+      "img": "power-transmission/v-belt-deflection.svg",
+      "alt": "Deflection method: 1/64 in per inch of span, sheaves aligned with a straightedge",
+      "after": "## Tension - deflection method"
+    },
+    {
+      "photo": "power-transmission/multi-v-belt-drive.jpg",
+      "alt": "A multiple V-belt drive: replace the whole set as a matched group",
+      "after": "## Identify the belt"
+    }
+  ],
+  "dodge-torque-arm-shaft-mount-reducer": [
+    {
+      "img": "gearboxes/torque-arm-reducer.svg",
+      "alt": "Shaft-mount reducer, torque arm and belt drive",
+      "after": "## What it is"
+    }
+  ],
+  "gear-inspection-and-tooth-failure": [
+    {
+      "img": "gearboxes/gear-contact-pattern.svg",
+      "alt": "Contact patterns: centred, toe, heel, tip and root",
+      "after": "## Contact pattern with bluing"
+    }
+  ],
+  "gearbox-lubrication-and-inspection": [
+    {
+      "img": "gearboxes/oil-level-and-breather.svg",
+      "alt": "Sight glass level, breather, magnetic plug and gear dip",
+      "after": "## Oil level"
+    }
+  ],
+  "planetary-and-worm-reducers": [
+    {
+      "img": "gearboxes/worm-and-planetary.svg",
+      "alt": "Worm and wheel versus sun, planets and ring",
+      "after": "top"
+    },
+    {
+      "photo": "gearboxes/industrial-gearboxes.jpg",
+      "alt": "Industrial reducers ready to ship: match ratio, mounting, shaft and service factor",
+      "after": "## Replacing a reducer"
+    }
+  ],
+  "air-compressors-pm": [
+    {
+      "img": "pumps-seals/compressor-types.svg",
+      "alt": "Reciprocating and screw compressors with the receiver",
+      "after": "## Types"
+    },
+    {
+      "photo": "pumps-seals/piston-compressor.jpg",
+      "alt": "A small reciprocating compressor: pump, motor, receiver, pressure switch",
+      "after": "## Types"
+    }
+  ],
+  "impeller-clearance-and-wear-rings": [
+    {
+      "img": "pumps-seals/impeller-clearance.svg",
+      "alt": "Open impeller clearance and enclosed impeller wear rings",
+      "after": "## Why it matters"
+    },
+    {
+      "photo": "pumps-seals/pump-impeller-open.jpg",
+      "alt": "Casing off: the impeller and its clearance to the casing wall",
+      "after": "## Why it matters"
+    },
+    {
+      "photo": "pumps-seals/impellers.jpg",
+      "alt": "Enclosed impellers: the wear ring runs on the shroud eye",
+      "after": "## Enclosed impellers: wear rings"
+    }
+  ],
+  "mechanical-seal-replacement-centrifugal-pump": [
+    {
+      "img": "pumps-seals/mechanical-seal-parts.svg",
+      "alt": "Rotary unit, faces, gland and O-rings of a component seal",
+      "after": "## Installing a component seal (rotary + stationary)"
+    },
+    {
+      "photo": "pumps-seals/seal-faces.jpg",
+      "alt": "Seal faces lapped flat: a fingerprint is enough to make them leak",
+      "after": "## Why seals fail"
+    }
+  ],
+  "pump-packing-and-stuffing-box": [
+    {
+      "img": "pumps-seals/packing-box.svg",
+      "alt": "Packing rings, lantern ring and gland in the stuffing box",
+      "after": "## How packing works"
+    },
+    {
+      "photo": "pumps-seals/gland-packing.jpg",
+      "alt": "Packing rings in the stuffing box, gland follower ready to go on",
+      "after": "## Installation"
+    }
+  ],
+  "pump-troubleshooting": [
+    {
+      "img": "pumps-seals/pump-curve.svg",
+      "alt": "Pump curve, system curve and the best efficiency zone",
+      "after": "## The pump curve"
+    },
+    {
+      "photo": "pumps-seals/slurry-pump.jpg",
+      "alt": "A large slurry pump: suction and discharge gauges are the first check",
+      "after": "## Start with the gauges"
+    },
+    {
+      "photo": "pumps-seals/pump-pair.jpg",
+      "alt": "Two pumps on a common base: compare the healthy one with the suspect",
+      "after": "## Field checks in order"
+    }
+  ],
+  "accumulator-precharge-and-safety": [
+    {
+      "img": "hydraulics/accumulator-precharge.svg",
+      "alt": "Bladder accumulator and the precharge rule",
+      "after": "## Precharge"
+    }
+  ],
+  "cylinder-repair-and-seal-kits": [
+    {
+      "img": "hydraulics/cylinder-seal-orientation.svg",
+      "alt": "Wiper, rod seal, wear rings and piston seal orientation",
+      "after": "## Seals and where they go"
+    },
+    {
+      "photo": "hydraulics/double-acting-cylinder.jpg",
+      "alt": "Double-acting cylinder: read bore, rod and stroke off the nameplate or measure them",
+      "after": "## Identify the cylinder and order the kit"
+    },
+    {
+      "photo": "hydraulics/cylinder-parts.jpg",
+      "alt": "Clevises, caps and heads laid out in order of removal",
+      "after": "## Disassembly"
+    },
+    {
+      "photo": "hydraulics/piston-rod.jpg",
+      "alt": "Piston rod: look for scoring, pitting and chrome flaking under a fingernail",
+      "after": "## Inspection"
+    }
+  ],
+  "filters-fluid-and-contamination": [
+    {
+      "img": "hydraulics/iso-4406-codes.svg",
+      "alt": "ISO 4406 codes and typical targets",
+      "after": "## ISO 4406 codes"
+    }
+  ],
+  "hydraulic-hose-assembly-and-fittings": [
+    {
+      "img": "hydraulics/fitting-types.svg",
+      "alt": "JIC, ORFS, ORB, NPT and BSPP fitting seats",
+      "after": "## Fitting identification"
+    },
+    {
+      "photo": "hydraulics/hose-fittings.jpg",
+      "alt": "Hydraulic hose fittings: measure the thread and look at the seat before you guess",
+      "after": "## Fitting identification"
+    },
+    {
+      "photo": "hydraulics/hose-crimper.jpg",
+      "alt": "Hose crimper with the die set for the hose size",
+      "after": "## Making a hose assembly"
+    },
+    {
+      "photo": "hydraulics/crimped-hose-ends.jpg",
+      "alt": "Crimped hose ends: check the crimp diameter against the chart",
+      "after": "## Inspection and replacement"
+    }
+  ],
+  "hydraulic-system-basics-and-symbols": [
+    {
+      "img": "hydraulics/schematic-symbols.svg",
+      "alt": "The basic ISO 1219 schematic symbols",
+      "after": "## Reading the schematic (ISO 1219)"
+    },
+    {
+      "photo": "hydraulics/gear-pump-cutaway.jpg",
+      "alt": "Internal gear pump cut away: the crescent separates suction from pressure",
+      "after": "## Components"
+    },
+    {
+      "photo": "hydraulics/gauge-panel.jpg",
+      "alt": "Gauges tell the story: set the relief first, then compensator, then reducing valves",
+      "after": "## Pressure settings and the order to set them"
+    },
+    {
+      "photo": "hydraulics/gear-pump-open.jpg",
+      "alt": "A gear pump opened: scored side plates mean contamination",
+      "after": "## Troubleshooting logic"
+    }
+  ],
+  "pneumatic-systems-frl-and-cylinders": [
+    {
+      "img": "hydraulics/frl-unit.svg",
+      "alt": "Filter, regulator, lubricator in order of flow",
+      "after": "## FRL: filter, regulator, lubricator"
+    },
+    {
+      "photo": "hydraulics/pneumatic-cylinders.jpg",
+      "alt": "Compact pneumatic cylinders with adjustable cushions",
+      "after": "## Pneumatic cylinders"
+    }
+  ],
+  "grease-types-and-compatibility": [
+    {
+      "img": "lubrication/grease-compatibility-matrix.svg",
+      "alt": "Thickener compatibility matrix",
+      "after": "## Compatibility chart"
+    },
+    {
+      "photo": "lubrication/grease-tub.jpg",
+      "alt": "Grease is oil held in a thickener: the tub shows the texture, the data sheet the rest",
+      "after": "## What a grease is"
+    }
+  ],
+  "lube-routes-and-single-point-lubricators": [
+    {
+      "img": "lubrication/lube-point-tags.svg",
+      "alt": "Colour and shape coded lube point tags",
+      "after": "## Survey and tag every point"
+    },
+    {
+      "photo": "lubrication/grease-gun.jpg",
+      "alt": "Lever grease gun with a flexible hose and coupler",
+      "after": "## Grease guns"
+    },
+    {
+      "photo": "lubrication/oil-can.jpg",
+      "alt": "Pump oiler for the oil points on the route",
+      "after": "## Oil level devices"
+    }
+  ],
+  "oil-analysis-and-sampling": [
+    {
+      "img": "lubrication/oil-sampling-point.svg",
+      "alt": "Sample from a live zone at mid-level, not the drain",
+      "after": "## Taking the sample"
+    },
+    {
+      "photo": "lubrication/oil-analysis-report.jpg",
+      "alt": "An oil analysis report: wear metals, contaminants, viscosity and the trend",
+      "after": "## Reading the report"
+    }
+  ],
+  "oil-viscosity-and-selection": [
+    {
+      "img": "lubrication/viscosity-vs-temperature.svg",
+      "alt": "Viscosity of ISO grades versus temperature",
+      "after": "## Viscosity: what the number is"
+    }
+  ],
+  "regreasing-intervals-and-quantities": [
+    {
+      "img": "lubrication/regrease-quantity.svg",
+      "alt": "The grease quantity formula from bearing OD and width",
+      "after": "## How much: the SKF formula"
+    },
+    {
+      "photo": "lubrication/grease-gun-use.jpg",
+      "alt": "Wipe the fitting, pump slowly, watch the seal",
+      "after": "## The procedure"
+    },
+    {
+      "photo": "lubrication/greased-bearing.jpg",
+      "alt": "A bearing packed by hand: fill the bearing, not the housing",
+      "after": "## Over-greasing"
+    }
+  ],
+  "dial-indicator-use": [
+    {
+      "img": "measurement/dial-indicator-runout.svg",
+      "alt": "Measuring runout and avoiding cosine error",
+      "after": "## Runout on a shaft"
+    },
+    {
+      "photo": "measurement/dial-test-indicator.jpg",
+      "alt": "A lever (test) indicator: the tip swings, so it reaches where a plunger cannot",
+      "after": "## Two kinds"
+    }
+  ],
+  "reading-a-micrometer": [
+    {
+      "img": "measurement/micrometer-reading.svg",
+      "alt": "Reading 0.333 in on the sleeve and thimble",
+      "after": "## Reading an inch micrometer"
+    },
+    {
+      "photo": "measurement/outside-micrometer.jpg",
+      "alt": "An outside micrometer: hold the frame, turn the ratchet, read square to the scale",
+      "after": "## Using it"
+    },
+    {
+      "photo": "measurement/micrometer-set.jpg",
+      "alt": "A set of micrometers with standards: each covers a one-inch range",
+      "after": "## Types you will meet"
+    }
+  ],
+  "belt-conveyor-components-and-tracking": [
+    {
+      "img": "conveyors/idler-set-and-pulley.svg",
+      "alt": "Troughing idler set, return idler and lagged drive pulley",
+      "after": "## Components"
+    },
+    {
+      "img": "conveyors/belt-tracking-rules.svg",
+      "alt": "How a tilted idler steers the belt",
+      "after": "## The two rules"
+    },
+    {
+      "photo": "conveyors/covered-belt.jpg",
+      "alt": "A covered field conveyor: return idlers underneath, carrying idlers on top",
+      "after": "## Belt construction and specification"
+    }
+  ],
+  "belt-splicing": [
+    {
+      "img": "conveyors/belt-end-squaring.svg",
+      "alt": "Squaring the belt end from the centreline",
+      "after": "## Squaring the belt end"
+    }
+  ],
+  "conveyor-safety-and-guarding": [
+    {
+      "img": "conveyors/conveyor-nip-points.svg",
+      "alt": "In-running nip points on a belt conveyor",
+      "after": "## Where people get hurt"
+    }
+  ],
+  "idlers-pulleys-and-lagging": [
+    {
+      "img": "conveyors/idler-set-and-pulley.svg",
+      "alt": "Idler set and lagged pulley",
+      "after": "## Idlers"
+    }
+  ],
+  "screw-conveyors-and-bucket-elevators": [
+    {
+      "img": "conveyors/screw-and-bucket-elevator.svg",
+      "alt": "Screw conveyor and bucket elevator",
+      "after": "top"
+    },
+    {
+      "photo": "conveyors/screw-trough.jpg",
+      "alt": "A screw conveyor in an open trough: flight, trough and hanger bearing",
+      "after": "## Screw conveyors"
+    },
+    {
+      "photo": "conveyors/auger-hopper.jpg",
+      "alt": "Feed auger at a hopper: the flight hand sets the direction of flow",
+      "after": "## Screw conveyors"
+    }
+  ],
+  "electrical-safety-for-mechanics": [
+    {
+      "img": "motors-electrical/approach-boundaries.svg",
+      "alt": "Arc flash, limited and restricted approach boundaries",
+      "after": "## Shock protection boundaries (NFPA 70E Table 130.4(E)(a), AC)"
+    },
+    {
+      "photo": "safety/lockout-panel.jpg",
+      "alt": "Locking out a breaker: lock, tag, then try to start it",
+      "after": "## Locking out electrical energy"
+    }
+  ],
+  "megger-and-basic-motor-testing": [
+    {
+      "img": "motors-electrical/megger-test.svg",
+      "alt": "Megger connections and IEEE 43 minimums",
+      "after": "## Insulation resistance (megger) to ground"
+    },
+    {
+      "photo": "motors-electrical/insulation-tester.jpg",
+      "alt": "Insulation resistance tester: 500 or 1,000 V DC, read at one minute",
+      "after": "## Insulation resistance (megger) to ground"
+    },
+    {
+      "photo": "motors-electrical/stator-rotor.jpg",
+      "alt": "Stator and rotor of an induction motor",
+      "after": "## Winding resistance and continuity"
+    },
+    {
+      "photo": "motors-electrical/motor-opened.jpg",
+      "alt": "Motor opened: windings, bearings and air gap all inspected",
+      "after": "## When it goes to the shop"
+    }
+  ],
+  "motor-lead-connections": [
+    {
+      "img": "motors-electrical/nine-lead-wye.svg",
+      "alt": "9-lead wye low and high voltage connections",
+      "after": "## 9-lead dual-voltage, wye-connected (the commonest: 230/460 V)"
+    },
+    {
+      "photo": "motors-electrical/stator-rotor.jpg",
+      "alt": "The windings live in the stator; a squirrel-cage rotor has no connections",
+      "after": "## The windings"
+    }
+  ],
+  "plc-and-instrumentation-awareness": [
+    {
+      "img": "motors-electrical/plc-signal-chain.svg",
+      "alt": "Sensor to motor signal chain and where to check",
+      "after": "## The parts"
+    },
+    {
+      "photo": "motors-electrical/plc-rack.jpg",
+      "alt": "A PLC rack: power supply, CPU, I/O cards",
+      "after": "## The parts"
+    },
+    {
+      "photo": "motors-electrical/hmi-panel.jpg",
+      "alt": "HMI screen and E-stop: read the fault before you touch anything",
+      "after": "## Why the machine will not run: a method"
+    },
+    {
+      "photo": "motors-electrical/plc-wiring.jpg",
+      "alt": "Terminating a PLC panel: the controls tech's territory",
+      "after": "## Working with the controls tech"
+    }
+  ],
+  "reading-a-motor-nameplate": [
+    {
+      "img": "motors-electrical/motor-nameplate.svg",
+      "alt": "A typical nameplate with the lines to read first",
+      "after": "## The lines and what they mean"
+    },
+    {
+      "photo": "motors-electrical/motor-cutaway.jpg",
+      "alt": "Cutaway of a three-phase motor: fan, end bells, bearings, stator, rotor",
+      "after": "## Enclosures"
+    }
+  ],
+  "vfd-basics-for-millwrights": [
+    {
+      "img": "motors-electrical/vfd-bearing-currents.svg",
+      "alt": "Bearing currents and the fixes: shielded cable, grounding ring, insulated bearing",
+      "after": "## Bearing currents (the millwright's VFD problem)"
+    },
+    {
+      "photo": "motors-electrical/vfd.jpg",
+      "alt": "A variable frequency drive: keypad, display, cooling fan",
+      "after": "## What a drive does"
+    },
+    {
+      "photo": "motors-electrical/vfd-terminals.jpg",
+      "alt": "Drive terminals: shielded motor cable, grounded at both ends",
+      "after": "## Cable and installation rules (why the drive \"faults for no reason\")"
+    }
+  ],
+  "thermography-ultrasound-and-oil": [
+    {
+      "img": "condition-monitoring/thermography-and-ultrasound.svg",
+      "alt": "Thermal comparison of twin bearings and an ultrasound dB trend",
+      "after": "## Infrared thermography"
+    },
+    {
+      "photo": "condition-monitoring/ultrasonic-detector.jpg",
+      "alt": "An ultrasonic leak detector in use",
+      "after": "## Ultrasound"
+    }
+  ],
+  "vibration-basics-and-iso-severity": [
+    {
+      "img": "condition-monitoring/iso-severity-zones.svg",
+      "alt": "ISO 20816-3 zones A to D",
+      "after": "## ISO 20816-3 severity zones (industrial machines 15 kW to 50 MW, measured on bearing housings, velocity mm/s RMS, 10-1,000 Hz)"
+    }
+  ],
+  "vibration-signatures": [
+    {
+      "img": "condition-monitoring/vibration-signatures.svg",
+      "alt": "Spectrum shapes for unbalance, misalignment, looseness and bearing defects",
+      "after": "## The signatures"
+    }
+  ],
+  "broken-bolt-and-stud-removal": [
+    {
+      "img": "machining/broken-bolt-nut-weld.svg",
+      "alt": "Welding a nut on a stub and a left-hand drill",
+      "after": "## Welding a nut on (the millwright's best trick)"
+    },
+    {
+      "photo": "machining/screw-extractors.jpg",
+      "alt": "Spiral screw extractors: hardened, brittle, and worse than the bolt if they snap",
+      "after": "## Extractors: spiral, spline and left-hand drills"
+    },
+    {
+      "photo": "machining/extractor-t-wrench.jpg",
+      "alt": "Extractor in a T-wrench: steady, square, no side load",
+      "after": "## Drilling out"
+    }
+  ],
+  "drill-press-speeds-and-feeds": [
+    {
+      "img": "machining/drill-rpm-chart.svg",
+      "alt": "rpm versus drill diameter for three materials",
+      "after": "## The formula"
+    },
+    {
+      "photo": "machining/drill-press.jpg",
+      "alt": "A floor drill press: change the belt position to change the speed",
+      "after": "## Feed"
+    },
+    {
+      "photo": "machining/drill-press-use.jpg",
+      "alt": "Work clamped to the table, chuck key out, sleeves rolled up",
+      "after": "## Work holding and safety"
+    }
+  ],
+  "grinding-and-abrasives-safety": [
+    {
+      "img": "machining/bench-grinder-gaps.svg",
+      "alt": "Tool rest and tongue guard gaps on a bench grinder",
+      "after": "## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)"
+    },
+    {
+      "img": "safety/grinder-guard-and-kickback.svg",
+      "alt": "Angle grinder guard position and kickback zone",
+      "after": "## Angle grinders, cut-off wheels and die grinders (1910.243)"
+    },
+    {
+      "photo": "machining/bench-grinder.jpg",
+      "alt": "A bench grinder: tool rest and tongue guard set to the wheel",
+      "after": "## Bench and pedestal grinders (OSHA 1910.215 / ANSI B7.1)"
+    },
+    {
+      "photo": "machining/grinder-sparks.jpg",
+      "alt": "Grinding steel: sparks down and away, light pressure, keep it moving",
+      "after": "## Sharpening technique"
+    },
+    {
+      "photo": "machining/grinding-wheel-sparks.jpg",
+      "alt": "The right wheel throws a clean stream of sparks and does not load up",
+      "after": "## Wheel and abrasive selection for sharpening"
+    }
+  ],
+  "lathe-basics-for-millwrights": [
+    {
+      "img": "machining/lathe-parts.svg",
+      "alt": "Parts of an engine lathe",
+      "after": "## The machine"
+    },
+    {
+      "photo": "machining/engine-lathe.jpg",
+      "alt": "An engine lathe: headstock, carriage, tailstock and bed",
+      "after": "## The machine"
+    }
+  ],
+  "milling-basics-and-keyway-cutting": [
+    {
+      "img": "machining/tram-and-keyway.svg",
+      "alt": "Tramming the head and cutting a shaft keyway",
+      "after": "## Tramming the head"
+    },
+    {
+      "photo": "machining/universal-mill.jpg",
+      "alt": "A universal milling machine with a vertical head",
+      "after": "## The machine"
+    },
+    {
+      "photo": "machining/mill-table.jpg",
+      "alt": "Mill table with T-slots: clamp the work, then find the edge",
+      "after": "## Work holding"
+    }
+  ],
+  "tapping-and-thread-repair": [
+    {
+      "img": "machining/tap-drill-and-tap-types.svg",
+      "alt": "Thread percentage and tap types",
+      "after": "## Tap types"
+    },
+    {
+      "photo": "machining/tap-wrenches.jpg",
+      "alt": "Tap wrenches: the T-handle for small taps, the bar handle for big ones",
+      "after": "## Hand tapping technique"
+    },
+    {
+      "photo": "machining/tap-and-t-wrench.jpg",
+      "alt": "A tap in a T-wrench: back it off every half turn to break the chip",
+      "after": "## Why taps break, and getting one out"
+    }
+  ],
+  "anti-seize-and-galling": [
+    {
+      "img": "fasteners/galling-and-anti-seize.svg",
+      "alt": "How galling starts and how anti-seize changes torque",
+      "after": "## Galling"
+    }
+  ],
+  "bolt-torque-chart-sae-metric": [
+    {
+      "img": "fasteners/bolt-head-markings.svg",
+      "alt": "Grade by head marking",
+      "after": "## Head markings"
+    },
+    {
+      "photo": "fasteners/hex-bolt-marking.jpg",
+      "alt": "Head marking on a metric bolt: maker and property class",
+      "after": "## Head markings"
+    }
+  ],
+  "flange-bolting-and-gaskets": [
+    {
+      "img": "fasteners/flange-star-pattern.svg",
+      "alt": "Star pattern numbering and torque passes",
+      "after": "## Part 1: flanges"
+    },
+    {
+      "photo": "fasteners/flanged-valve.jpg",
+      "alt": "A flanged valve in a pipeline: every joint is a gasket, a bolt pattern and a sequence",
+      "after": "## Part 1: flanges"
+    }
+  ],
+  "locking-methods": [
+    {
+      "img": "fasteners/locking-methods.svg",
+      "alt": "Nylon insert, jam nut, castle nut, safety wire, threadlocker",
+      "after": "## The locking methods compared"
+    },
+    {
+      "photo": "fasteners/threadlocker-applied.jpg",
+      "alt": "Threadlocker applied to clean threads: a drop, not a coat",
+      "after": "## Threadlockers (Loctite numbers; other brands cross-reference)"
+    }
+  ],
+  "thread-identification-and-gauges": [
+    {
+      "img": "fasteners/thread-identification.svg",
+      "alt": "Measuring major diameter and pitch; the look-alike families",
+      "after": "## Measuring a thread (three steps)"
+    },
+    {
+      "photo": "fasteners/thread-types.jpg",
+      "alt": "Bolts of different thread types: measure the pitch before you assume",
+      "after": "## Unified inch threads (ASME B1.1)"
+    }
+  ],
+  "chain-hoists-come-alongs-and-jacks": [
+    {
+      "img": "rigging/hoist-inspection-points.svg",
+      "alt": "Chain hoist inspection points",
+      "after": "## Before every use (operator inspection)"
+    },
+    {
+      "photo": "rigging/chain-hoist.jpg",
+      "alt": "Manual chain hoist: hand chain, load chain, hook with latch",
+      "after": "## Types and where each fits"
+    },
+    {
+      "photo": "rigging/electric-chain-hoist.jpg",
+      "alt": "Electric chain hoist with pendant: same inspection points, plus the brake",
+      "after": "## Operating rules"
+    }
+  ],
+  "crane-signals-and-lift-planning": [
+    {
+      "img": "rigging/crane-hand-signals.svg",
+      "alt": "The standard hand signals",
+      "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
+    },
+    {
+      "photo": "rigging/signalling-crane.jpg",
+      "alt": "A rigger guides the crane operator with hand signals",
+      "after": "## Standard hand signals (ASME B30.5 / OSHA 1926 Appendix A)"
+    },
+    {
+      "photo": "rigging/rigger-load.jpg",
+      "alt": "Riggers steady a load on tag lines while the signaller watches the hook",
+      "after": "## Who does what"
+    }
+  ],
+  "cribbing-and-blocking": [
+    {
+      "img": "rigging/box-crib.svg",
+      "alt": "2x2 and 3x3 box cribs and the 3:1 height rule",
+      "after": "## Box crib rules"
+    }
+  ],
+  "rigging-basics-sling-angles-and-hitches": [
+    {
+      "img": "rigging/sling-angles-and-hitches.svg",
+      "alt": "Sling angle factors and the three hitches",
+      "after": "## Sling angle factor"
+    },
+    {
+      "img": "rigging/shackle-loading.svg",
+      "alt": "Correct shackle loading and side-load derating",
+      "after": "## Hardware"
+    },
+    {
+      "photo": "rigging/beam-slings.jpg",
+      "alt": "Two slings on a spreader beam: legs vertical, no angle factor",
+      "after": "## Hitches"
+    },
+    {
+      "photo": "rigging/hook-safety-latch.jpg",
+      "alt": "Hook with a spring latch: the latch closes the throat, it does not carry load",
+      "after": "## Hardware"
+    },
+    {
+      "photo": "rigging/shackles.jpg",
+      "alt": "Screw-pin bow and D shackles: the WLL is forged on the bow",
+      "after": "## Hardware"
+    }
+  ],
+  "wire-rope-and-chain-slings-detail": [
+    {
+      "img": "rigging/sling-angles-and-hitches.svg",
+      "alt": "Sling angles and hitches used in the tables",
+      "after": "top"
+    },
+    {
+      "img": "rigging/shackle-loading.svg",
+      "alt": "Shackle loading",
+      "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
+    },
+    {
+      "photo": "rigging/wire-rope-splice.jpg",
+      "alt": "A swaged (mechanical splice) eye on wire rope",
+      "after": "## Wire rope slings: 6x19 / 6x37 EIPS IWRC, Flemish eye, mechanical splice"
+    },
+    {
+      "photo": "rigging/round-sling-lift.jpg",
+      "alt": "Round slings and a spreader on a scaffold lift",
+      "after": "## Web slings (nylon or polyester, lb)"
+    },
+    {
+      "photo": "rigging/shackle-bollard.jpg",
+      "alt": "A screw-pin shackle in use: pull in line with the bow, pin moused",
+      "after": "## Shackles (Crosby G-209 / G-2130 screw pin and bolt type), WLL in short tons"
+    }
+  ],
+  "compressed-gas-cylinder-handling": [
+    {
+      "img": "oxy-fuel/cylinder-storage.svg",
+      "alt": "Storage separation for oxygen and fuel gas",
+      "after": "## Storage"
+    },
+    {
+      "img": "oxy-fuel/oxy-acetylene-hookup.svg",
+      "alt": "Regulator, arrestor and check valve positions",
+      "after": "## Connecting and opening"
+    },
+    {
+      "photo": "oxy-fuel/gas-cylinder-rack.jpg",
+      "alt": "Cylinders upright, capped, chained, full and empty separated",
+      "after": "## Storage"
+    },
+    {
+      "photo": "oxy-fuel/regulator-gauges.jpg",
+      "alt": "Regulator fitted: cylinder gauge on the right, working pressure on the left",
+      "after": "## Connecting and opening"
+    }
+  ],
+  "confined-space-entry": [
+    {
+      "img": "safety/confined-space-setup.svg",
+      "alt": "Entry setup: tripod, blower, entrant, attendant, monitor",
+      "after": "## Roles (every entry has all three)"
+    },
+    {
+      "photo": "safety/confined-space-manway.jpg",
+      "alt": "Looking down into a permit space: one way in, one way out",
+      "after": "## Is it a confined space?"
+    },
+    {
+      "photo": "safety/confined-space-tripod.jpg",
+      "alt": "Tripod and winch rigged over the entry for retrieval",
+      "after": "## Rescue"
+    }
+  ],
+  "fall-protection-ladders-scaffolds": [
+    {
+      "img": "safety/fall-clearance-and-ladder.svg",
+      "alt": "Fall clearance stack-up and the 4:1 ladder angle",
+      "after": "## Fall clearance calculation (shock-absorbing lanyard)"
+    },
+    {
+      "photo": "safety/harness-dring.jpg",
+      "alt": "Full-body harness: the dorsal D-ring sits between the shoulder blades",
+      "after": "## When fall protection is required"
+    },
+    {
+      "photo": "safety/harness-worker.jpg",
+      "alt": "Harness, shock-absorbing lanyard and anchor: check all three before the climb",
+      "after": "## Personal fall arrest system (PFAS)"
+    }
+  ],
+  "first-aid-for-shop-injuries": [
+    {
+      "img": "safety/first-aid-priorities.svg",
+      "alt": "First-minute priorities",
+      "after": "## First minute, any serious injury"
+    }
+  ],
+  "hand-and-power-tool-safety": [
+    {
+      "img": "safety/grinder-guard-and-kickback.svg",
+      "alt": "Guard position and kickback direction on an angle grinder",
+      "after": "## Angle grinders and abrasive wheels"
+    },
+    {
+      "photo": "cutting-gouging/angle-grinder.jpg",
+      "alt": "Guard on, both hands on the grinder, sparks away from you",
+      "after": "## Angle grinders and abrasive wheels"
+    }
+  ],
+  "hot-work-permits-and-fire-watch": [
+    {
+      "img": "safety/hot-work-zone.svg",
+      "alt": "The 35 ft hot work zone",
+      "after": "## Preparing the area: the 35 ft (11 m) rule"
+    },
+    {
+      "photo": "safety/fire-extinguisher.jpg",
+      "alt": "A rated extinguisher within reach of the work: pin in, gauge in the green",
+      "after": "## Extinguishers"
+    }
+  ],
+  "lockout-tagout-basics": [
+    {
+      "img": "safety/lockout-steps.svg",
+      "alt": "The eight lockout steps in order",
+      "after": "## The eight steps"
+    },
+    {
+      "photo": "safety/lockout-hoist-brake.jpg",
+      "alt": "A personal lock on an isolation point",
+      "after": "## The eight steps"
+    },
+    {
+      "photo": "safety/lockout-hasp.jpg",
+      "alt": "Multi-lock hasp: every worker adds a lock, nobody removes another person's",
+      "after": "## Group lockout"
+    },
+    {
+      "photo": "safety/lockout-board.jpg",
+      "alt": "Lockout board: every lock and tag accounted for before restart",
+      "after": "## Restart"
+    }
+  ],
+  "ppe-selection": [
+    {
+      "img": "safety/ppe-by-task.svg",
+      "alt": "PPE by task at a glance",
+      "after": "## By task"
+    },
+    {
+      "photo": "safety/ppe-worker.jpg",
+      "alt": "Helmet, hearing protection and hi-vis on a dusty cutting job",
+      "after": "## By task"
+    },
+    {
+      "photo": "safety/ppe-industrial.jpg",
+      "alt": "Respirator, gloves and hard hat for dusty industrial work",
+      "after": "## Inspection and care"
+    },
+    {
+      "photo": "safety/no-ppe.jpg",
+      "alt": "Working without proper safety equipment: the photo NIOSH uses as the wrong example",
+      "after": "## Common mistakes"
+    }
+  ],
+  "inspection-routes": [
+    {
+      "img": "maintenance/route-look-listen-feel.svg",
+      "alt": "Look, listen, feel, measure, record",
+      "after": "## At each machine: look, listen, feel, measure"
+    },
+    {
+      "photo": "maintenance/toolbox.jpg",
+      "alt": "The route toolbox: what you carry decides what you can measure",
+      "after": "## What to carry"
+    }
+  ],
+  "pm-checklists": [
+    {
+      "img": "maintenance/pm-interval-chart.svg",
+      "alt": "Typical PM intervals by equipment",
+      "after": "## General rules for every route"
+    }
+  ],
+  "spare-parts-and-bearing-storage": [
+    {
+      "img": "maintenance/bearing-storage-rules.svg",
+      "alt": "Bearing storage rules",
+      "after": "## Bearings"
+    }
+  ],
+  "work-order-and-history-records": [
+    {
+      "img": "maintenance/mtbf-timeline.svg",
+      "alt": "MTBF, MTTR and availability on a timeline",
+      "after": "## MTBF, MTTR and availability (the simple version)"
+    }
+  ],
+  "bearing-failure-analysis": [
+    {
+      "img": "troubleshooting/bearing-load-paths.svg",
+      "alt": "Running track patterns on the races",
+      "after": "## Reading the load path (running track)"
+    },
+    {
+      "photo": "bearings/false-brinelling.jpg",
+      "alt": "False brinelling on test bearings: polished depressions at ball spacing",
+      "after": "## Damage modes (ISO 15243)"
+    }
+  ],
+  "belt-failure": [
+    {
+      "img": "troubleshooting/v-belt-wear-patterns.svg",
+      "alt": "V-belt wear patterns and what they mean",
+      "after": "## V-belts (classical A/B/C/D, narrow 3V/5V/8V, cogged)"
+    }
+  ],
+  "coupling-failure": [
+    {
+      "img": "troubleshooting/coupling-wear-signs.svg",
+      "alt": "What is under the guard for each coupling family",
+      "after": "## First: measure what the coupling saw"
+    },
+    {
+      "photo": "power-transmission/jaw-coupling.jpg",
+      "alt": "Jaw coupling: rubber dust under it means the spider is being worked by misalignment",
+      "after": "## Elastomeric couplings (jaw/spider, tire, sleeve, urethane)"
+    }
+  ],
+  "machine-vibration-noise-heat-decision-tree": [
+    {
+      "img": "troubleshooting/machine-trouble-tree.svg",
+      "alt": "Vibrating, noisy or hot: the branches",
+      "after": "## The 10-minute running check"
+    }
+  ],
+  "seal-failure": [
+    {
+      "img": "troubleshooting/seal-face-patterns.svg",
+      "alt": "Seal face wear track patterns",
+      "after": "## Mechanical seals: reading the faces"
+    }
+  ],
+  "geometry-formulas-area-volume-weight": [
+    {
+      "img": "shop-reference/shaft-bore-annulus-areas.svg",
+      "alt": "Shaft, bore and annulus areas",
+      "after": "## Circles, shafts and bores"
+    }
+  ],
+  "hardness-conversion": [
+    {
+      "img": "shop-reference/hardness-scale-bar.svg",
+      "alt": "Rockwell C, Brinell and tensile side by side",
+      "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
+    },
+    {
+      "photo": "shop-reference/rockwell-tester.jpg",
+      "alt": "A bench Rockwell hardness tester",
+      "after": "## Steel: HRC, HB, HV, HRB and tensile (ASTM E140 / A370)"
+    },
+    {
+      "photo": "shop-reference/vickers-indent.jpg",
+      "alt": "A Vickers diamond indentation in case-hardened steel",
+      "after": "## Other scales you will see"
+    }
+  ],
+  "metal-identification-and-spark-test": [
+    {
+      "img": "shop-reference/spark-test-patterns.svg",
+      "alt": "Spark stream patterns for four metals",
+      "after": "## Spark test chart"
+    },
+    {
+      "photo": "shop-reference/spark-test.jpg",
+      "alt": "Spark testing: hold the piece lightly on the wheel and read the stream against a dark background",
+      "after": "## Spark test chart"
+    }
+  ],
+  "pipe-schedule-and-flange-tables": [
+    {
+      "img": "shop-reference/pipe-schedule-walls.svg",
+      "alt": "Same OD, different wall by schedule",
+      "after": "## Steel pipe dimensions (ASME B36.10), inches"
+    },
+    {
+      "img": "layout-templates/bolt-circle-chord.svg",
+      "alt": "Bolt holes straddle the centrelines",
+      "after": "## Flanges: ASME B16.5 Class 150 (inches)"
+    },
+    {
+      "photo": "shop-reference/pipe-yard.jpg",
+      "alt": "Pipe in the yard: the OD is fixed by the NPS, the wall by the schedule",
+      "after": "## Steel pipe dimensions (ASME B36.10), inches"
+    }
+  ],
+  "power-torque-speed-drive-formulas": [
+    {
+      "img": "shop-reference/torque-speed-power.svg",
+      "alt": "Torque versus speed at constant power",
+      "after": "## Power, torque, speed"
+    }
+  ],
+  "pump-and-fluid-power-formulas": [
+    {
+      "img": "shop-reference/head-vs-pressure.svg",
+      "alt": "Head and pressure",
+      "after": "## Head, pressure and velocity"
+    },
+    {
+      "img": "pumps-seals/pump-curve.svg",
+      "alt": "Pump curve and system curve",
+      "after": "## Affinity (pump) laws"
+    }
+  ],
+  "set-me-up-for-a-task": [
+    {
+      "img": "shop-reference/task-workflow.svg",
+      "alt": "Every job in the same order",
+      "after": "top"
+    }
+  ],
+  "shaft-bearing-fastener-formulas": [
+    {
+      "img": "shop-reference/shaft-torsion-and-key-shear.svg",
+      "alt": "Shaft torsion and key shear",
+      "after": "## Shafts in torsion"
+    }
+  ],
+  "shop-reference-tables": [
+    {
+      "img": "shop-reference/fraction-decimal-ruler.svg",
+      "alt": "One inch in sixteenths with decimals and millimetres",
+      "after": "## Fraction - decimal - millimetre"
+    }
+  ],
+  "steel-grades-and-heat-colours": [
+    {
+      "img": "shop-reference/temper-and-heat-colours.svg",
+      "alt": "Temper colours and heat colours",
+      "after": "## Temper colour chart (oxide colours on bright steel as it is heated)"
+    }
+  ],
+  "trig-and-layout-formulas": [
+    {
+      "img": "shop-reference/right-triangle-and-offset.svg",
+      "alt": "Right triangle functions and offset factors",
+      "after": "## Right triangles"
+    }
+  ],
+  "unit-conversions-extended": [
+    {
+      "img": "shop-reference/conversion-ladders.svg",
+      "alt": "Pressure and torque ladders",
+      "after": "## Worth memorising"
+    }
+  ],
+  "wire-gauge-and-sheet-thickness": [
+    {
+      "img": "shop-reference/gauge-thickness-bars.svg",
+      "alt": "Gauge to thickness bars",
+      "after": "## Sheet and plate thickness by gauge (inches, mm)"
+    }
+  ],
+  "how-to-add-a-manual": [
+    {
+      "img": "manuals/add-a-manual-flow.svg",
+      "alt": "How a manual gets into the library",
+      "after": "## Steps"
+    }
+  ],
+  "reading-a-vernier-caliper": [
+    {
+      "img": "measurement/vernier-caliper-parts.svg",
+      "alt": "The four measurements a caliper makes",
+      "after": "## The four measurements"
+    },
+    {
+      "img": "measurement/vernier-scale-reading.svg",
+      "alt": "Reading an inch vernier: 1.436 in step by step",
+      "after": "## Reading a vernier caliper (inch, 0.001 in)"
+    },
+    {
+      "photo": "measurement/digital-caliper.jpg",
+      "alt": "A digital caliper: zero it closed, then measure",
+      "after": "## Digital caliper"
+    },
+    {
+      "photo": "measurement/vernier-caliper.jpg",
+      "alt": "A vernier caliper: clean jaws, light touch, read straight on",
+      "after": "## Before you trust a reading"
+    }
+  ],
+  "telescoping-and-bore-gauges": [
+    {
+      "img": "measurement/telescoping-gauge-technique.svg",
+      "alt": "Rock the telescoping gauge through the centre, then measure it with a micrometer",
+      "after": "## Telescoping gauge technique"
+    },
+    {
+      "photo": "measurement/bore-gauge-head.jpg",
+      "alt": "Dial bore gauge head: measuring anvil, centring shoes and the contact point",
+      "after": "## Dial bore gauge"
+    }
+  ],
+  "feeler-gauges-and-thickness-measurement": [
+    {
+      "img": "measurement/feeler-gauge-technique.svg",
+      "alt": "Light drag both ways; stack blades for in-between sizes",
+      "after": "## Technique"
+    },
+    {
+      "photo": "measurement/feeler-gauge-fan.jpg",
+      "alt": "A feeler gauge set: blades fanned out, thickness stamped on each",
+      "after": "## The set"
+    }
+  ],
+  "torque-wrench-use-and-calibration": [
+    {
+      "img": "measurement/torque-wrench-extension.svg",
+      "alt": "Correcting the wrench setting for a crowfoot or extension",
+      "after": "## Extensions and crowfoot adapters"
+    },
+    {
+      "photo": "measurement/beam-torque-wrench.jpg",
+      "alt": "Beam torque wrench: read the pointer on the scale while pulling",
+      "after": "## Types"
+    },
+    {
+      "photo": "measurement/click-torque-wrench.jpg",
+      "alt": "Click torque wrench: set the scale, pull smoothly, stop at the click",
+      "after": "## Using a click wrench"
+    }
+  ],
+  "surface-plate-height-gauge-and-squares": [
+    {
+      "img": "measurement/height-gauge-and-sine-bar.svg",
+      "alt": "Height gauge and sine bar on the surface plate",
+      "after": "## Height gauge"
+    }
+  ],
+  "propane-and-propylene-cutting": [
+    {
+      "img": "oxy-fuel/propane-vs-acetylene.svg",
+      "alt": "Propane needs a two-piece tip, more oxygen and a longer preheat",
+      "after": "## The gases compared"
+    }
+  ],
+  "oxy-fuel-welding-and-braze-welding-tips": [
+    {
+      "img": "oxy-fuel/oaw-braze-technique.svg",
+      "alt": "Forehand torch and rod angles; bronze rod tins first",
+      "after": "## Technique"
+    },
+    {
+      "photo": "oxy-fuel/flame-cone.jpg",
+      "alt": "Neutral flame: inner cone sharp and bright, no acetylene feather",
+      "after": "## Flame"
+    },
+    {
+      "photo": "oxy-fuel/oxy-welding.jpg",
+      "alt": "Oxy-acetylene welding: torch at 45°, rod fed into the leading edge of the puddle",
+      "after": "## Technique"
+    }
+  ],
+  "field-balancing-basics-single-plane": [
+    {
+      "img": "condition-monitoring/single-plane-balancing-vectors.svg",
+      "alt": "Vector diagram: original, original plus trial, and the trial effect",
+      "after": "## Single-plane vector method (with phase)"
+    },
+    {
+      "photo": "condition-monitoring/portable-balancer.jpg",
+      "alt": "A portable balancer kit: two accelerometers, a tach and the analyzer",
+      "after": "## Equipment"
+    },
+    {
+      "photo": "condition-monitoring/balancing-centrifuge.jpg",
+      "alt": "Field balancing a decanter centrifuge",
+      "after": "## Equipment"
+    },
+    {
+      "photo": "condition-monitoring/rotor-balance-drill.jpg",
+      "alt": "A motor rotor balanced by drilling: material removed, not added",
+      "after": "## Fixing weights"
+    }
+  ],
+  "bearing-defect-frequencies-and-envelope": [
+    {
+      "img": "condition-monitoring/bearing-defect-frequencies.svg",
+      "alt": "BPFO, BPFI, BSF and FTF with rule-of-thumb multiples",
+      "after": "## The four frequencies"
+    }
+  ],
+  "gearbox-rebuild-and-shimming-procedure": [
+    {
+      "img": "gearboxes/shim-pack-preload.svg",
+      "alt": "Shim pack under the bearing cap sets the tapered bearing end play",
+      "after": "## Setting tapered roller bearing preload with shims"
+    },
+    {
+      "img": "gearboxes/bevel-contact-pattern.svg",
+      "alt": "Reading the bevel gear contact pattern",
+      "after": "## Setting bevel gear position"
+    }
+  ],
+  "reducer-selection-and-service-factor": [
+    {
+      "img": "gearboxes/service-factor-selection.svg",
+      "alt": "Five checks for selecting a reducer",
+      "after": "## The idea"
+    },
+    {
+      "photo": "gearboxes/industrial-gearboxes.jpg",
+      "alt": "Reducers of the same frame size come in many ratios: read the nameplate, not the housing",
+      "after": "## Choosing a replacement"
+    }
+  ],
+  "how-to-read-a-pump-curve-sheet": [
+    {
+      "img": "manuals/pump-curve-sheet-anatomy.svg",
+      "alt": "An annotated manufacturer pump curve sheet",
+      "after": "## What is on the sheet"
+    }
+  ],
+  "how-to-read-a-bearing-catalogue-page": [
+    {
+      "img": "manuals/bearing-catalogue-row.svg",
+      "alt": "One row of a bearing catalogue table explained",
+      "after": "## The page layout"
+    }
+  ],
+  "how-to-read-a-coupling-and-sheave-selection-table": [
+    {
+      "img": "manuals/belt-selection-steps.svg",
+      "alt": "V-belt drive selection steps with a worked example",
+      "after": "## Sheave and belt selection page"
+    }
+  ],
+  "quiz-welding-and-cutting": [
+    {
+      "img": "welding/polarity.svg",
+      "alt": "Review figure: polarity and where the heat goes",
+      "after": "top"
+    }
+  ],
+  "quiz-alignment-and-installation": [
+    {
+      "img": "alignment/offset-and-angularity.svg",
+      "alt": "Review figure: offset and angularity",
+      "after": "top"
+    }
+  ],
+  "quiz-bearings-and-drives": [
+    {
+      "img": "bearings/bearing-parts-and-number.svg",
+      "alt": "Review figure: bearing parts and number",
+      "after": "top"
+    }
+  ],
+  "quiz-hydraulics-and-lubrication": [
+    {
+      "img": "hydraulics/iso-4406-codes.svg",
+      "alt": "Review figure: ISO 4406 cleanliness codes",
+      "after": "top"
+    }
+  ],
+  "quiz-rigging-and-lifting": [
+    {
+      "img": "rigging/sling-angles-and-hitches.svg",
+      "alt": "Review figure: sling angles and hitches",
+      "after": "top"
+    }
+  ],
+  "quiz-safety": [
+    {
+      "img": "safety/lockout-steps.svg",
+      "alt": "Review figure: lockout steps",
+      "after": "top"
+    }
+  ],
+  "quiz-pumps-conveyors-and-troubleshooting": [
+    {
+      "img": "pumps-seals/pump-curve.svg",
+      "alt": "Review figure: the pump curve and BEP",
+      "after": "top"
+    }
+  ],
+  "millwright-glossary": [
+    {
+      "img": "study/glossary-lookup.svg",
+      "alt": "How to use the glossary",
+      "after": "top"
+    }
+  ],
+  "hydraulic-pumps-types-controls-and-testing": [
+    {
+      "photo": "hydraulics/piston-pump-cutaway.jpg",
+      "alt": "Bent-axis piston pump sectioned: the pistons stroke in the barrel because it sits at an angle to the shaft",
+      "after": "## Pump types"
+    },
+    {
+      "img": "hydraulics/pump-controls.svg",
+      "alt": "Pressure-compensated and load-sensing pump controls",
+      "after": "## Displacement controls on a variable pump"
+    },
+    {
+      "img": "hydraulics/case-drain-flow-test.svg",
+      "alt": "Case drain flow test: measure the leakage from the pump case",
+      "after": "## Test 1: case drain flow (piston and some vane pumps)"
+    },
+    {
+      "img": "hydraulics/pump-flow-vs-pressure.svg",
+      "alt": "Flow against pressure: a worn pump falls away as the pressure rises",
+      "after": "## Test 2: flow at pressure (any pump)"
+    },
+    {
+      "photo": "hydraulics/power-unit.jpg",
+      "alt": "Industrial power unit: reservoir, motor-pump sets, return filters and gauges; the case drains and suction are the start-up checks",
+      "after": "## Start-up after a pump change"
+    },
+    {
+      "photo": "hydraulics/vane-pump.jpg",
+      "alt": "Vane rotor and sliding vanes opened up (a vane compressor, same principle): vane tips and the ring are the wear parts",
+      "after": "## Failure analysis: reading a dead pump"
+    }
+  ],
+  "directional-control-valves-spools-and-solenoids": [
+    {
+      "photo": "hydraulics/solenoid-valve.jpg",
+      "alt": "Directional valves: a sectional bank, a lever valve and a double-solenoid subplate valve with DIN plugs",
+      "after": "## Naming a valve"
+    },
+    {
+      "img": "hydraulics/dcv-mounting-patterns.svg",
+      "alt": "Subplate mounting patterns and flow capacity by size",
+      "after": "## Sizes and mounting patterns (ISO 4401 / NFPA)"
+    },
+    {
+      "img": "hydraulics/spool-center-conditions.svg",
+      "alt": "Spool centre conditions: what each does to the pump and the load",
+      "after": "## Spool centre conditions"
+    },
+    {
+      "img": "hydraulics/solenoid-checks.svg",
+      "alt": "Wet-armature solenoid: what to check with a meter",
+      "after": "## Solenoids"
+    },
+    {
+      "img": "hydraulics/pilot-operated-dcv.svg",
+      "alt": "Two-stage valve: pilot valve on top, X and Y ports, pilot choke",
+      "after": "## Two-stage pilot-operated valves"
+    }
+  ],
+  "stack-valves-and-sectional-valve-banks": [
+    {
+      "img": "hydraulics/stack-valve-order.svg",
+      "alt": "A D03 stack from the manifold up: each module acts on named ports",
+      "after": "## Industrial stack (sandwich) valves"
+    },
+    {
+      "photo": "hydraulics/valve-stack.jpg",
+      "alt": "Power pack with double-solenoid valves stacked on modular sandwiches over a bar manifold",
+      "after": "### The order of the stack"
+    },
+    {
+      "img": "hydraulics/sectional-valve-bank.svg",
+      "alt": "Sectional valve bank: inlet, work sections, outlet and the LS line",
+      "after": "## Mobile sectional and monoblock valves"
+    },
+    {
+      "photo": "hydraulics/valve-bank.jpg",
+      "alt": "Mobile sectional valve bank with hand levers: one work section per function between the inlet and outlet",
+      "after": "### Spool types in a section"
+    }
+  ],
+  "cartridge-and-logic-valves": [
+    {
+      "photo": "hydraulics/cartridge-manifold.jpg",
+      "alt": "Aluminium manifold with screw-in solenoid cartridge valves on a small power unit",
+      "after": "## Why valves live in blocks"
+    },
+    {
+      "img": "hydraulics/cartridge-valve-cavity.svg",
+      "alt": "Screw-in cartridge in its cavity: seals, ports, torque",
+      "after": "## Screw-in cartridge valves"
+    },
+    {
+      "photo": "hydraulics/relief-valve.jpg",
+      "alt": "Screw-in pressure cartridges: relief and load-holding valves, and a solenoid pressure valve on a block",
+      "after": "### Types and what goes wrong"
+    },
+    {
+      "img": "hydraulics/logic-valve-cross-section.svg",
+      "alt": "Logic element: poppet, sleeve, cover and the areas that decide it",
+      "after": "## Slip-in logic valves (ISO 7368 two-way cartridges)"
+    }
+  ],
+  "pressure-and-flow-control-valves-in-depth": [
+    {
+      "photo": "hydraulics/relief-valve.jpg",
+      "alt": "Pressure valves as cartridges: relief, load-holding and a solenoid-controlled pressure valve",
+      "after": "## The four questions for any pressure valve"
+    },
+    {
+      "img": "hydraulics/pilot-operated-relief.svg",
+      "alt": "Pilot-operated relief: main stage, pilot poppet and the vent port",
+      "after": "## Relief valves"
+    },
+    {
+      "img": "hydraulics/counterbalance-pilot-ratio.svg",
+      "alt": "Counterbalance valve: pilot ratio, setting and the stable choice",
+      "after": "## Counterbalance and brake valves"
+    },
+    {
+      "img": "hydraulics/flow-control-placement.svg",
+      "alt": "Meter-in, meter-out and bleed-off: where the flow control goes",
+      "after": "## Flow controls"
+    }
+  ],
+  "hydraulic-fitting-identification-and-thread-tables": [
+    {
+      "img": "hydraulics/fitting-identification-steps.svg",
+      "alt": "Identify a fitting: measure, check taper, look at the seat, read the table",
+      "after": "## The five measurements"
+    },
+    {
+      "photo": "hydraulics/fitting-assortment.jpg",
+      "alt": "JIC 37° flare: the male cone and the female swivel nut; the cone, not the thread, is the identity",
+      "after": "## Look-up by dash size (inch fittings)"
+    },
+    {
+      "img": "hydraulics/thread-od-lookup.svg",
+      "alt": "Measured diameter and pitch to fitting family",
+      "after": "## Pipe threads"
+    },
+    {
+      "img": "hydraulics/din-bite-ring-assembly.svg",
+      "alt": "DIN 24° bite-ring fitting: L and S series, pre-assembly and final turn",
+      "after": "## Metric tube fittings (DIN 2353 / ISO 8434-1, 24° cone)"
+    },
+    {
+      "img": "hydraulics/code-61-62-flange.svg",
+      "alt": "Code 61 and Code 62 flanges: same nominal size, different bolt pattern",
+      "after": "## SAE 4-bolt flanges (J518 / ISO 6162)"
+    },
+    {
+      "photo": "hydraulics/hose-fittings.jpg",
+      "alt": "An assortment of hydraulic fittings and adapters: keep a labelled tray of each family and cap every open port",
+      "after": "## Adapters: the survival list"
+    }
+  ],
+  "hydraulic-fluids-types-and-compatibility": [
+    {
+      "img": "hydraulics/fluid-classes.svg",
+      "alt": "How the fluid families relate and where each belongs",
+      "after": "## Start with the machine, not the drum"
+    },
+    {
+      "img": "hydraulics/viscosity-window-by-pump.svg",
+      "alt": "Viscosity windows: each pump type has a cold-start limit and a running band",
+      "after": "## Viscosity: the window that matters"
+    },
+    {
+      "img": "hydraulics/fluid-seal-compatibility.svg",
+      "alt": "Seal materials against fluid families: check before a fluid change",
+      "after": "## Seals and paint"
+    },
+    {
+      "photo": "hydraulics/hydraulic-oil-drums.jpg",
+      "alt": "Used hydraulic fluid going to the waste drum: a conversion drains everything, and the old and new fluids never share a container",
+      "after": "## Converting a system to a different fluid"
+    }
+  ],
+  "hydraulic-troubleshooting-advanced-diagnostics": [
+    {
+      "img": "hydraulics/troubleshooting-decision-tree.svg",
+      "alt": "Decision tree: from the symptom to the test to the cause",
+      "after": "## The method"
+    },
+    {
+      "photo": "hydraulics/pressure-gauges.jpg",
+      "alt": "A high-pressure test gauge: pick a range 1.5 to 2 times the working pressure and read it at the test point",
+      "after": "## Instruments"
+    },
+    {
+      "img": "hydraulics/cylinder-bypass-test.svg",
+      "alt": "Cylinder bypass test: prove the piston seals before condemning the pump",
+      "after": "## The standard tests"
+    },
+    {
+      "photo": "hydraulics/hot-oil-thermal.jpg",
+      "alt": "Infrared thermometer with a contact probe: the hot component is the one passing oil across a pressure drop",
+      "after": "## Symptom trees"
+    },
+    {
+      "img": "hydraulics/heat-balance.svg",
+      "alt": "Heat balance: where the horsepower goes and what the cooler must remove",
+      "after": "## Heat balance"
+    }
+  ],
+  "load-sensing-proportional-and-servo-systems": [
+    {
+      "img": "hydraulics/load-sense-margin.svg",
+      "alt": "Load-sense circuit: the pump holds a margin above the highest load",
+      "after": "## Load sensing"
+    },
+    {
+      "img": "hydraulics/proportional-valve-loop.svg",
+      "alt": "Proportional valve loop: command, amplifier, solenoid, spool, LVDT feedback",
+      "after": "## Proportional valves"
+    },
+    {
+      "img": "hydraulics/servo-valve-stages.svg",
+      "alt": "Servo valve: torque motor, flapper and nozzles, spool with feedback wire",
+      "after": "## Servo valves"
+    },
+    {
+      "photo": "hydraulics/servo-valve.jpg",
+      "alt": "A servo valve disassembled: the block, the spool, the torque-motor parts and the springs; nothing here is a field repair",
+      "after": "### Servo faults and checks"
+    }
+  ],
+  "hydraulic-motors-and-hydrostatic-drives": [
+    {
+      "photo": "hydraulics/hydraulic-motor.jpg",
+      "alt": "Orbital (gerotor) motor on a machine: the nameplate gives displacement, pressure and the case-drain requirement",
+      "after": "## Motor types"
+    },
+    {
+      "img": "hydraulics/hydrostatic-drive-loop.svg",
+      "alt": "Closed-loop hydrostatic transmission: every valve in the loop",
+      "after": "## Hydrostatic transmissions (closed loop)"
+    },
+    {
+      "photo": "hydraulics/hydrostatic-transmission.jpg",
+      "alt": "Hydrostatic drive unit on a compactor drum: the hoses are the loop, the small ones the case drain and charge",
+      "after": "### The diagnostic sequence"
+    }
+  ],
+  "quiz-hydraulics-advanced-troubleshooting": [
+    {
+      "img": "hydraulics/troubleshooting-decision-tree.svg",
+      "alt": "Review figure: from the symptom to the test to the cause",
+      "after": "top"
+    }
+  ],
+  "reading-engineering-drawings-basics": [
+    {
+      "photo": "drawings/seattle-blueprint.jpg",
+      "alt": "A 1927 city engineering blueprint: the drawing set is the record of what was built",
+      "after": "## What a drawing set is"
+    },
+    {
+      "img": "drawings/sheet-layout-zones.svg",
+      "alt": "Sheet layout: zones, revision block, notes, drawing area and title block",
+      "after": "## Sheet layout, zones and scale"
+    },
+    {
+      "img": "drawings/title-block-anatomy.svg",
+      "alt": "Title block anatomy: number, sheet, revision, scale and default tolerances",
+      "after": "## The title block"
+    },
+    {
+      "img": "drawings/revision-block-and-cloud.svg",
+      "alt": "Revision block, revision cloud and flag, and the status stamps",
+      "after": "## Revisions, clouds and status stamps"
+    },
+    {
+      "img": "drawings/drawing-number-and-callouts.svg",
+      "alt": "Drawing number decoder, section cut, detail bubble and match line",
+      "after": "## Drawing numbers and cross-references"
+    },
+    {
+      "photo": "drawings/trade-school-drawing.jpg",
+      "alt": "Reading a drawing at the bench: check the number, sheet and revision before you start",
+      "after": "## Checking you have the right drawing"
+    }
+  ],
+  "mechanical-drawings-views-sections-and-dimensions": [
+    {
+      "img": "drawings/projection-angle-symbols.svg",
+      "alt": "Third-angle and first-angle projection symbols and view placement",
+      "after": "## Views and projection angle"
+    },
+    {
+      "img": "drawings/line-types-sheet.svg",
+      "alt": "The alphabet of lines: visible, hidden, centre, dimension, section, break and phantom",
+      "after": "## The alphabet of lines"
+    },
+    {
+      "img": "drawings/section-types.svg",
+      "alt": "Full, half, offset, revolved and broken-out sections with their cutting planes",
+      "after": "## Sections and hatching"
+    },
+    {
+      "photo": "drawings/machine-drawing-1867.jpg",
+      "alt": "An 1867 machine drawing: views, sections and details laid out the way they still are",
+      "after": "## Auxiliary and detail views"
+    },
+    {
+      "img": "drawings/dimensioning-example.svg",
+      "alt": "A plate dimensioned from a datum corner with hole, thread, radius and chamfer callouts",
+      "after": "## Dimensions and how to read them"
+    },
+    {
+      "img": "drawings/fit-callout-decoder.svg",
+      "alt": "Fit callout decoder: Ø50 H7/g6, its limits and the fit families",
+      "after": "## Tolerances, limits and fits"
+    },
+    {
+      "img": "drawings/thread-callout.svg",
+      "alt": "Thread callouts decoded and how threads are drawn",
+      "after": "## Threads and fasteners on drawings"
+    },
+    {
+      "img": "drawings/surface-finish-symbol.svg",
+      "alt": "Surface finish symbol anatomy and common Ra values by process",
+      "after": "## Surface finish symbols"
+    },
+    {
+      "img": "drawings/assembly-balloons-parts-list.svg",
+      "alt": "Assembly drawing with balloons and the parts list they point to",
+      "after": "## Assembly drawings, balloons and parts lists"
+    }
+  ],
+  "gdt-symbols-and-feature-control-frames": [
+    {
+      "img": "drawings/gdt-why.svg",
+      "alt": "Square plus-minus tolerance zone versus the round position zone",
+      "after": "## Why GD&amp;T exists"
+    },
+    {
+      "img": "drawings/feature-control-frame-anatomy.svg",
+      "alt": "Feature control frame anatomy read left to right",
+      "after": "## The feature control frame"
+    },
+    {
+      "img": "drawings/datum-symbols.svg",
+      "alt": "Datum feature symbol, datum target and the 3-2-1 datum frame",
+      "after": "## Datums"
+    },
+    {
+      "img": "drawings/gdt-symbol-sheet.svg",
+      "alt": "The fourteen geometric characteristic symbols grouped by type",
+      "after": "## The fourteen characteristics"
+    },
+    {
+      "img": "drawings/bonus-tolerance.svg",
+      "alt": "Bonus tolerance: the position zone grows as the hole grows from MMC",
+      "after": "## Material condition modifiers and bonus tolerance"
+    },
+    {
+      "img": "drawings/tolerance-zones.svg",
+      "alt": "Flatness, perpendicularity, position and runout zones illustrated",
+      "after": "## Tolerance zones you can picture"
+    },
+    {
+      "img": "drawings/gdt-housing-example.svg",
+      "alt": "A bearing housing with datums, position, perpendicularity and runout callouts",
+      "after": "## Worked example: a bearing housing"
+    },
+    {
+      "photo": "drawings/cmm-inspection.jpg",
+      "alt": "A coordinate measuring machine checks GD&amp;T callouts that a bench cannot",
+      "after": "## Measuring against GD&amp;T on the shop floor"
+    }
+  ],
+  "piping-drawings-isometrics-and-spool-sheets": [
+    {
+      "photo": "drawings/piping-isometric.jpg",
+      "alt": "A piping isometric as issued: one line, its fittings, welds and dimensions on one sheet",
+      "after": "## The piping drawing set"
+    },
+    {
+      "img": "drawings/piping-iso-worked.svg",
+      "alt": "Worked isometric: north arrow, line number, elbows, riser, valve, field weld and spools",
+      "after": "## Isometrics: the grid and the north arrow"
+    },
+    {
+      "img": "drawings/line-number-decoder.svg",
+      "alt": "Line number decoder: size, service, sequence, spec and insulation",
+      "after": "## Line numbers decoded"
+    },
+    {
+      "img": "drawings/pipe-fitting-symbols.svg",
+      "alt": "Fitting and joint symbols: butt-weld, socket-weld, threaded and flanged",
+      "after": "## Fitting and joint symbols"
+    },
+    {
+      "img": "drawings/iso-valves-inline.svg",
+      "alt": "Valves, control valve, strainer, spec break and insulation on an iso",
+      "after": "## Valves and inline items on an iso"
+    },
+    {
+      "img": "drawings/weld-numbers-and-spools.svg",
+      "alt": "Shop welds, field welds and spool numbers on an isometric",
+      "after": "## Welds, field welds and spools"
+    },
+    {
+      "img": "drawings/pipe-supports-symbols.svg",
+      "alt": "Pipe support symbols: shoe, anchor, guide, hangers and the support tag",
+      "after": "## Supports, hangers and elevations"
+    },
+    {
+      "img": "drawings/spool-sheet.svg",
+      "alt": "A spool sheet with its small isometric and bill of material",
+      "after": "## Spool sheets and the bill of material"
+    },
+    {
+      "photo": "drawings/pipe-spool-shop.jpg",
+      "alt": "Spools fabricated in the shop, waiting for the field welds that join them",
+      "after": "## Spool sheets and the bill of material"
+    },
+    {
+      "img": "drawings/take-out-from-iso.svg",
+      "alt": "Cut length from an iso: centre-to-centre minus take-outs and root gaps",
+      "after": "## Take-outs and fit-up from the drawing"
+    }
+  ],
+  "pfd-and-pid-reading": [
+    {
+      "img": "drawings/pfd-vs-pid.svg",
+      "alt": "The same pump on a PFD and on a P&amp;ID",
+      "after": "## PFD versus P&amp;ID"
+    },
+    {
+      "photo": "drawings/pid-sheet.jpg",
+      "alt": "A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page",
+      "after": "## PFD versus P&amp;ID"
+    },
+    {
+      "img": "drawings/pid-legend-extract.svg",
+      "alt": "Legend sheet extract: lines, valves, instrument locations and abbreviations",
+      "after": "## The legend sheet"
+    },
+    {
+      "img": "drawings/sample-pid-pump-loop.svg",
+      "alt": "Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line",
+      "after": "## Anatomy of a P&amp;ID"
+    },
+    {
+      "img": "drawings/line-number-decoder.svg",
+      "alt": "Line number decoder: size, service, sequence, spec and insulation",
+      "after": "## Line numbers, spec breaks and insulation"
+    },
+    {
+      "img": "drawings/equipment-tag-decoder.svg",
+      "alt": "Equipment tag decoder and common equipment letters",
+      "after": "## Equipment tags"
+    },
+    {
+      "img": "drawings/tracing-a-line.svg",
+      "alt": "Tracing one line end to end and listing every branch",
+      "after": "## Tracing a line end to end"
+    },
+    {
+      "photo": "drawings/process-diagram-sample.jpg",
+      "alt": "A process diagram with its stream numbers and equipment tags",
+      "after": "## Tracing a line end to end"
+    },
+    {
+      "photo": "drawings/control-room-pid.jpg",
+      "alt": "A P&amp;ID on the control room wall: operators and millwrights read the same sheet",
+      "after": "## Reading a pump loop"
+    },
+    {
+      "img": "drawings/isa-loop-on-pid.svg",
+      "alt": "One flow control loop read on the P&amp;ID from orifice to control valve",
+      "after": "## Instruments and control loops on the P&amp;ID"
+    },
+    {
+      "img": "drawings/off-page-connectors-tie-ins.svg",
+      "alt": "Off-page connectors, tie-in points, holds and package boundaries",
+      "after": "## Off-page connectors, tie-ins and holds"
+    },
+    {
+      "img": "drawings/pump-loop-isolation-points.svg",
+      "alt": "The pump loop marked up with isolation points for a P-101A job",
+      "after": "## What a millwright pulls off a P&amp;ID"
+    }
+  ],
+  "pid-symbols-valves-equipment-and-lines": [
+    {
+      "photo": "drawings/pid-schema.jpg",
+      "alt": "A P&amp;ID drawn to the ISA symbol set: read it with the sheets below",
+      "after": "## How to use this sheet"
+    },
+    {
+      "img": "drawings/pid-manual-valves-sheet.svg",
+      "alt": "Manual valve symbols: gate, globe, ball, butterfly, plug, needle, check, relief and more",
+      "after": "## Manual valves"
+    },
+    {
+      "img": "drawings/pid-control-valves-sheet.svg",
+      "alt": "Control valve actuators and fail positions FC, FO and FL",
+      "after": "## Control valves, actuators and fail positions"
+    },
+    {
+      "img": "drawings/pid-equipment-sheet.svg",
+      "alt": "Pump, compressor, blower, driver, agitator, conveyor and gearbox symbols",
+      "after": "## Pumps, compressors and drivers"
+    },
+    {
+      "img": "drawings/pid-vessels-exchangers-sheet.svg",
+      "alt": "Vessel, tank and heat exchanger symbols",
+      "after": "## Vessels, tanks and exchangers"
+    },
+    {
+      "img": "drawings/pid-fittings-sheet.svg",
+      "alt": "Strainers, filters, traps, blinds, orifice plates, vents and drains",
+      "after": "## Filters, strainers, traps and inline fittings"
+    },
+    {
+      "img": "drawings/pid-lines-signals-sheet.svg",
+      "alt": "Process line and instrument signal line types",
+      "after": "## Line and signal types"
+    }
+  ],
+  "isa-instrument-tags-bubbles-and-letters": [
+    {
+      "img": "drawings/isa-tag-decoder.svg",
+      "alt": "ISA tag decoder: PIT-101A letter by letter",
+      "after": "## The tag: letters plus loop number"
+    },
+    {
+      "img": "drawings/isa-first-letters-table.svg",
+      "alt": "ISA first letters: the measured variable for each letter",
+      "after": "## First letters: what is measured"
+    },
+    {
+      "img": "drawings/isa-succeeding-letters-table.svg",
+      "alt": "ISA succeeding letters: readout, output and modifier meanings",
+      "after": "## Modifiers and succeeding letters"
+    },
+    {
+      "img": "drawings/isa-bubbles-sheet.svg",
+      "alt": "Bubble shapes and location lines: field, panel, behind panel, DCS, PLC",
+      "after": "## Bubbles and where the instrument lives"
+    },
+    {
+      "img": "drawings/pid-lines-signals-sheet.svg",
+      "alt": "Signal line types: pneumatic, electric, hydraulic, capillary, software",
+      "after": "## Signal lines"
+    },
+    {
+      "img": "drawings/isa-worked-tags.svg",
+      "alt": "Six worked tags drawn as they appear on a P&amp;ID",
+      "after": "## Worked tags"
+    },
+    {
+      "img": "drawings/isa-loop-on-pid.svg",
+      "alt": "One control loop on the P&amp;ID from orifice to control valve",
+      "after": "## Reading one control loop on the P&amp;ID"
+    },
+    {
+      "img": "drawings/isa-transmitter-vs-switch.svg",
+      "alt": "Transmitter, switch, indicator and controller compared",
+      "after": "## Transmitters, switches, indicators and controllers"
+    }
+  ],
+  "hydraulic-symbols-iso-1219-complete": [
+    {
+      "photo": "drawings/load-sensing-schematic.jpg",
+      "alt": "A hydraulic schematic on a machine plate, drawn in ISO 1219 symbols",
+      "after": "## How ISO 1219 symbols work"
+    },
+    {
+      "img": "drawings/hyd-lines-sources-sheet.svg",
+      "alt": "Lines, junctions, plugged ports, reservoirs and energy sources",
+      "after": "## Lines, sources and reservoirs"
+    },
+    {
+      "img": "drawings/hyd-pumps-motors-sheet.svg",
+      "alt": "Pump and motor symbols: fixed, variable, compensated, load-sensing, bi-directional",
+      "after": "## Pumps and motors"
+    },
+    {
+      "img": "drawings/hyd-cylinders-sheet.svg",
+      "alt": "Cylinder symbols: single, double, double-rod, cushioned, telescopic, intensifier",
+      "after": "## Cylinders and actuators"
+    },
+    {
+      "img": "drawings/hyd-dcv-sheet.svg",
+      "alt": "Directional valve envelopes and the common centre conditions",
+      "after": "## Directional control valves and centre conditions"
+    },
+    {
+      "img": "drawings/hyd-operators-sheet.svg",
+      "alt": "Valve operators: solenoid, lever, pedal, pilot, spring, detent, proportional",
+      "after": "## Valve operators"
+    },
+    {
+      "img": "drawings/hyd-check-valves-sheet.svg",
+      "alt": "Check, spring check, pilot-operated check, shuttle and restrictor check",
+      "after": "## Check, shuttle and pilot-operated check valves"
+    },
+    {
+      "img": "drawings/hyd-pressure-valves-sheet.svg",
+      "alt": "Relief, reducing, sequence, counterbalance, unloading and brake valves",
+      "after": "## Pressure control valves"
+    },
+    {
+      "img": "drawings/hyd-flow-valves-sheet.svg",
+      "alt": "Flow controls: fixed, adjustable, compensated, with bypass check, flow divider",
+      "after": "## Flow control valves"
+    },
+    {
+      "img": "drawings/hyd-conditioning-sheet.svg",
+      "alt": "Accumulators, filters with bypass, water separator, cooler, heater, breather",
+      "after": "## Accumulators, filters, coolers and conditioning"
+    },
+    {
+      "img": "drawings/hyd-instruments-sheet.svg",
+      "alt": "Gauges, flow meters, pressure switches, quick disconnects, rotary joints, enclosures",
+      "after": "## Gauges, switches, sensors and connections"
+    }
+  ],
+  "pneumatic-symbols-and-circuit-reading": [
+    {
+      "img": "drawings/pneu-frl-sheet.svg",
+      "alt": "Air preparation symbols: filter, regulator, lubricator and the combined FRL",
+      "after": "## Air preparation: the FRL"
+    },
+    {
+      "img": "drawings/pneu-valves-sheet.svg",
+      "alt": "Pneumatic valves: 3/2, 5/2, 5/3, exhausts, quick exhaust, shuttle and two-pressure",
+      "after": "## Pneumatic valves: 3/2, 5/2 and 5/3"
+    },
+    {
+      "img": "drawings/pneu-actuators-sheet.svg",
+      "alt": "Pneumatic cylinders, air motor, vacuum generator and cup, speed controls",
+      "after": "## Cylinders, motors and vacuum"
+    },
+    {
+      "img": "drawings/circuit-meter-in-out.svg",
+      "alt": "Meter-in, meter-out and bleed-off speed control",
+      "after": "## Speed and exhaust control"
+    },
+    {
+      "img": "drawings/pneu-clamp-press-circuit.svg",
+      "alt": "Clamp-and-press pneumatic circuit drawn at rest",
+      "after": "## Reading a clamp-and-press circuit"
+    },
+    {
+      "img": "drawings/pneu-sequence-chart.svg",
+      "alt": "Step-displacement chart for the clamp-and-press sequence",
+      "after": "## The sequence chart"
+    }
+  ],
+  "reading-hydraulic-and-pneumatic-circuit-diagrams": [
+    {
+      "img": "drawings/pneu-clamp-press-circuit.svg",
+      "alt": "Number the parts, find the supply, follow one signal at a time",
+      "after": "## The five-step method"
+    },
+    {
+      "img": "drawings/hyd-dcv-sheet.svg",
+      "alt": "Every valve is drawn in its rest position: read the box with the ports",
+      "after": "## Everything is drawn at rest"
+    },
+    {
+      "img": "drawings/circuit-open-vs-closed-centre.svg",
+      "alt": "Open-centre with a fixed pump beside closed-centre with a compensated pump",
+      "after": "## Open-centre and closed-centre circuits"
+    },
+    {
+      "img": "drawings/circuit-meter-in-out.svg",
+      "alt": "Meter-in, meter-out and bleed-off",
+      "after": "## Meter-in, meter-out and bleed-off"
+    },
+    {
+      "img": "drawings/circuit-regenerative.svg",
+      "alt": "Regenerative circuit for a fast approach",
+      "after": "## Regenerative circuits"
+    },
+    {
+      "img": "drawings/circuit-sequence-counterbalance.svg",
+      "alt": "Sequence valve for clamp-then-press and counterbalance on a vertical load",
+      "after": "## Sequence and counterbalance circuits"
+    },
+    {
+      "img": "drawings/circuit-accumulator-hilo.svg",
+      "alt": "Accumulator circuit with isolation and bleed-down; hi-lo two-pump circuit",
+      "after": "## Accumulator and hi-lo circuits"
+    },
+    {
+      "photo": "drawings/load-sensing-schematic.jpg",
+      "alt": "The schematic plate on a machine: the component list and settings live beside it",
+      "after": "## The component list and settings table"
+    },
+    {
+      "img": "drawings/circuit-test-points.svg",
+      "alt": "Five test gauges on a circuit and the settings table they are read against",
+      "after": "## Using the schematic to place test gauges"
+    }
+  ],
+  "electrical-symbols-nema-and-iec": [
+    {
+      "img": "drawings/elec-contacts-coils-sheet.svg",
+      "alt": "Contacts, coils, timed contacts and overload contact in NEMA and IEC form",
+      "after": "## Contacts and coils"
+    },
+    {
+      "img": "drawings/elec-operators-sheet.svg",
+      "alt": "Pushbuttons, selectors, pilot lights and the target table",
+      "after": "## Pushbuttons, selectors and pilot lights"
+    },
+    {
+      "photo": "drawings/pushbutton-panel.jpg",
+      "alt": "Pushbuttons, selector switches and pilot lights on a real panel door",
+      "after": "## Pushbuttons, selectors and pilot lights"
+    },
+    {
+      "img": "drawings/elec-process-switches-sheet.svg",
+      "alt": "Limit, pressure, temperature, flow, float, proximity, speed and foot switches",
+      "after": "## Switches driven by the process"
+    },
+    {
+      "img": "drawings/elec-power-devices-sheet.svg",
+      "alt": "Contactor poles, overload heaters, fuses, breakers, disconnects, transformers, motors",
+      "after": "## Power devices: contactors, overloads, fuses, breakers, disconnects"
+    },
+    {
+      "photo": "drawings/overload-relay.jpg",
+      "alt": "An overload relay with its trip setting dial and reset button",
+      "after": "## Power devices: contactors, overloads, fuses, breakers, disconnects"
+    },
+    {
+      "img": "drawings/elec-wires-terminals-sheet.svg",
+      "alt": "Junctions, crossings, terminals, wire numbers, grounds, shields and sources",
+      "after": "## Wires, terminals and grounds"
+    },
+    {
+      "photo": "drawings/din-rail-devices.jpg",
+      "alt": "Terminal blocks and relays on DIN rail, each with its wire numbers",
+      "after": "## Wires, terminals and grounds"
+    },
+    {
+      "img": "drawings/elec-plc-drive-sheet.svg",
+      "alt": "PLC input and output points, VFD block, safety relay and dual-channel E-stop",
+      "after": "## PLC and drive symbols on a schematic"
+    }
+  ],
+  "motor-control-schematics-and-wiring-diagrams": [
+    {
+      "img": "drawings/schematic-vs-wiring-diagram.svg",
+      "alt": "The same starter as a schematic and as a wiring diagram",
+      "after": "## Schematic, wiring diagram, one-line: three drawings of one starter"
+    },
+    {
+      "img": "drawings/one-line-extract.svg",
+      "alt": "Plant one-line extract down to the MCC bucket and motor",
+      "after": "## Schematic, wiring diagram, one-line: three drawings of one starter"
+    },
+    {
+      "img": "drawings/three-wire-start-stop.svg",
+      "alt": "Three-wire start-stop schematic in ladder format, rung by rung",
+      "after": "## The three-wire start-stop rung by rung"
+    },
+    {
+      "img": "drawings/wire-and-rung-numbering.svg",
+      "alt": "Wire numbers, rung numbers, device designations and cross-references decoded",
+      "after": "## Wire numbers, rung numbers and cross-references"
+    },
+    {
+      "img": "drawings/forward-reverse-interlocks.svg",
+      "alt": "Forward-reverse schematic with electrical and mechanical interlocks",
+      "after": "## Interlocks, jog and forward-reverse"
+    },
+    {
+      "photo": "drawings/electricians-panel.jpg",
+      "alt": "Inside a control panel: the wiring diagram tells you where each of these wires lands",
+      "after": "## The wiring diagram: terminals, cables and panel layout"
+    },
+    {
+      "img": "drawings/mcc-bucket-sheet.svg",
+      "alt": "MCC bucket elevation and its schedule of settings",
+      "after": "## The MCC bucket sheet"
+    },
+    {
+      "photo": "drawings/motor-protective-breaker.jpg",
+      "alt": "A motor protective circuit breaker in a starter bucket",
+      "after": "## The MCC bucket sheet"
+    }
+  ],
+  "structural-and-machine-installation-drawings": [
+    {
+      "photo": "drawings/foundation-drawing.jpg",
+      "alt": "A foundation drawing: the plan the concrete crew and the millwright both work from",
+      "after": "## The installation drawing set"
+    },
+    {
+      "img": "drawings/column-line-grid.svg",
+      "alt": "Equipment located from column lines, never from a wall",
+      "after": "## Column lines, grids and coordinates"
+    },
+    {
+      "img": "drawings/elevation-datums.svg",
+      "alt": "Elevations read up from the plant datum: floor, concrete, grout, steel, shaft",
+      "after": "## Elevations, datums and benchmarks"
+    },
+    {
+      "img": "drawings/arrangement-drawing-extract.svg",
+      "alt": "General arrangement of a conveyor drive with tags, centrelines and balloons",
+      "after": "## General arrangement drawings"
+    },
+    {
+      "img": "drawings/anchor-bolt-plan.svg",
+      "alt": "Anchor bolt plan and bolt detail with sleeve, embedment and projection",
+      "after": "## Foundation and anchor-bolt drawings"
+    },
+    {
+      "photo": "drawings/foundation-formwork.jpg",
+      "alt": "Formwork and anchor bolts set before the pour: the plan becomes concrete",
+      "after": "## Foundation and anchor-bolt drawings"
+    },
+    {
+      "img": "drawings/baseplate-detail.svg",
+      "alt": "Base plate, jackscrews, anchor bolt sleeve and grout in section",
+      "after": "## Base plates, sole plates and grout details"
+    },
+    {
+      "img": "drawings/structural-connection-callouts.svg",
+      "alt": "Beam designation, bolt and weld callouts, TOS and BOS",
+      "after": "## Structural details and connection callouts"
+    }
+  ],
+  "quiz-drawings-schematics-and-pids": [
+    {
+      "img": "drawings/sample-pid-pump-loop.svg",
+      "alt": "Review figure: the feed pump loop P&amp;ID used in several questions",
+      "after": "top"
+    }
+  ]
 }

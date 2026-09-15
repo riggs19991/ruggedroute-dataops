@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 262" width="500" height="262" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Meter-in, meter-out, bleed-off</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="262" fill="#ffffff"/>
+<text x="80" y="20" font-size="11.5" text-anchor="middle" font-weight="700" fill="#1a2233">Meter-in</text>
+<circle cx="50" cy="190" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="50" cy="190" r="2.5" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="50" y1="182" x2="50" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="50" y1="150" x2="72" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="72" y1="150" x2="72" y2="140" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="50" y="104" width="30" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="58.4" y1="132" x2="58.4" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="71.6" y1="132" x2="71.6" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="58.4" y1="104" x2="58.4" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="71.6" y1="104" x2="71.6" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="58.4" y1="132" x2="58.4" y2="104" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="71.6" y1="104" x2="71.6" y2="132" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="80" y="104" width="30" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="88.4" y1="132" x2="88.4" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="101.6" y1="132" x2="101.6" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="88.4" y1="104" x2="88.4" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="101.6" y1="104" x2="101.6" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="88.4" y1="132" x2="101.6" y2="104" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="88.4" y1="104" x2="101.6" y2="132" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="79" y="94" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="79" y="133" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="32" y="110" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="32" y1="126" x2="48" y2="110" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M112,118 l3,-6 l3,12 l3,-12 l3,12 l3,-12 l3,6" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="88" y1="140" x2="88" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="88" y1="150" x2="110" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="110" y1="150" x2="110" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="110" y1="170" x2="110" y2="175" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M103,170 L103,178 L117,178 L117,170" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="54" y="39" width="52" height="18" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="74.8" y="39" width="5" height="18" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="79.8" y1="48" x2="122" y2="48" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="48" y1="45" x2="48" y2="51" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="72" y1="96" x2="72" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="72" y1="88" x2="60" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="88" y1="96" x2="88" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="88" y1="88" x2="100" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="60" y1="88" x2="60" y2="78" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M52,64 q8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M68,64 q-8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="49" y1="83" x2="71" y2="61" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="30" y="50" width="60" height="44" fill="#ffffff" stroke="#1a2233" stroke-width="1" stroke-dasharray="3 2"/>
+<g transform="translate(80,72) rotate(180)"><circle cx="0" cy="0" r="3" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M-6,6 L0,-1.2000000000000002 L6,6" fill="none" stroke="#1a2233" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+<line x1="80" y1="50" x2="80" y2="66" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="80" y1="78" x2="80" y2="94" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="60" y1="60" x2="60" y2="57" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="100" y1="88" x2="100" y2="57" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="250" y="20" font-size="11.5" text-anchor="middle" font-weight="700" fill="#1a2233">Meter-out</text>
+<circle cx="220" cy="190" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="220" cy="190" r="2.5" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="220" y1="182" x2="220" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="220" y1="150" x2="242" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="242" y1="150" x2="242" y2="140" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="220" y="104" width="30" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="228.4" y1="132" x2="228.4" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="241.6" y1="132" x2="241.6" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="228.4" y1="104" x2="228.4" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="241.6" y1="104" x2="241.6" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="228.4" y1="132" x2="228.4" y2="104" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="241.6" y1="104" x2="241.6" y2="132" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="250" y="104" width="30" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="258.4" y1="132" x2="258.4" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="271.6" y1="132" x2="271.6" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="258.4" y1="104" x2="258.4" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="271.6" y1="104" x2="271.6" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="258.4" y1="132" x2="271.6" y2="104" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="258.4" y1="104" x2="271.6" y2="132" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="249" y="94" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="249" y="133" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="202" y="110" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="202" y1="126" x2="218" y2="110" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M282,118 l3,-6 l3,12 l3,-12 l3,12 l3,-12 l3,6" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="258" y1="140" x2="258" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="258" y1="150" x2="280" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="280" y1="150" x2="280" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="280" y1="170" x2="280" y2="175" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M273,170 L273,178 L287,178 L287,170" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="224" y="39" width="52" height="18" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="244.8" y="39" width="5" height="18" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="249.8" y1="48" x2="292" y2="48" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="218" y1="45" x2="218" y2="51" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="242" y1="96" x2="242" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="242" y1="88" x2="230" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="258" y1="96" x2="258" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="258" y1="88" x2="270" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="270" y1="88" x2="270" y2="78" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M262,64 q8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M278,64 q-8,8 0,16" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="259" y1="83" x2="281" y2="61" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="240" y="50" width="60" height="44" fill="#ffffff" stroke="#1a2233" stroke-width="1" stroke-dasharray="3 2"/>
+<g transform="translate(290,72) rotate(180)"><circle cx="0" cy="0" r="3" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M-6,6 L0,-1.2000000000000002 L6,6" fill="none" stroke="#1a2233" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+<line x1="290" y1="50" x2="290" y2="66" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="290" y1="78" x2="290" y2="94" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="270" y1="60" x2="270" y2="57" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="230" y1="88" x2="230" y2="57" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="420" y="20" font-size="11.5" text-anchor="middle" font-weight="700" fill="#1a2233">Bleed-off</text>
+<circle cx="390" cy="190" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="390" cy="190" r="2.5" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="390" y1="182" x2="390" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="390" y1="150" x2="412" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="412" y1="150" x2="412" y2="140" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="390" y="104" width="30" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="398.4" y1="132" x2="398.4" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="411.6" y1="132" x2="411.6" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="398.4" y1="104" x2="398.4" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="411.6" y1="104" x2="411.6" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="398.4" y1="132" x2="398.4" y2="104" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="411.6" y1="104" x2="411.6" y2="132" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="420" y="104" width="30" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="428.4" y1="132" x2="428.4" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="441.6" y1="132" x2="441.6" y2="140" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="428.4" y1="104" x2="428.4" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="441.6" y1="104" x2="441.6" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="428.4" y1="132" x2="441.6" y2="104" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="428.4" y1="104" x2="441.6" y2="132" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="419" y="94" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="419" y="133" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="372" y="110" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="372" y1="126" x2="388" y2="110" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M452,118 l3,-6 l3,12 l3,-12 l3,12 l3,-12 l3,6" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="428" y1="140" x2="428" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="428" y1="150" x2="450" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="450" y1="150" x2="450" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="450" y1="170" x2="450" y2="175" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M443,170 L443,178 L457,178 L457,170" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="394" y="39" width="52" height="18" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="414.8" y="39" width="5" height="18" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="419.8" y1="48" x2="462" y2="48" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="388" y1="45" x2="388" y2="51" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="412" y1="96" x2="412" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="412" y1="88" x2="400" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="428" y1="96" x2="428" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="428" y1="88" x2="440" y2="88" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="400" y1="88" x2="400" y2="57" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="440" y1="88" x2="440" y2="57" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="390" y1="165" x2="364" y2="165" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<circle cx="390" cy="165" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<path d="M356,157 q8,8 16,0" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M356,173 q8,-8 16,0" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="353" y1="176" x2="375" y2="154" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="364" y1="165" x2="364" y2="185" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="364" y1="173" x2="364" y2="186" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="364" y1="186" x2="364" y2="190" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M358,186 L358,193 L370,193 L370,186" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="80" y="220" font-size="9" text-anchor="middle" fill="#5b6577"><tspan x="80" dy="0">controls speed into the</tspan><tspan x="80" dy="11.25">cylinder; load can run away</tspan></text>
+<text x="250" y="220" font-size="9" text-anchor="middle" fill="#5b6577"><tspan x="250" dy="0">back-pressure holds the load;</tspan><tspan x="250" dy="11.25">the usual choice</tspan></text>
+<text x="420" y="220" font-size="9" text-anchor="middle" fill="#5b6577"><tspan x="420" dy="0">pump works at load pressure,</tspan><tspan x="420" dy="11.25">less heat; not for overrunning</tspan></text>
+<text x="250" y="254" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Dashed box with a check = restrictor check: metered one way, free back.</text>
+</svg>

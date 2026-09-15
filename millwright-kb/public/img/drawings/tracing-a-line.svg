@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Tracing a line end to end</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<path d="M20,92 L50,92 L50,108 L20,108 L10,100 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="33" y="103" font-size="6.5" text-anchor="middle" font-weight="700" fill="#1a2233">P-101</text>
+<line x1="54" y1="100" x2="130" y2="100" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M132,94.4 L148,105.6 L148,94.4 L132,105.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="150" y1="100" x2="200" y2="100" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="200" cy="100" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="200" y1="100" x2="200" y2="170" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M193,175.1 L207,184.9 L207,175.1 L193,184.9 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="200" y1="188" x2="200" y2="220" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="208" y="224" font-size="7" text-anchor="start" fill="#5b6577">to drain header</text>
+<line x1="200" y1="100" x2="260" y2="100" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M262,94.4 L278,105.6 L278,94.4 L262,105.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="270" cy="100" r="2.4" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="270" y1="92" x2="270" y2="77" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<path d="M258,77 a12,9 0 0 1 24,0 Z" fill="none" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="285" y="75" font-size="8.5" text-anchor="start" font-weight="700" fill="#1a2233">FO</text>
+<text x="270" y="122" font-size="6.5" text-anchor="middle" fill="#1a2233">TCV-210</text>
+<line x1="280" y1="100" x2="340" y2="100" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="360" cy="100" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M346,100 l6,-6 l6,12 l6,-12 l6,12 l6,-6" fill="none" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="338" y1="100" x2="346" y2="100" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="374" y1="100" x2="382" y2="100" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="382" y1="100" x2="440" y2="100" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M442,92 L472,92 L482,100 L472,108 L442,108 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="459" y="103" font-size="6.5" text-anchor="middle" font-weight="700" fill="#1a2233">P-104</text>
+<circle cx="320" cy="60" r="11" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="320" y="59" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">TI</text>
+<text x="320" y="69" font-size="7.5" text-anchor="middle" fill="#1a2233">211</text>
+<line x1="320" y1="71" x2="320" y2="100" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<text x="60" y="90" font-size="7" text-anchor="start" fill="#5b6577">3"-CW-2101-A1A</text>
+<line x1="54" y1="100" x2="440" y2="100" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" opacity="0.3"/>
+<rect x="30" y="150" width="270" height="15" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="160.2" font-size="7.5" text-anchor="start" font-weight="600" fill="#1a2233">step</text>
+<text x="66" y="160.2" font-size="7.5" text-anchor="start" font-weight="600" fill="#1a2233">what you found</text>
+<rect x="30" y="165" width="270" height="15" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="175.2" font-size="7.5" text-anchor="start" fill="#1a2233">1</text>
+<text x="66" y="175.2" font-size="7.5" text-anchor="start" fill="#1a2233">line 3"-CW-2101 arrives from sheet P-101</text>
+<rect x="30" y="180" width="270" height="15" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="190.2" font-size="7.5" text-anchor="start" fill="#1a2233">2</text>
+<text x="66" y="190.2" font-size="7.5" text-anchor="start" fill="#1a2233">gate valve, hand, no tag: isolation</text>
+<rect x="30" y="195" width="270" height="15" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="205.2" font-size="7.5" text-anchor="start" fill="#1a2233">3</text>
+<text x="66" y="205.2" font-size="7.5" text-anchor="start" fill="#1a2233">branch down: drain to header, valved</text>
+<rect x="30" y="210" width="270" height="15" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="220.2" font-size="7.5" text-anchor="start" fill="#1a2233">4</text>
+<text x="66" y="220.2" font-size="7.5" text-anchor="start" fill="#1a2233">TCV-210 control valve, fails open</text>
+<rect x="30" y="225" width="270" height="15" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="235.2" font-size="7.5" text-anchor="start" fill="#1a2233">5</text>
+<text x="66" y="235.2" font-size="7.5" text-anchor="start" fill="#1a2233">TI-211 local thermometer, then E-301 shell side</text>
+<rect x="30" y="240" width="270" height="15" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="36" y="250.2" font-size="7.5" text-anchor="start" fill="#1a2233">6</text>
+<text x="66" y="250.2" font-size="7.5" text-anchor="start" fill="#1a2233">leaves to sheet P-104: keep tracing there</text>
+<text x="370" y="170" font-size="8" text-anchor="start" fill="#5b6577"><tspan x="370" dy="0">a branch you did not</tspan><tspan x="370" dy="10">notice is the one that</tspan><tspan x="370" dy="10">refills the line you</tspan><tspan x="370" dy="10">just drained</tspan></text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">One line, one finger, every branch written down before you touch a valve.</text>
+</svg>

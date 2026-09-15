@@ -132,3 +132,4 @@ The valve on a loader, crane, excavator or forestry machine is a bank of **work 
 - [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
 - [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)

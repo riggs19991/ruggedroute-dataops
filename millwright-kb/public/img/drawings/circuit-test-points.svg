@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 290" width="500" height="290" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Test points on a circuit</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="290" fill="#ffffff"/>
+<circle cx="60" cy="230" r="13" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M60,217 L66,228 L54,228 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="30" cy="230" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="30" y="234" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">M</text>
+<line x1="38" y1="230" x2="47" y2="230" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="60" y1="243" x2="60" y2="254" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="60" y1="254" x2="60" y2="260" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M52,254 L52,263 L68,263 L68,254" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="60" y1="217" x2="60" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="9" y="165" width="22" height="22" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="14" y1="184" x2="14" y2="168" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="20" y1="187" x2="20" y2="195" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="20" y1="165" x2="20" y2="157" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M31,176 l6,0 l0,-17 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="33" y1="145" x2="45" y2="133" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="20" y1="193" x2="3" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="3" y1="193" x2="3" y2="176" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="3" y1="176" x2="9" y2="176" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="20" y1="193" x2="20" y2="202" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="20" y1="202" x2="20" y2="207" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M13,202 L13,210 L27,210 L27,202" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="60" y1="176" x2="20" y2="176" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="60" y1="186" x2="20" y2="186" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="20" y1="186" x2="20" y2="165" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<circle cx="60" cy="186" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="60" y1="170" x2="60" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="60" y1="150" x2="140" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="140" y1="150" x2="140" y2="134" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="103" y="99" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="111.4" y1="125" x2="111.4" y2="133" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="124.6" y1="125" x2="124.6" y2="133" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="111.4" y1="99" x2="111.4" y2="91" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="124.6" y1="99" x2="124.6" y2="91" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="111.4" y1="125" x2="111.4" y2="99" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="124.6" y1="99" x2="124.6" y2="125" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="133" y="99" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="141.4" y1="125" x2="141.4" y2="133" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="154.6" y1="125" x2="154.6" y2="133" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="141.4" y1="99" x2="141.4" y2="91" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="154.6" y1="99" x2="154.6" y2="91" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="136.4" y1="117" x2="146.4" y2="117" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="149.6" y1="117" x2="159.6" y2="117" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="136.4" y1="107" x2="146.4" y2="107" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="149.6" y1="107" x2="159.6" y2="107" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<rect x="163" y="99" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="171.4" y1="125" x2="171.4" y2="133" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="184.6" y1="125" x2="184.6" y2="133" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="171.4" y1="99" x2="171.4" y2="91" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="184.6" y1="99" x2="184.6" y2="91" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="171.4" y1="125" x2="184.6" y2="99" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="171.4" y1="99" x2="184.6" y2="125" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="102" y="89" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="102" y="126" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="162" y="89" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="162" y="126" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="85" y="104" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="85" y1="120" x2="101" y2="104" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="195" y="104" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="195" y1="120" x2="211" y2="104" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="155" y1="125" x2="155" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="155" y1="150" x2="200" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="200" y1="150" x2="200" y2="176" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="200" y1="176" x2="200" y2="181" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M193,176 L193,184 L207,184 L207,176" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="141" y1="99" x2="141" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="155" y1="99" x2="155" y2="80" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="179" y="69" width="22" height="22" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="190" y1="91" x2="190" y2="69" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<path d="M201,80 l6,0 l0,-17 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="203" y1="49" x2="215" y2="37" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="190" y1="63" x2="173" y2="63" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="173" y1="63" x2="173" y2="80" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="173" y1="80" x2="179" y2="80" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="194" y1="91" x2="194" y2="97" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="194" y1="97" x2="219" y2="97" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="219" y1="97" x2="219" y2="100" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M214,97 L214,103 L224,103 L224,97" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="155" y1="80" x2="179" y2="80" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="155" y1="80" x2="190" y2="80" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="190" y1="80" x2="190" y2="69" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="190" y1="91" x2="190" y2="100" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="190" y1="69" x2="190" y2="60" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="190" y1="60" x2="220" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="141" y1="60" x2="120" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="120" y1="60" x2="120" y2="50" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="220" y1="60" x2="220" y2="50" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="118" y="30" width="104" height="20" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="159.6" y="30" width="5" height="20" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="164.6" y1="40" x2="250" y2="40" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="112" y1="36" x2="112" y2="44" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<circle cx="74" cy="150" r="8" fill="#fff4d6" stroke="#b45309" stroke-width="1.5"/>
+<text x="74" y="153.5" font-size="8" text-anchor="middle" font-weight="700" fill="#b45309">G1</text>
+<line x1="60" y1="160" x2="68" y2="154" stroke="#b45309" stroke-width="1" stroke-linecap="round"/>
+<circle cx="214" cy="90" r="8" fill="#fff4d6" stroke="#b45309" stroke-width="1.5"/>
+<text x="214" y="93.5" font-size="8" text-anchor="middle" font-weight="700" fill="#b45309">G2</text>
+<line x1="200" y1="100" x2="208" y2="94" stroke="#b45309" stroke-width="1" stroke-linecap="round"/>
+<circle cx="134" cy="50" r="8" fill="#fff4d6" stroke="#b45309" stroke-width="1.5"/>
+<text x="134" y="53.5" font-size="8" text-anchor="middle" font-weight="700" fill="#b45309">G3</text>
+<line x1="120" y1="60" x2="128" y2="54" stroke="#b45309" stroke-width="1" stroke-linecap="round"/>
+<circle cx="234" cy="50" r="8" fill="#fff4d6" stroke="#b45309" stroke-width="1.5"/>
+<text x="234" y="53.5" font-size="8" text-anchor="middle" font-weight="700" fill="#b45309">G4</text>
+<line x1="220" y1="60" x2="228" y2="54" stroke="#b45309" stroke-width="1" stroke-linecap="round"/>
+<circle cx="64" cy="240" r="8" fill="#fff4d6" stroke="#b45309" stroke-width="1.5"/>
+<text x="64" y="243.5" font-size="8" text-anchor="middle" font-weight="700" fill="#b45309">G5</text>
+<line x1="50" y1="250" x2="58" y2="244" stroke="#b45309" stroke-width="1" stroke-linecap="round"/>
+<line x1="52" y1="240" x2="52" y2="262" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="52" y1="262" x2="52" y2="266" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M46,262 L46,269 L58,269 L58,262" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="290" y="40" width="208" height="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="54.96" font-size="9.2" text-anchor="start" font-weight="600" fill="#1a2233">Gauge</text>
+<text x="352" y="54.96" font-size="9.2" text-anchor="start" font-weight="600" fill="#1a2233">Should read</text>
+<text x="428" y="54.96" font-size="9.2" text-anchor="start" font-weight="600" fill="#1a2233">If not</text>
+<rect x="290" y="62" width="208" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="76.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">G1 idle</text>
+<text x="352" y="76.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">relief 2,000</text>
+<text x="428" y="76.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">relief, pump</text>
+<rect x="290" y="84" width="208" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="98.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">G1 load</text>
+<text x="352" y="98.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">holds 2,000</text>
+<text x="428" y="98.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">pump worn</text>
+<rect x="290" y="106" width="208" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="120.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">G2</text>
+<text x="352" y="120.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">reducer 800</text>
+<text x="428" y="120.96000000000001" font-size="9.2" text-anchor="start" fill="#1a2233">reducer, drain</text>
+<rect x="290" y="128" width="208" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="142.96" font-size="9.2" text-anchor="start" fill="#1a2233">G3 extend</text>
+<text x="352" y="142.96" font-size="9.2" text-anchor="start" fill="#1a2233">load pressure</text>
+<text x="428" y="142.96" font-size="9.2" text-anchor="start" fill="#1a2233">bypass, load</text>
+<rect x="290" y="150" width="208" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="164.96" font-size="9.2" text-anchor="start" fill="#1a2233">G4 hold</text>
+<text x="352" y="164.96" font-size="9.2" text-anchor="start" fill="#1a2233">near 0</text>
+<text x="428" y="164.96" font-size="9.2" text-anchor="start" fill="#1a2233">valve leak</text>
+<rect x="290" y="172" width="208" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="296" y="186.96" font-size="9.2" text-anchor="start" fill="#1a2233">G5</text>
+<text x="352" y="186.96" font-size="9.2" text-anchor="start" fill="#1a2233">under 50</text>
+<text x="428" y="186.96" font-size="9.2" text-anchor="start" fill="#1a2233">pump seals</text>
+<text x="394" y="215" font-size="9.5" text-anchor="middle" fill="#5b6577"><tspan x="394" dy="0">write the settings table first;</tspan><tspan x="394" dy="11.875">a gauge without a target is a guess</tspan></text>
+<text x="250" y="282" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Five gauges show which block is wrong before you lift a wrench.</text>
+</svg>

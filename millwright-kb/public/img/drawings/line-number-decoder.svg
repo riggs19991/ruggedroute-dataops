@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280" width="500" height="280" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Line number decoder</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="280" fill="#ffffff"/>
+<text x="250" y="34" font-size="22" text-anchor="middle" font-weight="700" fill="#1a2233">6"-P-1012-A1A-IH</text>
+<line x1="37" y1="70" x2="165" y2="40" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="40" y="74" font-size="8" text-anchor="start" fill="#1a2233">6" = nominal pipe size</text>
+<line x1="127" y1="96" x2="198" y2="40" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="130" y="100" font-size="8" text-anchor="start" fill="#1a2233">P = service (process)</text>
+<line x1="250" y1="70" x2="250" y2="40" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="250" y="74" font-size="8" text-anchor="middle" fill="#1a2233">1012 = line sequence number</text>
+<line x1="327" y1="96" x2="318" y2="40" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="330" y="100" font-size="8" text-anchor="start" fill="#1a2233">A1A = pipe class (spec)</text>
+<line x1="357" y1="70" x2="350" y2="40" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/><text x="360" y="74" font-size="8" text-anchor="start" fill="#1a2233">IH = insulation (heat)</text>
+<rect x="20" y="120" width="210" height="16" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="130.88" font-size="7.5" text-anchor="start" font-weight="600" fill="#1a2233">service</text>
+<text x="86" y="130.88" font-size="7.5" text-anchor="start" font-weight="600" fill="#1a2233">means</text>
+<rect x="20" y="136" width="210" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="146.88" font-size="7.5" text-anchor="start" fill="#1a2233">P</text>
+<text x="86" y="146.88" font-size="7.5" text-anchor="start" fill="#1a2233">process</text>
+<rect x="20" y="152" width="210" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="162.88" font-size="7.5" text-anchor="start" fill="#1a2233">CW / CWR</text>
+<text x="86" y="162.88" font-size="7.5" text-anchor="start" fill="#1a2233">cooling water supply / return</text>
+<rect x="20" y="168" width="210" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="178.88" font-size="7.5" text-anchor="start" fill="#1a2233">S / C</text>
+<text x="86" y="178.88" font-size="7.5" text-anchor="start" fill="#1a2233">steam / condensate</text>
+<rect x="20" y="184" width="210" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="194.88" font-size="7.5" text-anchor="start" fill="#1a2233">IA / PA</text>
+<text x="86" y="194.88" font-size="7.5" text-anchor="start" fill="#1a2233">instrument / plant air</text>
+<rect x="20" y="200" width="210" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="210.88" font-size="7.5" text-anchor="start" fill="#1a2233">HO</text>
+<text x="86" y="210.88" font-size="7.5" text-anchor="start" fill="#1a2233">hydraulic oil</text>
+<rect x="20" y="216" width="210" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="226.88" font-size="7.5" text-anchor="start" fill="#1a2233">LO</text>
+<text x="86" y="226.88" font-size="7.5" text-anchor="start" fill="#1a2233">lube oil</text>
+<rect x="250" y="120" width="220" height="16" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="130.88" font-size="7.5" text-anchor="start" font-weight="600" fill="#1a2233">spec letter</text>
+<text x="326" y="130.88" font-size="7.5" text-anchor="start" font-weight="600" fill="#1a2233">carries</text>
+<rect x="250" y="136" width="220" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="146.88" font-size="7.5" text-anchor="start" fill="#1a2233">class A1A</text>
+<text x="326" y="146.88" font-size="7.5" text-anchor="start" fill="#1a2233">material CS, 150 lb</text>
+<rect x="250" y="152" width="220" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="162.88" font-size="7.5" text-anchor="start" fill="#1a2233">class B1A</text>
+<text x="326" y="162.88" font-size="7.5" text-anchor="start" fill="#1a2233">material CS, 300 lb</text>
+<rect x="250" y="168" width="220" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="178.88" font-size="7.5" text-anchor="start" fill="#1a2233">class D1S</text>
+<text x="326" y="178.88" font-size="7.5" text-anchor="start" fill="#1a2233">stainless, 150 lb</text>
+<rect x="250" y="184" width="220" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="194.88" font-size="7.5" text-anchor="start" fill="#1a2233">IH / IC / IP</text>
+<text x="326" y="194.88" font-size="7.5" text-anchor="start" fill="#1a2233">heat / cold / personnel</text>
+<rect x="250" y="200" width="220" height="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="256" y="210.88" font-size="7.5" text-anchor="start" fill="#1a2233">ET / ST</text>
+<text x="326" y="210.88" font-size="7.5" text-anchor="start" fill="#1a2233">electric / steam traced</text>
+<text x="250" y="272" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">The spec letter is the one to check: it sets gasket, bolting and rating.</text>
+</svg>

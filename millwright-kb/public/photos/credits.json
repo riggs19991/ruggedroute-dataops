@@ -1422,5 +1422,149 @@
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "commons",
   "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AGroup%20PSL%20NBVP%20SG.rgb.100x100.jpg"
+ },
+ "drawings/seattle-blueprint.jpg": {
+  "title": "Improvement of Third Avenue et al Lighting System, Seattle, July 1927 (MOHAI 13399).jpg",
+  "author": "City of Seattle, Engineering Department",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AImprovement%20of%20Third%20Avenue%20et%20al%20Lighting%20System%2C%20Seattle%2C%20July%201927%20(MOHAI%2013399).jpg"
+ },
+ "drawings/trade-school-drawing.jpg": {
+  "title": "Mechanical drawing for trade schools (1909) (14579183748).jpg",
+  "author": "Internet Archive Book Images",
+  "license": "No restrictions",
+  "licenseUrl": "https://www.flickr.com/commons/usage/",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMechanical%20drawing%20for%20trade%20schools%20(1909)%20(14579183748).jpg"
+ },
+ "drawings/machine-drawing-1867.jpg": {
+  "title": "Machine drawing; a practical guide to the standard methods of graphical representation of machines, including complete detail drawings of a duplex pump and of a direct-current generator (1914) (14590872460).jpg",
+  "author": "Griffin, Charles Lewis, 1867-; Adams, Charles Clyde, 1882- joint author",
+  "license": "No restrictions",
+  "licenseUrl": "https://www.flickr.com/commons/usage/",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMachine%20drawing%3B%20a%20practical%20guide%20to%20the%20standard%20methods%20of%20graphical%20representation%20of%20machines%2C%20including%20complete%20detail%20drawings%20of%20a%20duplex%20pump%20and%20of%20a%20direct-current%20generator%20(1914)%20(14590872460).jpg"
+ },
+ "drawings/pid-sheet.jpg": {
+  "title": "P&ID.JPG",
+  "author": "Ub",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AP%26ID.JPG"
+ },
+ "drawings/process-diagram-sample.jpg": {
+  "title": "RI Sample ISO.png",
+  "author": "Geichler",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ARI%20Sample%20ISO.png"
+ },
+ "drawings/pid-schema.jpg": {
+  "title": "Schéma P&ID.jpg",
+  "author": "Evinfo",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASch%C3%A9ma%20P%26ID.jpg"
+ },
+ "drawings/control-room-pid.jpg": {
+  "title": "Blue Grass Chemical Agent-Destruction Pilot Plant Piping Designer (28947777487).jpg",
+  "author": "PEO ACWA",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ABlue%20Grass%20Chemical%20Agent-Destruction%20Pilot%20Plant%20Piping%20Designer%20(28947777487).jpg"
+ },
+ "drawings/piping-isometric.jpg": {
+  "title": "Rohrleitungsisometrie.png",
+  "author": "Uhsambara",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ARohrleitungsisometrie.png"
+ },
+ "drawings/pipe-spool-shop.jpg": {
+  "title": "Typical Pipe Spool Workshop.jpg",
+  "author": "Belle Tong",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ATypical%20Pipe%20Spool%20Workshop.jpg"
+ },
+ "drawings/electricians-panel.jpg": {
+  "title": "Blue Grass Chemical Agent-Destruction Pilot Plant Control and Support Building (10476538264).jpg",
+  "author": "PEO ACWA",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ABlue%20Grass%20Chemical%20Agent-Destruction%20Pilot%20Plant%20Control%20and%20Support%20Building%20(10476538264).jpg"
+ },
+ "drawings/load-sensing-schematic.jpg": {
+  "title": "Load sensing b.JPG",
+  "author": "Christianhydraulique",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ALoad%20sensing%20b.JPG"
+ },
+ "drawings/din-rail-devices.jpg": {
+  "title": "Модульные блоки защиты российских брендов.jpg",
+  "author": "Retired electrician",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A%D0%9C%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%20%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D1%8B%20%D1%80%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D1%85%20%D0%B1%D1%80%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2.jpg"
+ },
+ "drawings/pushbutton-panel.jpg": {
+  "title": "Dülmen, Kirchspiel, ehem. Sondermunitionslager Visbeck, Beobachtungsturm der US Army -- 2022 -- 4450.jpg",
+  "author": "Dietmar Rabich",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AD%C3%BClmen%2C%20Kirchspiel%2C%20ehem.%20Sondermunitionslager%20Visbeck%2C%20Beobachtungsturm%20der%20US%20Army%20--%202022%20--%204450.jpg"
+ },
+ "drawings/overload-relay.jpg": {
+  "title": "Motorschutzrelais.jpg",
+  "author": "Mik81",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AMotorschutzrelais.jpg"
+ },
+ "drawings/motor-protective-breaker.jpg": {
+  "title": "EATON PKZMO-4 motor protective circuit breaker.JPG",
+  "author": "Dmitry G",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AEATON%20PKZMO-4%20motor%20protective%20circuit%20breaker.JPG"
+ },
+ "drawings/foundation-formwork.jpg": {
+  "title": "Foundation-M2325.jpg",
+  "author": "No machine-readable author provided. Fg2 assumed (based on copyright claims).",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AFoundation-M2325.jpg"
+ },
+ "drawings/foundation-drawing.jpg": {
+  "title": "USS Chattanooga (C-16)- Foundation for Ice Machine - NARA - 75841094.jpg",
+  "author": "Unknown authorUnknown author or not provided",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AUSS%20Chattanooga%20(C-16)-%20Foundation%20for%20Ice%20Machine%20-%20NARA%20-%2075841094.jpg"
+ },
+ "drawings/cmm-inspection.jpg": {
+  "title": "5 Axis Scanning Coordinate Measurement Machine (CMM).png",
+  "author": "AB Technology (Newark) Ltd.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "commons",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A5%20Axis%20Scanning%20Coordinate%20Measurement%20Machine%20(CMM).png"
  }
 }

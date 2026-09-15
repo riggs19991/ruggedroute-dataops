@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 318" width="500" height="318" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Bubbles and where the instrument lives</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="318" fill="#ffffff"/>
+<rect x="14" y="30" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="70" cy="59" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="70" y="58" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">PI</text>
+<text x="70" y="68" font-size="7.5" text-anchor="middle" fill="#1a2233">102</text>
+<text x="70" y="96" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">field mounted</text>
+<text x="70" y="108" font-size="8.2" text-anchor="middle" fill="#5b6577">plain circle, no line</text>
+<rect x="132" y="30" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="188" cy="59" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="174" y1="59" x2="202" y2="59" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="188" y="56" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">PIC</text>
+<text x="188" y="68" font-size="7.5" text-anchor="middle" fill="#1a2233">102</text>
+<text x="188" y="96" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">main panel</text>
+<text x="188" y="108" font-size="8.2" text-anchor="middle" fill="#5b6577">one solid line</text>
+<rect x="250" y="30" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="306" cy="59" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="292" y1="59" x2="320" y2="59" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="3 2" stroke-linecap="round"/>
+<text x="306" y="56" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">PY</text>
+<text x="306" y="68" font-size="7.5" text-anchor="middle" fill="#1a2233">102</text>
+<text x="306" y="96" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">behind the panel</text>
+<text x="306" y="108" font-size="8.2" text-anchor="middle" fill="#5b6577">dashed line: not visible</text>
+<rect x="368" y="30" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="424" cy="59" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="410" y1="57.5" x2="438" y2="57.5" stroke="#1a2233" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="410" y1="60.5" x2="438" y2="60.5" stroke="#1a2233" stroke-width="1.1" stroke-linecap="round"/>
+<text x="424" y="56" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">PI</text>
+<text x="424" y="68" font-size="7.5" text-anchor="middle" fill="#1a2233">102</text>
+<text x="424" y="96" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">local panel</text>
+<text x="424" y="108" font-size="8.2" text-anchor="middle" fill="#5b6577">two lines: field panel</text>
+<rect x="14" y="120" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<rect x="55" y="134" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="70" cy="149" r="13" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="57" y1="149" x2="83" y2="149" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="70" y="146" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">FIC</text>
+<text x="70" y="158" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<text x="70" y="186" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">shared display (DCS)</text>
+<text x="70" y="198" font-size="8.2" text-anchor="middle" fill="#5b6577">circle in a square</text>
+<rect x="132" y="120" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<path d="M175,149 L181.5,136 L194.5,136 L201,149 L194.5,162 L181.5,162 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="188" y="148" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">FY</text>
+<text x="188" y="158" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<text x="188" y="186" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">computer function</text>
+<text x="188" y="198" font-size="8.2" text-anchor="middle" fill="#5b6577">hexagon</text>
+<rect x="250" y="120" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<rect x="291" y="134" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M306,136 L319,149 L306,162 L293,149 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="306" y="148" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">FSL</text>
+<text x="306" y="158" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<text x="306" y="186" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">PLC function</text>
+<text x="306" y="198" font-size="8.2" text-anchor="middle" fill="#5b6577">diamond in a square</text>
+<rect x="368" y="120" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<path d="M424,135 L438,149 L424,163 L410,149 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="424" y="153" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">I-3</text>
+<text x="424" y="186" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">interlock</text>
+<text x="424" y="198" font-size="8.2" text-anchor="middle" fill="#5b6577">diamond alone: logic I-3</text>
+<rect x="14" y="210" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="40" y1="247" x2="100" y2="247" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="68" y1="240" x2="68" y2="254" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="72" y1="240" x2="72" y2="254" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="70" y1="240" x2="70" y2="233" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<circle cx="70" cy="221" r="11" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="70" y="220" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">FE</text>
+<text x="70" y="230" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<text x="70" y="276" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">primary element</text>
+<text x="70" y="288" font-size="8.2" text-anchor="middle" fill="#5b6577">FE on the line</text>
+<rect x="132" y="210" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="166" cy="239" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="166" y="238" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">FT</text>
+<text x="166" y="248" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<rect x="196" y="225" width="28" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="210" cy="239" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="198" y1="239" x2="222" y2="239" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="210" y="236" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">FIC</text>
+<text x="210" y="248" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<line x1="178" y1="239" x2="196" y2="239" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="5 3" stroke-linecap="round"/>
+<text x="188" y="276" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">one loop, two bubbles</text>
+<text x="188" y="288" font-size="8.2" text-anchor="middle" fill="#5b6577">same number = same loop</text>
+<rect x="250" y="210" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="276" y1="249" x2="296" y2="249" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M297,242.7 L315,255.3 L315,242.7 L297,255.3 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="306" cy="249" r="2.4" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="306" y1="241" x2="306" y2="226" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<path d="M294,226 a12,9 0 0 1 24,0 Z" fill="none" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="316" y1="249" x2="336" y2="249" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="324" y="233" font-size="6.5" text-anchor="start" fill="#1a2233"><tspan x="324" dy="0">FCV</tspan><tspan x="324" dy="8.125">104</tspan></text>
+<text x="306" y="276" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">valve tag</text>
+<text x="306" y="288" font-size="8.2" text-anchor="middle" fill="#5b6577">FCV: valve of loop 104</text>
+<rect x="368" y="210" width="112" height="84" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<rect x="409" y="224" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="424" cy="239" r="13" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="411" y1="239" x2="437" y2="239" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="424" y="236" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">TI</text>
+<text x="424" y="248" font-size="7.5" text-anchor="middle" fill="#1a2233">210</text>
+<text x="424" y="265" font-size="7" text-anchor="middle" fill="#1a2233">1-8</text>
+<text x="424" y="276" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">multi-point (shared)</text>
+<text x="424" y="288" font-size="8.2" text-anchor="middle" fill="#5b6577">suffix or range: 8 points</text>
+<text x="250" y="310" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">No line = out in the field with you; a line = in the control room.</text>
+</svg>

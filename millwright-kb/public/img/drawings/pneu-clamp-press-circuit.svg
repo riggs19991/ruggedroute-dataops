@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 310" width="500" height="310" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Pneumatic clamp and press circuit</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="310" fill="#ffffff"/>
+<text x="250" y="18" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Clamp, then press: the schematic as drawn at rest</text>
+<circle cx="30" cy="262" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M26,258 L34,258 L30,266 Z" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="38" y1="262" x2="46" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="56" y="246" width="48" height="32" fill="#ffffff" stroke="#1a2233" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="56" y1="262" x2="46" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="104" y1="262" x2="114" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M68,252 L80,262 L68,272 L56,262 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="80" y1="270" x2="80" y2="254" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round" marker-end="url(#arr)"/>
+<path d="M92,252 L104,262 L92,272 L80,262 Z" fill="none" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="80" y="290" font-size="8.5" text-anchor="middle" fill="#1a2233">0Z1 FRL, 80 psi</text>
+<line x1="114" y1="262" x2="330" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="135" cy="262" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<circle cx="240.7" cy="262" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<rect x="120" y="177" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="126" y1="203" x2="126" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="135" y1="203" x2="135" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="144" y1="203" x2="144" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="130.5" y1="177" x2="130.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="139.5" y1="177" x2="139.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="135" y1="203" x2="139.5" y2="177" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="130.5" y1="177" x2="126" y2="203" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="139" y1="195" x2="149" y2="195" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<rect x="150" y="177" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="156" y1="203" x2="156" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="165" y1="203" x2="165" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="174" y1="203" x2="174" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="160.5" y1="177" x2="160.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="169.5" y1="177" x2="169.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="165" y1="203" x2="160.5" y2="177" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="169.5" y1="177" x2="174" y2="203" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="151" y1="195" x2="161" y2="195" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<rect x="149" y="167" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="149" y="204" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="102" y="182" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="102" y1="198" x2="118" y2="182" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M182,190 l3,-6 l3,12 l3,-12 l3,12 l3,-12 l3,6" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="130.5" y="166" font-size="7.5" text-anchor="middle" fill="#1a2233">4</text>
+<text x="139.5" y="166" font-size="7.5" text-anchor="middle" fill="#1a2233">2</text>
+<text x="118" y="217" font-size="7.5" text-anchor="middle" fill="#1a2233">5</text>
+<text x="135" y="224" font-size="7.5" text-anchor="middle" fill="#1a2233">1</text>
+<text x="152" y="217" font-size="7.5" text-anchor="middle" fill="#1a2233">3</text>
+<path d="M121,211 L131,211 L126,220 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M139,211 L149,211 L144,220 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="135" y="236" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">1V1</text>
+<line x1="135" y1="211" x2="135" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<text x="108" y="172" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">Y1</text>
+<rect x="115" y="61" width="60" height="18" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="124" y="61" width="5" height="18" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="129" y1="70" x2="197" y2="70" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="109" y1="67" x2="109" y2="73" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<text x="145" y="56" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">1A clamp</text>
+<line x1="130.5" y1="169" x2="130.5" y2="120" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="130.5" y1="120" x2="119" y2="120" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="119" y1="120" x2="119" y2="79" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="139.5" y1="169" x2="139.5" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="139.5" y1="130" x2="171" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="171" y1="130" x2="171" y2="79" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="234" y="59" width="24" height="22" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="240.72" y1="81" x2="240.72" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="251.28" y1="81" x2="251.28" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="246" y1="59" x2="246" y2="51" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="235.72" y1="73" x2="245.72" y2="73" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="246" y1="59" x2="251.28" y2="81" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="258" y="59" width="24" height="22" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="264.72" y1="81" x2="264.72" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="275.28" y1="81" x2="275.28" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="270" y1="59" x2="270" y2="51" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="264.72" y1="81" x2="270" y2="59" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="270.28" y1="73" x2="280.28" y2="73" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<rect x="257" y="49" width="26" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="257" y="82" width="26" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<line x1="232" y1="70" x2="224" y2="70" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="224" y1="62" x2="224" y2="78" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="220" cy="70" r="4" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M284,70 l3,-6 l3,12 l3,-12 l3,12 l3,-12 l3,6" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="284" y="100" font-size="8.5" text-anchor="start" font-weight="700" fill="#1a2233">1S2</text>
+<text x="246" y="42" font-size="7.5" text-anchor="middle" fill="#1a2233">2</text>
+<text x="233" y="97" font-size="7.5" text-anchor="start" fill="#1a2233">1</text>
+<text x="255" y="105" font-size="7.5" text-anchor="start" fill="#1a2233">3</text>
+<line x1="240.7" y1="89" x2="240.7" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M246.3,89 L256.3,89 L251.3,98 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="197" y1="72" x2="214" y2="72" stroke="#1a2233" stroke-width="1" stroke-dasharray="2 2" stroke-linecap="round"/>
+<line x1="246" y1="51" x2="246" y2="36" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="246" y1="36" x2="289" y2="36" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="289" y1="36" x2="289" y2="190" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<text x="284" y="150" font-size="7.5" text-anchor="end" fill="#1a2233">pilot 14</text>
+<rect x="315" y="177" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="321" y1="203" x2="321" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="330" y1="203" x2="330" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="339" y1="203" x2="339" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="325.5" y1="177" x2="325.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="334.5" y1="177" x2="334.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="330" y1="203" x2="334.5" y2="177" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="325.5" y1="177" x2="321" y2="203" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="334" y1="195" x2="344" y2="195" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<rect x="345" y="177" width="30" height="26" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="351" y1="203" x2="351" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="360" y1="203" x2="360" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="369" y1="203" x2="369" y2="211" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="355.5" y1="177" x2="355.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="364.5" y1="177" x2="364.5" y2="169" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="360" y1="203" x2="355.5" y2="177" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="364.5" y1="177" x2="369" y2="203" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="346" y1="195" x2="356" y2="195" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<rect x="344" y="167" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="344" y="204" width="32" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<line x1="313" y1="182" x2="301" y2="182" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="301" y1="182" x2="301" y2="198" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="301" y1="198" x2="313" y2="198" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="301" y1="190" x2="289" y2="190" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<path d="M377,190 l3,-6 l3,12 l3,-12 l3,12 l3,-12 l3,6" fill="none" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="325.5" y="166" font-size="7.5" text-anchor="middle" fill="#1a2233">4</text>
+<text x="334.5" y="166" font-size="7.5" text-anchor="middle" fill="#1a2233">2</text>
+<text x="313" y="217" font-size="7.5" text-anchor="middle" fill="#1a2233">5</text>
+<text x="330" y="224" font-size="7.5" text-anchor="middle" fill="#1a2233">1</text>
+<text x="347" y="217" font-size="7.5" text-anchor="middle" fill="#1a2233">3</text>
+<path d="M316,211 L326,211 L321,220 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M334,211 L344,211 L339,220 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="330" y="236" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">2V1</text>
+<line x1="330" y1="211" x2="330" y2="262" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="310" y="61" width="60" height="18" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="319" y="61" width="5" height="18" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="324" y1="70" x2="392" y2="70" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="304" y1="67" x2="304" y2="73" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<text x="340" y="56" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">2A press</text>
+<line x1="325.5" y1="169" x2="325.5" y2="120" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="325.5" y1="120" x2="314" y2="120" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="314" y1="120" x2="314" y2="79" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="334.5" y1="169" x2="334.5" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="334.5" y1="130" x2="366" y2="130" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="366" y1="130" x2="366" y2="79" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<text x="420" y="120" font-size="9" text-anchor="start" fill="#5b6577"><tspan x="420" dy="0">read at rest:</tspan><tspan x="420" dy="11.25">both rods in,</tspan><tspan x="420" dy="11.25">ports 2 live</tspan></text>
+<text x="420" y="200" font-size="9" text-anchor="start" fill="#5b6577"><tspan x="420" dy="0">Y1 on: 1A out;</tspan><tspan x="420" dy="11.25">1A hits 1S2;</tspan><tspan x="420" dy="11.25">2V1 shifts;</tspan><tspan x="420" dy="11.25">2A out</tspan></text>
+<text x="250" y="302" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Number the parts, find the supply, then follow one signal at a time.</text>
+</svg>

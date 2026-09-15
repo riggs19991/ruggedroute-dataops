@@ -106,3 +106,6 @@ Give them: the machine and the tag, what the HMI says, which LEDs you saw on and
 - [Conveyor safety and guarding (safety switches)](/article/conveyor-safety-and-guarding)
 - [Blueprint reading (P&ID and instrument tags)](/article/blueprint-reading-for-millwrights)
 - [Vibration basics and ISO severity (vibration transmitters)](/article/vibration-basics-and-iso-severity)
+- [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
+- [Electrical symbols: NEMA and IEC](/article/electrical-symbols-nema-and-iec)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)

@@ -131,3 +131,5 @@ A proportional or servo system with feedback will do exactly what the loop deman
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Hydraulic fluids: types and compatibility (varnish)](/article/hydraulic-fluids-types-and-compatibility)
 - [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)

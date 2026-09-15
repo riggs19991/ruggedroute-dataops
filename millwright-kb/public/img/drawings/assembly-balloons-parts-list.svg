@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Assembly drawing with balloons</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<rect x="60" y="170" width="200" height="30" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M90,170 a70,70 0 0 1 140,0 Z" fill="#cbd5e1" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="90" y1="170" x2="230" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="160" cy="150" r="36" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="160" cy="150" r="26" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="160" cy="150" r="16" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="96" y="100" width="12" height="20" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="212" y="100" width="12" height="20" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="94" y="96" width="16" height="5" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="210" y="96" width="16" height="5" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="80" cy="185" r="5" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="240" cy="185" r="5" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="160" y="226" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">PILLOW BLOCK, 2 IN BORE</text>
+<line x1="70" y1="192" x2="30" y2="236" stroke="#1a2233" stroke-width="0.8" stroke-linecap="round" marker-end="url(#arr)"/>
+<circle cx="30" cy="236" r="10" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="30" y="239.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">1</text>
+<line x1="150" y1="104" x2="120" y2="50" stroke="#1a2233" stroke-width="0.8" stroke-linecap="round" marker-end="url(#arr)"/>
+<circle cx="120" cy="50" r="10" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="120" y="53.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">2</text>
+<line x1="160" y1="150" x2="250" y2="100" stroke="#1a2233" stroke-width="0.8" stroke-linecap="round" marker-end="url(#arr)"/>
+<circle cx="250" cy="100" r="10" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="103.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">3</text>
+<line x1="160" y1="130" x2="250" y2="60" stroke="#1a2233" stroke-width="0.8" stroke-linecap="round" marker-end="url(#arr)"/>
+<circle cx="250" cy="60" r="10" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="63.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">4</text>
+<line x1="218" y1="100" x2="280" y2="140" stroke="#1a2233" stroke-width="0.8" stroke-linecap="round" marker-end="url(#arr)"/>
+<circle cx="280" cy="140" r="10" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="280" y="143.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">5</text>
+<rect x="300" y="40" width="186" height="18" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="52.24" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">ITEM</text>
+<text x="336" y="52.24" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">QTY</text>
+<text x="362" y="52.24" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">PART NO</text>
+<text x="422" y="52.24" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">DESCRIPTION</text>
+<rect x="300" y="58" width="186" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="70.24" font-size="7" text-anchor="start" fill="#1a2233">1</text>
+<text x="336" y="70.24" font-size="7" text-anchor="start" fill="#1a2233">1</text>
+<text x="362" y="70.24" font-size="7" text-anchor="start" fill="#1a2233">PB-200-B</text>
+<text x="422" y="70.24" font-size="7" text-anchor="start" fill="#1a2233">base, cast iron</text>
+<rect x="300" y="76" width="186" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="88.24" font-size="7" text-anchor="start" fill="#1a2233">2</text>
+<text x="336" y="88.24" font-size="7" text-anchor="start" fill="#1a2233">1</text>
+<text x="362" y="88.24" font-size="7" text-anchor="start" fill="#1a2233">PB-200-C</text>
+<text x="422" y="88.24" font-size="7" text-anchor="start" fill="#1a2233">cap, cast iron</text>
+<rect x="300" y="94" width="186" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="106.24" font-size="7" text-anchor="start" fill="#1a2233">3</text>
+<text x="336" y="106.24" font-size="7" text-anchor="start" fill="#1a2233">1</text>
+<text x="362" y="106.24" font-size="7" text-anchor="start" fill="#1a2233">22212 EK</text>
+<text x="422" y="106.24" font-size="7" text-anchor="start" fill="#1a2233">spherical roller brg</text>
+<rect x="300" y="112" width="186" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="124.24" font-size="7" text-anchor="start" fill="#1a2233">4</text>
+<text x="336" y="124.24" font-size="7" text-anchor="start" fill="#1a2233">1</text>
+<text x="362" y="124.24" font-size="7" text-anchor="start" fill="#1a2233">H-312</text>
+<text x="422" y="124.24" font-size="7" text-anchor="start" fill="#1a2233">adapter sleeve</text>
+<rect x="300" y="130" width="186" height="18" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="306" y="142.24" font-size="7" text-anchor="start" fill="#1a2233">5</text>
+<text x="336" y="142.24" font-size="7" text-anchor="start" fill="#1a2233">2</text>
+<text x="362" y="142.24" font-size="7" text-anchor="start" fill="#1a2233">1/2-13 x 2</text>
+<text x="422" y="142.24" font-size="7" text-anchor="start" fill="#1a2233">cap bolt, gr 5</text>
+<text x="300" y="172" font-size="8" text-anchor="start" fill="#5b6577"><tspan x="300" dy="0">balloon = item number, not part number;</tspan><tspan x="300" dy="10">the list gives the part number to order</tspan></text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Read the balloon, find the row: item, quantity, part number, material.</text>
+</svg>

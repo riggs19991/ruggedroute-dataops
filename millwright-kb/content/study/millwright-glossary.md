@@ -19,10 +19,11 @@ Search this page with your browser's find function, or use the app search box wi
 - **Adapter sleeve**: a tapered, slotted sleeve with a locknut that clamps a tapered-bore bearing onto a plain shaft.
 - **Affinity laws**: the rules that flow varies with pump speed, head with speed squared and power with speed cubed.
 - **AGMA**: American Gear Manufacturers Association; publishes gear ratings, service factors and lubricant standards.
-- **Angularity**: shaft misalignment where the centrelines meet at an angle, expressed in mils per inch or degrees.
 - **Anchor bolt**: bolt cast or set into concrete to hold a base down; needs free stretch length to stay tight.
+- **Angularity**: shaft misalignment where the centrelines meet at an angle, expressed in mils per inch or degrees.
 - **Arc blow**: deflection of a DC welding arc by magnetic fields, worst near the ends of a joint and at the work clamp.
 - **Arc flash**: the explosive release of energy from an electrical fault, rated in cal/cm² for PPE selection.
+- **As-built**: a drawing revised after installation to show what was actually built, the one to trust on an old plant.
 - **Axial**: along the shaft centreline. Axial float is end-to-end movement of a shaft in its bearings.
 
 ## B
@@ -30,6 +31,7 @@ Search this page with your browser's find function, or use the app search box wi
 - **Babbitt**: soft white-metal bearing alloy poured or bonded into sleeve bearings.
 - **Backlash**: the clearance between meshing gear teeth measured at the pitch line.
 - **Base metal**: the material being welded or cut.
+- **Basic dimension**: a boxed, theoretically exact dimension on a GD&amp;T drawing; the tolerance comes from the feature control frame, not from the box.
 - **Basket hitch**: a sling passed under the load with both ends on the hook.
 - **Bearing housing**: the casting that holds a bearing; pillow block, flange block or take-up.
 - **BEP (best efficiency point)**: the flow at which a pump is most efficient and its radial loads are lowest.
@@ -38,6 +40,7 @@ Search this page with your browser's find function, or use the app search box wi
 - **Bore**: the inside diameter of a bearing, sheave, hub or cylinder.
 - **BPFO, BPFI, BSF, FTF**: bearing defect frequencies for outer race, inner race, rolling element and cage.
 - **Brinelling**: indentation of a bearing raceway by static overload or hammer blows through the rolling elements (false brinelling is fretting wear from vibration while stationary).
+- **Bubble (instrument)**: the circle on a P&amp;ID that carries an instrument tag; its shape and the line across it say whether it lives in the field, on the panel or in the DCS.
 - **Bushing**: a removable sleeve bearing, or the tapered hub (QD, taper-lock) that fixes a sheave to a shaft.
 
 ## C
@@ -46,20 +49,23 @@ Search this page with your browser's find function, or use the app search box wi
 - **Cartridge valve**: a complete hydraulic valve that screws (or slips) into a machined cavity in a manifold block; sealed by O-rings on the cavity steps.
 - **Case drain**: the line that returns internal leakage from a piston pump or motor case to tank; its flow measures wear and it must never be restricted.
 - **Cavitation**: vapour bubbles forming in a pump or hydraulic pump inlet at low pressure and collapsing violently downstream.
-- **Charge pump**: the small pump on a hydrostatic transmission that keeps the closed loop full, supplies the controls and sets the charge pressure.
-- **Code 61 / Code 62**: the SAE 4-bolt hydraulic flange standards for 3,000 and 6,000 psi; same nominal size, different bolt spacing, not interchangeable.
-- **Counterbalance valve**: a load-holding valve in a cylinder or motor line that holds a load against gravity and opens only as far as pilot pressure from the other line asks.
+- **Centre condition**: what the middle box of a three-position directional valve connects when the spool is centred: closed, open, tandem or float.
 - **Centre of gravity**: the point where a load's weight acts; the hook must be above it for a level lift.
+- **Charge pump**: the small pump on a hydrostatic transmission that keeps the closed loop full, supplies the controls and sets the charge pressure.
 - **Choker hitch**: a sling passed around the load and through its own eye, capacity about 75 to 80 percent of vertical.
 - **Clearance (bearing)**: the internal play between rings and rolling elements; C2 less than normal, CN normal, C3 and C4 greater.
+- **Code 61 / Code 62**: the SAE 4-bolt hydraulic flange standards for 3,000 and 6,000 psi; same nominal size, different bolt spacing, not interchangeable.
 - **Cold lap**: weld metal that lies on the base metal without fusing; overlap at the toe.
 - **Contact pattern**: the marking-compound footprint showing where gear teeth touch; used to set bevel and hypoid gears.
+- **Contactor**: a heavy electromagnetic switch that carries motor current, closed by a coil in the control circuit; the starter is a contactor plus an overload relay.
+- **Counterbalance valve**: a load-holding valve in a cylinder or motor line that holds a load against gravity and opens only as far as pilot pressure from the other line asks.
 - **Coupling**: the device joining two shafts; rigid, elastomeric (jaw, tire), grid, gear or disc.
 - **Crest and root**: the top and bottom of a thread or gear tooth.
 - **Cylinder (hydraulic)**: a linear actuator; force equals pressure times piston area.
 
 ## D
 
+- **Datum**: a surface, axis or point named on a drawing (A, B, C) from which GD&amp;T tolerances are measured; the part is rested on it in the order listed.
 - **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
 - **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
 - **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
@@ -78,8 +84,11 @@ Search this page with your browser's find function, or use the app search box wi
 ## F
 
 - **Face (rim-and-face)**: the axial indicator reading on the coupling face used to measure angularity.
+- **Fail position**: the state a control valve goes to when its air or power is lost: FC fail closed, FO fail open, FL fail last.
+- **Feature control frame**: the rectangular box on a drawing that states a geometric characteristic, its tolerance zone, modifiers and datums, read left to right.
 - **Feeler gauge**: a set of thin steel blades of known thickness for measuring gaps.
 - **Fillet weld**: a triangular weld joining two surfaces at roughly right angles; sized by leg length.
+- **First-angle projection**: the ISO view arrangement where the top view sits below the front view and the right view on the left; the symbol has the circles on the cone's large-end side.
 - **Fit**: the relationship between a shaft or housing size and the bearing bore or OD: interference (press), transition or clearance.
 - **Flashback**: a flame burning back into a torch, hose or regulator; stopped by a flashback arrestor.
 - **Flux**: the coating or core that shields, cleans and shapes a weld; also the slag-forming material in brazing and soldering.
@@ -88,11 +97,13 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## G
 
+- **GD&amp;T**: geometric dimensioning and tolerancing (ASME Y14.5): the symbol language that controls form, orientation, location and runout, not just size.
+- **General arrangement drawing**: the plan and elevation showing where each machine sits relative to column lines, with tags, centrelines and elevations.
 - **Gib**: an adjustable wedge or strip that takes up clearance in a slide.
 - **GMAW / FCAW / SMAW / GTAW**: gas metal arc (MIG), flux-cored arc, shielded metal arc (stick) and gas tungsten arc (TIG) welding.
 - **Gouging**: removing metal with a carbon arc and air blast, or with an oxy-fuel gouging tip.
-- **Grout**: the epoxy or cement material filling between a baseplate and its foundation.
 - **Grade (chain)**: alloy chain marking; Grade 80 and 100 are for overhead lifting.
+- **Grout**: the epoxy or cement material filling between a baseplate and its foundation.
 
 ## H
 
@@ -106,10 +117,12 @@ Search this page with your browser's find function, or use the app search box wi
 ## I
 
 - **Idler**: an unpowered roller supporting a conveyor belt: carrying, return, impact, training.
+- **IFC**: issued for construction: the status stamp that says a drawing may be built to; IFR (for review) may not.
 - **Induction heater**: an electromagnetic heater for expanding bearings and hubs before mounting.
 - **Interpass temperature**: the temperature of the weld area just before the next pass is made.
 - **ISO 4406**: the cleanliness code for hydraulic and lube oils, three numbers for three particle sizes.
 - **ISO VG**: viscosity grade of industrial oils, the kinematic viscosity in cSt at 40 °C.
+- **Isometric (piping)**: a single-line pipe drawing on a 30° grid showing every fitting, weld, valve and dimension of one line, with north at the top right.
 
 ## J
 
@@ -124,21 +137,26 @@ Search this page with your browser's find function, or use the app search box wi
 ## L
 
 - **L10 life**: the number of revolutions (or hours) that 90 percent of a group of bearings will reach.
+- **Ladder diagram**: a control schematic drawn as two vertical power rails with numbered horizontal rungs, each rung one circuit from control power to a coil or light.
 - **Lagging**: the rubber or ceramic covering on a conveyor drive pulley that increases belt friction.
 - **Laminar pattern**: see contact pattern.
 - **Lay (wire rope)**: the direction and manner in which wires and strands are twisted; regular lay or lang lay.
+- **Line number**: the code on a pipe: size, service, sequence, pipe class and insulation, such as 6"-P-1012-A1A-IH.
 - **Load sensing**: a hydraulic control in which the pump holds its outlet a fixed margin above the highest load pressure fed back on the LS line, making only the flow the valves ask for.
 - **Lockout**: isolating and locking every energy source of a machine before work on it.
 - **Logic valve**: a slip-in two-way poppet element (ISO 7368) for large flows; its cover's pilot circuit makes it a directional, check, relief or throttle function.
+- **Loop number**: the number shared by every instrument in one control loop, so PIT-101, PIC-101 and PCV-101 belong together.
 - **Low-hydrogen electrode**: E7018 and related rods whose coating is kept dry to avoid hydrogen cracking.
 
 ## M
 
 - **Magnetic base**: a switchable magnet holding a dial indicator to steel.
 - **Margin pressure**: the fixed difference (typically 200-350 psi) a load-sensing pump holds between its outlet and the LS signal.
+- **Match line**: the dashed line where a drawing stops and continues on another sheet, named on both.
 - **Mechanical seal**: a shaft seal with two lapped faces, one rotating and one stationary, riding on a thin liquid film.
 - **Micrometer**: a screw-thread gauge reading to 0.001 in (0.0001 in with a vernier) or 0.01 mm.
 - **Misalignment**: offset, angularity or both between two coupled shafts.
+- **MMC**: maximum material condition: the size at which a feature has the most material (smallest hole, largest shaft); tolerances marked with the circled M grow as the feature departs from it.
 - **Mounting distance**: the distance from the back face of a bevel pinion to the axis of its mating gear, etched on the pinion.
 
 ## N
@@ -149,19 +167,24 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## O
 
+- **Off-page connector**: the arrow-shaped symbol on a P&amp;ID or schematic that names the sheet a line continues on.
 - **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
 - **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
+- **One-line diagram**: the electrical distribution drawing that shows each circuit as a single line from the utility through transformers and switchgear to the MCC and motors.
 - **ORB / ORFS**: SAE O-ring boss (a straight-thread port fitting sealed by an O-ring at its shoulder) and O-ring face seal (a flat-faced fitting with an O-ring in its face); neither seals on the thread.
 - **Oxidizing / carburizing flame**: an oxy-fuel flame with excess oxygen or excess fuel; neutral is in between.
 
 ## P
 
+- **P&amp;ID**: piping and instrumentation diagram: the drawing that shows every line, valve, instrument, drain and connection of a process; isolations are planned from it.
 - **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
 - **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
-- **Pilot ratio**: on a counterbalance valve, how much more effective the external pilot is than the load pressure at opening it (3:1 stable, 10:1 efficient).
-- **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
+- **PFD**: process flow diagram: the simplified flow sheet with equipment, main streams and conditions, without the valves and instruments.
 - **Pillow block**: a bearing housing with a flat base and two bolt holes.
+- **Pilot line**: the long-dashed line on a fluid power schematic that carries a control pressure signal rather than working flow.
+- **Pilot ratio**: on a counterbalance valve, how much more effective the external pilot is than the load pressure at opening it (3:1 stable, 10:1 efficient).
 - **Pipe strain**: force from misfitted piping distorting a pump and shifting its shaft.
+- **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
 - **Preheat**: warming the base metal before welding to slow cooling and avoid cracking.
 - **Preload**: a deliberate negative clearance set in tapered or angular contact bearings.
 - **Pulse (welding)**: alternating high and low current to control heat, in GMAW-P and pulsed TIG.
@@ -176,22 +199,29 @@ Search this page with your browser's find function, or use the app search box wi
 - **Reference speed / limiting speed**: catalogue bearing speed ratings: thermal (reference) and mechanical (limiting).
 - **Relief valve**: a valve that limits maximum hydraulic system pressure by dumping flow to tank.
 - **Reverse dial**: alignment method using two rim indicators, one from each shaft across to the other.
+- **Revision cloud**: the scalloped outline drawn around whatever changed on a drawing, with a triangle flag carrying the revision letter.
 - **Rim reading**: the radial indicator reading on the coupling rim that measures offset.
 - **Root (weld)**: the deepest part of a weld joint; the root pass is the first pass.
+- **Rung**: one horizontal circuit line on a ladder diagram, numbered down the left margin and described in the right margin.
 - **Runout**: the total indicator reading of a surface as a shaft rotates; radial or axial (face).
 
 ## S
 
 - **Sag (indicator)**: droop of an indicator bracket under its own weight, corrected out of vertical readings.
+- **Seal-in contact**: the auxiliary contact of a starter coil wired in parallel with the start button so the coil holds itself in after the button is released.
+- **Sequence chart**: the step-displacement chart that shows each cylinder in and out against the numbered steps of a pneumatic or hydraulic cycle.
 - **Service factor**: the multiplier applied to motor power to size couplings, belts and reducers for shock and duty.
+- **Servo valve**: a two-stage electro-hydraulic valve (torque motor, flapper-nozzle or jet-pipe pilot, spool with feedback) that positions its spool from a milliamp signal; needs 3 µm filtration.
 - **Sheave**: a grooved pulley for V-belts; sprocket is the toothed wheel for chain.
 - **Shim**: a thin metal spacer under a machine foot or behind a bearing cap; stainless precut shims for alignment.
 - **Slag**: the solidified flux covering a stick or flux-cored weld; must be removed between passes.
 - **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
 - **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
 - **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
-- **Servo valve**: a two-stage electro-hydraulic valve (torque motor, flapper-nozzle or jet-pipe pilot, spool with feedback) that positions its spool from a milliamp signal; needs 3 µm filtration.
+- **Spec break**: the point on a line where the pipe class changes, marked on the P&amp;ID and iso with the two class codes.
 - **Specific gravity**: density of a liquid relative to water; converts head to pressure.
+- **Spectacle blind**: a figure-eight plate swung between flanges to give a positive isolation (solid side in) or a clear bore (open ring in).
+- **Spool**: a section of pipe with its fittings fabricated in the shop, joined to the next spool by field welds.
 - **Spreader bar**: a rigid bar that keeps sling legs vertical on wide loads.
 - **Stack (sandwich) valve**: a modular valve with the ISO 4401 face pattern bolted under a directional valve to add a check, flow control, reducing or counterbalance function to one station.
 - **Stick-out**: electrode extension from the contact tip to the arc in wire welding.
@@ -204,8 +234,11 @@ Search this page with your browser's find function, or use the app search box wi
 - **Taper (1:12)**: the standard taper of a tapered-bore bearing for adapter sleeves; 1:30 for large sphericals.
 - **Thermal growth**: expansion of a machine as it warms, which changes alignment between cold and hot.
 - **Thermal rating**: the power a gearbox can transmit continuously without overheating its oil.
+- **Third-angle projection**: the North American view arrangement where the top view sits above the front view and the right view on the right; the symbol has the circles on the cone's small-end side.
 - **TIR (total indicator reading)**: the full swing of a dial indicator over one revolution.
+- **Title block**: the box in the bottom right of a drawing with its number, title, sheet count, revision, scale and default tolerances.
 - **Torque**: turning force; hp × 63,025 ÷ rpm gives lb·in.
+- **TOS**: top of steel: an elevation callout for the top of a beam or base plate; TOC is top of concrete, TOG top of grout.
 - **Tracking**: keeping a conveyor belt centred on its pulleys and idlers.
 
 ## U
@@ -224,7 +257,9 @@ Search this page with your browser's find function, or use the app search box wi
 
 - **Weld symbol**: the drawing notation on a reference line and arrow giving weld type, size and location.
 - **WHMIS**: Workplace Hazardous Materials Information System, the Canadian labelling and SDS system.
+- **Wire number**: the number on a conductor in a control panel; it stays the same on every end of that wire and changes only across a device.
 - **Wire rope**: strands of wires around a core; classified by wire count, lay and core (fibre or IWRC).
+- **Wiring diagram**: the connection drawing that shows where each wire physically lands (terminals, devices, cables), as opposed to the schematic that shows how the circuit works.
 - **Worm gear**: a screw driving a bronze wheel at 90 degrees; high ratio, sliding contact, runs hot.
 
 ## Y
@@ -239,6 +274,8 @@ Search this page with your browser's find function, or use the app search box wi
 
 ## Related
 
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)
 - [Set Me Up for a Task](/article/set-me-up-for-a-task)
 - [Shop Reference](/article/shop-reference-tables)
 - [Test Yourself](/article/quiz-welding-and-cutting)

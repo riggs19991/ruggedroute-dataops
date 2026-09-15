@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 384" width="500" height="384" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>GD&amp;T characteristic symbols</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="384" fill="#ffffff"/>
+<rect x="14" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<path d="M58,60 L66,48 L82,48 L74,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="70" y="86" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">flatness</text>
+<text x="70" y="98" font-size="8.2" text-anchor="middle" fill="#5b6577">form, no datum</text>
+<rect x="132" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="176" y1="54" x2="200" y2="54" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<text x="188" y="86" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">straightness</text>
+<text x="188" y="98" font-size="8.2" text-anchor="middle" fill="#5b6577">form, no datum</text>
+<rect x="250" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="306" cy="54" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="306" y="86" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">circularity</text>
+<text x="306" y="98" font-size="8.2" text-anchor="middle" fill="#5b6577">form, no datum</text>
+<rect x="368" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="424" cy="54" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="410" y1="64" x2="416" y2="44" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="432" y1="64" x2="438" y2="44" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="424" y="86" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">cylindricity</text>
+<text x="424" y="98" font-size="8.2" text-anchor="middle" fill="#5b6577">form, no datum</text>
+<rect x="14" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<path d="M58,144 a12,12 0 0 1 24,0" fill="none" stroke="#1a2233" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="70" y="170" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">profile of a line</text>
+<text x="70" y="182" font-size="8.2" text-anchor="middle" fill="#5b6577">profile, datum optional</text>
+<rect x="132" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<path d="M176,144 a12,12 0 0 1 24,0 z" fill="none" stroke="#1a2233" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="188" y="170" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">profile of a surface</text>
+<text x="188" y="182" font-size="8.2" text-anchor="middle" fill="#5b6577">profile, datum optional</text>
+<rect x="250" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="294" y1="146" x2="318" y2="146" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="306" y1="146" x2="306" y2="128" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<text x="306" y="170" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">perpendicularity</text>
+<text x="306" y="182" font-size="8.2" text-anchor="middle" fill="#5b6577">orientation, datum</text>
+<rect x="368" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="412" y1="146" x2="436" y2="146" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="412" y1="146" x2="432" y2="130" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<text x="424" y="170" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">angularity</text>
+<text x="424" y="182" font-size="8.2" text-anchor="middle" fill="#5b6577">orientation, datum</text>
+<rect x="14" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="62" y1="232" x2="68" y2="212" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="72" y1="232" x2="78" y2="212" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<text x="70" y="254" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">parallelism</text>
+<text x="70" y="266" font-size="8.2" text-anchor="middle" fill="#5b6577">orientation, datum</text>
+<rect x="132" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="188" cy="222" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="175" y1="222" x2="201" y2="222" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="188" y1="209" x2="188" y2="235" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="188" y="254" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">position</text>
+<text x="188" y="266" font-size="8.2" text-anchor="middle" fill="#5b6577">location, datums</text>
+<rect x="250" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="306" cy="222" r="9" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="306" cy="222" r="4" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="306" y="254" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">concentricity</text>
+<text x="306" y="266" font-size="8.2" text-anchor="middle" fill="#5b6577">location (dropped 2018)</text>
+<rect x="368" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="414" y1="216" x2="434" y2="216" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="418" y1="222" x2="430" y2="222" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="414" y1="228" x2="434" y2="228" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<text x="424" y="254" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">symmetry</text>
+<text x="424" y="266" font-size="8.2" text-anchor="middle" fill="#5b6577">location (dropped 2018)</text>
+<rect x="14" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="60" y1="314" x2="74" y2="298" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="70" y="338" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">circular runout</text>
+<text x="70" y="350" font-size="8.2" text-anchor="middle" fill="#5b6577">runout, datum axis</text>
+<rect x="132" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="178" y1="314" x2="192" y2="298" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="184" y1="314" x2="198" y2="298" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="178" y1="314" x2="184" y2="314" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="188" y="338" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">total runout</text>
+<text x="188" y="350" font-size="8.2" text-anchor="middle" fill="#5b6577">runout, datum axis</text>
+<rect x="250" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<circle cx="282" cy="306" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="282" y="309.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">M</text>
+<circle cx="306" cy="306" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="306" y="309.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">L</text>
+<circle cx="330" cy="306" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="330" y="309.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">P</text>
+<text x="306" y="338" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">modifiers</text>
+<text x="306" y="350" font-size="8.2" text-anchor="middle" fill="#5b6577">MMC, LMC, projected</text>
+<rect x="368" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<text x="394" y="310" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">Ø</text>
+<text x="414" y="310" font-size="10" text-anchor="middle" font-weight="700" fill="#1a2233">SØ</text>
+<text x="436" y="310" font-size="12" text-anchor="middle" font-weight="700" fill="#1a2233">R</text>
+<text x="456" y="310" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">(  )</text>
+<text x="424" y="338" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">other symbols</text>
+<text x="424" y="350" font-size="8.2" text-anchor="middle" fill="#5b6577">dia, sphere, radius, ref</text>
+<text x="250" y="376" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Form needs no datum; orientation, location and runout are measured from one.</text>
+</svg>

@@ -111,3 +111,4 @@ Bladder life: 5-10 years, less with high cycle rates, high temperature, or a wro
 - [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
 - [Pressure and flow control valves (unloading valves)](/article/pressure-and-flow-control-valves-in-depth)
 - [Cartridge and logic valves (press manifolds)](/article/cartridge-and-logic-valves)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)

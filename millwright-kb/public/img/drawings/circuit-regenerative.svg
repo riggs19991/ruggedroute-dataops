@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="500" height="250" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Regenerative circuit</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="250" fill="#ffffff"/>
+<circle cx="60" cy="190" r="13" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<path d="M60,177 L66,188 L54,188 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="30" cy="190" r="8" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="30" y="194" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">M</text>
+<line x1="38" y1="190" x2="47" y2="190" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="60" y1="203" x2="60" y2="214" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="60" y1="214" x2="60" y2="220" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M52,214 L52,223 L68,223 L68,214" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="60" y1="177" x2="60" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="60" y1="150" x2="150" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="150" y1="150" x2="150" y2="134" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="99" y="189" width="22" height="22" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="104" y1="208" x2="104" y2="192" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="110" y1="211" x2="110" y2="219" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="110" y1="189" x2="110" y2="181" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M121,200 l6,0 l0,-17 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="123" y1="169" x2="135" y2="157" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="110" y1="217" x2="93" y2="217" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="93" y1="217" x2="93" y2="200" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="93" y1="200" x2="99" y2="200" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="110" y1="217" x2="110" y2="226" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="110" y1="226" x2="110" y2="231" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M103,226 L103,234 L117,234 L117,226" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="60" y1="200" x2="99" y2="200" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<circle cx="60" cy="160" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="60" y1="160" x2="110" y2="160" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="110" y1="160" x2="110" y2="189" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="107" y="97" width="34" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="116.52" y1="127" x2="116.52" y2="135" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="131.48" y1="127" x2="131.48" y2="135" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="116.52" y1="97" x2="116.52" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="131.48" y1="97" x2="131.48" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="116.52" y1="127" x2="116.52" y2="97" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="131.48" y1="97" x2="131.48" y2="127" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="141" y="97" width="34" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="150.52" y1="127" x2="150.52" y2="135" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="165.48" y1="127" x2="165.48" y2="135" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="150.52" y1="97" x2="150.52" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="165.48" y1="97" x2="165.48" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="160.48" y1="119" x2="170.48" y2="119" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="150.52" y1="127" x2="158" y2="108" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="158" y1="108" x2="150.52" y2="97" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="158" y1="108" x2="165.48" y2="97" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<circle cx="158" cy="108" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<rect x="175" y="97" width="34" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="184.52" y1="127" x2="184.52" y2="135" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="199.48" y1="127" x2="199.48" y2="135" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="184.52" y1="97" x2="184.52" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="199.48" y1="97" x2="199.48" y2="89" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="184.52" y1="127" x2="199.48" y2="97" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="184.52" y1="97" x2="199.48" y2="127" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="106" y="87" width="36" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="106" y="128" width="36" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="174" y="87" width="36" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="174" y="128" width="36" height="9" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="89" y="104" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="89" y1="120" x2="105" y2="104" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="211" y="104" width="16" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="211" y1="120" x2="227" y2="104" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="150.52" y="146" font-size="8.5" text-anchor="middle" fill="#1a2233">P</text>
+<text x="165.48" y="146" font-size="8.5" text-anchor="middle" fill="#1a2233">T</text>
+<text x="150.52" y="85" font-size="8.5" text-anchor="middle" fill="#1a2233">A</text>
+<text x="165.48" y="85" font-size="8.5" text-anchor="middle" fill="#1a2233">B</text>
+<line x1="160" y1="137" x2="160" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="160" y1="150" x2="200" y2="150" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="200" y1="150" x2="200" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="200" y1="170" x2="200" y2="175" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M193,170 L193,178 L207,178 L207,170" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="149" y1="87" x2="149" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="167" y1="87" x2="167" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="149" y1="60" x2="120" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="120" y1="60" x2="120" y2="46" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="167" y1="60" x2="214" y2="60" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="214" y1="60" x2="214" y2="46" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="120" y="25" width="96" height="22" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="153.6" y="25" width="5" height="22" fill="#1a2233" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="158.6" y1="36" x2="246" y2="36" stroke="#1a2233" stroke-width="3" stroke-linecap="round"/>
+<line x1="114" y1="31" x2="114" y2="41" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<line x1="140" y1="36" x2="200" y2="36" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="300" y="40" font-size="10" text-anchor="start" font-weight="600" fill="#b91c1c">fast extend</text>
+<line x1="214" y1="58" x2="190" y2="88" stroke="#0b5fa5" stroke-width="1.5" stroke-dasharray="3 2" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="226" y="80" font-size="9" text-anchor="start" fill="#0b5fa5">rod-end oil rejoins the pump flow</text>
+<rect x="268" y="100" width="206" height="20" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="274" y="113.6" font-size="9.5" text-anchor="start" font-weight="600" fill="#1a2233">Extend</text>
+<text x="324" y="113.6" font-size="9.5" text-anchor="start" font-weight="600" fill="#1a2233">Speed</text>
+<text x="402" y="113.6" font-size="9.5" text-anchor="start" font-weight="600" fill="#1a2233">Force</text>
+<rect x="268" y="120" width="206" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="274" y="133.6" font-size="9.5" text-anchor="start" fill="#1a2233">regen</text>
+<text x="324" y="133.6" font-size="9.5" text-anchor="start" fill="#1a2233">Q ÷ rod area</text>
+<text x="402" y="133.6" font-size="9.5" text-anchor="start" fill="#1a2233">p × rod area</text>
+<rect x="268" y="140" width="206" height="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="274" y="153.6" font-size="9.5" text-anchor="start" fill="#1a2233">normal</text>
+<text x="324" y="153.6" font-size="9.5" text-anchor="start" fill="#1a2233">Q ÷ cap area</text>
+<text x="402" y="153.6" font-size="9.5" text-anchor="start" fill="#1a2233">p × cap area</text>
+<text x="388" y="176" font-size="9.5" text-anchor="middle" fill="#5b6577"><tspan x="388" dy="0">a 2:1 cylinder doubles its speed and</tspan><tspan x="388" dy="11.875">halves its force in regen</tspan></text>
+<text x="250" y="242" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Regen is for the rapid approach; the press stroke shifts to full cap area.</text>
+</svg>

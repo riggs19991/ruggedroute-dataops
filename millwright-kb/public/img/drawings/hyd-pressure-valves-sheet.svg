@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 288" width="500" height="288" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Pressure control valves</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="288" fill="#ffffff"/>
+<rect x="14" y="30" width="152" height="114" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="90" y1="39" x2="90" y2="50" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="75" y="58" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="80" y1="85" x2="80" y2="61" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="90" y1="88" x2="90" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="90" y1="58" x2="90" y2="50" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M105,73 l6,0 l0,-21 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="107" y1="38" x2="119" y2="26" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="90" y1="94" x2="69" y2="94" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="69" y1="94" x2="69" y2="73" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="69" y1="73" x2="75" y2="73" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="90" y1="96" x2="90" y2="103" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="90" y1="103" x2="90" y2="107" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M84,103 L84,110 L96,110 L96,103" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="90" y="124" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">relief (direct)</text>
+<text x="90" y="136" font-size="8.2" text-anchor="middle" fill="#5b6577">in below, tank above</text>
+<rect x="172" y="30" width="152" height="114" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="248" y1="39" x2="248" y2="50" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="233" y="58" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="238" y1="85" x2="238" y2="61" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="248" y1="88" x2="248" y2="96" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="248" y1="58" x2="248" y2="50" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M263,73 l6,0 l0,-21 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="265" y1="38" x2="277" y2="26" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="248" y1="94" x2="227" y2="94" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="227" y1="94" x2="227" y2="73" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="227" y1="73" x2="233" y2="73" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="263" y1="67" x2="283" y2="67" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<text x="285" y="70" font-size="8" text-anchor="start" fill="#1a2233">vent</text>
+<line x1="248" y1="96" x2="248" y2="103" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="248" y1="103" x2="248" y2="107" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M242,103 L242,110 L254,110 L254,103" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="248" y="124" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">relief, vented</text>
+<text x="248" y="136" font-size="8.2" text-anchor="middle" fill="#5b6577">vent port unloads it</text>
+<rect x="330" y="30" width="152" height="114" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="406" y1="39" x2="406" y2="52" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="391" y="58" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="406" y1="88" x2="406" y2="58" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<path d="M421,73 l6,0 l0,-21 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="423" y1="38" x2="435" y2="26" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="406" y1="52" x2="385" y2="52" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="385" y1="52" x2="385" y2="73" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="385" y1="73" x2="391" y2="73" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="410" y1="88" x2="410" y2="94" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="410" y1="94" x2="439" y2="94" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="439" y1="94" x2="439" y2="97" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M434,94 L434,100 L444,100 L444,94" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="406" y1="88" x2="406" y2="107" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="406" y="124" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">reducing</text>
+<text x="406" y="136" font-size="8.2" text-anchor="middle" fill="#5b6577">open at rest, senses out</text>
+<rect x="14" y="150" width="152" height="114" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="90" y1="159" x2="90" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="75" y="178" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="80" y1="205" x2="80" y2="181" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="90" y1="208" x2="90" y2="216" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="90" y1="178" x2="90" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M105,193 l6,0 l0,-21 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="107" y1="158" x2="119" y2="146" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="90" y1="214" x2="69" y2="214" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="69" y1="214" x2="69" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="69" y1="193" x2="75" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="94" y1="208" x2="94" y2="214" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="94" y1="214" x2="123" y2="214" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="123" y1="214" x2="123" y2="217" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M118,214 L118,220 L128,220 L128,214" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="90" y1="216" x2="90" y2="227" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="90" y="244" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">sequence</text>
+<text x="90" y="256" font-size="8.2" text-anchor="middle" fill="#5b6577">closed until set pressure</text>
+<rect x="172" y="150" width="152" height="114" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="248" y1="159" x2="248" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="233" y="178" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="238" y1="205" x2="238" y2="181" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="248" y1="208" x2="248" y2="216" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="248" y1="178" x2="248" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M263,193 l6,0 l0,-21 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="265" y1="158" x2="277" y2="146" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="293" y1="214" x2="227" y2="214" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="227" y1="214" x2="227" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="227" y1="193" x2="233" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="248" y1="214" x2="227" y2="214" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="248" y1="216" x2="248" y2="227" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="248" y="244" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">counterbalance</text>
+<text x="248" y="256" font-size="8.2" text-anchor="middle" fill="#5b6577">external pilot, holds a load</text>
+<rect x="330" y="150" width="152" height="114" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="406" y1="159" x2="406" y2="170" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="391" y="178" width="30" height="30" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="396" y1="205" x2="396" y2="181" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="406" y1="208" x2="406" y2="216" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="406" y1="178" x2="406" y2="170" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M421,193 l6,0 l0,-21 l4,-4 l-8,-4 l8,-4 l-8,-4 l4,-4" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="423" y1="158" x2="435" y2="146" stroke="#1a2233" stroke-width="1" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="406" y1="214" x2="385" y2="214" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="385" y1="214" x2="385" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="385" y1="193" x2="391" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<line x1="385" y1="193" x2="367" y2="193" stroke="#1a2233" stroke-width="1.2" stroke-dasharray="9 4" stroke-linecap="round"/>
+<text x="365" y="196" font-size="8" text-anchor="end" fill="#1a2233">remote</text>
+<line x1="406" y1="216" x2="406" y2="223" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="406" y1="223" x2="406" y2="227" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M400,223 L400,230 L412,230 L412,223" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="406" y="244" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">unloading</text>
+<text x="406" y="256" font-size="8.2" text-anchor="middle" fill="#5b6577">remote pilot dumps pump</text>
+<text x="250" y="280" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Arrow offset = normally closed, arrow through = normally open.</text>
+</svg>

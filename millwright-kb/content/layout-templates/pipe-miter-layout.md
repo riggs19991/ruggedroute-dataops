@@ -128,3 +128,4 @@ For a run with a tee: subtract the tee's centre-to-end (C) on that side. Always 
 - [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
 - [Layout tools and scribing](/article/layout-tools-and-scribing)
 - [Blueprint reading (isometrics)](/article/blueprint-reading-for-millwrights)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)

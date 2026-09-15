@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340" width="500" height="340" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>ISA succeeding letters</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="340" fill="#ffffff"/>
+<rect x="20" y="20" width="460" height="13" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="28.84" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">letter</text>
+<text x="66" y="28.84" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">readout / passive</text>
+<text x="216" y="28.84" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">output function</text>
+<text x="386" y="28.84" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">modifier</text>
+<rect x="20" y="33" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="41.84" font-size="7" text-anchor="start" fill="#1a2233">A</text>
+<text x="66" y="41.84" font-size="7" text-anchor="start" fill="#1a2233">alarm</text>
+<text x="216" y="41.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="41.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="46" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="54.84" font-size="7" text-anchor="start" fill="#1a2233">B</text>
+<text x="66" y="54.84" font-size="7" text-anchor="start" fill="#1a2233">user's choice</text>
+<text x="216" y="54.84" font-size="7" text-anchor="start" fill="#1a2233">user's choice</text>
+<text x="386" y="54.84" font-size="7" text-anchor="start" fill="#1a2233">user's choice</text>
+<rect x="20" y="59" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="67.84" font-size="7" text-anchor="start" fill="#1a2233">C</text>
+<text x="66" y="67.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="67.84" font-size="7" text-anchor="start" fill="#1a2233">control</text>
+<text x="386" y="67.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="72" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="80.84" font-size="7" text-anchor="start" fill="#1a2233">E</text>
+<text x="66" y="80.84" font-size="7" text-anchor="start" fill="#1a2233">sensor, primary element</text>
+<text x="216" y="80.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="80.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="85" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="93.84" font-size="7" text-anchor="start" fill="#1a2233">G</text>
+<text x="66" y="93.84" font-size="7" text-anchor="start" fill="#1a2233">glass, gauge, viewing</text>
+<text x="216" y="93.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="93.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="98" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="106.84" font-size="7" text-anchor="start" fill="#1a2233">H</text>
+<text x="66" y="106.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="106.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="106.84" font-size="7" text-anchor="start" fill="#1a2233">high</text>
+<rect x="20" y="111" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="119.84" font-size="7" text-anchor="start" fill="#1a2233">I</text>
+<text x="66" y="119.84" font-size="7" text-anchor="start" fill="#1a2233">indicate</text>
+<text x="216" y="119.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="119.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="124" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="132.84" font-size="7" text-anchor="start" fill="#1a2233">K</text>
+<text x="66" y="132.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="132.84" font-size="7" text-anchor="start" fill="#1a2233">control station</text>
+<text x="386" y="132.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="137" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="145.84" font-size="7" text-anchor="start" fill="#1a2233">L</text>
+<text x="66" y="145.84" font-size="7" text-anchor="start" fill="#1a2233">light</text>
+<text x="216" y="145.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="145.84" font-size="7" text-anchor="start" fill="#1a2233">low</text>
+<rect x="20" y="150" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="158.84" font-size="7" text-anchor="start" fill="#1a2233">M</text>
+<text x="66" y="158.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="158.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="158.84" font-size="7" text-anchor="start" fill="#1a2233">middle, intermediate</text>
+<rect x="20" y="163" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="171.84" font-size="7" text-anchor="start" fill="#1a2233">N</text>
+<text x="66" y="171.84" font-size="7" text-anchor="start" fill="#1a2233">user's choice</text>
+<text x="216" y="171.84" font-size="7" text-anchor="start" fill="#1a2233">user's choice</text>
+<text x="386" y="171.84" font-size="7" text-anchor="start" fill="#1a2233">user's choice</text>
+<rect x="20" y="176" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="184.84" font-size="7" text-anchor="start" fill="#1a2233">O</text>
+<text x="66" y="184.84" font-size="7" text-anchor="start" fill="#1a2233">orifice, restriction</text>
+<text x="216" y="184.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="184.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="189" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="197.84" font-size="7" text-anchor="start" fill="#1a2233">P</text>
+<text x="66" y="197.84" font-size="7" text-anchor="start" fill="#1a2233">point (test connection)</text>
+<text x="216" y="197.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="197.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="202" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="210.84" font-size="7" text-anchor="start" fill="#1a2233">R</text>
+<text x="66" y="210.84" font-size="7" text-anchor="start" fill="#1a2233">record</text>
+<text x="216" y="210.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="210.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="215" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="223.84" font-size="7" text-anchor="start" fill="#1a2233">S</text>
+<text x="66" y="223.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="223.84" font-size="7" text-anchor="start" fill="#1a2233">switch</text>
+<text x="386" y="223.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="228" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="236.84" font-size="7" text-anchor="start" fill="#1a2233">T</text>
+<text x="66" y="236.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="236.84" font-size="7" text-anchor="start" fill="#1a2233">transmit</text>
+<text x="386" y="236.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="241" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="249.84" font-size="7" text-anchor="start" fill="#1a2233">V</text>
+<text x="66" y="249.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="249.84" font-size="7" text-anchor="start" fill="#1a2233">valve, damper, louver</text>
+<text x="386" y="249.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="254" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="262.84" font-size="7" text-anchor="start" fill="#1a2233">W</text>
+<text x="66" y="262.84" font-size="7" text-anchor="start" fill="#1a2233">well, probe</text>
+<text x="216" y="262.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="386" y="262.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="267" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="275.84" font-size="7" text-anchor="start" fill="#1a2233">Y</text>
+<text x="66" y="275.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="275.84" font-size="7" text-anchor="start" fill="#1a2233">relay, compute, convert</text>
+<text x="386" y="275.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<rect x="20" y="280" width="460" height="13" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="288.84" font-size="7" text-anchor="start" fill="#1a2233">Z</text>
+<text x="66" y="288.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="216" y="288.84" font-size="7" text-anchor="start" fill="#1a2233">driver, actuator, final element</text>
+<text x="386" y="288.84" font-size="7" text-anchor="start" fill="#1a2233"></text>
+<text x="250" y="332" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">HH and LL are two modifiers: LAHH is a level alarm that trips at high-high.</text>
+</svg>

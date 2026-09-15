@@ -150,3 +150,5 @@ A **pressure switch** (piston or diaphragm against a spring, with a micro-switch
 - [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
 - [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Fitting and joint symbols</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<rect x="14" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="64" x2="70" y2="64" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="70" y1="64" x2="70" y2="38" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="62" cy="64" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<circle cx="70" cy="56" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<text x="70" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">butt-weld elbow</text>
+<text x="70" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">dot = shop weld</text>
+<rect x="132" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="64" x2="188" y2="64" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="188" y1="64" x2="188" y2="38" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="180" y1="69" x2="180" y2="59" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="183" y1="56" x2="193" y2="56" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<text x="188" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">socket-weld elbow</text>
+<text x="188" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">one tick each joint</text>
+<rect x="250" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="64" x2="306" y2="64" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="306" y1="64" x2="306" y2="38" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="296" y1="69" x2="296" y2="59" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="300" y1="69" x2="300" y2="59" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="301" y1="54" x2="311" y2="54" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="301" y1="58" x2="311" y2="58" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="306" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">threaded elbow</text>
+<text x="306" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">two ticks each joint</text>
+<rect x="368" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="398" y1="64" x2="424" y2="64" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="424" y1="64" x2="424" y2="38" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="411.5" y1="70" x2="411.5" y2="58" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="416.5" y1="70" x2="416.5" y2="58" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="418" y1="51.5" x2="430" y2="51.5" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="418" y1="56.5" x2="430" y2="56.5" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<text x="424" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">flanged elbow</text>
+<text x="424" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">two bars = flange pair</text>
+<rect x="14" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="140" x2="96" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="70" y1="140" x2="70" y2="120" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="58" cy="140" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<circle cx="82" cy="140" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<circle cx="70" cy="128" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<text x="70" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">tee (BW)</text>
+<text x="70" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">three welds</text>
+<rect x="132" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="140" x2="178" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M178,132 L198,136 L198,144 L178,148 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="198" y1="140" x2="214" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="188" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">concentric reducer</text>
+<text x="188" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">6 x 4 CONC</text>
+<rect x="250" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="140" x2="296" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M296,132 L316,138 L316,148 L296,148 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="316" y1="143" x2="332" y2="143" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="306" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">eccentric reducer</text>
+<text x="306" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">flat side up or down</text>
+<rect x="368" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="398" y1="140" x2="420" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M420,132 l6,0 a8,8 0 0 1 0,16 l-6,0" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="418" cy="140" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<text x="424" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">cap</text>
+<text x="424" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">BW cap</text>
+<rect x="14" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="230" x2="96" y2="230" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M62,230 a8,8 0 0 1 16,0" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="70" y1="222" x2="70" y2="204" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="70" cy="214" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<text x="70" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">weldolet / sockolet</text>
+<text x="70" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">branch on the run</text>
+<rect x="132" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="224" x2="182" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="184" y1="216" x2="184" y2="232" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="188" y1="216" x2="188" y2="232" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="192" y1="216" x2="192" y2="232" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="194" y1="224" x2="214" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="188" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">union</text>
+<text x="188" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">threaded, take-apart</text>
+<rect x="250" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="224" x2="332" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="298" y1="229" x2="298" y2="219" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="302" y1="229" x2="302" y2="219" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="310" y1="229" x2="310" y2="219" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="314" y1="229" x2="314" y2="219" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="306" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">coupling (THD)</text>
+<text x="306" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">two threaded joints</text>
+<rect x="368" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="394" y1="224" x2="412" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="413.5" y1="230" x2="413.5" y2="218" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="418.5" y1="230" x2="418.5" y2="218" stroke="#1a2233" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="420" y1="224" x2="434" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="436" y1="217" x2="436" y2="231" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="440" y1="217" x2="440" y2="231" stroke="#1a2233" stroke-width="3.2" stroke-linecap="round"/>
+<text x="424" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">flange and blind</text>
+<text x="424" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">blind = thick bar</text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">Dot = butt weld, one tick = socket, two = threaded, two bars = flanged.</text>
+</svg>

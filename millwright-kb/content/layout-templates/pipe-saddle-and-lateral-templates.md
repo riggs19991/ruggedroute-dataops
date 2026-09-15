@@ -117,3 +117,4 @@ Nowadays a **pipe layout app or a template program** prints these for any size a
 - [Trig and layout formulas](/article/trig-and-layout-formulas)
 - [Oxy-fuel cutting technique](/article/oxy-fuel-cutting-technique)
 - [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)

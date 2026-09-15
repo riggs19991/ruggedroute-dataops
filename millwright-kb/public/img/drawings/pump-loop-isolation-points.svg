@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 360" width="500" height="360" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Isolation points from the P&amp;ID</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="360" fill="#ffffff"/>
+<path d="M48,88 a22,8 0 0 1 44,0 L92,172 a22,8 0 0 1 -44,0 Z" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="100" y="196" font-size="7.5" text-anchor="start" font-weight="700" fill="#1a2233">T-101 FEED TANK</text>
+<line x1="52" y1="140" x2="92" y2="140" stroke="#1a2233" stroke-width="0.8" stroke-dasharray="3 2" stroke-linecap="round"/>
+<circle cx="120" cy="112" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="120" y="111" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">LT</text>
+<text x="120" y="121" font-size="7.5" text-anchor="middle" fill="#1a2233">101</text>
+<line x1="108" y1="112" x2="92" y2="112" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<rect x="146" y="48" width="28" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="160" cy="62" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="148" y1="62" x2="172" y2="62" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="160" y="59" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">LIC</text>
+<text x="160" y="71" font-size="7.5" text-anchor="middle" fill="#1a2233">101</text>
+<line x1="128" y1="102" x2="152" y2="74" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="5 3" stroke-linecap="round"/>
+<line x1="70" y1="180" x2="70" y2="215" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="70" y1="215" x2="112" y2="215" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="106" y1="215" x2="134" y2="215" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<path d="M116,215 l-8,10" fill="none" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="104" y="224" width="8" height="5" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="128" y1="215" x2="150" y2="215" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M152,209.4 L168,220.6 L168,209.4 L152,220.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="160" y1="209" x2="160" y2="197" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="154" y1="197" x2="166" y2="197" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="168" y1="215" x2="236" y2="215" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="200" cy="215" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<text x="80" y="230" font-size="6.5" text-anchor="start" fill="#5b6577">6"-P-1012-A1A</text>
+<circle cx="250" cy="215" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="250" y1="201" x2="270" y2="201" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="264" y1="213" x2="270" y2="201" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<path d="M264,215 L270,201" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="250" cy="244" r="7" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="247.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">M</text>
+<line x1="250" y1="229" x2="250" y2="237" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="275" y="246" font-size="7.5" text-anchor="start" font-weight="700" fill="#1a2233">P-101A</text>
+<line x1="270" y1="201" x2="292" y2="201" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M292,195.4 L304.8,201 L292,206.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="304.8" y1="194.6" x2="304.8" y2="207.4" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="308" y1="201" x2="342" y2="201" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M342,195.4 L358,206.6 L358,195.4 L342,206.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="350" y1="195" x2="350" y2="183" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="344" y1="183" x2="356" y2="183" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="358" y1="201" x2="380" y2="201" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="200" y1="215" x2="200" y2="270" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="200" y1="270" x2="236" y2="270" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="250" cy="270" r="14" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="250" y1="256" x2="270" y2="256" stroke="#1a2233" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="264" y1="268" x2="270" y2="256" stroke="#1a2233" stroke-width="0" stroke-linecap="round"/>
+<path d="M264,270 L270,256" fill="none" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="250" cy="298" r="7" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="250" y="301.5" font-size="9" text-anchor="middle" font-weight="700" fill="#1a2233">M</text>
+<line x1="250" y1="284" x2="250" y2="291" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="275" y="300" font-size="7.5" text-anchor="start" font-weight="700" fill="#1a2233">P-101B (spare)</text>
+<line x1="270" y1="256" x2="292" y2="256" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M292,250.4 L304.8,256 L292,261.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="304.8" y1="249.6" x2="304.8" y2="262.4" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="308" y1="256" x2="342" y2="256" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M342,250.4 L358,261.6 L358,250.4 L342,261.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="350" y1="250" x2="350" y2="238" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="344" y1="238" x2="356" y2="238" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="358" y1="256" x2="380" y2="256" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="215" y1="270" x2="215" y2="280" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<path d="M210,282.5 L220,289.5 L220,282.5 L210,289.5 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="215" y1="292" x2="215" y2="300" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="209" y1="300" x2="221" y2="300" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<text x="215" y="306" font-size="6" text-anchor="middle" fill="#5b6577">drain</text>
+<line x1="380" y1="256" x2="380" y2="120" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="380" cy="201" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="380" y1="120" x2="460" y2="120" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="392" y1="120" x2="392" y2="108" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="387" y1="108" x2="397" y2="108" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<text x="392" y="105" font-size="7" text-anchor="middle" fill="#1a2233">ATM</text>
+<text x="372" y="180" font-size="6.5" text-anchor="end" fill="#5b6577">4"-P-1013-A1A</text>
+<circle cx="412" cy="160" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="412" y="159" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">PI</text>
+<text x="412" y="169" font-size="7.5" text-anchor="middle" fill="#1a2233">102</text>
+<line x1="400" y1="160" x2="380" y2="160" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<circle cx="380" cy="160" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="406" y1="113" x2="406" y2="127" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="410" y1="113" x2="410" y2="127" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="408" y1="113" x2="408" y2="106" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<circle cx="408" cy="84" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="408" y="83" font-size="8.5" text-anchor="middle" font-weight="700" fill="#1a2233">FT</text>
+<text x="408" y="93" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<line x1="408" y1="96" x2="408" y2="112" stroke="#5b6577" stroke-width="0.8" stroke-linecap="round"/>
+<rect x="436" y="36" width="28" height="28" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="450" cy="50" r="12" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="438" y1="50" x2="462" y2="50" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="450" y="47" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">FIC</text>
+<text x="450" y="59" font-size="7.5" text-anchor="middle" fill="#1a2233">104</text>
+<line x1="420" y1="84" x2="438" y2="58" stroke="#1a2233" stroke-width="1.1" stroke-dasharray="5 3" stroke-linecap="round"/>
+<line x1="450" y1="62" x2="450" y2="88" stroke="#1a2233" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="454" y1="73" x2="446" y2="79" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<path d="M442,114.4 L458,125.6 L458,114.4 L442,125.6 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="450" cy="120" r="2.4" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="450" y1="112" x2="450" y2="97" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<path d="M438,97 a12,9 0 0 1 24,0 Z" fill="none" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="465" y="95" font-size="8.5" text-anchor="start" font-weight="700" fill="#1a2233">FC</text>
+<text x="450" y="140" font-size="6.5" text-anchor="middle" fill="#1a2233">FCV-104</text>
+<line x1="424" y1="112" x2="424" y2="128" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="428" y1="112" x2="428" y2="128" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<text x="426" y="106" font-size="5.5" text-anchor="middle" fill="#1a2233">A1A|B1A</text>
+<path d="M460,112 L490,112 L500,120 L490,128 L460,128 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="477" y="123" font-size="6.5" text-anchor="middle" font-weight="700" fill="#1a2233">E-201</text>
+<text x="480" y="140" font-size="6" text-anchor="middle" fill="#5b6577">TO E-201</text>
+<circle cx="380" cy="140" r="2.6" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="380" y1="140" x2="210" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M293,135.1 L307,144.9 L307,135.1 L293,144.9 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="300" cy="140" r="2.4" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="248" y1="133" x2="248" y2="147" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="252" y1="133" x2="252" y2="147" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="250" y1="133" x2="250" y2="126" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<text x="250" y="132" font-size="6.5" text-anchor="middle" fill="#1a2233">RO</text>
+<line x1="210" y1="140" x2="210" y2="40" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="210" y1="40" x2="70" y2="40" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="70" y1="40" x2="70" y2="80" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="215" y="60" font-size="6.5" text-anchor="start" fill="#5b6577">2"-P-1014-A1A min flow</text>
+<circle cx="160" cy="236" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="160" y="240" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text>
+<circle cx="350" cy="178" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="350" y="182" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text>
+<circle cx="300" cy="178" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="300" y="182" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text>
+<circle cx="215" cy="322" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="215" y="326" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text>
+<circle cx="392" cy="100" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="392" y="104" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">5</text>
+<circle cx="300" cy="158" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="300" y="162" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">6</text>
+<circle cx="250" cy="264" r="9" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="250" y="268" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">7</text>
+<circle cx="29" cy="314" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="29" y="318" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">1</text><text x="44" y="318" font-size="7.5" text-anchor="start" fill="#1a2233">suction isolation: close, tag</text>
+<circle cx="29" cy="324" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="29" y="328" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">2</text><text x="44" y="328" font-size="7.5" text-anchor="start" fill="#1a2233">discharge isolation: close, tag</text>
+<circle cx="29" cy="334" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="29" y="338" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">3</text><text x="44" y="338" font-size="7.5" text-anchor="start" fill="#1a2233">check valve: NOT an isolation</text>
+<circle cx="29" cy="344" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="29" y="348" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">4</text><text x="44" y="348" font-size="7.5" text-anchor="start" fill="#1a2233">drain: open to prove zero energy</text>
+<circle cx="269" cy="314" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="269" y="318" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">5</text><text x="284" y="318" font-size="7.5" text-anchor="start" fill="#1a2233">vent: bleed the riser</text>
+<circle cx="269" cy="324" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="269" y="328" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">6</text><text x="284" y="328" font-size="7.5" text-anchor="start" fill="#1a2233">min-flow can feed back: isolate it</text>
+<circle cx="269" cy="334" r="8" fill="#0b5fa5" stroke="#ffffff" stroke-width="1.5"/><text x="269" y="338" font-size="11" text-anchor="middle" font-weight="700" fill="#fff">7</text><text x="284" y="338" font-size="7.5" text-anchor="start" fill="#1a2233">spare P-101B stays live behind valve 2</text>
+</svg>

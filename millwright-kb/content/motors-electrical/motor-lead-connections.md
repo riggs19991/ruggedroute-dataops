@@ -136,3 +136,4 @@ Check the running currents on all three phases after any connection: balanced wi
 - [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
 - [Machine guarding and commissioning (rotation bump)](/article/machine-guarding-and-commissioning)
 - [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)

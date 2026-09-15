@@ -1,7 +1,7 @@
 ---
 title: "Blueprint Reading for Millwrights: Views and Projection, Line Types, Sections, Title Block and Revisions, Dimensions and Tolerances, Surface Finish, GD&T Essentials, Structural Shapes, Piping Isometrics and P&IDs"
 slug: blueprint-reading-for-millwrights
-category: welding
+category: drawings
 kind: reference
 tags: [blueprint reading, reading drawings, mechanical drawings, orthographic projection, third angle, first angle, line types, hidden line, center line, section view, title block, revision block, bill of materials, tolerances, block tolerance, surface finish, Ra, GD&T, feature control frame, flatness, perpendicularity, position, runout, structural shapes, W12x26, HSS, piping isometric, P&ID, ISA symbols, assembly drawing, detail drawing]
 source: "ASME Y14.100 (engineering drawing practices), Y14.3 (orthographic and pictorial views), Y14.5-2018 (GD&T), Y14.36 (surface texture); AISC Steel Construction Manual shape designations; ISA 5.1 instrumentation symbols; ASME B16.9 fitting dimensions."
@@ -132,3 +132,9 @@ Structural drawings use **grid lines** (A, B, 1, 2) and **elevations** ("T/S EL.
 - [Dial indicator basics](/article/dial-indicator-use)
 - [Pipe miter layout and take-outs](/article/pipe-miter-layout)
 - [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)

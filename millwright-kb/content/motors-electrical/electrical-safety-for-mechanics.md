@@ -128,3 +128,5 @@ The [lockout basics](/article/lockout-tagout-basics) article has the full proced
 - [PPE selection](/article/ppe-selection)
 - [Welding safety, fumes and PPE (electric shock)](/article/welding-safety-fumes-and-ppe)
 - [First aid for shop injuries](/article/first-aid-for-shop-injuries)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
+- [Electrical symbols: NEMA and IEC](/article/electrical-symbols-nema-and-iec)

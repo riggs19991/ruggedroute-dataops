@@ -107,3 +107,4 @@ Other common wedge anchors (Simpson Wedge-All, Red Head): 3/8" 25-30 ft-lb, 1/2"
 - [Hole patterns and drilling templates](/article/hole-patterns-and-flange-templates)
 - [Hole making in the field (rotary hammers)](/article/hole-making-in-the-field)
 - [Bolt torque and fastener basics](/article/bolt-torque-chart-sae-metric)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)

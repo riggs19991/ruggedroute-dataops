@@ -163,3 +163,5 @@ Use it two ways. **Diagnosis**: if the tank runs at 170°F and the cooler is cle
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)
 - [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)

@@ -189,6 +189,22 @@ summary: "Start here when you have a job and want the right pages fast: each com
 | Working near conveyors | [Conveyor safety and guarding](/article/conveyor-safety-and-guarding) |
 | Someone is hurt | [First aid for shop injuries](/article/first-aid-for-shop-injuries) |
 
+## Drawings and schematics
+
+| Task | Open these, in order |
+|---|---|
+| **Handed a drawing set: is this the right sheet?** | [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics) |
+| **Read a machine or part drawing** (views, sections, fits, threads, finish) | [Mechanical drawings](/article/mechanical-drawings-views-sections-and-dimensions) → [GD&amp;T symbols](/article/gdt-symbols-and-feature-control-frames) |
+| **Check a part against a GD&amp;T callout** | [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames) → [dial indicator use](/article/dial-indicator-use) |
+| **Handed a P&amp;ID for an isolation** | [PFD and P&amp;ID reading](/article/pfd-and-pid-reading) → [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines) → [lockout/tagout](/article/lockout-tagout-basics) |
+| **What does this instrument tag mean?** | [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters) |
+| **Fit pipe from an isometric or spool sheet** | [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets) → [pipe miter layout](/article/pipe-miter-layout) |
+| **Read a hydraulic schematic on a machine plate** | [Hydraulic symbols (ISO 1219)](/article/hydraulic-symbols-iso-1219-complete) → [reading circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams) |
+| **Read a pneumatic circuit** | [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading) |
+| **Motor will not start, here is the schematic** | [Electrical symbols](/article/electrical-symbols-nema-and-iec) → [motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams) → [electrical safety for mechanics](/article/electrical-safety-for-mechanics) |
+| **Set a machine from the foundation drawing** | [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings) → [anchor bolts](/article/anchor-bolts-and-foundations) → [leveling](/article/leveling-and-machine-setting) |
+| **Test yourself on drawings** | [Drawings, schematics and P&amp;IDs quiz](/article/quiz-drawings-schematics-and-pids) |
+
 ## Formulas and tables
 
 [Geometry, area, volume and weight](/article/geometry-formulas-area-volume-weight) · [Trig and layout](/article/trig-and-layout-formulas) · [Power, torque, speed and drives](/article/power-torque-speed-drive-formulas) · [Pumps and fluid power](/article/pump-and-fluid-power-formulas) · [Shafts, bearings and fasteners](/article/shaft-bearing-fastener-formulas) · [Decimal equivalents, tap drills and basic conversions](/article/shop-reference-tables) · [Unit conversions (extended)](/article/unit-conversions-extended) · [Sheet and wire gauges](/article/wire-gauge-and-sheet-thickness) · [Pipe schedules and flanges](/article/pipe-schedule-and-flange-tables) · [Hardness conversion](/article/hardness-conversion) · [Steel grades and heat colours](/article/steel-grades-and-heat-colours) · [Metal identification](/article/metal-identification-and-spark-test)

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 384" width="500" height="384" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Manual valves</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="384" fill="#ffffff"/>
+<rect x="14" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="56" x2="60" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M60,49 L80,63 L80,49 L60,63 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="80" y1="56" x2="96" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="70" y1="49" x2="70" y2="37" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="64" y1="37" x2="76" y2="37" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<text x="70" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">gate</text>
+<text x="70" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">isolation, full open/closed</text>
+<rect x="132" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="56" x2="178" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M178,49 L198,63 L198,49 L178,63 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="188" cy="56" r="2.4" fill="#1a2233" stroke="none" stroke-width="1.5"/>
+<line x1="198" y1="56" x2="214" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="188" y1="49" x2="188" y2="37" stroke="#1a2233" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="182" y1="37" x2="194" y2="37" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<text x="188" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">globe</text>
+<text x="188" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">throttling, dot in the middle</text>
+<rect x="250" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="56" x2="296" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M296,49 L316,63 L316,49 L296,63 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="306" cy="56" r="4.2" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="316" y1="56" x2="332" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="306" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">ball</text>
+<text x="306" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">circle in the middle</text>
+<rect x="368" y="30" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="398" y1="56" x2="414" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="414" y1="49" x2="414" y2="63" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="434" y1="49" x2="434" y2="63" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="414" y1="49" x2="434" y2="63" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="424" cy="56" r="3" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="434" y1="56" x2="450" y2="56" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="424" y="90" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">butterfly</text>
+<text x="424" y="102" font-size="8.2" text-anchor="middle" fill="#5b6577">two bars + diagonal</text>
+<rect x="14" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="140" x2="60" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M60,133 L80,147 L80,133 L60,147 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M66,137 L74,137 L73,143 L67,143 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="80" y1="140" x2="96" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="70" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">plug</text>
+<text x="70" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">filled wedge</text>
+<rect x="132" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="140" x2="178" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M178,133 L198,147 L198,133 L178,147 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M185,133 L191,133 L188,140 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="198" y1="140" x2="214" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="188" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">needle</text>
+<text x="188" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">fine control, small lines</text>
+<rect x="250" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="140" x2="296" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M296,133 L316,147 L316,133 L296,147 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M300,137 a6,6 0 0 1 12,0" fill="none" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="316" y1="140" x2="332" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="306" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">diaphragm</text>
+<text x="306" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">arc over the body</text>
+<rect x="368" y="114" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="398" y1="140" x2="414" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M414,133 L430,140 L414,147 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="430" y1="132" x2="430" y2="148" stroke="#1a2233" stroke-width="2" stroke-linecap="round"/>
+<line x1="434" y1="140" x2="450" y2="140" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="424" y="174" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">check</text>
+<text x="424" y="186" font-size="8.2" text-anchor="middle" fill="#5b6577">flow toward the bar</text>
+<rect x="14" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="224" x2="60" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M60,217 L80,231 L80,217 L60,231 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M63,214 L77,214 L70,224 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="80" y1="224" x2="96" y2="224" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="70" y1="214" x2="70" y2="200" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="70" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">three-way</text>
+<text x="70" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">diverting or mixing</text>
+<rect x="132" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="230" x2="178" y2="230" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M178,223 L188,230 L178,237 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M181,214 L195,214 L188,230 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="188" y1="214" x2="188" y2="200" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="188" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">angle</text>
+<text x="188" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">90° body</text>
+<rect x="250" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="230" x2="296" y2="230" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M296,223 L306,230 L296,237 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M299,214 L313,214 L306,230 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M306,220 l0,-4 l4,-3 l-8,-3 l8,-3 l-4,-3" fill="none" stroke="#1a2233" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="306" y1="214" x2="306" y2="214" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="306" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">relief / safety</text>
+<text x="306" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">spring on top: PSV</text>
+<rect x="368" y="198" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="398" y1="230" x2="424" y2="230" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="416" y1="222" x2="432" y2="222" stroke="#1a2233" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M416,228 a8,6 0 0 1 16,0" fill="none" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="424" y="258" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">rupture disc</text>
+<text x="424" y="270" font-size="8.2" text-anchor="middle" fill="#5b6577">one-shot burst</text>
+<rect x="14" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="44" y1="308" x2="60" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M60,301 L80,315 L80,301 L60,315 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="80" y1="308" x2="96" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="70" y="294" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">LO</text>
+<text x="70" y="330" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">CSC</text>
+<text x="70" y="342" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">locked / sealed</text>
+<text x="70" y="354" font-size="8.2" text-anchor="middle" fill="#5b6577">LO, LC, CSO, CSC</text>
+<rect x="132" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="162" y1="308" x2="178" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M178,301 L198,315 L198,301 L178,315 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M178,301 L188,308 L178,315 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M198,301 L188,308 L198,315 Z" fill="#1a2233" stroke="#1a2233" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="198" y1="308" x2="214" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="188" y="342" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">normally closed</text>
+<text x="188" y="354" font-size="8.2" text-anchor="middle" fill="#5b6577">filled = NC on many legends</text>
+<rect x="250" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="280" y1="308" x2="296" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M296,301 L316,315 L316,301 L296,315 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="316" y1="308" x2="332" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="306" y="330" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">HV-1012</text>
+<text x="306" y="342" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">valve with tag</text>
+<text x="306" y="354" font-size="8.2" text-anchor="middle" fill="#5b6577">HV = hand valve</text>
+<rect x="368" y="282" width="112" height="78" fill="#f1f5f9" stroke="none" stroke-width="1.5" rx="6"/>
+<line x1="398" y1="308" x2="416" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M416,301 L432,305 L432,311 L416,315 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="432" y1="308" x2="450" y2="308" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="424" y="328" font-size="8" text-anchor="middle" fill="#1a2233">6" x 4"</text>
+<text x="424" y="342" font-size="9.5" text-anchor="middle" font-weight="600" fill="#1a2233">size or spec change</text>
+<text x="424" y="354" font-size="8.2" text-anchor="middle" fill="#5b6577">reducer on the line</text>
+<text x="250" y="376" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">The bow-tie is a valve; what sits inside or on top says which kind.</text>
+</svg>

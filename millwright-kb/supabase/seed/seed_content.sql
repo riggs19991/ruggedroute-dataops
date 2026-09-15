@@ -23,6 +23,9 @@ insert into public.mw_categories (slug, name, description, icon, sort_order) val
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$layout-templates$mw$, $mw$Layout & Templates$mw$, $mw$Pipe saddles, miters and laterals, sheet-metal developments, hole patterns, wrap-arounds, shim and gasket templates, jigs.$mw$, $mw$📐$mw$, 37)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
+insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$drawings$mw$, $mw$Drawings, Schematics & P&IDs$mw$, $mw$Reading prints and schematics: title blocks, views and sections, GD&T, piping isometrics, PFDs and P&IDs, ISA instrument tags, hydraulic and pneumatic circuit diagrams, motor-control schematics and wiring diagrams, with complete symbol charts.$mw$, $mw$📘$mw$, 38)
+  on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
+
 insert into public.mw_categories (slug, name, description, icon, sort_order) values ($mw$power-transmission$mw$, $mw$Belts, Chains & Couplings$mw$, $mw$V-belt tensioning, roller chain, sheave alignment, coupling types and gap.$mw$, $mw$🔗$mw$, 40)
   on conflict (slug) do update set name = excluded.name, description = excluded.description, icon = excluded.icon, sort_order = excluded.sort_order;
 
@@ -3387,6 +3390,2604 @@ Hacksaw blades: **14 TPI for 1" and heavier soft metal, 18 general, 24 for 1/8-1
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$blueprint-reading-for-millwrights$mw$, $mw$Blueprint Reading for Millwrights: Views and Projection, Line Types, Sections, Title Block and Revisions, Dimensions and Tolerances, Surface Finish, GD&T Essentials, Structural Shapes, Piping Isometrics and P&IDs$mw$, $mw$The parts of a drawing a millwright reads to install, fabricate or check a part: how views relate, what each line style means, how to read sections and details, the title block and revision level, dimensions and the tolerance rules, surface finish marks, the GD&T symbols that appear on baseplates and shafts, how structural steel and piping drawings label their members, and the P&ID symbols you need to trace a system.$mw$, $mw$## Views and projection
+
+![Third-angle projection views and the line types](/img/welding/orthographic-views.svg)
+
+*Third-angle projection views and the line types*
+
+- **Orthographic projection**: the object is shown in flat views at 90° to each other. **Third-angle** (US and Canada): the top view is above the front view, the right side view is to the right (as if the object were unfolded toward you). **First-angle** (Europe, some equipment manuals): views are on the opposite sides (the right-side view appears on the left). The projection symbol in the title block (a truncated cone, small end left for third angle) tells you which.
+- Six possible views; drawings show as many as needed, usually front, top, right. Curved surfaces and holes look the same in one view and different in another: always read at least two.
+- **Section views** (A-A, B-B): the part is cut along the cutting-plane line (thick line with arrows; the arrows point in the direction you look) and the cut material is **hatched**. Full, half, offset, broken-out, revolved and removed sections. Shafts, bolts, keys, ribs and webs are conventionally **not** hatched even when the plane cuts them.
+- **Detail views**: a circle on the main view, enlarged elsewhere with a scale (e.g. DETAIL B, SCALE 2:1).
+- **Auxiliary views**: a view perpendicular to an inclined face so it shows true size.
+- **Assembly drawing**: shows parts fitted together with balloons (item numbers) tied to a **bill of materials (BOM)**; **detail drawing**: one part, fully dimensioned; **exploded** view for order of assembly.
+- **Isometric / pictorial**: 3D look, 30° axes; not to scale for measuring.
+
+## Line types (alphabet of lines)
+
+| Line | Appearance | Means |
+|---|---|---|
+| Visible (object) | Thick solid | Edges you can see |
+| **Hidden** | Medium dashed | Edges behind the surface |
+| **Centre** | Thin, long-short-long | Axis of a hole, shaft, symmetry; bolt circles |
+| Dimension | Thin solid with arrowheads | The measurement |
+| Extension | Thin solid, gap from the object | Carries the dimension out from the part |
+| Leader | Thin with an arrow or dot | Points a note to a feature |
+| Cutting plane | Thick, dashed or phantom, arrows at the ends | Where a section is taken |
+| Section (hatch) | Thin diagonal | Cut material; pattern can show the material |
+| Break | Thin zigzag (short) or wavy (long) | Part shortened on the drawing |
+| Phantom | Thin, long-short-short-long | Alternate positions, adjacent parts, motion limits, repeated detail |
+| Stitch | Thin dotted | Sewing/stitching, sometimes stitch welds |
+| Chain | Thick, long-short | Surface requiring special treatment |
+
+## Title block and revisions
+
+Read **before** measuring anything: **drawing number and sheet**, **revision letter** (compare with the revision block and with the version on the work order: an old print is the classic cause of a wrong part), **scale** (never scale a print with a ruler; "NTS" = not to scale), **units** (inches or mm; dual dimensions show both), **material**, **finish**, **block (general) tolerances**, **projection symbol**, **drawn/checked/approved** names and dates, the standard the drawing follows (ASME Y14.5, ISO), and **general notes** (e.g. "break all sharp edges .015", "all welds 1/4 fillet unless noted", "dimensions apply after plating").
+
+## Dimensions and tolerances
+
+- **Basic dimension** (boxed): theoretically exact, toleranced by a geometric control.
+- **Reference dimension** (in parentheses): for information; not inspected.
+- **Limit dimensions**: 1.500-1.502; **plus/minus**: 1.501 ± .001; **unilateral**: 1.500 +.002/−.000.
+- **Block tolerances** in the title block apply where no tolerance is shown, usually by decimal places: `.X ± .1`, `.XX ± .01`, `.XXX ± .005`, angles ± 0.5°, fractions ± 1/16". So a "2.50" dimension is ± .01 and a "2.500" is ± .005: the number of decimals is a tolerance statement.
+- Metric: `50 h7` and `50 H7` use the ISO fit tables (see [bearing fits](/article/bearing-clearance-and-fits-tables)); unspecified metric tolerances follow ISO 2768 (m, f, c classes) named in the title block.
+- **Chain vs baseline dimensioning**: chain dimensions accumulate tolerance; baseline (all from one datum) does not. Fabricate from the datum the drawing uses.
+- Thread callouts: `1/2-13 UNC-2B` (nominal, TPI, series, class, B = internal), `M12 x 1.75-6H`; depth `↓ .75`; `1/2-14 NPT`. Hole callouts: `Ø .531 THRU`, `⌴ Ø .875 ↓ .375` (counterbore), `⌵ Ø .750 x 82°` (countersink), `4X Ø .406` (four places).
+
+## Surface finish
+
+The check-mark symbol with a number is the **roughness average Ra** in **microinches** (μin) on US drawings, **micrometres** (μm) on metric (1 μm = 40 μin).
+
+| Ra μin (μm) | Process | Typical |
+|---|---|---|
+| 250 (6.3) | Saw, flame cut, rough machining | Non-contact surfaces |
+| 125 (3.2) | Standard machining | General parts, bolted faces |
+| **63 (1.6)** | Fine turning, milling | Bearing housings, mating faces, baseplate pads |
+| **32 (0.8)** | Fine grind, finish turn | Shaft seats for bearings, seal faces |
+| 16 (0.4) | Grinding, honing | Seal sleeves, hydraulic rods, lip seal surfaces (10-20 μin) |
+| 8 (0.2) and below | Lapping, polishing | Mechanical seal faces, gauge blocks |
+
+A bar under the symbol = machining required; a circle = machining prohibited (as-cast). A lay symbol (=, ⊥, X, M, C, R) shows the direction of the tool marks: lip seals want **no lead** (plunge grind), hence "C" or "no lay" callouts on shafts.
+
+## GD&T essentials
+
+A **feature control frame** reads: `| symbol | tolerance | datum A | datum B | datum C |`. Datums are lettered surfaces/axes marked with a triangle. Symbols a millwright meets:
+
+| Symbol | Name | What it controls | Where you see it |
+|---|---|---|---|
+| ⏥ | **Flatness** | Surface within two parallel planes, no datum | Baseplate pads, sole plates, sealing faces |
+| ⏤ | Straightness | Line elements / axis | Shafts |
+| ○ | Circularity (roundness) | | Sleeves, seats |
+| ⌭ | Cylindricity | | Hydraulic rods |
+| ∥ | Parallelism | Surface/axis parallel to a datum | Pads to a base, bores to each other |
+| ⊥ | **Perpendicularity** | Square to a datum | Flange face to bore, pump feet |
+| ∠ | Angularity | | |
+| ⌖ | **Position** | Location of holes/features from datums, usually with a **cylindrical** tolerance zone and often **Ⓜ (MMC)** | Bolt patterns |
+| ◎ | Concentricity (withdrawn in 2018, still on old prints) | | |
+| ⌯ | Symmetry (withdrawn 2018) | | |
+| ↗ | **Circular runout** | Wobble of a surface as it rotates about a datum axis, one revolution | Shaft seats, coupling faces |
+| ⌰ | **Total runout** | Same, over the whole surface | Shaft bearing seats, rotor faces |
+| ⌒ | Profile of a line | | |
+| ⌓ | Profile of a surface | The all-purpose 3D tolerance | Castings, machined contours |
+
+Modifiers: **Ⓜ** maximum material condition (bonus tolerance as the feature departs from MMC: bigger holes get more position tolerance), **Ⓛ** least material, **Ⓟ** projected tolerance zone (for studs). Reading a frame: `⌖ Ø.010 Ⓜ A B C` = position of the hole axis within a Ø.010 cylinder when the hole is at its smallest, relative to datums A (primary, usually the mounting face), B, C. What it means for you: measure from the datums the frame names, in the order named, and expect the flatness or runout number to be an inspection you may have to prove with a straightedge, feeler, level or dial indicator (see [dial indicator basics](/article/dial-indicator-use)).
+
+## Structural steel drawings
+
+| Designation | Shape | Reads |
+|---|---|---|
+| **W12×26** | Wide flange | 12" nominal depth, 26 lb/ft |
+| S8×18.4 | American standard I-beam | |
+| **C8×11.5** / MC | Channel | 8" deep, 11.5 lb/ft |
+| **L4×4×3/8** | Angle | Legs 4" and 4", 3/8" thick (L4×3×1/4 unequal) |
+| **HSS6×6×1/4** | Hollow structural section (tube) | 6×6 outside, 1/4" wall (design wall 0.233) |
+| HSS6.625×0.280 | Round HSS | OD × wall |
+| **PL 1/2×12×1'-6"** | Plate | Thickness × width × length |
+| WT6×13 / ST / MT | Tees cut from W/S/M | |
+| Pipe 4 STD / XS / XXS | Pipe by schedule | |
+| BAR 2×1/2, RD 1-1/2 | Flat bar, round bar | |
+
+Structural drawings use **grid lines** (A, B, 1, 2) and **elevations** ("T/S EL. 112'-6"" = top of steel), **member marks** (B12, C3), **bolt callouts** (`3/4" Ø A325-N` = 3/4" high-strength bolts, threads not excluded; `SC` slip-critical; `TC` tension-control), "**typ**" and "**UNO**" (unless noted otherwise), "**NS/FS**" (near side/far side), "**GA**" gauge (bolt line offset), "**CTR**" centre, "**FIELD**" for field bolts/welds. Feet-inches format: `12'-6 1/2"`. Camber and "**hold**" dimensions (do not change) appear on erection drawings.
+
+## Piping isometrics
+
+- Drawn on 30° isometric axes, not to scale; north arrow; the line number carries the service, size, spec and insulation (e.g. `6"-CW-1501-A1-HC`).
+- Symbols: butt-weld fittings as thin lines with **weld dots**; flanges as double lines; valves by type (gate, globe, check, ball, butterfly) with tag numbers; reducers (concentric/eccentric, **FOT** flat on top / **FOB** flat on bottom); elbows LR (radius 1.5 × NPS) or SR; tees, olets; **field weld** (FW) and **field fit weld** (FFW) with extra length to cut on site; spool numbers and material take-off (MTO) table.
+- Dimensions run **centreline to centreline** and to flange faces; you subtract fitting **take-outs** (LR 90° elbow centre-to-face = 1.5 × NPS: 6" pipe → 9"; 45° LR = 0.625 × NPS: 6" pipe → 3-3/4") and the weld gap to get cut lengths. Take-out tables in [pipe fitting take-outs](/article/pipe-miter-layout).
+- **P&ID (piping and instrumentation diagram)**: schematic, no dimensions; every line, valve and instrument tagged. Instrument bubbles use **ISA 5.1** letters: first letter = variable (**P** pressure, **T** temperature, **F** flow, **L** level, **V** vibration, **S** speed, **Z** position), following letters = function (**I** indicator, **T** transmitter, **C** controller, **S** switch, **A** alarm, **E** element, **V** valve; **H/L** high/low). `PIT-101` = pressure indicating transmitter, loop 101; `TSH-203` = temperature switch high; `PSV` pressure safety valve; `FE` orifice plate. A line through the bubble = board-mounted, none = field-mounted, dashed = behind the panel. Line types: solid = process, dashed = electrical signal, `-o-o-` pneumatic signal, `---//---` software link. Use the P&ID to find isolation valves and drains **before** you open anything.
+
+## Reading a drawing: a checklist
+
+1. Title block: number, rev, units, scale, material, standard, notes.
+2. Find the front view and work out the projection; identify every hidden and centre line.
+3. Locate the datums and the largest features; then the detail.
+4. List every dimension you need with its tolerance (block or stated) and every finish.
+5. Note every weld symbol, hole callout and thread.
+6. Check the BOM quantity and material against what is in the shop.
+7. Question anything that does not add up (overall vs sum of parts, a hole that appears in one view only) **before** cutting.
+
+## Related
+
+- [Welding symbols](/article/welding-symbols)
+- [Bearing fits and tolerances](/article/bearing-clearance-and-fits-tables)
+- [Dial indicator basics](/article/dial-indicator-use)
+- [Pipe miter layout and take-outs](/article/pipe-miter-layout)
+- [Layout tools and scribing](/article/layout-tools-and-scribing)
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$blueprint reading$mw$,$mw$reading drawings$mw$,$mw$mechanical drawings$mw$,$mw$orthographic projection$mw$,$mw$third angle$mw$,$mw$first angle$mw$,$mw$line types$mw$,$mw$hidden line$mw$,$mw$center line$mw$,$mw$section view$mw$,$mw$title block$mw$,$mw$revision block$mw$,$mw$bill of materials$mw$,$mw$tolerances$mw$,$mw$block tolerance$mw$,$mw$surface finish$mw$,$mw$Ra$mw$,$mw$GD&T$mw$,$mw$feature control frame$mw$,$mw$flatness$mw$,$mw$perpendicularity$mw$,$mw$position$mw$,$mw$runout$mw$,$mw$structural shapes$mw$,$mw$W12x26$mw$,$mw$HSS$mw$,$mw$piping isometric$mw$,$mw$P&ID$mw$,$mw$ISA symbols$mw$,$mw$assembly drawing$mw$,$mw$detail drawing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.100 (engineering drawing practices), Y14.3 (orthographic and pictorial views), Y14.5-2018 (GD&T), Y14.36 (surface texture); AISC Steel Construction Manual shape designations; ISA 5.1 instrumentation symbols; ASME B16.9 fitting dimensions.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$electrical-symbols-nema-and-iec$mw$, $mw$Electrical Symbols, NEMA/JIC and IEC Side by Side: the Two Symbol Families, Contacts and Coils (NO, NC, Timed, Overload), Pushbuttons, Selector Switches and Pilot Lights, Process-Driven Switches (Limit, Proximity, Photoelectric, Float, Pressure, Temperature, Flow, Speed), Power Devices (Contactors, Overloads, Fuses, Breakers, Disconnects), Transformers, Motors and Solenoids, Wires, Terminals and Grounds, PLC and Drive Symbols, and the 1CR / -K1 Device Designations$mw$, $mw$One chart of the symbols on a machine's electrical schematic, with the North American NEMA/JIC drawing and the IEC 60617 drawing of each described side by side so you can read either sheet: contacts and coils including timed and overload contacts, the operator devices, the process switches, the power devices from disconnect to motor, wiring conventions, how PLC points, drives and safety relays appear, and the device designation systems (1CR, 2M, 1OL and -K1, -Q1, -F1). Reading the drawing is the millwright's job; testing it live is the electrician's.$mw$, $mw$A motor control schematic is a map of what has to be true for the machine to run, and a millwright who can read it walks up to a dead machine knowing which pushbutton, limit switch or overload to look at. Reading the sheet, and the mechanical checks it points you to, are yours. Opening an energised panel and putting a meter on it belongs to the qualified electrician: see [electrical safety for mechanics](/article/electrical-safety-for-mechanics) and [lockout basics](/article/lockout-tagout-basics). How the symbols assemble into starters is in [motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams).
+
+## Two symbol families
+
+- **NEMA / JIC** (NEMA ICS 19, JIC EMP-1, IEEE 315 / ANSI Y32.2): the North American style. Contacts are two short parallel lines, coils are circles, devices are named by number-and-letters (1CR, 2M, 1LS) and the schematic is drawn as a **ladder** between vertical L1 and L2 rails with rungs numbered down the left.
+- **IEC 60617**: the European style, used on imported machines and increasingly on new North American ones. Contacts are a gate (a hinged line), coils are rectangles, devices are named by a letter code and a number with a hyphen (-K1, -Q1, -S1), contacts carry standard terminal numbers (13-14 NO, 21-22 NC, A1-A2 coil), and the sheet is drawn with horizontal power rails and vertical current paths numbered across the top.
+- Canada and CSA-listed machines accept either; NFPA 79 and UL 508A (the US industrial machinery and panel standards) allow either family provided the sheet has a legend. The **legend sheet** is where you check any symbol you are not sure of.
+
+Every row below describes the NEMA/JIC drawing first and the IEC drawing second.
+
+## Contacts and coils
+
+![Contacts, coils, timed contacts and overload contact in NEMA and IEC form](/img/drawings/elec-contacts-coils-sheet.svg)
+
+*Contacts, coils, timed contacts and overload contact in NEMA and IEC form*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Normally open (NO) contact | NEMA: two short parallel vertical lines with a gap between them in the wire. IEC: the wire broken, with a short angled line (a gate) leaning toward but not touching the far side | Open with the coil de-energised, closes when energised | Drawn de-energised, as everything on the sheet |
+| Normally closed (NC) contact | NEMA: the two parallel lines with a diagonal slash through them. IEC: the gate line crosses and overshoots the far side | Closed at rest, opens when energised | IEC terminals 21-22, 31-32; NEMA marks the device name beside it |
+| Relay coil | NEMA: a circle with the designation inside (CR, M, TR). IEC: a rectangle with the designation beside it (-K1) and terminals A1, A2 | The electromagnet that operates the contacts | The rung's load; its contacts are elsewhere with a cross-reference |
+| Contactor coil | NEMA: circle with M, F, R, 1M. IEC: rectangle -K1 or -Q1 | Operates power contacts | See power devices |
+| On-delay timed contact (NOTC, NCTO) | NEMA: a contact with a small **arrow pointing up** (or an arc under it). IEC: the contact with a small half-circle (a parachute) on the moving part | Contact acts a set time **after** the coil is energised; releases at once when de-energised | Timer TR; NOTC = normally open, timed closed; NCTO = normally closed, timed open |
+| Off-delay timed contact (NOTO, NCTC) | NEMA: contact with a small **arrow pointing down**. IEC: the parachute drawn the other way up | Contact acts at once on energising and releases a set time **after** de-energising | Check the parachute's direction against the legend; it is easy to reverse |
+| Thermal overload contact | NEMA: an NC contact with a small rounded hump, marked OL. IEC: an NC contact next to a small rectangle with a bimetal symbol, -F1 terminals 95-96 | Opens when the overload heaters trip | The last thing in series before the starter coil; reset on the overload relay |
+
+## Pushbuttons, selectors and pilot lights
+
+![Pushbuttons, selectors, pilot lights and the target table](/img/drawings/elec-operators-sheet.svg)
+
+![Pushbuttons, selector switches and pilot lights on a real panel door](/photos/drawings/pushbutton-panel.jpg)
+
+*Pushbuttons, selector switches and pilot lights on a real panel door. Photo: Dietmar Rabich, CC BY-SA 4.0, via commons*
+
+*Pushbuttons, selectors, pilot lights and the target table*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Momentary NO pushbutton | NEMA: two terminal dots with a bar **above** them not touching, and a button stem on the bar. IEC: the gate contact with a manual operator: a dashed link to a small T (the button) | Closes while pressed | START |
+| Momentary NC pushbutton | NEMA: the bar **touching under** the dots, stem on top. IEC: NC gate with the button operator | Opens while pressed | STOP; always NC so a broken wire stops the machine |
+| Maintained pushbutton | NEMA: two contacts joined by a dashed mechanical line with a detent mark. IEC: the operator with a latching symbol | Stays where it was pushed | |
+| Mushroom head (emergency stop) | NEMA: the bar drawn with a downward-curved cap (a mushroom) on the stem, NC. IEC: NC gate with a mushroom head and a latch symbol, marked -S0 or E-STOP | Latches open when struck, twist or pull to reset | Usually two NC contacts to a safety relay |
+| Illuminated pushbutton | The button symbol joined to a pilot light circle | Button with a lamp | |
+| Two-position selector switch | NEMA: a pivot dot with a lever line to one of two contact positions, plus a **target table** under it: rows for each contact, columns for the positions (HAND, AUTO), an X where the contact is closed. IEC: a rotary operator (a line with a small knob) with contacts and a position table | Which contacts are closed in each position | The table, not the picture, tells you the state |
+| Three-position selector | Same with three positions (HAND-OFF-AUTO) | | Spring-return positions marked with an arrow |
+| Foot switch | NEMA: contact with a pedal (an angled shape) on a stem. IEC: gate with a foot-pedal operator | Foot operated, NO or NC | Presses, with a guard |
+| Pilot light | NEMA: a circle with the colour letter inside: **R** red, **G** green, **A** amber, **W** white, **B** blue. IEC: a circle with an X and colour code RD, GN, YE, WH, BU | Indicator lamp | Red = fault or stop, amber = warning, green = running, blue = action required, white = power on |
+| Push-to-test pilot light | The lamp circle with a pushbutton symbol attached | Pressing lights the lamp from the supply to prove the bulb | A dark lamp that lights on test is a real signal, not a bulb |
+
+## Switches driven by the process
+
+These are inputs the machine makes for itself; most of a millwright's sensor work (mounting, gap, alignment) is on them. Detail in [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness).
+
+![Limit, pressure, temperature, flow, float, proximity, speed and foot switches](/img/drawings/elec-process-switches-sheet.svg)
+
+*Limit, pressure, temperature, flow, float, proximity, speed and foot switches*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Limit switch, NO | NEMA: a terminal dot with an angled arm above it, not touching (a chair shape), marked LS. IEC: gate contact with a mechanical operator (a small triangle or a roller on a lever) | Closes when the machine part strikes it | |
+| Limit switch, NC | NEMA: the arm touching the terminal, drawn with the contact through it | Opens when struck | Safety and over-travel use NC |
+| Limit switch, NO held closed | NEMA: the NO symbol drawn with the arm pushed down onto the contact | An NO switch that the machine holds actuated at rest (e.g. a guard closed) | Drawn in its held state, with a note |
+| Limit switch, NC held open | NEMA: the NC symbol drawn with the arm lifted off | An NC switch held actuated at rest | The two held symbols are the commonest misreads on a sheet |
+| Proximity switch, inductive | NEMA: a contact with a diamond above it marked PRS or PROX, or a rectangle labelled PROX with the output. IEC: a rectangle with a small diamond and Fe (iron) inside, the contact beside it | Senses metal within a few mm | PNP/NPN and NO/NC written beside it |
+| Proximity switch, capacitive | Same with a C or a capacitor mark in the diamond | Senses anything | |
+| Photoelectric switch | NEMA: contact with two small arrows (light) pointing at it, marked PE or PEC; through-beam draws a source and a receiver. IEC: rectangle with a light-arrow symbol | Beam made or broken | Light-on / dark-on noted |
+| Float (level) switch | NEMA: contact with a small circle (a ball float) on a lever, marked FS or LS. IEC: gate with a float operator | Level high or low | |
+| Pressure switch | NEMA: contact with a half-circle (a diaphragm or bellows) under it, marked PS. IEC: gate with a pressure operator (a small bell or the letter p) | Pressure above or below set point | Set point on the sheet |
+| Temperature switch | NEMA: contact with a bent line (a bimetal) or a thermometer under it, marked TS or TAS. IEC: gate with a temperature operator (a theta or a thermometer) | Temperature above or below set point | Motor winding thermostats are drawn here |
+| Flow switch | NEMA: contact with a small flag (a paddle) under it, marked FLS. IEC: gate with a flow operator | Flow present or not | |
+| Speed (zero-speed, plugging) switch | NEMA: contact with a small circle and the letters ZS or PLS, sometimes a centrifugal weight symbol. IEC: gate with an n (speed) operator | Shaft turning or stopped | Conveyor tail pulleys, plugging stops |
+
+## Power devices: contactors, overloads, fuses, breakers, disconnects
+
+![Contactor poles, overload heaters, fuses, breakers, disconnects, transformers, motors](/img/drawings/elec-power-devices-sheet.svg)
+
+![An overload relay with its trip setting dial and reset button](/photos/drawings/overload-relay.jpg)
+
+*An overload relay with its trip setting dial and reset button. Photo: Mik81, Public domain, via commons*
+
+*Contactor poles, overload heaters, fuses, breakers, disconnects, transformers, motors*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Contactor (starter) | NEMA: three NO power contacts in L1, L2, L3, each marked M, and the coil M in the control circuit. IEC: three gate contacts with a dashed mechanical link, terminals 1-2, 3-4, 5-6, coil -K1 or -Q1 | Switches the motor | The auxiliary contacts (NEMA M, IEC 13-14, 21-22) are separate |
+| Overload relay (heaters) | NEMA: three heater elements (a rounded hump or a small square with a wavy line) in T1, T2, T3, marked OL; electronic type as a rectangle with a current setting. IEC: rectangle -F with three bimetal symbols, terminals 1-6 through, 95-96 NC and 97-98 NO | Trips the NC OL contact on sustained overcurrent | Class 10, 20 or 30 and the FLA setting beside it |
+| Fuse | NEMA: a rectangle with the wire passing through it lengthwise (older: an S-shaped wave), marked FU with the size. IEC: rectangle with the line through, -F | Overcurrent protection | Class and amps beside it (e.g. 2FU 3 A KLDR) |
+| Circuit breaker, thermal-magnetic | NEMA: a contact drawn as an open switch with a small arc (hump) at the hinge and a hook, marked CB; thermal (a small square) and magnetic (a small curve) trip elements shown. IEC: gate contact with an X on the moving line, plus release symbols: a small rectangle (thermal) and a chevron (magnetic), -Q | Trips on overload and short circuit | Frame and trip rating beside it |
+| Motor circuit protector (MCP) | Breaker with the magnetic element only, marked MCP with the instantaneous trip setting | Short-circuit protection only; the overload relay does the rest | Instantaneous trip set by the electrician |
+| Disconnect switch | NEMA: three open knife-blade switches with a dashed link, marked DISC or DS. IEC: three gate contacts with a short bar at the tip (isolator), -Q | Isolates the circuit for lockout | The handle you lock |
+
+## Transformers, motors and solenoids
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Control power transformer (CPT) | NEMA: two coils (rows of bumps) facing each other with two parallel lines (the core) between; primary terminals H1-H4, secondary X1, X2; a fuse on X1; X2 to a ground symbol. IEC: two overlapping circles, -T1 | Steps 480 or 600 V down to 120 V control | X2 grounded and X1 fused is the NFPA 79 arrangement |
+| Motor | NEMA: a circle with MTR or M and the hp, T1-T2-T3 leads, marked 3 phase (or 1 phase). IEC: circle with M and 3 tilde (1 tilde single-phase), -M1 | The load | Nameplate data beside it; see [reading a motor nameplate](/article/reading-a-motor-nameplate) |
+| Solenoid (valve coil) | NEMA: a zigzag coil (like a spring) or a rectangle, marked SOL. IEC: rectangle with a diagonal line, -Y1 | Operates a hydraulic or pneumatic valve | The same diagonal as the ISO 1219 solenoid symbol |
+| Brake coil | NEMA: coil marked BR or BRK; IEC: -Y with a brake-shoe symbol | Spring-set brake released by the coil | Coil off = brake on |
+| Heater (resistance) | NEMA: a rectangle or zigzag marked HTR. IEC: rectangle -E | Space heater, trace heating | |
+| Horn, bell, beacon | NEMA: a horn (a trumpet shape), a bell (a half-circle), a lamp with rays. IEC: -H with the same shapes | Alarms | |
+
+## Wires, terminals and grounds
+
+![Junctions, crossings, terminals, wire numbers, grounds, shields and sources](/img/drawings/elec-wires-terminals-sheet.svg)
+
+![Terminal blocks and relays on DIN rail, each with its wire numbers](/photos/drawings/din-rail-devices.jpg)
+
+*Terminal blocks and relays on DIN rail, each with its wire numbers. Photo: Retired electrician, CC0, via commons*
+
+*Junctions, crossings, terminals, wire numbers, grounds, shields and sources*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Junction | A solid dot where wires meet | Connected | |
+| Crossing | Wires cross with no dot; old JIC sheets draw a small loop (hop) | Not connected | NEMA ICS 19 allows either style; never assume |
+| Terminal | A small circle with the terminal number, on the wire; a terminal strip is a row of them marked TB1 | A screw terminal in the panel or a box | Field wiring lands here; the number is on the strip |
+| Wire number | A number printed on the wire, changing at every device | The wire's identity on both ends | Ferrules on the real wire carry the same number |
+| Ground (earth) | Three horizontal lines of decreasing length (NEMA and IEC) | Connected to the grounding electrode system | X2, the panel, motor frames |
+| Chassis (frame) ground | A short line with three diagonal strokes (a rake) | Bonded to the enclosure | |
+| Shielded cable | A dashed ellipse or a dashed line around the conductors, with the shield taken to ground at one end | Screened cable for analog and encoder signals | Ground the shield at one end only, usually the drive or PLC end |
+
+## PLC and drive symbols on a schematic
+
+![PLC input and output points, VFD block, safety relay and dual-channel E-stop](/img/drawings/elec-plc-drive-sheet.svg)
+
+*PLC input and output points, VFD block, safety relay and dual-channel E-stop*
+
+- **PLC input**: each point is a small square or a terminal on a rectangle labelled with the card and address. Allen-Bradley SLC and MicroLogix style: **I:1/0** (slot 1, point 0), outputs **O:2/3**; ControlLogix: **Local:1:I.Data.0**; IEC 61131 and Siemens style: **%I0.0** and **%Q0.0**. The field device is drawn on the rung feeding the point, with its wire number and the 24 V DC or 120 V AC common.
+- **PLC output**: the point on the output card feeding a load (a relay coil CR, a solenoid, a pilot light), usually through an interposing relay for anything bigger than 2 A.
+- **VFD**: a rectangle with power terminals L1-L3 (R, S, T) in, T1-T3 (U, V, W) to the motor, DC bus terminals (+, -), a braking resistor if fitted, and a control terminal strip: digital inputs (run/stop, forward/reverse, jog, preset speeds, fault reset), a common, an analog speed reference (0-10 V or 4-20 mA with a 10 V reference terminal), a relay output for RUN and FAULT, and two **STO** (safe torque off) terminals to the safety relay. See [VFD basics](/article/vfd-basics-for-millwrights).
+- **Safety relay**: a rectangle marked SR or -K with A1/A2 power, two input channels (S11-S12, S21-S22) from the E-stop and guard NC contacts, a reset input (S33-S34) from the reset button, and safety outputs (13-14, 23-24) in series with the starter coils or the STO. Two channels and monitored reset are what make it a safety circuit.
+- **E-stop circuit**: every E-stop drawn as a two-contact mushroom head in series on both channels; a light curtain or a safety mat appears as a rectangle with OSSD outputs into the same channels.
+- **Encoder, transmitter**: a rectangle with the signal type (A, B, Z pulses; 4-20 mA) on a shielded cable.
+
+**Device designations.** NEMA/JIC: a number and letters: **1CR** control relay 1, **2M** motor contactor 2, **1OL** overload relay, **1LS** limit switch, **1PB** pushbutton (STOP is often 1PB, START 2PB), **1SOL** solenoid, **1PL** pilot light, **1SS** selector switch, **1PS** pressure switch, **1FS** flow or float switch, **1TS** temperature switch, **1TR** timer, **1CPT** control transformer, **1FU** fuse, **1CB** breaker, **1DISC** disconnect, **F** and **R** forward and reverse. IEC 61346 / 81346: a class letter and a number with a hyphen: **-K1** relay or contactor, **-Q1** breaker or disconnect (a contactor on some sets), **-F1** fuse or overload, **-S1** switch or pushbutton, **-M1** motor, **-T1** transformer, **-H1** lamp or horn, **-Y1** solenoid or brake, **-B1** sensor, **-X1** terminal strip, **-U1** drive, **-G1** power supply, **-A1** PLC or assembly. IEC 81346 revised some letters, but the 61346 set is what most sheets use. The designation on the drawing must match the label on the device and the ferrule on the wire; if it does not, someone changed something without updating the sheet.
+
+## Common mistakes
+
+- Reading an IEC NC gate as an NO because the line is angled: NC crosses the far side, NO stops short.
+- Taking a limit switch drawn held closed as an NC switch and looking for the wrong wire.
+- Mistaking the up and down arrows on timed contacts: up is on-delay, down is off-delay on NEMA sheets; check the legend on IEC sheets.
+- Treating a loop at a wire crossing on an old sheet as a junction, or a dotless crossing on a new sheet as unconnected when a junction dot was simply forgotten (check the wire numbers).
+- Reading the selector switch picture instead of its target table.
+- Assuming a red pilot light means running: on NFPA 79 and IEC sheets red is fault or stop, green is normal.
+- Confusing the overload heaters in the power circuit with the OL contact in the control circuit: the contact is what stops the coil.
+- Assuming -Q1 is always a breaker; on some sets it is the contactor. The legend decides.
+- Reading the drawing correctly and then opening a live panel to check it: reading is yours, testing is the electrician's.
+
+## Related
+
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
+- [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
+- [Reading a motor nameplate](/article/reading-a-motor-nameplate)
+- [Hydraulic symbols, ISO 1219 complete chart](/article/hydraulic-symbols-iso-1219-complete)
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$electrical symbols$mw$,$mw$nema symbols$mw$,$mw$jic symbols$mw$,$mw$iec 60617$mw$,$mw$ieee 315$mw$,$mw$control schematic symbols$mw$,$mw$ladder diagram symbols$mw$,$mw$normally open contact$mw$,$mw$normally closed contact$mw$,$mw$relay coil symbol$mw$,$mw$timed contact$mw$,$mw$on delay$mw$,$mw$off delay$mw$,$mw$overload contact$mw$,$mw$pushbutton symbol$mw$,$mw$emergency stop symbol$mw$,$mw$selector switch symbol$mw$,$mw$target table$mw$,$mw$pilot light symbol$mw$,$mw$push to test$mw$,$mw$limit switch symbol$mw$,$mw$held closed$mw$,$mw$proximity switch symbol$mw$,$mw$photoelectric symbol$mw$,$mw$float switch symbol$mw$,$mw$pressure switch symbol$mw$,$mw$temperature switch symbol$mw$,$mw$flow switch symbol$mw$,$mw$zero speed switch$mw$,$mw$contactor symbol$mw$,$mw$overload relay symbol$mw$,$mw$fuse symbol$mw$,$mw$circuit breaker symbol$mw$,$mw$disconnect symbol$mw$,$mw$control transformer symbol$mw$,$mw$motor symbol$mw$,$mw$solenoid symbol$mw$,$mw$wire junction dot$mw$,$mw$terminal symbol$mw$,$mw$ground symbol$mw$,$mw$shielded cable$mw$,$mw$plc input symbol$mw$,$mw$vfd symbol$mw$,$mw$safety relay symbol$mw$,$mw$device designations$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NEMA ICS 19-2002 (industrial control and systems: diagrams, device designations and symbols); JIC EMP-1 electrical standards for industrial equipment; IEEE 315 / ANSI Y32.2 (graphic symbols for electrical and electronics diagrams); IEC 60617 (graphical symbols for diagrams); IEC 61346 and IEC 81346 (reference designation letter codes); NFPA 79 (electrical standard for industrial machinery, drawing and marking practice); Allen-Bradley, Square D and Siemens starter and control wiring publications.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$gdt-symbols-and-feature-control-frames$mw$, $mw$GD&amp;T Symbols and Feature Control Frames: Why Geometric Tolerancing Exists, Reading the Frame Compartments, Datums and Datum Targets, the Fourteen Characteristics (Form, Orientation, Location, Profile, Runout) per ASME Y14.5-2018, MMC, LMC, RFS and Bonus Tolerance, Picturing the Tolerance Zones, a Worked Bearing Housing Example, and Checking Flatness, Perpendicularity, Position and Runout on the Shop Floor with Indicators, Surface Plate and CMM$mw$, $mw$A chart-style reference to geometric dimensioning and tolerancing as it appears on the shafts, housings, baseplates and bolt patterns a millwright fabricates, checks and installs: what the feature control frame compartments mean, how datums set the order of measurement, each of the fourteen characteristics described in words with its zone and typical use, material condition modifiers and the bonus tolerance they give, a worked bearing housing with position and total runout, and how each control is actually checked with a dial indicator, surface plate, V-blocks or a CMM.$mw$, $mw$Plus-minus tolerances describe size. They cannot say whether a face is flat, a bore is square to a face, or a hole pattern is in the right place as a group; geometric dimensioning and tolerancing (GD&T) does that with a small set of symbols. The [overview article](/article/blueprint-reading-for-millwrights) lists them; this one explains how to read a frame and how to check the part.
+
+## Why GD&amp;T exists
+
+Take four 1/2 in bolt holes located plus or minus .005 in: each centre may lie anywhere in a .010 in square. But the bolt fits as long as the centre is within a **circle** through that square's corners, which has 57 percent more area, so the plus-minus scheme rejects good holes; and it says nothing about which face the holes are measured from.
+
+![Square plus-minus tolerance zone versus the round position zone](/img/drawings/gdt-why.svg)
+
+*Square plus-minus tolerance zone versus the round position zone*
+
+GD&T states three things plus-minus cannot: **which surfaces are the reference** (datums) and in what order; **the shape of the tolerance zone** (a cylinder for a hole axis, two parallel planes for a face, a band for a profile); and **how the tolerance interacts with size**, so a hole bigger than minimum is allowed more position error because the bolt still fits. A frame tells you what to indicate, from what, and how much error is allowed. The US standard is ASME Y14.5-2018; Canadian drawings follow it or ISO 1101.
+
+## The feature control frame
+
+The frame is a rectangle read left to right:
+
+![Feature control frame anatomy read left to right](/img/drawings/feature-control-frame-anatomy.svg)
+
+*Feature control frame anatomy read left to right*
+
+```
+   | symbol | Ø  tolerance  (M) | A | B (M) | C |
+```
+
+| Compartment | Holds | Notes |
+|---|---|---|
+| 1 | The **geometric characteristic symbol** | Which of the fourteen controls applies |
+| 2 | The **tolerance**, with a **diameter symbol** before it if the zone is a cylinder and a **material condition modifier** after it | No diameter symbol means two parallel planes that far apart; inch .010, metric 0.25 |
+| 3 to 5 | **Datum references**: primary, secondary, tertiary, each with an optional modifier | The order is the order the part is fixtured and measured; form tolerances have no datums |
+
+Also found in a frame: a **projected tolerance zone** (circled P with a height) for tapped holes, where the tolerance applies to the bolt standing above the surface, and modifiers such as free state (circled F), tangent plane (circled T) and unequally disposed profile (circled U). A frame on a leader or extension line controls a surface; a frame hung under a size dimension controls that feature's axis or centre plane.
+
+## Datums
+
+A **datum** is a theoretically perfect plane, axis or point established from a real, imperfect surface, the **datum feature**, which is what you set up on.
+
+![Datum feature symbol, datum target and the 3-2-1 datum frame](/img/drawings/datum-symbols.svg)
+
+*Datum feature symbol, datum target and the 3-2-1 datum frame*
+
+- **Datum feature symbol**: a letter in a square, tied to a triangle on the surface, on an extension line, or on a size dimension (then the datum is that feature's axis). Letters skip I, O and Q.
+- **Primary datum** (first in the frame): on a machine base, the mounting face, established by three points of contact; the **secondary** by two points while the primary stays in full contact; the **tertiary** by one. That 3-2-1 rule is why the order matters: hold the part on B first and you get a different answer.
+- **Datum targets** (a split circle with the target number and size) say where to touch a rough casting or weldment; a fabricated base shows A1, A2, A3 on the underside pads.
+- A **compound datum** A-B is two bearing journals that together make one axis, with every other diameter toleranced with runout to A-B; at the bench it is V-blocks or centres on those two journals.
+
+## The fourteen characteristics
+
+![The fourteen geometric characteristic symbols grouped by type](/img/drawings/gdt-symbol-sheet.svg)
+
+*The fourteen geometric characteristic symbols grouped by type*
+
+| Group | Characteristic | Symbol | Datums | Zone | Millwright relevance |
+|---|---|---|---|---|---|
+| **Form** | Flatness | A parallelogram | None | Two parallel planes | Baseplate and sole plate pads, gasket and seal faces |
+| Form | Straightness | A short horizontal line | None | Two parallel lines, or a cylinder for an axis | Long shafts, guide rails, conveyor stringers |
+| Form | Circularity (roundness) | A circle | None | Two concentric circles at each section | Bearing seats, seal sleeves; does not control taper |
+| Form | Cylindricity | A circle between two slanted lines | None | Two coaxial cylinders | Hydraulic rods and bores (roundness, straightness and taper together) |
+| **Orientation** | Perpendicularity | An inverted T | Yes | Two planes or a cylinder square to the datum | Pump feet to shaft axis, housing face to bore |
+| Orientation | Parallelism | Two slanted parallel lines | Yes | Two planes or a cylinder parallel to the datum | Base pads, two gearbox bores |
+| Orientation | Angularity | A line at an angle from a base line | Yes | Planes or a cylinder at the basic angle | Angled bosses, dovetails |
+| **Location** | Position | A circle with a cross through it | Usually three | A cylinder (holes) or two planes (slots) centred on the basic location | Bolt patterns, dowel holes, bores to mounting faces; the commonest control |
+| Location | Concentricity | Two concentric circles | One | A cylinder about the datum axis | **Removed in Y14.5-2018**; use runout or position |
+| Location | Symmetry | Three horizontal lines | One | Two planes about the datum centre plane | **Removed in 2018**; use position |
+| **Profile** | Profile of a surface | A closed half circle | Optional | A band each side of the true profile | Castings, contours; the all-purpose 3D tolerance |
+| Profile | Profile of a line | An open half circle | Optional | The same at each cross-section | Extrusions, cam profiles |
+| **Runout** | Circular runout | One angled arrow | Always | Full indicator movement in one revolution | Coupling faces and rims, seal surfaces |
+| Runout | Total runout | Two angled arrows with a line under them | Always | Full indicator movement across the whole surface | Shaft bearing seats, rotor faces, housing shoulders |
+
+In 2018, position on a surface of revolution replaces concentricity and position on a slot replaces symmetry.
+
+## Material condition modifiers and bonus tolerance
+
+A size feature has a **maximum material condition (MMC)**, the smallest hole or largest pin, and a **least material condition (LMC)**. **Regardless of feature size (RFS)** is the default when no modifier is shown.
+
+![Bonus tolerance: the position zone grows as the hole grows from MMC](/img/drawings/bonus-tolerance.svg)
+
+*Bonus tolerance: the position zone grows as the hole grows from MMC*
+
+| Modifier | Symbol | Meaning | Used for |
+|---|---|---|---|
+| MMC | Circled M | The tolerance applies at MMC; as the feature departs toward LMC the difference is added as **bonus tolerance** | Clearance holes: fit and assembly |
+| LMC | Circled L | Applies at LMC; bonus as the feature grows toward MMC | Minimum wall, edge distance |
+| RFS | No symbol (circled S on old prints) | Fixed tolerance | Press fits, bearing bores |
+
+Worked example. A hole `Ø.531 +.010 / -.000` has position `Ø.010 (M) A B C`. The hole measures .537, a departure of .006 from MMC, so the allowed zone is Ø.010 + .006 = **Ø.016 in**; at the largest hole (.541) it is Ø.020. A modifier on a **datum** reference (B at MMC) lets the datum feature shift within its own clearance: a little rock on B is allowed. Bonus never applies to form tolerances, to runout, or to any RFS frame.
+
+ASME Rule 1 (the **envelope rule**) says a size feature at MMC must be perfectly formed; ISO 8015 defaults to **independence**, size and form separate unless the circled E is added.
+
+## Tolerance zones you can picture
+
+![Flatness, perpendicularity, position and runout zones illustrated](/img/drawings/tolerance-zones.svg)
+
+*Flatness, perpendicularity, position and runout zones illustrated*
+
+| Frame | Zone to picture | How to think about it |
+|---|---|---|
+| Flatness .002 | Two planes .002 apart at any angle; the surface fits between | A straightedge and a .002 feeler that will not enter anywhere; or an indicator sweep on a surface plate |
+| Perpendicularity Ø.005 to A (under a bore) | A cylinder Ø.005, square to A, the bore axis inside it | A close pin in the bore, indicator run along the pin |
+| Position Ø.014 (M) A B C | A cylinder Ø.014 plus bonus on the basic location, square to A | Hole centre measured from B and C with the part on A; error = 2 x the square root of (X error squared + Y error squared) |
+| Circular runout .002 to A-B | At each section, a ring .002 wide about the A-B axis | On V-blocks or centres on the two journals, one turn: full indicator movement |
+| Total runout .003 to A-B | A cylinder .003 thick about A-B along the whole length | Same, with the indicator traversing; largest reading minus smallest |
+
+## Worked example: a bearing housing
+
+A replacement pillow-block housing for a Ø90 mm (3.543 in) bearing outer ring carries:
+
+![A bearing housing with datums, position, perpendicularity and runout callouts](/img/drawings/gdt-housing-example.svg)
+
+*A bearing housing with datums, position, perpendicularity and runout callouts*
+
+- **Datum A**, the mounting face: **flatness 0.02 mm** (.0008 in).
+- **Datum B**, the bore `Ø90 H7` (90.000-90.035 mm): **perpendicularity Ø0.03 mm to A** under the diameter.
+- **Datum C**, one machined end face; four mounting slots with **position 0.5 (M) A B C**, basic 300 mm between centres and 60 mm from C.
+- The shoulder inside the bore: **total runout 0.03 mm to B**.
+
+Reading it as a job:
+
+1. **Flatness of A** decides whether the housing sits without rocking: an indicator sweep on the surface plate, 0.02 mm total, or a straightedge and a 0.02 mm (.001 in) feeler.
+2. **Bore size** is a bore gauge check; RFS, so no bonus.
+3. **Perpendicularity of the bore to A**: housing on A, a close mandrel through the bore, indicate along the mandrel. Ø0.03 over a 60 mm bore is 0.0005 mm per mm, so over a 300 mm mandrel the allowed difference is 0.15 mm (.006 in).
+4. **Position of the slots** at MMC: measure slot centres from C and the bore axis, with bonus for a slot wider than minimum. A 0.5 mm zone on 14 mm slots for M12 bolts is lenient.
+5. **Total runout of the shoulder to B**: mandrel in the bore held in V-blocks, rotate the housing, indicator on the shoulder traversed radially, 0.03 mm total. A shoulder out of square skews the outer ring.
+
+If the housing fails 1 or 3, the shaft is forced out of alignment when the caps are torqued; if it fails 4, you file the slots. Shaft controls are in [bearing fits and clearance tables](/article/bearing-clearance-and-fits-tables).
+
+## Measuring against GD&amp;T on the shop floor
+
+![A coordinate measuring machine checks GD&amp;T callouts that a bench cannot](/photos/drawings/cmm-inspection.jpg)
+
+*A coordinate measuring machine checks GD&amp;T callouts that a bench cannot. Photo: AB Technology (Newark) Ltd., CC BY-SA 4.0, via commons*
+
+| Control | Tool | Setup and reading |
+|---|---|---|
+| Flatness | Surface plate and indicator on a stand; straightedge and feelers; a precision level on a large base | Part levelled on three spots, sweep the rest. See [surface plate, height gauge and squares](/article/surface-plate-height-gauge-and-squares) |
+| Perpendicularity of a face | Cylinder square or precision square with feelers | Part on the datum, square against the face |
+| Perpendicularity or parallelism of a bore or face | Mandrel, surface plate, indicator on a height stand | Indicate along the mandrel or across the face, both directions |
+| Position of holes | Gauge pins, height gauge on the plate; a CMM for many holes | Each pin centre from the datums in X and Y, converted to a diameter; technique in [dial indicator use](/article/dial-indicator-use) |
+| Circular and total runout | V-blocks or centres on the datum journals, dial indicator on a magnetic base | Full indicator movement (FIM, TIR); circular at several positions, total while traversing |
+
+A **CMM** does all of this from a probed datum setup; ask the vendor for the CMM report on a critical housing. Deburr the datum feature (a burr under A tips the whole setup) and put the V-blocks on the journals the frame names.
+
+**ISO 1101 differences.** The symbols are the same; ISO keeps concentricity and symmetry, defaults to independence, handles material condition through ISO 2692, and adds modifiers such as CZ (common zone). Canadian drawings under CSA B78.2 follow ASME Y14.5 in practice.
+
+## Common mistakes
+
+- Ignoring the datum order and measuring from whichever surface is handy.
+- Reading a position tolerance as plus-minus per axis instead of a diameter zone.
+- Forgetting the bonus on an MMC frame, or applying bonus to an RFS one.
+- Treating runout as a size check: a round shaft with an eccentric seat has runout and passes a micrometer.
+- Measuring a concentricity symbol on a 2018 drawing as runout without asking; it should not be there.
+- Assuming flat means parallel: a base can be flat and still not parallel to its top pads.
+- Applying the envelope rule to an ISO drawing, or independence to an ASME one.
+
+## Related
+
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [Reading engineering drawings: sheets, title blocks and revisions](/article/reading-engineering-drawings-basics)
+- [Dial indicator use](/article/dial-indicator-use)
+- [Surface plate, height gauge and squares](/article/surface-plate-height-gauge-and-squares)
+- [Bearing fits and clearance tables](/article/bearing-clearance-and-fits-tables)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$GD&amp;T$mw$,$mw$geometric dimensioning and tolerancing$mw$,$mw$ASME Y14.5$mw$,$mw$Y14.5-2018$mw$,$mw$ISO 1101$mw$,$mw$feature control frame$mw$,$mw$datum$mw$,$mw$datum feature symbol$mw$,$mw$datum target$mw$,$mw$datum reference frame$mw$,$mw$flatness$mw$,$mw$straightness$mw$,$mw$circularity$mw$,$mw$roundness$mw$,$mw$cylindricity$mw$,$mw$parallelism$mw$,$mw$perpendicularity$mw$,$mw$squareness$mw$,$mw$angularity$mw$,$mw$position tolerance$mw$,$mw$true position$mw$,$mw$bolt pattern position$mw$,$mw$profile of a surface$mw$,$mw$profile of a line$mw$,$mw$circular runout$mw$,$mw$total runout$mw$,$mw$concentricity$mw$,$mw$symmetry$mw$,$mw$MMC$mw$,$mw$maximum material condition$mw$,$mw$LMC$mw$,$mw$RFS$mw$,$mw$bonus tolerance$mw$,$mw$projected tolerance zone$mw$,$mw$tolerance zone$mw$,$mw$basic dimension$mw$,$mw$bearing housing tolerance$mw$,$mw$runout check$mw$,$mw$flatness check$mw$,$mw$V-blocks$mw$,$mw$CMM$mw$,$mw$geometric tolerance inspection$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.5-2018 (dimensioning and tolerancing), ASME Y14.5.1 (mathematical definition of dimensioning and tolerancing principles), ASME Y14.43 (dimensioning and tolerancing principles for gages and fixtures); ISO 1101 (geometrical tolerancing), ISO 5459 (datums), ISO 2692 (maximum material requirement), ISO 8015 (fundamental tolerancing principles); Machinery's Handbook GD&amp;T chapter; Alex Krulikowski, Fundamentals of GD&amp;T; SKF and Timken bearing housing and shaft geometric tolerance recommendations.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$hydraulic-symbols-iso-1219-complete$mw$, $mw$Hydraulic Symbols to ISO 1219, the Complete Chart: How the Symbols Work (Rest State, Envelopes, Ports, the Variable Arrow), Line Types and Reservoirs, Pumps and Motors, Cylinders and Rotary Actuators, Directional Valves and Centre Conditions, Valve Operators, Check and Shuttle Valves, Pressure and Flow Control Valves, Accumulators, Filters and Coolers, Gauges, Switches, Sensors and Connections, ISO 1219-2 Numbering and the Differences From Older ANSI/JIC Symbols$mw$, $mw$A symbol-by-symbol chart of everything drawn on a hydraulic schematic, described in words so you can recognise it on any sheet: how the rules of ISO 1219 work, then the lines, reservoirs, pumps, motors, cylinders, directional valves and their centres, operators, checks, pressure and flow valves, conditioning gear, instruments and connections, with the ISO 1219-2 component numbering and the places where older ANSI and JIC drawings differ.$mw$, $mw$Every hydraulic schematic in North America is drawn to ISO 1219 or to its older US ancestors (JIC and ANSI Y32.10), and the two look alike enough that one chart covers both. This article describes each symbol in words, one row per symbol, so you can name what you see and know what it does to the machine. The method for whole circuits is in [reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams); the air-only symbols are in [pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading).
+
+## How ISO 1219 symbols work
+
+![A hydraulic schematic on a machine plate, drawn in ISO 1219 symbols](/photos/drawings/load-sensing-schematic.jpg)
+
+*A hydraulic schematic on a machine plate, drawn in ISO 1219 symbols. Photo: Christianhydraulique, Public domain, via commons*
+
+- **Functional, not pictorial.** A symbol shows what a component does (ports, positions, flow directions, operator), never its size or shape. A 1/4 in cartridge relief and a 3 in pilot-operated relief share one symbol.
+- **Drawn at rest.** Every valve is drawn **de-energised and unactuated**: solenoids off, no pilot pressure, springs in charge, pump stopped. The lines touch the envelope the valve sits in at rest.
+- **Envelopes.** Valves are squares, one per position (a 4/3 has three; a pressure or flow valve has one). Pumps, motors and instruments are circles. Filters, coolers and heaters are a diamond. Cylinders and accumulators are rectangles.
+- **Ports** are where lines touch the envelope; a short bar across a port means blocked. Hydraulic ports are lettered **P** (pressure), **T** (tank), **A** and **B** (work), **L** (leakage), **X** and **Y** (pilot supply and drain). Pneumatic sheets use numbers (1, 2, 3, 4, 5, 12, 14).
+- **Arrows.** A solid triangle on a line is hydraulic fluid and its direction; hollow means air. An arrow inside an envelope is a flow path. A long **slanted arrow through** any symbol means **variable or adjustable**: through a pump, variable displacement; through a spring, an adjustable setting; through a throttle, an adjustable orifice.
+- **Springs** are a zigzag and say which way a valve returns when its operator lets go.
+- **Grid and numbers.** ISO 1219-1:2012 sizes every symbol on a module so CAD libraries match, and gives each symbol a registration number a legend sheet may quote. Composites (a two-stage valve, a valve stack, a power unit) sit inside a chain-line enclosure with the real ports on its boundary.
+
+## Lines, sources and reservoirs
+
+![Lines, junctions, plugged ports, reservoirs and energy sources](/img/drawings/hyd-lines-sources-sheet.svg)
+
+*Lines, junctions, plugged ports, reservoirs and energy sources*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Working line | Continuous solid line | Supply, return and work lines | Width is not a size |
+| Pilot line | Long dashes | Pressure that operates a valve or feeds a compensator | |
+| Drain line | Short dashes | Case or spring-chamber drain to tank | A blocked drain stops a valve shifting |
+| Enclosure line | Thin chain line (long dash, short dash) rectangle | Boundary of a manifold, stack or power unit | Lines crossing it are the real ports |
+| Mechanical connection | Two parallel solid lines | Shaft, rod or lever | |
+| Joined lines | Solid dot at the junction | Connected | ISO 1219-1:2012 requires the dot |
+| Crossing lines | Cross with no dot | Not connected | Old JIC sheets drew a hop (loop) |
+| Plugged port | Short bar across a line stub | Blanked with a plug | Spare manifold ports |
+| Reservoir | Open-topped box (three sides): vented; fully closed box: pressurised | The tank | Vented is the plant standard |
+| Return above fluid level | Line ends inside the box short of the bottom | Oil falls into the tank | Aerates the oil |
+| Return or suction below fluid level | Line runs to the bottom of the box | Submerged return; the pump suction | |
+| Pressure source | Small circle with a solid dot, on a stub | Pressure from off the sheet | Pneumatic: a hollow inner circle |
+| Electric motor | Circle with M, double line to the pump | The prime mover | A square with M is an engine |
+
+## Pumps and motors
+
+![Pump and motor symbols: fixed, variable, compensated, load-sensing, bi-directional](/img/drawings/hyd-pumps-motors-sheet.svg)
+
+*Pump and motor symbols: fixed, variable, compensated, load-sensing, bi-directional*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Fixed pump | Circle, one solid triangle pointing **out** at the outlet, shaft line on the side | Gear, vane or fixed piston pump | Triangle is the flow direction |
+| Bi-directional pump | Two solid triangles pointing out, opposite | Reversible pump | Hydrostatic loops |
+| Variable pump | Slanted arrow through the circle | Displacement can change | Says nothing about the control |
+| Pressure-compensated pump | Variable pump plus a small control square with a spring, adjustment arrow and a dashed pilot from the outlet | Destrokes at the compensator setting | Relief set above it; see [hydraulic basics](/article/hydraulic-system-basics-and-symbols) |
+| Load-sensing pump | Two stacked control squares: a flow compensator fed by a dashed LS line from the circuit, and a pressure compensator | Pressure follows the load plus 150-300 psi (10-20 bar) | See [load-sensing systems](/article/load-sensing-proportional-and-servo-systems) |
+| Pump with drain | Short-dash line from the circle to a tank symbol | External case drain | Must run to tank unrestricted |
+| Rotation | Curved arrow beside the shaft | Direction viewed on the shaft end | Wrong rotation kills a new pump |
+| Fixed motor | Circle, one solid triangle pointing **in** | Rotary output | The mirror of the pump |
+| Bi-directional motor | Two solid triangles pointing in | Runs either way | Winches, conveyors |
+| Pump-motor unit | Circle with an in and an out triangle | Works as either | Four triangles for two flow directions |
+| Rotary actuator | Half-circle or bow-tie, two ports, a double-headed curved arrow | Turns through a set angle (90, 180, 360 degrees) | Angle written beside it |
+
+## Cylinders and actuators
+
+![Cylinder symbols: single, double, double-rod, cushioned, telescopic, intensifier](/img/drawings/hyd-cylinders-sheet.svg)
+
+*Cylinder symbols: single, double, double-rod, cushioned, telescopic, intensifier*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Single-acting, spring return | Rectangle, piston line, rod one end, one port at the cap end, zigzag inside the rod end | Pressure extends, spring retracts | Rod end vented or drained |
+| Single-acting, load return | Same with no spring | Load pushes it back | Lifts, presses |
+| Double-acting | Piston line, rod one end, a port each end | Powered both ways; retract faster and weaker | The standard cylinder |
+| Double-rod | Rods out both ends | Equal area and speed both ways | Machine tables |
+| Cushioned | Small rectangle on the piston toward the cushioned end | Slows before the head | One or both ends |
+| Cushioned, adjustable | The cushion rectangle with a slanted arrow | Needle-adjustable | Set to not slam, not bounce |
+| Telescopic | Nested rectangles with a stepped rod | Multi-stage extension | Dump bodies |
+
+## Directional control valves and centre conditions
+
+A directional valve is named by **ports/positions**: 2/2 shut-off, 3/2 single-acting cylinder or pilot signal, 4/2 two-position, 4/3 the industrial standard, 5/2 and 5/3 pneumatic with two exhausts. It is drawn as one square per position in a row, with the lines touching the square active at rest (the centre of a spring-centred 4/3, the spring end of a 4/2). Read the other positions by sliding the row across the fixed ports; each operator pushes the row toward its own end. Inside a square, an arrow between two ports is a flow path (arrowheads both ends: both ways), a bar across a port is blocked, a dot where paths meet is ports joined. Two parallel lines drawn along the top and bottom of the row mean a **proportional or servo** valve with infinitely variable positions. A **two-stage** valve is drawn simplified (solenoid-plus-pilot operators on the main squares) or in detail (the pilot 4/3 above the main 4/3 inside an enclosure, showing the internal or external X and Y plugs). Spools are covered in [directional control valves](/article/directional-control-valves-spools-and-solenoids).
+
+![Directional valve envelopes and the common centre conditions](/img/drawings/hyd-dcv-sheet.svg)
+
+*Directional valve envelopes and the common centre conditions*
+
+Centre conditions of a 4/3, ports P T A B:
+
+| Centre | Drawn as | Load at rest | Pump at rest |
+|---|---|---|---|
+| Closed | Four bars, every port blocked | Held by the spool, slow drift (a spool always leaks) | Dead-headed: over the relief on a fixed pump (heat), destroked on a compensated pump |
+| Open | All four ports joined at a dot | Free: a hanging load drifts, a motor freewheels | Unloaded to tank, cool |
+| Tandem | P joined to T, A and B blocked | Held by the spool | Unloaded through the centre; valves can run in series |
+| Float | P blocked, A and B joined to T | Actuator floats, a motor coasts without cavitating | Dead-headed |
+| Regenerative | P joined to A and B, T blocked | Extends fast at reduced force: rod-end oil rejoins the cap end | Working at pressure |
+| Partly open | Read the arrows | Special sequences, motor brakes | Trust the maker's spool code |
+
+## Valve operators
+
+Operators touch the end of the row. A spring at the other end means the operator works against it; springs at both ends mean spring-centred.
+
+![Valve operators: solenoid, lever, pedal, pilot, spring, detent, proportional](/img/drawings/hyd-operators-sheet.svg)
+
+*Valve operators: solenoid, lever, pedal, pilot, spring, detent, proportional*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Solenoid | Rectangle with one corner-to-corner diagonal | Coil shifts the spool toward this end | One each end on a double-solenoid valve |
+| Proportional solenoid | Diagonal plus a slanted arrow through the rectangle | Force varies with current | |
+| Manual override | Small manual rectangle drawn on the solenoid | A pin shifts the valve by hand | Know what will move first |
+| Lever | Line with a small circle at the pivot and a cross-bar handle | Hand lever | Mobile banks |
+| Push button | Stem ending in a flat cap | Momentary button | |
+| Pedal | Angled foot shape on a stem | Foot operated | Presses |
+| Roller (cam) | Stem ending in a small circle | Cam or slide rolls over it, both directions | A roller on a pivoted arm works one way only |
+| Spring | Zigzag on the envelope end | Returns the valve on release | |
+| Detent | Saw-tooth notches along the envelope edge, one per position | Stays put with no power | Holds through a power loss |
+| Pilot pressure | Small solid triangle on the end with a dashed line to the source | Pressure shifts the valve | Triangles both ends: pilot both sides; hollow for air |
+| Solenoid plus pilot | Solenoid rectangle then a pilot triangle on the same end | Solenoid-controlled, pilot-operated | Needs 50-150 psi minimum pilot |
+
+## Check, shuttle and pilot-operated check valves
+
+![Check, spring check, pilot-operated check, shuttle and restrictor check](/img/drawings/hyd-check-valves-sheet.svg)
+
+*Check, spring check, pilot-operated check, shuttle and restrictor check*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Check valve | Small circle (ball) in a V (seat) in the line | Free flow in the direction that lifts the ball off the seat (from the point of the V toward the ball); blocked the other way | No spring: opens at almost zero |
+| Spring-loaded check | Zigzag spring behind the ball | Opens above its cracking pressure, 5-65 psi (0.35-4.5 bar) | A 65 psi check in a return line is a back-pressure valve |
+| Pilot-operated check, pilot to open | Dashed pilot ending in a triangle pushing against the ball | Pressure from the other work line lifts the ball so the load can lower | Ratio 3:1 or 4:1 beside it; a short-dash drain if the return has back-pressure |
+| Pilot-operated check, pilot to close | Dashed pilot pushes the ball onto the seat | Pilot blocks the free-flow direction | Less common |
+| Dual POC (lock valve) | Two POCs in one enclosure, each piloted from the other line | Locks a cylinder both ways | Pressure stays trapped after shutdown |
+| Shuttle valve | Rectangle, inlet each end, outlet in the middle, ball between two seats | Outlet sees the higher inlet (OR) | LS signals, brake circuits |
+
+## Pressure control valves
+
+All pressure valves share one convention: one square; an arrow inside for the flow path; a zigzag spring on one side (slanted arrow through it: adjustable); a dashed pilot on the other side showing **which pressure** works against the spring. Arrow drawn **offset** from the ports: **normally closed** (relief, sequence, counterbalance, unloading), pilot pressure pushes it into line to open. Arrow **in line** with the ports: **normally open** (reducing), pilot pushes it out of line to throttle. Where the pilot comes from and where the outlet goes is the whole difference. Settings are in [pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth).
+
+![Relief, reducing, sequence, counterbalance, unloading and brake valves](/img/drawings/hyd-pressure-valves-sheet.svg)
+
+*Relief, reducing, sequence, counterbalance, unloading and brake valves*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Relief, direct-acting | Normally closed; pilot from the **inlet**; outlet to a tank symbol | Opens to tank at the setting | Set 10-15% above working pressure |
+| Relief, pilot-operated | Main square with a small pilot relief square and a **vent port** (dashed, labelled V or X) | Pilot stage sets the pressure; venting the port drops the main stage to 25-75 psi (2-5 bar) | How a solenoid unloads a pump |
+| Pressure reducing | Normally **open**; pilot from the **outlet**; short-dash drain from the spring chamber; outlet to the circuit | Holds downstream pressure whatever the upstream | The only normally open one; drain must be free |
+| Sequence | Normally closed; pilot from the inlet; **external drain**; outlet to a second circuit; bypass check in parallel | Feeds the second operation when the first reaches pressure | Clamp then press |
+| Counterbalance | Normally closed; dashed pilot from the **opposite work line**; reverse check in parallel; ratio (3:1, 4.5:1) beside it | Holds a hanging load, lets it down only under drive pressure | Never removed to cure a slow lower |
+| Unloading | Normally closed; pilot from a **remote** line (accumulator, second pump); outlet to tank | Dumps a pump when the remote pressure is reached | Hi-lo circuits |
+| Brake valve | Counterbalance with two pilots: internal from the inlet (high setting), external from the other line (low) | Holds and brakes a motor load, opens easily under drive | Winch and travel motors |
+
+## Flow control valves
+
+![Flow controls: fixed, adjustable, compensated, with bypass check, flow divider](/img/drawings/hyd-flow-valves-sheet.svg)
+
+*Flow controls: fixed, adjustable, compensated, with bypass check, flow divider*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Fixed orifice | Two short arcs facing each other narrowing the line | Fixed restriction | Flow varies with pressure drop and viscosity |
+| Adjustable throttle | The arcs with a slanted arrow | Needle valve; flow still changes with load | The cheap flow control |
+| Pressure-compensated | Throttle inside a rectangle with a small normally open compensator square, spring and pilots before and after the throttle | Constant flow regardless of load | Set with the machine loaded |
+| Temperature-compensated | Adds a small thermometer (stem and bulb) | Corrects for viscosity | Precision feeds |
+| With reverse check | Check in parallel around the throttle | Metered one way, free the other | The standard cylinder speed control |
+| Flow divider | One inlet, two outlets each through a throttle linked by a bar (spool) or two motor circles on one shaft (rotary) | Splits flow in a fixed ratio | Synchronising cylinders |
+
+## Accumulators, filters, coolers and conditioning
+
+![Accumulators, filters with bypass, water separator, cooler, heater, breather](/img/drawings/hyd-conditioning-sheet.svg)
+
+*Accumulators, filters with bypass, water separator, cooler, heater, breather*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Gas-charged accumulator | Tall capsule, one port at the bottom, divided by a curved line (bladder) or a straight line (piston), a small hollow triangle in the gas half | Nitrogen precharge over a separator | Precharge beside it; see [accumulator precharge](/article/accumulator-precharge-and-safety) |
+| Spring-loaded accumulator | Zigzag inside the capsule | Spring stores the energy | Rare |
+| Weight-loaded accumulator | Rectangle (weight) inside the capsule | Constant pressure from a mass | Old presses |
+| Filter | Diamond with a dashed line across it perpendicular to the flow | Removes particles | Suction, pressure, return, off-line |
+| Filter with bypass | Diamond with a spring-loaded check in parallel | Bypasses when blocked, 25-50 psi (1.7-3.5 bar) | A bypassed filter passes dirt |
+| Filter with clogging indicator | Diamond with a small gauge or pressure switch across it | Dirty-element signal | Change on the indicator, not the calendar |
+| Breather | Small diamond with a dashed line on a stub open to air | Filters the air the tank breathes | Desiccant type in wet plants |
+| Cooler | Diamond with two arrows pointing **out** | Removes heat | Water or fan lines added |
+| Heater | Diamond with two arrows pointing **in** | Adds heat for cold starts | |
+| Temperature controller | Diamond with arrows both ways | Heats or cools to a set point | |
+
+## Gauges, switches, sensors and connections
+
+![Gauges, flow meters, pressure switches, quick disconnects, rotary joints, enclosures](/img/drawings/hyd-instruments-sheet.svg)
+
+*Gauges, flow meters, pressure switches, quick disconnects, rotary joints, enclosures*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Pressure gauge | Circle with a short pointer arrow, on a stub | Pressure at that point | A circle with a thermometer is a temperature gauge |
+| Flow meter | Circle in the line with a small arrow inside | Flow rate | Totaliser adds a small box |
+| Pressure switch | Square with a spring one side, dashed pilot the other, an electrical contact inside and a zigzag electric arrow | Contact changes at the set pressure | Set point and deadband beside it |
+| Level switch | Float (circle on a stem) with a contact | Low-oil shutdown | |
+| Temperature switch | Thermometer with a contact | Hot-oil trip, 140-160 F (60-70 C) | |
+| Transducer | Square with a pilot in and a signal arrow leaving | 4-20 mA or 0-10 V out | See [PLC awareness](/article/plc-and-instrumentation-awareness) |
+| Quick disconnect, uncoupled | Two facing open half-symbols drawn apart; a check ball in each half if self-sealing | Halves separated | Pressure trapped on the hose side |
+| Quick disconnect, coupled | The halves joined with a small circle at the joint | Connected | |
+| Rotary joint | Circle around the line with an arc arrow | Swivel | Hose reels, slewing rings |
+| Test point | Short stub ending in a small circle with a cap | Minimess or Stauff port | Gauge on without opening the line |
+| Cartridge (logic) valve | Rectangle cavity with a cone poppet in a seat, spring and pilot area at the top, ports A and B, an X pilot line | Two-way poppet controlled by a pilot valve | Area ratio beside it; see [cartridge and logic valves](/article/cartridge-and-logic-valves) |
+| Manifold | Chain-line enclosure with port letters on the boundary | One block carries the valves | Block drawing is a separate sheet |
+
+**ISO 1219-2 numbering.** Each component carries the circuit number, a letter and a running number: **1P1** pump 1 of circuit 1, **1A1** an actuator, **1V1**, **1V2** valves, **1S1** a sensor or switch, **1Z1** an accessory (filter, gauge, cooler). Circuit 0 is the supply unit (0P1 the main pump, 0Z1 the return filter). The component list uses the same codes with model numbers and settings. Older US sheets use tags (PMP-1, RV-1, DCV-3).
+
+**Differences from older ANSI and JIC symbols.** ISO 1219 grew from the JIC and ANSI Y32.10 symbols, so a 1970 sheet reads much like a 2020 one. Watch for: a **loop at a crossing** (not connected) where ISO uses a plain crossing; pilot and drain drawn with the same dash; a reservoir under every return line instead of once; pneumatic ports lettered P, A, B, R, S where ISO numbers them 1, 2, 4, 3, 5; a solenoid drawn as a plain rectangle with no diagonal; and two-stage valves drawn in full where ISO allows a simplified symbol. Whichever family the sheet uses, its **legend sheet** governs: read it first.
+
+## Common mistakes
+
+- Reading a valve in its energised state; the lines are always drawn on the rest envelope.
+- Taking the slanted arrow through a pump as a flow direction: it means variable, the triangle is the flow.
+- Mixing up the pump triangle (points out) and the motor triangle (points in).
+- Missing a short-dash drain line and plugging that manifold port: the valve will not shift.
+- Reading relief and reducing valves as the same symbol: the reducing valve's arrow is in line with the ports and its pilot comes from downstream.
+- Assuming a check flows in the direction the line runs on the page: the ball and seat decide.
+- Looking for external ports on a manifold that the enclosure line says are internal.
+- Treating an old JIC loop at a crossing as a junction.
+- Trusting a closed-centre spool to hold a load: without a POC or counterbalance it drifts.
+
+## Related
+
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)
+- [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Cartridge and logic valves](/article/cartridge-and-logic-valves)
+- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$hydraulic symbols$mw$,$mw$iso 1219$mw$,$mw$iso 1219-1$mw$,$mw$iso 1219-2$mw$,$mw$fluid power symbols$mw$,$mw$hydraulic schematic symbols$mw$,$mw$symbol chart$mw$,$mw$pilot line$mw$,$mw$drain line$mw$,$mw$enclosure line$mw$,$mw$reservoir symbol$mw$,$mw$pressure source$mw$,$mw$pump symbol$mw$,$mw$variable displacement symbol$mw$,$mw$pressure compensated pump symbol$mw$,$mw$load sensing symbol$mw$,$mw$hydraulic motor symbol$mw$,$mw$cylinder symbol$mw$,$mw$cushion symbol$mw$,$mw$telescopic cylinder$mw$,$mw$rotary actuator$mw$,$mw$directional valve symbol$mw$,$mw$4/3 valve$mw$,$mw$centre condition$mw$,$mw$closed centre$mw$,$mw$open centre$mw$,$mw$tandem centre$mw$,$mw$float centre$mw$,$mw$regenerative centre$mw$,$mw$valve operators$mw$,$mw$solenoid symbol$mw$,$mw$detent$mw$,$mw$check valve symbol$mw$,$mw$pilot operated check$mw$,$mw$shuttle valve$mw$,$mw$relief valve symbol$mw$,$mw$reducing valve symbol$mw$,$mw$counterbalance valve$mw$,$mw$flow control symbol$mw$,$mw$flow divider$mw$,$mw$accumulator symbol$mw$,$mw$filter symbol$mw$,$mw$pressure switch symbol$mw$,$mw$cartridge valve symbol$mw$,$mw$jic symbols$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 1219-1:2012 (fluid power systems and components, graphical symbols and circuit diagrams, part 1: graphical symbols) and ISO 1219-2 (part 2: circuit diagrams and component identification); NFPA/T3.28 fluid power symbol practice; ANSI Y32.10 and JIC hydraulic standards (older US symbols); Parker, Eaton Vickers and Bosch Rexroth industrial hydraulics training manuals and valve catalogues (symbol usage, spool functions, pilot and drain conventions); SMC and Festo symbol references for the pneumatic variants.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$isa-instrument-tags-bubbles-and-letters$mw$, $mw$ISA Instrument Tags Chart: The Tag (Letters plus Loop Number), First Letters for the Measured Variable, Modifiers and Succeeding Letters, Bubble Shapes and Location Lines (Field, Panel, Behind Panel, Local Panel, DCS, PLC), Signal Line Types, Worked Tags (PIT-101, TIC-203, FSL-310, LAHH-405, ZSC-512, PSV-120), Reading One Control Loop, Transmitters versus Switches, Indicators and Controllers, and the Instrument Index$mw$, $mw$A word chart of the ISA-5.1 tagging system: how a tag is built from function letters and a loop number, the full first-letter table for the measured variable, the modifiers and the succeeding letters for readout and output functions, the bubble shapes and location lines that say where the instrument lives, the signal line types, a set of worked tags decoded letter by letter, one temperature loop read end to end, the difference between a transmitter, a switch, an indicator, a controller and a converter, and what each column of the instrument index tells you.$mw$, $mw$Every instrument on a P&amp;ID is a bubble with a code inside, and the code follows one rule set, ISA-5.1, on almost every plant in the US and Canada. Learn the letter table once and you can read the tag on any transmitter, switch or control valve, know what it measures, what it does and where its readout is. The P&amp;ID context is in [PFD and P&amp;ID reading](/article/pfd-and-pid-reading).
+
+## The tag: letters plus loop number
+
+A tag has two parts separated by a hyphen: the **functional identification** (letters) and the **loop identification** (a number, sometimes with a suffix). In **PIT-101A**:
+
+![ISA tag decoder: PIT-101A letter by letter](/img/drawings/isa-tag-decoder.svg)
+
+*ISA tag decoder: PIT-101A letter by letter*
+
+| Part | Example | Rule |
+|---|---|---|
+| **First letter** | P | The measured or initiating variable (pressure) |
+| **Modifier** (optional) | D in PDT, F in FFC | Changes the meaning of the first letter (differential, ratio) |
+| **Succeeding letters** | I, T | The functions the instrument performs, in order: readout or passive functions first (I indicate), output functions after (T transmit) |
+| **Function modifiers** (optional) | H, L, HH, LL | High, low, high-high, low-low, on alarms and switches |
+| **Loop number** | 101 | Shared by every instrument in the same loop; often the first digit is the unit or P&amp;ID number |
+| **Suffix** (optional) | A, B | Duplicate instruments in one loop, or parts of one loop |
+
+The letters read in order and rarely exceed four. The loop number ties **FE-201, FT-201, FIC-201 and FV-201** together: same number, same loop. Some plants number loops per P&amp;ID sheet (sheet 10 carries 1001 to 1099), some per unit, some in a single series. Suffix letters distinguish parallel instruments (**PT-101A** and **PT-101B** voting on the same trip) and parts of one loop (**TV-203A** and **TV-203B** split-range valves). Canadian plants use ISA-5.1 as written; European vendor packages sometimes use ISO 3511 / ISO 14617, where a few letters differ.
+
+## First letters: what is measured
+
+The first letter names the measured or initiating variable. ISA-5.1-2009 assigns:
+
+![ISA first letters: the measured variable for each letter](/img/drawings/isa-first-letters-table.svg)
+
+*ISA first letters: the measured variable for each letter*
+
+| Letter | Measured or initiating variable | Notes |
+|---|---|---|
+| **A** | Analysis | pH, oxygen, conductivity; the property is written beside the bubble |
+| **B** | Burner, combustion | Flame detectors, burner management |
+| **C** | User choice | Often conductivity on old sheets; the legend defines it |
+| **D** | User choice | Often density; **D as a modifier** means differential (PDT) |
+| **E** | Voltage | Electrical |
+| **F** | Flow rate | **F as a modifier** means ratio (FFC) |
+| **G** | User choice | Often gauging or gap; older sheets used G for glass |
+| **H** | Hand | Manually initiated: hand switch HS, hand valve HV, hand controller HC |
+| **I** | Current | Electrical current (motor amps: II) |
+| **J** | Power | Electrical power; **J as a modifier** means scan |
+| **K** | Time, time schedule | Timers, sequences; **K as a modifier** means time rate of change |
+| **L** | Level | |
+| **M** | User choice | Often moisture or humidity; older sheets used M as a momentary modifier |
+| **N** | User choice | Legend defined |
+| **O** | User choice | Legend defined |
+| **P** | Pressure | Includes vacuum |
+| **Q** | Quantity | Totalised or integrated quantity; **Q as a modifier** means integrate or totalise (FQI) |
+| **R** | Radiation | Nuclear gauges |
+| **S** | Speed, frequency | Machine speed; **S as a modifier** means safety (PSV) |
+| **T** | Temperature | |
+| **U** | Multivariable | One instrument handling several variables |
+| **V** | Vibration, mechanical analysis | Vibration and shaft position monitors on machines |
+| **W** | Weight, force | Load cells |
+| **X** | Unclassified | Anything else; defined beside the bubble; **X as a modifier** is the X axis |
+| **Y** | Event, state, presence | Events and on/off states; **Y as a modifier** is the Y axis |
+| **Z** | Position, dimension | Valve position, actuator position; **Z as a modifier** is the Z axis |
+
+The user-choice letters (C, D, G, M, N, O) mean whatever the company legend says, and the meaning must be the same throughout that plant. Where a first letter has a modifier, the modifier is the second letter of the tag and the pair is read together: **PD** differential pressure, **FF** flow ratio, **FQ** flow quantity, **TD** temperature difference, **PS** in PSV is pressure-safety.
+
+## Modifiers and succeeding letters
+
+The letters after the variable say what the device does. ISA sorts them into readout or passive functions, output or active functions, and function modifiers.
+
+![ISA succeeding letters: readout, output and modifier meanings](/img/drawings/isa-succeeding-letters-table.svg)
+
+*ISA succeeding letters: readout, output and modifier meanings*
+
+| Letter | As a readout or passive function | As an output or active function | As a function modifier |
+|---|---|---|---|
+| **A** | Alarm | | |
+| **B** | User choice | User choice | User choice |
+| **C** | | Control | |
+| **E** | Sensor, primary element (the thing in the pipe) | | |
+| **G** | Glass, gauge, viewing device | | |
+| **H** | | | High |
+| **I** | Indicate | | |
+| **K** | | Control station (manual loading station) | |
+| **L** | Light (pilot light) | | Low |
+| **M** | | | Middle, intermediate |
+| **N** | User choice | User choice | User choice |
+| **O** | Orifice, restriction | | |
+| **P** | Point (test connection) | | |
+| **R** | Record | | |
+| **S** | | Switch | |
+| **T** | | Transmit | |
+| **U** | Multifunction | Multifunction | |
+| **V** | | Valve, damper, louver (the final control element) | |
+| **W** | Well, probe | | |
+| **X** | Unclassified | Unclassified | Unclassified |
+| **Y** | | Auxiliary device: relay, compute, convert | |
+| **Z** | | Driver, actuator, unclassified final control element | |
+
+**Variable modifiers** that sit right after the first letter: **D** differential, **F** ratio, **Q** integrate or totalise, **S** safety, **K** time rate of change, **J** scan, and on old sheets **M** momentary. **Function modifiers** at the end: **H** high, **L** low, **HH** high-high, **LL** low-low, **M** middle; so **LAHH** is a level alarm high-high and **PSLL** a pressure switch low-low. When one bubble both indicates and transmits, the passive letter comes first (**PIT**, not PTI). **Y** is the letter to watch: it is any relay, converter or computing function (I/P converter, square-root extractor, solenoid on an actuator, signal selector), and the actual function is written in a small box beside the bubble.
+
+## Bubbles and where the instrument lives
+
+The shape of the symbol says what kind of device it is; the line across it says where it is mounted.
+
+![Bubble shapes and location lines: field, panel, behind panel, DCS, PLC](/img/drawings/isa-bubbles-sheet.svg)
+
+*Bubble shapes and location lines: field, panel, behind panel, DCS, PLC*
+
+| Shape | Drawn | Means |
+|---|---|---|
+| **Circle** | A plain circle with the tag inside | Discrete (stand-alone) instrument: a transmitter, gauge, switch, single-loop controller |
+| **Circle in a square** | A circle inside a square | Shared display and shared control: a point on the DCS or a shared HMI |
+| **Hexagon** | Six-sided figure | Computer function: a calculation or a point in a plant computer |
+| **Diamond in a square** | A diamond inside a square | Programmable logic controller (PLC) function |
+| **Interlock** | Diamond or hexagon with **I** and a number, no loop letters | Interlock logic reference |
+
+| Location line | Drawn | Means |
+|---|---|---|
+| **No line** | Plain shape | Field mounted, at the equipment or on the pipe |
+| **Single solid horizontal line** | One line through the middle | Primary location, normally accessible to the operator: the main control room panel or console |
+| **Single dashed horizontal line** | One dashed line through the middle | Primary location, normally inaccessible: behind the panel, in a cabinet, a rack room |
+| **Double solid horizontal line** | Two lines through the middle | Auxiliary location, accessible: a local panel or field console |
+| **Double dashed horizontal line** | Two dashed lines | Auxiliary location, inaccessible: inside a local cabinet |
+
+For a millwright: a bare circle **PI-101** is a gauge on the pipe, a lined **PIC-101** is a face in the control room, and a dashed **PY-101** is a converter in a cabinet. Field instruments are what you isolate and protect when you open a line.
+
+## Signal lines
+
+![Signal line types: pneumatic, electric, hydraulic, capillary, software](/img/drawings/pid-lines-signals-sheet.svg)
+
+*Signal line types: pneumatic, electric, hydraulic, capillary, software*
+
+| Line | Drawn | Carries |
+|---|---|---|
+| **Process connection** | Thin solid line from the pipe to the bubble | Impulse line, thermowell, tubing |
+| **Pneumatic** | Thin line with pairs of short diagonal slashes | 3-15 psi (0.2-1 bar) air signal |
+| **Electric** | Thin dashed line (older sheets: solid with three slashes) | 4-20 mA, discrete contact, thermocouple or RTD wiring |
+| **Hydraulic** | Thin line with **L** marks | Hydraulic signal |
+| **Capillary** | Thin line with **X** marks | Filled system to a remote seal or thermal bulb |
+| **Electromagnetic or sonic** | Sine wave on the line (guided), on a dashed line (unguided) | Radar, ultrasonic, radio |
+| **Software or data link** | Thin line with small open circles | Internal DCS or PLC link, fieldbus |
+| **Mechanical link** | Thin line with small filled circles | Linkage or shaft |
+| **Undefined** | Thin solid line with no marks | Any signal, type not stated |
+
+The signal line direction is shown by arrows where it matters; a signal that leaves the sheet ends in the same off-page connector as a pipe.
+
+## Worked tags
+
+![Six worked tags drawn as they appear on a P&amp;ID](/img/drawings/isa-worked-tags.svg)
+
+*Six worked tags drawn as they appear on a P&amp;ID*
+
+| Tag | Read as | What it is | Where it lives |
+|---|---|---|---|
+| **PIT-101** | Pressure, indicating, transmitter, loop 101 | A pressure transmitter with a local display, sending 4-20 mA to the DCS | Field, on the pipe |
+| **TIC-203** | Temperature, indicating, controller, loop 203 | The controller that holds a temperature setpoint and drives TV-203 | DCS face (circle in a square with a line) |
+| **FSL-310** | Flow, switch, low, loop 310 | A contact that closes when flow drops below its setting, usually tripping the pump or raising an alarm | Field, or a software switch from FT-310 |
+| **LAHH-405** | Level, alarm, high-high, loop 405 | The high-high level alarm, normally the trip level above the LAH | DCS or annunciator |
+| **ZSC-512** | Position, switch, closed, loop 512 | A limit switch proving a valve is closed | On the actuator |
+| **PSV-120** | Pressure, safety, valve, loop 120 | A relief valve; the loop number is its own | On the vessel or line |
+| **TE / TT / TIC / TV-203** | Temperature element, transmitter, controller, valve | One temperature loop: thermocouple in the well, transmitter on its head, controller in the DCS, control valve in the line | Field, field, DCS, field |
+| **FE / FT / FIC / FY / FV-201** | Flow element, transmitter, controller, converter, valve | One flow loop: orifice plate, DP transmitter, controller, I/P converter, control valve | Field, field, DCS, on the valve, field |
+
+## Reading one control loop on the P&amp;ID
+
+Take temperature loop 203 on a heat exchanger outlet. Start at the pipe: a small bubble **TE-203** on the outlet line is the **element**, a thermocouple or RTD in a thermowell (**TW-203** may be tagged separately). A thin solid line runs from it to **TT-203**, the **transmitter**, drawn as a bare circle beside the pipe: it turns the millivolts into 4-20 mA. A dashed electric signal line leaves TT-203 and goes to **TIC-203**, drawn as a circle inside a square with a solid line through it: the **controller**, a DCS point on the operator's screen, which compares the measurement with the setpoint. From TIC-203 a dashed line runs to **TY-203**, a small circle beside the control valve with **I/P** in a box: the **converter** that turns 4-20 mA into 3-15 psi air. A pneumatic line with double slashes runs from TY-203 to the diaphragm on **TV-203**, the **control valve** on the cooling water to the exchanger, marked **FO** (fail open: on loss of air it opens and keeps cooling). A **TAH-203** bubble on the DCS shares the loop number and sounds when the outlet runs hot. Follow the loop number and you have read the whole thing: element, transmitter, controller, converter, valve, alarm. The loop diagram (ISA-5.4) for TIC-203 then gives every wire, terminal and tubing run between them.
+
+![One control loop on the P&amp;ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
+
+*One control loop on the P&amp;ID from orifice to control valve*
+
+## Transmitters, switches, indicators and controllers
+
+![Transmitter, switch, indicator and controller compared](/img/drawings/isa-transmitter-vs-switch.svg)
+
+*Transmitter, switch, indicator and controller compared*
+
+| Device | Letters | What it does | What you see in the field |
+|---|---|---|---|
+| **Primary element** | E (FE, TE, LE) | Senses the variable: orifice plate, thermocouple, float, probe | The thing in or on the pipe; often removable for a job |
+| **Transmitter** | T (PT, PIT, FT) | Converts the measurement into a continuous signal (4-20 mA, digital) to the control system | A head with a display, tubing or a thermowell, a cable |
+| **Switch** | S (PSL, FSH, LSHH, ZSC) | A contact that changes state at one setting: alarm, trip, permissive | A small box with a setpoint screw, or a software switch from a transmitter |
+| **Indicator** | I (PI, TI, FI) | Shows the value: a gauge, a thermometer, a rotameter, or the number on the screen | Gauge on the pipe or a face on the panel |
+| **Controller** | C (PIC, TIC, FIC, LC) | Compares the measurement with a setpoint and drives an output | DCS point, single-loop controller, or a self-contained field controller |
+| **Converter / relay / compute** | Y (FY, TY, XY) | Changes the signal: I/P, P/I, square root, high select, solenoid on an actuator | Small box on or near the valve |
+| **Final control element** | V, Z (FV, TV, XV, ZY) | The control valve, damper, on/off valve or actuator | The valve in the line |
+| **Alarm** | A (PAH, LALL) | Announces a limit | Annunciator or screen |
+
+The distinction that matters on a job: a **transmitter** sends a continuous value and the trip point lives in the control system; a **switch** trips at its own setting and can be hard-wired independent of the DCS, so bumping a PSL while working on a pump can shut it down. A **controller** moves something; an **indicator** only shows. Disconnect anything with a T, S or C in its tag and the control system sees it: somebody must know.
+
+## The instrument index
+
+The **instrument index** (instrument list) is the database behind the bubbles, one row per tag. Typical columns:
+
+| Column | Says |
+|---|---|
+| **Tag** | PIT-101 |
+| **Service** | What it measures: P-101A discharge pressure |
+| **P&amp;ID** | Drawing and sheet where the bubble is |
+| **Loop** | Loop number and loop diagram reference |
+| **Type** | Instrument type: gauge pressure transmitter, RTD, magnetic flowmeter, limit switch |
+| **Range and setpoint** | 0-300 psig (0-20 bar); trip at 25 psig |
+| **Signal** | 4-20 mA, HART, fieldbus, pneumatic, discrete |
+| **Location** | Field, panel, DCS, PLC; mounting details |
+| **Data sheet** | The specification sheet (ISA-20 form) number |
+| **I/O address** | The controller, card and channel it lands on |
+
+Use it to find the range of a gauge before you trust it, the I/O address when you ask the technician to force a point, and the loop diagram when a wire must come off.
+
+## Common mistakes
+
+- Reading PSV as a pressure switch: S after P is the safety modifier, and PSV is a relief valve.
+- Reading FSL as a flow switch that acts on low, then finding the trip is software in the DCS from FT-310: check the index for what is hard-wired.
+- Treating a bare circle and a lined circle as the same: one is on the pipe, the other is in the control room.
+- Assuming a user-choice letter (C, D, G, M) from the last plant instead of this legend.
+- Reading a two-letter modifier the wrong way: PDT is differential pressure, not a pressure controller.
+- Forgetting that Y bubbles (I/P converters, solenoids) sit on the valve and lose the valve when their air or power is pulled.
+- Disconnecting an element or transmitter for a job without telling the control room that the loop and its alarms will go bad.
+- Ignoring the suffix: PT-101A and PT-101B may be two of three voting transmitters, and pulling one changes the trip logic.
+
+## Related
+
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
+- [Electrical symbols NEMA and IEC](/article/electrical-symbols-nema-and-iec)
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Quiz: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$ISA 5.1$mw$,$mw$ISA-5.1-2009$mw$,$mw$instrument tag$mw$,$mw$instrument bubble$mw$,$mw$instrument letters$mw$,$mw$tag letters$mw$,$mw$loop number$mw$,$mw$first letter$mw$,$mw$succeeding letter$mw$,$mw$modifier letter$mw$,$mw$PIT$mw$,$mw$TIC$mw$,$mw$FSL$mw$,$mw$LAHH$mw$,$mw$ZSC$mw$,$mw$PSV$mw$,$mw$TE$mw$,$mw$TT$mw$,$mw$FT$mw$,$mw$FIC$mw$,$mw$FY$mw$,$mw$FV$mw$,$mw$transmitter$mw$,$mw$switch$mw$,$mw$indicator$mw$,$mw$controller$mw$,$mw$converter$mw$,$mw$primary element$mw$,$mw$control valve tag$mw$,$mw$bubble shapes$mw$,$mw$shared display$mw$,$mw$DCS symbol$mw$,$mw$PLC symbol$mw$,$mw$field mounted$mw$,$mw$panel mounted$mw$,$mw$behind panel$mw$,$mw$local panel$mw$,$mw$signal lines$mw$,$mw$pneumatic signal$mw$,$mw$electric signal$mw$,$mw$control loop$mw$,$mw$loop diagram$mw$,$mw$instrument index$mw$,$mw$I/O address$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification (identification letters table, functional designations, instrument line symbols, general instrument or function symbols); ISA-5.3 graphic symbols for distributed control / shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (tagging and loop numbering practice); ISO 14617 and ISO 3511 for the ISO variants; company legend sheets and instrument indexes.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$mechanical-drawings-views-sections-and-dimensions$mw$, $mw$Mechanical Drawings: Third and First Angle Projection, Every Line Type, Full, Half, Offset, Revolved, Broken-Out, Removed and Aligned Sections with Hatch Patterns, Auxiliary and Detail Views, Dimensioning Rules and Hole Symbols, Limit and Plus-Minus Tolerances, ISO 286 Fits (H7/g6 to H7/s6 and N7) with Inch Equivalents, Thread Callouts, Surface Finish Symbols, Assembly Drawings and Parts Lists, and Weldment Drawings$mw$, $mw$The picture part of a mechanical drawing, read at the bench: how the views sit on the sheet under third and first angle projection, what every line style means, how each kind of section is cut and hatched, when a drafter uses auxiliary and detail views, the rules of dimensioning and the hole and thread symbols, how tolerances are stated and what the common ISO fits mean when a shaft goes into a bore, surface finish symbols and the values that matter on seals and bearing seats, and how assembly and weldment drawings are put together.$mw$, $mw$A detail drawing is a set of agreed conventions, and once you know them you can read a part the drafter never met you to explain. This article takes the [blueprint reading overview](/article/blueprint-reading-for-millwrights) deeper; the paperwork side is in [reading engineering drawings](/article/reading-engineering-drawings-basics).
+
+## Views and projection angle
+
+An orthographic drawing shows the object in flat views at 90 degrees to each other. Where each view sits depends on the **projection angle**, and getting it wrong flips left for right on every part you make.
+
+![Third-angle and first-angle projection symbols and view placement](/img/drawings/projection-angle-symbols.svg)
+
+*Third-angle and first-angle projection symbols and view placement*
+
+| | Third angle (ASME, US and Canada) | First angle (ISO, Europe, much of Asia) |
+|---|---|---|
+| Top view | Above the front view | Below the front view |
+| Right side view | Right of the front view | Left of the front view |
+| Symbol | A truncated cone (trapezoid) beside its end view (two concentric circles); the circles sit on the side the **small end points to** | Same shapes, but the circles sit on the **wide-end side** |
+
+The symbol lives beside the title block; if it is missing, find a feature visibly on one side in the front view and check which side view shows it. Expect first angle from European machine builders; Canadian Red Seal training covers both. **Isometric** views are never dimensioned from.
+
+## The alphabet of lines
+
+ASME Y14.2 uses two weights, **thick** (about 0.024 in, 0.6 mm) and **thin** (0.012 in, 0.3 mm). On a reduced print the weights blur; the pattern still tells you what the line is.
+
+![The alphabet of lines: visible, hidden, centre, dimension, section, break and phantom](/img/drawings/line-types-sheet.svg)
+
+*The alphabet of lines: visible, hidden, centre, dimension, section, break and phantom*
+
+| Line | Weight and pattern | Means |
+|---|---|---|
+| Visible | Thick, continuous | Edges you can see |
+| Hidden | Thin, short dashes | Edges behind the surface, hole bottoms |
+| Centre | Thin, long-short | Axis of a round feature, symmetry, bolt circles |
+| Dimension | Thin, arrowheads each end, broken for the number (ASME) or number above (ISO) | The size or location |
+| Extension | Thin, small gap from the object | Carries the measured point out |
+| Leader | Thin, arrowhead on an edge or a dot on a surface | Links a note, symbol or balloon to its feature |
+| Cutting plane | Thick, long-short-short or thick dashes, 90 degree arrows and letters | Where a section is cut and which way you look |
+| Viewing plane | As cutting plane, no cut | A partial view from that direction |
+| Section (hatch) | Thin, 45 degree, evenly spaced | Material cut by the plane |
+| Break | Thick freehand (short); thin with zigzags (long) | The part is shortened; the dimension across the break is real |
+| Phantom | Thin, long-short-short | Alternate positions, adjacent parts, repeated detail |
+| Stitch | Thin dots | Stitching; intermittent welds on old prints |
+
+## Sections and hatching
+
+A section removes the material in front of a plane so the inside can be seen. The cutting-plane arrows point in the direction of sight; the section carries the same letters (SECTION A-A).
+
+![Full, half, offset, revolved and broken-out sections with their cutting planes](/img/drawings/section-types.svg)
+
+*Full, half, offset, revolved and broken-out sections with their cutting planes*
+
+| Section | How it is cut | Where you see it |
+|---|---|---|
+| **Full** | One plane straight through | Housings, valves, cylinders |
+| **Half** | Cut to the centreline; one half sectioned, the other shown outside | Pulleys, pistons, glands |
+| **Offset** | The plane steps at 90 degrees through features not in one line | A cover with scattered holes |
+| **Revolved** | The cross-section rotated 90 degrees and drawn on the view at the cut | Spokes, ribs, structural members |
+| **Removed** | As revolved but drawn elsewhere, often enlarged | Shaft keyways, splines |
+| **Broken-out** | A small area broken away with a freehand line | One bore or keyway on an external view |
+| **Aligned** | An angled rib or hole is swung into the plane to show true distance | Flanges with odd bolt counts |
+
+**Hatching** is thin 45 degree lines, at different angles for adjacent parts. The plain hatch means any material; older patterns still appear: pairs and singles for steel, dashed-and-solid for bronze, double lines for aluminium, wavy for rubber, dots and triangles for concrete. **Shafts, bolts, nuts, keys, pins, ribs, webs and spokes are not hatched** even when the plane passes through them; gaskets are shown solid black.
+
+## Auxiliary and detail views
+
+A face that slants to the principal planes is foreshortened in every regular view. An **auxiliary view** is projected perpendicular to that face so it appears at true size; dimension the slanted face from it, never from the foreshortened view.
+
+![An 1867 machine drawing: views, sections and details laid out the way they still are](/photos/drawings/machine-drawing-1867.jpg)
+
+*An 1867 machine drawing: views, sections and details laid out the way they still are. Photo: Griffin, Charles Lewis, 1867-; Adams, Charles Clyde, 1882- joint author, No restrictions, via commons*
+
+A **detail view** enlarges a small area: a circle on the main view labelled with a letter, and the enlargement elsewhere labelled DETAIL A, SCALE 4:1. The detail's scale overrides the sheet scale, and a feature you cannot find dimensioned is probably in a detail.
+
+## Dimensions and how to read them
+
+![A plate dimensioned from a datum corner with hole, thread, radius and chamfer callouts](/img/drawings/dimensioning-example.svg)
+
+*A plate dimensioned from a datum corner with hole, thread, radius and chamfer callouts*
+
+- **Placement.** ASME uses **unidirectional** dimensions (all read horizontally); ISO and older drawings use **aligned** (read along the dimension line).
+- **Decimals.** An inch dimension carries as many decimals as its tolerance, so `2.50` and `2.500` are different statements; metric omits trailing zeros (`63.5`).
+- **Chain dimensioning** runs feature to feature and the tolerances add up: five holes at plus or minus .005 in can end .025 in out. **Baseline** dimensioning runs everything from one edge and does not accumulate. Measure the way the drawing dimensions.
+- **Reference dimension** in parentheses `(4.000)`: for information, not inspected.
+- **Basic dimension** in a box: theoretically exact, toleranced by a geometric control (see [GD&T](/article/gdt-symbols-and-feature-control-frames)).
+
+| Symbol | Reads | Example |
+|---|---|---|
+| Ø, R, SR | Diameter, radius, spherical radius | `Ø1.250`, `R.125`, `SR2.00` |
+| Counterbore (open-topped rectangle) then Ø, then depth | Counterbore diameter and depth | counterbore Ø.875, depth .375 |
+| Countersink (a V) then Ø and an angle | Countersink diameter at the surface and included angle | countersink Ø.750 x 82° |
+| Depth (a down arrow with a bar) | Depth of a hole, thread or counterbore | depth .75 |
+
+Depth is measured to the full diameter, not the drill point.
+
+## Tolerances, limits and fits
+
+![Fit callout decoder: Ø50 H7/g6, its limits and the fit families](/img/drawings/fit-callout-decoder.svg)
+
+*Fit callout decoder: Ø50 H7/g6, its limits and the fit families*
+
+| Form | Example | Meaning |
+|---|---|---|
+| Limit | `1.502` over `1.500` | The two limits, larger on top |
+| Plus-minus | `1.501 ± .001`; `1.500 +.002 / -.001`; `1.500 +.002 / -.000` | Equal, unequal, unilateral |
+| Block | `.XX ± .01`, `.XXX ± .005`, angles ± 30', fractions ± 1/32 | Where no tolerance is shown, by decimal places |
+| ISO general | ISO 2768-mK | m = medium linear (± 0.3 mm from 30 to 120 mm), K = geometric class |
+
+ISO 286 (ANSI B4.2 uses the same tables) writes a **hole** class with a capital letter (H: lower limit at nominal) and a **shaft** class in lower case, each with an IT grade (6 and 7 ordinary machining, 5 grinding); the **hole basis** system varies the shaft because reamers are fixed sizes. The fits a millwright meets, for Ø50 mm (about 2 in):
+
+| Fit | Type | Ø50 limits and result | At the bench |
+|---|---|---|---|
+| **H7/g6** | Close running (sliding) | Hole +0/+0.025, shaft -0.009/-0.025; clearance 0.009-0.050 mm (.0004-.0020 in) | Slides by hand, no shake: spigots, guide bushings, wear rings |
+| **H7/h6** | Locational clearance | Shaft 0/-0.016; clearance 0-0.041 mm (0-.0016 in) | Hand push, may stick at zero: pilots, light-duty keyed hubs |
+| **H7/k6** | Locational transition | Shaft +0.018/+0.002; -0.023 to +0.018 mm | Light push to light press: ball bearing inner rings, keyed gears |
+| **H7/p6** | Locational interference | Shaft +0.042/+0.026; interference 0.001-0.042 mm (to .0017 in) | Press or heat: bushings in housings, dowel pins |
+| **H7/s6** | Medium drive (heavy press) | Shaft +0.059/+0.043; interference 0.018-0.059 mm (.0007-.0023 in) | Hydraulic press or shrink, permanent: coupling hubs, gear rims |
+| **N7 housing** | Light interference on a bearing OD | Ø90 housing -0.010/-0.045; 0.005 mm clearance to 0.045 mm interference on an OD toleranced 0/-0.015 | Outer ring pressed or heated in, where the outer ring rotates relative to the load; fixed housings are H7 or J7 |
+
+Inch rule of thumb: a press fit is about .001 in per inch of diameter. Bearing seats use the maker's table in [bearing fits and clearances](/article/bearing-clearance-and-fits-tables); whatever a fit is called, the limits on the drawing are what the [micrometer](/article/reading-a-micrometer) and bore gauge decide against.
+
+## Threads and fasteners on drawings
+
+Threads are never drawn to shape: an internal thread is a drilled circle with a thin outer circle in the end view; an external thread shows the major diameter as an object line and the minor as a thin line. The callout carries everything.
+
+![Thread callouts decoded and how threads are drawn](/img/drawings/thread-callout.svg)
+
+*Thread callouts decoded and how threads are drawn*
+
+| Callout | Reads |
+|---|---|
+| `1/2-13 UNC-2A`, depth `.75` | 1/2 in nominal, 13 TPI, Unified Coarse, class 2 (1 loose, 3 close), A external (B internal); full thread .75 in deep, the drill goes deeper |
+| `M12 x 1.75 - 6g` | Metric, 12 mm, 1.75 mm pitch (coarse, may be omitted), class 6g external; 6H internal; 6g/6H is the standard fit |
+| `... LH` | Left hand; everything else is right hand |
+| `1/2-14 NPT` | Tapered pipe thread, 1/2 in nominal pipe size, 14 TPI; NPTF dryseal, NPSM straight |
+
+Fastener notes give grade and finish: `HHCS 1/2-13 X 2 GR 5 ZN`, `SHCS M12 X 40 CL 12.9`, `A325 3/4 X 2-1/2`. A torque on the drawing overrides the [generic chart](/article/bolt-torque-chart-sae-metric); identifying an unknown thread is in [thread identification](/article/thread-identification-and-gauges).
+
+## Surface finish symbols
+
+The surface texture symbol (ASME Y14.36, ISO 1302) is a check mark with its long leg on the right. A **bare check** allows any process; a **bar across the top** means machining required; a **circle in the vee** prohibits material removal (as cast); the **number** beside it is **Ra**, in **microinches on inch drawings and micrometres on metric**; a **machining allowance** in mm may sit left of the vee (ISO); a **lay symbol** under the bar gives the tool-mark direction (`=` parallel, a perpendicular mark, `X` crossed, `M` multidirectional, `C` circular, `R` radial). Shafts under lip seals want no spiral lead, so they carry C or a "no lead" note.
+
+![Surface finish symbol anatomy and common Ra values by process](/img/drawings/surface-finish-symbol.svg)
+
+*Surface finish symbol anatomy and common Ra values by process*
+
+| Ra μin | Ra μm | Process | Where it matters |
+|---|---|---|---|
+| **125** | **3.2** | Ordinary milling and turning | General machined faces, bolted joints, keyways |
+| **63** | **1.6** | Fine turning, boring | Bearing housing bores, baseplate pads, gasket faces, pump feet |
+| **32** | **0.8** | Finish turning, grinding | Bearing seats on shafts, coupling bores, flange raised faces (125-250 μin serrated under ASME B16.5) |
+| **16** | **0.4** | Grinding, honing | Lip seal surfaces (10-20 μin, plunge ground), cylinder rods and bores, seal sleeves |
+
+ISO drawings may state `Rz` (peak to valley), roughly four to seven times Ra; never read one as the other.
+
+## Assembly drawings, balloons and parts lists
+
+An assembly drawing shows the parts in working position with enough views (often one section) to show how they fit, and few size dimensions. It adds **balloons** (circles with the item or find number), the **parts list** (item, quantity, part or drawing number, description, material), **assembly dimensions** (overall size, mounting dimensions, shaft height, coupling gap) and **assembly notes** such as "MATCH DRILL ITEMS 3 AND 7 AT ASSY" or "SHIM ITEM 9 FOR .010-.015 END FLOAT". A sub-assembly is one item pointing to its own drawing; **exploded views** in manuals show the order of disassembly, and their item numbers match the spare-parts list.
+
+![Assembly drawing with balloons and the parts list they point to](/img/drawings/assembly-balloons-parts-list.svg)
+
+*Assembly drawing with balloons and the parts list they point to*
+
+## Weldment drawings
+
+A **weldment** is several pieces welded together and treated as one part, often machined afterwards. The drawing gives a cut list per piece and **welding symbols** on the joints; the full reading is in [welding symbols](/article/welding-symbols), and the general note sets the default where a joint has no symbol.
+
+**Machined-after-welding** surfaces carry the finish symbol and a note ("MACHINE AFTER WELDING AND STRESS RELIEF, FLAT WITHIN .005"). They are dimensioned from the finished surface, so the fabricator leaves stock (often 1/8 in, 3 mm per face); the order is weld, stress relieve, then machine, because machining first loses the flatness. Datums sit on the machined pads so the GD&T frames can be checked. Larger jobs use a separate machining drawing; never machine to the weldment drawing. When a weldment arrives, check pad flatness and bore positions before it is set.
+
+## Common mistakes
+
+- Reading a first-angle drawing as third angle and mirroring the part.
+- Measuring a foreshortened face in a principal view instead of the auxiliary view.
+- Adding chain dimensions without adding their tolerances.
+- Assuming a fit from its name instead of the limits on the drawing.
+- Ordering a spare by balloon number instead of part number.
+- Machining a weldment before stress relief, or to the weldment drawing instead of the machining drawing.
+
+## Related
+
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Reading engineering drawings: sheets, title blocks and revisions](/article/reading-engineering-drawings-basics)
+- [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [Bearing fits and clearance tables](/article/bearing-clearance-and-fits-tables)
+- [Thread identification and gauges](/article/thread-identification-and-gauges)
+- [Welding symbols](/article/welding-symbols)
+- [Reading a micrometer](/article/reading-a-micrometer)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$mechanical drawing$mw$,$mw$orthographic projection$mw$,$mw$third angle projection$mw$,$mw$first angle projection$mw$,$mw$projection symbol$mw$,$mw$alphabet of lines$mw$,$mw$hidden line$mw$,$mw$centre line$mw$,$mw$phantom line$mw$,$mw$cutting plane line$mw$,$mw$section view$mw$,$mw$full section$mw$,$mw$half section$mw$,$mw$offset section$mw$,$mw$revolved section$mw$,$mw$broken-out section$mw$,$mw$removed section$mw$,$mw$aligned section$mw$,$mw$hatching$mw$,$mw$auxiliary view$mw$,$mw$detail view$mw$,$mw$dimensioning$mw$,$mw$chain dimensioning$mw$,$mw$baseline dimensioning$mw$,$mw$reference dimension$mw$,$mw$basic dimension$mw$,$mw$counterbore symbol$mw$,$mw$countersink symbol$mw$,$mw$limit dimension$mw$,$mw$block tolerance$mw$,$mw$ISO 286$mw$,$mw$ISO 2768$mw$,$mw$fits$mw$,$mw$H7 g6$mw$,$mw$H7 k6$mw$,$mw$H7 p6$mw$,$mw$N7 housing$mw$,$mw$press fit$mw$,$mw$thread callout$mw$,$mw$UNC$mw$,$mw$metric thread$mw$,$mw$NPT$mw$,$mw$surface finish symbol$mw$,$mw$Ra roughness$mw$,$mw$weldment drawing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.3 (orthographic and pictorial views), ASME Y14.2 (line conventions), ASME Y14.5-2018 (dimensioning and tolerancing), ASME Y14.36 (surface texture symbols), ASME Y14.100 (engineering drawing practices), ASME B1.1 and B1.13M (unified and metric screw threads), ASME B1.20.1 (pipe threads), ASME B46.1 (surface texture); ISO 128 (presentation), ISO 286-1 and 286-2 (limits and fits), ISO 2768-1 and 2768-2 (general tolerances), ISO 1302 (surface texture indication); Machinery's Handbook fit and thread tables; AWS A2.4 welding symbols.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$motor-control-schematics-and-wiring-diagrams$mw$, $mw$Motor Control Schematics and Wiring Diagrams: Schematic, Wiring Diagram and One-Line Compared, Ladder Format and Reading Order, the Three-Wire Start-Stop Rung by Rung, Wire Numbers, Rung Numbers and Cross-References, Device Designations, Control Power Transformer Fusing and Grounding, Interlocks, Jog and Forward-Reverse, Two-Speed and Reduced-Voltage Starters, VFD Control Wiring, the Wiring Diagram and Panel Layout, the MCC Bucket Sheet, and Using the Schematic When a Motor Will Not Start$mw$, $mw$How a motor starter is drawn three ways and how to read each: the ladder schematic rung by rung from the plain start-stop circuit through interlocked, jogged, reversing, two-speed, reduced-voltage and drive-controlled starters, the numbering and cross-reference systems that let you follow a wire across sheets, the control transformer and its fusing, the wiring diagram and MCC bucket sheet that tie the schematic to real terminals, and the millwright's method for a motor that will not start: mechanical checks, reading the rung, and handing the electrician the rung number instead of opening a live door.$mw$, $mw$A starter is drawn three times in a machine's electrical package, and each drawing answers a different question: the **one-line** says what feeds it, the **schematic** says how it works, and the **wiring diagram** says where the wires physically go. A millwright reads all three: to find the disconnect to lock, to understand why a motor stopped, and to point the electrician at the right terminal. The symbols are in [electrical symbols, NEMA and IEC](/article/electrical-symbols-nema-and-iec). What this article does not license is live testing: opening an energised panel and putting a meter on it is qualified-person work under [electrical safety for mechanics](/article/electrical-safety-for-mechanics) and [lockout basics](/article/lockout-tagout-basics).
+
+## Schematic, wiring diagram, one-line: three drawings of one starter
+
+![The same starter as a schematic and as a wiring diagram](/img/drawings/schematic-vs-wiring-diagram.svg)
+
+![Plant one-line extract down to the MCC bucket and motor](/img/drawings/one-line-extract.svg)
+
+*Plant one-line extract down to the MCC bucket and motor*
+
+*The same starter as a schematic and as a wiring diagram*
+
+| Drawing | What it shows | What it is for | What it does not show |
+|---|---|---|---|
+| **One-line (single-line)** | One line per circuit from the MCC bus through breaker, starter and cable to the motor, with sizes (30 A MCP, NEMA size 2, 15 hp, 3 AWG) | Finding what feeds the motor and where the disconnect is | How the control works |
+| **Schematic (elementary, ladder)** | Every device drawn by function in the order the circuit works, power section on top, control ladder below | What must be true for the coil to pull in | Where anything is physically |
+| **Wiring (connection) diagram** | Devices drawn where they sit in the panel with every wire, terminal number and cable | Landing and tracing real wires | The logic, which cannot be read from it |
+
+The drawing index says which sheet is which; the schematic page (E-3) and its wiring page (E-13) carry the same device designations.
+
+## Ladder format: lines, rungs and reading order
+
+The control schematic is a ladder. **L1** is the left rail (the hot, fused side of the control transformer secondary, wire 1); **L2** is the right rail (the grounded side, wire 2). Each **rung** runs left to right: **contacts on the left, one load on the right**, connected straight to L2. Rungs are numbered down the left margin (1, 2, 3, or 101, 102 on sheet 1). Read a rung as a sentence: for the load to be powered, every contact in series from L1 must be closed, and a parallel branch is an alternative path. Wire numbers change at every device; the same number means the same electrical point wherever it appears. Loads in parallel on one rung (a coil and its pilot light) are drawn stacked. IEC sheets turn the ladder on its side, rails horizontal and current paths vertical, numbered across the top; the reading rule is the same.
+
+## The three-wire start-stop rung by rung
+
+The circuit under every NEMA starter door:
+
+![Three-wire start-stop schematic in ladder format, rung by rung](/img/drawings/three-wire-start-stop.svg)
+
+*Three-wire start-stop schematic in ladder format, rung by rung*
+
+```
+   L1 ---1---[ STOP NC (1PB) ]---3---[ START NO (2PB) ]---4---[ OL NC ]---5---( M coil )---2--- L2
+                                   |                     |
+                                   +------[ M aux NO ]---+
+```
+
+- **Wire 1 to 3**: the STOP button, normally closed. Pressing it breaks the rung. It is NC so a broken wire or a loose terminal stops the machine instead of preventing a stop.
+- **Wire 3 to 4**: the START button, normally open, in parallel with the **M auxiliary contact** (the seal-in or holding contact, an NO contact on the contactor itself).
+- **Wire 4 to 5**: the **overload contact**, NC, opened by the overload relay when the motor draws too much current for too long.
+- **Wire 5 to 2**: the **M coil**, the load, straight to L2.
+
+Press START: current flows 1-3-4-5 through the coil; the contactor pulls in, closing the three power contacts to the motor and the M auxiliary. Release START: the auxiliary contact now carries the current from 3 to 4, so the coil stays in. Press STOP, or trip the overload, or lose control power: the coil drops out, the auxiliary opens, and the circuit is back at rest. When power returns the motor **does not restart**, because the seal-in is open and nobody is pressing START. That is **low-voltage protection**, and it is the reason a three-wire circuit is required wherever an unexpected restart could hurt someone.
+
+**Two-wire control** replaces the buttons with one maintained contact (a selector switch, a float switch, a thermostat): L1, contact, OL, coil, L2. It restarts the instant power comes back. Right for a sump pump, wrong for a conveyor with a man clearing a jam: a two-wire circuit on a machine with an operator is a finding to raise.
+
+Older sheets put the OL contact between the coil and L2. NFPA 79 practice now puts one side of every coil directly on the grounded conductor and the OL contact on the L1 side, so a ground fault on the coil wiring cannot hold the starter in.
+
+## Wire numbers, rung numbers and cross-references
+
+![Wire numbers, rung numbers, device designations and cross-references decoded](/img/drawings/wire-and-rung-numbering.svg)
+
+*Wire numbers, rung numbers, device designations and cross-references decoded*
+
+- **Wire numbers** are assigned sequentially through the drawing (1, 2, 3, 4, 5 as above, 1 and 2 reserved for the rails) or by rung (rung 3 uses 301, 302, 303). Either way the number changes at every device and stays the same through terminals and splices. Wire 1 is the control hot everywhere, wire 2 the grounded side everywhere; DC sections often use a 100 or 200 series.
+- **Rung numbers** run down the left margin. Multi-sheet sets use sheet-and-rung (3.12 or 312) so a cross-reference is unambiguous.
+- **Contact cross-references** sit under or beside every coil: a list of the rungs where that coil's contacts appear, with **NC contacts underlined** (or shown with a bar or in parentheses). A coil 1CR on rung 4 with the note "6, 9, 14" has NO contacts on rungs 6 and 9 and an NC contact on rung 14. Next to each contact, the rung of its coil is written. IEC sheets do the same with a **contact mirror**: a small table under the coil listing each contact's terminal numbers (13-14, 21-22) and the path where it is used (4.6).
+- **Terminal numbers** appear as small circles on the wire with the strip and terminal (TB1-7) so the schematic and the wiring diagram meet.
+
+To follow a signal: find the coil, read its cross-reference list, go to each rung and read what that contact enables or blocks.
+
+## Device designations
+
+| Designation | Device | Designation | Device |
+|---|---|---|---|
+| 1M, 2M | Motor contactor (starter) 1, 2 | F, R | Forward and reverse contactors |
+| 1CR, 2CR | Control relay | 1TR | Timing relay |
+| 1OL | Overload relay (and its contact) | 1CPT | Control power transformer |
+| 1PB, 2PB | Pushbutton (STOP usually 1PB, START 2PB) | 1FU, 2FU | Fuse (primary, secondary) |
+| 1SS | Selector switch (HAND-OFF-AUTO) | 1CB, 1MCP | Circuit breaker, motor circuit protector |
+| 1LS | Limit switch | 1DISC | Disconnect |
+| 1PL | Pilot light | 1SOL | Solenoid |
+| 1PS, 1FS, 1TS | Pressure, flow/float, temperature switch | 1JR | Jog relay |
+| S, 1A, 2A | Wye-delta or autotransformer starting contactors | 1SR | Safety relay |
+
+IEC sets use -K1 (contactor or relay), -Q1 (breaker or disconnect), -F1 (fuse or overload), -S1 (switch), -M1 (motor), -T1 (transformer), -H1 (lamp), -Y1 (solenoid or brake), -U1 (drive), -X1 (terminal strip). The number is the instance, not a sequence: -K7 is simply the seventh contactor on the set.
+
+## Control power: transformer, fusing and grounding
+
+The **control power transformer (CPT)** takes 480 V (600 V in Canada) from two of the motor lines after the disconnect and delivers 120 V for the ladder. On the schematic: primary terminals **H1-H4** with jumpers (H2-H3 for 480 V), **fuses on both primary lines** (both ungrounded), secondary **X1 fused** with a small time-delay fuse, and **X2 grounded** at the panel and connected to L2. The grounded X2 is why every switch, the STOP button and the OL contact sit on the L1 side and the coil goes straight to L2. The secondary fuse follows the VA: a 150 VA CPT delivers 1.25 A at 120 V and carries about a 1.6-2 A fuse; 500 VA, 4.2 A and a 5-6 A fuse. Blown control fuse: the ladder is dead, the power section is live, the motor stops. A 24 V DC supply for the PLC side is drawn as a rectangle (-G1) with its own fuse. NFPA 79 wire colours on the sheet: **black** ungrounded power, **red** AC control, **blue** DC control, **yellow** control fed from outside that stays live when the disconnect is off, **white** grounded conductor, **green** ground. A yellow wire is a warning: locking out the machine disconnect does not kill it.
+
+## Interlocks, jog and forward-reverse
+
+**Forward-reverse** uses two contactors, F and R, on one overload. F connects L1-L2-L3 to T1-T2-T3; R swaps two lines (L1 to T3, L3 to T1). Both in together is a line-to-line short, so the schematic shows three layers of protection: an **electrical interlock** (an NC R auxiliary in the F coil rung and an NC F auxiliary in the R rung), a **mechanical interlock** (a dashed line between the two contactor symbols: a lever that stops both armatures closing), and often **pushbutton interlocks** (the FWD button carries an NC contact in the REV rung and vice versa). Reading the rungs: FWD is STOP, FWD NO in parallel with F aux, REV NC button, R NC aux, OL, F coil; REV mirrors it. Some sheets add a **time delay** or a **zero-speed switch** so the motor coasts before reversing.
+
+![Forward-reverse schematic with electrical and mechanical interlocks](/img/drawings/forward-reverse-interlocks.svg)
+
+*Forward-reverse schematic with electrical and mechanical interlocks*
+
+**Jog** inches the machine: the motor runs only while the button is held, so the seal-in must not work in jog. The proper circuit uses a **jog relay** (1JR): START energises 1JR, whose NO contact is in series with the M seal-in; JOG energises M directly, bypassing 1JR, so M cannot seal. The cheap version uses a JOG button with an NC contact that opens the seal-in path and an NO contact that energises M; release it quickly and the seal-in can make before the NC contact closes, and the motor runs on. A jog-run **selector switch** in series with the seal-in is the other common arrangement. The cheap circuit on a machine where a run-on could hurt someone is a finding.
+
+## Two-speed and reduced-voltage starters on paper
+
+- **Two-speed, separate winding**: two contactors (L for low, H for high), each with its own overload, feeding two independent windings brought out as T1-T3 and T11-T13. Electrical and mechanical interlocks as for reversing. Simple to read: two starters side by side.
+- **Two-speed, consequent pole**: one winding with six leads T1-T6; low speed connects T1-T3 with T4-T6 open (or shorted); high speed shorts T1-T3 together and feeds T4-T6, so a third contactor **S** (the shorting contactor) appears with H. The sheet notes constant torque, variable torque or constant horsepower, which changes which leads get shorted. Overloads sized for each speed.
+- **Wye-delta (star-delta)**: a six-lead motor started in wye at 58 percent voltage (about a third of the locked-rotor current and torque), then reconnected in delta. Contactors 1M (line), S (the wye point) and 2M (delta), a timer 1TR (typically 5-15 s), and interlocks between S and 2M. **Open transition** drops the motor for a fraction of a second during the changeover (a current spike, a jolt); **closed transition** adds resistors and a fourth contactor (2A) so the motor is never disconnected. The line schematic shows six motor leads T1-T6, which is how you recognise it.
+- **Autotransformer**: a three-coil autotransformer with 50, 65 and 80 percent taps, start, run and shorting contactors, a timer; closed transition. The tap in use is written on the sheet.
+- **Part-winding**: a nine- or twelve-lead motor with two contactors, 1M on half the winding and 2M on the other half 1-3 s later; two overloads.
+- **Soft starter**: a rectangle with L1-L3 in, T1-T3 out, a bypass contactor drawn around it (closed at full speed), a run input, ramp time and current limit written beside it, and a fault contact in the ladder.
+
+Whichever it is, read the **timer setting** and the **interlocks**: a reduced-voltage starter that trips on start has usually lost its timer setting or has a stuck transition contactor.
+
+## VFD control wiring
+
+A drive replaces the starter but keeps a control ladder. On the sheet: a rectangle with L1-L3 in through a disconnect and fuses or a breaker, U-V-W (T1-T3) to the motor in shielded VFD cable, DC bus terminals and a braking resistor if fitted, and a **control terminal strip**:
+
+| Terminal group | What lands there | Notes |
+|---|---|---|
+| Digital inputs | Run/stop (two-wire or three-wire mode set by parameter), forward/reverse, jog, preset speed selects, fault reset, external fault | 24 V DC from the drive, sourcing or sinking by a jumper; a stop wired NC |
+| Speed reference | 0-10 V from a potentiometer (three wires: 10 V, wiper, common) or 4-20 mA from the PLC; a jumper or switch selects V or mA | 4-20 mA survives long runs; 0 mA means a broken wire |
+| Relay outputs | RUN and FAULT contacts into the ladder (a fault contact in series with a system-ready relay) | Dry contacts; the fault light on the door |
+| Safe torque off (STO) | Two channels from the safety relay; opening them removes gate power to the transistors | Not an isolation: the bus stays live; see [VFD basics](/article/vfd-basics-for-millwrights) |
+| Drive enable | An input that must be made before any run command works | Often the E-stop chain |
+| Network | Ethernet/IP, Profinet, Modbus to the PLC | Run commands may come over the network with no wire to see |
+
+The drive's own manual gives the terminal numbers; they differ between makes and series. A drive can be running from the network with nothing on the digital inputs, so an empty terminal strip does not mean no run command.
+
+## The wiring diagram: terminals, cables and panel layout
+
+The wiring (connection) diagram draws the panel as built: the back-plate with the disconnect, breaker, CPT, contactors, overloads, relays, terminal strips and power supply, each with its designation label as it reads on the real nameplate, and the door with its buttons and lights. Every wire carries its number at **both ends** (matching the ferrules); terminal strips are numbered rows, commonly **TB1** power and motor leads, **TB2** 120 V control and field devices, **TB3** 24 V DC PLC I/O, but the sheet defines it. Field devices sit outside the panel outline with their cable numbers. Beside it: the **cable schedule** (number, from, to, type, conductors, size) and **conduit schedule** (number, size, route, cables in it), and the **panel layout** with mounting dimensions and door clearance. Use it to find the terminal a limit switch lands on so you can tell the electrician TB2-14 and 15, wire 31; to match a device label to the schematic; and to see which conduit a damaged cable runs in.
+
+![Inside a control panel: the wiring diagram tells you where each of these wires lands](/photos/drawings/electricians-panel.jpg)
+
+*Inside a control panel: the wiring diagram tells you where each of these wires lands. Photo: PEO ACWA, CC BY 2.0, via commons*
+
+## The MCC bucket sheet
+
+Each **motor control centre bucket** has a sheet or a line in the MCC schedule giving: section and position, **unit size** in space factors (a space is 6 in / 152 mm; a size 1 starter takes 1 space, a size 3 about 2.5), the **disconnect** (MCP with its instantaneous trip setting, or a fused switch with fuse class and size), the **starter NEMA size** and type (FVNR non-reversing, FVR reversing, 2S two-speed, RVSS soft start, VFD), the **overload** heater number or electronic FLA setting and trip class (10, 20, 30), the **control transformer** VA, the **door devices** (HOA, START/STOP, run light, reset), the **terminal list** to the field, the motor hp, FLA and cable size, and the wiring class (NEMA Class I Type B: each bucket wired to its own terminal block).
+
+![A motor protective circuit breaker in a starter bucket](/photos/drawings/motor-protective-breaker.jpg)
+
+*A motor protective circuit breaker in a starter bucket. Photo: Dmitry G, CC BY-SA 3.0, via commons*
+
+![MCC bucket elevation and its schedule of settings](/img/drawings/mcc-bucket-sheet.svg)
+
+*MCC bucket elevation and its schedule of settings*
+
+| NEMA starter size | Continuous amps | Max hp at 460 V, 3-phase |
+|---|---|---|
+| 00 | 9 | 2 |
+| 0 | 18 | 5 |
+| 1 | 27 | 10 |
+| 2 | 45 | 25 |
+| 3 | 90 | 50 |
+| 4 | 135 | 100 |
+| 5 | 270 | 200 |
+| 6 | 540 | 400 |
+
+IEC contactors are rated by AC-3 amps instead (9, 12, 18, 25, 32, 40, 50, 65, 80, 95 A and up). The bucket sheet is where you check a replacement motor: a 20 hp motor going into a size 1 bucket, or an FLA above the overload's adjustment range, is a stop.
+
+## Using the schematic when the motor will not start
+
+1. **Mechanical first**, with the disconnect locked and tried: is the motor coupled, the brake released, the driven machine free to turn by hand, a belt or chain jammed, a guard or hatch open? A jam is the commonest cause of an overload trip.
+2. **Is everything in?** The disconnect handle on, the MCC bucket's breaker not tripped (a tripped handle sits midway), every E-stop on the line released, the HOA in the right position, guards closed on their interlock switches.
+3. **What are the lights saying?** Power-on, run and fault lights, the drive's fault code, the overload relay's **trip indicator** or popped reset button, the safety relay's channel LEDs, the PLC output LED for the starter. Reset a tripped overload **once** after the mechanical cause is found; a second trip is the electrician's.
+4. **Read the rung.** Find the M coil (or the drive run command) and read every contact in series from L1: STOP, each E-stop, the guard switches, the PLC permissives, the OL contact, the drive fault contact. Each is a thing you can look at without opening the panel: the button, the switch actuator, the sensor LED, the HMI permissive list.
+5. **Hand it over precisely.** Rung 14, the M coil; guard switch 3LS on wire 27 looks made, overload not tripped, PLC output O:2/3 on, contactor does not pull in: that is a five-minute repair for the electrician. It does not work is an hour.
+
+What you do not do: open a live door to look at the overload, put a meter on the terminal strip, jumper a contact to see if that is the one, or push the contactor in by hand. Those are energised-work tasks behind an arc-flash boundary for a qualified person; see [electrical safety for mechanics](/article/electrical-safety-for-mechanics), and anything that needs the panel open starts with [lockout](/article/lockout-tagout-basics).
+
+## Common mistakes
+
+- Reading a two-wire circuit as three-wire and being surprised when the motor restarts after a power dip.
+- Confusing the OL heaters in the power section with the OL contact in the ladder; only the contact is in the coil's rung.
+- Losing the wire number across a terminal strip: the number does not change at a terminal, only at a device.
+- Missing the underline on a cross-reference and looking for an NO contact that is really NC.
+- Assuming the disconnect kills everything: yellow wires and drive network commands survive it.
+- Reading the wiring diagram to understand the logic; it cannot be done.
+- Replacing a motor without checking the bucket sheet's starter size and overload range.
+- Resetting an overload repeatedly without finding the jam.
+- Opening the panel door to check the overload with the bucket live.
+
+## Related
+
+- [Electrical symbols, NEMA and IEC](/article/electrical-symbols-nema-and-iec)
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
+- [Motor lead connections](/article/motor-lead-connections)
+- [Reading a motor nameplate](/article/reading-a-motor-nameplate)
+- [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$motor control schematic$mw$,$mw$ladder diagram$mw$,$mw$wiring diagram$mw$,$mw$connection diagram$mw$,$mw$one line diagram$mw$,$mw$three wire control$mw$,$mw$two wire control$mw$,$mw$start stop circuit$mw$,$mw$seal in contact$mw$,$mw$auxiliary contact$mw$,$mw$restart hazard$mw$,$mw$wire numbers$mw$,$mw$rung numbers$mw$,$mw$contact cross reference$mw$,$mw$device designations$mw$,$mw$control power transformer$mw$,$mw$x2 grounded$mw$,$mw$control fuse$mw$,$mw$nfpa 79$mw$,$mw$ul 508a$mw$,$mw$electrical interlock$mw$,$mw$mechanical interlock$mw$,$mw$jog circuit$mw$,$mw$jog relay$mw$,$mw$forward reverse starter$mw$,$mw$two speed starter$mw$,$mw$consequent pole$mw$,$mw$reduced voltage starter$mw$,$mw$wye delta$mw$,$mw$open transition$mw$,$mw$closed transition$mw$,$mw$autotransformer starter$mw$,$mw$part winding starter$mw$,$mw$soft starter$mw$,$mw$vfd control wiring$mw$,$mw$speed reference$mw$,$mw$4-20 ma$mw$,$mw$safe torque off$mw$,$mw$terminal strip$mw$,$mw$cable schedule$mw$,$mw$panel layout$mw$,$mw$mcc bucket$mw$,$mw$nema starter size$mw$,$mw$overload setting$mw$,$mw$motor will not start$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NEMA ICS 19-2002 (industrial control diagrams and device designations); JIC EMP-1; NFPA 79 (electrical standard for industrial machinery: control circuits, transformer grounding and fusing, wire colours and marking); NFPA 70 (NEC) Article 430 (motor circuits, controllers and overload protection); UL 508A (industrial control panels); NEMA ICS 2 (contactor and starter sizes); Allen-Bradley (Rockwell) Bulletin 509 and 709 starter wiring diagrams and PowerFlex drive manuals; Square D (Schneider) Class 8536 starter and Model 6 MCC publications; Siemens SIRIUS starter and SINAMICS drive wiring publications.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pfd-and-pid-reading$mw$, $mw$PFD and P&amp;ID Reading for Millwrights: Process Flow Diagram versus P&amp;ID, the Legend Sheet, Anatomy of a P&amp;ID Sheet, Line Numbers, Spec Breaks and Insulation Codes, Equipment Tags and the Equipment List, Tracing a Line End to End, Reading a Pump Loop in Order, Instrument Bubbles and Control Loops, Off-Page Connectors, Tie-Ins and Holds, and What a Millwright Pulls off a P&amp;ID for Isolation and Equipment Work$mw$, $mw$What a process flow diagram shows and what only the P&amp;ID shows, why the legend sheet is read first, how a P&amp;ID sheet is laid out, how to break down line numbers, spec breaks and insulation codes, how equipment tags are built, a method for tracing a line from nozzle to nozzle, a pump loop read valve by valve in order, instrument bubbles and loops at overview level, off-page connectors, tie-ins, holds and clouds, and the isolation, drain, vent, bypass, valve-position and nozzle information a millwright takes off the sheet before opening anything.$mw$, $mw$The P&amp;ID is the drawing you read before you isolate a pump, open a flange or ask what a line carries. It has no dimensions and no scale; it shows every pipe, valve and instrument in a system and how they connect, which is exactly what a millwright needs for lockout, drain-down and pulling equipment. The symbols themselves are charted in [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines) and the instrument letters in [ISA instrument tags](/article/isa-instrument-tags-bubbles-and-letters).
+
+## PFD versus P&amp;ID
+
+The **process flow diagram (PFD)** is the overview a process engineer draws first. The **piping and instrumentation diagram (P&amp;ID)** is the detailed sheet everyone else works from.
+
+![A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page](/photos/drawings/pid-sheet.jpg)
+
+*A P&amp;ID sheet: equipment, lines, valves and instrument bubbles on one page. Photo: Ub, CC BY-SA 3.0, via commons*
+
+![The same pump on a PFD and on a P&amp;ID](/img/drawings/pfd-vs-pid.svg)
+
+*The same pump on a PFD and on a P&amp;ID*
+
+| | PFD | P&amp;ID |
+|---|---|---|
+| Purpose | Explains the process | Defines every piece of hardware |
+| Equipment | Major items only (pumps, vessels, exchangers, columns), with duty and size | Every item including spares, with tag and nozzles |
+| Lines | Main process streams, each with a **stream number** in a diamond or box | Every line: process, utility, drain, vent, relief, sample; with full line number |
+| Valves | None, or control valves only | Every valve, with type, size and normal position |
+| Instruments | Main control loops only | Every instrument, switch, alarm and interlock |
+| Data | **Heat and material balance** table: flow, temperature, pressure, composition per stream; operating conditions on equipment | Line size, spec, insulation, set pressures, notes |
+
+Use the PFD to understand what the plant does: stream 12 at 180 F (82 C) and 60 psig (4 bar) tells you what to expect when the flange opens. Use the P&amp;ID for everything you actually touch. Canadian and ISO plants draw both to ISO 10628 and ISO 14617 with the same content and a few different symbols.
+
+## The legend sheet
+
+Every P&amp;ID set opens with one or more **legend sheets** (lead sheets): the key that says how this company draws a gate valve, what its line number means and what every abbreviation stands for. Read it first on any new site; a symbol you know from the last plant may mean something else here.
+
+![Legend sheet extract: lines, valves, instrument locations and abbreviations](/img/drawings/pid-legend-extract.svg)
+
+*Legend sheet extract: lines, valves, instrument locations and abbreviations*
+
+On the legend you will find: valve, equipment and instrument symbols; line types; line number format and service codes; spec class list; insulation and tracing codes; equipment tag prefixes; abbreviations (**NC**, **NO**, **LO**, **LC**, **CSO**, **CSC**, **FC**, **FO**); the off-page connector format; note and hold conventions; and the status stamps (**IFR** issued for review, **IFC** for construction, **AB** as-built).
+
+## Anatomy of a P&amp;ID
+
+A P&amp;ID sheet has a title block like any other drawing (number, sheet, revision, unit, title). Inside:
+
+![Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line](/img/drawings/sample-pid-pump-loop.svg)
+
+*Sample P&amp;ID of a feed pump loop with tank, pumps, header, control valve and min-flow line*
+
+- **Flow runs left to right** where possible; inlets enter at the left border, outlets leave at the right, utilities from the top or bottom.
+- **Equipment** is drawn in outline, roughly to relative elevation (a pump low, a tank high), with its tag and a **title line** (name, size or duty, design conditions) in the top or bottom margin.
+- **Lines** are heavy for the main process, lighter for utilities, with the line number beside each and an arrow for flow. Lines cross without connecting unless there is a junction dot or a jump loop.
+- **Valves** are drawn in the line at roughly their real position with their size if it differs from the line, and their tag if they have one.
+- **Instruments** are bubbles connected to the process by a thin line, with signal lines between them; **notes** are numbered in the margin and referenced by a number in a triangle.
+
+## Line numbers, spec breaks and insulation
+
+A line number on the P&amp;ID has the same parts as on the isometric: **6"-CWS-1501-A1A-IH** is size, service, sequence, spec class and insulation code (worked through in [piping isometrics](/article/piping-drawings-isometrics-and-spool-sheets)). On the P&amp;ID the number is written along the line and changes whenever the size, service or spec changes; a **reducer** symbol (a small trapezoid) marks a size change and the new size appears after it.
+
+![Line number decoder: size, service, sequence, spec and insulation](/img/drawings/line-number-decoder.svg)
+
+*Line number decoder: size, service, sequence, spec and insulation*
+
+A **spec break** is drawn as a short bar across the line, sometimes as a small vertical bar with a dot, with the spec class written on each side (**A1A / D2A**). It marks where the material or rating changes (a valve between a Class 150 utility and a Class 300 process line, a vendor package boundary, the first flange downstream of a control valve) and tells you which class of flange, gasket and bolts sits at that joint.
+
+Insulation and tracing codes sit at the end of the line number or in a separate box on the line: **IH** heat conservation, **IC** cold insulation, **IP** personnel protection (usually to 7 ft, 2.1 m, above grade), **IS** safety, **N** or blank none; **ET** or **ST** electric or steam tracing, sometimes drawn as a thin line hugging the pipe with the tracer number; **J** for a jacketed line. A line marked IP is hot enough to burn, a line marked IC may be badly corroded under the insulation, and a traced line cannot be cut without isolating the tracer.
+
+## Equipment tags
+
+Every piece of equipment has a **tag** made of a letter code, a number and sometimes a suffix: **P-101A**. The letters vary by company but a common set is:
+
+![Equipment tag decoder and common equipment letters](/img/drawings/equipment-tag-decoder.svg)
+
+*Equipment tag decoder and common equipment letters*
+
+| Prefix | Equipment | Prefix | Equipment |
+|---|---|---|---|
+| **P** | Pump | **K** or **C** | Compressor (K also blower, fan) |
+| **T** or **TK** | Tank | **D** or **V** | Drum or vessel |
+| **E** or **HE** | Heat exchanger | **F** or **H** | Fired heater or furnace |
+| **C** or **T** | Column or tower (check the legend: C and T clash) | **M** | Motor, mixer or mill |
+| **AG** or **A** | Agitator | **CV** or **CE** | Conveyor |
+| **R** | Reactor | **FL** or **S** | Filter, strainer, separator |
+| **PK** or **PKG** | Vendor package | **X** or **Z** | Miscellaneous |
+
+The number carries the unit (**1**) and a sequence, so P-101 is pump 01 in unit 1 and E-301 is exchanger 01 in unit 3. Suffixes **A/B** mark duplicate machines, usually a running pump and an installed spare on the same headers. The **equipment list** is the table behind the tags (description, P&amp;ID number, duty, driver power, materials, design conditions, weight, vendor and model): where you look up the motor horsepower and the weight before rigging a pump out.
+
+## Tracing a line end to end
+
+Reading a P&amp;ID is done one line at a time, with a finger or a highlighter. The method:
+
+![A process diagram with its stream numbers and equipment tags](/photos/drawings/process-diagram-sample.jpg)
+
+*A process diagram with its stream numbers and equipment tags. Photo: Geichler, Public domain, via commons*
+
+![Tracing one line end to end and listing every branch](/img/drawings/tracing-a-line.svg)
+
+*Tracing one line end to end and listing every branch*
+
+1. **Start at a nozzle.** Find the equipment you are working on, pick the nozzle and read the line number leaving it. Write the number down.
+2. **Follow the arrows.** Move along the line in the direction of flow (or backwards for a suction line), and at every junction confirm by the line number that you are still on the same line.
+3. **Note every item in order**: each valve with its type, size, tag and normal position; each instrument; each reducer, spec break, drain, vent and blind. This is your isolation and drain list.
+4. **Handle branches.** At a tee, note the branch line number and whether it is a small-bore drain, a bypass or another process line; come back to it after the main line is done.
+5. **Follow off-page connectors.** When the line leaves the sheet, the connector gives the next sheet number and line number; go there and keep going until you reach the far nozzle or the battery limit.
+6. **Trace it back** from the far end; any valve you missed will show up. Then confirm it in the field: the pipe wins until the drawing is fixed.
+
+## Reading a pump loop
+
+A pump is read from suction to discharge, and the items are nearly always the same. Take **P-101A/B** taking suction from tank T-101:
+
+![A P&amp;ID on the control room wall: operators and millwrights read the same sheet](/photos/drawings/control-room-pid.jpg)
+
+*A P&amp;ID on the control room wall: operators and millwrights read the same sheet. Photo: PEO ACWA, CC BY 2.0, via commons*
+
+1. **Suction line** from the tank nozzle, larger than the discharge (8 in suction, 6 in discharge is typical), with its own line number.
+2. **Suction block valve** (a gate or butterfly, normally open, sometimes locked open, **LO**).
+3. **Temporary or permanent strainer** (a Y, T or cone strainer symbol, often with a differential pressure gauge or **PDI** across it).
+4. **Eccentric reducer** into the pump suction nozzle, flat side up.
+5. **Suction pressure gauge** (**PI**) or transmitter, on a small-bore branch with its own root valve.
+6. **The pump**, with its driver (motor **M**, turbine **T**), casing drain and vent, and the **seal flush plan** drawn as a small loop around the seal (**API Plan 11**, **Plan 53**).
+7. **Discharge pressure gauge / transmitter** (**PI** / **PT**) close to the nozzle.
+8. **Check valve** (swing or lift, arrow for flow direction) to stop backflow through the idle pump.
+9. **Discharge block valve** (gate, globe for throttling on small pumps).
+10. **Minimum-flow recirculation** teed off between the check valve and the block valve, back to the tank through a restriction orifice (**RO**) or a control valve, so the pump is never dead-headed.
+11. **Vents and drains** at the high and low points, each a small valve with a capped end.
+12. **The spare pump** drawn as a mirror image on the same headers with its own block and check valves; its suction valve is often left open so it stays full.
+13. **Instrumentation**: low suction pressure switch (**PSL**), flow transmitter (**FT**), bearing temperature (**TE**), vibration (**VT**) and the motor start interlock (**HS**).
+
+With that list you know what to close to isolate the pump (suction, discharge, recirculation, seal flush supply, any warm-up line), what to open to drain and vent it, and what to blind if the isolation must be positive.
+
+## Instruments and control loops on the P&amp;ID
+
+Instruments appear as **bubbles** (circles) with a tag inside: letters for the function (**PIT** pressure indicating transmitter, **TIC** temperature indicating controller, **LSH** level switch high) and a **loop number** shared by every instrument in that loop. A bare circle is a field instrument, a circle with a horizontal line through it is on the control room panel, a circle in a square is a DCS point. Thin lines connect them: double slashes for a pneumatic signal, dashed for electrical, small circles for a software link.
+
+![One flow control loop read on the P&amp;ID from orifice to control valve](/img/drawings/isa-loop-on-pid.svg)
+
+*One flow control loop read on the P&amp;ID from orifice to control valve*
+
+A **control loop** reads element, transmitter, controller, final element: **FE-201** (orifice plate) to **FT-201** (transmitter) to **FIC-201** (controller) to **FY-201** (converter) to **FV-201** (control valve). The control valve carries a **fail position** (**FC** fail closed, **FO** fail open, **FL** locked in place) and often a handwheel symbol. **Interlocks** appear as a diamond or a box with an interlock number (**I-5**) and a reference to the cause and effect chart. The full letter table, bubble shapes, signal lines and worked loops are in [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters).
+
+## Off-page connectors, tie-ins and holds
+
+A line leaving a sheet ends in an **off-page connector**: an arrow-shaped box carrying the destination drawing number, with a matching box on the other sheet pointing back. Chasing connectors is how you find that a drain header runs to a sump three sheets away.
+
+![Off-page connectors, tie-in points, holds and package boundaries](/img/drawings/off-page-connectors-tie-ins.svg)
+
+*Off-page connectors, tie-in points, holds and package boundaries*
+
+- **Battery limit** or **by others** boundary: a dashed line with a label where the drawing responsibility changes, for example between a vendor package and the plant piping; anything inside is on the vendor P&amp;ID.
+- **Tie-in point**: a numbered symbol (**TP-14** in a circle or hexagon) where new piping meets existing; the tie-in list gives the location, the method (hot tap, flange, cut and weld) and what must be isolated.
+- **Existing vs new**: existing lines light or dashed, new lines heavy, **future** dotted, **demolished** crossed out.
+- **Hold**: a cloud or box labelled **HOLD** with a number where the design is not final. Do not fabricate or install anything inside a hold.
+- **Notes**: a number in a triangle refers to the numbered notes; the note is often the instruction that matters (slope, no pockets, car seal).
+
+## What a millwright pulls off a P&amp;ID
+
+The P&amp;ID is the isolation drawing. Before any work on a line or machine, take from it:
+
+![The pump loop marked up with isolation points for a P-101A job](/img/drawings/pump-loop-isolation-points.svg)
+
+*The pump loop marked up with isolation points for a P-101A job*
+
+| What you need | Where it is on the P&amp;ID |
+|---|---|
+| **Isolation points** for LOTO: every valve between the job and any energy source, including bypasses, recirculation, seal flush and drains to other systems | The traced line list |
+| **Positive isolation**: double block and bleed (two block valves with a bleed between), spectacle blinds, spades and spacers, removable spools | Figure-eight and paddle symbols; the DBB arrangement |
+| **Drains and vents** to empty and depressure, and where the drain goes (open, closed, sewer, flare) | Small-bore branches with a valve and a cap; the drain header line number |
+| **Bypass lines** around a control valve or a machine that can feed the job from the other side | Lines with a globe or gate valve parallel to the item |
+| **Valve normal positions**: **NC** normally closed, **NO** normally open, **LO/LC** locked open or closed, **CSO/CSC** car-sealed open or closed, **FC/FO** fail closed or open on control valves | Letters beside each valve, per the legend |
+| **Spare equipment** and what changes when you take one machine out | A/B suffixes, common headers, the interlock that starts the spare |
+| **Nozzle sizes and ratings** to pull a pump or exchanger: which gaskets and bolts to have ready | Line sizes and spec classes at the equipment; the vendor drawing |
+
+Then **walk the line down** with the P&amp;ID in hand and mark every difference (a valve not on the drawing, a drain added, a blind missing) in red: those **redlines** become the **as-built**. The isolation register lists each valve by tag, and the P&amp;ID marked up with those numbers is the record. If the drawing and the pipe disagree, isolate what is really there and get the drawing corrected.
+
+## Common mistakes
+
+- Trusting an unmarked, out-of-date P&amp;ID as the isolation drawing instead of walking the line down.
+- Isolating the suction and discharge and forgetting the minimum-flow recirculation, the seal flush supply or the warm-up line that still feeds the pump.
+- Reading a line that crosses another as connected when there is no junction dot.
+- Assuming a service code (FW, PW, SW) from the last site.
+- Mixing up PFD stream numbers with P&amp;ID line numbers, or reading a PFD as if it showed every valve.
+- Ignoring the notes and the holds: the note is often the instruction, and the hold means the design is not done.
+- Forgetting that a spec break means different flanges, gaskets and bolts on each side of the joint.
+
+## Related
+
+- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
+- [Piping isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Lockout tagout basics](/article/lockout-tagout-basics)
+- [Pump troubleshooting](/article/pump-troubleshooting)
+- [Mechanical seal replacement on a centrifugal pump](/article/mechanical-seal-replacement-centrifugal-pump)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$P&amp;ID$mw$,$mw$PID reading$mw$,$mw$piping and instrumentation diagram$mw$,$mw$PFD$mw$,$mw$process flow diagram$mw$,$mw$legend sheet$mw$,$mw$lead sheet$mw$,$mw$line number$mw$,$mw$spec break$mw$,$mw$insulation code$mw$,$mw$tracing code$mw$,$mw$equipment tag$mw$,$mw$equipment list$mw$,$mw$pump tag$mw$,$mw$tracing a line$mw$,$mw$pump loop$mw$,$mw$suction strainer$mw$,$mw$check valve$mw$,$mw$minimum flow$mw$,$mw$recirculation$mw$,$mw$seal flush plan$mw$,$mw$spare pump$mw$,$mw$instrument bubble$mw$,$mw$control loop$mw$,$mw$off-page connector$mw$,$mw$tie-in point$mw$,$mw$hold$mw$,$mw$cloud$mw$,$mw$by others$mw$,$mw$double block and bleed$mw$,$mw$spectacle blind$mw$,$mw$drain$mw$,$mw$vent$mw$,$mw$bypass$mw$,$mw$normally closed$mw$,$mw$normally open$mw$,$mw$locked open$mw$,$mw$car seal$mw$,$mw$LOTO isolation$mw$,$mw$walk-down$mw$,$mw$redline$mw$,$mw$as-built$mw$,$mw$stream number$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification; ISA-5.3 graphic symbols for distributed control and shared display instrumentation; ISA-5.4 instrument loop diagrams; PIP PIC001 piping and instrumentation diagram documentation criteria (line numbering, equipment tagging, P&amp;ID content); ISO 10628 diagrams for the chemical and petrochemical industry (flow diagram content); ISO 14617 graphical symbols for diagrams; ASME B31.3 process piping; company legend sheets and equipment lists.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pid-symbols-valves-equipment-and-lines$mw$, $mw$P&amp;ID Symbol Chart: Manual Valves (Gate, Globe, Ball, Butterfly, Plug, Needle, Diaphragm, Check, Three-Way, Angle, Relief, Rupture Disc), Control Valves, Actuators and Fail Positions, Pumps, Compressors and Drivers, Vessels, Tanks, Columns and Heat Exchangers, Filters, Strainers, Traps, Blinds and Inline Fittings, and Process, Utility and Signal Line Types$mw$, $mw$A word chart of every symbol a millwright meets on a P&amp;ID, described in tables so it can be read without the drawn sheet: manual valve bodies, control valves with their actuators and fail positions, pumps, compressors and drivers, vessels, tanks, columns and exchangers, strainers, traps, blinds and the small inline fittings, and every process, utility and instrument signal line type, with notes on where ISA, PIP, ISO and company legends differ.$mw$, $mw$A P&amp;ID uses a few hundred symbols, most built from a handful of shapes: a bow tie is a valve, a circle is a pump or an instrument, a capsule is a vessel. This chart describes each symbol in words so you can read a sheet without the drawn legend beside you. How to read the drawing as a whole is in [PFD and P&amp;ID reading](/article/pfd-and-pid-reading).
+
+## How to use this sheet
+
+Each table gives the symbol name, how it is drawn, what it means and a note on variations. The base standard in the US and Canada is **ISA-5.1** for instruments and signal lines, with **PIP PIC001** supplying the valve and equipment set most EPC contractors use; ISO plants use **ISO 10628 / ISO 14617**. The legend sheet wins over this chart. A size is written on a valve only where it differs from the line; letters beside a valve give its normal position (**NC**, **NO**, **LO**, **LC**, **CSO**, **CSC**).
+
+![A P&amp;ID drawn to the ISA symbol set: read it with the sheets below](/photos/drawings/pid-schema.jpg)
+
+*A P&amp;ID drawn to the ISA symbol set: read it with the sheets below. Photo: Evinfo, CC BY-SA 3.0, via commons*
+
+## Manual valves
+
+![Manual valve symbols: gate, globe, ball, butterfly, plug, needle, check, relief and more](/img/drawings/pid-manual-valves-sheet.svg)
+
+*Manual valve symbols: gate, globe, ball, butterfly, plug, needle, check, relief and more*
+
+| Symbol name | How it is drawn | What it means | Notes |
+|---|---|---|---|
+| **Gate** | Two triangles point to point (a bow tie), open inside | Block valve, fully open or closed | The default isolation valve; not for throttling |
+| **Globe** | Bow tie with a filled circle (dot) at the centre | Throttling or regulating valve | Flow direction matters; sometimes an arrow |
+| **Ball** | Bow tie with an open circle at the centre | Quarter-turn block valve | Common under 2 in; full or reduced bore noted |
+| **Butterfly** | Two short parallel lines across the line with a diagonal stroke between them; some legends use a bow tie with a diagonal | Quarter-turn valve on large low-pressure lines | Cooling water, air |
+| **Plug** | Bow tie with a filled rectangle or bar at the centre | Quarter-turn block valve, lubricated or sleeved | Dirty and viscous service |
+| **Needle** | Bow tie with a small filled triangle at the centre pointing to the seat | Fine regulation | Instrument and sample lines |
+| **Diaphragm** | Bow tie with a small arc over the centre | Weir or straight-through diaphragm valve | Slurries, corrosive, sanitary |
+| **Check, swing** | Bow tie with an arrow along the line or a hinged flap inside; ISO draws a small circle with a diagonal stroke | Flow in one direction only | The arrow gives the free direction |
+| **Check, lift or piston** | Check symbol with a small circle or ball at the seat | One-way flow, vertical or small bore | Ball check on reciprocating pumps |
+| **Three-way** | Three triangles meeting at a point (a T) with the ports labelled | Diverting or mixing | L-port or T-port noted |
+| **Four-way** | Four triangles meeting at a point (a cross) | Switching or reversing duty | Reversing exchangers, filter changeover |
+| **Angle** | Two triangles at 90 degrees to each other | Globe-type body with the outlet at a right angle | PSV inlets, blowdown |
+| **Relief / safety valve (PSV, PRV, RV)** | Angle valve body with a spring (zigzag) on top, tag in a bubble, set pressure beside | Opens on overpressure and reseats | Outlet to flare, atmosphere or a header |
+| **Rupture disc (PSE, RD)** | A short bar with a small dome inside a flange pair, tag beside | Bursts once at its rated pressure | Often under a PSV |
+
+## Control valves, actuators and fail positions
+
+A control valve is a valve body with an actuator on top of the stem and a tag bubble (**FV-201**). The body is usually the globe symbol; a butterfly or ball control valve uses its own body.
+
+![Control valve actuators and fail positions FC, FO and FL](/img/drawings/pid-control-valves-sheet.svg)
+
+*Control valve actuators and fail positions FC, FO and FL*
+
+| Symbol name | How it is drawn | What it means | Notes |
+|---|---|---|---|
+| **Handwheel (manual)** | A short vertical stem with a bar or T across the top | Hand operated | Often omitted on ordinary manual valves |
+| **Diaphragm, spring opposed** | A half-circle or dome on the stem | Pneumatic actuator, the common control valve | The spring sets the fail position |
+| **Piston, single acting** | A rectangle on the stem with one signal connection and a spring | Pneumatic or hydraulic cylinder actuator | On/off valves, high thrust |
+| **Piston, double acting** | Rectangle with two signal connections and no spring | Powered both ways | Fails in place |
+| **Electric motor (MOV)** | A circle with **M** on the stem | Motor operated valve | Remote isolation on large lines; tag **HV** or **MOV** |
+| **Solenoid** | A small square with **S** on the stem | Electric on/off, or a pilot on the air line to a bigger actuator | Tag **SV** or **XY**; on an actuator air line it is the trip |
+| **Hydraulic** | Rectangle with **H** | Hydraulic actuator | Wellhead and turbine valves |
+| **Spring return** | A small zigzag beside the actuator, or an arrow | Fails to the spring position on loss of power | Part of the fail-position marking |
+| **Positioner** | A small square on the side of the actuator with the signal line entering it | Valve positioner (feedback) | Tag **ZY** or shown as part of the valve tag |
+
+**Fail positions** are written under the valve, and ISA also draws an arrow: **FC** fail closed (arrow toward the seat), **FO** fail open (arrow away), **FL** fail locked in last position, **FI** fail indeterminate; some legends add **FAI** (fail as is). The fail position is what the valve does when air or power is lost, which is what happens on lockout: a fail-open valve opens when you isolate its air, so process isolation must be a manual valve, never the control valve.
+
+## Pumps, compressors and drivers
+
+![Pump, compressor, blower, driver, agitator, conveyor and gearbox symbols](/img/drawings/pid-equipment-sheet.svg)
+
+*Pump, compressor, blower, driver, agitator, conveyor and gearbox symbols*
+
+| Symbol name | How it is drawn | What it means | Notes |
+|---|---|---|---|
+| **Centrifugal pump** | A circle with the discharge leaving tangentially from the top and the suction entering the centre | Centrifugal pump | ISO draws a circle with a short arrow inside |
+| **Vertical / submersible pump** | Pump circle drawn low with a long vertical column up to the motor, inside the sump outline | Vertical turbine, sump or submersible pump | |
+| **Reciprocating PD pump** | A circle with a piston and cylinder drawn inside or beside it, or a rectangle with a piston | Plunger or piston pump | Needs a relief valve on the discharge |
+| **Rotary PD pump (gear, screw, lobe)** | A circle with two small circles (gears), a helix (screw) or two lobes inside | Positive displacement rotary pump | Needs a relief |
+| **Vacuum pump** | Pump circle with **VAC** or a liquid ring drawn inside | Vacuum service | |
+| **Centrifugal compressor** | A trapezoid, wide at the suction and narrow at the discharge, or a circle with a tangent | Dynamic compressor | |
+| **Reciprocating compressor** | A cylinder with a piston and a crank | PD compressor | Pulsation bottles as small capsules |
+| **Rotary screw compressor** | A circle or rectangle with two meshing screws | Oil-flooded or dry screw | |
+| **Blower** | A circle with a curved vane, or a trapezoid marked **B** | Low-pressure air or gas mover | Lobe blowers get the two-lobe symbol |
+| **Fan** | A circle with two or three blades, or a propeller in a duct | Fan | Air coolers, cooling towers |
+| **Motor** | A circle with **M** | Electric driver | |
+| **Steam turbine** | A trapezoid with **T**, steam inlet and exhaust lines | Turbine driver | Trip valve on the inlet |
+| **Engine** | A rectangle with **E** or **ENG** | Diesel or gas engine driver | Fire pumps |
+| **Coupling** | Two short vertical bars between driver and driven shaft | Shaft coupling | |
+| **Agitator / mixer** | A vertical shaft into a vessel ending in paddles, driver on top, tag **AG** | Vessel agitator | |
+
+## Vessels, tanks and exchangers
+
+![Vessel, tank and heat exchanger symbols](/img/drawings/pid-vessels-exchangers-sheet.svg)
+
+*Vessel, tank and heat exchanger symbols*
+
+| Symbol name | How it is drawn | What it means | Notes |
+|---|---|---|---|
+| **Vertical vessel / drum** | A tall capsule (rectangle with dished ends) with nozzles marked | Pressure vessel | A small capsule under it is a boot; a hatched band is a demister |
+| **Horizontal vessel / drum** | A horizontal capsule on two saddles | Separator, knockout drum, receiver | Weir as a short line inside |
+| **Column / tower** | A tall capsule with horizontal lines inside (numbered trays) or a hatched section (packing) | Distillation, absorber, stripper | |
+| **Reactor** | A vessel with a catalyst bed (hatch) or an agitator, often with a jacket | Reactor | Jacket drawn as a second outline |
+| **Tank, cone roof** | A rectangle with a peaked top | Atmospheric storage | Vent and overflow at the top |
+| **Tank, floating roof** | Rectangle with a roof line drawn inside below the top edge | Floating roof storage | External or internal floater |
+| **Tank, open top** | A rectangle with no top line | Open tank, sump, pit | |
+| **Shell and tube exchanger** | A horizontal capsule with a straight or U line through it (the tube side) and nozzles at the ends and on the shell; ISO draws a circle with a line and a small cross | Shell and tube exchanger | Shell and tube side nozzles labelled |
+| **Kettle reboiler** | A shell wider at one end with a weir and a vapour outlet on top | Kettle reboiler | |
+| **Condenser** | A shell and tube symbol, often vertical, with the vapour inlet on top | Condenser | Vent for non-condensables |
+| **Plate exchanger** | A rectangle with several vertical lines inside | Plate exchanger | |
+| **Air cooled exchanger (fin fan)** | A wide rectangle (the bundle) with fan circles above or below it | Air cooler | |
+
+## Filters, strainers, traps and inline fittings
+
+![Strainers, filters, traps, blinds, orifice plates, vents and drains](/img/drawings/pid-fittings-sheet.svg)
+
+*Strainers, filters, traps, blinds, orifice plates, vents and drains*
+
+| Symbol name | How it is drawn | What it means | Notes |
+|---|---|---|---|
+| **Filter** | A rectangle or circle in the line with a diagonal or hatched band | Cartridge, bag or media filter | DP gauge usually across it |
+| **Y strainer** | A short branch leaving the line at 45 degrees ending in a cap | Y-type strainer | Blow-off on the branch |
+| **Basket strainer** | A can hanging under the line with a basket inside | Basket strainer | |
+| **T strainer** | A T-shaped body on the line with the cap on the leg | T-type strainer | Large bore |
+| **Steam trap** | A small square or circle with a **T** inside, or a box with **ST** | Steam trap | Type (float, thermodynamic, bucket) in the note |
+| **Sight glass / flow indicator** | A circle with a line through it, or an open rectangle labelled **SG** | Visual flow check | Gauge glass on a vessel is **LG** |
+| **Flame arrester** | A rectangle with a grid or hatching across the line | Flame arrester | Tank vents, flare lines |
+| **Silencer** | A rectangle with horizontal lines inside on a vent | Silencer | Compressor intakes, steam vents |
+| **Expansion joint (bellows)** | A zigzag or corrugated section in the line | Bellows expansion joint | Not a misalignment fixer |
+| **Flexible hose** | A wavy or curly line between two flanges | Hose | Live length on the iso |
+| **Reducer** | A small trapezoid in the line, symmetric (concentric) or with one flat side (eccentric) | Size change | The new size is written after it |
+| **Flange pair** | Two short parallel lines across the line | Flanged joint | Where the joint can be broken |
+| **Blind flange** | A single short bar closing the end of a line, sometimes with a filled end | Blanked end | Future connection, cleanout |
+| **Spectacle blind** | A figure-eight beside the line, one loop open and one filled | Spectacle blind for positive isolation | Normal position noted |
+| **Spade and spacer (paddle blinds)** | A filled circle with a handle (spade) or an open circle with a handle (spacer) at a flange pair | Removable blind or its spacer | Where a spectacle is too heavy |
+| **Union** | A short bar across the line with a small circle at the centre | Threaded or socket union | Small bore |
+| **Cap / plug** | A short arc (cap) or a filled square (plug) closing a small-bore end | Capped or plugged end | Every drain and vent ends in one |
+| **Drain** | A short branch down with a small valve and a cap, labelled **D** | Low-point drain | To grade, funnel or closed drain |
+| **Vent** | A short branch up with a small valve and a cap, labelled **V** | High-point vent | |
+| **Sample point** | A branch with a valve and **SP** | Sample point | |
+| **Flow orifice (FE)** | Two short parallel lines inside a flange pair, with the **FE** bubble | Orifice plate for flow measurement | |
+| **Restriction orifice (RO)** | A single short bar with **RO** in a small circle beside it | Fixed restriction to limit flow | Not a measurement |
+
+## Line and signal types
+
+![Process line and instrument signal line types](/img/drawings/pid-lines-signals-sheet.svg)
+
+*Process line and instrument signal line types*
+
+| Symbol name | How it is drawn | What it means | Notes |
+|---|---|---|---|
+| **Major process line** | Heavy solid line with a flow arrow | Main process piping | Line number along it |
+| **Minor process / utility line** | Lighter solid line | Utilities, drains, vents, small bore | |
+| **Pneumatic signal** | Thin line with pairs of short diagonal slashes at intervals | 3-15 psi (0.2-1 bar) air signal | The commonest control valve signal |
+| **Electric signal** | Thin dashed line (ISA-5.1-2009); older sheets use a solid line with three short slashes | 4-20 mA, discrete, thermocouple wiring | Both styles appear |
+| **Hydraulic signal** | Thin solid line with small **L** marks | Hydraulic pilot or power | |
+| **Capillary** | Thin line with **X** marks at intervals | Filled thermal system, remote seal | Do not cut |
+| **Electromagnetic or sonic, guided** | Thin line with a sine wave at intervals | Guided wave radar, fibre, coax | |
+| **Electromagnetic or sonic, unguided** | Dashed line with a sine wave | Radio, ultrasonic through air | |
+| **Software or data link** | Thin line with small open circles at intervals | Internal system link, fieldbus | |
+| **Mechanical link** | Thin line with small filled circles | Linkage or shaft | |
+| **Jacketed line** | Two parallel lines around the process line with jacket inlet and outlet | Jacketed pipe | |
+| **Traced line** | Thin line hugging the process line with **ET** or **ST**, or the code in the line number | Electric or steam tracing | Isolate the tracer before cutting |
+| **Insulated line** | The code in the line number, or short marks across the line where insulation starts and stops | Insulation | |
+| **Existing line** | Thin or dashed line, sometimes grey, marked **EXISTING** | Already installed | New work is heavy |
+| **Future line** | Dotted or phantom line with a note | Not built yet | |
+| **Underground line** | Dashed line marked **UG**, or a symbol at the entry and exit | Buried pipe | |
+
+Where legends differ: ISA-5.1 governs signal lines and actuators in the US and Canada; PIP PIC001 supplies the valve and equipment shapes for most EPC contractors; ISO 14617 (many Canadian and European houses and vendor packages) draws the check valve, pump and exchanger differently. Company legends override all of them.
+
+## Common mistakes
+
+- Reading a bow tie as a gate valve without checking the centre: a dot is a globe, a circle is a ball, a bar is a plug.
+- Missing the arrow on a check valve and assuming it blocks flow both ways.
+- Treating a control valve as an isolation point; a fail-open valve opens when you isolate its air.
+- Confusing a restriction orifice with a flow orifice: one limits flow, the other measures it.
+- Taking a spectacle blind's drawn position as its present position without looking at it.
+- Assuming a crossing of two lines is a connection when there is no dot.
+
+## Related
+
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
+- [Piping isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [Hydraulic symbols ISO 1219](/article/hydraulic-symbols-iso-1219-complete)
+- [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading)
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Quiz: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$P&amp;ID symbols$mw$,$mw$PID symbol chart$mw$,$mw$valve symbols$mw$,$mw$gate valve symbol$mw$,$mw$globe valve symbol$mw$,$mw$ball valve symbol$mw$,$mw$butterfly valve symbol$mw$,$mw$plug valve symbol$mw$,$mw$needle valve symbol$mw$,$mw$diaphragm valve symbol$mw$,$mw$check valve symbol$mw$,$mw$three-way valve symbol$mw$,$mw$relief valve symbol$mw$,$mw$PSV symbol$mw$,$mw$rupture disc symbol$mw$,$mw$control valve symbol$mw$,$mw$actuator symbol$mw$,$mw$diaphragm actuator$mw$,$mw$piston actuator$mw$,$mw$MOV symbol$mw$,$mw$solenoid valve symbol$mw$,$mw$fail closed$mw$,$mw$fail open$mw$,$mw$pump symbol$mw$,$mw$centrifugal pump symbol$mw$,$mw$PD pump symbol$mw$,$mw$compressor symbol$mw$,$mw$blower symbol$mw$,$mw$motor symbol$mw$,$mw$turbine symbol$mw$,$mw$vessel symbol$mw$,$mw$tank symbol$mw$,$mw$column symbol$mw$,$mw$heat exchanger symbol$mw$,$mw$strainer symbol$mw$,$mw$steam trap symbol$mw$,$mw$spectacle blind symbol$mw$,$mw$expansion joint symbol$mw$,$mw$orifice plate symbol$mw$,$mw$line types$mw$,$mw$pneumatic signal line$mw$,$mw$electric signal line$mw$,$mw$software link$mw$,$mw$ISA-5.1$mw$,$mw$PIP PIC001$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISA-5.1-2009 instrumentation symbols and identification (signal lines, final control elements, actuators, fail positions); ISA-5.3 shared display symbols; PIP PIC001 piping and instrumentation diagram documentation criteria and the PIP symbol set (valves, equipment, inline items); ISO 10628 flow diagrams and ISO 14617 graphical symbols for diagrams (ISO and Canadian variants); ASME B16.5, B16.9 and B16.11 for the fittings the symbols represent; company legend sheets.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$piping-drawings-isometrics-and-spool-sheets$mw$, $mw$Piping Drawings for Millwrights: The Piping Drawing Set, General Arrangement Plans and Elevations, Isometrics (30-Degree Axes, North Arrow, Not to Scale), Line Number Anatomy and Pipe Spec Classes, Fitting and Joint Symbols, Valves on an Iso, Shop and Field Welds, Spool Numbers and Match Lines, Supports and Elevations, the Bill of Material, and Cut Lengths from Take-Outs and Fit-Up$mw$, $mw$How the piping drawing set fits together, how to read a general arrangement plan and an isometric, how to break a line number into size, service, sequence, spec class and insulation and follow the spec class to the line class sheet, the joint and fitting symbols on an iso, how shop welds, field welds, spool numbers and match lines work, what support tags and elevations tell you, what is in the bill of material, and how to turn centre-to-centre dimensions into cut lengths and check the fit-up.$mw$, $mw$A piping isometric is the sheet a fitter builds from and a millwright reads to find where a pump nozzle, a spec break or a field weld really is. It carries everything about one line that the P&amp;ID leaves out: route, dimensions, material, joints, supports and welds. It expands the short isometric paragraph in [blueprint reading for millwrights](/article/blueprint-reading-for-millwrights) into a full treatment.
+
+## The piping drawing set
+
+The documents that describe a line, each answering a different question:
+
+![A piping isometric as issued: one line, its fittings, welds and dimensions on one sheet](/photos/drawings/piping-isometric.jpg)
+
+*A piping isometric as issued: one line, its fittings, welds and dimensions on one sheet. Photo: Uhsambara, CC BY-SA 3.0, via commons*
+
+- **P&amp;ID**: what is in the line (every valve, instrument, size and spec); no dimensions. Isolation, drains and vents come from here ([PFD and P&amp;ID reading](/article/pfd-and-pid-reading)).
+- **Pipe spec (line class sheets)**: material, schedule, flange rating, gaskets, bolts, valve types and branch table for each class.
+- **GA piping plans and sections**: to scale; where the line runs relative to columns, equipment and other lines.
+- **Isometric (iso)**: not to scale; route, dimensions, joints, welds, supports and material of one line. The fabrication and erection drawing.
+- **Spool sheets**: one shop-welded piece cut out of the iso with its own bill of material and cut lengths.
+- **Support standards, stress iso, vendor drawings**: support details and spring settings; nozzle sizes and bolt-hole orientation on equipment.
+
+Cutting from rev B when the field is on rev C is the commonest cause of a spool that does not fit: check the revision block first.
+
+## Plans and elevations
+
+The **GA plan** is a scaled plan view (3/8 in = 1 ft-0 in is common; 1:50 or 1:33 on Canadian and ISO jobs), one sheet per area and elevation band, drawn on the plant **column grid**. Equipment is in outline; large-bore pipe (usually 14 in and up) is double line, small bore single line. Each pipe carries its line number and an elevation: **CL EL 104'-6"** at the centreline, **BOP** (bottom of pipe) on steel, **TOP** at a clearance. Plant datum is usually **EL 100'-0" = finished grade** (Canadian plants often use the metric survey elevation). **Sections** (A-A, B-B) show the vertical arrangement in racks and pump rows, and the north arrow shows **plant north**, which is often not true north.
+
+Use the plan to find the line and to check that a handwheel is reachable and a rigging path exists to pull a pump; never take a cut length from it.
+
+## Isometrics: the grid and the north arrow
+
+An iso shows one line on three axes: **vertical stays vertical**, and the two horizontal directions are drawn at **30 degrees** each side of horizontal. The **north arrow** in the corner fixes which 30-degree axis is north-south; turn the sheet so its north matches the plant before you picture the run.
+
+![Worked isometric: north arrow, line number, elbows, riser, valve, field weld and spools](/img/drawings/piping-iso-worked.svg)
+
+*Worked isometric: north arrow, line number, elbows, riser, valve, field weld and spools*
+
+The iso is **not to scale**: a 40 ft (12 m) run and a 4 in (100 mm) stub can look the same. Everything is fixed by the dimensions, which run **centreline to centreline** between changes of direction and fitting centres, **to the face of flange** at any flanged end (nozzle, valve, blind), to the **centreline elevation** (EL) at every change of level, and to **coordinates** (N/E) at the ends and tie-ins. An **offset** that leaves the main axes sits inside a hatched triangle (the **offset box**) showing its plane; a **rolled offset** gets two triangles and the roll angle. US isos dimension in feet and inches, Canadian and ISO isos in millimetres (NPS 6 = DN 150). The border carries the line number, sheet number, P&amp;ID reference, design conditions, test pressure, **PWHT**, **NDE** percentage and the revision block.
+
+## Line numbers decoded
+
+Every company writes its line number to its own legend, but the parts are the same. Take **6"-CWS-1501-A1A-IH**:
+
+![Line number decoder: size, service, sequence, spec and insulation](/img/drawings/line-number-decoder.svg)
+
+*Line number decoder: size, service, sequence, spec and insulation*
+
+| Part | Example | Means |
+|---|---|---|
+| Size | 6" | NPS 6 (DN 150) of the main run; the number usually survives a reducer |
+| Service code | CWS | Cooling water supply |
+| Sequence | 1501 | Unique number; often unit or area (15) plus a running number (01) |
+| Spec class | A1A | The line class: material, schedule, rating and every fitting rule |
+| Insulation | IH | Heat conservation (others: IC cold, IP personnel protection, N none) |
+
+Some companies order the parts differently or add a tracing code (**-ET** electric, **-ST** steam). Service codes vary more than anything else, and two are dangerous to assume: **FW** is fire water on one site and boiler feedwater on another; **PW** is process water or potable water. Typical codes: **CWS / CWR** cooling water supply and return, **HPS / LPS** high and low pressure steam, **CA** or **PA** plant air, **IA** instrument air, **SW** service water, **D** drain, **V** vent, **P** process.
+
+The **spec class** is what a millwright follows up. The **line class sheet** for A1A says, for example: Class 150 carbon steel to 300 F (149 C); pipe A106 Gr B, Sch 80 to 1-1/2 in and Sch 40 from 2 in; socket-weld A105 fittings (B16.11) under 2 in, butt-weld A234 WPB (B16.9) above; weld neck raised-face flanges (B16.5); spiral-wound gaskets; A193 B7 studs; gate valves for isolation; a branch table; 1/16 in (1.5 mm) corrosion allowance. That one code gives you the wall thickness, the bolt count and size from [pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables), the gasket, and whether a small branch is socket or butt welded. Where two classes meet the iso shows a **spec break** (a short bar across the line with both classes labelled); the joint at the break is built to the higher class unless noted.
+
+## Fitting and joint symbols
+
+An iso draws pipe as one thin line and shows the joint type by the mark at the joint. Learn the four marks first: a **butt weld** is a **dot** on the line (B16.9 fittings, 2 in and up); a **socket weld** is a **single short tick** across the line (B16.11 fittings, 1-1/2 in and under); a **threaded** joint is **two short ticks** close together; a **flanged** joint is **two parallel bars** across the line, one per flange. Fittings hang on those marks:
+
+![Fitting and joint symbols: butt-weld, socket-weld, threaded and flanged](/img/drawings/pipe-fitting-symbols.svg)
+
+*Fitting and joint symbols: butt-weld, socket-weld, threaded and flanged*
+
+| Fitting | Drawn | Notes |
+|---|---|---|
+| 90 elbow **LR** | A sharp corner with the joint mark each side | Default in B16.9 specs; take-out 1.5 x NPS |
+| 90 elbow **SR** | Same corner, labelled **SR** | Take-out 1.0 x NPS; only where the iso says |
+| 45 elbow | A 45-degree bend on the iso axes | LR take-out 0.625 x NPS |
+| Tee, equal or reducing | A branch with joint marks on all three ends; **6 x 6 x 4** | Run x run x branch |
+| Reducer, concentric or eccentric | A trapezoid, symmetric (**CONC**) or with one flat side (**ECC FOT** or **FOB**) | Flat on top on pump suction (no air pocket); flat on bottom to hold BOP on a rack |
+| **Weldolet / sockolet / threadolet** | A small saddle at the branch with the olet name | Branch fitting welded onto the run; the run is not cut |
+| Union, coupling, cap | Two bars with a circle or **U**; two socket ticks for a coupling; a rounded end for a cap | Small bore; half couplings for instrument and drain connections |
+| Flange **WN**, **SO**, **BL**, **LJ**, **SW** | The double bars; a blind is a bar with a filled end | **RF** default; **FF** on cast iron; **RTJ** on high pressure |
+
+Canadian and ISO isos use the same marks with DN sizes and millimetre take-outs; some European isos draw a butt weld as a short bar. The legend sheet says which.
+
+## Valves and inline items on an iso
+
+Valves use the P&amp;ID body symbols (bow tie for gate, with a solid disc for globe, with a circle for ball, a flapper for check; the full set is in [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines)) with the joint marks at each end. Each valve carries its **tag** (V-1501, HV-203, XV-105) and its **face-to-face** length appears in the dimensions.
+
+![Valves, control valve, strainer, spec break and insulation on an iso](/img/drawings/iso-valves-inline.svg)
+
+*Valves, control valve, strainer, spec break and insulation on an iso*
+
+The **stem** is drawn as a line from the body ending in a **handwheel** (a short bar or small circle) in the direction the stem actually points: up, horizontal north, 45 degrees down. That is an erection instruction: the plan put the handwheel where it clears a beam and can be reached. A control valve shows its actuator dome and tag (FV-310) with its bypass, block valves and drain. Strainers, orifice flanges (**FE-201**), thermowells, gauge connections, sight glasses, expansion joints and hoses are drawn the same way with their tags; the fitter supplies the connection and the instrument crew fits the instrument.
+
+## Welds, field welds and spools
+
+Each weld is numbered on a **weld map** (**W1, W2**) tied to the weld log. A **shop weld** is a plain dot, made in the fabrication shop as part of a spool. A **field weld (FW)** is a dot with a small **flag** and **FW**, made on site to join spools, to a nozzle or across a rack. A **field fit weld (FFW)** is trimmed on site: the shop leaves **extra length**, usually 4 to 6 in (100 to 150 mm) and stated on the iso (**FFW, 6" EXTRA**), and any dimension running to it is nominal.
+
+![Shop welds, field welds and spool numbers on an isometric](/img/drawings/weld-numbers-and-spools.svg)
+
+*Shop welds, field welds and spool numbers on an isometric*
+
+The iso is split into **spools** (**1501-A1A-01**, **SP-3**), each welded in the shop and shipped as one. The designer breaks spools by rules that predict the field welds: a spool must fit the shop, the truck and the crane (typically under about 40 ft, 12 m); every flanged joint is a natural break and flanged valves ship loose; at least one FFW goes in any closed loop between fixed points such as two nozzles; spools do not cross a spec break or PWHT boundary. A **match line** is a heavy broken line where one sheet ends: **MATCH LINE, CONT ON ISO 1501 SHT 2**. The dimension across it is repeated on both sheets and must agree.
+
+## Supports, hangers and elevations
+
+Each support has a symbol and a **support tag** (**PS-1501-01**) leading to a detail drawing or the company standard; the type says which way the pipe may move.
+
+![Pipe support symbols: shoe, anchor, guide, hangers and the support tag](/img/drawings/pipe-supports-symbols.svg)
+
+*Pipe support symbols: shoe, anchor, guide, hangers and the support tag*
+
+| Support | Symbol | What it does |
+|---|---|---|
+| **Anchor** (A) | Solid box or cross at the support | Stops all movement; welded plate or bolted clamp |
+| **Guide** (G) | Two short lines either side of the pipe | Slides along its axis, no sideways movement |
+| **Rest / shoe** (S, PS) | A short line under the pipe; a block for the shoe under insulated pipe | Weight only; the pipe slides |
+| **Spring hanger** (VS variable, CS constant) | A spring in a box hung from steel | Weight through vertical travel; cold and hot loads on the hanger drawing |
+
+The elevation at a support is given as **BOP EL** or **TOS** (top of steel). Spring hangers arrive with a **travel stop** pinned at the cold setting; the pin comes out after hydrotest and before start-up. A hanger still pinned, or a guide bolted down as an anchor, ends as a pump flange that will not line up ([pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)).
+
+## Spool sheets and the bill of material
+
+The **BOM** (bill of material, material take-off, MTO) sits on the iso or spool sheet, split into **fabrication material** (in the spool) and **erection material** (gaskets, bolts, loose valves, supports). Each line has an **item number** ballooned on the drawing.
+
+![Spools fabricated in the shop, waiting for the field welds that join them](/photos/drawings/pipe-spool-shop.jpg)
+
+*Spools fabricated in the shop, waiting for the field welds that join them. Photo: Belle Tong, CC BY-SA 4.0, via commons*
+
+![A spool sheet with its small isometric and bill of material](/img/drawings/spool-sheet.svg)
+
+*A spool sheet with its small isometric and bill of material*
+
+| Item | Qty | Description | Size | Sch / rating | Material |
+|---|---|---|---|---|---|
+| 1 | 24'-3" | Pipe, seamless, bevelled ends | 6 in | Sch 40 | A106 Gr B |
+| 2 | 3 | Elbow 90 LR, butt weld | 6 in | Sch 40 | A234 WPB |
+| 3 | 2 | Flange, weld neck, RF | 6 in | Class 150 | A105 |
+| 4 | 16 | Stud bolt, two heavy hex nuts | 3/4 x 3-1/2 in | | A193 B7 / A194 2H |
+
+Pipe is listed by total length; the spool sheet gives each **cut piece** a mark and length. Check the BOM against the spec class: a slip-on where the spec says weld neck is an error to raise, not to build. The spool sheet also carries weld numbers, bolt-hole orientation and the spool weight.
+
+## Take-outs and fit-up from the drawing
+
+A fitting's **take-out** is its centre-to-face or end-to-end dimension from B16.9, B16.11 or B16.5; the full table is in [pipe miter layout and take-outs](/article/pipe-miter-layout).
+
+![Cut length from an iso: centre-to-centre minus take-outs and root gaps](/img/drawings/take-out-from-iso.svg)
+
+*Cut length from an iso: centre-to-centre minus take-outs and root gaps*
+
+```
+   Cut length = centre-to-centre dimension
+                minus the take-out of the fitting at each end
+                minus the root gap at each butt weld
+```
+
+| Fitting | Rule | NPS 6 |
+|---|---|---|
+| 90 LR elbow | 1.5 x NPS | 9 in (229 mm) |
+| 45 LR elbow | 0.625 x NPS | 3-3/4 in (95 mm) |
+| Weld neck flange Class 150, through hub (B16.5) | Table | 3-1/2 in (89 mm), raised face included |
+| Root gap, butt weld | Per WPS | Typically 1/8 in (3 mm) |
+
+Worked example: two LR elbows 4'-6" (54 in, 1372 mm) centre to centre on 6 in pipe. Cut length = 54 minus 9 minus 9 minus 1/8 minus 1/8 = **35-3/4 in (908 mm)**. Elbow to flange face at 3'-0": 36 minus 9 minus 3-1/2 minus 1/8 minus 1/8 = **23-1/4 in (591 mm)**.
+
+Flanges follow the **two-hole rule**: bolt holes **straddle the natural centrelines** (vertical and horizontal on a horizontal pipe, plant north-south on a vertical one) with no hole on a centreline, unless the iso calls a rotation or **ONE-HOLE**. Read the facing and rating on both sides of the joint ([flange bolting and gaskets](/article/flange-bolting-and-gaskets)).
+
+Fit-up checks before the tack: **bevel and land** per the WPS (37.5 degrees, 1/16 in land is typical); **root gap** as the WPS; **hi-lo** within about 1/16 in (1.5 mm), shared by rotating the fitting; **level, plumb and roll** to the drawn slope and offset angle; **flange faces parallel** within about 1/16 in with no come-along needed; and the **overall spool dimension** within the PFI ES-3 tolerance, typically plus or minus 1/8 in (3 mm).
+
+## Common mistakes
+
+- Reading an iso as if it were to scale and estimating a length from the picture.
+- Taking a centre-to-centre dimension as the cut length and forgetting take-outs and root gaps.
+- Building with an SR elbow when the iso says LR: the take-out changes by half the pipe size.
+- Fitting an eccentric reducer FOB on a pump suction drawn FOT, trapping air at the impeller eye.
+- Ignoring the spec break and using the lower-class flange, gasket and bolts at the joint.
+- Cutting the extra length off a field fit weld before the mating spool is in place.
+- Leaving spring hanger travel stops in, or bolting a guide down as an anchor, then blaming the pump.
+
+## Related
+
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [P&amp;ID symbols: valves, equipment and lines](/article/pid-symbols-valves-equipment-and-lines)
+- [Pipe miter layout and fitting take-outs](/article/pipe-miter-layout)
+- [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
+- [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
+- [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
+- [Welding symbols](/article/welding-symbols)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$piping isometric$mw$,$mw$iso drawing$mw$,$mw$piping drawing$mw$,$mw$spool sheet$mw$,$mw$spool drawing$mw$,$mw$piping plan$mw$,$mw$general arrangement$mw$,$mw$GA drawing$mw$,$mw$line number$mw$,$mw$line list$mw$,$mw$pipe spec$mw$,$mw$pipe class$mw$,$mw$line class sheet$mw$,$mw$service code$mw$,$mw$insulation code$mw$,$mw$butt weld symbol$mw$,$mw$socket weld symbol$mw$,$mw$threaded joint symbol$mw$,$mw$flanged joint symbol$mw$,$mw$weld dot$mw$,$mw$field weld$mw$,$mw$field fit weld$mw$,$mw$weld map$mw$,$mw$spool number$mw$,$mw$spool break$mw$,$mw$match line$mw$,$mw$north arrow$mw$,$mw$pipe support$mw$,$mw$anchor$mw$,$mw$guide$mw$,$mw$pipe shoe$mw$,$mw$spring hanger$mw$,$mw$trunnion$mw$,$mw$bill of material$mw$,$mw$material take-off$mw$,$mw$take-out$mw$,$mw$cut length$mw$,$mw$face of flange$mw$,$mw$root gap$mw$,$mw$two-hole flange$mw$,$mw$fit-up$mw$,$mw$PFI ES-3$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME B31.3 process piping (fabrication, assembly and erection); ASME B16.5 pipe flanges and flanged fittings, B16.9 factory-made butt-welding fittings and B16.11 forged socket-welding and threaded fittings (dimensions and take-outs); PFI ES-3 fabricating tolerances for piping spools and typical EPC isometric and spool drawing conventions; ASME Y14.100 engineering drawing practices; PIP PIC001 piping and instrumentation diagram documentation criteria (line numbering); company line class sheets and legend sheets.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$pneumatic-symbols-and-circuit-reading$mw$, $mw$Pneumatic Symbols and Circuit Reading: What Differs From Hydraulics (Open System, Exhausts, Compressibility), the FRL and Air Preparation Symbols, Sources, Exhausts and Silencers, 3/2, 5/2 and 5/3 Valves and Port Numbering, Normally Open and Normally Closed at Rest, Cylinders, Rodless and Guided Types, Grippers, Air Motors and Vacuum, Meter-Out Speed Control, Quick Exhaust, Shuttle and Two-Pressure Valves, a Clamp-and-Press Circuit Read Step by Step, the A+ B+ B- A- Sequence Chart and Pneumatic Stored-Energy Safety$mw$, $mw$How to read an air circuit: the symbols that only appear on pneumatic sheets (FRL, exhausts, silencers, vacuum), the 3/2, 5/2 and 5/3 valves with their numbered ports and how to tell normally open from normally closed at rest, the cylinders, motors and vacuum gear, why speed control is meter-out, then a clamp-and-press circuit traced step by step and the sequence chart that describes it, ending with the stored-energy rules before you touch an air machine.$mw$, $mw$Pneumatic schematics use the same ISO 1219 language as hydraulics, so the [hydraulic symbol chart](/article/hydraulic-symbols-iso-1219-complete) covers most of what you will see. Air adds a handful of its own symbols and one big difference in the way the circuit is drawn: nothing comes back. This article covers the extra symbols, the valves that dominate air circuits, and how to trace a two-cylinder sequence from the sheet. Setting up the hardware is in [pneumatic systems, FRL and cylinders](/article/pneumatic-systems-frl-and-cylinders).
+
+## What is different from hydraulics
+
+- **Open system.** Air is used once and exhausted to atmosphere through a **hollow triangle** on the valve or cylinder port. There are no return lines and no tank symbol, so an air sheet looks sparse: supply in, exhausts out.
+- **Hollow triangles.** Every flow direction, pilot and source is drawn with an open (hollow) triangle instead of a solid one.
+- **Compressibility.** A cylinder fed with air does not move at a controlled speed just because you meter the inlet; it lurches. That is why speed control is on the exhaust side (meter-out) and why a load can run away when the air is dumped.
+- **Low pressure.** Plant air is 80-120 psi (5.5-8 bar), so the sheet carries regulator settings, not relief settings; a pneumatic circuit rarely has a relief valve, the compressor and receiver have one.
+- **Pilot-operated valves need a minimum supply**, usually 30-45 psi (2-3 bar), to shift; the valve catalogue says so, the sheet does not.
+- **Port numbers, not letters**: 1 supply, 2 and 4 outlets, 3 and 5 exhausts, 12 and 14 pilot ports. Older sheets and some US makers still use P, A, B, R, S (or EA, EB).
+
+## Air preparation: the FRL
+
+![Air preparation symbols: filter, regulator, lubricator and the combined FRL](/img/drawings/pneu-frl-sheet.svg)
+
+*Air preparation symbols: filter, regulator, lubricator and the combined FRL*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Filter | Diamond with a dashed line across it | Removes particles and water | Element size (5, 40 micron) beside it |
+| Filter with manual drain | The diamond with a drain stub ending in a small tap (a T on a stem) | Bowl drained by hand | Daily |
+| Filter with automatic drain | Drain stub with a float (small circle on a stem) | Bowl dumps itself | Check it actually dumps |
+| Regulator | Square with a straight-through arrow, a spring with a slanted adjustment arrow above, a dashed pilot from the outlet below; a **relieving** regulator adds a small exhaust triangle | Holds downstream pressure at the setting | The setting in psi/bar is written beside it |
+| Regulator with gauge | The regulator with a gauge circle on its outlet | Same, with a reading | Set it with air flowing |
+| Lubricator | Diamond with a drip (a small drop shape) inside, or a reservoir drawn below | Adds oil mist | Only where the tools or cylinders need it |
+| Combined FRL, simplified | A rectangle with a single diagonal across it and one port each side, labelled FRL | Filter, regulator, lubricator in one unit | The simplified symbol hides the settings: look for a note |
+| Dryer | Diamond with a dashed line and a hatched or crossed element | Refrigerated or desiccant dryer | Dew point beside it |
+| Soft-start (dump) valve | A 3/2 valve with a throttle in parallel, solenoid or pilot operated, exhaust triangle | Fills the machine slowly on start-up, exhausts it on stop | Prevents a cylinder slamming on the first stroke |
+| Lockout (isolation) valve | A 3/2 manual valve with a lever or a rotary knob and an exhaust triangle, marked with a padlock or LO | Shuts off supply **and exhausts** the machine downstream | The OSHA lockout point; a plain ball valve does not exhaust |
+
+## Sources, exhausts and silencers
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Air source | Small circle with a hollow inner circle, on a stub | Plant air, the receiver or a compressor | The supply pressure is written beside it |
+| Exhaust, unthreaded | Small hollow triangle on the port | Vents straight to atmosphere | |
+| Exhaust, threaded | Hollow triangle with a short line across its base | Port can take a silencer or a pipe | The common valve exhaust |
+| Silencer | Rectangle with hatching (or a series of short lines) on the exhaust | Muffler | A plugged silencer slows the valve and the cylinder |
+| Exhaust with throttle | Triangle behind a throttle symbol | Speed control at the exhaust | The meter-out control on a valve |
+
+## Pneumatic valves: 3/2, 5/2 and 5/3
+
+Air directional valves are drawn like hydraulic ones: one square per position, lines on the rest square, operators at the ends. The differences are two exhausts on a 5-port valve (one per work port), numbered ports, and the fact that most solenoid valves are **pilot-assisted**: a tiny solenoid switches supply air onto the end of the main spool, so the operator symbol is a solenoid rectangle beside a hollow pilot triangle.
+
+![Pneumatic valves: 3/2, 5/2, 5/3, exhausts, quick exhaust, shuttle and two-pressure](/img/drawings/pneu-valves-sheet.svg)
+
+*Pneumatic valves: 3/2, 5/2, 5/3, exhausts, quick exhaust, shuttle and two-pressure*
+
+| Valve | How it is drawn | What it does | Where used |
+|---|---|---|---|
+| 3/2, spring return | Two squares; ports 1, 2, 3 on the rest square; operator one end, spring the other | Connects 2 to 1 (pressure) or 2 to 3 (exhaust) | Single-acting cylinders, pilot signals, blow-off, dump valves |
+| 5/2, single solenoid, spring return | Two squares; ports 1 (centre bottom), 2 and 4 (top), 3 and 5 (bottom corners); solenoid-plus-pilot one end, spring the other | Rest: 1 to 2, 4 to 5. Energised: 1 to 4, 2 to 3 | Double-acting cylinders that must return when power fails |
+| 5/2, double solenoid (memory) | Two squares, a solenoid-plus-pilot at each end, no spring (sometimes a detent) | Stays in the last position when both coils are off; a pulse on 14 shifts to 1-4, a pulse on 12 shifts to 1-2 | Double-acting cylinders that must stay put on power loss; sequence circuits |
+| 5/3, closed centre | Three squares, centre with all five ports blocked | Cylinder stops mid-stroke and holds (leaks and compressibility let it creep) | Positioning with care |
+| 5/3, exhaust centre | Centre: 2 and 4 joined to 3 and 5, 1 blocked | Both cylinder ports vented: the rod is free to be pushed | Manual positioning, safe stop on horizontal loads |
+| 5/3, pressure centre | Centre: 1 joined to 2 and 4, exhausts blocked | Both sides pressurised: the rod is held stiff (moves slowly to extend on the area difference) | Clamping, holding against a light load |
+
+**Port numbering**: 1 supply; 2 the outlet on the 12 side; 4 the outlet on the 14 side; 3 exhausts 2; 5 exhausts 4; **12** is the pilot that connects 1 to 2; **14** the pilot that connects 1 to 4; 10 is a pilot that closes all ports on some valves. The numbers alone tell you which solenoid does what without reading the arrows.
+
+**Operators** as on hydraulic sheets: solenoid (rectangle with a diagonal), pilot (hollow triangle), spring (zigzag), detent (notches), lever, roller, one-way roller, push button, pedal. **Manual override** on a solenoid is a small manual symbol on the solenoid; on the valve body it is the button you push with a pen to test the mechanics with the electrics off.
+
+## Normally open, normally closed and reading the rest position
+
+A pneumatic valve is drawn with everything relaxed: coils off, pilot ports vented, springs in charge. The square the lines touch is what the valve does with the machine stopped.
+
+- A **3/2 normally closed (NC)**: at rest port 1 is blocked and 2 is connected to 3 (the outlet is exhausted). Actuate: 1 to 2. A single-acting cylinder on an NC 3/2 is retracted at rest.
+- A **3/2 normally open (NO)**: at rest 1 is connected to 2 (the outlet is pressurised) and 3 is blocked. Actuate: 2 to 3. The cylinder is extended at rest, or a brake is released at rest. Read the arrows, not the label: the same body with the ports piped differently is the other type.
+- On a **5/2 spring-return** the rest square is the one at the spring end. Whether the cylinder is extended or retracted at rest depends on which cylinder port is on 2 and which on 4: the sheet shows it, the valve does not.
+- A **double-solenoid 5/2** has no defined rest state: it is wherever it was last put, so the sheet usually draws it in the position the machine starts in and adds a note. On power-up the PLC must pulse one coil to be sure.
+- A **detented** valve, mechanical or pilot, likewise stays put; the notches tell you.
+- Reading a sensor's state: a roller-operated 3/2 limit valve drawn NC is closed until the cylinder hits it; a **held** valve at rest (the cam is on the roller when the machine is stopped) is drawn actuated, sometimes with a note. This matters in sequence circuits, below.
+
+## Cylinders, motors and vacuum
+
+![Pneumatic cylinders, air motor, vacuum generator and cup, speed controls](/img/drawings/pneu-actuators-sheet.svg)
+
+*Pneumatic cylinders, air motor, vacuum generator and cup, speed controls*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Single-acting, spring return | Rectangle, piston, rod, one port at the cap end, a spring in the rod end, an exhaust triangle or a breather at the rod end | Air out, spring back | Clamps, small strokes |
+| Double-acting | Rectangle, piston, rod, a port each end | Air both ways | The standard; cushions and adjustable cushions as hydraulic |
+| Double-acting, magnetic piston | The cylinder with a small rectangle on the piston, sensors drawn as small squares on the barrel | Reed or solid-state position switches | Switches tagged to the electrical sheet |
+| Rodless (band or magnetic) | A long rectangle with a carriage drawn on top, ports each end, no rod | Long strokes in a short space | Magnetic type: two pistons and a coupling drawn |
+| Guided (slide) | The cylinder with two parallel guide rods drawn beside the rod | Takes side loads | |
+| Gripper | Two jaws (angled lines) on a body with one or two ports; parallel or angular | Opens and closes on air | Single-acting grippers hold on a spring when air is lost |
+| Rotary actuator | Half-circle with two ports and a double-headed curved arrow | Rack-and-pinion or vane, 90 or 180 degrees | |
+| Air motor | Circle with a hollow triangle pointing in; two triangles for reversible | Rotary output | Hoists, mixers, tools |
+| Vacuum generator (ejector) | A venturi shape: a supply port, a narrow throat, an exhaust triangle, a vacuum port with a hollow triangle pointing **into** the body | Compressed air makes vacuum | Often with a blow-off valve drawn in |
+| Vacuum cup | A cup shape (a semicircle open downward) on a stub | The suction pad | Several cups on one ejector |
+| Vacuum switch | Square with a pilot line and a contact, with the pilot triangle pointing into the square | Confirms the part is held | The PLC permissive before the arm moves |
+
+## Speed and exhaust control
+
+![Meter-in, meter-out and bleed-off speed control](/img/drawings/circuit-meter-in-out.svg)
+
+*Meter-in, meter-out and bleed-off speed control*
+
+| Symbol | How it is drawn | Meaning | Notes |
+|---|---|---|---|
+| Flow control with check (meter-out) | Adjustable throttle with a check in parallel, mounted at the cylinder port, arranged so the check is **free into** the cylinder and the throttle meters the **exhaust** out of it | Controls speed by holding back the exhaust; the piston runs against a cushion of air | The rule for double-acting cylinders: smooth, no lurching, holds an overrunning load |
+| Meter-in | The same valve turned round: throttled into the cylinder, free out | Feeds air slowly; the cylinder lurches when the load drops | Only for single-acting cylinders (there is no exhaust to meter on the spring side) and some vacuum work |
+| Quick exhaust valve | A three-port body at the cylinder port: inlet from the valve, outlet to the cylinder, a large exhaust triangle; a shuttle-type element inside | Dumps the cylinder straight to atmosphere instead of back through the valve and its silencer | Fast strokes; noisy |
+| Shuttle valve (OR) | Rectangle, an inlet each end, an outlet in the middle, a ball between two seats | Output if **either** input has pressure | Two start buttons, either of two sensors |
+| Two-pressure valve (AND) | The same rectangle, but the element blocks the outlet unless both inlets are pressurised | Output only if **both** inputs are on | Two-hand controls, a safety and a start together |
+| Pressure switch | Square with a pilot line and an electrical contact | Electrical signal at a set pressure | Low-air permissive, clamp-pressure proof |
+| Pressure sequence valve | Square with a spring and an adjustment arrow, a pilot line from a sensing port, an output to a pilot line; normally closed | Passes a pilot signal only when the sensed pressure reaches the setting | Proves a clamp is tight before the press moves |
+
+## Reading a clamp-and-press circuit
+
+The commonest two-cylinder machine: cylinder **A** clamps a part, cylinder **B** presses (or drills, stamps, marks), B retracts, then A releases. On the sheet you will find: an FRL, two 5/2 double-solenoid (or double-pilot) valves 1V1 and 1V2 feeding cylinders 1A and 2A, meter-out flow controls at each cylinder port, and four position signals: limit valves or sensors **a0** (A retracted), **a1** (A extended), **b0** (B retracted), **b1** (B extended). Read it in this order:
+
+![Clamp-and-press pneumatic circuit drawn at rest](/img/drawings/pneu-clamp-press-circuit.svg)
+
+*Clamp-and-press pneumatic circuit drawn at rest*
+
+1. **Rest state.** Both cylinders retracted; a0 and b0 are made (their rollers are held down), a1 and b1 are not. Valve 1V1 is drawn with 1 to 2 feeding A's rod end, so A is held retracted; the same for B.
+2. **Start.** The start button (a 3/2 push button) and b0 are in series (a two-pressure valve or two contacts): B must be home before A can clamp. The signal goes to pilot 14 of 1V1: 1V1 shifts, 1 to 4, air into A's cap end; A's rod-end air leaves through its meter-out throttle and exhaust 5. **A+**.
+3. **A extended.** The roller of a1 is struck; a1 passes a pilot signal to 14 of 1V2. B extends, **B+**. On a press, a pressure sequence valve on A's cap line often replaces a1: B does not move until A is actually clamping at, say, 60 psi (4 bar).
+4. **B extended.** b1 (or a time delay for dwell) signals 12 of 1V2: 1V2 returns, **B-**.
+5. **B home.** b0 signals 12 of 1V1: A releases, **A-**. The machine is back at rest, waiting for the start button.
+
+Now the trap: at step 4, a1 is still held down (A is still clamped), so pilot 14 of 1V2 is still pressurised when b1 tries to push 12. A double-pilot valve with air on both ends does not move: **signal overlap**, and B never retracts. The sheet shows the cure: a1 drawn as a **one-way roller** (it gives a pulse as A passes, not a held signal), or a cascade of memory valves, or the whole logic moved into the PLC where a1 is just an input. When you replace a limit valve, fit the same type; a standard roller in place of a one-way roller stalls the machine at step 4 and the fault looks like a bad valve.
+
+## The sequence chart
+
+The sheet, or the manual, describes the cycle as a **displacement-step diagram** (sequence chart). Time or step number runs left to right; each cylinder has a band with two lines: 0 (retracted) and 1 (extended). Diagonal lines show the movement in each step, horizontal lines show a cylinder holding. The notation under it is the cycle in letters: **A+ B+ B- A-** for the clamp-and-press above (plus = extend, minus = retract). Some sheets write it as a sequence table with the solenoid energised at each step:
+
+![Step-displacement chart for the clamp-and-press sequence](/img/drawings/pneu-sequence-chart.svg)
+
+*Step-displacement chart for the clamp-and-press sequence*
+
+| Step | Motion | Started by | Solenoid on | End of step signal |
+|---|---|---|---|---|
+| 1 | A+ | Start and b0 | 1V1 sol 14 (1Y1) | a1 |
+| 2 | B+ | a1 (or sequence valve) | 1V2 sol 14 (1Y3) | b1 |
+| 3 | B- | b1 (or timer) | 1V2 sol 12 (1Y4) | b0 |
+| 4 | A- | b0 | 1V1 sol 12 (1Y2) | a0 |
+
+Read it against the machine: if the cycle stops with A clamped and B out, you are between steps 2 and 3, so the thing to check is b1 (is it struck, is its LED on, does its pilot line reach 12) and the flow control on B's cap-end exhaust. A chart with brackets like (A+ B+) means both move at once; a chart with a dwell shows a horizontal line with a time.
+
+**Safety before you touch an air machine.** A stopped machine is full of stored energy: cylinders held against a load by trapped air, a vertical cylinder that will fall when exhausted, a gripper that will open, a spring that will fire. The lockout point is the **lockout valve that exhausts** the machine, not a ball valve; lock it, watch the machine's gauge fall to zero, exhaust both ends of every cylinder (a 5/3 closed-centre valve traps air on both sides), block or lower anything that can drop, and try the controls. See [lockout basics](/article/lockout-tagout-basics).
+
+## Common mistakes
+
+- Reading a 3/2 as NC because the label says so, when the arrows show 1 to 2 at rest.
+- Assuming a double-solenoid valve returns when power is lost: it stays where it was.
+- Fitting meter-in flow controls on a double-acting cylinder and chasing a lurching stroke for a week.
+- Replacing a one-way roller limit valve with a standard roller: signal overlap stalls the sequence.
+- Expecting a pilot-assisted solenoid valve to shift at 15 psi during a low-air test.
+- Locking out a ball valve that does not exhaust the machine, then working under a cylinder held up by trapped air.
+- Reading the 5/3 exhaust centre as a safe hold on a vertical load: it drops.
+- Ignoring the settings written beside the regulator and the sequence valve, then wondering why the press starts before the clamp is tight.
+
+## Related
+
+- [Hydraulic symbols, ISO 1219 complete chart](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)
+- [Pneumatic systems, FRL and cylinders](/article/pneumatic-systems-frl-and-cylinders)
+- [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
+- [Cylinder repair and seal kits](/article/cylinder-repair-and-seal-kits)
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
+- [Lockout / tagout basics](/article/lockout-tagout-basics)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$pneumatic symbols$mw$,$mw$pneumatic schematic$mw$,$mw$iso 1219 pneumatic$mw$,$mw$air circuit diagram$mw$,$mw$frl symbol$mw$,$mw$filter regulator lubricator symbol$mw$,$mw$auto drain$mw$,$mw$regulator with gauge$mw$,$mw$air dryer symbol$mw$,$mw$soft start valve$mw$,$mw$dump valve$mw$,$mw$lockout valve$mw$,$mw$air source symbol$mw$,$mw$exhaust symbol$mw$,$mw$silencer$mw$,$mw$3/2 valve$mw$,$mw$5/2 valve$mw$,$mw$5/3 valve$mw$,$mw$port numbering 12 14$mw$,$mw$normally open$mw$,$mw$normally closed$mw$,$mw$rest position$mw$,$mw$double solenoid$mw$,$mw$pilot assisted solenoid$mw$,$mw$manual override$mw$,$mw$single acting cylinder$mw$,$mw$double acting cylinder$mw$,$mw$rodless cylinder$mw$,$mw$guided cylinder$mw$,$mw$gripper symbol$mw$,$mw$air motor symbol$mw$,$mw$vacuum generator$mw$,$mw$vacuum cup$mw$,$mw$vacuum switch$mw$,$mw$meter out$mw$,$mw$meter in$mw$,$mw$quick exhaust valve$mw$,$mw$shuttle valve$mw$,$mw$two pressure valve$mw$,$mw$pressure sequence valve$mw$,$mw$clamp and press circuit$mw$,$mw$sequence chart$mw$,$mw$step displacement diagram$mw$,$mw$signal overlap$mw$,$mw$pneumatic safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 1219-1:2012 and ISO 1219-2 (fluid power symbols and circuit diagrams, pneumatic port numbering); SMC and Festo Didactic pneumatics training manuals (valve functions, sequence circuits, displacement-step diagrams); Parker and Norgren air preparation and valve catalogues; NFPA/T3.28 symbol practice; OSHA 1910.147 (control of hazardous energy, pneumatic stored energy).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$reading-engineering-drawings-basics$mw$, $mw$Reading Engineering Drawings: What a Drawing Set Is, Sheet Sizes, Zones and Scale, Every Field in the Title Block, Revision Blocks, Clouds and Status Stamps (IFR, IFC, As-Built, Hold, Void), General Notes vs Flag Notes, the Bill of Materials and Find Numbers, Drawing Number Structures and Cross-References, an Abbreviation Table and How to Confirm You Have the Right Revision$mw$, $mw$How a drawing set is organised and how to find your way round a single sheet before you read a dimension: sheet sizes and zones, scale, every field in the title block, the revision block and what the status stamps mean, general notes against flag notes, how the bill of materials and find numbers tie to balloons, how drawing numbers and cross-references are built, a table of the abbreviations you will meet, and the check that proves you are working from the current revision.$mw$, $mw$The [blueprint reading overview](/article/blueprint-reading-for-millwrights) covers views, lines and dimensions. This article goes deeper into the paperwork around the picture: the sheet, the title block, the revisions, the notes and the parts list. Most costly drawing mistakes are the right dimension read from the wrong sheet, the wrong revision or the wrong note.
+
+## What a drawing set is
+
+A part rarely comes on one sheet. A **drawing set** for a machine or plant area is a family of sheets that reference each other:
+
+![A 1927 city engineering blueprint: the drawing set is the record of what was built](/photos/drawings/seattle-blueprint.jpg)
+
+*A 1927 city engineering blueprint: the drawing set is the record of what was built. Photo: City of Seattle, Engineering Department, Public domain, via commons*
+
+| Drawing type | What it shows |
+|---|---|
+| **General arrangement (GA)** | The whole machine or area: overall dimensions, equipment tags, clearances |
+| **Assembly / sub-assembly** | Parts fitted together, balloons tied to a bill of materials |
+| **Detail (part)** | One part, fully dimensioned and toleranced |
+| **Foundation / anchor bolt** | Concrete, pedestals, bolt pattern and projection |
+| **Piping isometric, P&ID, electrical schematic** | Systems, not parts |
+| **OEM installation drawing** | Mounting dimensions, lifting points, service clearances |
+
+The set is listed on a **drawing index** giving every number, title and current revision. On a new job start with the index, the GA and the OEM installation drawing. Canadian and ISO-based jobs call the structural GA an **erection drawing**.
+
+## Sheet layout, zones and scale
+
+US sizes follow ASME Y14.1; metric sizes follow Y14.1M and ISO 5457.
+
+![Sheet layout: zones, revision block, notes, drawing area and title block](/img/drawings/sheet-layout-zones.svg)
+
+*Sheet layout: zones, revision block, notes, drawing area and title block*
+
+| ANSI | Inches | ISO | Millimetres | Typical use |
+|---|---|---|---|---|
+| A | 8.5 x 11 | A4 | 210 x 297 | Sketches, small parts |
+| B | 11 x 17 | A3 | 297 x 420 | Details, field prints |
+| C | 17 x 22 | A2 | 420 x 594 | Sub-assemblies |
+| D | 22 x 34 | A1 | 594 x 841 | Assemblies, GAs, structural |
+| E | 34 x 44 | A0 | 841 x 1189 | Plant layouts |
+
+Most field prints are D or A1 sheets reduced to B or A3, which is the first reason the title block scale cannot be trusted with a ruler: a half-size print of a 1:2 drawing is 1:4.
+
+**Zones.** The border of a C-size and larger sheet is divided into zones: numbers along the top and bottom (starting at the right on ASME sheets), letters up the sides, so "SEE DETAIL C, ZONE B4" points to a grid square.
+
+**Scale.** US drawings write `1:1` or `FULL`, `1:2` or `HALF`, `1:4`, and for site work architectural scales such as `1/4"=1'-0"` (1:48). Metric drawings use 1:1, 1:2, 1:5, 1:10, 1:20, 1:50, 1:100; enlarged details 2:1, 4:1, 10:1. Each view or detail can carry its own scale, overriding the title block. **NTS** (not to scale), or a dimension underlined with a wavy line, tells you the picture and the number disagree: **the number wins, always**. Plant sheets also carry a **north arrow** (plant north, not true north) and the **projection symbol** (see [views and sections](/article/mechanical-drawings-views-sections-and-dimensions)).
+
+## The title block
+
+The title block sits in the lower right (ASME) so it reads when the sheet is folded to A size. The fields in bold decide whether you can use the drawing at all.
+
+![Title block anatomy: number, sheet, revision, scale and default tolerances](/img/drawings/title-block-anatomy.svg)
+
+*Title block anatomy: number, sheet, revision, scale and default tolerances*
+
+| Field | What it holds | Why you read it |
+|---|---|---|
+| **Drawing number** | The unique document number | The only reliable identity; titles repeat, numbers do not |
+| **Sheet x of y** | This sheet's place in the drawing | Sheet 2 of 5 without 3-5 is incomplete; the missing sheets often hold the notes |
+| **Rev** | Current revision | Must match the register and the work order |
+| Scale, size | Sheet scale and size letter | Size tells you if the print is reduced |
+| Drawn / checked / approved, dates | Names and dates | No checker or approver means a draft |
+| **CAGE code**, customer, project | The design owner (CAGE on US government and aerospace work) and the job | Ordering spares from the right vendor; identical machines on two jobs have different bolts |
+| **Tolerance block** | Defaults by decimal places on inch drawings, by ISO 2768 class on metric | Governs every dimension not otherwise toleranced |
+| Units | INCH, MM or DUAL | A 25 that should have been 25.4 |
+| Material, finish | Spec (ASTM A36, 4140 HT), paint, plating | Substituting is a design change; dimensions may apply after plating |
+| Standard, projection symbol | ASME Y14.5-2018 or ISO; third or first angle | How tolerances are read and where the views sit |
+
+ISO 7200 blocks carry the same data under different labels; Canadian jobs often run ISO sheets with US units, so read the units field before assuming.
+
+## Revisions, clouds and status stamps
+
+Under ASME Y14.35, revisions are usually letters (skipping I, O, Q, S, X and Z), with pre-release revisions as numbers or dashes; many companies use numbers, with rev 0 as the first issue for construction.
+
+![Revision block, revision cloud and flag, and the status stamps](/img/drawings/revision-block-and-cloud.svg)
+
+*Revision block, revision cloud and flag, and the status stamps*
+
+**Revision block** columns: Rev, Zone (where the change is), Description ("HOLE PATTERN WAS 4X 3/4 ON 12.000 BC", "ADDED NOTE 7"), Date, By/Chk/Appr, and the ECN or DCN number that authorised it.
+
+**Clouds and deltas.** The changed area is ringed by a scalloped **cloud** with a small triangle (the **delta**) carrying the revision letter. Clouds show only the latest revision; a stale delta means check the register.
+
+| Status | Meaning | What you may do |
+|---|---|---|
+| **IFR / IFA** (issued for review or approval) | Out for comment | Do not fabricate or set to it |
+| **IFC** (issued for construction) | Approved to build from | Build from it |
+| Certified / approved for construction | Vendor drawing accepted by the engineer | Use for foundation and interface dimensions |
+| **HOLD** | A dimension, area or sheet frozen pending a decision | Do not build the held item |
+| **As-built / record** | Marked up to what was installed | The only drawing to trust for tie-ins to existing plant |
+| Void / cancelled | Withdrawn | Never use |
+
+A drawing that is IFC at rev 2 and IFR at rev 3 is a trap: rev 3 is newer but rev 2 is still the construction issue. The document control register resolves it.
+
+## Notes, symbols legend and the bill of materials
+
+**General notes** apply to the whole drawing, in a numbered list: "ALL DIMENSIONS IN INCHES UNLESS NOTED", "BREAK ALL SHARP EDGES .015 MAX", "ALL WELDS 1/4 FILLET CONTINUOUS UNO", "MACHINED SURFACES 125 RA UNO", "ANCHOR BOLTS BY OTHERS". Read every one before a dimension: one note just set the finish on every surface without a symbol, another took the bolts out of your scope.
+
+**Flag notes** apply only where they are pointed: a number in a triangle, hexagon or circle on the view with a leader, and the text under the same number in the notes list. A flag on the view without its text on the sheet means a missing sheet.
+
+**Symbols legend.** Schematics carry a legend sheet and structural sets put weld, bolt and line-type legends on the general notes sheet; the legend beats a guess.
+
+**Bill of materials (BOM)**, the parts list of ASME Y14.34, ties the balloons on the assembly view to real parts:
+
+| Column | Holds | Note |
+|---|---|---|
+| Item / find number | The balloon number | Assigned per drawing: item 5 on one assembly is not item 5 on another |
+| Qty | Per assembly | AR = as required; REF = shown but not supplied |
+| Part / drawing number | What you order | Never order by item number |
+| Description | Name and size: "HHCS 1/2-13 X 2 GR 5 ZN" | Read the whole string |
+| Remarks | "MATCH DRILL AT ASSY", "SUPPLIED WITH ITEM 12" | The remark changes the job |
+
+Compare BOM quantity with the balloons and with what arrived on the pallet.
+
+## Drawing numbers and cross-references
+
+There is no universal numbering system, but most follow a structure the drawing list decodes. A common EPC pattern:
+
+![Drawing number decoder, section cut, detail bubble and match line](/img/drawings/drawing-number-and-callouts.svg)
+
+*Drawing number decoder, section cut, detail bubble and match line*
+
+```
+   1234 - 620 - M - 0042 - 02
+   proj.  area  disc.  seq.   sheet
+```
+
+Disciplines: **M** mechanical, **C** civil, **S** structural, **P** piping, **E** electrical, **I** instrumentation. OEMs use a part number family (SK-4471-100 assembly, -101 onward details) or type codes (**GA**, **DET**, **WD**, **FDN**, **AB**).
+
+**Reference drawings.** A list in the title block names every drawing this one depends on: the foundation drawing references the equipment GA and the vendor certified print. When two disagree, the list tells you which were supposed to agree so you can raise the conflict with both numbers.
+
+**Detail and section callouts.** A circle with a letter above and a sheet number below: "A / 3" is detail A drawn on sheet 3, labelled there "DETAIL A, FROM SHEET 1, SCALE 2:1". A cutting-plane line with arrows and letters gives a section: "SECTION B-B" is the view seen looking in the arrow direction, drawn where the callout says ("B-B / 4"). Follow every callout before deciding a feature is undefined; the dimension missing from the plan is nearly always on the section.
+
+## Abbreviations you will meet
+
+ASME Y14.38 lists the standard set; these are the ones a millwright sees most, with structural and site shorthand.
+
+| Abbrev. | Meaning | Abbrev. | Meaning |
+|---|---|---|---|
+| TYP | Typical: applies to all identical features | REF | Reference, not inspected |
+| NTS | Not to scale | UNO / UON | Unless noted otherwise |
+| C/L, CL | Centreline | SYM | Symmetrical |
+| TOS, T/S | Top of steel | TOC, T/C | Top of concrete |
+| TOG | Top of grout | BOP | Bottom of pipe |
+| EL | Elevation | FFL, FF | Finished floor level |
+| FS | Far side | NS | Near side |
+| BS | Both sides | BOM | Bill of materials |
+| DIA, Ø | Diameter | R | Radius |
+| SR | Spherical radius | SF | Square feet; spotface on some prints |
+| CSK | Countersink | CBORE | Counterbore |
+| THRU | Through | EQ SP | Equally spaced |
+| MIN / MAX | Minimum / maximum | NOM | Nominal |
+| PCD | Pitch circle diameter | BC, BCD | Bolt circle (diameter) |
+| HOLD | Frozen, do not build | FW | Field weld |
+| SW | Shop weld; socket weld on piping | BW | Butt weld |
+| N.C. | Normally closed | N.O. | Normally open |
+| ASSY | Assembly | DET | Detail |
+| THD | Thread | TPI | Threads per inch |
+| LH / RH | Left / right hand | AF | Across flats |
+| HHCS | Hex head cap screw | SHCS | Socket head cap screw |
+| AB | Anchor bolt | PL | Plate |
+| GA | Gauge, or general arrangement | WP | Work point |
+| ECN, ECO | Engineering change notice, order | IFC | Issued for construction |
+
+Canadian drawings add **U/S** (underside), **T/O** and **B/O** (top and bottom of).
+
+## Checking you have the right drawing
+
+Before any fabrication, layout or setting:
+
+![Reading a drawing at the bench: check the number, sheet and revision before you start](/photos/drawings/trade-school-drawing.jpg)
+
+*Reading a drawing at the bench: check the number, sheet and revision before you start. Photo: Internet Archive Book Images, No restrictions, via commons*
+
+1. **Number and sheet** match the work order, and you have every sheet ("SHEET 1 OF 4" means four).
+2. **Revision** matches the **document control register** (master drawing list, EDMS, or the controlled-copy stamp). The print in the crib may be superseded; the register is the truth.
+3. **Status stamp** reads IFC (or certified, or as-built, as the task requires). An uncontrolled copy is for reading only.
+4. **No HOLD** on your area. A held anchor bolt dimension means the concrete waits.
+5. **Revision description** read against the clouds, and any material already made checked against the old value.
+6. **Reference drawings** are at the revisions this one expects.
+7. A pencil **field mark-up** is a request, not an authorisation; changes come by revision or a signed field change attached to the print.
+
+## Common mistakes
+
+- Working from the print on the crib wall without checking the register: the classic wrong-revision part.
+- Fabricating to an IFR or preliminary drawing because it arrived first.
+- Missing a general note that sets a finish, a tolerance or a scope exclusion for the whole sheet.
+- Applying a flag note everywhere, or a general note only where a flag happens to sit.
+- Ordering by item number from the BOM instead of the part number.
+- Building the held dimension because it looked finished.
+- Not chasing a detail callout to another sheet and deciding the feature has no dimension.
+- Trusting a field mark-up as authority for a change.
+
+## Related
+
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [Welding symbols](/article/welding-symbols)
+- [Millwright glossary](/article/millwright-glossary)
+- [Quiz: drawings, schematics and P&IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$engineering drawings$mw$,$mw$drawing set$mw$,$mw$sheet size$mw$,$mw$ANSI D$mw$,$mw$ISO A1$mw$,$mw$drawing zones$mw$,$mw$drawing scale$mw$,$mw$NTS$mw$,$mw$not to scale$mw$,$mw$title block$mw$,$mw$drawing number$mw$,$mw$sheet x of y$mw$,$mw$revision letter$mw$,$mw$revision block$mw$,$mw$revision cloud$mw$,$mw$revision delta$mw$,$mw$IFR$mw$,$mw$IFC$mw$,$mw$IFA$mw$,$mw$as-built$mw$,$mw$hold$mw$,$mw$void$mw$,$mw$superseded$mw$,$mw$status stamp$mw$,$mw$document control$mw$,$mw$drawing register$mw$,$mw$general notes$mw$,$mw$flag notes$mw$,$mw$bill of materials$mw$,$mw$BOM$mw$,$mw$find number$mw$,$mw$item number$mw$,$mw$reference drawings$mw$,$mw$detail callout$mw$,$mw$section callout$mw$,$mw$drawing abbreviations$mw$,$mw$TYP$mw$,$mw$UNO$mw$,$mw$TOS$mw$,$mw$TOC$mw$,$mw$CSK$mw$,$mw$CBORE$mw$,$mw$PCD$mw$,$mw$tolerance block$mw$,$mw$CAGE code$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.100 (engineering drawing practices), ASME Y14.1 and Y14.1M (decimal inch and metric sheet sizes and formats), ASME Y14.35 (revision of engineering drawings and documents), ASME Y14.34 (parts lists), ASME Y14.38 (abbreviations and acronyms); ISO 128 (technical drawings, general principles of presentation), ISO 5457 (sheet sizes and layout), ISO 7200 (title block data fields); AISC Steel Construction Manual and PIP (Process Industry Practices) drawing conventions; typical EPC and OEM document control procedures.$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$reading-hydraulic-and-pneumatic-circuit-diagrams$mw$, $mw$Reading Hydraulic and Pneumatic Circuit Diagrams: the Five-Step Tracing Method, Rest-State Conventions, Open-Centre vs Closed-Centre Circuits and What the Gauge Shows at Idle, Meter-In, Meter-Out and Bleed-Off Placement, Regenerative Extend Circuits, Sequence and Counterbalance Circuits, Accumulator and Hi-Lo Two-Pump Circuits, the Component List and Settings Table, and Placing Test Gauges From the Schematic$mw$, $mw$A working method for turning a fluid-power schematic into a picture of what the machine does: five steps to trace any circuit, the rest-state rules, how to tell an open-centre from a closed-centre system and what the gauge should read at idle in each, where flow controls sit and why, how regenerative, sequence, counterbalance, accumulator and hi-lo circuits are drawn and behave, how to use the component list and settings table, and how to choose test-gauge points from the sheet before you walk to the machine.$mw$, $mw$A schematic is not a picture of the machine; it is a statement of what the oil or air is allowed to do. Read it properly and it tells you what the machine must do at rest, in each step, and at what pressure, before you open a single cover. This article is the method. The symbols themselves are in the [hydraulic symbol chart](/article/hydraulic-symbols-iso-1219-complete) and the [pneumatic symbol chart](/article/pneumatic-symbols-and-circuit-reading); the fault-finding that follows is in [advanced hydraulic troubleshooting](/article/hydraulic-troubleshooting-advanced-diagnostics).
+
+## The five-step method
+
+![Number the parts, find the supply, follow one signal at a time](/img/drawings/pneu-clamp-press-circuit.svg)
+
+*Number the parts, find the supply, follow one signal at a time*
+
+1. **Find the prime mover and the pump.** The circle with M and the circle with the outward triangle, usually bottom left. Note fixed or variable, the control on it (compensator, load sense) and the case drain; on an air sheet, the source circle and the FRL. Write down the pump flow and supply pressure from the component list.
+2. **Trace the supply to tank.** Follow the solid line from the pump outlet through the relief, the filter and every valve until it reaches a tank symbol or an exhaust. On a **fixed pump** there must be a path to tank at rest (an open or tandem centre, an unloading valve, a vented relief); if you cannot find one, the pump sits on the relief and the system heats. On a **compensated pump** there is often no path at rest: the pump destrokes instead.
+3. **Identify the actuators.** Every cylinder, motor and rotary actuator, and what each one moves on the machine (the machine's name for it: clamp, lift, index, traverse). Note single- or double-acting, cushions, rod size, and the load direction (is gravity pulling on it?).
+4. **Work back from each actuator to the supply**, naming each valve you pass: the directional valve and its centre, any counterbalance, POC or brake valve on the load side, the flow controls and which way they meter, any reducing or sequence valve in the branch. Number each component against the parts list as you go (1V3, RV-2).
+5. **Read each operating state by sliding the envelopes.** For each step in the solenoid table or sequence chart, decide which solenoids are on, slide each directional valve's row of squares to the energised position, and follow the flow from pump to actuator to tank. Write down what moves, which way, and what pressure the pump sees. Done for every step, you know the machine.
+
+Take a highlighter to a copy: one colour for pressure, one for return, one for pilot and drain, per state.
+
+## Everything is drawn at rest
+
+The sheet shows the machine **stopped, de-energised, at zero pressure**: pump off, solenoids off, springs in charge, accumulators (usually) discharged, cylinders wherever the note says (normally retracted, or as-drawn). Consequences:
+
+![Every valve is drawn in its rest position: read the box with the ports](/img/drawings/hyd-dcv-sheet.svg)
+
+*Every valve is drawn in its rest position: read the box with the ports*
+
+- The lines touch the rest envelope of every valve. A spring-centred 4/3 is in its centre; a spring-offset 4/2 is at the spring end; a detented valve is wherever the drawing shows it with a note.
+- A normally closed pressure valve is drawn closed; a reducing valve is drawn open.
+- Limit switches and limit valves are drawn **not actuated**, unless a note says "held" (the cam is on the roller at rest).
+- A pilot-operated check is drawn closed; a counterbalance closed; the load, if any, is drawn held.
+- Sensors report the rest state: a pressure switch on the supply is open, a level switch made.
+
+If the drawing was made with the machine in a different rest state (a press with the ram up, a lift at the bottom), the title block or a general note says so. Read the notes before the symbols.
+
+## Open-centre and closed-centre circuits
+
+![Open-centre with a fixed pump beside closed-centre with a compensated pump](/img/drawings/circuit-open-vs-closed-centre.svg)
+
+*Open-centre with a fixed pump beside closed-centre with a compensated pump*
+
+| | Open-centre circuit | Closed-centre circuit |
+|---|---|---|
+| Pump | **Fixed displacement** (gear, vane); flow is constant | **Pressure-compensated** or load-sensing variable pump; flow varies |
+| Directional valves | Open or tandem centre; often several in series (the mobile valve bank) | Closed centre; several in parallel off one pressure line |
+| At idle, no solenoids | Pump flow passes through the valve centres to tank at 50-150 psi (3-10 bar) | Pump destrokes to near-zero flow and holds the compensator setting, e.g. 2,500 psi (170 bar) |
+| The gauge at the pump outlet, idle | **Low**: the sum of the pressure drops through the centres, filter and cooler; a high reading means a blocked path or a stuck valve | **High**: the compensator setting; a low reading means the compensator, a leak or a valve open to tank |
+| Relief valve | Sets the working maximum; passes full flow when a cylinder stalls | Set 150-300 psi (10-20 bar) **above** the compensator; should never pass flow in normal use |
+| Heat | From the pressure drop through the centres at idle, and from the relief when stalled | Little at idle; from spool leakage and the compensator margin |
+
+The first thing the schematic tells you is which of these you have. A fixed-pump, closed-centre combination with no unloading path is a mistake on the sheet or a system that overheats. A compensated pump with open-centre valves runs at low pressure and the compensator never works: usually a valve swap gone wrong.
+
+## Meter-in, meter-out and bleed-off
+
+A flow control's **position** on the sheet tells you what it can and cannot do:
+
+![Meter-in, meter-out and bleed-off](/img/drawings/circuit-meter-in-out.svg)
+
+*Meter-in, meter-out and bleed-off*
+
+| Placement | Drawn where | What it does | Use it for | Weakness |
+|---|---|---|---|---|
+| **Meter-in** | In the line **into** the actuator, check free for the return | Meters the oil entering; the excess goes over the relief (fixed pump) or the pump destrokes | Loads that **resist** motion; precise feeds | An **overrunning** load runs away from the oil and cavitates the actuator; heat on a fixed pump |
+| **Meter-out** | In the line **out of** the actuator, check free into it | Meters the oil leaving; the actuator is held back by the restriction | **Overrunning loads**, vertical cylinders going down, motors, every pneumatic cylinder | Intensification: a 2:1 cylinder extending at 2,000 psi supply can show 4,000 psi on the rod side; seals and valve must stand it |
+| **Bleed-off** | A branch from the pressure line **to tank** through the throttle | Diverts part of the pump flow; the actuator gets the rest at load pressure, not relief pressure | Efficient speed control on fixed pumps where accuracy is not critical | Speed changes with load; useless on overrunning loads |
+
+On an air sheet the rule is simple: meter-out on every double-acting cylinder, meter-in only on single-acting. On a hydraulic sheet, a meter-out on a vertical cylinder together with a counterbalance is normal; a meter-in alone on a hanging load is a fault waiting to happen.
+
+## Regenerative circuits
+
+A regenerative extend circuit joins the rod end to the cap end while extending, so the oil leaving the rod side is added to the pump flow going into the cap side. Drawn as a 4/3 with a **regenerative centre** (P to A and B, T blocked), or as a normal 4/3 with a separate 2/2 or check valve path from the rod line into the cap line, or with the rod line teed into the pressure line and a check valve so the return cannot go to tank. The effect: extend speed rises to pump flow divided by the **rod area** instead of the piston area (a 2:1 cylinder doubles its speed), and force falls to pressure times the rod area. Pressure is the same on both sides of the piston; the net force comes only from the rod. So the sheet shows a regenerative rapid advance followed by a switch to full-force pressing: the transition is a pressure-operated valve (a sequence valve set below the pressing pressure) or a limit switch that shifts to a standard 4/3 position. Never regenerate a motor, and remember that retract in a regenerative valve position is not possible: the sheet always has a second position for it.
+
+![Regenerative circuit for a fast approach](/img/drawings/circuit-regenerative.svg)
+
+*Regenerative circuit for a fast approach*
+
+## Sequence and counterbalance circuits
+
+**Sequence (clamp then press).** Two cylinders on one directional valve. The clamp is fed directly; the press is fed through a **sequence valve** (normally closed, pilot from its own inlet, external drain, bypass check for the return). When the clamp stalls, pressure rises to the sequence setting (say 700 psi / 48 bar, set above the clamp's working pressure and below the relief) and the press moves. Reading it: the setting decides the order, so a press that starts before the clamp is tight has a sequence valve set too low or a clamp leaking so it never builds pressure. On the return stroke both retract together through the bypass check.
+
+![Sequence valve for clamp-then-press and counterbalance on a vertical load](/img/drawings/circuit-sequence-counterbalance.svg)
+
+*Sequence valve for clamp-then-press and counterbalance on a vertical load*
+
+**Counterbalance (vertical loads).** On the tank-side line of a cylinder that lowers a load, a normally closed valve piloted from the **opposite** line, with a reverse check for lifting. Set at about 1.3 times the load-induced pressure (a load making 1,000 psi on the rod side: set 1,300 psi / 90 bar). The **pilot ratio** (3:1, 4.5:1, 10:1) is written beside it: the pilot pressure needed to open it fully is the setting divided by the ratio, so a 3:1 valve set at 1,300 psi opens with about 430 psi from the other line. A high ratio is efficient but unstable with a bouncy load; a low ratio is stable and hot. Reading the circuit: a slow lower is a counterbalance set high or a low pilot pressure (a flow control ahead of the pilot line); a load that creeps is the counterbalance leaking or a POC missing.
+
+**Brake valves on motors.** A winch or travel motor uses a brake valve (two pilots) so the motor is held, released by drive pressure, and braked when the load overruns, often paired with a spring-applied brake drawn as a spring-return cylinder with a pilot triangle. Read which pressure releases the brake; if it does not release, that pilot line is where the gauge goes.
+
+## Accumulator and hi-lo circuits
+
+**Accumulator circuits** appear for three reasons and look slightly different for each: **energy storage** (a small pump charges a large accumulator so a big cylinder can move fast: an unloading valve dumps the pump when the accumulator is full and reconnects at a lower pressure), **shock absorption** (a small accumulator teed into a line near a fast-closing valve, no unloading valve), and **leakage make-up** (holding a clamp for hours with the pump off). Every accumulator on a good sheet has three things next to it: an **isolation valve** between it and the system, a **bleed-down valve** (manual or a solenoid 2/2 normally open to tank that dumps it when the machine stops), and its **precharge** pressure written beside it (typically 80-90 percent of the minimum working pressure for energy storage, 60-70 percent for shock). A check valve stops the accumulator emptying back through the pump. Reading it for safety: the accumulator is charged whenever the isolation valve is open and the bleed valve is closed, pump running or not. See [accumulator precharge and safety](/article/accumulator-precharge-and-safety).
+
+![Accumulator circuit with isolation and bleed-down; hi-lo two-pump circuit](/img/drawings/circuit-accumulator-hilo.svg)
+
+*Accumulator circuit with isolation and bleed-down; hi-lo two-pump circuit*
+
+**Hi-lo (two-pump) circuits.** A large low-pressure pump and a small high-pressure pump on one shaft. At low pressure both feed the circuit (rapid advance, say 30 gpm at 500 psi); when pressure reaches the **unloading valve** setting (piloted from the high-pressure line, set below the relief) the large pump is dumped to tank through the unloading valve, a check valve isolates it, and only the small pump continues (pressing, 5 gpm at 3,000 psi). The sheet shows two pump circles on one shaft, a check in the big pump's line, the unloading valve teed off the big pump's line with its pilot from the small pump's line, and a relief on the small pump. Reading it: a press that is slow to advance has the unloading valve dumping too early (set low or worn); a press that stalls the motor has the unloading valve not dumping (stuck, pilot line blocked).
+
+## The component list and settings table
+
+Every ISO 1219-2 sheet carries a **component list**: item code (1P1, 1V2), description, maker and model, size, and the **setting**. The settings table is the most valuable half-page in the machine's file. It should give:
+
+![The schematic plate on a machine: the component list and settings live beside it](/photos/drawings/load-sensing-schematic.jpg)
+
+*The schematic plate on a machine: the component list and settings live beside it. Photo: Christianhydraulique, Public domain, via commons*
+
+| Item | Setting | Where it comes from |
+|---|---|---|
+| Main relief | e.g. 2,800 psi (193 bar) | 10-15 percent above the highest working pressure; below the weakest component's rating |
+| Pump compensator | e.g. 2,500 psi (172 bar) | 150-300 psi below the relief |
+| Reducing valve(s) | e.g. 800 psi (55 bar) branch | The force the branch needs, plus margin |
+| Sequence valve | e.g. 700 psi (48 bar) | Above the first operation's working pressure, below the relief |
+| Counterbalance | e.g. 1,300 psi (90 bar), 3:1 | 1.3 times load-induced pressure |
+| Unloading valve | e.g. 600 psi (41 bar) | The point where the low-pressure pump is no longer useful |
+| Flow controls | e.g. 4 gpm (15 L/min) or turns open | Cycle time; recorded as turns from closed if there is no scale |
+| Accumulator precharge | e.g. 1,000 psi (69 bar) nitrogen at 70 F (21 C) | 80-90 percent of minimum working pressure; temperature-corrected |
+
+If the sheet has no settings, the machine manual or the commissioning report has them; if nothing does, the values are set by the rules above and then written on the sheet. Never adjust a valve without a gauge and without knowing which setting it is.
+
+## Using the schematic to place test gauges
+
+The sheet tells you where a reading means something. Before walking to the machine, mark the gauge points:
+
+![Five test gauges on a circuit and the settings table they are read against](/img/drawings/circuit-test-points.svg)
+
+*Five test gauges on a circuit and the settings table they are read against*
+
+| Gauge point | Drawn where | What the reading proves |
+|---|---|---|
+| **Pump outlet** (before the relief tee) | The first gauge symbol after the pump circle, or the P port of the first valve | Whether the pump and relief/compensator are doing their job: compare with the relief and compensator settings at stall and at idle |
+| **Downstream of each reducing valve** | The branch line after the reducing square | The branch pressure against its setting; a reading that follows the supply means the reducing valve is stuck open |
+| **Each actuator port** (cap and rod) | Test points on the cylinder lines, drawn as Minimess stubs | Where pressure is lost between pump and work: full at P but low at the cap end is a valve or line; full at the cap end with no movement is the cylinder or the load |
+| **Case drain** (pump or motor) | The short-dash line to tank | A flow meter here proves pump wear: over about 10 percent of pump flow is worn; pressure should stay under 15-30 psi (1-2 bar) or the shaft seal blows |
+| **Pilot lines** (X, counterbalance pilot, brake release) | The dashed lines | Whether the pilot pressure a valve needs is actually there (a two-stage valve needs 50-150 psi at X; a counterbalance needs its setting divided by the ratio) |
+| **Accumulator side of the isolation valve** | The gauge on the accumulator manifold | Charged or bled; the precharge shows as the point where the gauge falls suddenly to zero on bleed-down |
+
+Read each gauge against the settings table in the state the sheet describes: pump idle, function stalled, function moving. Take the readings in order along the flow; the point where the number goes wrong is where the fault is. The full sequence with flow-meter and temperature checks is in [advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics).
+
+## Common mistakes
+
+- Reading the sheet with the valves in their energised positions and deciding the machine cannot hold a load at rest.
+- Finding no path to tank on a compensated-pump sheet and calling it a drawing error: the pump destrokes.
+- Reading an idle gauge of 2,500 psi on a closed-centre system as a stuck relief; it is the compensator.
+- Putting a meter-in flow control on a hanging load and chasing cavitation and a runaway cylinder.
+- Setting a sequence valve above the relief so the second operation never starts.
+- Removing a counterbalance to cure a slow lower.
+- Missing the bleed-down valve on the accumulator and opening a line that is still at full pressure.
+- Adjusting a valve to a number from memory instead of the settings table, then adjusting three others to compensate.
+- Putting the test gauge on the pump and concluding the system is fine while the actuator port shows half the pressure.
+
+## Related
+
+- [Hydraulic symbols, ISO 1219 complete chart](/article/hydraulic-symbols-iso-1219-complete)
+- [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading)
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
+- [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks)
+- [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$reading hydraulic schematic$mw$,$mw$hydraulic circuit diagram$mw$,$mw$pneumatic circuit diagram$mw$,$mw$tracing a circuit$mw$,$mw$five step method$mw$,$mw$rest state$mw$,$mw$de-energised state$mw$,$mw$open centre circuit$mw$,$mw$closed centre circuit$mw$,$mw$fixed displacement pump$mw$,$mw$pressure compensated pump$mw$,$mw$idle pressure$mw$,$mw$meter in$mw$,$mw$meter out$mw$,$mw$bleed off$mw$,$mw$overrunning load$mw$,$mw$flow control placement$mw$,$mw$regenerative circuit$mw$,$mw$rapid advance$mw$,$mw$sequence valve circuit$mw$,$mw$clamp then press$mw$,$mw$counterbalance circuit$mw$,$mw$pilot ratio$mw$,$mw$brake valve$mw$,$mw$motor circuit$mw$,$mw$accumulator circuit$mw$,$mw$bleed down valve$mw$,$mw$isolation valve$mw$,$mw$hi lo circuit$mw$,$mw$two pump circuit$mw$,$mw$unloading valve$mw$,$mw$component list$mw$,$mw$bill of materials$mw$,$mw$settings table$mw$,$mw$relief setting$mw$,$mw$compensator setting$mw$,$mw$reducing valve setting$mw$,$mw$accumulator precharge$mw$,$mw$test gauge placement$mw$,$mw$case drain$mw$,$mw$gauge port$mw$,$mw$hydraulic troubleshooting from schematic$mw$,$mw$sequence table$mw$,$mw$solenoid table$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 1219-2 (fluid power circuit diagrams, component identification and the component list); Eaton Vickers Industrial Hydraulics Manual and Parker industrial hydraulic technology training manuals (circuit types, flow control placement, regenerative, sequence, counterbalance and accumulator circuits); Bosch Rexroth Hydraulic Trainer volumes 1 and 3; Festo Didactic pneumatics circuit reading; Fluid Power Society (IFPS) mechanic and technician study manuals (schematic tracing and test gauge placement).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$structural-and-machine-installation-drawings$mw$, $mw$Structural and Machine Installation Drawings: the Installation Drawing Set (GA, Plot Plan, Equipment Layout, Foundation, Anchor Bolt, Structural, Platforms), Column Lines, Grids and Plant Coordinates, Elevations, Datums and Benchmarks (TOS, TOC, TOG, BOP, FFL), Reading a General Arrangement, Anchor-Bolt Plans and Foundation Details, Base Plates, Sole Plates and Grout Details, W-Shape and Connection Callouts, Conveyor and Drive Arrangement Drawings, and the Sequence for Setting a Machine from the Drawing with API 686 Tolerances$mw$, $mw$How to read the drawings that put a machine on its foundation: which sheets make up an installation set, how column lines, plant north and plant coordinates locate anything on site, how elevations and benchmarks are given and transferred, what a general arrangement tells you about tags, centrelines and clearances, how to read anchor-bolt plans and foundation details, base plate, sole plate and grout details, structural member and connection callouts, conveyor and drive arrangement drawings, and the order in which you set equipment from the drawing with API 686 tolerances as the starting numbers.$mw$, $mw$A detail drawing tells you how to make a part; an installation set tells you where it goes, at what height, on what, and bolted to what. The millwright reads these more than any other drawing, and the first thing poured in concrete is the last thing that can be changed cheaply. This article covers the sheets the [blueprint reading overview](/article/blueprint-reading-for-millwrights) only lists.
+
+## The installation drawing set
+
+![A foundation drawing: the plan the concrete crew and the millwright both work from](/photos/drawings/foundation-drawing.jpg)
+
+*A foundation drawing: the plan the concrete crew and the millwright both work from. Photo: Unknown authorUnknown author or not provided, Public domain, via commons*
+
+| Drawing | What it gives you |
+|---|---|
+| **Plot plan** | Plant footprint, the grid origin, plant north against true north |
+| **Equipment layout** | Every tagged machine on the column grid, with centrelines and coordinates |
+| **General arrangement (GA)** | One machine or train: overall dimensions, shaft centreline elevation, connections, clearances |
+| **Foundation drawing** | The concrete: pedestals, elevations, rebar, embedments, grout pockets |
+| **Anchor bolt plan** | Bolt pattern by coordinate and column line, size, projection, sleeves, template |
+| **Platform, stair and ladder drawings** | Access, handrail, grating |
+| **Structural framing plans and details** | Members with marks and sizes, TOS elevations, connections |
+| **Vendor certified installation drawing** | Mounting hole pattern, base outline, shaft height, weight, lifting points, service clearances |
+| **Piping GA and isometrics** | What will be in the way, and nozzle loads; see [piping drawings](/article/piping-drawings-isometrics-and-spool-sheets) |
+
+The vendor certified print and the foundation drawing must agree on bolt pattern, projection and shaft centreline height; the foundation drawing usually notes "ANCHOR BOLTS PER VENDOR CERTIFIED DWG" and the vendor print governs. Canadian and ISO sets use millimetres with elevations in metres, and call the GA an **erection drawing**.
+
+## Column lines, grids and coordinates
+
+Plant drawings hang everything on a **grid** of column lines: letters one way (A, B, C, skipping I and O) and numbers the other, with bay spacing given (typically 20-30 ft, 6-9 m). A column is named by its intersection (B-4); a machine centreline is an offset ("C/L PUMP 3'-6" WEST OF LINE 5"). Intermediate lines get suffixes (4.5, 4A).
+
+![Equipment located from column lines, never from a wall](/img/drawings/column-line-grid.svg)
+
+*Equipment located from column lines, never from a wall*
+
+**Plant north** is an arrow on every plan, rarely true north; the plot plan gives the rotation. Directions on plant drawings always mean plant north. Never set anything by a compass.
+
+**Plant coordinates** locate points independent of the grid: **N** (northing) and **E** (easting) from an origin, usually a large fictitious number (N 10000.000, E 5000.000) so values are never negative. Layouts carry a **coordinate table** per tag with N, E and centreline elevation; you check with a tape from the nearest column line using the drawing's offsets. Coordinates in feet are decimal feet (10023.75 ft is 10023 ft 9 in). Real columns are within erection tolerance (AISC 303 allows about 1/500 out of plumb), so measure from the **nearest** grid line, not a column face.
+
+## Elevations, datums and benchmarks
+
+Heights are **elevations (EL)** above a plant datum: a **benchmark** (a brass plug, a punched bolt, a mark on a column) assigned a value on the plot plan, commonly EL 100'-0" or EL 100.000 m so every plant elevation is positive.
+
+![Elevations read up from the plant datum: floor, concrete, grout, steel, shaft](/img/drawings/elevation-datums.svg)
+
+*Elevations read up from the plant datum: floor, concrete, grout, steel, shaft*
+
+| Abbreviation | Means |
+|---|---|
+| **TOS, T/S** | Top of steel |
+| **TOC, T/C** | Top of concrete, before grout |
+| **TOG** | Top of grout: where the base plate sits |
+| **BOP** | Bottom of pipe (not bottom of plate) |
+| **C/L PUMP, C/L SHAFT** | Shaft centreline elevation, the key number for rotating equipment |
+| **FFL, FF** | Finished floor level |
+
+The chain that matters: the vendor print gives shaft centreline 18.000 in (457 mm) above the base bottom; the GA gives shaft centreline EL 104'-6"; so TOG is EL 103'-0", and with 1-1/2 in (38 mm) of grout the pour is to TOC EL 102'-10 1/2". Write the chain on the drawing before the pour.
+
+**Transferring a benchmark.** Carry the plant benchmark with an optical or laser level and close back on it (within 1/32 in; over 1/16 in, redo), then establish a **local benchmark** on a column beside the machine; method in [optical and laser levels and piano wire](/article/optical-and-laser-levels-piano-wire).
+
+## General arrangement drawings
+
+Read the GA end to end before touching the machine.
+
+![General arrangement of a conveyor drive with tags, centrelines and balloons](/img/drawings/arrangement-drawing-extract.svg)
+
+*General arrangement of a conveyor drive with tags, centrelines and balloons*
+
+- **Equipment tags**: P-1201A (pump), M-1201A (motor), G-1201 (gearbox). The tag ties the GA to the P&ID, the coordinate table and the vendor print.
+- **Centrelines**: shaft C/L in plan and elevation is the reference for everything; nozzle C/Ls; coupling C/L and gap.
+- **Clearances**, in phantom or dimensioned: **maintenance pull space** (rotor removal, tube bundle pull, motor removal), cover swing, walkway width (22 in minimum clear under OSHA and CSA), guard envelope. No pull space is a drawing error to raise before the steel goes up.
+- **Connections**: nozzle sizes and ratings (4 in 150# RF), flange face elevations, drains, vents, seal flush, conduit entry.
+- **Base type**: a common baseplate (API 686 style, with grout and vent holes), separate sole plates, a skid, or a pedestal.
+- **Notes**: grout type, anchor bolt supply ("A/B BY OTHERS"), shim allowance, alignment tolerance.
+
+## Foundation and anchor-bolt drawings
+
+**Anchor bolt plan.** Every bolt located from the grid or the equipment centrelines, with a schedule:
+
+![Formwork and anchor bolts set before the pour: the plan becomes concrete](/photos/drawings/foundation-formwork.jpg)
+
+*Formwork and anchor bolts set before the pour: the plan becomes concrete. Photo: No machine-readable author provided. Fg2 assumed (based on copyright claims)., Public domain, via commons*
+
+![Anchor bolt plan and bolt detail with sleeve, embedment and projection](/img/drawings/anchor-bolt-plan.svg)
+
+*Anchor bolt plan and bolt detail with sleeve, embedment and projection*
+
+| Item | Typical entry | Check |
+|---|---|---|
+| Mark and pattern | AB-1, 8 bolts, 36.000 x 20.000 in centres (914 x 508 mm) | Against the vendor print |
+| Size and material | 1 in x 24 in, ASTM F1554 Gr 36 (Gr 55, 105 high strength) | Thread length and nut count |
+| Projection | 3 in (76 mm) above TOC or TOG; the drawing says which | Room for grout, plate, washer, nut and 2-3 threads; short projection is the commonest field problem |
+| Embed depth | 18 in (457 mm) below TOC, per ACI 318 | Against the pedestal depth |
+| Sleeves | 3 in pipe sleeve, top 1 in below TOC | Let the bolt bend to fit; packed before the pour, grouted after alignment (API 686) |
+| Edge distance | 6 in (150 mm) minimum | Bolts near an edge spall the concrete |
+| Template and tolerance | "SET WITH STEEL TEMPLATE, HOLD +/- 1/16 in (1.5 mm)" | Hold the template to the forms, not the rebar; structural bolts get about 1/8 in (AISC 303) |
+
+**Foundation drawing** details show: **pedestals** with TOC, plan size and edge chamfers (3/4-1 in, 20-25 mm); **rebar callouts** (`#5 @ 12 in EW T&B` is number 5 bar at 12 in each way, top and bottom; `10M @ 300` Canadian metric), which tell you where you can core-drill; the **grout pocket** with the note "ROUGHEN TO 1/4 in AMPLITUDE"; **leveling screw pads** cast in under each jack screw; and mass notes for dynamic equipment (ACI 351.3R: about three times the machine mass for rotating machines). Before the pour: bolts to the template, projection and plumb, sleeves packed. After: bolt centres re-measured (bolts move in a pour), TOC surveyed. Details in [anchor bolts and foundations](/article/anchor-bolts-and-foundations).
+
+## Base plates, sole plates and grout details
+
+A **baseplate** carries the whole train on one frame; a **sole plate** is a machined plate grouted under each foot or machine. The drawing details:
+
+![Base plate, jackscrews, anchor bolt sleeve and grout in section](/img/drawings/baseplate-detail.svg)
+
+*Base plate, jackscrews, anchor bolt sleeve and grout in section*
+
+- **Thickness**: 1-2 in (25-50 mm) sole plates; 1/2-3/4 in top plate on a fabricated base.
+- **Holes vs slots**: round holes with 1/8-1/4 in clearance for anchor bolts; **slots** on motor feet and slide bases, dimensioned length x width, with a direction note.
+- **Jack bolt pads**: tapped bosses with 5/8 or 3/4 in screws and steel pads on the concrete; or leveling wedges.
+- **Machined mounting surfaces**: pads machined after stress relief; API 686 wants them flat within .002 in/ft (0.17 mm/m) and coplanar within .005 in (0.13 mm), stated as flatness and parallelism frames (see [GD&T](/article/gdt-symbols-and-feature-control-frames)).
+- **Grout holes** (4 in minimum, one per compartment), **vent holes** (1/2 in at the corners) and grout thickness (1-2 in, 25-50 mm cementitious; 1-3 in epoxy), all in section.
+- **Sole plate installation**: levelled on jack screws within .0005 in/ft (0.04 mm/m) under API 686, grouted, then the machine set on shims.
+
+Grout procedure and cure are in [grouting baseplates](/article/grouting-baseplates); leveling method in [leveling and machine setting](/article/leveling-and-machine-setting).
+
+## Structural details and connection callouts
+
+Framing plans mark each member with a **piece mark** (B12) and its size.
+
+![Beam designation, bolt and weld callouts, TOS and BOS](/img/drawings/structural-connection-callouts.svg)
+
+*Beam designation, bolt and weld callouts, TOS and BOS*
+
+| Callout | Reads |
+|---|---|
+| `W12x26` | Wide-flange, 12 in nominal depth, 26 lb/ft (metric W310x39: 310 mm deep, 39 kg/m) |
+| `C10x15.3`, `L4x4x3/8`, `HSS8x6x1/4`, `PL 3/4 x 12`, `WT6x13`, `TOS EL 112'-6"` | Channel; angle; hollow section; plate; tee cut from a W12x26; top of steel elevation |
+| `3/4 in A325-N, 4 ROWS` | A325 bolts, threads not excluded from the shear plane (X = excluded); A490 is the higher grade, always pretensioned, never re-used |
+| `SNUG TIGHT` (ST) | Firm contact with a spud wrench or a few impacts; the default for bearing connections |
+| `PT`, `SC` (slip critical) | Pretensioned to 70 percent of minimum tensile by turn-of-nut, calibrated wrench, TC bolts or DTI washers; slotted holes under a machine mean pretensioned |
+| `1/4 in fillet, 3-12`; `CJP`; `FW` | Intermittent 3 in fillets on 12 in centres; complete joint penetration; field weld. See [welding symbols](/article/welding-symbols) |
+
+Structural bolt pretension is by method, not torque; the [bolt torque chart](/article/bolt-torque-chart-sae-metric) is for machinery fasteners, not A325 joints.
+
+## Conveyor and drive arrangement drawings
+
+A conveyor set is a GA in long sections plus a drive arrangement:
+
+- **Pulley centres** (head to tail, the basis of belt length), pulley diameters, lagging and crown; the **belt line** (top of the carrying belt at head, tail and each change of grade) and the **stringer line** (top of stringers, 2-4 in below it); idler spacing.
+- **Take-up**: type (screw, gravity, winch), **take-up travel** (CEMA guidance is roughly 2-4 percent of centre distance for fabric belts, under 1 percent for steel cord), counterweight mass, and the **initial position** of the take-up pulley at the start of travel so there is room for stretch.
+- **Drive arrangement**: motor, coupling, reducer, the **motor slide base** with its adjustment travel, sheave sizes and belt section, backstop, and **guard envelopes** in phantom.
+- **Loads on the structure**: head shaft load and belt tensions; do not move a drive without going back to that number.
+
+Set head and tail shaft centrelines to coordinate and elevation, square to the conveyor centreline (diagonals equal within 1/8 in, 3 mm), then idlers to the stringer and belt lines, then the drive; see [belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking).
+
+## Setting equipment from the drawing
+
+The order is the same for a pump, a gearbox or a compressor. API 686 numbers are the starting point; the vendor manual and the project specification override them.
+
+| Step | From the drawing | Tolerance to work to |
+|---|---|---|
+| 1. Verify the foundation | Survey TOC from the local benchmark; bolt centres to the vendor pattern, projection, plumb | Centres within 1/16 in (1.5 mm); TOC 1/4 in low is fine |
+| 2. Prepare the surface | Chip laitance, roughen, blow clean | Exposed aggregate, no oil |
+| 3. Set to elevation | Baseplate or sole plates on jack screws to TOG, anchor nuts loose | Within 1/8 in (3 mm) unless a fixed flange demands better |
+| 4. Level | Precision level on every machined pad, both directions, machines removed | .0005 in/ft (0.04 mm/m); pads coplanar within .005 in (0.13 mm); see [leveling and machine setting](/article/leveling-and-machine-setting) |
+| 5. Pre-align | Machines on the pads with shim allowance; coupling gap; bolts centred in their holes | Bolts centred so the base can move |
+| 6. Grout | Form, pour and cure per the grout detail | 24 h (epoxy) to 7 days (cementitious) before torquing |
+| 7. Torque anchor bolts | Remove jack screws, fill the holes, torque | The drawing's number |
+| 8. Align | Final alignment at the coupling, piping connected, pipe strain checked | About .002 in (0.05 mm) offset at 1800 rpm; see [shaft alignment fundamentals](/article/shaft-alignment-fundamentals) and [pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment) |
+| 9. Dowel | Ream for tapered dowels at two feet of the driven machine | Usually 1/2 or 5/8 in taper pins |
+
+Record elevations, shims, alignment readings and torques on the as-built. Guarding follows in [machine guarding and commissioning](/article/machine-guarding-and-commissioning); rigging in [moving and setting heavy machinery](/article/moving-and-setting-heavy-machinery).
+
+## Common mistakes
+
+- Setting by a compass or the building's idea of north instead of plant north on the drawing.
+- Not checking the anchor bolt pattern against the vendor certified print before the pour; the foundation drawing was drawn from an earlier vendor revision.
+- Setting bolts to the rebar instead of the template, and leaving projection short for grout, plate, washer and nut.
+- Leaving bolt sleeves unfilled, or grouting jack screws in place so they become hard points.
+- Using a machinery torque chart on A325 connections, or leaving a slip-critical joint snug tight.
+- Mounting a conveyor take-up mid-travel with no room for stretch.
+
+## Related
+
+- [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
+- [Reading engineering drawings: sheets, title blocks and revisions](/article/reading-engineering-drawings-basics)
+- [GD&T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [Anchor bolts and foundations](/article/anchor-bolts-and-foundations)
+- [Grouting baseplates](/article/grouting-baseplates)
+- [Leveling and machine setting](/article/leveling-and-machine-setting)
+- [Optical and laser levels, piano wire](/article/optical-and-laser-levels-piano-wire)
+- [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$drawings$mw$),
+          array[$mw$installation drawing$mw$,$mw$general arrangement$mw$,$mw$GA drawing$mw$,$mw$plot plan$mw$,$mw$equipment layout$mw$,$mw$foundation drawing$mw$,$mw$anchor bolt plan$mw$,$mw$structural drawing$mw$,$mw$platform drawing$mw$,$mw$column lines$mw$,$mw$grid lines$mw$,$mw$plant north$mw$,$mw$plant coordinates$mw$,$mw$northing easting$mw$,$mw$elevation$mw$,$mw$TOS$mw$,$mw$top of steel$mw$,$mw$TOC$mw$,$mw$top of concrete$mw$,$mw$TOG$mw$,$mw$top of grout$mw$,$mw$BOP$mw$,$mw$FFL$mw$,$mw$benchmark$mw$,$mw$equipment tag$mw$,$mw$maintenance clearance$mw$,$mw$pull space$mw$,$mw$anchor bolt projection$mw$,$mw$anchor bolt sleeve$mw$,$mw$anchor bolt template$mw$,$mw$embed depth$mw$,$mw$edge distance$mw$,$mw$pedestal$mw$,$mw$rebar callout$mw$,$mw$grout pocket$mw$,$mw$leveling screw$mw$,$mw$base plate$mw$,$mw$sole plate$mw$,$mw$W shape callout$mw$,$mw$connection detail$mw$,$mw$A325 bolts$mw$,$mw$pretensioned$mw$,$mw$conveyor arrangement$mw$,$mw$take-up travel$mw$,$mw$API 686$mw$]::text[], $mw$$mw$, array[]::text[], $mw$API RP 686 (recommended practice for machinery installation and installation design), ASME Y14.100 and Y14.1 drawing practices; AISC Steel Construction Manual and AISC 303 Code of Standard Practice (member designations, erection tolerances), RCSC Specification for Structural Joints Using High-Strength Bolts (snug-tight and pretensioned joints), AWS D1.1 and A2.4 (welding symbols); ACI 318 Chapter 17 (anchoring to concrete) and ACI 351.3R (foundations for dynamic equipment); PIP STE05121 and PIP REIE686 (anchor bolt design and machinery installation practices); CEMA Belt Conveyors for Bulk Materials; manufacturer installation drawings and manuals (pumps, gearboxes, compressors, conveyors).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$anti-seize-and-galling$mw$, $mw$Anti-Seize and Galling: What Galling Is and Which Metals Do It (Stainless, Aluminium, Titanium), the Anti-Seize Types (Copper, Nickel, Aluminium, Moly, Ceramic, Food Grade) with Temperature Limits and Where Each Belongs and Does Not, How Anti-Seize Changes Torque (K-Factor and the Reduction), Applying It, Preventing Galling in Stainless Assemblies, and the Dissimilar-Metal Corrosion It Prevents$mw$, $mw$Galling is the cold-welding of threads that turns a stainless bolt into a rivet; anti-seize stops it and also stops corrosion locking and heat locking, but it changes the torque a bolt needs and belongs only in some places. This covers who galls and why, the anti-seize compounds and their limits, the K-factor math and a torque-reduction table, how to apply it, the assembly practice that prevents galling when you cannot use it, and the galvanic pairs that anti-seize separates.$mw$, $mw$## Galling
 
 When two metal surfaces slide under pressure with no film between them, the microscopic peaks **weld** (adhesive wear); on threads the welded spots tear, the torn metal drags and welds again, and within a turn the nut is **seized solid**: it will not go on or come off, and the fastener is cut off. Metals that gall: **stainless steel** (300 series worst: it work-hardens and its oxide film is thin), **aluminium, titanium, nickel alloys**, and soft or unplated steel on itself under heavy load. It is worse with: **stainless on stainless of the same grade**, fine threads, high tightening speed (an impact wrench: the heat of friction), high preload, rough or damaged threads, a dry assembly, and high temperature.
@@ -4678,7 +7279,8 @@ Bladder life: 5-10 years, less with high cycle rates, high temperature, or a wro
 - [Compressed gas cylinder handling](/article/compressed-gas-cylinder-handling)
 - [Hydraulic hose assembly and fittings](/article/hydraulic-hose-assembly-and-fittings)
 - [Pressure and flow control valves (unloading valves)](/article/pressure-and-flow-control-valves-in-depth)
-- [Cartridge and logic valves (press manifolds)](/article/cartridge-and-logic-valves)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Cartridge and logic valves (press manifolds)](/article/cartridge-and-logic-valves)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$accumulator$mw$,$mw$hydraulic accumulator$mw$,$mw$precharge$mw$,$mw$pre-charge$mw$,$mw$nitrogen precharge$mw$,$mw$accumulator charging$mw$,$mw$charging kit$mw$,$mw$bladder accumulator$mw$,$mw$piston accumulator$mw$,$mw$diaphragm accumulator$mw$,$mw$precharge pressure$mw$,$mw$90 percent rule$mw$,$mw$accumulator temperature correction$mw$,$mw$accumulator bleed down$mw$,$mw$accumulator safety$mw$,$mw$accumulator dump valve$mw$,$mw$gas valve core$mw$,$mw$bladder replacement$mw$,$mw$lost precharge$mw$,$mw$accumulator stored energy$mw$,$mw$lockout accumulator$mw$,$mw$nitrogen bottle CGA 580$mw$]::text[], $mw$Parker / Hydac / Tobul / Bosch Rexroth (generic)$mw$, array[$mw$Parker ACP$mw$,$mw$Parker A2$mw$,$mw$Hydac SB330$mw$,$mw$Hydac SK$mw$,$mw$Tobul$mw$,$mw$Bosch Rexroth HAB$mw$,$mw$Greer$mw$]::text[], $mw$Tobul (FST) nitrogen pre-charging instructions (precharge 90% energy storage, 75% shock, 70% pulsation; piston 100 psi below minimum, bladder 175 psi below minimum; hose ratings CGA 580 to 3,000 psi, CGA 677 to 5,000 psi; stabilise 10-15 min); Parker accumulator catalogue (temperature correction factor method); Hydac accumulator operating manuals; Fluid Power Safety Institute guidance on accumulator lockout.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -4835,7 +7437,8 @@ A press manifold may hold ten elements: two for the pump-to-cylinder directions,
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
 - [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
 - [Hydraulic fluids: types and compatibility (seal materials)](/article/hydraulic-fluids-types-and-compatibility)
-- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$cartridge valve$mw$,$mw$screw-in cartridge$mw$,$mw$hydraulic cartridge valve$mw$,$mw$cartridge cavity$mw$,$mw$08 cavity$mw$,$mw$10 cavity$mw$,$mw$12 cavity$mw$,$mw$16 cavity$mw$,$mw$SAE cavity$mw$,$mw$ISO 7789$mw$,$mw$Sun Hydraulics$mw$,$mw$HydraForce$mw$,$mw$cartridge torque$mw$,$mw$cartridge O-ring kit$mw$,$mw$back-up ring$mw$,$mw$cavity damage$mw$,$mw$solenoid cartridge$mw$,$mw$poppet cartridge$mw$,$mw$spool cartridge$mw$,$mw$cartridge relief valve$mw$,$mw$cartridge counterbalance$mw$,$mw$cartridge flow control$mw$,$mw$manifold block$mw$,$mw$hydraulic manifold$mw$,$mw$logic valve$mw$,$mw$logic element$mw$,$mw$slip-in cartridge$mw$,$mw$ISO 7368$mw$,$mw$DIN 24342$mw$,$mw$two way cartridge valve$mw$,$mw$poppet area ratio$mw$,$mw$logic valve cover$mw$,$mw$pilot control cover$mw$,$mw$logic valve drift$mw$,$mw$stuck poppet$mw$,$mw$damping nose$mw$,$mw$stroke limiter$mw$,$mw$cartridge valve troubleshooting$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Sun Hydraulics and HydraForce cartridge valve catalogues and technical tips (cavity families, torque, seal kits, installation); Parker, Eaton Vickers and Bosch Rexroth cartridge valve data; ISO 7368 / DIN 24342 (two-way slip-in cartridge valves: sizes 16-100, area ratios); Bosch Rexroth Hydraulic Trainer volume 4 (logic elements: function, pilot control, applications); Fluid Power Society technician study manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -5102,7 +7705,9 @@ Freeing one: lock out and bleed, remove the coil and solenoid tube, push the spo
 - [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
 - [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
-- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$directional control valve$mw$,$mw$DCV$mw$,$mw$D03$mw$,$mw$D05$mw$,$mw$D07$mw$,$mw$D08$mw$,$mw$CETOP 3$mw$,$mw$CETOP 5$mw$,$mw$NG6$mw$,$mw$NG10$mw$,$mw$NG16$mw$,$mw$NG25$mw$,$mw$ISO 4401$mw$,$mw$subplate mounting$mw$,$mw$valve mounting pattern$mw$,$mw$spool center$mw$,$mw$closed center$mw$,$mw$open center$mw$,$mw$tandem center$mw$,$mw$float center$mw$,$mw$regenerative center$mw$,$mw$4/3 valve$mw$,$mw$4/2 valve$mw$,$mw$spool type$mw$,$mw$solenoid valve$mw$,$mw$wet armature solenoid$mw$,$mw$DC solenoid$mw$,$mw$AC solenoid$mw$,$mw$coil burnout$mw$,$mw$solenoid inrush$mw$,$mw$coil resistance$mw$,$mw$manual override$mw$,$mw$DIN 43650 connector$mw$,$mw$pilot operated directional valve$mw$,$mw$two stage valve$mw$,$mw$X port$mw$,$mw$Y port$mw$,$mw$pilot choke$mw$,$mw$internal pilot$mw$,$mw$external drain$mw$,$mw$spring centered$mw$,$mw$pressure centered$mw$,$mw$spool stiction$mw$,$mw$silting$mw$,$mw$valve leakage test$mw$,$mw$spool leakage$mw$,$mw$valve bolt torque$mw$,$mw$valve replacement$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 4401 and NFPA T3.5.1 (mounting surfaces D03-D10); Eaton Vickers, Parker and Bosch Rexroth directional valve catalogues and service data (flow ratings, spool types, solenoid data, pilot pressure limits, leakage figures); Fluid Power Society technician manuals (solenoid testing); Rexroth Hydraulic Trainer volume 1 (spool functions and two-stage valve operation).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -5890,7 +8495,8 @@ Two-motor and multi-motor loops (skid steers: two pumps and two motors; combines
 - [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
-- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulic motor$mw$,$mw$gear motor$mw$,$mw$gerotor motor$mw$,$mw$orbital motor$mw$,$mw$Char-Lynn$mw$,$mw$Danfoss OMP$mw$,$mw$vane motor$mw$,$mw$axial piston motor$mw$,$mw$bent axis motor$mw$,$mw$radial piston motor$mw$,$mw$LSHT motor$mw$,$mw$low speed high torque$mw$,$mw$cam lobe motor$mw$,$mw$motor case drain$mw$,$mw$motor freewheeling$mw$,$mw$motor back pressure$mw$,$mw$motor shaft seal$mw$,$mw$hydraulic motor torque$mw$,$mw$motor displacement$mw$,$mw$motor speed calculation$mw$,$mw$motor volumetric efficiency$mw$,$mw$hydrostatic transmission$mw$,$mw$hydrostatic drive$mw$,$mw$closed loop hydraulic$mw$,$mw$HST$mw$,$mw$charge pump$mw$,$mw$charge pressure$mw$,$mw$charge relief$mw$,$mw$charge filter$mw$,$mw$cross port relief$mw$,$mw$high pressure relief$mw$,$mw$multi-function valve$mw$,$mw$flushing valve$mw$,$mw$hot oil shuttle$mw$,$mw$loop flushing$mw$,$mw$neutral adjustment$mw$,$mw$hydrostatic creep$mw$,$mw$displacement control$mw$,$mw$servo control$mw$,$mw$tow valve$mw$,$mw$bypass valve$mw$,$mw$hydrostatic troubleshooting$mw$,$mw$skid steer hydrostat$mw$,$mw$zero turn mower hydrostat$mw$,$mw$combine hydrostatic$mw$,$mw$wheel motor$mw$,$mw$track drive motor$mw$,$mw$two speed motor$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Danfoss (Sauer-Danfoss) Series 90, Series 40 and H1 service manuals and Hydrostatic Transmission Troubleshooting Guide (charge pressure, case drain, adjustment and test procedures); Danfoss OMP/OMR/OMS orbital motor technical information; Eaton Vickers Mobile Hydraulics Manual (motor types, closed-loop circuits); Eaton (Char-Lynn) motor service data; Parker and Bosch Rexroth motor catalogues (case drain and shaft seal limits); Hydro-Gear and Tuff Torq service manuals (small hydrostats); Fluid Power Society technician manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6056,7 +8662,8 @@ Keep the failed parts and photograph them; the analysis decides whether the fix 
 - [Hydraulic motors and hydrostatic drives](/article/hydraulic-motors-and-hydrostatic-drives)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
-- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulic pump$mw$,$mw$gear pump$mw$,$mw$internal gear pump$mw$,$mw$gerotor$mw$,$mw$vane pump$mw$,$mw$intra-vane$mw$,$mw$vane cartridge$mw$,$mw$piston pump$mw$,$mw$axial piston$mw$,$mw$swashplate$mw$,$mw$bent axis$mw$,$mw$radial piston$mw$,$mw$variable displacement$mw$,$mw$pressure compensator$mw$,$mw$load sensing pump$mw$,$mw$torque limiter$mw$,$mw$power limiter$mw$,$mw$horsepower limiter$mw$,$mw$pump displacement$mw$,$mw$pump nameplate$mw$,$mw$volumetric efficiency$mw$,$mw$case drain test$mw$,$mw$case drain flow$mw$,$mw$flow meter test$mw$,$mw$hydraulic tester$mw$,$mw$pump wear$mw$,$mw$cavitation$mw$,$mw$aeration$mw$,$mw$inlet vacuum$mw$,$mw$pump start-up$mw$,$mw$pump priming$mw$,$mw$pump rotation$mw$,$mw$pump failure analysis$mw$,$mw$scored side plates$mw$,$mw$slipper wear$mw$,$mw$valve plate$mw$,$mw$pump shaft seal$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Eaton Vickers Industrial Hydraulics Manual and Mobile Hydraulics Manual (pump types, efficiencies, inlet conditions, compensator setting); Parker and Bosch Rexroth axial piston pump service manuals (case drain limits, start-up and commissioning); Danfoss and Sauer hydrostatic service literature; Fluid Power Society (IFPS) mechanic and technician study manuals (pump testing procedure); Noria and Machinery Lubrication pump failure analysis guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6179,7 +8786,9 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 - [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
 - [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
 - [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
-- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulics basics$mw$,$mw$hydraulic schematic$mw$,$mw$hydraulic symbols$mw$,$mw$ISO 1219$mw$,$mw$reading hydraulic drawings$mw$,$mw$directional control valve$mw$,$mw$4/3 valve$mw$,$mw$spool valve$mw$,$mw$relief valve$mw$,$mw$pressure reducing valve$mw$,$mw$sequence valve$mw$,$mw$counterbalance valve$mw$,$mw$check valve$mw$,$mw$pilot operated check$mw$,$mw$flow control$mw$,$mw$pressure compensated$mw$,$mw$gear pump$mw$,$mw$vane pump$mw$,$mw$piston pump$mw$,$mw$variable displacement$mw$,$mw$hydraulic cylinder$mw$,$mw$hydraulic motor$mw$,$mw$reservoir$mw$,$mw$hydraulic filter$mw$,$mw$accumulator symbol$mw$,$mw$pilot line$mw$,$mw$drain line$mw$,$mw$hydraulic pressure flow horsepower$mw$,$mw$relief valve setting$mw$,$mw$injection injury$mw$,$mw$hydraulic safety$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ISO 1219-1 (fluid power symbols) and ISO 1219-2 (circuit diagrams); Parker, Eaton Vickers and Bosch Rexroth industrial hydraulics training manuals (component function and adjustment order); Fluid Power Safety Institute (injection injury and lockout of hydraulic energy); NFPA/T2 fluid power standards.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6340,7 +8949,9 @@ Use it two ways. **Diagnosis**: if the tank runs at 170°F and the cooler is cle
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)
-- [Lockout / tagout basics](/article/lockout-tagout-basics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Lockout / tagout basics](/article/lockout-tagout-basics)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$hydraulic troubleshooting$mw$,$mw$hydraulic diagnostics$mw$,$mw$hydraulic fault finding$mw$,$mw$hydraulic test point$mw$,$mw$Minimess$mw$,$mw$Stauff test point$mw$,$mw$hydraulic flow meter$mw$,$mw$hydraulic tester$mw$,$mw$flow pressure temperature tester$mw$,$mw$infrared thermometer hydraulics$mw$,$mw$heat mapping$mw$,$mw$thermal imaging hydraulic$mw$,$mw$pressure transducer$mw$,$mw$data logger hydraulic$mw$,$mw$pressure trace$mw$,$mw$ultrasonic leak detection internal$mw$,$mw$hydraulic multimeter$mw$,$mw$solenoid coil test$mw$,$mw$pump flow test$mw$,$mw$relief valve test$mw$,$mw$cylinder bypass test$mw$,$mw$piston seal leakage test$mw$,$mw$spool leakage test$mw$,$mw$motor case drain test$mw$,$mw$pressure decay test$mw$,$mw$counterbalance leak test$mw$,$mw$cooler delta T$mw$,$mw$suction vacuum gauge$mw$,$mw$hydraulic symptom chart$mw$,$mw$slow hydraulic$mw$,$mw$weak hydraulic$mw$,$mw$cylinder drift$mw$,$mw$erratic hydraulic$mw$,$mw$hydraulic overheating$mw$,$mw$noisy pump$mw$,$mw$intermittent hydraulic fault$mw$,$mw$one function slow$mw$,$mw$heat balance$mw$,$mw$cooler sizing$mw$,$mw$hydraulic heat load$mw$,$mw$BTU per hp$mw$,$mw$reservoir cooling$mw$,$mw$start-up after repair$mw$,$mw$hydraulic commissioning$mw$,$mw$hydraulic troubleshooting checklist$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Eaton Vickers Industrial Hydraulics Manual (troubleshooting logic, testing procedures); Parker Hannifin Hydraulic Troubleshooting Guide and test point practice; Fluid Power Society (IFPS) mechanic and technician certification study manuals (system testing); Webtec and Hedland flow tester application guides; Bosch Rexroth commissioning and troubleshooting notes; Fluke infrared thermography application notes; Brendan Casey (Hydraulics Pro Club) diagnostic method publications; NFPA/T2 fluid power practice.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6469,7 +9080,9 @@ A proportional or servo system with feedback will do exactly what the loop deman
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Hydraulic fluids: types and compatibility (varnish)](/article/hydraulic-fluids-types-and-compatibility)
-- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$load sensing$mw$,$mw$load sense pump$mw$,$mw$LS pump$mw$,$mw$margin pressure$mw$,$mw$standby pressure$mw$,$mw$LS line$mw$,$mw$load sense signal$mw$,$mw$LS shuttle$mw$,$mw$shuttle network$mw$,$mw$LS orifice$mw$,$mw$LS relief$mw$,$mw$pre-compensated$mw$,$mw$post-compensated$mw$,$mw$flow sharing$mw$,$mw$LUDV$mw$,$mw$priority valve$mw$,$mw$steering priority$mw$,$mw$load sense troubleshooting$mw$,$mw$LS signal lost$mw$,$mw$proportional valve$mw$,$mw$proportional directional valve$mw$,$mw$electro-hydraulic proportional$mw$,$mw$LVDT$mw$,$mw$spool position feedback$mw$,$mw$amplifier card$mw$,$mw$proportional amplifier$mw$,$mw$ramp time$mw$,$mw$deadband compensation$mw$,$mw$gain adjustment$mw$,$mw$dither$mw$,$mw$PWM solenoid$mw$,$mw$proportional solenoid$mw$,$mw$command signal$mw$,$mw$4-20 mA$mw$,$mw$0-10 V$mw$,$mw$servo valve$mw$,$mw$servovalve$mw$,$mw$torque motor$mw$,$mw$flapper nozzle$mw$,$mw$jet pipe$mw$,$mw$feedback wire$mw$,$mw$servo valve null$mw$,$mw$null adjust$mw$,$mw$servo valve filtration$mw$,$mw$3 micron filter$mw$,$mw$contamination lock$mw$,$mw$servo valve troubleshooting$mw$,$mw$proportional valve troubleshooting$mw$,$mw$hydraulic control systems$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Bosch Rexroth Hydraulic Trainer volume 2 (proportional and servo valve technology) and volume 3 (mobile load-sensing systems, LUDV); Danfoss PVG 32 technical information and PVG service manual (LS, flow sharing, LS relief, shuttle network); Eaton Vickers Mobile Hydraulics Manual (load sensing pumps and valves, priority valves); Moog servovalve technical bulletins (nozzle-flapper operation, null, filtration, contamination); Parker proportional valve and amplifier card manuals; Fluid Power Society technician study manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6579,7 +9192,9 @@ A hissing plant leaks 20-30% of its air; a 1/16" hole at 100 psi costs about 6 c
 - [Lockout / tagout basics](/article/lockout-tagout-basics)
 - [Hand and power tool safety](/article/hand-and-power-tool-safety)
 - [PLC and instrumentation awareness (valves and sensors)](/article/plc-and-instrumentation-awareness)
-- [Directional control valves, spools and solenoids (hydraulic)](/article/directional-control-valves-spools-and-solenoids)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Directional control valves, spools and solenoids (hydraulic)](/article/directional-control-valves-spools-and-solenoids)
+- [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$pneumatics$mw$,$mw$FRL$mw$,$mw$filter regulator lubricator$mw$,$mw$air regulator$mw$,$mw$air lubricator drops per minute$mw$,$mw$air filter bowl$mw$,$mw$auto drain$mw$,$mw$air tool cfm$mw$,$mw$air hose size$mw$,$mw$air pressure drop$mw$,$mw$drip leg$mw$,$mw$air piping$mw$,$mw$quick coupler$mw$,$mw$Milton coupler$mw$,$mw$industrial interchange$mw$,$mw$pneumatic cylinder$mw$,$mw$air cylinder$mw$,$mw$cylinder cushion$mw$,$mw$pneumatic valve$mw$,$mw$5/2 valve$mw$,$mw$solenoid valve$mw$,$mw$air cylinder seal kit$mw$,$mw$air leaks$mw$,$mw$whip check$mw$,$mw$30 psi cleaning rule$mw$,$mw$lockout air$mw$,$mw$pneumatic safety$mw$,$mw$compressed air safety$mw$]::text[], $mw$Parker / SMC / Festo / Norgren / Ingersoll Rand (generic)$mw$, array[$mw$Parker P3$mw$,$mw$SMC AC series$mw$,$mw$Norgren Excelon$mw$,$mw$Festo MS$mw$,$mw$Bimba$mw$,$mw$Milton M-style$mw$,$mw$Industrial interchange$mw$,$mw$ARO$mw$,$mw$Chicago coupling$mw$]::text[], $mw$Parker and Norgren FRL installation and lubricator setting guidance; Ingersoll Rand and Chicago Pneumatic air tool consumption data; OSHA 1910.242(b) (compressed air for cleaning, 30 psi); OSHA 1910.147 (lockout of pneumatic energy); Compressed Air Challenge best practices (piping, leaks); SMC and Festo pneumatic component guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6727,7 +9342,9 @@ A **pressure switch** (piston or diaphragm against a spring, with a micro-switch
 - [Stack valves and sectional valve banks](/article/stack-valves-and-sectional-valve-banks)
 - [Hydraulic pumps: types, controls and testing](/article/hydraulic-pumps-types-controls-and-testing)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
-- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Accumulator precharge and safety](/article/accumulator-precharge-and-safety)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$relief valve$mw$,$mw$direct acting relief$mw$,$mw$pilot operated relief$mw$,$mw$balanced piston relief$mw$,$mw$cracking pressure$mw$,$mw$full flow pressure$mw$,$mw$pressure override$mw$,$mw$relief valve vent port$mw$,$mw$remote relief$mw$,$mw$unloading relief$mw$,$mw$solenoid vent$mw$,$mw$pressure reducing valve$mw$,$mw$reducing relieving valve$mw$,$mw$sequence valve$mw$,$mw$unloading valve$mw$,$mw$hi-lo circuit$mw$,$mw$accumulator unloading$mw$,$mw$counterbalance valve$mw$,$mw$load holding valve$mw$,$mw$motion control valve$mw$,$mw$pilot ratio$mw$,$mw$3:1 pilot ratio$mw$,$mw$4.5:1$mw$,$mw$601$mw$,$mw$counterbalance setting$mw$,$mw$brake valve$mw$,$mw$overcenter valve$mw$,$mw$pressure switch$mw$,$mw$pressure transducer$mw$,$mw$flow control valve$mw$,$mw$needle valve$mw$,$mw$pressure compensated flow control$mw$,$mw$temperature compensated$mw$,$mw$hydrostat$mw$,$mw$priority flow control$mw$,$mw$bypass flow control$mw$,$mw$meter-in$mw$,$mw$meter-out$mw$,$mw$bleed-off$mw$,$mw$flow divider$mw$,$mw$spool flow divider$mw$,$mw$gear flow divider$mw$,$mw$pressure intensification$mw$,$mw$regenerative circuit$mw$,$mw$cylinder cushion$mw$,$mw$deceleration valve$mw$,$mw$setting hydraulic valves$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Eaton Vickers Industrial Hydraulics Manual (pressure and flow control valve operation, override, setting order); Sun Hydraulics counterbalance technical tips (pilot ratio selection and setting procedure); Parker and Bosch Rexroth pressure valve catalogues (override curves, vent and remote control, drain requirements); Rexroth Hydraulic Trainer volume 1 (flow control and flow divider theory); Fluid Power Society technician manuals; NFPA/T2 fluid power practice.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6857,7 +9474,8 @@ The valve on a loader, crane, excavator or forestry machine is a bank of **work 
 - [Cartridge and logic valves](/article/cartridge-and-logic-valves)
 - [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
-- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
+- [Hydraulic system basics and symbols](/article/hydraulic-system-basics-and-symbols)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$hydraulics$mw$),
           array[$mw$stack valve$mw$,$mw$sandwich valve$mw$,$mw$modular valve$mw$,$mw$D03 stack$mw$,$mw$D05 stack$mw$,$mw$NG6 modular$mw$,$mw$sandwich flow control$mw$,$mw$sandwich check valve$mw$,$mw$sandwich counterbalance$mw$,$mw$sandwich reducing valve$mw$,$mw$sandwich pilot operated check$mw$,$mw$stack order$mw$,$mw$tie rod length$mw$,$mw$tie rod torque$mw$,$mw$manifold subplate$mw$,$mw$bar manifold$mw$,$mw$section O-rings$mw$,$mw$valve stack leak$mw$,$mw$sectional valve$mw$,$mw$sectional control valve$mw$,$mw$monoblock valve$mw$,$mw$mobile directional valve$mw$,$mw$inlet section$mw$,$mw$work section$mw$,$mw$outlet section$mw$,$mw$port relief$mw$,$mw$anti-cavitation check$mw$,$mw$power beyond$mw$,$mw$load check$mw$,$mw$load sense shuttle$mw$,$mw$valve bank tie rod$mw$,$mw$spool types mobile valve$mw$,$mw$open center valve bank$mw$,$mw$closed center valve bank$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Parker, Eaton Vickers, Bosch Rexroth, Daikin and Continental Hydraulics modular (sandwich) valve catalogues (functions, stack heights, bolt kits, torque); Danfoss PVG, Parker P70/VDP, Walvoil SD, Prince and Gresen sectional valve service manuals (section functions, tie-rod torque, spool options, relief settings); Fluid Power Society technician manuals; Rexroth Hydraulic Trainer volume 1.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -6960,7 +9578,8 @@ Other common wedge anchors (Simpson Wedge-All, Red Head): 3/8" 25-30 ft-lb, 1/2"
 - [Leveling and machine setting](/article/leveling-and-machine-setting)
 - [Hole patterns and drilling templates](/article/hole-patterns-and-flange-templates)
 - [Hole making in the field (rotary hammers)](/article/hole-making-in-the-field)
-- [Bolt torque and fastener basics](/article/bolt-torque-chart-sae-metric)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+- [Bolt torque and fastener basics](/article/bolt-torque-chart-sae-metric)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
           array[$mw$anchor bolts$mw$,$mw$foundation$mw$,$mw$machine foundation$mw$,$mw$J bolt$mw$,$mw$cast in anchor$mw$,$mw$anchor bolt sleeve$mw$,$mw$wedge anchor$mw$,$mw$sleeve anchor$mw$,$mw$drop in anchor$mw$,$mw$epoxy anchor$mw$,$mw$adhesive anchor$mw$,$mw$Hilti HIT-RE 500$mw$,$mw$Kwik Bolt$mw$,$mw$anchor torque$mw$,$mw$anchor embedment$mw$,$mw$anchor bolt template$mw$,$mw$edge distance$mw$,$mw$anchor spacing$mw$,$mw$concrete cure$mw$,$mw$foundation mass 3 times$mw$,$mw$rebar hit$mw$,$mw$hole cleaning$mw$,$mw$anchor bolt projection$mw$]::text[], $mw$Hilti / Simpson Strong-Tie (generic)$mw$, array[$mw$Kwik Bolt TZ2$mw$,$mw$KB-TZ2$mw$,$mw$HIT-RE 500 V4$mw$,$mw$HIT-HY 200$mw$,$mw$Strong-Bolt 2$mw$,$mw$Wedge-All$mw$,$mw$SET-3G$mw$,$mw$AT-XP$mw$]::text[], $mw$API RP 686 Recommended Practice for Machinery Installation (foundation and anchor bolt chapters: mass ratios, sleeves, projection); Hilti KB-TZ2 installation instructions (bit size, hole depth, embedment, torque); Hilti/Simpson adhesive anchor instructions (hole cleaning, cure tables); ACI 318 Chapter 17 anchoring (edge distance and spacing concepts); ITW Chockfast grouting guidance (bolt free-stretch length).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -7166,7 +9785,8 @@ After the machine has run at operating temperature and the **hot alignment** has
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
 - [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
 - [Optical and laser levels and piano wire](/article/optical-and-laser-levels-piano-wire)
-- [Shim and gasket making (shim rules)](/article/shim-and-gasket-making)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+- [Shim and gasket making (shim rules)](/article/shim-and-gasket-making)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
           array[$mw$leveling a machine$mw$,$mw$machine installation$mw$,$mw$machine setting$mw$,$mw$precision level$mw$,$mw$machinist level$mw$,$mw$Starrett 98$mw$,$mw$Starrett 199$mw$,$mw$master precision level$mw$,$mw$level sensitivity$mw$,$mw$reversal check$mw$,$mw$jack screws$mw$,$mw$leveling baseplate$mw$,$mw$API 686 level tolerance$mw$,$mw$0.0002 in/ft$mw$,$mw$pad flatness$mw$,$mw$coplanar pads$mw$,$mw$sole plate$mw$,$mw$chock$mw$,$mw$epoxy chock$mw$,$mw$dowel pins$mw$,$mw$taper pin$mw$,$mw$doweling a pump$mw$,$mw$installation sequence$mw$,$mw$commissioning sequence$mw$]::text[], $mw$Starrett (levels), generic machinery$mw$, array[$mw$Starrett 98$mw$,$mw$Starrett 199$mw$,$mw$Starrett 199Z$mw$,$mw$Mitutoyo 960$mw$,$mw$Wyler$mw$,$mw$Federal precision level$mw$]::text[], $mw$API RP 686 Recommended Practice for Machinery Installation and Installation Design (installation sequence, baseplate leveling and flatness, shim limits, doweling); Starrett 98 and 199 level specifications (0.005 in/ft per division; 0.0005 in/ft per division, 10 arc-seconds); Piotrowski, Shaft Alignment Handbook; manufacturer installation manuals (Goulds, Baldor).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -7468,7 +10088,8 @@ For a vertical shaft, a column, a hoist rope line, a vertical pump: hang a plumb
 - [Belt conveyor components and tracking](/article/belt-conveyor-components-and-tracking)
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
 - [Dial indicator use](/article/dial-indicator-use)
-- [Trig and layout formulas](/article/trig-and-layout-formulas)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+- [Trig and layout formulas](/article/trig-and-layout-formulas)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
           array[$mw$builders level$mw$,$mw$dumpy level$mw$,$mw$transit$mw$,$mw$theodolite$mw$,$mw$two peg test$mw$,$mw$leveling rod$mw$,$mw$grade rod$mw$,$mw$rotary laser$mw$,$mw$laser receiver$mw$,$mw$laser level$mw$,$mw$elevation transfer$mw$,$mw$benchmark$mw$,$mw$centerline transfer$mw$,$mw$piano wire$mw$,$mw$music wire alignment$mw$,$mw$wire sag$mw$,$mw$sag formula$mw$,$mw$wire alignment conveyor$mw$,$mw$bore alignment$mw$,$mw$bore sighting$mw$,$mw$line boring alignment$mw$,$mw$mandrel alignment$mw$,$mw$plumb bob$mw$,$mw$plumb line$mw$,$mw$optical tooling$mw$,$mw$jig transit$mw$,$mw$laser tracker$mw$,$mw$conveyor structure alignment$mw$,$mw$roll alignment$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Builder's level and transit manuals (Topcon, Leica, David White) and the two-peg test; rotary laser operating guidance (Spectra, Leica); Brunson optical tooling and jig transit guidance; piano-wire sag derivation (catenary approximated by a parabola: sag = wL²/8T) with music-wire weights; Easy-Laser / Pruftechnik bore alignment guidance; millwright program manuals.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -7574,7 +10195,9 @@ Never let the pump be the anchor for the piping. Never leave the weight of a val
 - [Mechanical seal replacement](/article/mechanical-seal-replacement-centrifugal-pump)
 - [Pump and fluid-power formulas (NPSH)](/article/pump-and-fluid-power-formulas)
 - [Flange bolting and gaskets](/article/flange-bolting-and-gaskets)
-- [Pipe miter layout and take-outs](/article/pipe-miter-layout)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
+- [Pipe miter layout and take-outs](/article/pipe-miter-layout)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$installation$mw$),
           array[$mw$pipe strain$mw$,$mw$pipe stress$mw$,$mw$flange alignment$mw$,$mw$flange parallel$mw$,$mw$flange offset$mw$,$mw$bolt hole alignment$mw$,$mw$flange gap$mw$,$mw$pipe strain test$mw$,$mw$dial indicator pipe strain$mw$,$mw$0.002 pipe strain$mw$,$mw$API 686 pipe strain$mw$,$mw$pump nozzle loads$mw$,$mw$spring hanger$mw$,$mw$pipe support$mw$,$mw$pipe hanger$mw$,$mw$expansion joint$mw$,$mw$expansion loop$mw$,$mw$thermal growth piping$mw$,$mw$pipe anchor$mw$,$mw$pipe guide$mw$,$mw$flange bolting sequence$mw$,$mw$pump piping$mw$,$mw$suction piping$mw$,$mw$discharge piping$mw$,$mw$nozzle load$mw$]::text[], $mw$$mw$, array[]::text[], $mw$API RP 686 Chapter 6 (piping to machinery: flange fit-up tolerances and the shaft-movement test of 0.002 in / 0.05 mm); API 610 nozzle load criteria (Annex F); Hydraulic Institute ANSI/HI 9.6.2 (pump piping); pump manufacturer installation manuals (Goulds 3196, Flowserve); Piotrowski, Shaft Alignment Handbook; ASME B31.3 flange alignment guidance.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -8016,7 +10639,8 @@ For a run with a tee: subtract the tee's centre-to-end (C) on that side. Always 
 - [Trig and layout formulas (offsets, tapers, bolt circles)](/article/trig-and-layout-formulas)
 - [Pipe schedule and flange tables](/article/pipe-schedule-and-flange-tables)
 - [Layout tools and scribing](/article/layout-tools-and-scribing)
-- [Blueprint reading (isometrics)](/article/blueprint-reading-for-millwrights)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+- [Blueprint reading (isometrics)](/article/blueprint-reading-for-millwrights)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
           array[$mw$pipe miter$mw$,$mw$mitered elbow$mw$,$mw$miter cut$mw$,$mw$cutback$mw$,$mw$2 piece elbow$mw$,$mw$3 piece elbow$mw$,$mw$4 piece elbow$mw$,$mw$miter template$mw$,$mw$pipe offset$mw$,$mw$45 degree offset$mw$,$mw$offset travel$mw$,$mw$rolling offset$mw$,$mw$fitting take out$mw$,$mw$take-out$mw$,$mw$elbow center to face$mw$,$mw$long radius elbow$mw$,$mw$1.5 x NPS$mw$,$mw$ASME B16.9$mw$,$mw$weld gap$mw$,$mw$cut length$mw$,$mw$pipe fitting math$mw$,$mw$pipe circumference$mw$,$mw$lobster back$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Miter geometry computed for ASME B36.10 outside diameters; ASME B16.9 butt-welding fitting centre-to-face dimensions; Pipe Fitter's and Pipe Welder's Handbook (Frankland) offset constants; IPT Pipe Trades Handbook.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -8131,7 +10755,8 @@ Nowadays a **pipe layout app or a template program** prints these for any size a
 - [Layout tools and scribing](/article/layout-tools-and-scribing)
 - [Trig and layout formulas](/article/trig-and-layout-formulas)
 - [Oxy-fuel cutting technique](/article/oxy-fuel-cutting-technique)
-- [Joint design and fit-up](/article/joint-design-and-fit-up)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
+- [Joint design and fit-up](/article/joint-design-and-fit-up)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$layout-templates$mw$),
           array[$mw$pipe saddle$mw$,$mw$saddle template$mw$,$mw$branch template$mw$,$mw$fishmouth$mw$,$mw$pipe tee layout$mw$,$mw$ordinate method$mw$,$mw$pipe lateral$mw$,$mw$45 degree lateral$mw$,$mw$lateral template$mw$,$mw$wrap around$mw$,$mw$pipe layout$mw$,$mw$branch connection$mw$,$mw$set on branch$mw$,$mw$set in branch$mw$,$mw$header hole$mw$,$mw$pipe fitting layout$mw$,$mw$pipe template$mw$,$mw$contour marker$mw$,$mw$pipe ordinates table$mw$,$mw$pipe circumference table$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Ordinate formulas from the Pipe Fitter's and Pipe Welder's Handbook (Frankland) and the IPT Pipe Trades Handbook, computed here for ASME B36.10 pipe outside diameters; Curv-O-Mark/Flange Wizard marker instructions; general pipe-trades practice.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -10319,7 +12944,8 @@ Start with the critical assets: for each, one page with the nameplate data, bear
 - [Inspection routes](/article/inspection-routes)
 - [Spare parts and bearing storage](/article/spare-parts-and-bearing-storage)
 - [Bearing failure analysis](/article/bearing-failure-analysis)
-- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$maintenance$mw$),
+- [Machine vibration, noise and heat decision tree](/article/machine-vibration-noise-heat-decision-tree)
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$maintenance$mw$),
           array[$mw$work order$mw$,$mw$CMMS$mw$,$mw$maintenance history$mw$,$mw$equipment history$mw$,$mw$failure code$mw$,$mw$MTBF$mw$,$mw$MTTR$mw$,$mw$root cause$mw$,$mw$RCA$mw$,$mw$5 whys$mw$,$mw$repair report$mw$,$mw$as found as left$mw$,$mw$parts used$mw$,$mw$labor hours$mw$,$mw$backlog$mw$,$mw$priority$mw$,$mw$planning and scheduling$mw$,$mw$bad actor list$mw$,$mw$repeat failure$mw$]::text[], $mw$$mw$, array[]::text[], $mw$SMRP metrics (MTBF, MTTR, PM compliance); ISO 14224 (failure data collection); Doc Palmer, Maintenance Planning and Scheduling Handbook; common CMMS practice (SAP PM, Maximo, Fiix, Limble, eMaint).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -11238,7 +13864,9 @@ The [lockout basics](/article/lockout-tagout-basics) article has the full proced
 - [Motor lead connections](/article/motor-lead-connections)
 - [PPE selection](/article/ppe-selection)
 - [Welding safety, fumes and PPE (electric shock)](/article/welding-safety-fumes-and-ppe)
-- [First aid for shop injuries](/article/first-aid-for-shop-injuries)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+- [First aid for shop injuries](/article/first-aid-for-shop-injuries)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
+- [Electrical symbols: NEMA and IEC](/article/electrical-symbols-nema-and-iec)$mw$, $mw$safety$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
           array[$mw$electrical safety$mw$,$mw$arc flash$mw$,$mw$arc flash boundary$mw$,$mw$limited approach boundary$mw$,$mw$restricted approach boundary$mw$,$mw$NFPA 70E$mw$,$mw$PPE category$mw$,$mw$arc flash label$mw$,$mw$cal/cm2$mw$,$mw$qualified person$mw$,$mw$unqualified person$mw$,$mw$electrical lockout$mw$,$mw$verify zero energy$mw$,$mw$test before touch$mw$,$mw$live dead live$mw$,$mw$GFCI$mw$,$mw$extension cord safety$mw$,$mw$temporary power$mw$,$mw$cord inspection$mw$,$mw$double insulated$mw$,$mw$portable tool grounding$mw$,$mw$MCC bucket$mw$,$mw$panel cover$mw$,$mw$electrical shock response$mw$,$mw$electrical fire$mw$,$mw$class C extinguisher$mw$,$mw$50 volts$mw$,$mw$OSHA 1910.333$mw$,$mw$OSHA 1910.334$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NFPA 70E-2024 Standard for Electrical Safety in the Workplace (Article 130: shock protection boundaries Table 130.4(E)(a), arc flash PPE categories Table 130.7(C)(15)(a) and (b), PPE table 130.7(C)(15)(c), Article 110 qualified persons); OSHA 29 CFR 1910.331-335 (electrical safety-related work practices) and 1910.147; OSHA 1926.405/1910.304 (GFCI and cords); IEEE 1584 (arc flash calculation basis).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -11507,7 +14135,8 @@ Check the running currents on all three phases after any connection: balanced wi
 - [Megger and basic motor testing](/article/megger-and-basic-motor-testing)
 - [VFD basics for millwrights](/article/vfd-basics-for-millwrights)
 - [Machine guarding and commissioning (rotation bump)](/article/machine-guarding-and-commissioning)
-- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+- [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)$mw$, $mw$procedure$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
           array[$mw$motor lead connections$mw$,$mw$9 lead motor$mw$,$mw$9 lead wye$mw$,$mw$9 lead delta$mw$,$mw$low voltage connection$mw$,$mw$high voltage connection$mw$,$mw$230 460 motor wiring$mw$,$mw$12 lead motor$mw$,$mw$wye delta start$mw$,$mw$part winding start$mw$,$mw$6 lead motor$mw$,$mw$3 lead motor$mw$,$mw$T1 T2 T3$mw$,$mw$motor rotation$mw$,$mw$reverse motor rotation$mw$,$mw$swap two leads$mw$,$mw$unmarked motor leads$mw$,$mw$identify motor leads ohmmeter$mw$,$mw$single phase motor reversing$mw$,$mw$motor junction box$mw$,$mw$motor lugs$mw$,$mw$motor connection tape$mw$,$mw$motor grounding$mw$,$mw$wrong connection motor smoke$mw$]::text[], $mw$$mw$, array[]::text[], $mw$NEMA MG 1 (lead marking and connection diagrams for 3-, 6-, 9- and 12-lead three-phase motors); Baldor-Reliance/ABB connection diagram sheets; EASA connection and lead-identification guidance; NEC Article 430 (motor circuits) for the wiring and grounding requirements.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -11611,7 +14240,10 @@ Give them: the machine and the tag, what the HMI says, which LEDs you saw on and
 - [Machine guarding and commissioning](/article/machine-guarding-and-commissioning)
 - [Conveyor safety and guarding (safety switches)](/article/conveyor-safety-and-guarding)
 - [Blueprint reading (P&ID and instrument tags)](/article/blueprint-reading-for-millwrights)
-- [Vibration basics and ISO severity (vibration transmitters)](/article/vibration-basics-and-iso-severity)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+- [Vibration basics and ISO severity (vibration transmitters)](/article/vibration-basics-and-iso-severity)
+- [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
+- [Electrical symbols: NEMA and IEC](/article/electrical-symbols-nema-and-iec)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
           array[$mw$PLC$mw$,$mw$programmable logic controller$mw$,$mw$PLC basics$mw$,$mw$I/O$mw$,$mw$inputs outputs$mw$,$mw$24 VDC$mw$,$mw$4-20 mA$mw$,$mw$digital input$mw$,$mw$analog input$mw$,$mw$HMI$mw$,$mw$proximity sensor$mw$,$mw$inductive prox$mw$,$mw$capacitive sensor$mw$,$mw$photo eye$mw$,$mw$photoelectric sensor$mw$,$mw$retroreflective$mw$,$mw$limit switch$mw$,$mw$encoder$mw$,$mw$pressure transmitter$mw$,$mw$RTD$mw$,$mw$thermocouple$mw$,$mw$level switch$mw$,$mw$flow switch$mw$,$mw$vibration transmitter$mw$,$mw$safety relay$mw$,$mw$safety PLC$mw$,$mw$light curtain$mw$,$mw$interlock switch$mw$,$mw$machine will not start$mw$,$mw$permissive$mw$,$mw$I/O lights$mw$,$mw$forcing I/O$mw$,$mw$sensor gap$mw$,$mw$sensor alignment$mw$,$mw$instrument tag$mw$,$mw$ISA tag$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Allen-Bradley/Rockwell and Siemens PLC and I/O documentation; sensor manufacturer application guides (Turck, Banner, Pepperl+Fuchs, ifm: sensing ranges, mounting, alignment); ISA 5.1 (instrument tagging); ISO 13849 / IEC 62061 and OSHA machine guarding rules on safety circuits; plant controls practice.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -11845,7 +14477,8 @@ The keypad shows a **status** (Ready, Running, Faulted, Stopped, At Speed), the 
 - [Bearing failure analysis (fluting)](/article/bearing-failure-analysis)
 - [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
 - [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
-- [Pump and fluid-power formulas (affinity laws)](/article/pump-and-fluid-power-formulas)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
+- [Pump and fluid-power formulas (affinity laws)](/article/pump-and-fluid-power-formulas)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$motors-electrical$mw$),
           array[$mw$VFD$mw$,$mw$variable frequency drive$mw$,$mw$inverter$mw$,$mw$drive parameters$mw$,$mw$minimum frequency$mw$,$mw$maximum frequency$mw$,$mw$accel time$mw$,$mw$decel time$mw$,$mw$V/Hz$mw$,$mw$vector control$mw$,$mw$sensorless vector$mw$,$mw$carrier frequency$mw$,$mw$switching frequency$mw$,$mw$motor overload VFD$mw$,$mw$VFD low speed cooling$mw$,$mw$inverter duty motor$mw$,$mw$bearing currents$mw$,$mw$shaft grounding ring$mw$,$mw$AEGIS$mw$,$mw$insulated bearing$mw$,$mw$fluting$mw$,$mw$VFD cable$mw$,$mw$VFD grounding$mw$,$mw$drive fault codes$mw$,$mw$overvoltage fault$mw$,$mw$overcurrent fault$mw$,$mw$DC bus$mw$,$mw$VFD safety$mw$,$mw$VFD stopped not off$mw$,$mw$affinity laws VFD$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Allen-Bradley PowerFlex, ABB ACS, Yaskawa and Danfoss drive manuals (parameter groups, fault codes, installation and cable requirements); NEMA MG 1 Part 30/31 (inverter-fed motors); AEGIS shaft grounding handbook and EASA guidance on bearing currents; Rockwell and ABB application notes on carrier frequency and low-speed cooling.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -16345,6 +18978,22 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 | Working near conveyors | [Conveyor safety and guarding](/article/conveyor-safety-and-guarding) |
 | Someone is hurt | [First aid for shop injuries](/article/first-aid-for-shop-injuries) |
 
+## Drawings and schematics
+
+| Task | Open these, in order |
+|---|---|
+| **Handed a drawing set: is this the right sheet?** | [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics) |
+| **Read a machine or part drawing** (views, sections, fits, threads, finish) | [Mechanical drawings](/article/mechanical-drawings-views-sections-and-dimensions) → [GD&amp;T symbols](/article/gdt-symbols-and-feature-control-frames) |
+| **Check a part against a GD&amp;T callout** | [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames) → [dial indicator use](/article/dial-indicator-use) |
+| **Handed a P&amp;ID for an isolation** | [PFD and P&amp;ID reading](/article/pfd-and-pid-reading) → [P&amp;ID symbols](/article/pid-symbols-valves-equipment-and-lines) → [lockout/tagout](/article/lockout-tagout-basics) |
+| **What does this instrument tag mean?** | [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters) |
+| **Fit pipe from an isometric or spool sheet** | [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets) → [pipe miter layout](/article/pipe-miter-layout) |
+| **Read a hydraulic schematic on a machine plate** | [Hydraulic symbols (ISO 1219)](/article/hydraulic-symbols-iso-1219-complete) → [reading circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams) |
+| **Read a pneumatic circuit** | [Pneumatic symbols and circuit reading](/article/pneumatic-symbols-and-circuit-reading) |
+| **Motor will not start, here is the schematic** | [Electrical symbols](/article/electrical-symbols-nema-and-iec) → [motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams) → [electrical safety for mechanics](/article/electrical-safety-for-mechanics) |
+| **Set a machine from the foundation drawing** | [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings) → [anchor bolts](/article/anchor-bolts-and-foundations) → [leveling](/article/leveling-and-machine-setting) |
+| **Test yourself on drawings** | [Drawings, schematics and P&amp;IDs quiz](/article/quiz-drawings-schematics-and-pids) |
+
 ## Formulas and tables
 
 [Geometry, area, volume and weight](/article/geometry-formulas-area-volume-weight) · [Trig and layout](/article/trig-and-layout-formulas) · [Power, torque, speed and drives](/article/power-torque-speed-drive-formulas) · [Pumps and fluid power](/article/pump-and-fluid-power-formulas) · [Shafts, bearings and fasteners](/article/shaft-bearing-fastener-formulas) · [Decimal equivalents, tap drills and basic conversions](/article/shop-reference-tables) · [Unit conversions (extended)](/article/unit-conversions-extended) · [Sheet and wire gauges](/article/wire-gauge-and-sheet-thickness) · [Pipe schedules and flanges](/article/pipe-schedule-and-flange-tables) · [Hardness conversion](/article/hardness-conversion) · [Steel grades and heat colours](/article/steel-grades-and-heat-colours) · [Metal identification](/article/metal-identification-and-spark-test)
@@ -17415,10 +20064,11 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Adapter sleeve**: a tapered, slotted sleeve with a locknut that clamps a tapered-bore bearing onto a plain shaft.
 - **Affinity laws**: the rules that flow varies with pump speed, head with speed squared and power with speed cubed.
 - **AGMA**: American Gear Manufacturers Association; publishes gear ratings, service factors and lubricant standards.
-- **Angularity**: shaft misalignment where the centrelines meet at an angle, expressed in mils per inch or degrees.
 - **Anchor bolt**: bolt cast or set into concrete to hold a base down; needs free stretch length to stay tight.
+- **Angularity**: shaft misalignment where the centrelines meet at an angle, expressed in mils per inch or degrees.
 - **Arc blow**: deflection of a DC welding arc by magnetic fields, worst near the ends of a joint and at the work clamp.
 - **Arc flash**: the explosive release of energy from an electrical fault, rated in cal/cm² for PPE selection.
+- **As-built**: a drawing revised after installation to show what was actually built, the one to trust on an old plant.
 - **Axial**: along the shaft centreline. Axial float is end-to-end movement of a shaft in its bearings.
 
 ## B
@@ -17426,6 +20076,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Babbitt**: soft white-metal bearing alloy poured or bonded into sleeve bearings.
 - **Backlash**: the clearance between meshing gear teeth measured at the pitch line.
 - **Base metal**: the material being welded or cut.
+- **Basic dimension**: a boxed, theoretically exact dimension on a GD&amp;T drawing; the tolerance comes from the feature control frame, not from the box.
 - **Basket hitch**: a sling passed under the load with both ends on the hook.
 - **Bearing housing**: the casting that holds a bearing; pillow block, flange block or take-up.
 - **BEP (best efficiency point)**: the flow at which a pump is most efficient and its radial loads are lowest.
@@ -17434,6 +20085,7 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Bore**: the inside diameter of a bearing, sheave, hub or cylinder.
 - **BPFO, BPFI, BSF, FTF**: bearing defect frequencies for outer race, inner race, rolling element and cage.
 - **Brinelling**: indentation of a bearing raceway by static overload or hammer blows through the rolling elements (false brinelling is fretting wear from vibration while stationary).
+- **Bubble (instrument)**: the circle on a P&amp;ID that carries an instrument tag; its shape and the line across it say whether it lives in the field, on the panel or in the DCS.
 - **Bushing**: a removable sleeve bearing, or the tapered hub (QD, taper-lock) that fixes a sheave to a shaft.
 
 ## C
@@ -17442,20 +20094,23 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Cartridge valve**: a complete hydraulic valve that screws (or slips) into a machined cavity in a manifold block; sealed by O-rings on the cavity steps.
 - **Case drain**: the line that returns internal leakage from a piston pump or motor case to tank; its flow measures wear and it must never be restricted.
 - **Cavitation**: vapour bubbles forming in a pump or hydraulic pump inlet at low pressure and collapsing violently downstream.
-- **Charge pump**: the small pump on a hydrostatic transmission that keeps the closed loop full, supplies the controls and sets the charge pressure.
-- **Code 61 / Code 62**: the SAE 4-bolt hydraulic flange standards for 3,000 and 6,000 psi; same nominal size, different bolt spacing, not interchangeable.
-- **Counterbalance valve**: a load-holding valve in a cylinder or motor line that holds a load against gravity and opens only as far as pilot pressure from the other line asks.
+- **Centre condition**: what the middle box of a three-position directional valve connects when the spool is centred: closed, open, tandem or float.
 - **Centre of gravity**: the point where a load's weight acts; the hook must be above it for a level lift.
+- **Charge pump**: the small pump on a hydrostatic transmission that keeps the closed loop full, supplies the controls and sets the charge pressure.
 - **Choker hitch**: a sling passed around the load and through its own eye, capacity about 75 to 80 percent of vertical.
 - **Clearance (bearing)**: the internal play between rings and rolling elements; C2 less than normal, CN normal, C3 and C4 greater.
+- **Code 61 / Code 62**: the SAE 4-bolt hydraulic flange standards for 3,000 and 6,000 psi; same nominal size, different bolt spacing, not interchangeable.
 - **Cold lap**: weld metal that lies on the base metal without fusing; overlap at the toe.
 - **Contact pattern**: the marking-compound footprint showing where gear teeth touch; used to set bevel and hypoid gears.
+- **Contactor**: a heavy electromagnetic switch that carries motor current, closed by a coil in the control circuit; the starter is a contactor plus an overload relay.
+- **Counterbalance valve**: a load-holding valve in a cylinder or motor line that holds a load against gravity and opens only as far as pilot pressure from the other line asks.
 - **Coupling**: the device joining two shafts; rigid, elastomeric (jaw, tire), grid, gear or disc.
 - **Crest and root**: the top and bottom of a thread or gear tooth.
 - **Cylinder (hydraulic)**: a linear actuator; force equals pressure times piston area.
 
 ## D
 
+- **Datum**: a surface, axis or point named on a drawing (A, B, C) from which GD&amp;T tolerances are measured; the part is rested on it in the order listed.
 - **Datum diameter**: the diameter at which a V-belt's neutral axis runs in the sheave; the catalogue diameter for classical belts.
 - **DCEP / DCEN**: direct current electrode positive or negative; welding polarity.
 - **Dial indicator**: a gauge reading small displacements, typically 0.001 in per graduation, on a plunger or lever.
@@ -17474,8 +20129,11 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## F
 
 - **Face (rim-and-face)**: the axial indicator reading on the coupling face used to measure angularity.
+- **Fail position**: the state a control valve goes to when its air or power is lost: FC fail closed, FO fail open, FL fail last.
+- **Feature control frame**: the rectangular box on a drawing that states a geometric characteristic, its tolerance zone, modifiers and datums, read left to right.
 - **Feeler gauge**: a set of thin steel blades of known thickness for measuring gaps.
 - **Fillet weld**: a triangular weld joining two surfaces at roughly right angles; sized by leg length.
+- **First-angle projection**: the ISO view arrangement where the top view sits below the front view and the right view on the left; the symbol has the circles on the cone's large-end side.
 - **Fit**: the relationship between a shaft or housing size and the bearing bore or OD: interference (press), transition or clearance.
 - **Flashback**: a flame burning back into a torch, hose or regulator; stopped by a flashback arrestor.
 - **Flux**: the coating or core that shields, cleans and shapes a weld; also the slag-forming material in brazing and soldering.
@@ -17484,11 +20142,13 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## G
 
+- **GD&amp;T**: geometric dimensioning and tolerancing (ASME Y14.5): the symbol language that controls form, orientation, location and runout, not just size.
+- **General arrangement drawing**: the plan and elevation showing where each machine sits relative to column lines, with tags, centrelines and elevations.
 - **Gib**: an adjustable wedge or strip that takes up clearance in a slide.
 - **GMAW / FCAW / SMAW / GTAW**: gas metal arc (MIG), flux-cored arc, shielded metal arc (stick) and gas tungsten arc (TIG) welding.
 - **Gouging**: removing metal with a carbon arc and air blast, or with an oxy-fuel gouging tip.
-- **Grout**: the epoxy or cement material filling between a baseplate and its foundation.
 - **Grade (chain)**: alloy chain marking; Grade 80 and 100 are for overhead lifting.
+- **Grout**: the epoxy or cement material filling between a baseplate and its foundation.
 
 ## H
 
@@ -17502,10 +20162,12 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## I
 
 - **Idler**: an unpowered roller supporting a conveyor belt: carrying, return, impact, training.
+- **IFC**: issued for construction: the status stamp that says a drawing may be built to; IFR (for review) may not.
 - **Induction heater**: an electromagnetic heater for expanding bearings and hubs before mounting.
 - **Interpass temperature**: the temperature of the weld area just before the next pass is made.
 - **ISO 4406**: the cleanliness code for hydraulic and lube oils, three numbers for three particle sizes.
 - **ISO VG**: viscosity grade of industrial oils, the kinematic viscosity in cSt at 40 °C.
+- **Isometric (piping)**: a single-line pipe drawing on a 30° grid showing every fitting, weld, valve and dimension of one line, with north at the top right.
 
 ## J
 
@@ -17520,21 +20182,26 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 ## L
 
 - **L10 life**: the number of revolutions (or hours) that 90 percent of a group of bearings will reach.
+- **Ladder diagram**: a control schematic drawn as two vertical power rails with numbered horizontal rungs, each rung one circuit from control power to a coil or light.
 - **Lagging**: the rubber or ceramic covering on a conveyor drive pulley that increases belt friction.
 - **Laminar pattern**: see contact pattern.
 - **Lay (wire rope)**: the direction and manner in which wires and strands are twisted; regular lay or lang lay.
+- **Line number**: the code on a pipe: size, service, sequence, pipe class and insulation, such as 6"-P-1012-A1A-IH.
 - **Load sensing**: a hydraulic control in which the pump holds its outlet a fixed margin above the highest load pressure fed back on the LS line, making only the flow the valves ask for.
 - **Lockout**: isolating and locking every energy source of a machine before work on it.
 - **Logic valve**: a slip-in two-way poppet element (ISO 7368) for large flows; its cover's pilot circuit makes it a directional, check, relief or throttle function.
+- **Loop number**: the number shared by every instrument in one control loop, so PIT-101, PIC-101 and PCV-101 belong together.
 - **Low-hydrogen electrode**: E7018 and related rods whose coating is kept dry to avoid hydrogen cracking.
 
 ## M
 
 - **Magnetic base**: a switchable magnet holding a dial indicator to steel.
 - **Margin pressure**: the fixed difference (typically 200-350 psi) a load-sensing pump holds between its outlet and the LS signal.
+- **Match line**: the dashed line where a drawing stops and continues on another sheet, named on both.
 - **Mechanical seal**: a shaft seal with two lapped faces, one rotating and one stationary, riding on a thin liquid film.
 - **Micrometer**: a screw-thread gauge reading to 0.001 in (0.0001 in with a vernier) or 0.01 mm.
 - **Misalignment**: offset, angularity or both between two coupled shafts.
+- **MMC**: maximum material condition: the size at which a feature has the most material (smallest hole, largest shaft); tolerances marked with the circled M grow as the feature departs from it.
 - **Mounting distance**: the distance from the back face of a bevel pinion to the axis of its mating gear, etched on the pinion.
 
 ## N
@@ -17545,19 +20212,24 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## O
 
+- **Off-page connector**: the arrow-shaped symbol on a P&amp;ID or schematic that names the sheet a line continues on.
 - **Offset**: parallel misalignment; the distance between two shaft centrelines at the coupling.
 - **OHL (overhung load)**: the bending load a sheave or sprocket puts on a reducer or motor output shaft.
+- **One-line diagram**: the electrical distribution drawing that shows each circuit as a single line from the utility through transformers and switchgear to the MCC and motors.
 - **ORB / ORFS**: SAE O-ring boss (a straight-thread port fitting sealed by an O-ring at its shoulder) and O-ring face seal (a flat-faced fitting with an O-ring in its face); neither seals on the thread.
 - **Oxidizing / carburizing flame**: an oxy-fuel flame with excess oxygen or excess fuel; neutral is in between.
 
 ## P
 
+- **P&amp;ID**: piping and instrumentation diagram: the drawing that shows every line, valve, instrument, drain and connection of a process; isolations are planned from it.
 - **Packing**: braided rings compressed in a stuffing box to seal a shaft with a controlled drip.
 - **Pascal's law**: pressure applied to a confined fluid is transmitted equally in all directions.
-- **Pilot ratio**: on a counterbalance valve, how much more effective the external pilot is than the load pressure at opening it (3:1 stable, 10:1 efficient).
-- **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
+- **PFD**: process flow diagram: the simplified flow sheet with equipment, main streams and conditions, without the valves and instruments.
 - **Pillow block**: a bearing housing with a flat base and two bolt holes.
+- **Pilot line**: the long-dashed line on a fluid power schematic that carries a control pressure signal rather than working flow.
+- **Pilot ratio**: on a counterbalance valve, how much more effective the external pilot is than the load pressure at opening it (3:1 stable, 10:1 efficient).
 - **Pipe strain**: force from misfitted piping distorting a pump and shifting its shaft.
+- **Pitch**: the distance between chain rollers, sprocket teeth, thread crests or gear teeth.
 - **Preheat**: warming the base metal before welding to slow cooling and avoid cracking.
 - **Preload**: a deliberate negative clearance set in tapered or angular contact bearings.
 - **Pulse (welding)**: alternating high and low current to control heat, in GMAW-P and pulsed TIG.
@@ -17572,22 +20244,29 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Reference speed / limiting speed**: catalogue bearing speed ratings: thermal (reference) and mechanical (limiting).
 - **Relief valve**: a valve that limits maximum hydraulic system pressure by dumping flow to tank.
 - **Reverse dial**: alignment method using two rim indicators, one from each shaft across to the other.
+- **Revision cloud**: the scalloped outline drawn around whatever changed on a drawing, with a triangle flag carrying the revision letter.
 - **Rim reading**: the radial indicator reading on the coupling rim that measures offset.
 - **Root (weld)**: the deepest part of a weld joint; the root pass is the first pass.
+- **Rung**: one horizontal circuit line on a ladder diagram, numbered down the left margin and described in the right margin.
 - **Runout**: the total indicator reading of a surface as a shaft rotates; radial or axial (face).
 
 ## S
 
 - **Sag (indicator)**: droop of an indicator bracket under its own weight, corrected out of vertical readings.
+- **Seal-in contact**: the auxiliary contact of a starter coil wired in parallel with the start button so the coil holds itself in after the button is released.
+- **Sequence chart**: the step-displacement chart that shows each cylinder in and out against the numbered steps of a pneumatic or hydraulic cycle.
 - **Service factor**: the multiplier applied to motor power to size couplings, belts and reducers for shock and duty.
+- **Servo valve**: a two-stage electro-hydraulic valve (torque motor, flapper-nozzle or jet-pipe pilot, spool with feedback) that positions its spool from a milliamp signal; needs 3 µm filtration.
 - **Sheave**: a grooved pulley for V-belts; sprocket is the toothed wheel for chain.
 - **Shim**: a thin metal spacer under a machine foot or behind a bearing cap; stainless precut shims for alignment.
 - **Slag**: the solidified flux covering a stick or flux-cored weld; must be removed between passes.
 - **Sling angle**: the angle between a sling leg and the horizontal; tension rises as the angle falls.
 - **Soft foot**: a machine foot that does not sit flat on its base, distorting the frame when bolted.
 - **Spalling**: flaking of bearing raceways or gear teeth from fatigue.
-- **Servo valve**: a two-stage electro-hydraulic valve (torque motor, flapper-nozzle or jet-pipe pilot, spool with feedback) that positions its spool from a milliamp signal; needs 3 µm filtration.
+- **Spec break**: the point on a line where the pipe class changes, marked on the P&amp;ID and iso with the two class codes.
 - **Specific gravity**: density of a liquid relative to water; converts head to pressure.
+- **Spectacle blind**: a figure-eight plate swung between flanges to give a positive isolation (solid side in) or a clear bore (open ring in).
+- **Spool**: a section of pipe with its fittings fabricated in the shop, joined to the next spool by field welds.
 - **Spreader bar**: a rigid bar that keeps sling legs vertical on wide loads.
 - **Stack (sandwich) valve**: a modular valve with the ISO 4401 face pattern bolted under a directional valve to add a check, flow control, reducing or counterbalance function to one station.
 - **Stick-out**: electrode extension from the contact tip to the arc in wire welding.
@@ -17600,8 +20279,11 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - **Taper (1:12)**: the standard taper of a tapered-bore bearing for adapter sleeves; 1:30 for large sphericals.
 - **Thermal growth**: expansion of a machine as it warms, which changes alignment between cold and hot.
 - **Thermal rating**: the power a gearbox can transmit continuously without overheating its oil.
+- **Third-angle projection**: the North American view arrangement where the top view sits above the front view and the right view on the right; the symbol has the circles on the cone's small-end side.
 - **TIR (total indicator reading)**: the full swing of a dial indicator over one revolution.
+- **Title block**: the box in the bottom right of a drawing with its number, title, sheet count, revision, scale and default tolerances.
 - **Torque**: turning force; hp × 63,025 ÷ rpm gives lb·in.
+- **TOS**: top of steel: an elevation callout for the top of a beam or base plate; TOC is top of concrete, TOG top of grout.
 - **Tracking**: keeping a conveyor belt centred on its pulleys and idlers.
 
 ## U
@@ -17620,7 +20302,9 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 - **Weld symbol**: the drawing notation on a reference line and arrow giving weld type, size and location.
 - **WHMIS**: Workplace Hazardous Materials Information System, the Canadian labelling and SDS system.
+- **Wire number**: the number on a conductor in a control panel; it stays the same on every end of that wire and changes only across a device.
 - **Wire rope**: strands of wires around a core; classified by wire count, lay and core (fibre or IWRC).
+- **Wiring diagram**: the connection drawing that shows where each wire physically lands (terminals, devices, cables), as opposed to the schematic that shows how the circuit works.
 - **Worm gear**: a screw driving a bronze wheel at 90 degrees; high ratio, sliding contact, runs hot.
 
 ## Y
@@ -17635,6 +20319,8 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 
 ## Related
 
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)
 - [Set Me Up for a Task](/article/set-me-up-for-a-task)
 - [Shop Reference](/article/shop-reference-tables)
 - [Test Yourself](/article/quiz-welding-and-cutting)
@@ -17746,7 +20432,8 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Soft Foot](/article/soft-foot-correction)
 - [Reverse-Dial Indicator Alignment](/article/reverse-dial-alignment)
 - [Grouting Baseplates](/article/grouting-baseplates)
-- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- [Millwright Glossary A to Z](/article/millwright-glossary)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$alignment quiz$mw$,$mw$shaft alignment test$mw$,$mw$installation quiz$mw$,$mw$soft foot questions$mw$,$mw$reverse dial questions$mw$,$mw$laser alignment questions$mw$,$mw$grouting questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the alignment and installation articles in this knowledge base (Ludeca and Pruftechnik alignment guides, ANSI/ASA S2.75 alignment tolerances, API 686 machinery installation).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -17860,6 +20547,118 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
 
 insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
+  values ($mw$quiz-drawings-schematics-and-pids$mw$, $mw$Test Yourself: Drawings, Schematics and P&amp;IDs (20 Questions with Answers on Title Blocks and Revisions, Projection and Line Types, Fits and GD&amp;T, Piping Isometrics and Spools, P&amp;ID Symbols and ISA Tags, Hydraulic and Pneumatic Symbols, Circuit Reading and Motor Control Schematics)$mw$, $mw$Twenty practice questions on reading the documents a millwright is handed: which revision to build to, projection angle, line types, fit callouts, feature control frames, isometric welds and spools, line numbers, P&amp;ID symbols and fail positions, ISA tags and bubbles, hydraulic centre conditions, pneumatic port numbers, meter-out, the three-wire start-stop rung, wire numbers and the MCC bucket schedule. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Several questions refer to the pump loop P&amp;ID in the review figure. Score yourself out of 20.
+
+![Review figure: the feed pump loop P&amp;ID used in several questions](/img/drawings/sample-pid-pump-loop.svg)
+
+*Review figure: the feed pump loop P&amp;ID used in several questions*
+
+## Questions
+
+**1.** You are handed drawing M-102-004 marked REV B. The revision block on the copy in the planner's office shows a REV C dated last month. Which one do you build to, and what do you do first?
+
+<details><summary>Answer</summary>Neither, until you have the current issued sheet: get REV C (the newest revision at the top of the block), check its status stamp says issued for construction, and look for the cloud and flag that show what changed. Review: reading engineering drawings, the basics.</details>
+
+**2.** A drawing symbol shows a truncated cone with the two concentric circles on the same side as the cone's small end. Which projection is it, and where is the top view placed?
+
+<details><summary>Answer</summary>Third-angle projection (the North American default): the top view sits above the front view and the right-side view sits on the right. In first angle the circles sit on the large-end side and the views swap sides. Review: mechanical drawings, views, sections and dimensions.</details>
+
+**3.** Name the line type: thin, long dash, short dash, long dash, running through the middle of a hole.
+
+<details><summary>Answer</summary>A centre line. Hidden edges are thin short dashes; a cutting plane is a thick dash pattern with arrows; a phantom line is long-short-short. Review: mechanical drawings, views, sections and dimensions.</details>
+
+**4.** Decode Ø50 H7/g6. Is the shaft ever larger than the hole?
+
+<details><summary>Answer</summary>A 50 mm hole-basis fit: H7 is the hole (zero line, grade 7), g6 the shaft (below zero, grade 6). It is a clearance fit, about 0.009 to 0.050 mm, so the shaft is always smaller than the hole. Review: mechanical drawings, views, sections and dimensions.</details>
+
+**5.** A feature control frame reads position, Ø.014, circle-M, A, B, C. Read it as a sentence, and say what happens to the .014 if the hole is made larger than its minimum size.
+
+<details><summary>Answer</summary>The axis of the hole must lie inside a Ø.014 cylinder located from datum A, then B, then C, with the tolerance applying at maximum material condition. As the hole grows from MMC the allowed zone grows by the same amount: that is bonus tolerance. Review: GD&amp;T symbols and feature control frames.</details>
+
+**6.** What does the filled triangle on a leader from a square boxed letter A mean, and why does the order A, B, C in a frame matter?
+
+<details><summary>Answer</summary>It is a datum feature symbol: surface A is what the part is rested on for measurement. The order sets up the part: A first (three points, a plane), then B (two points), then C (one point); set up in a different order and you measure something else. Review: GD&amp;T symbols and feature control frames.</details>
+
+**7.** On an isometric, one joint is a dot with a small flag and the rest are plain dots. What is the difference, and which welds will you make on site?
+
+<details><summary>Answer</summary>Plain dots are shop welds inside a spool; the flagged dot is a field weld (FW) made on site to join spools or to connect to equipment. Count the flags: that is the site welding. Review: piping drawings, isometrics and spool sheets.</details>
+
+**8.** Decode 6"-P-1012-A1A-IH. Which part tells you the flange rating and gasket?
+
+<details><summary>Answer</summary>6 inch nominal size, P process service, line 1012, pipe class A1A, insulated for heat conservation. The pipe class (spec) A1A sets material, rating, gaskets and bolting: look it up in the piping specification. Review: piping drawings, isometrics and spool sheets.</details>
+
+**9.** An iso shows a centre-to-centre dimension of 10 ft 0 in between two 6 inch long-radius 90° elbows. What length of pipe do you cut, allowing 1/8 inch root gaps?
+
+<details><summary>Answer</summary>Take-out for a 6 inch LR 90° is 1.5 x 6 = 9 inches each; 10 ft 0 in minus 18 inches minus two 1/8 inch gaps = 8 ft 5 3/4 in. Review: piping drawings, isometrics and spool sheets.</details>
+
+**10.** On the review figure, which two valves isolate pump P-101A, and why is the check valve not one of them?
+
+<details><summary>Answer</summary>The gate valve on the suction line and the gate valve on the discharge after the check valve. A check valve only stops reverse flow when it seats; it leaks, cannot be locked and is never an isolation. Also isolate the minimum-flow line, which can feed back into the header. Review: PFD and P&amp;ID reading.</details>
+
+**11.** What is the difference between what a PFD and a P&amp;ID show, and which one do you use for a lockout?
+
+<details><summary>Answer</summary>The PFD shows equipment, main flow paths, stream numbers and conditions; the P&amp;ID adds every valve, line number, instrument, drain, vent and connection. Lockout is planned from the P&amp;ID because the isolation valves and bleeds only appear there. Review: PFD and P&amp;ID reading.</details>
+
+**12.** A control valve on the P&amp;ID has a diaphragm actuator and the letters FC beside it. What happens when the instrument air fails?
+
+<details><summary>Answer</summary>FC is fail closed: the spring in the actuator shuts the valve when the air signal is lost. FO would open it and FL would leave it where it was. Review: P&amp;ID symbols, valves, equipment and lines.</details>
+
+**13.** Read the tag LAHH-405 and say whether it lives in the field or the control room if it is drawn as a circle inside a square with a solid line across it.
+
+<details><summary>Answer</summary>Level alarm, high-high, loop 405. A circle in a square with a solid line is a shared-display (DCS) function on the main panel, so it is in the control room; a plain circle with no line would be a field device. Review: ISA instrument tags, bubbles and letters.</details>
+
+**14.** PIT-101, PIC-101 and PCV-101 appear on one sheet. What do they have in common and what does each do?
+
+<details><summary>Answer</summary>They share loop number 101: PIT-101 is the pressure indicating transmitter that measures, PIC-101 the pressure indicating controller that compares to set point, PCV-101 the pressure control valve it drives. Review: ISA instrument tags, bubbles and letters.</details>
+
+**15.** A hydraulic 4/3 valve symbol shows its centre box with all four ports blocked by T marks. What does the pump do at idle with a fixed-displacement pump, and which centre would unload it while still holding the cylinder?
+
+<details><summary>Answer</summary>Closed centre: the pump flow goes over the relief valve at full pressure and heats the oil. A tandem centre (P to T, A and B blocked) unloads the pump and still holds the cylinder. Review: hydraulic symbols, ISO 1219, complete.</details>
+
+**16.** On a 5/2 pneumatic valve, what are ports 1, 2, 4, 3 and 5, and what do 12 and 14 mean?
+
+<details><summary>Answer</summary>1 is supply, 2 and 4 are the outlets to the cylinder, 3 and 5 are their exhausts. 12 is the pilot that connects 1 to 2, 14 the pilot that connects 1 to 4. Review: pneumatic symbols and circuit reading.</details>
+
+**17.** Where does a restrictor check go to give a cylinder meter-out speed control, and why is meter-out preferred on a cylinder?
+
+<details><summary>Answer</summary>In the line leaving the cylinder, with the check arranged to pass free flow into the cylinder and to throttle flow out. Meter-out keeps the piston loaded on both sides so an overrunning load cannot lunge ahead of the pump. Review: reading hydraulic and pneumatic circuit diagrams.</details>
+
+**18.** In a three-wire start-stop circuit, what does the contact wired in parallel with the start button do, and what happens when the overload contact opens?
+
+<details><summary>Answer</summary>It is the seal-in (holding) contact of coil M: it closes when M pulls in so the rung stays made after the start button is released. When the OL contact opens the rung breaks, M drops out, the seal-in opens, and the motor will not restart until reset and start are pressed. Review: motor control schematics and wiring diagrams.</details>
+
+**19.** Two wires on a schematic both carry the number 3, one at the start button and one at the coil side of the panel. Are they the same wire, and what does the number 2, 3, PWR under a coil mean?
+
+<details><summary>Answer</summary>Yes: a wire number stays the same on every end of that conductor and only changes when it passes through a device. The cross-reference under the coil lists the rungs holding its contacts (rungs 2 and 3) plus the power contacts, so you can find every contact that coil moves. Review: motor control schematics and wiring diagrams.</details>
+
+**20.** A general arrangement drawing locates a pump base 5 ft 0 in from column line B and gives TOS EL 101 ft 10 1/2 in. What do you measure from, and what is TOS?
+
+<details><summary>Answer</summary>From column line B, never from a wall or another machine; the elevation is read up from the plant datum (EL 100 ft 0 in at the benchmark). TOS is top of steel, here the top of the base plate after grout. Review: structural and machine installation drawings.</details>
+
+## How did you do?
+
+- 18 to 20: you can read the sheet you are handed; go on to the advanced hydraulics and PLC articles.
+- 14 to 17: re-read the articles named in the answers you missed.
+- Under 14: work through the drawings category from the basics article to the motor control article, then retake this quiz.
+
+## Related
+
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [GD&amp;T symbols and feature control frames](/article/gdt-symbols-and-feature-control-frames)
+- [Piping drawings, isometrics and spool sheets](/article/piping-drawings-isometrics-and-spool-sheets)
+- [PFD and P&amp;ID reading](/article/pfd-and-pid-reading)
+- [ISA instrument tags, bubbles and letters](/article/isa-instrument-tags-bubbles-and-letters)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)
+- [Millwright glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+          array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$drawing reading quiz$mw$,$mw$blueprint quiz$mw$,$mw$P&amp;ID quiz$mw$,$mw$ISA tag questions$mw$,$mw$GD&amp;T questions$mw$,$mw$isometric questions$mw$,$mw$hydraulic symbol quiz$mw$,$mw$pneumatic symbol quiz$mw$,$mw$ladder diagram quiz$mw$,$mw$motor control questions$mw$,$mw$title block$mw$,$mw$revision$mw$,$mw$third angle$mw$,$mw$line types$mw$,$mw$fits$mw$,$mw$feature control frame$mw$,$mw$spool sheet$mw$,$mw$line number$mw$,$mw$off-page connector$mw$,$mw$fail closed$mw$,$mw$seal-in$mw$,$mw$wire numbers$mw$,$mw$MCC bucket$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the drawings, schematics and P&amp;ID articles in this knowledge base (ASME Y14.5 and Y14.100, ISO 1219-1, ISA-5.1, NEMA ICS 19, IEC 60617, ASME B31.3 and PIP piping practice).$mw$, 'published')
+  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
+          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
+          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
+
+insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
   values ($mw$quiz-hydraulics-advanced-troubleshooting$mw$, $mw$Test Yourself: Advanced Hydraulics (20 Questions with Answers on Pump Testing, Spool Centres, Stack and Sectional Valves, Cartridge and Logic Valves, Counterbalance Ratios, Fitting Identification, Fluid Types, Load Sensing, Servo Valves, Hydrostatic Drives and Diagnostics)$mw$, $mw$Twenty practice questions for the technician level: pump flow and case-drain tests, what each spool centre does, stack order and sectional valve faults, cartridge cavities and logic element area ratios, counterbalance pilot ratios and settings, identifying fittings by measurement, choosing and converting fluids, load-sense margin, servo valve filtration, hydrostatic charge pressure, and the diagnostic method. Tap each answer after you decide.$mw$, $mw$How to use this: read the question, decide on your answer, then tap **Answer**. Score yourself out of 20.
 
 ![Review figure: from the symptom to the test to the cause](/img/hydraulics/troubleshooting-decision-tree.svg)
@@ -17963,7 +20762,8 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Hydraulic fitting identification and thread tables](/article/hydraulic-fitting-identification-and-thread-tables)
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Test yourself: hydraulics, pneumatics and lubrication](/article/quiz-hydraulics-and-lubrication)
-- [Millwright glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- [Millwright glossary A to Z](/article/millwright-glossary)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$advanced hydraulics questions$mw$,$mw$hydraulic troubleshooting quiz$mw$,$mw$load sensing questions$mw$,$mw$counterbalance valve questions$mw$,$mw$logic valve questions$mw$,$mw$fitting identification quiz$mw$,$mw$hydraulic fluid questions$mw$,$mw$hydrostatic transmission questions$mw$,$mw$servo valve questions$mw$,$mw$Red Seal practice$mw$,$mw$IFPS practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the advanced hydraulics articles in this knowledge base (Eaton Vickers, Parker, Bosch Rexroth, Danfoss and Sun Hydraulics training and service data; ISO 7368, SAE J514/J518/J1453, DIN 2353; Denison HF-0 and Eaton 35VQ25 fluid specifications).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -18071,7 +20871,8 @@ insert into public.mw_articles (slug, title, summary, body, kind, category_id, t
 - [Grease Types and Compatibility](/article/grease-types-and-compatibility)
 - [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
 - [Test yourself: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting)
-- [Millwright Glossary A to Z](/article/millwright-glossary)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
+- [Millwright Glossary A to Z](/article/millwright-glossary)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$study$mw$),
           array[$mw$quiz$mw$,$mw$practice questions$mw$,$mw$hydraulics quiz$mw$,$mw$hydraulic test questions$mw$,$mw$pneumatics quiz$mw$,$mw$lubrication quiz$mw$,$mw$oil viscosity questions$mw$,$mw$grease compatibility questions$mw$,$mw$ISO 4406 questions$mw$,$mw$Red Seal practice$mw$,$mw$apprenticeship exam$mw$,$mw$self test$mw$,$mw$study questions$mw$]::text[], $mw$$mw$, array[]::text[], $mw$Questions written against the hydraulics, pneumatics and lubrication articles in this knowledge base (Parker and Eaton Vickers hydraulic training data, ISO 4406, ISO VG grades, NLGI grease grades, SKF and Noria lubrication practice).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
@@ -19151,136 +21952,6 @@ A welding procedure lists the classification, diameter, polarity, amperage/volta
 - [Gas-shielded flux-core setup](/article/fcaw-gas-shielded-setup) and [self-shielded flux-core setup](/article/fcaw-self-shielded-setup)
 - [Welding stainless and dissimilar metals](/article/welding-stainless-and-dissimilar) and [welding aluminium](/article/welding-aluminium)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
           array[$mw$AWS classification$mw$,$mw$electrode number$mw$,$mw$E7018 meaning$mw$,$mw$ER70S-6 meaning$mw$,$mw$E71T-1$mw$,$mw$E71T-11$mw$,$mw$E308L-16$mw$,$mw$ER4043$mw$,$mw$ER5356$mw$,$mw$H4R$mw$,$mw$filler metal$mw$,$mw$wire classification$mw$,$mw$A5.1$mw$,$mw$A5.18$mw$,$mw$A5.20$mw$,$mw$A5.4$mw$,$mw$A5.9$mw$,$mw$A5.10$mw$,$mw$CSA W48$mw$,$mw$E4918$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A5.1 (carbon steel covered electrodes), A5.5 (low-alloy covered), A5.18 (carbon steel solid wire), A5.20 (carbon steel flux-cored), A5.4 (stainless covered), A5.9 (stainless bare wire), A5.10 (aluminium), A5.15 (cast iron), A5.36; CSA W48.$mw$, 'published')
-  on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
-          category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
-          model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
-
-insert into public.mw_articles (slug, title, summary, body, kind, category_id, tags, manufacturer, model_numbers, source, status)
-  values ($mw$blueprint-reading-for-millwrights$mw$, $mw$Blueprint Reading for Millwrights: Views and Projection, Line Types, Sections, Title Block and Revisions, Dimensions and Tolerances, Surface Finish, GD&T Essentials, Structural Shapes, Piping Isometrics and P&IDs$mw$, $mw$The parts of a drawing a millwright reads to install, fabricate or check a part: how views relate, what each line style means, how to read sections and details, the title block and revision level, dimensions and the tolerance rules, surface finish marks, the GD&T symbols that appear on baseplates and shafts, how structural steel and piping drawings label their members, and the P&ID symbols you need to trace a system.$mw$, $mw$## Views and projection
-
-![Third-angle projection views and the line types](/img/welding/orthographic-views.svg)
-
-*Third-angle projection views and the line types*
-
-- **Orthographic projection**: the object is shown in flat views at 90° to each other. **Third-angle** (US and Canada): the top view is above the front view, the right side view is to the right (as if the object were unfolded toward you). **First-angle** (Europe, some equipment manuals): views are on the opposite sides (the right-side view appears on the left). The projection symbol in the title block (a truncated cone, small end left for third angle) tells you which.
-- Six possible views; drawings show as many as needed, usually front, top, right. Curved surfaces and holes look the same in one view and different in another: always read at least two.
-- **Section views** (A-A, B-B): the part is cut along the cutting-plane line (thick line with arrows; the arrows point in the direction you look) and the cut material is **hatched**. Full, half, offset, broken-out, revolved and removed sections. Shafts, bolts, keys, ribs and webs are conventionally **not** hatched even when the plane cuts them.
-- **Detail views**: a circle on the main view, enlarged elsewhere with a scale (e.g. DETAIL B, SCALE 2:1).
-- **Auxiliary views**: a view perpendicular to an inclined face so it shows true size.
-- **Assembly drawing**: shows parts fitted together with balloons (item numbers) tied to a **bill of materials (BOM)**; **detail drawing**: one part, fully dimensioned; **exploded** view for order of assembly.
-- **Isometric / pictorial**: 3D look, 30° axes; not to scale for measuring.
-
-## Line types (alphabet of lines)
-
-| Line | Appearance | Means |
-|---|---|---|
-| Visible (object) | Thick solid | Edges you can see |
-| **Hidden** | Medium dashed | Edges behind the surface |
-| **Centre** | Thin, long-short-long | Axis of a hole, shaft, symmetry; bolt circles |
-| Dimension | Thin solid with arrowheads | The measurement |
-| Extension | Thin solid, gap from the object | Carries the dimension out from the part |
-| Leader | Thin with an arrow or dot | Points a note to a feature |
-| Cutting plane | Thick, dashed or phantom, arrows at the ends | Where a section is taken |
-| Section (hatch) | Thin diagonal | Cut material; pattern can show the material |
-| Break | Thin zigzag (short) or wavy (long) | Part shortened on the drawing |
-| Phantom | Thin, long-short-short-long | Alternate positions, adjacent parts, motion limits, repeated detail |
-| Stitch | Thin dotted | Sewing/stitching, sometimes stitch welds |
-| Chain | Thick, long-short | Surface requiring special treatment |
-
-## Title block and revisions
-
-Read **before** measuring anything: **drawing number and sheet**, **revision letter** (compare with the revision block and with the version on the work order: an old print is the classic cause of a wrong part), **scale** (never scale a print with a ruler; "NTS" = not to scale), **units** (inches or mm; dual dimensions show both), **material**, **finish**, **block (general) tolerances**, **projection symbol**, **drawn/checked/approved** names and dates, the standard the drawing follows (ASME Y14.5, ISO), and **general notes** (e.g. "break all sharp edges .015", "all welds 1/4 fillet unless noted", "dimensions apply after plating").
-
-## Dimensions and tolerances
-
-- **Basic dimension** (boxed): theoretically exact, toleranced by a geometric control.
-- **Reference dimension** (in parentheses): for information; not inspected.
-- **Limit dimensions**: 1.500-1.502; **plus/minus**: 1.501 ± .001; **unilateral**: 1.500 +.002/−.000.
-- **Block tolerances** in the title block apply where no tolerance is shown, usually by decimal places: `.X ± .1`, `.XX ± .01`, `.XXX ± .005`, angles ± 0.5°, fractions ± 1/16". So a "2.50" dimension is ± .01 and a "2.500" is ± .005: the number of decimals is a tolerance statement.
-- Metric: `50 h7` and `50 H7` use the ISO fit tables (see [bearing fits](/article/bearing-clearance-and-fits-tables)); unspecified metric tolerances follow ISO 2768 (m, f, c classes) named in the title block.
-- **Chain vs baseline dimensioning**: chain dimensions accumulate tolerance; baseline (all from one datum) does not. Fabricate from the datum the drawing uses.
-- Thread callouts: `1/2-13 UNC-2B` (nominal, TPI, series, class, B = internal), `M12 x 1.75-6H`; depth `↓ .75`; `1/2-14 NPT`. Hole callouts: `Ø .531 THRU`, `⌴ Ø .875 ↓ .375` (counterbore), `⌵ Ø .750 x 82°` (countersink), `4X Ø .406` (four places).
-
-## Surface finish
-
-The check-mark symbol with a number is the **roughness average Ra** in **microinches** (μin) on US drawings, **micrometres** (μm) on metric (1 μm = 40 μin).
-
-| Ra μin (μm) | Process | Typical |
-|---|---|---|
-| 250 (6.3) | Saw, flame cut, rough machining | Non-contact surfaces |
-| 125 (3.2) | Standard machining | General parts, bolted faces |
-| **63 (1.6)** | Fine turning, milling | Bearing housings, mating faces, baseplate pads |
-| **32 (0.8)** | Fine grind, finish turn | Shaft seats for bearings, seal faces |
-| 16 (0.4) | Grinding, honing | Seal sleeves, hydraulic rods, lip seal surfaces (10-20 μin) |
-| 8 (0.2) and below | Lapping, polishing | Mechanical seal faces, gauge blocks |
-
-A bar under the symbol = machining required; a circle = machining prohibited (as-cast). A lay symbol (=, ⊥, X, M, C, R) shows the direction of the tool marks: lip seals want **no lead** (plunge grind), hence "C" or "no lay" callouts on shafts.
-
-## GD&T essentials
-
-A **feature control frame** reads: `| symbol | tolerance | datum A | datum B | datum C |`. Datums are lettered surfaces/axes marked with a triangle. Symbols a millwright meets:
-
-| Symbol | Name | What it controls | Where you see it |
-|---|---|---|---|
-| ⏥ | **Flatness** | Surface within two parallel planes, no datum | Baseplate pads, sole plates, sealing faces |
-| ⏤ | Straightness | Line elements / axis | Shafts |
-| ○ | Circularity (roundness) | | Sleeves, seats |
-| ⌭ | Cylindricity | | Hydraulic rods |
-| ∥ | Parallelism | Surface/axis parallel to a datum | Pads to a base, bores to each other |
-| ⊥ | **Perpendicularity** | Square to a datum | Flange face to bore, pump feet |
-| ∠ | Angularity | | |
-| ⌖ | **Position** | Location of holes/features from datums, usually with a **cylindrical** tolerance zone and often **Ⓜ (MMC)** | Bolt patterns |
-| ◎ | Concentricity (withdrawn in 2018, still on old prints) | | |
-| ⌯ | Symmetry (withdrawn 2018) | | |
-| ↗ | **Circular runout** | Wobble of a surface as it rotates about a datum axis, one revolution | Shaft seats, coupling faces |
-| ⌰ | **Total runout** | Same, over the whole surface | Shaft bearing seats, rotor faces |
-| ⌒ | Profile of a line | | |
-| ⌓ | Profile of a surface | The all-purpose 3D tolerance | Castings, machined contours |
-
-Modifiers: **Ⓜ** maximum material condition (bonus tolerance as the feature departs from MMC: bigger holes get more position tolerance), **Ⓛ** least material, **Ⓟ** projected tolerance zone (for studs). Reading a frame: `⌖ Ø.010 Ⓜ A B C` = position of the hole axis within a Ø.010 cylinder when the hole is at its smallest, relative to datums A (primary, usually the mounting face), B, C. What it means for you: measure from the datums the frame names, in the order named, and expect the flatness or runout number to be an inspection you may have to prove with a straightedge, feeler, level or dial indicator (see [dial indicator basics](/article/dial-indicator-use)).
-
-## Structural steel drawings
-
-| Designation | Shape | Reads |
-|---|---|---|
-| **W12×26** | Wide flange | 12" nominal depth, 26 lb/ft |
-| S8×18.4 | American standard I-beam | |
-| **C8×11.5** / MC | Channel | 8" deep, 11.5 lb/ft |
-| **L4×4×3/8** | Angle | Legs 4" and 4", 3/8" thick (L4×3×1/4 unequal) |
-| **HSS6×6×1/4** | Hollow structural section (tube) | 6×6 outside, 1/4" wall (design wall 0.233) |
-| HSS6.625×0.280 | Round HSS | OD × wall |
-| **PL 1/2×12×1'-6"** | Plate | Thickness × width × length |
-| WT6×13 / ST / MT | Tees cut from W/S/M | |
-| Pipe 4 STD / XS / XXS | Pipe by schedule | |
-| BAR 2×1/2, RD 1-1/2 | Flat bar, round bar | |
-
-Structural drawings use **grid lines** (A, B, 1, 2) and **elevations** ("T/S EL. 112'-6"" = top of steel), **member marks** (B12, C3), **bolt callouts** (`3/4" Ø A325-N` = 3/4" high-strength bolts, threads not excluded; `SC` slip-critical; `TC` tension-control), "**typ**" and "**UNO**" (unless noted otherwise), "**NS/FS**" (near side/far side), "**GA**" gauge (bolt line offset), "**CTR**" centre, "**FIELD**" for field bolts/welds. Feet-inches format: `12'-6 1/2"`. Camber and "**hold**" dimensions (do not change) appear on erection drawings.
-
-## Piping isometrics
-
-- Drawn on 30° isometric axes, not to scale; north arrow; the line number carries the service, size, spec and insulation (e.g. `6"-CW-1501-A1-HC`).
-- Symbols: butt-weld fittings as thin lines with **weld dots**; flanges as double lines; valves by type (gate, globe, check, ball, butterfly) with tag numbers; reducers (concentric/eccentric, **FOT** flat on top / **FOB** flat on bottom); elbows LR (radius 1.5 × NPS) or SR; tees, olets; **field weld** (FW) and **field fit weld** (FFW) with extra length to cut on site; spool numbers and material take-off (MTO) table.
-- Dimensions run **centreline to centreline** and to flange faces; you subtract fitting **take-outs** (LR 90° elbow centre-to-face = 1.5 × NPS: 6" pipe → 9"; 45° LR = 0.625 × NPS: 6" pipe → 3-3/4") and the weld gap to get cut lengths. Take-out tables in [pipe fitting take-outs](/article/pipe-miter-layout).
-- **P&ID (piping and instrumentation diagram)**: schematic, no dimensions; every line, valve and instrument tagged. Instrument bubbles use **ISA 5.1** letters: first letter = variable (**P** pressure, **T** temperature, **F** flow, **L** level, **V** vibration, **S** speed, **Z** position), following letters = function (**I** indicator, **T** transmitter, **C** controller, **S** switch, **A** alarm, **E** element, **V** valve; **H/L** high/low). `PIT-101` = pressure indicating transmitter, loop 101; `TSH-203` = temperature switch high; `PSV` pressure safety valve; `FE` orifice plate. A line through the bubble = board-mounted, none = field-mounted, dashed = behind the panel. Line types: solid = process, dashed = electrical signal, `-o-o-` pneumatic signal, `---//---` software link. Use the P&ID to find isolation valves and drains **before** you open anything.
-
-## Reading a drawing: a checklist
-
-1. Title block: number, rev, units, scale, material, standard, notes.
-2. Find the front view and work out the projection; identify every hidden and centre line.
-3. Locate the datums and the largest features; then the detail.
-4. List every dimension you need with its tolerance (block or stated) and every finish.
-5. Note every weld symbol, hole callout and thread.
-6. Check the BOM quantity and material against what is in the shop.
-7. Question anything that does not add up (overall vs sum of parts, a hole that appears in one view only) **before** cutting.
-
-## Related
-
-- [Welding symbols](/article/welding-symbols)
-- [Bearing fits and tolerances](/article/bearing-clearance-and-fits-tables)
-- [Dial indicator basics](/article/dial-indicator-use)
-- [Pipe miter layout and take-outs](/article/pipe-miter-layout)
-- [Layout tools and scribing](/article/layout-tools-and-scribing)$mw$, $mw$reference$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
-          array[$mw$blueprint reading$mw$,$mw$reading drawings$mw$,$mw$mechanical drawings$mw$,$mw$orthographic projection$mw$,$mw$third angle$mw$,$mw$first angle$mw$,$mw$line types$mw$,$mw$hidden line$mw$,$mw$center line$mw$,$mw$section view$mw$,$mw$title block$mw$,$mw$revision block$mw$,$mw$bill of materials$mw$,$mw$tolerances$mw$,$mw$block tolerance$mw$,$mw$surface finish$mw$,$mw$Ra$mw$,$mw$GD&T$mw$,$mw$feature control frame$mw$,$mw$flatness$mw$,$mw$perpendicularity$mw$,$mw$position$mw$,$mw$runout$mw$,$mw$structural shapes$mw$,$mw$W12x26$mw$,$mw$HSS$mw$,$mw$piping isometric$mw$,$mw$P&ID$mw$,$mw$ISA symbols$mw$,$mw$assembly drawing$mw$,$mw$detail drawing$mw$]::text[], $mw$$mw$, array[]::text[], $mw$ASME Y14.100 (engineering drawing practices), Y14.3 (orthographic and pictorial views), Y14.5-2018 (GD&T), Y14.36 (surface texture); AISC Steel Construction Manual shape designations; ISA 5.1 instrumentation symbols; ASME B16.9 fitting dimensions.$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,
           model_numbers = excluded.model_numbers, source = excluded.source, status = 'published';
@@ -22116,7 +24787,9 @@ CSA W59 uses the same AWS A2.4 symbols. **ISO 2553** (European drawings, some eq
 - [Blueprint reading for millwrights](/article/blueprint-reading-for-millwrights)
 - [Joint design and fit-up](/article/joint-design-and-fit-up)
 - [Weld defects and inspection](/article/weld-defects-and-inspection)
-- [Positions and techniques](/article/positions-and-techniques)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
+- [Positions and techniques](/article/positions-and-techniques)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)$mw$, $mw$chart$mw$, (select id from public.mw_categories where slug = $mw$welding$mw$),
           array[$mw$welding symbols$mw$,$mw$weld symbol$mw$,$mw$AWS A2.4$mw$,$mw$reference line$mw$,$mw$arrow side$mw$,$mw$other side$mw$,$mw$fillet symbol$mw$,$mw$groove symbol$mw$,$mw$bevel symbol$mw$,$mw$weld size$mw$,$mw$pitch$mw$,$mw$intermittent weld$mw$,$mw$staggered$mw$,$mw$weld all around$mw$,$mw$field weld$mw$,$mw$contour symbol$mw$,$mw$finish symbol$mw$,$mw$backing symbol$mw$,$mw$melt through$mw$,$mw$plug weld$mw$,$mw$slot weld$mw$,$mw$spot weld$mw$,$mw$tail$mw$,$mw$blueprint welding$mw$,$mw$reading welding symbols$mw$,$mw$ISO 2553$mw$]::text[], $mw$$mw$, array[]::text[], $mw$AWS A2.4:2020 Standard Symbols for Welding, Brazing and Nondestructive Examination; AWS welding symbol chart; ISO 2553 (for the differences).$mw$, 'published')
   on conflict (slug) do update set title = excluded.title, summary = excluded.summary, body = excluded.body, kind = excluded.kind,
           category_id = excluded.category_id, tags = excluded.tags, manufacturer = excluded.manufacturer,

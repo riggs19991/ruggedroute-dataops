@@ -168,3 +168,4 @@ Keep the failed parts and photograph them; the analysis decides whether the fix 
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
 - [Hydraulic fluids: types and compatibility](/article/hydraulic-fluids-types-and-compatibility)
 - [Pump and fluid-power formulas](/article/pump-and-fluid-power-formulas)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)

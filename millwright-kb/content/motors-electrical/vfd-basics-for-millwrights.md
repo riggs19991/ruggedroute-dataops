@@ -122,3 +122,4 @@ The keypad shows a **status** (Ready, Running, Faulted, Stopped, At Speed), the 
 - [Electrical safety for mechanics](/article/electrical-safety-for-mechanics)
 - [PLC and instrumentation awareness](/article/plc-and-instrumentation-awareness)
 - [Pump and fluid-power formulas (affinity laws)](/article/pump-and-fluid-power-formulas)
+- [Motor control schematics and wiring diagrams](/article/motor-control-schematics-and-wiring-diagrams)

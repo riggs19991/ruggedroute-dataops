@@ -110,3 +110,4 @@ How to use this: read the question, decide on your answer, then tap **Answer**. 
 - [Oil Viscosity and Selection](/article/oil-viscosity-and-selection)
 - [Test yourself: advanced hydraulics](/article/quiz-hydraulics-advanced-troubleshooting)
 - [Millwright Glossary A to Z](/article/millwright-glossary)
+- [Test yourself: drawings, schematics and P&amp;IDs](/article/quiz-drawings-schematics-and-pids)

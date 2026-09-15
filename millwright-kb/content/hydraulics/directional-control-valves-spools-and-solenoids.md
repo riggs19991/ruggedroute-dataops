@@ -134,3 +134,5 @@ Freeing one: lock out and bleed, remove the coil and solenoid tube, push the spo
 - [Load-sensing, proportional and servo systems](/article/load-sensing-proportional-and-servo-systems)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
 - [Filters, fluid and contamination](/article/filters-fluid-and-contamination)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)

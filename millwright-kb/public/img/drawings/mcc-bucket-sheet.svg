@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>MCC bucket sheet</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="300" fill="#ffffff"/>
+<text x="110" y="18" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Bucket 3B (elevation)</text>
+<text x="340" y="18" font-size="11" text-anchor="middle" font-weight="700" fill="#1a2233">Bucket schedule</text>
+<rect x="30" y="30" width="160" height="250" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5" rx="3"/>
+<rect x="40" y="40" width="30" height="60" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<rect x="50" y="46" width="10" height="40" fill="#64748b" stroke="#1a2233" stroke-width="1.5"/>
+<text x="55" y="112" font-size="7" text-anchor="middle" fill="#5b6577">handle</text>
+<line x1="100" y1="40" x2="100" y2="52" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="100" y1="52" x2="100" y2="60" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="96" y="60" width="8" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="100" y1="60" x2="100" y2="76" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="100" y1="76" x2="100" y2="84" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="100" y1="84" x2="100" y2="96" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="118" y1="40" x2="118" y2="52" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="118" y1="52" x2="118" y2="60" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="114" y="60" width="8" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="118" y1="60" x2="118" y2="76" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="118" y1="76" x2="118" y2="84" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="118" y1="84" x2="118" y2="96" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="136" y1="40" x2="136" y2="52" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="136" y1="52" x2="136" y2="60" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="132" y="60" width="8" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="136" y1="60" x2="136" y2="76" stroke="#1a2233" stroke-width="1" stroke-linecap="round"/>
+<line x1="136" y1="76" x2="136" y2="84" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="136" y1="84" x2="136" y2="96" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="158" y="70" font-size="7.5" text-anchor="start" fill="#5b6577">FU</text>
+<line x1="100" y1="96" x2="100" y2="106" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="94" y1="106" x2="106" y2="106" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="94" y1="118" x2="106" y2="118" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="100" y1="118" x2="100" y2="128" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="109" y="115" font-size="7.5" text-anchor="start" fill="#1a2233"></text>
+<line x1="118" y1="96" x2="118" y2="106" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="112" y1="106" x2="124" y2="106" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="112" y1="118" x2="124" y2="118" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="118" y1="118" x2="118" y2="128" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="127" y="115" font-size="7.5" text-anchor="start" fill="#1a2233"></text>
+<line x1="136" y1="96" x2="136" y2="106" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="130" y1="106" x2="142" y2="106" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="130" y1="118" x2="142" y2="118" stroke="#1a2233" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="136" y1="118" x2="136" y2="128" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="145" y="115" font-size="7.5" text-anchor="start" fill="#1a2233"></text>
+<text x="158" y="115" font-size="7.5" text-anchor="start" fill="#5b6577">M</text>
+<line x1="100" y1="128" x2="100" y2="136" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="95" y="136" width="10" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="100" y1="152" x2="100" y2="166" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="118" y1="128" x2="118" y2="136" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="113" y="136" width="10" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="118" y1="152" x2="118" y2="166" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="136" y1="128" x2="136" y2="136" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="131" y="136" width="10" height="16" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="136" y1="152" x2="136" y2="166" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="158" y="148" font-size="7.5" text-anchor="start" fill="#5b6577">OL</text>
+<rect x="150" y="176" width="34" height="24" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="167" y="191" font-size="8" text-anchor="middle" font-weight="700" fill="#1a2233">CPT</text>
+<rect x="150" y="212" width="34" height="18" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="158" cy="221" r="3" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="167" cy="221" r="3" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<circle cx="176" cy="221" r="3" fill="#f1f5f9" stroke="#1a2233" stroke-width="1.5"/>
+<text x="167" y="244" font-size="7.5" text-anchor="middle" fill="#5b6577">TB</text>
+<line x1="100" y1="166" x2="100" y2="244" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="100" y="256" font-size="7" text-anchor="middle" fill="#1a2233">T1</text>
+<line x1="118" y1="166" x2="118" y2="244" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="118" y="256" font-size="7" text-anchor="middle" fill="#1a2233">T2</text>
+<line x1="136" y1="166" x2="136" y2="244" stroke="#1a2233" stroke-width="1.4" stroke-linecap="round"/>
+<text x="136" y="256" font-size="7" text-anchor="middle" fill="#1a2233">T3</text>
+<circle cx="55" cy="150" r="6" fill="#ffffff" stroke="#1a2233" stroke-width="1.5"/>
+<text x="55" y="168" font-size="6.5" text-anchor="middle" fill="#1a2233">RUN</text>
+<circle cx="55" cy="190" r="6" fill="#fee2e2" stroke="#1a2233" stroke-width="1.5"/>
+<text x="55" y="208" font-size="6.5" text-anchor="middle" fill="#1a2233">STOP</text>
+<circle cx="55" cy="230" r="6" fill="#dcfce7" stroke="#1a2233" stroke-width="1.5"/>
+<text x="55" y="248" font-size="6.5" text-anchor="middle" fill="#1a2233">START</text>
+<rect x="200" y="30" width="286" height="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="44.96" font-size="8.5" text-anchor="start" font-weight="600" fill="#1a2233">Field</text>
+<text x="272" y="44.96" font-size="8.5" text-anchor="start" font-weight="600" fill="#1a2233">Bucket 3B</text>
+<rect x="200" y="52" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="66.96000000000001" font-size="8.5" text-anchor="start" fill="#1a2233">Load</text>
+<text x="272" y="66.96000000000001" font-size="8.5" text-anchor="start" fill="#1a2233">P-101 cooling pump</text>
+<rect x="200" y="74" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="88.96000000000001" font-size="8.5" text-anchor="start" fill="#1a2233">HP / FLA</text>
+<text x="272" y="88.96000000000001" font-size="8.5" text-anchor="start" fill="#1a2233">25 hp / 32 A</text>
+<rect x="200" y="96" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="110.96000000000001" font-size="8.5" text-anchor="start" fill="#1a2233">Voltage</text>
+<text x="272" y="110.96000000000001" font-size="8.5" text-anchor="start" fill="#1a2233">480 V, 3 ph</text>
+<rect x="200" y="118" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="132.96" font-size="8.5" text-anchor="start" fill="#1a2233">Starter</text>
+<text x="272" y="132.96" font-size="8.5" text-anchor="start" fill="#1a2233">NEMA size 2, FVNR</text>
+<rect x="200" y="140" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="154.96" font-size="8.5" text-anchor="start" fill="#1a2233">Disconnect</text>
+<text x="272" y="154.96" font-size="8.5" text-anchor="start" fill="#1a2233">60 A fused, FU 45 A</text>
+<rect x="200" y="162" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="176.96" font-size="8.5" text-anchor="start" fill="#1a2233">OL setting</text>
+<text x="272" y="176.96" font-size="8.5" text-anchor="start" fill="#1a2233">32 A (class 10)</text>
+<rect x="200" y="184" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="198.96" font-size="8.5" text-anchor="start" fill="#1a2233">CPT</text>
+<text x="272" y="198.96" font-size="8.5" text-anchor="start" fill="#1a2233">480:120 V, 150 VA</text>
+<rect x="200" y="206" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="220.96" font-size="8.5" text-anchor="start" fill="#1a2233">Cable</text>
+<text x="272" y="220.96" font-size="8.5" text-anchor="start" fill="#1a2233">3 #8 + #10 gnd, C-12</text>
+<rect x="200" y="228" width="286" height="22" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="206" y="242.96" font-size="8.5" text-anchor="start" fill="#1a2233">Schematic</text>
+<text x="272" y="242.96" font-size="8.5" text-anchor="start" fill="#1a2233">E-201 sh 4, lines 12-19</text>
+<text x="343" y="272" font-size="8.5" text-anchor="middle" fill="#5b6577">the schedule is the settings sheet: check OL and fuse against it</text>
+<text x="250" y="292" font-size="12" text-anchor="middle" fill="#5b6577" font-style="italic">One bucket, one motor: elevation shows the parts, schedule the settings.</text>
+</svg>

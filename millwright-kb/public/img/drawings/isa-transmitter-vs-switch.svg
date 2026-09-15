@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 260" width="500" height="260" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Transmitter versus switch</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="260" fill="#ffffff"/>
+<rect x="20" y="24" width="460" height="30" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="44.400000000000006" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">device</text>
+<text x="102" y="44.400000000000006" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">tag ends in</text>
+<text x="154" y="44.400000000000006" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">what it does</text>
+<text x="294" y="44.400000000000006" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">signal out</text>
+<text x="378" y="44.400000000000006" font-size="7" text-anchor="start" font-weight="600" fill="#1a2233">in the field</text>
+<rect x="20" y="54" width="460" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="74.4" font-size="7" text-anchor="start" fill="#1a2233">gauge / indicator</text>
+<text x="102" y="74.4" font-size="7" text-anchor="start" fill="#1a2233">I or G</text>
+<text x="154" y="74.4" font-size="7" text-anchor="start" fill="#1a2233">shows the value locally</text>
+<text x="294" y="74.4" font-size="7" text-anchor="start" fill="#1a2233">none</text>
+<text x="378" y="74.4" font-size="7" text-anchor="start" fill="#1a2233">dial or digital readout</text>
+<rect x="20" y="84" width="460" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="104.4" font-size="7" text-anchor="start" fill="#1a2233">transmitter</text>
+<text x="102" y="104.4" font-size="7" text-anchor="start" fill="#1a2233">T</text>
+<text x="154" y="104.4" font-size="7" text-anchor="start" fill="#1a2233">measures, sends a continuous value</text>
+<text x="294" y="104.4" font-size="7" text-anchor="start" fill="#1a2233">4-20 mA or HART</text>
+<text x="378" y="104.4" font-size="7" text-anchor="start" fill="#1a2233">head with display, 2 wires</text>
+<rect x="20" y="114" width="460" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="134.4" font-size="7" text-anchor="start" fill="#1a2233">switch</text>
+<text x="102" y="134.4" font-size="7" text-anchor="start" fill="#1a2233">S</text>
+<text x="154" y="134.4" font-size="7" text-anchor="start" fill="#1a2233">closes or opens a contact at a set point</text>
+<text x="294" y="134.4" font-size="7" text-anchor="start" fill="#1a2233">contact (on/off)</text>
+<text x="378" y="134.4" font-size="7" text-anchor="start" fill="#1a2233">small box, set screw</text>
+<rect x="20" y="144" width="460" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="164.4" font-size="7" text-anchor="start" fill="#1a2233">controller</text>
+<text x="102" y="164.4" font-size="7" text-anchor="start" fill="#1a2233">C</text>
+<text x="154" y="164.4" font-size="7" text-anchor="start" fill="#1a2233">compares to set point, drives an output</text>
+<text x="294" y="164.4" font-size="7" text-anchor="start" fill="#1a2233">4-20 mA to the valve</text>
+<text x="378" y="164.4" font-size="7" text-anchor="start" fill="#1a2233">usually in the DCS</text>
+<rect x="20" y="174" width="460" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="26" y="194.4" font-size="7" text-anchor="start" fill="#1a2233">element</text>
+<text x="102" y="194.4" font-size="7" text-anchor="start" fill="#1a2233">E</text>
+<text x="154" y="194.4" font-size="7" text-anchor="start" fill="#1a2233">the sensing part only (orifice, RTD)</text>
+<text x="294" y="194.4" font-size="7" text-anchor="start" fill="#1a2233">raw signal to a T</text>
+<text x="378" y="194.4" font-size="7" text-anchor="start" fill="#1a2233">orifice flanges, well</text>
+<text x="250" y="236" font-size="8.5" text-anchor="middle" fill="#5b6577">a switch trips at one point and cannot tell you the value; a transmitter tells you the value all the time</text>
+</svg>

@@ -115,3 +115,5 @@ CSA W59 uses the same AWS A2.4 symbols. **ISO 2553** (European drawings, some eq
 - [Joint design and fit-up](/article/joint-design-and-fit-up)
 - [Weld defects and inspection](/article/weld-defects-and-inspection)
 - [Positions and techniques](/article/positions-and-techniques)
+- [Mechanical drawings: views, sections and dimensions](/article/mechanical-drawings-views-sections-and-dimensions)
+- [Reading engineering drawings: the basics](/article/reading-engineering-drawings-basics)

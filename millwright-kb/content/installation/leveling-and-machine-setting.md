@@ -115,3 +115,4 @@ After the machine has run at operating temperature and the **hot alignment** has
 - [Pipe strain and flange alignment](/article/pipe-strain-and-flange-alignment)
 - [Optical and laser levels and piano wire](/article/optical-and-laser-levels-piano-wire)
 - [Shim and gasket making (shim rules)](/article/shim-and-gasket-making)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)

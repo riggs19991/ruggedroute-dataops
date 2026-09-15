@@ -108,3 +108,4 @@ For a vertical shaft, a column, a hoist rope line, a vertical pump: hang a plumb
 - [Shaft alignment fundamentals](/article/shaft-alignment-fundamentals)
 - [Dial indicator use](/article/dial-indicator-use)
 - [Trig and layout formulas](/article/trig-and-layout-formulas)
+- [Structural and machine installation drawings](/article/structural-and-machine-installation-drawings)

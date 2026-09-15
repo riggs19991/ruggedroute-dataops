@@ -125,3 +125,5 @@ Full formulas (cylinder force, motor torque, pump displacement) in [pump and flu
 - [Directional control valves, spools and solenoids](/article/directional-control-valves-spools-and-solenoids)
 - [Pressure and flow control valves in depth](/article/pressure-and-flow-control-valves-in-depth)
 - [Advanced hydraulic troubleshooting and diagnostics](/article/hydraulic-troubleshooting-advanced-diagnostics)
+- [Hydraulic symbols (ISO 1219), complete](/article/hydraulic-symbols-iso-1219-complete)
+- [Reading hydraulic and pneumatic circuit diagrams](/article/reading-hydraulic-and-pneumatic-circuit-diagrams)

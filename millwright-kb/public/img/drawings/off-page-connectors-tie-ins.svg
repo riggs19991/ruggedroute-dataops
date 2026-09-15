@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 270" width="500" height="270" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1a2233">
+<title>Off-page connectors, tie-ins and holds</title>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="context-stroke"/></marker>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#64748b" stroke-width="1.2"/></pattern>
+<pattern id="hatch2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#0b5fa5" stroke-width="1.2"/></pattern>
+<pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#64748b"/></pattern>
+</defs>
+<rect width="500" height="270" fill="#ffffff"/>
+<text x="120" y="22" font-size="10" text-anchor="middle" font-weight="700" fill="#1a2233">Off-page connectors</text>
+<path d="M40,52 L70,52 L70,68 L40,68 L30,60 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="53" y="63" font-size="6.5" text-anchor="middle" font-weight="700" fill="#1a2233">P-104</text>
+<line x1="74" y1="60" x2="180" y2="60" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M186,52 L216,52 L226,60 L216,68 L186,68 Z" fill="#ffffff" stroke="#1a2233" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="203" y="63" font-size="6.5" text-anchor="middle" font-weight="700" fill="#1a2233">P-106</text>
+<text x="50" y="82" font-size="7" text-anchor="middle" fill="#5b6577">from sheet P-104</text>
+<text x="206" y="82" font-size="7" text-anchor="middle" fill="#5b6577">to sheet P-106</text>
+<text x="120" y="110" font-size="7.5" text-anchor="middle" fill="#5b6577"><tspan x="120" dy="0">the connector names the sheet; the same line</tspan><tspan x="120" dy="9.375">number appears at both ends</tspan></text>
+<text x="370" y="22" font-size="10" text-anchor="middle" font-weight="700" fill="#1a2233">Tie-in and existing</text>
+<line x1="290" y1="60" x2="360" y2="60" stroke="#1a2233" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
+<text x="325" y="50" font-size="6.5" text-anchor="middle" fill="#5b6577">EXISTING</text>
+<line x1="360" y1="60" x2="460" y2="60" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M360,48 L372,60 L360,72 L348,60 Z" fill="#fff4d6" stroke="#1a2233" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="360" y="63" font-size="6" text-anchor="middle" font-weight="700" fill="#1a2233">TP</text>
+<text x="360" y="86" font-size="7" text-anchor="middle" fill="#5b6577"><tspan x="360" dy="0">TP-14: tie-in point 14,</tspan><tspan x="360" dy="8.75">see tie-in list for the method</tspan></text>
+<text x="120" y="150" font-size="10" text-anchor="middle" font-weight="700" fill="#1a2233">Hold</text>
+<path d="M180.0,190.0 A9,9 0 0 1 176.4,197.5 A9,9 0 0 1 166.0,204.1 A9,9 0 0 1 150.0,209.1 A9,9 0 0 1 130.4,211.7 A9,9 0 0 1 109.6,211.7 A9,9 0 0 1 90.0,209.1 A9,9 0 0 1 74.0,204.1 A9,9 0 0 1 63.6,197.5 A9,9 0 0 1 60.0,190.0 A9,9 0 0 1 63.6,182.5 A9,9 0 0 1 74.0,175.9 A9,9 0 0 1 90.0,170.9 A9,9 0 0 1 109.6,168.3 A9,9 0 0 1 130.4,168.3 A9,9 0 0 1 150.0,170.9 A9,9 0 0 1 166.0,175.9 A9,9 0 0 1 176.4,182.5 A9,9 0 0 1 180.0,190.0" fill="none" stroke="#b91c1c" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="120" y="187" font-size="9" text-anchor="middle" font-weight="700" fill="#b91c1c">HOLD 3</text>
+<text x="120" y="198" font-size="6.5" text-anchor="middle" fill="#b91c1c">valve type TBD</text>
+<text x="120" y="232" font-size="7.5" text-anchor="middle" fill="#5b6577"><tspan x="120" dy="0">a hold means the design is not final here:</tspan><tspan x="120" dy="9.375">do not build or order against it</tspan></text>
+<text x="370" y="150" font-size="10" text-anchor="middle" font-weight="700" fill="#1a2233">By others / package boundary</text>
+<rect x="300" y="166" width="140" height="60" fill="#ffffff" stroke="#1a2233" stroke-width="1" stroke-dasharray="6 3"/>
+<text x="370" y="180" font-size="6.5" text-anchor="middle" font-weight="700" fill="#1a2233">PACKAGE VENDOR SCOPE</text>
+<text x="370" y="196" font-size="7" text-anchor="middle" fill="#1a2233">see vendor P&amp;ID V-2201</text>
+<line x1="260" y1="210" x2="300" y2="210" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="440" y1="210" x2="480" y2="210" stroke="#1a2233" stroke-width="2.2" stroke-linecap="round"/>
+<text x="370" y="244" font-size="7.5" text-anchor="middle" fill="#5b6577"><tspan x="370" dy="0">inside the dashed box the vendor drawing rules;</tspan><tspan x="370" dy="9.375">the plant P&amp;ID stops at the boundary</tspan></text>
+</svg>
