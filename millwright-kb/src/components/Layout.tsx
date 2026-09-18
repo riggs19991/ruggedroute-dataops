@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useAuth } from '../lib/auth'
 import { SearchBox } from './SearchBox'
 import { Logo } from './Logo'
+import { UpdateBanner } from './UpdateBanner'
 import { BUILD_ID, COMPANY, COPYRIGHT_YEAR, DONATE_URL, donateHref } from '../lib/site'
 import { resolvedTheme, toggleTheme } from '../lib/theme'
 
@@ -48,6 +49,7 @@ export function Layout() {
           </nav>
         </div>
       </header>
+      <UpdateBanner />
       {!online && <div className="offline-bar">You are offline. Articles and diagrams you have opened still work; search and sign-in need a connection.</div>}
       <main>
         <Outlet />

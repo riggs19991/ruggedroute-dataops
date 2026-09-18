@@ -23,7 +23,7 @@ import { Privacy } from './pages/Privacy'
 import { Terms } from './pages/Terms'
 import { SupportPage } from './pages/Support'
 import { CreditsPage } from './pages/Credits'
-import { registerSW } from 'virtual:pwa-register'
+import { startUpdateChecks } from './lib/updates'
 
 function RequireAuth({ children }: { children: React.ReactElement }) {
   const { user, loading } = useAuth()
@@ -61,13 +61,9 @@ function App() {
   )
 }
 
-// Service worker: precached shell, cached diagrams and articles. A new build installs and reloads
-// on its own (autoUpdate); long-lived tabs check for one every hour.
-registerSW({
-  onRegisteredSW(_url, registration) {
-    if (registration) setInterval(() => registration.update(), 60 * 60 * 1000)
-  },
-})
+// Service worker: precached shell, cached diagrams and articles. Every open, return to the
+// foreground and hour checks for a newer build; the UpdateBanner then offers to update.
+startUpdateChecks()
 
 initTheme()
 

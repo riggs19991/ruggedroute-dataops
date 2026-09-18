@@ -1,0 +1,12 @@
+# Cloudflare Workers static-asset headers. The update check (src/lib/updates.ts) must always see
+# the current version marker and service worker, never a cached copy; the Android app fetches
+# version.json cross-origin from its bundled shell, hence the CORS header.
+/version.json
+  Cache-Control: no-cache, no-store, must-revalidate
+  Access-Control-Allow-Origin: *
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/
+  Cache-Control: no-cache

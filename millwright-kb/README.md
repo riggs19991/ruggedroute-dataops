@@ -171,7 +171,7 @@ Password settings.
 **Live web app:** https://millwright-kb.riggs1991.workers.dev. It is a Cloudflare Worker serving the static build
 with single-page-app routing, deployed by `.github/workflows/millwright-kb.yml` on every
 push using the same `CLOUDFLARE_API_TOKEN` the tiles worker uses (Workers Scripts: Edit).
-It is also a PWA: on a phone, "Add to Home Screen" installs it with an icon and full-screen mode.
+It is also a PWA: on a phone, "Add to Home Screen" installs it with an icon and full-screen mode. Every time the app is opened it checks for a newer build (`version.json` plus the service worker) and shows an Update bar; the Android app points at the newest APK instead.
 
 Add the URL to Supabase → Authentication → URL Configuration (Site URL and Redirect URLs)
 so sign-up confirmation emails land back on the app. Supabase itself cannot host the page:

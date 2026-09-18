@@ -17,7 +17,7 @@ export function InstallPage() {
     <div style={{ maxWidth: 720, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div>
         <h1>Install on your phone</h1>
-        <p className="muted" style={{ margin: 0 }}>No app store needed. It opens from your home screen, works offline for anything you have opened, and updates itself.</p>
+        <p className="muted" style={{ margin: 0 }}>No app store needed. It opens from your home screen, works offline for anything you have opened, and checks for a newer version every time you open it.</p>
       </div>
       {standalone && <div className="notice ok" style={{ margin: 0 }}>You are already using the installed app.</div>}
       {deferred && <div><button type="button" className="btn primary" onClick={async () => { await deferred.prompt(); setDeferred(null) }}>📲 Install app now</button></div>}
@@ -47,7 +47,7 @@ export function InstallPage() {
         <ul style={{ margin: 0, paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 6 }}>
           <li>You can read everything without an account. Sign in to contribute, join a class group, bookmark, upvote or attach photos and manuals.</li>
           <li>Create your account once. The confirmation link opens in your browser; then come back to the app icon and sign in with your password. On iPhone the installed app keeps its own sign-in.</li>
-          <li>Everything you have opened is kept on the phone. Search needs a connection; the A-Z index and read articles do not. When a new version is published the app offers to reload.</li>
+          <li>Everything you have opened is kept on the phone. Search needs a connection; the A-Z index and read articles do not. Every time you open the app it checks for a newer version and, if there is one, shows an Update bar at the top so you always have the latest articles and diagrams. The Android app offers the newest APK download instead.</li>
           <li>On <Link to="/contribute">Contribute</Link> and in group posts you can take a photo with the camera or attach PDFs and documents up to 50 MB. Large photos are shrunk before upload.</li>
         </ul>
       </div>

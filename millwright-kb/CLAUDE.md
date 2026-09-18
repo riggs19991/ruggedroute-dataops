@@ -45,7 +45,11 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
 
 ## App shell rules
 
-- The site is an installable PWA (`vite-plugin-pwa`, config in `vite.config.ts`, `autoUpdate`). Never
+- The site is an installable PWA (`vite-plugin-pwa`, config in `vite.config.ts`, `registerType: 'prompt'`).
+  `src/lib/updates.ts` checks for a newer build on every open, return to the foreground and hour
+  (service worker update plus the build-time `version.json`, served uncached via `public/_headers`)
+  and `UpdateBanner` prompts the reader to update (reload on the web, APK download in the Android
+  app, which embeds its own copy of `dist/`). Never
   cache `/auth/**` or `/storage/**`. `/img/**` and `/photos/**` are cache-first but every figure URL
   carries the build id (`figureUrl` in `src/lib/site.ts`, applied by the markdown renderer), so a
   redrawn diagram shows on the next build without anyone clearing data; REST article reads are
