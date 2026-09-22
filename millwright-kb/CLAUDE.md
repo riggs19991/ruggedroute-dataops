@@ -54,6 +54,10 @@ Cloudflare Workers by `.github/workflows/millwright-kb.yml` on every push.
   carries the build id (`figureUrl` in `src/lib/site.ts`, applied by the markdown renderer), so a
   redrawn diagram shows on the next build without anyone clearing data; REST article reads are
   network-first with an offline fallback, so a re-seed shows on the next online open.
+- Donations: `/support` (amount picker + supporters wall) and `/support/thanks` (display choice) talk
+  to the Worker routes in `worker/index.ts` (`/api/donate/checkout|confirm|display`); every wall name
+  passes `src/lib/moderation.ts` in the browser and again in the Worker. Secrets `STRIPE_SECRET_KEY`
+  and `DONATION_TOKEN` live in GitHub and are pushed to the Worker by the deploy workflow.
 - Auth email links must point at `/auth/confirmed` (sign-up, magic link) and `/auth/reset`
   (password reset); the Supabase Site URL and redirect allow-list are owner settings.
 - Uploads go through `src/lib/files.ts` (folder = user id, images downscaled first) and the

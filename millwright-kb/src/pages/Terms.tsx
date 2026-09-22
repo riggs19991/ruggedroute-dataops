@@ -94,7 +94,10 @@ export function Terms() {
       <h2>8. Donations</h2>
       <p>
         Donations are voluntary gifts to support the creator. They do not buy goods, services, features or any
-        obligation, are not tax deductible, and are not refundable except where the law requires.
+        obligation, are not tax deductible, and are not refundable except where the law requires. After donating you
+        may choose to be listed on the public supporters wall under a name, a business name, your profile name or as
+        anonymous; the listing is optional, the name shown is your choice, and we may refuse or remove a name that is
+        offensive, misleading or impersonates someone.
       </p>
 
       <h2>9. Privacy</h2>

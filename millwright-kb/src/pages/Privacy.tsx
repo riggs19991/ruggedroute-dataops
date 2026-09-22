@@ -13,7 +13,7 @@ export function Privacy() {
         <li><b>Account</b>: your email address, a password (stored hashed by our provider), the display name and school you enter. Needed to sign in, to show who wrote a contribution and to run class groups.</li>
         <li><b>Contributions</b>: articles you write, group posts, bookmarks and the files you upload (PDFs, photos, documents). Uploaded files are private: only signed-in users can open them, through short-lived links.</li>
         <li><b>Usage</b>: an article view counter (a number per article, not per person) and your upvotes. No advertising, no analytics trackers, no selling of data.</li>
-        <li><b>Donations</b>: handled entirely by the payment provider you donate through; we never see or store card details.</li>
+        <li><b>Donations</b>: payment is handled by Stripe; we never see or store card details. We keep the amount, the date, the Stripe checkout reference and the name you choose to show on the supporters wall (or "Anonymous"). Email us to change or remove your listing.</li>
         <li><b>On your device</b>: the installed app keeps copies of articles and diagrams you have opened so they work offline, and your sign-in session. Clearing the app's data removes them.</li>
       </ul>
       <h2>Where it is stored</h2>

@@ -1,9 +1,38 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { COMPANY, COMPANY_LOCATION, CONTACT_EMAIL, DONATE_URL } from '../lib/site'
+import { postJson } from '../lib/api'
 import { AmpLockup } from '../components/AmpLockup'
+import { DonorWall } from '../components/DonorWall'
+import { Capacitor } from '@capacitor/core'
+
+const PRESETS = [5, 10, 25, 50]
 
 export function SupportPage() {
-  const amounts = ['$3', '$5', '$10', 'Any amount']
+  const [dollars, setDollars] = useState<number>(10)
+  const [custom, setCustom] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [msg, setMsg] = useState<string | null>(null)
+  const amount = custom ? Number(custom) : dollars
+  const valid = Number.isFinite(amount) && amount >= 1 && amount <= 10000
+
+  const donate = async () => {
+    if (!valid) { setMsg('Enter an amount from $1 to $10,000.'); return }
+    setBusy(true); setMsg(null)
+    const r = await postJson<{ url: string }>('/api/donate/checkout', { amount_cents: Math.round(amount * 100) })
+    setBusy(false)
+    if (r.ok && r.data?.url) {
+      if (Capacitor.isNativePlatform()) window.open(r.data.url, '_blank'); else window.location.assign(r.data.url)
+      return
+    }
+    if (r.status === 503 && DONATE_URL) {
+      // The in-app checkout is not configured yet: the payment link still works, without the wall entry.
+      window.open(DONATE_URL, '_blank', 'noopener,noreferrer')
+      return
+    }
+    setMsg(r.error === 'offline' ? 'You are offline. Try again when you have a connection.' : 'Could not start the donation. Please try again in a minute.')
+  }
+
   return (
     <div style={{ maxWidth: 720 }}>
       <div className="page-head"><span className="glyph big" aria-hidden="true">☕</span><h1>Support the creator</h1></div>
@@ -17,16 +46,30 @@ export function SupportPage() {
         and apprentice.
       </p>
       <div className="card donate-box">
-        {DONATE_URL ? (
-          <>
-            <div className="amounts">{amounts.map((a, i) => <a key={a} className={`chip${i === 1 ? ' primary' : ''}`} href={DONATE_URL} target="_blank" rel="noopener noreferrer" style={i === 1 ? { background: 'var(--accent)', color: 'var(--accent-ink)', borderColor: 'var(--accent)' } : undefined}>{a}</a>)}</div>
-            <a className="btn primary" href={DONATE_URL} target="_blank" rel="noopener noreferrer">☕ Donate securely with Stripe</a>
-          </>
-        ) : (
-          <div className="notice info" style={{ margin: 0 }}>The donation page is being set up. In the meantime you can reach the creator at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</div>
-        )}
-        <div className="small muted">Processed by Stripe; card details never touch the app. Donations are gifts to {COMPANY} and are not tax deductible.</div>
+        <div className="amounts" role="group" aria-label="Amount">
+          {PRESETS.map((d) => (
+            <button key={d} type="button" className={`chip${!custom && dollars === d ? ' selected' : ''}`} onClick={() => { setDollars(d); setCustom('') }}>${d}</button>
+          ))}
+          <label className="chip chip-input">
+            <span>$</span>
+            <input type="number" inputMode="decimal" min={1} max={10000} step={1} placeholder="other" value={custom} onChange={(e) => setCustom(e.target.value)} aria-label="Other amount in dollars" />
+          </label>
+        </div>
+        <button type="button" className="btn primary" onClick={donate} disabled={busy || !valid}>
+          {busy ? 'Opening Stripe…' : `☕ Donate ${valid ? `$${amount}` : ''} with Stripe`}
+        </button>
+        {msg && <div className="notice error" style={{ margin: 0 }}>{msg}</div>}
+        <div className="small muted">
+          Processed by Stripe; card details never touch the app. After you donate you choose how you appear on the
+          wall below: your name, your business, your profile name, or anonymous. Donations are gifts to {COMPANY} and
+          are not tax deductible.
+        </div>
       </div>
+
+      <h2 style={{ marginTop: 24 }}>Supporters</h2>
+      <p className="muted small" style={{ marginTop: 0 }}>Every entry is a verified donation. Names are the donor's own choice.</p>
+      <DonorWall />
+
       <AmpLockup text={<>Millwright KB is made by <b>{COMPANY}</b>, {COMPANY_LOCATION}.</>} />
       <h2 style={{ marginTop: 20 }}>Other ways to help</h2>
       <ol className="steps">

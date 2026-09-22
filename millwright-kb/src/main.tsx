@@ -22,6 +22,7 @@ import { AuthReset } from './pages/AuthReset'
 import { Privacy } from './pages/Privacy'
 import { Terms } from './pages/Terms'
 import { SupportPage } from './pages/Support'
+import { SupportThanksPage } from './pages/SupportThanks'
 import { CreditsPage } from './pages/Credits'
 import { startUpdateChecks } from './lib/updates'
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/support" element={<SupportPage />} />
+        <Route path="/support/thanks" element={<SupportThanksPage />} />
         <Route path="/credits" element={<CreditsPage />} />
         <Route path="/contribute" element={<RequireAuth><Contribute /></RequireAuth>} />
         <Route path="/contribute/:slug" element={<RequireAuth><Contribute /></RequireAuth>} />

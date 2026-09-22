@@ -4,7 +4,7 @@ import { useAuth } from '../lib/auth'
 import { SearchBox } from './SearchBox'
 import { Logo } from './Logo'
 import { UpdateBanner } from './UpdateBanner'
-import { BUILD_ID, COMPANY, COPYRIGHT_YEAR, DONATE_URL, donateHref } from '../lib/site'
+import { BUILD_ID, COMPANY, COPYRIGHT_YEAR, donateHref } from '../lib/site'
 import { resolvedTheme, toggleTheme } from '../lib/theme'
 
 export function Layout() {
@@ -20,9 +20,7 @@ export function Layout() {
     return () => { window.removeEventListener('online', up); window.removeEventListener('offline', down) }
   }, [])
 
-  const support = DONATE_URL
-    ? <a className="btn primary small" href={DONATE_URL} target="_blank" rel="noopener noreferrer">☕ Support the creator</a>
-    : <Link className="btn primary small" to={donateHref}>☕ Support the creator</Link>
+  const support = <Link className="btn primary small" to={donateHref}>☕ Support the creator</Link>
 
   return (
     <>

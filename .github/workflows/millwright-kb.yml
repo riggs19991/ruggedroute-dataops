@@ -46,6 +46,8 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || secrets.R2_ACCOUNT_ID }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          DONATION_TOKEN: ${{ secrets.DONATION_TOKEN }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "::notice::Cloudflare secrets not configured — skipping deploy (dist is attached as an artifact)."
@@ -53,6 +55,9 @@ jobs:
           fi
           set -o pipefail
           npx wrangler@4 deploy 2>&1 | tee deploy.log
+          # Donation API secrets (see README, "Donations and legal pages"); skipped when unset.
+          if [ -n "$STRIPE_SECRET_KEY" ]; then printf '%s' "$STRIPE_SECRET_KEY" | npx wrangler@4 secret put STRIPE_SECRET_KEY; fi
+          if [ -n "$DONATION_TOKEN" ]; then printf '%s' "$DONATION_TOKEN" | npx wrangler@4 secret put DONATION_TOKEN; fi
           url=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1)
           echo "::notice title=Millwright KB deployed::$url"
           echo "### Millwright KB is live at $url" >> "$GITHUB_STEP_SUMMARY"

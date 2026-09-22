@@ -1,9 +1,20 @@
-# Cloudflare Worker that serves the built site (dist/) as static assets with SPA routing.
+# Cloudflare Worker that serves the built site (dist/) as static assets with SPA routing, plus
+# the donation API under /api/* (worker/index.ts): Stripe Checkout and the supporters wall.
 # Deploy: npm run build && npx wrangler deploy   (CI does this in .github/workflows/millwright-kb.yml)
+# Secrets (wrangler secret put, or GitHub secrets read by the workflow):
+#   STRIPE_SECRET_KEY  restricted key with Checkout Sessions read+write
+#   DONATION_TOKEN     value of mw_settings.donation_token in Supabase
 name = "millwright-kb"
+main = "worker/index.ts"
 compatibility_date = "2026-01-01"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 not_found_handling = "single-page-application"
 html_handling = "auto-trailing-slash"
+run_worker_first = ["/api/*"]
+
+[vars]
+SUPABASE_URL = "https://tzucpijgyjhpgwukjsau.supabase.co"
+SUPABASE_ANON_KEY = "sb_publishable_qgSQd92ZSLnHIgGToevHuA_x8PVlxNP"

@@ -7,10 +7,9 @@
 // in the Android app (which embeds its own copy of the site) it opens the latest APK download.
 import { registerSW } from 'virtual:pwa-register'
 import { Capacitor } from '@capacitor/core'
-import { BUILD_ID } from './site'
+import { BUILD_ID, LIVE_SITE } from './site'
 
 export const APK_URL = 'https://github.com/riggs19991/ruggedroute-dataops/releases/download/android-latest/millwright-kb.apk'
-const LIVE_SITE = 'https://millwright-kb.riggs1991.workers.dev'
 const HOUR = 60 * 60 * 1000
 
 export type UpdateState = {

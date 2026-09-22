@@ -139,12 +139,21 @@ footer of every page and heads the Terms, Privacy and Support pages.
 The app is operated by Addictive Media Productions LLC. `/terms` (terms of use, safety
 disclaimer, community-content licence, copyright, liability, donations), `/privacy` and
 `/support` (a polite donation ask) are linked from the footer, the home page and the end
-of every article. The donation link is a Stripe Payment Link from the company's existing Stripe account
-(customer chooses the amount, no backend, no secret key in the repo). The donation button
-points at `VITE_DONATE_URL`, which both workflows read from the
-repository variable `DONATE_URL` (GitHub → Settings → Secrets and variables → Actions →
-Variables); or hard-code it in `src/lib/site.ts`; the default in `src/lib/site.ts` is the live Stripe link, so the variable is only needed to override it. Company
-name, contact email and copyright year live in `src/lib/site.ts`.
+of every article. Donations run through Stripe Checkout from inside the app: `/support` shows an amount picker and
+the public **supporters wall** (every entry is a verified donation), and `/support/thanks` lets the
+donor choose how to appear (name, business, profile name or anonymous). The Worker
+(`worker/index.ts`, routes under `/api/donate/*`) creates and confirms the Checkout session and
+records it through the token-gated functions in
+`supabase/migrations/20260922000100_mw_donations.sql`; names go through the filter in
+`src/lib/moderation.ts` (the `obscenity` dataset plus an extra term list) in the browser and again
+in the Worker. Setup, once: (1) in Stripe create a restricted API key with **Checkout Sessions:
+write** (read is included) and save it as the GitHub secret `STRIPE_SECRET_KEY`; (2) read the
+donation token from Supabase (`select value from mw_settings where key = 'donation_token'`) and
+save it as the GitHub secret `DONATION_TOKEN`. The deploy workflow pushes both to the Worker.
+Until they exist the Worker answers 503 and the Donate button falls back to the Stripe Payment Link
+in `VITE_DONATE_URL` (repository variable `DONATE_URL`, default in `src/lib/site.ts`), which
+does not add a wall entry. Company name, contact email and copyright year live in
+`src/lib/site.ts`.
 
 ### Re-seeding content from `content/`
 
