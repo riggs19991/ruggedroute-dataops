@@ -16,10 +16,21 @@ features (cat/EGR/DPF/O2-monitor deletes, readiness spoofing). See README "Scope
 ```
 vagtune/
   transport/   base.py      CanFrame, RawCanTransport, IsoTpLink (ABCs + errors)
-               isotp.py     software ISO 15765-2 (SF/FF/CF/FC, BS, STmin, padding)
-               j2534.py     ctypes binding; J2534RawCanTransport + J2534IsoTpLink
+               isotp.py     software ISO 15765-2 (SF/FF/CF/FC, BS, STmin, padding,
+                            extra_rx_ids + last_rx_id for functional/multi-responder use;
+                            one reassembly per responder, FC sent to physical_request_id())
+               router.py    CanRouter (one reader thread per bus, fan-out) + RouterEndpoint
+                            (a RawCanTransport view: own bounded queue, id-set/predicate/monitor)
+               context.py   TransportContext(kind) -> isotp_link()/tp20_channel()/raw_endpoint();
+                            kinds fake | can | j2534 (raw CAN + router) | j2534-fw (device ISO-TP)
+               j2534.py     ctypes binding; J2534Device (one handle) -> J2534Channel (CAN and
+                            ISO15765 on the same device); J2534RawCanTransport; J2534IsoTpChannel
+                            (ONE shared ISO15765 channel, routes by response id) + J2534IsoTpLink
                socketcan.py python-can RawCanTransport (optional dep)
-               fake.py      SimulatedEcu + FakeIsoTpLink  <- use this for ALL dev
+               fakebus.py   FakeCanBus/FakeCanTransport, UdsNode (SimulatedEcu behind ECU-side
+                            ISO-TP), SimulatedVehicle presets + register_preset_hook,
+                            get_default_vehicle()  <- what --transport fake talks to
+               fake.py      SimulatedEcu (the UDS brain) + FakeIsoTpLink/make_fake_pair (unit tests)
   uds/         client.py    UdsClient: request(), services, 0x78 pending, keepalive
                services.py  SIDs/subfunctions/enums    exceptions.py  NRC decode
   vag/         modules.py   CAN IDs + ident DIDs       dtc.py        DTC decode/db
@@ -27,14 +38,22 @@ vagtune/
                ecu.py       VagEcuSession (identify/dtc/unlock/read block)
   calibration/ image.py     FlashImage (bounds, diff, checksum regions)
                maps.py      Scaling/ScalarValue/Axis/Map  definition.py JSON defs
-  cli.py       argparse front end; the GUI must call the same library, not the CLI
+  commands/    _common.py   add_common_args (--transport/--dll/--can-*/--vehicle/--module),
+                            open_context(args), resolve_module(token: name or address word)
+               diag.py      scan, identify, dtc        calibration.py read-cal, show-map, scale-map, sa2
+               __init__.py  REGISTRARS: each area exposes register(sub, add_common_args)
+  cli.py       build_parser()/main() only; iterates commands.REGISTRARS. GUI calls the library.
 definitions/   JSON map definitions (simos18.1.example.json is DEMO addresses only)
-tests/         pytest; 45 tests; all protocol logic must stay covered
+docs/          DESIGN_0.2.md (binding 0.2.0 structure spec)
+tests/         pytest; 133 tests (132 run + 1 skipped without python-can); all protocol logic must stay covered
 ```
 
-Dependency direction: `calibration` and `vag` depend on `uds` depends on `transport`.
-`fake.py` imports `vag.sa2` (so the sim answers seed/key with real math) — that is
-the one allowed cross-reference.
+Dependency direction: `commands` -> everything; `calibration` and `vag` depend on `uds`
+depends on `transport`. Inside `transport`: `context` -> `router`/`isotp`/`fakebus`/hardware;
+`fakebus` -> `fake` -> `vag.sa2` (so the sim answers seed/key with real math) — that is the
+one allowed cross-reference. `context.tp20_channel()` imports `transport.tp20` lazily and
+raises `TransportError` while that module is absent. Other slices add simulated modules via
+`SimulatedVehicle.register_preset_hook(preset, hook)`, never by editing `fakebus.py`.
 
 ## Commands
 
@@ -42,14 +61,23 @@ the one allowed cross-reference.
 pip install -e ".[dev]"          # python-can path: pip install -e ".[dev,can]"
 python -m pytest -q              # must be green before any commit
 vagtune --help
-vagtune identify                 # default --transport fake (no hardware)
-vagtune identify --transport j2534 --dll "C:\...\op20pt32.dll"
-vagtune dtc [--clear]
+vagtune identify                 # default --transport fake (simulated vehicle, real ISO-TP framing)
+vagtune identify --module 19     # --module takes names (engine, gateway, ...) or address words (01, 19)
+vagtune identify --transport j2534 --dll "C:\...\op20pt32.dll"      # raw CAN via pass-thru (universal)
+vagtune read-cal --transport j2534-fw --profile simos18.1 --out stock.bin   # device-side ISO-TP, fast
+vagtune scan [--vehicle demo]    # --vehicle picks the fake preset: demo | golf-tdi-2012 | r32-2008
+vagtune dtc [--clear] [--module abs]
 vagtune read-cal --profile simos18.1 --out stock.bin
 vagtune show-map --def definitions/simos18.1.example.json --bin stock.bin --map boost_target
 vagtune scale-map --def ... --bin stock.bin --map boost_target --multiplier 1.05 --clamp 300 --out tune.bin
 vagtune sa2 --script <hex> --seed <hex>
 ```
+
+Library entry point for anything that needs several links on one cable:
+`with TransportContext("j2534") as ctx: link = ctx.isotp_link(0x7E0, 0x7E8)`.
+`make_isotp_link(kind, tx, rx)` stays for the one-link case and releases the hardware on close.
+A functional OBD link on any kind: `ctx.isotp_link(0x7DF, 0x7E8, extra_rx_ids=range(0x7E9, 0x7F0))`
+(single-frame requests only; `link.last_rx_id` names the responder of each payload).
 
 ## Conventions
 
@@ -58,7 +86,7 @@ vagtune sa2 --script <hex> --seed <hex>
   (`NotImplementedError` with the reason) — never silently fake success.
 - Every protocol change gets a test against `SimulatedEcu` or the ISO-TP loopback.
   Hardware classes (`j2534.py`, `socketcan.py`) must still *import* on Linux/macOS.
-- Logging via `logging.getLogger(__name__)`; never `print()` outside `cli.py`.
+- Logging via `logging.getLogger(__name__)`; never `print()` outside `commands/`.
 - Big-endian is the default for VAG Tricore calibration data (`Scaling.endian`).
 - `FlashImage` keeps `_original`; any write path must be able to `diff()` and `reset()`.
 - Safety invariants (do not relax): backup stock before any write; checksums
@@ -79,9 +107,17 @@ vagtune sa2 --script <hex> --seed <hex>
 - SIMOS18.1 SA2 script and CAL block (0x80A80000, 0x80000) are in `vag/profiles.py`.
 - J2534: ISO15765 channel + FLOW_CONTROL filter (mask FFFFFFFF, pattern rx_id, flow
   tx_id), TxFlags ISO15765_FRAME_PAD (0x40). **ERR_TIMEOUT = 0x09**, ERR_BUFFER_EMPTY
-  = 0x10 (both mean "nothing to read"). CLEAR_TX_BUFFER 0x07, CLEAR_RX_BUFFER 0x08.
-  ISO15765_BS 0x1E / ISO15765_STMIN 0x1F are *our* FC parameters; STMIN_TX 0x23 is
-  the optional transmit override.
+  = 0x10. CLEAR_TX_BUFFER 0x07, CLEAR_RX_BUFFER 0x08. ISO15765_BS 0x1E / ISO15765_STMIN
+  0x1F are *our* FC parameters; STMIN_TX 0x23 is the optional transmit override.
+  J2534-1 allows **one channel per protocol per device**; PassThruReadMsgs with
+  Timeout > 0 **blocks** until pNumMsgs messages arrived or the timeout expired and then
+  returns ERR_TIMEOUT with pNumMsgs = the partial count (that partial batch is data).
+  RxStatus: TX_MSG_TYPE 0x01 = loopback, START_OF_MESSAGE 0x02 = FF indication (DataSize 4),
+  TX_INDICATION 0x08 = transmit done, PADDING_ERROR 0x10, CAN_29BIT_ID 0x100.
+- ISO 15765-4 functional addressing: requests to 0x7DF must fit a single frame; the FC
+  for a multi-frame *response* goes to the responder's **physical** request id
+  (0x7E8 -> 0x7E0; VAG extended range 0x76A..0x77F -> id - 0x6A, e.g. 0x77A -> 0x710);
+  an ECU ignores FC on 0x7DF. `isotp.physical_request_id()` is the table.
 
 ## Gotchas already paid for
 
@@ -90,6 +126,33 @@ vagtune sa2 --script <hex> --seed <hex>
 - Most J2534 DLLs (Tactrix `op20pt32.dll`) are 32-bit → run **32-bit Python** on
   Windows, or the load fails with WinError 193. `j2534.py` reports this clearly.
 - ISO-TP receiver must re-send FC after every `rx_block_size` CFs (fixed; tested).
+- ISO-TP `recv(timeout)` bounds the wait for a payload to *start*; once a FF is in, each
+  CF gets its own N_Cr window. A short polling timeout must never abort a transfer the
+  receiver already acknowledged (bit the simulated ECU; fixed; tested).
+- A simulated vehicle preset must be *started* before a tester can get answers;
+  `get_default_vehicle()` does that. `--vehicle golf-tdi-2012`/`r32-2008` have no nodes
+  until the UDS/KWP/OBD slices register their preset hooks. `stop()` detaches a node's
+  transport and `start()` re-attaches it (`SimulatedNode.on_starting`), so a vehicle can
+  be restarted; a node whose transport dies underneath it logs a warning, never `break`s
+  silently (fixed; tested).
+- Functional (0x7DF) multi-frame: the simulator used to accept FC on 0x7DF and the link
+  used to send it there, which a real ECU ignores. Now FC goes to `physical_request_id()`,
+  an ECU-side link accepts FC only from its physical rx id, and a functional link keeps
+  one reassembly per responder so concurrent FFs are not dropped (fixed; tested).
+- Never hold `J2534Device.lock` across a wait: `J2534Channel.read()` always calls
+  PassThruReadMsgs with Timeout 0 and sleeps `read_poll_interval` (1 ms) *outside* the
+  lock. Holding it inside a blocking 50 ms read stalled every send() behind the router
+  reader by seconds (fixed; tested with a FakeLibrary that blocks like a real DLL).
+- `J2534Channel.read()` returns a partial batch on ERR_TIMEOUT/ERR_BUFFER_EMPTY; the old
+  `return []` lost the one response a spec-conforming DLL had already handed over.
+- `J2534RawCanTransport.open()` closes the device it owns when PassThruConnect fails
+  (otherwise the Tactrix driver reports ERR_DEVICE_IN_USE until the process exits).
+- `j2534-fw` opens ONE ISO15765 channel (`TransportContext.fw_channel`); every link joins
+  it with its own FLOW_CONTROL filter(s). Two live links may not claim the same response id.
+- Closing a RouterEndpoint / CanRouter / TransportContext wakes a thread blocked in
+  `endpoint.recv()` immediately (deque + Condition, not queue.Queue).
+- `extended_id` must reach the hardware: `TransportContext(extended_id=True)` connects the
+  J2534 channel with CAN_29BIT_ID; silently sending 29-bit ids on an 11-bit channel was a bug.
 - The sim ECU serves a pattern, not real maps; `simos18.1.example.json` addresses
   are demo-only. Real addresses must be reverse-engineered or imported from a
   community definition (XDF/A2L import is on the roadmap).

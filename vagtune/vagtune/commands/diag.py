@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+ORDER = 10  # help ordering: diagnostics first
+
 import argparse
 import logging
 from typing import Callable
