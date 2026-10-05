@@ -11,11 +11,14 @@ out of flash.
 This is the object a GUI or the CLI drives. It owns the tester-present keepalive
 during security-sensitive work.
 
-Safety invariants (binding, see CLAUDE.md / DESIGN_0.2 §8): a coding write needs a
-backup taken *before* the write, refuses when the module's identity (F187/F189/F191)
-differs from the backup's, is a dry run by default, and needs ``confirm=True`` to
-touch the module. Mappings PROTOCOL_FACTS lists as Reported (the login level/key
-rule, the ``2E 0600`` coding write) are flagged UNVERIFIED and warn once.
+Safety invariants (binding, see CLAUDE.md / DESIGN_0.2 §8): every DID write (coding
+0x0600 via :meth:`VagEcuSession.write_coding`, any other DID - adaptation, workshop
+code - via :meth:`VagEcuSession.write_did`) needs a backup taken *before* the write,
+refuses when the module's identity (F187/F189/F191) differs from the backup's, is a
+dry run by default, needs ``confirm=True`` to touch the module and verifies by
+read-back. Mappings PROTOCOL_FACTS lists as Reported (the login level/key rule, the
+``2E 0600`` coding write, adaptation DIDs written with 0x2E) are flagged UNVERIFIED
+and warn once.
 """
 
 from __future__ import annotations
@@ -28,7 +31,7 @@ from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Union
 from ..uds import dtc as udsdtc
 from ..uds import services as S
 from ..uds.client import SeedKeyFn, UdsClient
-from ..uds.exceptions import NegativeResponse, UdsTimeout
+from ..uds.exceptions import NegativeResponse, UdsTimeout, UnexpectedResponse
 from .dtc import VagDtc, decode_dtc_number, decode_uds_dtc, describe_dtc, warn_unverified
 from .profiles import EcuProfile, FlashBlock, guess_profile
 from .sa2 import make_seed_key_fn
@@ -362,21 +365,115 @@ class VagEcuSession:
             self._did_sizes[did] = len(data)
         return out
 
-    def write_did(self, did: int, data: bytes, *, confirm: bool = False) -> bytes:
-        """WriteDataByIdentifier with the write guard: refuses without ``confirm=True``;
-        returns the previous value (read first, ``b""`` if the DID is write-only) so the
-        caller can keep it as a backup. Use :meth:`write_coding` for DID 0x0600."""
+    def make_did_backup(self, did: int, *, module: str = "") -> Dict[str, Any]:
+        """The backup dict :meth:`write_did` requires: module identity (F187/F189/F191
+        plus the full identification), the DID's current value and a UTC timestamp.
+        Persist it (JSON) *before* writing. For DID 0x0600 this is
+        :meth:`make_coding_backup`. A write-only DID (NRC on read) is recorded with
+        ``value = None``; the write then cannot be verified by read-back."""
+        if did == self.CODING_DID:
+            return self.make_coding_backup(module=module)
+        identity = self.read_identity()
+        try:
+            value: Optional[str] = self.read_did(did).hex()
+        except NegativeResponse as exc:
+            log.warning("DID 0x%04X cannot be read before writing (%s); backup holds no value",
+                        did, exc)
+            value = None
+        return {
+            "module": module,
+            "timestamp": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds"),
+            "identity": identity.identity_key(),
+            "identity_full": identity.to_dict(),
+            "did": f"{did:04X}",
+            "value": value,
+        }
+
+    def write_did(self, did: int, data: bytes, *, backup: Mapping[str, Any],
+                  confirm: bool = False, dry_run: bool = True) -> CodingWriteResult:
+        """WriteDataByIdentifier (``2E <DID> <data>``) behind the same safety wrapper as
+        :meth:`write_coding` (DESIGN_0.2 §8.5: dry-run is the default for coding and
+        adaptation; backup before any write; identity must match the backup).
+
+        Order of checks (each raises :class:`CodingSafetyError`):
+
+        1. ``backup`` must come from :meth:`make_did_backup` for this DID;
+        2. the module's current F187/F189/F191 must equal the backup's;
+        3. the DID's current value must equal the backup's (unless the DID is
+           write-only and the backup recorded no value);
+        4. ``dry_run=True`` (default) stops here and reports what would happen;
+        5. ``confirm=True`` is required to write.
+
+        UNVERIFIED mapping (PROTOCOL_FACTS §7.6 Reported, medium): on UDS modules a
+        VCDS adaptation channel is a DID written with 0x2E after login - the DID
+        numbers live in the ODX and no write was captured on a real module, so the
+        write warns once and is gated behind the explicit confirmation. After writing,
+        the DID is read back and compared (a write-only DID is reported
+        ``verified=False``, never as verified). DID 0x0600 is redirected to
+        :meth:`write_coding`.
+        """
         if did == self.CODING_DID:
             raise CodingSafetyError("use write_coding() for the coding DID (backup + identity check)")
-        if not confirm:
-            raise CodingSafetyError(f"writing DID 0x{did:04X} needs confirm=True")
-        try:
-            old = self.client.read_data_by_identifier(did)
-        except NegativeResponse:
+        if not isinstance(backup, Mapping) or "identity" not in backup or "value" not in backup:
+            raise CodingSafetyError("write_did needs the backup dict from make_did_backup()")
+        if str(backup.get("did", "")).upper() != f"{did:04X}":
+            raise CodingSafetyError(
+                f"backup is for DID {backup.get('did')!r}, not 0x{did:04X}; take a backup of this DID")
+        self._check_identity_against_backup(backup)
+        new = bytes(data)
+        if not new:
+            raise CodingSafetyError("refusing to write an empty value")
+        backup_value = backup["value"]
+        readable = backup_value is not None
+        if readable:
+            old = self.read_did(did)
+            if old.hex() != str(backup_value).lower():
+                raise CodingSafetyError(
+                    f"current value of DID 0x{did:04X} ({old.hex()}) differs from the backup "
+                    f"({backup_value}); take a fresh backup first")
+        else:
             old = b""
-        log.warning("writing DID 0x%04X: %s -> %s", did, old.hex() or "(write-only)", data.hex())
-        self.client.write_data_by_identifier(did, data)
-        return old
+        result = CodingWriteResult(did, old, new, dry_run, False, False, dict(backup["identity"]))
+        if dry_run:
+            log.info("dry run: would write DID 0x%04X %s -> %s", did, old.hex() or "(write-only)", new.hex())
+            return result
+        if not confirm:
+            raise CodingSafetyError(f"writing DID 0x{did:04X} needs confirm=True (and dry_run=False)")
+        if readable and new == old:
+            log.info("DID 0x%04X unchanged; nothing written", did)
+            result.verified = True
+            return result
+        # UNVERIFIED: adaptation/workshop DIDs are written with 2E after login (Reported, medium).
+        warn_unverified("adaptation-did-write-2e",
+                        "DID write uses WriteDataByIdentifier 0x2E after login (UDS adaptation "
+                        "channels are DIDs per PROTOCOL_FACTS §7.6 Reported); no VCDS trace "
+                        "of such a write was captured")
+        log.warning("writing DID 0x%04X: %s -> %s", did, old.hex() or "(write-only)", new.hex())
+        self.client.write_data_by_identifier(did, new)
+        result.written = True
+        if not readable:
+            log.warning("DID 0x%04X is write-only; the write could not be verified by read-back", did)
+            return result
+        readback = self.read_did(did)
+        result.verified = readback == new
+        if not result.verified:
+            raise CodingSafetyError(
+                f"read-back of DID 0x{did:04X} after write is {readback.hex()}, expected "
+                f"{new.hex()}; restore from the backup ({old.hex()})")
+        return result
+
+    def _check_identity_against_backup(self, backup: Mapping[str, Any]) -> Dict[str, Optional[str]]:
+        """Refuse (CodingSafetyError) unless the module's F187/F189/F191 equal the
+        backup's ``identity``; returns the current identity key."""
+        identity = self.read_identity(dids=list(IDENTITY_CHECK_DIDS))
+        current_key = identity.identity_key()
+        backup_key = {str(k).upper(): v for k, v in dict(backup["identity"]).items()}
+        for did_hex, value in current_key.items():
+            if backup_key.get(did_hex) != value:
+                raise CodingSafetyError(
+                    f"identity mismatch for DID {did_hex}: module reports {value!r}, "
+                    f"backup has {backup_key.get(did_hex)!r}; refusing to write")
+        return current_key
 
     def scan_dids(self, start: int = 0x0000, stop: int = 0x10000, *,
                   on_progress: Optional[Callable[[int, Any], None]] = None
@@ -429,8 +526,14 @@ class VagEcuSession:
                            did_sizes: Optional[Mapping[int, int]] = None,
                            record_sizes: Optional[Mapping[int, int]] = None) -> List[VagDtcDetail]:
         """Every stored fault decoded VCDS-style, plus its 0x19 0x04 snapshots and
-        0x19 0x06 extended data (raw where sizes are unknown). A module that refuses
-        a subfunction (NRC) does not abort the list; the error is kept per fault."""
+        0x19 0x06 extended data (raw where sizes are unknown).
+
+        Neither a module that refuses a subfunction (NRC) nor a parser error aborts
+        the list: the error text is kept per fault in ``snapshot_error`` /
+        ``extended_error``. Record sizes are per module, so a ``record_sizes`` table
+        from the wrong module misaligns the 0x06 walk (the parser then raises
+        :class:`UnexpectedResponse`); in that case the extended data is re-read with
+        no sizes so the raw bytes are still available for inspection."""
         sizes: Dict[int, int] = dict(self._did_sizes)
         if did_sizes:
             sizes.update(did_sizes)
@@ -440,13 +543,22 @@ class VagEcuSession:
             if with_snapshot:
                 try:
                     detail.snapshots = self.client.read_dtc_snapshot(d.dtc, 0xFF, sizes).records
-                except NegativeResponse as exc:
+                except (NegativeResponse, UnexpectedResponse) as exc:
                     detail.snapshot_error = str(exc)
+                    log.warning("snapshot of %s not decoded: %s", detail.dtc.sae_code, exc)
             if with_extended:
                 try:
                     detail.extended = self.client.read_dtc_extended_data(d.dtc, 0xFF, record_sizes).records
                 except NegativeResponse as exc:
                     detail.extended_error = str(exc)
+                except UnexpectedResponse as exc:
+                    detail.extended_error = str(exc)
+                    log.warning("extended data of %s not decoded with the given record sizes (%s); "
+                                "keeping it raw", detail.dtc.sae_code, exc)
+                    try:
+                        detail.extended = self.client.read_dtc_extended_data(d.dtc, 0xFF, None).records
+                    except (NegativeResponse, UnexpectedResponse) as exc2:
+                        detail.extended_error = f"{exc}; raw re-read failed: {exc2}"
             out.append(detail)
         return out
 
@@ -494,14 +606,7 @@ class VagEcuSession:
         """
         if not isinstance(backup, Mapping) or "identity" not in backup or "coding" not in backup:
             raise CodingSafetyError("write_coding needs the backup dict from make_coding_backup()")
-        identity = self.read_identity(dids=list(IDENTITY_CHECK_DIDS))
-        current_key = identity.identity_key()
-        backup_key = {str(k).upper(): v for k, v in dict(backup["identity"]).items()}
-        for did_hex, value in current_key.items():
-            if backup_key.get(did_hex) != value:
-                raise CodingSafetyError(
-                    f"identity mismatch for DID {did_hex}: module reports {value!r}, "
-                    f"backup has {backup_key.get(did_hex)!r}; refusing to write")
+        current_key = self._check_identity_against_backup(backup)
         old = self.read_coding()
         if old.hex() != str(backup["coding"]).lower():
             raise CodingSafetyError(

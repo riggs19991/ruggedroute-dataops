@@ -200,11 +200,45 @@ def test_freeze(capsys):
     assert "0C  Engine speed [frame 0]: 800 rpm" in out
     assert "Freeze frame 0 stored for P0730" in out and "0D  Vehicle speed [frame 0]: 0 km/h" in out
     rc, out, _ = run(capsys, "freeze", "--vehicle", PRESET_TDI)
-    assert rc == 0 and "No freeze frame stored (PID 02 = 0000)." in out and "[frame 0]" not in out
+    assert rc == 0 and "No freeze frame 0 stored (PID 02 = 0000)." in out and "[frame 0]" not in out
     rc, out, _ = run(capsys, "freeze", "0C", "05", "--frame", "0")
     assert rc == 0 and "05  Engine coolant temperature [frame 0]: 90 °C" in out and "0B  Intake" not in out
     rc, out, _ = run(capsys, "freeze", "--frame", "1", "0C")
-    assert rc == 1 and "No ECU answered Mode 02 for frame 1." in out
+    assert rc == 0 and out.count("No freeze frame 1 stored (PID 02 = 0000).") == 2 and "[frame" not in out
+    rc = main(["obd", "freeze", "--vehicle", "demo", *FAST])
+    out, _ = capsys.readouterr()
+    assert rc == 1 and "No ECU answered Mode 02 for frame 0." in out
+
+
+def test_batch_bitmaps_works_for_every_mode(capsys):
+    rc, out, _ = run(capsys, "freeze", "--batch-bitmaps")
+    assert rc == 0 and "0C  Engine speed [frame 0]: 800 rpm" in out
+    rc, out, _ = run(capsys, "pids", "--mode", "02", "--batch-bitmaps")
+    assert rc == 0 and "02  DTC that caused freeze frame" in out
+    rc, out, _ = run(capsys, "pids", "--batch-bitmaps")
+    assert rc == 0 and "0C  Engine speed" in out
+    engine = get_default_vehicle(PRESET).node("obd-engine").ecu.obd
+    assert all(len(r) <= 7 for r in engine.requests)
+
+
+def test_pids_mode_is_restricted_to_bitmap_services(capsys):
+    engine = get_default_vehicle(PRESET).node("obd-engine").ecu.obd
+    for bad in ("03", "04", "07", "0A", "0B"):
+        with pytest.raises(SystemExit):
+            main(["obd", "pids", "--mode", bad, "--vehicle", PRESET, *FAST])
+    assert engine.requests == []                               # nothing malformed reached the bus
+    _, err = capsys.readouterr()
+    assert "has no supported-ID bitmaps" in err
+    rc, out, _ = run(capsys, "pids", "--mode", "08")
+    assert rc == 1 and "No ECU answered the mode 08 supported-ID request." in out
+
+
+def test_window_must_be_positive(capsys):
+    for bad in ("0", "-1", "abc"):
+        with pytest.raises(SystemExit):
+            main(["obd", "status", "--vehicle", PRESET, "--window", bad])
+    _, err = capsys.readouterr()
+    assert "window must be > 0" in err
 
 
 def test_car_presets_answer_obd_but_not_uds(capsys):

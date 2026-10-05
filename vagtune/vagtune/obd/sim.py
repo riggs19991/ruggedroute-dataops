@@ -358,9 +358,16 @@ class SimulatedObdEcu:
     # --------------------------------------------------------- Mode 02
 
     def _mode02(self, request: bytes) -> Optional[bytes]:
+        """ISO 15031-5 §7.2.4.2 / Table 7 e-h, strictly: without a stored frame the ECU
+        answers only the bitmap PIDs and PID 02 (``00 00``) and is *silent* for any
+        request naming another PID - even when PID 02 is in the same request."""
         pairs = request[1:]
         if len(pairs) == 0 or len(pairs) % 2 or len(pairs) > 6:
             return _negative(0x02, NRC_SUBFUNCTION_NOT_SUPPORTED)
+        for i in range(0, len(pairs), 2):
+            pid, frame = pairs[i], pairs[i + 1]
+            if not P.is_support_id(pid) and pid != 0x02 and self.freeze_frame(frame) is None:
+                return None
         body = b""
         for i in range(0, len(pairs), 2):
             pid, frame = pairs[i], pairs[i + 1]
@@ -370,7 +377,8 @@ class SimulatedObdEcu:
                     body += rec[:1] + bytes([frame]) + rec[1:]
                 continue
             if pid == 0x02:
-                body += bytes([pid, frame]) + (self.freeze_dtc_bytes() if frame == 0 else b"\x00\x00")
+                has_frame = self.freeze_frame(frame) is not None
+                body += bytes([pid, frame]) + (self.freeze_dtc_bytes() if has_frame else b"\x00\x00")
                 continue
             stored = self.freeze_frame(frame)
             if stored and pid in stored:

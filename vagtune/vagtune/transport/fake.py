@@ -437,16 +437,25 @@ class SimulatedEcu:
 
     # -- 0x22 / 0x2E -------------------------------------------------------------
 
-    def _did_value(self, did: int) -> Optional[bytes]:
+    def _did_value(self, did: int, _visited: Optional[FrozenSet[int]] = None) -> Optional[bytes]:
         if did == 0xF186:
             return bytes([self.session])
         if did in self.dynamic_dids:
+            # Definitions are stored as leaves (see _svc_dynamic_did), so a chain can
+            # not occur through the service; the visited set guards a cycle injected
+            # straight into ``dynamic_dids`` so it answers NRC 0x31, never recurses.
+            visited = (_visited or frozenset()) | {did}
             out = bytearray()
             for kind, a, b, size in self.dynamic_dids[did]:
                 if kind == "mem":
                     out += self._slice(a, size)
                 else:
-                    src = self._did_value(a) or b""
+                    if a in visited:
+                        log.warning("dynamic DID 0x%04X refers back to itself; answering 0x31", did)
+                        return None
+                    src = self._did_value(a, visited)
+                    if src is None:          # source vanished or cyclic: the DID cannot be served
+                        return None
                     out += src[b - 1:b - 1 + size]
             return bytes(out)
         return self.identifiers.get(did)
@@ -455,13 +464,14 @@ class SimulatedEcu:
         if len(request) < 3 or (len(request) - 1) % 2:
             raise _Nrc(0x13)
         dids = [(request[i] << 8) | request[i + 1] for i in range(1, len(request), 2)]
+        # ISO 14229-1 §10.2.5.3: securityAccessDenied applies to the *request*: if any
+        # requested DID is secured and the tester is not unlocked, the whole multi-DID
+        # read is refused with 0x33 (it is not silently dropped from the answer).
+        if not self.unlocked_levels and any(did in self.locked_dids for did in dids):
+            raise _Nrc(0x33)
         body = bytearray([0x62])
         found = 0
         for did in dids:
-            if did in self.locked_dids and not self.unlocked_levels:
-                if len(dids) == 1:
-                    raise _Nrc(0x33)   # securityAccessDenied: exists, but not for you yet
-                continue
             value = self._did_value(did)
             if value is None:
                 continue
@@ -732,11 +742,36 @@ class SimulatedEcu:
                 value = self._did_value(src)
                 if value is None or position < 1 or position - 1 + size > len(value):
                     raise _Nrc(0x31)
-                entries.append(("did", src, position, size))
+                if src in self.dynamic_dids:
+                    # A dynamic DID as source is allowed (ISO does not forbid it) but is
+                    # resolved into its memory / static-DID leaves *now*, so later
+                    # redefinitions of the source cannot build a chain or a cycle.
+                    entries += self._resolve_window(self.dynamic_dids[src], position - 1, size)
+                else:
+                    entries.append(("did", src, position, size))
         else:
             raise _Nrc(0x12)
         self.dynamic_dids[dyn] = entries
         return bytes([0x6C, sub, request[2], request[3]])
+
+    @staticmethod
+    def _resolve_window(leaves: List[Tuple[str, int, int, int]], start: int,
+                        length: int) -> List[Tuple[str, int, int, int]]:
+        """The leaf entries covering ``[start, start+length)`` of the concatenation of
+        ``leaves`` (each leaf is ``("mem", addr, 0, size)`` or ``("did", src, pos, size)``)."""
+        out: List[Tuple[str, int, int, int]] = []
+        offset = 0
+        for kind, a, b, size in leaves:
+            lo = max(start, offset)
+            hi = min(start + length, offset + size)
+            if lo < hi:
+                skip = lo - offset
+                if kind == "mem":
+                    out.append(("mem", a + skip, 0, hi - lo))
+                else:
+                    out.append(("did", a, b + skip, hi - lo))
+            offset += size
+        return out
 
     # -- 0x34 / 0x35 / 0x36 ------------------------------------------------------
 

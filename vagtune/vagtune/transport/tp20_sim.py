@@ -11,14 +11,17 @@ behaves like the real modules in the traces behind :mod:`vagtune.transport.tp20`
   (the tester's requested transmit id - 0x300 - is honoured, the tester's transmit id
   is *chosen by the module*: 0x740 for an engine, 0x7A8 for an EPS...); 0xD8 while a
   channel is already open; 0xD6 for an application type other than 0x01;
-* A0 -> A1 (its own parameters, ``A1 0F 8A FF 4A FF`` by default), A3 -> A1,
+* A0 -> A1 (its own parameters, ``A1 0F 8A FF 4A FF`` by default, as in every trace),
+  A3 -> A1,
   A8 -> A8 + close, A4 -> discards the partial message;
 * reassembles requests (ACKing after op 0/1 frames, asking for retransmission on a
-  sequence error), hands each complete message to ``handler(bytes) -> bytes | None``
-  (or a sequence of messages, e.g. ``7F xx 78`` followed by the real answer) and
-  segments the response honouring the tester's block size (ACK requested every BS
-  frames and on the last) and T3; keeps its own 4-bit sequence counter across
-  messages;
+  sequence error; a request shorter than its announced length or announcing length 0
+  is refused like the tester refuses such replies), hands each complete message to
+  ``handler(bytes) -> bytes | None`` (or a sequence of messages, e.g. ``7F xx 78``
+  followed by the real answer) and segments the response honouring the tester's
+  block size (ACK requested every BS frames and on the last, the opcode being a
+  function of the frame index so a retransmitted frame repeats its PCI) and T3;
+  keeps its own 4-bit sequence counter across messages;
 * on a wrong ACK retransmits from the acknowledged sequence and, like the real engine
   ECU in the NefMoto trace, gives up with A8 after three retransmissions;
 * closes the channel with A8 after ``idle_timeout`` seconds without any frame.
@@ -43,6 +46,7 @@ from .base import CanFrame, RawCanTransport, TransportError, TransportNotOpen
 from .fakebus import FakeCanBus, SimulatedNode
 from .tp20 import (
     APP_DIAGNOSTICS,
+    APP_TYPE_TEXT,
     DATA_ACK,
     DATA_LAST,
     DATA_LAST_ACK,
@@ -60,15 +64,19 @@ from .tp20 import (
     Tp20Params,
     decode_can_id,
     encode_can_id,
+    frame_opcode,
     split_message,
 )
 
 log = logging.getLogger(__name__)
 
-__all__ = ["Tp20Responder", "Tp20Node", "DEFAULT_TESTER_RX_ID"]
+__all__ = ["Tp20Responder", "Tp20Node", "DEFAULT_TESTER_RX_ID", "MODULE_DEFAULT_PARAMS"]
 
 #: the id a module transmits on when the tester marks its own request invalid.
 DEFAULT_TESTER_RX_ID = 0x300
+#: what every traced module (two engines, an EPS) answered in its A1: BS 15, T1 100 ms,
+#: T3 10 ms - the tester's own default asks for T3 5 ms, so the two must not share one.
+MODULE_DEFAULT_PARAMS = Tp20Params(block_size=0x0F, t1=0x8A, t2=0xFF, t3=0x4A, t4=0xFF)
 
 Handler = Union[Callable[[bytes], Union[bytes, Sequence[bytes], None]], object]
 
@@ -81,7 +89,8 @@ class Tp20Responder:
     """ECU-side TP 2.0 state machine on top of a raw CAN transport (see module doc).
 
     ``tester_tx_id`` is the id this module assigns the tester to transmit on (and
-    listens on while the channel is open). ``params`` are announced in A1 replies.
+    listens on while the channel is open). ``params`` are announced in A1 replies
+    (default :data:`MODULE_DEFAULT_PARAMS`, ``A1 0F 8A FF 4A FF`` as in every trace).
     ``ack_timeout`` defaults to the module's own T1. ``idle_timeout`` is the silence
     after which the module drops the channel with A8 (``None`` disables it).
     """
@@ -121,7 +130,7 @@ class Tp20Responder:
         self.transport = transport
         self.logical_address = int(logical_address)
         self.tester_tx_id = int(tester_tx_id)
-        self.params = params or Tp20Params()
+        self.params = params or MODULE_DEFAULT_PARAMS
         self.idle_timeout = idle_timeout
         self.ack_timeout = ack_timeout if ack_timeout is not None else self.params.t1_ack_timeout
         #: MED17.5 quirk: ignore a 0xC0 whose RX field carries the "invalid" marker.
@@ -161,6 +170,7 @@ class Tp20Responder:
             "setups": 0, "refused": 0, "closes": 0, "requests": 0, "responses": 0,
             "handler_errors": 0, "retransmissions": 0, "sequence_errors": 0,
             "channel_tests": 0, "a1_received": 0, "ignored_setups": 0,
+            "malformed_requests": 0,
         }
 
     # -- lifecycle -------------------------------------------------------------------
@@ -281,7 +291,8 @@ class Tp20Responder:
             self.stats["refused"] += 1
             self._send(bytes([0x00, 0xD6]) + bytes(encode_can_id(my_tx, True))
                        + bytes(encode_can_id(self.tester_tx_id, True)) + bytes([app]), reply_id)
-            log.info("%s: application type 0x%02X not supported -> D6", self.name, app)
+            log.info("%s: application type 0x%02X (%s) not supported -> D6", self.name, app,
+                     APP_TYPE_TEXT.get(app, "unknown"))
             return
         self.tx_id = my_tx
         self.channel_open = True
@@ -348,11 +359,16 @@ class Tp20Responder:
         self._rx_buf = bytearray()
         self._rx_expected = None
         if expected is None:
-            log.warning("%s: request ended before its length field: %s", self.name, buf.hex(" "))
+            log.warning("%s: request ended before its length field; refused: %s", self.name,
+                        buf.hex(" "))
+            self.stats["malformed_requests"] += 1
             return
         request = buf[2:2 + expected]
-        if len(request) != expected:
-            log.warning("%s: request announced %d bytes, got %d", self.name, expected, len(request))
+        if expected == 0 or len(request) < expected:
+            log.warning("%s: request announced %d bytes, got %d; refused: %s", self.name, expected,
+                        len(request), buf.hex(" "))
+            self.stats["malformed_requests"] += 1
+            return
         if self._nak_outstanding:
             self._held_request = request
         else:
@@ -395,7 +411,6 @@ class Tp20Responder:
         n = len(chunks)
         start_seq = self.tx_seq
         i = 0
-        block = 0
         retransmissions = 0
         last_tx = 0.0
         while i < n:
@@ -412,16 +427,8 @@ class Tp20Responder:
                         return False
                     j = self._index_for_seq(start_seq, i, pci & 0xF, n)
                     i = j if j is not None else i
-                    block = 0
             seq = (start_seq + i) & 0xF
-            last = i == n - 1
-            block += 1
-            if last:
-                op = DATA_LAST_ACK
-            elif block >= bs:
-                op = DATA_MORE_ACK
-            else:
-                op = DATA_MORE
+            op = frame_opcode(i, n, bs)
             wait = last_tx + t3 - time.monotonic()
             if wait > 0:
                 time.sleep(wait)
@@ -432,7 +439,6 @@ class Tp20Responder:
                 i += 1
                 continue
             expected = (seq + 1) & 0xF
-            block = 0
             pci = self._wait_for_ack(self.ack_timeout)
             if pci is None:
                 if not self.channel_open:

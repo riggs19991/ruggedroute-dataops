@@ -18,6 +18,7 @@ from .pids import (
     decode_pid,
     decode_vehicle_info,
     format_value,
+    infotype_name,
     parse_dtc_list,
     parse_supported,
     uas_apply,
@@ -38,7 +39,7 @@ from .sim import CompositeEcu, ObdNode, SimulatedObdEcu, add_obd_nodes
 
 __all__ = [
     "PIDS", "UASIDS", "MonitorState", "MonitorStatus", "PidDef", "ScalingOverrides",
-    "decode_dtc", "decode_monitor_status", "decode_pid", "decode_vehicle_info", "format_value",
+    "decode_dtc", "decode_monitor_status", "decode_pid", "decode_vehicle_info", "format_value", "infotype_name",
     "parse_dtc_list", "parse_supported", "uas_apply",
     "Mode06Result", "ObdClient", "ObdError", "ObdNegativeResponse", "ObdProtocolError",
     "ObdTimeout", "ObdTiming", "ObdValue", "VehicleInfo", "parse_mode06_records",

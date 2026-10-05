@@ -9,17 +9,22 @@ What a VAG module hands over and what VCDS shows for it:
   and ``P0299 00 [096] - Control Range Not Reached``: the 6-digit number is the
   decimal value of the 2 SAE bytes, ``00`` the FTB, ``[096]`` the status byte in
   decimal (verified: uds_vag.md §E/§G/§H, dtc_db.md §B/§C).
-* **KWP2000 / TP 2.0 modules** (every 2008 R32 module, the TDI's DSG/BCM/...): a
-  2-byte fault number plus a third byte. Numbers 0x4000..0x7FFF are SAE codes in the
-  "5-digit" packing (``16683 = P0299``: ``16384 + first_digit*1024 + decimal(last
-  three)``); everything else is a factory-only number (``00287 ABS Wheel Speed Sensor
-  Rear Right (G44)``) with no P-code. The 5-digit number *is* the raw 16-bit value
-  (verified three independent ways, dtc_db.md §C).
+* **KWP2000 / TP 2.0 modules** (every 2008 R32 module, the TDI's engine/DSG/BCM/...):
+  a 2-byte fault number plus a **status byte** (``58 <n>`` + ``DTC_hi DTC_lo status``).
+  Numbers 0x4000..0x7FFF are SAE codes in the "5-digit" packing (``16683 = P0299``:
+  ``16384 + first_digit*1024 + decimal(last three)``); everything else is a
+  factory-only number (``00287 ABS Wheel Speed Sensor Rear Right (G44)``) with no
+  P-code. The 5-digit number *is* the raw 16-bit value (verified three independent
+  ways, dtc_db.md §C). The status byte's low nibble is the 3-digit elaboration VCDS
+  prints after the P-code (``P0101 - 008 - Implausible Signal``) and bit 6 clear
+  means ``Intermittent`` (verified on 21 real records, PROTOCOL_FACTS §7.8).
+* **KWP1281 (K-line) modules** - not on either car - carry the 83-row "elaboration"
+  byte instead (bit 7 = intermittent); kept behind ``decode_kwp_dtc(kwp1281=True)``.
 
 Descriptions come from the packaged database ``vagtune/data/dtc_db.json`` (generic
 SAE wording, VW/Ross-Tech wording, factory 5-digit codes, Ross-Tech fault-type
-suffixes), loaded once and lazily. The FTB table and the KWP "elaboration" table are
-in code below with per-row verification flags; decoding an unverified row logs
+suffixes), loaded once and lazily. The FTB table and the two KWP tables are in code
+below with per-row verification flags; decoding an unverified row logs
 ``UNVERIFIED mapping: ...`` once per process.
 """
 
@@ -302,12 +307,87 @@ def describe_ftb(ftb: int) -> FailureType:
     return row
 
 
-# ----------------------------------------------------------------- KWP elaboration byte
+# ----------------------------------------------------------------- KWP2000 status byte
 
-# KWP1281/KWP2000 fault "elaboration" byte (third byte of a KWP fault record), bit 7 =
-# intermittent, low 7 bits index this table (KLineKWP1281Lib fault_code_elaboration_EN.h,
-# 83 rows, fetched source; dtc_db.md §F). Whether the Mk5 R32's KWP2000-over-TP2.0 modules
-# use this byte or an ISO 14230 status byte is an OPEN question -> decode warns once.
+# The third byte of a KWP2000 (ISO 14230 over TP 2.0, service 0x18) fault record is a
+# *status byte*, not the KWP1281 elaboration byte. VERIFIED (PROTOCOL_FACTS §7.8, 21
+# real records from four VCDS Auto-Scans on addresses 02/03/09/0F/19/44/65 - exactly
+# the R32's and the TDI's TP 2.0 modules): ``status & 0x0F`` is the 3-digit
+# "elaboration" VCDS prints after the P-code and ``Intermittent <=> bit 6 clear``.
+# Bit 5 was set in every real record and bit 4 in two (semantics REPORTED); bit 7 =
+# MIL is REPORTED (bri3d "isCEL"; never observed on a KWP2000 record).
+KWP2000_ELABORATION_MASK = 0x0F
+KWP2000_BIT4 = 0x10            # REPORTED: DV's converter forces it on; meaning unknown
+KWP2000_STORED_BIT = 0x20      # REPORTED: bri3d "wasPresent"; set in every real record
+KWP2000_PRESENT_BIT = 0x40     # VERIFIED: clear <=> VCDS "Intermittent"
+KWP2000_MIL_BIT = 0x80         # REPORTED (low-medium): bri3d "isCEL" / VCDS "MIL ON"
+
+
+@dataclass(frozen=True)
+class KwpElaboration:
+    """One VCDS elaboration code (the low nibble of a KWP2000 status byte)."""
+    code: int
+    text: str
+    verified: bool
+
+    @property
+    def unverified(self) -> bool:
+        return not self.verified
+
+
+# Verbatim VCDS texts seen in the fetched scans are verified; the six codes never seen
+# verbatim (002/003/005/006/009/015) are REPORTED (medium) and warn once when decoded.
+KWP2000_ELABORATION: Dict[int, KwpElaboration] = {
+    0: KwpElaboration(0, "-", True),
+    1: KwpElaboration(1, "Upper Limit Exceeded", True),
+    2: KwpElaboration(2, "Lower Limit Exceeded", False),
+    3: KwpElaboration(3, "Mechanical Malfunction", False),
+    4: KwpElaboration(4, "No Signal/Communication", True),
+    5: KwpElaboration(5, "No or Incorrect Basic Setting / Adaptation", False),
+    6: KwpElaboration(6, "Short to Plus", False),
+    7: KwpElaboration(7, "Short to Ground", True),
+    8: KwpElaboration(8, "Implausible Signal", True),
+    9: KwpElaboration(9, "Open or Short to Ground", False),
+    10: KwpElaboration(10, "Open or Short to Plus", True),
+    11: KwpElaboration(11, "Open Circuit", True),
+    12: KwpElaboration(12, "Electrical Fault in Circuit", True),
+    13: KwpElaboration(13, "Check DTC Memory", True),
+    14: KwpElaboration(14, "Defective", True),
+    15: KwpElaboration(15, "Unknown Switch Condition", False),
+}
+
+
+def describe_kwp2000_status(status: int) -> Tuple[KwpElaboration, bool, bool]:
+    """KWP2000 status byte -> ``(elaboration, intermittent, mil)`` per the verified rule.
+
+    ``elaboration`` is the row for ``status & 0x0F``; ``intermittent`` is ``bit 6 == 0``
+    (both verified). ``mil`` is bit 7, which is UNVERIFIED on KWP2000 modules (the
+    only "MIL ON" record fetched was a UDS module) and warns once when set. A REPORTED
+    elaboration text warns once per code.
+    """
+    row = KWP2000_ELABORATION[status & KWP2000_ELABORATION_MASK]
+    if not row.verified:
+        warn_unverified(f"kwp-elaboration-nibble:{row.code}",
+                        f"KWP2000 status elaboration {row.code:03d} = {row.text!r} is REPORTED "
+                        "(medium); confirm with an Auto-Scan that prints it")
+    intermittent = not (status & KWP2000_PRESENT_BIT)
+    mil = bool(status & KWP2000_MIL_BIT)
+    if mil:
+        # UNVERIFIED: bit 7 = MIL on KWP2000 modules (PROTOCOL_FACTS §7.8 Reported, low-medium).
+        warn_unverified("kwp-status-bit7-mil",
+                        "KWP2000 fault status bit 7 interpreted as 'MIL on' (bri3d isCEL; never "
+                        "seen on a real KWP2000 record) - display only")
+    return row, intermittent, mil
+
+
+# ----------------------------------------------------------------- KWP1281 elaboration byte
+
+# KWP1281 (K-line, service 0x07) fault "elaboration" byte: bit 7 = intermittent, low 7
+# bits index this table (KLineKWP1281Lib fault_code_elaboration_EN.h, 83 rows, fetched
+# source, PROTOCOL_FACTS §7.9 F). It does NOT apply to the KWP2000/TP 2.0 modules of
+# the owner's cars (their third byte is the status byte above); it is kept for an
+# explicit K-line KWP1281 decode (``decode_kwp_dtc(..., kwp1281=True)``) and as the
+# text source the KWP slice maps the KWP2000 nibbles back onto.
 KWP_INTERMITTENT_BIT = 0x80
 KWP_ELABORATION: Dict[int, str] = {
     0x00: "-", 0x01: "Signal Shorted to Plus", 0x02: "Signal Shorted to Ground",
@@ -343,12 +423,12 @@ KWP_ELABORATION: Dict[int, str] = {
 
 
 def describe_kwp_elaboration(byte: int) -> Tuple[str, bool]:
-    """KWP third byte -> (text, intermittent). Warns once: the use of this table for
-    KWP2000-over-TP2.0 modules is unverified (dtc_db.md OPEN QUESTION 2/3)."""
-    warn_unverified("kwp-elaboration",
-                    "KWP fault third byte decoded with the KWP1281 elaboration table "
-                    "(bit 7 = intermittent); the Mk5 TP2.0 modules may send an ISO 14230 "
-                    "status byte instead - confirm with a VCDS scan next to a raw trace")
+    """KWP1281 (K-line) elaboration byte -> (text, intermittent): bit 7 = intermittent,
+    low 7 bits index the 83-row KLineKWP1281Lib table (verified for KWP1281; the
+    strings are that library's rendering, not necessarily VCDS's verbatim).
+
+    Not for KWP2000/TP 2.0 fault records - use :func:`describe_kwp2000_status`.
+    """
     text = KWP_ELABORATION.get(byte & 0x7F, f"elaboration 0x{byte & 0x7F:02X} (not in table)")
     return text, bool(byte & KWP_INTERMITTENT_BIT)
 
@@ -533,8 +613,12 @@ class VagDtc:
 
     ``sae_code`` is ``""`` for factory-only KWP numbers (then ``vag5`` names it);
     ``vag6`` is the 6-digit string for codes that have an SAE form; ``vag5`` the
-    5-digit factory number or ``None`` for hex-letter codes; ``ftb`` is the UDS
-    failure-type byte or, for KWP, the elaboration byte (bit 7 intermittent).
+    5-digit factory number or ``None`` for hex-letter codes.
+
+    ``ftb``/``ftb_text`` hold the failure-type byte for UDS, the VCDS elaboration
+    code (``status & 0x0F``, 0..15) for KWP2000 (``source == "kwp"``) and the
+    elaboration byte (low 7 bits) for KWP1281 (``source == "kwp1281"``). ``status``
+    is always the raw third/fourth byte as received.
     """
     sae_code: str
     ftb: int
@@ -545,7 +629,7 @@ class VagDtc:
     vag5: Optional[int]
     description: Optional[str]
     vag_wording: Optional[str]
-    source: str                      # "uds" | "kwp"
+    source: str                      # "uds" | "kwp" (KWP2000) | "kwp1281"
     raw: bytes = b""
     ftb_verified: bool = True
     variants: List[str] = field(default_factory=list)
@@ -576,15 +660,33 @@ class VagDtc:
 
     @property
     def intermittent(self) -> bool:
+        """KWP2000: bit 6 of the status byte clear (verified); KWP1281: bit 7 of the
+        elaboration byte; UDS: testFailedSinceLastClear without testFailed."""
         if self.source == "kwp":
-            return bool(self.ftb & KWP_INTERMITTENT_BIT)
+            return not (self.status & KWP2000_PRESENT_BIT)
+        if self.source == "kwp1281":
+            return bool(self.status & KWP_INTERMITTENT_BIT)
         return bool(self.status & 0x20) and not (self.status & 0x01)
 
     @property
     def active(self) -> bool:
-        if self.source == "kwp":
+        if self.source in ("kwp", "kwp1281"):
             return not self.intermittent
         return bool(self.status & 0x01)
+
+    @property
+    def mil(self) -> bool:
+        """Warning lamp: UDS warningIndicatorRequested (bit 7, verified); KWP2000 bit 7
+        (UNVERIFIED - display only, see :func:`describe_kwp2000_status`); never for
+        KWP1281 (no such bit)."""
+        if self.source == "kwp1281":
+            return False
+        return bool(self.status & 0x80)
+
+    @property
+    def elaboration(self) -> Optional[int]:
+        """The VCDS 3-digit elaboration code for a KWP2000 fault, else ``None``."""
+        return self.ftb if self.source == "kwp" else None
 
     def __str__(self) -> str:
         return vcds_style(self)
@@ -613,34 +715,53 @@ def decode_uds_dtc(dtc: Union[bytes, int], status: int) -> VagDtc:
     )
 
 
-def decode_kwp_dtc(dtc: Union[bytes, int], status: int) -> VagDtc:
+def decode_kwp_dtc(dtc: Union[bytes, int], status: int, *, kwp1281: bool = False) -> VagDtc:
     """2-byte KWP fault number + third byte -> :class:`VagDtc`.
 
-    Numbers 0x4000..0x7FFF decode to an SAE code (``0x4127 = 16679 = P0295``...);
-    anything else is a factory-only number looked up in ``vag_5digit_only``. The third
-    byte is decoded with the KWP1281 elaboration table (UNVERIFIED for TP2.0/KWP2000
-    modules; warns once).
+    Numbers 0x4000..0x7FFF decode to an SAE code (``0x4065 = 16485 = P0101``, decimal
+    rule, verified); anything else is a factory-only number looked up in
+    ``vag_5digit_only``.
+
+    The third byte is, by default, the **KWP2000 status byte** of a ``58`` reply
+    (ISO 14230 service 0x18 over TP 2.0 - every KWP module on both cars): low nibble
+    = VCDS elaboration code, bit 6 clear = Intermittent (verified on 21 real records,
+    PROTOCOL_FACTS §7.8); bit 7 = MIL is REPORTED and only displayed. With
+    ``kwp1281=True`` the byte is instead the K-line KWP1281 elaboration byte (bit 7
+    = intermittent, 83-row table) - a different protocol, never TP 2.0.
     """
     raw = dtc.to_bytes(2, "big") if isinstance(dtc, int) else bytes(dtc)
     if len(raw) != 2:
         raise ValueError("a KWP fault number is 2 bytes")
+    status &= 0xFF
     number = int.from_bytes(raw, "big")
-    elab_text, intermittent = describe_kwp_elaboration(status)
-    status_text = elab_text + (" (intermittent)" if intermittent else "")
+    if kwp1281:
+        source = "kwp1281"
+        elab_text, intermittent = describe_kwp_elaboration(status)
+        ftb, ftb_verified = status & 0x7F, status & 0x7F in KWP_ELABORATION
+        status_text = elab_text + (" - Intermittent" if intermittent else "")
+    else:
+        source = "kwp"
+        row, intermittent, mil = describe_kwp2000_status(status)
+        elab_text, ftb, ftb_verified = row.text, row.code, row.verified
+        status_text = f"{row.code:03d} - {row.text}"
+        if intermittent:
+            status_text += " - Intermittent"
+        if mil:
+            status_text += " - MIL? (bit 7, unverified)"
     code = code_from_vag5(number)
     if code is None:
         db = load_db()
         text = db.lookup_factory(number) if db is not None else None
         variants = db.factory_variants(number) if db is not None else []
-        return VagDtc(sae_code="", ftb=status, ftb_text=elab_text, status=status,
+        return VagDtc(sae_code="", ftb=ftb, ftb_text=elab_text, status=status,
                       status_text=status_text, vag6=None, vag5=number,
-                      description=text, vag_wording=text, source="kwp",
-                      raw=raw + bytes([status & 0xFF]), ftb_verified=False, variants=variants)
+                      description=text, vag_wording=text, source=source,
+                      raw=raw + bytes([status]), ftb_verified=ftb_verified, variants=variants)
     info = lookup(code)
-    return VagDtc(sae_code=code, ftb=status, ftb_text=elab_text, status=status,
+    return VagDtc(sae_code=code, ftb=ftb, ftb_text=elab_text, status=status,
                   status_text=status_text, vag6=f"{vag6_from_code(code):06d}", vag5=number,
-                  description=info.description, vag_wording=info.vag_wording, source="kwp",
-                  raw=raw + bytes([status & 0xFF]), ftb_verified=False, variants=info.variants)
+                  description=info.description, vag_wording=info.vag_wording, source=source,
+                  raw=raw + bytes([status]), ftb_verified=ftb_verified, variants=info.variants)
 
 
 def vcds_style(d: VagDtc) -> str:
@@ -648,8 +769,12 @@ def vcds_style(d: VagDtc) -> str:
 
     UDS: ``P0299 00 [096] - Boost Pressure Regulation: Control Range Not Reached``
     (code, FTB hex, status decimal in brackets, text).
-    KWP: ``16683 - P0299 - <text> - Signal Outside Specifications - Intermittent`` or
-    ``00287 - ABS Wheel Speed Sensor Rear Right (G44) - Signal Outside Specifications``.
+    KWP2000: VCDS's two lines joined - ``16683 - P0299 - 012 - Boost Pressure
+    Regulation: Control Range Not Reached - Electrical Fault in Circuit - Intermittent``
+    (5-digit number, P-code, 3-digit elaboration, text, elaboration text, flags) or
+    ``00287 - 012 - ABS Wheel Speed Sensor Rear Right (G44) - Electrical Fault in Circuit``
+    for a factory-only number; the elaboration text is omitted for ``000 - -``.
+    KWP1281: ``16683 - P0299 - <text> - Signal Outside Specifications - Intermittent``.
     """
     if d.source == "uds":
         return f"{d.sae_code} {d.ftb:02X} [{d.status:03d}] - {d.text}"
@@ -657,9 +782,13 @@ def vcds_style(d: VagDtc) -> str:
     parts = [head]
     if d.sae_code:
         parts.append(d.sae_code)
+    if d.source == "kwp":
+        parts.append(f"{d.ftb:03d}")
     parts.append(d.text)
     if d.ftb_text and d.ftb_text != "-":
         parts.append(d.ftb_text)
     if d.intermittent:
         parts.append("Intermittent")
+    if d.source == "kwp" and d.mil:
+        parts.append("MIL? (bit 7, unverified)")
     return " - ".join(parts)

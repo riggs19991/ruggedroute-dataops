@@ -92,15 +92,18 @@ def test_isotp_link_extra_rx_ids_and_raw_endpoint():
         sniffer.close()
 
 
-def test_tp20_channel_reports_missing_module():
+def test_tp20_channel_builds_a_real_channel():
+    """tp20_channel hands out a Tp20Channel on the fake router (connect is lazy here,
+    so no simulated TP 2.0 module is needed for the construction to succeed)."""
+    from vagtune.transport.tp20 import Tp20Channel
     with TransportContext("fake") as ctx:
-        with pytest.raises(TransportError) as exc:
-            ctx.tp20_channel(0x01)
-        msg = str(exc.value)
-        assert "TP 2.0" in msg
-        # Either the module does not exist yet, or (once it lands) it must be a real channel;
-        # with the module absent the reason is included.
-        assert "not available" in msg or "needs raw CAN" in msg
+        ch = ctx.tp20_channel(0x01, auto_connect=False)
+        try:
+            assert isinstance(ch, Tp20Channel)
+            assert ch.logical_address == 0x01
+            assert ch.connected is False
+        finally:
+            ch.close()
 
 
 def test_unknown_kind_rejected():

@@ -21,6 +21,21 @@ helpers raise :class:`ObdNegativeResponse` for it, the ``*_all`` helpers skip th
 with a log line (``7F xx 11/12`` from a VW ECU means "not supported", exactly like
 the ISO-prescribed silence).
 
+A positive reply is only accepted as the answer to a request when its echo matches
+what was asked (Mode 01/02: the first PID (and frame#) is one of the requested ones;
+Mode 06: the OBDMID; Mode 09: the InfoType). A reply that arrived too late for the
+previous request of the same mode therefore cannot be mistaken for the answer to the
+next one. Modes 03/04/07/0A carry no echo, so they cannot be checked that way.
+
+A final ``7F <SID> 21`` (busyRepeatRequest) is retried after
+:attr:`ObdTiming.busy_delay` (ISO 15765-4 §4.2.1: at least 200 ms) up to
+:attr:`ObdTiming.busy_retries` times (the standard's six sequences) before it is
+reported as that ECU's final answer.
+
+Scope: 11-bit identifiers only (both of the owner's cars). The 29-bit fallback of the
+ISO 15765-4 initialisation (0x18DB33F1 / 0x18DAF1xx after an 11-bit P2 timeout) is not
+implemented; :meth:`ObdClient.discover` on a 29-bit-only vehicle simply finds nothing.
+
 Every helper comes in two flavours: ``x()`` picks the engine (the link's ``rx_id``,
 normally 0x7E8) or, failing that, the first responder; ``x_all()`` returns a dict
 keyed by response id so the CLI can print one block per ECU.
@@ -75,8 +90,15 @@ MODE_VEHICLE_INFO = 0x09
 MODE_DTC_PERMANENT = 0x0A
 
 DTC_MODES = (MODE_DTC_CONFIRMED, MODE_DTC_PENDING, MODE_DTC_PERMANENT)
+#: services whose sub-parameters are enumerated by Annex A bitmaps (00, 20, 40, ...)
+BITMAP_MODES = (MODE_CURRENT, MODE_FREEZE, MODE_MONITOR_RESULTS, MODE_CONTROL, MODE_VEHICLE_INFO)
+#: services whose positive reply echoes the sub-parameter in its second byte
+ECHO_MODES = (MODE_CURRENT, MODE_FREEZE, MODE_MONITOR_RESULTS, MODE_CONTROL, MODE_VEHICLE_INFO)
 MAX_PIDS_PER_REQUEST = 6          # ISO 15031-5 §7.1.1
 MAX_FREEZE_PAIRS_PER_REQUEST = 3  # ISO 15031-5 Table 137
+MAX_REQUEST_BYTES = 7             # every OBD request fits one ISO-TP single frame (ISO 15765-4)
+#: bitmap ids per batched request: 6 (one byte each) except Mode 02 (PID + frame# pairs)
+BITMAPS_PER_REQUEST = {MODE_FREEZE: MAX_FREEZE_PAIRS_PER_REQUEST}
 
 
 # ===================================================================== errors
@@ -113,10 +135,26 @@ class ObdNegativeResponse(ObdError):
 
 @dataclass
 class ObdTiming:
-    """P2 = collection window for all responders; P2* = per-responder window after 0x78."""
+    """P2 = collection window for all responders; P2* = per-responder window after 0x78.
+
+    ``busy_delay`` / ``busy_retries``: how long to wait before repeating a request that
+    an ECU answered with ``7F SID 21`` (busyRepeatRequest) and how many times (ISO
+    15765-4 §4.2.1: at least 200 ms, give up after six sequences = five retries).
+    The link is always polled at least once, so ``p2=0`` still takes a reply that is
+    already buffered; negative values are rejected.
+    """
     p2: float = 0.25
     p2_star: float = 5.0
     pending_limit: int = 30
+    busy_delay: float = 0.2
+    busy_retries: int = 5
+
+    def __post_init__(self) -> None:
+        for name in ("p2", "p2_star", "busy_delay"):
+            if getattr(self, name) < 0:
+                raise ValueError(f"ObdTiming.{name} must not be negative")
+        if self.pending_limit < 0 or self.busy_retries < 0:
+            raise ValueError("ObdTiming.pending_limit / busy_retries must not be negative")
 
 
 @dataclass
@@ -214,15 +252,18 @@ class ObdClient:
     def __init__(self, link: IsoTpLink, *, timing: Optional[ObdTiming] = None,
                  batch_bitmaps: bool = False) -> None:
         """
-        ``batch_bitmaps=True`` requests the supported-ID bitmaps six at a time
-        (``01 00 20 40 60 80 A0``, legal per ISO 15031-5 Annex A); the default walks
-        one bitmap per request, which every ECU since 1996 handles.
+        ``batch_bitmaps=True`` requests the supported-ID bitmaps several per message
+        (``01 00 20 40 60 80 A0``, legal per ISO 15031-5 Annex A; Mode 02 takes three
+        ``PID frame#`` pairs, ``02 00 00 20 00 40 00``, so the request stays within one
+        frame); the default walks one bitmap per request, which every ECU since 1996
+        handles.
         """
         self.link = link
         self.timing = timing or ObdTiming()
         self.batch_bitmaps = batch_bitmaps
         self.functional = link.tx_id in FUNCTIONAL_IDS
-        #: response ids seen answering positively; used to end the P2 window early.
+        #: response ids seen answering at all (positively or negatively) on a functional
+        #: link; the P2 window ends early once every one of them has replied positively.
         self.responders: Set[int] = set()
         self._lock = threading.RLock()
         self._supported: Dict[Tuple[int, int], Set[int]] = {}
@@ -237,6 +278,23 @@ class ObdClient:
         rid = getattr(self.link, "last_rx_id", None)
         return self.link.rx_id if rid is None else int(rid)
 
+    @staticmethod
+    def _echo_matches(payload: bytes, data: bytes) -> bool:
+        """Does positive reply ``data`` echo a sub-parameter of request ``payload``?
+
+        Mode 01/06/08/09: ``data[1]`` must be one of the requested ids; Mode 02:
+        ``(data[1], data[2])`` one of the requested (PID, frame#) pairs. Other modes
+        carry no echo and always match. A positive reply too short to hold the echo
+        does not match (ISO requires at least the sub-parameter byte).
+        """
+        sid = payload[0]
+        if sid not in ECHO_MODES:
+            return True
+        if sid == MODE_FREEZE:
+            pairs = {(payload[i], payload[i + 1]) for i in range(1, len(payload) - 1, 2)}
+            return len(data) >= 3 and (data[1], data[2]) in pairs
+        return len(data) >= 2 and data[1] in set(payload[1:])
+
     def request_all(self, payload: bytes, *, window: Optional[float] = None,
                     expect: Optional[Iterable[int]] = None) -> Dict[int, bytes]:
         """Send ``payload`` once and collect every responder's *final* reply.
@@ -246,11 +304,35 @@ class ObdClient:
         deadline to P2* and is not returned. The window closes after ``window`` (P2)
         unless a responder is still pending, or earlier when every id in ``expect``
         (default: the known responders on a functional link, the ``rx_id`` on a
-        physical one) has answered. Only the first final reply per id is kept; a
-        duplicate (two simulated nodes on one id, a chatty gateway) is logged.
+        physical one) has answered *positively*; a negative reply carries no echo, so
+        it may be a late ``7F`` to an earlier request and does not end the window (the
+        genuine positive reply, if one follows, replaces it). The link is polled at
+        least once even when the window is 0.
+
+        A positive reply must echo one of the requested sub-parameters
+        (:meth:`_echo_matches`); a late reply to an *earlier* request of the same mode
+        is logged and dropped instead of being attributed to this one. Only the first
+        matching positive reply per id is kept (a second one - two simulated nodes on
+        one id, a chatty gateway - is logged as a duplicate); a matching positive reply
+        replaces a negative one recorded earlier for the same id.
+
+        Every ECU that answers at all, positively or negatively, is remembered in
+        :attr:`responders` on a functional link: presence is what the early-exit rule
+        (ISO 15031-5 §5.2.4.2, "all expected servers have responded") needs.
+
+        ``7F SID 21`` (busyRepeatRequest) is retried after :attr:`ObdTiming.busy_delay`
+        up to :attr:`ObdTiming.busy_retries` times, keeping the replies already
+        collected from the other ECUs; only when the retries are exhausted is the 0x21
+        returned as that ECU's final reply.
+
+        Raises ``ValueError`` for an empty payload or one longer than 7 bytes: every
+        OBD request fits one single frame (functional requests cannot be segmented).
         """
         if not payload:
             raise ValueError("OBD request must carry at least the mode byte")
+        if len(payload) > MAX_REQUEST_BYTES:
+            raise ValueError(f"OBD request of {len(payload)} bytes does not fit one ISO-TP frame "
+                             f"({payload.hex(' ')}); ISO 15031-5 limits requests to 7 bytes")
         sid = payload[0]
         window = self.timing.p2 if window is None else window
         if expect is None:
@@ -258,67 +340,106 @@ class ObdClient:
         else:
             expected = set(expect)
         results: Dict[int, bytes] = {}
-        pending: Dict[int, float] = {}
-        pending_count: Dict[int, int] = {}
         with self._lock:
             self.last_negatives = {}
-            self.link.flush_rx()
-            self.link.send(payload)
-            deadline = time.monotonic() + window
-            while True:
-                now = time.monotonic()
-                until = max([deadline] + list(pending.values()))
-                remaining = until - now
-                if remaining <= 0:
+            pending = self._collect(payload, window, expected, results, set())
+            for attempt in range(self.timing.busy_retries):
+                busy = {rid for rid, d in results.items()
+                        if d[0] == NEGATIVE_RESPONSE_SID and d[2] == NRC_BUSY_REPEAT}
+                if not busy:
                     break
-                if expected and not pending and expected <= set(results):
-                    break
-                try:
-                    data = self.link.recv(min(remaining, 0.5))
-                except TransportNotOpen:
-                    raise
-                except TransportError as exc:
-                    log.warning("OBD mode %02X: inbound transfer failed (%s); continuing", sid, exc)
-                    continue
-                if not data:
-                    continue
-                rid = self._responder_of()
+                log.info("mode %02X: %s busy (NRC 0x21); repeating after %.0f ms (retry %d of %d)", sid,
+                         ", ".join(f"0x{r:X}" for r in sorted(busy)), self.timing.busy_delay * 1000,
+                         attempt + 1, self.timing.busy_retries)
+                time.sleep(self.timing.busy_delay)
+                for rid in busy:
+                    results.pop(rid)
+                    self.last_negatives.pop(rid, None)
+                pending |= self._collect(payload, window, busy, results, set(results))
+            for rid, data in results.items():
                 if data[0] == NEGATIVE_RESPONSE_SID:
-                    if len(data) < 3 or data[1] != sid:
-                        log.debug("ignoring negative response %s for another service", data.hex(" "))
-                        continue
-                    if data[2] == NRC_RESPONSE_PENDING:
-                        n = pending_count.get(rid, 0) + 1
-                        pending_count[rid] = n
-                        if n > self.timing.pending_limit:
-                            log.warning("0x%X exceeded %d response-pending replies to mode %02X",
-                                        rid, self.timing.pending_limit, sid)
-                            pending.pop(rid, None)
-                            continue
-                        pending[rid] = time.monotonic() + self.timing.p2_star
-                        log.debug("0x%X: response pending for mode %02X (%d)", rid, sid, n)
-                        continue
-                    pending.pop(rid, None)
-                    if rid in results:
-                        log.warning("duplicate reply from 0x%X to mode %02X ignored: %s", rid, sid, data.hex(" "))
-                        continue
-                    results[rid] = bytes(data)
                     self.last_negatives[rid] = (sid, data[2])
-                    continue
-                if data[0] != sid + 0x40:
-                    log.debug("ignoring stray payload %s while waiting for mode %02X", data.hex(" "), sid)
-                    continue
-                pending.pop(rid, None)
-                if rid in results:
-                    log.warning("duplicate reply from 0x%X to mode %02X ignored: %s", rid, sid, data.hex(" "))
-                    continue
-                results[rid] = bytes(data)
-                if self.functional:
-                    self.responders.add(rid)
         if pending:
             log.warning("mode %02X: responder(s) %s never completed after response-pending",
                         sid, ", ".join(f"0x{r:X}" for r in pending))
         return results
+
+    def _collect(self, payload: bytes, window: float, expected: Set[int], results: Dict[int, bytes],
+                 quiet: Set[int]) -> Set[int]:
+        """One send + one P2 collection round into ``results``; returns the ids that
+        were still response-pending when the round ended. Replies from ids in ``quiet``
+        (already answered in an earlier round) are dropped silently."""
+        sid = payload[0]
+        pending: Dict[int, float] = {}
+        pending_count: Dict[int, int] = {}
+        self.link.flush_rx()
+        self.link.send(payload)
+        deadline = time.monotonic() + window
+        first_poll = True
+        while True:
+            now = time.monotonic()
+            until = max([deadline] + list(pending.values()))
+            remaining = until - now
+            if remaining <= 0 and not first_poll:
+                break
+            positive = {r for r, d in results.items() if d[0] != NEGATIVE_RESPONSE_SID}
+            if expected and not pending and expected <= positive:
+                break
+            first_poll = False
+            try:
+                data = self.link.recv(min(max(remaining, 0.0), 0.5))
+            except TransportNotOpen:
+                raise
+            except TransportError as exc:
+                log.warning("OBD mode %02X: inbound transfer failed (%s); continuing", sid, exc)
+                continue
+            if not data:
+                continue
+            rid = self._responder_of()
+            if data[0] == NEGATIVE_RESPONSE_SID:
+                if len(data) < 3 or data[1] != sid:
+                    log.debug("ignoring negative response %s for another service", data.hex(" "))
+                    continue
+                if data[2] == NRC_RESPONSE_PENDING:
+                    n = pending_count.get(rid, 0) + 1
+                    pending_count[rid] = n
+                    if n > self.timing.pending_limit:
+                        log.warning("0x%X exceeded %d response-pending replies to mode %02X",
+                                    rid, self.timing.pending_limit, sid)
+                        pending.pop(rid, None)
+                        continue
+                    pending[rid] = time.monotonic() + self.timing.p2_star
+                    log.debug("0x%X: response pending for mode %02X (%d)", rid, sid, n)
+                    continue
+                pending.pop(rid, None)
+                if rid in results:
+                    if rid not in quiet:
+                        log.warning("duplicate reply from 0x%X to mode %02X ignored: %s", rid, sid, data.hex(" "))
+                    continue
+                results[rid] = bytes(data)
+                if self.functional:
+                    self.responders.add(rid)
+                continue
+            if data[0] != sid + 0x40:
+                log.debug("ignoring stray payload %s while waiting for mode %02X", data.hex(" "), sid)
+                continue
+            if not self._echo_matches(payload, data):
+                log.warning("0x%X: reply %s does not answer request %s (late reply to an earlier "
+                            "request?); ignored", rid, data.hex(" "), payload.hex(" "))
+                continue
+            pending.pop(rid, None)
+            if rid in results:
+                if results[rid][0] == NEGATIVE_RESPONSE_SID:
+                    log.warning("0x%X: positive reply %s replaces the earlier negative %s to mode %02X",
+                                rid, data.hex(" "), results[rid].hex(" "), sid)
+                    results[rid] = bytes(data)
+                elif rid not in quiet:
+                    log.warning("duplicate reply from 0x%X to mode %02X ignored: %s", rid, sid, data.hex(" "))
+                continue
+            results[rid] = bytes(data)
+            if self.functional:
+                self.responders.add(rid)
+        return set(pending)
 
     def query_all(self, payload: bytes, **kw: Any) -> Dict[int, bytes]:
         """Like :meth:`request_all` but only positive replies, with the SID stripped;
@@ -373,7 +494,13 @@ class ObdClient:
         return data[1:]
 
     def discover(self) -> Set[int]:
-        """``01 00`` functionally (the ISO 15765-4 init / ping); returns the responder ids."""
+        """``01 00`` functionally (the ISO 15765-4 init / ping); returns the responder ids.
+
+        An ECU answering ``7F 01 21`` (busy) is re-asked after ``busy_delay`` up to
+        ``busy_retries`` times by :meth:`request_all`; one that stays busy through every
+        sequence is treated as absent (ISO 15765-4 §4.2.1: "not compliant"). 29-bit
+        addressing is not attempted (see the module docstring).
+        """
         found = self.query_all(bytes([MODE_CURRENT, 0x00]), expect=())
         for rid, data in found.items():
             if len(data) >= 5 and data[0] == 0x00:
@@ -408,9 +535,18 @@ class ObdClient:
         """Walk the supported-ID bitmaps (0x00, 0x20, ... 0xE0) for ``mode`` on every responder.
 
         Works for Mode 01/02 PIDs, Mode 06 OBDMIDs, Mode 08 TIDs and Mode 09 InfoTypes
-        (same bitmap scheme, ISO 15031-5 Annex A). The bitmap ids themselves are
-        excluded from the returned sets. Results are cached per (mode, responder).
+        (same bitmap scheme, ISO 15031-5 Annex A); any other mode raises ``ValueError``
+        (Modes 03/04/07/0A take no sub-parameter, so ``03 00`` would be a malformed
+        request). The bitmap ids themselves are excluded from the returned sets.
+        Results are cached per (mode, responder).
+
+        With ``batch_bitmaps`` the bases go out :data:`BITMAPS_PER_REQUEST` at a time
+        (six, or three for Mode 02) and the next batch is only sent when some ECU
+        flagged its first base as supported.
         """
+        if mode not in BITMAP_MODES:
+            raise ValueError(f"mode 0x{mode:02X} has no supported-ID bitmaps (only "
+                             + ", ".join(f"{m:02X}" for m in BITMAP_MODES) + ")")
         if not refresh:
             cached = {rid: set(ids) for (m, rid), ids in self._supported.items() if m == mode}
             if cached and (not self.functional or set(cached) >= self.responders):
@@ -427,9 +563,13 @@ class ObdClient:
                         todo.setdefault(rid, []).append(nxt)
 
         if self.batch_bitmaps:
-            absorb(self.query_all(self._bitmap_request(mode, P.SUPPORT_BASES[:6]), expect=()))
-            if any(0xC0 in ids for ids in result.values()):
-                absorb(self.query_all(self._bitmap_request(mode, P.SUPPORT_BASES[6:])))
+            per = BITMAPS_PER_REQUEST.get(mode, MAX_PIDS_PER_REQUEST)
+            groups = [list(P.SUPPORT_BASES[i:i + per]) for i in range(0, len(P.SUPPORT_BASES), per)]
+            absorb(self.query_all(self._bitmap_request(mode, groups[0]), expect=()))
+            for group in groups[1:]:
+                if not any(group[0] in ids for ids in result.values()):
+                    break
+                absorb(self.query_all(self._bitmap_request(mode, group)))
         else:
             absorb(self.query_all(self._bitmap_request(mode, [0x00]), expect=()))
             done: Set[int] = {0x00}
@@ -533,15 +673,75 @@ class ObdClient:
             chunks.append(fixed[i:i + MAX_PIDS_PER_REQUEST])
         return chunks
 
-    def _read_mode01_all(self, pids: Sequence[int]) -> Dict[int, Dict[int, ObdValue]]:
+    @staticmethod
+    def _split_records(mode: int, rid: int, data: bytes, chunk: Sequence[int]
+                       ) -> Optional[List[Tuple[int, Optional[int], bytes]]]:
+        """Split one ECU's reply ``data`` (after the positive SID) to a request for
+        ``chunk`` into ``(pid, frame, body)`` records, using the ISO-TP payload length
+        as the truth.
+
+        * One requested PID: the whole remainder is that PID's data, whatever the table
+          says (an ECU's own length wins; a difference is logged once per reply). This
+          is how the unconfirmed lengths of PIDs >= 0x60 on the EDC17 are tolerated.
+        * Several PIDs: the table-driven walk must consume the payload exactly, every
+          record must be one of the requested PIDs and have its full length; otherwise
+          the reply is *misaligned* (an ECU whose length for one PID differs from the
+          table) and ``None`` is returned so the caller re-reads those PIDs one by one.
+        """
+        hdr = 2 if mode == MODE_FREEZE else 1
+        if len(chunk) == 1:
+            pid = data[0]
+            frame = data[1] if mode == MODE_FREEZE else None
+            body = bytes(data[hdr:])
+            n = P.pid_length(pid)
+            if n is not None and len(body) != n:
+                log.warning("0x%X PID %02X: ECU sent %d data byte(s), table says %d; using the ECU's length",
+                            rid, pid, len(body), n)
+            return [(pid, frame, body)]
+        records = walk_records(data, with_frame=(mode == MODE_FREEZE))
+        consumed = sum(hdr + len(body) for _, _, body in records)
+        aligned = consumed == len(data) and all(
+            pid in chunk and (P.pid_length(pid) is None or len(body) == P.pid_length(pid))
+            for pid, _, body in records)
+        if not aligned:
+            log.warning("0x%X: record walk of %s misaligned for PIDs %s (ECU byte counts differ from the "
+                        "table); re-reading them one at a time", rid, data.hex(" "),
+                        " ".join(f"{p:02X}" for p in chunk))
+            return None
+        return records
+
+    def _read_records_all(self, mode: int, chunks: Sequence[Sequence[int]], frame: Optional[int]
+                          ) -> Dict[int, Dict[int, ObdValue]]:
+        """Mode 01 (``frame=None``) or Mode 02 records for ``chunks`` from every responder."""
         out: Dict[int, Dict[int, ObdValue]] = {}
-        for chunk in self._chunk_pids(list(pids)):
-            for rid, data in self.query_all(bytes([MODE_CURRENT]) + bytes(chunk)).items():
-                for pid, _frame, body in walk_records(data):
-                    if pid not in chunk:
-                        log.warning("0x%X answered with PID %02X that was not requested", rid, pid)
-                    out.setdefault(rid, {})[pid] = self._make_value(MODE_CURRENT, pid, body, rid, None)
+        retry: Dict[int, Set[int]] = {}             # pid -> responders whose reply was misaligned
+
+        def absorb(rid: int, data: bytes, chunk: Sequence[int]) -> None:
+            records = self._split_records(mode, rid, data, chunk)
+            if records is None:
+                for pid in chunk:
+                    retry.setdefault(pid, set()).add(rid)
+                return
+            for pid, frno, body in records:
+                out.setdefault(rid, {})[pid] = self._make_value(mode, pid, body, rid, frno)
+
+        for chunk in chunks:
+            for rid, data in self.query_all(self._record_request(mode, chunk, frame)).items():
+                absorb(rid, data, chunk)
+        for pid in sorted(retry):
+            for rid, data in self.query_all(self._record_request(mode, [pid], frame)).items():
+                if rid in retry[pid]:
+                    absorb(rid, data, [pid])
         return out
+
+    @staticmethod
+    def _record_request(mode: int, chunk: Sequence[int], frame: Optional[int]) -> bytes:
+        if mode == MODE_FREEZE:
+            return bytes([MODE_FREEZE]) + b"".join(bytes([p, (frame or 0) & 0xFF]) for p in chunk)
+        return bytes([mode]) + bytes(chunk)
+
+    def _read_mode01_all(self, pids: Sequence[int]) -> Dict[int, Dict[int, ObdValue]]:
+        return self._read_records_all(MODE_CURRENT, self._chunk_pids(list(pids)), None)
 
     def read_pids_all(self, pids: Iterable[int]) -> Dict[int, Dict[int, ObdValue]]:
         """Mode 01 for several PIDs, every responder: ``{response_id: {pid: ObdValue}}``."""
@@ -587,24 +787,31 @@ class ObdClient:
     def freeze_frame_all(self, pids: Optional[Iterable[int]] = None, frame: int = 0) -> Dict[int, Dict[int, ObdValue]]:
         """Mode 02 records ``[PID][frame][data]`` for every responder.
 
-        ``pids=None`` reads every PID the ECU lists in its Mode 02 bitmaps (always
-        including PID 02, the DTC that stored the frame). Three (PID, frame) pairs per
-        request. An ECU without a stored frame answers only the bitmap PIDs and PID 02
-        (= ``00 00``), so the result may hold just PID 02 -> ``None``.
+        PID 02 (the DTC that stored the frame) is always read first, *alone*
+        (``02 02 <frame>``): ISO 15031-5 §7.2.4.2 / Table 7 e-f say an ECU without a
+        stored frame answers ``00 00`` for PID 02 and stays silent for any request that
+        names another data PID, so mixing PID 02 with data PIDs would hide the "no
+        frame" answer. When no responder reports a stored frame the data PIDs are not
+        requested at all and the result holds just ``{0x02: None}`` per ECU.
+
+        ``pids=None`` then reads every PID the ECU lists in its Mode 02 bitmaps, three
+        (PID, frame) pairs per request; an explicit list is read as given (bitmap PIDs
+        are skipped, PID 02 is not repeated).
         """
+        out = self._read_records_all(MODE_FREEZE, [[0x02]], frame)
+        stored = {rid for rid, values in out.items() if 0x02 in values and values[0x02].value is not None}
+        if not stored:
+            return out
         if pids is None:
             per_ecu = self.supported_ids_all(MODE_FREEZE)
-            wanted = sorted(set().union(*per_ecu.values()) | {0x02}) if per_ecu else [0x02]
+            wanted = sorted(set().union(*per_ecu.values())) if per_ecu else []
         else:
             wanted = list(pids)
-        data_pids = [p for p in wanted if not P.is_support_id(p)]
-        out: Dict[int, Dict[int, ObdValue]] = {}
-        for i in range(0, len(data_pids), MAX_FREEZE_PAIRS_PER_REQUEST):
-            chunk = data_pids[i:i + MAX_FREEZE_PAIRS_PER_REQUEST]
-            req = bytes([MODE_FREEZE]) + b"".join(bytes([p, frame & 0xFF]) for p in chunk)
-            for rid, data in self.query_all(req).items():
-                for pid, frno, body in walk_records(data, with_frame=True):
-                    out.setdefault(rid, {})[pid] = self._make_value(MODE_FREEZE, pid, body, rid, frno)
+        data_pids = [p for p in wanted if not P.is_support_id(p) and p != 0x02]
+        chunks = [data_pids[i:i + MAX_FREEZE_PAIRS_PER_REQUEST]
+                  for i in range(0, len(data_pids), MAX_FREEZE_PAIRS_PER_REQUEST)]
+        for rid, values in self._read_records_all(MODE_FREEZE, chunks, frame).items():
+            out.setdefault(rid, {}).update(values)
         return out
 
     def freeze_frame(self, pids: Optional[Iterable[int]] = None, frame: int = 0, *,
@@ -690,8 +897,8 @@ class ObdClient:
                 log.warning("0x%X: malformed mode 09 reply %s", rid, data.hex(" "))
                 continue
             nodi = data[1]
-            out[rid] = VehicleInfo(infotype, P.INFOTYPE_NAMES.get(infotype, f"InfoType {infotype:02X}"),
-                                   nodi, bytes(data[2:]), decode_vehicle_info(infotype, nodi, data[2:]), rid)
+            out[rid] = VehicleInfo(infotype, P.infotype_name(infotype), nodi, bytes(data[2:]),
+                                   decode_vehicle_info(infotype, nodi, data[2:]), rid)
         return out
 
     def vehicle_info(self, infotype: int, *, response_id: Optional[int] = None) -> VehicleInfo:

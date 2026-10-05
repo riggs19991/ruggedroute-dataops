@@ -60,6 +60,12 @@ class UdsTiming:
     p2_star_timeout: float = 5.0     # extended window after an 0x78 pending
     pending_limit: int = 30          # max consecutive 0x78 before giving up
     retry_on_busy: int = 2           # retries on NRC 0x21 busyRepeatRequest
+    # How long a *suppressed-positive* request listens for a negative response before
+    # it is taken as accepted. ISO 14229-1 §7.5.3: the suppressPosRspMsgIndicationBit
+    # suppresses only the positive response; a server that refuses the request still
+    # sends ``7F <SID> <NRC>`` within P2. The ECU-announced P2 (from the 0x10 reply)
+    # widens this window when it is larger.
+    suppressed_nrc_window: float = 0.1
 
 
 @dataclass
@@ -119,8 +125,14 @@ class UdsClient:
         """Send one UDS request and return the response data (without the SID echo
         stripped). Raises NegativeResponse / UdsTimeout on failure.
 
-        ``expect_response=False`` is for suppressed-positive requests (e.g. a
-        tester-present with the suppress bit set), where the ECU stays silent.
+        ``expect_response=False`` / ``suppress_positive=True`` is for requests sent
+        with the suppressPosRspMsgIndicationBit (tester-present, ``85 82``...). The
+        ECU stays silent **only when it accepts** the request: a refusal is still
+        answered with ``7F <SID> <NRC>`` (ISO 14229-1 §7.5.3), so the client listens
+        for one :attr:`UdsTiming.suppressed_nrc_window` (or the ECU-announced P2 if
+        longer) and raises :class:`NegativeResponse` if one arrives. Silence within
+        that window returns ``b""``. Nothing is ever reported as accepted on the
+        strength of not having looked.
         """
         sid = payload[0]
         busy_retries = self.timing.retry_on_busy
@@ -130,6 +142,14 @@ class UdsClient:
                 self.link.flush_rx()
                 self.link.send(payload)
                 if not expect_response or suppress_positive:
+                    try:
+                        self._await_suppressed_nrc(sid)
+                    except _BusyRepeat:
+                        if busy_retries <= 0:
+                            raise NegativeResponse(sid, 0x21)
+                        busy_retries -= 1
+                        time.sleep(0.05)
+                        continue
                     return b""
 
                 try:
@@ -141,6 +161,50 @@ class UdsClient:
                     time.sleep(0.05)
                     continue
                 return response
+
+    def _suppressed_window(self) -> float:
+        """Listening window for a negative response to a suppressed request: the
+        configured window, widened to the ECU's announced P2, capped at P2 timeout."""
+        window = self.timing.suppressed_nrc_window
+        if self.last_session_timing is not None and self.last_session_timing.p2_ms:
+            window = max(window, self.last_session_timing.p2_ms / 1000.0)
+        return min(window, self.timing.p2_timeout)
+
+    def _await_suppressed_nrc(self, request_sid: int) -> None:
+        """After a suppressed-positive request: raise if the ECU refuses it.
+
+        Reads the link for :meth:`_suppressed_window`; a ``7F <sid> <nrc>`` raises
+        :class:`NegativeResponse` (0x78 extends the wait to P2*, 0x21 asks the caller
+        to resend), responses for other services are ignored, and a positive
+        response (an ECU that ignores the suppress bit) is accepted silently.
+        """
+        deadline = time.monotonic() + self._suppressed_window()
+        pending_count = 0
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                return
+            data = self.link.recv(remaining)
+            if not data:
+                return
+            if data[0] == (request_sid + S.POSITIVE_RESPONSE_OFFSET):
+                log.debug("ECU answered a suppressed 0x%02X positively (suppress bit ignored)",
+                          request_sid)
+                return
+            if data[0] != S.NEGATIVE_RESPONSE_SID or len(data) < 3 or data[1] != request_sid:
+                continue
+            nrc = data[2]
+            if nrc == 0x78:
+                pending_count += 1
+                if pending_count > self.timing.pending_limit:
+                    raise UdsTimeout(
+                        f"service 0x{request_sid:02X} exceeded {self.timing.pending_limit} "
+                        f"response-pending replies")
+                deadline = time.monotonic() + self.timing.p2_star_timeout
+                continue
+            if nrc == 0x21:
+                raise _BusyRepeat()
+            raise NegativeResponse(request_sid, nrc)
 
     def _await_response(self, request_sid: int) -> bytes:
         """Read frames until a final (non-pending) response for ``request_sid``."""
@@ -233,8 +297,16 @@ class UdsClient:
         (``size_of``: a mapping or a callable ``did -> length | None``). DIDs with a
         known size are requested together (``max_per_request`` at a time); DIDs with
         an unknown size fall back to single reads. If the ECU rejects a batch (NRC 0x14
-        responseTooLong, 0x31 for a batch with one bad DID, or anything else) the batch
-        degrades to single reads so one unsupported DID never hides the others.
+        responseTooLong, 0x33 because one DID is secured, or anything else) the batch
+        degrades to single reads so one refused DID never hides the others.
+
+        A batch answer that does **not** carry every requested DID is never trusted:
+        ISO 14229-1 lets a server answer a multi-DID request with only the DIDs it
+        supports, and a wrong (stale / oversized) oracle entry produces exactly the
+        same shape by swallowing the next DID's field into the previous one. Both
+        cases degrade to single reads of the whole batch, which (a) surfaces the real
+        NRC for a missing DID (raised, unless ``skip_unsupported`` and it is 0x31) and
+        (b) yields the true length of every DID instead of a corrupted split.
 
         ``skip_unsupported=True`` drops DIDs answered with NRC 0x31 instead of raising.
         Returns ``{did: data}`` in request order for the DIDs that answered.
@@ -252,17 +324,28 @@ class UdsClient:
                 self._read_single_into(out, batch[0], skip_unsupported)
                 continue
             try:
-                out.update(self._read_batch(batch, oracle))
+                got = self._read_batch(batch, oracle)
             except NegativeResponse as exc:
                 log.debug("multi-DID read of %s refused (%s); falling back to single reads",
                           [f"0x{d:04X}" for d in batch], exc)
                 for did in batch:
                     self._read_single_into(out, did, skip_unsupported)
+                continue
             except UnexpectedResponse as exc:
                 log.warning("multi-DID response could not be split (%s); falling back to "
                             "single reads", exc)
                 for did in batch:
                     self._read_single_into(out, did, skip_unsupported)
+                continue
+            missing = [d for d in batch if d not in got]
+            if missing:
+                log.info("multi-DID response omitted %s (unsupported DID or wrong size oracle); "
+                         "re-reading the batch one DID at a time",
+                         [f"0x{d:04X}" for d in missing])
+                for did in batch:
+                    self._read_single_into(out, did, skip_unsupported)
+                continue
+            out.update(got)
 
         for did in unknown:
             self._read_single_into(out, did, skip_unsupported)
@@ -293,6 +376,10 @@ class UdsClient:
             if did not in wanted:
                 raise UnexpectedResponse(
                     f"multi-DID response carries DID 0x{did:04X} that was not requested "
+                    f"(size oracle wrong for an earlier DID?)")
+            if did in out:
+                raise UnexpectedResponse(
+                    f"multi-DID response carries DID 0x{did:04X} twice "
                     f"(size oracle wrong for an earlier DID?)")
             size = oracle(did)
             assert size is not None
@@ -545,12 +632,24 @@ class UdsClient:
         if len(resp) < 2 or resp[1] != control:
             raise UnexpectedResponse("CommunicationControl subfunction echo mismatch")
 
-    def control_dtc_setting(self, on: bool) -> None:
-        """``85 01`` = ON, ``85 02`` = OFF, sent with the suppress bit (keeps the bus quiet
-        while an actuator test or flash would otherwise log spurious faults)."""
+    def control_dtc_setting(self, on: bool, *, suppress: bool = False) -> None:
+        """``85 01`` = ON, ``85 02`` = OFF (verified subfunctions).
+
+        By default the request is sent without the suppress bit and the ``C5 <sub>``
+        echo is validated, so a refusal (NRC 0x7F in the default session, 0x22 with
+        the engine running) is raised and never mistaken for "logging is off" before
+        an actuator test or a flash. ``suppress=True`` sets the suppress bit for bus
+        quietness; the ECU then stays silent on success but still answers ``7F 85
+        <NRC>`` on refusal, which :meth:`request` listens for and raises.
+        """
         sub = S.DtcSettingType.ON if on else S.DtcSettingType.OFF
-        self.request(bytes([S.Service.CONTROL_DTC_SETTING, sub | S.SUPPRESS_POSITIVE_RESPONSE]),
-                     expect_response=False, suppress_positive=True)
+        if suppress:
+            self.request(bytes([S.Service.CONTROL_DTC_SETTING, sub | S.SUPPRESS_POSITIVE_RESPONSE]),
+                         expect_response=False, suppress_positive=True)
+            return
+        resp = self.request(bytes([S.Service.CONTROL_DTC_SETTING, sub]))
+        if len(resp) < 2 or resp[1] != sub:
+            raise UnexpectedResponse("ControlDTCSetting subfunction echo mismatch")
 
     # ------------------------------------------------------------- security access
 
@@ -567,6 +666,11 @@ class UdsClient:
         if len(seed_resp) < 2 or seed_resp[1] != level:
             raise UnexpectedResponse("SecurityAccess seed echo mismatch")
         seed = seed_resp[2:]
+        if not seed:
+            # A bare "67 <level>" is a truncated/malformed reply, not an unlock: the
+            # all-zero-seed convention (ISO 14229-1 §9.4.2) needs a seed to be present.
+            raise UnexpectedResponse(
+                f"SecurityAccess seed response for level 0x{level:02X} carries no seed bytes")
 
         if all(b == 0 for b in seed):
             log.info("ECU returned all-zero seed for level 0x%02X (already unlocked)", level)
@@ -574,7 +678,9 @@ class UdsClient:
 
         key = seed_key_fn(level, seed)
         send_sub = level + 1
-        self.request(bytes([S.Service.SECURITY_ACCESS, send_sub]) + key)
+        key_resp = self.request(bytes([S.Service.SECURITY_ACCESS, send_sub]) + key)
+        if len(key_resp) < 2 or key_resp[1] != send_sub:
+            raise UnexpectedResponse("SecurityAccess sendKey echo mismatch")
         log.info("security access level 0x%02X unlocked", level)
 
     # ------------------------------------------------------------- data transfer
@@ -590,9 +696,7 @@ class UdsClient:
                    + size.to_bytes(size_bytes, "big"))
         resp = self.request(payload)
         # resp = [0x75, lengthFormatIdentifier, maxNumberOfBlockLength...]
-        lfid = (resp[1] >> 4) & 0x0F
-        max_block = int.from_bytes(resp[2:2 + lfid], "big")
-        return max_block
+        return self._parse_transfer_setup(resp, "RequestUpload")
 
     def request_download(self, address: int, size: int,
                         data_format: int = 0x00,
@@ -603,8 +707,31 @@ class UdsClient:
                    + address.to_bytes(addr_bytes, "big")
                    + size.to_bytes(size_bytes, "big"))
         resp = self.request(payload)
+        return self._parse_transfer_setup(resp, "RequestDownload")
+
+    @staticmethod
+    def _parse_transfer_setup(resp: bytes, name: str) -> int:
+        """``74/75 <lengthFormatIdentifier> <maxNumberOfBlockLength(lfid bytes)>`` ->
+        maxNumberOfBlockLength. The high nibble of the lengthFormatIdentifier is the
+        byte count of the following field (ISO 14229-1 §14.1.2 / §14.2.2); a missing
+        or zero-length field, a truncated field, or a block length that cannot carry
+        a single data byte (<= SID + sequence byte) is a :class:`UnexpectedResponse`,
+        never an IndexError or a 1-byte-block transfer."""
+        if len(resp) < 2:
+            raise UnexpectedResponse(f"{name} response too short ({len(resp)} bytes)")
         lfid = (resp[1] >> 4) & 0x0F
-        return int.from_bytes(resp[2:2 + lfid], "big")
+        if lfid == 0:
+            raise UnexpectedResponse(f"{name} response has a zero-length maxNumberOfBlockLength")
+        if len(resp) < 2 + lfid:
+            raise UnexpectedResponse(
+                f"{name} response truncated: lengthFormatIdentifier announces {lfid} bytes, "
+                f"{len(resp) - 2} present")
+        max_block = int.from_bytes(resp[2:2 + lfid], "big")
+        if max_block <= 2:
+            raise UnexpectedResponse(
+                f"{name}: maxNumberOfBlockLength {max_block} cannot carry data (SID + sequence "
+                "byte already take 2)")
+        return max_block
 
     def transfer_data_read(self, block_seq: int) -> bytes:
         """One TransferData (0x36) during an upload; returns the data block."""
@@ -729,6 +856,11 @@ class _TesterPresentThread(threading.Thread):
                 self.client.tester_present(suppress=True)
             except (TransportTimeout, UdsTimeout):
                 log.debug("tester-present keepalive timed out (bus busy)")
+            except NegativeResponse as exc:
+                # The ECU refused the keepalive (now visible thanks to the suppressed-NRC
+                # window); the session will time out on its own, which the next
+                # foreground request reports as NRC 0x7F/0x33.
+                log.debug("tester-present keepalive refused: %s", exc)
             except Exception as exc:  # pragma: no cover - keepalive must never crash app
                 log.debug("tester-present keepalive error: %s", exc)
 

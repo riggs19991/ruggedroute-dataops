@@ -26,6 +26,7 @@ from vagtune.transport.fakebus import FakeCanBus, FakeCanTransport, SimulatedNod
     reset_default_vehicle
 from vagtune.transport.router import CanRouter
 from vagtune.transport.tp20 import (
+    APP_TYPE_TEXT,
     SetupResponse,
     Tp20Channel,
     Tp20ChannelClosed,
@@ -36,11 +37,14 @@ from vagtune.transport.tp20 import (
     build_setup_request,
     decode_timing,
     encode_timing,
+    frame_opcode,
     parse_setup_response,
     probe_tp20_addresses,
     split_message,
+    tester_rx_ids_in_use as rx_ids_in_use,
 )
-from vagtune.transport.tp20_sim import Tp20Node, Tp20Responder
+import vagtune.transport.tp20 as tp20_module
+from vagtune.transport.tp20_sim import MODULE_DEFAULT_PARAMS, Tp20Node, Tp20Responder
 
 h = bytes.fromhex
 
@@ -173,10 +177,11 @@ def test_timing_encode_vectors_and_roundtrip():
 
 def test_params_bytes_and_properties():
     p = Tp20Params()
-    assert p.to_bytes() == h("A0 0F 8A FF 4A FF")
-    assert p.to_bytes(0xA1) == h("A1 0F 8A FF 4A FF")
+    assert p.to_bytes() == h("A0 0F 8A FF 32 FF")                 # registry conflict C7: T3 5 ms
     assert p.t1_ack_timeout == pytest.approx(0.1)
-    assert p.t3_min_interframe == pytest.approx(0.01)
+    assert p.t3_min_interframe == pytest.approx(0.005)
+    assert MODULE_DEFAULT_PARAMS.to_bytes(0xA1) == h("A1 0F 8A FF 4A FF")   # every traced module
+    assert MODULE_DEFAULT_PARAMS.t3_min_interframe == pytest.approx(0.01)
     q = Tp20Params.from_bytes(h("A1 0F 8A FF 32 FF"))
     assert q.t3_min_interframe == pytest.approx(0.005) and q.block_size == 15
     assert Tp20Params.make(block_size=8, t1_ms=100, t3_ms=5).to_bytes() == h("A0 08 8A FF 32 FF")
@@ -228,15 +233,16 @@ def test_connect_handshake_byte_exact(engine_env):
     assert ch.connected and ch.setup_form == "standard"
     assert ch.tx_id == 0x740 and ch.rx_id == 0x300
     assert ch.ecu_rx_id == 0x740 and ch.ecu_tx_id == 0x300
-    assert ch.peer_params == Tp20Params()
+    assert ch.peer_params == MODULE_DEFAULT_PARAMS
     assert ch.t1 == pytest.approx(0.1) and ch.t3 == pytest.approx(0.01) and ch.block_size == 15
     time.sleep(0.02)
     assert drain(env.spy)[:4] == [
         (0x200, h("01 C0 00 10 00 03 01")),
         (0x201, h("00 D0 00 03 40 07 01")),
-        (0x740, h("A0 0F 8A FF 4A FF")),
+        (0x740, h("A0 0F 8A FF 32 FF")),
         (0x300, h("A1 0F 8A FF 4A FF")),
     ]
+    assert rx_ids_in_use(env.router) == {0x300: "tp20-01"}
     ch.connect()                       # idempotent
     assert ch.stats["tx_frames"] == 2
 
@@ -510,6 +516,8 @@ def test_ack_timeout_raises_tp20_timeout(engine_env):
         ch.send(b"\x10\x89")
     assert 0.08 <= time.monotonic() - t0 < 1.0
     node.start()                                           # fresh module: old channel is gone
+    ch.disconnect()                                        # releases 0x300 (no A8 comes back)
+    assert rx_ids_in_use(env.router) == {}
     ch2 = env.channel(0x01)
     ch2.connect()
     ch2.send(b"\x3E")
@@ -564,7 +572,7 @@ def test_inline_a3_during_response_is_answered_and_stripped(engine_env):
     time.sleep(0.02)
     frames = drain(env.spy)
     i_a3 = frames.index((0x300, h("A3")))
-    assert frames[i_a3 + 1] == (0x740, h("A1 0F 8A FF 4A FF"))
+    assert frames[i_a3 + 1] == (0x740, h("A1 0F 8A FF 32 FF"))     # our params, as A1
     assert frames[i_a3 - 1][1][0] == 0x22 and frames[i_a3 + 2][1][0] == 0x23
 
 
@@ -582,7 +590,7 @@ def test_module_stops_block_after_its_keepalive_and_is_prompted(engine_env):
     time.sleep(0.02)
     frames = drain(env.spy)
     i_a3 = frames.index((0x300, h("A3")))
-    assert frames[i_a3 + 1] == (0x740, h("A1 0F 8A FF 4A FF"))
+    assert frames[i_a3 + 1] == (0x740, h("A1 0F 8A FF 32 FF"))
     assert frames[i_a3 + 2] == (0x740, h("B3"))            # prompt: resume from seq 3
     assert frames[i_a3 + 3][1][0] == 0x23
 
@@ -605,11 +613,11 @@ def test_keepalive_exchange_keeps_module_alive(env):
 
 
 def test_channel_test_returns_peer_params(env):
-    env.add(0x01, 0x740, params=Tp20Params(block_size=8))
+    env.add(0x01, 0x740, params=Tp20Params(block_size=8, t3=0x4A))
     ch = env.channel(0x01)
     ch.connect()
     drain(env.spy)
-    assert ch.channel_test() == Tp20Params(block_size=8)
+    assert ch.channel_test() == Tp20Params(block_size=8, t3=0x4A)
     time.sleep(0.02)
     assert drain(env.spy) == [(0x740, h("A3")), (0x300, h("A1 08 8A FF 4A FF"))]
     with pytest.raises(Tp20Error):
@@ -760,6 +768,7 @@ def test_probe_addresses(env):
     decoy.start()
     env.nodes.append(decoy)
 
+    drain(env.spy)
     results = probe_tp20_addresses(env.router, [0x01, 0x02, 0x03, 0x05, 0x09, 0x0A, 0x1F],
                                    gap=0.005, settle=0.15)
     assert {a: (r.status, r.tester_tx_id, r.setup_form) for a, r in results.items()} == {
@@ -773,6 +782,22 @@ def test_probe_addresses(env):
     }
     assert results[0x01].raw == h("00 D0 00 03 40 07 01")
     assert results[0x05].raw == h("05 D0 A1")
+    assert all(results[a].released for a in (0x01, 0x03, 0x09, 0x0A, 0x1F))
+    assert not results[0x02].released and not results[0x05].released
+    # Sequential by default (sheet OPEN Q.1 method): every 0xD0 is followed by our A8 on
+    # the assigned tx id and the module's A8 before the next 0xC0 goes out, and every
+    # setup asks for the same single tester id 0x300.
+    frames = drain(env.spy)
+    open_at_once = 0
+    for arb, data in frames:
+        if arb == 0x200:
+            assert open_at_once == 0, "a 0xC0 went out while another channel was still open"
+            assert data[4:6] == h("00 03")
+        elif 0x201 <= arb <= 0x2FF and len(data) == 7 and data[1] == 0xD0:
+            open_at_once += 1
+        elif arb == 0x300 and data == h("A8"):
+            open_at_once -= 1
+    assert open_at_once == 0
     for node in env.nodes[:5]:
         assert wait_for(lambda n=node: not n.responder.channel_open), node
         assert node.responder.last_close_reason == "tester sent A8"
@@ -894,3 +919,335 @@ def test_transport_context_demo_has_no_tp20_module(fresh_default_vehicle):
         ch = ctx.tp20_channel(0x01, setup_timeout=0.02, setup_retries=1)
         with pytest.raises(Tp20Timeout):
             ch.connect()
+
+
+# ================================================================ review findings
+
+def test_frame_opcode_is_a_function_of_the_index():
+    bs = 15
+    assert [frame_opcode(i, 18, bs) for i in range(18)] == [0x2] * 14 + [0x0, 0x2, 0x2, 0x1]
+    assert [frame_opcode(i, 1, bs) for i in range(1)] == [0x1]
+    assert [frame_opcode(i, 15, bs) for i in range(15)] == [0x2] * 14 + [0x1]
+    assert [frame_opcode(i, 10, 8) for i in range(10)] == [0x2] * 7 + [0x0, 0x2, 0x1]
+    assert frame_opcode(0, 5, 0) == 0x0 and frame_opcode(0, 2, 1) == 0x0   # bs 0 clamps to 1
+
+
+def test_application_type_table():
+    assert APP_TYPE_TEXT == {0x01: "diagnostics (KWP2000)", 0x10: "infotainment communication",
+                             0x20: "application protocol", 0x21: "WFS/WIV immobiliser"}
+    exc = Tp20ChannelRefused(0xD6, "application type not supported", logical_address=0x01, app=0x20)
+    assert "0xD6" in str(exc) and "application protocol" in str(exc) and exc.app == 0x20
+
+
+def test_not_ready_at_block_boundary_resends_same_pci_and_waits(engine_env):
+    """Finding 1/10: a 0x9X on the 15th (block-end, 0x0E) frame must be answered by
+    re-sending that very frame with its ACK request after T_WAIT, not by a 0x2E
+    duplicate followed by the next block."""
+    env = engine_env
+    env.nodes[0].responder.not_ready_count = 1
+    ch = env.channel(0x01)
+    ch.connect()
+    drain(env.spy)
+    t0 = time.monotonic()
+    ch.send(b"\x3B\x01" + bytes(range(120)))               # 18 frames: block end at index 14
+    assert time.monotonic() - t0 >= Tp20Channel.T_WAIT
+    assert ch.recv(1.0) == b"\x7B\x01\x00\x7A"
+    assert ch.stats["naks"] == 1 and ch.stats["retransmissions"] == 1
+    time.sleep(0.02)
+    frames = drain(env.spy)
+    ours = [d[0] for (i, d) in frames if i == 0x740 and (d[0] >> 4) <= 3]
+    assert ours == [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C,
+                    0x2D, 0x0E, 0x0E, 0x2F, 0x20, 0x11]
+    theirs = [d[0] for (i, d) in frames if i == 0x300 and (d[0] >> 4) in (0x9, 0xB)]
+    assert theirs == [0x9F, 0xBF, 0xB2]
+    i_nak = frames.index((0x300, h("9F")))
+    assert frames[i_nak + 1][1][0] == 0x0E                 # nothing else went out before the retry
+
+
+class _RawModule(threading.Thread):
+    """A scripted module on a raw FakeCanTransport: answers the handshake, then plays
+    ``script`` (a list of frames for 0x300) once the A0 arrives, 20 ms apart."""
+
+    def __init__(self, bus: FakeCanBus, script: List[bytes], tester_tx_id: int = 0x740) -> None:
+        super().__init__(daemon=True)
+        self.transport = bus.attach("raw-module")
+        self.script = script
+        self.tester_tx_id = tester_tx_id
+        self.seen: List[Tuple[int, bytes]] = []
+        self.stop_flag = threading.Event()
+        self.start()
+
+    def run(self) -> None:
+        while not self.stop_flag.is_set():
+            f = self.transport.recv(0.05)
+            if f is None:
+                continue
+            self.seen.append((f.arbitration_id, bytes(f.data)))
+            if f.arbitration_id == 0x200 and f.data[1] == 0xC0:
+                self.transport.send(CanFrame(0x201, h("00 D0 00 03 40 07 01")))
+            elif f.arbitration_id == self.tester_tx_id and f.data[0] == 0xA0:
+                self.transport.send(CanFrame(0x300, h("A1 0F 8A FF 4A FF")))
+                for data in self.script:
+                    time.sleep(0.02)
+                    self.transport.send(CanFrame(0x300, data))
+
+    def close(self) -> None:
+        self.stop_flag.set()
+        self.join(1.0)
+        self.transport.close()
+
+
+def test_truncated_and_zero_length_messages_are_refused(env):
+    """Finding 2/11: a message shorter than its announced length, or announcing length
+    0, is never delivered; it is still ACKed so the module's counter stays in step and
+    the next well-formed message gets through."""
+    module = _RawModule(env.bus, [h("10 00 10 61 01"), h("11 00 00"), h("12 00 01 7E")])
+    try:
+        ch = env.channel(0x01, setup_timeout=0.5)
+        ch.connect()
+        assert ch.recv(1.0) == b"\x7E"                     # only the well-formed one
+        assert ch.recv(0.1) is None
+        assert ch.stats["malformed_messages"] == 2 and ch.stats["rx_messages"] == 1
+        acks = [d for (i, d) in module.seen if i == 0x740 and (d[0] >> 4) == 0xB]
+        assert acks == [h("B1"), h("B2"), h("B3")]
+    finally:
+        module.close()
+
+
+def test_same_tester_rx_id_is_refused_and_none_allocates(env):
+    """Finding 5: two channels on one router may not share a tester receive id (both
+    modules would transmit on it); ``tester_rx_id=None`` takes the lowest free id."""
+    env.add(0x01, 0x740, name="engine")
+    env.add(0x02, 0x7E1, name="dsg")
+    ch1 = env.channel(0x01)
+    ch1.connect()
+    ch2 = env.channel(0x02)                                 # also 0x300
+    with pytest.raises(Tp20Error, match="0x300 is already used by tp20-01"):
+        ch2.connect()
+    assert not ch2.connected and env.nodes[1].responder.stats["setups"] == 0   # refused before any frame
+    ch3 = env.channel(0x02, tester_rx_id=None)
+    assert ch3.rx_id == 0
+    ch3.connect()
+    assert ch3.rx_id == 0x301 and ch3.ecu_tx_id == 0x301 and ch3.tx_id == 0x7E1
+    assert rx_ids_in_use(env.router) == {0x300: "tp20-01", 0x301: "tp20-02"}
+    ch1.send(b"\x1A\x9B")
+    ch3.send(b"\x3E")
+    assert ch1.recv(1.0) == IDENT_1A9B and ch3.recv(1.0) == b"\x7E"
+    assert ch1.stats["sequence_errors"] == 0 and ch3.stats["sequence_errors"] == 0
+    ch1.disconnect()                                        # releases 0x300 ...
+    assert rx_ids_in_use(env.router) == {0x301: "tp20-02"}
+    ch3.disconnect()                                        # ... and the DSG module itself
+    ch2.connect()                                           # so the refused channel can take 0x300
+    assert ch2.rx_id == 0x300 and ch2.connected
+    assert rx_ids_in_use(env.router) == {0x300: "tp20-02"}
+    with pytest.raises(Tp20Error, match="already used"):
+        probe_tp20_addresses(env.router, [0x01], settle=0.05)       # the probe claims ids too
+    assert env.nodes[0].responder.stats["setups"] == 1               # nothing was sent by it
+    ch2.close()
+    assert rx_ids_in_use(env.router) == {}
+
+
+def test_concurrent_channels_on_distinct_ids_from_two_threads(env):
+    env.add(0x01, 0x740, name="engine")
+    env.add(0x02, 0x7E1, name="dsg")
+    ch1 = env.channel(0x01, tester_rx_id=0x300)
+    ch2 = env.channel(0x02, tester_rx_id=0x301)
+    ch1.connect()
+    ch2.connect()
+    errors: List[str] = []
+
+    def worker(ch: Tp20Channel, label: str) -> None:
+        for k in range(20):
+            try:
+                ch.send(b"\x1A\x9B" if k % 2 else b"\x3B\x01" + bytes(range(60)))
+                r = ch.recv(2.0)
+                exp = IDENT_1A9B if k % 2 else b"\x7B\x01\x00\x3E"
+                if r != exp:
+                    errors.append(f"{label}#{k}: {r!r}")
+            except Exception as exc:                        # noqa: BLE001 - reported below
+                errors.append(f"{label}#{k}: {exc!r}")
+                return
+
+    threads = [threading.Thread(target=worker, args=(ch1, "ch1")),
+               threading.Thread(target=worker, args=(ch2, "ch2"))]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(10)
+    assert errors == []
+    assert ch1.stats["sequence_errors"] == 0 and ch2.stats["sequence_errors"] == 0
+    assert ch1.stats["rx_messages"] == 20 and ch2.stats["rx_messages"] == 20
+
+
+def test_flush_rx_mid_reply_discards_that_reply_without_phantoms(env):
+    """Finding 6: flush_rx() during a multi-frame reply must not turn its tail into
+    fabricated messages (TP 2.0 has no first-frame marker); the reply is reassembled
+    on its real length and then discarded."""
+    env.add(0x01, 0x740, name="engine")
+    ch = env.channel(0x01, params=Tp20Params(t3=0x85))      # ask the module for 50 ms spacing
+    ch.connect()
+    ch.send(b"\x1A\x9B")                                    # 8 frames -> ~0.35 s on the wire
+    assert ch.recv(0.1) is None                             # client gives up early ...
+    ch.flush_rx()                                           # ... and flushes before its next request
+    time.sleep(0.6)
+    assert ch.recv(0.0) is None
+    assert ch.stats["discarded_messages"] == 1 and ch.stats["rx_messages"] == 0
+    assert ch.stats["malformed_messages"] == 0 and ch.stats["sequence_errors"] == 0
+    ch.send(b"\x3E")
+    assert ch.recv(1.0) == b"\x7E"
+    ch.send(b"\x1A\x9B")
+    assert ch.recv(1.0) == IDENT_1A9B
+
+
+class _AbandonResponder(Tp20Responder):
+    """First response: send only the first two frames (op 'more'), then forget it."""
+
+    def __init__(self, *args, **kw) -> None:
+        super().__init__(*args, **kw)
+        self.abandon_next = True
+
+    def send_message(self, payload: bytes) -> bool:
+        if not self.abandon_next:
+            return super().send_message(payload)
+        self.abandon_next = False
+        chunks = split_message(payload)
+        for i in range(2):
+            seq = self.tx_seq
+            self._send(bytes([(0x2 << 4) | seq]) + chunks[i])
+            self.tx_seq = (seq + 1) & 0xF
+            time.sleep(0.01)
+        return True
+
+
+class _NoA1Responder(Tp20Responder):
+    """Opens the channel (D0) but ignores the tester's first ``ignore_a0`` A0 frames."""
+
+    def __init__(self, *args, ignore_a0: int = 2, **kw) -> None:
+        super().__init__(*args, **kw)
+        self.ignore_a0 = ignore_a0
+
+    def handle_frame(self, frame: CanFrame) -> None:
+        d = frame.data
+        if (self.channel_open and frame.arbitration_id == self.tester_tx_id and d
+                and d[0] == 0xA0 and self.ignore_a0 > 0):
+            self.ignore_a0 -= 1
+            self._last_activity = time.monotonic()
+            return
+        super().handle_frame(frame)
+
+
+class _CustomNode(Tp20Node):
+    """A Tp20Node around a Tp20Responder subclass."""
+
+    def __init__(self, bus: FakeCanBus, responder_cls, *, logical_address: int, tester_tx_id: int,
+                 handler=kwp_handler, name: str = "custom", **responder_kw) -> None:
+        SimulatedNode.__init__(self, name)
+        self.bus = bus
+        self.transport = bus.attach(self.name)
+        self.responder = responder_cls(self.transport, logical_address, handler,
+                                       tester_tx_id=tester_tx_id, name=self.name, **responder_kw)
+        self.logical_address = logical_address
+        self.tester_tx_id = tester_tx_id
+
+
+def test_abandoned_partial_is_dropped_and_next_reply_is_clean(env):
+    """Finding 7: a module that stops mid-message and never resumes must not have its
+    stale bytes glued to its next message; the partial is prompted once (T1) and
+    abandoned after PARTIAL_TIMEOUT_FACTOR x T1 of silence."""
+    node = _CustomNode(env.bus, _AbandonResponder, logical_address=0x01, tester_tx_id=0x740,
+                       name="engine")
+    node.start()
+    env.nodes.append(node)
+    ch = env.channel(0x01)
+    ch.connect()
+    ch.send(b"\x1A\x9B")
+    t0 = time.monotonic()
+    assert ch.recv(0.5) is None
+    assert wait_for(lambda: ch.stats["abandoned_partials"] == 1, timeout=0.5)
+    assert 0.25 <= time.monotonic() - t0 < 0.6               # abandoned at ~3 x T1, not never
+    assert ch.stats["stall_prompts"] == 1
+    ch.send(b"\x3E")
+    assert ch.recv(1.0) == b"\x7E"
+    assert ch.stats["rx_messages"] == 1 and ch.stats["malformed_messages"] == 0
+
+
+def test_failed_params_handshake_releases_half_open_module(env):
+    """Finding 8: after a 0xD0 the module holds a channel; when the A0/A1 step fails the
+    tester must send A8 on the assigned tx id before raising, or every retry gets D8."""
+    node = _CustomNode(env.bus, _NoA1Responder, logical_address=0x01, tester_tx_id=0x740,
+                       name="engine", ignore_a0=2)
+    node.start()
+    env.nodes.append(node)
+    ch = env.channel(0x01, setup_timeout=0.05, setup_retries=2)
+    with pytest.raises(Tp20Timeout, match="A1"):
+        ch.connect()
+    time.sleep(0.05)
+    frames = drain(env.spy)
+    assert [d for (i, d) in frames if i == 0x740] == [h("A0 0F 8A FF 32 FF")] * 2 + [h("A8")]
+    assert (0x300, h("A8")) in frames                        # module confirmed
+    assert not node.responder.channel_open and node.responder.last_close_reason == "tester sent A8"
+    assert rx_ids_in_use(env.router) == {}            # the claim was released too
+    ch.connect()                                             # D0 again, not D8
+    assert ch.connected and node.responder.stats["refused"] == 0
+
+
+def test_concurrent_auto_connect_runs_one_handshake(engine_env):
+    """Finding 9: recv() on one thread and send() on another, both auto-connecting a
+    fresh channel, must share one handshake (the module sees exactly one 0xC0)."""
+    env = engine_env
+    node = env.nodes[0]
+    for round_ in range(3):
+        ch = env.channel(0x01, tester_rx_id=0x300 + round_)
+        results: dict = {}
+
+        def rx() -> None:
+            try:
+                results["rx"] = ch.recv(1.5)
+            except Exception as exc:                        # noqa: BLE001
+                results["rx"] = exc
+
+        def tx() -> None:
+            try:
+                ch.send(b"\x3E")
+                results["tx"] = "ok"
+            except Exception as exc:                        # noqa: BLE001
+                results["tx"] = exc
+
+        before = node.responder.stats["setups"]
+        a = threading.Thread(target=rx)
+        b = threading.Thread(target=tx)
+        a.start()
+        b.start()
+        a.join(5)
+        b.join(5)
+        assert results.get("tx") == "ok", results
+        assert results.get("rx") == b"\x7E", results
+        assert node.responder.stats["setups"] == before + 1 and node.responder.stats["refused"] == 0
+        ch.close()
+        assert wait_for(lambda: not node.responder.channel_open)
+
+
+def test_probe_concurrency_uses_distinct_ids_and_is_marked_unverified(env):
+    """Finding 3: the default probe is sequential (tested in test_probe_addresses);
+    ``concurrency`` > 1 keeps that many channels open on distinct tester ids and warns
+    once that simultaneous channels are only reported."""
+    for addr, tx in ((0x01, 0x740), (0x02, 0x741), (0x03, 0x7A0), (0x1F, 0x32E)):
+        env.add(addr, tx, name=f"m{addr:02X}")
+    tp20_module._unverified_warned.discard("tp20-probe-concurrent")
+    drain(env.spy)
+    results = probe_tp20_addresses(env.router, [0x01, 0x02, 0x03, 0x1F], gap=0.005, settle=0.15,
+                                   concurrency=4)
+    assert "tp20-probe-concurrent" in tp20_module._unverified_warned
+    assert {a: (r.status, r.tester_tx_id, r.released) for a, r in results.items()} == {
+        0x01: ("open", 0x740, True), 0x02: ("open", 0x741, True),
+        0x03: ("open", 0x7A0, True), 0x1F: ("open", 0x32E, True)}
+    frames = drain(env.spy)
+    requested = [int.from_bytes(d[4:6], "little") & 0x7FF for (i, d) in frames if i == 0x200]
+    assert sorted(requested) == [0x300, 0x301, 0x302, 0x303]
+    a8_confirmations = sorted(i for (i, d) in frames if 0x300 <= i <= 0x303 and d == h("A8"))
+    assert a8_confirmations == [0x300, 0x301, 0x302, 0x303]
+    assert rx_ids_in_use(env.router) == {} and env.router.endpoints == []
+    for node in env.nodes:
+        assert wait_for(lambda n=node: not n.responder.channel_open)
+    with pytest.raises(ValueError):
+        probe_tp20_addresses(env.router, [0x01], concurrency=17)

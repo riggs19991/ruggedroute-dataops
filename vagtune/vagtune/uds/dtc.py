@@ -176,16 +176,21 @@ class DtcSnapshot:
 
     ``dids`` holds the ``(did, data)`` pairs that could be parsed with known sizes;
     ``raw`` is the unparsed tail that follows them (empty when ``complete``).
-    ``did_count`` is the count the ECU announced.
+    ``did_count`` is the count the ECU announced. ``truncated`` is set when the
+    message ended before this record could be parsed with the sizes that *were*
+    known (a lone trailing byte where a ``<record> <nDIDs>`` header should be, or a
+    DID field cut short) - i.e. a garbled/truncated reassembly rather than merely an
+    unknown size; such a record is never ``complete``.
     """
     record: int
     did_count: int
     dids: List[Tuple[int, bytes]] = field(default_factory=list)
     raw: bytes = b""
+    truncated: bool = False
 
     @property
     def complete(self) -> bool:
-        return not self.raw and len(self.dids) == self.did_count
+        return not self.raw and not self.truncated and len(self.dids) == self.did_count
 
     def value(self, did: int) -> Optional[bytes]:
         for d, v in self.dids:
@@ -311,21 +316,24 @@ def parse_snapshot_records(data: bytes, did_sizes: SizeOracle = None) -> DtcSnap
     n = len(data)
     while p < n:
         if p + 2 > n:
-            # A lone trailing byte cannot be a record header.
-            records.append(DtcSnapshot(record=data[p], did_count=0, raw=data[p + 1:]))
+            # A lone trailing byte cannot be a record header: keep it raw and flag the
+            # record as truncated so the report is never reported complete.
+            records.append(DtcSnapshot(record=data[p], did_count=0, raw=data[p:], truncated=True))
             break
         rec = DtcSnapshot(record=data[p], did_count=data[p + 1])
         p += 2
         stopped = False
         for _ in range(rec.did_count):
             if p + 2 > n:
-                rec.raw = data[p:]
+                rec.raw = data[p:]          # message ends inside a DID number
+                rec.truncated = True
                 stopped = True
                 break
             did = (data[p] << 8) | data[p + 1]
             size = sizes.get(did)
             if size is None or p + 2 + size > n:
                 rec.raw = data[p:]          # unparsed from this DID onwards
+                rec.truncated = size is not None    # known size but not enough bytes
                 stopped = True
                 break
             rec.dids.append((did, data[p + 2:p + 2 + size]))

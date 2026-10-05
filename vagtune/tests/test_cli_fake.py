@@ -36,7 +36,9 @@ def run(capsys, *argv) -> tuple[int, str, str]:
 def test_parser_lists_all_commands():
     parser = build_parser()
     sub = next(a for a in parser._actions if a.dest == "command")
-    assert set(sub.choices) == {"scan", "identify", "dtc", "read-cal", "show-map", "scale-map", "sa2"}
+    # The 0.1.0 commands must always be present; other areas register themselves
+    # (commands/ auto-discovery), so this is a subset check, not an equality.
+    assert {"scan", "identify", "dtc", "read-cal", "show-map", "scale-map", "sa2"} <= set(sub.choices)
 
 
 def test_resolve_module_tokens():

@@ -1005,6 +1005,12 @@ def walk_records(payload: bytes, *, with_frame: bool = False) -> List[Tuple[int,
     [data...]`` and the data length comes from :data:`PIDS`; the walk stops (with a
     warning) at the first PID whose length is unknown, returning what was parsed plus
     that PID with the remainder of the payload as its data.
+
+    The table is only a hypothesis about the ECU's byte counts: the caller must check
+    that the records consume the payload exactly (``sum(hdr + len(data))``) and that
+    the last record is not short, otherwise the reply is misaligned
+    (``ObdClient._split_records`` does this and falls back to single-PID reads, where
+    the ISO-TP payload length is the truth).
     """
     out: List[Tuple[int, Optional[int], bytes]] = []
     i = 0
@@ -1029,7 +1035,12 @@ def walk_records(payload: bytes, *, with_frame: bool = False) -> List[Tuple[int,
 
 @dataclass(frozen=True)
 class Uas:
-    """One Unit and Scaling ID: ``value = raw * scale + offset`` (signed when id >= 0x80)."""
+    """One Unit and Scaling ID row: ``value = raw * scale + offset``.
+
+    ``uasid`` is the row's own id; :attr:`signed` follows Annex E ($01-$7F unsigned,
+    $80-$FE two's complement) and equals :func:`uas_signed`.
+    """
+    uasid: int
     scale: float
     offset: float
     unit: str
@@ -1037,12 +1048,12 @@ class Uas:
 
     @property
     def signed(self) -> bool:
-        return False
+        return uas_signed(self.uasid)
 
 
 def _uas_rows() -> Dict[int, Uas]:
     r: Dict[int, Uas] = {}
-    U = lambda i, s, u, o=0.0, n="": r.__setitem__(i, Uas(s, o, u, n))   # noqa: E731
+    U = lambda i, s, u, o=0.0, n="": r.__setitem__(i, Uas(i, s, o, u, n))   # noqa: E731
     U(0x01, 1, "raw"); U(0x02, 0.1, "raw"); U(0x03, 0.01, "raw"); U(0x04, 0.001, "raw")
     U(0x05, 0.0000305, "raw"); U(0x06, 0.000305, "raw"); U(0x07, 0.25, "rpm"); U(0x08, 0.01, "km/h")
     U(0x09, 1, "km/h"); U(0x0A, 0.000122, "V"); U(0x0B, 0.001, "V"); U(0x0C, 0.01, "V")
@@ -1170,6 +1181,23 @@ INFOTYPE_NAMES: Dict[int, str] = {
     0x0D: "Exhaust regulation / type approval number (EROTAN)",   # UNVERIFIED: name only
     0x20: "InfoTypes supported 21-40",
 }
+#: InfoTypes whose *names* are Reported only (J1979-DA not fetched; byte layouts unknown).
+UNVERIFIED_INFOTYPES = frozenset({0x0C, 0x0D})
+
+
+def infotype_name(infotype: int) -> str:
+    """Display name of a Mode 09 InfoType.
+
+    0x0C (ESN) and 0x0D (EROTAN) are named from secondary sources only (the J1979-DA
+    text was not fetched); their first use logs an ``UNVERIFIED mapping`` warning and
+    their payload is never decoded beyond raw hex. Unknown ids get ``InfoType xx``.
+    """
+    if infotype in UNVERIFIED_INFOTYPES:
+        # UNVERIFIED: names from the W/J1979-DA summary; layouts unknown.
+        warn_unverified("infotype-0c-0d", "InfoType 0C = 'Engine serial number (ESN)' and 0D = 'EROTAN' "
+                                          "are names from J1979-DA summaries, not a fetched standard; "
+                                          "payloads are shown raw")
+    return INFOTYPE_NAMES.get(infotype, f"InfoType {infotype:02X}")
 
 IPT_SPARK_NAMES: Tuple[str, ...] = (
     "OBDCOND", "IGNCYCCNTR", "CATCOMP1", "CATCOND1", "CATCOMP2", "CATCOND2", "O2SCOMP1", "O2SCOND1",

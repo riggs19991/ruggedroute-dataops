@@ -20,7 +20,7 @@ Wire protocol (all ids 11-bit, 500 kbit/s)::
         4-5 the id WE must transmit on, chosen by the module (0x740 engine, 0x7A8 EPS,
         0x764 Haldex Gen2 ... never assume it). Each id is a little-endian 16-bit
         value whose top nibble is the validity flag (0 valid, 1 invalid).
-    parameters      tester -> tx id          : A0 BS T1 T2 T3 T4   (default A0 0F 8A FF 4A FF)
+    parameters      tester -> tx id          : A0 BS T1 T2 T3 T4   (default A0 0F 8A FF 32 FF)
                     module -> rx id          : A1 BS T1 T2 T3 T4   (typically A1 0F 8A FF 4A FF)
         T bytes: bits 7-6 unit (0.1 / 1 / 10 / 100 ms), bits 5-0 multiplier.
         A3 = channel test (peer answers with its A1), A4 = break, A8 = disconnect
@@ -42,6 +42,12 @@ the endpoint, ACKs inline (the module's T1 is 100 ms; the ACK must come from the
 thread that sees the frame), answers the module's A3 with our A1, and sends an A3 of
 our own when the channel has been idle for ``keepalive_idle`` seconds.
 
+Every module transmits on the id the tester asked for, so two channels on one bus
+must use distinct ``tester_rx_id`` values. The module keeps a per-router registry of
+the ids in use: a second channel (or a probe) asking for an id that a live channel
+holds is refused with :class:`Tp20Error` instead of silently sharing the frames, and
+``tester_rx_id=None`` allocates the lowest free id in 0x300..0x30F (what PyVCDS does).
+
 Facts marked ``UNVERIFIED`` below come from the Reported section of the research
 sheet; each warns once per process when first relied upon. None of them drives a
 write to a module - TP 2.0 is a transport.
@@ -52,6 +58,7 @@ from __future__ import annotations
 import logging
 import threading
 import time
+import weakref
 from collections import deque
 from dataclasses import dataclass
 from typing import Callable, Deque, Dict, Iterable, List, Optional, Set, Tuple
@@ -64,6 +71,7 @@ log = logging.getLogger(__name__)
 __all__ = [
     "SETUP_ID",
     "APP_DIAGNOSTICS",
+    "APP_TYPE_TEXT",
     "OP_SETUP_REQUEST",
     "OP_SETUP_OK",
     "OP_SETUP_REFUSED",
@@ -80,6 +88,7 @@ __all__ = [
     "DATA_ACK",
     "DATA_NAK",
     "MAX_MESSAGE_LENGTH",
+    "TESTER_RX_ID_POOL",
     "Tp20Error",
     "Tp20ChannelRefused",
     "Tp20ChannelClosed",
@@ -93,6 +102,8 @@ __all__ = [
     "build_setup_request",
     "parse_setup_response",
     "split_message",
+    "frame_opcode",
+    "tester_rx_ids_in_use",
     "Tp20Channel",
     "Tp20ProbeResult",
     "probe_tp20_addresses",
@@ -101,6 +112,13 @@ __all__ = [
 # ---- constants (verified, tp20.md VERIFIED sections 1-4) ----------------------------
 SETUP_ID = 0x200                 # setup requests go here; replies on SETUP_ID + dest
 APP_DIAGNOSTICS = 0x01           # application type byte: KWP2000 diagnostics
+#: Application types of byte 6 of the setup frame (J2819 as transcribed by notyal).
+APP_TYPE_TEXT: Dict[int, str] = {
+    0x01: "diagnostics (KWP2000)",
+    0x10: "infotainment communication",
+    0x20: "application protocol",
+    0x21: "WFS/WIV immobiliser",
+}
 
 OP_SETUP_REQUEST = 0xC0
 OP_SETUP_OK = 0xD0
@@ -130,6 +148,9 @@ _LAST_OPS = (DATA_LAST_ACK, DATA_LAST)
 FRAME_PAYLOAD = 7                # payload bytes per data frame after the PCI byte
 MAX_MESSAGE_LENGTH = 0x7FFF      # the 16-bit length has its MSB masked on receive (jazdw)
 TIMING_UNITS_MS = (0.1, 1.0, 10.0, 100.0)
+#: ids a tester conventionally asks modules to transmit on (jazdw "0x300 to 0x310",
+#: PyVCDS allocates 0x300..0x30F round-robin).
+TESTER_RX_ID_POOL = range(0x300, 0x310)
 
 _unverified_warned: Set[str] = set()
 
@@ -154,17 +175,23 @@ class Tp20ChannelRefused(Tp20Error):
     ``tester_tx_id`` is the id advertised in bytes 4-5 of the refusal when it was
     marked valid: a module that still holds a channel from an earlier unclosed
     session tells the tester where it listens, so a caller may send A8 there and
-    retry (measured on a MED17.5; addresses sheet section D).
+    retry (measured on a MED17.5; addresses sheet section D). ``app`` is the
+    application type byte echoed in the refusal.
     """
 
     def __init__(self, code: int, text: str, *, logical_address: int,
-                 tester_tx_id: Optional[int] = None, raw: bytes = b"") -> None:
-        super().__init__(f"TP 2.0 channel to 0x{logical_address:02X} refused: 0x{code:02X} {text}")
+                 tester_tx_id: Optional[int] = None, raw: bytes = b"",
+                 app: Optional[int] = None) -> None:
+        message = f"TP 2.0 channel to 0x{logical_address:02X} refused: 0x{code:02X} {text}"
+        if app is not None and code in (0xD6, 0xD7):
+            message += f" (application type 0x{app:02X} {APP_TYPE_TEXT.get(app, 'unknown')})"
+        super().__init__(message)
         self.code = code
         self.text = text
         self.logical_address = logical_address
         self.tester_tx_id = tester_tx_id
         self.raw = raw
+        self.app = app
 
 
 class Tp20ChannelClosed(Tp20Error):
@@ -209,9 +236,11 @@ class Tp20Params:
     """Channel parameters as the raw ``BS T1 T2 T3 T4`` bytes of an A0/A1 frame.
 
     The raw bytes are the canonical representation so that what goes on the wire
-    is exactly what the facts say (``A0 0F 8A FF 4A FF`` by default: block size 15,
-    T1 100 ms, T2 unused, T3 10 ms, T4 unused). The ``*_seconds`` properties decode
-    the timing bytes for the state machine.
+    is exactly what the facts say (``A0 0F 8A FF 32 FF`` by default: block size 15,
+    T1 100 ms, T2 unused, T3 5 ms, T4 unused - the registry's resolution of conflict
+    C7: a MED17.5 degraded at T3 = 1 ms and ran stable at 5 ms, and OpenHaldex quotes
+    ``0F 8A FF 32 FF`` from VW captures). The ``*_seconds`` properties decode the
+    timing bytes for the state machine.
 
     Semantics (jazdw): T1 = time to wait for an ACK (should be > 4 x T3), T3 =
     minimum interval between two consecutive frames, T2/T4 always 0xFF.
@@ -220,7 +249,7 @@ class Tp20Params:
     block_size: int = 0x0F
     t1: int = 0x8A
     t2: int = 0xFF
-    t3: int = 0x4A
+    t3: int = 0x32
     t4: int = 0xFF
 
     def __post_init__(self) -> None:
@@ -230,7 +259,7 @@ class Tp20Params:
                 raise ValueError(f"Tp20Params.{name} must be a byte, got {value!r}")
 
     @classmethod
-    def make(cls, *, block_size: int = 0x0F, t1_ms: float = 100.0, t3_ms: float = 10.0) -> "Tp20Params":
+    def make(cls, *, block_size: int = 0x0F, t1_ms: float = 100.0, t3_ms: float = 5.0) -> "Tp20Params":
         """Build parameters from engineering values (encoded with :func:`encode_timing`)."""
         return cls(block_size=block_size, t1=encode_timing(t1_ms), t3=encode_timing(t3_ms))
 
@@ -292,6 +321,7 @@ def build_setup_request(dest: int, *, tx_id: int = 0x300, rx_id: Optional[int] =
     pick" marker ``00 10`` (what every open implementation and a real VAG tester
     send); a value writes it as valid - the alternate form a Bosch MED17.5 behind a
     J533 gateway required (``01 C0 00 03 00 03 01``; addresses sheet section D).
+    ``app`` is the application type (see :data:`APP_TYPE_TEXT`).
     """
     if not 0 <= dest <= 0xFF:
         raise ValueError(f"logical address must be a byte, got {dest!r}")
@@ -352,6 +382,77 @@ def split_message(payload: bytes) -> List[bytes]:
     return [buf[i:i + FRAME_PAYLOAD] for i in range(0, len(buf), FRAME_PAYLOAD)]
 
 
+def frame_opcode(index: int, count: int, block_size: int) -> int:
+    """The data opcode of frame ``index`` of a ``count``-frame message.
+
+    The opcode is a function of the frame's position only (JAZDW-SRC ``i % bs == bs-1``,
+    VWTPLib ``(current_frame + 1) % bs == 0``), so a retransmitted frame carries exactly
+    the PCI it carried the first time: the last frame always asks for an ACK (op 1),
+    every ``block_size``-th frame asks for an ACK and announces more (op 0), everything
+    else is a plain consecutive frame (op 2).
+    """
+    if index == count - 1:
+        return DATA_LAST_ACK
+    if (index + 1) % max(1, block_size) == 0:
+        return DATA_MORE_ACK
+    return DATA_MORE
+
+
+# ================================================================ tester-id registry
+
+_claims_lock = threading.Lock()
+# router -> {tester rx id: owner}; the router key is weak so a closed bus frees its table.
+_claims: "weakref.WeakKeyDictionary[CanRouter, Dict[int, object]]" = weakref.WeakKeyDictionary()
+
+
+def _owner_name(owner: object) -> str:
+    return str(getattr(owner, "name", None) or repr(owner))
+
+
+def _claim_tester_rx_id(router: CanRouter, wanted: Optional[int], owner: object) -> int:
+    """Reserve ``wanted`` (or the lowest free id of :data:`TESTER_RX_ID_POOL`) on ``router``.
+
+    Raises :class:`Tp20Error` when another live channel or probe already holds the id:
+    every module transmits on the id the tester asked for, so two channels sharing an
+    id would interleave on one endpoint and ACK each other's frames.
+    """
+    with _claims_lock:
+        table = _claims.get(router)
+        if table is None:
+            table = {}
+            _claims[router] = table
+        if wanted is None:
+            for candidate in TESTER_RX_ID_POOL:
+                if candidate not in table:
+                    wanted = candidate
+                    break
+            else:
+                raise Tp20Error(
+                    f"all tester receive ids 0x{TESTER_RX_ID_POOL.start:X}..0x{TESTER_RX_ID_POOL[-1]:X} "
+                    f"are in use on this router by {', '.join(_owner_name(o) for o in table.values())}")
+        elif wanted in table and table[wanted] is not owner:
+            raise Tp20Error(
+                f"tester_rx_id 0x{wanted:X} is already used by {_owner_name(table[wanted])} on this "
+                f"router; pass a distinct tester_rx_id (0x{wanted + 1:X}, ...) or tester_rx_id=None "
+                "to allocate a free one")
+        table[wanted] = owner
+        return wanted
+
+
+def _release_tester_rx_id(router: CanRouter, rx_id: int, owner: object) -> None:
+    with _claims_lock:
+        table = _claims.get(router)
+        if table is not None and table.get(rx_id) is owner:
+            del table[rx_id]
+
+
+def tester_rx_ids_in_use(router: CanRouter) -> Dict[int, str]:
+    """The tester receive ids currently claimed on ``router`` -> owner name (for diagnostics)."""
+    with _claims_lock:
+        table = _claims.get(router) or {}
+        return {rx_id: _owner_name(owner) for rx_id, owner in sorted(table.items())}
+
+
 # ============================================================================ channel
 
 class Tp20Channel(IsoTpLink):
@@ -361,7 +462,8 @@ class Tp20Channel(IsoTpLink):
     ``disconnect()`` sends A8; ``close()`` stops the service thread, disconnects
     (best effort) and unsubscribes the router endpoint. ``send()``/``recv()`` connect
     on first use when ``auto_connect`` is true, so ``KwpClient(ctx.tp20_channel(0x01))``
-    works unchanged.
+    works unchanged. ``connect()`` is serialised by a lock, so two threads that
+    auto-connect the same channel run one handshake, not two.
 
     Threads: the caller's thread segments and sends messages (one at a time, under
     ``_send_lock``) and waits for ACKs; the daemon service thread reads the endpoint,
@@ -369,9 +471,21 @@ class Tp20Channel(IsoTpLink):
     sends the A3 keepalive when idle. ``recv()`` only waits on the inbox, so a short
     polling timeout can never abort a message the service thread is mid-way through.
 
+    Receiver policy (TP 2.0 data frames carry no first/consecutive marker, so the
+    receiver must never lose its place in the module's stream): a message whose
+    announced length is not met, or which announces length 0, is refused (logged,
+    counted in ``stats["malformed_messages"]``, still ACKed so the module's counter
+    stays in step) rather than delivered truncated; ``flush_rx()`` during a message
+    keeps the reassembly running on the original length field and discards the
+    message once it is complete; a message the module stops mid-way is prompted
+    once after T1 of silence (VWTPLib recovery) and abandoned after
+    ``PARTIAL_TIMEOUT_FACTOR`` x T1, so the module's next message cannot be glued to
+    it. ``recv()`` therefore never returns an empty payload.
+
     Open several channels at once with distinct ``tester_rx_id`` values (0x300,
-    0x301, ...): every module transmits on the id it was asked to, and two modules
-    sharing 0x300 would interleave on one endpoint.
+    0x301, ...) or ``tester_rx_id=None`` (lowest free id): every module transmits on
+    the id it was asked to, and a second channel asking for an id a live channel
+    holds on the same router is refused by :meth:`connect`.
     """
 
     #: seconds to wait after a 0x9X "not ready" before retransmitting.
@@ -386,6 +500,11 @@ class Tp20Channel(IsoTpLink):
     # UNVERIFIED: 5 is SpeckMobil's MNCT ("Maximum Repeats of connection test"); no
     # trace shows a module's real tolerance.
     KEEPALIVE_MAX_MISSES = 5
+    #: a partially received message is abandoned after this many T1 of silence
+    #: (one stall prompt goes out at 1 x T1). A tester-side bound on our own buffer,
+    #: not a claim about module behaviour: a module that is still sending keeps its
+    #: frames T3 (<= 10 ms observed) apart and answers a prompt within T1.
+    PARTIAL_TIMEOUT_FACTOR = 3
     DEFAULT_KEEPALIVE_IDLE = 0.5
     DISCONNECT_TIMEOUT = 0.5
     POLL_INTERVAL = 0.02
@@ -395,7 +514,7 @@ class Tp20Channel(IsoTpLink):
         router: CanRouter,
         logical_address: int,
         *,
-        tester_rx_id: int = 0x300,
+        tester_rx_id: Optional[int] = 0x300,
         params: Optional[Tp20Params] = None,
         keepalive: bool = True,
         setup_timeout: float = 0.3,
@@ -407,23 +526,26 @@ class Tp20Channel(IsoTpLink):
         """
         ``logical_address`` is the TP 2.0 destination byte (0x01 engine, 0x09 EPS,
         0x0A Haldex Gen2, 0x1F gateway...), *not* the VCDS address word.
-        ``tester_rx_id`` is the id we ask the module to transmit on. ``params`` are
-        the A0 parameters we announce. ``setup_timeout``/``setup_retries`` bound the
-        0xC0 and A0 exchanges; a module silent on every retry of the standard setup
-        form is tried again with the alternate "both ids valid" form before
-        :class:`Tp20Timeout` is raised.
+        ``tester_rx_id`` is the id we ask the module to transmit on; ``None`` takes
+        the lowest id of 0x300..0x30F not held by another channel on this router at
+        :meth:`connect` time. ``params`` are the A0 parameters we announce.
+        ``setup_timeout``/``setup_retries`` bound the 0xC0 and A0 exchanges; a module
+        silent on every retry of the standard setup form is tried again with the
+        alternate "both ids valid" form before :class:`Tp20Timeout` is raised.
         """
         if not 0x01 <= int(logical_address) <= 0xEF:
             raise ValueError(f"TP 2.0 logical address must be 0x01..0xEF (0x200..0x2EF reply ids), "
                              f"got {logical_address!r}")
-        if not 0 <= int(tester_rx_id) <= 0x7FF:
-            raise ValueError(f"tester_rx_id must be an 11-bit id, got {tester_rx_id!r}")
+        if tester_rx_id is not None and not 0 <= int(tester_rx_id) <= 0x7FF:
+            raise ValueError(f"tester_rx_id must be an 11-bit id or None, got {tester_rx_id!r}")
         if setup_retries < 1:
             raise ValueError("setup_retries must be >= 1")
-        super().__init__(tx_id=0, rx_id=int(tester_rx_id))
+        super().__init__(tx_id=0, rx_id=0 if tester_rx_id is None else int(tester_rx_id))
         self.router = router
         self.logical_address = int(logical_address)
-        self.tester_rx_id = int(tester_rx_id)
+        #: the id requested at construction (``None`` = allocate on connect); the
+        #: effective id is ``rx_id`` once connected.
+        self.tester_rx_id: Optional[int] = None if tester_rx_id is None else int(tester_rx_id)
         self.params = params or Tp20Params()
         if not 1 <= self.params.block_size <= 0x0F:
             raise ValueError("our block size must be 1..15 (0x0F)")
@@ -443,10 +565,12 @@ class Tp20Channel(IsoTpLink):
             "tx_messages": 0, "rx_messages": 0, "tx_frames": 0, "rx_frames": 0,
             "retransmissions": 0, "naks": 0, "keepalives": 0, "keepalive_misses": 0,
             "inline_a3": 0, "stall_prompts": 0, "sequence_errors": 0,
+            "malformed_messages": 0, "discarded_messages": 0, "abandoned_partials": 0,
         }
 
         self._endpoint: Optional[RouterEndpoint] = None
-        self._cond = threading.Condition()          # guards inbox/acks/state flags
+        self._cond = threading.Condition()          # guards inbox/acks/rx state/flags
+        self._connect_lock = threading.RLock()      # one handshake / teardown at a time
         self._send_lock = threading.Lock()          # one message (or keepalive) at a time
         self._tx_lock = threading.Lock()            # frame writes + _last_tx
         self._inbox: Deque[bytes] = deque()
@@ -462,6 +586,8 @@ class Tp20Channel(IsoTpLink):
         self._rx_buf = bytearray()
         self._rx_expected: Optional[int] = None
         self._rx_prompted = False
+        self._rx_discard = False                    # drop the message in progress when complete
+        self._rx_last_data = 0.0                    # monotonic time of the last data frame
         self._last_tx = 0.0
         self._last_rx = 0.0
         self._a3_deadline: Optional[float] = None
@@ -477,7 +603,7 @@ class Tp20Channel(IsoTpLink):
 
     @property
     def ecu_tx_id(self) -> int:
-        """The id the module transmits on (= our receive id, ``tester_rx_id``)."""
+        """The id the module transmits on (= our receive id; 0 before an auto-allocated connect)."""
         return self.rx_id
 
     @property
@@ -515,15 +641,28 @@ class Tp20Channel(IsoTpLink):
 
         Raises :class:`Tp20ChannelRefused` on D6/D7/D8, :class:`Tp20Timeout` when the
         module stays silent on every retry of both setup forms (or never answers the
-        A0), :class:`Tp20Error` on a malformed reply (including a TP 1.6 reply).
+        A0), :class:`Tp20Error` on a malformed reply (including a TP 1.6 reply) or
+        when the tester receive id is held by another channel on this router.
+        Once a module has answered 0xD0 it holds a channel, so any failure after that
+        point (bad ids, no A1) sends it an A8 on the id it assigned before raising -
+        otherwise it would answer every retry with 0xD8 until its idle timeout.
         Reconnecting an already connected channel is a no-op; a channel the peer
         closed can be reconnected.
         """
-        if self._closed:
-            raise TransportNotOpen(f"{self.name}: channel is closed")
-        if self._connected:
-            return
-        self._stop_service_thread()
+        with self._connect_lock:
+            if self._closed:
+                raise TransportNotOpen(f"{self.name}: channel is closed")
+            if self._connected:
+                return
+            self._stop_service_thread()
+            rx_id = _claim_tester_rx_id(self.router, self.tester_rx_id, self)
+            try:
+                self._connect_locked(rx_id)
+            except BaseException:
+                _release_tester_rx_id(self.router, rx_id, self)
+                raise
+
+    def _connect_locked(self, rx_id: int) -> None:
         reply_id = SETUP_ID + self.logical_address
         if self._endpoint is None:
             self._endpoint = self.router.endpoint({reply_id}, name=self.name)
@@ -532,28 +671,32 @@ class Tp20Channel(IsoTpLink):
         ep = self._endpoint
         ep.flush_rx()
         self._reset_state()
+        self.rx_id = rx_id
 
-        form, resp = self._setup_handshake(ep, reply_id)
-        if not resp.rx_valid or not resp.tx_valid:
-            raise Tp20Error(f"{self.name}: setup reply marks an id invalid: {resp.raw.hex(' ')}")
-        if resp.rx_id != self.tester_rx_id:
-            raise Tp20Error(f"{self.name}: module wants to transmit on 0x{resp.rx_id:X}, "
-                            f"we asked for 0x{self.tester_rx_id:X} ({resp.raw.hex(' ')})")
-        if resp.tx_id == self.tester_rx_id:
-            raise Tp20Error(f"{self.name}: module assigned our own receive id 0x{resp.tx_id:X} "
-                            f"as transmit id ({resp.raw.hex(' ')})")
-        self.setup_form = form
-        self.setup_response = resp
-        self.tx_id = resp.tx_id
-        self.rx_id = resp.rx_id
-        log.info("%s: channel open via %s setup; we transmit on 0x%03X, receive on 0x%03X",
-                 self.name, form, self.tx_id, self.rx_id)
+        form, resp = self._setup_handshake(ep, reply_id, rx_id)
+        try:
+            if not resp.rx_valid or not resp.tx_valid:
+                raise Tp20Error(f"{self.name}: setup reply marks an id invalid: {resp.raw.hex(' ')}")
+            if resp.rx_id != rx_id:
+                raise Tp20Error(f"{self.name}: module wants to transmit on 0x{resp.rx_id:X}, "
+                                f"we asked for 0x{rx_id:X} ({resp.raw.hex(' ')})")
+            if resp.tx_id == rx_id:
+                raise Tp20Error(f"{self.name}: module assigned our own receive id 0x{resp.tx_id:X} "
+                                f"as transmit id ({resp.raw.hex(' ')})")
+            self.setup_form = form
+            self.setup_response = resp
+            self.tx_id = resp.tx_id
+            log.info("%s: channel open via %s setup; we transmit on 0x%03X, receive on 0x%03X",
+                     self.name, form, self.tx_id, self.rx_id)
 
-        # From here on only the module's transmit id matters; our own tx id must never
-        # be accepted (Tactrix raw CAN echoes our frames back, j2534_can.md section 2.5).
-        ep.set_accept_ids({self.rx_id})
-        ep.flush_rx()
-        self.peer_params = self._params_handshake(ep)
+            # From here on only the module's transmit id matters; our own tx id must never
+            # be accepted (Tactrix raw CAN echoes our frames back, j2534_can.md section 2.5).
+            ep.set_accept_ids({self.rx_id})
+            ep.flush_rx()
+            self.peer_params = self._params_handshake(ep)
+        except TransportError:
+            self._release_half_open(ep, resp)
+            raise
         log.info("%s: module parameters %s (ours %s)", self.name,
                  self.peer_params.describe(), self.params.describe())
         # UNVERIFIED: whether the module's T1/T3 describe *its* timing or the timing it
@@ -575,6 +718,41 @@ class Tp20Channel(IsoTpLink):
             self._last_tx = now
         self._start_service_thread()
 
+    def _release_half_open(self, ep: RouterEndpoint, resp: SetupResponse) -> None:
+        """A8 the channel a module opened with 0xD0 when the rest of the handshake failed.
+
+        Pitfall 9 of the sheet: "always send A8 before re-opening"; a module holding a
+        half-open channel answers 0xD8 to the next setup until its idle timeout.
+        """
+        if not resp.tx_valid:
+            log.warning("%s: cannot release the half-open channel: the module named an invalid "
+                        "transmit id (%s)", self.name, resp.raw.hex(" "))
+            return
+        listen_id = resp.rx_id if resp.rx_valid else self.rx_id
+        try:
+            ep.set_accept_ids({listen_id})
+            self._send_frame(resp.tx_id, bytes([OP_DISCONNECT]))
+        except TransportError as exc:
+            log.warning("%s: could not send A8 to release the half-open channel: %s", self.name, exc)
+            return
+        confirmed = False
+        deadline = time.monotonic() + self.DISCONNECT_TIMEOUT
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                break
+            try:
+                frame = ep.recv(remaining)
+            except TransportError:
+                break
+            if frame is None:
+                break
+            if frame.arbitration_id == listen_id and frame.data[:1] == bytes([OP_DISCONNECT]):
+                confirmed = True
+                break
+        log.info("%s: released the half-open channel with A8 on 0x%03X (%s)", self.name,
+                 resp.tx_id, "module confirmed" if confirmed else "no confirmation")
+
     def _reset_state(self) -> None:
         with self._cond:
             self._inbox.clear()
@@ -582,6 +760,7 @@ class Tp20Channel(IsoTpLink):
             self._rx_buf = bytearray()
             self._rx_expected = None
             self._rx_prompted = False
+            self._rx_discard = False
             self._connected = False
             self._peer_closed_reason = None
             self._disconnect_sent = False
@@ -592,11 +771,11 @@ class Tp20Channel(IsoTpLink):
             self.setup_form = None
             self.setup_response = None
 
-    def _setup_handshake(self, ep: RouterEndpoint, reply_id: int) -> Tuple[str, SetupResponse]:
+    def _setup_handshake(self, ep: RouterEndpoint, reply_id: int,
+                         rx_id: int) -> Tuple[str, SetupResponse]:
         forms = (
-            ("standard", build_setup_request(self.logical_address, tx_id=self.tester_rx_id)),
-            ("alternate", build_setup_request(self.logical_address, tx_id=self.tester_rx_id,
-                                              rx_id=self.tester_rx_id)),
+            ("standard", build_setup_request(self.logical_address, tx_id=rx_id)),
+            ("alternate", build_setup_request(self.logical_address, tx_id=rx_id, rx_id=rx_id)),
         )
         for form, request in forms:
             for attempt in range(1, self.setup_retries + 1):
@@ -634,7 +813,8 @@ class Tp20Channel(IsoTpLink):
                         resp = parse_setup_response(data)
                         raise Tp20ChannelRefused(
                             opcode, REFUSAL_TEXT[opcode], logical_address=self.logical_address,
-                            tester_tx_id=resp.tx_id if resp.tx_valid else None, raw=data)
+                            tester_tx_id=resp.tx_id if resp.tx_valid else None, raw=data,
+                            app=resp.app)
                     log.debug("%s: unexpected opcode 0x%02X on 0x%03X during setup: %s",
                               self.name, opcode, reply_id, data.hex(" "))
                 log.debug("%s: no setup reply within %.3f s", self.name, self.setup_timeout)
@@ -695,24 +875,28 @@ class Tp20Channel(IsoTpLink):
     # -- send ------------------------------------------------------------------------
 
     def _ensure_connected(self) -> None:
-        if self._closed:
-            raise TransportNotOpen(f"{self.name}: channel is closed")
-        if self._connected:
-            return
-        if self._peer_closed_reason is not None:
-            raise Tp20ChannelClosed(f"{self.name}: channel closed ({self._peer_closed_reason}); "
-                                    "call connect() to reopen")
-        if not self.auto_connect:
-            raise Tp20Error(f"{self.name}: channel not connected; call connect()")
-        self.connect()
+        with self._connect_lock:
+            if self._closed:
+                raise TransportNotOpen(f"{self.name}: channel is closed")
+            if self._connected:
+                return
+            if self._peer_closed_reason is not None:
+                raise Tp20ChannelClosed(f"{self.name}: channel closed ({self._peer_closed_reason}); "
+                                        "call connect() to reopen")
+            if not self.auto_connect:
+                raise Tp20Error(f"{self.name}: channel not connected; call connect()")
+            self.connect()
 
     def send(self, payload: bytes) -> None:
         """Send one application message (segmented, ACK-paced, T3-spaced).
 
-        An ACK is requested on the last frame and on every block-size boundary. A
-        0x9X "not ready" waits ``T_WAIT`` (still listening for the real ACK), then
-        retransmits from the sequence the NAK carried; an ACK with an unexpected
-        sequence retransmits from that sequence; no ACK within the peer's T1 raises
+        An ACK is requested on the last frame and on every block-size boundary
+        (:func:`frame_opcode`). A 0x9X "not ready" waits ``T_WAIT`` (still listening
+        for the real ACK), then retransmits: the same frame again when the NAK
+        acknowledged everything sent (SpeckMobil ``txSeq--``: the block-end frame goes
+        out again with its ACK request and the tester waits again), or from the
+        sequence the NAK carried (VWTPLib). An ACK with an unexpected sequence
+        retransmits from that sequence; no ACK within the peer's T1 raises
         :class:`Tp20Timeout`; a peer disconnect raises :class:`Tp20ChannelClosed`.
         """
         chunks = split_message(payload)
@@ -724,28 +908,19 @@ class Tp20Channel(IsoTpLink):
             n = len(chunks)
             bs = self.block_size
             i = 0
-            block = 0
             naks = 0
             retransmissions = 0
             while i < n:
                 if not self._connected:
                     raise Tp20ChannelClosed(f"{self.name}: channel closed ({self._peer_closed_reason})")
                 seq = (start_seq + i) & 0xF
-                last = i == n - 1
-                block += 1
-                if last:
-                    op = DATA_LAST_ACK
-                elif block >= bs:
-                    op = DATA_MORE_ACK
-                else:
-                    op = DATA_MORE
+                op = frame_opcode(i, n, bs)
                 self._send_data_frame(bytes([(op << 4) | seq]) + chunks[i])
                 self._tx_seq = (seq + 1) & 0xF
                 if op not in _ACK_WANTED_OPS:
                     i += 1
                     continue
                 expected = (seq + 1) & 0xF
-                block = 0
                 pci = self._wait_ack(self.t1)
                 if pci is None:
                     raise Tp20Timeout(f"{self.name}: no ACK for frame seq {seq:X} within "
@@ -786,14 +961,13 @@ class Tp20Channel(IsoTpLink):
                     if later is not None:
                         pci = later
                         continue
-                    if value == expected:
-                        # Everything we sent is acknowledged; re-send the block-end frame to
-                        # ask again (SpeckMobil) - the module answers B when it is ready.
-                        pass
-                    else:
+                    if value != expected:
                         j = self._index_for_seq(start_seq, i, value)
                         if j is not None:
                             i = j
+                    # value == expected: everything is acknowledged but the module is not
+                    # ready; re-send frame i unchanged (same PCI, ACK still requested) and
+                    # wait for the B when it is ready.
                     self.stats["retransmissions"] += 1
                     break
             self.stats["tx_messages"] += 1
@@ -825,9 +999,10 @@ class Tp20Channel(IsoTpLink):
 
         Messages are reassembled (and ACKed) by the service thread as frames arrive,
         so ``timeout`` only bounds this wait; a partially received message is never
-        dropped by a short poll. Raises :class:`Tp20ChannelClosed` once the inbox is
-        empty and the peer closed the channel, :class:`TransportNotOpen` after
-        :meth:`close`.
+        dropped by a short poll, and a returned message is never empty or shorter
+        than its announced length (such frames are refused, see the class doc).
+        Raises :class:`Tp20ChannelClosed` once the inbox is empty and the peer closed
+        the channel, :class:`TransportNotOpen` after :meth:`close`.
         """
         with self._cond:
             if self._inbox:
@@ -848,12 +1023,33 @@ class Tp20Channel(IsoTpLink):
                 self._cond.wait(remaining)
 
     def flush_rx(self) -> None:
-        """Drop queued messages and any partially received one."""
+        """Drop queued messages; a message in progress is discarded once it completes.
+
+        The reassembly keeps running on the length field of the message's first
+        frame (TP 2.0 frames carry no first/consecutive marker, so clearing the buffer
+        mid-message would turn the rest of that message into phantom messages). A
+        partial that has already gone silent for T1 is dropped outright, because the
+        next data frame then starts a new message.
+        """
         with self._cond:
             self._inbox.clear()
-            self._rx_buf = bytearray()
-            self._rx_expected = None
-            self._rx_prompted = False
+            if not self._rx_buf:
+                return
+            if time.monotonic() - self._rx_last_data < self.t1:
+                self._rx_discard = True
+                log.debug("%s: flush during a message; discarding it when complete", self.name)
+            else:
+                self._abandon_partial_locked("flushed")
+
+    def _abandon_partial_locked(self, why: str) -> None:
+        """Drop a partially received message (caller holds ``_cond``)."""
+        buf = bytes(self._rx_buf)
+        self._rx_buf = bytearray()
+        self._rx_expected = None
+        self._rx_prompted = False
+        self._rx_discard = False
+        self.stats["abandoned_partials"] += 1
+        log.warning("%s: partial message abandoned (%s): %s", self.name, why, buf.hex(" "))
 
     # -- service thread --------------------------------------------------------------
 
@@ -970,31 +1166,50 @@ class Tp20Channel(IsoTpLink):
             if op in _ACK_WANTED_OPS:
                 self._send_ack(self._rx_seq)
             return
-        self._rx_seq = (seq + 1) & 0xF
-        self._rx_buf += chunk
-        self._rx_prompted = False
-        if op in _ACK_WANTED_OPS:
-            self._send_ack(self._rx_seq)
-        if self._rx_expected is None and len(self._rx_buf) >= 2:
-            self._rx_expected = int.from_bytes(self._rx_buf[:2], "big") & 0x7FFF
-        expected = self._rx_expected
-        complete = op in _LAST_OPS or (expected is not None and len(self._rx_buf) >= 2 + expected)
-        if not complete:
-            return
-        buf = bytes(self._rx_buf)
-        self._rx_buf = bytearray()
-        self._rx_expected = None
-        if expected is None:
-            log.warning("%s: message ended before its length field; dropped %s", self.name, buf.hex(" "))
-            return
-        message = buf[2:2 + expected]
-        if len(message) < expected:
-            log.warning("%s: message announced %d bytes but ended after %d; delivering what arrived",
-                        self.name, expected, len(message))
-        elif len(buf) > 2 + expected:
-            log.debug("%s: %d trailing byte(s) after a %d-byte message ignored", self.name,
-                      len(buf) - 2 - expected, expected)
         with self._cond:
+            self._rx_seq = (seq + 1) & 0xF
+            self._rx_buf += chunk
+            self._rx_prompted = False
+            self._rx_last_data = time.monotonic()
+            next_seq = self._rx_seq
+        if op in _ACK_WANTED_OPS:
+            self._send_ack(next_seq)
+        with self._cond:
+            if self._rx_expected is None and len(self._rx_buf) >= 2:
+                self._rx_expected = int.from_bytes(self._rx_buf[:2], "big") & 0x7FFF
+            expected = self._rx_expected
+            complete = op in _LAST_OPS or (expected is not None and len(self._rx_buf) >= 2 + expected)
+            if not complete:
+                return
+            buf = bytes(self._rx_buf)
+            discard = self._rx_discard
+            self._rx_buf = bytearray()
+            self._rx_expected = None
+            self._rx_discard = False
+            if discard:
+                self.stats["discarded_messages"] += 1
+                log.debug("%s: discarded a message flushed while in progress: %s", self.name, buf.hex(" "))
+                return
+            if expected is None:
+                self.stats["malformed_messages"] += 1
+                log.warning("%s: message ended before its length field; refused: %s", self.name,
+                            buf.hex(" "))
+                return
+            if expected == 0:
+                self.stats["malformed_messages"] += 1
+                log.warning("%s: message announces length 0; refused: %s", self.name, buf.hex(" "))
+                return
+            message = buf[2:2 + expected]
+            if len(message) < expected:
+                # pq-flasher asserts len(data) == length; kwp2000-can completes only on
+                # len(buffer) >= length. Never hand a KWP client a truncated reply.
+                self.stats["malformed_messages"] += 1
+                log.warning("%s: message announced %d bytes but ended after %d; refused: %s",
+                            self.name, expected, len(message), buf.hex(" "))
+                return
+            if len(buf) > 2 + expected:
+                log.debug("%s: %d trailing byte(s) after a %d-byte message ignored", self.name,
+                          len(buf) - 2 - expected, expected)
             self._inbox.append(message)
             self.stats["rx_messages"] += 1
             self._cond.notify_all()
@@ -1002,15 +1217,25 @@ class Tp20Channel(IsoTpLink):
     def _housekeeping(self, now: float) -> None:
         if not self._connected:
             return
-        # A module whose keepalive fired mid-block may not continue the block (VWTPLib
-        # observation); after T1 of silence inside a message, ACK the last frame we
-        # have once so it retransmits from there.
-        if self._rx_buf and not self._rx_prompted and now - self._last_rx >= self.t1:
-            self._rx_prompted = True
-            self.stats["stall_prompts"] += 1
+        prompt_seq: Optional[int] = None
+        with self._cond:
+            if self._rx_buf:
+                silence = now - self._rx_last_data
+                if silence >= self.t1 * self.PARTIAL_TIMEOUT_FACTOR:
+                    # The module neither continued nor answered the prompt: its message
+                    # is gone; the next data frame starts a new one.
+                    self._abandon_partial_locked(f"no frame for {silence * 1000:.0f} ms")
+                elif not self._rx_prompted and silence >= self.t1:
+                    # A module whose keepalive fired mid-block may not continue the block
+                    # (VWTPLib observation); ACK the last frame we have once so it
+                    # retransmits from there.
+                    self._rx_prompted = True
+                    self.stats["stall_prompts"] += 1
+                    prompt_seq = self._rx_seq
+        if prompt_seq is not None:
             log.info("%s: no frame for %.0f ms mid-message; prompting retransmission from seq %X",
-                     self.name, self.t1 * 1000, self._rx_seq)
-            self._send_ack(self._rx_seq)
+                     self.name, self.t1 * 1000, prompt_seq)
+            self._send_ack(prompt_seq)
         deadline = self._a3_deadline
         if deadline is not None and now >= deadline:
             with self._cond:
@@ -1049,6 +1274,20 @@ class Tp20Channel(IsoTpLink):
             self._peer_closed_reason = reason
             self._cond.notify_all()
         log.warning("%s: channel closed: %s", self.name, reason)
+        self._detach_from_bus()
+
+    def _detach_from_bus(self) -> None:
+        """Release the tester id and stop listening once the channel is no longer open.
+
+        The module no longer transmits on our id, another channel may claim it, and a
+        dead channel must not answer (ACK/A1) frames meant for that new channel. The
+        service thread stops itself; :meth:`connect` starts a fresh one.
+        """
+        _release_tester_rx_id(self.router, self.rx_id, self)
+        ep = self._endpoint
+        if ep is not None:
+            ep.set_accept_ids(())
+        self._stop_event.set()
 
     # -- channel test / disconnect / close ------------------------------------------
 
@@ -1072,52 +1311,57 @@ class Tp20Channel(IsoTpLink):
 
     def disconnect(self) -> None:
         """Send A8 and wait up to ``DISCONNECT_TIMEOUT`` for the module's A8; stop the
-        service thread. A channel that is not connected just stops its thread."""
-        if self._connected:
-            with self._send_lock:
-                with self._cond:
-                    self._disconnect_sent = True
-                    self._a8_received = False
-                try:
-                    self._send_frame(self.tx_id, bytes([OP_DISCONNECT]))
-                except TransportError as exc:
-                    log.debug("%s: could not send A8: %s", self.name, exc)
-                with self._cond:
-                    self._cond.wait_for(lambda: self._a8_received or not self._connected,
-                                        timeout=self.DISCONNECT_TIMEOUT)
-                    confirmed = self._a8_received
-                    self._connected = False
-                    if self._peer_closed_reason is None:
-                        self._peer_closed_reason = "disconnected by tester"
-                    self._cond.notify_all()
-            if confirmed:
-                log.info("%s: disconnected (module confirmed A8)", self.name)
-            else:
-                log.info("%s: disconnected (no A8 confirmation within %.1f s)", self.name,
-                         self.DISCONNECT_TIMEOUT)
-        self._stop_service_thread()
+        service thread and release the tester id. A channel that is not connected
+        just stops its thread."""
+        with self._connect_lock:
+            if self._connected:
+                with self._send_lock:
+                    with self._cond:
+                        self._disconnect_sent = True
+                        self._a8_received = False
+                    try:
+                        self._send_frame(self.tx_id, bytes([OP_DISCONNECT]))
+                    except TransportError as exc:
+                        log.debug("%s: could not send A8: %s", self.name, exc)
+                    with self._cond:
+                        self._cond.wait_for(lambda: self._a8_received or not self._connected,
+                                            timeout=self.DISCONNECT_TIMEOUT)
+                        confirmed = self._a8_received
+                        self._connected = False
+                        if self._peer_closed_reason is None:
+                            self._peer_closed_reason = "disconnected by tester"
+                        self._cond.notify_all()
+                if confirmed:
+                    log.info("%s: disconnected (module confirmed A8)", self.name)
+                else:
+                    log.info("%s: disconnected (no A8 confirmation within %.1f s)", self.name,
+                             self.DISCONNECT_TIMEOUT)
+                self._detach_from_bus()
+            self._stop_service_thread()
 
     def close(self) -> None:
         """Stop the keepalive/service thread, disconnect (best effort), release the endpoint."""
-        if self._closed:
-            return
-        try:
-            self.disconnect()
-        except TransportError as exc:
-            log.debug("%s: disconnect during close failed: %s", self.name, exc)
-        with self._cond:
-            self._closed = True
-            self._connected = False
-            self._cond.notify_all()
-        self._stop_service_thread()
-        ep = self._endpoint
-        self._endpoint = None
-        if ep is not None:
+        with self._connect_lock:
+            if self._closed:
+                return
             try:
-                ep.close()
+                self.disconnect()
             except TransportError as exc:
-                log.debug("%s: endpoint close reported %s", self.name, exc)
-        log.debug("%s: closed", self.name)
+                log.debug("%s: disconnect during close failed: %s", self.name, exc)
+            with self._cond:
+                self._closed = True
+                self._connected = False
+                self._cond.notify_all()
+            self._stop_service_thread()
+            _release_tester_rx_id(self.router, self.rx_id, self)
+            ep = self._endpoint
+            self._endpoint = None
+            if ep is not None:
+                try:
+                    ep.close()
+                except TransportError as exc:
+                    log.debug("%s: endpoint close reported %s", self.name, exc)
+            log.debug("%s: closed", self.name)
 
 
 # ============================================================================== probe
@@ -1126,16 +1370,36 @@ class Tp20Channel(IsoTpLink):
 class Tp20ProbeResult:
     """Outcome of one setup request in :func:`probe_tp20_addresses`.
 
-    ``status``: ``open`` (0xD0; ``tester_tx_id`` = the id it assigned), ``refused-d6``,
-    ``refused-d7``, ``busy-d8`` (``tester_tx_id`` carries the id from the refusal when
-    marked valid), ``tp16`` (a 3-byte ``xx D0 A1`` reply: the older fixed-parameter
-    transport) or ``silent``. ``setup_form`` names the 0xC0 form that was answered.
+    ``status``: ``open`` (0xD0; ``tester_tx_id`` = the id it assigned, ``None`` when
+    the module marked it invalid - such a channel cannot be released with A8),
+    ``refused-d6``, ``refused-d7``, ``busy-d8`` (``tester_tx_id`` carries the id from
+    the refusal when marked valid), ``tp16`` (a 3-byte ``xx D0 A1`` reply: the older
+    fixed-parameter transport) or ``silent``. ``setup_form`` names the 0xC0 form that
+    was answered. ``released`` is true when the module confirmed our A8.
     """
 
     status: str
     tester_tx_id: Optional[int]
     raw: Optional[bytes]
     setup_form: Optional[str] = None
+    released: bool = False
+
+
+@dataclass
+class _ProbeSlot:
+    address: int
+    rx_id: int
+    form: str
+    deadline: float
+    phase: str = "setup"                     # "setup" (awaiting 0xD0) | "release" (awaiting A8)
+    result: Optional[Tp20ProbeResult] = None
+
+
+class _ProbeOwner:
+    """Registry owner object for the ids a probe holds (so the refusal names it)."""
+
+    def __init__(self, name: str) -> None:
+        self.name = name
 
 
 def probe_tp20_addresses(
@@ -1146,97 +1410,161 @@ def probe_tp20_addresses(
     settle: float = 0.5,
     tester_rx_id: int = 0x300,
     try_alternate: bool = True,
+    concurrency: int = 1,
 ) -> Dict[int, Tp20ProbeResult]:
     """Discover which logical addresses answer a TP 2.0 channel setup.
 
-    Every module answers on its own ``0x200 + address``, so the 0xC0 frames for all
-    ``addresses`` go out back-to-back (``gap`` apart) on one monitor endpoint that
-    accepts 0x201..0x2FF; replies are collected while sending and for ``settle``
-    seconds afterwards. Addresses still silent are then tried with the alternate
-    "both ids valid" setup form (``try_alternate``). Finally every opened channel is
-    closed with an A8 on the tx id the module assigned, and their A8 confirmations
-    are awaited briefly on ``tester_rx_id``.
+    The default is the method of the sheet's open question 1, one module at a time:
+    send ``addr C0 00 10 00 03 01`` on 0x200, wait up to ``settle`` seconds on
+    0x200+addr, and when the module answered 0xD0 send A8 on the tx id it assigned and
+    wait (up to ``DISCONNECT_TIMEOUT``) for its A8 before the next address. An address
+    still silent after ``settle`` is tried once more with the alternate "both ids
+    valid" setup form (``try_alternate``). ``gap`` is the pause after every frame we
+    send. Nothing is negotiated (no A0) and nothing is written to any module.
 
-    No parameters are negotiated and nothing is written to any module. Note that two
-    modules may assign the same tester tx id (the ABS emulator defaults to the
-    engine's 0x740); the A8 then reaches both, which is the intent here.
+    ``concurrency`` > 1 keeps that many addresses in flight at once, each on its own
+    tester receive id ``tester_rx_id + k`` (k < concurrency <= 16), so their replies
+    and A8 confirmations never share an id. UNVERIFIED: that several channels can be
+    open at the same time (on distinct ids) is only *reported* - PyVCDS allocates
+    0x300..0x30F and the VWTPLib emulator says "sessions with IDs 301, 302, etc. can be
+    opened at the same time" - and whether a J533 gateway tolerates it is open
+    question 6; the function warns once when first used this way.
+
+    The tester ids are claimed in the per-router registry for the duration, so a
+    probe never collides with a live :class:`Tp20Channel` (a clash raises
+    :class:`Tp20Error` before anything is sent).
     """
     addrs = sorted({int(a) for a in addresses})
     for a in addrs:
         if not 0x01 <= a <= 0xEF:
             raise ValueError(f"logical address 0x{a:X} outside 0x01..0xEF")
+    if not 1 <= int(concurrency) <= len(TESTER_RX_ID_POOL):
+        raise ValueError(f"concurrency must be 1..{len(TESTER_RX_ID_POOL)}, got {concurrency!r}")
+    rx_ids = [int(tester_rx_id) + k for k in range(int(concurrency))]
+    if not 0 <= rx_ids[0] <= rx_ids[-1] <= 0x7FF:
+        raise ValueError(f"tester_rx_id 0x{tester_rx_id:X} + {concurrency} ids exceeds 11 bits")
+    if concurrency > 1:
+        # UNVERIFIED: simultaneous channels on distinct tester ids (tp20.md REPORTED,
+        # OPEN Q.6); the sequential default needs nothing beyond one channel at a time.
+        _warn_unverified(
+            "tp20-probe-concurrent",
+            f"TP 2.0 probe keeps {concurrency} channels open at once on tester ids "
+            f"0x{rx_ids[0]:X}..0x{rx_ids[-1]:X}; that modules/gateway accept several "
+            "simultaneous channels is only reported (PyVCDS, VWTPLib), not traced on the target cars")
     results: Dict[int, Tp20ProbeResult] = {}
-    endpoint = router.endpoint(range(SETUP_ID + 1, SETUP_ID + 0x100), name="tp20-probe")
+    owner = _ProbeOwner("tp20-probe")
+    claimed: List[int] = []
+    endpoint: Optional[RouterEndpoint] = None
     try:
-        forms = ["standard"] + (["alternate"] if try_alternate else [])
-        for form in forms:
-            pending = [a for a in addrs if a not in results]
-            if not pending:
-                break
-            pending_set = set(pending)
-            endpoint.flush_rx()
-            for a in pending:
-                rx = tester_rx_id if form == "alternate" else None
-                endpoint.send(CanFrame(SETUP_ID, build_setup_request(a, tx_id=tester_rx_id, rx_id=rx)))
-                _probe_collect(endpoint, gap, pending_set, results, form)
-            _probe_collect(endpoint, settle, pending_set, results, form)
-            log.info("tp20 probe (%s form): %d of %d addresses answered", form,
-                     sum(1 for a in pending if a in results), len(pending))
-        for a in addrs:
-            results.setdefault(a, Tp20ProbeResult("silent", None, None, None))
-        tx_ids = sorted({r.tester_tx_id for r in results.values()
-                         if r.status == "open" and r.tester_tx_id is not None})
-        if tx_ids:
-            endpoint.set_accept_ids({tester_rx_id})
-            endpoint.flush_rx()
-            for tx in tx_ids:
-                endpoint.send(CanFrame(tx, bytes([OP_DISCONNECT])))
-                time.sleep(gap)
-            confirmations = 0
-            deadline = time.monotonic() + Tp20Channel.DISCONNECT_TIMEOUT
-            while confirmations < len(tx_ids):
-                remaining = deadline - time.monotonic()
-                if remaining <= 0:
-                    break
-                frame = endpoint.recv(remaining)
-                if frame is None:
-                    break
-                if frame.data[:1] == bytes([OP_DISCONNECT]):
-                    confirmations += 1
-            log.info("tp20 probe: sent A8 on %s; %d confirmation(s)",
-                     ", ".join(f"0x{t:03X}" for t in tx_ids), confirmations)
+        for rid in rx_ids:
+            _claim_tester_rx_id(router, rid, owner)
+            claimed.append(rid)
+        endpoint = router.endpoint(set(range(SETUP_ID + 1, SETUP_ID + 0x100)) | set(rx_ids),
+                                   name="tp20-probe")
+        queue: Deque[int] = deque(addrs)
+        free: Deque[int] = deque(rx_ids)
+        slots: Dict[int, _ProbeSlot] = {}
+        released = 0
+
+        def finish(slot: _ProbeSlot) -> None:
+            nonlocal released
+            assert slot.result is not None
+            results[slot.address] = slot.result
+            if slot.result.released:
+                released += 1
+            del slots[slot.rx_id]
+            free.append(slot.rx_id)
+
+        def start(slot: _ProbeSlot) -> None:
+            rx = slot.rx_id if slot.form == "alternate" else None
+            endpoint.send(CanFrame(SETUP_ID, build_setup_request(slot.address, tx_id=slot.rx_id,
+                                                                 rx_id=rx)))
+            slot.deadline = time.monotonic() + settle
+            log.debug("tp20 probe: 0x%02X (%s form) on tester id 0x%03X", slot.address, slot.form,
+                      slot.rx_id)
+            time.sleep(gap)
+
+        while queue or slots:
+            while queue and free:
+                slot = _ProbeSlot(queue.popleft(), free.popleft(), "standard", 0.0)
+                slots[slot.rx_id] = slot
+                start(slot)
+            if not slots:
+                continue
+            earliest = min(s.deadline for s in slots.values())
+            frame = endpoint.recv(max(0.0, earliest - time.monotonic()))
+            if frame is not None:
+                _probe_handle_frame(endpoint, frame, slots, gap)
+            now = time.monotonic()
+            for slot in list(slots.values()):
+                if now < slot.deadline:
+                    continue
+                if slot.result is None:                      # setup wait expired: silent so far
+                    if slot.form == "standard" and try_alternate:
+                        slot.form = "alternate"
+                        start(slot)
+                        continue
+                    slot.result = Tp20ProbeResult("silent", None, None, None)
+                elif slot.phase == "release" and not slot.result.released:
+                    log.info("tp20 probe: no A8 confirmation from 0x%02X within %.1f s", slot.address,
+                             Tp20Channel.DISCONNECT_TIMEOUT)
+                finish(slot)
+        opened = sum(1 for r in results.values() if r.status == "open")
+        log.info("tp20 probe: %d of %d addresses answered 0xD0 (%d released with A8), %d refused, "
+                 "%d TP 1.6, %d silent", opened, len(addrs), released,
+                 sum(1 for r in results.values() if r.status.startswith(("refused", "busy"))),
+                 sum(1 for r in results.values() if r.status == "tp16"),
+                 sum(1 for r in results.values() if r.status == "silent"))
     finally:
-        endpoint.close()
+        if endpoint is not None:
+            endpoint.close()
+        for rid in claimed:
+            _release_tester_rx_id(router, rid, owner)
     return results
 
 
-def _probe_collect(endpoint: RouterEndpoint, duration: float, pending: Set[int],
-                   results: Dict[int, Tp20ProbeResult], form: str) -> None:
-    deadline = time.monotonic() + duration
-    while True:
-        remaining = deadline - time.monotonic()
-        if remaining <= 0:
+def _probe_handle_frame(endpoint: RouterEndpoint, frame: CanFrame, slots: Dict[int, _ProbeSlot],
+                        gap: float) -> None:
+    data = frame.data
+    if frame.arbitration_id in slots:
+        # A frame on one of our tester ids: only the A8 confirmation matters here.
+        slot = slots[frame.arbitration_id]
+        if slot.phase == "release" and data[:1] == bytes([OP_DISCONNECT]) and slot.result is not None:
+            slot.result = Tp20ProbeResult(slot.result.status, slot.result.tester_tx_id,
+                                          slot.result.raw, slot.result.setup_form, released=True)
+            slot.deadline = 0.0                  # finish on the next pass
+        return
+    addr = frame.arbitration_id - SETUP_ID
+    for slot in slots.values():
+        if slot.address == addr and slot.phase == "setup":
+            break
+    else:
+        return
+    if len(data) == 3 and data[1] == OP_SETUP_OK:
+        slot.result = Tp20ProbeResult("tp16", None, data, slot.form)
+        log.info("tp20 probe: 0x%02X answered with TP 1.6 reply %s", addr, data.hex(" "))
+        slot.deadline = 0.0
+        return
+    if len(data) != 7:
+        return
+    opcode = data[1]
+    if opcode == OP_SETUP_OK:
+        resp = parse_setup_response(data)
+        if not resp.tx_valid:
+            log.warning("tp20 probe: 0x%02X opened a channel but named an invalid transmit id (%s); "
+                        "it cannot be released with A8", addr, data.hex(" "))
+            slot.result = Tp20ProbeResult("open", None, data, slot.form)
+            slot.deadline = 0.0
             return
-        frame = endpoint.recv(remaining)
-        if frame is None:
-            return
-        addr = frame.arbitration_id - SETUP_ID
-        if addr not in pending or addr in results:
-            continue
-        data = frame.data
-        if len(data) == 3 and data[1] == OP_SETUP_OK:
-            results[addr] = Tp20ProbeResult("tp16", None, data, form)
-            log.info("tp20 probe: 0x%02X answered with TP 1.6 reply %s", addr, data.hex(" "))
-            continue
-        if len(data) != 7:
-            continue
-        opcode = data[1]
-        if opcode == OP_SETUP_OK:
-            resp = parse_setup_response(data)
-            results[addr] = Tp20ProbeResult("open", resp.tx_id if resp.tx_valid else None, data, form)
-        elif opcode in OP_SETUP_REFUSED:
-            resp = parse_setup_response(data)
-            status = {0xD6: "refused-d6", 0xD7: "refused-d7", 0xD8: "busy-d8"}[opcode]
-            results[addr] = Tp20ProbeResult(status, resp.tx_id if resp.tx_valid else None, data, form)
-        else:
-            log.debug("tp20 probe: unexpected opcode 0x%02X from 0x%02X: %s", opcode, addr, data.hex(" "))
+        slot.result = Tp20ProbeResult("open", resp.tx_id, data, slot.form)
+        endpoint.send(CanFrame(resp.tx_id, bytes([OP_DISCONNECT])))
+        slot.phase = "release"
+        slot.deadline = time.monotonic() + Tp20Channel.DISCONNECT_TIMEOUT
+        time.sleep(gap)
+    elif opcode in OP_SETUP_REFUSED:
+        resp = parse_setup_response(data)
+        status = {0xD6: "refused-d6", 0xD7: "refused-d7", 0xD8: "busy-d8"}[opcode]
+        slot.result = Tp20ProbeResult(status, resp.tx_id if resp.tx_valid else None, data, slot.form)
+        slot.deadline = 0.0
+    else:
+        log.debug("tp20 probe: unexpected opcode 0x%02X from 0x%02X: %s", opcode, addr, data.hex(" "))

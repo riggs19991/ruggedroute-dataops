@@ -18,6 +18,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from ..obd import sim as _obd_sim  # noqa: F401  (registers the r32/golf-tdi preset hooks)
 from ..obd import pids as P
 from ..obd.client import (
+    BITMAP_MODES,
     MODE_DTC_CONFIRMED,
     MODE_DTC_PENDING,
     MODE_DTC_PERMANENT,
@@ -84,6 +85,30 @@ def _parse_pid(token: str) -> int:
     if not 0 <= pid <= 0xFF:
         raise argparse.ArgumentTypeError(f"PID {token!r} out of range 00..FF")
     return pid
+
+
+def _parse_mode(token: str) -> int:
+    """``--mode`` for ``obd pids``: only the services that carry Annex A bitmaps
+    (01, 02, 06, 08, 09). ``03 00`` etc. would be a malformed request broadcast to
+    every ECU, so anything else is an argument error."""
+    mode = _parse_pid(token)
+    if mode not in BITMAP_MODES:
+        raise argparse.ArgumentTypeError(
+            f"mode {token!r} has no supported-ID bitmaps; choose one of "
+            + ", ".join(f"{m:02X}" for m in BITMAP_MODES))
+    return mode
+
+
+def _parse_window(token: str) -> float:
+    """``--window`` must be a positive number of seconds: with 0 the client would only
+    take a reply that is already buffered, which never happens on real hardware."""
+    try:
+        value = float(token)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(f"window {token!r} is not a number of seconds") from exc
+    if not value > 0:
+        raise argparse.ArgumentTypeError(f"window must be > 0 seconds (ISO P2 max is 0.05), got {token}")
+    return value
 
 
 def _yes_no(flag: bool) -> str:
@@ -163,7 +188,7 @@ def cmd_pids(args: argparse.Namespace) -> int:
                 elif mode == 0x06:
                     name = P.obdmid_name(pid)
                 elif mode == 0x09:
-                    name = P.INFOTYPE_NAMES.get(pid, f"InfoType {pid:02X}")
+                    name = P.infotype_name(pid)
                 else:
                     name = ""
                 print(f"  {pid:02X}  {name}")
@@ -334,7 +359,7 @@ def cmd_freeze(args: argparse.Namespace) -> int:
         def body(rid: int, values: Dict[int, ObdValue]) -> None:
             dtc = values.get(0x02)
             if dtc is not None and dtc.value is None:
-                print("  No freeze frame stored (PID 02 = 0000).")
+                print(f"  No freeze frame {args.frame} stored (PID 02 = 0000).")
             elif dtc is not None:
                 print(f"  Freeze frame {args.frame} stored for {dtc.value}  {describe_dtc(dtc.value)}")
             _print_values({p: v for p, v in values.items() if p != 0x02})
@@ -352,10 +377,11 @@ def _add_obd_args(sp: argparse.ArgumentParser, add_common_args: Callable[[argpar
     add_common_args(sp)
     sp.add_argument("--physical", action="store_true",
                     help="address the --module ids physically instead of broadcasting on 0x7DF")
-    sp.add_argument("--window", type=float, default=0.25, metavar="SECONDS",
-                    help="P2 collection window for responders (ISO: 50 ms; default 0.25)")
+    sp.add_argument("--window", type=_parse_window, default=0.25, metavar="SECONDS",
+                    help="P2 collection window for responders, > 0 (ISO: 50 ms; default 0.25)")
     sp.add_argument("--batch-bitmaps", action="store_true",
-                    help="request supported-ID bitmaps six per message instead of one per message")
+                    help="request supported-ID bitmaps several per message (six; three for Mode 02) "
+                         "instead of one per message")
 
 
 def register(sub: argparse._SubParsersAction, add_common_args: Callable[[argparse.ArgumentParser], None]) -> None:
@@ -372,7 +398,7 @@ def register(sub: argparse._SubParsersAction, add_common_args: Callable[[argpars
 
     sp = osub.add_parser("pids", help="list supported PIDs (or OBDMIDs / InfoTypes with --mode)")
     _add_obd_args(sp, add_common_args)
-    sp.add_argument("--mode", type=_parse_pid, default=0x01, help="01 (default), 02, 06 or 09")
+    sp.add_argument("--mode", type=_parse_mode, default=0x01, help="01 (default), 02, 06, 08 or 09")
     sp.set_defaults(func=cmd_pids)
 
     sp = osub.add_parser("read", help="read and decode Mode 01 PIDs")

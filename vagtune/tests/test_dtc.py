@@ -13,7 +13,13 @@ import logging
 import pytest
 
 from vagtune import data as vdata
-from vagtune.transport.fake import SIM_EXTENDED_RECORD_SIZES, SIM_SNAPSHOT_DID_SIZES, make_fake_pair
+from vagtune.transport.fake import (
+    SIM_EXTENDED_RECORD_SIZES,
+    SIM_SNAPSHOT_DID_SIZES,
+    SimulatedFault,
+    _Nrc,
+    make_fake_pair,
+)
 from vagtune.uds import dtc as D
 from vagtune.uds.client import UdsClient
 from vagtune.uds.exceptions import NegativeResponse
@@ -110,14 +116,57 @@ def test_ftb_unverified_row_warns_once(caplog):
     assert unknown.unverified and "ISO/SAE reserved" in unknown.text
 
 
-def test_kwp_elaboration_table_and_intermittent_bit(caplog):
+def test_kwp1281_elaboration_table_and_intermittent_bit(caplog):
     caplog.set_level(logging.WARNING)
     assert len(V.KWP_ELABORATION) == 83
     assert V.KWP_ELABORATION[0x10] == "Signal Outside Specifications"
     assert V.KWP_ELABORATION[0x1B] == "Implausible Signal" and V.KWP_ELABORATION[0x52] == "Activated"
     assert V.describe_kwp_elaboration(0x35) == ("Supply Voltage Too Low", False)
     assert V.describe_kwp_elaboration(0xB5) == ("Supply Voltage Too Low", True)
-    assert len(_unverified_messages(caplog, "KWP")) == 1
+    assert not _unverified_messages(caplog, "KWP")       # verified table for the K-line protocol
+
+
+# (status byte on a real KWP2000 module, VCDS "NNN - text", VCDS "Intermittent") from the
+# four Auto-Scans in PROTOCOL_FACTS §7.8 (21 records; every one obeys this rule).
+REAL_KWP2000_STATUS = [
+    (0b01100000, "000 - -", False),
+    (0b00100000, "000 - -", True),
+    (0b01100100, "004 - No Signal/Communication", False),
+    (0b01100111, "007 - Short to Ground", False),
+    (0b01101000, "008 - Implausible Signal", False),
+    (0b00101010, "010 - Open or Short to Plus", True),
+    (0b00111010, "010 - Open or Short to Plus", True),
+    (0b00101011, "011 - Open Circuit", True),
+    (0b01101100, "012 - Electrical Fault in Circuit", False),
+    (0b01101101, "013 - Check DTC Memory", False),
+    (0b01101110, "014 - Defective", False),
+    (0b00101110, "014 - Defective", True),
+]
+
+
+@pytest.mark.parametrize("status,vcds,intermittent", REAL_KWP2000_STATUS)
+def test_kwp2000_status_byte_verified_rule(status, vcds, intermittent, caplog):
+    caplog.set_level(logging.WARNING)
+    row, inter, mil = V.describe_kwp2000_status(status)
+    assert f"{row.code:03d} - {row.text}" == vcds and row.verified and inter == intermittent and not mil
+    d = V.decode_kwp_dtc(0x4065, status)                 # 16485 = P0101
+    assert d.sae_code == "P0101" and d.elaboration == row.code and d.ftb_text == row.text
+    assert d.intermittent == intermittent and d.active != intermittent and not d.mil
+    assert d.status_text == vcds + (" - Intermittent" if intermittent else "")
+    assert d.ftb_verified and not _unverified_messages(caplog, "KWP")
+
+
+def test_kwp2000_reported_elaborations_and_mil_bit_warn_once(caplog):
+    caplog.set_level(logging.WARNING)
+    assert [c for c, r in V.KWP2000_ELABORATION.items() if not r.verified] == [2, 3, 5, 6, 9, 15]
+    row, inter, mil = V.describe_kwp2000_status(0b01100110)
+    assert row.text == "Short to Plus" and not row.verified and not inter and not mil
+    V.describe_kwp2000_status(0b00100110)
+    assert len(_unverified_messages(caplog, "elaboration 006")) == 1
+    d = V.decode_kwp_dtc(16683, 0b11101100)
+    assert d.mil and d.ftb_verified and "MIL?" in d.status_text and V.vcds_style(d).endswith("MIL? (bit 7, unverified)")
+    V.decode_kwp_dtc(16683, 0b10100000)
+    assert len(_unverified_messages(caplog, "bit 7")) == 1
 
 
 # ----------------------------------------------------------------- database
@@ -194,22 +243,37 @@ def test_decode_uds_dtc_vcds_style_p0299():
 
 def test_decode_kwp_dtc_sae_and_factory(caplog):
     caplog.set_level(logging.WARNING)
-    d = V.decode_kwp_dtc(16683, 0x10)
+    d = V.decode_kwp_dtc(16683, 0b01101100)              # P0299, 012, present
     assert d.sae_code == "P0299" and d.vag5 == 16683 and d.vag6 == "000665" and d.source == "kwp"
-    assert d.ftb_text == "Signal Outside Specifications" and not d.intermittent and d.active
-    assert V.vcds_style(d) == ("16683 - P0299 - Boost Pressure Regulation: Control Range Not Reached"
-                               " - Signal Outside Specifications")
-    inter = V.decode_kwp_dtc(b"\x41\x2B", 0x90)
-    assert inter.intermittent and V.vcds_style(inter).endswith("- Intermittent")
-    f = V.decode_kwp_dtc(287, 0x39)
+    assert d.ftb == 12 and d.ftb_text == "Electrical Fault in Circuit" and not d.intermittent and d.active
+    assert d.raw == b"\x41\x2B\x6C" and d.number == 16683 and d.status == 0x6C
+    assert V.vcds_style(d) == ("16683 - P0299 - 012 - Boost Pressure Regulation: Control Range Not Reached"
+                               " - Electrical Fault in Circuit")
+    inter = V.decode_kwp_dtc(b"\x41\x2B", 0b00101011)
+    assert inter.intermittent and V.vcds_style(inter) == (
+        "16683 - P0299 - 011 - Boost Pressure Regulation: Control Range Not Reached - Open Circuit - Intermittent")
+    plain = V.decode_kwp_dtc(16683, 0b01100000)
+    assert V.vcds_style(plain) == "16683 - P0299 - 000 - Boost Pressure Regulation: Control Range Not Reached"
+    f = V.decode_kwp_dtc(287, 0b01101100)
     assert f.is_factory_only and f.sae_code == "" and f.vag5 == 287 and f.vag6 is None
     assert f.factory_number == "00287" and f.number == 287
     assert f.text == "ABS Wheel Speed Sensor Rear Right (G44)"
     assert "Signal Outside Specifications" in f.variants
-    assert V.vcds_style(f) == "00287 - ABS Wheel Speed Sensor Rear Right (G44) - Electric Circuit Failure"
-    assert len(_unverified_messages(caplog, "KWP")) == 1     # warned once for three decodes
-    nothing = V.decode_kwp_dtc(0x8355, 0x00)
+    assert V.vcds_style(f) == "00287 - 012 - ABS Wheel Speed Sensor Rear Right (G44) - Electrical Fault in Circuit"
+    assert not _unverified_messages(caplog, "KWP")        # verified rule, verified texts
+    nothing = V.decode_kwp_dtc(0x8355, 0x60)
     assert nothing.is_factory_only and nothing.vag5 == 0x8355 and "no description" in nothing.text
+    # Explicit K-line KWP1281 decode: 83-row table, bit 7 = intermittent.
+    k = V.decode_kwp_dtc(16683, 0x10, kwp1281=True)
+    assert k.source == "kwp1281" and k.ftb_text == "Signal Outside Specifications" and not k.intermittent
+    assert k.elaboration is None and not k.mil
+    assert V.vcds_style(k) == ("16683 - P0299 - Boost Pressure Regulation: Control Range Not Reached"
+                               " - Signal Outside Specifications")
+    k2 = V.decode_kwp_dtc(287, 0xB9, kwp1281=True)
+    assert k2.intermittent and not k2.active and not k2.mil and k2.ftb == 0x39
+    assert V.vcds_style(k2) == "00287 - ABS Wheel Speed Sensor Rear Right (G44) - Electric Circuit Failure - Intermittent"
+    with pytest.raises(ValueError):
+        V.decode_kwp_dtc(b"\x01\x02\x03", 0)
 
 
 # ----------------------------------------------------------------- VagEcuSession
@@ -259,6 +323,30 @@ def test_read_dtcs_detailed_with_and_without_sizes():
     assert partial[0].extended == [] and "NRC 0x12" in partial[0].extended_error
 
 
+def test_read_dtcs_detailed_keeps_parser_error_per_fault():
+    """Record sizes are per module; a table from the wrong module misaligns the 0x06
+    walk (record 4 is 3 bytes here, the oracle says 2, so the next "record number"
+    byte is 0x00 -> UnexpectedResponse). One bad fault must not lose the list, and
+    the raw bytes must still be there."""
+    session, ecu, link = _session()
+    ecu.fault_dtcs = [SimulatedFault.default(b"\x01\x12\x00", 0x2F, mileage_km=256),
+                      SimulatedFault.default(b"\x05\x61\x00", 0x09)]
+    details = session.read_dtcs_detailed(record_sizes={1: 1, 2: 1, 3: 1, 4: 2})
+    assert [d.dtc.sae_code for d in details] == ["P0112", "P0561"]
+    assert "record number 0" in details[0].extended_error
+    assert details[0].extended and details[0].extended[0].raw     # raw re-read kept
+    # The second fault's mileage is 01 E2 40, so the same wrong table makes 0x40 look
+    # like a record number with an unknown size: no error is detectable, the tail is
+    # kept raw and the report is honestly incomplete.
+    second = details[1]
+    assert second.extended_error is None and [r.record for r in second.extended] == [1, 2, 3, 4, 0x40]
+    assert not second.extended[-1].complete and second.extended[-1].raw
+    # A garbled snapshot header is kept per fault too.
+    ecu.custom_handlers[0x19] = lambda req: (b"\x59\x05" if req[1] == 0x04 else ecu._svc_read_dtc(req))
+    details = session.read_dtcs_detailed(with_extended=False)
+    assert len(details) == 2 and all("ReadDTCInformation 0x04" in d.snapshot_error for d in details)
+
+
 def test_coding_backup_dry_run_confirm_and_identity_mismatch(caplog):
     caplog.set_level(logging.WARNING)
     session, ecu, link = _session()
@@ -298,6 +386,83 @@ def test_coding_backup_dry_run_confirm_and_identity_mismatch(caplog):
     fresh = session.make_coding_backup()
     same = session.write_coding(new, backup=fresh, confirm=True, dry_run=False)
     assert not same.written and same.verified
+
+
+def test_write_did_backup_dry_run_confirm_identity_and_readback(caplog):
+    """write_did carries the same safety wrapper as write_coding for every other DID
+    (adaptation / workshop data are 2E writes on UDS modules - a Reported mapping)."""
+    caplog.set_level(logging.WARNING)
+    session, ecu, link = _session()
+    session.enter_extended_session()
+    session.login(ecu.login_code)
+    new = b"\x00\x00\x12\x34\x56\x78"
+    backup = session.make_did_backup(0xF1A5, module="engine")
+    assert backup["did"] == "F1A5" and backup["value"] == "000003781fd7"
+    assert backup["identity"]["F187"] == "8V0906259H" and backup["identity_full"]["vin"] == "WVWZZZAUZLW000001"
+
+    dry = session.write_did(0xF1A5, new, backup=backup)                      # dry run is the default
+    assert dry.dry_run and not dry.written and ecu.identifiers[0xF1A5] == bytes.fromhex("000003781FD7")
+    assert dry.backup_identity == backup["identity"]
+    with pytest.raises(CodingSafetyError, match="confirm=True"):
+        session.write_did(0xF1A5, new, backup=backup, dry_run=False)
+    with pytest.raises(CodingSafetyError, match="backup dict"):
+        session.write_did(0xF1A5, new, backup={"identity": {}})
+    with pytest.raises(CodingSafetyError, match="backup is for DID"):
+        session.write_did(0xF198, new, backup=backup)
+    with pytest.raises(CodingSafetyError, match="empty value"):
+        session.write_did(0xF1A5, b"", backup=backup)
+    assert ecu.identifiers[0xF1A5] == bytes.fromhex("000003781FD7")
+    assert not _unverified_messages(caplog, "DID write")                     # nothing written yet
+
+    res = session.write_did(0xF1A5, new, backup=backup, confirm=True, dry_run=False)
+    assert res.written and res.verified and ecu.identifiers[0xF1A5] == new
+    assert len(_unverified_messages(caplog, "DID write uses WriteDataByIdentifier 0x2E")) == 1
+    # Stale backup (value changed since) is refused; identity mismatch is refused.
+    with pytest.raises(CodingSafetyError, match="differs from the backup"):
+        session.write_did(0xF1A5, b"\x00" * 6, backup=backup, confirm=True, dry_run=False)
+    fresh = session.make_did_backup(0xF1A5)
+    ecu.identifiers[0xF187] = b"8V0906259J"
+    with pytest.raises(CodingSafetyError, match="identity mismatch for DID F187"):
+        session.write_did(0xF1A5, b"\x00" * 6, backup=fresh)
+    ecu.identifiers[0xF187] = b"8V0906259H"
+    # Unchanged value is a no-op; a read-back mismatch is an error naming the backup.
+    same = session.write_did(0xF1A5, new, backup=fresh, confirm=True, dry_run=False)
+    assert not same.written and same.verified
+    ecu.custom_handlers[0x2E] = lambda req: b"\x6E" + req[1:3]              # ECU "accepts" but ignores
+    with pytest.raises(CodingSafetyError, match="read-back"):
+        session.write_did(0xF1A5, b"\x00" * 6, backup=fresh, confirm=True, dry_run=False)
+    del ecu.custom_handlers[0x2E]
+    # Without the login the module itself refuses (0x33) - the wrapper never hides that.
+    link2, ecu2 = make_fake_pair()
+    s2 = VagEcuSession(UdsClient(link2))
+    b2 = s2.make_did_backup(0xF198)
+    s2.enter_extended_session()
+    with pytest.raises(NegativeResponse) as exc:
+        s2.write_did(0xF198, b"\x01" * 5, backup=b2, confirm=True, dry_run=False)
+    assert exc.value.nrc == 0x33
+
+
+def test_write_did_write_only_did_is_never_reported_verified(caplog):
+    caplog.set_level(logging.WARNING)
+    session, ecu, link = _session()
+    builtin = ecu._svc_read_did
+
+    def read(req):
+        if req[1:3] == b"\xF1\x98":
+            return b"\x7F\x22\x31"                         # write-only: not readable
+        try:
+            return builtin(req)
+        except _Nrc as nrc:
+            return bytes([0x7F, 0x22, nrc.code])
+    ecu.custom_handlers[0x22] = read
+    backup = session.make_did_backup(0xF198)
+    assert backup["value"] is None
+    session.enter_extended_session()
+    session.login(ecu.login_code)
+    res = session.write_did(0xF198, b"\x01" * 5, backup=backup, confirm=True, dry_run=False)
+    assert res.written and not res.verified and res.old == b"" and ecu.identifiers[0xF198] == b"\x01" * 5
+    assert any("write-only" in r.getMessage() for r in caplog.records)
+    assert "coding" in session.make_did_backup(0x0600)       # 0x0600 delegates to the coding backup
 
 
 def test_coding_write_refused_by_module_without_login():
@@ -358,14 +523,18 @@ def test_read_write_scan_dids_and_measuring_values():
     assert out == {0xF187: b"8V0906259H", 0xF189: b"0001"}
     out2 = session.read_dids([0xF187, 0xF189])
     assert out2 == out and link.sent[-1] == bytes.fromhex("22F187F189")   # sizes learned -> batched
-    with pytest.raises(CodingSafetyError):
-        session.write_did(0xF198, b"\x00\x00\x00\x00\x01")
-    with pytest.raises(CodingSafetyError):
-        session.write_did(0x0600, b"\x00" * 10, confirm=True)
+    with pytest.raises(TypeError):                       # no backup -> not even callable
+        session.write_did(0xF198, b"\x00\x00\x00\x00\x01", confirm=True)
+    backup = session.make_did_backup(0xF198)
+    with pytest.raises(CodingSafetyError, match="use write_coding"):
+        session.write_did(0x0600, b"\x00" * 10, backup=backup, confirm=True, dry_run=False)
     session.enter_extended_session()
     session.login(ecu.login_code)
-    old = session.write_did(0xF198, b"\x00\x00\x00\x00\x01", confirm=True)
-    assert old == b"\x00\x00\x00\x00\x00" and ecu.identifiers[0xF198] == b"\x00\x00\x00\x00\x01"
+    dry = session.write_did(0xF198, b"\x00\x00\x00\x00\x01", backup=backup, confirm=True)
+    assert dry.dry_run and not dry.written and ecu.identifiers[0xF198] == b"\x00\x00\x00\x00\x00"
+    res = session.write_did(0xF198, b"\x00\x00\x00\x00\x01", backup=backup, confirm=True, dry_run=False)
+    assert res.old == b"\x00\x00\x00\x00\x00" and res.written and res.verified
+    assert ecu.identifiers[0xF198] == b"\x00\x00\x00\x00\x01"
     scan = session.scan_dids(0xF186, 0xF192)
     assert 0xF190 in scan and 0xF188 not in scan
     speed = session.read_measuring_did(0xF40D)

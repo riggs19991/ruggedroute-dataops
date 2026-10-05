@@ -514,10 +514,36 @@ def test_freeze_frame():
     assert all(v.frame == 0 for v in ff.values())
     r32.requests.clear()
     sel = c.freeze_frame([0x0C, 0x05, 0x04, 0x0B], frame=0)
-    assert r32.requests == [H("02 0C 00 05 00 04 00"), H("02 0B 00")]   # 3 pairs per request
-    assert set(sel) == {0x0C, 0x05, 0x04, 0x0B}
-    with pytest.raises(ObdTimeout):
-        c.freeze_frame([0x0C], frame=1)                                    # only frame 0 stored
+    # PID 02 alone first (ISO §7.2.4.2), then 3 pairs per request
+    assert r32.requests == [H("02 02 00"), H("02 0C 00 05 00 04 00"), H("02 0B 00")]
+    assert set(sel) == {0x02, 0x0C, 0x05, 0x04, 0x0B}
+    r32.requests.clear()
+    only = c.freeze_frame([0x0C], frame=1)                                 # only frame 0 stored
+    assert set(only) == {0x02} and only[0x02].value is None and only[0x02].frame == 1
+    assert r32.requests == [H("02 02 01")]                                 # data PIDs never asked
+
+
+def test_freeze_frame_strict_iso_without_stored_frame():
+    """ISO 15031-5 Table 7 e/f: without a stored frame the ECU is silent for any request
+    naming a data PID, *including* ``02 02 00 03 00 04 00``; only ``02 02 00`` alone
+    yields the ``00 00`` answer. The client must therefore probe PID 02 alone."""
+    r32 = SimulatedObdEcu("r32-2008")                      # no DTC -> no frame stored
+    assert r32.handle(H("02 02 00")) == H("42 02 00 00 00")
+    assert r32.handle(H("02 02 00 03 00 04 00")) is None
+    assert r32.handle(H("02 0C 00")) is None
+    assert r32.handle(H("02 00 00")) is not None            # bitmaps are always answered
+    c = _client(r32)
+    r32.requests.clear()
+    ff = c.freeze_frame_all()
+    assert ff == {0x7E8: {0x02: ff[0x7E8][0x02]}} and ff[0x7E8][0x02].value is None
+    assert r32.requests == [H("02 02 00")]
+    # Stored frame: PID 02 first, then the bitmaps, then the data PIDs 3 per request.
+    r32.dtcs = ["P0171"]
+    r32.requests.clear()
+    ff = c.freeze_frame_all()
+    assert ff[0x7E8][0x02].value == "P0171" and ff[0x7E8][0x0C].value == 800.0
+    assert r32.requests[:4] == [H("02 02 00"), H("02 00 00"), H("02 20 00"), H("02 40 00")]
+    assert all(len(r) <= 7 and r[1:2] != b"\x02" for r in r32.requests[4:])
 
 
 def test_vehicle_info_and_supported_infotypes():
@@ -654,7 +680,7 @@ def test_response_pending_per_responder_and_duplicates(caplog):
     # Negative replies are kept per responder; one for another SID is ignored.
     raw = c.request_all(H("01 00"))
     assert raw == {0x7E8: H("41 00 BE 1F A8 13"), 0x7EA: H("7F 01 11")}
-    assert c.responders == {0x7E8, 0x7E9}                    # 0x7E9 answered CVN; 0x7EA only negatively
+    assert c.responders == {0x7E8, 0x7E9, 0x7EA}             # 0x7EA answered only negatively: still present
     assert c.query_all(H("01 00")) == {0x7E8: H("00 BE 1F A8 13")}
     assert c.request(H("01 00")) == H("00 BE 1F A8 13")
     with pytest.raises(ObdNegativeResponse):
@@ -871,3 +897,282 @@ def test_two_clients_two_threads_one_router(two_ecus):
     for t in threads:
         t.join(10.0)
     assert errors == []
+
+
+# ================================================== review findings (regressions)
+
+class _DelayedLink(IsoTpLink):
+    """``script[payload] = [(delay_s, response_id, reply)]`` delivered when due."""
+
+    def __init__(self, script: Dict[bytes, List[Tuple[float, int, bytes]]], tx: int = 0x7DF) -> None:
+        super().__init__(tx, 0x7E8)
+        self.script = script
+        self.q: List[Tuple[float, int, bytes]] = []
+        self.last_rx_id: Optional[int] = None
+        self.sent: List[bytes] = []
+
+    def send(self, payload: bytes) -> None:
+        self.sent.append(bytes(payload))
+        t0 = time.monotonic()
+        self.q += [(t0 + d, rid, r) for d, rid, r in self.script.get(payload, [])]
+
+    def recv(self, timeout: float) -> Optional[bytes]:
+        end = time.monotonic() + timeout
+        while True:
+            due = [x for x in self.q if x[0] <= time.monotonic()]
+            if due:
+                self.q.remove(due[0])
+                self.last_rx_id = due[0][1]
+                return due[0][2]
+            if time.monotonic() >= end:
+                return None
+            time.sleep(0.002)
+
+    def flush_rx(self) -> None:
+        self.q.clear()
+
+    def close(self) -> None:
+        pass
+
+
+class _SlowOnce:
+    """Delays the reply to the first request it sees by ``delay`` seconds."""
+
+    def __init__(self, brain: SimulatedObdEcu, delay: float) -> None:
+        self.brain = brain
+        self.delay = delay
+        self.slowed = False
+
+    def handle_all(self, request: bytes) -> List[bytes]:
+        if not self.slowed:
+            self.slowed = True
+            time.sleep(self.delay)
+        return self.brain.handle_all(request)
+
+    def handle(self, request: bytes) -> Optional[bytes]:
+        r = self.handle_all(request)
+        return r[-1] if r else None
+
+
+def test_stale_reply_is_not_attributed_to_the_next_request(caplog):
+    """A reply that arrives after the window belongs to the previous request; it must
+    not be taken as the answer to the next request of the same mode (echo check)."""
+    bus = FakeCanBus()
+    brain = SimulatedObdEcu("r32-2008")
+    node = ObdNode(bus, _SlowOnce(brain, 0.15), request_id=0x7E0, response_id=0x7E8, name="engine")
+    node.start()
+    router = CanRouter(bus.attach("tester"), name="tester")
+    link = SoftwareIsoTpLink(router.endpoint(set(range(0x7E8, 0x7F0))), 0x7DF, 0x7E8,
+                             extra_rx_ids=range(0x7E9, 0x7F0), owns_transport=True)
+    client = ObdClient(link, timing=ObdTiming(p2=0.1))
+    try:
+        with pytest.raises(ObdTimeout):
+            client.read_pid(0x0C)                          # answered after 0.15 s: too late
+        with caplog.at_level(logging.WARNING, logger="vagtune.obd.client"):
+            values = client.read_pids_all([0x0D])         # the stale 41 0C .. arrives first
+        got = {rid: {pid: v.value for pid, v in vals.items()} for rid, vals in values.items()}
+        assert got == {0x7E8: {0x0D: 0}}
+        assert any("does not answer request 01 0d" in r.message for r in caplog.records)
+        assert not any("duplicate reply" in r.message for r in caplog.records)
+    finally:
+        client.close()
+        router.close()
+        node.stop()
+
+
+def test_echo_validation_per_mode_and_positive_replaces_negative(caplog):
+    stale = {
+        H("01 0D"): [(0x7E8, H("41 0C 0C 80")), (0x7E8, H("41 0D 00"))],
+        H("02 02 00"): [(0x7E8, H("42 02 01 00 00")), (0x7E8, H("42 02 00 01 71"))],
+        H("02 0C 00"): [(0x7E8, H("42 0C 01 0C 80")), (0x7E8, H("42 0C 00 0C 80"))],
+        H("06 A2"): [(0x7E8, H("46 A1 0B 24 00 00 00 00 FF FF")), (0x7E8, H("46 A2 0B 24 00 01 00 00 00 19"))],
+        H("09 02"): [(0x7E8, H("49 04 01") + b"X" * 16), (0x7E8, H("49 02 01") + b"W" * 17)],
+        H("01 00"): [(0x7E8, H("7F 01 12")), (0x7E8, H("41 00 BE 1F A8 13"))],
+        H("03"): [(0x7E8, H("43 00"))],
+    }
+    link = _ScriptedLink(stale)
+    c = ObdClient(link, timing=FAST)
+    with caplog.at_level(logging.WARNING, logger="vagtune.obd.client"):
+        assert c.read_pids([0x0D]).keys() == {0x0D}
+        ff = c.freeze_frame([0x0C])
+        assert set(ff) == {0x02, 0x0C} and ff[0x02].value == "P0171" and ff[0x0C].frame == 0
+        assert [r.obdmid for r in c.monitor_test_results([0xA2])] == [0xA2]
+        assert c.vin() == "W" * 17
+        assert c.request_all(H("01 00")) == {0x7E8: H("41 00 BE 1F A8 13")}   # positive beats negative
+        assert c.last_negatives == {}
+        assert c.read_dtcs() == []                                           # no echo: accepted
+    assert sum("does not answer request" in r.message for r in caplog.records) >= 4
+    assert any("replaces the earlier negative" in r.message for r in caplog.records)
+    assert ObdClient._echo_matches(H("01 0C 0D"), H("41")) is False
+    assert ObdClient._echo_matches(H("02 0C 00"), H("42 0C")) is False
+    assert ObdClient._echo_matches(H("04"), H("44")) is True
+
+
+def test_every_request_fits_one_frame_with_batched_bitmaps():
+    for profile in ("r32-2008", "golf-tdi-2012", "dq250-tcm"):
+        ecu = SimulatedObdEcu(profile)
+        ecu.dtcs = ["P0171"]
+        c = _client(ecu, batch_bitmaps=True)
+        for mode in (0x01, 0x02, 0x06, 0x08, 0x09):
+            ecu.requests.clear()
+            got = c.supported_ids_all(mode).get(0x7E8, set())
+            assert all(len(r) <= 7 for r in ecu.requests), [r.hex(" ") for r in ecu.requests]
+            if mode == 0x02:
+                assert ecu.requests[0] == H("02 00 00 20 00 40 00")
+                assert got == ecu.supported_freeze_pids() - set(P.SUPPORT_BASES)
+            elif mode == 0x01:
+                assert ecu.requests[0] == H("01 00 20 40 60 80 A0")
+                assert got == ecu.supported_pids() - set(P.SUPPORT_BASES)
+        c.freeze_frame_all()
+        assert all(len(r) <= 7 for r in ecu.requests)
+    tdi = SimulatedObdEcu("golf-tdi-2012")
+    tdi.values[0xC1] = b"\x01"                              # forces the C0/E0 batch
+    c = _client(tdi, batch_bitmaps=True)
+    assert 0xC1 in c.supported_pids()
+    assert tdi.requests == [H("01 00 20 40 60 80 A0"), H("01 C0 E0")]
+    with pytest.raises(ValueError):
+        c.request_all(H("02 00 00 20 00 40 00 60 00"))       # 9 bytes: never sent
+    assert len(tdi.requests) == 2
+    with pytest.raises(ValueError):
+        c.supported_ids_all(0x03)                            # no bitmaps in Mode 03
+    with pytest.raises(ValueError):
+        c.supported_ids_all(0x04)
+
+
+class _LengthEcu:
+    """Answers PID 67 with 4 data bytes (table: 3) and PID 0C normally."""
+
+    def __init__(self) -> None:
+        self.requests: List[bytes] = []
+
+    def handle(self, req: bytes) -> Optional[bytes]:
+        self.requests.append(bytes(req))
+        body = b""
+        for pid in req[1:]:
+            if pid == 0x67:
+                body += H("67 03 82 50 07")
+            elif pid == 0x0C:
+                body += H("0C 0C 80")
+            elif pid == 0x05:
+                body += H("05 5A")
+        return b"\x41" + body if body else None
+
+
+def test_single_pid_reply_uses_the_payload_length_as_truth(caplog):
+    ecu = _LengthEcu()
+    c = ObdClient(FakeIsoTpLink(0x7E0, 0x7E8, ecu), timing=FAST)
+    with caplog.at_level(logging.WARNING, logger="vagtune.obd.client"):
+        vals = c.read_pids([0x67])
+    assert set(vals) == {0x67}                                   # no phantom PID 07
+    assert vals[0x67].raw == H("03 82 50 07") and vals[0x67].value == {"sensor_1": 90, "sensor_2": 40}
+    assert any("PID 67: ECU sent 4 data byte(s), table says 3" in r.message for r in caplog.records)
+    assert not any("not requested" in r.message for r in caplog.records)
+
+
+def test_misaligned_multi_pid_reply_is_reread_one_pid_at_a_time(caplog):
+    ecu = _LengthEcu()
+    c = ObdClient(FakeIsoTpLink(0x7E0, 0x7E8, ecu), timing=FAST)
+    with caplog.at_level(logging.WARNING, logger="vagtune.obd.client"):
+        vals = c.read_pids([0x0C, 0x67, 0x05])
+    assert ecu.requests == [H("01 0C 67 05"), H("01 05"), H("01 0C"), H("01 67")]
+    assert set(vals) == {0x0C, 0x67, 0x05}
+    assert vals[0x0C].value == 800.0 and vals[0x05].value == 50 and vals[0x67].raw == H("03 82 50 07")
+    assert any("record walk" in r.message and "misaligned" in r.message for r in caplog.records)
+    # A well-formed multi-PID reply is still taken in one go.
+    ecu.requests.clear()
+    assert set(c.read_pids([0x0C, 0x05])) == {0x0C, 0x05} and ecu.requests == [H("01 0C 05")]
+
+
+class _BusyAtFirst:
+    def __init__(self, brain: SimulatedObdEcu, busy_replies: int) -> None:
+        self.brain = brain
+        self.busy_left = busy_replies
+        self.requests: List[bytes] = []
+
+    def handle(self, request: bytes) -> Optional[bytes]:
+        self.requests.append(bytes(request))
+        if self.busy_left > 0:
+            self.busy_left -= 1
+            return bytes([0x7F, request[0], 0x21])
+        return self.brain.handle(request)
+
+
+def test_busy_repeat_request_is_retried_after_200ms():
+    ecu = _BusyAtFirst(SimulatedObdEcu("r32-2008"), busy_replies=1)
+    c = ObdClient(FakeIsoTpLink(0x7E0, 0x7E8, ecu), timing=ObdTiming(p2=0.05))
+    t0 = time.monotonic()
+    assert c.discover() == {0x7E8}
+    assert time.monotonic() - t0 >= 0.2                        # ISO 15765-4 §4.2.1 minimum delay
+    assert ecu.requests == [H("01 00"), H("01 00")] and c.last_negatives == {}
+    assert c.read_pid(0x0C).value == 800.0
+
+
+def test_busy_on_six_sequences_means_absent():
+    ecu = _BusyAtFirst(SimulatedObdEcu("r32-2008"), busy_replies=12)
+    c = ObdClient(FakeIsoTpLink(0x7E0, 0x7E8, ecu), timing=ObdTiming(p2=0.02, busy_delay=0.01))
+    assert c.discover() == set()
+    assert ecu.requests == [H("01 00")] * 6                     # 1 + 5 retries
+    assert c.last_negatives == {0x7E8: (0x01, 0x21)}
+    with pytest.raises(ObdNegativeResponse) as exc:
+        c.request(H("01 00"))                                   # six more busy sequences
+    assert exc.value.nrc == 0x21 and len(ecu.requests) == 12
+    assert ecu.busy_left == 0 and c.discover() == {0x7E8}
+    assert ObdTiming().busy_delay == 0.2 and ObdTiming().busy_retries == 5
+    for bad in (dict(p2=-1), dict(p2_star=-0.1), dict(busy_delay=-1), dict(busy_retries=-1)):
+        with pytest.raises(ValueError):
+            ObdTiming(**bad)
+
+
+def test_busy_retry_keeps_other_responders_replies():
+    link = _DelayedLink({H("03"): [(0.0, 0x7E8, H("43 01 01 71")), (0.0, 0x7E9, H("7F 03 21"))]})
+    c = ObdClient(link, timing=ObdTiming(p2=0.03, busy_delay=0.01, busy_retries=2))
+    # Second round: the engine answers again (ignored silently), the TCM is still busy.
+    link.script[H("03")] = [(0.0, 0x7E8, H("43 01 01 71")), (0.0, 0x7E9, H("7F 03 21"))]
+    assert c.read_dtcs_all() == {0x7E8: ["P0171"]}
+    assert c.last_negatives == {0x7E9: (0x03, 0x21)} and len(link.sent) == 3
+    assert c.responders == {0x7E8, 0x7E9}
+
+
+def test_negative_responder_counts_for_the_early_exit_rule():
+    """An ECU that answered only negatively is present; the next window must wait for it."""
+    link = _DelayedLink({
+        H("0A"): [(0.005, 0x7E8, H("4A 00")), (0.010, 0x7E9, H("7F 0A 11"))],
+        H("03"): [(0.005, 0x7E8, H("43 00")), (0.040, 0x7E9, H("43 01 07 30"))],
+    })
+    c = ObdClient(link, timing=ObdTiming(p2=0.25))
+    assert c.read_dtcs_all(0x0A) == {0x7E8: []}
+    assert c.responders == {0x7E8, 0x7E9}
+    assert c.read_dtcs_all(0x03) == {0x7E8: [], 0x7E9: ["P0730"]}
+
+
+def test_window_zero_still_polls_once():
+    c = ObdClient(FakeIsoTpLink(0x7E0, 0x7E8, SimulatedObdEcu("r32-2008")), timing=ObdTiming(p2=0.0))
+    assert c.discover() == {0x7E8}
+    assert c.read_pid(0x0C).value == 800.0
+
+
+def test_uas_rows_carry_their_id_and_sign():
+    assert P.UASIDS[0x81].signed and P.UASIDS[0xAF].signed and not P.UASIDS[0x01].signed
+    for uasid, row in P.UASIDS.items():
+        assert row.uasid == uasid and row.signed == P.uas_signed(uasid) == bool(uasid & 0x80)
+
+
+def test_infotype_0c_0d_names_are_flagged_unverified(caplog):
+    P._reset_unverified_warnings()
+
+    class Ecu:
+        def handle(self, req: bytes) -> Optional[bytes]:
+            if req == H("09 0C"):
+                return H("49 0C 01 31 32 33 34 35 36 37 38")
+            if req == H("09 00"):
+                return H("49 00 00 00 00 10")
+            return None
+
+    c = ObdClient(FakeIsoTpLink(0x7E0, 0x7E8, Ecu()), timing=FAST)
+    with caplog.at_level(logging.WARNING, logger="vagtune.obd.pids"):
+        info = c.vehicle_info(0x0C)
+        assert info.name == "Engine serial number (ESN)" and info.value == "31 32 33 34 35 36 37 38"
+        assert P.infotype_name(0x0D).startswith("Exhaust regulation")
+        assert P.infotype_name(0x02) == "VIN" and P.infotype_name(0x7E) == "InfoType 7E"
+    msgs = [r.message for r in caplog.records if "UNVERIFIED mapping" in r.message]
+    assert len(msgs) == 1 and "InfoType 0C" in msgs[0]

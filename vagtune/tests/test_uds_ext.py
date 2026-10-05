@@ -213,6 +213,55 @@ def test_sim_rejects_malformed_multi_did_request():
     assert ecu.handle(b"\x22\xAB\xCD\xAB\xCE") == b"\x7F\x22\x31"
 
 
+def test_multi_did_omitted_did_is_never_dropped_silently():
+    """ISO lets the ECU answer a multi-DID read with only the DIDs it supports; the
+    client must then surface the real NRC for the missing one (or skip it only when
+    asked), never pretend the batch answered everything."""
+    client, ecu, link = _session()
+    sizes = ecu.did_sizes()
+    sizes[0xABCD] = 4                                   # a label file claims a DID the module lacks
+    with pytest.raises(NegativeResponse) as exc:
+        client.read_data_by_identifiers([0xF187, 0xABCD], size_of=sizes, skip_unsupported=False)
+    assert exc.value.nrc == 0x31
+    assert link.sent == [b"\x22\xF1\x87\xAB\xCD", b"\x22\xF1\x87", b"\x22\xAB\xCD"]
+    link.sent.clear()
+    out = client.read_data_by_identifiers([0xF187, 0xABCD, 0xF189], size_of=sizes, skip_unsupported=True)
+    assert out == {0xF187: b"8V0906259H", 0xF189: b"0001"}
+
+
+def test_multi_did_secured_did_refuses_whole_request_and_surfaces_0x33():
+    """ISO 14229-1: securityAccessDenied applies to the whole 0x22 request when any DID
+    is secured (the simulator does that now); the client degrades to single reads and
+    the locked DID raises 0x33 - skip_unsupported only hides 0x31."""
+    ecu = SimulatedEcu()
+    assert ecu.handle(b"\x22\xF1\x87\x12\xFC") == b"\x7F\x22\x33"
+    client, ecu, link = _session()
+    sizes = ecu.did_sizes()
+    for skip in (False, True):
+        with pytest.raises(NegativeResponse) as exc:
+            client.read_data_by_identifiers([0xF187, 0x12FC], size_of=sizes, skip_unsupported=skip)
+        assert exc.value.nrc == 0x33
+    _extended(client)
+    client.security_access(0x03, login_seed_key_fn(ecu.login_code))
+    out = client.read_data_by_identifiers([0xF187, 0x12FC], size_of=sizes)
+    assert out == {0xF187: b"8V0906259H", 0x12FC: b"\x00\x00\x00\x00"} and link.sent[-1] == b"\x22\xF1\x87\x12\xFC"
+
+
+def test_multi_did_oversized_oracle_entry_does_not_corrupt_data():
+    """F189 is 4 bytes; a stale oracle says 23 (= 4 + the whole 2+17 F190 field). The
+    batch answer then lacks F190, which must trigger the single-read fallback so F189
+    comes back as its true 4 bytes rather than 23 bytes with the VIN glued on."""
+    client, ecu, link = _session()
+    wrong = {0xF189: 4 + 2 + 17, 0xF190: 17}
+    out = client.read_data_by_identifiers([0xF189, 0xF190], size_of=wrong)
+    assert out == {0xF189: b"0001", 0xF190: b"WVWZZZAUZLW000001"}
+    assert link.sent == [b"\x22\xF1\x89\xF1\x90", b"\x22\xF1\x89", b"\x22\xF1\x90"]
+    # An undersized entry that happens to re-align on a requested DID is caught too.
+    ecu.custom_handlers[0x22] = lambda req: b"\x62\xF1\x89\x00\xF1\x89\x00\x01"   # F189 twice
+    with pytest.raises(UnexpectedResponse, match="twice"):
+        client._read_batch([0xF189, 0xF190], {0xF189: 1, 0xF190: 17}.get)
+
+
 # ----------------------------------------------------------------- 0x19
 
 def test_read_dtc_count_and_records():
@@ -415,9 +464,55 @@ def test_communication_control_and_dtc_setting():
         client.communication_control(6)
     assert exc.value.nrc == 0x12
     client.control_dtc_setting(False)
-    assert link.sent[-1] == b"\x85\x82" and ecu.dtc_setting_on is False
+    assert link.sent[-1] == b"\x85\x02" and ecu.dtc_setting_on is False     # echo validated
     client.control_dtc_setting(True)
-    assert ecu.dtc_setting_on is True
+    assert link.sent[-1] == b"\x85\x01" and ecu.dtc_setting_on is True
+    client.control_dtc_setting(False, suppress=True)
+    assert link.sent[-1] == b"\x85\x82" and ecu.dtc_setting_on is False
+    ecu.custom_handlers[0x85] = lambda req: b"\xC5\x01"                     # wrong echo
+    with pytest.raises(UnexpectedResponse):
+        client.control_dtc_setting(False)
+
+
+def test_control_dtc_setting_refused_by_ecu_is_raised_not_faked():
+    """Default session: the simulator (like a VAG module) answers 7F 85 7F. Both the
+    plain and the suppressed form must raise, leave logging on and leave no stale
+    NRC in the inbox for the next request to swallow."""
+    client, ecu, link = _session()
+    with pytest.raises(NegativeResponse) as exc:
+        client.control_dtc_setting(False)
+    assert exc.value.nrc == 0x7F and ecu.dtc_setting_on is True
+    with pytest.raises(NegativeResponse) as exc:
+        client.control_dtc_setting(False, suppress=True)
+    assert exc.value.nrc == 0x7F and ecu.dtc_setting_on is True
+    assert link.sent[-1] == b"\x85\x82" and link.recv(0) is None
+
+
+def test_suppressed_request_negative_response_is_reported():
+    client, ecu, link = _session()
+    ecu.custom_handlers[0x3E] = lambda req: b"\x7F\x3E\x11"          # module without 0x3E
+    with pytest.raises(NegativeResponse) as exc:
+        client.tester_present(suppress=True)
+    assert exc.value.nrc == 0x11 and link.sent[-1] == b"\x3E\x80"
+    # Silence within the window means accepted; a positive answer to a suppressed
+    # request (ECU ignoring the bit) is accepted too; a 0x78 keeps the client waiting.
+    del ecu.custom_handlers[0x3E]
+    client.timing.suppressed_nrc_window = 0.02
+    client.tester_present(suppress=True)
+    ecu.custom_handlers[0x3E] = lambda req: b"\x7E\x00"
+    client.tester_present(suppress=True)
+    # 7F 3E 78 (pending) first, then the final 7F 3E 22: the window stretches to P2*.
+    ecu.custom_handlers[0x3E] = lambda req: link._inbox.put(b"\x7F\x3E\x78") or b"\x7F\x3E\x22"
+    with pytest.raises(NegativeResponse) as exc:
+        client.tester_present(suppress=True)
+    assert exc.value.nrc == 0x22
+    # The ECU-announced P2 widens the window (never beyond P2 timeout).
+    client.last_session_timing = None
+    assert client._suppressed_window() == pytest.approx(0.02)
+    client.diagnostic_session_control(0x03)       # announces P2 = 50 ms
+    assert client._suppressed_window() == pytest.approx(0.05)
+    client.timing.p2_timeout = 0.03
+    assert client._suppressed_window() == pytest.approx(0.03)
 
 
 # ----------------------------------------------------------------- scan_dids
@@ -485,6 +580,36 @@ def test_login_level_3_seed_key_and_lockout():
         client.security_access(0x04, login_seed_key_fn(1))
 
 
+def test_security_access_empty_seed_and_bad_key_echo_are_errors():
+    client, ecu, link = _session()
+    ecu.custom_handlers[0x27] = lambda req: b"\x67" + req[1:2]           # bare "67 11": no seed
+    calls = []
+    with pytest.raises(UnexpectedResponse, match="no seed bytes"):
+        client.security_access(0x11, lambda level, seed: calls.append(seed) or b"\x00" * 4)
+    assert not calls and link.sent == [b"\x27\x11"]
+    # sendKey answered with the wrong subfunction echo is not an unlock either.
+    ecu.custom_handlers[0x27] = lambda req: (b"\x67\x11\x01\x02\x03\x04" if req[1] == 0x11 else b"\x67\x13")
+    with pytest.raises(UnexpectedResponse, match="sendKey echo"):
+        client.security_access(0x11, lambda level, seed: b"\x00" * 4)
+    # The all-zero convention still means "already unlocked" when a seed is present.
+    ecu.custom_handlers[0x27] = lambda req: b"\x67\x11\x00\x00\x00\x00"
+    client.security_access(0x11, lambda level, seed: pytest.fail("no key expected"))
+
+
+@pytest.mark.parametrize("sid,method", [(0x34, "request_download"), (0x35, "request_upload")])
+def test_truncated_transfer_setup_response_is_a_uds_error(sid, method):
+    client, ecu, link = _session()
+    for bad, needle in ((bytes([sid + 0x40]), "too short"),
+                        (bytes([sid + 0x40, 0x00]), "zero-length"),
+                        (bytes([sid + 0x40, 0x20, 0x01]), "truncated"),
+                        (bytes([sid + 0x40, 0x10, 0x02]), "cannot carry data")):
+        ecu.custom_handlers[sid] = lambda req, bad=bad: bad
+        with pytest.raises(UnexpectedResponse, match=needle):
+            getattr(client, method)(0x80A80000, 0x100)
+    ecu.custom_handlers[sid] = lambda req: bytes([sid + 0x40, 0x20, 0x01, 0x02])
+    assert getattr(client, method)(0x80A80000, 0x100) == 0x0102
+
+
 def test_coding_write_gated_on_login_and_length():
     client, ecu, link = _session()
     _extended(client)
@@ -524,3 +649,42 @@ def test_parser_builders_round_trip():
         D.parse_dtc_records(b"\x59\x0A\xFF", 0x02)
     mask, dtcs = D.parse_dtc_records(D.build_dtc_records(0xFF, [(b"\x02\x99\x00", 0x60)]))
     assert mask == 0xFF and dtcs[0].intermittent and not dtcs[0].active
+
+
+def test_snapshot_truncated_message_is_never_reported_complete():
+    good = D.build_snapshot_response(b"\x02\x99\x00", 0x60, {1: [(0xF40D, b"\x10")]})
+    # A lone trailing byte where a "<record> <nDIDs>" header should be.
+    rep = D.parse_snapshot_records(good + b"\x02", {0xF40D: 1})
+    assert rep.records[0].complete and not rep.complete
+    stray = rep.records[1]
+    assert stray.truncated and stray.raw == b"\x02" and not stray.complete and stray.dids == []
+    assert not D.parse_snapshot_records(b"\x59\x04\x01\x12\x00\x2F" + b"\x01", {}).complete
+    # A DID field cut short with a *known* size is truncated; an unknown size is not.
+    rep = D.parse_snapshot_records(good[:-1], {0xF40D: 1})
+    assert rep.records[0].truncated and rep.records[0].raw == b"\xF4\x0D" and not rep.complete
+    rep = D.parse_snapshot_records(good, {})
+    assert not rep.records[0].truncated and not rep.records[0].complete
+    rep = D.parse_snapshot_records(good[:-2], {})          # ends inside the DID number
+    assert rep.records[0].truncated and rep.records[0].raw == b"\xF4"
+
+
+def test_sim_dynamic_did_chain_resolves_to_leaves_and_never_recurses():
+    ecu = SimulatedEcu()
+    ecu.session = 0x03
+    assert ecu.handle(bytes.fromhex("2C01F200F1900103")) == b"\x6C\x01\xF2\x00"       # F200 = VIN[0:3]
+    assert ecu.handle(bytes.fromhex("2C01F201F2000202")) == b"\x6C\x01\xF2\x01"       # F201 = F200[1:3]
+    assert ecu.dynamic_dids[0xF201] == [("did", 0xF190, 2, 2)]                        # stored as a leaf
+    assert ecu.handle(b"\x22\xF2\x01") == b"\x62\xF2\x01VW"
+    assert ecu.handle(bytes.fromhex("2C01F200F2010102")) == b"\x6C\x01\xF2\x00"       # "cycle" -> leaves
+    assert ecu.handle(b"\x22\xF2\x00") == b"\x62\xF2\x00VW"
+    # A window across a memory leaf and a DID leaf splits correctly.
+    assert ecu.handle(bytes.fromhex("2C02F21014 00000010 04".replace(" ", ""))) == b"\x6C\x02\xF2\x10"
+    assert ecu.handle(bytes.fromhex("2C01F211F2100103F1900102")) == b"\x6C\x01\xF2\x11"
+    assert ecu.handle(bytes.fromhex("2C01F212F2110303")) == b"\x6C\x01\xF2\x12"       # F211[2:5] = mem[0x12] + "WV"
+    assert ecu.dynamic_dids[0xF212] == [("mem", 0x12, 0, 1), ("did", 0xF190, 1, 2)]
+    assert ecu.handle(b"\x22\xF2\x12") == b"\x62\xF2\x12" + ecu.memory[0x12:0x13] + b"WV"
+    # A cycle injected straight into the table answers 0x31 instead of recursing.
+    ecu.dynamic_dids[0xF220] = [("did", 0xF221, 1, 1)]
+    ecu.dynamic_dids[0xF221] = [("did", 0xF220, 1, 1)]
+    assert ecu.handle(b"\x22\xF2\x20") == b"\x7F\x22\x31"
+    assert ecu.handle(b"\x22\xF2\x20\xF1\x89") == b"\x62\xF1\x890001"
