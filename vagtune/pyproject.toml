@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vagtune"
+version = "0.1.0"
+description = "Laptop-side VAG (VW/Audi/Skoda/SEAT) ECU diagnostic and calibration toolkit over OBD2 (J2534 pass-thru or CAN)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary - Addictive Media Productions, LLC" }
+authors = [{ name = "Addictive Media Productions, LLC" }]
+dependencies = []
+
+[project.optional-dependencies]
+# Raw CAN adapters (SocketCAN on Linux, PCAN/Kvaser/Vector/etc. on Windows) via python-can.
+can = ["python-can>=4.3"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+vagtune = "vagtune.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["vagtune*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

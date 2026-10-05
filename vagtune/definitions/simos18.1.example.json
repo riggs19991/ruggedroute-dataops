@@ -1,0 +1,87 @@
+{
+  "profile": "simos18.1",
+  "name": "SIMOS18.1 EXAMPLE definition (demo addresses, not a real map pack)",
+  "_warning": "Addresses are offsets inside the SIMOS18.1 CAL block (base 0x80A80000) and target the DEMO pattern produced by the simulated ECU - NOT real SIMOS18 maps. Replace with reverse-engineered addresses before trusting them on a real bin.",
+  "base_address": "0x80A80000",
+  "scalings": {
+    "rpm": {
+      "dtype": "u16",
+      "factor": 1.0,
+      "offset": 0,
+      "endian": "big",
+      "unit": "rpm"
+    },
+    "load_pct": {
+      "dtype": "u16",
+      "factor": 0.05,
+      "offset": 0,
+      "endian": "big",
+      "unit": "%"
+    },
+    "boost_kpa": {
+      "dtype": "u16",
+      "factor": 0.1,
+      "offset": 0,
+      "endian": "big",
+      "unit": "kPa"
+    },
+    "deg_crank": {
+      "dtype": "s16",
+      "factor": 0.1,
+      "offset": 0,
+      "endian": "big",
+      "unit": "degCA"
+    },
+    "rpm_limit": {
+      "dtype": "u16",
+      "factor": 1.0,
+      "offset": 0,
+      "endian": "big",
+      "unit": "rpm"
+    }
+  },
+  "scalars": [
+    {
+      "name": "rev_limit",
+      "address": "0x80A80100",
+      "scaling": "rpm_limit",
+      "description": "Example rev limiter scalar in the demo image"
+    }
+  ],
+  "axes": [
+    {
+      "name": "rpm_axis",
+      "address": "0x80A80200",
+      "count": 8,
+      "scaling": "rpm"
+    },
+    {
+      "name": "load_axis",
+      "address": "0x80A80220",
+      "count": 8,
+      "scaling": "load_pct"
+    }
+  ],
+  "maps": [
+    {
+      "name": "boost_target",
+      "address": "0x80A80400",
+      "rows": 8,
+      "cols": 8,
+      "scaling": "boost_kpa",
+      "x_axis": "rpm_axis",
+      "y_axis": "load_axis",
+      "description": "Example 8x8 boost-target table in the demo image"
+    },
+    {
+      "name": "ignition_advance",
+      "address": "0x80A80500",
+      "rows": 8,
+      "cols": 8,
+      "scaling": "deg_crank",
+      "x_axis": "rpm_axis",
+      "y_axis": "load_axis",
+      "description": "Example 8x8 ignition-advance table in the demo image"
+    }
+  ]
+}
