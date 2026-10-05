@@ -23,5 +23,8 @@ vagtune = "vagtune.cli:main"
 [tool.setuptools.packages.find]
 include = ["vagtune*"]
 
+[tool.setuptools.package-data]
+vagtune = ["data/*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

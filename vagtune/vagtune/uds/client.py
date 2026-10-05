@@ -4,24 +4,28 @@ ISO 14229-1 UDS client.
 Sits on top of an :class:`~vagtune.transport.base.IsoTpLink` and speaks UDS to one
 ECU. It implements the services this toolkit actually needs:
 
-    0x10 DiagnosticSessionControl     0x27 SecurityAccess
-    0x11 ECUReset                     0x31 RoutineControl
-    0x14 ClearDiagnosticInformation   0x34 RequestDownload
-    0x19 ReadDTCInformation           0x35 RequestUpload
-    0x22 ReadDataByIdentifier         0x36 TransferData
-    0x23 ReadMemoryByAddress          0x37 RequestTransferExit
-    0x2E WriteDataByIdentifier        0x3E TesterPresent
-    0x2F InputOutputControlByID       0x85 ControlDTCSetting
+    0x10 DiagnosticSessionControl     0x2E WriteDataByIdentifier
+    0x11 ECUReset                     0x2F InputOutputControlByID
+    0x14 ClearDiagnosticInformation   0x31 RoutineControl
+    0x19 ReadDTCInformation (01/02/03/04/06/0A/14 and the record-list group)
+    0x22 ReadDataByIdentifier (single and multi-DID)
+    0x23 ReadMemoryByAddress          0x34/0x35/0x36/0x37 download / upload
+    0x27 SecurityAccess               0x3E TesterPresent
+    0x28 CommunicationControl         0x85 ControlDTCSetting
+    0x2C DynamicallyDefineDataIdentifier
 
 Design notes:
 
 * Every request waits for a matching positive response, transparently looping on
   NRC 0x78 (requestCorrectlyReceived-ResponsePending), which VAG ECUs emit a lot
-  during flash operations.
+  during flash operations; NRC 0x21 (busyRepeatRequest) resends the request.
 * A background tester-present thread can keep a non-default session alive; the
   send lock makes keepalive and foreground requests mutually exclusive on the link.
 * ``security_access`` is algorithm-agnostic: you pass a callable seed->key. The
   VAG SA2 implementation (:mod:`vagtune.vag.sa2`) provides that callable.
+* DTC snapshot / extended-data parsing never guesses sizes (see :mod:`vagtune.uds.dtc`).
+* Multi-DID reads need a size oracle because the response carries no per-DID length;
+  DIDs without a known size are read one at a time.
 """
 
 from __future__ import annotations
@@ -30,15 +34,24 @@ import logging
 import threading
 import time
 from dataclasses import dataclass
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 from ..transport.base import IsoTpLink, TransportTimeout
 from . import services as S
-from .exceptions import NegativeResponse, UdsTimeout, UnexpectedResponse
+from . import dtc as D
+from .exceptions import (
+    NRC_REQUEST_OUT_OF_RANGE,
+    NRC_SERVICE_NOT_SUPPORTED,
+    NegativeResponse,
+    UdsTimeout,
+    UnexpectedResponse,
+)
 
 log = logging.getLogger(__name__)
 
 SeedKeyFn = Callable[[int, bytes], bytes]  # (level, seed_bytes) -> key_bytes
+SizeOracle = Union[Mapping[int, int], Callable[[int], Optional[int]], None]
+ProgressFn = Callable[[int, int], None]
 
 
 @dataclass
@@ -47,6 +60,39 @@ class UdsTiming:
     p2_star_timeout: float = 5.0     # extended window after an 0x78 pending
     pending_limit: int = 30          # max consecutive 0x78 before giving up
     retry_on_busy: int = 2           # retries on NRC 0x21 busyRepeatRequest
+
+
+@dataclass
+class SessionTiming:
+    """P2/P2* the ECU announced in its 0x10 response (ISO 14229 2013+ form).
+
+    ``50 <session> <P2_hi> <P2_lo> <P2*_hi> <P2*_lo>``: P2 is in ms, P2* in 10 ms units
+    (verified: udsoncan decodes ``a/1000`` and ``b*10/1000`` seconds).
+    """
+    session: int
+    p2_ms: Optional[int] = None
+    p2_star_ms: Optional[int] = None
+    raw: bytes = b""
+
+    @classmethod
+    def from_response(cls, resp: bytes) -> "SessionTiming":
+        session = resp[1] if len(resp) > 1 else 0
+        record = resp[2:]
+        if len(record) >= 4:
+            return cls(session, int.from_bytes(record[0:2], "big"),
+                       int.from_bytes(record[2:4], "big") * 10, record)
+        return cls(session, None, None, record)
+
+
+@dataclass
+class DynamicDidEntry:
+    """One source for a dynamically defined DID: a memory range (``address``/``size``)
+    or a slice of another DID (``source_did``/``position``/``size``; position is 1-based
+    per ISO)."""
+    size: int
+    address: Optional[int] = None
+    source_did: Optional[int] = None
+    position: int = 1
 
 
 class UdsClient:
@@ -59,6 +105,7 @@ class UdsClient:
         self.timing = timing or UdsTiming()
         self._send_lock = threading.RLock()
         self._tp_thread: Optional[_TesterPresentThread] = None
+        self.last_session_timing: Optional[SessionTiming] = None
 
     # ================================================================= core I/O
 
@@ -143,16 +190,27 @@ class UdsClient:
     # ============================================================ UDS services
 
     def diagnostic_session_control(self, session: int) -> bytes:
+        """0x10. Returns the raw session parameter record (P2/P2*); the decoded form is
+        kept in :attr:`last_session_timing`."""
         resp = self.request(bytes([S.Service.DIAGNOSTIC_SESSION_CONTROL, session]))
+        self.last_session_timing = SessionTiming.from_response(resp)
         return resp[2:]  # session parameter record (P2/P2* timing)
 
-    def ecu_reset(self, reset_type: int = S.ResetType.HARD_RESET) -> None:
-        self.request(bytes([S.Service.ECU_RESET, reset_type]))
+    def ecu_reset(self, reset_type: int = S.ResetType.HARD_RESET) -> Optional[int]:
+        """0x11. Returns the powerDownTime byte when the ECU sends one (only for
+        enableRapidPowerShutDown), else ``None``. After a hard reset the ECU is back in
+        the default session and relocked."""
+        resp = self.request(bytes([S.Service.ECU_RESET, reset_type]))
+        if len(resp) < 2 or resp[1] != reset_type:
+            raise UnexpectedResponse("ECUReset subfunction echo mismatch")
+        return resp[2] if len(resp) > 2 else None
 
     def tester_present(self, suppress: bool = True) -> None:
         sub = 0x00 | (S.SUPPRESS_POSITIVE_RESPONSE if suppress else 0x00)
         self.request(bytes([S.Service.TESTER_PRESENT, sub]),
                      expect_response=not suppress, suppress_positive=suppress)
+
+    # ------------------------------------------------------------- 0x22 / 0x2E
 
     def read_data_by_identifier(self, did: int) -> bytes:
         resp = self.request(bytes([S.Service.READ_DATA_BY_IDENTIFIER, (did >> 8) & 0xFF, did & 0xFF]))
@@ -161,9 +219,142 @@ class UdsClient:
             raise UnexpectedResponse(f"ReadDataByIdentifier echo mismatch for DID 0x{did:04X}")
         return resp[3:]
 
+    def read_data_by_identifiers(
+        self,
+        dids: Sequence[int],
+        *,
+        size_of: SizeOracle = None,
+        skip_unsupported: bool = False,
+        max_per_request: int = 8,
+    ) -> Dict[int, bytes]:
+        """Multi-DID 0x22: ``22 <DID1> <DID2> ...`` -> ``62 <DID1> <data1> <DID2> <data2> ...``.
+
+        The response has no per-DID length, so splitting it needs a *size oracle*
+        (``size_of``: a mapping or a callable ``did -> length | None``). DIDs with a
+        known size are requested together (``max_per_request`` at a time); DIDs with
+        an unknown size fall back to single reads. If the ECU rejects a batch (NRC 0x14
+        responseTooLong, 0x31 for a batch with one bad DID, or anything else) the batch
+        degrades to single reads so one unsupported DID never hides the others.
+
+        ``skip_unsupported=True`` drops DIDs answered with NRC 0x31 instead of raising.
+        Returns ``{did: data}`` in request order for the DIDs that answered.
+        """
+        oracle = _oracle(size_of)
+        known: List[int] = []
+        unknown: List[int] = []
+        for did in dids:
+            (known if oracle(did) is not None else unknown).append(did)
+        out: Dict[int, bytes] = {}
+
+        for i in range(0, len(known), max(1, max_per_request)):
+            batch = known[i:i + max_per_request]
+            if len(batch) == 1:
+                self._read_single_into(out, batch[0], skip_unsupported)
+                continue
+            try:
+                out.update(self._read_batch(batch, oracle))
+            except NegativeResponse as exc:
+                log.debug("multi-DID read of %s refused (%s); falling back to single reads",
+                          [f"0x{d:04X}" for d in batch], exc)
+                for did in batch:
+                    self._read_single_into(out, did, skip_unsupported)
+            except UnexpectedResponse as exc:
+                log.warning("multi-DID response could not be split (%s); falling back to "
+                            "single reads", exc)
+                for did in batch:
+                    self._read_single_into(out, did, skip_unsupported)
+
+        for did in unknown:
+            self._read_single_into(out, did, skip_unsupported)
+        # Preserve request order.
+        return {did: out[did] for did in dids if did in out}
+
+    def _read_single_into(self, out: Dict[int, bytes], did: int, skip_unsupported: bool) -> None:
+        try:
+            out[did] = self.read_data_by_identifier(did)
+        except NegativeResponse as exc:
+            if skip_unsupported and exc.nrc == NRC_REQUEST_OUT_OF_RANGE:
+                log.debug("DID 0x%04X not supported", did)
+                return
+            raise
+
+    def _read_batch(self, batch: Sequence[int], oracle: Callable[[int], Optional[int]]) -> Dict[int, bytes]:
+        payload = bytearray([S.Service.READ_DATA_BY_IDENTIFIER])
+        for did in batch:
+            payload += bytes([(did >> 8) & 0xFF, did & 0xFF])
+        resp = self.request(bytes(payload))
+        wanted = set(batch)
+        out: Dict[int, bytes] = {}
+        p = 1
+        while p < len(resp):
+            if p + 2 > len(resp):
+                raise UnexpectedResponse("multi-DID response ends inside a DID number")
+            did = (resp[p] << 8) | resp[p + 1]
+            if did not in wanted:
+                raise UnexpectedResponse(
+                    f"multi-DID response carries DID 0x{did:04X} that was not requested "
+                    f"(size oracle wrong for an earlier DID?)")
+            size = oracle(did)
+            assert size is not None
+            if p + 2 + size > len(resp):
+                raise UnexpectedResponse(
+                    f"multi-DID response truncated inside DID 0x{did:04X} (expected {size} bytes)")
+            out[did] = resp[p + 2:p + 2 + size]
+            p += 2 + size
+        return out
+
     def write_data_by_identifier(self, did: int, data: bytes) -> None:
         payload = bytes([S.Service.WRITE_DATA_BY_IDENTIFIER, (did >> 8) & 0xFF, did & 0xFF]) + data
-        self.request(payload)
+        resp = self.request(payload)
+        if len(resp) < 3 or ((resp[1] << 8) | resp[2]) != did:
+            raise UnexpectedResponse(f"WriteDataByIdentifier echo mismatch for DID 0x{did:04X}")
+
+    def scan_dids(
+        self,
+        start: int,
+        stop: int,
+        *,
+        on_progress: Optional[Callable[[int, Optional[Union[bytes, NegativeResponse]]], None]] = None,
+        stop_on_service_unsupported: bool = True,
+    ) -> Dict[int, Union[bytes, NegativeResponse]]:
+        """Probe every DID in ``range(start, stop)`` with a single 0x22 each.
+
+        Classification (PROTOCOL_FACTS NRC semantics):
+
+        * positive response -> ``result[did] = data``
+        * NRC 0x31 requestOutOfRange -> the DID does not exist here; omitted
+        * NRC 0x13 / 0x22 / 0x33 / 0x37 / 0x7E / 0x7F -> the DID exists but is refused
+          (wrong session, locked, conditions, length); ``result[did]`` holds the
+          :class:`NegativeResponse` so the caller can retry after login
+        * NRC 0x11 serviceNotSupported -> the scan is pointless; raised (unless
+          ``stop_on_service_unsupported=False``, then treated like 0x31)
+        * any other NRC -> kept as the NegativeResponse (odd but informative)
+
+        ``on_progress(did, outcome)`` is called per DID with ``None`` for an absent DID.
+        A transport timeout propagates: an ECU normally answers every 0x22, so silence
+        means it went away.
+        """
+        result: Dict[int, Union[bytes, NegativeResponse]] = {}
+        for did in range(start, stop):
+            outcome: Optional[Union[bytes, NegativeResponse]]
+            try:
+                outcome = self.read_data_by_identifier(did)
+            except NegativeResponse as exc:
+                if exc.nrc == NRC_REQUEST_OUT_OF_RANGE:
+                    outcome = None
+                elif exc.nrc == NRC_SERVICE_NOT_SUPPORTED and stop_on_service_unsupported:
+                    raise
+                elif exc.nrc == NRC_SERVICE_NOT_SUPPORTED:
+                    outcome = None
+                else:
+                    outcome = exc
+            if outcome is not None:
+                result[did] = outcome
+            if on_progress is not None:
+                on_progress(did, outcome)
+        return result
+
+    # ------------------------------------------------------------- 0x23 / 0x14
 
     def read_memory_by_address(self, address: int, size: int,
                                addr_bytes: int = 4, size_bytes: int = 4) -> bytes:
@@ -174,40 +365,190 @@ class UdsClient:
         resp = self.request(payload)
         return resp[1:]
 
-    def clear_diagnostic_information(self, group: int = 0xFFFFFF) -> None:
+    def clear_diagnostic_information(self, group: int = S.CLEAR_ALL_DTC_GROUPS) -> None:
+        """0x14 with a 3-byte group; 0xFFFFFF clears everything (verified)."""
         payload = bytes([S.Service.CLEAR_DIAGNOSTIC_INFORMATION]) + group.to_bytes(3, "big")
         self.request(payload)
 
+    # ------------------------------------------------------------- 0x19 ReadDTCInformation
+
     def read_dtc_by_status_mask(self, status_mask: int = 0xFF) -> List[Tuple[int, int]]:
         """Return a list of (dtc_number, status_byte). dtc_number is the 3-byte DTC
-        packed into an int (high byte first)."""
-        payload = bytes([S.Service.READ_DTC_INFORMATION,
-                         S.DtcReportType.REPORT_DTC_BY_STATUS_MASK, status_mask])
-        resp = self.request(payload)
-        # resp = [0x59, 0x02, availabilityMask, (DTC[3] + status[1]) * n]
-        body = resp[3:]
-        out: List[Tuple[int, int]] = []
-        for i in range(0, len(body) - 3, 4):
-            dtc = (body[i] << 16) | (body[i + 1] << 8) | body[i + 2]
-            out.append((dtc, body[i + 3]))
-        return out
+        packed into an int (high byte first). Kept for 0.1.0 callers; see
+        :meth:`read_dtcs` for the dataclass form."""
+        return [(d.dtc, d.status) for d in self.read_dtcs(status_mask)]
+
+    def _read_dtc_info(self, subfunction: int, data: bytes = b"") -> bytes:
+        return self.request(bytes([S.Service.READ_DTC_INFORMATION, subfunction]) + data)
+
+    def read_dtc_count(self, status_mask: int = 0xFF) -> D.DtcCount:
+        """0x19 0x01: number of DTCs matching the mask (+ availability mask, format)."""
+        return D.parse_dtc_count(self._read_dtc_info(0x01, bytes([status_mask])))
+
+    def read_dtcs(self, status_mask: int = 0xFF) -> List[D.UdsDtc]:
+        """0x19 0x02 reportDTCByStatusMask; VCDS-style "all faults" is mask 0xFF."""
+        _, dtcs = D.parse_dtc_records(self._read_dtc_info(0x02, bytes([status_mask])), 0x02)
+        return dtcs
+
+    def read_dtc_records(self, subfunction: int, data: bytes = b"") -> Tuple[int, List[D.UdsDtc]]:
+        """Any subfunction of the "availability mask + 4-byte records" group
+        (0x0A/0x0B/0x0C/0x0D/0x0E/0x0F/0x13/0x15/0x17)."""
+        if subfunction not in S.DTC_RECORD_LIST_SUBFUNCTIONS:
+            raise ValueError(f"0x19 subfunction 0x{subfunction:02X} is not a DTC record list")
+        return D.parse_dtc_records(self._read_dtc_info(subfunction, data), subfunction)
+
+    def read_supported_dtcs(self) -> List[D.UdsDtc]:
+        """0x19 0x0A reportSupportedDTCs (no mask byte)."""
+        return self.read_dtc_records(0x0A)[1]
+
+    def read_dtc_snapshot_identification(self) -> List[Tuple[D.UdsDtc, int]]:
+        """0x19 0x03: which DTCs have which snapshot record numbers."""
+        return D.parse_snapshot_identification(self._read_dtc_info(0x03))
+
+    def read_dtc_snapshot(self, dtc: int, record: int = 0xFF,
+                          did_sizes: Optional[Mapping[int, int]] = None) -> D.DtcSnapshotReport:
+        """0x19 0x04 reportDTCSnapshotRecordByDTCNumber (``record`` 0xFF = all).
+
+        Snapshot DID payload lengths are not in the message: pass ``did_sizes`` from a
+        label file / ODX / the simulator; unknown DIDs come back raw (never guessed).
+        """
+        payload = D.dtc_to_bytes(dtc) + bytes([record & 0xFF])
+        return D.parse_snapshot_records(self._read_dtc_info(0x04, payload), did_sizes)
+
+    def read_dtc_extended_data(self, dtc: int, record: int = 0xFF,
+                               record_sizes: Optional[Mapping[int, int]] = None) -> D.DtcExtendedReport:
+        """0x19 0x06 reportDTCExtendedDataRecordByDTCNumber (``record`` 0xFF = all).
+
+        Record sizes are not in the message either; without ``record_sizes`` the whole
+        tail is returned raw under the first record number.
+        """
+        payload = D.dtc_to_bytes(dtc) + bytes([record & 0xFF])
+        return D.parse_extended_data(self._read_dtc_info(0x06, payload), record_sizes)
+
+    def read_dtc_fault_detection_counters(self) -> List[D.UdsDtc]:
+        """0x19 0x14: DTCs whose fault-maturing counter is non-zero ("almost failing")."""
+        return D.parse_fault_detection_counters(self._read_dtc_info(0x14))
+
+    # ------------------------------------------------------------- 0x31 RoutineControl
 
     def routine_control(self, routine_id: int,
                         control: int = S.RoutineControlType.START,
                         data: bytes = b"") -> bytes:
+        """``31 <sub> <RID_hi> <RID_lo> [options]`` -> ``71 <sub> <RID> [status record]``;
+        returns the status record."""
         payload = bytes([S.Service.ROUTINE_CONTROL, control,
                          (routine_id >> 8) & 0xFF, routine_id & 0xFF]) + data
         resp = self.request(payload)
+        if len(resp) < 4 or resp[1] != control or ((resp[2] << 8) | resp[3]) != routine_id:
+            raise UnexpectedResponse(f"RoutineControl echo mismatch for routine 0x{routine_id:04X}")
         return resp[4:]
 
+    def routine_start(self, routine_id: int, data: bytes = b"") -> bytes:
+        return self.routine_control(routine_id, S.RoutineControlType.START, data)
+
+    def routine_stop(self, routine_id: int, data: bytes = b"") -> bytes:
+        return self.routine_control(routine_id, S.RoutineControlType.STOP, data)
+
+    def routine_results(self, routine_id: int, data: bytes = b"") -> bytes:
+        return self.routine_control(routine_id, S.RoutineControlType.REQUEST_RESULTS, data)
+
+    # ------------------------------------------------------------- 0x2F IO control
+
     def io_control_by_id(self, did: int, control_option: int, control_state: bytes = b"") -> bytes:
+        """``2F <DID> <option> [state] [enable mask]`` -> ``6F <DID> <option> [status]``;
+        returns the status/data bytes after the echo."""
         payload = bytes([S.Service.INPUT_OUTPUT_CONTROL,
                          (did >> 8) & 0xFF, did & 0xFF, control_option]) + control_state
         resp = self.request(payload)
+        if len(resp) < 4 or ((resp[1] << 8) | resp[2]) != did or resp[3] != control_option:
+            raise UnexpectedResponse(f"InputOutputControl echo mismatch for DID 0x{did:04X}")
         return resp[4:]
 
+    def io_control(self, did: int, option: int = S.IoControlOption.SHORT_TERM_ADJUSTMENT,
+                   data: bytes = b"") -> bytes:
+        """Output test: ``2F <DID> 03 <value>`` drives an actuator (shortTermAdjustment);
+        option 00 returns control, 01 resets to default, 02 freezes (verified)."""
+        return self.io_control_by_id(did, option, data)
+
+    def return_control(self, did: int) -> bytes:
+        """``2F <DID> 00``: hand the output back to the ECU."""
+        return self.io_control_by_id(did, S.IoControlOption.RETURN_CONTROL_TO_ECU)
+
+    # ------------------------------------------------------------- 0x2C dynamic DIDs
+
+    def dynamically_define_did_by_memory(self, dyn_did: int,
+                                         entries: Sequence[Tuple[int, int]],
+                                         *, addr_bytes: int = 4, size_bytes: int = 1) -> None:
+        """``2C 02 <dynDID> <ALFID> (<address> <size>)*`` -> ``6C 02 <dynDID>``.
+
+        ALFID high nibble = size byte count, low nibble = address byte count; the
+        VW_Flash Simos logging capture uses ALFID 0x14 (4-byte address, 1-byte size)
+        with entries like ``D0 01 B3 AA 01`` (reported/unverified reading of the capture,
+        but it is plain ISO 14229 so the framing itself is standard).
+        """
+        if not entries:
+            raise ValueError("at least one (address, size) entry is required")
+        alfid = ((size_bytes & 0xF) << 4) | (addr_bytes & 0xF)
+        payload = bytearray([S.Service.DYNAMICALLY_DEFINE_DATA_ID, S.DynamicDefineType.DEFINE_BY_MEMORY_ADDRESS,
+                             (dyn_did >> 8) & 0xFF, dyn_did & 0xFF, alfid])
+        for address, size in entries:
+            payload += address.to_bytes(addr_bytes, "big") + size.to_bytes(size_bytes, "big")
+        resp = self.request(bytes(payload))
+        self._check_dyn_echo(resp, S.DynamicDefineType.DEFINE_BY_MEMORY_ADDRESS, dyn_did)
+
+    def dynamically_define_did_by_identifier(self, dyn_did: int,
+                                             entries: Sequence[Tuple[int, int, int]]) -> None:
+        """``2C 01 <dynDID> (<sourceDID> <position> <size>)*``; position is 1-based."""
+        if not entries:
+            raise ValueError("at least one (source_did, position, size) entry is required")
+        payload = bytearray([S.Service.DYNAMICALLY_DEFINE_DATA_ID, S.DynamicDefineType.DEFINE_BY_IDENTIFIER,
+                             (dyn_did >> 8) & 0xFF, dyn_did & 0xFF])
+        for source_did, position, size in entries:
+            if not 1 <= position <= 0xFF or not 1 <= size <= 0xFF:
+                raise ValueError("position and size must be 1..255")
+            payload += bytes([(source_did >> 8) & 0xFF, source_did & 0xFF, position, size])
+        resp = self.request(bytes(payload))
+        self._check_dyn_echo(resp, S.DynamicDefineType.DEFINE_BY_IDENTIFIER, dyn_did)
+
+    def clear_dynamic_did(self, dyn_did: Optional[int] = None) -> None:
+        """``2C 03 <dynDID>`` (or ``2C 03`` alone to clear every dynamic DID)."""
+        payload = bytes([S.Service.DYNAMICALLY_DEFINE_DATA_ID, S.DynamicDefineType.CLEAR])
+        if dyn_did is not None:
+            payload += bytes([(dyn_did >> 8) & 0xFF, dyn_did & 0xFF])
+        resp = self.request(payload)
+        if dyn_did is not None:
+            self._check_dyn_echo(resp, S.DynamicDefineType.CLEAR, dyn_did)
+
+    @staticmethod
+    def _check_dyn_echo(resp: bytes, sub: int, dyn_did: int) -> None:
+        if len(resp) < 4 or resp[1] != sub or ((resp[2] << 8) | resp[3]) != dyn_did:
+            raise UnexpectedResponse(f"DynamicallyDefineDataIdentifier echo mismatch for 0x{dyn_did:04X}")
+
+    # ------------------------------------------------------------- 0x28 / 0x85
+
+    def communication_control(self, control: int, comm_type: int = S.COMM_NORMAL_MESSAGES,
+                              node_id: Optional[int] = None) -> None:
+        """``28 <controlType> <communicationType> [nodeId(2)]`` -> ``68 <controlType>``.
+
+        ``28 03 01`` silences normal messages (what VW tools send before flashing),
+        ``28 00 01`` re-enables them. The 2-byte nodeId is only valid for control types
+        4/5 (2013+ standard).
+        """
+        if node_id is not None and control not in (
+                S.CommunicationControlType.ENABLE_RX_AND_DISABLE_TX_WITH_ENHANCED_ADDRESS_INFORMATION,
+                S.CommunicationControlType.ENABLE_RX_AND_TX_WITH_ENHANCED_ADDRESS_INFORMATION):
+            raise ValueError("nodeId is only allowed with controlType 4 or 5")
+        payload = bytes([S.Service.COMMUNICATION_CONTROL, control, comm_type & 0xFF])
+        if node_id is not None:
+            payload += node_id.to_bytes(2, "big")
+        resp = self.request(payload)
+        if len(resp) < 2 or resp[1] != control:
+            raise UnexpectedResponse("CommunicationControl subfunction echo mismatch")
+
     def control_dtc_setting(self, on: bool) -> None:
-        sub = 0x01 if on else 0x02  # on / off
+        """``85 01`` = ON, ``85 02`` = OFF, sent with the suppress bit (keeps the bus quiet
+        while an actuator test or flash would otherwise log spurious faults)."""
+        sub = S.DtcSettingType.ON if on else S.DtcSettingType.OFF
         self.request(bytes([S.Service.CONTROL_DTC_SETTING, sub | S.SUPPRESS_POSITIVE_RESPONSE]),
                      expect_response=False, suppress_positive=True)
 
@@ -219,6 +560,8 @@ class UdsClient:
         ``level`` is the requestSeed subfunction (e.g. 0x01, 0x03, 0x11 for VAG).
         The matching sendKey subfunction is ``level + 1``.
         """
+        if level % 2 == 0:
+            raise ValueError("security level must be the odd requestSeed subfunction")
         seed_resp = self.request(bytes([S.Service.SECURITY_ACCESS, level]))
         # seed_resp = [0x67, level, <seed...>]
         if len(seed_resp) < 2 or seed_resp[1] != level:
@@ -273,6 +616,8 @@ class UdsClient:
     def transfer_data_write(self, block_seq: int, data: bytes) -> bytes:
         """One TransferData (0x36) during a download; returns any parameter echo."""
         resp = self.request(bytes([S.Service.TRANSFER_DATA, block_seq & 0xFF]) + data)
+        if len(resp) < 2 or resp[1] != (block_seq & 0xFF):
+            raise UnexpectedResponse(f"TransferData block sequence mismatch (expected {block_seq})")
         return resp[2:]
 
     def request_transfer_exit(self, data: bytes = b"") -> bytes:
@@ -280,7 +625,7 @@ class UdsClient:
         return resp[1:]
 
     def upload(self, address: int, size: int,
-               progress: Optional[Callable[[int, int], None]] = None,
+               progress: Optional[ProgressFn] = None,
                addr_bytes: int = 4, size_bytes: int = 4) -> bytes:
         """High-level block read: RequestUpload -> loop TransferData -> TransferExit.
 
@@ -302,6 +647,31 @@ class UdsClient:
                 progress(min(len(out), size), size)
         self.request_transfer_exit()
         return bytes(out[:size])
+
+    def download(self, address: int, data: bytes,
+                 progress: Optional[ProgressFn] = None,
+                 addr_bytes: int = 4, size_bytes: int = 4,
+                 data_format: int = 0x00) -> None:
+        """High-level block write: RequestDownload -> TransferData writes -> TransferExit.
+
+        The write-side mirror of :meth:`upload`; it only moves bytes. Erase routines,
+        checksum routines, backups and identity checks belong to the caller
+        (``flash/``) — this method never decides whether a write is safe.
+        """
+        size = len(data)
+        max_block = self.request_download(address, size, data_format=data_format,
+                                          addr_bytes=addr_bytes, size_bytes=size_bytes)
+        chunk = max(1, max_block - 2)   # SID + sequence byte overhead
+        seq = 1
+        done = 0
+        while done < size:
+            block = data[done:done + chunk]
+            self.transfer_data_write(seq, block)
+            done += len(block)
+            seq = (seq + 1) & 0xFF
+            if progress:
+                progress(done, size)
+        self.request_transfer_exit()
 
     # ====================================================== tester-present keepalive
 
@@ -330,6 +700,15 @@ class UdsClient:
 
     def __exit__(self, *exc) -> None:
         self.close()
+
+
+def _oracle(size_of: SizeOracle) -> Callable[[int], Optional[int]]:
+    if size_of is None:
+        return lambda did: None
+    if callable(size_of):
+        return size_of
+    mapping = size_of
+    return lambda did: mapping.get(did)
 
 
 class _BusyRepeat(Exception):
