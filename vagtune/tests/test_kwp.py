@@ -19,6 +19,9 @@ from vagtune.kwp import services as S
 from vagtune.kwp.client import KwpClient, KwpTiming, parse_dtc_list
 from vagtune.kwp.exceptions import KwpError, KwpNegativeResponse, KwpTimeout, UnexpectedKwpResponse
 from vagtune.kwp.sim import (
+    GOLF_TDI_KWP_MODULES,
+    R32_KWP_MODULES,
+    RESERVED_TESTER_TX_RANGES,
     BodyBrain,
     Dq250Brain,
     Edc17Brain,
@@ -26,7 +29,9 @@ from vagtune.kwp.sim import (
     HaldexBrain,
     Me7Brain,
     SimulatedKwpEcu,
+    add_kwp_nodes,
     build_ident_9b,
+    tester_tx_id_is_reserved as _is_reserved,
 )
 
 h = bytes.fromhex
@@ -117,7 +122,15 @@ def test_nrc_table_is_iso_14230_3_without_uds_only_codes():
     assert S.positive_sid(0x1A) == 0x5A and S.positive_sid(0x3E) == 0x7E
 
 
-def test_session_and_ident_tables():
+@pytest.fixture(autouse=True)
+def _fresh_service_warnings():
+    S._reset_unverified_warnings()
+    yield
+    S._reset_unverified_warnings()
+
+
+def test_session_and_ident_tables(caplog):
+    caplog.set_level(logging.WARNING)
     assert S.SESSION_STANDARD_DIAGNOSTIC == 0x89
     assert S.SESSIONS[0x89].used_by_toolkit and not S.SESSIONS[0x85].used_by_toolkit
     assert S.session_name(0x86).startswith("engineering")
@@ -125,7 +138,12 @@ def test_session_and_ident_tables():
     assert {o for o, i in S.IDENT_OPTIONS.items() if i.decoded} == {0x91, 0x9A, 0x9B, 0x9F}
     assert S.service_name(0x21) == "readDataByLocalIdentifier"
     assert S.capability_name(0x0103).endswith("(REPORTED)")
+    assert not S.CAPABILITY_CODES[0x0103].verified
+    S.capability_name(0x0103)
+    warned = [r.getMessage() for r in caplog.records if "UNVERIFIED mapping" in r.getMessage() and "0103" in r.getMessage()]
+    assert len(warned) == 1                                     # once per process, names the code
     assert S.capability_name(0x0118) == "HEX-coded fault codes supported"
+    assert not [r for r in caplog.records if "0118" in r.getMessage()]   # verified rows never warn
     assert S.capability_name(0x0199).startswith("function 0x0199")
     assert S.CODING_TYPE_NAMES == {0x00: "no coding", 0x03: "short coding", 0x10: "long coding"}
 
@@ -193,6 +211,42 @@ def test_other_nrc_raises_with_name():
 def test_stray_and_foreign_replies_are_skipped():
     link = ScriptedLink([[h("7E"), h("7F 3E 11"), h("61 01 01 44 32")]])
     assert KwpClient(link, FAST).read_data_by_local_id(1) == h("01 44 32")
+
+
+def test_late_reply_of_the_same_sid_for_another_parameter_is_skipped():
+    # a late 61 02 (previous, timed-out 21 02) lands before the real 61 01
+    link = ScriptedLink([[h("61 02 01 C8 00"), h("61 01 01 44 32")]])
+    client = KwpClient(link, FAST)
+    assert client.read_data_by_local_id(1) == h("01 44 32")
+    assert link.sent == [h("21 01")]
+    # same for identification options, routines and the session echo
+    link = ScriptedLink([[h("5A 91 0E") + b"8P0907115B   " + h("FF"), h("5A 9B") + b"x" * 46]])
+    assert KwpClient(link, FAST).read_ecu_identification(0x9B) == b"x" * 46
+    link = ScriptedLink([[h("71 B9 01 03 02"), h("71 B8 01 03")]])
+    assert KwpClient(link, FAST).start_routine_by_local_id(0xB8, h("01 03")) == h("01 03")
+    link = ScriptedLink([[h("50 85"), h("50 89")]])
+    assert KwpClient(link, FAST).start_diagnostic_session(0x89) == b""
+
+
+def test_only_mismatched_echoes_report_the_mismatch_not_a_bare_timeout():
+    link = ScriptedLink([[h("61 02 01 C8 00")]])
+    client = KwpClient(link, FAST)
+    t0 = time.monotonic()
+    with pytest.raises(UnexpectedKwpResponse, match="echo mismatch"):
+        client.read_data_by_local_id(1)
+    assert time.monotonic() - t0 >= FAST.p2 * 0.9            # it waited for the real answer first
+    # a 7F carries no echo, so it is the answer to the current request
+    link = ScriptedLink([[h("7F 21 31")]])
+    with pytest.raises(KwpNegativeResponse):
+        KwpClient(link, FAST).read_data_by_local_id(1)
+
+
+def test_clear_accepts_a_bare_54_but_not_another_group():
+    link = ScriptedLink([[h("54")]])
+    KwpClient(link, FAST).clear_diagnostic_information()
+    assert link.sent == [h("14 FF 00")]
+    with pytest.raises(UnexpectedKwpResponse):
+        KwpClient(ScriptedLink([[h("54 FF FF")]]), FAST).clear_diagnostic_information()
 
 
 def test_silence_is_a_timeout_and_malformed_negative_is_unexpected():
@@ -378,6 +432,78 @@ def test_tester_present_thread_survives_errors_and_close_stops_it():
     assert not client.tester_present_running
 
 
+class SilentLink:
+    """A module that never answers; ``recv`` honours its timeout like a real link."""
+
+    def __init__(self) -> None:
+        self.sent: List[bytes] = []
+
+    def send(self, payload: bytes) -> None:
+        self.sent.append(bytes(payload))
+
+    def recv(self, timeout: float):
+        time.sleep(min(max(0.0, timeout), 5.0))
+        return None
+
+    def flush_rx(self) -> None:
+        pass
+
+    def close(self) -> None:
+        pass
+
+
+def test_stop_tester_present_returns_with_the_thread_gone_even_while_the_module_is_silent():
+    link = SilentLink()
+    client = KwpClient(link, KwpTiming(p2=4.0, p2_star=5.0))     # P2 far longer than the old 2 s join
+    client.start_tester_present(0.01)
+    time.sleep(0.1)
+    assert client.tester_present_running and len(link.sent) >= 1
+    t0 = time.monotonic()
+    client.stop_tester_present()
+    assert time.monotonic() - t0 < 1.0
+    assert not client.tester_present_running and client._tp_thread is None
+    assert not any(t.name == "kwp-tester-present" and t.is_alive() for t in threading.enumerate())
+    assert client._send_lock.acquire(timeout=0.05)             # the lock is free for the foreground
+    client._send_lock.release()
+    sent_after_stop = len(link.sent)
+    time.sleep(0.05)
+    assert len(link.sent) == sent_after_stop                    # the halted thread sends nothing more
+    client.start_tester_present(0.01)
+    time.sleep(0.05)
+    assert sum(1 for t in threading.enumerate() if t.name == "kwp-tester-present") == 1
+    client.close()
+    assert not any(t.name == "kwp-tester-present" and t.is_alive() for t in threading.enumerate())
+
+
+def test_tester_present_halt_also_interrupts_a_pending_wait():
+    # the module answered 7F 3E 78 (P2* = 5 s) and then fell silent
+    class PendingThenSilent(SilentLink):
+        def __init__(self) -> None:
+            super().__init__()
+            self.pending_sent = False
+
+        def recv(self, timeout: float):
+            if not self.pending_sent:
+                self.pending_sent = True
+                return h("7F 3E 78")
+            return super().recv(timeout)
+
+    client = KwpClient(PendingThenSilent(), KwpTiming(p2=0.5, p2_star=5.0))
+    client.start_tester_present(0.01)
+    time.sleep(0.1)
+    t0 = time.monotonic()
+    client.stop_tester_present()
+    assert time.monotonic() - t0 < 1.0 and client._tp_thread is None
+
+
+def test_foreground_requests_are_not_interruptible_without_a_halt_event():
+    link = ScriptedLink([[]])
+    t0 = time.monotonic()
+    with pytest.raises(KwpTimeout):
+        KwpClient(link, KwpTiming(p2=0.3)).tester_present()
+    assert time.monotonic() - t0 >= 0.25
+
+
 # ----------------------------------------------------------------- simulator
 
 def test_sim_unsupported_services_get_nrc_never_silence():
@@ -411,7 +537,7 @@ def test_sim_brains_identities_match_the_scans():
     for brain, part, sw, comp, coding in [
         (Me7Brain(), "022906032KR", "1098", "R32-DQ-LEV2 G", 178),
         (Edc17Brain(), "03L906019EE", "1181", "R4 2,0L EDC G000SG", 50072),
-        (Dq250Brain(), "02E927770AD", "1405", "GSG DSG 082", 20),
+        (Dq250Brain(), "02E300011CC", "1405", "GSG DSG 082", 20),      # notes (d) 13: 9B = SW number
         (HaldexBrain(), "1K0907554L", "0116", "Haldex 4Motion", 1),
     ]:
         rec = SimulatedKwpEcu(brain).handle(h("1A 9B"))
@@ -421,6 +547,11 @@ def test_sim_brains_identities_match_the_scans():
         assert body[:11].decode().rstrip() == part and body[12:16].decode() == sw
         assert body[16] == 0x03 and int.from_bytes(body[18:20], "big") == coding
         assert body[26:].decode().rstrip() == comp
+    dsg = SimulatedKwpEcu(Dq250Brain())
+    assert dsg.handle(h("1A 91")) == h("5A 91 0E") + b"02E927770AD  " + b"\xFF"      # HW number via 91
+    golf_dsg = SimulatedKwpEcu(Dq250Brain(part_number="02E300052", hardware_number="02E927770AJ"))
+    assert golf_dsg.handle(h("1A 9B"))[2:13].decode().rstrip() == "02E300052"
+    assert golf_dsg.handle(h("1A 91")) == h("5A 91 0E") + b"02E927770AJ  " + b"\xFF"
     gw = SimulatedKwpEcu(GatewayBrain())
     body = gw.handle(h("1A 9B"))[2:]
     assert body[:11] == b"1K0907530L " and body[16] == 0x10 and body[18:20] == b"\x00\x00"
@@ -450,6 +581,9 @@ def test_sim_group_tables_hold_the_registry_groups():
     assert {1, 13, 19} <= set(Dq250Brain().groups)
     assert {1, 2, 125} <= set(HaldexBrain().groups)
     assert all(len(v) == 24 for g, v in Me7Brain().groups.items() if g != 81)
+    assert all(len(v) == 24 for v in Edc17Brain().groups.values())          # 26-byte replies like the real CJAA
+    assert SimulatedKwpEcu(Edc17Brain()).handle(h("21 0B"))[:2] == h("61 0B")
+    assert len(SimulatedKwpEcu(Edc17Brain()).handle(h("21 0B"))) == 26
 
 
 def test_concurrent_clients_on_separate_brains_do_not_cross_talk():
@@ -467,6 +601,54 @@ def test_concurrent_clients_on_separate_brains_do_not_cross_talk():
                 errors.append(str(exc))
 
     ta = threading.Thread(target=hammer, args=(a, b"022906032KR"))
-    tb = threading.Thread(target=hammer, args=(b, b"02E927770AD"))
+    tb = threading.Thread(target=hammer, args=(b, b"02E300011CC"))
     ta.start(); tb.start(); ta.join(); tb.join()
     assert errors == []
+
+
+# ----------------------------------------------------------------- preset CAN-id hygiene
+
+#: Registry-verified UDS / OBD ids of each car (IMPLEMENTATION_NOTES (a), PROTOCOL_FACTS 7.2).
+GOLF_UDS_IDS = {0x746, 0x7B0, 0x715, 0x77F, 0x70C, 0x776, 0x714, 0x77E, 0x711, 0x77B, 0x76B, 0x7D5,
+                0x710, 0x77A, 0x7E0, 0x7E8, 0x7DF}
+R32_UDS_IDS = {0x7E0, 0x7E8, 0x7E1, 0x7E9, 0x7DF}
+
+
+@pytest.mark.parametrize("specs,uds_ids", [(GOLF_TDI_KWP_MODULES, GOLF_UDS_IDS), (R32_KWP_MODULES, R32_UDS_IDS)])
+def test_preset_tester_ids_never_collide_with_the_cars_uds_ids(specs, uds_ids):
+    seen = {}
+    for spec in specs:
+        for can_id, what in ((spec.tester_tx_id, "tester-TX"), (spec.reply_id, "setup reply")):
+            assert can_id not in uds_ids, f"{spec.label}: {what} 0x{can_id:03X} is a UDS/OBD id of this car"
+            assert can_id not in seen, f"{spec.label}: {what} 0x{can_id:03X} already used by {seen[can_id]}"
+            seen[can_id] = spec.label
+        if not spec.tester_tx_from_registry:
+            assert not _is_reserved(spec.tester_tx_id), \
+                f"{spec.label}: simulator-chosen 0x{spec.tester_tx_id:03X} lies in a reserved range"
+        else:
+            assert spec.tester_tx_id in (0x740, 0x760, 0x764, 0x7A8, 0x32E)   # the registry's grants only
+    assert any(r.start == 0x700 for r in RESERVED_TESTER_TX_RANGES)
+    assert _is_reserved(0x7B0) and _is_reserved(0x7E8) and _is_reserved(0x203)
+    assert not _is_reserved(0x7F3)
+
+
+def test_add_kwp_nodes_refuses_an_id_already_on_the_vehicle():
+    pytest.importorskip("vagtune.transport.tp20_sim")
+    from vagtune.transport.fake import SimulatedEcu
+    from vagtune.transport.fakebus import SimulatedVehicle, UdsNode
+    from vagtune.kwp.sim import KwpModuleSpec
+    vehicle = SimulatedVehicle("demo")
+    vehicle.add_node(UdsNode(vehicle.bus, SimulatedEcu(), request_id=0x746, response_id=0x7B0, name="hvac"))
+    clash = KwpModuleSpec(0x03, "abs", lambda: BodyBrain("abs", "1K0907379BJ", "ESP", "0121"), 0x03, 0x7B0, False,
+                          "collides with the HVAC response id", tester_tx_from_registry=True)
+    with pytest.raises(ValueError, match="0x7B0"):
+        add_kwp_nodes(vehicle, [clash], prefix="t")
+    reserved = KwpModuleSpec(0x03, "abs", lambda: BodyBrain("abs", "1K0907379BJ", "ESP", "0121"), 0x03, 0x7B4, False,
+                             "simulator choice inside the ODIS range")
+    with pytest.raises(ValueError, match="reserved"):
+        add_kwp_nodes(vehicle, [reserved], prefix="t")
+    ok = KwpModuleSpec(0x03, "abs", lambda: BodyBrain("abs", "1K0907379BJ", "ESP", "0121"), 0x03, 0x7F3, False, "ok")
+    assert set(add_kwp_nodes(vehicle, [ok], prefix="t")) == {0x03}
+    with pytest.raises(ValueError, match="setup reply"):          # a second module at the same logical address
+        add_kwp_nodes(vehicle, [KwpModuleSpec(0x44, "eps", lambda: BodyBrain("eps", "1K0909144M", "EPS", "3201"),
+                                              0x03, 0x7F9, False, "dup")], prefix="u")

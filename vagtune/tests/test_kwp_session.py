@@ -13,9 +13,16 @@ from typing import List
 
 import pytest
 
+from vagtune.kwp import services as S
 from vagtune.kwp.client import KwpClient, KwpTiming
 from vagtune.kwp.exceptions import KwpNegativeResponse, UnexpectedKwpResponse
 from vagtune.kwp.sim import (
+    BCM_LONG_CODING_PLACEHOLDER,
+    GOLF_ABS_CODING,
+    GOLF_GATEWAY_CODING,
+    GOLF_RADIO_CODING,
+    GOLF_TDI_KWP_MODULES,
+    R32_KWP_MODULES,
     BodyBrain,
     Dq250Brain,
     Edc17Brain,
@@ -50,8 +57,10 @@ FAST = KwpTiming(p2=0.3, p2_star=0.6, busy_delay=0.01)
 @pytest.fixture(autouse=True)
 def _fresh_warnings():
     V._reset_unverified_warnings()
+    S._reset_unverified_warnings()
     yield
     V._reset_unverified_warnings()
+    S._reset_unverified_warnings()
 
 
 def _warnings(caplog, needle: str) -> List[str]:
@@ -145,9 +154,12 @@ def test_parse_9b_eps_prefix_and_short_records():
     i = parse_ident_9b(eps)
     assert i.part_number == "1K0909144E" and i.software_version == "2501"
     assert i.coding_type is None and i.short_coding is None and i.wsc is None and not i.layout_ok
-    assert i.shop_line.startswith("WSC ?????")
+    assert i.shop_line.startswith("WSC ?????") and i.source == "9B"
+    short = parse_ident_9b(b"short")                       # kept as text, never refused
+    assert short.part_number == "short" and short.software_version == "" and not short.layout_ok
+    assert short.source == "9B-short" and short.raw_9b == b"short" and "shorter" in short.pretty()
     with pytest.raises(UnexpectedKwpResponse):
-        parse_ident_9b(b"short")
+        parse_ident_9b(b"")
     i = parse_ident_9b(eps + h("00 00 00 00") + bytes(6) + b"EPS_ZFLS")
     assert i.coding_type == 0 and i.short_coding is None and i.coding_text == "-" and i.component == "EPS_ZFLS"
 
@@ -180,6 +192,37 @@ def test_length_prefixed_records_and_91_fallback():
     assert link.sent == [h("1A 9B"), h("1A 91")] and "fallback" in i.pretty()
     link = ScriptedLink([[h("7F 1A 11")], [h("5A 91 FF")]])
     with pytest.raises(UnexpectedKwpResponse):
+        VagKwpSession(KwpClient(link, FAST)).read_identification()
+
+
+ABS_EMULATOR_9B = b"1K0907379 0143"        # registry 7.5 Reported: pq35-abs-emulator's bare 1A 9B answer
+
+
+def test_short_9b_record_is_identified_and_corroborated_by_91():
+    i = parse_ident_9b(ABS_EMULATOR_9B)
+    assert i.part_number == "1K0907379" and i.software_version == "0143" and i.source == "9B-short"
+    assert not i.layout_ok and i.coding_type is None and i.wsc is None and i.raw_9b == ABS_EMULATOR_9B
+    link = ScriptedLink([[h("5A 9B") + ABS_EMULATOR_9B], [h("5A 91 0F") + ABS_EMULATOR_9B + h("FF")]])
+    s = VagKwpSession(KwpClient(link, FAST))
+    ident = s.read_identification()
+    assert "1K0907379" in ident.part_number and ident.hardware_number == "1K0907379 0143"
+    assert ident.source == "9B-short" and ident.raw_91_records == [ABS_EMULATOR_9B]
+    assert link.sent == [h("1A 9B"), h("1A 91")]
+    assert ident.identity_key() == {"part_number": "1K0907379", "software_version": "0143"}
+    # 91 refused: the short 9B identity still stands
+    link = ScriptedLink([[h("5A 9B") + ABS_EMULATOR_9B], [h("7F 1A 11")]])
+    ident = VagKwpSession(KwpClient(link, FAST)).read_identification()
+    assert ident.part_number == "1K0907379" and ident.hardware_number is None and ident.source == "9B-short"
+    # an empty 9B body falls back to 91
+    link = ScriptedLink([[h("5A 9B")], [h("5A 91 0E") + b"8P0907115B   " + h("FF")]])
+    ident = VagKwpSession(KwpClient(link, FAST)).read_identification()
+    assert ident.source == "91" and ident.part_number == "8P0907115B" and link.sent == [h("1A 9B"), h("1A 91")]
+    # only when both fail is the module unidentifiable
+    link = ScriptedLink([[h("5A 9B")], [h("5A 91 FF")]])
+    with pytest.raises(UnexpectedKwpResponse, match="1A 91 returned no records"):
+        VagKwpSession(KwpClient(link, FAST)).read_identification()
+    link = ScriptedLink([[h("5A 9B")], [h("7F 1A 11")]])
+    with pytest.raises(KwpNegativeResponse):
         VagKwpSession(KwpClient(link, FAST)).read_identification()
 
 
@@ -300,7 +343,10 @@ def test_read_group_read_groups_and_scan():
     assert flagged[4].group == 130
     s2, _, _ = session_for(Edc17Brain())
     g11 = s2.read_group(11)
-    assert [v.text for v in g11] == ["820 rpm", "1010 mbar", "1000 mbar", "100 %"]
+    assert len(g11) == 8                                   # 26-byte reply like the real CJAA
+    assert [v.text for v in g11[:4]] == ["820 rpm", "1010 mbar", "1000 mbar", "100 %"]
+    assert all(v.formula_id == 0x25 for v in g11[4:])
+    assert s2.read_group(11, second_half_is_group_plus_128=True)[4].group == 139
     g99 = s2.read_group(99)
     assert g99[1].value == pytest.approx(180.0) and g99[1].unit == "°C"
     s3, _, _ = session_for(Dq250Brain())
@@ -334,6 +380,14 @@ def test_capability_query_verified_reply():
     assert caps.codes == [0x0101, 0x0103, 0x0102, 0x0106, 0x0107, 0x0108, 0x010D, 0x0118]
     assert caps.supports(0x0103) and not caps.supports(0x0105) and "adaptation (REPORTED)" in str(caps)
     assert caps.names[0] == "basic settings in KWP1281 mode"
+
+
+def test_capability_list_names_warn_once_for_reported_codes(caplog):
+    caplog.set_level(logging.WARNING)
+    s, ecu, link = session_for(Me7Brain())
+    caps = s.capability_query()
+    str(caps); caps.names; str(caps)
+    assert len(_warnings(caplog, "0103")) == 1
 
 
 def test_adaptation_probe_sequence_flagged_and_never_saves(caplog):
@@ -443,6 +497,34 @@ def test_recipe_render_reproduces_bri3d_and_flags(caplog):
     assert len(_warnings(caplog, "recipe 'login'")) == 1 and not _warnings(caplog, "security-access")
 
 
+def test_render_rejects_bytes_of_the_wrong_width_for_fixed_width_placeholders():
+    for bad in (b"\x01", bytes(5), bytes(7)):
+        with pytest.raises(ValueError, match="<wsc:6>"):
+            R.render("adaptation-save", {"value": 0, "wsc": bad}, step=3)
+    assert len(R.render("adaptation-save", {"value": 0, "wsc": bytes(6)}, step=3)) == 12
+    for bad in (b"\x2C\xC7\x00\x00", b"\x2C"):
+        with pytest.raises(ValueError, match="<code:2>"):
+            R.render("login", {"code": bad}, step=1)
+    assert R.render("login", {"code": b"\x2C\xC7"}, step=1) == h("31 B9 01 05 2C C7")
+    with pytest.raises(OverflowError):
+        R.render("login", {"code": 70000}, step=1)
+    with pytest.raises(ValueError):
+        R.render("login", {"code": -1}, step=1)
+    with pytest.raises(TypeError):
+        R.render("login", {"code": "2CC7"}, step=1)
+    with pytest.raises(TypeError):
+        R.render("login", {"code": True}, step=1)
+
+
+def test_render_ignores_template_comments():
+    recipe = R.Recipe(name="t", vcds_function="", purpose="", request="31 B8 01 05 (or 27 <level>) ; 21 <group>",
+                      expected_reply="", confidence="low", evidence="", experiment="", writes=False)
+    assert recipe.steps == ["31 B8 01 05", "21 <group>"]
+    assert R.render(recipe) == h("31 B8 01 05")
+    assert R.render(recipe, {"group": 3}, step=1) == h("21 03")
+    assert len(recipe.steps) == 2
+
+
 # ----------------------------------------------------------------- end to end on brains
 
 def test_full_report_r32_modules():
@@ -461,6 +543,34 @@ def test_full_report_r32_modules():
     assert ecu.requests[0] == h("10 89") and ecu.session == 0x89
     assert isinstance(s.identity, KwpIdentity)
     s.close()
+
+
+def test_preset_brains_serve_the_scans_long_codings():
+    expected = {
+        ("golf-tdi-2012", 0x19): GOLF_GATEWAY_CODING.hex().upper(),       # 350002
+        ("golf-tdi-2012", 0x03): GOLF_ABS_CODING.hex().upper(),           # 114B400C49240000880F02EA92200042B70000
+        ("golf-tdi-2012", 0x56): GOLF_RADIO_CODING.hex().upper(),         # 01000400040005
+        ("golf-tdi-2012", 0x09): BCM_LONG_CODING_PLACEHOLDER.hex().upper(),
+        ("r32-2008", 0x09): BCM_LONG_CODING_PLACEHOLDER.hex().upper(),
+        ("r32-2008", 0x19): "ED831F075003020000",
+    }
+    assert GOLF_GATEWAY_CODING.hex().upper() == "350002" and GOLF_RADIO_CODING.hex().upper() == "01000400040005"
+    assert len(BCM_LONG_CODING_PLACEHOLDER) == 30
+    for preset, specs in (("golf-tdi-2012", GOLF_TDI_KWP_MODULES), ("r32-2008", R32_KWP_MODULES)):
+        for spec in specs:
+            s, ecu, link = session_for(spec.brain())
+            coding = s.read_coding()
+            want = expected.get((preset, spec.address_word))
+            if want is not None:
+                assert coding["coding_type"] == "long coding", (preset, spec.label)
+                assert coding["coding"] == want and coding["long_coding_parsed"], (preset, spec.label)
+                assert h("1A 9A") in link.sent
+            else:
+                assert coding["coding_type"] != "long coding", (preset, spec.label)
+    gw = session_for(GOLF_TDI_KWP_MODULES[4].brain())[0].read_identification(with_hardware_number=True)
+    assert gw.part_number == "7N0907530H" and gw.hardware_number == "1K0907951"
+    with pytest.raises(ValueError):
+        BodyBrain("x", "1K0", "X", coding=1, long_coding=b"\x01")
 
 
 def test_kwp_fault_dataclass_properties():
@@ -498,5 +608,41 @@ def test_r32_preset_over_tp20_through_the_simulated_vehicle():
             g.open()
             assert len(g.gateway_installation_list().usable) == 21
             gw.close()
+    finally:
+        reset_default_vehicle()
+
+
+def test_golf_preset_uds_hvac_traffic_does_not_disturb_an_open_abs_kwp_channel():
+    """The regression behind the tester-TX id choice: with a UDS HVAC on the verified
+    0x746 -> 0x7B0 ids, UDS reads must not break the open KWP channel to the ABS and
+    vice versa (the ABS used to grant the tester 0x7B0)."""
+    pytest.importorskip("vagtune.transport.tp20")
+    from vagtune.transport.context import TransportContext
+    from vagtune.transport.fake import SimulatedEcu
+    from vagtune.transport.fakebus import UdsNode, reset_default_vehicle
+    from vagtune.uds.client import UdsClient
+    reset_default_vehicle()
+    try:
+        with TransportContext("fake", vehicle_preset="golf-tdi-2012") as ctx:
+            vehicle = ctx.vehicle
+            if not any(getattr(n, "response_id", None) == 0x7B0 for n in vehicle.nodes):
+                hvac = SimulatedEcu()
+                hvac.identifiers[0xF187] = b"7N0907426AN"
+                vehicle.add_node(UdsNode(vehicle.bus, hvac, request_id=0x746, response_id=0x7B0, name="test-hvac"))
+            abs_node = vehicle.node("kwp-03-abs")
+            assert abs_node.tester_tx_id not in (0x746, 0x7B0)
+            ch = ctx.tp20_channel(0x03)
+            ch.connect()
+            assert ch.tx_id == abs_node.tester_tx_id
+            abs_ = VagKwpSession(KwpClient(ch, KwpTiming(p2=2.0, p2_star=3.0)), module_name="abs")
+            abs_.open()
+            assert abs_.read_identification().part_number == "1K0907379BJ"
+            uds = UdsClient(ctx.isotp_link(0x746, 0x7B0))
+            for _ in range(5):
+                assert uds.read_data_by_identifier(0xF187) == b"7N0907426AN"
+                assert abs_.read_identification().part_number == "1K0907379BJ"
+                assert abs_.read_coding()["coding"] == GOLF_ABS_CODING.hex().upper()
+            assert abs_node.responder.stats.get("sequence_errors", 0) == 0
+            abs_.close()
     finally:
         reset_default_vehicle()
