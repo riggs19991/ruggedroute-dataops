@@ -296,9 +296,14 @@ class Paths:
         p = os.path.normpath(p)
         r = None
         for base in self._bases():
-            if _is_under(p, base) or p.startswith(base.rstrip("/") + "/") or p == base:
+            if p.startswith(base.rstrip("/") + "/") or p == base:
+                r = os.path.relpath(p, base)
+                break
+            if _is_under(p, base):
+                # The lexical forms differ only by symlinks in the prefix (macOS: /var/... vs
+                # /private/var/...). Relativise on the resolved forms so the file stays inside.
                 try:
-                    r = os.path.relpath(p, base)
+                    r = os.path.relpath(os.path.realpath(p), os.path.realpath(base))
                     break
                 except ValueError:
                     continue

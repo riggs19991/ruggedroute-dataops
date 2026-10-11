@@ -2,11 +2,11 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-11T14:37:24Z",
-  "updated_ts": 1791729444,
+  "updated_at": "2026-10-11T20:07:03Z",
+  "updated_ts": 1791749223,
   "updated_by": {
     "session_id": "23bf0fa0-7735-5f90-9b85-e7b294bb0dd2",
-    "cmd": "forge-status close T-0002"
+    "cmd": "forge-status close T-0003"
   },
   "context_state": "stale",
   "task": null,
@@ -31,6 +31,16 @@
       "cost_source": "unknown",
       "handoff": null,
       "closed_at": "2026-10-11T14:37:24Z"
+    },
+    {
+      "id": "T-0003",
+      "title": "fix: Paths.rel must relativise on real paths so macOS /var -> /private/var symlinked roots are inside the repo",
+      "class": "T",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": null,
+      "closed_at": "2026-10-11T20:07:03Z"
     }
   ]
 }

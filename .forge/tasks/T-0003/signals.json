@@ -1,0 +1,39 @@
+{
+  "task": "T-0003",
+  "title": "fix: Paths.rel must relativise on real paths so macOS /var -> /private/var symlinked roots are inside the repo",
+  "computed_at": "2026-10-11T14:43:24Z",
+  "size_source": "declared",
+  "declared": [
+    "forge/payload/.forge/bin/forgelib/common.py",
+    "forge/tests/test_common.py"
+  ],
+  "files": 2,
+  "dirs": 2,
+  "importers": 22,
+  "importer_files": [
+    ".forge/bin/forgelib/__init__.py",
+    ".forge/bin/forgelib/checks.py",
+    ".forge/bin/forgelib/gates.py",
+    ".forge/bin/forgelib/hooks.py",
+    ".forge/bin/forgelib/status.py",
+    "forge/payload/.forge/bin/forgelib/__init__.py",
+    "forge/payload/.forge/bin/forgelib/checks.py",
+    "forge/payload/.forge/bin/forgelib/gates.py",
+    "forge/payload/.forge/bin/forgelib/hooks.py",
+    "forge/payload/.forge/bin/forgelib/status.py",
+    "forge/plugin/bin/forgelib/__init__.py",
+    "forge/plugin/bin/forgelib/checks.py",
+    "forge/plugin/bin/forgelib/gates.py",
+    "forge/plugin/bin/forgelib/hooks.py",
+    "forge/plugin/bin/forgelib/status.py",
+    "forge/plugin/payload/.forge/bin/forgelib/__init__.py",
+    "forge/plugin/payload/.forge/bin/forgelib/checks.py",
+    "forge/plugin/payload/.forge/bin/forgelib/gates.py",
+    "forge/plugin/payload/.forge/bin/forgelib/hooks.py",
+    "forge/plugin/payload/.forge/bin/forgelib/status.py"
+  ],
+  "recent_cochanges": [],
+  "tests_present": false,
+  "risk_hits": [],
+  "important_hits": []
+}

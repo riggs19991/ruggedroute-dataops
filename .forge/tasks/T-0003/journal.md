@@ -1,0 +1,5 @@
+- 2026-10-11T14:43:24Z open: fix: Paths.rel must relativise on real paths so macOS /var -> /private/var symlinked roots are inside the repo | class T risk none files=2 dirs=2 importers=22 tests_present=False risk_hits=[] important=[]
+- 2026-10-11T14:53:45Z [PostToolUse] main: stamped .forge/tasks/T-0003/checks/main-1791730425-main.json
+- 2026-10-11T14:53:55Z [PreToolUse] main: irreversible command asks for confirmation ('git push *'): env -u FORGE_ROOT .forge/bin/forge-status close T-0003 --one-line "Paths.rel relativises on resolved paths when the lexi
+- 2026-10-11T14:58:16Z [SessionEnd] main: session end (other)
+- 2026-10-11T20:07:03Z close: done | Paths.rel relativises on resolved paths when the lexical prefix is a symlink (macOS /var -> /private/var); regression test added; installed copy and plugin mirror refreshed; 393 tests, smoke 26/26 | checks: lib-unit pass | out-of-scope accepted: ['forge/plugin/bin/forgelib/common.py', 'forge/plugin/payload/.forge/bin/forgelib/common.py'] (forge/plugin/** is generated from the declared payload file by tools/make_plugin.py; CI fails on drift if it is not regenerated)

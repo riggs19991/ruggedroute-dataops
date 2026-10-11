@@ -219,6 +219,20 @@ class PathsAndRootTests(unittest.TestCase):
         rel, ok, why = p.safe_rel(os.path.join(root, "lib", "out", "hosts"))
         self.assertFalse(ok)
 
+    def test_rel_handles_symlinked_root_prefix(self):
+        # macOS CI: tempfile gives /var/folders/... while git reports /private/var/...; both name
+        # the same checkout, so a lexical path under the symlinked prefix must stay inside.
+        real_root = self._repo("a")
+        link = os.path.join(self.tmp, "link-root")
+        os.symlink(real_root, link)
+        p = common.Paths(real_root)
+        self.assertEqual(p.rel(os.path.join(link, "lib", "mod.py")), "lib/mod.py")
+        rel, ok, why = p.safe_rel(os.path.join(link, "lib", "mod.py"))
+        self.assertTrue(ok, why)
+        self.assertEqual(rel, "lib/mod.py")
+        p2 = common.Paths(link)
+        self.assertEqual(p2.rel(os.path.join(real_root, "lib", "mod.py")), "lib/mod.py")
+
     def test_glob_match_never_matches_outside_repo(self):
         self.assertFalse(common.glob_match("../x.py", "**/*.py"))
         self.assertFalse(common.glob_match("/etc/x.py", "**"))
