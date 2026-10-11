@@ -1,0 +1,4 @@
+{ "schema": "forge/brief/2", "note": "brief-meta: the first fenced json block of .forge/tasks/<id>/brief-NN.md. Read by hooks (scope fence, tool budget, owner), gates (checks, tdd) and forge-check.",
+  "required": ["schema", "task", "step", "owner_agent", "model", "effort", "allowed_paths", "may_edit_tests", "tdd", "checks", "expected_fail_first", "dod", "risk", "red_ok", "max_tool_calls", "bootstrap"],
+  "headings": ["Goal", "Context the worker needs", "Definition of done", "Out of scope / do not touch", "Known failed approaches", "Output contract"],
+  "invariants": ["owner_agent in forge-builder|forge-builder-wide|forge-builder-s|forge-mechanic", "model is an alias", "allowed_paths non-empty", "tdd => expected_fail_first non-empty", "max_tool_calls >= 5"] }

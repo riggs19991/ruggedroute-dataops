@@ -1,0 +1,10 @@
+{ "schema": "forge/plan/2", "note": "plan-meta: the first fenced json block of .forge/tasks/<id>/plan.md. Validated by forgelib.gates.plan_validate().",
+  "required": ["schema", "task", "class", "risk", "chain", "routing", "steps", "dod", "rollback", "test_baseline", "needs_clarification"],
+  "inline_required_extra": ["allowed_paths"],
+  "routing": { "required": ["mode", "builder", "verifier", "justification"], "mode": ["inline", "single", "parallel"] },
+  "step": { "required": ["id", "title", "brief", "agent", "model", "effort", "mechanical", "red_ok_until", "max_tool_calls"], "id": "^[0-9]{2}$" },
+  "dod": { "required": ["id", "criterion", "check"], "id": "^DoD-[0-9]+$", "check": "<command> | external", "external": { "what": "string", "how": "string" } },
+  "headings": { "M": ["Steps", "Validation Criteria", "Routing", "Rollback"],
+                "W_L": ["Steps", "Validation Criteria", "Routing", "Rollback", "Objective", "Current State", "Target State", "Tech Stack Context", "File Manifest", "Dependency Order", "Anti-Patterns — DO NOT", "Escalation Points"],
+                "S_X_inline": ["Validation Criteria", "Rollback"] },
+  "invariants": ["mode inline <=> steps == []", "class M|W => exactly one step", "class L => >= 3 steps", "every step has an existing brief whose brief-meta.step equals step.id", "every red_ok_until names a later step id", "dod non-empty", "risk R => rollback contains a concrete command"] }

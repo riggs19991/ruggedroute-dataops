@@ -1,0 +1,31 @@
+{
+  "schema": "forge/status/2",
+  "note": "Assertion list for .forge/STATUS.json. Validated by forgelib.status.validate(). Enums mirror forgelib.common.",
+  "required": ["schema_version", "forge_version", "project", "updated_at", "updated_ts", "updated_by", "context_state", "task", "queue", "history"],
+  "enums": {
+    "context_state": ["fresh", "stale"],
+    "task.class": ["T", "S", "M", "W", "L", "X"],
+    "task.risk": ["none", "R"],
+    "task.phase": ["idle", "intake", "plan", "execute", "verify", "awaiting_external", "close", "done", "blocked"],
+    "task.routing.mode": ["inline", "single", "parallel"],
+    "task.plan_author": [null, "architect", "forge-planner"],
+    "task.steps[].status": ["pending", "running", "reported", "verifying", "done", "failed", "blocked", "awaiting_external"],
+    "task.steps[].from": [null, "failed", "clean"],
+    "task.steps[].model": ["haiku", "sonnet", "opus", "fable"],
+    "task.steps[].effort": ["low", "medium", "high", "xhigh", "max"]
+  },
+  "task_required": ["id", "title", "class", "risk", "size_source", "files", "creates", "signals", "class_justification", "phase", "plan", "plan_author", "scope", "routing", "steps", "escalation", "next_action", "resume_hint", "evidence_count", "evidence", "blocked_on", "external", "budget"],
+  "step_required": ["id", "title", "agent", "model", "effort", "status", "attempts", "from", "verify_attempts", "brief", "allowed_paths"],
+  "bounds": { "queue": 10, "history": 5, "evidence": 10 },
+  "invariants": [
+    "task.id matches ^T-[0-9]{4,}$",
+    "routing.mode == inline  <=>  steps == []",
+    "class M or W  =>  len(steps) == 1 once planned",
+    "class L  =>  len(steps) >= 3 once planned",
+    "every step.model is an alias (haiku|sonnet|opus|fable), never a full model id",
+    "steps[].status == running  =>  started_by is set",
+    "steps[].status == done  =>  commit is set and verdict is set (or no_verifier for T/S/X)",
+    "phase == done  =>  every step.status == done",
+    "task.risk == R  <=>  signals.risk_hits non-empty, unless class_justification records --force-risk or --accept-risk-none"
+  ]
+}
