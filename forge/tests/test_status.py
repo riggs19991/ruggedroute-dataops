@@ -129,7 +129,10 @@ class OpenRulesTests(StatusTestCase):
     def test_S_with_risk_hit_refused(self):
         self.assert_refused(self.repo.open_task("rotate the secret key", "S", ["lib/mod.py"]), "S risk word")
         self.assert_refused(self.repo.open_task("lib: tidy uploads", "S", ["lib/mod.py"], ["lib/upload_tool.py"]), "S risk path")
+        self.repo.write("lib/upload_tool.py", "UPLOAD = 1\n")
+        self.repo.commit_all("fixture: an upload tool")
         self.assert_refused(self.repo.open_task("lib: tidy", "T", ["lib/upload_tool.py"]), "T risk path")
+        self.assertIn("risk", self.repo.last[2].lower())
 
     def test_S_size_limits(self):
         self.assert_refused(self.repo.open_task("lib: four files", "S", ["lib/mod.py", "lib/util.py", "lib/shared.py", "lib/x.py"]), "S>3")
@@ -157,9 +160,9 @@ class OpenRulesTests(StatusTestCase):
         self.assertIn("force-risk", self.repo.task()["class_justification"])
 
     def test_risk_none_with_hits_refused_unless_accepted(self):
-        files = ["lib/mod.py", "lib/util.py", "lib/upload_tool.py"]
-        self.assert_refused(self.repo.open_task("lib: uploads", "M", files), "none with hits")
-        code, out, err = self.repo.open_task("lib: uploads", "M", files, (), "none",
+        files, creates = ["lib/mod.py", "lib/util.py"], ["lib/upload_tool.py"]   # the risk path is created, so --creates
+        self.assert_refused(self.repo.open_task("lib: uploads", "M", files, creates), "none with hits")
+        code, out, err = self.repo.open_task("lib: uploads", "M", files, creates, "none",
                                              "fixture: declared set is small and has no risk hits",
                                              "--accept-risk-none", "upload_tool is a fixture, not the uploader")
         self.assertEqual(code, 0, err)
@@ -969,6 +972,339 @@ class CloseRulesTests(StatusTestCase):
         code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--partial")
         self.assertEqual(code, 0, err)
         self.assertNotEqual(self.repo.status()["history"][0]["outcome"], "done")
+
+
+class ReviewFindingsTests(StatusTestCase):
+    """Regression tests for the adversarial-review findings owned by status.py / forge-status
+    (#4, #5, #11, #22, #23/#39, #26, #29, #33, #46, #47, #48, #53, #55)."""
+
+    def _planned(self):
+        tid = self.open_m()
+        code, out, err = self.plan_m(tid)
+        self.assertEqual(code, 0, err)
+        return tid
+
+    def _seed_step(self, tid, **step_over):
+        base = self.repo.head()
+        self.repo.write(f".forge/tasks/{tid}/.base-01", base + "\n")
+        task = make_task(tid, "M", "execute", plan=f".forge/tasks/{tid}/plan.md", base=base,
+                         steps=[make_step("01", tid, base=base, **step_over)])
+        self.repo.seed_status(task=task)
+        return base
+
+    # ---- #47: validate prints the contract's one-line form
+    def test_validate_prints_one_line_form(self):
+        code, out, err = self.repo.forge_status("validate")
+        self.assertEqual(code, 0, err)
+        self.assertTrue(out.startswith("idle | next:"), out)
+        tid = self._planned()
+        code, out, err = self.repo.forge_status("validate")
+        self.assertTrue(out.startswith(f"{tid} execute 01 pending | next:"), out)
+        code, out, err = self.repo.forge_status("validate", "--restamp")
+        self.assertEqual(code, 0, err)
+        self.assertTrue(out.startswith(f"{tid} execute 01 pending | next:"), out)
+
+    # ---- #48: `new` is an alias of open without --queue
+    def test_new_is_an_alias_of_open_without_queue(self):
+        code, out, err = self.repo.forge_status("new", "--title", "lib: fix add", "--class", "T", "--files", "lib/mod.py",
+                                                "--why", "fixture: declared set is small and has no risk hits")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["id"], "T-0001")
+        self.assertTrue(out.startswith("T-0001 execute | next:"), out)
+        # never queues: a second `new` while a task is open is refused, and `--queue` is not an option
+        self.assert_refused(self.repo.forge_status("new", "--title", "another", "--class", "T", "--files", "lib/util.py",
+                                                   "--why", "fixture: declared set is small and has no risk hits"), "new with open task")
+        code, out, err = self.repo.forge_status("new", "--title", "x", "--class", "T", "--files", "lib/util.py", "--queue",
+                                                "--why", "fixture: declared set is small and has no risk hits")
+        self.assertEqual(code, common.EXIT_USAGE)
+
+    # ---- #53: a declared --files path must exist; --creates may be missing
+    def test_open_refuses_missing_declared_file(self):
+        self.assert_refused(self.repo.open_task("lib: typo", "T", ["lib/mod.pyx"]), "typo in --files")
+        self.assertIn("--creates", self.repo.last[2])
+        self.assertIsNone(self.repo.task())
+        code, out, err = self.repo.open_task("lib: new helper", "S", ["lib/mod.py"], ["lib/new_helper.py"])
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["creates"], ["lib/new_helper.py"])
+
+    # ---- #9/#10 (scope definition): paths that escape the repository never enter scope; symlinks resolve
+    def test_scope_paths_never_escape_the_repository(self):
+        outside = os.path.join(os.path.dirname(self.repo.root), f"outside-{os.path.basename(self.repo.root)}.py")
+        with open(outside, "w", encoding="utf-8") as f:
+            f.write("X = 1\n")
+        self.addCleanup(lambda: os.path.exists(outside) and os.unlink(outside))
+        self.assert_refused(self.repo.open_task("escape", "T", [outside]), "absolute path outside the repo")
+        self.assert_refused(self.repo.open_task("escape", "T", ["../" + os.path.basename(outside)]), "../ path")
+        self.assert_refused(self.repo.open_task("escape", "T", ["lib/mod.py"], ["../elsewhere.py"]), "--creates outside")
+        os.symlink("mod.py", self.repo.path("lib/link.py"))
+        os.symlink(outside, self.repo.path("lib/evil.py"))
+        code, out, err = self.repo.open_task("lib: via link", "T", ["lib/link.py"])
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["scope"], ["lib/mod.py"], "a symlink inside the repo resolves to its target")
+        self.repo.seed_status(task=None)
+        self.assert_refused(self.repo.open_task("lib: via evil link", "T", ["lib/evil.py"]), "symlink pointing outside")
+        tid = self.open_m()
+        self.repo.write_brief(tid, "01", allowed_paths=["lib/mod.py", "../elsewhere/**"])
+        rel = self.repo.write_plan(tid, "M")
+        self.assert_refused(self.repo.forge_status("plan", tid, "--from", rel), "brief allowed_paths outside")
+        self.repo.seed_status(task=None)
+        code, out, err = self.repo.open_task("root-cause", "X", ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        xid = self.repo.task()["id"]
+        self.assert_refused(self.repo.forge_status("scope", "add", xid, "../elsewhere.py", "--why", "the bug crosses the repo"), "scope add outside")
+
+    # ---- #55: a tests/ directory counts with the directory it tests
+    def test_dirs_fold_tests_into_their_parent(self):
+        self.assertEqual(helpers.common.dirs_of(["layers/x/layer.json", "layers/x/tests/test_x.py"]), ["layers/x", "layers/x/tests"])
+        from forgelib import status as status_mod
+        self.assertEqual(status_mod.dirs_of(["layers/x/layer.json", "layers/x/tests/test_x.py", "lib/test_mod.py"]), ["layers/x", "lib"])
+        self.assertEqual(status_mod.dirs_of(["tests/test_a.py", "src/a.py"]), ["src", "tests"])
+        self.repo.write("layers/x/layer.json", "{}\n")
+        self.repo.write("layers/x/tests/test_x.py", "def test_x():\n    pass\n")
+        self.repo.commit_all("fixture: layer x with tests")
+        code, out, err = self.repo.open_task("layers/x: add qa", "S", ["layers/x/layer.json", "layers/x/tests/test_x.py", "lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["signals"]["dirs"], 2)
+
+    # ---- #46: ids never collide with queued hints; a hint may carry no id
+    def test_task_ids_skip_queued_ids_and_hints_without_id(self):
+        self.repo.seed_status(task=None, queue=[{"id": "T-0001", "title": "stack discovery", "class_hint": "S"},
+                                                {"title": "a hint without an id", "class_hint": "S"}])
+        self.repo.write(".forge/queue.jsonl", json.dumps({"id": "T-0007", "title": "overflow", "class_hint": "T"}) + "\n")
+        code, out, err = self.repo.forge_status("get", "digest")
+        self.assertEqual(code, 0, err)
+        self.assertIn("queue: T-0001", out)
+        code, out, err = self.repo.open_task("lib: first real task", "T", ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["id"], "T-0008", "max over tasks, archive, history and every queued id")
+        self.assertEqual([q.get("id") for q in self.repo.status()["queue"]], ["T-0001", None])
+        self.repo.seed_status(task=None, queue=[{"title": "a hint without an id", "class_hint": "S"}])
+        code, out, err = self.repo.forge_status("get", "summary")
+        self.assertIn("(queued)", out)
+        code, out, err = self.repo.open_task("a hint without an id", "T", ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        self.assertTrue(helpers.common.exists(self.repo.path(".forge/tasks/" + self.repo.task()["id"])))
+        self.assertNotIn("a hint without an id", [q.get("title") for q in self.repo.status()["queue"]], "the matching hint is popped")
+        self.assertEqual([q.get("id") for q in self.repo.status()["queue"]], ["T-0007"], "the queue.jsonl overflow row is promoted")
+
+    # ---- #4: intake blocks step-start; a corrected plan re-imports while nothing was dispatched
+    def test_intake_refuses_step_start_and_plan_reimports(self):
+        tid = self.open_m()
+        code, out, err = self.plan_m(tid, needs_clarification=["which bucket receives the output?"])
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["phase"], "intake")
+        self.assert_refused(self.repo.forge_status("step-start", tid, "01"), "step-start in intake")
+        self.assertIn("needs_clarification", self.repo.last[2])
+        self.assertEqual(self.repo.task()["phase"], "intake")
+        self.assertEqual(self.repo.step()["status"], "pending")
+        code, out, err = self.plan_m(tid)   # corrected plan, no questions
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.task()["phase"], "execute")
+        # still nothing dispatched: a second correction lands and replaces the steps
+        code, out, err = self.plan_m(tid, step={"id": "01", "title": "corrected title"})
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.step()["title"], "corrected title")
+        self.assertEqual(self.repo.step()["attempts"], 0)
+        # once a step has started, the plan is frozen
+        code, out, err = self.repo.forge_status("step-start", tid, "01")
+        self.assertEqual(code, 0, err)
+        self.assert_refused(self.plan_m(tid), "re-import after dispatch")
+
+    # ---- #29: plan import records the test baseline into plan.md
+    def test_plan_import_records_test_baseline(self):
+        tid = self.open_m()
+        code, out, err = self.plan_m(tid)   # helpers write the template value (0/0, 1970)
+        self.assertEqual(code, 0, err)
+        meta = common.json_block(self.repo.read(f".forge/tasks/{tid}/plan.md"))
+        self.assertEqual(meta["test_baseline"]["files"], 3, "lib/test_mod.py, lib/test_util.py, lib/test_shared.py")
+        self.assertEqual(meta["test_baseline"]["tests"], 3)
+        self.assertFalse(meta["test_baseline"]["recorded_at"].startswith("1970"))
+        self.assertIn("## Steps", self.repo.read(f".forge/tasks/{tid}/plan.md"), "the rest of the plan survives")
+        self.assertIn("test_baseline recorded", self.repo.journal(tid))
+        # a real baseline is left alone
+        tid2 = tid
+        code, out, err = self.plan_m(tid2, test_baseline={"files": 9, "tests": 99, "recorded_at": "2026-10-11T00:00:00Z"})
+        self.assertEqual(code, 0, err)
+        meta = common.json_block(self.repo.read(f".forge/tasks/{tid2}/plan.md"))
+        self.assertEqual(meta["test_baseline"], {"files": 9, "tests": 99, "recorded_at": "2026-10-11T00:00:00Z"})
+
+    # ---- #5: a blocked step has a documented exit
+    def test_blocked_step_can_be_restarted_with_from(self):
+        tid = self._planned()
+        base = self._seed_step(tid, status="running", attempts=1, started_by="cli", started_at="2026-10-11T00:00:00Z",
+                               started_ts=1_760_000_000, agent_id="agent_b1")
+        rep = self.repo.handoff_json(tid, "01", "NEEDS_CONTEXT", [], next_action="need the bucket name")
+        self.repo.write_json(f".forge/tasks/{tid}/report-01.json", rep)
+        code, out, err = self.repo.forge_status("step-report", tid, "01", "--report", f".forge/tasks/{tid}/report-01.json")
+        self.assertEqual(code, 0, err)
+        task = self.repo.task()
+        self.assertEqual(task["steps"][0]["status"], "blocked")
+        na = task["next_action"]
+        self.assertIn(f"step-start {tid} 01 --from failed", na)
+        self.assertIn("--from clean", na)
+        self.assertIn(f"scope add {tid} <path> --why", na)
+        self.assertIn("block --on", na)
+        self.assertNotIn("SendMessage", na, "the worker has returned; nothing to resume")
+        self.assert_refused(self.repo.forge_status("step-start", tid, "01"), "blocked without --from")
+        code, out, err = self.repo.forge_status("step-start", tid, "01", "--from", "failed")
+        self.assertEqual(code, 0, err)
+        step = self.repo.step()
+        self.assertEqual((step["status"], step["attempts"], step["from"], step["agent_id"]), ("running", 2, "failed", None))
+        brief = self.repo.read(f".forge/tasks/{tid}/brief-01.md")
+        self.assertIn("NEEDS_CONTEXT", brief)
+        self.assertIn("need the bucket name", brief, "the missing context reaches the next worker through the brief")
+        # a blocked step restarted --from clean restores the tree
+        self.repo.forge_status("recover", tid, "01", "--force")
+        self._seed_step(tid, status="blocked", attempts=2)
+        self.repo.write("lib/mod.py", "broken = True\n")
+        code, out, err = self.repo.forge_status("step-start", tid, "01", "--from", "clean")
+        self.assertEqual(code, 0, err)
+        self.assertNotIn("broken", self.repo.read("lib/mod.py"))
+
+    # ---- #11: step-verifying never double-counts
+    def test_step_verifying_refuses_a_verifying_step(self):
+        tid = self._planned()
+        base = self._seed_step(tid, status="reported", attempts=1, commit=self.repo.head())
+        code, out, err = self.repo.forge_status("step-verifying", tid, "01", "--agent", "agent_v1")
+        self.assertEqual(code, 0, err)
+        self.assert_refused(self.repo.forge_status("step-verifying", tid, "01", "--agent", "agent_v2"), "already verifying")
+        self.assertIn("wait for its verdict", self.repo.last[2])
+        step = self.repo.step()
+        self.assertEqual(step["verify_attempts"], 1)
+        self.assertEqual(step["verifier_agent_id"], "agent_v1")
+        self.assertEqual([r for r in self.repo.ledger() if r.get("event") == "dispatch" and r.get("agent") == "forge-verifier"].__len__(), 1)
+
+    # ---- #26: a retry is a new attempt with a fresh verifier cap
+    def test_retry_resets_verify_attempts(self):
+        tid = self._planned()
+        self._seed_step(tid, status="failed", attempts=1, verify_attempts=2)
+        self.assert_refused(self.repo.forge_status("step-verifying", tid, "01"), "not reported")
+        code, out, err = self.repo.forge_status("step-start", tid, "01", "--from", "failed")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.step()["verify_attempts"], 0)
+        self.assertEqual(self.repo.step()["attempts"], 2)
+        # the round-2 worker's result can be verified (twice) without a ruling
+        self._seed_step(tid, status="reported", attempts=2, verify_attempts=0, commit=self.repo.head())
+        code, out, err = self.repo.forge_status("step-verifying", tid, "01")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.step()["verify_attempts"], 1)
+
+    # ---- #23/#39 + #33: the documented dead-session sequence works and saves untracked files
+    def test_recover_then_step_start_from_clean(self):
+        tid = self._planned()
+        base = self._seed_step(tid, status="running", attempts=1, started_by="other-session",
+                               started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000)
+        original = self.repo.read("lib/mod.py")
+        self.repo.write("lib/mod.py", original + "# half-written\n")
+        self.repo.write("lib/extra.py", "OPERATOR = 'precious scratch'\n")   # untracked, under allowed_paths
+        code, out, err = self.repo.forge_status("recover", tid, "01")
+        self.assertEqual(code, 0, err)
+        step = self.repo.step()
+        self.assertEqual((step["status"], step["attempts"]), ("pending", 1), "attempts are preserved")
+        self.assertEqual(self.repo.read("lib/mod.py"), original)
+        self.assertFalse(self.repo.exists("lib/extra.py"))
+        incidents = sorted(os.listdir(self.repo.path(".forge/incidents")))
+        dirs = [d for d in incidents if not d.endswith(".patch") and tid in d]
+        self.assertEqual(len(dirs), 1, incidents)
+        self.assertEqual(self.repo.read(f".forge/incidents/{dirs[0]}/lib/extra.py"), "OPERATOR = 'precious scratch'\n")
+        self.assertIn("copied to", self.repo.journal(tid))
+        # the documented second command is accepted and is a no-op on the already-restored tree
+        code, out, err = self.repo.forge_status("step-start", tid, "01", "--from", "clean")
+        self.assertEqual(code, 0, err)
+        step = self.repo.step()
+        self.assertEqual((step["status"], step["attempts"], step["from"]), ("running", 2, "clean"))
+        self.assertNotIn("recovered_at", step)
+        self.assertEqual(len(os.listdir(self.repo.path(".forge/incidents"))), 2, "no second incident for a clean tree")
+        # a fresh pending step still refuses --from
+        tid2 = tid
+        self._seed_step(tid2, status="pending", attempts=0)
+        self.assert_refused(self.repo.forge_status("step-start", tid2, "01", "--from", "clean"), "fresh pending with --from")
+
+    def test_step_start_from_clean_saves_untracked_files(self):
+        tid = self._planned()
+        self._seed_step(tid, status="failed", attempts=1)
+        self.repo.write("lib/extra.py", "scratch = 1\n")
+        code, out, err = self.repo.forge_status("step-start", tid, "01", "--from", "clean")
+        self.assertEqual(code, 0, err)
+        self.assertFalse(self.repo.exists("lib/extra.py"))
+        dirs = [d for d in os.listdir(self.repo.path(".forge/incidents")) if not d.endswith(".patch")]
+        self.assertEqual(len(dirs), 1)
+        self.assertEqual(self.repo.read(f".forge/incidents/{dirs[0]}/lib/extra.py"), "scratch = 1\n")
+
+    # ---- #22: inline verdicts reach STATUS and gate close
+    def _inline(self, cls, title="lib: small change"):
+        code, out, err = self.repo.open_task(title, cls, ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        tid = self.repo.task()["id"]
+        rel = self.repo.write_plan(tid, cls, allowed_paths=["lib/mod.py", "lib/test_mod.py"])
+        code, out, err = self.repo.forge_status("plan", tid, "--from", rel)
+        self.assertEqual(code, 0, err)
+        self.repo.write_report_md(tid, "task", short=True, path=f".forge/tasks/{tid}/handoff.md")
+        return tid
+
+    def test_inline_verdict_recorded_and_X_close_requires_pass(self):
+        tid = self._inline("X", "root-cause the flaky add")
+        self.assert_refused(self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--no-commit"), "X without verdict")
+        self.assertIn("verdict", self.repo.last[2])
+        self.assertIsNotNone(self.repo.task())
+        vj = self.repo.verdict_json(tid, "main", "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}], blocking=["red"])
+        self.repo.write_json(f".forge/tasks/{tid}/verdict-main.json", vj)
+        self.repo.write_verdict_md(tid, "main", "FAIL", json_obj=vj, path=f".forge/tasks/{tid}/verdict-main.md")
+        self.repo.touch(self.repo.rt("dirty-worker"))
+        code, out, err = self.repo.forge_status("step-verdict", tid, "main", "--verdict", f".forge/tasks/{tid}/verdict-main.json")
+        self.assertEqual(code, 0, err)
+        task = self.repo.task()
+        iv = task["inline_verdict"]
+        self.assertEqual(iv["verdict"], "FAIL")
+        self.assertEqual(iv["file"], f".forge/tasks/{tid}/verdict-main.md")
+        self.assertEqual(iv["verifier_model"], "fable")
+        self.assertTrue(iv["at"].endswith("Z"))
+        self.assertEqual(task["phase"], "execute")
+        self.assertIn("forge-check", task["next_action"])
+        self.assertIn("forge-verifier", task["next_action"])
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")))
+        rows = [r for r in self.repo.ledger() if r.get("event") == "verdict"]
+        self.assertEqual((rows[-1]["step"], rows[-1]["verdict"]), ("main", "FAIL"))
+        self.assert_refused(self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--no-commit"), "X with FAIL")
+        code, out, err = self.repo.forge_status("get", "resume")
+        self.assertIn("verdict (main): FAIL", out)
+        vj = self.repo.verdict_json(tid, "main", "PASS")
+        self.repo.write_json(f".forge/tasks/{tid}/verdict-main.json", vj)
+        code, out, err = self.repo.forge_status("step-verdict", tid, "main", "--verdict", f".forge/tasks/{tid}/verdict-main.json")
+        self.assertEqual(code, 0, err)
+        task = self.repo.task()
+        self.assertEqual(task["inline_verdict"]["verdict"], "PASS")
+        self.assertEqual(task["inline_verdict"]["attempt"], 2)
+        self.assertEqual(task["next_action"], "Run /forge-close")
+        self.assertTrue(out.startswith(f"{tid} done | next: Run /forge-close"), out)
+        code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--no-commit")
+        self.assertEqual(code, 0, err)
+        self.assertIsNone(self.repo.task())
+
+    def test_S_close_needs_pass_verdict_only_when_tests_changed(self):
+        tid = self._inline("S")
+        self.repo.write("lib/mod.py", "def add(a, b):\n    return a + b  # tidy\n")
+        code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--no-commit")
+        self.assertEqual(code, 0, f"no tests changed: forge-check is enough for S: {err}")
+        tid = self._inline("S", "lib: change with a test")
+        self.repo.write("lib/test_mod.py", self.repo.read("lib/test_mod.py") + "\n    def test_more(self):\n        self.assertEqual(add(0, 0), 0)\n")
+        self.assert_refused(self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--no-commit"), "S tests changed")
+        self.assertIn("lib/test_mod.py", self.repo.last[2])
+        # a PASS verdict on file (persisted by the verdict gate) is accepted even before step-verdict ran
+        self.repo.write_json(f".forge/tasks/{tid}/verdict-main.json", self.repo.verdict_json(tid, "main", "PASS"))
+        code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md", "--no-commit")
+        self.assertEqual(code, 0, err)
+        self.assertIsNone(self.repo.task())
+
+    def test_step_verdict_main_refused_for_T_and_for_stepped_tasks_in_flight(self):
+        code, out, err = self.repo.open_task("lib: fix add", "T", ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        self.repo.write_json(".forge/tasks/T-0001/verdict-main.json", self.repo.verdict_json("T-0001", "main", "PASS"))
+        self.assert_refused(self.repo.forge_status("step-verdict", "T-0001", "main", "--verdict", ".forge/tasks/T-0001/verdict-main.json"), "T")
+        self.repo.seed_status(task=None)
+        tid = self._planned()
+        self.repo.write_json(f".forge/tasks/{tid}/verdict-main.json", self.repo.verdict_json(tid, "main", "PASS"))
+        self.assert_refused(self.repo.forge_status("step-verdict", tid, "main", "--verdict", f".forge/tasks/{tid}/verdict-main.json"), "M with a pending step")
 
 
 if __name__ == "__main__":

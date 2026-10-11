@@ -23,7 +23,7 @@
            "verifier": { "agent": "forge-verifier", "model": "fable", "effort": "medium" },
            "budget_usd": 25, "expected_premium": true },
     "L": { "plan": "planner", "planner": { "agent": "forge-planner", "model": "fable", "effort": "high" },
-           "mode": "sequential", "min_units": 3,
+           "mode": "single", "sequential_units": true, "min_units": 3,
            "unit_builder": { "agent": "forge-builder-s", "model": "sonnet", "effort": "medium" },
            "unit_builder_mechanical": { "agent": "forge-mechanic", "model": "haiku", "effort": "medium" },
            "unit_builder_m_sized": { "agent": "forge-builder", "model": "opus", "effort": "medium" },

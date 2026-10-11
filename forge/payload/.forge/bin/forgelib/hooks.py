@@ -38,7 +38,8 @@ WORKER_START_LINE = ("Forge worker: read the brief named in your prompt with the
                      "message must follow the brief's Output contract (builders) or the VERDICT format "
                      "(verifier); run commands from the repository root; a hook refuses otherwise.")
 STOP_ALLOW_PHASES = ("done", "blocked", "idle", "awaiting_external")   # design §3 step 12
-# forge-status subcommands a subagent may run; every other subcommand writes STATUS (design §13.3 Bash row).
+# forge-status subcommands that only read STATUS (design §13.3 Bash row). A subagent's shell may run `get` only
+# (review #6); `validate` without --restamp is a read for the main-session mutation guard.
 STATUS_READ_SUBCOMMANDS = ("get", "validate")
 # Main-session meta allow-list (design §13.3 Edit row): common.ARCHITECT_META_ALLOW plus agent memory
 # and project-owned rule files.
@@ -49,16 +50,115 @@ LIBRARIAN_ALLOW = (".forge/lessons/", ".forge/COST-REPORT.md", ".forge/archive/"
 VERIFIER_MEMORY = ".claude/agent-memory/forge-verifier/"
 # Directories a worker may `rm -r` under (design §3 step 7: /tmp and the scratchpad).
 RM_SAFE_DIRS = ("/tmp",)
+# Review #21: a spawn-guard dispatch marker (`.runtime/dispatched-<task>-<step>`) blocks a second builder for
+# the same running-unbound step until the worker binds or the marker ages out.
+DISPATCH_MARKER_TTL_S = 600
+# Review #34: never store more than this many chars of a Bash command in evidence.
+EVIDENCE_CMD_MAX_CHARS = 300
+# Review #17: the sanctioned draft location for pre-validation (`forge-gate --from-file`), any forge-* subagent,
+# bind-independent: `.forge/tasks/<id>/drafts/<agent_id>-*.md`.
+_DRAFT_PATH_RE = re.compile(r"^\.forge/tasks/(T-\d{4,})/drafts/([^/]+?)-[^/]*\.md$")
+_DRAFT_TOKEN_RE = re.compile(r"(^|/)\.forge/tasks/T-\d{4,}/drafts/[^/]+\.md$")
+# Review #32: git subcommands a subagent may run (everything else is denied; name it in the HANDOFF).
+GIT_WORKER_ALLOW = ("add", "commit", "status", "log", "diff", "show", "rev-parse", "ls-files", "blame", "grep",
+                    "describe", "rev-list", "cat-file", "name-rev", "shortlog", "version", "help")
+_GIT_GLOBAL_VALUE_OPTS = ("-C", "-c", "--git-dir", "--work-tree", "--namespace", "--exec-path")
+# Review #6/#38: Forge scripts a subagent may never run, even through the exported PATH.
+FORGE_DENIED_SCRIPTS = ("forge-doctor", "forge-run", "forge-bench", "forge-hook")
+_FORGE_SCRIPT_RE = re.compile(r"^(\S*/)?\.forge/bin/(forge-[a-z-]+)$")
+# A reference may sit inside a nested command string (`bash -c '… .forge/x'`) or a heredoc body, so the
+# regexes accept any separator before the name, not only a path boundary.
+_FORGE_REF_RE = re.compile(r"(^|[\s/'\"=(,;:])\.forge(/|$|[\s'\"),;:])")
+_CLAUDE_REF_RE = re.compile(r"(^|[\s/'\"=(,;:])\.claude(/|$|[\s'\"),;:])")
+_META_FILE_RE = re.compile(r"(^|[\s/'\"=(,;:])(CLAUDE\.md|\.gitignore)(?![A-Za-z0-9_])")
+_BRIEF_TOKEN_RE = re.compile(r"(^|/)\.forge/tasks/T-\d{4,}/brief-\d{2}\.md$")
+# Readers whose segment may name CLAUDE.md / .gitignore / .claude/** (a read, never a write).
+META_READERS = ("cat", "head", "tail", "less", "more", "sed", "grep", "egrep", "rg", "wc", "diff", "stat", "file",
+                "ls", "find", "git")
+_SECRET_RE = re.compile(
+    r"(?i)(authorization\s*[=:]\s*(?:bearer|basic|token)\s+|"
+    r"(?:token|secret|password|passwd|api[_-]?key|authorization|bearer)\s*[=:]\s*|bearer\s+)(\S+)")
+_SECRET_SHAPE_RE = re.compile(r"\b(AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|"
+                              r"sk-[A-Za-z0-9_-]{16,}|xox[baprs]-[A-Za-z0-9-]{10,})\b")
+REDACTED = "[REDACTED]"
 
 _BRIEF_PATH_RE = re.compile(r"\.forge/tasks/(T-\d{4,})/brief-(\d{2})\.md")
-_BRIEF_READ_CMD_RE = re.compile(r"(^|[;&|]\s*)(cat|sed\s+-n|head)\s")
+_BRIEF_READ_CMD_RE = re.compile(r"(^|[;&|]\s*)(cat|sed\s+-n|head|less)\s")
 _FORGE_CHECK_RE = re.compile(r"forge-check\s+(T-\d{4,})\s+([A-Za-z0-9]+)")
-_GIT_PUSH_RE = re.compile(r"\bgit\s+push\b")
-_GIT_RESET_HARD_RE = re.compile(r"\bgit\s+reset\b[^;&|]*--hard\b")
-_GIT_CLEAN_RE = re.compile(r"\bgit\s+clean\b")
-_GIT_CHECKOUT_DOT_RE = re.compile(r"\bgit\s+checkout\b[^;&|]*\s--\s+\.(\s|$)")
 _EXIT_TEXT_RE = re.compile(r"[Ee]xit code[: ]+(\d+)")
 _FORGE_HOOK_CMD_RE = re.compile(r"forge-hook\b")
+
+
+# --------------------------------------------------------------------------- #
+# Redaction (review #34) and command tokenisation (reviews #6, #9, #32, #38)
+# --------------------------------------------------------------------------- #
+def redact(text: str) -> str:
+    """Mask credential-shaped substrings (`token=…`, `Authorization: Bearer …`, AKIA…, ghp_…, sk-…)."""
+    if not text:
+        return text
+    out = _SECRET_RE.sub(lambda m: m.group(1) + REDACTED, text)
+    return _SECRET_SHAPE_RE.sub(REDACTED, out)
+
+
+def _segments(cmd: str) -> List[str]:
+    """&&, ||, ;, | AND newline-separated segments (a newline is a separator too; review #8)."""
+    from . import gates
+    out: List[str] = []
+    for line in (cmd or "").splitlines():
+        out.extend(gates.split_segments(line))
+    return out
+
+
+def _tokens(seg: str) -> List[str]:
+    """shlex tokens of one segment (plain split on unbalanced quotes), leading VAR=value assignments dropped."""
+    import shlex
+    try:
+        toks = shlex.split(seg, posix=True)
+    except ValueError:
+        toks = seg.split()
+    while toks and "=" in toks[0] and not toks[0].startswith("-") and not toks[0].startswith(("/", ".", "~")):
+        toks.pop(0)
+    return toks
+
+
+def _command_word(toks: List[str]) -> str:
+    """Basename of the command word (after env assignments and a leading `sudo`/`command`/`exec`/`nice`)."""
+    i = 0
+    while i < len(toks) and os.path.basename(toks[i]) in ("sudo", "command", "exec", "nice", "env", "nohup", "time", "timeout"):
+        i += 1
+        # `timeout <n>` and `nice -n <n>` carry a value; skip numeric / dashed arguments
+        while i < len(toks) and (toks[i].startswith("-") or re.match(r"^[0-9]+[smhd]?$", toks[i])):
+            i += 1
+    return os.path.basename(toks[i]) if i < len(toks) else ""
+
+
+def _strip_redirect(tok: str) -> str:
+    """`>file`, `>>file`, `2>file`, `<file` -> `file`."""
+    return re.sub(r"^[0-9]?(>>|>|<)", "", tok)
+
+
+def _git_subcommand(toks: List[str]) -> Optional[str]:
+    """The git subcommand of a `git …` segment after its global options (-C dir, -c k=v, --git-dir …), else None."""
+    if _command_word(toks) != "git":
+        return None
+    i = toks.index(next(t for t in toks if os.path.basename(t) == "git")) + 1
+    while i < len(toks):
+        t = toks[i]
+        if t in _GIT_GLOBAL_VALUE_OPTS:
+            i += 2
+            continue
+        if any(t.startswith(o + "=") for o in _GIT_GLOBAL_VALUE_OPTS) or t.startswith("-"):
+            i += 1
+            continue
+        return t
+    return ""
+
+
+def _path_like(tok: str) -> bool:
+    t = _strip_redirect(tok)
+    if not t or t.startswith("-") or "://" in t:
+        return False
+    return t.startswith(("/", "./", "../", "~", ".forge", ".claude")) or "/" in t or t in ("CLAUDE.md", ".gitignore")
 
 
 # --------------------------------------------------------------------------- #
@@ -164,8 +264,10 @@ def _read_marker(ctx: Ctx, name: str) -> str:
 def _journal(ctx: Ctx, message: str, task_id: Optional[str] = None) -> None:
     """One journal line in the task journal (or the runtime log when no task is open)."""
     who = ctx.agent_id or "main"
+    if not os.path.isdir(ctx.paths.forge):
+        return   # review #37: never create .forge/ in a repository that has no Forge install
     try:
-        common.journal(ctx.paths, task_id or ctx.task_id, f"[{ctx.event}] {who}: {message}")
+        common.journal(ctx.paths, task_id or ctx.task_id, f"[{ctx.event}] {who}: {redact(message)}")
     except OSError:
         pass
 
@@ -245,8 +347,25 @@ def _safe_prefixes(ctx: Ctx) -> List[str]:
 
 
 def _tool_calls(ctx: Ctx, task_id: str, agent_id: str) -> int:
-    """bash|edit evidence rows of this agent (design §7 gate 2b)."""
-    return len(common.evidence_rows(ctx.paths, task_id, agent_id=agent_id, event=("bash", "edit")))
+    """Tool calls of this agent (design §7 gate 2b): the hook-owned counter in `.runtime/agents/<id>.json`
+    (incremented by _record_bash/_record_edit; review #6), falling back to bash|edit evidence rows when the
+    record is missing. The larger of the two wins, so a worker can never lower it by editing evidence."""
+    rec = _agent_record(ctx, agent_id)
+    counted = rec.get("tool_calls")
+    rows = len(common.evidence_rows(ctx.paths, task_id, agent_id=agent_id, event=("bash", "edit")))
+    if isinstance(counted, int) and not isinstance(counted, bool):
+        return max(int(counted), rows)
+    return rows
+
+
+def _count_tool_call(ctx: Ctx) -> None:
+    """Increment the hook-owned tool-call counter of a subagent (review #6)."""
+    if not ctx.agent_id:
+        return
+    rec = _agent_record(ctx, ctx.agent_id)
+    n = rec.get("tool_calls")
+    n = int(n) if isinstance(n, int) and not isinstance(n, bool) else 0
+    _merge_agent_record(ctx, ctx.agent_id, tool_calls=n + 1)
 
 
 def _budget_cap(ctx: Ctx, brief: Optional[Dict[str, Any]]) -> int:
@@ -343,15 +462,23 @@ def _policy_locked(ctx: Ctx, rel: str) -> bool:
     return rel in _manifest_paths(ctx)
 
 
-def _main_meta_allowed(rel: str) -> bool:
-    """Paths the architect may always edit (design §13.3 Edit row, main session)."""
+def _main_meta_allowed(ctx: Ctx, rel: str) -> Tuple[bool, Optional[str]]:
+    """(allowed, deny reason) for the architect's always-editable meta paths (design §13.3 Edit row).
+
+    `.forge/tasks/<id>/**` is allowed for the OPEN task only (review #49); another task's directory
+    returns a deny reason. (False, None) means "not a meta path: apply the fence"."""
+    if rel.startswith(".forge/tasks/"):
+        tid = ctx.task_id
+        if tid and rel.startswith(f".forge/tasks/{tid}/"):
+            return True, None
+        return False, f"{rel} is not under the open task's directory (.forge/tasks/{tid or '<none open>'}/): not the open task"
     for p in MAIN_META_ALLOW:
         if p.endswith("/"):
             if rel.startswith(p):
-                return True
+                return True, None
         elif rel == p:
-            return True
-    return common.any_glob(rel, MAIN_META_GLOBS) is not None
+            return True, None
+    return common.any_glob(rel, MAIN_META_GLOBS) is not None, None
 
 
 # --------------------------------------------------------------------------- #
@@ -382,7 +509,12 @@ def _maybe_bind(ctx: Ctx, rel: str) -> None:
         return
     _merge_agent_record(ctx, ctx.agent_id, agent_type=ctx.agent_type or ctx.role, task=task_id, step=step_id,
                         brief=rel, bound_at=common.now_iso())
+    _rm(ctx, _dispatch_marker(task_id, step_id))   # review #21: the dispatched worker has arrived
     _journal(ctx, f"bound {ctx.agent_id} ({ctx.role}) to {task_id}/{step_id}", task_id)
+
+
+def _dispatch_marker(task_id: str, step_id: str) -> str:
+    return f"dispatched-{task_id}-{step_id}"
 
 
 # --------------------------------------------------------------------------- #
@@ -417,6 +549,10 @@ def on_session_start(ctx: Ctx) -> Optional[Dict[str, Any]]:
         msg = _auto_resume(ctx)
         if msg:
             extra["initialUserMessage"] = msg
+        elif ctx.status is not None and ctx.task is None and ctx.status.get("context_state") == "stale":
+            # review #52: /clear after a close resets the stale flag even with no task open (RUNBOOK §6)
+            ok, why = _status_call(ctx, "fresh", stamp=False)
+            _journal(ctx, f"clear while idle and stale; fresh --no-stamp {'ok' if ok else 'failed: ' + str(why)}")
     _journal(ctx, f"session start ({source}) session {ctx.session_id}")
     return _context("SessionStart", text, **extra)
 
@@ -433,16 +569,14 @@ def on_session_start_role(ctx: Ctx) -> Optional[Dict[str, Any]]:
 
 
 def _export_env(ctx: Ctx) -> None:
-    """PATH and FORGE_ROOT exports for later Bash commands (RCC line 348)."""
-    env_file = os.environ.get("CLAUDE_ENV_FILE")
-    if not env_file:
-        return
-    try:
-        with open(env_file, "a", encoding="utf-8") as f:
-            f.write(f'export PATH="{ctx.paths.bin}:$PATH"\n')
-            f.write(f'export FORGE_ROOT="{ctx.paths.root}"\n')
-    except OSError:
-        pass
+    """PATH and FORGE_ROOT exports for later Bash commands (RCC line 348; design §13.3 SessionStart row).
+    A stale FORGE_ROOT can no longer redirect another checkout: forge_root() derives the root from
+    CLAUDE_PROJECT_DIR/cwd first and ignores a FORGE_ROOT naming a different repository (review #3)."""
+    # Deliberately exports nothing (review #3, observed in the field): an export written to
+    # CLAUDE_ENV_FILE outlives the session that wrote it and leaks another checkout's .forge/bin
+    # and root into every later shell. Every prompt names scripts by their full .forge/bin/ path,
+    # and forge_root() derives the root from the project directory, so no export is needed.
+    return
 
 
 def _evidence_after(ctx: Ctx, task_id: str, ts: int) -> bool:
@@ -706,7 +840,12 @@ def _pre_edit(ctx: Ctx) -> Optional[Dict[str, Any]]:
     path = _edit_path(ctx)
     if not path:
         return None
-    rel = ctx.paths.rel(path)
+    # reviews #9/#10: judge the symlink-resolved path and refuse anything that escapes the repository.
+    rel, ok, why = ctx.paths.safe_rel(path)
+    if not ok:
+        return _fence_deny(ctx, "outside-repo", f"{rel}: {why}")
+    if why:
+        _journal(ctx, f"edit {path} judged as {rel} ({why})")
     # design §7 gate 14: policy lock first, for every session.
     if _policy_locked(ctx, rel):
         return _fence_deny(ctx, "policy-lock", f"Forge-owned or policy file: change it with install.sh or by hand ({rel})")
@@ -715,9 +854,20 @@ def _pre_edit(ctx: Ctx) -> Optional[Dict[str, Any]]:
     return _pre_edit_main(ctx, rel)   # unknown roles follow the main-session rules
 
 
+def _draft_allowed(ctx: Ctx, rel: str) -> bool:
+    """review #17: `.forge/tasks/<id>/drafts/<agent_id>-*.md` of this agent's task (open task or the record's)."""
+    m = _DRAFT_PATH_RE.match(rel)
+    if not m or not ctx.agent_id or m.group(2) != ctx.agent_id:
+        return False
+    rec = _agent_record(ctx, ctx.agent_id)
+    return m.group(1) in {str(rec.get("task") or ""), str(ctx.task_id or "")}
+
+
 def _pre_edit_subagent(ctx: Ctx, rel: str) -> Optional[Dict[str, Any]]:
     """Worker scope fence (design §7 gate 2) and read-only roles (gate 2c)."""
     role = ctx.role
+    if _draft_allowed(ctx, rel):
+        return None
     if role == "forge-verifier":
         if rel.startswith(VERIFIER_MEMORY):
             return None
@@ -786,8 +936,11 @@ def _main_fence_rule(ctx: Ctx) -> Optional[Tuple[str, str]]:
 
 def _pre_edit_main(ctx: Ctx, rel: str) -> Optional[Dict[str, Any]]:
     """Plan-first / scope fence for the architect (design §3 step 2, §7 gate 1)."""
-    if _main_meta_allowed(rel):
+    meta_ok, meta_why = _main_meta_allowed(ctx, rel)
+    if meta_ok:
         return None
+    if meta_why:
+        return _fence_deny(ctx, "meta-task", meta_why)
     rule = _main_fence_rule(ctx)
     if rule:
         return _fence_deny(ctx, *rule)
@@ -795,7 +948,7 @@ def _pre_edit_main(ctx: Ctx, rel: str) -> Optional[Dict[str, Any]]:
     scope = _str_list(task.get("scope"))
     if common.any_glob(rel, scope) is None:
         if task.get("class") == "X":
-            hint = f".forge/bin/forge-status scope add {rel} --why \"...\" widens it"
+            hint = f".forge/bin/forge-status scope add {ctx.task_id} {rel} --why \"...\" widens it"
         else:
             hint = "re-open the task with the right --files/--creates, or open a new one"
         return _fence_deny(ctx, "scope", f"{rel} is outside the declared scope {scope}; {hint}")
@@ -813,6 +966,11 @@ def _pre_agent(ctx: Ctx) -> Optional[Dict[str, Any]]:
     sub = str(ti.get("subagent_type") or "")
     role_t = common.agent_role(sub) or ""
     task = ctx.task
+    if str(ti.get("isolation") or "") == "worktree" and (ctx.binding.get("git") or {}).get("worktree_isolation") is not True:
+        # review #16: tree_changed/_commit_step/recover are not worktree-aware until the probe proves the layout.
+        return _deny("isolation: worktree is not enabled: binding.git.worktree_isolation is false. Run "
+                     ".forge/bin/forge-doctor --worktree (/forge-doctor --worktree); the operator sets it to true "
+                     "only after the probe passes. Spawn without isolation.")
     if not re.match(r"^(forge:)?forge-", sub):
         _journal(ctx, f"builtin spawn: {sub or 'general-purpose'}")
         common.ledger(ctx.paths, {"event": "builtin", "task": ctx.task_id, "agent": "builtin", "subagent_type": sub or None,
@@ -880,11 +1038,17 @@ def _spawn_worker(ctx: Ctx, task: Dict[str, Any], role_t: str, model: str, effor
     """A builder/mechanic spawn must match a pending step, or a pre-started retry (design §3 step 5)."""
     tid = str(task.get("id"))
     steps = _steps(task)
+    if task.get("phase") == "intake":
+        # review #4: a builder dispatched during intake flips the phase and strands the corrected plan.
+        return _deny(f"{tid} is in phase intake: answer needs_clarification, then re-run "
+                     f".forge/bin/forge-status plan {tid} --from .forge/tasks/{tid}/plan.md before dispatching")
 
     def dispatchable(s: Dict[str, Any]) -> bool:
         if s.get("status") == "pending":
             return True
-        return s.get("status") == "running" and s.get("agent_id") is None and int(s.get("attempts") or 0) >= 1
+        if not (s.get("status") == "running" and s.get("agent_id") is None and int(s.get("attempts") or 0) >= 1):
+            return False
+        return _pending_dispatch(ctx, tid, s) is None
 
     matches = [s for s in steps if dispatchable(s) and s.get("agent") == role_t
                and common.alias_model(s.get("model")) == model and s.get("effort") == effort]
@@ -893,9 +1057,15 @@ def _spawn_worker(ctx: Ctx, task: Dict[str, Any], role_t: str, model: str, effor
                     for s in steps if dispatchable(s)]
         failed = [str(s.get("id")) for s in steps if s.get("status") == "failed"]
         running = [str(s.get("id")) for s in steps if s.get("status") == "running" and s.get("agent_id")]
+        awaited = [(str(s.get("id")), _pending_dispatch(ctx, tid, s)) for s in steps
+                   if s.get("status") == "running" and s.get("agent_id") is None and _pending_dispatch(ctx, tid, s)]
         if expected:
             reason = (f"spawn {role_t} {model}/{effort} matches no dispatchable step; expected one of: "
                       + "; ".join(expected))
+        elif awaited:
+            sid, who = awaited[0]
+            reason = (f"step {sid} already dispatched to a worker that has not bound yet ({who}); wait for it to read "
+                      f"its brief, or `.forge/bin/forge-status recover {tid} {sid} --force` if that Agent call failed")
         elif failed:
             reason = (f"step {', '.join(failed)} failed: run .forge/bin/forge-status step-start {tid} {failed[0]} "
                       f"--from failed|clean first")
@@ -914,7 +1084,46 @@ def _spawn_worker(ctx: Ctx, task: Dict[str, Any], role_t: str, model: str, effor
         started = True
     # A pre-started retry was already recorded by the architect's own step-start.
     _record_dispatch(ctx, ctx.task or task, step, role_t, model, effort, via_status=True)
+    # review #21: remember this dispatch until the worker binds (or the marker ages out / the attempt changes).
+    common.write_json_atomic(ctx.paths.rt(_dispatch_marker(tid, str(step.get("id")))),
+                             {"ts": common.now_ts(), "attempts": step.get("attempts"), "started_ts": step.get("started_ts"),
+                              "agent": role_t, "session_id": ctx.session_id})
     _journal(ctx, f"spawn guard allowed {role_t} on step {step.get('id')} ({'started now' if started else 'pre-started'})", tid)
+    return None
+
+
+def _pending_dispatch(ctx: Ctx, task_id: str, step: Dict[str, Any]) -> Optional[str]:
+    """Why a running-unbound step is already spoken for (review #21), else None.
+
+    A fresh spawn-guard marker for this attempt (≤ DISPATCH_MARKER_TTL_S old), or an agent record of the step's
+    role that started after this attempt began (bound to the step, or unbound and ≤ 10 min old)."""
+    sid = str(step.get("id"))
+    now = common.now_ts()
+    try:
+        marker = common.read_json(ctx.paths.rt(_dispatch_marker(task_id, sid)), default=None)
+    except common.ForgeError:
+        marker = None
+    if isinstance(marker, dict) and marker.get("attempts") == step.get("attempts") \
+            and marker.get("started_ts") == step.get("started_ts") and isinstance(marker.get("ts"), int) \
+            and now - int(marker["ts"]) < DISPATCH_MARKER_TTL_S:
+        return f"spawn guard dispatch at {marker['ts']}"
+    agents_dir = os.path.join(ctx.paths.runtime, "agents")
+    if not os.path.isdir(agents_dir):
+        return None
+    started_ts = int(step.get("started_ts") or 0)
+    for name in sorted(os.listdir(agents_dir)):
+        if not name.endswith(".json"):
+            continue
+        rec = _agent_record(ctx, name[:-5])
+        if rec.get("task") != task_id or common.agent_role(rec.get("agent_type")) != step.get("agent"):
+            continue
+        rec_ts = rec.get("started_ts") if isinstance(rec.get("started_ts"), int) else 0
+        if rec_ts < started_ts:
+            continue   # a worker of an earlier attempt
+        if rec.get("step") == sid:
+            return f"agent record {rec.get('agent_id')} bound to step {sid}"
+        if rec.get("step") is None and now - rec_ts < DISPATCH_MARKER_TTL_S:
+            return f"agent record {rec.get('agent_id')} started {now - rec_ts}s ago"
     return None
 
 
@@ -922,6 +1131,9 @@ def _spawn_verifier(ctx: Ctx, task: Dict[str, Any], role_t: str, model: str, eff
     """Verifier spawn rules (design §13.3 Agent row; §3 steps 9-10)."""
     tid = str(task.get("id"))
     cls, risk, phase = task.get("class"), task.get("risk"), task.get("phase")
+    if phase == "intake":
+        return _deny(f"{tid} is in phase intake: answer needs_clarification, then re-run "
+                     f".forge/bin/forge-status plan {tid} --from .forge/tasks/{tid}/plan.md; nothing to verify yet")
     rv = (task.get("routing") or {}).get("verifier") or {}
     reasons: List[str] = []
     for s in _steps_with(task, "reported"):
@@ -960,8 +1172,7 @@ def _spawn_verifier(ctx: Ctx, task: Dict[str, Any], role_t: str, model: str, eff
 # ---- Bash guard (design §7 gates 1, 2b, 2c, 10) --------------------------- #
 def _rm_recursive_outside(cmd: str, safe_dirs: List[str]) -> Optional[str]:
     """First target of a recursive `rm` not under a safe directory, else None."""
-    from . import gates
-    for seg in gates.split_segments(cmd):
+    for seg in _segments(cmd):
         toks = seg.split()
         while toks and "=" in toks[0] and not toks[0].startswith("-"):
             toks.pop(0)
@@ -982,8 +1193,7 @@ def _rm_recursive_outside(cmd: str, safe_dirs: List[str]) -> Optional[str]:
 
 def _status_write_subcommand(cmd: str) -> Optional[str]:
     """The forge-status subcommand in `cmd` when it writes STATUS (anything but get / validate)."""
-    from . import gates
-    for seg in gates.split_segments(cmd):
+    for seg in _segments(cmd):
         m = re.search(r"forge-status\b(.*)$", seg)
         if not m:
             continue
@@ -997,6 +1207,42 @@ def _status_write_subcommand(cmd: str) -> Optional[str]:
     return None
 
 
+def _bash_paths(ctx: Ctx, cmd: str) -> List[Tuple[str, str, bool, str]]:
+    """(token, rel, ok, why) via paths.safe_rel for every path-like token of every segment that lies inside the
+    repository lexically (paths outside, such as /tmp, are not judged here; the `rm -r` rule covers them)."""
+    out: List[Tuple[str, str, bool, str]] = []
+    for seg in _segments(cmd):
+        for tok in _tokens(seg):
+            if not _path_like(tok):
+                continue
+            t = os.path.expanduser(os.path.expandvars(_strip_redirect(tok)))
+            lexical = ctx.paths.rel(t)
+            if os.path.isabs(lexical) or lexical == ".." or lexical.startswith("../"):
+                continue
+            rel, ok, why = ctx.paths.safe_rel(t)
+            out.append((tok, rel, ok, why))
+    return out
+
+
+def _bash_symlink_policy(ctx: Ctx, cmd: str, mutating: bool, strict: bool) -> Optional[str]:
+    """Deny reason when a path argument escapes the repository through a symlink (judged for write-shaped
+    commands) or reaches Forge state / a policy-locked file through one (reviews #9/#10). `strict` (subagents)
+    denies any link into .forge/, .claude/, CLAUDE.md or .gitignore; the main session denies a link into a
+    policy-locked file for write-shaped commands."""
+    for tok, rel, ok, why in _bash_paths(ctx, cmd):
+        if not ok:
+            if mutating:
+                return f"{tok}: {why}"
+            continue
+        if not why:
+            continue
+        if strict and (rel.startswith((".forge/", ".claude/")) or rel in ("CLAUDE.md", ".gitignore")):
+            return f"{tok} resolves to {rel} ({why}); subagents never touch Forge state or policy files"
+        if mutating and _policy_locked(ctx, rel):
+            return f"{tok} resolves to the Forge-owned or policy file {rel} ({why}); change it with install.sh or by hand"
+    return None
+
+
 def _pre_bash(ctx: Ctx) -> Optional[Dict[str, Any]]:
     cmd = str(ctx.tool_input.get("command") or "")
     if not cmd.strip():
@@ -1004,15 +1250,19 @@ def _pre_bash(ctx: Ctx) -> Optional[Dict[str, Any]]:
     if ctx.is_subagent and ctx.role in common.ALL_ROLES:
         return _pre_bash_subagent(ctx, cmd)
     from . import gates
+    mutating = gates.looks_mutating(cmd, _safe_prefixes(ctx))
+    bad_link = _bash_symlink_policy(ctx, cmd, mutating=mutating, strict=False)
+    if bad_link:
+        return _fence_deny(ctx, "policy-lock", bad_link)
     # design §7 gate 10: irreversible commands ask (interactive) or are denied (driver mode).
     pat = gates.irreversible_match(cmd, _str_list(ctx.binding.get("irreversible_commands")))
     if pat:
         if _marker(ctx, "driver"):
             return _fence_deny(ctx, "irreversible", f"irreversible command (binding pattern {pat!r}) is denied in driver "
                                                     "mode: a human runs it; forge-run blocks the phase")
-        _journal(ctx, f"irreversible command asks for confirmation ({pat!r}): {cmd[:120]}")
+        _journal(ctx, f"irreversible command asks for confirmation ({pat!r}): {redact(cmd[:120])}")
         return _ask(f"irreversible command: matches binding.irreversible_commands pattern {pat!r}")
-    if gates.looks_mutating(cmd, _safe_prefixes(ctx)):
+    if mutating:
         rule = _main_fence_rule(ctx)
         if rule:
             return _fence_deny(ctx, rule[0], "source changes go through the fence: use Edit/Write inside the declared "
@@ -1022,17 +1272,95 @@ def _pre_bash(ctx: Ctx) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _forge_segment_rule(toks: List[str]) -> Optional[str]:
+    """Deny reason when a subagent segment touches `.forge/` outside the allow-list (review #6):
+    `.forge/bin/forge-check …`, `.forge/bin/forge-gate …` (a draft under .forge/tasks/<id>/drafts/ may be named),
+    `.forge/bin/forge-status get …`, or `cat|sed -n|head|less` of `.forge/tasks/<id>/brief-NN.md`. Also denies
+    forge-doctor/forge-run/forge-bench/forge-hook however they are reached, and any interpreter run on a file
+    under .forge/."""
+    if not toks:
+        return None
+    word = _command_word(toks)
+    if word in FORGE_DENIED_SCRIPTS:
+        return f"subagents never run {word} (operator-only; it changes gates, state or sessions)"
+    refs = [t for t in toks if _FORGE_REF_RE.search(_strip_redirect(t))]
+    if not refs:
+        return None
+    head = next((t for t in toks if os.path.basename(t) == word), toks[0])
+    m = _FORGE_SCRIPT_RE.match(head)
+    if m:
+        script = m.group(2)
+        rest = [t for t in toks[toks.index(head) + 1:]]
+        if script in ("forge-check", "forge-gate"):
+            stray = [t for t in rest if _FORGE_REF_RE.search(_strip_redirect(t))
+                     and not (_DRAFT_TOKEN_RE.search(t) or _BRIEF_TOKEN_RE.search(t))]
+            if stray:
+                return f"{script} may name only your draft or brief under .forge/tasks/<id>/ (not {stray[0]})"
+            return None
+        if script == "forge-status":
+            sub = next((t for t in rest if not t.startswith("-")), None)
+            stray = [t for t in rest if _FORGE_REF_RE.search(_strip_redirect(t))]
+            if sub == "get" and not stray:
+                return None
+            return f"subagents may run forge-status get only (not forge-status {sub or ''}); hooks record your work"
+        return f"subagents never run .forge/bin/{script}"
+    if word in ("cat", "head", "less", "more") or (word == "sed" and len(toks) > 1 and toks[1].startswith("-n")):
+        if all(_BRIEF_TOKEN_RE.search(t) for t in refs) and not any(_strip_redirect(t) != t for t in toks):
+            return None
+        return f"from the shell a subagent may read only its brief under .forge/tasks/<id>/ (not {refs[0]})"
+    return (f"subagents never touch .forge/ from the shell ({refs[0]}); allowed: .forge/bin/forge-check, "
+            f".forge/bin/forge-gate, .forge/bin/forge-status get, and cat/sed -n/head of your brief")
+
+
+def _meta_segment_rule(toks: List[str]) -> Optional[str]:
+    """Deny reason when a subagent segment writes CLAUDE.md, .gitignore or .claude/** (review #38): only a
+    plain reader command (cat, head, grep, git diff …) with no redirect may name them."""
+    refs = [t for t in toks if _META_FILE_RE.search(_strip_redirect(t)) or _CLAUDE_REF_RE.search(_strip_redirect(t))]
+    if not refs:
+        return None
+    word = _command_word(toks)
+    redirected = any(_strip_redirect(t) != t or t in (">", ">>", "<") for t in toks)
+    writes = ((word == "sed" and any(t.startswith("-i") for t in toks))
+              or (word == "find" and any(t in ("-delete", "-exec", "-execdir", "-ok", "-okdir") or t.startswith("-fprint") for t in toks))
+              or (word == "git" and _git_subcommand(toks) not in ("diff", "log", "show", "status", "blame", "grep", "ls-files")))
+    if word in META_READERS and not redirected and not writes:
+        return None
+    return (f"subagents never write CLAUDE.md, .gitignore or .claude/** from the shell ({refs[0]}); only the librarian "
+            "edits CLAUDE.md and agent memory, with Edit/Write")
+
+
 def _pre_bash_subagent(ctx: Ctx, cmd: str) -> Optional[Dict[str, Any]]:
     from . import gates
     role = ctx.role
-    if _GIT_PUSH_RE.search(cmd):
-        return _deny("workers never git push")
-    if _GIT_RESET_HARD_RE.search(cmd):
-        return _deny("workers never git reset --hard")
-    if _GIT_CLEAN_RE.search(cmd):
-        return _deny("workers never git clean")
-    if _GIT_CHECKOUT_DOT_RE.search(cmd):
-        return _deny("workers never git checkout -- . (that discards the tree)")
+    for seg in _segments(cmd):
+        toks = _tokens(seg)
+        if not toks:
+            continue
+        word = _command_word(toks)
+        # review #32: git is allow-listed by subcommand after its global options (-C dir, -c k=v, …).
+        git_sub = _git_subcommand(toks)
+        if git_sub is not None:
+            if git_sub == "push":
+                return _deny("workers never git push")
+            if git_sub == "stash":
+                i = toks.index("stash")
+                if i + 1 >= len(toks) or toks[i + 1] not in ("list", "show"):
+                    return _deny("workers never git stash (that hides the operator's tree); name the operation in your HANDOFF")
+            elif git_sub not in GIT_WORKER_ALLOW:
+                return _deny(f"workers never run git {git_sub or '(no subcommand)'}; allowed: git "
+                             f"{'|'.join(GIT_WORKER_ALLOW[:9])}, stash list; name anything else in your HANDOFF")
+        if word == "ln":
+            return _deny("workers never create links (ln): a link could route an edit around the fences (review #9)")
+        why = _forge_segment_rule(toks)
+        if why:
+            return _deny(why)
+        why = _meta_segment_rule(toks)
+        if why:
+            return _deny(why)
+    # reviews #9/#10: path arguments are judged by their symlink-resolved target.
+    bad_link = _bash_symlink_policy(ctx, cmd, mutating=gates.looks_mutating(cmd, _verify_prefixes(ctx)), strict=True)
+    if bad_link:
+        return _deny(bad_link)
     safe = list(RM_SAFE_DIRS) + [str(ctx.stdin.get("scratchpad_dir") or ""), os.environ.get("TMPDIR") or ""]
     bad = _rm_recursive_outside(cmd, safe)
     if bad:
@@ -1088,9 +1416,11 @@ def _record_edit(ctx: Ctx) -> None:
     path = _edit_path(ctx)
     if not path:
         return
-    rel = ctx.paths.rel(path)
+    rel, _ok, _why = ctx.paths.safe_rel(path)   # the resolved target, so evidence names the real file (#9)
     kind = common.edit_kind(ctx.paths, rel)
     tid = _evidence_task_id(ctx)
+    if ctx.is_subagent:
+        _count_tool_call(ctx)   # review #6: the budget counter lives in the hook-owned agent record
     if tid:
         common.evidence_append(ctx.paths, tid, {"agent_id": ctx.agent_id or "main", "agent_type": ctx.role or "main",
                                                 "event": "edit", "kind": kind, "file": rel})
@@ -1128,11 +1458,17 @@ def _best_effort_exit(obj: Any) -> Optional[int]:
 def _record_bash(ctx: Ctx, ok: bool) -> None:
     cmd = str(ctx.tool_input.get("command") or "")
     source = ctx.stdin.get("tool_response") if ok else ctx.stdin.get("error")
+    # review #34: evidence is committed at close; redact credential shapes and cap the stored command.
+    stored = redact(cmd)
+    if len(stored) > EVIDENCE_CMD_MAX_CHARS:
+        stored = stored[:EVIDENCE_CMD_MAX_CHARS - 1] + "…"
     row: Dict[str, Any] = {"agent_id": ctx.agent_id or "main", "agent_type": ctx.role or "main", "event": "bash",
-                           "ok": ok, "exit": _best_effort_exit(source), "cmd": cmd}
+                           "ok": ok, "exit": _best_effort_exit(source), "cmd": stored}
     if not ok:
         err = source if isinstance(source, str) else json.dumps(source, ensure_ascii=False, default=str)
-        row["error_head"] = (err or "")[:200]
+        row["error_head"] = redact((err or "")[:200])
+    if ctx.is_subagent:
+        _count_tool_call(ctx)   # review #6
     tid = _evidence_task_id(ctx)
     if tid:
         common.evidence_append(ctx.paths, tid, row)
@@ -1177,6 +1513,9 @@ def _stamp_checks(ctx: Ctx, cmd: str) -> None:
     rec["agent_id"] = agent
     if agent == "main":
         rec["session_id"] = ctx.session_id
+    for res in rec.get("results") or []:   # review #34: output tails are committed at close
+        if isinstance(res, dict) and isinstance(res.get("tail"), str):
+            res["tail"] = redact(res["tail"])
     new = os.path.join(d, f"{step}-{newest[0]}-{agent}.json")
     common.write_json_atomic(new, rec)
     if new != old:
@@ -1276,7 +1615,8 @@ def _commit_step(ctx: Ctx, task_id: str, step_id: str, title: str, attempt: int,
     from . import gates
     root = ctx.paths.root
     files = gates.tree_changed(ctx.paths, allowed_paths)
-    pathspecs = files + [f".forge/tasks/{task_id}/"]
+    # review #17: pre-validation drafts under .forge/tasks/<id>/drafts/ are scratch, never part of the step commit.
+    pathspecs = files + [f".forge/tasks/{task_id}/", f":(exclude).forge/tasks/{task_id}/drafts"]
     code, out = common.git(["add", "-A", "--"] + pathspecs, root)
     if code != 0:
         return None, f"git add failed: {out.strip()[:200]}"
@@ -1303,6 +1643,18 @@ def _stop_builder(ctx: Ctx, text: str) -> Optional[Dict[str, Any]]:
     tid, sid = str(tid), str(sid)
     task = ctx.task if ctx.task and ctx.task.get("id") == tid else None
     step = common.find_step(task, sid) if task else None
+    # review #14: a worker resumed (SendMessage) after its return was recorded answers in prose; its step is
+    # reported/verifying/done and no transition is expected, so the gate neither validates nor persists.
+    if step and step.get("status") not in ("running", "failed", "blocked"):
+        _journal(ctx, f"non-handoff return on step {sid} ({step.get('status')}); nothing validated or persisted", tid)
+        return None
+    handoff_shaped = bool(common.json_block(text)) or any(
+        gates._heading_present(common.headings(text), h) for h in common.HANDOFF_MANDATORY_HEADINGS)
+    if step and step.get("report") and rec.get("handoff_persisted") and not handoff_shaped:
+        # a resumed worker on a failed/blocked step answering a question: its earlier report stands.
+        _journal(ctx, f"non-handoff return on step {sid} ({step.get('status')}, report {step.get('report')} on file); "
+                      "nothing persisted", tid)
+        return None
     red_ok = bool(step and step.get("red_ok_until"))
     defects, parsed = gates.handoff_validate(ctx.paths, tid, sid, text, agent_id=ctx.agent_id, red_ok=red_ok)
     blocks = _gate_blocks(ctx)
@@ -1310,13 +1662,24 @@ def _stop_builder(ctx: Ctx, text: str) -> Optional[Dict[str, Any]]:
         n = _count_block(ctx, tid, "handoff", "; ".join(defects[:3]))
         return _block(f"Handoff gate ({n}/{common.GATE_BLOCK_CAP}) refused your return:\n- " + "\n- ".join(defects)
                       + f"\nFix, re-run .forge/bin/forge-check {tid} {sid} after your last edit, pre-validate with "
-                        f".forge/bin/forge-gate --handoff {tid} {sid} --from-file <draft> --agent {ctx.agent_id}, then redo the HANDOFF.")
+                        f".forge/bin/forge-gate --handoff {tid} {sid} --from-file .forge/tasks/{tid}/drafts/{ctx.agent_id}-handoff.md "
+                        f"--agent {ctx.agent_id}, then redo the HANDOFF.")
     unverified = bool(defects)
     if unverified:
         parsed = _synth_handoff(tid, sid, parsed, defects)
         _journal(ctx, f"HANDOFF-GATE-BYPASSED after {blocks} blocks; stamped UNVERIFIED; defects: " + " | ".join(defects[:3]), tid)
+        existing = str((step or {}).get("report") or "")
+        if existing and common.exists(os.path.join(ctx.paths.root, existing)):
+            # review #14: never overwrite this attempt's recorded report with the synthesized stub.
+            stub_md = ctx.paths.task_file(tid, f"report-{sid}.unverified.md")
+            stub_js = ctx.paths.task_file(tid, f"report-{sid}.unverified.json")
+            common.write_text_atomic(stub_md, text if text.endswith("\n") else text + "\n")
+            common.write_json_atomic(stub_js, parsed)
+            _journal(ctx, f"UNVERIFIED stub written to {ctx.paths.rel(stub_js)}; {existing} left intact; no transition", tid)
+            return None
     assert parsed is not None
     md, js = gates.persist_handoff(ctx.paths, tid, sid, text, parsed)
+    _merge_agent_record(ctx, ctx.agent_id, handoff_persisted=js)
     commit: Optional[str] = None
     if not unverified and parsed.get("status") in ("DONE", "DONE_WITH_CONCERNS"):
         bm = gates.brief_meta(ctx.paths, tid, sid) or {}
@@ -1374,6 +1737,15 @@ def _stop_verifier(ctx: Ctx, text: str) -> Optional[Dict[str, Any]]:
         return _block("no Forge task is open; nothing to verify")
     task = ctx.task if ctx.task and ctx.task.get("id") == tid else None
     sid = _resolve_verify_step(ctx, rec, task, text)
+    step = common.find_step(task, sid) if task else None
+    # review #14: a verifier resumed after its verdict was recorded (step no longer verifying, or this agent's
+    # inline verdict already on file) answers in prose; nothing is validated, persisted or transitioned.
+    if step is not None and step.get("status") != "verifying":
+        _journal(ctx, f"non-verdict return on step {sid} ({step.get('status')}); nothing validated or persisted", tid)
+        return None
+    if step is None and rec.get("verdict_persisted"):
+        _journal(ctx, f"non-verdict return: inline verdict {rec.get('verdict_persisted')} already on file; nothing persisted", tid)
+        return None
     defects, parsed = gates.verdict_validate(ctx.paths, tid, sid, text, agent_id=ctx.agent_id)
     blocks = _gate_blocks(ctx)
     if defects and blocks < common.GATE_BLOCK_CAP:
@@ -1385,10 +1757,18 @@ def _stop_verifier(ctx: Ctx, text: str) -> Optional[Dict[str, Any]]:
         _journal(ctx, f"VERDICT-GATE-BYPASSED after {blocks} blocks; verdict rewritten UNKNOWN; defects: " + " | ".join(defects[:3]), tid)
     assert parsed is not None
     md, js = gates.persist_verdict(ctx.paths, tid, sid, text, parsed)
+    _merge_agent_record(ctx, ctx.agent_id, verdict_persisted=js)
     if sid == "main" or not (task and common.find_step(task, sid)):
-        # Inline tasks have no step to transition: the architect closes with the verdict on file, and
-        # no forge-status call writes the ledger `verdict` row, so the hook does.
-        _journal(ctx, f"inline verdict {parsed.get('verdict')} persisted {js}; close the task with /forge-close", tid)
+        # Inline tasks (S/X, or an L spot-check once every step is done): forge-status step-verdict
+        # <id> main records task.inline_verdict, writes the ledger `verdict` row and sets the phase
+        # (review #22). If that call fails, fall back to a journal line + ledger row and mark
+        # dirty-worker so the Stop gate asks the architect to repair STATUS.
+        ok, msg = _status_call(ctx, "step_verdict", tid, "main", js)
+        if ok:
+            _journal(ctx, f"inline verdict {parsed.get('verdict')} recorded from {js}", tid)
+            return None
+        _touch(ctx, "dirty-worker")
+        _journal(ctx, f"forge-status step-verdict {tid} main failed: {msg}; dirty-worker set; verdict file {js}", tid)
         prev = _last_dispatch(ctx, tid, None, "forge-verifier") or {}
         common.ledger(ctx.paths, {"event": "verdict", "task": tid, "step": sid, "class": (task or {}).get("class"),
                                   "agent": "forge-verifier", "verdict": parsed.get("verdict"),
@@ -1437,6 +1817,12 @@ def on_stop(ctx: Ctx) -> Optional[Dict[str, Any]]:
     task = ctx.task
     sha = common.sha256_file(paths.status) or ""
     if task is None or task.get("phase") in STOP_ALLOW_PHASES:
+        # review #15: no transition can be owed while idle or in a terminal phase; a leaked marker would
+        # otherwise block manual compaction for good (block/unblock/close never clear dirty-worker).
+        for name in ("dirty-main", "dirty-worker", "stale-status"):
+            if _marker(ctx, name):
+                _rm(ctx, name)
+                _journal(ctx, f"{name} cleared on stop ({'idle' if task is None else 'phase ' + str(task.get('phase'))})")
         return None
     if ctx.stdin.get("stop_hook_active") is True and sha == _read_marker(ctx, "last-block.sha"):
         return None   # RCC line 304: never re-block on an unchanged state
@@ -1476,6 +1862,9 @@ def on_stop(ctx: Ctx) -> Optional[Dict[str, Any]]:
 def on_pre_compact(ctx: Ctx) -> Optional[Dict[str, Any]]:
     if ctx.stdin.get("trigger") != "manual":
         return None   # RCC line 423: never block auto compaction
+    task = ctx.task
+    if task is None or task.get("phase") in STOP_ALLOW_PHASES:
+        return None   # review #15: dirty markers mean nothing while idle or in a terminal phase
     if _marker(ctx, "dirty-main") or _marker(ctx, "dirty-worker"):
         _journal(ctx, "manual compaction blocked: dirty markers present")
         return _block("checkpoint with .forge/bin/forge-status, then /compact")
@@ -1545,8 +1934,9 @@ def on_config_change(ctx: Ctx) -> Optional[Dict[str, Any]]:
     if not problems:
         return None
     _journal(ctx, "CONFIG-GUARD: " + "; ".join(problems))
-    return _block("Forge hooks changed: run install.sh --upgrade or /forge-doctor --disable-gate <name> ("
-                  + "; ".join(problems) + ")")
+    # review #62: the bypass is the operator's shell command, not the /forge-doctor skill (which never disables a gate).
+    return _block("Forge hooks changed: run install.sh --upgrade, or (operator only, from a shell) "
+                  "`.forge/bin/forge-doctor --disable-gate <name>` (" + "; ".join(problems) + ")")
 
 
 # --------------------------------------------------------------------------- #
@@ -1606,10 +1996,13 @@ def dispatch(stdin: Dict[str, Any], flags: set) -> Optional[Dict[str, Any]]:
     """Run the handler for `stdin.hook_event_name`; return the stdout JSON or None.
 
     flags ⊆ {"role", "plugin"}. `--plugin` returns None at once when `<root>/.forge/VERSION`
-    exists (the plain-layout install owns the hooks; design §13.5). Never raises."""
+    exists (the plain-layout install owns the hooks; design §13.5) and, reviews #1/#2/#37, when the
+    resolved root carries no Forge install at all (neither `.forge/binding.json` nor `.forge/STATUS.json`):
+    a user-scope plugin must be a complete no-op in every other repository (no output, no files).
+    Never raises."""
     event = str(stdin.get("hook_event_name") or "")
     try:
-        if "plugin" in flags and common.exists(common.Paths().version_file):
+        if "plugin" in flags and not plugin_owns_hooks(common.Paths()):
             return None
         handler = HANDLERS.get(event)
         if handler is None:
@@ -1619,7 +2012,17 @@ def dispatch(stdin: Dict[str, Any], flags: set) -> Optional[Dict[str, Any]]:
         tb = traceback.format_exc()
         common.eprint(f"forge-hook: {event} handler crashed:\n{tb}")
         try:
-            common.journal(common.Paths(), None, f"[{event}] CRASH {type(exc).__name__}: {exc}")
+            paths = common.Paths()
+            if os.path.isdir(paths.forge):   # review #37: never create .forge/ as a side effect
+                common.journal(paths, None, f"[{event}] CRASH {type(exc).__name__}: {exc}")
         except Exception:
             pass
         return _crash_output(event, exc)
+
+
+def plugin_owns_hooks(paths: common.Paths) -> bool:
+    """True when the plugin form must run the handlers: a Forge install (binding.json or STATUS.json) exists
+    at the resolved root and `.forge/VERSION` does not (the plain layout registers its own hooks)."""
+    if common.exists(paths.version_file):
+        return False
+    return common.exists(paths.binding) or common.exists(paths.status)

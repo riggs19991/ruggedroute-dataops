@@ -8,8 +8,8 @@ Every file the Forge puts into a consumer repository has exactly one owner. **Ow
 
 | Owner | Files | On upgrade |
 |---|---|---|
-| **Forge-owned** | `.forge/FORGE.md`, `RUNBOOK.md`, `ROUTING.md`, `HOOKS.md`, `SCHEMAS.md`, `GATES.md`, `ROLE-architect.md`, `VERSION`; `.forge/bin/**`; `.forge/schemas/**`; `.forge/templates/**`; `.forge/install-manifest.json`; `.claude/agents/forge-*.md`; `.claude/skills/forge-*/`; `.claude/rules/forge-stack-*.md`; `.claude/settings.forge.json` | overwritten; a file whose sha256 differs from `install-manifest.json` is reported first (it was edited locally) and is only replaced with `--force` |
-| **Merged** | `.claude/settings.json` | scalars from the fragment are written only when absent locally (unless `--force`); arrays are unioned; hook entries whose `command` starts with `"$CLAUDE_PROJECT_DIR"/.forge/bin/` are replaced, every other entry is kept; `permissions.allow` gains one `Bash(<prefix> *)` per `binding.verify[].cmd` |
+| **Forge-owned** | `.forge/FORGE.md`, `RUNBOOK.md`, `ROUTING.md`, `HOOKS.md`, `SCHEMAS.md`, `GATES.md`, `ROLE-architect.md`, `VERSION`; `.forge/bin/**`; `.forge/schemas/**`; `.forge/templates/**`; `.forge/install-manifest.json`; `.claude/agents/forge-*.md`; `.claude/skills/forge-*/`; `.claude/rules/forge-stack-*.md`; `.claude/settings.forge.json` | overwritten; a file whose sha256 differs from `install-manifest.json` (edited locally) is named in a warning: `--upgrade` backs it up to `.forge/incidents/upgrade-<ts>/` and replaces it, a plain install refuses it unless `--force` |
+| **Merged** | `.claude/settings.json` | scalars from the fragment are written only when absent locally; a differing local scalar (`model`, `effortLevel`, `env.*`, …) is kept and printed as `settings: <key> local=… -> fragment=…`, and only `--force-settings` applies the fragment's value (`--force` never touches settings); arrays are unioned; hook entries whose `command` starts with `"$CLAUDE_PROJECT_DIR"/.forge/bin/` are replaced, every other entry is kept; `permissions.allow` gains one `Bash(<prefix> *)` per `binding.verify[].cmd`, `bootstrap` and `smoke` (the fragment itself carries no project-specific command rule) |
 | **Merged** | `CLAUDE.md` | only the text between `<!-- forge:begin … -->` and `<!-- forge:end -->` is replaced |
 | **Project-owned** | `.forge/binding.json`, `STATUS.json`, `ledger.jsonl`, `history.jsonl`, `queue.jsonl`, `CHANGELOG.md`, `COST-REPORT.md`, `tasks/**`, `lessons/**`, `decisions/**`, `archive/**`; `.claude/agent-memory/**`; `.claude/rules/project-*.md` | never touched, except by a migration on a schema MAJOR |
 | **Local, gitignored** | `.forge/.runtime/`, `.forge/incidents/` | left alone |
@@ -39,7 +39,9 @@ consumer copy is `.forge/VERSION`; a consumer may pin the version it expects in 
    It lists the Forge-owned files it would overwrite, the ones that drifted from the manifest, the settings entries it would replace,
    and the migrations it would apply.
 3. Resolve drift: for each locally edited Forge-owned file, either upstream the change to the Forge repo or accept the overwrite
-   (`--force`). Never keep a local edit to a Forge-owned file; the next upgrade would lose it.
+   (`--upgrade` keeps a backup under `.forge/incidents/upgrade-<ts>/`). Never keep a local edit to a Forge-owned file; the next upgrade
+   would replace it. Review the `settings: <key> local=… -> fragment=…` lines and pass `--force-settings` only if you want the
+   fragment's values.
 4. Run the upgrade (`--upgrade` without `--dry-run`). In order it: applies `migrations/` newer than `.forge/VERSION` (idempotent,
    only these may touch project-owned files), overwrites Forge-owned files, re-merges settings and the CLAUDE.md fragment, rewrites
    `install-manifest.json` and `.forge/VERSION`, prints the CHANGELOG delta and runs `.forge/bin/forge-doctor --report --no-probes`.

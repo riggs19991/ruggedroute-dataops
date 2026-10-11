@@ -14,7 +14,7 @@ often the cheapest solver per task.
 
 | Signal | Source | Used for |
 |---|---|---|
-| `files`, `dirs`, `creates` | the architect's `--files` / `--creates` declaration (`size_source: declared`) | size class; inline `allowed_paths` for T/S/X; the scope ceiling for every class |
+| `files`, `dirs`, `creates` | the architect's `--files` / `--creates` declaration (`size_source: declared`; a `--files` path must exist). `dirs` counts distinct parent directories with a trailing `tests/` or `__tests__/` folded into the directory it tests (`layers/x/layer.json` + `layers/x/tests/test_a.py` = one dir) | size class; inline `allowed_paths` for T/S/X; the scope ceiling for every class |
 | `importers` | `git grep -l` of each declared module's import name, count only | advisory: ≥ 5 raises the S verifier Sonnet → Opus; ≥ 10 raises the M verifier Opus → Fable |
 | `recent_cochanges` | `git log --name-only -20 -- <declared>` | advisory: files that usually change together but are not declared go into the plan's *Current State* |
 | `tests_present` | for every declared or created source path, a `binding.test_globs` file exists where its tests live, or the plan's first DoD adds one | whether cheap-first routing is **allowed** (rule 2) |
@@ -34,7 +34,7 @@ Title-token grep is **never** used for size: on this kind of repo it produced 15
 | **S** | ≤ 3 files, ≤ 2 dirs, tests present (or the plan adds them first), no risk hits, no novelty | inline plan section by the architect (`mode: inline`, zero steps) | architect inline | inline | `forge-verifier sonnet/medium` only if tests were added or changed (`opus` when `importers ≥ 5`); else `forge-check` | 3 |
 | **M** | 3-10 files and ≤ 3 dirs, one dependent chain, clear after planning | M-small (≤ 5 files ∧ ≤ 2 dirs ∧ no risk): the architect writes plan + brief; M-large: `forge-planner fable/medium` | **one** `forge-builder opus/medium` (`fable/low` when `chain` or `binding.routing.m_builder == "fable-low"`) | single, **exactly one step** | **one** `forge-verifier opus/medium` (`fable` when `important_hits` or `importers ≥ 10`) | 10 (12 chain) |
 | **W** | one dependent chain, > 10 files or > 3 dirs, no disjoint split | `forge-planner fable/high` | `forge-builder-wide fable/low` (`medium` on retry) | single, one step | `forge-verifier fable/medium` | 25 |
-| **L** | ≥ 3 units with pairwise-disjoint `allowed_paths` | `forge-planner fable/high` | per unit: `forge-builder-s sonnet/medium`; `forge-mechanic haiku/medium` when `mechanical` and clear of `mechanic_denied_paths`; `forge-builder opus/medium` for an M-sized unit; a shared prerequisite may be `red_ok_until` | sequential; `parallel` only with proven worktrees | per unit `sonnet/medium`; then one `fable/medium` spot-check (20%, min 1) + the full suite | Σ unit budgets × 1.2 |
+| **L** | ≥ 3 units with pairwise-disjoint `allowed_paths` | `forge-planner fable/high` | per unit: `forge-builder-s sonnet/medium`; `forge-mechanic haiku/medium` when `mechanical` and clear of `mechanic_denied_paths`; `forge-builder opus/medium` for an M-sized unit; a shared prerequisite may be `red_ok_until` | `single` with `sequential_units: true` (units dispatched one after another); `parallel` only with proven worktrees (rule 1) | per unit `sonnet/medium`; then one `fable/medium` spot-check (20%, min 1) + the full suite | Σ unit budgets × 1.2 |
 | **X** | novel, ambiguous, root-cause/outage, architecture change, or two prior escalations on one step | short inline plan section (hypothesis, DoD, rollback) | **architect inline** (`fable`, `medium` via `/forge-investigate`) | inline | `forge-verifier fable/medium`, mandatory | 30 |
 | **R** overlay | any risk hit (workflow YAML, upload / alias-flip code, licence or attribution fields, secrets, deletions …) | plan must have *Rollback* with a command | T/S-sized: architect inline at `medium`; M/W/L: floor `forge-builder fable/low`; `forge-builder-s` / `forge-mechanic` forbidden | per base class | `forge-verifier fable/medium`; irreversible commands `ask` (interactive) / `deny` + blocked (driver); `close --human-ack` | base × 1.5 |
 
@@ -65,8 +65,10 @@ Why each row looks the way it does:
 6. **Escalation ladder, capped.** Round 1: resume the same worker (`SendMessage`) with the blocking findings; its block counter resets.
    Round 2: `.forge/bin/forge-status step-start <id> <NN> --from failed|clean` (mandatory once `attempts > 1`), then a fresh worker one
    rung up — `sonnet/medium → opus/medium → fable/low → fable/medium` — with the verdict appended to the brief's *Known failed
-   approaches*. Round 3: `ruling.md` (Decision — Why — Cost if wrong — Evidence), then re-plan or `block`. `step-start` refuses
-   `attempts > 3` without a ruling; `verify_attempts` is capped at 2 per step without a ruling.
+   approaches*. Round 3: `ruling.md` (Decision — Why — Cost if wrong — Evidence), then re-plan or `block --on "…"`. `step-start`
+   refuses a fourth attempt without a ruling. `verify_attempts` counts verifier runs **per attempt** (capped at 2 without a ruling)
+   and every `step-start` resets it to 0: round 1's resumed worker is verified a second time on attempt 1, and round 2's fresh
+   worker gets its own two verifier runs on attempt 2, so the ladder never needs a ruling before round 3.
 7. **Environmental failures do not escalate.** A FAIL whose blocking findings are all tagged `env-cannot-run` sets
    `phase: awaiting_external` with `next_action` naming the exact local commands: no builder re-run, no round increment.
 8. **Price the tail, don't hide it.** X, W and R rows carry `expected_premium: true` in the ledger.
@@ -83,7 +85,8 @@ Why each row looks the way it does:
 12. **Re-sweep per model generation** (checklist below; `forge-bench` runs the measurement).
 
 Spawns are checked at dispatch, not trusted: the `PreToolUse(Agent)` guard allows a `forge-*` worker only when a pending step names
-the same agent, model and effort (aliases and full ids normalized to `haiku|sonnet|opus|fable`), GATES.md gate 9.
+the same agent, model and effort (aliases and full ids normalized to `haiku|sonnet|opus|fable`), GATES.md gate 9. `forge-scout` and
+`forge-librarian` carry no step and are exempt (any model/effort); no builder or verifier is dispatched while the task is in phase `intake`.
 
 ## Consumer overrides (`binding.json` → `routing`, project-owned)
 
@@ -110,8 +113,8 @@ rate above 40% for a tier):
    release, not a project edit); confirm `claude --version` meets the doctor minimum.
 2. Re-run the doctor probes that guard [U] behaviour: `.forge/bin/forge-doctor --probe-hooks`, `--driver`, `--probe-clear`,
    `--probe-maxturns`, `--worktree`; record what changed.
-3. Run `.forge/bin/forge-bench <taskset.json>` on the eval set (`forge/evals/`) for both arms (driver vs solo Fable at `low`): pass rate
-   and cost per passed task by class, plus the cache-read share (the cost model assumes 80%).
+3. Run `.forge/bin/forge-bench forge/evals/tasks/` (a directory of task files; one task file or a JSON list also works) for both arms
+   (driver vs solo Fable at `low`): pass rate and cost per passed task by class, plus the cache-read share (the cost model assumes 80%).
 4. Per class, ask: does the class default still pass at the rate it did? Would one rung lower pass with tests present (rule 2)? Does the
    ladder still start at the right rung (escalation rate per tier)?
 5. Compare the M builders (`opus-medium` vs `fable-low`) per passed task over measured rows only; propose a flip only with ≥ 10 rows.

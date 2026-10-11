@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # hook_smoke.sh — replay one representative stdin per hook event against a throwaway repo.
 #
-# Builds a disposable git repo under ${TMPDIR:-/tmp}, copies forge/payload/.forge and .claude into it,
+# Builds a disposable git repo under ${TMPDIR:-/tmp}, copies forge/payload/.forge and dot-claude (as .claude) into it,
 # writes a minimal binding.json, STATUS.json, plan.md and brief-01.md inline, then pipes one stdin JSON
 # per event into .forge/bin/forge-hook and prints PASS/FAIL per event. Needs the real forgelib modules
 # (common, gates, checks, status, hooks); the spawn-guard case FAILs honestly when status.py is absent.
@@ -31,7 +31,7 @@ print("" if cur is None else cur)' "$1"; }
 # ---- throwaway repo ------------------------------------------------------------------------------
 cd "$R" || exit 2
 git init -q . && git config user.email smoke@forge && git config user.name smoke && git config commit.gpgsign false
-cp -R "$PAYLOAD/.forge" . && cp -R "$PAYLOAD/.claude" .
+cp -R "$PAYLOAD/.forge" . && cp -R "$PAYLOAD/dot-claude" .claude
 rm -rf .forge/bin/__pycache__ .forge/bin/forgelib/__pycache__
 mkdir -p lib .forge/tasks/T-0001 .forge/lessons .forge/.runtime .claude/agent-memory
 printf 'def add(a, b):\n    return a + b\n' > lib/foo.py
@@ -100,8 +100,8 @@ echo "throwaway repo: $R"
 # ---- one stdin per event -----------------------------------------------------------------------------
 out=$(hk '{"hook_event_name":"SessionStart","source":"startup","session_id":"sess-smoke","cwd":"'"$R"'"}')
 ctx=$(echo "$out" | jget hookSpecificOutput.additionalContext); title=$(echo "$out" | jget hookSpecificOutput.sessionTitle)
-[[ -n "$ctx" && "$title" == "forge T-0001 execute" && -f .forge/.runtime/hooks-alive && "$(cat .forge/.runtime/session-id)" == "sess-smoke" && -s "$CLAUDE_ENV_FILE" ]]
-report "SessionStart(startup)" $? "digest ${#ctx} chars, title '$title', hooks-alive + session-id + env exports"
+[[ -n "$ctx" && "$title" == "forge T-0001 execute" && -f .forge/.runtime/hooks-alive && "$(cat .forge/.runtime/session-id)" == "sess-smoke" && ! -s "$CLAUDE_ENV_FILE" ]]
+report "SessionStart(startup)" $? "digest ${#ctx} chars, title '$title', hooks-alive + session-id, no env exports"
 
 out=$(hk '{"hook_event_name":"SessionStart","source":"startup","session_id":"sess-smoke"}' --role)
 [[ "$(echo "$out" | jget hookSpecificOutput.additionalContext)" == *"Role"* ]]
@@ -127,9 +127,25 @@ status=$(python3 -c 'import json;print(json.load(open(".forge/STATUS.json"))["ta
 [[ -z "$out" && "$status" == running ]]
 report "PreToolUse(Agent, spawn guard)" $? "allow + step-start -> step $status ${out:+(output: $out)}"
 
+out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":{"subagent_type":"forge-builder","model":"opus","effort":"medium","prompt":"x"},"session_id":"sess-smoke"}')
+[[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny ]]
+report "PreToolUse(Agent, duplicate dispatch)" $? "review #21: $(echo "$out" | jget hookSpecificOutput.permissionDecisionReason | cut -c1-80)"
+
+out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":{"subagent_type":"forge-scout","isolation":"worktree","prompt":"x"},"session_id":"sess-smoke"}')
+[[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny ]]
+report "PreToolUse(Agent, isolation worktree)" $? "review #16: $(echo "$out" | jget hookSpecificOutput.permissionDecisionReason | cut -c1-80)"
+
 out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push origin main"},"agent_id":"agent_s1","agent_type":"forge-builder"}')
 [[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny ]]
 report "PreToolUse(Bash, worker git push)" $? "$(echo "$out" | jget hookSpecificOutput.permissionDecisionReason)"
+
+out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"echo x > .forge/tasks/T-0001/brief-01.md"},"agent_id":"agent_s1","agent_type":"forge-builder"}')
+[[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny ]]
+report "PreToolUse(Bash, worker .forge write)" $? "review #6: $(echo "$out" | jget hookSpecificOutput.permissionDecisionReason | cut -c1-80)"
+
+out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git -C . reset --hard"},"agent_id":"agent_s1","agent_type":"forge-builder"}')
+[[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny ]]
+report "PreToolUse(Bash, worker git -C reset)" $? "review #32: $(echo "$out" | jget hookSpecificOutput.permissionDecisionReason | cut -c1-80)"
 
 out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push origin main"},"session_id":"sess-smoke"}')
 [[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == ask ]]
@@ -184,6 +200,17 @@ report "SessionEnd" $? "last-session.json written"
 
 echo "not json" | "$R/.forge/bin/forge-hook" >/dev/null 2>&1
 report "garbage stdin exits 0" $? "exit code $?"
+
+# ---- --plugin in a repository without a Forge install: silent, writes nothing (reviews #1/#2/#37) ---------
+F=$(mktemp -d "${TMPDIR:-/tmp}/forge-hook-smoke-foreign.XXXXXX")
+git init -q "$F" && printf 'x = 1\n' > "$F/a.py"
+out=$(cd "$F" && echo '{"hook_event_name":"PreToolUse","tool_name":"Edit","tool_input":{"file_path":"a.py"},"session_id":"s"}' \
+      | CLAUDE_PROJECT_DIR="$F" FORGE_ROOT= "$R/.forge/bin/forge-hook" --plugin 2>/dev/null)
+out2=$(cd "$F" && echo '{"hook_event_name":"SessionStart","source":"startup","session_id":"s"}' \
+      | CLAUDE_PROJECT_DIR="$F" FORGE_ROOT= CLAUDE_ENV_FILE="$F/.env" "$R/.forge/bin/forge-hook" --plugin 2>/dev/null)
+[[ -z "$out" && -z "$out2" && ! -e "$F/.forge" && ! -e "$F/.env" ]]
+report "--plugin in a foreign repo" $? "no output, no .forge/ created"
+rm -rf "$F"
 
 echo
 echo "hook_smoke: $PASS passed, $FAIL failed"

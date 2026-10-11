@@ -6,8 +6,11 @@
   forge-gate --verdict <task> <step> (--from-file f | --from-stdin) [--agent id]
 
 Prints one defect per line on stdout. Exit 0 valid · 1 defects · 2 usage.
-When --agent is absent: step `main` uses agent `main`; otherwise the single agent record bound
-to that step is used, else the agent-scoped rules are skipped with a WARN on stderr.
+When --agent is absent (MODULE-API §4): --handoff uses the single worker record bound to that
+step (`main` for the inline step main, whose unknown-stamped records count); --verdict uses the
+single forge-verifier record whose verify_step is that step and never a builder's record.
+Otherwise the agent-scoped rules are skipped with a WARN on stderr. A subagent pre-validating its
+own draft passes --agent <its agent_id> (the hook names it).
 """
 import os
 import sys
@@ -40,17 +43,27 @@ def read_message(flags):
     usage("--from-file <f> or --from-stdin is required")
 
 
-def resolve_agent(paths, task_id, step_id, flags):
-    """--agent, else `main` for the inline step, else the only bound agent record, else None."""
+def resolve_agent(paths, task_id, step_id, mode, flags):
+    """--agent, else the one agent record for this mode and step, else None (WARN on stderr).
+
+    --verdict resolves to the forge-verifier record with `verify_step == step` (review #25: never a
+    builder's record, which would let a verifier that ran nothing pass). --handoff resolves to the
+    worker bound to the step, or `main` for the inline step (review #13)."""
     if "--agent" in flags:
         return flags["--agent"]
-    if step_id == "main":
+    if mode == "--verdict":
+        cands = gates.verifier_agents(paths, task_id, step_id)
+        what = "forge-verifier records verifying"
+    elif step_id == "main":
         return "main"
-    bound = gates.bound_agents(paths, task_id, step_id)
-    if len(bound) == 1:
-        return bound[0]
-    common.eprint(f"WARN forge-gate: no --agent and {len(bound)} agent records bound to {task_id}/{step_id}; "
-                  "agent-scoped rules skipped")
+    else:
+        cands = gates.bound_agents(paths, task_id, step_id)
+        what = "worker records bound to"
+    if len(cands) == 1:
+        common.eprint(f"forge-gate: agent {cands[0]} ({what} {task_id}/{step_id})")
+        return cands[0]
+    common.eprint(f"WARN forge-gate: no --agent and {len(cands)} {what} {task_id}/{step_id}; "
+                  "agent-scoped rules skipped (pass --agent <id> to apply them)")
     return None
 
 
@@ -112,15 +125,23 @@ def main(argv):
     if mode == "--plan":
         if len(pos) != 1:
             usage("--plan needs <task>")
+        if not gates.valid_task_id(pos[0]):
+            usage(f"task id {pos[0]!r} must match ^T-[0-9]{{4,}}$")
         defects = gates.plan_validate(paths, pos[0])
     else:
         if len(pos) != 2:
             usage(f"{mode} needs <task> <step>")
         task_id, step_id = pos
+        if not gates.valid_task_id(task_id):
+            usage(f"task id {task_id!r} must match ^T-[0-9]{{4,}}$")
+        if not (gates.valid_component(step_id) and (step_id in ("main", "task") or len(step_id) == 2)):
+            usage(f"step {step_id!r} must be NN, main or task")
+        if "--agent" in flags and not gates.valid_component(flags["--agent"]):
+            usage(f"--agent {flags['--agent']!r} must match ^[A-Za-z0-9_.-]{{1,64}}$")
         text = read_message(flags)
         task_level = mode == "--handoff" and "--task-level" in flags
         # Task-level handoffs have no agent-scoped rules (MODULE-API §4), so no agent lookup.
-        agent = None if task_level else resolve_agent(paths, task_id, step_id, flags)
+        agent = None if task_level else resolve_agent(paths, task_id, step_id, mode, flags)
         if mode == "--handoff":
             short = "--short" in flags or (task_level and task_is_short_form(paths, task_id))
             red_ok = "--red-ok" in flags or step_red_ok(paths, task_id, step_id)

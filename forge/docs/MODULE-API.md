@@ -345,12 +345,47 @@ R human gate; touches/removes `.runtime/driver`.
 
 ## 8. Settings fragment and installer
 
-`payload/.claude/settings.forge.json` = design §13.4 verbatim with Python-invoked commands:
+`payload/dot-claude/settings.forge.json` (installed as `.claude/settings.forge.json`; the payload's `dot-claude/` maps to the target's `.claude/`) = design §13.4 without the project-specific `Bash(...)` allow rules (those are derived per binding), with Python-invoked commands:
 `"command": "\"$CLAUDE_PROJECT_DIR\"/.forge/bin/forge-hook"` (the scripts are executable Python files).
 `forge/installer.py --target <dir> [--source <payload dir>] [--upgrade] [--force] [--dry-run] [--effort low|medium] [--no-model] [--with-bench]`
 implements design §10.1 steps 1-7 (copy Forge-owned files with manifest; merge settings with the rules in §8.2 — scalars: fragment
-wins only when absent locally unless `--force`; arrays: union; Forge hook entries identified by command prefix `"$CLAUDE_PROJECT_DIR"/.forge/bin/` are replaced,
+wins only when absent locally unless `--force-settings` (`--force` covers Forge-owned files only; differing scalars are printed); arrays: union; Forge hook entries identified by command prefix `"$CLAUDE_PROJECT_DIR"/.forge/bin/` are replaced,
 non-Forge entries kept; `permissions.allow` gains `Bash(<prefix> *)` per `binding.verify[].cmd`; CLAUDE.md fragment between
 `<!-- forge:begin -->`/`<!-- forge:end -->`; stack detection → `binding.json` only when absent; idle STATUS; empty jsonl files;
 `lessons/INDEX.md`; `decisions/0001-adopt-forge.md`; `.gitignore` lines; `install-manifest.json`; `.forge/VERSION`).
 `forge/install.sh` is a thin bash wrapper: checks `python3`, resolves the payload (local checkout or `git archive` of a tag), runs `installer.py`.
+
+---
+
+## 9. Amendments after the v1.0.0 adversarial review (authoritative over the sections above)
+
+The review (5 reviewers, 71 findings, 64 confirmed by independent refutation) changed these contract points. Code and docs implement the amended form.
+
+### 9.1 `forgelib.status`
+- `step_start` also accepts a `blocked` step (a BLOCKED / NEEDS_CONTEXT handoff); `--from failed|clean` is mandatory there as for `failed`; `--from failed` appends the report's `next_action` to the brief. `step_start` refuses in phase `intake`.
+- `verify_attempts` increments at `step_verifying` (dispatch time, where the cap and the ledger `dispatch` row live), not at `step_verdict`; `step_verifying` refuses a step already `verifying`; a retry (`step_start --from …`) resets `verify_attempts` to 0 for that step (fresh cap per attempt).
+- `plan()` accepts a re-import in phase `execute` while every step is `pending` with `attempts == 0` (steps replaced; `inline_verdict` cleared). `plan()` records `test_baseline` itself (via `checks.baseline`) when plan-meta lacks it, and writes it back into `plan.md`.
+- `step_verdict(task_id, "main", verdict_json_path)` is valid for inline tasks (S/X) and for a stepped task once every step is `done` (the L spot-check): it records `task.inline_verdict {verdict, file, verifier_model, at, attempt, tags}`, writes the ledger `verdict` row, sets `phase: done` + `next_action: Run /forge-close` on PASS, or keeps `execute` with a fix/re-check text otherwise. `close` refuses class X without an inline PASS, and class S without one when any changed path matches `binding.test_globs`.
+- `recover` keeps `attempts` and sets `recovered_at`; after a recover, `step_start --from clean|failed` on the (now `pending`) step is accepted (`--from clean` is a no-op when the tree is already at base). Untracked files under `allowed_paths` are copied to `.forge/incidents/<ts>-<id>-<step>/` before `recover`/`--from clean` deletes them.
+- `open` refuses a declared `--files` entry that does not exist (globs and `--creates` excepted); task ids are allocated above every id in tasks/, archive/, history and the queue; directory counting folds `tests/` and `__tests__/` into their parent; `new` is an alias of `open`; `validate` prints the standard one-line form.
+- `close`, `block`, `unblock` clear `dirty-worker` as well as `dirty-main`; `close` commits with `gates.drafts_exclude_pathspec()` and the T `--one-line` form needs a check record for which `checks.record_is_passing(record)` is true (at least one non-skipped command at exit 0).
+
+### 9.2 `forgelib.gates` / `forgelib.checks`
+- `split_segments(cmd)` is a quote-aware scanner splitting on `&& || ; | |& \n` and a lone `&`; unbalanced quotes fail closed. `looks_mutating` is MULTILINE and judged on the quote-masked text; `ro_allowed` denies command substitution (`$(`, backticks, `${`, `<(`, `>(`), `find` actions, `--output`, `xargs`, `eval`, `tee`, `perl`, and any unquoted redirect other than `N>&M` / `N>/dev/null`; binding command prefixes bless only their own segment.
+- `forge-gate` agent resolution per mode: `--verdict` resolves to the single verifier record with `verify_step == step` (never a builder's); `--handoff` to the bound worker, or `main` for step `main`; otherwise WARN and skip agent-scoped rules. `--agent <id>` overrides.
+- Brief gate: `expected_fail_first ⊆ checks`. tdd red-before-green: the red run may be any agent's; the rule binds only an agent whose evidence shows a test-file edit.
+- `forge-check --cmd '<command>'` runs and records one arbitrary command (repo root, 20-minute cap; the command is judged by `ro_allowed`/`looks_mutating`/`irreversible_match` when a subagent runs it). Step runs include the brief's DoD checks (`name: dod:<id>`). `task`, `step` and `agent` path components must match `^[A-Za-z0-9_.-]{1,64}$` and never contain `..`; `--agent human` is refused.
+- Pre-validation drafts live at `.forge/tasks/<id>/drafts/<agent_id>-*.md` (writable by the owning `forge-*` subagent); `tree_changed` ignores them and `commit_pathspecs(paths, allowed_paths, task_id)` / `drafts_exclude_pathspec(task_id=None)` exclude them from commits. `checks.record_is_passing(record)` is exported.
+
+### 9.3 `forgelib.hooks`
+- `--plugin` is a complete no-op (no output, no files) unless the resolved root carries `.forge/binding.json` or `.forge/STATUS.json` without `.forge/VERSION`. Journal and crash paths never create `.forge/`.
+- Every fence (Edit/Write/NotebookEdit and Bash path arguments) uses `Paths.safe_rel` and denies paths that escape the repository lexically or through a symlink; `ln` is denied for workers. Spawn guard: builder/verifier spawns denied in phase `intake`; a second builder for a step that is `running` with `agent_id == null` is denied while a dispatch marker (`.runtime/dispatched-<task>-<step>`, 10 minutes) or a started worker record exists; `isolation: worktree` denied unless `binding.git.worktree_isolation` is true.
+- Subagent shell: any segment referencing `.forge/` is denied unless it invokes `.forge/bin/forge-check`, `.forge/bin/forge-gate`, `.forge/bin/forge-status get`, or reads its own brief (`cat`/`sed -n`/`head`/`less` of `.forge/tasks/<id>/brief-*.md`); `forge-doctor`, `forge-run`, `forge-bench`, `forge-hook` and any interpreter execution of files under `.forge/` are denied; worker shell writes to `CLAUDE.md`, `.gitignore` and `.claude/**` are denied. The tool-budget counter lives in the hook-owned `.runtime/agents/<id>.json` (`tool_calls`; evidence rows are the floor).
+- Evidence `cmd` is capped at 300 characters and, like `error_head`, journal lines and check-record tails stamped by the hook, passed through `redact()` (`(?i)(token|secret|password|api[_-]?key|authorization|bearer)\s*[=:]\s*\S+`).
+- `SubagentStop` for a resumed worker/verifier that merely answers a question (step already `reported`/`verifying`/`done`, or its report already persisted and the message is not handoff-shaped) is skipped; handoff-shaped messages are always gated. The inline verifier gate calls `Status.step_verdict(task, "main", verdict_json)`.
+- SessionStart exports nothing to `CLAUDE_ENV_FILE` (a stale `FORGE_ROOT`/PATH export was observed leaking across sessions); on source `clear` while idle and `stale`, `Status.fresh(stamp=False)` runs. The ConfigChange reason names the operator shell command `.forge/bin/forge-doctor --disable-gate <name>`.
+
+### 9.4 Installer, settings, doctor, bench
+- The payload ships its Claude Code files under `payload/dot-claude/` (Claude Code auto-discovers nested `.claude/rules/*.md`); the installer maps them to `<target>/.claude/`; manifest paths stay target-relative (`.claude/...`).
+- `settings.forge.json` is generic: no project-specific allow rules; the installer derives `Bash(<prefix> *)` rules from `binding.verify[]`/`bootstrap`/`smoke` (pip only when the bootstrap uses pip). `--force` covers Forge-owned files only; `--force-settings` is the only way fragment scalars replace local ones (kept differences are printed).
+- `install.sh --tag vX` alone works (`--repo` defaults to `riggs19991/ruggedroute-dataops`, payload under `forge/`); `--repo` without `--tag` exits 2. `forge-doctor` runs the pointer check on every non-`--quick` run and FAILs `forge-root` when `FORGE_ROOT` names a different repository. `forge-bench` accepts a task list, one task file, or a directory of task files and runs each arm in a `git clone --shared` (never sets `FORGE_ROOT`).

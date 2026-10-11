@@ -73,16 +73,30 @@ by the Stop gate (sha mismatch); after a deliberate one run `.forge/bin/forge-st
 - Bounds: `queue` ≤ 10 (the rest in `.forge/queue.jsonl`), `history` = last 5 (every row in `.forge/history.jsonl`), `evidence` = newest 10
   (`evidence_count` holds the total). There is no spend field: spend lives in the ledger.
 - Invariants: `routing.mode == inline ⇔ steps == []`; M and W have exactly one step once planned, L ≥ 3; a `running` step has
-  `started_by`; a `done` step has `commit` and `verdict` (or `--no-verifier` for T/S/X); `risk == R ⇔ signals.risk_hits ≠ ∅` unless the
-  justification records `--force-risk` or `--accept-risk-none`.
-- Idle form (what the installer writes; `.forge/templates/STATUS.json`): `"task": null, "queue": [], "history": []`.
+  `started_by`; a `done` step has `commit` and `verdict` (`step-done --no-verifier` exists for classes T and S only, which never have
+  steps, so in practice every done step has a verdict; inline verification is `task.inline_verdict`, below); `risk == R ⇔
+  signals.risk_hits ≠ ∅` unless the justification records `--force-risk` or `--accept-risk-none`.
+- Inline verdict: `task.inline_verdict = {verdict, file, verifier_model, at, attempt, tags}` is written by
+  `forge-status step-verdict <id> main --verdict .forge/tasks/<id>/verdict-main.json` (the verifier's SubagentStop gate runs it).
+  PASS → `phase: done`, `next_action: Run /forge-close`; FAIL/UNKNOWN → `phase: execute` with the fix-and-re-verify action. `close`
+  requires a PASS for class X always and for class S when a changed path matches `binding.test_globs`; a FAIL/UNKNOWN on file
+  refuses every S/X close except `--partial`. `get digest`/`get resume` show it as `verdict (main): …`.
+- Retry bookkeeping: every `step-start` sets `attempts += 1` and resets `verify_attempts` to 0 (the verifier cap of 2 is per
+  attempt); `recover` keeps `attempts`, sets the step `pending` and stamps `recovered_at`, after which `step-start --from clean` is
+  accepted (a no-op restore when the tree is already at base). `step-start` accepts `pending`, and `failed` or `blocked` with
+  `--from failed|clean`; it is refused in phase `intake`.
+- Idle form (what the installer writes; `.forge/templates/STATUS.json`): `"task": null, "queue": [], "history": []`. A queue entry
+  may carry no `id` (the stack-unknown installer's "stack discovery" hint); ids are allocated over `tasks/`, `archive/`, history and
+  every queued id, so a queued id never collides with a newly opened task.
 - Read it without a model: `.forge/bin/forge-status get summary` · `get digest` · `get resume` · `get next_action` · `get task.phase`
   (any dotted path). Add `--lenient` to never exit non-zero.
 
-Transitions (each refusal is exit 3 with one line on stderr; full table in design §5.1): `open` → `plan` → `step-start` →
-(`step-bind`) → `step-report` → `step-verifying` → `step-verdict` → `step-done | step-fail | step-external` → `close`; plus `attest`,
-`recover`, `evidence`, `scope add`, `block`/`unblock`, `stale`/`fresh`, `validate [--restamp]`, `gate-block`. Run
-`.forge/bin/forge-status --help` for the flags.
+Transitions (each refusal is exit 3 with one line on stderr; full table in design §5.1): `open` (alias `new`, which never queues) →
+`plan` → `step-start` → (`step-bind`) → `step-report` → `step-verifying` → `step-verdict` → `step-done | step-fail | step-external` →
+`close`; plus `attest`, `recover`, `evidence`, `scope add <id> <path> --why "…" [--ruling]`, `block --on "…"`/`unblock`,
+`stale`/`fresh`, `validate [--restamp]`, `gate-block`. `open --files` paths must exist (new files go in `--creates`); a path that
+escapes the repository is refused. Every subcommand except `get` prints one line: `<task> <phase> <step?> <status?> | next: …`.
+Run `.forge/bin/forge-status --help` for the flags.
 
 ## binding.json — the thin per-project binding (`.forge/schemas/binding.json`)
 
@@ -160,8 +174,11 @@ Templates: `.forge/templates/plan.md` (M/W/L) and `.forge/templates/plan-inline.
 - Rules: `mode: inline ⇔ steps == []` (S/X only) and inline plans carry `allowed_paths` (the declared set); M and W exactly one step;
   L ≥ 3 steps with pairwise-disjoint brief `allowed_paths`; every step has an existing brief whose `step` matches; `max_tool_calls`
   per step; `red_ok_until` names a later step; `dod` ids match `^DoD-[0-9]+$`, ≥ 1; risk R ⇒ `rollback` holds a concrete command;
-  `needs_clarification ≠ []` ⇒ the import sets `phase: intake` and `next_action: "ask the user: …"`.
-- The baseline comes from `.forge/bin/forge-check <id> plan --baseline`.
+  `needs_clarification ≠ []` ⇒ the import sets `phase: intake` and `next_action: "ask the user: …"` (no builder or verifier is
+  dispatched in intake). A corrected plan may be imported again in `intake`, or in `execute` while every step is still `pending`
+  with `attempts == 0` (the steps are replaced).
+- The baseline comes from `.forge/bin/forge-check <id> plan --baseline`; when plan-meta still holds the template value
+  (`recorded_at` 1970), `forge-status plan` records it at import and writes it back into `plan.md` (journaled).
 - `check: external` criteria are graded only from a human `attest` record.
 
 ## Brief — `.forge/tasks/<id>/brief-NN.md` (`.forge/schemas/brief.json`)
@@ -184,7 +201,9 @@ Template: `.forge/templates/brief.md`. Self-contained: a worker sees nothing els
 
 Headings: Goal · Context the worker needs · Definition of done · Out of scope / do not touch · Known failed approaches · Output contract.
 Invariants: `owner_agent ∈ {forge-builder, forge-builder-wide, forge-builder-s, forge-mechanic}`; `model` is an alias;
-`allowed_paths` non-empty; `tdd ⇒ expected_fail_first` non-empty; `max_tool_calls ≥ 5`. Readers: the fence (`allowed_paths`,
+`allowed_paths` non-empty (no path escaping the repository); `tdd ⇒ expected_fail_first` non-empty; `expected_fail_first ⊆ checks`;
+`max_tool_calls ≥ 5`. `may_edit_tests: true` is needed whenever a DoD adds tests to an existing `test_globs` file (the fence refuses
+every edit to an existing test file otherwise); the template defaults to `true` and its comment says when to set `false`. Readers: the fence (`allowed_paths`,
 `may_edit_tests`, `owner_agent`, `max_tool_calls`), the handoff gate (`checks`, `expected_fail_first`, `tdd`, `dod`, `red_ok`),
 `forge-check` (`checks`).
 
@@ -219,9 +238,15 @@ the same shape as their final message; the gate persists it as `report-NN.md` + 
   `files_changed ⊆ allowed_paths`; every `kind: source` edit row of this agent ⊆ `files_changed`; every path in
   `git status --porcelain --untracked-files=all -- <allowed_paths>` ⊆ `files_changed`; for `DONE|DONE_WITH_CONCERNS` every brief
   `checks[]` cmd has a `checks/<step>-*-<agent_id>.json` record at exit 0 (any exit when `red_ok`) newer than the agent's last source
-  edit; `tdd` ⇒ each `expected_fail_first[]` cmd has a non-zero record before a zero record. `BLOCKED|NEEDS_CONTEXT` need no records.
+  edit; `tdd` ⇒ each `expected_fail_first[]` cmd has a non-zero record (by any agent: a retry inherits an earlier attempt's red run)
+  earlier than this agent's zero record. `BLOCKED|NEEDS_CONTEXT` need no records (the step becomes `blocked`; `step-start --from
+  failed` appends the report's `next_action` to the brief). Pre-validation drafts under `.forge/tasks/<id>/drafts/` never count as
+  tree changes and are never committed.
   Task-level handoffs (`--task-level`) need the headings and a valid JSON block with `step == "task"` only.
 - On allow the hook commits the unit and fills `commit` in `report-NN.json`.
+- Pre-validation (workers and the verifier): write the draft to `.forge/tasks/<id>/drafts/<agent_id>-handoff.md` (or `-verdict.md`)
+  with the Write tool — the one `.forge/` path a subagent may write — and run `.forge/bin/forge-gate --handoff|--verdict <id> <step>
+  --from-file <draft> --agent <agent_id>`.
 
 ## Verdict — verifier final message (`.forge/schemas/verdict.json`)
 
@@ -242,7 +267,8 @@ Confidence note. JSON block (`step` is `"main"` and `range` may be `"worktree"` 
 
 Gate rules: every brief DoD id exactly once with `result ∈ {PASS, FAIL, UNKNOWN}`, `cmd` and a numeric `exit`; `PASS` ⇒ all criteria
 PASS ∧ `scope_check == PASS` ∧ `ratchet == PASS` ∧ no blocking findings; every cited cmd has a `checks/<step>-*-<verifier agent_id>.json`
-record, except `check: external` criteria, which need a `checks/<step>-*-human.json` attest record (else `UNKNOWN`);
+record (`forge-check <id> <step>` runs the step's plan-meta DoD check commands as well as `verify[]` and brief `checks[]`, so the
+verifier's own run records every criterion), except `check: external` criteria, which need a `checks/<step>-*-human.json` attest record (else `UNKNOWN`);
 `tags ⊆ {skipped-file, no-check-run, not-double-checked, wrong-approach, scope-creep, test-weakened, env-cannot-run}`; UNKNOWN on a
 required criterion ⇒ FAIL for risk R tasks; after two blocks the hook allows with the verdict rewritten to `UNKNOWN`.
 
@@ -256,7 +282,9 @@ required criterion ⇒ FAIL for risk R tasks; after two blocks the hook allows w
 {"ts":1760207980,"agent_id":"main","agent_type":"main","event":"edit","kind":"meta","file":".forge/tasks/T-0007/plan.md"}
 ```
 
-`kind: meta` for `.forge/**`, `.claude/agent-memory/**`, `CLAUDE.md`, `.gitignore`; everything else `source`. Bash `exit` is best-effort
+`kind: meta` for `.forge/**`, `.claude/agent-memory/**`, `CLAUDE.md`, `.gitignore`; everything else `source`. A Bash `cmd` (and
+`error_head`, and a check record's `tail`) is stored with credential shapes redacted (`token=…`, `Authorization: Bearer …`, `AKIA…`,
+`ghp_…`, `sk-…`), and the stored `cmd` is capped at 300 characters, because evidence is committed at close. Bash `exit` is best-effort
 ([U]); **exact exit codes come from check records**, `.forge/tasks/<id>/checks/<step>-<epoch>-<agent_id|main|human|unknown>.json`,
 written by `.forge/bin/forge-check`:
 
@@ -299,6 +327,7 @@ gate_block, builtin, denied_tools, recover, scope_add, ruling}`.
   (`.forge/templates/lesson.md`); `.forge/lessons/INDEX.md` one line per lesson, ≤ 200 lines; the first 40 lines are injected at start.
 - `.forge/decisions/NNNN-<slug>.md` — Nygard ADR (`.forge/templates/adr.md`); numbers never reused; superseded, never deleted.
 - `.forge/tasks/<id>/ruling.md` — Decision · Why · Cost if wrong · Evidence considered (`.forge/templates/ruling.md`).
+- `.forge/tasks/<id>/drafts/<agent_id>-*.md` — pre-validation drafts written by subagents; excluded from step commits.
 - `.forge/history.jsonl`, `.forge/queue.jsonl` — the unbounded tails of STATUS `history[]` / `queue[]`.
 - `.forge/tasks/<id>/journal.md` — append-only hook log (dispatches, gate blocks with reasons, fence denials, stop blocks, recoveries,
   compactions, StopFailure, config-change blocks, builtin spawns). Without an open task: `.forge/.runtime/journal.log`.
@@ -308,5 +337,7 @@ gate_block, builtin, denied_tools, recover, scope_add, ruling}`.
 
 `session-id` · `hooks-alive` (`{session_id, ts, source}`) · `dirty-main` · `dirty-worker` · `chat-turn` · `stop-blocks` (int) ·
 `last-block.sha` · `status.sha` · `stale-status` · `denials` (`{rule: count}`) · `driver` · `auto-resumed-<task>-<phase>` ·
-`last-session.json` · `agents/<agent_id>.json` (`{agent_id, agent_type, started_ts, session_id, task?, step?, brief?, bound_at?}`) ·
-`gate-disabled-<name>` · `phase-costs.jsonl` · `journal.log`. SessionStart recreates the directory when it is missing.
+`dispatched-<task>-<step>` (spawn guard; removed when the worker binds) · `last-session.json` · `agents/<agent_id>.json`
+(`{agent_id, agent_type, started_ts, session_id, task?, step?, brief?, bound_at?, verify_step?, tool_calls?}`; `tool_calls` is the
+hook-owned tool-budget counter) · `gate-disabled-<name>` · `phase-costs.jsonl` · `driver-probe.json` (cached `forge-doctor --driver`
+result) · `observed.json` (probe observations) · `journal.log`. SessionStart recreates the directory when it is missing.

@@ -9,7 +9,8 @@ previous session's memory. Every script is `.forge/bin/<tool>`, run from the rep
 2. The newest `.forge/tasks/<id>/handoff.md` or `report-NN.md` — *Remaining* and *Gotchas* were injected; read the rest only if needed.
 3. `.forge/tasks/<id>/plan.md` — only the *Routing* and *Steps* sections.
 4. `.forge/binding.json` — verify commands, protected/risk/important paths, project notes.
-If STATUS shows a step `running` whose `started_by` is another session and no report exists: `.forge/bin/forge-status recover <id> <step>` first.
+If STATUS shows a step `running` whose `started_by` is another session and no report exists: `.forge/bin/forge-status recover <id> <step>`,
+then dispatch per `next_action` (the spawn guard runs `step-start`; RUNBOOK.md §5).
 If the task is `awaiting_external`: STATUS names exactly what a human must run; `.forge/bin/forge-status attest …` records the result.
 
 ## The three rituals
@@ -23,14 +24,17 @@ If the task is `awaiting_external`: STATUS names exactly what a human must run; 
 ## Rules the hooks enforce (so you do not have to remember them)
 - No source edit without an open task; class M/W/L never implement in this session; T/S/X edit only the declared scope; protected paths need risk R.
 - STATUS.json, binding.json, scripts, schemas, settings and the ledger are never edited by a model; a work turn cannot end until STATUS reflects it.
-- Workers edit only their brief's paths, never existing tests without permission, never push or commit (a hook commits), stop at their tool
-  budget, and cannot return without a HANDOFF whose checks ran after their last edit. Verifiers cannot write and must cover every DoD id.
-- Spawns must match the plan's agent/model/effort; a third verifier run or a fourth attempt on one step needs a ruling.
+- Workers edit only their brief's paths (plus their own draft under `.forge/tasks/<id>/drafts/`), never existing tests without
+  `may_edit_tests`, never push or commit (a hook commits), stop at their tool budget, and cannot return without a HANDOFF whose checks
+  ran after their last edit. Verifiers write nothing but memory and their draft, and must cover every DoD id.
+- Spawns must match the plan's agent/model/effort; a third verifier run on one attempt or a fourth attempt on one step needs a ruling.
+- X, and S that changed tests, close only on a PASS verdict on step `main` (`task.inline_verdict`); dispatch the verifier first.
 
 ## Routing in one paragraph (details: ROUTING.md; data: schemas/routing.json)
 Size by the declared files/dirs and whether tests exist; risk is an overlay; blast-radius signals only raise the verifier. T/S inline. M: one
 Opus builder, one Opus verifier (small M planned by you; Fable-low builder for a cross-cutting chain). W: one Fable-low wide builder, Fable
-verifier. L: Sonnet/Haiku units only with ≥3 disjoint path sets (sequential unless worktrees are proven), Sonnet verifiers, one Fable spot-check.
+verifier. L: Sonnet/Haiku units only with ≥3 disjoint path sets (mode single, units in turn; parallel only with proven worktrees), Sonnet
+verifiers, one Fable spot-check.
 X: you code it, Fable verifier. R: strongest tier, Rollback, human ack. Cheap tiers only where tests cover the paths. On FAIL: resume once,
 then one rung up (effort first if the verdict says skipped/no-check), then a ruling. Environmental failures park the task for a human.
 

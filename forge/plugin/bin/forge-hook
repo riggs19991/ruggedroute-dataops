@@ -5,7 +5,9 @@
 
 Reads stdin once, dispatches on hook_event_name (+ tool_name), prints at most one JSON
 object and ALWAYS exits 0. --role runs the SessionStart role handler; --plugin exits 0 at
-once when <root>/.forge/VERSION exists (the plain-layout install owns the hooks).
+once (no output, no files) when <root>/.forge/VERSION exists (the plain-layout install owns
+the hooks) or when the resolved root has neither .forge/binding.json nor .forge/STATUS.json
+(no Forge install here: a user-scope plugin must never fence a foreign repository).
 A crash is caught: PreToolUse / SubagentStop fail closed (deny / block naming the
 exception), every other event fails open with a systemMessage.
 """

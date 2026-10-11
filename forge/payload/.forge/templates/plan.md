@@ -4,6 +4,8 @@
      .forge/schemas/plan.json); scripts read only that block and the level-2 headings. Replace every {{placeholder}}.
      Mandatory headings: M → Steps, Validation Criteria, Routing, Rollback.
                          W and L → all twelve headings below.
+     test_baseline: leave the template value (recorded_at 1970) and `forge-status plan` records the real baseline at import
+     (or run .forge/bin/forge-check {{task}} plan --baseline and copy its numbers in).
      Validate with: .forge/bin/forge-gate --plan {{task}}   then import with: .forge/bin/forge-status plan {{task}} --from .forge/tasks/{{task}}/plan.md -->
 
 ```json

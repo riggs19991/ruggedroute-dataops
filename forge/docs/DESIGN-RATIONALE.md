@@ -9,7 +9,8 @@ the user's intent and the verified sandbox experiments are in `docs/design/requi
 1. **Plain project layout is the only form verified to load everywhere.** A plugin vendored under the project's
    `.claude/skills/forge/` did not load in a fresh headless session and loads only after workspace trust; plain `.claude/agents`,
    `.claude/skills` and project `settings.json` hooks load even untrusted. So the shipped form is plain layout expanded by an
-   installer; the plugin manifest is a secondary user-level wrapper that silences itself inside a vendored repo.
+   installer; the plugin manifest is a secondary user-level wrapper that silences itself inside a vendored repo and in every
+   repository without a Forge install.
 2. **A rule that lives in a hook is a fact; a rule in a prompt is a request.** Plan-first, scope fences, handoff shape, evidence
    capture, STATUS integrity, routing at spawn, tool budgets and the policy-file lock are decided by hooks. What the platform cannot
    decide (`/clear` in interactive mode) is designed as the next-best enforcement and labelled [I]. Version 2 also closed the back
@@ -42,7 +43,7 @@ the user's intent and the verified sandbox experiments are in `docs/design/requi
   ledger flip is symmetric and measured-only instead).
 - **Conflicts resolved by evidence** (§12.1): e.g. `Agent`-tool dispatch only (the `agent_type` of `context: fork` skills is
   undocumented); one builder per M task; the verifier grades a committed range, not the working tree; fail-open Stop vs fail-closed
-  PreToolUse/SubagentStop; sequential L by default, parallel only with proven worktrees.
+  PreToolUse/SubagentStop; L units one at a time by default (`mode: single`), parallel only with proven worktrees.
 - **Implementation language** changed after the design: Python 3 standard library instead of bash 3.2 + jq (ADR 0002).
 
 ## The cost model (design §11) and its honesty caveats

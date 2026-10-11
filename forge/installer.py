@@ -2,16 +2,24 @@
 """installer.py — install or upgrade the Forge into a repository (design §10.1 steps 1-7, §10.3, §8.2; MODULE-API §8).
 
 Usage:
-  python3 forge/installer.py [--target DIR] [--source PAYLOAD] [--upgrade] [--force] [--dry-run]
+  python3 forge/installer.py [--target DIR] [--source PAYLOAD] [--upgrade] [--force] [--force-settings] [--dry-run]
                              [--effort low|medium] [--no-model] [--with-bench] [--binding FILE] [--project NAME]
+
+Payload layout: PAYLOAD/.forge/** installs to <target>/.forge/**; PAYLOAD/dot-claude/** installs to <target>/.claude/**
+(the source directory is not named .claude so Claude Code never auto-loads the payload's rules/agents into a session
+working on the Forge source itself). A legacy PAYLOAD/.claude/ is still accepted.
 
 Ownership is the upgrade contract (design §8.2):
   * Forge-owned files (everything shipped in the payload) are copied and listed with their sha256 in
     .forge/install-manifest.json. A Forge-owned file whose local sha differs from the manifest is refused unless
     --force (or, with --upgrade, overwritten after a backup to .forge/incidents/upgrade-<ts>/).
   * Project-owned files (binding.json, STATUS.json, ledgers, CHANGELOG, lessons, decisions) are written only when absent.
-  * .claude/settings.json is merged: scalars set only when absent (unless --force), arrays unioned, Forge hook
-    handlers (command containing /.forge/bin/forge-hook) replaced per event, every other hook handler kept.
+  * .claude/settings.json is merged: scalars set only when absent, arrays unioned, Forge hook handlers (command
+    containing /.forge/bin/forge-hook) replaced per event, every other hook handler kept. A local scalar that differs
+    from the fragment (model, effortLevel, plansDirectory, env.*, ...) is kept and printed as `settings: <key>
+    local=<v> -> fragment=<w>`; only --force-settings applies the fragment's value (--force never touches settings).
+  * permissions.allow gains one Bash(<prefix> *) rule per binding.verify[].cmd, bootstrap and smoke (forge-run
+    permission_rules); the fragment itself carries no project-specific command rule.
   * CLAUDE.md gets the fragment between <!-- forge:begin --> and <!-- forge:end --> (inserted or replaced).
 Idempotent: a second run reports "no changes". Python 3.9+, standard library only.
 Exit codes: 0 ok · 1 a migration failed · 2 usage · 3 refused (conflict, wrong target, version mismatch).
@@ -39,6 +47,8 @@ BEGIN_MARK = "<!-- forge:begin"
 END_MARK = "<!-- forge:end -->"
 GITIGNORE_LINES = (".forge/.runtime/", ".forge/incidents/", ".forge/**/__pycache__/")
 FORGE_HOOK = "/.forge/bin/forge-hook"
+# Payload source dir -> target dir. dot-claude is the payload's .claude/ under a name Claude Code does not auto-discover.
+CLAUDE_SRC_DIRS = ("dot-claude", ".claude")
 # Paths under .forge/ that are project-owned even if a payload ever ships them (design §8.2).
 PROJECT_OWNED = (".forge/binding.json", ".forge/STATUS.json", ".forge/ledger.jsonl", ".forge/history.jsonl",
                  ".forge/queue.jsonl", ".forge/CHANGELOG.md", ".forge/COST-REPORT.md", ".forge/install-manifest.json")
@@ -190,9 +200,10 @@ class Installer:
 
     # ---- step 2: Forge-owned files ---------------------------------------- #
     def payload_files(self, stack: str) -> List[Tuple[str, str]]:
-        """(source path, target rel) of every Forge-owned payload file to install."""
+        """(source path, target rel) of every Forge-owned payload file to install; rel is target-relative
+        (payload/dot-claude/x -> .claude/x)."""
         out: List[Tuple[str, str]] = []
-        for top in (".forge", ".claude"):
+        for top, dest in ((".forge", ".forge"), (claude_src_dir(self.source), ".claude")):
             base = os.path.join(self.source, top)
             for dirpath, dirnames, filenames in os.walk(base):
                 dirnames[:] = sorted(d for d in dirnames if d != "__pycache__")
@@ -200,7 +211,7 @@ class Installer:
                     if name.endswith((".pyc", ".pyo")) or name == ".DS_Store":
                         continue
                     src = os.path.join(dirpath, name)
-                    rel = os.path.relpath(src, self.source).replace(os.sep, "/")
+                    rel = dest + "/" + os.path.relpath(src, base).replace(os.sep, "/")
                     rel = self.map_rule(rel, stack)
                     if rel is None or rel in PROJECT_OWNED or rel.startswith(PROJECT_OWNED_DIRS):
                         continue
@@ -238,8 +249,8 @@ class Installer:
                 conflicts.append(rel)
         if conflicts:
             raise InstallError(f"{len(conflicts)} Forge-owned file(s) differ locally from the installed copy, e.g. "
-                               f"{', '.join(conflicts[:3])}: re-run with --force to overwrite (or --upgrade for local "
-                               f"edits to an installed Forge)")
+                               f"{', '.join(conflicts[:3])}: re-run with --force to overwrite them (or --upgrade for local "
+                               f"edits to an installed Forge); --force never changes .claude/settings.json scalars")
         return plan
 
     def apply_forge_owned(self, plan: List[Tuple[str, bytes, Optional[str]]],
@@ -270,9 +281,10 @@ class Installer:
 
     # ---- step 3: settings merge ------------------------------------------- #
     def merge_settings(self, binding: Dict[str, Any], forge_run: Any) -> None:
-        fragment = load_json_file(os.path.join(self.source, ".claude", "settings.forge.json"), "settings fragment")
+        fragment = load_json_file(os.path.join(self.source, claude_src_dir(self.source), "settings.forge.json"),
+                                  "settings fragment")
         if not isinstance(fragment, dict):
-            raise InstallError("payload .claude/settings.forge.json is missing", EXIT_USAGE)
+            raise InstallError("payload dot-claude/settings.forge.json is missing", EXIT_USAGE)
         fragment = copy.deepcopy(fragment)
         if self.args.no_model:
             fragment.pop("model", None)
@@ -282,9 +294,17 @@ class Installer:
         fragment["permissions"]["allow"] = fragment["permissions"]["allow"] + forge_run.permission_rules(binding)
         local = load_json_file(self.abs(".claude/settings.json"), ".claude/settings.json")
         local = local if isinstance(local, dict) else {}
-        merged = merge_settings(local, fragment, self.args.force)
+        overrides: List[Tuple[str, Any, Any]] = []
+        merged = merge_settings(local, fragment, self.args.force_settings, overrides)
         if self.args.effort:
             merged["effortLevel"] = self.args.effort   # an explicit --effort is the operator's choice
+            overrides = [o for o in overrides if o[0] != "effortLevel"]
+        for key, cur, want in overrides:
+            if self.args.force_settings:
+                self.log("override", f"settings: {key}", f"local={json.dumps(cur)} -> fragment={json.dumps(want)} (--force-settings)")
+            else:
+                self.log("keep", f"settings: {key}", f"local={json.dumps(cur)} -> fragment={json.dumps(want)} "
+                                                      f"(not applied; --force-settings applies it)")
         self.put_text(".claude/settings.json", dumps(merged), verb="merge" if local else "new")
 
     # ---- step 4: CLAUDE.md fragment ----------------------------------------- #
@@ -394,7 +414,9 @@ class Installer:
         if self.dry or not os.access(doctor, os.X_OK):
             return
         print("\nforge-doctor --report --no-probes:")
-        env = dict(os.environ, FORGE_ROOT=self.target, PYTHONDONTWRITEBYTECODE="1")
+        # The doctor derives its root from CLAUDE_PROJECT_DIR/cwd; never hand it a FORGE_ROOT (review finding #3).
+        env = dict(os.environ, CLAUDE_PROJECT_DIR=self.target, PYTHONDONTWRITEBYTECODE="1")
+        env.pop("FORGE_ROOT", None)
         subprocess.run([doctor, "--report", "--no-probes"], cwd=self.target, env=env)
 
     # ---- orchestration ----------------------------------------------------- #
@@ -436,16 +458,27 @@ class Installer:
 # --------------------------------------------------------------------------- #
 # Settings merge (design §8.2, §13.4)
 # --------------------------------------------------------------------------- #
+def claude_src_dir(source: str) -> str:
+    """The payload directory that installs to <target>/.claude: dot-claude (current) or .claude (legacy payloads)."""
+    for name in CLAUDE_SRC_DIRS:
+        if os.path.isdir(os.path.join(source, name)):
+            return name
+    return CLAUDE_SRC_DIRS[0]
+
+
 def is_forge_handler(handler: Any) -> bool:
     return isinstance(handler, dict) and FORGE_HOOK in str(handler.get("command") or "")
 
 
-def merge_value(cur: Any, want: Any, force: bool) -> Any:
-    """Objects merge per key; arrays union (local order first); scalars keep the local value unless --force."""
+def merge_value(cur: Any, want: Any, force: bool, overrides: Optional[List[Tuple[str, Any, Any]]] = None,
+                key: str = "") -> Any:
+    """Objects merge per key; arrays union (local order first); scalars keep the local value unless force
+    (--force-settings). Every differing scalar is appended to `overrides` as (dotted key, local, fragment)."""
     if isinstance(cur, dict) and isinstance(want, dict):
         out = copy.deepcopy(cur)
         for k, v in want.items():
-            out[k] = merge_value(cur[k], v, force) if k in cur else copy.deepcopy(v)
+            sub = f"{key}.{k}" if key else str(k)
+            out[k] = merge_value(cur[k], v, force, overrides, sub) if k in cur else copy.deepcopy(v)
         return out
     if isinstance(cur, list) and isinstance(want, list):
         out = copy.deepcopy(cur)
@@ -453,6 +486,8 @@ def merge_value(cur: Any, want: Any, force: bool) -> Any:
             if item not in out:
                 out.append(copy.deepcopy(item))
         return out
+    if cur != want and overrides is not None:
+        overrides.append((key, cur, want))
     return copy.deepcopy(want) if force else cur
 
 
@@ -477,14 +512,16 @@ def merge_hooks(local: Dict[str, Any], fragment: Dict[str, Any]) -> Dict[str, An
     return out
 
 
-def merge_settings(local: Dict[str, Any], fragment: Dict[str, Any], force: bool) -> Dict[str, Any]:
+def merge_settings(local: Dict[str, Any], fragment: Dict[str, Any], force_settings: bool = False,
+                   overrides: Optional[List[Tuple[str, Any, Any]]] = None) -> Dict[str, Any]:
+    """design §8.2 settings merge. force_settings (only --force-settings, never --force) lets fragment scalars win."""
     out = copy.deepcopy(local)
     for key, want in fragment.items():
         if key == "hooks":
             hooks = local.get("hooks")
             out["hooks"] = merge_hooks(hooks if isinstance(hooks, dict) else {}, want)
         elif key in local:
-            out[key] = merge_value(local[key], want, force)
+            out[key] = merge_value(local[key], want, force_settings, overrides, key)
         else:
             out[key] = copy.deepcopy(want)
     return out
@@ -689,7 +726,9 @@ def main(argv: List[str]) -> int:
     p.add_argument("--target", default=".", help="repository root to install into (default: current directory)")
     p.add_argument("--source", default=DEFAULT_SOURCE, help="payload directory (default: the payload next to this script)")
     p.add_argument("--upgrade", action="store_true", help="upgrade an installed Forge (runs migrations; backs up local edits)")
-    p.add_argument("--force", action="store_true", help="overwrite locally modified Forge-owned files and settings scalars")
+    p.add_argument("--force", action="store_true", help="overwrite locally modified Forge-owned files (never settings)")
+    p.add_argument("--force-settings", action="store_true",
+                   help="let the fragment's scalars (model, effortLevel, plansDirectory, env.*, ...) replace local values")
     p.add_argument("--dry-run", action="store_true", help="print every change; write nothing")
     p.add_argument("--effort", choices=("low", "medium"), default=None, help="effortLevel (default binding.routing.architect_effort)")
     p.add_argument("--no-model", action="store_true", help="do not set model: fable in settings.json")

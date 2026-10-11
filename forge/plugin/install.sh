@@ -3,16 +3,20 @@
 #
 #   bash install.sh [--target DIR] [installer options]                 # payload next to this script (local checkout / plugin)
 #   bash install.sh --from ~/src/forge [--target DIR] [options]         # a local checkout (its forge/ or root)
-#   curl -fsSL <raw url>/install.sh | bash -s -- --repo OWNER/REPO --tag v1.0.0 [--target DIR] [options]
-#
-# Installer options are passed through: --target --upgrade --force --dry-run --effort low|medium --no-model
-# --with-bench --binding FILE --project NAME (see python3 installer.py --help).
+#   bash install.sh --tag v1.0.0 [--repo OWNER/REPO] [--target DIR] [options]   # a published tag, fetched from GitHub
+#   curl -fsSL https://raw.githubusercontent.com/riggs19991/ruggedroute-dataops/v1.0.0/forge/install.sh \
+#     | bash -s -- --tag v1.0.0 --target .
+# --repo defaults to riggs19991/ruggedroute-dataops (payload under forge/); --repo needs --tag.
+# Installer options are passed through: --target --upgrade --force --force-settings --dry-run --effort low|medium
+# --no-model --with-bench --binding FILE --project NAME (see python3 installer.py --help).
 # Exit codes: those of installer.py; 2 usage; 3 when python3 >= 3.9 or the payload cannot be found.
 set -eu
 
 usage() {
-  sed -n '2,12p' "$0" 2>/dev/null | sed 's/^# \{0,1\}//'
+  awk 'NR == 1 { next } /^#/ { sub(/^# ?/, ""); print; next } { exit }' "$0" 2>/dev/null
 }
+
+DEFAULT_REPO="riggs19991/ruggedroute-dataops"   # the Forge source lives under forge/ in this repository
 
 FROM=""
 REPO=""
@@ -57,10 +61,11 @@ SRC=""
 if [ -n "$FROM" ]; then
   SRC=$(find_installer "$FROM") || { echo "install.sh: no installer.py + payload/ under $FROM (or $FROM/forge)" >&2; exit 3; }
 elif [ -n "$REPO" ] || [ -n "$TAG" ]; then
-  [ -n "$REPO" ] && [ -n "$TAG" ] || { echo "install.sh: --repo OWNER/REPO and --tag TAG go together" >&2; exit 2; }
+  [ -n "$TAG" ] || { echo "install.sh: --repo OWNER/REPO needs --tag TAG" >&2; exit 2; }
+  [ -n "$REPO" ] || REPO=$DEFAULT_REPO
   TMP=$(mktemp -d "${TMPDIR:-/tmp}/forge-install.XXXXXX")
   if command -v git >/dev/null 2>&1; then
-    git clone --quiet --depth 1 --branch "$TAG" "https://github.com/$REPO.git" "$TMP/src" \
+    git -c advice.detachedHead=false clone --quiet --depth 1 --branch "$TAG" "https://github.com/$REPO.git" "$TMP/src" \
       || { echo "install.sh: cannot clone https://github.com/$REPO.git at $TAG" >&2; exit 3; }
     echo "install.sh: fetched $REPO@$TAG ($(git -C "$TMP/src" rev-parse --short HEAD))"
   elif command -v curl >/dev/null 2>&1 && command -v tar >/dev/null 2>&1; then
@@ -82,7 +87,7 @@ else
   fi
   if [ -n "$HERE" ]; then SRC=$(find_installer "$HERE") || SRC=""; fi
   if [ -z "$SRC" ]; then
-    echo "install.sh: no local payload next to this script; pass --from DIR or --repo OWNER/REPO --tag TAG" >&2
+    echo "install.sh: no local payload next to this script; pass --from DIR or --tag TAG [--repo OWNER/REPO]" >&2
     exit 3
   fi
 fi

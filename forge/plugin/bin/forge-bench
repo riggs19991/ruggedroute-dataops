@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 """forge-bench — measure the Forge driver against solo Fable on real tasks (MODULE-API §7; design §11, §13.3, §4.3 rule 12).
 
-Usage: .forge/bin/forge-bench <taskset.json> [--out .forge/COST-REPORT.md] [--arms driver,solo] [--max-phases N]
+Usage: .forge/bin/forge-bench <taskset> [--out .forge/COST-REPORT.md] [--arms driver,solo] [--max-phases N]
                               [--keep-worktrees] [--dry-run]
 
-taskset.json: [{"title": "...", "base": "<commit>", "check": "<shell command, exit 0 = pass>", "class": "T|S|M|W|L|X"}]
-Per task and arm, a fresh `git worktree` at `base`:
+<taskset> is any of: a JSON list of tasks; one task file (a single JSON object, e.g. forge/evals/tasks/<file>.json);
+or a directory whose *.json files are task objects or lists (e.g. forge/evals/tasks/), read in name order.
+A task is {"title": "...", "base": "<commit>", "check": "<shell command, exit 0 = pass>", "class": "T|S|M|W|L|X"}
+(extra keys such as id, repo, dod are ignored).
+Per task and arm, a fresh local clone (`git clone --shared`, detached at `base`) under a temp dir. A clone, not a
+`git worktree`: forge_root() resolves a linked worktree to the main checkout, and each arm needs its own .forge/ state.
   * solo arm:   claude -p "<title>" --model fable --effort low --max-budget-usd <budgets.class> (same allowed tools)
-  * driver arm: claude -p "/forge-task <title>" (intake), then .forge/bin/forge-run in the worktree (FORGE_ROOT pinned)
+  * driver arm: claude -p "/forge-task <title>" (intake), then .forge/bin/forge-run in the clone (CLAUDE_PROJECT_DIR =
+                the clone; FORGE_ROOT is never exported)
 then the task's `check` decides pass/fail. Costs are `total_cost_usd` (measured). Results go to
 .forge/.runtime/bench-<ts>.jsonl and the report (cost per passed task by class, pass rates, cache-read share).
 Exit codes: 0 report written · 2 usage (bad taskset) · 3 refused (claude absent, not a git repo).
 """
 import argparse
+import glob
 import importlib.machinery
 import importlib.util
 import json
@@ -22,7 +28,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from forgelib import common  # noqa: E402
@@ -46,13 +52,34 @@ def load_forge_run() -> Any:
     return module
 
 
-def load_taskset(path: str) -> List[Dict[str, Any]]:
-    """Validate taskset.json: a list of {title, base, check, class}."""
+def _read_tasks(path: str) -> List[Any]:
+    """One JSON file: a list of tasks, or a single task object (wrapped in a list)."""
     try:
         data = common.read_json(path, default=None)
     except common.ForgeError as e:
         raise common.ForgeError(str(e), common.EXIT_USAGE)
-    if not isinstance(data, list) or not data:
+    if data is None:
+        raise common.ForgeError(f"{path}: no such file", common.EXIT_USAGE)
+    if isinstance(data, dict):
+        return [data]
+    if isinstance(data, list):
+        return data
+    raise common.ForgeError(f"{path}: expected a task object or a JSON list of tasks", common.EXIT_USAGE)
+
+
+def load_taskset(path: str) -> List[Dict[str, Any]]:
+    """Validate the taskset: a JSON list of {title, base, check, class}, a single task object, or a directory of
+    *.json task files (each an object or a list), read in name order."""
+    if os.path.isdir(path):
+        files = sorted(glob.glob(os.path.join(path, "*.json")))
+        if not files:
+            raise common.ForgeError(f"{path}: directory has no *.json task files", common.EXIT_USAGE)
+        data: List[Any] = []
+        for f in files:
+            data += _read_tasks(f)
+    else:
+        data = _read_tasks(path)
+    if not data:
         raise common.ForgeError(f"{path}: expected a non-empty JSON list of tasks", common.EXIT_USAGE)
     for i, t in enumerate(data):
         if not isinstance(t, dict):
@@ -81,6 +108,23 @@ def claude_argv(fr: Any, binding: Dict[str, Any], prompt: str, effort: str, cap:
             + ["--output-format", "json", "--max-budget-usd", f"{cap:.2f}", "--max-turns", str(max_turns)])
 
 
+def arm_env(wt: str) -> Dict[str, str]:
+    """Environment for a process working in one arm's clone: CLAUDE_PROJECT_DIR is the clone and FORGE_ROOT is
+    removed, so forge_root() derives the clone itself (review finding #3: FORGE_ROOT is never exported)."""
+    env = dict(os.environ, CLAUDE_PROJECT_DIR=wt)
+    env.pop("FORGE_ROOT", None)
+    env.pop("CLAUDE_ENV_FILE", None)
+    return env
+
+
+def make_checkout(root: str, wt: str, base: str) -> Tuple[int, str]:
+    """A private clone of `root` detached at `base` (shares objects with root; its own .git and .forge/)."""
+    code, msg = common.git(["clone", "--quiet", "--shared", "--no-checkout", root, wt], root)
+    if code != 0:
+        return code, msg
+    return common.git(["-c", "advice.detachedHead=false", "checkout", "--quiet", "--detach", base], wt)
+
+
 def run_claude(argv: List[str], cwd: str, env: Dict[str, str], fr: Any) -> Dict[str, Any]:
     r = subprocess.run(argv, cwd=cwd, env=env, capture_output=True, text=True)
     result = fr.parse_result(r.stdout) or {}
@@ -98,7 +142,7 @@ def solo_arm(fr: Any, binding: Dict[str, Any], task: Dict[str, Any], wt: str) ->
     and journal into the main checkout, so the baseline would not be solo."""
     argv = claude_argv(fr, binding, task["title"], "low", task_cap(binding, task["class"]))
     argv += ["--settings", json.dumps({"disableAllHooks": True})]
-    out = run_claude(argv, wt, dict(os.environ), fr)
+    out = run_claude(argv, wt, arm_env(wt), fr)
     res = out["result"]
     return {"cost_usd": res.get("total_cost_usd"), "cache_read_share": fr.cache_read_share(res.get("modelUsage")),
             "exit": out["exit"], "note": "" if res else f"no JSON result: {out['stderr'].strip()[-120:]}"}
@@ -111,7 +155,7 @@ def driver_arm(fr: Any, binding: Dict[str, Any], task: Dict[str, Any], wt: str, 
     if not os.access(run_bin, os.X_OK):
         return {"cost_usd": None, "cache_read_share": None, "exit": None,
                 "note": "the Forge is not committed at this base (no .forge/bin/forge-run)"}
-    env = dict(os.environ, FORGE_ROOT=wt)            # forge_root(): the worktree, not the main checkout
+    env = arm_env(wt)                                 # forge_root(): the clone, not the main checkout
     probe = paths.rt("driver-probe.json")
     if common.exists(probe):                          # reuse the main checkout's passing driver probe
         common.ensure_dir(os.path.join(wt, ".forge", ".runtime"))
@@ -177,13 +221,14 @@ def bench(paths: common.Paths, taskset_path: str, out: str, arms: List[str], max
             for arm in arms:
                 prompt = t["title"] if arm == "solo" else f"/forge-task {t['title']}"
                 effort = "low" if arm == "solo" else str((binding.get("routing") or {}).get("architect_effort") or "medium")
-                print(f"[dry-run] task {i} {arm}: git worktree add --detach <tmp> {t['base']}")
+                print(f"[dry-run] task {i} {arm}: git clone --shared --no-checkout . <tmp>; git -C <tmp> checkout "
+                      f"--detach {t['base']}")
                 argv = claude_argv(fr, binding, prompt, effort, cap)
                 if arm == "solo":
                     argv += ["--settings", json.dumps({"disableAllHooks": True})]
                 print("  " + shlex.join(argv))
                 if arm == "driver":
-                    print(f"  FORGE_ROOT=<tmp> .forge/bin/forge-run --budget-usd {cap:.2f}")
+                    print(f"  (cd <tmp> && CLAUDE_PROJECT_DIR=<tmp> .forge/bin/forge-run --budget-usd {cap:.2f})")
                 print(f"  check: {t['check']}")
         return common.EXIT_OK
     if not shutil.which("claude"):
@@ -197,9 +242,9 @@ def bench(paths: common.Paths, taskset_path: str, out: str, arms: List[str], max
     for i, t in enumerate(tasks, 1):
         for arm in arms:
             wt = os.path.join(tmp, f"{i:03d}-{arm}")
-            code, msg = common.git(["worktree", "add", "--detach", wt, t["base"]], paths.root)
+            code, msg = make_checkout(paths.root, wt, t["base"])
             if code != 0:
-                row = {"cost_usd": None, "cache_read_share": None, "exit": None, "note": f"worktree failed: {msg.strip()[-120:]}"}
+                row = {"cost_usd": None, "cache_read_share": None, "exit": None, "note": f"checkout failed: {msg.strip()[-120:]}"}
                 passed = False
             else:
                 row = solo_arm(fr, binding, t, wt) if arm == "solo" else driver_arm(fr, binding, t, wt, paths, max_phases)
@@ -211,8 +256,8 @@ def bench(paths: common.Paths, taskset_path: str, out: str, arms: List[str], max
             common.append_jsonl(results_path, dict(row, ts=common.now_iso()))
             print(f"forge-bench: task {i} {arm}: {'PASS' if passed else 'FAIL'} cost {row['cost_usd']} "
                   f"cache {row['cache_read_share']} {row['note']}")
-            if code == 0 and not keep:
-                common.git(["worktree", "remove", "--force", wt], paths.root)
+            if not keep:
+                shutil.rmtree(wt, ignore_errors=True)
     if not keep:
         shutil.rmtree(tmp, ignore_errors=True)
     write_report(out, taskset_path, rows, arms)
@@ -222,11 +267,11 @@ def bench(paths: common.Paths, taskset_path: str, out: str, arms: List[str], max
 
 def main(argv: List[str]) -> int:
     p = argparse.ArgumentParser(prog="forge-bench", description=__doc__.splitlines()[0])
-    p.add_argument("taskset")
+    p.add_argument("taskset", help="a JSON list of tasks, one task file, or a directory of *.json task files")
     p.add_argument("--out", default=None, help="default: .forge/COST-REPORT.md")
     p.add_argument("--arms", default=",".join(ARMS), help="comma-separated subset of driver,solo")
     p.add_argument("--max-phases", type=int, default=None, help="forge-run --max-phases for the driver arm")
-    p.add_argument("--keep-worktrees", action="store_true")
+    p.add_argument("--keep-worktrees", action="store_true", help="keep each arm's temp clone")
     p.add_argument("--dry-run", action="store_true", help="print what each arm would run; spend nothing")
     args = p.parse_args(argv)
     arms = [a.strip() for a in args.arms.split(",") if a.strip()]

@@ -7,8 +7,14 @@ import sys
 import tempfile
 import unittest
 
-import helpers
-from helpers import INSTALLER, PAYLOAD, common, tree_hashes
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # also runnable as forge/tests/test_installer.py
+import helpers  # noqa: E402
+from helpers import FORGE_SRC, INSTALLER, PAYLOAD, PAYLOAD_CLAUDE, common, tree_hashes
+
+INSTALL_SH = os.path.join(FORGE_SRC, "install.sh")
+MAKE_PLUGIN = os.path.join(FORGE_SRC, "tools", "make_plugin.py")
+FRAGMENT = os.path.join(PAYLOAD_CLAUDE, "settings.forge.json")
+EVAL_TASKS = os.path.join(FORGE_SRC, "evals", "tasks")
 
 NON_FORGE_HOOK = {"hooks": [{"type": "command", "command": "echo my-own-stop-hook"}]}
 
@@ -118,7 +124,7 @@ class FreshInstallTests(InstallerTestCase):
         code, out, err = self.install()
         self.assertEqual(code, 0, err + out)
         settings = self.read_json(".claude/settings.json")
-        with open(os.path.join(PAYLOAD, ".claude", "settings.forge.json"), encoding="utf-8") as f:
+        with open(FRAGMENT, encoding="utf-8") as f:
             fragment = json.load(f)
         # scalars: fragment wins only when absent locally
         self.assertEqual(settings["effortLevel"], "high")
@@ -239,12 +245,40 @@ class OwnershipTests(InstallerTestCase):
         manifest = self.read_json(".forge/install-manifest.json")
         self.assertEqual(common.sha256_file(self.path(".forge/FORGE.md")), manifest["files"][".forge/FORGE.md"])
 
-    def test_force_overwrites_settings_scalars(self):
-        self.install()
-        self.assertEqual(self.read_json(".claude/settings.json")["effortLevel"], "high")
+    def test_force_never_overwrites_operator_settings_scalars(self):
+        # review finding #35: --force (the remedy for a Forge-owned file conflict) must not touch settings scalars
+        self.write(".claude/settings.json", json.dumps({
+            "model": "opus", "effortLevel": "high", "plansDirectory": "plans",
+            "env": {"CLAUDE_CODE_SUBAGENT_MODEL": "haiku"}}, indent=2))
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+        self.write(".forge/FORGE.md", "# hand-edited\n")
         code, out, err = self.install("--force")
-        self.assertEqual(code, 0, err)
-        self.assertNotEqual(self.read_json(".claude/settings.json")["effortLevel"], "high")
+        self.assertEqual(code, 0, err + out)
+        settings = self.read_json(".claude/settings.json")
+        self.assertEqual(settings["model"], "opus")
+        self.assertEqual(settings["effortLevel"], "high")
+        self.assertEqual(settings["plansDirectory"], "plans")
+        self.assertEqual(settings["env"]["CLAUDE_CODE_SUBAGENT_MODEL"], "haiku")
+        self.assertNotEqual(self.read(".forge/FORGE.md"), "# hand-edited\n", "--force still overwrites Forge-owned files")
+        # every kept difference is printed as settings: <key> local=<v> -> fragment=<w>
+        for key in ("model", "effortLevel", "plansDirectory", "env.CLAUDE_CODE_SUBAGENT_MODEL"):
+            self.assertRegex(out, rf"settings: {key}\s+local=.* -> fragment=", key)
+        self.assertIn("--force-settings", out)
+
+    def test_force_settings_applies_fragment_scalars(self):
+        self.write(".claude/settings.json", json.dumps({"model": "opus", "plansDirectory": "plans"}, indent=2))
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+        self.assertEqual(self.read_json(".claude/settings.json")["model"], "opus")
+        code, out, err = self.install("--force-settings")
+        self.assertEqual(code, 0, err + out)
+        settings = self.read_json(".claude/settings.json")
+        with open(FRAGMENT, encoding="utf-8") as f:
+            fragment = json.load(f)
+        self.assertEqual(settings["model"], fragment["model"])
+        self.assertEqual(settings["plansDirectory"], fragment["plansDirectory"])
+        self.assertRegex(out, r"settings: model\s+local=\"opus\" -> fragment=")
 
     def test_target_must_be_a_git_root(self):
         plain = tempfile.mkdtemp(prefix="forge-nogit-")
@@ -274,6 +308,224 @@ class OwnershipTests(InstallerTestCase):
         backups = [d for d in os.listdir(incidents) if d.startswith("upgrade-")] if os.path.isdir(incidents) else []
         self.assertTrue(backups, "local edits are backed up under .forge/incidents/upgrade-<ts>/")
         self.assertTrue(os.path.exists(os.path.join(incidents, backups[0], ".forge", "FORGE.md")))
+
+
+class GenericFragmentTests(InstallerTestCase):
+    """review findings #36/#42/#50: the shipped fragment carries no project-specific command rule."""
+
+    def test_fragment_has_no_project_specific_allow_rules(self):
+        with open(FRAGMENT, encoding="utf-8") as f:
+            fragment = json.load(f)
+        for rule in fragment["permissions"]["allow"]:
+            if not rule.startswith("Bash("):
+                continue
+            self.assertTrue(rule.startswith(("Bash(.forge/bin/", "Bash(git ")), f"project-specific rule in fragment: {rule}")
+            for word in ("pip", "pytest", "unittest", "qa/", "golden", "lib", "npm", "gradle"):
+                self.assertNotIn(word, rule, rule)
+
+    def _bare_target(self):
+        target = tempfile.mkdtemp(prefix="forge-bare-")
+        self.addCleanup(shutil.rmtree, target, True)
+        subprocess.run(["git", "init", "-q", target], check=True)
+        return target
+
+    def _allow(self, target):
+        with open(os.path.join(target, ".claude", "settings.json"), encoding="utf-8") as f:
+            return json.load(f)["permissions"]["allow"]
+
+    def test_empty_verify_install_has_no_pip_or_test_runner_rules(self):
+        target = self._bare_target()
+        code, out, err = self.install(target=target)
+        self.assertEqual(code, 0, err + out)
+        with open(os.path.join(target, ".forge", "binding.json"), encoding="utf-8") as f:
+            binding = json.load(f)
+        self.assertEqual(binding["verify"], [])
+        for rule in self._allow(target):
+            for word in ("pip", "pytest", "unittest", "golden_counts"):
+                self.assertNotIn(word, rule, rule)
+
+    def test_pip_rule_only_when_bootstrap_uses_pip(self):
+        target = self._bare_target()
+        with open(os.path.join(target, "requirements.txt"), "w", encoding="utf-8") as f:
+            f.write("requests\n")
+        code, out, err = self.install(target=target)
+        self.assertEqual(code, 0, err + out)
+        with open(os.path.join(target, ".forge", "binding.json"), encoding="utf-8") as f:
+            self.assertIn("pip install", json.load(f)["bootstrap"])
+        self.assertIn("Bash(python3 -m pip install *)", self._allow(target))
+        # the fixture repo (lib/*.py, no requirements/pyproject) has no pip bootstrap, so no pip rule
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+        self.assertIsNone(self.read_json(".forge/binding.json")["bootstrap"])
+        self.assertFalse(any("pip" in r for r in self.read_json(".claude/settings.json")["permissions"]["allow"]))
+
+
+class PayloadLayoutTests(InstallerTestCase):
+    """The payload's .claude/ ships as dot-claude/ and installs to <target>/.claude/; plugin/ never drifts."""
+
+    def test_payload_ships_dot_claude_not_dot_claude_dir(self):
+        self.assertFalse(os.path.exists(os.path.join(PAYLOAD, ".claude")),
+                         "payload/.claude would be auto-discovered by Claude Code in the Forge source repo")
+        self.assertTrue(os.path.isfile(FRAGMENT))
+        self.assertFalse(os.path.exists(os.path.join(FORGE_SRC, "plugin", "payload", ".claude")))
+
+    def test_dot_claude_installs_to_target_dot_claude(self):
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+        manifest = self.read_json(".forge/install-manifest.json")["files"]
+        self.assertFalse([r for r in manifest if r.startswith("dot-claude")], "manifest paths are target-relative")
+        self.assertIn(".claude/agents/forge-builder.md", manifest)
+        self.assertIn(".claude/settings.forge.json", manifest)
+        self.assertIn(".claude/rules/forge-stack-python.md", manifest)
+        self.assertFalse(os.path.exists(self.path("dot-claude")))
+
+    def test_plugin_matches_generator_output(self):
+        # review findings #12/#60: plugin/ is generated; any drift from the payload fails the suite
+        r = subprocess.run([sys.executable, MAKE_PLUGIN, "--check"], capture_output=True, text=True, timeout=120)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+
+class InstallShTests(InstallerTestCase):
+    """review finding #43: the README one-liner and the doctor's remedy use flags install.sh accepts."""
+
+    def sh(self, *args, env=None):
+        e = dict(os.environ)
+        e.pop("FORGE_ROOT", None)
+        e["PYTHONDONTWRITEBYTECODE"] = "1"
+        e.update(env or {})
+        return subprocess.run(["bash", INSTALL_SH, *args], cwd=self.target, env=e, capture_output=True, text=True,
+                              timeout=300)
+
+    def test_repo_without_tag_is_usage_error(self):
+        r = self.sh("--repo", "someone/forge", "--target", self.target, "--dry-run")
+        self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+        self.assertIn("--tag", r.stderr)
+
+    def test_tag_alone_fetches_the_default_repo_forge_dir(self):
+        # serve https://github.com/riggs19991/ruggedroute-dataops.git from a local bare repo (no network)
+        mirror = tempfile.mkdtemp(prefix="forge-mirror-")
+        self.addCleanup(shutil.rmtree, mirror, True)
+        src = os.path.join(mirror, "src")
+        shutil.copytree(FORGE_SRC, os.path.join(src, "forge"),
+                        ignore=shutil.ignore_patterns("__pycache__", "plugin", "tests", "docs", "evals"))
+        git = ["git", "-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "commit.gpgsign=false"]
+        for cmd in (["init", "-q"], ["add", "-A"], ["commit", "-q", "-m", "src"], ["tag", "v9.9.9"]):
+            subprocess.run(git + cmd, cwd=src, check=True, capture_output=True)
+        bare = os.path.join(mirror, "riggs19991", "ruggedroute-dataops.git")
+        subprocess.run(["git", "clone", "-q", "--bare", src, bare], check=True, capture_output=True)
+        env = {"GIT_CONFIG_COUNT": "1", "GIT_CONFIG_KEY_0": f"url.{mirror}/.insteadOf",
+               "GIT_CONFIG_VALUE_0": "https://github.com/"}
+        r = self.sh("--tag", "v9.9.9", "--target", self.target, "--dry-run", env=env)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("fetched riggs19991/ruggedroute-dataops@v9.9.9", r.stdout)
+        self.assertIn("(dry run)", r.stdout)
+
+    def test_readme_and_doctor_use_accepted_flags(self):
+        readme = common.read_text(os.path.join(FORGE_SRC, "README.md"))
+        for line in readme.splitlines():
+            if "install.sh" in line and "--tag" in line and "bash -s" in line:
+                self.assertIn("--target", line)
+        doctor = common.read_text(os.path.join(PAYLOAD, ".forge", "bin", "forge-doctor"))
+        self.assertNotIn("install.sh --upgrade --tag", doctor)
+        self.assertIn("install.sh --tag v{pin}", doctor)
+
+
+class DoctorTests(InstallerTestCase):
+    """forge-doctor: FORGE_ROOT naming another repo FAILs (#3); --report runs the pointer check (#45)."""
+
+    def doctor(self, *args, forge_root=None):
+        env = dict(os.environ)
+        env.pop("FORGE_ROOT", None)
+        env["CLAUDE_PROJECT_DIR"] = self.target
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
+        if forge_root is not None:
+            env["FORGE_ROOT"] = forge_root
+        r = subprocess.run([self.path(".forge/bin/forge-doctor"), *args], cwd=self.target, env=env,
+                           capture_output=True, text=True, timeout=120)
+        return r.returncode, r.stdout, r.stderr
+
+    def setUp(self):
+        super().setUp()
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+
+    def test_report_runs_pointer_check_by_default(self):
+        code, out, err = self.doctor("--report", "--no-probes")
+        self.assertEqual(code, 0, err)
+        self.assertRegex(out, r"(?m)^(OK|WARN|FAIL) pointers: ")
+        code, out, err = self.doctor("--quick")
+        self.assertNotRegex(out, r"(?m)^\w+ pointers: ", "--quick stays minimal")
+
+    def test_foreign_forge_root_fails(self):
+        other = tempfile.mkdtemp(prefix="forge-other-")
+        self.addCleanup(shutil.rmtree, other, True)
+        subprocess.run(["git", "init", "-q", other], check=True)
+        os.makedirs(os.path.join(other, ".forge"))
+        code, out, err = self.doctor("--quick", forge_root=other)
+        self.assertEqual(code, 1, out + err)
+        self.assertRegex(out, r"(?m)^FAIL forge-root: FORGE_ROOT=.* names a different repository")
+        code, out, err = self.doctor("--quick", forge_root=self.target)
+        self.assertRegex(out, r"(?m)^OK forge-root: ")
+        code, out, err = self.doctor("--quick")
+        self.assertRegex(out, r"(?m)^OK forge-root: FORGE_ROOT unset")
+
+    def test_installer_doctor_run_ignores_inherited_forge_root(self):
+        other = tempfile.mkdtemp(prefix="forge-other-")
+        self.addCleanup(shutil.rmtree, other, True)
+        env = dict(os.environ, FORGE_ROOT=other, PYTHONDONTWRITEBYTECODE="1")
+        self.write(".forge/VERSION", "0.0.1\n")
+        r = subprocess.run([sys.executable, INSTALLER, "--target", self.target, "--source", PAYLOAD, "--upgrade"],
+                           cwd=self.target, env=env, capture_output=True, text=True, timeout=300)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertRegex(r.stdout, r"(?m)^OK forge-root: FORGE_ROOT unset")
+
+
+class BenchTasksetTests(InstallerTestCase):
+    """review finding #44: forge-bench takes a list, one task object, or a directory of task files."""
+
+    def bench(self, taskset):
+        env = dict(os.environ)
+        env.pop("FORGE_ROOT", None)
+        env["CLAUDE_PROJECT_DIR"] = self.target
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
+        r = subprocess.run([self.path(".forge/bin/forge-bench"), taskset, "--dry-run", "--arms", "solo"],
+                           cwd=self.target, env=env, capture_output=True, text=True, timeout=120)
+        return r.returncode, r.stdout, r.stderr
+
+    def setUp(self):
+        super().setUp()
+        code, out, err = self.install("--with-bench")
+        self.assertEqual(code, 0, err + out)
+
+    def test_single_task_file_directory_and_list(self):
+        files = sorted(f for f in os.listdir(EVAL_TASKS) if f.endswith(".json"))
+        self.assertTrue(files)
+        code, out, err = self.bench(os.path.join(EVAL_TASKS, files[0]))
+        self.assertEqual(code, 0, err)
+        self.assertEqual(out.count("[dry-run] task"), 1)
+        code, out, err = self.bench(EVAL_TASKS)
+        self.assertEqual(code, 0, err)
+        self.assertEqual(out.count("[dry-run] task"), len(files))
+        listed = os.path.join(self.target, "..", os.path.basename(self.target) + "-taskset.json")
+        self.addCleanup(lambda: os.path.exists(listed) and os.unlink(listed))
+        with open(listed, "w", encoding="utf-8") as f:
+            json.dump([json.loads(common.read_text(os.path.join(EVAL_TASKS, n))) for n in files], f)
+        code, out, err = self.bench(listed)
+        self.assertEqual(code, 0, err)
+        self.assertEqual(out.count("[dry-run] task"), len(files))
+        self.assertNotIn("FORGE_ROOT=", out, "the driver arm never exports FORGE_ROOT")
+
+    def test_invalid_tasksets_are_usage_errors(self):
+        empty = tempfile.mkdtemp(prefix="forge-empty-")
+        self.addCleanup(shutil.rmtree, empty, True)
+        code, out, err = self.bench(empty)
+        self.assertEqual(code, 2, out + err)
+        bad = os.path.join(empty, "bad.json")
+        with open(bad, "w", encoding="utf-8") as f:
+            json.dump({"title": "x"}, f)
+        code, out, err = self.bench(bad)
+        self.assertEqual(code, 2, out + err)
+        self.assertIn("base", err)
 
 
 if __name__ == "__main__":

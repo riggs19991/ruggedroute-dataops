@@ -1,7 +1,10 @@
 <!-- VERDICT (design §5.6; .forge/schemas/verdict.json). The verifier's final message: these six sections, then one
      fenced json block. Every DoD id from the brief (or plan-meta for inline tasks, step "main") appears exactly once
      with result, cmd and a numeric exit; every cited cmd has a checks/ record from this verifier's session.
-     Pre-validate with: .forge/bin/forge-gate --verdict {{task}} {{step}} --from-file <draft> -->
+     Pre-validate: write the draft to .forge/tasks/{{task}}/drafts/<your agent id>-verdict.md (Write tool; never committed), then
+     .forge/bin/forge-gate --verdict {{task}} {{step}} --from-file <that path> --agent <your agent id>
+     An inline verdict (step main) is recorded as STATUS task.inline_verdict; close needs it to be PASS for X, and for S
+     when tests changed. -->
 
 ## Verdict
 {{PASS | FAIL | UNKNOWN}} — {{one sentence}}

@@ -87,10 +87,24 @@ class PlanGateTests(GateTestCase):
         self.repo.write_plan(self.tid, "S", allowed_paths=["lib/mod.py"], headings=["Rollback"])
         self.assert_defect(self.gate("--plan", self.tid), "S missing Validation Criteria")
 
+    def test_expected_fail_first_must_be_a_subset_of_checks(self):
+        """Review #19: forge-check runs checks[] only, so a red/green pair can only exist for checks[] commands."""
+        self.repo.write_brief(self.tid, checks=[LIB_UNIT], tdd=True, expected_fail_first=["pytest lib/test_new.py -q"])
+        self.repo.write_plan(self.tid, "M")
+        self.assert_defect(self.gate("--plan", self.tid), "expected_fail_first not in checks", mentions="pytest lib/test_new.py -q")
+        self.repo.write_brief(self.tid, checks=[LIB_UNIT, "pytest lib/test_new.py -q"], tdd=True,
+                              expected_fail_first=["pytest lib/test_new.py -q"])
+        self.assert_valid(self.gate("--plan", self.tid), "subset")
+
     def test_usage(self):
         self.assertEqual(self.gate()[0], common.EXIT_USAGE)
         self.assertEqual(self.gate("--plan")[0], common.EXIT_USAGE)
         self.assertEqual(self.gate("--handoff", self.tid, "01")[0], common.EXIT_USAGE)   # neither --from-file nor --from-stdin
+        # review #31: ids are validated before anything is read
+        self.assertEqual(self.gate("--plan", "../../x")[0], common.EXIT_USAGE)
+        self.assertEqual(self.gate("--handoff", self.tid, "../01", "--from-stdin", stdin="x")[0], common.EXIT_USAGE)
+        self.assertEqual(self.gate("--verdict", "T-1", "01", "--from-stdin", stdin="x")[0], common.EXIT_USAGE)
+        self.assertEqual(self.gate("--verdict", self.tid, "01", "--from-stdin", "--agent", "a/b", stdin="x")[0], common.EXIT_USAGE)
 
 
 class HandoffGateTests(GateTestCase):
@@ -219,24 +233,87 @@ class HandoffGateTests(GateTestCase):
         self.assert_valid(self.handoff(text, "--red-ok"), "red_ok via flag")
         self.assert_valid(self.handoff(text), "red_ok from the step's red_ok_until")
 
-    def test_tdd_needs_red_before_green(self):
-        self.seed(tdd=True, expected_fail_first=[LIB_UNIT])
+    TDD_ALLOWED = ["lib/mod.py", "lib/util.py", "lib/extra.py", "lib/test_mod.py"]
+
+    def seed_tdd(self, red_record_by=None, red_ts=None):
+        """A tdd step whose worker wrote the test (evidence: a source edit of lib/test_mod.py)."""
+        self.repo.write_brief(self.tid, "01", allowed_paths=self.TDD_ALLOWED, checks=[LIB_UNIT], tdd=True,
+                              expected_fail_first=[LIB_UNIT], may_edit_tests=True)
+        self.repo.write_plan(self.tid, "M")
+        step = make_step("01", self.tid, status="running", attempts=1, agent_id=self.AGENT, started_by="cli",
+                         started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000, base=self.repo.head(),
+                         allowed_paths=self.TDD_ALLOWED)
+        self.repo.seed_status(task=make_task(self.tid, "M", "execute", steps=[step]))
+        self.repo.bind_agent(self.AGENT, self.tid, "01")
         now = int(time.time())
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", ts=now - 60, kind="source", file="lib/test_mod.py")
+        if red_record_by:
+            self.repo.write_check_record(self.tid, "01", red_record_by, ts=red_ts if red_ts is not None else now - 40,
+                                         expect_fail=True,
+                                         results=[{"name": "lib-unit", "cmd": LIB_UNIT, "exit": 1, "dur_s": 0.1, "tail": "FAIL"}])
+        return now
+
+    def test_tdd_needs_red_before_green(self):
+        now = self.seed_tdd()
         self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now)
-        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py", "lib/test_mod.py"])
         self.assert_defect(self.handoff(text), "green only", mentions="tdd")
         self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now - 20, expect_fail=True,
                                      results=[{"name": "lib-unit", "cmd": LIB_UNIT, "exit": 1, "dur_s": 0.1, "tail": "FAIL"}])
         self.assert_valid(self.handoff(text), "red then green")
 
     def test_tdd_green_before_red_is_not_enough(self):
-        self.seed(tdd=True, expected_fail_first=[LIB_UNIT])
-        now = int(time.time())
+        now = self.seed_tdd()
         self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now - 20)
         self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now, expect_fail=True,
                                      results=[{"name": "lib-unit", "cmd": LIB_UNIT, "exit": 1, "dur_s": 0.1, "tail": "FAIL"}])
-        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py", "lib/test_mod.py"])
         self.assert_defect(self.handoff(text), "red after green")
+
+    def test_tdd_red_by_an_earlier_worker_counts_for_a_retry(self):
+        """Review #27: a retry worker on an already-green tree inherits attempt 1's red record."""
+        now = self.seed_tdd(red_record_by="agent_attempt1")
+        self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now)        # the retry's own green
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py", "lib/test_mod.py"])
+        self.assert_valid(self.handoff(text), "another agent's red before this agent's green")
+        # another agent's GREEN never substitutes for this agent's own green
+        self.repo.rm(f".forge/tasks/{self.tid}/checks/01-{now}-{self.AGENT}.json")
+        self.repo.write_check_record(self.tid, "01", "agent_attempt1", ts=now)
+        self.assert_defect(self.handoff(text), "no green by this agent", mentions=LIB_UNIT.split()[0])
+
+    def test_tdd_binds_only_a_worker_that_touched_a_test_file(self):
+        """Review #27: a worker whose evidence shows no test-file edit has no red to show."""
+        self.seed(tdd=True, expected_fail_first=[LIB_UNIT])
+        now = int(time.time())
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", ts=now - 30, kind="source", file="lib/mod.py")
+        self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now)        # green only, no red anywhere
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])
+        self.assert_valid(self.handoff(text), "no test file touched: tdd rule does not bind")
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", ts=now - 20, kind="source", file="lib/test_mod.py")
+        self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now + 1)
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py", "lib/test_mod.py"])
+        code, out, err = self.handoff(text)
+        self.assertEqual(code, common.EXIT_DEFECTS, out)
+        self.assertIn("tdd", out)
+
+    def test_touched_test_file_falls_back_to_a_path_heuristic(self):
+        from forgelib import gates
+        self.seed()
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", kind="source", file="lib/mod.py")
+        self.assertFalse(gates.touched_test_file(self.repo.paths, self.tid, self.AGENT))
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", kind="source", file="lib/test_mod.py")
+        self.assertTrue(gates.touched_test_file(self.repo.paths, self.tid, self.AGENT), "binding.test_globs match")
+        binding = self.repo.read_json(".forge/binding.json")
+        binding["test_globs"] = []
+        self.repo.write_json(".forge/binding.json", binding)
+        self.assertTrue(gates.touched_test_file(self.repo.paths, self.tid, self.AGENT), "heuristic: lib/test_mod.py")
+        self.repo.rm(f".forge/tasks/{self.tid}/evidence.jsonl")
+        for f in ("app/src/test/Foo.kt", "web/foo.spec.ts", "pkg/tests/x.py", "pkg/x_test.go"):
+            self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", kind="source", file=f)
+            self.assertTrue(gates.touched_test_file(self.repo.paths, self.tid, self.AGENT), f)
+            self.repo.rm(f".forge/tasks/{self.tid}/evidence.jsonl")
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", kind="source", file="web/foo.ts")
+        self.assertFalse(gates.touched_test_file(self.repo.paths, self.tid, self.AGENT))
 
     def test_every_brief_check_needs_a_record(self):
         self.seed(checks=[LIB_UNIT, "python3 -c 'print(1)'"])
@@ -270,6 +347,35 @@ class HandoffGateTests(GateTestCase):
         code, out, err = self.gate("--handoff", self.tid, "01", "--from-stdin", stdin=text)
         self.assertIn("WARN", err)
         self.assertEqual(code, 0, out)
+
+    def test_drafts_are_never_tree_changes_and_never_committed(self):
+        """Review #17: `.forge/tasks/<id>/drafts/**` is a pre-validation scratch area."""
+        from forgelib import gates
+        self.seed()
+        self.repo.write("lib/util.py", "def twice(x):\n    return x * 2\n")
+        self.repo.write(f".forge/tasks/{self.tid}/drafts/{self.AGENT}-handoff.md", "draft\n")
+        self.repo.write(f".forge/tasks/{self.tid}/report-01.md", "report\n")
+        wide = self.ALLOWED + [".forge/**"]
+        self.assertEqual(gates.tree_changed(self.repo.paths, wide), ["lib/util.py"])
+        self.assertTrue(gates.is_draft_path(f".forge/tasks/{self.tid}/drafts/x.md"))
+        self.assertFalse(gates.is_draft_path(f".forge/tasks/{self.tid}/report-01.md"))
+        specs = gates.commit_pathspecs(self.repo.paths, self.ALLOWED, self.tid)
+        self.assertEqual(specs[0], "lib/util.py")
+        self.assertIn(f".forge/tasks/{self.tid}/", specs)
+        self.assertEqual(specs[-1], gates.drafts_exclude_pathspec(self.tid))
+        code, out = self.repo.git("add", "-A", "--", *specs)
+        self.assertEqual(code, 0, out)
+        staged = self.repo.git("diff", "--cached", "--name-only")[1].split()
+        self.assertIn("lib/util.py", staged)
+        self.assertIn(f".forge/tasks/{self.tid}/report-01.md", staged)
+        self.assertFalse([p for p in staged if "/drafts/" in p], staged)
+        # the task-agnostic form (for close: `git add -A -- .forge/ <exclude>`)
+        self.repo.git("reset", "-q")
+        code, out = self.repo.git("add", "-A", "--", ".forge/", gates.drafts_exclude_pathspec())
+        self.assertEqual(code, 0, out)
+        staged = self.repo.git("diff", "--cached", "--name-only")[1].split()
+        self.assertIn(f".forge/tasks/{self.tid}/report-01.md", staged)
+        self.assertFalse([p for p in staged if "/drafts/" in p], staged)
 
     def test_task_level_handoff(self):
         self.seed()
@@ -399,6 +505,102 @@ class VerdictGateTests(GateTestCase):
         self.repo.write_check_record(self.tid, "main", "agent_v1")
         self.assert_valid(self.gate("--verdict", self.tid, "main", "--from-stdin", "--agent", "agent_v1", stdin=text), "inline PASS")
 
+    def test_dod_check_outside_brief_checks_is_citable(self):
+        """Review #20: a DoD command absent from checks[] gets a record from the verifier's own forge-check run
+        (plan_commands runs the step's DoD checks) or from `forge-check --cmd`."""
+        dod = [{"id": "DoD-1", "criterion": "WHEN a THE SYSTEM SHALL b", "check": LIB_UNIT},
+               {"id": "DoD-2", "criterion": "WHEN c THE SYSTEM SHALL d", "check": "python3 -c 'print(42)'"}]
+        self.seed(dod=dod, brief_dod=("DoD-1", "DoD-2"))
+        crit = [{"id": "DoD-1", "result": "PASS", "cmd": LIB_UNIT, "exit": 0},
+                {"id": "DoD-2", "result": "PASS", "cmd": "python3 -c 'print(42)'", "exit": 0}]
+        text = self.repo.write_verdict_md(self.tid, "01", criteria=crit)
+        code, out, err = self.repo.run_cli("forge-check", self.tid, "01", "--agent", self.VERIFIER)
+        self.assertEqual(code, 0, err + out)
+        self.assert_valid(self.verdict(text), "the verifier's forge-check run recorded the DoD command")
+        for f in self.repo.check_files(self.tid):
+            self.repo.rm(f".forge/tasks/{self.tid}/checks/{f}")
+        code, out, err = self.repo.run_cli("forge-check", self.tid, "01", "--agent", self.VERIFIER, "--cmd", "python3 -c 'print(42)'")
+        self.assertEqual(code, 0, err + out)
+        self.assert_defect(self.verdict(text), "DoD-1 still unrecorded", mentions="DoD-1")
+        code, out, err = self.repo.run_cli("forge-check", self.tid, "01", "--agent", self.VERIFIER, "--cmd", LIB_UNIT)
+        self.assertEqual(code, 0, err + out)
+        self.assert_valid(self.verdict(text), "both cited commands recorded with --cmd")
+
+
+class AgentResolutionTests(GateTestCase):
+    """Reviews #13/#25: forge-gate without --agent resolves per mode and never to another agent's records."""
+
+    def seed_step(self):
+        self.repo.write_brief(self.tid, "01")
+        self.repo.write_plan(self.tid, "M")
+        commit = self.repo.head()
+        step = make_step("01", self.tid, status="verifying", attempts=1, agent_id="agent_b1", started_by="cli",
+                         started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000, base=commit, commit=commit)
+        self.repo.seed_status(task=make_task(self.tid, "M", "execute", steps=[step]))
+        self.repo.bind_agent("agent_b1", self.tid, "01")
+
+    def test_verdict_never_resolves_to_the_builders_record(self):
+        self.seed_step()
+        self.repo.write_check_record(self.tid, "01", "agent_b1")            # only the builder ran checks
+        text = self.repo.write_verdict_md(self.tid, "01")
+        code, out, err = self.gate("--verdict", self.tid, "01", "--from-stdin", stdin=text)
+        self.assertEqual(code, 0, "no verifier record at all: agent-scoped rules skipped, with a WARN")
+        self.assertIn("WARN", err)
+        self.repo.agent_record("agent_v1", "forge-verifier", task=self.tid, verify_step="01")
+        code, out, err = self.gate("--verdict", self.tid, "01", "--from-stdin", stdin=text)
+        self.assertEqual(code, common.EXIT_DEFECTS, "resolved to the verifier, which has no record: defect")
+        self.assertIn("agent_v1", err)
+        self.assertNotIn("WARN", err)
+        self.assertIn("agent_v1", out)
+        self.repo.write_check_record(self.tid, "01", "agent_v1")
+        self.assert_valid(self.gate("--verdict", self.tid, "01", "--from-stdin", stdin=text), "verifier's own record")
+        # two verifier records for the step: ambiguous -> WARN and skip
+        self.repo.agent_record("agent_v2", "forge-verifier", task=self.tid, verify_step="01")
+        code, out, err = self.gate("--verdict", self.tid, "01", "--from-stdin", stdin=text)
+        self.assertEqual(code, 0)
+        self.assertIn("WARN", err)
+
+    def test_inline_verdict_resolves_to_the_verifier_of_main(self):
+        self.repo.write_plan(self.tid, "S", allowed_paths=["lib/mod.py"])
+        self.repo.seed_status(task=make_task(self.tid, "S", "execute", scope=["lib/mod.py"], files=["lib/mod.py"], creates=[]))
+        self.repo.write_check_record(self.tid, "main", "main")              # the architect's own run
+        text = self.repo.write_verdict_md(self.tid, "main", range_="worktree")
+        code, out, err = self.gate("--verdict", self.tid, "main", "--from-stdin", stdin=text)
+        self.assertEqual(code, 0, "no verifier record: skipped with WARN, never 'main'")
+        self.assertIn("WARN", err)
+        self.repo.agent_record("agent_v1", "forge-verifier", task=self.tid, verify_step="main")
+        code, out, err = self.gate("--verdict", self.tid, "main", "--from-stdin", stdin=text)
+        self.assertEqual(code, common.EXIT_DEFECTS, "the architect's record is not the verifier's")
+        self.repo.write_check_record(self.tid, "main", "agent_v1")
+        self.assert_valid(self.gate("--verdict", self.tid, "main", "--from-stdin", stdin=text), "verifier of main")
+
+    def test_inline_handoff_uses_main_and_counts_unknown_records(self):
+        """Review #13: a record written by forge-check outside a hook (stamped unknown) counts for step main."""
+        self.repo.write_plan(self.tid, "S", allowed_paths=["lib/mod.py"])
+        self.repo.seed_status(task=make_task(self.tid, "S", "execute", scope=["lib/mod.py"], files=["lib/mod.py"], creates=[]))
+        text = self.repo.write_report_md(self.tid, "main", "DONE", ["lib/mod.py"])
+        code, out, err = self.gate("--handoff", self.tid, "main", "--from-stdin", stdin=text)
+        self.assertEqual(code, common.EXIT_DEFECTS, "no record yet")
+        self.assertIn("by main", out)
+        self.assertNotIn("WARN", err)
+        self.repo.write_check_record(self.tid, "main", "unknown", ts=int(time.time()))
+        self.assert_valid(self.gate("--handoff", self.tid, "main", "--from-stdin", stdin=text), "unknown counts as main")
+        # but never for a numbered step
+        from forgelib import gates
+        self.repo.write_check_record(self.tid, "01", "unknown")
+        self.assertEqual(gates.check_records(self.repo.paths, self.tid, "01", "main"), [])
+        self.assertEqual(gates.check_records(self.repo.paths, self.tid, "main", "agent_v1"), [])
+
+    def test_handoff_resolves_to_the_bound_worker_only(self):
+        self.seed_step()
+        self.repo.agent_record("agent_v1", "forge-verifier", task=self.tid, verify_step="01")
+        self.repo.write_check_record(self.tid, "01", "agent_v1", ts=int(time.time()))
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])
+        code, out, err = self.gate("--handoff", self.tid, "01", "--from-stdin", stdin=text)
+        self.assertEqual(code, common.EXIT_DEFECTS, "the verifier's record is not the builder's")
+        self.assertIn("agent_b1", err)
+        self.assertNotIn("WARN", err)
+
 
 class BashHeuristicTests(unittest.TestCase):
     """looks_mutating / ro_allowed live in gates.py (MODULE-API §6; design §13.3 regexes)."""
@@ -431,6 +633,117 @@ class BashHeuristicTests(unittest.TestCase):
               "cat <<EOF\nx\nEOF", "git log && rm x", "ls | tee out"]
         for cmd in no:
             self.assertFalse(self.gates.ro_allowed(cmd), cmd)
+
+    def test_ro_denies_substitution_find_actions_and_output_flags(self):
+        """Review #7: every bypass of the allow-list, one by one."""
+        no = ["cat $(rm -rf lib)", "cat `rm x`", "echo ${X:=$(rm x)}", "cat <(rm x)", "ls > >(cat)", "cat x | cat >(rm x)",
+              "find . -name '*.py' -delete", "find . -exec rm {} \\;", "find . -execdir rm {} \\;", "find . -ok rm {} \\;",
+              "find . -okdir rm {} \\;", "find . -name x -fprint lib/mod.py", "find . -fprintf lib/mod.py '%p'", "find . -fls out",
+              "git diff --output=lib/mod.py HEAD~1", "git log --output lib/mod.py", "git log \"--output=lib/mod.py\"",
+              "git grep -Orm foo", "git grep --open-files-in-pager=rm foo", "sort -o lib/mod.py x", "sort -olib/mod.py x",
+              "uniq x lib/mod.py", "ls | xargs rm", "eval 'rm x'", "echo tee", "rg --pre rm foo", "rg --pre-glob '*' foo",
+              "find . -name '*.py' \"-delete\"", "ls 1>lib/mod.py", "ls 2>lib/mod.py", "ls &>lib/mod.py", "ls >|lib/mod.py",
+              "cat x > \"$f\"", "bash -c 'ls'", "sh -c ls", "git -c core.pager=rm log", "git --git-dir=.git log",
+              "git branch -D main", "git stash drop", "GIT_PAGER=rm git log", "env rm x", "exec rm x", "(rm x)", "{ rm x; }",
+              "timeout 5 rm x", "timeout 5 timeout 5 rm x", "cat x #; rm y\nrm z", "true &\nrm x", "cat 'x\nrm y"]
+        for cmd in no:
+            self.assertFalse(self.gates.ro_allowed(cmd), cmd)
+
+    def test_ro_allows_common_read_only_forms(self):
+        """Review #51: flags that are not interpreter flags, quoted '>' text, sed -n, awk, git -C, timeout, prefixes."""
+        yes = ["grep -c foo lib/mod.py", "grep -e foo -e bar lib", "grep -o 'x' lib/mod.py", "wc -c x", "head -c 10 x",
+               "git log --format='%h -> %s'", "grep -rn '=>' lib", "grep -rn \"a > b\" lib", "echo 'x > y'",
+               "sed -n 1,5p lib/mod.py", "sed -n '/foo/,/bar/p' x", "sed -n 's/a/b/p' x", "sed -ne '1p' -e '$p' x",
+               "sed -En '/x/p' errors.log", "awk '{print $1}' x", "awk -F: '$2 == 1' x", "awk -v n=1 'NR==n' x",
+               "python -m pytest -q", "python3.12 -m unittest -q", "python3 -m json.tool x.json", "true", "false",
+               "timeout 60 pytest -q", "timeout -k 5 60s python3 -m pytest -q", "timeout 10 .forge/bin/forge-check T-0001 01",
+               '"$CLAUDE_PROJECT_DIR"/.forge/bin/forge-check T-0001 01', "$FORGE_ROOT/.forge/bin/forge-status get digest",
+               "forge-check T-0001 01", "git -C lib log --oneline", "git --no-pager diff --stat", "git -C . rev-parse HEAD",
+               "git stash list", "git describe --tags", "git ls-tree HEAD", "ls 2>/dev/null", "ls 2>&1 | head", "cat < x",
+               "cd lib && python3 -m unittest -q | tail -5", "cd lib && python3 -m unittest -q 2>&1; git status",
+               "which python3", "realpath lib", "du -sh lib", "cmp a b", "ls lib; true", "git log -5 --stat --no-color",
+               ".forge/bin/forge-check T-0001 01 --cmd 'grep -c foo lib/mod.py'", ".forge/bin/forge-status get task.phase",
+               ".forge/bin/forge-gate --verdict T-0001 01 --from-file .forge/tasks/T-0001/drafts/agent_v1-verdict.md --agent agent_v1",
+               "npm test", "npx jest --ci", "./gradlew :app:testDebugUnitTest", "jq -r '.a | .b' x.json"]
+        for cmd in yes:
+            self.assertTrue(self.gates.ro_allowed(cmd), cmd)
+
+    def test_ro_sed_and_awk_scripts_that_write_or_execute_are_denied(self):
+        no = ["sed -n 'w out' x", "sed -n '1,5w lib/mod.py' x", "sed -n 's/a/b/w out' x", "sed -n 's/a/b/e' x",
+              "sed -n '1e rm x' x", "sed -n '/a/{p;w out}' x", "sed -n -f script.sed x", "sed -n --in-place p x",
+              "sed 1p x", "sed -i.bak -n p x", "sed -ne 'w out' x", "awk '{system(\"rm x\")}' x",
+              "awk '{print > \"lib/mod.py\"}' x", "awk '{print | \"rm x\"}' x", "awk -f prog.awk x", "gawk -l ext 'x'",
+              "awk '\"rm x\" | getline' x", "awk '@load \"x\"' x", "sed -n 'y/abc/xyz/' x | sort -o out",
+              "awk -F: '$2 > 1' x"]   # a '>' inside an awk program is a redirect or a comparison: refused either way
+        for cmd in no:
+            self.assertFalse(self.gates.ro_allowed(cmd), cmd)
+
+    def test_ro_prefix_does_not_bless_the_rest_of_the_command(self):
+        """Review #7: a binding command prefix covers only its own segment; a redirect on it is still a write."""
+        pre = [LIB_UNIT, "pytest -q"]
+        self.assertTrue(self.gates.ro_allowed(LIB_UNIT, pre))
+        self.assertTrue(self.gates.ro_allowed(LIB_UNIT + " -v", pre))
+        self.assertTrue(self.gates.ro_allowed("pytest -q tests/x.py | tail -3", pre))
+        self.assertFalse(self.gates.ro_allowed(LIB_UNIT + "; rm -rf lib", pre))
+        self.assertFalse(self.gates.ro_allowed(LIB_UNIT + " > lib/mod.py", pre))
+        self.assertFalse(self.gates.ro_allowed("pytest -q && rm x", pre))
+        self.assertFalse(self.gates.ro_allowed("pytest-cov -q", pre), "prefix needs a word boundary")
+        self.assertFalse(self.gates.ro_allowed(".forge/bin/forge-check T-0001 01 --cmd 'rm -rf lib'"), "--cmd is judged too")
+        self.assertFalse(self.gates.ro_allowed(".forge/bin/forge-check T-0001 01 --cmd='echo x > lib/mod.py'"))
+        self.assertTrue(self.gates.ro_allowed(".forge/bin/forge-check T-0001 01 --cmd 'pytest -q'", pre))
+
+    def test_newline_and_ampersand_are_separators(self):
+        """Review #8: a leading `true\\n` or `ls &` never hides the real command."""
+        self.assertEqual(self.gates.split_segments("true\nrm -rf lib"), ["true", "rm -rf lib"])
+        self.assertEqual(self.gates.split_segments("ls &\nrm x"), ["ls", "rm x"])
+        self.assertEqual(self.gates.split_segments("ls & rm x"), ["ls", "rm x"])
+        self.assertEqual(self.gates.split_segments("cat x 2>&1 | head"), ["cat x 2>&1", "head"])
+        self.assertEqual(self.gates.split_segments("a |& b ; c && d || e"), ["a", "b", "c", "d", "e"])
+        self.assertEqual(self.gates.split_segments("ls \\\n -la"), ["ls \\\n -la"], "backslash-newline continues the line")
+        for cmd in ("true\nrm -rf lib", "ls &\nrm x", "ls & rm x", "git status\necho x > lib/mod.py", "true\n\nsed -i s/a/b/ x",
+                    "git status\ngit -C . reset --hard", "ls\n  git checkout -- lib/mod.py", "echo \"$(rm -rf lib)\"",
+                    "echo `rm x`", "ln -s a b", "git restore .", "bash -c 'rm x'"):
+            self.assertTrue(self.gates.looks_mutating(cmd), cmd)
+        self.assertEqual(self.gates.irreversible_match("true\ngit push origin main", ["git push *"]), "git push *")
+        self.assertEqual(self.gates.irreversible_match("ls & git push origin main", ["git push *"]), "git push *")
+        self.assertEqual(self.gates.irreversible_match(".forge/bin/forge-check T-0001 01 --cmd 'git push origin main'",
+                                                       ["git push *"]), "git push *")
+        self.assertIsNone(self.gates.irreversible_match("git log 'git push origin main'", ["git push *"]))
+
+    def test_quoted_separators_and_redirects_are_text(self):
+        """Review #18: the idle entry command with free text in --title/--why is one safe segment."""
+        cmd = '.forge/bin/forge-status open --title "fix a; rm it > now" --class T --files lib/mod.py --why "because > y | z"'
+        self.assertEqual(len(self.gates.split_segments(cmd)), 1)
+        self.assertFalse(self.gates.looks_mutating(cmd), cmd)
+        cmd = ".forge/bin/forge-status open --title 'a | b' --why 'x; mv y && rm z'"
+        self.assertFalse(self.gates.looks_mutating(cmd), cmd)
+        self.assertFalse(self.gates.looks_mutating("forge-status close T-0001 --one-line \"x | .forge/tasks/T-0001/checks/a.json\""))
+        self.assertFalse(self.gates.looks_mutating("git commit -m 'fix: rm > cp; tee'"))
+        self.assertFalse(self.gates.looks_mutating("echo \"a > b\""), "a quoted '>' is text")
+        self.assertFalse(self.gates.looks_mutating("grep -rn 'rm -rf' lib"))
+        # real separators next to quoted ones still count
+        self.assertTrue(self.gates.looks_mutating('.forge/bin/forge-status get digest; rm "a; b"'))
+        self.assertTrue(self.gates.looks_mutating("git status && echo 'x' > lib/mod.py"))
+        # an unterminated quote falls back to splitting everywhere (fail closed)
+        self.assertTrue(self.gates.looks_mutating(".forge/bin/forge-status open --title \"a; rm -rf lib"))
+        self.assertFalse(self.gates.ro_allowed("grep 'x lib"))
+        masked, balanced = self.gates.mask_quotes("a 'b;c' \"d|$(e)\" \\; f")
+        self.assertEqual(masked, "a '___' \"__$(e)\" __ f", "quoted text masked; $( ) stays live")
+        self.assertTrue(balanced)
+        self.assertFalse(self.gates.mask_quotes("a 'b")[1])
+
+    def test_prefixes_cover_only_their_own_segment_in_looks_mutating(self):
+        pre = [LIB_UNIT, "pytest -q", "true"]
+        self.assertFalse(self.gates.looks_mutating(LIB_UNIT, pre))
+        self.assertFalse(self.gates.looks_mutating(LIB_UNIT + " && pytest -q", pre))
+        self.assertFalse(self.gates.looks_mutating("pytest -q tests/x.py | tail -3", pre))
+        self.assertTrue(self.gates.looks_mutating(LIB_UNIT + "; rm -rf lib", pre))
+        self.assertTrue(self.gates.looks_mutating(LIB_UNIT + " > out.txt", pre))
+        self.assertTrue(self.gates.looks_mutating("true\nrm -rf lib", pre))
+        self.assertTrue(self.gates.looks_mutating("pytest -q && sed -i s/a/b/ x", pre))
+        self.assertFalse(self.gates.looks_mutating("truncate -s 0 x", []) is False, "truncate is mutating")
+        self.assertTrue(self.gates.looks_mutating(".forge/bin/forge-check T-0001 main --cmd 'rm -rf lib'"), "--cmd inner")
+        self.assertFalse(self.gates.looks_mutating(".forge/bin/forge-check T-0001 main --cmd 'pytest -q'"))
 
 
 if __name__ == "__main__":

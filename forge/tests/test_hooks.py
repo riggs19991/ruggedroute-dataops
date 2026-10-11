@@ -1,5 +1,6 @@
 """Tests for forgelib.hooks / forge-hook (MODULE-API §6; design §13.3 per-event table, §6 context clearing, §7 gates)."""
 import json
+import re
 import os
 import time
 import unittest
@@ -107,9 +108,9 @@ class SessionStartTests(HookTestCase):
         self.assertEqual(alive["source"], "startup")
         self.assertIsInstance(alive["ts"], int)
         self.assertIn("forge idle", hso.get("sessionTitle", "forge idle"))
-        env_text = self.repo.read(".env-file")
-        self.assertIn("/.forge/bin", env_text)
-        self.assertIn("export PATH=", env_text)
+        # review #3 (observed in the field): SessionStart must not export PATH/FORGE_ROOT into
+        # CLAUDE_ENV_FILE — the export outlives the session and leaks into other checkouts.
+        self.assertFalse(os.path.exists(env_file) and self.repo.read(".env-file").strip())
         self.assertNotIn("initialUserMessage", hso)
 
     def test_skipped_entirely_for_subagents(self):
@@ -744,6 +745,7 @@ class SubagentStopBuilderTests(HookTestCase):
         self.do_work()
         head_before = self.repo.head()
         text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])
+        self.repo.write(f".forge/tasks/{self.tid}/drafts/{self.AGENT}-handoff.md", text)   # review #17: scratch, never committed
         out = self.stop(text)
         self.assertNotEqual(out.get("decision"), "block", out)
         self.assertTrue(self.repo.exists(f".forge/tasks/{self.tid}/report-01.md"))
@@ -758,6 +760,8 @@ class SubagentStopBuilderTests(HookTestCase):
         committed = common.git_diff_names(self.repo.root, head_before, head)
         self.assertIn("lib/mod.py", committed)
         self.assertTrue(all(p == "lib/mod.py" or p.startswith(f".forge/tasks/{self.tid}/") for p in committed), committed)
+        self.assertFalse([p for p in committed if "/drafts/" in p], f"drafts are never committed: {committed}")
+        self.assertTrue(self.repo.exists(f".forge/tasks/{self.tid}/drafts/{self.AGENT}-handoff.md"), "the draft stays on disk")
         step = self.repo.step()
         self.assertEqual(step["status"], "reported")
         self.assertEqual(step["commit"], head)
@@ -930,6 +934,449 @@ class OtherEventTests(HookTestCase):
         self.assertEqual(rec["phase"], "execute")
         self.assertEqual(rec["step_running"], "01")
         self.assertIsInstance(rec["ts"], int)
+
+
+class PluginNoOpTests(HookTestCase):
+    """Reviews #1/#2/#37: `--plugin` is a complete no-op unless the resolved root carries a Forge install."""
+    EVENTS = (
+        {"hook_event_name": "SessionStart", "source": "startup", "session_id": SESSION},
+        {"hook_event_name": "UserPromptSubmit", "prompt": "hello", "session_id": SESSION},
+        pre_tool("Edit", {"file_path": "a.py"}),
+        pre_tool("Write", {"file_path": "b.py"}),
+        pre_tool("Bash", {"command": "echo hi > a.py"}),
+        pre_tool("Agent", {"subagent_type": "forge-builder"}),
+        post_tool("Edit", {"file_path": "a.py"}),
+        {"hook_event_name": "SubagentStart", "agent_id": "agent_x", "agent_type": "forge-builder", "session_id": SESSION},
+        {"hook_event_name": "SubagentStop", "agent_id": "agent_x", "agent_type": "forge-builder", "last_assistant_message": "hi",
+         "stop_hook_active": False, "session_id": SESSION},
+        {"hook_event_name": "Stop", "stop_hook_active": False, "session_id": SESSION},
+        {"hook_event_name": "PreCompact", "trigger": "manual"},
+        {"hook_event_name": "ConfigChange", "source": "project_settings", "file_path": ".claude/settings.json"},
+        {"hook_event_name": "StopFailure", "error": "x", "session_id": SESSION},
+        {"hook_event_name": "SessionEnd", "reason": "exit", "session_id": SESSION},
+    )
+
+    def test_every_event_is_silent_and_writes_nothing_in_a_repo_without_forge(self):
+        foreign = helpers.tempfile.mkdtemp(prefix="forge-foreign-")
+        self.addCleanup(helpers.shutil.rmtree, foreign, True)
+        helpers.subprocess.run(["git", "init", "-q", foreign], check=True)
+        helpers.os.makedirs(os.path.join(foreign, ".claude"))
+        with open(os.path.join(foreign, "a.py"), "w") as f:
+            f.write("x = 1\n")
+        before = helpers.tree_hashes(foreign)
+        exe = os.path.join(helpers.PAYLOAD_BIN, "forge-hook")
+        env = self.repo.env({"CLAUDE_PROJECT_DIR": foreign, "CLAUDE_ENV_FILE": os.path.join(foreign, ".env-file")})
+        for stdin in self.EVENTS:
+            for flags in (["--plugin"], ["--plugin", "--role"]):
+                r = helpers.subprocess.run([exe, *flags], input=json.dumps(stdin), capture_output=True, text=True, env=env, cwd=foreign)
+                self.assertEqual(r.returncode, 0, r.stderr)
+                self.assertEqual(r.stdout.strip(), "", f"{stdin['hook_event_name']} {flags}: {r.stdout}")
+        self.assertEqual(helpers.tree_hashes(foreign), before, "the foreign tree is untouched")
+        self.assertFalse(os.path.exists(os.path.join(foreign, ".forge")))
+        self.assertFalse(os.path.exists(os.path.join(foreign, ".env-file")))
+
+    def test_plugin_runs_the_handlers_on_a_plugin_owned_install(self):
+        self.repo.rm(".forge/VERSION")   # binding.json + STATUS.json without VERSION: the plugin owns the hooks
+        out = self.hook(pre_tool("Edit", {"file_path": "lib/mod.py"}), "--plugin")
+        self.assert_deny(out, "/forge-task", "plugin-owned install still fences")
+        out = self.hook({"hook_event_name": "UserPromptSubmit", "prompt": "hi", "session_id": SESSION}, "--plugin")
+        self.assertIn("Forge: idle", context(out))
+
+
+class SpawnGuardReviewTests(HookTestCase):
+    """Reviews #4, #16, #21."""
+    def spawn(self, subagent_type="forge-builder", model=None, effort=None, **extra):
+        ti = {"subagent_type": subagent_type, "prompt": "Read the brief and execute it."}
+        if model:
+            ti["model"] = model
+        if effort:
+            ti["effort"] = effort
+        ti.update(extra)
+        return self.hook(pre_tool("Agent", ti))
+
+    def seed_intake(self):
+        self.repo.write_brief(self.tid, "01")
+        self.repo.write_plan(self.tid, "M", needs_clarification=["which layer?"])
+        self.repo.seed_status(task=make_task(self.tid, "M", "intake", steps=[make_step("01", self.tid)]))
+
+    def test_builder_and_verifier_denied_in_phase_intake(self):
+        self.seed_intake()
+        out = self.spawn("forge-builder", "opus", "medium")
+        self.assert_deny(out, "needs_clarification", "builder in intake")
+        self.assertIn("forge-status plan", reason(out))
+        self.assertEqual(self.repo.step()["status"], "pending", "no step-start ran")
+        self.assertEqual(self.repo.task()["phase"], "intake")
+        self.assert_deny(self.spawn("forge-verifier", "opus", "medium"), "intake", "verifier in intake")
+
+    def test_second_builder_for_an_unbound_running_step_is_denied_until_it_binds(self):
+        self.start_session()
+        self.seed_M()
+        self.assert_allow(self.spawn("forge-builder", "opus", "medium"), "first dispatch")
+        self.assertTrue(self.repo.exists(self.repo.rt(f"dispatched-{self.tid}-01")))
+        out = self.spawn("forge-builder", "opus", "medium")
+        self.assert_deny(out, "not bound", "duplicate dispatch")
+        self.assertIn("recover", reason(out))
+        self.assertEqual(self.repo.ledger_events().count("dispatch"), 1, "no second dispatch row")
+        # the worker arrives and binds: the marker goes away
+        self.hook({"hook_event_name": "SubagentStart", "agent_id": "agent_b1", "agent_type": "forge-builder", "session_id": SESSION})
+        self.hook(post_tool("Read", {"file_path": f".forge/tasks/{self.tid}/brief-01.md"}, {}, agent_id="agent_b1", agent_type="forge-builder"))
+        self.assertEqual(self.repo.step()["agent_id"], "agent_b1")
+        self.assertFalse(self.repo.exists(self.repo.rt(f"dispatched-{self.tid}-01")))
+
+    def test_started_worker_record_blocks_a_duplicate_even_without_the_marker(self):
+        now = int(time.time())
+        self.seed_M("running", agent_id=None, attempts=1, started_ts=now - 30)
+        self.repo.agent_record("agent_b7", "forge-builder", task=self.tid, started_ts=now - 10)   # started after the step, unbound
+        self.assert_deny(self.spawn("forge-builder", "opus", "medium"), "not bound", "live unbound worker")
+        self.repo.agent_record("agent_b7", "forge-builder", task=self.tid, started_ts=now - 600)  # a worker of an earlier attempt
+        self.assert_allow(self.spawn("forge-builder", "opus", "medium"), "pre-started retry with only stale records")
+
+    def test_stale_marker_from_a_previous_attempt_does_not_block(self):
+        self.seed_M("running", agent_id=None, attempts=2, started_ts=1_760_000_000)
+        self.repo.write_json(self.repo.rt(f"dispatched-{self.tid}-01"), {"ts": int(time.time()), "attempts": 1, "started_ts": 1})
+        self.assert_allow(self.spawn("forge-builder", "opus", "medium"), "marker of attempt 1 is stale")
+
+    def test_worktree_isolation_denied_unless_binding_proves_it(self):
+        self.seed_M()
+        out = self.spawn("forge-builder", "opus", "medium", isolation="worktree")
+        self.assert_deny(out, "worktree_isolation", "unproven worktrees")
+        self.assertIn("forge-doctor --worktree", reason(out))
+        self.assertEqual(self.repo.step()["status"], "pending")
+        self.assert_deny(self.spawn("general-purpose", "sonnet", "low", isolation="worktree"), hint="builtin in a worktree")
+        binding = json.loads(json.dumps(helpers.BINDING))
+        binding["git"]["worktree_isolation"] = True
+        self.repo.write_json(".forge/binding.json", binding)
+        self.assert_allow(self.spawn("forge-builder", "opus", "medium", isolation="worktree"), "proven worktrees")
+
+
+class EditFenceReviewTests(HookTestCase):
+    """Reviews #9, #10, #17, #49."""
+    def edit(self, path, **kw):
+        return self.hook(pre_tool("Edit", {"file_path": path}, **kw))
+
+    def bind_builder(self, allowed=("lib/**",)):
+        self.seed_M("running", agent_id="agent_b1", brief={"allowed_paths": list(allowed)}, allowed_paths=list(allowed))
+        self.repo.bind_agent("agent_b1")
+        return {"agent_id": "agent_b1", "agent_type": "forge-builder"}
+
+    def test_edit_through_a_symlink_is_judged_by_its_target(self):
+        kw = self.bind_builder()
+        os.symlink(self.repo.path(".forge/binding.json"), self.repo.path("lib/link.json"))
+        self.assert_deny(self.edit("lib/link.json", **kw), "policy", "link to a policy file")
+        os.symlink("/etc", self.repo.path("lib/etcdir"))
+        self.assert_deny(self.edit("lib/etcdir/passwd", **kw), "symlink", "link to outside")
+        os.symlink(self.repo.path("lib/util.py"), self.repo.path("lib/alias.py"))
+        self.assert_allow(self.edit("lib/alias.py", **kw), "link inside allowed_paths")
+        self.hook(post_tool("Edit", {"file_path": "lib/alias.py"}, {}, **kw))
+        self.assertEqual(self.repo.evidence(self.tid)[-1]["file"], "lib/util.py", "evidence names the real file")
+
+    def test_paths_outside_the_repository_are_denied_for_every_session(self):
+        kw = self.bind_builder(("**",))
+        for p in ("/etc/passwd", "../../x.py", os.path.join(os.path.dirname(self.repo.root), "sibling.py")):
+            out = self.edit(p, **kw)
+            self.assert_deny(out, "outside the repository", p)
+        self.seed_T(scope=["**"])
+        self.assert_deny(self.edit("/etc/passwd"), "outside the repository", "main session")
+        self.assert_deny(self.edit("/etc/passwd", agent_id="agent_v1", agent_type="forge-verifier"), "outside the repository", "verifier")
+
+    def test_drafts_are_writable_by_the_owning_agent_only(self):
+        kw = self.bind_builder()
+        draft = f".forge/tasks/{self.tid}/drafts/agent_b1-handoff.md"
+        self.assert_allow(self.edit(draft, **kw), "own draft")
+        self.assert_allow(self.hook(pre_tool("Write", {"file_path": draft}, **kw)), "own draft (Write)")
+        self.assert_deny(self.edit(f".forge/tasks/{self.tid}/drafts/agent_zz-handoff.md", **kw), hint="another agent's draft")
+        self.assert_deny(self.edit(f".forge/tasks/{self.tid}/drafts/agent_b1-notes.txt", **kw), hint="not .md")
+        self.assert_deny(self.edit(".forge/tasks/T-0099/drafts/agent_b1-handoff.md", **kw), hint="another task")
+        # unbound builder, verifier, scout and planner too (bind-independent)
+        self.repo.agent_record("agent_b2", "forge-builder", task=self.tid)
+        self.assert_allow(self.edit(f".forge/tasks/{self.tid}/drafts/agent_b2-draft.md", agent_id="agent_b2", agent_type="forge-builder"), "unbound builder")
+        self.repo.agent_record("agent_v1", "forge-verifier", task=self.tid, verify_step="01")
+        self.assert_allow(self.edit(f".forge/tasks/{self.tid}/drafts/agent_v1-verdict.md", agent_id="agent_v1", agent_type="forge-verifier"), "verifier")
+        self.assert_deny(self.edit(f".forge/tasks/{self.tid}/drafts/agent_v1-x.md", agent_id="agent_v9", agent_type="forge-verifier"), hint="wrong verifier")
+        self.repo.agent_record("agent_s1", "forge-scout")
+        self.assert_allow(self.edit(f".forge/tasks/{self.tid}/drafts/agent_s1-notes.md", agent_id="agent_s1", agent_type="forge-scout"), "scout")
+        # forge-gate reads the draft from there through the worker's shell
+        self.repo.write(draft, "draft\n")
+        cmd = f".forge/bin/forge-gate --handoff {self.tid} 01 --from-file {draft} --agent agent_b1"
+        self.assert_allow(self.hook(pre_tool("Bash", {"command": cmd}, **kw)), "forge-gate --from-file <draft>")
+        code, out, err = self.repo.run_cli("forge-gate", "--handoff", self.tid, "01", "--from-file", draft, "--agent", "agent_b1")
+        self.assertIn(code, (0, 1), err)
+
+    def test_main_session_meta_allow_covers_only_the_open_task_directory(self):
+        self.seed_M()
+        self.assert_allow(self.edit(f".forge/tasks/{self.tid}/notes.md"), "open task")
+        out = self.edit(".forge/tasks/T-0099/handoff.md")
+        self.assert_deny(out, "not the open task", "closed task dir")
+        self.repo.seed_status(task=None)
+        self.assert_deny(self.edit(".forge/tasks/T-0001/plan.md"), "not the open task", "idle")
+        self.assert_allow(self.edit(".forge/lessons/x.md"), "lessons stay allowed")
+
+
+class WorkerBashReviewTests(HookTestCase):
+    """Reviews #6, #9, #32, #34, #38."""
+    def setUp(self):
+        super().setUp()
+        self.seed_M("running", agent_id="agent_b1", brief={"allowed_paths": ["lib/**"]}, allowed_paths=["lib/**"])
+        self.repo.bind_agent("agent_b1")
+        self.kw = {"agent_id": "agent_b1", "agent_type": "forge-builder"}
+
+    def bash(self, cmd, **kw):
+        return self.hook(pre_tool("Bash", {"command": cmd}, **(kw or self.kw)))
+
+    def test_forge_state_is_unreachable_from_a_worker_shell(self):
+        tid = self.tid
+        denied = (f"echo x > .forge/tasks/{tid}/brief-01.md", "cp /tmp/x .forge/bin/forgelib/hooks.py",
+                  f"rm .forge/tasks/{tid}/evidence.jsonl", f"true\nrm .forge/tasks/{tid}/evidence.jsonl",
+                  ".forge/bin/forge-doctor --disable-gate PreToolUse", "forge-doctor --disable-gate PreToolUse",
+                  "python3 .forge/bin/forgelib/hooks.py", "sh .forge/bin/forge-status", "bash -c 'cat .forge/STATUS.json'",
+                  "cat .forge/STATUS.json", f"cat .forge/tasks/{tid}/brief-01.md > /tmp/x", "cd .forge && ls",
+                  "ls .forge", "\"$CLAUDE_PROJECT_DIR\"/.forge/bin/forge-status stale", ".forge/bin/forge-status validate",
+                  f".forge/bin/forge-check {tid} 01 --only-paths .forge/x", f"tee .forge/tasks/{tid}/journal.md < /dev/null",
+                  "ls lib && cat .forge/binding.json", ".forge/bin/forge-run", "forge-hook < /dev/null")
+        for cmd in denied:
+            self.assert_deny(self.bash(cmd), hint=cmd)
+        allowed = (f"cat .forge/tasks/{tid}/brief-01.md", f"sed -n 1,40p .forge/tasks/{tid}/brief-01.md",
+                   f"head -50 .forge/tasks/{tid}/brief-01.md", f".forge/bin/forge-check {tid} 01", f".forge/bin/forge-check {tid} 01 --expect-fail",
+                   ".forge/bin/forge-status get digest", f"\"$CLAUDE_PROJECT_DIR\"/.forge/bin/forge-status get {tid}",
+                   f".forge/bin/forge-gate --handoff {tid} 01 --from-file .forge/tasks/{tid}/drafts/agent_b1-handoff.md",
+                   f".forge/bin/forge-gate --handoff {tid} 01 --from-file /tmp/d.md", "cd lib && python3 -m unittest -q",
+                   "forge-check T-0001 01", "ls lib")
+        for cmd in allowed:
+            self.assert_allow(self.bash(cmd), cmd)
+        # every subagent role, not only workers
+        self.repo.agent_record("agent_v1", "forge-verifier", task=self.tid, verify_step="01")
+        kv = {"agent_id": "agent_v1", "agent_type": "forge-verifier"}
+        for cmd in ("cat .forge/STATUS.json", "find .forge -name '*.json' -delete", "sort -o .forge/binding.json .forge/binding.json",
+                    ".forge/bin/forge-doctor"):
+            self.assert_deny(self.bash(cmd, **kv), hint="verifier: " + cmd)
+        self.assert_allow(self.bash(f".forge/bin/forge-check {tid} 01", **kv), "verifier forge-check")
+        self.repo.agent_record("agent_l1", "forge-librarian")
+        self.assert_deny(self.bash("echo x >> .forge/lessons/INDEX.md", agent_id="agent_l1", agent_type="forge-librarian"), hint="librarian shell write")
+
+    def test_links_are_denied_and_paths_are_judged_through_links(self):
+        self.assert_deny(self.bash("ln -s ../.forge/binding.json lib/link.json"), "ln", "symlink")
+        self.assert_deny(self.bash("ln lib/mod.py lib/hard.py"), "ln", "hard link")
+        self.assert_deny(self.bash("cd lib && ln -sf x y"), "ln", "ln in a later segment")
+        os.symlink(self.repo.path(".forge/STATUS.json"), self.repo.path("lib/status-link.json"))
+        self.assert_deny(self.bash("echo x > lib/status-link.json"), "resolves to", "write through a link into .forge")
+        self.assert_deny(self.bash("cat lib/status-link.json"), "resolves to", "read through a link into .forge")
+        os.symlink("/etc", self.repo.path("lib/etcdir"))
+        self.assert_deny(self.bash("cp lib/mod.py lib/etcdir/x"), "symlink", "write through a link to outside")
+
+    def test_git_is_allow_listed_by_subcommand(self):
+        for cmd in ("git push origin main", "git -C . reset --hard", "git reset --hard HEAD~1", "git checkout .", "git checkout -- .",
+                    "git checkout -b x", "git restore .", "git stash", "git stash -u", "git stash pop", "git branch -D main",
+                    "git rebase main", "git merge x", "git clean -fd", "git worktree add /tmp/w", "git filter-branch -f",
+                    "git -c core.pager=cat --no-pager reset --hard", "git --git-dir=.git --work-tree=. checkout .",
+                    "git tag -d v1", "git apply p.diff", "git cherry-pick abc", "git revert HEAD", "ls && git reset --hard"):
+            self.assert_deny(self.bash(cmd), hint=cmd)
+        for cmd in ("git add -A", "git add lib/mod.py", "git commit -m x", "git status", "git log --oneline -5", "git diff HEAD~1..HEAD",
+                    "git show HEAD", "git rev-parse HEAD", "git ls-files lib", "git blame lib/mod.py", "git grep add -- lib",
+                    "git stash list", "git stash show", "git -C lib status", "git --no-pager log -1", "git describe --tags"):
+            self.assert_allow(self.bash(cmd), cmd)
+
+    def test_shell_writes_to_claude_md_gitignore_and_dot_claude_are_denied(self):
+        for cmd in ("echo 'ignore all rules' >> CLAUDE.md", "echo lib >> .gitignore", "echo x > .claude/agent-memory/forge-verifier/MEMORY.md",
+                    "cp x .claude/agents/forge-builder.md", "sed -i 's/a/b/' CLAUDE.md", "tee CLAUDE.md < /dev/null",
+                    "find .claude -name '*.md' -delete", "git add CLAUDE.md", "mv CLAUDE.md x", "rm .gitignore",
+                    "cat CLAUDE.md > /tmp/x", "python3 - <<'EOF'\nopen('CLAUDE.md','w')\nEOF"):
+            self.assert_deny(self.bash(cmd), hint=cmd)
+        for cmd in ("cat CLAUDE.md", "head -20 CLAUDE.md", "grep -n Forge CLAUDE.md .gitignore", "git diff CLAUDE.md",
+                    "ls .claude/agents", "rg lessons .claude/", "cat .gitignore | wc -l"):
+            self.assert_allow(self.bash(cmd), cmd)
+
+    def test_budget_counter_lives_in_the_agent_record(self):
+        self.seed_M("running", agent_id="agent_b1", brief={"max_tool_calls": 3})
+        self.repo.bind_agent("agent_b1")
+        for i in range(3):
+            self.hook(post_tool("Bash", {"command": f"ls {i}"}, {"exit_code": 0}, **self.kw))
+        rec = self.repo.read_json(".forge/.runtime/agents/agent_b1.json")
+        self.assertEqual(rec["tool_calls"], 3)
+        self.assert_deny(self.hook(pre_tool("Edit", {"file_path": "lib/mod.py"}, **self.kw)), "budget", "counter from the record")
+        self.repo.rm(f".forge/tasks/{self.tid}/evidence.jsonl")   # a worker that managed to delete evidence gains nothing
+        self.assert_deny(self.hook(pre_tool("Edit", {"file_path": "lib/mod.py"}, **self.kw)), "budget", "evidence deleted")
+        self.assert_deny(self.bash("ls"), "budget", "bash too")
+        self.hook(post_tool("Edit", {"file_path": "lib/mod.py"}, {}, **self.kw))
+        self.assertEqual(self.repo.read_json(".forge/.runtime/agents/agent_b1.json")["tool_calls"], 4, "edits count too")
+
+    def test_evidence_redacts_secrets_and_caps_the_command(self):
+        secret_cmd = ("curl -H 'Authorization: Bearer abcSECRET123' https://x --data token=zzzSECRET -d api_key=k1SECRET "
+                      "-d password=p4ssSECRET AKIAABCDEFGHIJKLMNOP ghp_" + "a" * 30 + " " + "y" * 400)
+        self.hook(post_tool("Bash", {"command": secret_cmd}, {"exit_code": 0}, **self.kw))
+        row = self.repo.evidence(self.tid)[-1]
+        self.assertLessEqual(len(row["cmd"]), 300)
+        for s in ("abcSECRET123", "zzzSECRET", "k1SECRET", "p4ssSECRET", "AKIAABCDEFGHIJKLMNOP", "ghp_" + "a" * 30):
+            self.assertNotIn(s, row["cmd"], s)
+        self.assertIn("[REDACTED]", row["cmd"])
+        self.hook({"hook_event_name": "PostToolUseFailure", "tool_name": "Bash", "tool_input": {"command": "false"},
+                   "error": "Exit code 1\nAPI_KEY=topSECRET rejected", "session_id": SESSION, **self.kw})
+        self.assertNotIn("topSECRET", self.repo.evidence(self.tid)[-1]["error_head"])
+        # check-record tails are redacted when the hook stamps the record
+        rel = self.repo.write_check_record(self.tid, "01", "unknown", results=[{"name": "lib-unit", "cmd": LIB_UNIT, "exit": 1, "dur_s": 0.1,
+                                                                                  "tail": "FAIL: token=leakedSECRET"}])
+        self.hook(post_tool("Bash", {"command": f".forge/bin/forge-check {self.tid} 01"}, {"exit_code": 1}, **self.kw))
+        stamped = [f for f in self.repo.check_files(self.tid) if f.endswith("-agent_b1.json")]
+        self.assertEqual(len(stamped), 1, self.repo.check_files(self.tid))
+        tail = self.repo.read_json(f".forge/tasks/{self.tid}/checks/{stamped[0]}")["results"][0]["tail"]
+        self.assertNotIn("leakedSECRET", tail)
+        self.assertIn("[REDACTED]", tail)
+
+
+class SubagentStopReviewTests(HookTestCase):
+    """Review #14: resumed workers and verifiers answering in prose."""
+    AGENT = "agent_b1"
+
+    def setUp(self):
+        super().setUp()
+        self.start_session()
+
+    def stop_builder(self, message, agent_id=None):
+        return self.hook({"hook_event_name": "SubagentStop", "agent_id": agent_id or self.AGENT, "agent_type": "forge-builder",
+                          "last_assistant_message": message, "stop_hook_active": False, "session_id": SESSION})
+
+    def stop_verifier(self, message, agent_id="agent_v1"):
+        return self.hook({"hook_event_name": "SubagentStop", "agent_id": agent_id, "agent_type": "forge-verifier",
+                          "last_assistant_message": message, "stop_hook_active": False, "session_id": SESSION})
+
+    def seed_reported(self):
+        self.seed_M("reported", agent_id=self.AGENT, commit=self.repo.head(), report=f".forge/tasks/{self.tid}/report-01.md")
+        self.repo.bind_agent(self.AGENT)
+        self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"], path=f".forge/tasks/{self.tid}/report-01.md")
+        self.repo.write_json(f".forge/tasks/{self.tid}/report-01.json", self.repo.handoff_json(self.tid, "01", "DONE", ["lib/mod.py"]))
+
+    def test_prose_from_a_resumed_worker_on_a_reported_step_changes_nothing(self):
+        self.seed_reported()
+        sha = helpers.sha256_of(self.repo.path(f".forge/tasks/{self.tid}/report-01.json"))
+        for _ in range(3):
+            out = self.stop_builder("The answer to your question: use layer X.")
+            self.assertNotEqual(out.get("decision"), "block", out)
+        self.assertEqual(helpers.sha256_of(self.repo.path(f".forge/tasks/{self.tid}/report-01.json")), sha, "report intact")
+        self.assertEqual(self.repo.step()["status"], "reported")
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")))
+        self.assertNotIn("gate_block", self.repo.ledger_events())
+        self.assertIn("non-handoff return", self.repo.journal(self.tid))
+        for status in ("verifying", "done"):
+            st = self.repo.status()
+            st["task"]["steps"][0]["status"] = status
+            self.repo.write_json(".forge/STATUS.json", st)
+            self.repo.forge_status("validate", "--restamp")
+            self.assertNotEqual(self.stop_builder("more prose").get("decision"), "block", status)
+        self.assertNotEqual(self.hook({"hook_event_name": "Stop", "stop_hook_active": False, "session_id": SESSION}).get("decision"), "block")
+
+    def test_stub_never_overwrites_this_attempts_report_on_a_failed_step(self):
+        self.seed_M("failed", agent_id=self.AGENT, report=f".forge/tasks/{self.tid}/report-01.md")
+        self.repo.bind_agent(self.AGENT)
+        self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"], path=f".forge/tasks/{self.tid}/report-01.md")
+        self.repo.write_json(f".forge/tasks/{self.tid}/report-01.json", self.repo.handoff_json(self.tid, "01", "DONE", ["lib/mod.py"]))
+        bad = "## Where things stand\nno json here\n"
+        self.assertEqual(self.stop_builder(bad).get("decision"), "block")
+        self.assertEqual(self.stop_builder(bad).get("decision"), "block")
+        self.assertNotEqual(self.stop_builder(bad).get("decision"), "block")
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/report-01.json")["status"], "DONE", "original intact")
+        stub = self.repo.read_json(f".forge/tasks/{self.tid}/report-01.unverified.json")
+        self.assertEqual(stub["status"], "UNVERIFIED")
+        self.assertTrue(self.repo.exists(f".forge/tasks/{self.tid}/report-01.unverified.md"))
+        self.assertEqual(self.repo.step()["status"], "failed")
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")))
+
+    def test_resumed_worker_prose_on_a_blocked_step_keeps_its_report_but_a_new_handoff_counts(self):
+        self.seed_M("blocked", agent_id=self.AGENT, report=f".forge/tasks/{self.tid}/report-01.md")
+        self.repo.bind_agent(self.AGENT)
+        self.repo.agent_record(self.AGENT, "forge-builder", task=self.tid, step="01", brief=f".forge/tasks/{self.tid}/brief-01.md",
+                               handoff_persisted=f".forge/tasks/{self.tid}/report-01.json")
+        self.repo.write_report_md(self.tid, "01", "BLOCKED", [], path=f".forge/tasks/{self.tid}/report-01.md")
+        self.repo.write_json(f".forge/tasks/{self.tid}/report-01.json", self.repo.handoff_json(self.tid, "01", "BLOCKED", []))
+        self.assertNotEqual(self.stop_builder("Here is what I still need: the layer name.").get("decision"), "block")
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/report-01.json")["status"], "BLOCKED")
+        self.assertEqual(self.repo.step()["status"], "blocked")
+        # a real second handoff after the resume still goes through the gate and transitions the step
+        now = int(time.time())
+        self.repo.write("lib/mod.py", "def add(a, b):\n    return a + b\n\n\ndef sub(a, b):\n    return a - b\n")
+        self.repo.add_evidence(self.tid, self.AGENT, "forge-builder", "edit", ts=now - 10, kind="source", file="lib/mod.py")
+        self.repo.write_check_record(self.tid, "01", self.AGENT, ts=now)
+        text = self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])
+        self.assertNotEqual(self.stop_builder(text).get("decision"), "block")
+        self.assertEqual(self.repo.step()["status"], "reported")
+
+    def test_resumed_verifier_prose_changes_nothing_and_a_new_inline_verifier_still_lands(self):
+        # numbered step: verifier already graded it (step done)
+        self.seed_M("done", agent_id=self.AGENT, commit=self.repo.head(), verdict=f".forge/tasks/{self.tid}/verdict-01.md")
+        self.repo.agent_record("agent_v1", "forge-verifier", task=self.tid, verify_step="01")
+        self.repo.write_verdict_md(self.tid, "01", "PASS", path=f".forge/tasks/{self.tid}/verdict-01.md")
+        self.repo.write_json(f".forge/tasks/{self.tid}/verdict-01.json", self.repo.verdict_json(self.tid, "01", "PASS"))
+        for _ in range(3):
+            self.assertNotEqual(self.stop_verifier("Clarification: I checked the fixture too.").get("decision"), "block")
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/verdict-01.json")["verdict"], "PASS")
+        self.assertEqual(self.repo.step()["status"], "done")
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")))
+        # inline task: this verifier's verdict is on file; its prose changes nothing; a new verifier may re-verify
+        self.repo.write_plan(self.tid, "S", allowed_paths=["lib/mod.py"])
+        self.repo.seed_status(task=make_task(self.tid, "S", "execute", scope=["lib/mod.py"], files=["lib/mod.py"], creates=[]))
+        self.hook({"hook_event_name": "SubagentStart", "agent_id": "agent_v2", "agent_type": "forge-verifier", "session_id": SESSION})
+        self.repo.write_check_record(self.tid, "main", "agent_v2")
+        out = self.stop_verifier(self.repo.write_verdict_md(self.tid, "main", "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}],
+                                                            blocking=["red"], tags=["no-check-run"]), agent_id="agent_v2")
+        self.assertNotEqual(out.get("decision"), "block", out)
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/verdict-main.json")["verdict"], "FAIL")
+        self.assertNotEqual(self.stop_verifier("Answering your question: yes.", agent_id="agent_v2").get("decision"), "block")
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/verdict-main.json")["verdict"], "FAIL", "prose never overwrites")
+        self.hook({"hook_event_name": "SubagentStart", "agent_id": "agent_v3", "agent_type": "forge-verifier", "session_id": SESSION})
+        self.repo.write_check_record(self.tid, "main", "agent_v3")
+        out = self.stop_verifier(self.repo.write_verdict_md(self.tid, "main", "PASS"), agent_id="agent_v3")
+        self.assertNotEqual(out.get("decision"), "block", out)
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/verdict-main.json")["verdict"], "PASS", "round 2 lands")
+
+
+class StopReviewTests(HookTestCase):
+    """Reviews #15, #52, #62."""
+    def stop(self):
+        return self.hook({"hook_event_name": "Stop", "stop_hook_active": False, "session_id": SESSION})
+
+    def test_terminal_phases_and_idle_clear_leaked_markers(self):
+        for phase in ("done", "blocked", "awaiting_external"):
+            self.seed_M("done", commit=self.repo.head(), verdict="v")
+            st = self.repo.status()
+            st["task"]["phase"] = phase
+            self.repo.write_json(".forge/STATUS.json", st)
+            for m in ("dirty-main", "dirty-worker", "stale-status"):
+                self.repo.touch(self.repo.rt(m))
+            self.assertNotEqual(self.stop().get("decision"), "block", phase)
+            for m in ("dirty-main", "dirty-worker", "stale-status"):
+                self.assertFalse(self.repo.exists(self.repo.rt(m)), f"{m} cleared in {phase}")
+            self.assertEqual(self.hook({"hook_event_name": "PreCompact", "trigger": "manual"}), {})
+        self.repo.seed_status(task=None)
+        self.repo.touch(self.repo.rt("dirty-worker"))
+        self.assertEqual(self.hook({"hook_event_name": "PreCompact", "trigger": "manual"}), {}, "idle: compaction never blocked")
+        self.assertNotEqual(self.stop().get("decision"), "block")
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")))
+        # an active phase still blocks compaction on a marker
+        self.seed_M()
+        self.repo.touch(self.repo.rt("dirty-worker"))
+        self.assertEqual(self.hook({"hook_event_name": "PreCompact", "trigger": "manual"}).get("decision"), "block")
+
+    def test_clear_while_idle_and_stale_resets_context_state(self):
+        self.repo.seed_status(task=None, context_state="stale")
+        before = self.repo.status()["updated_by"]
+        out = self.hook({"hook_event_name": "SessionStart", "source": "clear", "session_id": SESSION, "cwd": self.repo.root})
+        self.assertNotIn("initialUserMessage", out["hookSpecificOutput"])
+        st = self.repo.status()
+        self.assertEqual(st["context_state"], "fresh")
+        self.assertEqual(st["updated_by"], before, "fresh --no-stamp")
+        ctx = context(self.hook({"hook_event_name": "UserPromptSubmit", "prompt": "hi", "session_id": SESSION}))
+        self.assertNotIn("/clear", ctx)
+        self.repo.seed_status(task=None, context_state="stale")
+        self.hook({"hook_event_name": "SessionStart", "source": "startup", "session_id": SESSION, "cwd": self.repo.root})
+        self.assertEqual(self.repo.status()["context_state"], "stale", "only clear resets it")
+
+    def test_config_change_names_the_operator_shell_command(self):
+        settings = self.repo.read_json(".claude/settings.json")
+        del settings["hooks"]["Stop"]
+        self.repo.write_json(".claude/settings.json", settings)
+        out = self.hook({"hook_event_name": "ConfigChange", "source": "project_settings", "file_path": ".claude/settings.json"})
+        self.assertEqual(out.get("decision"), "block", out)
+        self.assertIn(".forge/bin/forge-doctor --disable-gate <name>", out["reason"])
+        self.assertIn("operator", out["reason"].lower())
+        self.assertIsNone(re.search(r"(^|\s)/forge-doctor", out["reason"]), "never the skill form")
 
 
 if __name__ == "__main__":

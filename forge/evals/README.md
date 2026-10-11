@@ -12,7 +12,7 @@ replace them.
 | `repo` | the consumer repository the task belongs to |
 | `title` | the one-line task title, exactly what an operator would type after `/forge-task` |
 | `class` | the expected Forge class (T/S/M/W/L/X); a run that opens the task in another class is reported, not failed |
-| `base` | the commit the run starts from (a fresh `git worktree` at this sha) |
+| `base` | the commit the run starts from (a fresh local clone, `git clone --shared`, detached at this sha; each arm gets its own clone and its own `.forge/` state) |
 | `check` | a shell command run from the repository root after the run; exit 0 = the task passed. It fails at `base` |
 | `dod` | the definition of done in EARS form, for humans and for scoring partial runs |
 
@@ -31,10 +31,14 @@ Each `check` was confirmed to fail at `base` (9da9ae9). The M check needs `pytes
 With the optional bench add-on installed (`install.sh --with-bench`):
 
 ```bash
-.forge/bin/forge-bench forge/evals/tasks/<file>.json [--out .forge/COST-REPORT.md]
+.forge/bin/forge-bench forge/evals/tasks/ [--out .forge/COST-REPORT.md]                 # the whole set, files in name order
+.forge/bin/forge-bench forge/evals/tasks/m-new-layer-qa.json [--arms driver,solo]    # one task file (a single JSON object)
 ```
 
-`forge-bench` runs each task twice from a fresh worktree at `base` — the driver arm (`forge-run`) and the solo arm
+`<taskset>` is a directory of task files, one task file, or a JSON list of tasks; `forge-bench` reads `title`, `base`, `check` and
+`class` and ignores the other keys. `--dry-run` validates the set and prints the commands without spending.
+
+`forge-bench` runs each task twice from a fresh clone at `base` — the driver arm (`/forge-task <title>` for intake, then `forge-run`) and the solo arm
 (`claude -p --model fable --effort low --max-budget-usd <cap> "<title>"`) — records pass/fail from `check`, `total_cost_usd` and the
 cache-read share, and writes cost per passed task by class for both arms with pass rates. Rows it writes to the ledger are
 `cost_source: measured`.

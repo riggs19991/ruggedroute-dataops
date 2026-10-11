@@ -1,5 +1,6 @@
 """Tests for forgelib.checks / forge-check (MODULE-API §5; design §5.7 record shape, §7 gate 3)."""
 import json
+import os
 import re
 import unittest
 
@@ -199,6 +200,78 @@ class RunTests(CheckTestCase):
         self.assertEqual(self.check()[0], common.EXIT_USAGE)
         self.assertEqual(self.check(self.tid)[0], common.EXIT_USAGE)
         self.assertEqual(self.check(self.tid, "01", "--bogus")[0], common.EXIT_USAGE)
+        self.assertEqual(self.check(self.tid, "01", "--cmd")[0], common.EXIT_USAGE)
+        self.assertEqual(self.check(self.tid, "01", "--cmd", "")[0], common.EXIT_USAGE)
+        self.assertEqual(self.check(self.tid, "01", "--cmd", "true", "--only", "lib-unit")[0], common.EXIT_USAGE)
+        self.assertEqual(self.check(self.tid, "01", "--cmd", "true", "--baseline")[0], common.EXIT_USAGE)
+
+    def test_ids_are_sanitised_before_anything_is_written(self):
+        """Review #31: <step> and --agent are path components of the record file."""
+        self.seed_T()
+        before = helpers.tree_hashes(self.repo.path(".forge"))
+        bad = [(self.tid, "../../../evil"), (self.tid, "main", "--agent", "../x"), (self.tid, "main", "--agent", "a/b"),
+               (self.tid, "ma in"), (self.tid, "main", "--agent", "x" * 65), ("T-1", "main"), ("../T-0001", "main"),
+               (self.tid, "main", "--agent", "human"), (self.tid, "..")]
+        for args in bad:
+            code, out, err = self.check(*args)
+            self.assertEqual(code, common.EXIT_USAGE, (args, out, err))
+            self.assertNotIn("FORGE_CHECK_RECORD", out)
+        self.assertEqual(helpers.tree_hashes(self.repo.path(".forge")), before, "nothing written anywhere")
+        from forgelib import checks
+        with self.assertRaises(common.ForgeError) as cm:
+            checks.run_checks(self.repo.paths, self.tid, "../x")
+        self.assertEqual(cm.exception.code, common.EXIT_USAGE)
+        with self.assertRaises(common.ForgeError):
+            checks.run_checks(self.repo.paths, self.tid, "main", agent_id="../x")
+        code, out, err = self.check(self.tid, "main", "--agent", "agent_b1.v2-x_y")
+        self.assertEqual(code, 0, err)
+
+    def test_cmd_runs_one_command_from_the_repo_root(self):
+        """Review #20: `--cmd '<command>'` records a single command (verifier/builder convenience)."""
+        self.seed_M(brief={"checks": [LIB_UNIT]})
+        code, out, err = self.check(self.tid, "01", "--cmd", "pwd && echo marker-42")
+        self.assertEqual(code, 0, err + out)
+        self.assertEqual(len(self.lines(out)), 1, "exactly the one command, not the planned list")
+        self.assertIn("name=cmd", self.lines(out)[0])
+        self.assertIn("cmd=pwd && echo marker-42", self.lines(out)[0])
+        name, rec = self.records("01")[0]
+        self.assertEqual([r["cmd"] for r in rec["results"]], ["pwd && echo marker-42"])
+        self.assertEqual(rec["results"][0]["name"], "cmd")
+        self.assertEqual(rec["results"][0]["exit"], 0)
+        tail = rec["results"][0]["tail"].splitlines()
+        self.assertEqual(os.path.realpath(tail[0]), os.path.realpath(self.repo.root), "runs from the repo root")
+        self.assertEqual(tail[-1], "marker-42")
+        self.assertIs(rec["ok"], True)
+        self.assertEqual(rec["step"], "01")
+        code, out, err = self.check(self.tid, "01", "--cmd=false", "--expect-fail")
+        self.assertEqual(code, common.EXIT_DEFECTS)
+        rec = [r for _, r in self.records("01") if r["results"][0]["cmd"] == "false"][0]
+        self.assertIs(rec["expect_fail"], True)
+        self.assertIs(rec["ok"], False)
+        code, out, err = self.check(self.tid, "main", "--cmd", "true", "--agent", "agent_v1")
+        self.assertEqual(code, 0, err)
+        self.assertTrue(self.records("main")[0][0].endswith("-agent_v1.json"))
+
+    def test_step_run_includes_the_briefs_dod_checks(self):
+        """Review #20: a numbered step's forge-check runs the plan-meta DoD checks of the brief's dod[] ids."""
+        dod = [{"id": "DoD-1", "criterion": "WHEN a THE SYSTEM SHALL b", "check": LIB_UNIT},
+               {"id": "DoD-2", "criterion": "WHEN c THE SYSTEM SHALL d", "check": "python3 -c 'print(42)'"},
+               {"id": "DoD-3", "criterion": "WHEN e THE SYSTEM SHALL f", "check": "python3 -c 'print(99)'"},
+               {"id": "DoD-4", "criterion": "WHEN g THE SYSTEM SHALL h", "check": "external", "external": {"what": "w", "how": "h"}}]
+        self.seed_M(brief={"checks": [LIB_UNIT], "dod": ["DoD-1", "DoD-2", "DoD-4"]}, plan={"dod": dod})
+        code, out, err = self.check(self.tid, "01")
+        self.assertEqual(code, 0, err + out)
+        rec = self.records("01")[0][1]
+        names = [(r["name"], r["cmd"]) for r in rec["results"] if r.get("status") != "skipped"]
+        self.assertIn(("dod:DoD-2", "python3 -c 'print(42)'"), names)
+        self.assertEqual([c for _, c in names].count(LIB_UNIT), 1, "DoD-1's command is deduplicated against verify/checks")
+        self.assertFalse([n for n, _ in names if n == "dod:DoD-3"], "DoD-3 is not this step's")
+        self.assertFalse([n for n, _ in names if n == "dod:DoD-4"], "external checks never run")
+        code, out, err = self.check(self.tid, "01", "--only", "lib-unit")
+        self.assertEqual(len(self.lines(out)), 1, "--only <verify name> runs no DoD check")
+        code, out, err = self.check(self.tid, "01", "--only", "dod")
+        self.assertEqual([l for l in self.lines(out) if "name=dod:DoD-2" in l and "exit=0" in l] != [], True, out)
+        self.assertFalse([l for l in self.lines(out) if "name=brief" in l], "--only dod runs no brief check")
 
     def test_tail_is_last_15_lines(self):
         self.seed_M(brief={"checks": ["seq 1 40"]})
@@ -275,6 +348,44 @@ class BaselineAndRatchetTests(CheckTestCase):
         rec = self.records("01")[0][1]
         self.assertEqual(rec["ratchet"]["status"], "PASS")
         self.assertEqual(rec["ratchet"]["now_tests"], 4)
+
+
+class PassingRecordTests(CheckTestCase):
+    """Review #59: an empty record is `ok: true` by definition but proves nothing."""
+
+    def test_record_is_passing(self):
+        from forgelib import checks
+        green = {"name": "a", "cmd": "true", "exit": 0, "dur_s": 0.1, "tail": ""}
+        red = {"name": "b", "cmd": "false", "exit": 1, "dur_s": 0.1, "tail": ""}
+        skipped = {"name": "c", "cmd": "x", "status": "skipped", "why": "exists missing"}
+        self.assertFalse(checks.record_is_passing({"ok": True, "results": []}), "empty")
+        self.assertFalse(checks.record_is_passing({"ok": True, "results": [skipped]}), "skipped only")
+        self.assertFalse(checks.record_is_passing({"ok": False, "results": [green, red]}), "ok false")
+        self.assertFalse(checks.record_is_passing({"ok": "true", "results": [green]}), "ok must be the boolean")
+        self.assertFalse(checks.record_is_passing(None))
+        self.assertFalse(checks.record_is_passing({"results": [green]}), "no ok")
+        self.assertTrue(checks.record_is_passing({"ok": True, "results": [skipped, green]}))
+        self.assertTrue(checks.record_is_passing({"ok": True, "results": [green], "expect_fail": False}))
+
+    def test_empty_verify_record_is_ok_but_not_passing_and_warns(self):
+        binding = dict(helpers.BINDING)
+        binding["verify"] = []
+        self.repo.write_json(".forge/binding.json", binding)
+        self.seed_T()
+        code, out, err = self.check(self.tid, "main")
+        self.assertEqual(code, 0, err)
+        self.assertIn("pass=0 fail=0", out)
+        self.assertIn("WARN", err)
+        self.assertIn("not a passing record", err)
+        from forgelib import checks
+        rec = self.records("main")[0][1]
+        self.assertIs(rec["ok"], True, "§2.7: ok = every non-skipped result exited 0 (vacuously)")
+        self.assertFalse(checks.record_is_passing(rec))
+        code, out, err = self.check(self.tid, "main", "--cmd", LIB_UNIT)
+        self.assertEqual(code, 0, err)
+        self.assertNotIn("WARN", err)
+        self.assertTrue(checks.record_is_passing(self.records("main")[0][1]) or
+                        checks.record_is_passing(self.records("main")[-1][1]), "--cmd gives a stack-unknown install a real record")
 
 
 if __name__ == "__main__":

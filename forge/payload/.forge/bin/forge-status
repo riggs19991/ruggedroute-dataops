@@ -19,16 +19,24 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", metavar="<subcommand>")
     sub.required = True
 
+    def add_open_args(sp: argparse.ArgumentParser, with_queue: bool) -> None:
+        sp.add_argument("--title", required=True)
+        sp.add_argument("--class", dest="cls", required=True, choices=common.CLASSES)
+        sp.add_argument("--risk", default="none", choices=common.RISKS)
+        sp.add_argument("--files", nargs="*", default=[], help="existing paths (a missing path is refused; use --creates)")
+        sp.add_argument("--creates", nargs="*", default=[])
+        sp.add_argument("--why", default="")
+        if with_queue:
+            sp.add_argument("--queue", action="store_true")
+        sp.add_argument("--force-risk", action="store_true")
+        sp.add_argument("--accept-risk-none", default=None, metavar="WHY")
+
     s = sub.add_parser("open", help="open a task from the declared edit set (new + signals + classify)")
-    s.add_argument("--title", required=True)
-    s.add_argument("--class", dest="cls", required=True, choices=common.CLASSES)
-    s.add_argument("--risk", default="none", choices=common.RISKS)
-    s.add_argument("--files", nargs="*", default=[])
-    s.add_argument("--creates", nargs="*", default=[])
-    s.add_argument("--why", default="")
-    s.add_argument("--queue", action="store_true")
-    s.add_argument("--force-risk", action="store_true")
-    s.add_argument("--accept-risk-none", default=None, metavar="WHY")
+    add_open_args(s, with_queue=True)
+
+    # design §5.1 names `new` as the first component of `open`; it is an alias of `open` without --queue
+    s = sub.add_parser("new", help="alias of `open` without --queue (new + signals + classify; never queues)")
+    add_open_args(s, with_queue=False)
 
     s = sub.add_parser("signals", help="recompute signals.json from the declared set")
     s.add_argument("task")
@@ -45,10 +53,14 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("task")
     s.add_argument("--from", dest="frm", required=True, metavar="PLAN_MD")
 
-    s = sub.add_parser("step-start", help="pending|failed -> running")
+    s = sub.add_parser("step-start", help="pending|failed|blocked -> running (a new attempt; verify_attempts resets to 0)",
+                       description="Start an attempt. --from is mandatory for a failed or blocked step (failed keeps the tree, "
+                                   "clean restores allowed_paths to the base) and accepted after `recover` on the pending step. "
+                                   "Every attempt gets a fresh verifier cap: verify_attempts is reset to 0 (2 per attempt without ruling.md).")
     s.add_argument("task")
     s.add_argument("step")
-    s.add_argument("--from", dest="frm", choices=["failed", "clean"], default=None)
+    s.add_argument("--from", dest="frm", choices=["failed", "clean"], default=None,
+                   help="failed: keep the tree, append the last verdict/report to the brief; clean: restore to base (saving a patch)")
     s.add_argument("--agent", default=None)
 
     s = sub.add_parser("step-bind", help="bind a worker agent id to a running step")
@@ -155,12 +167,11 @@ def main(argv) -> int:
         if cmd == "validate":
             if args.restamp:
                 status.restamp()
-            else:
-                status.load()
-            print("STATUS valid")
+            print(status.one_line(status.load()))   # MODULE-API §3: every non-get subcommand prints the one-line form
             return 0
-        if cmd == "open":
-            st = status.open(args.title, args.cls, args.risk, args.files, args.creates, args.why, queue=args.queue,
+        if cmd in ("open", "new"):
+            st = status.open(args.title, args.cls, args.risk, args.files, args.creates, args.why,
+                             queue=bool(getattr(args, "queue", False)),
                              force_risk=args.force_risk, accept_risk_none=args.accept_risk_none)
         elif cmd == "signals":
             status.signals(args.task)

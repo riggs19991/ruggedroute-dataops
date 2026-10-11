@@ -1,7 +1,7 @@
 """Fixture builder for the Forge test suite.
 
 Every test builds a throwaway git repository under a tempfile directory, copies the shipped
-payload (`forge/payload/.forge` and `forge/payload/.claude`) into it and seeds a minimal
+payload (`forge/payload/.forge` -> `.forge`, `forge/payload/dot-claude` -> `.claude`) into it and seeds a minimal
 `binding.json` and an idle `STATUS.json` INLINE (MODULE-API §2.1/§2.2; never from templates).
 The repo also holds a tiny Python project (`lib/mod.py`, `lib/util.py`, one passing test each)
 so `binding.verify[]` commands really run.
@@ -25,6 +25,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FORGE_SRC = os.path.abspath(os.path.join(HERE, ".."))
 PAYLOAD = os.path.join(FORGE_SRC, "payload")
 PAYLOAD_BIN = os.path.join(PAYLOAD, ".forge", "bin")
+# The payload's .claude/ ships as dot-claude/ (so Claude Code never auto-loads it from the Forge source tree);
+# it installs to <repo>/.claude/.
+PAYLOAD_CLAUDE = os.path.join(PAYLOAD, "dot-claude")
 INSTALLER = os.path.join(FORGE_SRC, "installer.py")
 
 sys.dont_write_bytecode = True   # never leave __pycache__ inside the shipped payload
@@ -170,7 +173,7 @@ class Repo:
         repo._git_init()
         shutil.copytree(os.path.join(PAYLOAD, ".forge"), repo.path(".forge"),
                         ignore=shutil.ignore_patterns("__pycache__"))
-        shutil.copytree(os.path.join(PAYLOAD, ".claude"), repo.path(".claude"),
+        shutil.copytree(PAYLOAD_CLAUDE, repo.path(".claude"),
                         ignore=shutil.ignore_patterns("__pycache__"))
         # settings.json = the fragment (what the installer would merge into an empty file)
         shutil.copy(repo.path(".claude/settings.forge.json"), repo.path(".claude/settings.json"))

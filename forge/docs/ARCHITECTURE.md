@@ -8,7 +8,7 @@ below (§n) refer to the design.
 | Part | Where (consumer repo) | Role |
 |---|---|---|
 | Architect | the main Claude Code session (Fable 5.1, `effortLevel` from the binding) | intake, classification, routing, briefs, adjudication; codes T/S/X work itself; never implements M/W/L |
-| Workers | `.claude/agents/forge-*.md` (8 files) | disposable fresh-context subagents dispatched with the `Agent` tool: planner, builders (Opus/Fable, wide Fable, Sonnet, Haiku mechanic), verifier, scout, librarian |
+| Workers | `.claude/agents/forge-*.md` (8 files; shipped as `payload/dot-claude/agents/`) | disposable fresh-context subagents dispatched with the `Agent` tool: planner, builders (Opus/Fable, wide Fable, Sonnet, Haiku mechanic), verifier, scout, librarian |
 | Skills | `.claude/skills/forge-*/SKILL.md` (6) | the rituals: `/forge-task`, `/forge-next`, `/forge-close`, `/forge-doctor`, `/forge-gc`, internal `forge-investigate` |
 | Hooks | `.claude/settings.json` (merged from `settings.forge.json`) → `.forge/bin/forge-hook` | twelve registrations, one dispatcher: injection, fences, evidence capture, gates, Stop gate, config guard |
 | State machine | `.forge/bin/forge-status` → `.forge/STATUS.json` | the only writer of STATUS; refuses illegal transitions (exit 3) |
@@ -32,15 +32,16 @@ in `.forge/bin/forgelib/` (`common`, `status`, `gates`, `checks`, `hooks`).
       ├── class S/X ─► plan-inline.md ─► forge-status plan ─► edit inline ─► forge-check main
       │                                   (X via /forge-investigate)      │
       │                                         verifier (S if tests changed; X always, Fable)
+      │                                         [verdict gate → step-verdict main → task.inline_verdict]
       │                                                                   ▼
-      │                                                    close --handoff (short form)
+      │                                    close --handoff (short form; X, and S with changed tests, need PASS)
       │
       └── class M/W/L ─► plan.md + brief-NN.md (architect for small M; forge-planner otherwise)
                               │  [SubagentStop plan gate]
                               ▼
                         forge-status plan ── routes steps (§4.3 rules), phase execute
                               │
-             ┌────────────────┴──── per step (M/W: one; L: ≥3, sequential by default) ───────────┐
+             ┌────────────────┴──── per step (M/W: one; L: ≥3, mode single = one at a time) ──────┐
              │ Agent(forge-builder…) ─[PreToolUse spawn guard: agent/model/effort match → step-start]
              │   worker Reads brief-NN.md ─[PostToolUse: bind agent_id to the step]
              │   edits inside allowed_paths ─[PreToolUse fence + tool budget; PostToolUse evidence rows]
@@ -50,6 +51,7 @@ in `.forge/bin/forgelib/` (`common`, `status`, `gates`, `checks`, `hooks`).
              │   git diff base..commit, re-run forge-check --ratchet
              │   final message = VERDICT ─[SubagentStop verdict gate → step-verdict]
              │        PASS → done │ FAIL → ladder (resume → one rung up → ruling) │ env-cannot-run → awaiting_external
+             │        NEEDS_CONTEXT/BLOCKED → step blocked → step-start --from failed|clean + fresh worker
              └────────────────────────────────────────────────────────────────────────────────────┘
                               ▼
                         /forge-close: handoff.md, lessons, ADR if durable → forge-status close
@@ -104,5 +106,8 @@ final message); (2) the Stop gate refuses to end a turn until STATUS reflects it
 
 The shipped form is the plain project layout (`.claude/agents`, `.claude/skills`, `.claude/rules`, project `settings.json` hooks),
 because it is the only form verified to load everywhere, including untrusted cloud sessions. A user-level plugin wrapper (`plugin/`)
-is secondary and self-silences inside a repo that has the plain install (`forge-hook --plugin`). Ownership of every file is the
-upgrade contract (docs/UPGRADING.md).
+is secondary: `forge-hook --plugin` does nothing inside a repo that has the plain install (`.forge/VERSION`) and nothing at all in a
+repository without a Forge install (no `.forge/binding.json` or `STATUS.json`), so enabling it user-wide never fences unrelated
+projects. In the Forge source tree the payload's `.claude/` ships as `payload/dot-claude/` (so Claude Code never loads it while you
+work on the Forge itself); the installer copies it to the target's `.claude/`. Ownership of every file is the upgrade contract
+(docs/UPGRADING.md).

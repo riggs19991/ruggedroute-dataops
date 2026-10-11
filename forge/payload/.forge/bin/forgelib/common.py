@@ -807,6 +807,25 @@ def eprint(*args: Any) -> None:
 
 
 # --------------------------------------------------------------------------- #
+# Redaction (review #34): credential-shaped substrings never reach committed artifacts
+# --------------------------------------------------------------------------- #
+_SECRET_RE = re.compile(
+    r"(?i)(authorization\s*[=:]\s*(?:bearer|basic|token)\s+|"
+    r"(?:token|secret|password|passwd|api[_-]?key|authorization|bearer)\s*[=:]\s*|bearer\s+)(\S+)")
+_SECRET_SHAPE_RE = re.compile(r"\b(AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|"
+                              r"sk-[A-Za-z0-9_-]{16,}|xox[baprs]-[A-Za-z0-9-]{10,})\b")
+REDACTED = "[REDACTED]"
+
+
+def redact(text: Optional[str]) -> Optional[str]:
+    """Mask `token=…`, `Authorization: Bearer …`, AWS/GitHub/OpenAI/Slack-shaped keys."""
+    if not text:
+        return text
+    out = _SECRET_RE.sub(lambda m: m.group(1) + REDACTED, text)
+    return _SECRET_SHAPE_RE.sub(REDACTED, out)
+
+
+# --------------------------------------------------------------------------- #
 # Misc
 # --------------------------------------------------------------------------- #
 def dirs_of(paths_list: Iterable[str]) -> List[str]:

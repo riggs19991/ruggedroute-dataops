@@ -64,13 +64,24 @@ jobs:
           git -C "$tmp" init -q
           /bin/bash forge/install.sh --target "$tmp" --dry-run
 
-      - name: plugin/ is exactly what tools/make_plugin.py generates from the payload
-        run: python3 forge/tools/make_plugin.py --check
+      - name: plugin/ is exactly what tools/make_plugin.py generates from the payload (fails on drift)
+        run: |
+          python3 forge/tools/make_plugin.py --check || {
+            echo "::error::forge/plugin/ is stale: run python3 forge/tools/make_plugin.py and commit forge/plugin/"; exit 1; }
+
+      - name: The payload ships no .claude/ directory (Claude Code would auto-load its rules in this repo)
+        run: test ! -e forge/payload/.claude && test ! -e forge/plugin/payload/.claude
+
+      - name: install.sh accepts --tag without --repo, refuses --repo without --tag
+        run: |
+          set +e
+          /bin/bash forge/install.sh --repo some/repo --target . --dry-run; test $? -eq 2 || exit 1
+          /bin/bash forge/install.sh --help | grep -q -- "--repo defaults to riggs19991/ruggedroute-dataops"
 
       - name: Every shipped JSON file parses
         run: |
           for f in forge/.claude-plugin/marketplace.json forge/plugin/.claude-plugin/plugin.json \
-                   forge/plugin/hooks/hooks.json forge/payload/.claude/settings.forge.json \
+                   forge/plugin/hooks/hooks.json forge/payload/dot-claude/settings.forge.json \
                    forge/payload/.forge/schemas/*.json forge/payload/.forge/templates/*.json; do
             python3 -m json.tool "$f" > /dev/null || { echo "invalid JSON: $f"; exit 1; }
           done

@@ -3,6 +3,9 @@
 <!-- Template for class S and X (design §3 small/extreme paths, §5.3). The architect implements inline, so mode is
      "inline" and steps is []. allowed_paths is the declared edit set (STATUS task.scope).
      Mandatory headings: Validation Criteria, Rollback. Replace every {{placeholder}}.
+     Class X: set "class": "X" and the verifier to fable/medium (mandatory; close needs its PASS on step main).
+     Class S: sonnet/medium (opus when importers >= 5), dispatched only if tests are added or changed; then close needs its PASS.
+     test_baseline: leave the template value and `forge-status plan` records the real baseline at import.
      Validate with: .forge/bin/forge-gate --plan {{task}}   then import with: .forge/bin/forge-status plan {{task}} --from .forge/tasks/{{task}}/plan.md -->
 
 ```json

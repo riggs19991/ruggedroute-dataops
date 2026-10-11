@@ -4,7 +4,8 @@ Design §5.7 (record shape), §7 gate 3, §13.3 (`forge-check`). Pure standard l
 
 Command list = binding.verify[] filtered by `when` (`always` | `paths:<glob>` against the step's
 changed set, `{layer}` substituted from the matched path; a missing `exists` path → skipped)
-∪ the brief's `checks[]` (plan-meta DoD checks for the inline step `main`), deduplicated by cmd.
+∪ the brief's `checks[]` ∪ the plan-meta DoD checks of the brief's `dod[]` ids (every DoD check for
+the inline step `main`), deduplicated by cmd. `--cmd '<command>'` runs that one command instead.
 Each command runs through `bash -c` from the repo root with a 20-minute cap.
 """
 from __future__ import annotations
@@ -197,7 +198,7 @@ def plan_commands(paths: common.Paths, binding: Dict[str, Any], task_id: str, st
                 continue
             entries.append({"name": name, "cmd": cmd, "run": True})
     # Brief checks (plan-meta DoD checks for the inline step) run even when a verify entry is skipped.
-    if only is None or only == "brief":
+    if only in (None, "brief", "dod"):
         running = {e["cmd"] for e in entries if e["run"]}
         if step == "main":
             pm = gates.plan_meta(paths, task_id) or {}
@@ -208,11 +209,49 @@ def plan_commands(paths: common.Paths, binding: Dict[str, Any], task_id: str, st
                     running.add(c)
         elif step != "plan":
             bm = gates.brief_meta(paths, task_id, step) or {}
-            for c in bm.get("checks", []) or []:
-                if isinstance(c, str) and c and c not in running:
-                    entries.append({"name": "brief", "cmd": c, "run": True})
+            if only in (None, "brief"):
+                for c in bm.get("checks", []) or []:
+                    if isinstance(c, str) and c and c not in running:
+                        entries.append({"name": "brief", "cmd": c, "run": True})
+                        running.add(c)
+            # review #20: the step's DoD check commands (plan-meta dod[] entries named in the brief's dod[])
+            # run too, so the verifier's own forge-check run records every criterion it must grade.
+            wanted = {d for d in bm.get("dod", []) or [] if isinstance(d, str)}
+            pm = gates.plan_meta(paths, task_id) or {}
+            for d in pm.get("dod", []) or []:
+                if not isinstance(d, dict) or d.get("id") not in wanted:
+                    continue
+                c = d.get("check")
+                if isinstance(c, str) and c and c != "external" and c not in running:
+                    entries.append({"name": f"dod:{d['id']}", "cmd": c, "run": True})
                     running.add(c)
     return entries
+
+
+def record_is_passing(record: Any) -> bool:
+    """True when a check record proves something passed: `ok` is true AND at least one non-skipped
+    result exited 0. An empty record (verify[] empty, no brief checks) is `ok: true` by the §2.7
+    definition but proves nothing; a T `--one-line` close must not accept it (review #59)."""
+    if not isinstance(record, dict) or record.get("ok") is not True:
+        return False
+    for res in record.get("results", []) or []:
+        if isinstance(res, dict) and res.get("status") != "skipped" and res.get("exit") == 0:
+            return True
+    return False
+
+
+def validate_ids(task_id: str, step: str, agent_id: str) -> None:
+    """Refuse ids that are not safe path components (review #31): a `..` or `/` in <step> or --agent
+    would write the record outside checks/. Raises ForgeError(EXIT_USAGE)."""
+    if not gates.valid_task_id(task_id):
+        raise common.ForgeError(f"forge-check: task id {task_id!r} must match ^T-[0-9]{{4,}}$", common.EXIT_USAGE)
+    if not gates.valid_component(step):
+        raise common.ForgeError(f"forge-check: step {step!r} must match ^[A-Za-z0-9_.-]{{1,64}}$ (no '..')", common.EXIT_USAGE)
+    if not gates.valid_component(agent_id):
+        raise common.ForgeError(f"forge-check: agent id {agent_id!r} must match ^[A-Za-z0-9_.-]{{1,64}}$ (no '..')",
+                                common.EXIT_USAGE)
+    if agent_id == "human":
+        raise common.ForgeError("forge-check: --agent human is reserved for forge-status attest", common.EXIT_USAGE)
 
 
 # --------------------------------------------------------------------------- #
@@ -234,15 +273,23 @@ def record_path(paths: common.Paths, task_id: str, step: str, ts: int, agent_id:
 
 def run_checks(paths: common.Paths, task_id: str, step: str, expect_fail: bool = False, ratchet: bool = False,
                only: Optional[str] = None, only_paths: Optional[List[str]] = None,
-               agent_id: str = "unknown") -> Dict[str, Any]:
+               agent_id: str = "unknown", cmd: Optional[str] = None) -> Dict[str, Any]:
     """Run the step's commands, print FORGE_CHECK lines, write and return the record (§2.7).
 
-    `ok` = every non-skipped result exited 0 (regardless of expect_fail). The written file is
-    reported in the returned dict under `_file` (repo-relative; not part of the on-disk record)."""
+    `cmd` runs that one command instead of the planned list (`forge-check --cmd`, review #20): a
+    verifier or builder records a DoD command directly; it still runs from the repo root under the
+    20-minute cap. `ok` = every non-skipped result exited 0 (regardless of expect_fail). The written
+    file is reported in the returned dict under `_file` (repo-relative; not part of the on-disk record)."""
+    validate_ids(task_id, step, agent_id)
     binding = common.load_binding(paths)
     if not os.path.isdir(paths.task(task_id)):
         raise common.ForgeError(f"{task_id}: no task directory {paths.rel(paths.task(task_id))}", common.EXIT_USAGE)
-    entries = plan_commands(paths, binding, task_id, step, only=only, only_paths=only_paths)
+    if cmd is not None:
+        if not str(cmd).strip():
+            raise common.ForgeError("forge-check: --cmd needs a non-empty command", common.EXIT_USAGE)
+        entries = [{"name": "cmd", "cmd": str(cmd), "run": True}]
+    else:
+        entries = plan_commands(paths, binding, task_id, step, only=only, only_paths=only_paths)
     results: List[Dict[str, Any]] = []
     n_pass = n_fail = n_skip = 0
     for e in entries:
@@ -258,7 +305,8 @@ def run_checks(paths: common.Paths, task_id: str, step: str, expect_fail: bool =
             n_pass += 1
         else:
             n_fail += 1
-        results.append({"name": e["name"], "cmd": e["cmd"], "exit": code, "dur_s": dur, "tail": _tail(out)})
+        # review #34: tails are committed at close, so credential-shaped text is masked at write time
+        results.append({"name": e["name"], "cmd": e["cmd"], "exit": code, "dur_s": dur, "tail": common.redact(_tail(out))})
         _say(f"FORGE_CHECK name={e['name']} exit={code} dur={dur}s cmd={e['cmd']}")
     rat = None
     if ratchet:
@@ -269,6 +317,9 @@ def run_checks(paths: common.Paths, task_id: str, step: str, expect_fail: bool =
         _say(f"FORGE_CHECK_RATCHET status={rat['status']} baseline_tests={rat['baseline_tests']} "
              f"now_tests={rat['now_tests']} deleted={','.join(rat['deleted_test_files']) or '-'}")
     _say(f"FORGE_CHECK_SUMMARY pass={n_pass} fail={n_fail} skipped={n_skip}")
+    if n_pass + n_fail == 0:
+        common.eprint(f"forge-check: WARN no command ran for {task_id} {step} (verify[] empty or nothing matched): "
+                      "this record proves nothing and is not a passing record; run forge-check --cmd '<command>'")
 
     ts = common.now_ts()
     # One record per second per agent: bump the epoch rather than overwrite a sibling record.

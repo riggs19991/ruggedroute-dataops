@@ -6,6 +6,8 @@ Usage: .forge/bin/forge-doctor [--report] [--no-probes] [--quick] [--json] [--po
                                [--disable-gate <name>]
 
 Every check prints `OK|WARN|FAIL <name>: <detail>`. Exit 0 when no FAIL, 1 otherwise; `--report` always exits 0.
+The static set (everything but --quick) includes the FORGE.md pointer check; --pointers runs it under --quick too.
+`forge-root` FAILs when $FORGE_ROOT is exported and names a different repository than this checkout.
 Probes run `claude -p` (they cost tokens) and report what they observed; never run them from a `!` injection.
 `--disable-gate <name>` writes .forge/.runtime/gate-disabled-<name> and journals it (operator-only bypass, design §7 gate 14).
 """
@@ -88,6 +90,21 @@ def _read_json_soft(path: str) -> Tuple[Any, Optional[str]]:
 # --------------------------------------------------------------------------- #
 # Static checks
 # --------------------------------------------------------------------------- #
+def check_forge_root(paths: common.Paths, rep: Report) -> None:
+    """review finding #3: a FORGE_ROOT exported by another checkout's session must not linger. forge_root() already
+    ignores it (with a WARN on stderr), but any shell tool that trusts $FORGE_ROOT would still act on the other repo."""
+    env_root = os.environ.get("FORGE_ROOT")
+    if not env_root:
+        rep.ok("forge-root", f"FORGE_ROOT unset; root {paths.root}")
+        return
+    if os.path.realpath(os.path.abspath(env_root)) == os.path.realpath(paths.root):
+        rep.ok("forge-root", f"FORGE_ROOT matches this checkout ({paths.root})")
+        return
+    rep.fail("forge-root", f"FORGE_ROOT={env_root} names a different repository than this checkout ({paths.root}): "
+                           "unset it (unset FORGE_ROOT; remove any export FORGE_ROOT line from $CLAUDE_ENV_FILE or your "
+                           "shell profile) and start a new session")
+
+
 def check_python(rep: Report) -> None:
     v = sys.version_info
     if (v.major, v.minor) >= MIN_PYTHON:
@@ -142,14 +159,15 @@ def check_version(paths: common.Paths, binding: Optional[Dict[str, Any]], rep: R
     if src:
         if src != installed:
             level = "WARN"
-            notes.append(f"source tree forge/VERSION {src} differs: run install.sh --upgrade")
+            notes.append(f"source tree forge/VERSION {src} differs: run bash forge/install.sh --target . --upgrade")
         else:
             notes.append("matches forge/VERSION")
     pin = (binding or {}).get("forge_pin")
     if isinstance(pin, str) and pin and not pin.startswith("{{"):
         if pin != installed:
             level = "WARN"
-            notes.append(f"binding.forge_pin {pin} differs: run install.sh --upgrade --tag v{pin}")
+            notes.append(f"binding.forge_pin {pin} differs: run bash <forge checkout>/install.sh --target . --upgrade "
+                         f"(or bash install.sh --tag v{pin} [--repo OWNER/REPO] --target . --upgrade)")
         else:
             notes.append("matches binding.forge_pin")
     rep.add(level, "version", "; ".join(notes))
@@ -703,7 +721,8 @@ def main(argv: List[str]) -> int:
     p.add_argument("--no-probes", action="store_true", help="never run claude -p, even if probe flags are given")
     p.add_argument("--quick", action="store_true", help="only the checks forge-run needs before a phase")
     p.add_argument("--json", action="store_true", help="print a JSON report instead of lines")
-    p.add_argument("--pointers", action="store_true", help="FORGE.md pointer / cold-start document check")
+    p.add_argument("--pointers", action="store_true", help="FORGE.md pointer check (already in the default set; "
+                                                         "adds it to --quick)")
     for flag in ("--probe-hooks", "--driver", "--probe-clear", "--worktree", "--probe-maxturns", "--probe-coldstart"):
         p.add_argument(flag, action="store_true")
     p.add_argument("--disable-gate", metavar="NAME", default=None)
@@ -716,6 +735,7 @@ def main(argv: List[str]) -> int:
         return disable_gate(paths, args.disable_gate)
 
     rep = Report()
+    check_forge_root(paths, rep)
     check_python(rep)
     binding = check_binding(paths, rep)
     check_status(paths, rep)
@@ -730,8 +750,8 @@ def main(argv: List[str]) -> int:
         check_duplicates(paths, rep)
         check_hooks_alive(paths, rep)
         check_digest(paths, rep)
-    if args.pointers:
-        check_pointers(paths, rep)
+    if args.pointers or not args.quick:
+        check_pointers(paths, rep)   # static and cheap: part of every non --quick run (GATES gate 15, review #45)
 
     probes = [(args.probe_hooks, lambda: probe_hooks(paths, rep)), (args.driver, lambda: probe_driver(paths, binding, rep)),
               (args.probe_clear, lambda: probe_clear(paths, rep)), (args.worktree, lambda: probe_worktree(paths, rep)),

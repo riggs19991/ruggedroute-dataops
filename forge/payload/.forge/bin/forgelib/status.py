@@ -17,6 +17,7 @@ import glob as _glob
 import json
 import os
 import re
+import shutil
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from . import common
@@ -26,13 +27,56 @@ from .common import ForgeError, EXIT_REFUSED, EXIT_INVALID, EXIT_USAGE
 CLOSE_ALWAYS_ALLOWED = (".forge/**", "CLAUDE.md", ".gitignore", ".claude/agent-memory/**")
 # Verdict tags that raise effort instead of changing model (design §4.3 rule 3).
 EFFORT_TAGS = ("skipped-file", "no-check-run", "not-double-checked")
-# Design §4.3 rule 6: attempts per step without a ruling.md.
+# Design §4.3 rule 6: attempts per step without a ruling.md. verify_attempts is counted per attempt: a
+# retry (`step-start --from failed|clean`) resets it, so each builder round gets a fresh verifier cap
+# (review finding #26).
 MAX_ATTEMPTS = 3
 MAX_VERIFY_ATTEMPTS = 2
+# Step states a `step-start --from failed|clean` retry may leave (review finding #5: BLOCKED/NEEDS_CONTEXT
+# reports park the step as `blocked`; it is retried exactly like a failed step).
+RETRY_STATUSES = ("failed", "blocked")
+# Directory components folded into their parent when counting dirs for the size class (review finding
+# #55): `layers/x/tests/test_a.py` and `layers/x/layer.json` are ONE dir, `layers/x`.
+TEST_DIR_NAMES = ("tests", "__tests__")
 _TASK_ID_RE = re.compile(r"^T-[0-9]{4,}$")
 _STEP_ID_RE = re.compile(r"^[0-9]{2}$")
+_JSON_FENCE_RE = re.compile(r"^```json\s*$")
 
 Json = Dict[str, Any]
+
+
+def dirs_of(paths_list: Iterable[str]) -> List[str]:
+    """common.dirs_of with a trailing `tests`/`__tests__` component folded into the directory it tests
+    (finding #55): a layer plus its tests counts as one dir. A top-level `tests/` stays its own dir."""
+    out = set()
+    for p in paths_list:
+        parts = (os.path.dirname(p) or ".").replace(os.sep, "/").split("/")
+        while len(parts) > 1 and parts[-1] in TEST_DIR_NAMES:
+            parts = parts[:-1]
+        out.add("/".join(parts))
+    return sorted(out)
+
+
+def replace_json_block(text: str, obj: Json) -> str:
+    """`text` with its first fenced ```json block replaced by `obj` (indent 2); unchanged when no block."""
+    lines = text.splitlines()
+    start = next((i for i, l in enumerate(lines) if _JSON_FENCE_RE.match(l.strip())), None)
+    if start is None:
+        return text
+    end = next((i for i in range(start + 1, len(lines)) if lines[i].strip().startswith("```")), None)
+    if end is None:
+        return text
+    body = json.dumps(obj, indent=2, ensure_ascii=False).splitlines()
+    new = lines[:start + 1] + body + lines[end:]
+    return "\n".join(new) + ("\n" if text.endswith("\n") else "")
+
+
+def baseline_unrecorded(tb: Any) -> bool:
+    """True when plan-meta.test_baseline is missing, malformed or still the template value (finding #29)."""
+    if not isinstance(tb, dict) or not isinstance(tb.get("files"), int) or not isinstance(tb.get("tests"), int):
+        return True
+    rec = tb.get("recorded_at")
+    return not rec or str(rec).startswith("1970-")
 
 
 def idle_status(project: str) -> Json:
@@ -307,8 +351,14 @@ class Status:
     def _idle_next(self, st: Json) -> str:
         queue = st.get("queue") or []
         if queue:
-            return f"Run /forge-task \"{queue[0].get('title', '')}\" (queued {queue[0].get('id', '')})"
+            q = queue[0]
+            # a queue entry may carry no id (the installer's stack-discovery hint, finding #46)
+            tag = f" (queued {q['id']})" if q.get("id") else " (queued)"
+            return f"Run /forge-task \"{q.get('title', '')}\"{tag}"
         return "Run /forge-task <title> to start"
+
+    def _queue_label(self, q: Json) -> str:
+        return str(q.get("id") or f"\"{common.truncate(str(q.get('title') or '?'), 40, '…')}\"")
 
     def one_line(self, st: Json) -> str:
         """`<task> <phase> <step?> <status?> | next: <next_action>` (MODULE-API §3 CLI output)."""
@@ -356,7 +406,19 @@ class Status:
         if status == "awaiting_external":
             ext = task.get("external") or {}
             return f"Run: {ext.get('needs', '<external check>')}; then .forge/bin/forge-status attest {tid} {step['id']} <DoD-n> --by <you> --evidence <url|path>"
-        return f"Read .forge/tasks/{tid}/{_basename(step.get('report'))} and decide: step-start --from failed|clean, scope add, or block --on"
+        return self._blocked_text(task, step)
+
+    def _blocked_text(self, task: Json, step: Json, status: Optional[str] = None, what: Optional[str] = None) -> str:
+        """next_action for a `blocked` step (BLOCKED/NEEDS_CONTEXT report): exactly the commands that work
+        (finding #5). The worker has returned, so there is nothing to resume; the fresh worker gets the
+        missing context through the brief (`--from failed` appends the report's next_action) and the prompt."""
+        tid, sid = task["id"], step["id"]
+        head = f"Step {sid} {status} ({what}): " if status else ""
+        return (f"{head}read .forge/tasks/{tid}/{_basename(step.get('report'))}, then run "
+                f".forge/bin/forge-status step-start {tid} {sid} --from failed (keep the tree) or --from clean "
+                f"(restore to base) and {self._dispatch_text(step)} with the missing context in the prompt; "
+                f"or .forge/bin/forge-status scope add {tid} <path> --why \"...\" (class X, else --ruling); "
+                f"or .forge/bin/forge-status block --on \"...\"")
 
     # ------------------------------------------------------------------ #
     # signals (design §4.1) and class constraints (design §5.1 open row)
@@ -442,7 +504,7 @@ class Status:
         important = [p for p in all_paths if common.any_glob(p, self.binding.get("important_paths") or [])]
         return {
             "files": len(declared),
-            "dirs": len(common.dirs_of(declared)),
+            "dirs": len(dirs_of(declared)),
             "importers": len(importers),
             "importer_files": importers[:20],
             "recent_cochanges": self._cochanges(declared),
@@ -546,18 +608,48 @@ class Status:
             common.write_text_atomic(self.paths.queue, "".join(
                 json.dumps(r, ensure_ascii=False, separators=(",", ":")) + "\n" for r in rest[1:]))
 
+    def _next_task_id(self, st: Json) -> str:
+        """Next free T-NNNN over tasks/, archive/, history AND every queued id (STATUS.queue + queue.jsonl),
+        so an installer-queued hint can never collide with the first opened task (finding #46)."""
+        n = int(common.next_task_id(self.paths)[2:])
+        for q in list(st.get("queue") or []) + common.read_jsonl(self.paths.queue):
+            qid = str((q or {}).get("id") or "")
+            if _TASK_ID_RE.match(qid):
+                n = max(n, int(qid[2:]) + 1)
+        return f"T-{n:04d}"
+
+    def _abs(self, rel: str) -> str:
+        """Absolute path of a repo-relative path in the checkout the session edits in."""
+        return os.path.join(self.paths.worktree_root or self.paths.root, rel)
+
+    def _scoped_rel(self, path: str, what: str) -> str:
+        """Repo-relative form of a path that defines scope (declared files, allowed_paths, scope add):
+        refused when it escapes the repository lexically or through a symlink; a symlink inside the
+        repository yields the RESOLVED path so fences judge the real target (findings #9/#10)."""
+        rel, ok, why = self.paths.safe_rel(path)
+        if not ok:
+            raise ForgeError(f"{what} {path}: {why}", EXIT_REFUSED)
+        return rel
+
     def open(self, title: str, cls: str, risk: str, files: Iterable[str], creates: Iterable[str] = (), why: str = "",
              queue: bool = False, force_risk: bool = False, accept_risk_none: Optional[str] = None) -> Json:
         """new + signals + classify in one call (design §5.1 open row)."""
         st = self.load()
-        files = common.unique(self.paths.rel(p) for p in files)
-        creates = common.unique(self.paths.rel(p) for p in creates)
+        files = common.unique(self._scoped_rel(p, "--files") for p in files)
+        creates = common.unique(self._scoped_rel(p, "--creates") for p in creates)
         if not title.strip():
             raise ForgeError("--title is required", EXIT_USAGE)
         if not files and not creates:
             raise ForgeError("declare the edit set with --files and/or --creates", EXIT_USAGE)
+        if not queue:
+            # finding #53: a declared --files path must exist (a typo would lock the scope to it); new files
+            # go in --creates. Glob entries cannot be checked and pass.
+            missing = [p for p in files if "*" not in p and "?" not in p and not os.path.exists(self._abs(p))]
+            if missing:
+                raise ForgeError(f"--files path(s) do not exist: {', '.join(missing[:5])}; declare new files with --creates",
+                                 EXIT_REFUSED)
         if queue:
-            task_id = common.next_task_id(self.paths)
+            task_id = self._next_task_id(st)
             common.ensure_dir(self.paths.task(task_id))
             common.write_json_atomic(self.paths.task_file(task_id, "queued.json"), {
                 "id": task_id, "title": title, "class_hint": cls, "risk": risk, "files": files,
@@ -571,10 +663,10 @@ class Status:
         task_id = None
         for i, q in enumerate(st.get("queue") or []):
             if q.get("title") == title:
-                task_id = q.get("id")
+                task_id = q.get("id")   # may be absent: the entry was a hint without a fixed id
                 self._pop_queue(st, i)
                 break
-        task_id = task_id or common.next_task_id(self.paths)
+        task_id = task_id or self._next_task_id(st)
         sig = self._compute_signals(title, files, creates)
         self._check_class(cls, risk, sig, why, force_risk, accept_risk_none)
         common.ensure_dir(self.paths.task(task_id))
@@ -694,11 +786,22 @@ class Status:
             raise ForgeError(f"step {step_id}: brief {self.paths.rel(path)} has no {common.SCHEMA_BRIEF} json block", EXIT_REFUSED)
         if meta.get("step") != step_id or meta.get("task") != task_id:
             raise ForgeError(f"step {step_id}: brief-meta task/step ({meta.get('task')}/{meta.get('step')}) do not match", EXIT_REFUSED)
-        allowed = [self.paths.rel(p) for p in meta.get("allowed_paths") or [] if isinstance(p, str)]
+        allowed = [self._scoped_rel(p, f"step {step_id}: allowed_paths") for p in meta.get("allowed_paths") or [] if isinstance(p, str)]
         if not allowed:
             raise ForgeError(f"step {step_id}: brief allowed_paths is empty", EXIT_REFUSED)
         meta["allowed_paths"] = common.unique(allowed)
         return self.paths.rel(path), meta
+
+    def _record_baseline(self, task_id: str) -> Optional[Json]:
+        """plan-meta.test_baseline via forgelib.checks.baseline (lazy import; absent = None, journaled)."""
+        try:
+            from . import checks  # noqa: WPS433 (optional module, written separately)
+        except ImportError:
+            self._journal(task_id, "plan: forgelib.checks missing; test_baseline not recorded")
+            return None
+        tb = checks.baseline(self.paths)
+        self._journal(task_id, f"plan: test_baseline recorded at import: files={tb.get('files')} tests={tb.get('tests')}")
+        return tb
 
     def _gate_plan(self, task_id: str) -> None:
         """forge-gate --plan through forgelib.gates when present (lazy import; absent = skip, journaled)."""
@@ -807,8 +910,13 @@ class Status:
         cls = task["class"]
         if cls == "T":
             raise ForgeError("class T has no plan: edit inline, forge-check, then close --one-line", EXIT_REFUSED)
-        if task["phase"] not in ("plan", "intake"):
-            raise ForgeError(f"{task_id} is in phase {task['phase']}; plan import needs phase plan", EXIT_REFUSED)
+        # finding #4: a corrected plan may land again while nothing has been dispatched (phase execute with
+        # every step still pending and unstarted; inline tasks have no steps) — the steps are replaced.
+        reimport = task["phase"] == "execute" and all(
+            s.get("status") == "pending" and int(s.get("attempts") or 0) == 0 for s in task.get("steps") or [])
+        if task["phase"] not in ("plan", "intake") and not reimport:
+            raise ForgeError(f"{task_id} is in phase {task['phase']}; plan import needs phase plan "
+                             f"(or execute with every step pending and unstarted)", EXIT_REFUSED)
         abs_plan = plan_path if os.path.isabs(plan_path) else os.path.join(self.paths.root, plan_path)
         text = common.read_text(abs_plan)
         if text is None:
@@ -820,12 +928,24 @@ class Status:
             raise ForgeError(f"plan-meta.task is {meta.get('task')!r}, expected {task_id}", EXIT_REFUSED)
         if not isinstance(meta.get("dod"), list) or not meta["dod"]:
             raise ForgeError("plan-meta.dod must be a non-empty list", EXIT_REFUSED)
+        notes: List[str] = []
+        if baseline_unrecorded(meta.get("test_baseline")):
+            # finding #29: architect-written plans never ran `forge-check <id> plan --baseline`, so the
+            # ratchet compared against the template zeros. Record the baseline here and write it back.
+            tb = self._record_baseline(task_id)
+            if tb is not None:
+                meta["test_baseline"] = tb
+                text = replace_json_block(text, meta)
+                common.write_text_atomic(abs_plan, text)
+                notes.append(f"test_baseline recorded at import: files={tb['files']} tests={tb['tests']}")
         self._gate_plan(task_id)
         routing_meta = meta.get("routing") or {}
         mode = routing_meta.get("mode")
         steps_meta = meta.get("steps") or []
         chain = bool(meta.get("chain"))
-        notes: List[str] = []
+        if reimport:
+            notes.append("plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)")
+            task.pop("inline_verdict", None)
         # class/step-count constraints (design §5.1 plan row)
         if cls in ("S", "X"):
             if mode != "inline" or steps_meta:
@@ -881,7 +1001,7 @@ class Status:
                 notes.append("mode parallel rewritten to single: needs >= 3 disjoint units and binding.git.worktree_isolation (design §4.3 rule 1)")
                 mode = "single"
         # inline plans: allowed_paths from plan-meta, else the declared set
-        inline_allowed = [self.paths.rel(p) for p in meta.get("allowed_paths") or [] if isinstance(p, str)]
+        inline_allowed = [self._scoped_rel(p, "plan-meta allowed_paths") for p in meta.get("allowed_paths") or [] if isinstance(p, str)]
         all_paths = common.unique(task["files"] + task["creates"] + inline_allowed
                                   + [p for s in steps for p in s["allowed_paths"]])
         # risk re-matched over every allowed path (design §3 step 4)
@@ -954,14 +1074,25 @@ class Status:
         return common.json_block(text) or {}
 
     def _append_failed_approach(self, task_id: str, step: Json) -> None:
-        """step-start --from failed: append the last verdict's blocking findings to the brief (§4.3 rule 6)."""
-        vpath = self.paths.task_file(task_id, f"verdict-{step['id']}.json")
-        verdict = common.read_json(vpath, default=None) if common.exists(vpath) else None
-        if not isinstance(verdict, dict):
-            return
-        findings = verdict.get("blocking_findings") or []
-        line = (f"- attempt {step['attempts']} verdict {verdict.get('verdict')} ({common.now_iso()}): "
-                + ("; ".join(str(f) for f in findings) if findings else "no blocking findings recorded"))
+        """step-start --from failed: append the last verdict's blocking findings to the brief (§4.3 rule 6).
+
+        For a `blocked` step (BLOCKED/NEEDS_CONTEXT report, finding #5) the report's status and
+        next_action are appended instead, so the fresh worker reads what the last one was missing."""
+        if step.get("status") == "blocked":
+            rpath = self.paths.task_file(task_id, f"report-{step['id']}.json")
+            rep = common.read_json(rpath, default=None) if common.exists(rpath) else None
+            if not isinstance(rep, dict):
+                return
+            line = (f"- attempt {step['attempts']} {rep.get('status')} ({common.now_iso()}): "
+                    f"{rep.get('next_action') or 'no next_action recorded'}")
+        else:
+            vpath = self.paths.task_file(task_id, f"verdict-{step['id']}.json")
+            verdict = common.read_json(vpath, default=None) if common.exists(vpath) else None
+            if not isinstance(verdict, dict):
+                return
+            findings = verdict.get("blocking_findings") or []
+            line = (f"- attempt {step['attempts']} verdict {verdict.get('verdict')} ({common.now_iso()}): "
+                    + ("; ".join(str(f) for f in findings) if findings else "no blocking findings recorded"))
         bpath = os.path.join(self.paths.root, step["brief"])
         text = common.read_text(bpath)
         if text is None:
@@ -980,18 +1111,27 @@ class Status:
         common.write_text_atomic(bpath, "\n".join(lines) + "\n")
 
     def step_start(self, task_id: str, step_id: str, frm: Optional[str] = None, agent_id: Optional[str] = None) -> Json:
-        """pending (or failed with --from) -> running; attempts += 1; writes .base-NN; ledger dispatch row."""
+        """pending (or failed|blocked with --from) -> running; attempts += 1; verify_attempts reset; .base-NN; ledger row.
+
+        `--from` is mandatory for a failed or blocked step (finding #5) and accepted as informational on a
+        pending step that a `recover` left behind (attempts >= 1; findings #23/#39: `--from clean` restores
+        the tree again only when something changed since). Refused in phase intake (finding #4)."""
         st = self.load()
         task = self._task(st, task_id)
         step = self._step(task, step_id)
         if frm not in (None, "failed", "clean"):
             raise ForgeError("--from must be failed or clean", EXIT_USAGE)
-        if step["status"] == "failed" and frm is None:
-            raise ForgeError(f"step {step_id} is failed: pass --from failed (keep the tree) or --from clean (recover to base)", EXIT_REFUSED)
-        if step["status"] not in ("pending", "failed"):
-            raise ForgeError(f"step {step_id} is {step['status']}, not pending/failed", EXIT_REFUSED)
-        if step["status"] == "pending" and frm is not None:
-            raise ForgeError(f"step {step_id} is pending; --from {frm} applies to a failed step", EXIT_REFUSED)
+        if task["phase"] == "intake":
+            raise ForgeError(f"{task_id} is in phase intake: answer needs_clarification, then re-run "
+                             f".forge/bin/forge-status plan {task_id} --from {task.get('plan') or f'.forge/tasks/{task_id}/plan.md'}",
+                             EXIT_REFUSED)
+        if step["status"] in RETRY_STATUSES and frm is None:
+            raise ForgeError(f"step {step_id} is {step['status']}: pass --from failed (keep the tree) or --from clean (recover to base)", EXIT_REFUSED)
+        if step["status"] not in ("pending",) + RETRY_STATUSES:
+            raise ForgeError(f"step {step_id} is {step['status']}, not pending/failed/blocked", EXIT_REFUSED)
+        recovered = step["status"] == "pending" and (int(step.get("attempts") or 0) >= 1 or bool(step.get("recovered_at")))
+        if step["status"] == "pending" and frm is not None and not recovered:
+            raise ForgeError(f"step {step_id} is pending with no earlier attempt; --from {frm} applies to a failed, blocked or recovered step", EXIT_REFUSED)
         # design §4.3 rule 6: attempts capped at 3 without a ruling.md
         if step["attempts"] >= MAX_ATTEMPTS and not self._has_ruling(task_id):
             raise ForgeError(f"step {step_id} already has {step['attempts']} attempts: write .forge/tasks/{task_id}/ruling.md before another", EXIT_REFUSED)
@@ -1003,11 +1143,12 @@ class Status:
             raise ForgeError(f"{task_id} is blocked ({task.get('blocked_on')}): unblock first", EXIT_REFUSED)
         prev = f"{step['model']}/{step['effort']}" if step["attempts"] else None
         if frm == "clean":
-            self._recover_tree(task, step, "step-start --from clean")
-        if frm == "failed":
+            self._recover_tree(task, step, "step-start --from clean")   # no-op when the tree is already at base
+        if frm == "failed" and not recovered:
             self._append_failed_approach(task_id, step)
         base = common.git_head(self.paths.root)
-        step.update({"status": "running", "attempts": step["attempts"] + 1, "from": frm,
+        step.pop("recovered_at", None)
+        step.update({"status": "running", "attempts": step["attempts"] + 1, "from": frm, "verify_attempts": 0,
                      "started_at": common.now_iso(), "started_ts": common.now_ts(), "started_by": self.session(),
                      "agent_id": agent_id, "base": base, "commit": None, "report": None, "verdict": None,
                      "gate_blocks": 0})
@@ -1050,7 +1191,9 @@ class Status:
         st = self.load()
         task = self._task(st, task_id)
         step = self._step(task, step_id)
-        if step["status"] not in ("reported", "verifying"):
+        if step["status"] == "verifying":   # finding #11: never double-count a dispatch
+            raise ForgeError(f"step {step_id} is verifying; wait for its verdict", EXIT_REFUSED)
+        if step["status"] != "reported":
             raise ForgeError(f"step {step_id} is {step['status']}; a verifier needs a reported step", EXIT_REFUSED)
         # design §4.3 rule 6: verify_attempts capped at 2 per step without a ruling
         if step["verify_attempts"] >= MAX_VERIFY_ATTEMPTS and not self._has_ruling(task_id):
@@ -1107,14 +1250,13 @@ class Status:
             task["next_action"] = (f"Step {step_id} UNVERIFIED (handoff gate bypassed): resume {step.get('agent_id') or 'the worker'} via SendMessage, "
                                    f"or run .forge/bin/forge-status step-start {tid} {step_id} --from failed|clean and re-dispatch")
             task["resume_hint"] = f"No commit was made for step {step_id}; its tree changes are uncommitted."
-        else:  # BLOCKED | NEEDS_CONTEXT
+        else:  # BLOCKED | NEEDS_CONTEXT (finding #5: the exits are step-start --from, scope add, block)
             step["status"] = "blocked"
             task["phase"] = "execute"
             what = rep.get("next_action") or "see the report"
-            task["next_action"] = (f"Step {step_id} {status} ({what}): read {_basename(step['report'])}, then resume "
-                                   f"{step.get('agent_id') or 'the worker'} via SendMessage with the missing context, "
-                                   f"run .forge/bin/forge-status step-start {tid} {step_id} --from failed|clean, scope add, or block --on")
-            task["resume_hint"] = f"Worker on step {step_id} stopped with {status}."
+            task["next_action"] = self._blocked_text(task, step, status, what)
+            task["resume_hint"] = (f"Worker on step {step_id} stopped with {status}; step-start --from failed appends its "
+                                   f"next_action to the brief's Known failed approaches for the next worker.")
         self._journal(task_id, f"step-report {step_id}: {status} commit={_short(step.get('commit'))} report={step['report']}")
         self._ledger({"event": "attempt", "task": task_id, "step": step_id, "class": task["class"], "agent": step["agent"],
                       "model": step["model"], "effort": step["effort"], "attempt": step["attempts"], "status": status,
@@ -1150,10 +1292,50 @@ class Status:
                     hows.append(str(how))
         return pending, "; ".join(common.unique(hows)) if hows else ""
 
+    def _task_verdict(self, st: Json, task: Json, verdict_json_path: str) -> Json:
+        """Verdict on step `main` (finding #22): the inline S/X verifier on the working tree, or a task-level
+        spot-check once every step is done. Records task.inline_verdict {verdict, file, verifier_model, at},
+        sets next_action and writes the ledger `verdict` row; close() requires a PASS for X, and for S when
+        tests changed."""
+        tid = task["id"]
+        steps = task.get("steps") or []
+        if task["class"] == "T":
+            raise ForgeError("class T has no verifier: close with --one-line and a checks/main record", EXIT_REFUSED)
+        if steps and any(s.get("status") != "done" for s in steps):
+            raise ForgeError(f"{tid} has steps not done; step-verdict main is for inline tasks (or after every step is done)", EXIT_REFUSED)
+        v = self._read_verdict(tid, "main", verdict_json_path)
+        md = v["_path"][:-5] + ".md" if v["_path"].endswith(".json") else v["_path"]
+        vfile = md if common.exists(os.path.join(self.paths.root, md)) else v["_path"]
+        tags = [t for t in v.get("tags") or [] if isinstance(t, str)]
+        vm, ve = self._verifier(task)
+        n = int((task.get("inline_verdict") or {}).get("attempt") or 0) + 1
+        task["inline_verdict"] = {"verdict": v["verdict"], "file": vfile, "verifier_model": vm, "at": common.now_iso(),
+                                  "attempt": n, "tags": tags}
+        if v["verdict"] == "PASS":
+            task["phase"] = "done"
+            task["next_action"] = "Run /forge-close"
+            task["resume_hint"] = f"Verifier PASS on file ({vfile}); close with the handoff sized to class {task['class']}."
+        else:
+            task["phase"] = "execute"
+            task["next_action"] = (f"Fix the blocking findings in {_basename(vfile)}, re-run .forge/bin/forge-check {tid} main, "
+                                   f"then re-dispatch forge-verifier ({vm}/{ve})")
+            task["resume_hint"] = (f"Verifier {v['verdict']} on file (tags {tags}); class {task['class']} cannot close "
+                                   f"until a PASS verdict is recorded.")
+        self._journal(tid, f"step-verdict main: {v['verdict']} tags={tags} blocking={len(v.get('blocking_findings') or [])} "
+                           f"file={vfile} (verdict {n})")
+        self._ledger({"event": "verdict", "task": tid, "step": "main", "class": task["class"], "verdict": v["verdict"],
+                      "verifier_model": vm, "tags": tags, "gate_blocks": 0, "attempt": n})
+        self.save(st, f"step-verdict {tid} main", clear_dirty="worker")
+        return st
+
     def step_verdict(self, task_id: str, step_id: str, verdict_json_path: str) -> Json:
-        """verifying -> step_done (PASS) | step_external (env/external only) | step_fail; ledger verdict row."""
+        """verifying -> step_done (PASS) | step_external (env/external only) | step_fail; ledger verdict row.
+
+        step `main` (inline tasks) is recorded on the task instead: see _task_verdict (finding #22)."""
         st = self.load()
         task = self._task(st, task_id)
+        if step_id == "main":
+            return self._task_verdict(st, task, verdict_json_path)
         step = self._step(task, step_id)
         if step["status"] != "verifying":
             raise ForgeError(f"step {step_id} is {step['status']}, not verifying", EXIT_REFUSED)
@@ -1362,8 +1544,13 @@ class Status:
         self.save(st, f"attest {task_id} {step_id} {criterion}")
         return st
 
-    def _recover_tree(self, task: Json, step: Json, reason: str) -> str:
-        """Save the step's tree changes as a patch, restore allowed_paths to .base-NN, remove new files."""
+    def _recover_tree(self, task: Json, step: Json, reason: str) -> Optional[str]:
+        """Save the step's tree changes as a patch, restore allowed_paths to .base-NN, remove new files.
+
+        Every file that is about to be deleted (untracked, or absent from base) is first COPIED into
+        `.forge/incidents/<ts>-<id>-<step>/<path>` (finding #33: a patch lists names only, so an operator's
+        untracked scratch file under allowed_paths would otherwise be lost). Returns the patch path, or None
+        when the tree is already at base (nothing saved, nothing removed; findings #23/#39)."""
         task_id, sid = task["id"], step["id"]
         base = (common.read_text(self.paths.base_file(task_id, sid)) or "").strip() or step.get("base") or common.git_head(self.paths.root)
         specs = _git_pathspecs(step["allowed_paths"])
@@ -1372,9 +1559,16 @@ class Status:
         untracked = [p for p in common.git_porcelain(root, specs) if p]
         _, untracked_out = common.git(["ls-files", "--others", "--exclude-standard", "--"] + specs, root)
         new_files = [l.strip() for l in untracked_out.splitlines() if l.strip()]
+        _, ahead = common.git(["diff", "--name-only", base, "--"] + specs, root)
+        if not (diff or "").strip() and not ahead.strip() and not new_files and not untracked:
+            self._journal(task_id, f"recover {sid}: {reason}; tree already at base {_short(base)}, nothing to restore")
+            return None
+        ts = common.now_ts()
         common.ensure_dir(self.paths.incidents)
-        patch = os.path.join(self.paths.incidents, f"{common.now_ts()}-{task_id}-{sid}.patch")
-        header = f"# forge recover {task_id}/{sid}: {reason}; base {base}; untracked: {new_files}\n"
+        patch = os.path.join(self.paths.incidents, f"{ts}-{task_id}-{sid}.patch")
+        save_dir = os.path.join(self.paths.incidents, f"{ts}-{task_id}-{sid}")
+        header = (f"# forge recover {task_id}/{sid}: {reason}; base {base}; untracked: {new_files} "
+                  f"(copies under {self.paths.rel(save_dir)}/)\n")
         common.write_text_atomic(patch, header + (diff or ""))
         # index back to base for these paths, then restore each changed file by name
         # (git ls-tree ignores glob pathspecs; git diff / ls-files honour them)
@@ -1385,11 +1579,21 @@ class Status:
         for f in changed:
             code, _ = common.git(["cat-file", "-e", f"{base}:{f}"], root)
             (restore if code == 0 else remove).append(f)
+        saved: List[str] = []
+        for f in remove:
+            src = os.path.join(root, f)
+            if os.path.isfile(src):
+                dst = os.path.join(save_dir, f)
+                common.ensure_dir(os.path.dirname(dst))
+                shutil.copy2(src, dst)
+                saved.append(f)
         if restore:
             common.git(["checkout", "-q", base, "--"] + restore, root)
         for f in remove:
             common.rm(os.path.join(root, f))
-        self._journal(task_id, f"recover {sid}: {reason}; {len(changed)} changed path(s) saved to {self.paths.rel(patch)}; tree reset to {_short(base)}")
+        self._journal(task_id, f"recover {sid}: {reason}; {len(changed)} changed path(s) saved to {self.paths.rel(patch)}"
+                               + (f"; {len(saved)} new/untracked file(s) copied to {self.paths.rel(save_dir)}/: {saved}" if saved else "")
+                               + f"; tree reset to {_short(base)}")
         self._ledger({"event": "recover", "task": task_id, "step": sid, "class": task["class"], "commit": base})
         return self.paths.rel(patch)
 
@@ -1407,11 +1611,16 @@ class Status:
         if step.get("report") or report_is_new:
             raise ForgeError(f"step {step_id} has a report for this attempt; run step-report instead of recover", EXIT_REFUSED)
         patch = self._recover_tree(task, step, f"recover (started_by {step.get('started_by')}, session {self.session()})")
+        # attempts are preserved (the interrupted attempt counts); recovered_at lets step-start accept the
+        # documented `--from clean` on this pending step (findings #23/#39)
         step.update({"status": "pending", "agent_id": None, "started_at": None, "started_ts": None, "started_by": None,
-                     "commit": None, "report": None})
+                     "commit": None, "report": None, "recovered_at": common.now_iso()})
         task["phase"] = "execute"
-        task["next_action"] = f"{self._dispatch_text(step)} (step {step_id} recovered; previous tree saved to {patch})"
-        task["resume_hint"] = f"Step {step_id} was recovered to base {_short(step.get('base'))}; the spawn guard re-runs step-start on dispatch."
+        saved = f"previous tree saved to {patch}" if patch else "tree was already at base"
+        task["next_action"] = (f"{self._dispatch_text(step)} (step {step_id} recovered; {saved}; optionally "
+                               f".forge/bin/forge-status step-start {task_id} {step_id} --from clean first)")
+        task["resume_hint"] = (f"Step {step_id} was recovered to base {_short(step.get('base'))} (attempts {step['attempts']} kept); "
+                               f"the spawn guard runs step-start on dispatch, or run step-start --from clean yourself.")
         self.save(st, f"recover {task_id} {step_id}")
         return st
 
@@ -1453,7 +1662,7 @@ class Status:
                 raise ForgeError(f"scope add is for class X; class {task['class']} needs --ruling (and ruling.md)", EXIT_REFUSED)
             if not self._has_ruling(task_id):
                 raise ForgeError(f"--ruling given but .forge/tasks/{task_id}/ruling.md does not exist", EXIT_REFUSED)
-        rel = self.paths.rel(path)
+        rel = self._scoped_rel(path, "scope add")
         if rel.startswith(".forge/"):
             raise ForgeError("scope never includes .forge/** (meta paths are always allowed)", EXIT_REFUSED)
         if rel not in task["scope"]:
@@ -1526,6 +1735,37 @@ class Status:
                 raise ForgeError(f"handoff: 'Done, with evidence' bullet without a command or checks/ reference: {s[:80]}", EXIT_REFUSED)
         return self.paths.rel(abs_path), parsed
 
+    def _inline_verdict(self, task: Json) -> Optional[Json]:
+        """task.inline_verdict, else the verdict-main.json on file (a verdict persisted before step-verdict ran)."""
+        iv = task.get("inline_verdict")
+        if isinstance(iv, dict) and iv.get("verdict"):
+            return iv
+        vpath = self.paths.task_file(task["id"], "verdict-main.json")
+        v = common.read_json(vpath, default=None) if common.exists(vpath) else None
+        if isinstance(v, dict) and v.get("task") == task["id"] and str(v.get("step")) == "main" and v.get("verdict") in common.VERDICTS:
+            return {"verdict": v["verdict"], "file": self.paths.rel(vpath)}
+        return None
+
+    def _check_inline_verdict(self, task: Json, changed: List[str]) -> None:
+        """close precondition for inline classes (finding #22): X always, and S when a changed path matches
+        binding.test_globs, need a PASS verdict on step main; a FAIL/UNKNOWN on file never closes."""
+        tid, cls = task["id"], task["class"]
+        iv = self._inline_verdict(task) or {}
+        vm, ve = self._verifier(task)
+        if iv and iv.get("verdict") != "PASS":
+            raise ForgeError(f"class {cls}: the verifier's verdict on file is {iv.get('verdict')} ({iv.get('file')}); fix the "
+                             f"blocking findings, re-run .forge/bin/forge-check {tid} main and re-dispatch forge-verifier ({vm}/{ve})",
+                             EXIT_REFUSED)
+        if iv:
+            return
+        tests_changed = [p for p in changed if common.any_glob(p, self.binding.get("test_globs") or [])]
+        if cls == "X":
+            raise ForgeError(f"class X closes only with a PASS verdict from forge-verifier ({vm}/{ve}) on step main "
+                             f"(verdict-main.json); dispatch it after .forge/bin/forge-check {tid} main", EXIT_REFUSED)
+        if tests_changed:
+            raise ForgeError(f"class S changed tests ({', '.join(tests_changed[:4])}): dispatch forge-verifier ({vm}/{ve}) on step main "
+                             f"and close after its PASS verdict", EXIT_REFUSED)
+
     def _changed_paths(self, task: Json) -> List[str]:
         """git status --porcelain ∪ git diff --name-only <task.base>..HEAD (design §5.1 scope backstop)."""
         root = self.paths.root
@@ -1561,8 +1801,11 @@ class Status:
             handoff_rel, _ = self._validate_task_handoff(task, handoff)
         if task["risk"] == "R" and not (human_ack or "").strip():
             raise ForgeError("risk R closes only with --human-ack \"<name> reviewed diff <sha>\"", EXIT_REFUSED)
+        changed = self._changed_paths(task)
+        if cls in ("S", "X") and not partial:
+            self._check_inline_verdict(task, changed)
         allowed = list(task["scope"]) + [p for s in task["steps"] for p in s["allowed_paths"]] + list(CLOSE_ALWAYS_ALLOWED)
-        out = [p for p in self._changed_paths(task) if not common.any_glob(p, allowed)]
+        out = [p for p in changed if not common.any_glob(p, allowed)]
         if out and not accept_out_of_scope:
             raise ForgeError(f"out-of-scope changes: {', '.join(out[:8])}; revert them or pass --accept-out-of-scope \"<why>\"", EXIT_REFUSED)
         outcome = "parked" if partial else "done"
@@ -1681,6 +1924,9 @@ class Status:
             for s in task["steps"]:
                 lines.append(f"{s['id']} {s['status']} {s['agent']}/{s['model']}/{s['effort']} attempts={s['attempts']} "
                              f"commit={_short(s.get('commit'))}")
+            iv = task.get("inline_verdict")
+            if isinstance(iv, dict) and iv.get("verdict"):
+                lines.append(f"verdict (main): {iv['verdict']} {iv.get('file') or ''} at {iv.get('at') or '?'}")
             lines.append(f"next: {common.truncate(task.get('next_action') or '', 400, '…')}")
             if task.get("resume_hint"):
                 lines.append(f"resume_hint: {common.truncate(task['resume_hint'], 300, '…')}")
@@ -1694,7 +1940,7 @@ class Status:
             lines.append(f"evidence: {task.get('evidence_count', 0)}" + (f" (newest 2: {ev})" if ev else ""))
         queue = st.get("queue") or []
         if queue:
-            lines.append("queue: " + " ".join(q.get("id", "?") for q in queue[:10]))
+            lines.append("queue: " + " ".join(self._queue_label(q) for q in queue[:10]))
         history = st.get("history") or []
         if history:
             lines.append("history: " + ", ".join(f"{h.get('id')} {h.get('outcome')}" for h in history[-5:]))

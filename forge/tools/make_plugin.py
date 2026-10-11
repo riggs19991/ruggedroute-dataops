@@ -5,11 +5,13 @@ Usage: python3 forge/tools/make_plugin.py [--check]
 
 Generated (plugin/ is never edited by hand; CI runs --check):
   .claude-plugin/plugin.json   version from forge/VERSION
-  agents/, skills/             byte-identical copies of payload/.claude/agents and payload/.claude/skills
+  agents/, skills/             byte-identical copies of payload/dot-claude/agents and payload/dot-claude/skills
   skills/forge-install/        operator-only skill (disable-model-invocation: true) that runs install.sh here
   bin/                         copy of payload/.forge/bin (forge-hook and friends)
   hooks/hooks.json             settings.forge.json's hook map; every command "${CLAUDE_PLUGIN_ROOT}"/bin/forge-hook --plugin
   install.sh, installer.py, payload/, migrations/   so the forge-install skill works from the plugin cache alone
+payload/dot-claude/ installs to <target>/.claude/ (installer.py); it is not named .claude so Claude Code never
+auto-discovers the payload's rules and agents in a session working on the Forge source.
 Exit codes: 0 written / up to date · 1 --check found differences · 2 the payload is incomplete.
 """
 import argparse
@@ -21,6 +23,7 @@ from typing import Dict, List, Tuple
 
 FORGE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAYLOAD = os.path.join(FORGE, "payload")
+PAYLOAD_CLAUDE = os.path.join(PAYLOAD, "dot-claude")   # installs to <target>/.claude/
 PLUGIN = os.path.join(FORGE, "plugin")
 HOMEPAGE = "https://github.com/riggs19991/ruggedroute-dataops"
 PLUGIN_HOOK = '"${CLAUDE_PLUGIN_ROOT}"/bin/forge-hook'
@@ -31,7 +34,7 @@ FORGE_INSTALL_SKILL = """---
 name: forge-install
 description: Install or upgrade the Forge (plain project layout) into the current repository by running the plugin's bundled install.sh. Operator-invoked only.
 disable-model-invocation: true
-argument-hint: "[--upgrade] [--dry-run] [--effort low|medium] [--no-model] [--with-bench] [--force]"
+argument-hint: "[--upgrade] [--dry-run] [--effort low|medium] [--no-model] [--with-bench] [--force] [--force-settings]"
 ---
 # Install the Forge into this repository
 
@@ -100,8 +103,8 @@ def dumps(obj: Dict) -> bytes:
 def expected_files() -> Files:
     """Every file plugin/ must contain, with its bytes and mode."""
     version = read(os.path.join(FORGE, "VERSION")).decode("utf-8").strip()
-    fragment_path = os.path.join(PAYLOAD, ".claude", "settings.forge.json")
-    for need in (fragment_path, os.path.join(PAYLOAD, ".claude", "agents"), os.path.join(PAYLOAD, ".claude", "skills"),
+    fragment_path = os.path.join(PAYLOAD_CLAUDE, "settings.forge.json")
+    for need in (fragment_path, os.path.join(PAYLOAD_CLAUDE, "agents"), os.path.join(PAYLOAD_CLAUDE, "skills"),
                  os.path.join(PAYLOAD, ".forge", "bin", "forge-hook")):
         if not os.path.exists(need):
             raise SystemExit(f"make_plugin.py: payload incomplete: {os.path.relpath(need, FORGE)} is missing")
@@ -111,8 +114,8 @@ def expected_files() -> Files:
         "description": "The Forge: plan-first, evidence-gated, cost-routed AI engineering team for Claude Code.",
         "author": {"name": "RuggedRoute"}, "homepage": HOMEPAGE, "license": "MIT",
         "keywords": ["orchestration", "hooks", "verification"]}), 0o644)
-    copy_tree(os.path.join(PAYLOAD, ".claude", "agents"), "agents", files)
-    copy_tree(os.path.join(PAYLOAD, ".claude", "skills"), "skills", files)
+    copy_tree(os.path.join(PAYLOAD_CLAUDE, "agents"), "agents", files)
+    copy_tree(os.path.join(PAYLOAD_CLAUDE, "skills"), "skills", files)
     files["skills/forge-install/SKILL.md"] = (FORGE_INSTALL_SKILL.encode("utf-8"), 0o644)
     copy_tree(os.path.join(PAYLOAD, ".forge", "bin"), "bin", files)
     files["hooks/hooks.json"] = (dumps(plugin_hooks(json.loads(read(fragment_path)))), 0o644)

@@ -2,7 +2,7 @@
 name: forge-install
 description: Install or upgrade the Forge (plain project layout) into the current repository by running the plugin's bundled install.sh. Operator-invoked only.
 disable-model-invocation: true
-argument-hint: "[--upgrade] [--dry-run] [--effort low|medium] [--no-model] [--with-bench] [--force]"
+argument-hint: "[--upgrade] [--dry-run] [--effort low|medium] [--no-model] [--with-bench] [--force] [--force-settings]"
 ---
 # Install the Forge into this repository
 
