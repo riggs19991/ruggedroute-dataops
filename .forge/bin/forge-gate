@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+"""forge-gate — validate a plan, a HANDOFF or a VERDICT (MODULE-API §4; design §13.3).
+
+  forge-gate --plan <task>
+  forge-gate --handoff <task> <step> (--from-file f | --from-stdin) [--agent id] [--task-level] [--short] [--red-ok]
+  forge-gate --verdict <task> <step> (--from-file f | --from-stdin) [--agent id]
+
+Prints one defect per line on stdout. Exit 0 valid · 1 defects · 2 usage.
+When --agent is absent (MODULE-API §4): --handoff uses the single worker record bound to that
+step (`main` for the inline step main, whose unknown-stamped records count); --verdict uses the
+single forge-verifier record whose verify_step is that step and never a builder's record.
+Otherwise the agent-scoped rules are skipped with a WARN on stderr. A subagent pre-validating its
+own draft passes --agent <its agent_id> (the hook names it).
+"""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+from forgelib import gates   # noqa: E402
+
+USAGE = __doc__.strip()
+
+
+def usage(msg=None):
+    if msg:
+        common.eprint(f"forge-gate: {msg}")
+    common.eprint(USAGE)
+    sys.exit(common.EXIT_USAGE)
+
+
+def read_message(flags):
+    """The message text from --from-file or --from-stdin (exactly one required)."""
+    if "--from-file" in flags and "--from-stdin" in flags:
+        usage("pass either --from-file or --from-stdin, not both")
+    if "--from-stdin" in flags:
+        return sys.stdin.read()
+    if "--from-file" in flags:
+        text = common.read_text(flags["--from-file"])
+        if text is None:
+            usage(f"cannot read {flags['--from-file']}")
+        return text
+    usage("--from-file <f> or --from-stdin is required")
+
+
+def resolve_agent(paths, task_id, step_id, mode, flags):
+    """--agent, else the one agent record for this mode and step, else None (WARN on stderr).
+
+    --verdict resolves to the forge-verifier record with `verify_step == step` (review #25: never a
+    builder's record, which would let a verifier that ran nothing pass). --handoff resolves to the
+    worker bound to the step, or `main` for the inline step (review #13)."""
+    if "--agent" in flags:
+        return flags["--agent"]
+    if mode == "--verdict":
+        cands = gates.verifier_agents(paths, task_id, step_id)
+        what = "forge-verifier records verifying"
+    elif step_id == "main":
+        return "main"
+    else:
+        cands = gates.bound_agents(paths, task_id, step_id)
+        what = "worker records bound to"
+    if len(cands) == 1:
+        common.eprint(f"forge-gate: agent {cands[0]} ({what} {task_id}/{step_id})")
+        return cands[0]
+    common.eprint(f"WARN forge-gate: no --agent and {len(cands)} {what} {task_id}/{step_id}; "
+                  "agent-scoped rules skipped (pass --agent <id> to apply them)")
+    return None
+
+
+def parse(argv):
+    """(mode, positionals, flags). Flags taking a value: --from-file, --agent."""
+    mode = None
+    pos = []
+    flags = {}
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a in ("--plan", "--handoff", "--verdict"):
+            if mode:
+                usage("only one of --plan/--handoff/--verdict")
+            mode = a
+        elif a in ("--from-file", "--agent"):
+            if i + 1 >= len(argv):
+                usage(f"{a} needs a value")
+            flags[a] = argv[i + 1]
+            i += 1
+        elif a in ("--from-stdin", "--task-level", "--short", "--red-ok"):
+            flags[a] = True
+        elif a in ("-h", "--help"):
+            print(USAGE)
+            sys.exit(common.EXIT_OK)
+        elif a.startswith("-"):
+            usage(f"unknown flag {a}")
+        else:
+            pos.append(a)
+        i += 1
+    if not mode:
+        usage()
+    return mode, pos, flags
+
+
+def step_red_ok(paths, task_id, step_id):
+    """red_ok from STATUS: the step carries red_ok_until (design §3, L path)."""
+    try:
+        st = common.load_status(paths)
+    except common.ForgeError:
+        return False
+    task = common.current_task(st)
+    if not task or task.get("id") != task_id:
+        return False
+    step = common.find_step(task, step_id)
+    return bool(step and step.get("red_ok_until"))
+
+
+def task_is_short_form(paths, task_id):
+    """S/X tasks use the short handoff form (design §5.5 / §3 step 11)."""
+    pm = gates.plan_meta(paths, task_id)
+    cls = gates.task_class(paths, task_id, pm)
+    return cls in ("S", "X")
+
+
+def main(argv):
+    mode, pos, flags = parse(argv)
+    paths = common.Paths()
+    if mode == "--plan":
+        if len(pos) != 1:
+            usage("--plan needs <task>")
+        if not gates.valid_task_id(pos[0]):
+            usage(f"task id {pos[0]!r} must match ^T-[0-9]{{4,}}$")
+        defects = gates.plan_validate(paths, pos[0])
+    else:
+        if len(pos) != 2:
+            usage(f"{mode} needs <task> <step>")
+        task_id, step_id = pos
+        if not gates.valid_task_id(task_id):
+            usage(f"task id {task_id!r} must match ^T-[0-9]{{4,}}$")
+        if not (gates.valid_component(step_id) and (step_id in ("main", "task") or len(step_id) == 2)):
+            usage(f"step {step_id!r} must be NN, main or task")
+        if "--agent" in flags and not gates.valid_component(flags["--agent"]):
+            usage(f"--agent {flags['--agent']!r} must match ^[A-Za-z0-9_.-]{{1,64}}$")
+        text = read_message(flags)
+        task_level = mode == "--handoff" and "--task-level" in flags
+        # Task-level handoffs have no agent-scoped rules (MODULE-API §4), so no agent lookup.
+        agent = None if task_level else resolve_agent(paths, task_id, step_id, mode, flags)
+        if mode == "--handoff":
+            short = "--short" in flags or (task_level and task_is_short_form(paths, task_id))
+            red_ok = "--red-ok" in flags or step_red_ok(paths, task_id, step_id)
+            defects, _ = gates.handoff_validate(paths, task_id, step_id, text, agent_id=agent, red_ok=red_ok,
+                                                short=short, task_level=task_level)
+        else:
+            defects, _ = gates.verdict_validate(paths, task_id, step_id, text, agent_id=agent)
+    for d in defects:
+        print(d)
+    return common.EXIT_DEFECTS if defects else common.EXIT_OK
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except common.ForgeError as e:
+        common.eprint(str(e))
+        sys.exit(e.code)

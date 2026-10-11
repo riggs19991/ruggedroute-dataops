@@ -10,3 +10,8 @@ dist/
 
 # Test fixtures are tracked even though bulk geojsonl outputs are not
 !lib/fixtures/*.geojsonl
+# The Forge (runtime markers, incident dumps)
+.forge/.runtime/
+.forge/incidents/
+.forge/**/__pycache__/
+.forge/tasks/*/drafts/

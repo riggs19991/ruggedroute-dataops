@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "forge_version": "1.0.0",
+  "project": "ruggedroute-dataops",
+  "updated_at": "2026-10-11T13:48:25Z",
+  "updated_ts": 1791726505,
+  "updated_by": {
+    "session_id": "installer",
+    "cmd": "idle_status"
+  },
+  "context_state": "fresh",
+  "task": null,
+  "queue": [],
+  "history": []
+}

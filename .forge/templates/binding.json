@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "forge_pin": "{{version}}",
+  "project": "{{project}}",
+  "stack": "python",
+  "bootstrap": "python3 -m pip install -q pytest",
+  "verify": [
+    { "name": "unit", "cmd": "python3 -m pytest -q", "when": "always", "todo": "confirm this is the project's test command; add one entry per suite (use when: paths:<glob> for suites that only matter for part of the tree)" }
+  ],
+  "smoke": null,
+  "format": null,
+  "test_globs": ["tests/**/test_*.py", "**/test_*.py"],
+  "test_pattern": "^\\s*def test_",
+  "protected_paths": [".github/workflows/*.yml"],
+  "risk_paths": ["**/*secret*", "**/.env*"],
+  "important_paths": [],
+  "mechanic_denied_paths": [".github/workflows/*.yml"],
+  "risk_words": [
+    { "word": "secret" }, { "word": "license" }, { "word": "attribution" }, { "word": "delete" }
+  ],
+  "irreversible_commands": ["git push *", "gh workflow run *", "gh pr merge *"],
+  "git": { "branch_per_task": false, "commit_prefix": "forge", "worktree_isolation": false },
+  "budgets": { "T": 1, "S": 3, "M": 10, "M_chain": 12, "W": 25, "L_unit": 2, "X": 30, "risk_multiplier": 1.5 },
+  "routing": { "architect_effort": "medium", "m_builder": "opus-medium", "overrides": [], "measured": {} },
+  "clear_policy": "phase",
+  "auto_resume": true,
+  "driver": { "max_turns": 120, "max_phases": 12 },
+  "notes": [
+    "TODO: replace this template's verify/test_globs with the project's real commands and test layout.",
+    "TODO: list deploy configs and CI under protected_paths, shared or LIVE code under important_paths and mechanic_denied_paths, irreversible deploy commands under irreversible_commands.",
+    "TODO: one note per design rule a worker must not violate (copied from the README)."
+  ]
+}

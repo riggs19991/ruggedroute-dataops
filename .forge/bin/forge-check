@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""forge-check — run binding.verify[] ∪ brief checks and write a checks/ record (MODULE-API §5).
+
+  forge-check <task> <step|main|plan> [--expect-fail] [--ratchet] [--baseline]
+              [--only <name>] [--only-paths <glob>...] [--agent <id>] [--cmd '<command>']
+
+Prints `FORGE_CHECK name=<n> exit=<e> dur=<s>s cmd=<cmd>` per command, `FORGE_CHECK_RATCHET ...`
+with --ratchet, `FORGE_CHECK_SUMMARY pass=a fail=b skipped=c`, then `FORGE_CHECK_RECORD <path>`.
+--baseline prints the test baseline JSON and exits 0 without running anything
+(`forge-check <task> plan --baseline` is how the planner records plan-meta.test_baseline).
+--cmd runs that one command instead of the planned list (from the repo root, 20-minute cap) and
+records it, so a verifier or builder can cite a DoD command that is not in the brief's checks[].
+<task> matches ^T-[0-9]{4,}$; <step> and --agent match ^[A-Za-z0-9_.-]{1,64}$ (never '..').
+Exit 0 when every non-skipped command exited 0 · 1 otherwise · 2 usage.
+"""
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+from forgelib import checks  # noqa: E402
+from forgelib import gates   # noqa: E402
+
+USAGE = __doc__.strip()
+
+
+def usage(msg=None):
+    if msg:
+        common.eprint(f"forge-check: {msg}")
+    common.eprint(USAGE)
+    sys.exit(common.EXIT_USAGE)
+
+
+def parse(argv):
+    pos = []
+    opts = {"expect_fail": False, "ratchet": False, "baseline": False, "only": None, "only_paths": [],
+            "agent": "unknown", "cmd": None}
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--expect-fail":
+            opts["expect_fail"] = True
+        elif a == "--ratchet":
+            opts["ratchet"] = True
+        elif a == "--baseline":
+            opts["baseline"] = True
+        elif a == "--only":
+            if i + 1 >= len(argv):
+                usage("--only needs <name>")
+            opts["only"] = argv[i + 1]
+            i += 1
+        elif a == "--agent":
+            if i + 1 >= len(argv):
+                usage("--agent needs <id>")
+            opts["agent"] = argv[i + 1]
+            i += 1
+        elif a == "--cmd":
+            if i + 1 >= len(argv):
+                usage("--cmd needs '<command>'")
+            opts["cmd"] = argv[i + 1]
+            i += 1
+        elif a.startswith("--cmd="):
+            opts["cmd"] = a[len("--cmd="):]
+        elif a == "--only-paths":
+            i += 1
+            while i < len(argv) and not argv[i].startswith("--"):
+                opts["only_paths"].append(argv[i])
+                i += 1
+            if not opts["only_paths"]:
+                usage("--only-paths needs at least one <glob>")
+            continue
+        elif a in ("-h", "--help"):
+            print(USAGE)
+            sys.exit(common.EXIT_OK)
+        elif a.startswith("-"):
+            usage(f"unknown flag {a}")
+        else:
+            pos.append(a)
+        i += 1
+    if len(pos) != 2:
+        usage("expected <task> <step|main|plan>")
+    task_id, step = pos
+    # review #31: ids are path components of the record file; refuse anything that could leave checks/.
+    if not gates.valid_task_id(task_id):
+        usage(f"task id {task_id!r} must match ^T-[0-9]{{4,}}$")
+    if not gates.valid_component(step):
+        usage(f"step {step!r} must match ^[A-Za-z0-9_.-]{{1,64}}$ and never contain '..'")
+    if not gates.valid_component(opts["agent"]):
+        usage(f"--agent {opts['agent']!r} must match ^[A-Za-z0-9_.-]{{1,64}}$ and never contain '..'")
+    if opts["agent"] == "human":
+        usage("--agent human is reserved for forge-status attest")
+    if opts["cmd"] is not None and (opts["only"] or opts["only_paths"] or opts["baseline"]):
+        usage("--cmd runs one command on its own: not with --only, --only-paths or --baseline")
+    if opts["cmd"] is not None and not opts["cmd"].strip():
+        usage("--cmd needs a non-empty command")
+    return task_id, step, opts
+
+
+def main(argv):
+    task_id, step, opts = parse(argv)
+    paths = common.Paths()
+    if opts["baseline"]:
+        print(json.dumps(checks.baseline(paths)))
+        return common.EXIT_OK
+    record = checks.run_checks(paths, task_id, step, expect_fail=opts["expect_fail"], ratchet=opts["ratchet"],
+                               only=opts["only"], only_paths=opts["only_paths"] or None, agent_id=opts["agent"],
+                               cmd=opts["cmd"])
+    return common.EXIT_OK if record["ok"] else common.EXIT_DEFECTS
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except common.ForgeError as e:
+        common.eprint(str(e))
+        sys.exit(e.code)

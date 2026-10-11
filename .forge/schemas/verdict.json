@@ -1,0 +1,7 @@
+{ "schema": "forge/verdict/2", "note": "The verifier's final message (persisted as verdict-NN.md/json). Validated by forgelib.gates.verdict_validate().",
+  "headings": ["Verdict", "Criteria", "Scope check", "Blocking findings", "Deferred findings", "Confidence note"],
+  "required": ["schema", "task", "step", "range", "verdict", "criteria", "scope_check", "ratchet", "blocking_findings", "deferred_findings", "tags"],
+  "criterion": { "required": ["id", "result", "cmd", "exit"], "result": ["PASS", "FAIL", "UNKNOWN"] },
+  "verdict": ["PASS", "FAIL", "UNKNOWN"],
+  "tags": ["skipped-file", "no-check-run", "not-double-checked", "wrong-approach", "scope-creep", "test-weakened", "env-cannot-run"],
+  "gate_rules": ["every brief/plan DoD id appears exactly once", "PASS => all criteria PASS and scope_check PASS and ratchet PASS and blocking_findings empty", "every cited cmd has a checks/ record by this verifier (external criteria: a human attest record, else UNKNOWN)", "UNKNOWN on a required criterion => FAIL for risk R tasks", "after 2 gate blocks the hook allows with verdict rewritten to UNKNOWN"] }

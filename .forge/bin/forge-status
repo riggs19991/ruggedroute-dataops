@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+"""forge-status — the only writer of .forge/STATUS.json (MODULE-API §3; design §5.1).
+
+Usage: .forge/bin/forge-status <subcommand> [args]   (run from the repository root)
+Exit codes: 0 ok · 2 usage · 3 refused (one line on stderr) · 4 STATUS invalid on disk.
+Every writing subcommand prints one line: `<task> <phase> <step?> <status?> | next: <next_action>`.
+"""
+import argparse
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+from forgelib.status import Status  # noqa: E402
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(prog="forge-status", description=__doc__.splitlines()[0])
+    sub = p.add_subparsers(dest="cmd", metavar="<subcommand>")
+    sub.required = True
+
+    def add_open_args(sp: argparse.ArgumentParser, with_queue: bool) -> None:
+        sp.add_argument("--title", required=True)
+        sp.add_argument("--class", dest="cls", required=True, choices=common.CLASSES)
+        sp.add_argument("--risk", default="none", choices=common.RISKS)
+        sp.add_argument("--files", nargs="*", default=[], help="existing paths (a missing path is refused; use --creates)")
+        sp.add_argument("--creates", nargs="*", default=[])
+        sp.add_argument("--why", default="")
+        if with_queue:
+            sp.add_argument("--queue", action="store_true")
+        sp.add_argument("--force-risk", action="store_true")
+        sp.add_argument("--accept-risk-none", default=None, metavar="WHY")
+
+    s = sub.add_parser("open", help="open a task from the declared edit set (new + signals + classify)")
+    add_open_args(s, with_queue=True)
+
+    # design §5.1 names `new` as the first component of `open`; it is an alias of `open` without --queue
+    s = sub.add_parser("new", help="alias of `open` without --queue (new + signals + classify; never queues)")
+    add_open_args(s, with_queue=False)
+
+    s = sub.add_parser("signals", help="recompute signals.json from the declared set")
+    s.add_argument("task")
+
+    s = sub.add_parser("classify", help="re-classify an open, unplanned task")
+    s.add_argument("task")
+    s.add_argument("--class", dest="cls", required=True, choices=common.CLASSES)
+    s.add_argument("--risk", default="none", choices=common.RISKS)
+    s.add_argument("--why", required=True)
+    s.add_argument("--force-risk", action="store_true")
+    s.add_argument("--accept-risk-none", default=None, metavar="WHY")
+
+    s = sub.add_parser("plan", help="import plan-meta and route the steps")
+    s.add_argument("task")
+    s.add_argument("--from", dest="frm", required=True, metavar="PLAN_MD")
+
+    s = sub.add_parser("step-start", help="pending|failed|blocked -> running (a new attempt; verify_attempts resets to 0)",
+                       description="Start an attempt. --from is mandatory for a failed or blocked step (failed keeps the tree, "
+                                   "clean restores allowed_paths to the base) and accepted after `recover` on the pending step. "
+                                   "Every attempt gets a fresh verifier cap: verify_attempts is reset to 0 (2 per attempt without ruling.md).")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--from", dest="frm", choices=["failed", "clean"], default=None,
+                   help="failed: keep the tree, append the last verdict/report to the brief; clean: restore to base (saving a patch)")
+    s.add_argument("--agent", default=None)
+
+    s = sub.add_parser("step-bind", help="bind a worker agent id to a running step")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--agent", required=True)
+
+    s = sub.add_parser("step-verifying", help="reported -> verifying (verifier dispatched)")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--agent", default=None)
+
+    s = sub.add_parser("step-report", help="record a worker handoff (report-NN.json)")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--report", required=True)
+
+    s = sub.add_parser("step-verdict", help="record a verifier verdict (verdict-NN.json)")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--verdict", required=True)
+
+    s = sub.add_parser("step-done", help="PASS verdict -> done")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--no-verifier", action="store_true")
+
+    s = sub.add_parser("step-fail", help="FAIL verdict -> failed")
+    s.add_argument("task")
+    s.add_argument("step")
+
+    s = sub.add_parser("step-external", help="park a step on an external check")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--needs", required=True)
+
+    s = sub.add_parser("attest", help="human attestation for a check: external criterion")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("criterion")
+    s.add_argument("--by", required=True)
+    s.add_argument("--evidence", required=True)
+    s.add_argument("--exit", dest="exit_code", type=int, default=0)
+
+    s = sub.add_parser("recover", help="restore an interrupted step's tree to its base")
+    s.add_argument("task")
+    s.add_argument("step")
+    s.add_argument("--force", action="store_true")
+
+    s = sub.add_parser("evidence", help="record a claim backed by a checks/ record")
+    s.add_argument("task")
+    s.add_argument("--claim", required=True)
+    s.add_argument("--from-check", dest="from_check", required=True)
+
+    s = sub.add_parser("scope", help="scope add <path> --why ...")
+    s.add_argument("action", choices=["add"])
+    s.add_argument("task")
+    s.add_argument("path")
+    s.add_argument("--why", required=True)
+    s.add_argument("--ruling", action="store_true")
+
+    s = sub.add_parser("block", help="phase -> blocked")
+    s.add_argument("--on", required=True)
+
+    sub.add_parser("unblock", help="blocked -> previous phase")
+
+    s = sub.add_parser("close", help="close (or --partial park) the open task")
+    s.add_argument("task")
+    s.add_argument("--one-line", dest="one_line", default=None)
+    s.add_argument("--handoff", default=None)
+    s.add_argument("--partial", action="store_true")
+    s.add_argument("--cost", type=float, default=None)
+    s.add_argument("--human-ack", dest="human_ack", default=None)
+    s.add_argument("--accept-out-of-scope", dest="accept_out_of_scope", default=None, metavar="WHY")
+    s.add_argument("--no-commit", dest="no_commit", action="store_true")
+
+    sub.add_parser("stale", help="context_state -> stale")
+
+    s = sub.add_parser("fresh", help="context_state -> fresh")
+    s.add_argument("--no-stamp", dest="no_stamp", action="store_true")
+
+    s = sub.add_parser("validate", help="exit 0 when STATUS validates (4 otherwise)")
+    s.add_argument("--restamp", action="store_true", help="re-record status.sha after a deliberate hand edit")
+
+    s = sub.add_parser("gate-block", help="count a gate block for an agent")
+    s.add_argument("task")
+    s.add_argument("--agent", required=True)
+    s.add_argument("--gate", required=True)
+
+    s = sub.add_parser("get", help="summary | resume | digest | next_action | <dotted.path>")
+    s.add_argument("what")
+    s.add_argument("--lenient", action="store_true")
+    return p
+
+
+def main(argv) -> int:
+    args = build_parser().parse_args(argv)
+    status = Status(common.Paths())
+    cmd = args.cmd
+    try:
+        if cmd == "get":
+            print(status.get(args.what, lenient=args.lenient))
+            return 0
+        if cmd == "validate":
+            if args.restamp:
+                status.restamp()
+            print(status.one_line(status.load()))   # MODULE-API §3: every non-get subcommand prints the one-line form
+            return 0
+        if cmd in ("open", "new"):
+            st = status.open(args.title, args.cls, args.risk, args.files, args.creates, args.why,
+                             queue=bool(getattr(args, "queue", False)),
+                             force_risk=args.force_risk, accept_risk_none=args.accept_risk_none)
+        elif cmd == "signals":
+            status.signals(args.task)
+            st = status.load()
+        elif cmd == "classify":
+            st = status.classify(args.task, args.cls, args.risk, args.why, force_risk=args.force_risk,
+                                 accept_risk_none=args.accept_risk_none)
+        elif cmd == "plan":
+            st = status.plan(args.task, args.frm)
+        elif cmd == "step-start":
+            st = status.step_start(args.task, args.step, frm=args.frm, agent_id=args.agent)
+        elif cmd == "step-bind":
+            st = status.step_bind(args.task, args.step, args.agent)
+        elif cmd == "step-verifying":
+            st = status.step_verifying(args.task, args.step, agent_id=args.agent)
+        elif cmd == "step-report":
+            st = status.step_report(args.task, args.step, args.report)
+        elif cmd == "step-verdict":
+            st = status.step_verdict(args.task, args.step, args.verdict)
+        elif cmd == "step-done":
+            st = status.step_done(args.task, args.step, no_verifier=args.no_verifier)
+        elif cmd == "step-fail":
+            st = status.step_fail(args.task, args.step)
+        elif cmd == "step-external":
+            st = status.step_external(args.task, args.step, args.needs)
+        elif cmd == "attest":
+            st = status.attest(args.task, args.step, args.criterion, args.by, args.evidence, exit_code=args.exit_code)
+        elif cmd == "recover":
+            st = status.recover(args.task, args.step, force=args.force)
+        elif cmd == "evidence":
+            st = status.evidence(args.task, args.claim, args.from_check)
+        elif cmd == "scope":
+            st = status.scope_add(args.task, args.path, args.why, ruling=args.ruling)
+        elif cmd == "block":
+            st = status.block(args.on)
+        elif cmd == "unblock":
+            st = status.unblock()
+        elif cmd == "close":
+            st = status.close(args.task, one_line=args.one_line, handoff=args.handoff, partial=args.partial,
+                              cost=args.cost, human_ack=args.human_ack, accept_out_of_scope=args.accept_out_of_scope,
+                              no_commit=args.no_commit)
+        elif cmd == "stale":
+            st = status.stale()
+        elif cmd == "fresh":
+            st = status.fresh(stamp=not args.no_stamp)
+        elif cmd == "gate-block":
+            st = status.gate_block(args.task, args.agent, args.gate)
+        else:  # pragma: no cover - argparse enforces the choices
+            return common.EXIT_USAGE
+    except common.ForgeError as e:
+        if cmd == "get" and args.lenient:
+            print(f"STATUS unavailable: {e}")
+            return 0
+        common.eprint(str(e))
+        return e.code
+    print(status.one_line(st))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

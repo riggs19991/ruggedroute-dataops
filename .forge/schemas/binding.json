@@ -1,0 +1,17 @@
+{
+  "schema": "forge/binding/2",
+  "note": "Assertion list for .forge/binding.json (project-owned). Checked by forge-doctor and forgelib.status on load.",
+  "required": ["schema_version", "project", "stack", "verify", "test_globs", "test_pattern", "protected_paths", "risk_paths", "important_paths", "mechanic_denied_paths", "risk_words", "irreversible_commands", "git", "budgets", "routing", "clear_policy", "auto_resume", "driver"],
+  "enums": { "stack": ["python", "kotlin-android", "web-ts", "unknown"], "clear_policy": ["phase", "task", "never"], "routing.m_builder": ["opus-medium", "fable-low"], "routing.architect_effort": ["low", "medium", "high"] },
+  "verify_entry": { "required": ["name", "cmd", "when"], "optional": ["exists", "vars", "todo"], "when": "always | paths:<glob>" },
+  "risk_word_entry": { "shape": "string | {word, not?: [string]}" },
+  "git": { "branch_per_task": "bool (default false)", "commit_prefix": "string (default forge)", "worktree_isolation": "bool (default false; only after forge-doctor --worktree passed)" },
+  "budgets": { "T": 1, "S": 3, "M": 10, "M_chain": 12, "W": 25, "L_unit": 2, "X": 30, "risk_multiplier": 1.5 },
+  "routing": { "architect_effort": "medium", "m_builder": "opus-medium", "overrides": [{ "name": "string", "paths": ["glob"], "builder": { "agent": "", "model": "", "effort": "" }, "min_verifier": "alias" }], "measured": {} },
+  "driver": { "max_turns": 120, "max_phases": 12 },
+  "invariants": [
+    "verify non-empty unless stack == unknown",
+    "every verify[].cmd prefix appears in settings.permissions.allow (installer adds it)",
+    "mechanic_denied_paths is a superset of protected_paths in spirit: anything shared or LIVE"
+  ]
+}

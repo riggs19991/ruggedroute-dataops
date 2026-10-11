@@ -1,0 +1,12 @@
+{
+  "schema_version": 2,
+  "forge_version": "1.0.0",
+  "project": "{{project}}",
+  "updated_at": "1970-01-01T00:00:00Z",
+  "updated_ts": 0,
+  "updated_by": { "session_id": "installer", "cmd": "templates/STATUS.json" },
+  "context_state": "fresh",
+  "task": null,
+  "queue": [],
+  "history": []
+}
