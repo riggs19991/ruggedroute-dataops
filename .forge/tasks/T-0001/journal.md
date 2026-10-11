@@ -1,2 +1,3 @@
 - 2026-10-11T13:49:20Z open: docs: add the Forge build log and link it from the Forge README | class T risk none files=2 dirs=2 importers=0 tests_present=False risk_hits=[] important=[]
 - 2026-10-11T13:50:00Z close: done | added forge/docs/BUILD-LOG.md (process record, deviations, unverified items, residuals) and linked it from forge/README.md | checks: lib-unit pass
+- 2026-10-11T13:50:00Z [PostToolUse] main: stamped .forge/tasks/T-0001/checks/main-1791726600-main.json
