@@ -148,18 +148,9 @@ def _git_out(args: List[str], cwd: Optional[str] = None) -> Optional[str]:
     return r.stdout.strip()
 
 
-def forge_root(start: Optional[str] = None) -> str:
-    """The main checkout that owns .forge/ (worktree-safe).
-
-    Order: $FORGE_ROOT if it has .forge/; git common dir of $CLAUDE_PROJECT_DIR or cwd
-    (strip trailing /.git); git toplevel; walk up from start looking for .forge/;
-    finally $CLAUDE_PROJECT_DIR or cwd.
-    """
-    env_root = os.environ.get("FORGE_ROOT")
-    if env_root and os.path.isdir(os.path.join(env_root, ".forge")):
-        return os.path.abspath(env_root)
-    start = start or os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd()
-    start = os.path.abspath(start)
+def _derived_root(start: str) -> Optional[str]:
+    """Root derived from the filesystem alone: git common dir of `start` (strip /.git),
+    then git toplevel, then walk up looking for .forge/. None when nothing has .forge/."""
     common = _git_out(["rev-parse", "--path-format=absolute", "--git-common-dir"], cwd=start)
     if common:
         common = common.rstrip("/")
@@ -177,7 +168,45 @@ def forge_root(start: Optional[str] = None) -> str:
         if parent == cur:
             break
         cur = parent
+    return None
+
+
+def worktree_top(start: Optional[str] = None) -> Optional[str]:
+    """`git rev-parse --show-toplevel` of start (the checkout the session actually edits in)."""
+    start = os.path.abspath(start or os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd())
+    return _git_out(["rev-parse", "--show-toplevel"], cwd=start)
+
+
+def forge_root(start: Optional[str] = None) -> str:
+    """The main checkout that owns .forge/ (worktree-safe).
+
+    The root is derived from $CLAUDE_PROJECT_DIR / cwd FIRST (git common dir, git toplevel,
+    walk-up). $FORGE_ROOT is honoured only when it names that same root (or the derived root
+    is unknown and FORGE_ROOT contains `start`); a FORGE_ROOT pointing at a different
+    repository is ignored with one WARN line on stderr, so a stale export can never redirect
+    hooks to another checkout (review finding #3).
+    """
+    start = os.path.abspath(start or os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd())
+    derived = _derived_root(start)
+    env_root = os.environ.get("FORGE_ROOT")
+    if env_root:
+        env_abs = os.path.abspath(env_root)
+        if derived and os.path.realpath(env_abs) == os.path.realpath(derived):
+            return derived
+        if derived is None and os.path.isdir(os.path.join(env_abs, ".forge")) and _is_under(start, env_abs):
+            return env_abs
+        if os.path.isdir(os.path.join(env_abs, ".forge")):
+            sys.stderr.write(f"forge: WARN ignoring FORGE_ROOT={env_root} (this checkout is {derived or start})\n")
+    if derived:
+        return derived
     return os.environ.get("CLAUDE_PROJECT_DIR") or start
+
+
+def _is_under(path: str, root: str) -> bool:
+    try:
+        return os.path.commonpath([os.path.realpath(path), os.path.realpath(root)]) == os.path.realpath(root)
+    except ValueError:
+        return False
 
 
 class Paths:
@@ -185,6 +214,16 @@ class Paths:
 
     def __init__(self, root: Optional[str] = None):
         self.root = os.path.abspath(root or forge_root())
+        # The checkout the session edits in: equals root normally, differs inside a linked
+        # git worktree (isolation: worktree, --worktree). .forge/ state always lives on root;
+        # file paths are relativised against whichever of the two contains them (finding #16).
+        self.worktree_root: Optional[str] = None
+        wt = worktree_top()
+        if wt and os.path.realpath(wt) != os.path.realpath(self.root):
+            # A linked worktree shares the main checkout's git common dir (<root>/.git).
+            common = _git_out(["rev-parse", "--path-format=absolute", "--git-common-dir"], cwd=wt)
+            if common and os.path.realpath(common.rstrip("/")) == os.path.realpath(os.path.join(self.root, ".git")):
+                self.worktree_root = os.path.abspath(wt)
         self.forge = os.path.join(self.root, ".forge")
         self.bin = os.path.join(self.forge, "bin")
         self.status = os.path.join(self.forge, "STATUS.json")
@@ -241,20 +280,62 @@ class Paths:
     def agent_record(self, agent_id: str) -> str:
         return os.path.join(self.runtime, "agents", f"{agent_id}.json")
 
+    def _bases(self) -> List[str]:
+        return [b for b in (self.worktree_root, self.root) if b]
+
     def rel(self, path: str) -> str:
-        """Normalise any path to repo-relative POSIX form (no leading ./)."""
+        """Normalise any path to repo-relative POSIX form (no leading ./).
+
+        Relative inputs are taken relative to the editing checkout (worktree_root when the
+        session runs inside a linked worktree, else root). Absolute inputs are relativised
+        against whichever base contains them; a path outside both keeps a leading `../` or
+        stays absolute so callers can refuse it (see safe_rel)."""
         p = path
         if not os.path.isabs(p):
-            p = os.path.join(self.root, p)
+            p = os.path.join(self.worktree_root or self.root, p)
         p = os.path.normpath(p)
-        try:
-            r = os.path.relpath(p, self.root)
-        except ValueError:
-            r = p
+        r = None
+        for base in self._bases():
+            if _is_under(p, base) or p.startswith(base.rstrip("/") + "/") or p == base:
+                try:
+                    r = os.path.relpath(p, base)
+                    break
+                except ValueError:
+                    continue
+        if r is None:
+            try:
+                r = os.path.relpath(p, self.root)
+            except ValueError:
+                r = p
         r = r.replace(os.sep, "/")
         if r.startswith("./"):
             r = r[2:]
         return r
+
+    def safe_rel(self, path: str) -> Tuple[str, bool, str]:
+        """(rel, ok, why) for fence decisions. ok is False when the lexical path or the
+        symlink-resolved path escapes the repository (worktree or main checkout), or when a
+        symlink in the path leads outside it (findings #9, #10). rel is the lexical repo-relative
+        path; when a symlink resolves inside the repo to a different file, rel is the RESOLVED
+        path so fences judge the real target."""
+        lexical = self.rel(path)
+        if os.path.isabs(lexical) or lexical == ".." or lexical.startswith("../"):
+            return lexical, False, f"path is outside the repository ({self.root})"
+        abs_lexical = path if os.path.isabs(path) else os.path.join(self.worktree_root or self.root, path)
+        abs_lexical = os.path.normpath(abs_lexical)
+        # resolve symlinks in the parent chain (the file itself may not exist yet)
+        parent = os.path.dirname(abs_lexical)
+        real_parent = os.path.realpath(parent) if parent else parent
+        real_abs = os.path.join(real_parent, os.path.basename(abs_lexical))
+        if os.path.islink(abs_lexical):
+            real_abs = os.path.realpath(abs_lexical)
+        inside = any(_is_under(real_abs, b) for b in self._bases())
+        if not inside:
+            return lexical, False, "path resolves through a symlink to outside the repository"
+        resolved = self.rel(real_abs)
+        if resolved != lexical:
+            return resolved, True, f"symlink: {lexical} -> {resolved}"
+        return lexical, True, ""
 
 
 # --------------------------------------------------------------------------- #
@@ -496,6 +577,8 @@ def glob_match(path: str, glob: str) -> bool:
     p = path.replace(os.sep, "/")
     if p.startswith("./"):
         p = p[2:]
+    if p.startswith("../") or p == ".." or p.startswith("/"):
+        return False  # never match anything outside the repository (finding #10)
     g = glob
     if g.endswith("/"):
         g = g + "**"

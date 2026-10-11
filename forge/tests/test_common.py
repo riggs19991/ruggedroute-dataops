@@ -192,11 +192,37 @@ class PathsAndRootTests(unittest.TestCase):
         self._git(root, "commit", "-q", "-m", "init")
         return os.path.realpath(root)
 
-    def test_forge_root_prefers_FORGE_ROOT_when_it_has_forge_dir(self):
+    def test_forge_root_ignores_FORGE_ROOT_naming_another_repo(self):
+        # review finding #3: a stale FORGE_ROOT export must never redirect hooks to another checkout
         root = self._repo("a")
         other = self._repo("b")
         os.environ["FORGE_ROOT"] = root
-        self.assertEqual(os.path.realpath(common.forge_root(other)), root)
+        self.assertEqual(os.path.realpath(common.forge_root(other)), other)
+
+    def test_forge_root_accepts_FORGE_ROOT_equal_to_derived_root(self):
+        root = self._repo("a")
+        os.environ["FORGE_ROOT"] = root
+        self.assertEqual(os.path.realpath(common.forge_root(root)), root)
+
+    def test_safe_rel_refuses_paths_outside_repo_and_resolves_symlinks(self):
+        root = self._repo("a")
+        p = common.Paths(root)
+        rel, ok, why = p.safe_rel("/etc/passwd")
+        self.assertFalse(ok)
+        self.assertIn("outside", why)
+        os.makedirs(os.path.join(root, "lib"), exist_ok=True)
+        os.symlink(os.path.join(root, ".forge"), os.path.join(root, "lib", "link"))
+        rel, ok, why = p.safe_rel(os.path.join(root, "lib", "link", "x"))
+        self.assertTrue(ok)
+        self.assertEqual(rel, ".forge/x")  # judged by the resolved target
+        os.symlink("/etc", os.path.join(root, "lib", "out"))
+        rel, ok, why = p.safe_rel(os.path.join(root, "lib", "out", "hosts"))
+        self.assertFalse(ok)
+
+    def test_glob_match_never_matches_outside_repo(self):
+        self.assertFalse(common.glob_match("../x.py", "**/*.py"))
+        self.assertFalse(common.glob_match("/etc/x.py", "**"))
+        self.assertTrue(common.glob_match("lib/x.py", "**/*.py"))
 
     def test_forge_root_ignores_FORGE_ROOT_without_forge_dir(self):
         root = self._repo("a")
