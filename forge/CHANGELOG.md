@@ -5,7 +5,8 @@ change; MINOR = an additive agent, skill, hook or rule; PATCH = prompt or docume
 
 ## 1.0.0 — 2026-10-11
 
-First release, built from design v2 (`docs/design/design-v2.md`).
+First release, built from design v2 (`docs/design/design-v2.md`). Released 2026-10-11: merged to `main` and tagged `v1.0.0`;
+installed into ruggedroute-dataops (this repo), RuggedRoute (branch `forge/install`) and plot-device (branch `forge/install`).
 
 - Plain-project-layout payload: 8 agents (`forge-scout`, `forge-planner`, `forge-builder`, `forge-builder-wide`, `forge-builder-s`,
   `forge-mechanic`, `forge-verifier`, `forge-librarian`), 6 skills (`/forge-task`, `/forge-next`, `/forge-close`, `/forge-doctor`,

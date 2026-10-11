@@ -1,0 +1,17 @@
+{
+  "task": "T-0002",
+  "title": "release: merge the Forge to main, tag v1.0.0, install into RuggedRoute, RuggedRoutehq and plot-device",
+  "computed_at": "2026-10-11T14:35:50Z",
+  "size_source": "declared",
+  "declared": [
+    "forge/CHANGELOG.md"
+  ],
+  "files": 1,
+  "dirs": 1,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": false,
+  "risk_hits": [],
+  "important_hits": []
+}

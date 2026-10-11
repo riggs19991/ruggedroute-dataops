@@ -1,1 +1,2 @@
 {"id":"T-0001","title":"docs: add the Forge build log and link it from the Forge README","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","handoff":null,"closed_at":"2026-10-11T13:50:00Z"}
+{"id":"T-0002","title":"release: merge the Forge to main, tag v1.0.0, install into RuggedRoute, RuggedRoutehq and plot-device","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","handoff":null,"closed_at":"2026-10-11T14:37:24Z"}

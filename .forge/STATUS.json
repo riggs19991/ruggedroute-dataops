@@ -2,11 +2,11 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-11T13:50:00Z",
-  "updated_ts": 1791726600,
+  "updated_at": "2026-10-11T14:37:24Z",
+  "updated_ts": 1791729444,
   "updated_by": {
-    "session_id": "cli",
-    "cmd": "forge-status close T-0001"
+    "session_id": "23bf0fa0-7735-5f90-9b85-e7b294bb0dd2",
+    "cmd": "forge-status close T-0002"
   },
   "context_state": "stale",
   "task": null,
@@ -21,6 +21,16 @@
       "cost_source": "unknown",
       "handoff": null,
       "closed_at": "2026-10-11T13:50:00Z"
+    },
+    {
+      "id": "T-0002",
+      "title": "release: merge the Forge to main, tag v1.0.0, install into RuggedRoute, RuggedRoutehq and plot-device",
+      "class": "T",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": null,
+      "closed_at": "2026-10-11T14:37:24Z"
     }
   ]
 }

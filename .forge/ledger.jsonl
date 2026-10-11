@@ -1,2 +1,4 @@
 {"ts":"2026-10-11T13:49:20Z","event":"open","task":"T-0001","class":"T","risk":"none","expected_premium":false,"cost_source":"unknown","session_id":"cli"}
 {"ts":"2026-10-11T13:50:00Z","event":"close","task":"T-0001","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":false,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"cli"}
+{"ts":"2026-10-11T14:35:50Z","event":"open","task":"T-0002","class":"T","risk":"none","expected_premium":false,"cost_source":"unknown","session_id":"23bf0fa0-7735-5f90-9b85-e7b294bb0dd2"}
+{"ts":"2026-10-11T14:37:24Z","event":"close","task":"T-0002","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"23bf0fa0-7735-5f90-9b85-e7b294bb0dd2"}
