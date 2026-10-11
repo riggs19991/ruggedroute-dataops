@@ -1379,5 +1379,230 @@ class StopReviewTests(HookTestCase):
         self.assertIsNone(re.search(r"(^|\s)/forge-doctor", out["reason"]), "never the skill form")
 
 
+class Review2HookTests(HookTestCase):
+    """Second-round review findings #1, #3, #9, #13, #15 (hooks.py), #7 (HOOKS.md)."""
+
+    def bash(self, cmd, scratchpad=None, env=None, **kw):
+        stdin = pre_tool("Bash", {"command": cmd}, **(kw or {"agent_id": "agent_b1", "agent_type": "forge-builder"}))
+        if scratchpad:
+            stdin["scratchpad_dir"] = scratchpad
+        return self.hook(stdin, env=env)
+
+    def test_rm_guard_normalises_targets_and_follows_links(self):
+        """#1: `..`, `~`, `$VAR`, quotes and symlinks are resolved before the safe-dir test; the repository is never safe."""
+        self.seed_M("running", agent_id="agent_b1")
+        self.repo.bind_agent("agent_b1")
+        sp = "/var/scratch/sp"
+        for cmd in ("rm -rf /tmp/../home/user/ruggedroute-dataops/forge", "rm -rf /tmp/..", "rm -rf '/tmp/../etc'",
+                    f"rm -rf {sp}/../../x", f"rm -rf {sp}/../sibling", "rm -rf /tmp/x/../../usr", "sudo rm -rf /tmp/../etc",
+                    "cd /tmp && rm -rf /tmp/../etc", f"rm -rf /tmp/../{self.repo.root.lstrip('/')}",
+                    f"rm -rf {self.repo.root}/lib", "rm -rf lib", "rm -rf ./lib/", "rm -rf ../"):
+            out = self.bash(cmd, scratchpad=sp)
+            self.assert_deny(out, "recursive rm", cmd)
+        for cmd in ("rm -rf /tmp/scratch", f"rm -rf {sp}/sub", f"rm -rf {sp}", "rm -rf /tmp/x/../y", "rm -rf '/tmp/a b/c'",
+                    "rm -f lib/mod.py"):
+            self.assert_allow(self.bash(cmd, scratchpad=sp), cmd)
+        # $TMPDIR and ~ are expanded before the test
+        env = {"TMPDIR": "/var/scratch/tmpdir", "HOME": "/var/home/worker"}
+        self.assert_allow(self.bash("rm -rf $TMPDIR/build", env=env), "$TMPDIR/build")
+        self.assert_deny(self.bash("rm -rf $TMPDIR/../x", env=env), "recursive rm", "$TMPDIR/../x")
+        self.assert_deny(self.bash("rm -rf ~/stuff", env=env), "recursive rm", "~ outside the safe dirs")
+        self.assert_deny(self.bash("rm -rf ~/../../tmp/../etc", env=env), "recursive rm", "~ then ..")
+        # a link under /tmp is judged by where it points
+        d = helpers.tempfile.mkdtemp(prefix="forge-rm-")
+        self.addCleanup(helpers.shutil.rmtree, d, True)
+        os.symlink("/etc", os.path.join(d, "etclink"))
+        self.assert_deny(self.bash(f"rm -rf {d}/etclink"), "recursive rm", "link to /etc")
+        self.assert_deny(self.bash(f"rm -rf {d}/etclink/sub"), "recursive rm", "path through a link to /etc")
+        self.assert_allow(self.bash(f"rm -rf {d}/plain"), "plain dir under /tmp")
+        self.assertEqual(self.repo.step()["status"], "running", "the guard never touches STATUS")
+
+    def test_clear_at_the_clear_point_resumes_the_queue(self):
+        """#3: after close the task is null and context_state stale; a queued task auto-resumes on `clear`."""
+        queue = [{"id": "T-0002", "title": "next thing"}, {"id": "T-0003", "title": "later"}]
+        self.repo.seed_status(task=None, context_state="stale", queue=queue)
+        before = self.repo.status()["updated_by"]
+        out = self.start_session("startup")
+        self.assertNotIn("initialUserMessage", out["hookSpecificOutput"], "never on startup")
+        self.assertEqual(self.repo.status()["context_state"], "stale")
+        out = self.start_session("compact")
+        self.assertNotIn("initialUserMessage", out["hookSpecificOutput"], "never on compact")
+        out = self.start_session("clear")
+        hso = out["hookSpecificOutput"]
+        self.assertIn("initialUserMessage", hso)
+        self.assertIn("/forge-task", hso["initialUserMessage"])
+        self.assertIn(".forge/STATUS.json", hso["initialUserMessage"])
+        self.assertEqual(hso.get("sessionTitle"), "forge idle")
+        st = self.repo.status()
+        self.assertEqual(st["context_state"], "fresh", "fresh --no-stamp ran")
+        self.assertEqual(st["updated_by"], before, "fresh --no-stamp leaves updated_by untouched")
+        self.assertEqual(st["queue"], queue, "the queue is untouched: /forge-task opens the task")
+        self.assertFalse(self.repo.exists(self.repo.rt("auto-resumed-idle-T-0002")), "fresh removes the marker")
+        self.assertNotIn("initialUserMessage", self.start_session("clear")["hookSpecificOutput"], "no re-fire while fresh")
+        # a leaked marker (fresh failed earlier) stops a loop; a new stale state after it is gone fires again
+        self.repo.seed_status(task=None, context_state="stale", queue=queue)
+        self.repo.touch(self.repo.rt("auto-resumed-idle-T-0002"))
+        self.assertNotIn("initialUserMessage", self.start_session("clear")["hookSpecificOutput"])
+        self.repo.rm(self.repo.rt("auto-resumed-idle-T-0002"))
+        self.repo.seed_status(task=None, context_state="stale", queue=queue)
+        self.assertIn("initialUserMessage", self.start_session("clear")["hookSpecificOutput"])
+        # idle with an empty queue: fresh --no-stamp alone, no message
+        self.repo.seed_status(task=None, context_state="stale")
+        out = self.start_session("clear")
+        self.assertNotIn("initialUserMessage", out["hookSpecificOutput"])
+        self.assertEqual(self.repo.status()["context_state"], "fresh")
+        # auto_resume off: fresh alone even with a queue
+        binding = dict(helpers.BINDING)
+        binding["auto_resume"] = False
+        self.repo.write_json(".forge/binding.json", binding)
+        self.repo.seed_status(task=None, context_state="stale", queue=queue)
+        out = self.start_session("clear")
+        self.assertNotIn("initialUserMessage", out["hookSpecificOutput"])
+        self.assertEqual(self.repo.status()["context_state"], "fresh")
+
+    def test_interrupted_banner_for_an_unbound_step_names_commands_that_work(self):
+        """#9: step-start refuses a running step; recover needs --force when this session started it."""
+        self.seed_M("running", agent_id=None, started_by=SESSION)
+        ctx = context(self.start_session("startup", session_id=SESSION))
+        line = next((l for l in ctx.splitlines() if l.startswith("INTERRUPTED")), "")
+        self.assertIn("no bound worker", line)
+        self.assertIn(f".forge/bin/forge-status recover {self.tid} 01 --force", line)
+        self.assertIn("re-dispatch per next_action", line)
+        self.assertNotIn(f"step-start {self.tid}", line, "step-start refuses a running step; never named as a command")
+        self.assertEqual(self.repo.step()["status"], "running", "the banner never mutates STATUS")
+        code, out, err = self.repo.forge_status("recover", self.tid, "01")
+        self.assertNotEqual(code, 0, "plain recover refuses a step this session started")
+        code, out, err = self.repo.forge_status("recover", self.tid, "01", "--force")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.step()["status"], "pending")
+        # started by another session: the named command carries no --force and works as named
+        self.seed_M("running", agent_id=None, started_by="another-session", report=f".forge/tasks/{self.tid}/report-00.md")
+        ctx = context(self.start_session("startup", session_id=SESSION))
+        line = next((l for l in ctx.splitlines() if l.startswith("INTERRUPTED")), "")
+        self.assertIn(f".forge/bin/forge-status recover {self.tid} 01`", line)
+        self.assertNotIn("--force", line)
+        st = self.repo.status()
+        st["task"]["steps"][0]["report"] = None
+        self.repo.write_json(".forge/STATUS.json", st)
+        self.repo.forge_status("validate", "--restamp")
+        code, out, err = self.repo.forge_status("recover", self.tid, "01")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(self.repo.step()["status"], "pending")
+
+    def test_round_one_resume_resets_the_gate_block_counter(self):
+        """#13: a worker blocked once, FAILed at round 1 and resumed via SendMessage gets two blocks again."""
+        self.start_session()
+        self.seed_M("running", agent_id="agent_b1")
+        self.repo.bind_agent("agent_b1")
+        kw = {"agent_id": "agent_b1", "agent_type": "forge-builder"}
+
+        def stop_builder(msg):
+            return self.hook({"hook_event_name": "SubagentStop", "agent_id": "agent_b1", "agent_type": "forge-builder",
+                              "last_assistant_message": msg, "stop_hook_active": False, "session_id": SESSION})
+
+        bad = "## Where things stand\nno json here\n"
+        out = stop_builder(bad)
+        self.assertEqual(out.get("decision"), "block")
+        self.assertIn("(1/2)", out["reason"])
+        now = int(time.time())
+        self.repo.write("lib/mod.py", "def add(a, b):\n    return a + b\n\n\ndef sub(a, b):\n    return a - b\n")
+        self.repo.add_evidence(self.tid, "agent_b1", "forge-builder", "edit", ts=now - 10, kind="source", file="lib/mod.py")
+        self.repo.write_check_record(self.tid, "01", "agent_b1", ts=now)
+        self.assertNotEqual(stop_builder(self.repo.write_report_md(self.tid, "01", "DONE", ["lib/mod.py"])).get("decision"), "block")
+        self.assertEqual(self.repo.step()["status"], "reported")
+        self.assertEqual(self.repo.read_json(".forge/.runtime/agents/agent_b1.json")["blocks"], 1)
+        # verifier FAIL -> failed, escalation round 1: "resume agent_b1 via SendMessage"
+        self.assert_allow(self.hook(pre_tool("Agent", {"subagent_type": "forge-verifier", "model": "opus", "effort": "medium", "prompt": "v"})))
+        self.hook({"hook_event_name": "SubagentStart", "agent_id": "agent_v1", "agent_type": "forge-verifier", "session_id": SESSION})
+        self.repo.write_check_record(self.tid, "01", "agent_v1", results=[{"name": "lib-unit", "cmd": LIB_UNIT, "exit": 1, "dur_s": 0.1, "tail": "FAIL"}])
+        verdict = self.repo.write_verdict_md(self.tid, "01", "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}],
+                                             blocking=["suite red"], tags=["no-check-run"])
+        out = self.hook({"hook_event_name": "SubagentStop", "agent_id": "agent_v1", "agent_type": "forge-verifier",
+                         "last_assistant_message": verdict, "stop_hook_active": False, "session_id": SESSION})
+        self.assertNotEqual(out.get("decision"), "block", out)
+        self.assertEqual(self.repo.step()["status"], "failed")
+        self.assertEqual(self.repo.task()["escalation"]["round"], 1)
+        self.assertIn("SendMessage", self.repo.task()["next_action"])
+        self.assertEqual(self.repo.read_json(".forge/.runtime/agents/agent_b1.json")["blocks"], 1, "nothing reset until the resume")
+        # the resumed worker's first tool call resets its counter; its handoff gate then starts at 1/2
+        self.hook(post_tool("Bash", {"command": "ls"}, {"exit_code": 0}, **kw))
+        self.assertEqual(self.repo.read_json(".forge/.runtime/agents/agent_b1.json")["blocks"], 0)
+        self.assertIn("gate-block counter reset", self.repo.journal(self.tid))
+        out = stop_builder(bad)
+        self.assertEqual(out.get("decision"), "block", out)
+        self.assertIn("(1/2)", out["reason"], "a resumed worker is not bypassed on its first defect")
+        self.hook(post_tool("Bash", {"command": "ls again"}, {"exit_code": 0}, **kw))
+        self.assertEqual(self.repo.read_json(".forge/.runtime/agents/agent_b1.json")["blocks"], 1, "reset once per round")
+        out = stop_builder(bad)
+        self.assertEqual(out.get("decision"), "block", out)
+        self.assertIn("(2/2)", out["reason"])
+        self.assertNotEqual(stop_builder(bad).get("decision"), "block", "the two-block cap still ends the loop")
+        self.assertTrue(self.repo.exists(f".forge/tasks/{self.tid}/report-01.unverified.json"))
+        self.assertEqual(self.repo.read_json(f".forge/tasks/{self.tid}/report-01.json")["status"], "DONE", "attempt report intact")
+        # a resume detected only at SubagentStart (known agent_id) resets too; a fresh agent is never touched
+        st = self.repo.status()
+        st["task"]["escalation"]["round"] = 2
+        self.repo.write_json(".forge/STATUS.json", st)
+        self.repo.forge_status("validate", "--restamp")
+        self.hook({"hook_event_name": "SubagentStart", "agent_id": "agent_b1", "agent_type": "forge-builder", "session_id": SESSION})
+        rec = self.repo.read_json(".forge/.runtime/agents/agent_b1.json")
+        self.assertEqual(rec["blocks"], 0)
+        self.assertEqual(rec["step"], "01")
+        self.hook({"hook_event_name": "SubagentStart", "agent_id": "agent_b9", "agent_type": "forge-builder", "session_id": SESSION})
+        self.assertNotIn("blocks_reset", self.repo.read_json(".forge/.runtime/agents/agent_b9.json"))
+
+    def test_stop_gate_suggests_a_command_that_fits_the_step_state(self):
+        """#15: never `close` while a step is blocked or awaiting_external; close only when every step is done."""
+        def stop_reason():
+            self.repo.touch(self.repo.rt("dirty-main"))
+            self.repo.write(self.repo.rt("stop-blocks"), "0\n")
+            self.repo.rm(self.repo.rt("last-block.sha"))
+            out = self.hook({"hook_event_name": "Stop", "stop_hook_active": False, "session_id": SESSION})
+            self.assertEqual(out.get("decision"), "block", out)
+            return out["reason"]
+
+        self.seed_M("blocked", agent_id="agent_b1", report=f".forge/tasks/{self.tid}/report-01.md")
+        r = stop_reason()
+        self.assertIn(f"step-start {self.tid} 01 --from failed|clean", r)
+        self.assertIn("block --on", r)
+        self.assertNotIn("close", r)
+        self.seed_M("awaiting_external", agent_id="agent_b1")
+        r = stop_reason()
+        self.assertIn(f"attest {self.tid} 01 <DoD-n> --by <you> --evidence <url|path>", r)
+        self.assertNotIn("close", r)
+        # class L, three units: 01 and 02 done, 03 blocked -> still not close
+        def unit(sid, status, **over):
+            return make_step(sid, self.tid, status=status, attempts=1, started_by=SESSION, started_at="2026-10-11T00:00:00Z",
+                             started_ts=1_760_000_000, base=self.repo.head(), **over)
+        done = unit("01", "done", commit=self.repo.head(), verdict="v")
+        units = [done, unit("02", "done", commit=self.repo.head(), verdict="v"),
+                 unit("03", "blocked", report=f".forge/tasks/{self.tid}/report-03.md")]
+        self.repo.seed_status(task=make_task(self.tid, "L", "execute", steps=units))
+        r = stop_reason()
+        self.assertIn(f"step-start {self.tid} 03 --from failed|clean", r)
+        self.assertNotIn("close", r)
+        # every step done in an active phase (the L spot-check window): close is the right call
+        self.repo.seed_status(task=make_task(self.tid, "M", "execute", steps=[done]))
+        self.assertIn(f"close {self.tid}", stop_reason())
+        for status in ("failed", "running", "reported", "pending"):
+            self.seed_M(status, agent_id="agent_b1", commit=self.repo.head() if status == "reported" else None)
+            self.assertNotIn("close", stop_reason(), status)
+
+    def test_hooks_md_documents_no_env_file_export(self):
+        """#7: HOOKS.md and the _export_env docstring agree with MODULE-API §9.3 (SessionStart exports nothing)."""
+        text = self.repo.read(".forge/HOOKS.md")
+        self.assertNotIn("append `export PATH", text)
+        self.assertNotIn("would append its `export PATH", text)
+        self.assertIn("Writes nothing to `$CLAUDE_ENV_FILE`", text)
+        src = self.repo.read(".forge/bin/forgelib/hooks.py")
+        doc = src.split("def _export_env(ctx: Ctx) -> None:")[1].split('"""')[1]
+        self.assertNotIn("PATH and FORGE_ROOT exports for later Bash commands", doc)
+        self.assertIn("nothing", doc.lower())
+        env_file = self.repo.path(".env-file")
+        self.hook({"hook_event_name": "SessionStart", "source": "startup", "session_id": SESSION, "cwd": self.repo.root},
+                  env={"CLAUDE_ENV_FILE": env_file})
+        self.assertFalse(os.path.exists(env_file) and self.repo.read(".env-file").strip())
+
+
 if __name__ == "__main__":
     unittest.main()

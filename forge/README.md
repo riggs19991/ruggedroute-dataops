@@ -33,7 +33,7 @@ Occasionally: `/forge-doctor` (is the Forge alive here?) and `/forge-gc` (docume
 
 ```bash
 # from a checkout of the Forge source (this directory):
-bash forge/install.sh --target /path/to/repo [--effort low|medium] [--no-model] [--with-bench] [--dry-run]
+bash forge/install.sh --target /path/to/repo [--effort low|medium] [--no-model | --with-model] [--with-bench] [--dry-run]
 # from another local checkout:
 bash install.sh --from ~/src/ruggedroute-dataops --target /path/to/repo
 # from a published tag (run inside the target repository):
@@ -42,7 +42,10 @@ curl -fsSL https://raw.githubusercontent.com/riggs19991/ruggedroute-dataops/v1.0
 ```
 
 `--tag` fetches that tag from `--repo`, which defaults to `riggs19991/ruggedroute-dataops` (the Forge lives under `forge/` there);
-`--repo` without `--tag` is a usage error. Upgrade an installed Forge with the same command plus `--upgrade`.
+`--repo` without `--tag` is a usage error. Upgrade an installed Forge with the same command plus `--upgrade`; it prints the
+`CHANGELOG.md` sections between the installed `.forge/VERSION` and the new version (also with `--dry-run`). `--no-model` and
+`--effort` are recorded in `.forge/install-manifest.json` (`"options"`) and honoured by every later install or upgrade without the
+flags; `--with-model` undoes a recorded `--no-model`, and a new `--effort` replaces the recorded one (docs/UPGRADING.md).
 
 The installer copies the payload (`payload/.forge/` to `.forge/`, `payload/dot-claude/` to `.claude/`), merges
 `.claude/settings.forge.json` into `.claude/settings.json`, appends the CLAUDE.md fragment, detects the stack and writes

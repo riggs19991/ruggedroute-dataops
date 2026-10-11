@@ -1,6 +1,7 @@
 """Tests for forge/installer.py (MODULE-API §8; design §10.1 steps 1-7, §8.2 ownership and settings merge)."""
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -308,6 +309,90 @@ class OwnershipTests(InstallerTestCase):
         backups = [d for d in os.listdir(incidents) if d.startswith("upgrade-")] if os.path.isdir(incidents) else []
         self.assertTrue(backups, "local edits are backed up under .forge/incidents/upgrade-<ts>/")
         self.assertTrue(os.path.exists(os.path.join(incidents, backups[0], ".forge", "FORGE.md")))
+
+
+class PersistedOptionsTests(InstallerTestCase):
+    """review-2 finding #12: --no-model / --effort are operator choices recorded in install-manifest.json "options"."""
+
+    def test_no_model_and_effort_survive_reinstall_and_upgrade(self):
+        self.write(".claude/settings.json", "{}")
+        code, out, err = self.install("--no-model", "--effort", "low")
+        self.assertEqual(code, 0, err + out)
+        self.assertEqual(self.read_json(".forge/install-manifest.json")["options"], {"no_model": True, "effort": "low"})
+        code, out, err = self.install()                      # plain re-install, no flags
+        self.assertEqual(code, 0, err + out)
+        self.assertNotIn("model", self.read_json(".claude/settings.json"))
+        self.assertIn("no changes", out.lower())
+        self.write(".forge/VERSION", "0.9.0\n")
+        code, out, err = self.install("--upgrade")          # upgrade, no flags
+        self.assertEqual(code, 0, err + out)
+        settings = self.read_json(".claude/settings.json")
+        self.assertNotIn("model", settings, "a recorded --no-model is honoured by --upgrade")
+        self.assertEqual(settings["effortLevel"], "low")
+        self.assertNotRegex(out, r"settings: effortLevel\s+local=")
+        self.assertRegex(out, r"option\s+no_model\s+kept from install-manifest.json")
+        self.assertEqual(self.read_json(".forge/install-manifest.json")["options"], {"no_model": True, "effort": "low"})
+
+    def test_with_model_clears_and_effort_replaces_recorded_choice(self):
+        self.write(".claude/settings.json", "{}")
+        self.install("--no-model", "--effort", "low")
+        code, out, err = self.install("--with-model", "--effort", "medium")
+        self.assertEqual(code, 0, err + out)
+        with open(FRAGMENT, encoding="utf-8") as f:
+            fragment = json.load(f)
+        settings = self.read_json(".claude/settings.json")
+        self.assertEqual(settings.get("model"), fragment["model"])
+        self.assertEqual(settings["effortLevel"], "medium")
+        self.assertEqual(self.read_json(".forge/install-manifest.json")["options"], {"no_model": False, "effort": "medium"})
+        code, out, err = self.install("--no-model", "--with-model")
+        self.assertEqual(code, 2, out + err)
+
+    def test_default_install_records_no_choices(self):
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+        self.assertEqual(self.read_json(".forge/install-manifest.json")["options"], {"no_model": False, "effort": None})
+
+
+class ChangelogDeltaTests(InstallerTestCase):
+    """review-2 finding #11: --upgrade prints the forge/CHANGELOG.md sections between .forge/VERSION and the payload."""
+
+    def load_installer(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("forge_installer_under_test", INSTALLER)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+    def test_changelog_sections_selects_the_half_open_range(self):
+        mod = self.load_installer()
+        text = ("# Changelog\n\nintro\n\n## 1.2.0 — 2027-01-01\n\n- c\n\n## 1.1.0 — 2026-12-01\n\n- b\n\n"
+                "## 1.0.0 — 2026-10-11\n\n- a\n\n## 0.9.0\n\n- z\n")
+        self.assertEqual([v for v, _ in mod.changelog_sections(text, "1.0.0", "1.2.0")], ["1.2.0", "1.1.0"])
+        self.assertEqual([v for v, _ in mod.changelog_sections(text, "0.9.0", "1.0.0")], ["1.0.0"])
+        self.assertEqual(mod.changelog_sections(text, "1.2.0", "1.2.0"), [])
+        body = dict(mod.changelog_sections(text, "1.0.0", "1.1.0"))["1.1.0"]
+        self.assertIn("- b", body)
+        self.assertNotIn("- a", body)
+        self.assertNotIn("- c", body)
+
+    def test_upgrade_and_dry_run_print_the_delta(self):
+        self.install()
+        self.write(".forge/VERSION", "0.9.0\n")
+        version = common.read_text(os.path.join(helpers.FORGE_SRC, "VERSION")).strip()
+        for args in (("--upgrade", "--dry-run"), ("--upgrade",)):
+            code, out, err = self.install(*args)
+            self.assertEqual(code, 0, err + out)
+            self.assertIn(f"CHANGELOG 0.9.0 -> {version}", out, args)
+            self.assertRegex(out, rf"(?m)^## {re.escape(version)}\b", args)
+
+    def test_no_entries_message(self):
+        self.install()
+        code, out, err = self.install("--upgrade")
+        self.assertEqual(code, 0, err + out)
+        version = common.read_text(os.path.join(helpers.FORGE_SRC, "VERSION")).strip()
+        self.assertIn(f"no CHANGELOG entries between {version} and {version}", out)
+        code, out, err = self.install()
+        self.assertNotIn("CHANGELOG", out, "a plain install prints no delta")
 
 
 class GenericFragmentTests(InstallerTestCase):

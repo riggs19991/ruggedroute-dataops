@@ -18,7 +18,7 @@ import json
 import os
 import re
 import traceback
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from . import common
 
@@ -34,6 +34,8 @@ REMINDER_NEXT_CHARS = 120           # design §13.3 UserPromptSubmit: next_actio
 DENIAL_CAP = 3                      # design §3 step 2: the third same-rule denial in a turn ends it
 PLAN_FILE_MARKER = "PLAN-FILE:"     # design §13.3: the planner's final message ends with it
 RESUME_MESSAGE = "Resume from .forge/STATUS.json: read it, then execute next_action."
+# Review-2 #3: the CLEAR POINT after `close` is idle (task null, context_state stale); a queued task resumes with this.
+RESUME_IDLE_MESSAGE = "Resume from .forge/STATUS.json: start the first queued task with /forge-task"
 WORKER_START_LINE = ("Forge worker: read the brief named in your prompt with the Read tool first; your final "
                      "message must follow the brief's Output contract (builders) or the VERDICT format "
                      "(verifier); run commands from the repository root; a hook refuses otherwise.")
@@ -550,7 +552,8 @@ def on_session_start(ctx: Ctx) -> Optional[Dict[str, Any]]:
         if msg:
             extra["initialUserMessage"] = msg
         elif ctx.status is not None and ctx.task is None and ctx.status.get("context_state") == "stale":
-            # review #52: /clear after a close resets the stale flag even with no task open (RUNBOOK §6)
+            # review #52: /clear after a close with an empty queue (or auto_resume off) resets the stale flag
+            # without a message (RUNBOOK §6); a queued task resumed above (review-2 #3).
             ok, why = _status_call(ctx, "fresh", stamp=False)
             _journal(ctx, f"clear while idle and stale; fresh --no-stamp {'ok' if ok else 'failed: ' + str(why)}")
     _journal(ctx, f"session start ({source}) session {ctx.session_id}")
@@ -569,13 +572,11 @@ def on_session_start_role(ctx: Ctx) -> Optional[Dict[str, Any]]:
 
 
 def _export_env(ctx: Ctx) -> None:
-    """PATH and FORGE_ROOT exports for later Bash commands (RCC line 348; design §13.3 SessionStart row).
-    A stale FORGE_ROOT can no longer redirect another checkout: forge_root() derives the root from
-    CLAUDE_PROJECT_DIR/cwd first and ignores a FORGE_ROOT naming a different repository (review #3)."""
-    # Deliberately exports nothing (review #3, observed in the field): an export written to
-    # CLAUDE_ENV_FILE outlives the session that wrote it and leaks another checkout's .forge/bin
-    # and root into every later shell. Every prompt names scripts by their full .forge/bin/ path,
-    # and forge_root() derives the root from the project directory, so no export is needed.
+    """Writes nothing to CLAUDE_ENV_FILE: no PATH and no FORGE_ROOT export (MODULE-API §9.3; review #3, observed
+    in the field). An export written to CLAUDE_ENV_FILE outlives the session that wrote it and leaks another
+    checkout's .forge/bin and root into every later shell. Every prompt names scripts by their full .forge/bin/
+    path, and forge_root() derives the root from CLAUDE_PROJECT_DIR/cwd first (a FORGE_ROOT naming a different
+    repository is ignored with a WARN), so no export is needed. Kept as the one place that decision lives."""
     return
 
 
@@ -596,9 +597,13 @@ def _banner(ctx: Ctx) -> str:
                 lines.append(f"INTERRUPTED: step {sid} is running (started by session {by} at {at}) with no report. "
                              f"Follow resume_hint; `.forge/bin/forge-status recover {tid} {sid}` if that worker is gone.")
             elif s.get("agent_id") is None and not _evidence_after(ctx, str(tid), int(s.get("started_ts") or 0)):
+                # Review-2 #9: name commands that work on a running step. step-start refuses a running step, and
+                # plain recover refuses a step this session started (RUNBOOK §5 step 2: --force then).
+                force = " --force" if by == ctx.session_id else ""
                 lines.append(f"INTERRUPTED: step {sid} is running with no bound worker and no tool evidence since {at}; "
-                             f"the Agent call may have failed. `.forge/bin/forge-status step-start {tid} {sid} --from clean` "
-                             f"or `recover {tid} {sid}`.")
+                             f"the Agent call may have failed. Run `.forge/bin/forge-status recover {tid} {sid}{force}` "
+                             f"(it leaves the step pending), then re-dispatch per next_action (the dispatch runs "
+                             f"step-start itself).")
     if _marker(ctx, "stale-status"):
         lines.append("STALE: a previous turn ended without STATUS.json being updated (.runtime/stale-status). "
                      "Verify STATUS against `git status` and the task directory before acting.")
@@ -765,15 +770,26 @@ def _session_title(ctx: Ctx) -> str:
 
 
 def _auto_resume(ctx: Ctx) -> Optional[str]:
-    """design §6 layer 5: initialUserMessage on `clear` only, once per task/phase."""
+    """design §6 layer 5: initialUserMessage on `clear` only, once per task/phase.
+
+    Review-2 #3: `close` sets `task: null` together with `context_state: stale`, so the CLEAR POINT the skills
+    print arrives idle. Idle and stale with a non-empty queue resumes with RESUME_IDLE_MESSAGE under the marker
+    `auto-resumed-idle-<queue[0].id>`; idle with an empty queue returns None (the caller runs `fresh --no-stamp`
+    alone). A task with a next_action resumes as before under `auto-resumed-<task>-<phase>`."""
+    st = ctx.status or {}
+    if st.get("context_state") != "stale" or not ctx.binding.get("auto_resume"):
+        return None
     task = ctx.task
-    if not task or not task.get("next_action"):
-        return None
-    if (ctx.status or {}).get("context_state") != "stale":
-        return None
-    if not ctx.binding.get("auto_resume"):
-        return None
-    marker = f"auto-resumed-{task.get('id')}-{task.get('phase')}"
+    if task:
+        if not task.get("next_action"):
+            return None
+        key, phase, message = str(task.get("id")), str(task.get("phase")), RESUME_MESSAGE
+    else:
+        queue = [q for q in st.get("queue") or [] if isinstance(q, dict)]
+        if not queue:
+            return None
+        key, phase, message = "idle", str(queue[0].get("id") or "queue"), RESUME_IDLE_MESSAGE
+    marker = f"auto-resumed-{key}-{phase}"
     if _marker(ctx, marker):
         return None
     # Marker first, then fresh (design §6 layer 5). `fresh` removes auto-resumed-* markers (§5.1), so
@@ -781,8 +797,8 @@ def _auto_resume(ctx: Ctx) -> Optional[str]:
     # when fresh fails the marker stays and stops an auto-resume loop.
     _touch(ctx, marker)
     ok, msg = _status_call(ctx, "fresh", stamp=False)
-    _journal(ctx, f"auto-resume {task.get('id')} {task.get('phase')}; fresh --no-stamp {'ok' if ok else 'failed: ' + str(msg)}")
-    return RESUME_MESSAGE
+    _journal(ctx, f"auto-resume {key} {phase}; fresh --no-stamp {'ok' if ok else 'failed: ' + str(msg)}")
+    return message
 
 
 # --------------------------------------------------------------------------- #
@@ -1170,23 +1186,44 @@ def _spawn_verifier(ctx: Ctx, task: Dict[str, Any], role_t: str, model: str, eff
 
 
 # ---- Bash guard (design §7 gates 1, 2b, 2c, 10) --------------------------- #
-def _rm_recursive_outside(cmd: str, safe_dirs: List[str]) -> Optional[str]:
-    """First target of a recursive `rm` not under a safe directory, else None."""
+def _rm_target_abs(tok: str, root: str) -> str:
+    """Normalised absolute form of an `rm` target: quotes stripped, `~` and `$VAR` expanded, `..` collapsed;
+    a relative target is taken from the repository root (workers run commands from the root)."""
+    t = os.path.expanduser(os.path.expandvars(tok.strip("'\"")))
+    if not os.path.isabs(t):
+        t = os.path.join(root, t)
+    return os.path.normpath(t)
+
+
+def _rm_recursive_outside(cmd: str, safe_dirs: List[str], root: str, repo_roots: Iterable[str] = ()) -> Optional[str]:
+    """First target of a recursive `rm` that is not under a safe directory, else None.
+
+    Review-2 #1: the containment test was lexical (`startswith`), so `/tmp/../home/...` passed. The target is now
+    normalised (`_rm_target_abs`) and judged by its symlink-resolved path with the realpath + commonpath test
+    `common._is_under` uses: `/tmp/../home` is `/home`, `<scratchpad>/../../x` leaves the scratchpad, and a link
+    under /tmp pointing elsewhere is judged by where it points. The repository (`repo_roots`: root and a linked
+    worktree) is never a safe target, nor is any directory that contains it (`rm -rf ../` from the root), even
+    when the checkout itself lives under /tmp."""
+    roots = [r for r in repo_roots if r]
     for seg in _segments(cmd):
-        toks = seg.split()
-        while toks and "=" in toks[0] and not toks[0].startswith("-"):
-            toks.pop(0)
-        if not toks or os.path.basename(toks[0]) != "rm":
+        toks = _tokens(seg)
+        if _command_word(toks) != "rm":
             continue
-        flags = [t for t in toks[1:] if t.startswith("-")]
+        i = next((k for k, t in enumerate(toks) if os.path.basename(t) == "rm"), None)
+        if i is None:
+            continue
+        args = toks[i + 1:]
+        flags = [t for t in args if t.startswith("-")]
         recursive = any(f == "--recursive" or (not f.startswith("--") and ("r" in f or "R" in f)) for f in flags)
         if not recursive:
             continue
-        for t in toks[1:]:
+        for t in args:
             if t.startswith("-"):
                 continue
-            target = os.path.expandvars(t.strip("'\""))
-            if not any(target == d or target.startswith(d.rstrip("/") + "/") for d in safe_dirs if d):
+            target = _rm_target_abs(t, root)
+            if any(common._is_under(target, r) or common._is_under(r, target) for r in roots):
+                return t
+            if not any(common._is_under(target, d) for d in safe_dirs if d):
                 return t
     return None
 
@@ -1362,9 +1399,9 @@ def _pre_bash_subagent(ctx: Ctx, cmd: str) -> Optional[Dict[str, Any]]:
     if bad_link:
         return _deny(bad_link)
     safe = list(RM_SAFE_DIRS) + [str(ctx.stdin.get("scratchpad_dir") or ""), os.environ.get("TMPDIR") or ""]
-    bad = _rm_recursive_outside(cmd, safe)
+    bad = _rm_recursive_outside(cmd, safe, ctx.paths.root, (ctx.paths.root, ctx.paths.worktree_root or ""))
     if bad:
-        return _deny(f"recursive rm outside /tmp or the scratchpad is denied ({bad})")
+        return _deny(f"recursive rm outside /tmp, $TMPDIR or the scratchpad (or inside the repository) is denied ({bad})")
     sub = _status_write_subcommand(cmd)
     if sub:
         return _deny(f"workers never write STATUS (forge-status {sub}); hooks record dispatch, reports and verdicts")
@@ -1391,6 +1428,8 @@ def _pre_bash_subagent(ctx: Ctx, cmd: str) -> Optional[Dict[str, Any]]:
 # --------------------------------------------------------------------------- #
 def on_post_tool_use(ctx: Ctx) -> Optional[Dict[str, Any]]:
     tool = ctx.tool_name
+    if ctx.is_subagent:
+        _reset_blocks_on_resume(ctx)   # review-2 #13: the bound worker is active again on a failed step
     if tool == "Read":
         if ctx.is_subagent:
             path = _edit_path(ctx)
@@ -1407,6 +1446,8 @@ def on_post_tool_use(ctx: Ctx) -> Optional[Dict[str, Any]]:
 
 
 def on_post_tool_use_failure(ctx: Ctx) -> Optional[Dict[str, Any]]:
+    if ctx.is_subagent:
+        _reset_blocks_on_resume(ctx)   # review-2 #13
     if ctx.tool_name == "Bash":
         _record_bash(ctx, ok=False)
     return None
@@ -1542,6 +1583,7 @@ def on_subagent_start(ctx: Ctx) -> Optional[Dict[str, Any]]:
             elif not _steps(task):
                 fields["verify_step"] = "main"
     _merge_agent_record(ctx, ctx.agent_id, **fields)
+    _reset_blocks_on_resume(ctx)   # review-2 #13: a known agent_id bound to a failed step is being resumed
     _journal(ctx, f"subagent start {ctx.agent_type} {ctx.agent_id}")
     return _context("SubagentStart", WORKER_START_LINE)
 
@@ -1563,6 +1605,30 @@ def on_subagent_stop(ctx: Ctx) -> Optional[Dict[str, Any]]:
 def _gate_blocks(ctx: Ctx) -> int:
     """Blocks so far for this agent (counted in .runtime/agents/<id>.json)."""
     return int(_agent_record(ctx, ctx.agent_id).get("blocks") or 0)
+
+
+def _reset_blocks_on_resume(ctx: Ctx) -> None:
+    """Review-2 #13 (design §3 step 10; ROUTING rule 6): a worker resumed at round 1 via SendMessage starts with a
+    fresh gate-block budget. The resume is detected lazily, the first time the bound agent is seen again
+    (SubagentStart for a known agent_id, a PostToolUse, or its next SubagentStop) while its step is `failed`.
+    The reset happens once per attempt and escalation round (`blocks_reset` in the agent record), so a resumed
+    worker that is blocked again is not reset again (the two-block cap still ends the loop)."""
+    if not ctx.agent_id:
+        return
+    rec = _agent_record(ctx, ctx.agent_id)
+    tid, sid = rec.get("task"), rec.get("step")
+    if not (tid and sid):
+        return
+    task = ctx.task if ctx.task and ctx.task.get("id") == tid else None
+    step = common.find_step(task, str(sid)) if task else None
+    if not step or step.get("status") != "failed" or step.get("agent_id") != ctx.agent_id:
+        return
+    key = f"{step.get('attempts')}:{(task.get('escalation') or {}).get('round')}"
+    if rec.get("blocks_reset") == key:
+        return
+    had = int(rec.get("blocks") or 0)
+    _merge_agent_record(ctx, ctx.agent_id, blocks=0, blocks_reset=key)
+    _journal(ctx, f"resume of {ctx.agent_id} on failed step {sid} detected; gate-block counter reset ({had} -> 0)", str(tid))
 
 
 def _count_block(ctx: Ctx, task_id: Optional[str], gate: str, reason: str) -> int:
@@ -1641,6 +1707,7 @@ def _stop_builder(ctx: Ctx, text: str) -> Optional[Dict[str, Any]]:
         return _block(f"Handoff gate ({n}/{common.GATE_BLOCK_CAP}): you never read a brief. Read "
                       f".forge/tasks/{ctx.task_id or '<task>'}/brief-NN.md with the Read tool, do the work, then redo your HANDOFF.")
     tid, sid = str(tid), str(sid)
+    _reset_blocks_on_resume(ctx)   # review-2 #13: a resumed worker's handoff gate starts from a clean counter
     task = ctx.task if ctx.task and ctx.task.get("id") == tid else None
     step = common.find_step(task, sid) if task else None
     # review #14: a worker resumed (SendMessage) after its return was recorded answers in prose; its step is
@@ -1789,6 +1856,8 @@ def _stop_verifier(ctx: Ctx, text: str) -> Optional[Dict[str, Any]]:
 # Stop gate (design §3 step 12, §6 layer 2, §7 gate 11)
 # --------------------------------------------------------------------------- #
 def _suggest_subcommand(task: Dict[str, Any]) -> str:
+    """The forge-status subcommand the Stop gate names for dirty-main: one that fits the first step that is not
+    done (review-2 #15: `close` only when every step is done, since close refuses a blocked or external step)."""
     tid, phase = task.get("id"), task.get("phase")
     steps = _steps(task)
     if phase == "plan":
@@ -1803,11 +1872,15 @@ def _suggest_subcommand(task: Dict[str, Any]) -> str:
                          ("reported", "step-verdict {tid} {sid} --verdict .forge/tasks/{tid}/verdict-{sid}.json"),
                          ("verifying", "step-verdict {tid} {sid} --verdict .forge/tasks/{tid}/verdict-{sid}.json"),
                          ("failed", "step-start {tid} {sid} --from failed|clean"),
+                         ("blocked", "step-start {tid} {sid} --from failed|clean, or block --on \"...\""),
+                         ("awaiting_external", "attest {tid} {sid} <DoD-n> --by <you> --evidence <url|path>"),
                          ("pending", "dispatch step {sid} per next_action; the spawn guard runs step-start")):
         found = _steps_with(task, status)
         if found:
             return form.format(tid=tid, sid=found[0].get("id"))
-    return f"close {tid}"
+    if all(s.get("status") == "done" for s in steps):
+        return f"close {tid}"
+    return f"evidence {tid} --claim \"...\" --from-check <checks/ record>"
 
 
 def on_stop(ctx: Ctx) -> Optional[Dict[str, Any]]:

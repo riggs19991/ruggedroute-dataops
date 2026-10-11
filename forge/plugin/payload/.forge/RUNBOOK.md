@@ -109,6 +109,8 @@ Committed steps are never lost: a worker's step is committed by the handoff gate
 
 ## 7. Model and effort
 
+- `--no-model` and `--effort` persist in `.forge/install-manifest.json` (`options`), so a later install or `--upgrade` keeps them
+  without flags; `--with-model` undoes a saved `--no-model`.
 - The installer writes `model: "fable"` (skip with `--no-model`) and `effortLevel` from `binding.routing.architect_effort` (default
   `medium`) into `.claude/settings.json`; `forge-run` passes the same effort. Workers' models and efforts come from their frontmatter and
   the per-dispatch parameters the spawn guard checks.
@@ -188,6 +190,7 @@ ledger, history, tasks, lessons, decisions, CHANGELOG) are touched only by a mig
 | `gitignore` | `.gitignore` lacks `.forge/.runtime/` or `.forge/incidents/` (WARN) | Add both lines (safe; the doctor skill may do it) |
 | `duplicate-agents` | `forge-*` agents also exist at user level, or a `forge` plugin is installed (WARN) | Remove the duplicates, or rely on the plugin's self-silencing; `/doctor` shows what the session loaded |
 | `hooks-alive` | no SessionStart has been recorded here yet (WARN); OK shows the age of the last one | Start a session in this repo, or run `--probe-hooks` |
+| `markers` | a `dirty-main`/`dirty-worker` marker exists with no open task or in a terminal phase, or a `dispatched-*` marker is older than 10 minutes (WARN) | Remove the named file(s) under `.forge/.runtime/` by hand in a shell outside a Forge worker, then start a new session; they only wedge the Stop/PreCompact gates. |
 | `digest` | the STATUS digest exceeds 3,000 chars (FAIL; WARN above 2,500), or cannot be computed | Close or park the task; `/forge-gc` archives old tasks |
 | `pointers` | a path or `/forge-*` skill named in FORGE.md does not exist (FAIL); FORGE.md over 120 lines or its bootstrap order changed (WARN) | Upgrade (Forge-owned files missing) or restore the file from git |
 | `probe-hooks` (`--probe-hooks`) | `hooks-alive` was not rewritten in a real `claude -p` turn (FAIL); `plugin_errors` reported (WARN) | Check `claude --debug`; causes: `--bare`, `--safe-mode`, `disableAllHooks`, non-executable scripts, `python3` missing, a settings merge that dropped entries, the plugin form without trust |

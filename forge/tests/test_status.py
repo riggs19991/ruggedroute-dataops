@@ -4,9 +4,13 @@ Every test drives the real CLI (`.forge/bin/forge-status`) inside a throwaway re
 precondition needs state that only a long sequence of transitions would produce, the test seeds
 STATUS.json directly (shape per MODULE-API §2.1) and restamps it.
 """
+import contextlib
 import hashlib
+import io
 import json
 import os
+import re
+import shlex
 import unittest
 
 import helpers
@@ -1233,7 +1237,8 @@ class ReviewFindingsTests(StatusTestCase):
 
     # ---- #22: inline verdicts reach STATUS and gate close
     def _inline(self, cls, title="lib: small change"):
-        code, out, err = self.repo.open_task(title, cls, ["lib/mod.py"])
+        # the plan's allowed_paths may not widen the declared set (review-2 #10): declare the test file too
+        code, out, err = self.repo.open_task(title, cls, ["lib/mod.py", "lib/test_mod.py"])
         self.assertEqual(code, 0, err)
         tid = self.repo.task()["id"]
         rel = self.repo.write_plan(tid, cls, allowed_paths=["lib/mod.py", "lib/test_mod.py"])
@@ -1305,6 +1310,356 @@ class ReviewFindingsTests(StatusTestCase):
         tid = self._planned()
         self.repo.write_json(f".forge/tasks/{tid}/verdict-main.json", self.repo.verdict_json(tid, "main", "PASS"))
         self.assert_refused(self.repo.forge_status("step-verdict", tid, "main", "--verdict", f".forge/tasks/{tid}/verdict-main.json"), "M with a pending step")
+
+
+class ReviewRound2Tests(StatusTestCase):
+    """Regression tests for the second-round review findings owned by status.py / forge-status
+    (#2, #4, #5, #6, #8, #10, #14, #16)."""
+
+    RUNNING = dict(started_by="other-session", started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000)
+    AWAIT = "Await forge-builder on step 01 (brief-01.md); its handoff gate records the report"
+    # `.forge/bin/forge-status <args>` as a next_action names it: quoted or bare tokens up to a prose word / bracket
+    CMD_RE = re.compile(r'\.forge/bin/forge-status((?:\s+(?!(?:or|and|then|with|first|yourself|if|for|before|after)\b)'
+                        r'(?:"[^"]*"|[^\s;,()"]+))+)')
+
+    def _planned(self):
+        tid = self.open_m()
+        code, out, err = self.plan_m(tid)
+        self.assertEqual(code, 0, err)
+        return tid
+
+    def _seed_step(self, tid, escalation=None, **step_over):
+        base = self.repo.head()
+        self.repo.write(f".forge/tasks/{tid}/.base-01", base + "\n")
+        task = make_task(tid, "M", "execute", plan=f".forge/tasks/{tid}/plan.md", base=base,
+                         escalation=escalation or {"step": "01", "round": 0},
+                         steps=[make_step("01", tid, base=base, **step_over)])
+        self.repo.seed_status(task=task)
+        return base
+
+    def _commit(self, tid, rel, text):
+        self.repo.write(rel, text)
+        self.repo.git("add", "-A", "--", rel, f".forge/tasks/{tid}/")
+        code, out = self.repo.git("commit", "-q", "-m", f"forge({tid}/01): step 01")
+        self.assertEqual(code, 0, out)
+        return self.repo.head()
+
+    def _report(self, tid, status, files, commit=None, **over):
+        rep = self.repo.handoff_json(tid, "01", status, files, commit=commit, **over)
+        self.repo.write_json(f".forge/tasks/{tid}/report-01.json", rep)
+        return self.repo.forge_status("step-report", tid, "01", "--report", f".forge/tasks/{tid}/report-01.json")
+
+    def _verdict(self, tid, verdict, **kw):
+        vj = self.repo.verdict_json(tid, "01", verdict, **kw)
+        self.repo.write_json(f".forge/tasks/{tid}/verdict-01.json", vj)
+        self.repo.write_verdict_md(tid, "01", verdict, json_obj=vj, path=f".forge/tasks/{tid}/verdict-01.md")
+        return self.repo.forge_status("step-verdict", tid, "01", "--verdict", f".forge/tasks/{tid}/verdict-01.json")
+
+    def _closeable(self, tid="T-0001"):
+        """A done class M task whose handoff validates (mirrors CloseRulesTests._done_m)."""
+        self.repo.open_task("lib: add extra helper", "M", ["lib/mod.py", "lib/util.py"], ["lib/extra.py"])
+        base = self.repo.head()
+        commit = self._commit(tid, "lib/extra.py", "def extra():\n    return 42\n")
+        self.repo.write_verdict_md(tid, "01", path=f".forge/tasks/{tid}/verdict-01.md")
+        task = make_task(tid, "M", "done", base=base,
+                         steps=[make_step("01", tid, status="done", attempts=1, commit=commit, base=base,
+                                          verdict=f".forge/tasks/{tid}/verdict-01.md", report=f".forge/tasks/{tid}/report-01.md")])
+        self.repo.seed_status(task=task)
+        self.repo.write_report_md(tid, "task", "DONE", ["lib/extra.py"], path=f".forge/tasks/{tid}/handoff.md")
+        return tid
+
+    @staticmethod
+    def _status_parser():
+        import importlib.machinery
+        import importlib.util
+        loader = importlib.machinery.SourceFileLoader("forge_status_cli", os.path.join(helpers.PAYLOAD_BIN, "forge-status"))
+        spec = importlib.util.spec_from_loader("forge_status_cli", loader)
+        mod = importlib.util.module_from_spec(spec)
+        loader.exec_module(mod)
+        return mod.build_parser()
+
+    def assert_commands_parse(self, parser, text, hint):
+        found = 0
+        for m in self.CMD_RE.finditer(text):
+            argv = [a.replace("failed|clean", "failed") for a in shlex.split(m.group(1))]
+            found += 1
+            try:
+                with contextlib.redirect_stderr(io.StringIO()):   # argparse prints usage before exiting
+                    parser.parse_args(argv)
+            except SystemExit:
+                self.fail(f"{hint}: next_action names a command the parser refuses: forge-status {' '.join(argv)!r}\n{text}")
+        return found
+
+    # ---- #2: block / unblock / recover clear dirty-worker; close clears every marker
+    def test_block_unblock_recover_and_close_clear_dirty_worker(self):
+        tid = self._planned()
+        for cmd in (("block", "--on", "waiting for credentials"), ("unblock",)):
+            self.repo.touch(self.repo.rt("dirty-worker"))
+            self.repo.touch(self.repo.rt("dirty-main"))
+            code, out, err = self.repo.forge_status(*cmd)
+            self.assertEqual(code, 0, err)
+            self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")), f"{cmd[0]} leaves dirty-worker (MODULE-API §9.1)")
+            self.assertFalse(self.repo.exists(self.repo.rt("dirty-main")))
+        self._seed_step(tid, status="running", attempts=1, **self.RUNNING)
+        self.repo.touch(self.repo.rt("dirty-worker"))
+        code, out, err = self.repo.forge_status("recover", tid, "01")
+        self.assertEqual(code, 0, err)
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-worker")), "recover is the repair after a failed worker transition")
+        self.repo.seed_status(task=None)
+        tid = self._closeable()
+        for name in ("dirty-main", "dirty-worker", "stale-status", f"dispatched-{tid}-01"):
+            self.repo.touch(self.repo.rt(name))
+        code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md")
+        self.assertEqual(code, 0, err)
+        for name in ("dirty-main", "dirty-worker", "stale-status", f"dispatched-{tid}-01"):
+            self.assertFalse(self.repo.exists(self.repo.rt(name)), f"close leaves {name}")
+        self.assertTrue(self.repo.exists(self.repo.rt("status.sha")), "status.sha is not a marker")
+
+    # ---- #4: a retry keeps the first attempt's base; the verifier range and gate 8 cover the whole step
+    def test_retry_keeps_the_first_attempts_base(self):
+        repo = self.repo
+        tid = self._planned()
+        base0 = repo.head()
+        self.assertEqual(repo.forge_status("step-start", tid, "01")[0], 0)
+        self.assertEqual(repo.forge_status("step-bind", tid, "01", "--agent", "agent_b1")[0], 0)
+        c1 = self._commit(tid, "lib/mod.py", "def add(a, b):\n    return a + b\n\n\ndef sub(a, b):\n    return a - b\n")
+        self.assertEqual(self._report(tid, "DONE", ["lib/mod.py"], commit=c1)[0], 0)
+        self.assertEqual(repo.forge_status("step-verifying", tid, "01", "--agent", "agent_v1")[0], 0)
+        code, out, err = self._verdict(tid, "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}],
+                                       blocking=["sub is untested"])
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.step()["status"], "failed")
+        code, out, err = repo.forge_status("step-start", tid, "01", "--from", "failed")
+        self.assertEqual(code, 0, err)
+        step = repo.step()
+        self.assertEqual((step["attempts"], step["from"]), (2, "failed"))
+        self.assertEqual(step["base"], base0, "the retry keeps the ORIGINAL base")
+        self.assertEqual(repo.read(f".forge/tasks/{tid}/.base-01").strip(), base0)
+        self.assertNotEqual(repo.head(), base0, "attempt-1 commits sit on top of the base")
+        self.assertIn("lib/mod.py", common.git_diff_names(repo.root, step["base"], "HEAD"))
+        self.assertEqual(repo.forge_status("step-bind", tid, "01", "--agent", "agent_b2")[0], 0)
+        c2 = self._commit(tid, "lib/extra.py", "def extra():\n    return 42\n")
+        self.assertEqual(self._report(tid, "DONE", ["lib/extra.py"], commit=c2)[0], 0)
+        self.assertIn(f"range {base0[:7]}..{c2[:7]}", repo.task()["next_action"], "the verifier reviews the whole step")
+        self.assertEqual(repo.forge_status("step-verifying", tid, "01", "--agent", "agent_v2")[0], 0)
+        code, out, err = self._verdict(tid, "PASS", range_=f"{base0}..{c2}")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.step()["status"], "done")
+        source = [p for p in common.git_diff_names(repo.root, base0, c2) if not p.startswith(".forge/")]
+        self.assertEqual(sorted(source), ["lib/extra.py", "lib/mod.py"], "gate 8 judged both attempts' files over the original base")
+
+    def test_from_clean_keeps_the_original_base_unless_head_is_it(self):
+        repo = self.repo
+        tid = self._planned()
+        base0 = repo.head()
+        original = repo.read("lib/mod.py")
+        c1 = self._commit(tid, "lib/mod.py", original + "# attempt 1\n")
+        task = make_task(tid, "M", "execute", plan=f".forge/tasks/{tid}/plan.md", base=base0,
+                         steps=[make_step("01", tid, status="failed", attempts=1, base=base0)])
+        repo.write(f".forge/tasks/{tid}/.base-01", base0 + "\n")
+        repo.seed_status(task=task)
+        code, out, err = repo.forge_status("step-start", tid, "01", "--from", "clean")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.step()["base"], base0, "HEAD moved past the base: the original base stays")
+        self.assertEqual(repo.read(f".forge/tasks/{tid}/.base-01").strip(), base0)
+        self.assertEqual(repo.read("lib/mod.py"), original, "--from clean restored the tree to that base")
+        self.assertEqual(repo.head(), c1)
+        # HEAD at the original base: the restored HEAD is the base (same value)
+        repo.forge_status("recover", tid, "01", "--force")
+        repo.git("reset", "-q", "--hard", base0)
+        self._seed_step(tid, status="failed", attempts=1)
+        code, out, err = repo.forge_status("step-start", tid, "01", "--from", "clean")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.step()["base"], base0)
+        # a first attempt still starts at HEAD
+        self._seed_step(tid, status="pending", attempts=0)
+        code, out, err = repo.forge_status("step-start", tid, "01")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.step()["base"], repo.head())
+
+    # ---- #5: close never commits pre-validation drafts and removes the closed task's drafts directory
+    def test_close_never_commits_drafts(self):
+        repo = self.repo
+        tid = self._closeable()
+        repo.write(f".forge/tasks/{tid}/drafts/old.md", "swept into an earlier commit\n")
+        repo.git("add", "-A", "--", f".forge/tasks/{tid}/drafts")
+        repo.git("commit", "-q", "-m", "fixture: a draft that reached the index")
+        repo.write(f".forge/tasks/{tid}/drafts/agent_b1-handoff.md", "## Done, with evidence\nnot validated yet\n")
+        repo.write(".forge/tasks/T-0002/drafts/agent_v9-verdict.md", "another task's scratch\n")
+        code, out, err = repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md")
+        self.assertEqual(code, 0, err)
+        self.assertIn(f"forge({tid})", repo.last_commit_message())
+        self.assertEqual(repo.git("ls-files", "--", f".forge/tasks/{tid}/drafts")[1].strip(), "", "drafts are never committed")
+        self.assertEqual(repo.git("ls-files", "--", ".forge/tasks/T-0002/drafts")[1].strip(), "")
+        self.assertFalse(repo.exists(f".forge/tasks/{tid}/drafts"), "the closed task's drafts directory is gone")
+        self.assertTrue(repo.exists(".forge/tasks/T-0002/drafts/agent_v9-verdict.md"), "another task's scratch is left alone")
+        self.assertEqual(repo.porcelain(), [".forge/tasks/T-0002/drafts/agent_v9-verdict.md"])
+        self.assertNotIn("old.md", repo.git("ls-tree", "-r", "--name-only", "HEAD")[1])
+
+    # ---- #6: at the attempts cap every next_action leads with ruling.md (step-start / close --partial need it)
+    def test_capped_step_next_actions_lead_with_ruling(self):
+        repo = self.repo
+        tid = self._planned()
+        self._seed_step(tid, status="running", attempts=3, agent_id="agent_b1", started_by="cli",
+                        started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000)
+        code, out, err = self._report(tid, "NEEDS_CONTEXT", [], next_action="need the bucket name")
+        self.assertEqual(code, 0, err)
+        na = repo.task()["next_action"]
+        self.assertIn(f".forge/tasks/{tid}/ruling.md", na)
+        self.assertLess(na.index("ruling.md"), na.index("step-start"), "ruling.md comes before the retry it unlocks")
+        self.assertIn(f"close {tid} --handoff .forge/tasks/{tid}/handoff.md --partial", na)
+        self.assert_refused(repo.forge_status("step-start", tid, "01", "--from", "failed"), "capped without ruling")
+        self._seed_step(tid, status="failed", attempts=3)
+        self.assertEqual(repo.forge_status("block", "--on", "thinking")[0], 0)
+        self.assertEqual(repo.forge_status("unblock")[0], 0)
+        self.assertTrue(repo.task()["next_action"].startswith(f"Write .forge/tasks/{tid}/ruling.md"), repo.task()["next_action"])
+        self._seed_step(tid, status="running", attempts=3, **self.RUNNING)
+        self.assertEqual(repo.forge_status("recover", tid, "01")[0], 0)
+        na = repo.task()["next_action"]
+        self.assertTrue(na.startswith(f"Write .forge/tasks/{tid}/ruling.md"), na)
+        self.assertIn("dispatch forge-builder", na)
+        # with ruling.md on file the lead disappears and the named commands are accepted
+        repo.write(f".forge/tasks/{tid}/ruling.md", "Decision — retry\nWhy — fixture\nCost if wrong — low\nEvidence considered — verdicts\n")
+        repo.forge_status("block", "--on", "x")
+        self.assertEqual(repo.forge_status("unblock")[0], 0)
+        self.assertTrue(repo.task()["next_action"].startswith("Dispatch forge-builder"), repo.task()["next_action"])
+        code, out, err = repo.forge_status("step-start", tid, "01", "--from", "clean")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.step()["attempts"], 4)
+        # below the cap nothing changes
+        self._seed_step(tid, status="failed", attempts=1)
+        repo.rm(f".forge/tasks/{tid}/ruling.md")
+        repo.forge_status("block", "--on", "x")
+        repo.forge_status("unblock")
+        self.assertNotIn("ruling.md", repo.task()["next_action"])
+
+    # ---- #8: the round-3 text names `block --on` (no task id); every generated next_action parses
+    def test_round_three_next_action_and_every_generated_command_parse(self):
+        repo = self.repo
+        parser = self._status_parser()
+        seen = {}
+        tid = self._planned()
+        seen["planned"] = repo.task()["next_action"]
+        self._seed_step(tid, status="verifying", attempts=2, verify_attempts=1, commit=repo.head(),
+                        escalation={"step": "01", "round": 2})
+        code, out, err = self._verdict(tid, "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}],
+                                       blocking=["still red"])
+        self.assertEqual(code, 0, err)
+        task = repo.task()
+        self.assertEqual(task["escalation"]["round"], 3)
+        na = task["next_action"]
+        self.assertIn('.forge/bin/forge-status block --on "..."', na)
+        self.assertNotIn(f"block {tid}", na, "block takes no task id (RUNBOOK §3)")
+        self.assertNotIn("re-plan", na, "a plan re-import is refused once a step was dispatched")
+        seen["round 3"] = na
+        self._seed_step(tid, status="verifying", attempts=1, verify_attempts=1, commit=repo.head(),
+                        escalation={"step": "01", "round": 1})
+        self._verdict(tid, "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}], blocking=["red"])
+        seen["round 2"] = repo.task()["next_action"]
+        self._seed_step(tid, status="running", attempts=1, agent_id="agent_b1", started_by="cli",
+                        started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000)
+        self._report(tid, "UNVERIFIED", [])
+        seen["unverified"] = repo.task()["next_action"]
+        self._seed_step(tid, status="running", attempts=3, agent_id="agent_b1", started_by="cli",
+                        started_at="2026-10-11T00:00:00Z", started_ts=1_760_000_000)
+        self._report(tid, "BLOCKED", [], next_action="needs the staging URL")
+        seen["blocked at the cap"] = repo.task()["next_action"]
+        repo.forge_status("block", "--on", "x")
+        seen["blocked"] = repo.task()["next_action"]
+        repo.forge_status("unblock")
+        seen["unblocked (blocked step at the cap)"] = repo.task()["next_action"]
+        self._seed_step(tid, status="failed", attempts=3)
+        repo.forge_status("block", "--on", "x")
+        repo.forge_status("unblock")
+        seen["unblocked (failed step at the cap)"] = repo.task()["next_action"]
+        self._seed_step(tid, status="running", attempts=3, **self.RUNNING)
+        repo.forge_status("recover", tid, "01")
+        seen["recovered at the cap"] = repo.task()["next_action"]
+        self._seed_step(tid, status="verifying", attempts=1, verify_attempts=1, commit=repo.head())
+        self._verdict(tid, "FAIL", criteria=[{"id": "DoD-1", "result": "UNKNOWN", "cmd": LIB_UNIT, "exit": 127}],
+                      blocking=["cannot run here"], tags=["env-cannot-run"])
+        seen["external"] = repo.task()["next_action"]
+        total = 0
+        for hint, text in seen.items():
+            total += self.assert_commands_parse(parser, text, hint)
+        self.assertGreaterEqual(total, 12, f"the extractor found too few commands: {seen}")
+        with self.assertRaises(AssertionError):
+            self.assert_commands_parse(parser, f"run .forge/bin/forge-status block {tid} --on \"...\" (round 3)", "self-check")
+
+    # ---- #10: an inline plan's allowed_paths never widen the declared scope
+    def test_inline_plan_cannot_widen_the_declared_scope(self):
+        repo = self.repo
+        code, out, err = repo.open_task("lib: small change", "S", ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        rel = repo.write_plan("T-0001", "S", allowed_paths=["lib/mod.py", "lib/util.py"])
+        self.assert_refused(repo.forge_status("plan", "T-0001", "--from", rel), "S plan widens scope")
+        self.assertIn("scope add", repo.last[2])
+        self.assertIn("--ruling", repo.last[2])
+        self.assertIn("lib/util.py", repo.last[2])
+        self.assertEqual(repo.task()["phase"], "plan")
+        self.assertEqual(repo.task()["scope"], ["lib/mod.py"])
+        repo.write(".forge/tasks/T-0001/ruling.md", "Decision — widen\nWhy — fixture\nCost if wrong — low\nEvidence considered — none\n")
+        code, out, err = repo.forge_status("scope", "add", "T-0001", "lib/util.py", "--why", "the change crosses into util", "--ruling")
+        self.assertEqual(code, 0, err)
+        code, out, err = repo.forge_status("plan", "T-0001", "--from", rel)
+        self.assertEqual(code, 0, err)
+        self.assertIn("lib/util.py", repo.task()["scope"])
+        repo.seed_status(task=None)
+        code, out, err = repo.open_task("root-cause the flaky add", "X", ["lib/mod.py"])
+        self.assertEqual(code, 0, err)
+        xid = repo.task()["id"]
+        rel = repo.write_plan(xid, "X", allowed_paths=["lib/**"])
+        self.assert_refused(repo.forge_status("plan", xid, "--from", rel), "X plan widens with a glob")
+        self.assertIn("scope add", repo.last[2])
+        self.assertNotIn("--ruling", repo.last[2], "class X widens through scope add alone")
+        code, out, err = repo.forge_status("scope", "add", xid, "lib/**", "--why", "the bug may be anywhere in lib")
+        self.assertEqual(code, 0, err)
+        rel = repo.write_plan(xid, "X", allowed_paths=["lib/mod.py", "lib/util.py", "lib/shared.py"])
+        code, out, err = repo.forge_status("plan", xid, "--from", rel)
+        self.assertEqual(code, 0, f"paths under a scope glob are inside the ceiling: {err}")
+        self.assertEqual(repo.task()["phase"], "execute")
+
+    # ---- #14: the step_fail ledger row names the tier that failed and the tier it escalated to
+    def test_step_fail_ledger_names_the_failed_tier(self):
+        repo = self.repo
+        tid = self._planned()
+        self.assertEqual((repo.step()["model"], repo.step()["effort"]), ("opus", "medium"))
+        self._seed_step(tid, status="verifying", attempts=2, verify_attempts=1, commit=repo.head(),
+                        escalation={"step": "01", "round": 1})
+        code, out, err = self._verdict(tid, "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}],
+                                       blocking=["wrong"])
+        self.assertEqual(code, 0, err)
+        step = repo.step()
+        self.assertEqual(repo.task()["escalation"]["round"], 2)
+        self.assertEqual((step["model"], step["effort"]), ("fable", "low"), "round 2 moves one rung up the ladder")
+        row = [r for r in repo.ledger() if r.get("event") == "step_fail"][-1]
+        self.assertEqual((row["agent"], row["model"], row["effort"]), ("forge-builder", "opus", "medium"),
+                         "the row charges the tier that was dispatched and failed")
+        self.assertEqual(row["escalated_from"], "opus/medium")
+        self.assertEqual(row["escalated_to"], "fable/low")
+        self.assertIn("Dispatch forge-builder (fable/low)", repo.task()["next_action"])
+        # round 1 and an effort-only escalation never report a tier change
+        self._seed_step(tid, status="verifying", attempts=1, verify_attempts=1, commit=repo.head())
+        self._verdict(tid, "FAIL", criteria=[{"id": "DoD-1", "result": "FAIL", "cmd": LIB_UNIT, "exit": 1}], blocking=["x"])
+        row = [r for r in repo.ledger() if r.get("event") == "step_fail"][-1]
+        self.assertEqual((row["model"], row["escalated_from"], row["escalated_to"]), ("opus", None, None))
+
+    # ---- #16: binding the worker of a pre-started retry records the same Await sentence as the pending path
+    def test_bind_after_a_prestarted_retry_sets_await(self):
+        repo = self.repo
+        tid = self._planned()
+        self._seed_step(tid, status="failed", attempts=1)
+        code, out, err = repo.forge_status("step-start", tid, "01", "--from", "failed")
+        self.assertEqual(code, 0, err)
+        self.assertTrue(repo.task()["next_action"].startswith("Dispatch forge-builder"), repo.task()["next_action"])
+        code, out, err = repo.forge_status("step-bind", tid, "01", "--agent", "agent_b2")
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.task()["next_action"], self.AWAIT)
+        self.assertTrue(out.startswith(f"{tid} execute 01 running | next: Await forge-builder"), out)
+        self._seed_step(tid, status="pending", attempts=0)
+        code, out, err = repo.forge_status("step-start", tid, "01")   # the spawn guard's path
+        self.assertEqual(code, 0, err)
+        self.assertEqual(repo.task()["next_action"], self.AWAIT, "the pending path records the same sentence")
 
 
 if __name__ == "__main__":

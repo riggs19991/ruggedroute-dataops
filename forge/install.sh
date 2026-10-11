@@ -8,7 +8,8 @@
 #     | bash -s -- --tag v1.0.0 --target .
 # --repo defaults to riggs19991/ruggedroute-dataops (payload under forge/); --repo needs --tag.
 # Installer options are passed through: --target --upgrade --force --force-settings --dry-run --effort low|medium
-# --no-model --with-bench --binding FILE --project NAME (see python3 installer.py --help).
+# --no-model --with-model --with-bench --binding FILE --project NAME (see python3 installer.py --help).
+# --no-model and --effort are recorded in .forge/install-manifest.json and kept by later runs without the flags.
 # Exit codes: those of installer.py; 2 usage; 3 when python3 >= 3.9 or the payload cannot be found.
 set -eu
 

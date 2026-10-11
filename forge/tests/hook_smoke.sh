@@ -147,6 +147,12 @@ out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"comm
 [[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny ]]
 report "PreToolUse(Bash, worker git -C reset)" $? "review #32: $(echo "$out" | jget hookSpecificOutput.permissionDecisionReason | cut -c1-80)"
 
+out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"rm -rf /tmp/../etc"},"agent_id":"agent_s1","agent_type":"forge-builder","scratchpad_dir":"/var/claude/scratch"}')
+out2=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"rm -rf /var/claude/scratch/../../x"},"agent_id":"agent_s1","agent_type":"forge-builder","scratchpad_dir":"/var/claude/scratch"}')
+out3=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"rm -rf /var/claude/scratch/build"},"agent_id":"agent_s1","agent_type":"forge-builder","scratchpad_dir":"/var/claude/scratch"}')
+[[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == deny && "$(echo "$out2" | jget hookSpecificOutput.permissionDecision)" == deny && -z "$out3" ]]
+report "PreToolUse(Bash, worker rm -r ..)" $? "review-2 #1: /tmp/../etc and <scratchpad>/../../x denied, <scratchpad>/build allowed ${out3:+(out3: $out3)}"
+
 out=$(hk '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push origin main"},"session_id":"sess-smoke"}')
 [[ "$(echo "$out" | jget hookSpecificOutput.permissionDecision)" == ask ]]
 report "PreToolUse(Bash, main irreversible)" $? "ask in interactive mode"

@@ -335,8 +335,12 @@ def check_settings(paths: common.Paths, binding: Optional[Dict[str, Any]], rep: 
     if not problems:
         rep.ok("settings-hooks", f"{len(want)} Forge hook handlers present with the fragment's matchers and onFailure")
     model = settings.get("model")
+    manifest_opts, _ = _read_json_soft(paths.manifest)
+    no_model = bool(((manifest_opts or {}).get("options") or {}).get("no_model"))
     if common.alias_model(model) == "fable":
         rep.ok("settings", f"model {model}")
+    elif no_model:
+        rep.ok("settings", f"model unset by choice (install-manifest options.no_model): the operator's /model default decides")
     else:
         rep.warn("settings", f"model is {model!r}, not fable (installed with --no-model?): the operator's /model default decides")
     for key, expect in (("effortLevel", None), ("subagentPromptCacheTtl", "1h")):
@@ -407,6 +411,32 @@ def check_hooks_alive(paths: common.Paths, rep: Report) -> None:
         return
     age = common.now_ts() - int(data.get("ts") or 0)
     rep.ok("hooks-alive", f"last SessionStart {age}s ago (source {data.get('source')}, session {data.get('session_id')})")
+
+
+def check_markers(paths: common.Paths, rep: Report) -> None:
+    """Orphan runtime markers (review round 2, #2): a dirty-* marker with no open task or in a terminal
+    phase, or a dispatched-* marker older than 10 minutes, wedges the Stop/PreCompact gates for no reason."""
+    orphans = []
+    status, _ = _read_json_soft(paths.status)
+    task = (status or {}).get("task") if isinstance(status, dict) else None
+    phase = (task or {}).get("phase") if isinstance(task, dict) else None
+    terminal = task is None or phase in ("done", "blocked", "idle", "awaiting_external")
+    for name in ("dirty-main", "dirty-worker"):
+        if common.exists(paths.rt(name)) and terminal:
+            orphans.append(name)
+    try:
+        for name in os.listdir(paths.runtime):
+            if name.startswith("dispatched-"):
+                age = common.file_age_s(paths.rt(name))
+                if age is not None and age > 600:
+                    orphans.append(name)
+    except OSError:
+        pass
+    if orphans:
+        files = ", ".join(f".forge/.runtime/{n}" for n in orphans)
+        rep.warn("markers", f"orphan runtime marker(s) {files}: remove them by hand (rm) in a shell outside a Forge worker, then start a new session")
+    else:
+        rep.ok("markers", "no orphan runtime markers")
 
 
 def check_pointers(paths: common.Paths, rep: Report) -> None:
@@ -749,6 +779,7 @@ def main(argv: List[str]) -> int:
         check_manifest(paths, rep)
         check_duplicates(paths, rep)
         check_hooks_alive(paths, rep)
+        check_markers(paths, rep)
         check_digest(paths, rep)
     if args.pointers or not args.quick:
         check_pointers(paths, rep)   # static and cheap: part of every non --quick run (GATES gate 15, review #45)

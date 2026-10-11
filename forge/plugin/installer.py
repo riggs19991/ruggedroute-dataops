@@ -3,7 +3,8 @@
 
 Usage:
   python3 forge/installer.py [--target DIR] [--source PAYLOAD] [--upgrade] [--force] [--force-settings] [--dry-run]
-                             [--effort low|medium] [--no-model] [--with-bench] [--binding FILE] [--project NAME]
+                             [--effort low|medium] [--no-model | --with-model] [--with-bench] [--binding FILE]
+                             [--project NAME]
 
 Payload layout: PAYLOAD/.forge/** installs to <target>/.forge/**; PAYLOAD/dot-claude/** installs to <target>/.claude/**
 (the source directory is not named .claude so Claude Code never auto-loads the payload's rules/agents into a session
@@ -21,6 +22,11 @@ Ownership is the upgrade contract (design §8.2):
   * permissions.allow gains one Bash(<prefix> *) rule per binding.verify[].cmd, bootstrap and smoke (forge-run
     permission_rules); the fragment itself carries no project-specific command rule.
   * CLAUDE.md gets the fragment between <!-- forge:begin --> and <!-- forge:end --> (inserted or replaced).
+  * Operator choices persist: --no-model and --effort are recorded in install-manifest.json as
+    "options": {"no_model": bool, "effort": "low"|"medium"|null} and honoured by every later install or --upgrade
+    without the flags; --with-model clears no_model, a new --effort replaces the recorded one.
+  * --upgrade (and --upgrade --dry-run) prints the forge/CHANGELOG.md sections between the installed .forge/VERSION
+    and the payload VERSION, or "no CHANGELOG entries between X and Y".
 Idempotent: a second run reports "no changes". Python 3.9+, standard library only.
 Exit codes: 0 ok · 1 a migration failed · 2 usage · 3 refused (conflict, wrong target, version mismatch).
 """
@@ -45,7 +51,7 @@ MIGRATIONS_DIR = os.path.join(HERE, "migrations")
 EXIT_OK, EXIT_FAILED, EXIT_USAGE, EXIT_REFUSED = 0, 1, 2, 3
 BEGIN_MARK = "<!-- forge:begin"
 END_MARK = "<!-- forge:end -->"
-GITIGNORE_LINES = (".forge/.runtime/", ".forge/incidents/", ".forge/**/__pycache__/")
+GITIGNORE_LINES = (".forge/.runtime/", ".forge/incidents/", ".forge/**/__pycache__/", ".forge/tasks/*/drafts/")
 FORGE_HOOK = "/.forge/bin/forge-hook"
 # Payload source dir -> target dir. dot-claude is the payload's .claude/ under a name Claude Code does not auto-discover.
 CLAUDE_SRC_DIRS = ("dot-claude", ".claude")
@@ -131,6 +137,8 @@ class Installer:
         self.warnings: List[str] = []
         self.version = (read_text(os.path.join(self.source, ".forge", "VERSION")) or "").strip()
         self.stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        self.no_model = bool(args.no_model)      # effective operator choices (flags, else install-manifest options)
+        self.effort: Optional[str] = args.effort
 
     # ---- output and writes ------------------------------------------------ #
     def log(self, verb: str, rel: str, detail: str = "") -> None:
@@ -286,9 +294,9 @@ class Installer:
         if not isinstance(fragment, dict):
             raise InstallError("payload dot-claude/settings.forge.json is missing", EXIT_USAGE)
         fragment = copy.deepcopy(fragment)
-        if self.args.no_model:
+        if self.no_model:
             fragment.pop("model", None)
-        effort = self.args.effort or (binding.get("routing") or {}).get("architect_effort") or "medium"
+        effort = self.effort or (binding.get("routing") or {}).get("architect_effort") or "medium"
         fragment["effortLevel"] = effort
         fragment.setdefault("permissions", {}).setdefault("allow", [])
         fragment["permissions"]["allow"] = fragment["permissions"]["allow"] + forge_run.permission_rules(binding)
@@ -343,7 +351,7 @@ class Installer:
             if not isinstance(binding, dict):
                 raise InstallError(f"--binding {self.args.binding} is not a JSON object", EXIT_USAGE)
             return binding, data
-        binding = detect_binding(self.target, self.source, project, self.version, self.args.effort)
+        binding = detect_binding(self.target, self.source, project, self.version, self.effort)
         self.log("detect", rel, f"stack {binding['stack']}, {len(binding['verify'])} verify entries")
         return binding, dumps(binding).encode("utf-8")
 
@@ -408,6 +416,43 @@ class Installer:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(dumps(manifest))
 
+    # ---- operator options (review-2 finding #12) ---------------------------- #
+    def options(self, old_manifest: Dict[str, Any]) -> Dict[str, Any]:
+        """Merge the flags with the choices recorded in install-manifest.json "options", so --no-model and --effort
+        survive a later install or --upgrade run without them. --with-model clears no_model; --effort replaces effort."""
+        saved = old_manifest.get("options") if isinstance(old_manifest.get("options"), dict) else {}
+        saved_no_model = saved.get("no_model") is True
+        saved_effort = saved.get("effort") if saved.get("effort") in ("low", "medium") else None
+        if self.args.with_model:
+            self.no_model = False
+            if saved_no_model:
+                self.log("option", "no_model", "cleared by --with-model (settings get the fragment's model when absent)")
+        elif not self.args.no_model and saved_no_model:
+            self.no_model = True
+            self.log("option", "no_model", "kept from install-manifest.json (pass --with-model to undo)")
+        if self.args.effort is None and saved_effort:
+            self.effort = saved_effort
+            self.log("option", "effort", f"{saved_effort} kept from install-manifest.json (pass --effort to change)")
+        return {"no_model": self.no_model, "effort": self.effort}
+
+    # ---- CHANGELOG delta (review-2 finding #11) ------------------------------ #
+    def changelog_delta(self, installed: Optional[str]) -> None:
+        """--upgrade: print the forge/CHANGELOG.md sections for versions in (installed, payload] (UPGRADING step 4)."""
+        if not self.args.upgrade or not installed:
+            return
+        path = os.path.join(os.path.dirname(self.source), "CHANGELOG.md")
+        text = read_text(path)
+        if text is None:
+            print(f"\nCHANGELOG: {path} not found; read the release notes between {installed} and {self.version} by hand")
+            return
+        sections = changelog_sections(text, installed, self.version)
+        if not sections:
+            print(f"\nno CHANGELOG entries between {installed} and {self.version}")
+            return
+        print(f"\nCHANGELOG {installed} -> {self.version} ({path}):")
+        for _version, body in sections:
+            print(body.rstrip("\n"))
+
     # ---- step 7: doctor ---------------------------------------------------- #
     def doctor(self) -> None:
         doctor = self.abs(".forge/bin/forge-doctor")
@@ -428,6 +473,7 @@ class Installer:
         old = old if isinstance(old, dict) else {}
         project = self.args.project or os.path.basename(self.target.rstrip(os.sep))
         old_files = old.get("files") if isinstance(old.get("files"), dict) else {}
+        options = self.options(old)
         binding, binding_data = self.binding(project)
         stack = binding.get("stack") if binding.get("stack") in STACKS else "unknown"
         plan = self.plan_forge_owned(stack, old_files)          # refuses before any write
@@ -440,19 +486,45 @@ class Installer:
         self.claude_md()
         self.state(binding.get("project") or project, stack)
         manifest = {"schema": "forge/manifest/1", "forge_version": self.version,
-                    "files": dict(sorted(manifest_files.items())), "migrations": applied}
+                    "files": dict(sorted(manifest_files.items())), "migrations": applied, "options": options}
         self.put_text(".forge/install-manifest.json", dumps(manifest))
         if self.changes:
             print(f"forge installer: {self.changes} change(s){' would be made' if self.dry else ''}"
                   f"{', ' + str(len(self.warnings)) + ' warning(s)' if self.warnings else ''}")
         else:
             print("forge installer: no changes (already up to date)")
+        self.changelog_delta(installed)
         self.doctor()
         if not self.dry and self.changes:
             print("\n" + TRUST_CAVEAT)
             print("Commit these files, then open Claude Code and run `/forge-task <first task>`.")
             print("Optional: .forge/bin/forge-doctor --probe-hooks (one cheap claude -p call) proves the hooks fire.")
         return EXIT_OK
+
+
+# --------------------------------------------------------------------------- #
+# CHANGELOG sections (review-2 finding #11)
+# --------------------------------------------------------------------------- #
+CHANGELOG_HEADING = re.compile(r"^##\s+\[?v?(\d+(?:\.\d+)*)\b[^\n]*$", re.MULTILINE)
+
+
+def version_key(version: str) -> Tuple[int, ...]:
+    """'1.2.3' -> (1, 2, 3); a suffix (-rc1) is ignored; missing parts count as 0 (padded to 3)."""
+    m = re.match(r"\s*v?(\d+(?:\.\d+)*)", version or "")
+    parts = [int(p) for p in m.group(1).split(".")] if m else [0]
+    return tuple(parts + [0] * (3 - len(parts)))
+
+
+def changelog_sections(text: str, after: str, upto: str) -> List[Tuple[str, str]]:
+    """[(version, section text)] of every '## X.Y.Z …' section with after < X.Y.Z <= upto, in file order."""
+    lo, hi = version_key(after), version_key(upto)
+    heads = list(CHANGELOG_HEADING.finditer(text))
+    out: List[Tuple[str, str]] = []
+    for i, m in enumerate(heads):
+        end = heads[i + 1].start() if i + 1 < len(heads) else len(text)
+        if lo < version_key(m.group(1)) <= hi:
+            out.append((m.group(1), text[m.start():end]))
+    return out
 
 
 # --------------------------------------------------------------------------- #
@@ -730,8 +802,14 @@ def main(argv: List[str]) -> int:
     p.add_argument("--force-settings", action="store_true",
                    help="let the fragment's scalars (model, effortLevel, plansDirectory, env.*, ...) replace local values")
     p.add_argument("--dry-run", action="store_true", help="print every change; write nothing")
-    p.add_argument("--effort", choices=("low", "medium"), default=None, help="effortLevel (default binding.routing.architect_effort)")
-    p.add_argument("--no-model", action="store_true", help="do not set model: fable in settings.json")
+    p.add_argument("--effort", choices=("low", "medium"), default=None,
+                   help="effortLevel (recorded in install-manifest.json; default: the recorded value, else "
+                        "binding.routing.architect_effort)")
+    model = p.add_mutually_exclusive_group()
+    model.add_argument("--no-model", action="store_true",
+                       help="do not set model: fable in settings.json (recorded in install-manifest.json; later runs keep it)")
+    model.add_argument("--with-model", action="store_true",
+                       help="undo a recorded --no-model: the fragment's model is written when settings.json has none")
     p.add_argument("--with-bench", action="store_true", help="also install .forge/bin/forge-bench")
     p.add_argument("--binding", default=None, help="prepared binding.json, installed verbatim when none exists")
     p.add_argument("--project", default=None, help="project name for a new binding/STATUS (default: target dir name)")

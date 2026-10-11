@@ -103,6 +103,14 @@ def _basename(path: Optional[str]) -> str:
     return os.path.basename(path) if path else "none"
 
 
+def _cap(text: str) -> str:
+    return text[:1].upper() + text[1:]
+
+
+def _lc(text: str) -> str:
+    return text[:1].lower() + text[1:]
+
+
 def _git_pathspecs(globs: Iterable[str]) -> List[str]:
     """Forge globs -> git pathspecs (git's default `*` already crosses `/`)."""
     out = []
@@ -332,6 +340,33 @@ class Status:
     def _dispatch_text(self, step: Json) -> str:
         return f"Dispatch {step['agent']} ({step['model']}/{step['effort']}) on {_basename(step.get('brief'))}"
 
+    def _await_text(self, step: Json) -> str:
+        """next_action while a worker is on the step: the pending-dispatch path and step-bind record the same
+        sentence (review-2 finding #16)."""
+        return f"Await {step['agent']} on step {step['id']} ({_basename(step.get('brief'))}); its handoff gate records the report"
+
+    def _capped(self, task: Json, step: Json) -> bool:
+        """The attempts cap is reached and no ruling.md lifts it: step-start (and close --partial) refuse (finding #6)."""
+        return int(step.get("attempts") or 0) >= MAX_ATTEMPTS and not self._has_ruling(task["id"])
+
+    def _ruling_clause(self, task: Json, step: Json) -> str:
+        """`write ruling.md (...), then ` once the cap is reached, else '' — a next_action names only commands the
+        state accepts (review-2 finding #6)."""
+        if not self._capped(task, step):
+            return ""
+        return (f"write .forge/tasks/{task['id']}/ruling.md (template .forge/templates/ruling.md; {step['attempts']} attempts "
+                f"is the cap without a ruling), then ")
+
+    def _retry_lead(self, task: Json, step: Json) -> str:
+        """`Run step-start <id> <NN> --from failed|clean`, led by the ruling.md requirement when the cap is reached
+        (then `close --partial`, which needs the same ruling.md, is the other exit)."""
+        tid, sid = task["id"], step["id"]
+        cmd = f"run .forge/bin/forge-status step-start {tid} {sid} --from failed|clean"
+        clause = self._ruling_clause(task, step)
+        if clause:
+            cmd += f" (or .forge/bin/forge-status close {tid} --handoff .forge/tasks/{tid}/handoff.md --partial)"
+        return _cap(clause + cmd)
+
     def _verify_text(self, task: Json, step: Json) -> str:
         vm, ve = self._verifier(task)
         return (f"Dispatch forge-verifier ({vm}/{ve}) on step {step['id']}: {_basename(step.get('brief'))}, "
@@ -393,16 +428,16 @@ class Status:
             return "Run /forge-close"
         status = step["status"]
         if status == "pending":
-            return self._dispatch_text(step)
+            # a recovered step keeps its attempts: at the cap, the spawn guard's step-start refuses without ruling.md
+            return _cap(self._ruling_clause(task, step) + _lc(self._dispatch_text(step)))
         if status == "running":
-            return f"Await {step['agent']} on step {step['id']} ({_basename(step.get('brief'))}); its handoff gate records the report"
+            return self._await_text(step)
         if status == "reported":
             return self._verify_text(task, step)
         if status == "verifying":
             return f"Await forge-verifier on step {step['id']}; its verdict gate records the verdict"
         if status == "failed":
-            return (f"Run .forge/bin/forge-status step-start {tid} {step['id']} --from failed|clean, "
-                    f"then {self._dispatch_text(step)}")
+            return f"{self._retry_lead(task, step)}, then {self._dispatch_text(step)}"
         if status == "awaiting_external":
             ext = task.get("external") or {}
             return f"Run: {ext.get('needs', '<external check>')}; then .forge/bin/forge-status attest {tid} {step['id']} <DoD-n> --by <you> --evidence <url|path>"
@@ -414,11 +449,14 @@ class Status:
         missing context through the brief (`--from failed` appends the report's next_action) and the prompt."""
         tid, sid = task["id"], step["id"]
         head = f"Step {sid} {status} ({what}): " if status else ""
-        return (f"{head}read .forge/tasks/{tid}/{_basename(step.get('report'))}, then run "
+        # finding #6: at the attempts cap, step-start and close --partial both need ruling.md — say so first
+        clause = self._ruling_clause(task, step)
+        partial = f"; or .forge/bin/forge-status close {tid} --handoff .forge/tasks/{tid}/handoff.md --partial" if clause else ""
+        return (f"{head}read .forge/tasks/{tid}/{_basename(step.get('report'))}, then {clause}run "
                 f".forge/bin/forge-status step-start {tid} {sid} --from failed (keep the tree) or --from clean "
                 f"(restore to base) and {self._dispatch_text(step)} with the missing context in the prompt; "
                 f"or .forge/bin/forge-status scope add {tid} <path> --why \"...\" (class X, else --ruling); "
-                f"or .forge/bin/forge-status block --on \"...\"")
+                f"or .forge/bin/forge-status block --on \"...\"{partial}")
 
     # ------------------------------------------------------------------ #
     # signals (design §4.1) and class constraints (design §5.1 open row)
@@ -1002,6 +1040,16 @@ class Status:
                 mode = "single"
         # inline plans: allowed_paths from plan-meta, else the declared set
         inline_allowed = [self._scoped_rel(p, "plan-meta allowed_paths") for p in meta.get("allowed_paths") or [] if isinstance(p, str)]
+        # review-2 finding #10: the declared set (plus every `scope add` so far) is the scope ceiling for every
+        # class (ROUTING signals table); a plan never widens it — `scope add` (class X; `--ruling` with ruling.md
+        # otherwise) comes first, then the plan is (re-)imported.
+        ceiling = list(task["scope"])
+        widening = [p for p in inline_allowed if p not in ceiling and not common.any_glob(p, ceiling)]
+        if widening:
+            how = "" if cls == "X" else " --ruling (with .forge/tasks/<id>/ruling.md; class X needs neither)"
+            raise ForgeError(f"plan-meta.allowed_paths widen the declared scope: {', '.join(widening[:5])}; run "
+                             f".forge/bin/forge-status scope add {task_id} <path> --why \"...\"{how} first, then re-import the plan",
+                             EXIT_REFUSED)
         all_paths = common.unique(task["files"] + task["creates"] + inline_allowed
                                   + [p for s in steps for p in s["allowed_paths"]])
         # risk re-matched over every allowed path (design §3 step 4)
@@ -1142,11 +1190,20 @@ class Status:
         if task["phase"] in ("blocked",):
             raise ForgeError(f"{task_id} is blocked ({task.get('blocked_on')}): unblock first", EXIT_REFUSED)
         prev = f"{step['model']}/{step['effort']}" if step["attempts"] else None
+        # review-2 finding #4: a retry keeps the FIRST attempt's base so the verifier range (_verify_text) and the
+        # gate-8 scope check (_step_done) cover the whole step, not only the retry's delta on top of the attempt-1
+        # commits. `--from clean` restores the tree to that base without moving HEAD, so the base may follow the
+        # restored HEAD only when that HEAD is the original base (the same value); otherwise the original stays.
+        # A first attempt (or a step whose base was never recorded) starts at HEAD.
+        original = None
+        if int(step.get("attempts") or 0) >= 1:
+            original = step.get("base") or (common.read_text(self.paths.base_file(task_id, step_id)) or "").strip() or None
         if frm == "clean":
             self._recover_tree(task, step, "step-start --from clean")   # no-op when the tree is already at base
         if frm == "failed" and not recovered:
             self._append_failed_approach(task_id, step)
-        base = common.git_head(self.paths.root)
+        head = common.git_head(self.paths.root)
+        base = head if (original is None or (frm == "clean" and head == original)) else original
         step.pop("recovered_at", None)
         step.update({"status": "running", "attempts": step["attempts"] + 1, "from": frm, "verify_attempts": 0,
                      "started_at": common.now_iso(), "started_ts": common.now_ts(), "started_by": self.session(),
@@ -1182,6 +1239,9 @@ class Status:
         if step.get("agent_id") and step["agent_id"] != agent_id:
             raise ForgeError(f"step {step_id} is already bound to {step['agent_id']}", EXIT_REFUSED)
         step["agent_id"] = agent_id
+        # review-2 finding #16: a pre-started retry (`step-start --from ...`) left "Dispatch ..." in place; once the
+        # worker is bound, the one sentence to execute is the "Await ..." the pending-dispatch path records.
+        task["next_action"] = self._await_text(step)
         self._journal(task_id, f"step-bind {step_id}: agent {agent_id}")
         self.save(st, f"step-bind {task_id} {step_id}")
         return st
@@ -1248,7 +1308,7 @@ class Status:
             step["status"] = "failed"
             task["phase"] = "execute"
             task["next_action"] = (f"Step {step_id} UNVERIFIED (handoff gate bypassed): resume {step.get('agent_id') or 'the worker'} via SendMessage, "
-                                   f"or run .forge/bin/forge-status step-start {tid} {step_id} --from failed|clean and re-dispatch")
+                                   f"or {_lc(self._retry_lead(task, step))} and re-dispatch")
             task["resume_hint"] = f"No commit was made for step {step_id}; its tree changes are uncommitted."
         else:  # BLOCKED | NEEDS_CONTEXT (finding #5: the exits are step-start --from, scope add, block)
             step["status"] = "blocked"
@@ -1441,6 +1501,8 @@ class Status:
         """FAIL -> failed; escalation.round += 1; round 2 moves the step one rung up the ladder."""
         task_id, sid = task["id"], step["id"]
         tags = [t for t in verdict.get("tags") or [] if isinstance(t, str)]
+        # review-2 finding #14: the ledger row names the tier that FAILED (what was dispatched), never the escalated one
+        failed_agent, failed_model, failed_effort = step["agent"], step["model"], step["effort"]
         step["status"] = "failed"
         esc = task["escalation"]
         esc["round"] = (esc.get("round") or 0) + 1 if esc.get("step") == sid else 1
@@ -1448,7 +1510,7 @@ class Status:
         task["phase"] = "execute"
         rnd = esc["round"]
         vfile = _basename(step.get("verdict"))
-        escalated = None
+        escalated = escalated_to = None
         if rnd == 1:
             task["next_action"] = (f"Resume {step.get('agent_id') or 'the builder'} via SendMessage with the blocking findings "
                                    f"from {vfile} (round 1; same worker)")
@@ -1456,19 +1518,23 @@ class Status:
             agent, model, effort = self._ladder(step, tags)
             if (model, effort) != (step["model"], step["effort"]):
                 escalated = f"{step['model']}/{step['effort']}"
+                escalated_to = f"{model}/{effort}"
                 step["agent"], step["model"], step["effort"] = agent, model, effort
                 task["routing"]["builder"] = {"agent": agent, "model": model, "effort": effort}
                 task["routing"]["verifier"] = self._route_verifier(task, task["routing"].get("verifier"), task["steps"], [])
-            task["next_action"] = (f"Run .forge/bin/forge-status step-start {task_id} {sid} --from failed|clean, then "
-                                   f"{self._dispatch_text(step)} (round 2; findings in {vfile})")
+            task["next_action"] = f"{self._retry_lead(task, step)}, then {self._dispatch_text(step)} (round 2; findings in {vfile})"
         else:
-            task["next_action"] = (f"Write .forge/tasks/{task_id}/ruling.md (Decision — Why — Cost if wrong — Evidence), "
-                                   f"then re-plan or run .forge/bin/forge-status block {task_id} --on \"...\" (round {rnd})")
+            # review-2 finding #8: `block` takes no task id (RUNBOOK §3). A plan re-import is refused once a step was
+            # dispatched, so the exits are a ruled retry, a ruled partial close, or block.
+            task["next_action"] = (f"Write .forge/tasks/{task_id}/ruling.md (Decision — Why — Cost if wrong — Evidence), then "
+                                   f"run .forge/bin/forge-status step-start {task_id} {sid} --from failed|clean and "
+                                   f"{self._dispatch_text(step)}, or .forge/bin/forge-status close {task_id} --handoff "
+                                   f".forge/tasks/{task_id}/handoff.md --partial, or .forge/bin/forge-status block --on \"...\" (round {rnd})")
         task["resume_hint"] = f"Step {sid} failed verification (round {rnd}, tags {tags})."
         self._journal(task_id, f"step-fail {sid}: round {rnd} tags={tags}" + (f" escalated from {escalated}" if escalated else ""))
-        self._ledger({"event": "step_fail", "task": task_id, "step": sid, "class": task["class"], "agent": step["agent"],
-                      "model": step["model"], "effort": step["effort"], "attempt": step["attempts"], "tags": tags,
-                      "escalations": rnd, "escalated_from": escalated})
+        self._ledger({"event": "step_fail", "task": task_id, "step": sid, "class": task["class"], "agent": failed_agent,
+                      "model": failed_model, "effort": failed_effort, "attempt": step["attempts"], "tags": tags,
+                      "escalations": rnd, "escalated_from": escalated, "escalated_to": escalated_to})
 
     def step_fail(self, task_id: str, step_id: str) -> Json:
         """A FAIL/UNKNOWN verdict file for this step -> failed (standalone form of the step-verdict branch)."""
@@ -1617,11 +1683,15 @@ class Status:
                      "commit": None, "report": None, "recovered_at": common.now_iso()})
         task["phase"] = "execute"
         saved = f"previous tree saved to {patch}" if patch else "tree was already at base"
-        task["next_action"] = (f"{self._dispatch_text(step)} (step {step_id} recovered; {saved}; optionally "
-                               f".forge/bin/forge-status step-start {task_id} {step_id} --from clean first)")
+        # finding #6: attempts are kept, so a step at the cap needs ruling.md before any dispatch or step-start
+        task["next_action"] = _cap(self._ruling_clause(task, step) + _lc(self._dispatch_text(step))
+                                   + f" (step {step_id} recovered; {saved}; optionally "
+                                   f".forge/bin/forge-status step-start {task_id} {step_id} --from clean first)")
         task["resume_hint"] = (f"Step {step_id} was recovered to base {_short(step.get('base'))} (attempts {step['attempts']} kept); "
                                f"the spawn guard runs step-start on dispatch, or run step-start --from clean yourself.")
-        self.save(st, f"recover {task_id} {step_id}")
+        # review-2 finding #2: recover is the repair after a failed _stop_builder/_stop_verifier transition, which
+        # left dirty-worker behind with the step still owed nothing; clear it here (MODULE-API §9.1).
+        self.save(st, f"recover {task_id} {step_id}", clear_dirty="worker")
         return st
 
     # ------------------------------------------------------------------ #
@@ -1689,7 +1759,7 @@ class Status:
         self._journal(task["id"], f"block: {on.strip()}")
         self._ledger({"event": "phase", "task": task["id"], "class": task["class"], "phase": "blocked", "status": on.strip(),
                       "cost_source": "unknown"})
-        self.save(st, "block")
+        self.save(st, "block", clear_dirty="worker")   # MODULE-API §9.1: block clears dirty-worker too (finding #2)
         return st
 
     def unblock(self) -> Json:
@@ -1703,7 +1773,7 @@ class Status:
         task["blocked_on"] = None
         task["next_action"] = self._default_next_action(task)
         self._journal(task["id"], f"unblock -> {task['phase']}")
-        self.save(st, "unblock")
+        self.save(st, "unblock", clear_dirty="worker")   # MODULE-API §9.1: unblock clears dirty-worker too (finding #2)
         return st
 
     # ------------------------------------------------------------------ #
@@ -1832,15 +1902,40 @@ class Status:
         if policy in ("phase", "task"):
             st["context_state"] = "stale"
         st["task"] = None
-        self.save(st, f"close {task_id}")
+        # review-2 finding #5: pre-validation drafts are scratch (SCHEMAS.md: never committed); the closed task's
+        # drafts directory goes before the close commit so nothing lingers, tracked or untracked.
+        drafts = os.path.join(self.paths.task(task_id), "drafts")
+        if os.path.isdir(drafts):
+            shutil.rmtree(drafts, ignore_errors=True)
+            self._journal(task_id, f"close: removed {self.paths.rel(drafts)}/ (pre-validation drafts are never committed)")
+        # MODULE-API §9.1 / finding #2: close ends the task, so every runtime marker goes (dirty-main and dirty-worker
+        # with the save; the Stop gate's stale-status and the spawn guard's dispatched-<id>-* markers below).
+        self.save(st, f"close {task_id}", clear_dirty="worker")
+        self._clear_task_markers(task_id)
         if not no_commit:
             self._commit_close(task, out if accept_out_of_scope else [], title)
         return st
 
+    def _clear_task_markers(self, task_id: str) -> None:
+        """Remove the closed task's remaining runtime markers; status.sha, session and agent records stay."""
+        if not os.path.isdir(self.paths.runtime):
+            return
+        for name in os.listdir(self.paths.runtime):
+            if name == "stale-status" or name.startswith(f"dispatched-{task_id}-"):
+                common.rm(self.paths.rt(name))
+
     def _commit_close(self, task: Json, extra: List[str], title: str) -> None:
-        """git add -A -- .forge/ <scope> && git commit -q -m "forge(<id>): close" (skipped when clean)."""
+        """git add -A -- .forge/ <drafts exclude> <scope> && git commit -q -m "forge(<id>): close" (skipped when clean).
+
+        MODULE-API §9.1 / review-2 finding #5: every task's `.forge/tasks/*/drafts/**` stays out of the commit
+        (gates.drafts_exclude_pathspec), and any draft already in the index is un-staged like .runtime/incidents."""
         root = self.paths.root
-        pathspecs = [".forge/"]
+        try:
+            from . import gates  # lazy: status.py imports even when gates.py is missing
+            drafts_exclude = gates.drafts_exclude_pathspec()
+        except ImportError:
+            drafts_exclude = ":(exclude,glob).forge/tasks/*/drafts/**"
+        pathspecs = [".forge/", drafts_exclude]
         for p in self._changed_paths(task) + extra:
             if common.any_glob(p, list(task["scope"]) + [x for s in task["steps"] for x in s["allowed_paths"]]
                                + ["CLAUDE.md", ".gitignore", ".claude/agent-memory/**"]) and not p.startswith(".forge/"):
@@ -1852,8 +1947,11 @@ class Status:
         if code != 0:
             log(f"close: git add failed: {out.strip()[-200:]}")
             return
-        # runtime markers and incident patches never enter a commit, even when .gitignore lacks them
-        common.git(["rm", "-r", "-q", "--cached", "--ignore-unmatch", "--", ".forge/.runtime", ".forge/incidents"], root)
+        # runtime markers, incident patches and pre-validation drafts never enter a commit, even when .gitignore
+        # lacks them (a wildcard pathspec must match the whole path and git's `*` crosses `/`, so
+        # `.forge/tasks/*/drafts/*` covers every file of every task's drafts directory)
+        common.git(["rm", "-r", "-q", "--cached", "--ignore-unmatch", "--",
+                    ".forge/.runtime", ".forge/incidents", ".forge/tasks/*/drafts/*"], root)
         code, _ = common.git(["diff", "--cached", "--quiet"], root)
         if code == 0:
             log("close: nothing to commit")
