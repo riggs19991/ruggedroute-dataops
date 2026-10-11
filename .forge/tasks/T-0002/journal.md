@@ -3,3 +3,4 @@
 - 2026-10-11T14:37:05Z [PreToolUse] main: irreversible command asks for confirmation ('git push *'): cd /home/user/plot-device && git checkout -q -b forge/install && git config user.email noreply@anthropic.com && git conf
 - 2026-10-11T14:37:19Z [PreToolUse] main: irreversible command asks for confirmation ('git push *'): env -u FORGE_ROOT .forge/bin/forge-check T-0002 main 2>&1 | tail -2 && env -u FORGE_ROOT .forge/bin/forge-status close T
 - 2026-10-11T14:37:24Z close: done | CHANGELOG release line; Forge installed into RuggedRoute and plot-device on branch forge/install; main fast-forwarded and tagged v1.0.0 | checks: lib-unit pass
+- 2026-10-11T14:37:28Z [PostToolUseFailure] main: stamped .forge/tasks/T-0002/checks/main-1791729443-main.json
