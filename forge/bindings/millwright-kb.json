@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "forge_pin": "1.0.0",
+  "project": "millwright-kb",
+  "stack": "unknown",
+  "bootstrap": null,
+  "verify": [],
+  "smoke": null,
+  "format": null,
+  "test_globs": [],
+  "test_pattern": "",
+  "protected_paths": [],
+  "risk_paths": ["**/*secret*", "**/.env*"],
+  "important_paths": [],
+  "mechanic_denied_paths": [],
+  "risk_words": [ { "word": "secret" }, { "word": "delete" } ],
+  "irreversible_commands": ["git push *"],
+  "git": { "branch_per_task": false, "commit_prefix": "forge", "worktree_isolation": false },
+  "budgets": { "T": 1, "S": 3, "M": 10, "M_chain": 12, "W": 25, "L_unit": 2, "X": 30, "risk_multiplier": 1.5 },
+  "routing": { "architect_effort": "medium", "m_builder": "opus-medium", "overrides": [], "measured": {} },
+  "clear_policy": "phase",
+  "auto_resume": true,
+  "driver": { "max_turns": 120, "max_phases": 12 },
+  "notes": [
+    "Stack unknown: every source path is S-gated until T-0001 stack discovery fills verify[].",
+    "The verifier refuses to PASS a criterion without a check command.",
+    "TODO (T-0001): set stack, verify[], test_globs, test_pattern, protected_paths and mechanic_denied_paths from what discovery finds."
+  ]
+}

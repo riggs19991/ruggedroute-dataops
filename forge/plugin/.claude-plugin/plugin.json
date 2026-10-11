@@ -1,0 +1,15 @@
+{
+  "name": "forge",
+  "version": "1.0.0",
+  "description": "The Forge: plan-first, evidence-gated, cost-routed AI engineering team for Claude Code.",
+  "author": {
+    "name": "RuggedRoute"
+  },
+  "homepage": "https://github.com/riggs19991/ruggedroute-dataops",
+  "license": "MIT",
+  "keywords": [
+    "orchestration",
+    "hooks",
+    "verification"
+  ]
+}

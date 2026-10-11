@@ -1,0 +1,8 @@
+{ "schema": "forge/handoff/2", "note": "A worker's final message (persisted as report-NN.md/json) and the task-level handoff.md. Validated by forgelib.gates.handoff_validate().",
+  "mandatory_headings": ["Where things stand", "Done, with evidence", "Remaining", "Gotchas / do not touch"],
+  "short_headings": ["Where things stand", "Done, with evidence", "Remaining"],
+  "optional_headings": ["Goal & scope", "Decisions & rationale", "Failed approaches — do not repeat", "Files touched", "Verification commands + expected output", "Open questions", "Bootstrap"],
+  "required": ["schema", "task", "step", "status", "files_changed", "checks_run"],
+  "optional": ["not_verified", "failed_approaches", "next_action", "commit"],
+  "status": ["DONE", "DONE_WITH_CONCERNS", "NEEDS_CONTEXT", "BLOCKED", "UNVERIFIED"],
+  "gate_rules": ["files_changed subset of allowed_paths", "every kind:source edit row of this agent is in files_changed", "every path in git status --porcelain -- <allowed_paths> is in files_changed", "DONE|DONE_WITH_CONCERNS: every brief check cmd has a checks/ record by this agent at exit 0 (any exit when red_ok) newer than the agent's last source edit", "tdd: each expected_fail_first cmd has a non-zero record before a zero record", "after 2 gate blocks the hook allows and stamps status UNVERIFIED (no commit)"] }

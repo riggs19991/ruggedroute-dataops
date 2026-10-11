@@ -1,0 +1,14 @@
+{
+  "id": "m-new-layer-qa",
+  "repo": "ruggedroute-dataops",
+  "title": "nfs_trails: add golden-bbox count QA so the trail tileset can go live",
+  "class": "M",
+  "base": "9da9ae9ec2b7838c14a5cad3236410ba94d08966",
+  "check": "python3 -m pytest layers/nfs_trails/tests -q && (cd lib && python3 -m unittest -v)",
+  "dod": [
+    "WHEN `pytest layers/nfs_trails/tests -q` runs THE SUITE SHALL exit 0 with at least 1 new golden-count test",
+    "WHEN the lib unit suite runs THE SUITE SHALL exit 0 (no regression)",
+    "WHEN `python3 qa/golden_counts.py --layer nfs_trails` is given the bundled fixture THE SCRIPT SHALL report every golden region within ±5%",
+    "WHEN the change is diffed THE DIFF SHALL touch only qa/golden_counts.py, layers/nfs_trails/layer.json and layers/nfs_trails/tests/**"
+  ]
+}

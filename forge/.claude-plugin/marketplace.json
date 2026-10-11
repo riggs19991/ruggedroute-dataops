@@ -1,0 +1,8 @@
+{
+  "name": "forge-mp",
+  "owner": { "name": "RuggedRoute" },
+  "description": "The Forge: plan-first, evidence-gated, cost-routed AI engineering team for Claude Code (user-level plugin form).",
+  "plugins": [
+    { "name": "forge", "source": "./plugin", "description": "The Forge" }
+  ]
+}

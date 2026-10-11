@@ -1,0 +1,764 @@
+#!/usr/bin/env python3
+"""forge-doctor — Forge self-check: static checks plus opt-in model probes (MODULE-API §7; design §7 gate 15, §12.2, §13.3).
+
+Usage: .forge/bin/forge-doctor [--report] [--no-probes] [--quick] [--json] [--pointers]
+                               [--probe-hooks] [--driver] [--probe-clear] [--worktree] [--probe-maxturns] [--probe-coldstart]
+                               [--disable-gate <name>]
+
+Every check prints `OK|WARN|FAIL <name>: <detail>`. Exit 0 when no FAIL, 1 otherwise; `--report` always exits 0.
+Probes run `claude -p` (they cost tokens) and report what they observed; never run them from a `!` injection.
+`--disable-gate <name>` writes .forge/.runtime/gate-disabled-<name> and journals it (operator-only bypass, design §7 gate 14).
+"""
+import argparse
+import glob
+import importlib.machinery
+import importlib.util
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+from typing import Any, Dict, List, Optional, Tuple
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+
+MIN_PYTHON = (3, 9)
+MIN_CLAUDE = (2, 1, 295)                    # design §12.2 item 15: hook onFailure needs >= 2.1.295
+DIGEST_WARN = 2500                          # design §6 layer 4: WARN above 2,500 chars, FAIL above 3,000
+GITIGNORE_LINES = (".forge/.runtime/", ".forge/incidents/")
+GATE_EVENTS = ("PreToolUse", "SubagentStop")  # design §13.3: only these carry onFailure: block
+FORGE_HOOK = "/.forge/bin/forge-hook"
+PROBE_TIMEOUT_S = 600
+FORGE_MD_MAX_LINES = 120
+LEVELS = ("OK", "WARN", "FAIL")
+
+
+class Report:
+    """Collects `OK|WARN|FAIL <name>: <detail>` rows."""
+
+    def __init__(self) -> None:
+        self.rows: List[Dict[str, str]] = []
+
+    def add(self, level: str, name: str, detail: str) -> None:
+        self.rows.append({"level": level, "name": name, "detail": detail})
+
+    def ok(self, name: str, detail: str) -> None:
+        self.add("OK", name, detail)
+
+    def warn(self, name: str, detail: str) -> None:
+        self.add("WARN", name, detail)
+
+    def fail(self, name: str, detail: str) -> None:
+        self.add("FAIL", name, detail)
+
+    @property
+    def failed(self) -> bool:
+        return any(r["level"] == "FAIL" for r in self.rows)
+
+
+def load_forge_run() -> Any:
+    """Import the sibling forge-run script as a module (shared permission/allowed-tools rules)."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "forge-run")
+    loader = importlib.machinery.SourceFileLoader("forge_run", path)
+    spec = importlib.util.spec_from_loader("forge_run", loader)
+    module = importlib.util.module_from_spec(spec)
+    saved, sys.dont_write_bytecode = sys.dont_write_bytecode, True   # no forge-run bytecode next to the scripts
+    try:
+        loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = saved
+    return module
+
+
+def _version_tuple(text: str) -> Optional[Tuple[int, ...]]:
+    m = re.search(r"(\d+)\.(\d+)\.(\d+)", text or "")
+    return tuple(int(x) for x in m.groups()) if m else None
+
+
+def _read_json_soft(path: str) -> Tuple[Any, Optional[str]]:
+    """(parsed JSON or None, error text or None) — never raises."""
+    try:
+        return common.read_json(path, default=None), None
+    except common.ForgeError as e:
+        return None, str(e)
+
+
+# --------------------------------------------------------------------------- #
+# Static checks
+# --------------------------------------------------------------------------- #
+def check_python(rep: Report) -> None:
+    v = sys.version_info
+    if (v.major, v.minor) >= MIN_PYTHON:
+        rep.ok("python", f"{v.major}.{v.minor}.{v.micro}")
+    else:
+        rep.fail("python", f"{v.major}.{v.minor}.{v.micro} < 3.9: the Forge scripts need Python 3.9+")
+
+
+def check_claude(rep: Report) -> None:
+    if not shutil.which("claude"):
+        rep.warn("claude-cli", "claude is not on PATH (needed for sessions, forge-run and probes)")
+        return
+    try:
+        r = subprocess.run(["claude", "--version"], capture_output=True, text=True, timeout=30)
+        out = (r.stdout or r.stderr or "").strip()
+    except (OSError, subprocess.SubprocessError) as e:
+        rep.warn("claude-cli", f"claude --version failed: {e}")
+        return
+    ver = _version_tuple(out)
+    if ver is None:
+        rep.warn("claude-cli", f"cannot parse version from {out[:60]!r}")
+    elif ver >= MIN_CLAUDE:
+        rep.ok("claude-cli", out)
+    else:
+        rep.fail("claude-cli", f"{out} < 2.1.295: hook onFailure is unsupported, gates fail open; run claude update")
+
+
+def check_trust(paths: common.Paths, rep: Report) -> None:
+    cfg_path = os.path.join(os.path.expanduser("~"), ".claude.json")
+    cfg, err = _read_json_soft(cfg_path)
+    remedy = "project permissions.allow rules apply only after the workspace trust dialog; accept it once in an interactive session"
+    if err or not isinstance(cfg, dict):
+        rep.warn("trust", f"~/.claude.json unreadable or absent; {remedy}")
+        return
+    projects = cfg.get("projects") or {}
+    for key in (paths.root, os.path.realpath(paths.root)):
+        entry = projects.get(key)
+        if isinstance(entry, dict) and entry.get("hasTrustDialogAccepted") is True:
+            rep.ok("trust", f"workspace trust accepted for {key}")
+            return
+    rep.warn("trust", f"workspace trust not accepted for {paths.root}; {remedy}")
+
+
+def check_version(paths: common.Paths, binding: Optional[Dict[str, Any]], rep: Report) -> None:
+    installed = (common.read_text(paths.version_file) or "").strip()
+    if not installed:
+        rep.fail("version", ".forge/VERSION missing: reinstall with install.sh")
+        return
+    notes = [f".forge/VERSION {installed}"]
+    level = "OK"
+    src = (common.read_text(os.path.join(paths.root, "forge", "VERSION")) or "").strip()
+    if src:
+        if src != installed:
+            level = "WARN"
+            notes.append(f"source tree forge/VERSION {src} differs: run install.sh --upgrade")
+        else:
+            notes.append("matches forge/VERSION")
+    pin = (binding or {}).get("forge_pin")
+    if isinstance(pin, str) and pin and not pin.startswith("{{"):
+        if pin != installed:
+            level = "WARN"
+            notes.append(f"binding.forge_pin {pin} differs: run install.sh --upgrade --tag v{pin}")
+        else:
+            notes.append("matches binding.forge_pin")
+    rep.add(level, "version", "; ".join(notes))
+
+
+def check_manifest(paths: common.Paths, rep: Report) -> None:
+    manifest, err = _read_json_soft(paths.manifest)
+    if err or not isinstance(manifest, dict) or not isinstance(manifest.get("files"), dict):
+        rep.warn("manifest", "install-manifest.json missing or malformed: drift cannot be checked; reinstall")
+        return
+    files = manifest["files"]
+    drifted = 0
+    for rel, sha in sorted(files.items()):
+        cur = common.sha256_file(os.path.join(paths.root, rel))
+        if cur is None:
+            drifted += 1
+            rep.warn("manifest", f"{rel} is missing (Forge-owned): install.sh --upgrade restores it")
+        elif cur != sha:
+            drifted += 1
+            rep.warn("manifest", f"{rel} differs from the installed copy (local edit or partial upgrade)")
+    if not drifted:
+        rep.ok("manifest", f"{len(files)} Forge-owned files match install-manifest.json")
+
+
+def check_binding(paths: common.Paths, rep: Report) -> Optional[Dict[str, Any]]:
+    binding, err = _read_json_soft(paths.binding)
+    if err or not isinstance(binding, dict):
+        rep.fail("binding", f".forge/binding.json missing or invalid ({err or 'not an object'})")
+        return None
+    schema, _ = _read_json_soft(os.path.join(paths.schemas, "binding.json"))
+    schema = schema if isinstance(schema, dict) else {}
+    defects: List[str] = []
+    for key in schema.get("required", []):
+        if key not in binding:
+            defects.append(f"missing key {key}")
+    for dotted, allowed in (schema.get("enums") or {}).items():
+        cur: Any = binding
+        for part in dotted.split("."):
+            cur = cur.get(part) if isinstance(cur, dict) else None
+        if cur is not None and cur not in allowed:
+            defects.append(f"{dotted} = {cur!r} not in {allowed}")
+    verify = binding.get("verify")
+    if not isinstance(verify, list):
+        defects.append("verify is not a list")
+        verify = []
+    for i, v in enumerate(verify):
+        if not isinstance(v, dict):
+            defects.append(f"verify[{i}] is not an object")
+            continue
+        for k in ("name", "cmd", "when"):
+            if not isinstance(v.get(k), str) or not v.get(k):
+                defects.append(f"verify[{i}].{k} missing")
+        when = v.get("when")
+        if isinstance(when, str) and when != "always" and not when.startswith("paths:"):
+            defects.append(f"verify[{i}].when {when!r} is neither 'always' nor 'paths:<glob>'")
+        if v.get("todo"):
+            rep.warn("binding-todo", f"verify {v.get('name')}: {v['todo']}")
+    if not verify and binding.get("stack") != "unknown":
+        defects.append("verify[] is empty but stack is not 'unknown'")
+    for i, w in enumerate(binding.get("risk_words") or []):
+        if not (isinstance(w, str) or (isinstance(w, dict) and isinstance(w.get("word"), str))):
+            defects.append(f"risk_words[{i}] is neither a string nor {{word, not?}}")
+    for d in defects:
+        rep.fail("binding", d)
+    if not defects:
+        rep.ok("binding", f"project {binding.get('project')} stack {binding.get('stack')} verify {len(verify)} entries")
+    if not binding.get("protected_paths"):
+        rep.warn("binding", "protected_paths is empty: CI and deploy configs are unprotected")
+    if not binding.get("mechanic_denied_paths"):
+        rep.warn("binding", "mechanic_denied_paths is empty: the mechanic may touch shared or LIVE code")
+    return binding
+
+
+def check_status(paths: common.Paths, rep: Report) -> None:
+    try:
+        from forgelib.status import Status
+    except Exception as e:  # noqa: BLE001 — a broken module is exactly what the doctor reports
+        rep.fail("status", f"cannot import forgelib.status: {type(e).__name__}: {e}")
+        return
+    status = Status(paths)
+    try:
+        st = common.load_status(paths)
+    except common.ForgeError as e:
+        rep.fail("status", str(e))
+        return
+    defects = status.validate(st)
+    for d in defects[:10]:
+        rep.fail("status", d)
+    if not defects:
+        task = common.current_task(st)
+        rep.ok("status", f"valid; {'idle' if task is None else task['id'] + ' ' + str(task.get('phase'))}")
+
+
+def check_digest(paths: common.Paths, rep: Report) -> None:
+    try:
+        from forgelib.status import Status
+        digest = Status(paths).get("digest")
+    except Exception as e:  # noqa: BLE001
+        rep.warn("digest", f"cannot compute the STATUS digest: {type(e).__name__}: {e}")
+        return
+    n = len(digest)
+    if n > common.MAX_DIGEST:
+        rep.fail("digest", f"{n} chars > {common.MAX_DIGEST}: trim queue/history/evidence (run /forge-gc)")
+    elif n > DIGEST_WARN:
+        rep.warn("digest", f"{n} chars > {DIGEST_WARN}: approaching the {common.MAX_DIGEST}-char cap")
+    else:
+        rep.ok("digest", f"{n} chars")
+
+
+def forge_hook_entries(settings: Dict[str, Any]) -> Dict[Tuple[str, str, bool], Dict[str, Any]]:
+    """{(event, matcher, is_role_handler): handler} for every Forge hook handler in a settings object."""
+    out: Dict[Tuple[str, str, bool], Dict[str, Any]] = {}
+    hooks = settings.get("hooks") if isinstance(settings, dict) else None
+    if not isinstance(hooks, dict):
+        return out
+    for event, groups in hooks.items():
+        for group in groups if isinstance(groups, list) else []:
+            if not isinstance(group, dict):
+                continue
+            matcher = str(group.get("matcher") or "")
+            for h in group.get("hooks") or []:
+                if isinstance(h, dict) and FORGE_HOOK in str(h.get("command") or ""):
+                    out[(str(event), matcher, "--role" in str(h["command"]))] = h
+    return out
+
+
+def _norm_cmd(cmd: str) -> str:
+    return " ".join(str(cmd).replace('"', "").replace("'", "").split())
+
+
+def check_settings(paths: common.Paths, binding: Optional[Dict[str, Any]], rep: Report) -> None:
+    fragment, ferr = _read_json_soft(paths.settings_fragment)
+    if ferr or not isinstance(fragment, dict):
+        rep.fail("settings", ".claude/settings.forge.json missing or invalid: reinstall with install.sh")
+        return
+    settings, serr = _read_json_soft(paths.settings)
+    if serr or not isinstance(settings, dict):
+        rep.fail("settings", f".claude/settings.json missing or invalid ({serr or 'absent'}): run install.sh")
+        return
+    want = forge_hook_entries(fragment)
+    have = forge_hook_entries(settings)
+    problems = 0
+    for (event, matcher, role), h in sorted(want.items()):
+        label = f"{event} [{matcher or '*'}]{' --role' if role else ''}"
+        if h.get("onFailure") and event not in GATE_EVENTS:
+            rep.fail("settings-hooks", f"fragment carries onFailure on {label}: only PreToolUse/SubagentStop may")
+            problems += 1
+        if common.exists(paths.rt(f"gate-disabled-{event}")) or common.exists(paths.rt("gate-disabled-all")):
+            rep.warn("settings-hooks", f"{label}: disabled via forge-doctor --disable-gate")
+            continue
+        got = have.get((event, matcher, role))
+        if got is None:
+            rep.fail("settings-hooks", f"{label} missing from .claude/settings.json: run install.sh --upgrade")
+            problems += 1
+        elif _norm_cmd(got.get("command", "")) != _norm_cmd(h.get("command", "")):
+            rep.fail("settings-hooks", f"{label} command differs: {got.get('command')!r}")
+            problems += 1
+        elif (got.get("onFailure") or None) != (h.get("onFailure") or None):
+            rep.fail("settings-hooks", f"{label} onFailure {got.get('onFailure')!r} != {h.get('onFailure')!r}")
+            problems += 1
+    for (event, matcher, role), h in sorted(have.items()):
+        if h.get("onFailure") and event not in GATE_EVENTS:
+            rep.fail("settings-hooks", f"{event} [{matcher or '*'}] carries onFailure: Stop/PreCompact/injection hooks must fail open")
+            problems += 1
+    if not problems:
+        rep.ok("settings-hooks", f"{len(want)} Forge hook handlers present with the fragment's matchers and onFailure")
+    model = settings.get("model")
+    if common.alias_model(model) == "fable":
+        rep.ok("settings", f"model {model}")
+    else:
+        rep.warn("settings", f"model is {model!r}, not fable (installed with --no-model?): the operator's /model default decides")
+    for key, expect in (("effortLevel", None), ("subagentPromptCacheTtl", "1h")):
+        val = settings.get(key)
+        if val is None or (expect is not None and val != expect):
+            rep.warn("settings", f"{key} is {val!r}" + (f" (expected {expect!r})" if expect else " (unset)"))
+        else:
+            rep.ok("settings", f"{key} {val}")
+    allow = (settings.get("permissions") or {}).get("allow") or []
+    if any(isinstance(a, str) and a.startswith("Bash(.forge/bin") for a in allow):
+        rep.ok("settings", "permissions.allow covers .forge/bin")
+    else:
+        rep.fail("settings", "permissions.allow has no Bash(.forge/bin/*) rule: every script call will prompt")
+    if binding:
+        missing = [r for r in load_forge_run().permission_rules(binding) if r not in allow]
+        if missing:
+            rep.warn("settings", f"permissions.allow lacks binding command rules {missing}: re-run install.sh")
+
+
+def check_bin(paths: common.Paths, rep: Report) -> None:
+    if not os.path.isdir(paths.bin):
+        rep.fail("bin", ".forge/bin missing: reinstall")
+        return
+    bad = [n for n in sorted(os.listdir(paths.bin))
+           if os.path.isfile(os.path.join(paths.bin, n)) and not os.access(os.path.join(paths.bin, n), os.X_OK)]
+    if bad:
+        rep.fail("bin", f"not executable: {', '.join(bad)} (chmod +x .forge/bin/*)")
+    else:
+        rep.ok("bin", ".forge/bin/* executable")
+
+
+def check_gitignore(paths: common.Paths, rep: Report) -> None:
+    lines = [l.strip() for l in (common.read_text(os.path.join(paths.root, ".gitignore")) or "").splitlines()]
+    missing = [l for l in GITIGNORE_LINES if l not in lines]
+    if missing:
+        rep.warn("gitignore", f"missing {', '.join(missing)}: runtime markers and incidents would be committed")
+    else:
+        rep.ok("gitignore", "ignores .forge/.runtime/ and .forge/incidents/")
+
+
+def check_duplicates(paths: common.Paths, rep: Report) -> None:
+    home = os.path.join(os.path.expanduser("~"), ".claude")
+    project = {n for n in os.listdir(os.path.join(paths.claude_dir, "agents"))
+               if n.startswith("forge-") and n.endswith(".md")} if os.path.isdir(os.path.join(paths.claude_dir, "agents")) else set()
+    found: List[str] = []
+    user_agents = os.path.join(home, "agents")
+    if os.path.isdir(user_agents):
+        found += [os.path.join("~/.claude/agents", n) for n in sorted(os.listdir(user_agents)) if n in project]
+    skills = os.path.join(home, "skills")
+    if os.path.isdir(skills):
+        for d in sorted(os.listdir(skills)):
+            agents = os.path.join(skills, d, "agents")
+            if os.path.isdir(agents):
+                found += [f"~/.claude/skills/{d}/agents/{n}" for n in sorted(os.listdir(agents)) if n in project]
+    installed = common.read_text(os.path.join(home, "plugins", "installed_plugins.json")) or ""
+    if re.search(r'"forge@', installed):
+        found.append("~/.claude/plugins/installed_plugins.json names forge@… (the plugin self-silences here via --plugin)")
+    if found:
+        rep.warn("duplicate-agents", "; ".join(found) + " — /doctor is the in-session check")
+    else:
+        rep.ok("duplicate-agents", "no user-level forge-* agents on the filesystem")
+
+
+def check_hooks_alive(paths: common.Paths, rep: Report) -> None:
+    data, _ = _read_json_soft(paths.rt("hooks-alive"))
+    if not isinstance(data, dict):
+        rep.warn("hooks-alive", "no SessionStart recorded here yet (or hooks are not running): run --probe-hooks")
+        return
+    age = common.now_ts() - int(data.get("ts") or 0)
+    rep.ok("hooks-alive", f"last SessionStart {age}s ago (source {data.get('source')}, session {data.get('session_id')})")
+
+
+def check_pointers(paths: common.Paths, rep: Report) -> None:
+    """FORGE.md names only paths that exist, lists only skills that exist, and keeps the digest's bootstrap order."""
+    text = common.read_text(paths.forge_md)
+    if text is None:
+        rep.fail("pointers", ".forge/FORGE.md missing")
+        return
+    n_lines = len(text.splitlines())
+    if n_lines > FORGE_MD_MAX_LINES:
+        rep.warn("pointers", f"FORGE.md has {n_lines} lines > {FORGE_MD_MAX_LINES}")
+    names = set()
+    for span in re.findall(r"`([^`\n]+)`", text):
+        word = span.split()[0] if span.split() else ""
+        if word.startswith((".forge/", ".claude/")) or re.match(r"^[\w.-]+\.(md|json|jsonl)$", word):
+            names.add(word)
+    names.update(re.findall(r"(?<![/\w.-])([A-Z][A-Z-]+(?:-[a-z]+)?\.md)\b", text))   # bare RUNBOOK.md etc.
+    missing = []
+    for name in sorted(names):
+        if any(ch in name for ch in "<>*{}") or re.search(r"NN|T-0", name):
+            continue          # placeholders such as tasks/<id>/brief-NN.md
+        name = name.rstrip(".,;:")
+        if "/" in name:
+            found = os.path.exists(os.path.join(paths.root, name))
+        else:   # a bare name such as RUNBOOK.md or INDEX.md: the repo root or anywhere under .forge/
+            found = os.path.exists(os.path.join(paths.root, name)) or bool(
+                glob.glob(os.path.join(paths.forge, "**", name), recursive=True))
+        if not found:
+            missing.append(name)
+    skills = sorted(set(re.findall(r"(?<![\w.])/(forge-[a-z-]+)", text)))
+    missing_skills = [s for s in skills if not os.path.isfile(os.path.join(paths.claude_dir, "skills", s, "SKILL.md"))]
+    for m in missing:
+        rep.fail("pointers", f"FORGE.md names {m}, which does not exist")
+    for s in missing_skills:
+        rep.fail("pointers", f"FORGE.md lists /{s}, but .claude/skills/{s}/SKILL.md does not exist")
+    order = common.section(text, "Bootstrap order (cold start)")
+    positions = [order.find(k) for k in ("STATUS.json", "handoff", "plan.md", "binding.json")]
+    if -1 in positions or positions != sorted(positions):
+        rep.warn("pointers", "FORGE.md bootstrap order is not STATUS -> handoff -> plan -> binding (the digest order)")
+    if not missing and not missing_skills:
+        rep.ok("pointers", f"{len(names)} paths and {len(skills)} skills named by FORGE.md exist")
+
+
+# --------------------------------------------------------------------------- #
+# Probes (design §12.2; each reports what it observed and records it in .runtime/observed.json)
+# --------------------------------------------------------------------------- #
+def _claude(args: List[str], cwd: str, timeout: int = PROBE_TIMEOUT_S) -> Tuple[int, str, str]:
+    if not shutil.which("claude"):
+        raise common.ForgeError("claude is not on PATH", common.EXIT_REFUSED)
+    try:
+        r = subprocess.run(["claude"] + args, cwd=cwd, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return 124, "", f"timed out after {timeout}s"
+    return r.returncode, r.stdout or "", r.stderr or ""
+
+
+def _record(paths: common.Paths, probe: str, observed: Dict[str, Any]) -> None:
+    path = paths.rt("observed.json")
+    data, _ = _read_json_soft(path)
+    data = data if isinstance(data, dict) else {}
+    data[probe] = dict(observed, ts=common.now_ts(), at=common.now_iso())
+    common.write_json_atomic(path, data)
+
+
+def _stream_events(stdout: str) -> List[Dict[str, Any]]:
+    out = []
+    for line in stdout.splitlines():
+        line = line.strip()
+        if line.startswith("{"):
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(obj, dict):
+                out.append(obj)
+    return out
+
+
+def _hook_event_names(events: List[Dict[str, Any]]) -> List[str]:
+    """hook_event_name values (and their SessionStart source) mentioned by stream-json hook events."""
+    names = []
+    for ev in events:
+        if "hook" not in str(ev.get("subtype") or "") and "hook" not in str(ev.get("type") or ""):
+            continue
+        blob = json.dumps(ev)
+        m = re.search(r'"hook_event(?:_name)?"\s*:\s*"(\w+)"', blob) or re.search(r'"(SessionStart|Stop|UserPromptSubmit|PreToolUse|PostToolUse|SubagentStop|SessionEnd)"', blob)
+        if m:
+            src = re.search(r'"source"\s*:\s*"(\w+)"', blob)
+            names.append(m.group(1) + (f"({src.group(1)})" if src and m.group(1) == "SessionStart" else ""))
+    return common.unique(names)
+
+
+def probe_hooks(paths: common.Paths, rep: Report) -> None:
+    common.rm(paths.rt("hooks-alive"))   # so "rewritten" cannot be satisfied by an earlier session in the same second
+    start = common.now_ts()
+    code, out, err = _claude(["-p", "say ok", "--output-format", "stream-json", "--verbose", "--include-hook-events",
+                              "--max-turns", "1", "--model", "haiku", "--permission-mode", "dontAsk"], paths.root)
+    events = _stream_events(out)
+    init = next((e for e in events if e.get("type") == "system" and e.get("subtype") == "init"), {})
+    plugin_errors = init.get("plugin_errors")
+    hooks_seen = _hook_event_names(events)
+    alive, _ = _read_json_soft(paths.rt("hooks-alive"))
+    rewritten = isinstance(alive, dict) and int(alive.get("ts") or 0) >= start
+    observed = {"exit": code, "events": len(events), "hook_events": hooks_seen, "plugin_errors": plugin_errors,
+                "hooks_alive_rewritten": rewritten, "stderr_tail": err.strip()[-200:]}
+    _record(paths, "probe-hooks", observed)
+    detail = (f"claude exit {code}; {len(events)} stream events; hook events {hooks_seen or 'none reported'}; "
+              f"plugin_errors {plugin_errors if plugin_errors is not None else 'absent'}")
+    if rewritten:
+        rep.ok("probe-hooks", f"hooks-alive rewritten by SessionStart; {detail}")
+    else:
+        rep.fail("probe-hooks", f"hooks-alive NOT rewritten (hooks not running: --bare, disableAllHooks, untrusted plugin form, "
+                                f"unexecutable scripts?); {detail}")
+    if plugin_errors:
+        rep.warn("probe-hooks", f"plugin_errors: {json.dumps(plugin_errors)[:300]}")
+
+
+def probe_driver(paths: common.Paths, binding: Optional[Dict[str, Any]], rep: Report) -> None:
+    """One trivial driver-shaped phase: permission_denials must be [] and modelUsage must name a fable model."""
+    fr = load_forge_run()
+    b = binding or {}
+    effort = str((b.get("routing") or {}).get("architect_effort") or "medium")
+    marker_existed = common.exists(paths.rt("driver"))
+    common.touch(paths.rt("driver"))
+    try:
+        code, out, err = _claude(["-p", "Run .forge/bin/forge-status get summary --lenient with the Bash tool and reply "
+                                  "with its output only.", "--model", "fable", "--effort", effort,
+                                  "--permission-prompts", "none", "--permission-mode", "acceptEdits",
+                                  "--allowedTools"] + fr.allowed_tools(b)
+                                 + ["--output-format", "json", "--max-turns", "4", "--max-budget-usd", "2"], paths.root)
+    finally:
+        if not marker_existed:
+            common.rm(paths.rt("driver"))
+    result = fr.parse_result(out) or {}
+    denials = result.get("permission_denials")
+    models = fr.models_used(result.get("modelUsage"))
+    ok = True
+    if not result:
+        rep.fail("driver", f"claude exit {code} produced no JSON result: {err.strip()[-200:]}")
+        ok = False
+    else:
+        if denials is None:
+            rep.warn("driver", "result has no permission_denials field: cannot assert an empty array")
+        elif denials:
+            rep.fail("driver", f"permission_denials not empty: {json.dumps(denials)[:300]}")
+            ok = False
+        else:
+            rep.ok("driver", "permission_denials == []")
+        if not models:
+            rep.warn("driver", "result has no modelUsage: cannot assert the fable model ran")
+        elif any(common.alias_model(m) == "fable" for m in models):
+            rep.ok("driver", f"modelUsage names {models}")
+        else:
+            rep.fail("driver", f"modelUsage names {models}, no fable model")
+            ok = False
+        rep.add("OK" if not result.get("is_error") else "WARN", "driver",
+                f"cost {result.get('total_cost_usd')} USD; is_error {result.get('is_error')}; result {str(result.get('result'))[:120]!r}")
+    observed = {"exit": code, "permission_denials": denials, "models": models, "ok": ok,
+                "total_cost_usd": result.get("total_cost_usd")}
+    _record(paths, "driver", observed)
+    common.write_json_atomic(paths.rt("driver-probe.json"), {"ok": ok, "claude_version": _claude_version_text(),
+                                                             "ts": common.now_ts(), "observed": observed})
+
+
+def _claude_version_text() -> Optional[str]:
+    try:
+        r = subprocess.run(["claude", "--version"], capture_output=True, text=True, timeout=30)
+        return (r.stdout or "").strip() or None
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
+def probe_clear(paths: common.Paths, rep: Report) -> None:
+    """[U] design §12.2 item 1: does SessionStart(clear) fire and does initialUserMessage auto-submit headlessly?"""
+    from forgelib.hooks import RESUME_MESSAGE
+    st, _ = _read_json_soft(paths.status)
+    task = common.current_task(st) if isinstance(st, dict) else None
+    binding, _ = _read_json_soft(paths.binding)
+    preconditions = bool(task and task.get("next_action") and (st or {}).get("context_state") == "stale"
+                         and (binding or {}).get("auto_resume"))
+    code, out, err = _claude(["-p", "/clear", "--output-format", "stream-json", "--verbose", "--include-hook-events",
+                              "--max-turns", "1", "--model", "haiku", "--permission-mode", "dontAsk"], paths.root)
+    events = _stream_events(out)
+    hooks_seen = _hook_event_names(events)
+    resumed = any(RESUME_MESSAGE in json.dumps(e) and e.get("type") == "user" for e in events)
+    observed = {"exit": code, "hook_events": hooks_seen, "auto_resume_preconditions": preconditions,
+                "initial_user_message_submitted": resumed, "stderr_tail": err.strip()[-200:]}
+    _record(paths, "probe-clear", observed)
+    detail = (f"hook events {hooks_seen or 'none reported'}; auto-resume preconditions "
+              f"{'held' if preconditions else 'did not hold (needs an open task, context_state stale, auto_resume)'}")
+    if resumed:
+        rep.ok("probe-clear", f"initialUserMessage auto-submitted after clear; {detail}")
+    else:
+        rep.warn("probe-clear", f"no auto-submitted resume turn observed (fallback: /forge-next); {detail}")
+
+
+def _temp_agent(paths: common.Paths, name: str, body: str) -> str:
+    path = os.path.join(paths.claude_dir, "agents", f"{name}.md")
+    common.write_text_atomic(path, body)
+    return path
+
+
+def probe_worktree(paths: common.Paths, rep: Report) -> None:
+    """[U] design §12.2 item 7: an isolation: worktree subagent sees HEAD == current HEAD and resolves the main checkout."""
+    name = "doctorprobe-worktree"
+    agent = _temp_agent(paths, name, (
+        "---\nname: doctorprobe-worktree\ndescription: forge-doctor worktree probe (temporary)\n"
+        "tools: Bash\nmodel: haiku\nmaxTurns: 6\nisolation: worktree\n---\n"
+        "Run these Bash commands, one call each: `pwd`, `git rev-parse HEAD`, `printenv CLAUDE_PROJECT_DIR`, "
+        "`git rev-parse --path-format=absolute --git-common-dir`. Then reply with exactly four lines:\n"
+        "PWD=<output>\nHEAD=<output>\nCPD=<output>\nCOMMON=<output>\n"))
+    try:
+        code, out, err = _claude(["-p", f'Call the Agent tool once with subagent_type "{name}" and prompt "report". '
+                                  "Reply with its four lines verbatim.", "--model", "haiku", "--output-format", "json",
+                                  "--max-turns", "4", "--permission-mode", "dontAsk", "--allowedTools", "Agent",
+                                  "Bash(pwd)", "Bash(git rev-parse *)", "Bash(printenv *)"], paths.root)
+    finally:
+        common.rm(agent)
+    fr = load_forge_run()
+    text = str((fr.parse_result(out) or {}).get("result") or "")
+    got = dict(re.findall(r"^(PWD|HEAD|CPD|COMMON)=(.*)$", text, re.MULTILINE))
+    head = common.git_head(paths.root)
+    common_dir = got.get("COMMON", "").strip().rstrip("/")
+    main_ok = common_dir in (os.path.join(paths.root, ".git"), os.path.join(os.path.realpath(paths.root), ".git"))
+    isolated = bool(got.get("PWD")) and os.path.realpath(got["PWD"].strip()) != os.path.realpath(paths.root)
+    observed = {"exit": code, "reported": got, "current_head": head, "isolated": isolated,
+                "common_dir_is_main": main_ok, "stderr_tail": err.strip()[-200:]}
+    _record(paths, "worktree", observed)
+    if got.get("HEAD", "").strip() == head and main_ok and isolated:
+        rep.ok("worktree", f"probe ran in {got['PWD'].strip()} at HEAD {head[:7]}; git common dir is the main checkout; "
+                           "binding.git.worktree_isolation may be set to true by the operator")
+    else:
+        rep.fail("worktree", f"observed {got or 'no report'} (current HEAD {(head or '')[:7]}; isolated {isolated}; "
+                             f"common dir main {main_ok}): keep worktree_isolation false")
+
+
+def probe_maxturns(paths: common.Paths, rep: Report) -> None:
+    """[U] design §12.2 item 11: does SubagentStop fire when a subagent hits maxTurns?"""
+    name = "doctorprobe-maxturns"
+    capture = paths.rt("probe-maxturns.json")
+    common.rm(capture)
+    agent = _temp_agent(paths, name, (
+        "---\nname: doctorprobe-maxturns\ndescription: forge-doctor maxTurns probe (temporary)\n"
+        "tools: Bash\nmodel: haiku\nmaxTurns: 2\n---\n"
+        "Run `ls` five times, one Bash call per turn, then reply DONE.\n"))
+    hook_cmd = f"cat > {json.dumps(capture)}"
+    settings = {"hooks": {"SubagentStop": [{"matcher": name, "hooks": [{"type": "command", "command": hook_cmd}]}]}}
+    try:
+        code, out, err = _claude(["-p", f'Call the Agent tool once with subagent_type "{name}" and prompt "go". '
+                                  "Reply with what it returned.", "--model", "haiku", "--output-format", "json",
+                                  "--max-turns", "4", "--permission-mode", "dontAsk", "--allowedTools", "Agent",
+                                  "Bash(ls)", "--settings", json.dumps(settings)], paths.root)
+    finally:
+        common.rm(agent)
+    fired, _ = _read_json_soft(capture)
+    observed = {"exit": code, "subagent_stop_fired": isinstance(fired, dict),
+                "last_assistant_message": str((fired or {}).get("last_assistant_message") or "")[:200]
+                if isinstance(fired, dict) else None, "stderr_tail": err.strip()[-200:]}
+    _record(paths, "probe-maxturns", observed)
+    if isinstance(fired, dict):
+        rep.ok("probe-maxturns", f"SubagentStop fired on a maxTurns-limited return (message {observed['last_assistant_message']!r})")
+    else:
+        rep.warn("probe-maxturns", f"SubagentStop not observed on a maxTurns return (claude exit {code}); the handoff gate "
+                                   "cannot see partial returns: rely on the two-block UNVERIFIED path")
+
+
+def probe_coldstart(paths: common.Paths, rep: Report) -> None:
+    """design §9 cold-start test: FORGE.md alone (hooks disabled) must lead a model to STATUS's next action."""
+    try:
+        from forgelib.status import Status
+        expected = Status(paths).get("next_action", lenient=True)
+    except Exception as e:  # noqa: BLE001
+        rep.fail("probe-coldstart", f"cannot read next_action: {e}")
+        return
+    code, out, err = _claude(["-p", "Read .forge/FORGE.md and state the next action in one line", "--model", "haiku",
+                              "--settings", json.dumps({"disableAllHooks": True}), "--output-format", "json",
+                              "--max-turns", "8", "--permission-mode", "dontAsk", "--allowedTools", "Read", "Grep", "Glob"],
+                             paths.root)
+    answer = str((load_forge_run().parse_result(out) or {}).get("result") or "")
+    want = {w for w in re.findall(r"[a-z0-9/._-]{4,}", expected.lower())}
+    got = {w for w in re.findall(r"[a-z0-9/._-]{4,}", answer.lower())}
+    overlap = len(want & got) / len(want) if want else 0.0
+    observed = {"exit": code, "expected": expected, "answer": answer[:300], "overlap": round(overlap, 2)}
+    _record(paths, "probe-coldstart", observed)
+    if overlap >= 0.5:
+        rep.ok("probe-coldstart", f"answer matches next_action ({overlap:.0%} word overlap): {answer[:120]!r}")
+    else:
+        rep.warn("probe-coldstart", f"answer {answer[:120]!r} vs next_action {expected[:120]!r} ({overlap:.0%} overlap)")
+
+
+# --------------------------------------------------------------------------- #
+# CLI
+# --------------------------------------------------------------------------- #
+def disable_gate(paths: common.Paths, name: str) -> int:
+    if not re.match(r"^[A-Za-z0-9_.-]+$", name):
+        common.eprint(f"forge-doctor: invalid gate name {name!r} (use a hook event name such as Stop, or 'all')")
+        return common.EXIT_USAGE
+    common.touch(paths.rt(f"gate-disabled-{name}"))
+    st, _ = _read_json_soft(paths.status)
+    task = common.current_task(st) if isinstance(st, dict) else None
+    msg = f"GATE-DISABLED {name} by forge-doctor --disable-gate (operator); remove .forge/.runtime/gate-disabled-{name} to re-enable"
+    common.journal(paths, None, msg)
+    if task:
+        common.journal(paths, task["id"], msg)
+    print(f"OK disable-gate: wrote .forge/.runtime/gate-disabled-{name} (journaled)")
+    return common.EXIT_OK
+
+
+def main(argv: List[str]) -> int:
+    p = argparse.ArgumentParser(prog="forge-doctor", description=__doc__.splitlines()[0])
+    p.add_argument("--report", action="store_true", help="always exit 0 (installer, injections)")
+    p.add_argument("--no-probes", action="store_true", help="never run claude -p, even if probe flags are given")
+    p.add_argument("--quick", action="store_true", help="only the checks forge-run needs before a phase")
+    p.add_argument("--json", action="store_true", help="print a JSON report instead of lines")
+    p.add_argument("--pointers", action="store_true", help="FORGE.md pointer / cold-start document check")
+    for flag in ("--probe-hooks", "--driver", "--probe-clear", "--worktree", "--probe-maxturns", "--probe-coldstart"):
+        p.add_argument(flag, action="store_true")
+    p.add_argument("--disable-gate", metavar="NAME", default=None)
+    args = p.parse_args(argv)
+    paths = common.Paths()
+    if not os.path.isdir(paths.forge):
+        common.eprint(f"forge-doctor: no .forge/ under {paths.root}: run install.sh first")
+        return common.EXIT_OK if args.report else common.EXIT_REFUSED
+    if args.disable_gate:
+        return disable_gate(paths, args.disable_gate)
+
+    rep = Report()
+    check_python(rep)
+    binding = check_binding(paths, rep)
+    check_status(paths, rep)
+    check_settings(paths, binding, rep)
+    check_bin(paths, rep)
+    check_gitignore(paths, rep)
+    if not args.quick:
+        check_claude(rep)
+        check_trust(paths, rep)
+        check_version(paths, binding, rep)
+        check_manifest(paths, rep)
+        check_duplicates(paths, rep)
+        check_hooks_alive(paths, rep)
+        check_digest(paths, rep)
+    if args.pointers:
+        check_pointers(paths, rep)
+
+    probes = [(args.probe_hooks, lambda: probe_hooks(paths, rep)), (args.driver, lambda: probe_driver(paths, binding, rep)),
+              (args.probe_clear, lambda: probe_clear(paths, rep)), (args.worktree, lambda: probe_worktree(paths, rep)),
+              (args.probe_maxturns, lambda: probe_maxturns(paths, rep)),
+              (args.probe_coldstart, lambda: probe_coldstart(paths, rep))]
+    for wanted, run in probes:
+        if not wanted:
+            continue
+        if args.no_probes:
+            rep.warn("probes", "probe flags ignored because of --no-probes")
+            break
+        try:
+            run()
+        except common.ForgeError as e:
+            rep.fail("probe", str(e))
+
+    if args.json:
+        print(json.dumps({"ok": not rep.failed, "checks": rep.rows}, indent=2))
+    else:
+        for r in rep.rows:
+            print(f"{r['level']} {r['name']}: {r['detail']}")
+        counts = {lvl: sum(1 for r in rep.rows if r["level"] == lvl) for lvl in LEVELS}
+        print(f"forge-doctor: {counts['OK']} OK, {counts['WARN']} WARN, {counts['FAIL']} FAIL")
+    if args.report:
+        return common.EXIT_OK
+    return common.EXIT_DEFECTS if rep.failed else common.EXIT_OK
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

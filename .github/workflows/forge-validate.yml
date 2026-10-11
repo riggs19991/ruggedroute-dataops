@@ -1,0 +1,94 @@
+name: forge-validate
+
+# Validates the Forge source tree (forge/): unit tests, the installer (dry run and idempotency),
+# install.sh under macOS's bash 3.2, the generated plugin/, and every shipped JSON file.
+on:
+  push:
+    paths: ["forge/**", ".github/workflows/forge-validate.yml"]
+  pull_request:
+    paths: ["forge/**", ".github/workflows/forge-validate.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: tests + installer (${{ matrix.os }}, python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, python: "3.9" }
+          - { os: ubuntu-latest, python: "3.12" }
+          - { os: macos-latest, python: "3.12" }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Git identity (tests and the installer create commits in throwaway repos)
+        run: |
+          git config --global user.email "ci@forge.invalid"
+          git config --global user.name "forge ci"
+          git config --global init.defaultBranch main
+
+      - name: Unit tests (python3 -m unittest discover -s forge/tests)
+        run: python3 -m unittest discover -s forge/tests -v
+
+      - name: Installer --dry-run into a temp repo writes nothing
+        run: |
+          tmp=$(mktemp -d)
+          git -C "$tmp" init -q
+          python3 forge/installer.py --target "$tmp" --dry-run
+          test -z "$(ls -A "$tmp" | grep -v '^\.git$')"
+
+      - name: Installer twice into a temp repo (second run reports no changes)
+        run: |
+          tmp=$(mktemp -d)
+          git -C "$tmp" init -q
+          python3 forge/installer.py --target "$tmp"
+          python3 forge/installer.py --target "$tmp" | tee second-run.log
+          grep -q "no changes (already up to date)" second-run.log
+          "$tmp/.forge/bin/forge-doctor" --quick
+          (cd "$tmp" && .forge/bin/forge-run --dry-run)
+
+      - name: install.sh syntax and dry run with the system /bin/bash (3.2 on macOS)
+        run: |
+          /bin/bash --version | head -1
+          /bin/bash -n forge/install.sh
+          tmp=$(mktemp -d)
+          git -C "$tmp" init -q
+          /bin/bash forge/install.sh --target "$tmp" --dry-run
+
+      - name: plugin/ is exactly what tools/make_plugin.py generates from the payload
+        run: python3 forge/tools/make_plugin.py --check
+
+      - name: Every shipped JSON file parses
+        run: |
+          for f in forge/.claude-plugin/marketplace.json forge/plugin/.claude-plugin/plugin.json \
+                   forge/plugin/hooks/hooks.json forge/payload/.claude/settings.forge.json \
+                   forge/payload/.forge/schemas/*.json forge/payload/.forge/templates/*.json; do
+            python3 -m json.tool "$f" > /dev/null || { echo "invalid JSON: $f"; exit 1; }
+          done
+
+  plugin-validate:
+    name: claude plugin validate (best effort)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: "claude plugin validate --strict forge/plugin and the forge/ marketplace (best effort: needs the claude CLI from npm; never blocks the build)"
+        continue-on-error: true
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude --version
+          claude plugin validate --strict forge/plugin
+          claude plugin validate --strict forge

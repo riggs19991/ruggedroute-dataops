@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""forge-hook — the Forge hook dispatcher (MODULE-API §6; design §13.3).
+
+  forge-hook [--role] [--plugin]   < hook stdin JSON
+
+Reads stdin once, dispatches on hook_event_name (+ tool_name), prints at most one JSON
+object and ALWAYS exits 0. --role runs the SessionStart role handler; --plugin exits 0 at
+once when <root>/.forge/VERSION exists (the plain-layout install owns the hooks).
+A crash is caught: PreToolUse / SubagentStop fail closed (deny / block naming the
+exception), every other event fails open with a systemMessage.
+"""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+
+KNOWN_FLAGS = ("role", "plugin")
+
+
+def main(argv):
+    flags = set()
+    for a in argv:
+        name = a[2:] if a.startswith("--") else None
+        if name in KNOWN_FLAGS:
+            flags.add(name)
+        else:
+            common.eprint(f"forge-hook: ignoring unknown argument {a!r}")
+    stdin = common.read_stdin_json()
+    try:
+        from forgelib import hooks
+        out = hooks.dispatch(stdin, flags)
+    except Exception as exc:  # noqa: BLE001 — even an import error must not break the hook
+        event = str(stdin.get("hook_event_name") or "")
+        common.eprint(f"forge-hook: cannot load forgelib.hooks: {type(exc).__name__}: {exc}")
+        if event == "PreToolUse":
+            out = {"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny",
+                                          "permissionDecisionReason": f"Forge hook crashed ({type(exc).__name__}: {exc}); run /forge-doctor"}}
+        elif event == "SubagentStop":
+            out = {"decision": "block", "reason": f"Forge hook crashed ({type(exc).__name__}: {exc}); run /forge-doctor"}
+        elif event == "Stop":
+            out = {"systemMessage": "Forge Stop gate crashed: run /forge-doctor"}
+        else:
+            out = {"systemMessage": f"Forge hook crashed ({event or 'unknown event'}): run /forge-doctor"}
+    common.emit(out)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

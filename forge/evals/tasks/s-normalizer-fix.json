@@ -1,0 +1,13 @@
+{
+  "id": "s-normalizer-fix",
+  "repo": "ruggedroute-dataops",
+  "title": "normalize_nps_roads: drop whitespace-only passthrough values instead of emitting blank attributes",
+  "class": "S",
+  "base": "9da9ae9ec2b7838c14a5cad3236410ba94d08966",
+  "check": "cd lib && python3 -c \"import normalize_nps_roads as n; r=type('R',(),{'add':lambda *a,**k:None})(); p=n.normalize({'properties':{'geometryid':'1','rdsurface':'   ','rdname':' '}},r); assert 'surface' not in p and 'name' not in p, p\" && python3 -m unittest -v",
+  "dod": [
+    "WHEN a feature's passthrough column (e.g. RDSURFACE, RDNAME) holds only whitespace THE NORMALIZER SHALL omit the attribute instead of emitting a blank value",
+    "WHEN the lib unit suite runs THE SUITE SHALL exit 0 with at least one new test covering the whitespace case in lib/test_normalize_nps_roads.py",
+    "WHEN the change is diffed THE DIFF SHALL touch only lib/normalize_nps_roads.py and lib/test_normalize_nps_roads.py"
+  ]
+}

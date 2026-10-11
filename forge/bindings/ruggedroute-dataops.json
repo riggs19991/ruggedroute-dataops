@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "forge_pin": "1.0.0",
+  "project": "ruggedroute-dataops",
+  "stack": "python",
+  "bootstrap": "python3 -m pip install -q pytest shapely",
+  "verify": [
+    { "name": "lib-unit",    "cmd": "cd lib && python3 -m unittest -v", "when": "always" },
+    { "name": "layer-tests", "cmd": "pytest layers/{layer}/tests -q", "when": "paths:layers/{layer}/**", "exists": "layers/{layer}/tests", "vars": { "layer": "from-path" } },
+    { "name": "worker",      "cmd": "cd worker-tiles && npx wrangler deploy --dry-run", "when": "paths:worker-tiles/**", "todo": "package.json has no test script; replace with a real test command when one exists" }
+  ],
+  "smoke": "python3 qa/golden_counts.py --help",
+  "format": null,
+  "test_globs": ["lib/test_*.py", "layers/*/tests/*.py", "worker-tiles/**/*.test.js"],
+  "test_pattern": "^\\s*def test_",
+  "protected_paths": [".github/workflows/*.yml", "worker-tiles/wrangler.toml", "worker-tiles/src/**"],
+  "risk_paths": ["**/*upload*", "**/*alias*", "**/*kv*", "layers/parcels/**"],
+  "important_paths": ["layers/mvum/**", "layers/lands/**"],
+  "mechanic_denied_paths": ["lib/route_common.py", "lib/normalize_*.py", "layers/*/layer.json", "layers/mvum/**", "layers/lands/**"],
+  "risk_words": [
+    { "word": "ODbL" }, { "word": "owner", "not": ["ownership"] }, { "word": "alias" }, { "word": "R2" }, { "word": "KV" },
+    { "word": "license" }, { "word": "attribution" }, { "word": "secret" }, { "word": "delete" }
+  ],
+  "irreversible_commands": ["wrangler *", "npx wrangler *", "gh workflow run *", "gh pr merge *", "git push *"],
+  "git": { "branch_per_task": false, "commit_prefix": "forge", "worktree_isolation": false },
+  "budgets": { "T": 1, "S": 3, "M": 10, "M_chain": 12, "W": 25, "L_unit": 2, "X": 30, "risk_multiplier": 1.5 },
+  "routing": { "architect_effort": "medium", "m_builder": "opus-medium", "overrides": [], "measured": {} },
+  "clear_policy": "phase",
+  "auto_resume": true,
+  "driver": { "max_turns": 120, "max_phases": 12 },
+  "notes": [
+    "Versioned uploads + KV alias flip; never overwrite a PMTiles object in place.",
+    "Bulk downloads are the system of record; live ArcGIS is QA only.",
+    "Normalizers are tolerant: bad rows go to the review queue, never raise.",
+    "OSM-derived layers stay in separate tilesets (ODbL isolation).",
+    "Owner names never enter tiles; parcels are geometry-only (apn/county/acres/st).",
+    "mvum and lands are LIVE: changes there get a Fable verifier."
+  ]
+}

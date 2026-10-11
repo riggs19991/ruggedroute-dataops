@@ -1,0 +1,245 @@
+#!/usr/bin/env python3
+"""forge-bench — measure the Forge driver against solo Fable on real tasks (MODULE-API §7; design §11, §13.3, §4.3 rule 12).
+
+Usage: .forge/bin/forge-bench <taskset.json> [--out .forge/COST-REPORT.md] [--arms driver,solo] [--max-phases N]
+                              [--keep-worktrees] [--dry-run]
+
+taskset.json: [{"title": "...", "base": "<commit>", "check": "<shell command, exit 0 = pass>", "class": "T|S|M|W|L|X"}]
+Per task and arm, a fresh `git worktree` at `base`:
+  * solo arm:   claude -p "<title>" --model fable --effort low --max-budget-usd <budgets.class> (same allowed tools)
+  * driver arm: claude -p "/forge-task <title>" (intake), then .forge/bin/forge-run in the worktree (FORGE_ROOT pinned)
+then the task's `check` decides pass/fail. Costs are `total_cost_usd` (measured). Results go to
+.forge/.runtime/bench-<ts>.jsonl and the report (cost per passed task by class, pass rates, cache-read share).
+Exit codes: 0 report written · 2 usage (bad taskset) · 3 refused (claude absent, not a git repo).
+"""
+import argparse
+import importlib.machinery
+import importlib.util
+import json
+import os
+import shlex
+import shutil
+import subprocess
+import sys
+import tempfile
+from typing import Any, Dict, List, Optional
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+
+ARMS = ("driver", "solo")
+CHECK_TIMEOUT_S = 1200            # same 20-minute cap as forge-check
+DEFAULT_BUDGETS = {"T": 1, "S": 3, "M": 10, "W": 25, "L": 12, "X": 30}
+
+
+def load_forge_run() -> Any:
+    """Import the sibling forge-run script (allowed tools, result parsing, cache share)."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "forge-run")
+    loader = importlib.machinery.SourceFileLoader("forge_run", path)
+    spec = importlib.util.spec_from_loader("forge_run", loader)
+    module = importlib.util.module_from_spec(spec)
+    saved, sys.dont_write_bytecode = sys.dont_write_bytecode, True   # no forge-run bytecode next to the scripts
+    try:
+        loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = saved
+    return module
+
+
+def load_taskset(path: str) -> List[Dict[str, Any]]:
+    """Validate taskset.json: a list of {title, base, check, class}."""
+    try:
+        data = common.read_json(path, default=None)
+    except common.ForgeError as e:
+        raise common.ForgeError(str(e), common.EXIT_USAGE)
+    if not isinstance(data, list) or not data:
+        raise common.ForgeError(f"{path}: expected a non-empty JSON list of tasks", common.EXIT_USAGE)
+    for i, t in enumerate(data):
+        if not isinstance(t, dict):
+            raise common.ForgeError(f"{path}: task {i} is not an object", common.EXIT_USAGE)
+        for key in ("title", "base", "check"):
+            if not isinstance(t.get(key), str) or not t[key].strip():
+                raise common.ForgeError(f"{path}: task {i} lacks a non-empty {key!r}", common.EXIT_USAGE)
+        if t.get("class") not in common.CLASSES:
+            raise common.ForgeError(f"{path}: task {i} class {t.get('class')!r} not in {list(common.CLASSES)}",
+                                    common.EXIT_USAGE)
+    return data
+
+
+def task_cap(binding: Dict[str, Any], cls: str) -> float:
+    """The class budget from the binding (both arms get the same cap; design §11 'same assumption for both arms')."""
+    budgets = binding.get("budgets") or {}
+    if cls == "L":
+        return float(budgets.get("L_unit", 2)) * 6
+    return float(budgets.get(cls, DEFAULT_BUDGETS.get(cls, 10)))
+
+
+def claude_argv(fr: Any, binding: Dict[str, Any], prompt: str, effort: str, cap: float) -> List[str]:
+    max_turns = int((binding.get("driver") or {}).get("max_turns") or 120)
+    return (["claude", "-p", prompt, "--model", "fable", "--effort", effort, "--permission-prompts", "none",
+             "--permission-mode", "acceptEdits", "--allowedTools"] + fr.allowed_tools(binding)
+            + ["--output-format", "json", "--max-budget-usd", f"{cap:.2f}", "--max-turns", str(max_turns)])
+
+
+def run_claude(argv: List[str], cwd: str, env: Dict[str, str], fr: Any) -> Dict[str, Any]:
+    r = subprocess.run(argv, cwd=cwd, env=env, capture_output=True, text=True)
+    result = fr.parse_result(r.stdout) or {}
+    return {"exit": r.returncode, "result": result, "stderr": (r.stderr or "")[-300:]}
+
+
+def run_check(cmd: str, cwd: str) -> int:
+    code, _ = common.run(cmd, cwd=cwd, timeout=CHECK_TIMEOUT_S)
+    return code
+
+
+def solo_arm(fr: Any, binding: Dict[str, Any], task: Dict[str, Any], wt: str) -> Dict[str, Any]:
+    """design §11: one Fable session at low effort doing the whole task in one growing context.
+    Hooks are disabled: the Forge committed at `base` would otherwise fence the solo session (no open task)
+    and journal into the main checkout, so the baseline would not be solo."""
+    argv = claude_argv(fr, binding, task["title"], "low", task_cap(binding, task["class"]))
+    argv += ["--settings", json.dumps({"disableAllHooks": True})]
+    out = run_claude(argv, wt, dict(os.environ), fr)
+    res = out["result"]
+    return {"cost_usd": res.get("total_cost_usd"), "cache_read_share": fr.cache_read_share(res.get("modelUsage")),
+            "exit": out["exit"], "note": "" if res else f"no JSON result: {out['stderr'].strip()[-120:]}"}
+
+
+def driver_arm(fr: Any, binding: Dict[str, Any], task: Dict[str, Any], wt: str, paths: common.Paths,
+               max_phases: Optional[int]) -> Dict[str, Any]:
+    """Intake via /forge-task in one `claude -p`, then forge-run phases, all inside the worktree."""
+    run_bin = os.path.join(wt, ".forge", "bin", "forge-run")
+    if not os.access(run_bin, os.X_OK):
+        return {"cost_usd": None, "cache_read_share": None, "exit": None,
+                "note": "the Forge is not committed at this base (no .forge/bin/forge-run)"}
+    env = dict(os.environ, FORGE_ROOT=wt)            # forge_root(): the worktree, not the main checkout
+    probe = paths.rt("driver-probe.json")
+    if common.exists(probe):                          # reuse the main checkout's passing driver probe
+        common.ensure_dir(os.path.join(wt, ".forge", ".runtime"))
+        shutil.copyfile(probe, os.path.join(wt, ".forge", ".runtime", "driver-probe.json"))
+    cap = task_cap(binding, task["class"])
+    effort = str((binding.get("routing") or {}).get("architect_effort") or "medium")
+    intake = run_claude(claude_argv(fr, binding, f"/forge-task {task['title']}", effort, cap), wt, env, fr)
+    costs = [intake["result"].get("total_cost_usd")]
+    shares = [fr.cache_read_share(intake["result"].get("modelUsage"))]
+    ledger = os.path.join(wt, ".forge", "ledger.jsonl")
+    before = len(common.read_jsonl(ledger))
+    args = [run_bin, "--budget-usd", f"{cap:.2f}"] + (["--max-phases", str(max_phases)] if max_phases else [])
+    r = subprocess.run(args, cwd=wt, env=env, capture_output=True, text=True)
+    for row in common.read_jsonl(ledger)[before:]:
+        if row.get("event") == "phase" and row.get("cost_source") == "measured":
+            costs.append(row.get("cost_usd"))
+            shares.append(row.get("cache_read_share"))
+    numbers = [c for c in costs if isinstance(c, (int, float))]
+    share_vals = [s for s in shares if isinstance(s, (int, float))]
+    return {"cost_usd": round(sum(numbers), 4) if numbers else None,
+            "cache_read_share": round(sum(share_vals) / len(share_vals), 3) if share_vals else None,
+            "exit": r.returncode, "note": f"forge-run exit {r.returncode}; {len(numbers)} measured claude runs"}
+
+
+def write_report(path: str, taskset_path: str, rows: List[Dict[str, Any]], arms: List[str]) -> None:
+    """COST-REPORT.md: cost per passed task by class and arm, pass rates, cache-read share, per-task rows."""
+    lines = ["# Forge cost report (forge-bench)", "",
+             f"Generated {common.now_iso()} from `{taskset_path}`: {len({r['task'] for r in rows})} task(s), arms "
+             f"{', '.join(arms)}. Costs are `claude -p` `total_cost_usd` estimates (cost_source: measured); a task "
+             "passes when its `check` command exits 0.", "",
+             "## Cost per passed task by class", "",
+             "| Class | Arm | Tasks | Passed | Pass rate | Total USD | USD per passed task | Cache-read share |",
+             "|---|---|---|---|---|---|---|---|"]
+    for cls in common.CLASSES:
+        for arm in arms:
+            sel = [r for r in rows if r["class"] == cls and r["arm"] == arm]
+            if not sel:
+                continue
+            passed = sum(1 for r in sel if r["pass"])
+            total = sum(r["cost_usd"] for r in sel if isinstance(r["cost_usd"], (int, float)))
+            shares = [r["cache_read_share"] for r in sel if isinstance(r["cache_read_share"], (int, float))]
+            per = f"{total / passed:.2f}" if passed else "n/a"
+            share = f"{sum(shares) / len(shares):.2f}" if shares else "n/a"
+            lines.append(f"| {cls} | {arm} | {len(sel)} | {passed} | {passed / len(sel):.0%} | {total:.2f} | {per} | {share} |")
+    lines += ["", "## Per task", "", "| # | Title | Class | Arm | Pass | USD | Cache | Note |", "|---|---|---|---|---|---|---|---|"]
+    for r in rows:
+        cost = f"{r['cost_usd']:.2f}" if isinstance(r["cost_usd"], (int, float)) else "n/a"
+        share = f"{r['cache_read_share']:.2f}" if isinstance(r["cache_read_share"], (int, float)) else "n/a"
+        title = r["title"].replace("|", "/")
+        lines.append(f"| {r['task']} | {title} | {r['class']} | {r['arm']} | {'yes' if r['pass'] else 'no'} | {cost} | "
+                     f"{share} | {r['note'].replace('|', '/')} |")
+    common.write_text_atomic(path, "\n".join(lines) + "\n")
+
+
+def bench(paths: common.Paths, taskset_path: str, out: str, arms: List[str], max_phases: Optional[int],
+          keep: bool, dry_run: bool) -> int:
+    tasks = load_taskset(taskset_path)
+    binding = common.load_binding(paths)
+    fr = load_forge_run()
+    if dry_run:
+        for i, t in enumerate(tasks, 1):
+            cap = task_cap(binding, t["class"])
+            for arm in arms:
+                prompt = t["title"] if arm == "solo" else f"/forge-task {t['title']}"
+                effort = "low" if arm == "solo" else str((binding.get("routing") or {}).get("architect_effort") or "medium")
+                print(f"[dry-run] task {i} {arm}: git worktree add --detach <tmp> {t['base']}")
+                argv = claude_argv(fr, binding, prompt, effort, cap)
+                if arm == "solo":
+                    argv += ["--settings", json.dumps({"disableAllHooks": True})]
+                print("  " + shlex.join(argv))
+                if arm == "driver":
+                    print(f"  FORGE_ROOT=<tmp> .forge/bin/forge-run --budget-usd {cap:.2f}")
+                print(f"  check: {t['check']}")
+        return common.EXIT_OK
+    if not shutil.which("claude"):
+        raise common.ForgeError("the claude CLI is not on PATH", common.EXIT_REFUSED)
+    if common.git_head(paths.root) is None:
+        raise common.ForgeError(f"{paths.root} is not a git repository with commits", common.EXIT_REFUSED)
+    stamp = common.now_ts()
+    results_path = paths.rt(f"bench-{stamp}.jsonl")
+    rows: List[Dict[str, Any]] = []
+    tmp = tempfile.mkdtemp(prefix="forge-bench-")
+    for i, t in enumerate(tasks, 1):
+        for arm in arms:
+            wt = os.path.join(tmp, f"{i:03d}-{arm}")
+            code, msg = common.git(["worktree", "add", "--detach", wt, t["base"]], paths.root)
+            if code != 0:
+                row = {"cost_usd": None, "cache_read_share": None, "exit": None, "note": f"worktree failed: {msg.strip()[-120:]}"}
+                passed = False
+            else:
+                row = solo_arm(fr, binding, t, wt) if arm == "solo" else driver_arm(fr, binding, t, wt, paths, max_phases)
+                passed = run_check(t["check"], wt) == 0
+            row = {"task": i, "title": t["title"], "class": t["class"], "arm": arm, "base": t["base"], "pass": passed,
+                   "cost_usd": row["cost_usd"], "cache_read_share": row["cache_read_share"], "exit": row["exit"],
+                   "note": row["note"], "cost_source": "measured" if isinstance(row["cost_usd"], (int, float)) else "unknown"}
+            rows.append(row)
+            common.append_jsonl(results_path, dict(row, ts=common.now_iso()))
+            print(f"forge-bench: task {i} {arm}: {'PASS' if passed else 'FAIL'} cost {row['cost_usd']} "
+                  f"cache {row['cache_read_share']} {row['note']}")
+            if code == 0 and not keep:
+                common.git(["worktree", "remove", "--force", wt], paths.root)
+    if not keep:
+        shutil.rmtree(tmp, ignore_errors=True)
+    write_report(out, taskset_path, rows, arms)
+    print(f"forge-bench: wrote {paths.rel(out)} and {paths.rel(results_path)}")
+    return common.EXIT_OK
+
+
+def main(argv: List[str]) -> int:
+    p = argparse.ArgumentParser(prog="forge-bench", description=__doc__.splitlines()[0])
+    p.add_argument("taskset")
+    p.add_argument("--out", default=None, help="default: .forge/COST-REPORT.md")
+    p.add_argument("--arms", default=",".join(ARMS), help="comma-separated subset of driver,solo")
+    p.add_argument("--max-phases", type=int, default=None, help="forge-run --max-phases for the driver arm")
+    p.add_argument("--keep-worktrees", action="store_true")
+    p.add_argument("--dry-run", action="store_true", help="print what each arm would run; spend nothing")
+    args = p.parse_args(argv)
+    arms = [a.strip() for a in args.arms.split(",") if a.strip()]
+    if not arms or any(a not in ARMS for a in arms):
+        p.error(f"--arms must be a comma-separated subset of {','.join(ARMS)}")
+    paths = common.Paths()
+    out = os.path.abspath(args.out) if args.out else paths.cost_report
+    try:
+        return bench(paths, os.path.abspath(args.taskset), out, arms, args.max_phases, args.keep_worktrees, args.dry_run)
+    except common.ForgeError as e:
+        common.eprint(f"forge-bench: {e}")
+        return e.code
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

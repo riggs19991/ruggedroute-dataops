@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""forge-check — run binding.verify[] ∪ brief checks and write a checks/ record (MODULE-API §5).
+
+  forge-check <task> <step|main|plan> [--expect-fail] [--ratchet] [--baseline]
+              [--only <name>] [--only-paths <glob>...] [--agent <id>]
+
+Prints `FORGE_CHECK name=<n> exit=<e> dur=<s>s cmd=<cmd>` per command, `FORGE_CHECK_RATCHET ...`
+with --ratchet, `FORGE_CHECK_SUMMARY pass=a fail=b skipped=c`, then `FORGE_CHECK_RECORD <path>`.
+--baseline prints the test baseline JSON and exits 0 without running anything
+(`forge-check <task> plan --baseline` is how the planner records plan-meta.test_baseline).
+Exit 0 when every non-skipped command exited 0 · 1 otherwise · 2 usage.
+"""
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+from forgelib import checks  # noqa: E402
+
+USAGE = __doc__.strip()
+
+
+def usage(msg=None):
+    if msg:
+        common.eprint(f"forge-check: {msg}")
+    common.eprint(USAGE)
+    sys.exit(common.EXIT_USAGE)
+
+
+def parse(argv):
+    pos = []
+    opts = {"expect_fail": False, "ratchet": False, "baseline": False, "only": None, "only_paths": [],
+            "agent": "unknown"}
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--expect-fail":
+            opts["expect_fail"] = True
+        elif a == "--ratchet":
+            opts["ratchet"] = True
+        elif a == "--baseline":
+            opts["baseline"] = True
+        elif a == "--only":
+            if i + 1 >= len(argv):
+                usage("--only needs <name>")
+            opts["only"] = argv[i + 1]
+            i += 1
+        elif a == "--agent":
+            if i + 1 >= len(argv):
+                usage("--agent needs <id>")
+            opts["agent"] = argv[i + 1]
+            i += 1
+        elif a == "--only-paths":
+            i += 1
+            while i < len(argv) and not argv[i].startswith("--"):
+                opts["only_paths"].append(argv[i])
+                i += 1
+            if not opts["only_paths"]:
+                usage("--only-paths needs at least one <glob>")
+            continue
+        elif a in ("-h", "--help"):
+            print(USAGE)
+            sys.exit(common.EXIT_OK)
+        elif a.startswith("-"):
+            usage(f"unknown flag {a}")
+        else:
+            pos.append(a)
+        i += 1
+    if len(pos) != 2:
+        usage("expected <task> <step|main|plan>")
+    return pos[0], pos[1], opts
+
+
+def main(argv):
+    task_id, step, opts = parse(argv)
+    paths = common.Paths()
+    if opts["baseline"]:
+        print(json.dumps(checks.baseline(paths)))
+        return common.EXIT_OK
+    record = checks.run_checks(paths, task_id, step, expect_fail=opts["expect_fail"], ratchet=opts["ratchet"],
+                               only=opts["only"], only_paths=opts["only_paths"] or None, agent_id=opts["agent"])
+    return common.EXIT_OK if record["ok"] else common.EXIT_DEFECTS
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except common.ForgeError as e:
+        common.eprint(str(e))
+        sys.exit(e.code)

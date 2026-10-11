@@ -1,0 +1,13 @@
+{
+  "id": "t-readme-tweak",
+  "repo": "ruggedroute-dataops",
+  "title": "README: add a 'Running the tests' section naming the lib and per-layer test commands",
+  "class": "T",
+  "base": "9da9ae9ec2b7838c14a5cad3236410ba94d08966",
+  "check": "grep -q '^## Running the tests' README.md && grep -q 'cd lib && python3 -m unittest -v' README.md && grep -q 'pytest layers/<layer>/tests -q' README.md",
+  "dod": [
+    "WHEN README.md is read THE FILE SHALL contain a '## Running the tests' section",
+    "WHEN that section is read IT SHALL name `cd lib && python3 -m unittest -v` and `pytest layers/<layer>/tests -q`",
+    "WHEN the change is diffed THE DIFF SHALL touch README.md only"
+  ]
+}

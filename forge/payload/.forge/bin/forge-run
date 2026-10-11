@@ -1,0 +1,477 @@
+#!/usr/bin/env python3
+"""forge-run — the unattended driver: one fresh `claude -p` process per phase (MODULE-API §7; design §6 layer 3b, §13.3).
+
+Usage: .forge/bin/forge-run [--max-phases N] [--budget-usd X] [--dry-run]   (run from the repository root)
+
+Each phase is a new OS process, so the context clear is a process boundary (design §6 layer 3b). Per phase:
+`claude -p "<resume prompt>" --model fable --effort <binding.routing.architect_effort> --permission-prompts none
+--permission-mode acceptEdits --allowedTools <built from the binding> --output-format json --max-budget-usd <cap>
+--max-turns <binding.driver.max_turns>`; the JSON result's total_cost_usd becomes a `measured` ledger `phase` row.
+
+Exit codes: 0 done / idle / max phases reached · 1 claude produced no JSON result · 2 usage ·
+3 refused (preflight FAIL, blocked, awaiting_external, R human gate) · 4 STATUS invalid or hooks not alive ·
+5 livelock (same phase/step/attempts three times) · 6 permission denials in a headless phase.
+
+This file is also imported (importlib) by forge-doctor and forge/installer.py for `permission_prefix`,
+`permission_rules` and `allowed_tools`, so the driver, the doctor and the installer share one rule set.
+"""
+import argparse
+import fnmatch
+import json
+import os
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+import time
+from typing import Any, Dict, List, Optional, Tuple
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from forgelib import common  # noqa: E402
+
+EXIT_LIVELOCK = 5
+PHASE_PROMPT = ("Resume from .forge/STATUS.json: read it, execute exactly one phase "
+                "(dispatch, verify, adjudicate or close), then stop.")
+HOLD_PHASES = ("blocked", "awaiting_external")      # design §13.3: refuse to start a phase in these
+EXECUTE_SHARE = 0.7                                 # design §4.3 rule 9: execute of X/W/R ≤ 70% of the remainder
+MIN_CAP_USD = 1.0                                   # design §4.3 rule 9: cap never below 1 USD
+LIVELOCK_REPEATS = 3                                # design §13.3: same phase/step/attempts three times
+PROBE_MAX_AGE_S = 24 * 3600                         # reuse a passing `forge-doctor --driver` for a day
+DEFAULT_BUDGETS = {"T": 1, "S": 3, "M": 10, "W": 25, "X": 30}
+
+# Fixed part of the driver's --allowedTools (design §13.3 forge-run).
+GIT_TOOLS = ["Bash(git add *)", "Bash(git commit *)", "Bash(git status*)", "Bash(git diff*)", "Bash(git log*)"]
+PLAIN_TOOLS = ["Read", "Edit", "Write", "Grep", "Glob", "Agent", "Skill", "SendMessage"]
+
+# Permission-prefix rule (installer + driver): the command up to its first argument that names a path or an option.
+_OPERATORS = ("&&", "||", ";", "|")
+_INTERPRETERS = ("python", "python3", "node", "bash", "sh", "ruby", "perl")
+_SCRIPT_EXT = (".py", ".js", ".mjs", ".cjs", ".sh", ".rb", ".pl")
+_STOP_CHARS = "/{}$=*'\"<>`()"
+# A prefix made of one of these words alone would allow far too much (`Bash(cd *)`, `Bash(python3 *)`).
+TOO_BROAD = ("cd", "bash", "sh", "python", "python3", "node", "env", "sudo", "npx", "eval", "exec", "xargs",
+             "time", "nohup", "ruby", "perl")
+
+
+# --------------------------------------------------------------------------- #
+# Shared rules: permission prefixes and the driver's allowed tools
+# --------------------------------------------------------------------------- #
+def permission_prefix(cmd: str) -> Optional[str]:
+    """The stable head of a binding command, for a `Bash(<prefix> *)` rule; None when too broad.
+
+    Rule (design §13.4): keep words up to the first argument that contains a path or is an option.
+    The command word of each `&&`/`;`/`|` segment is always kept, as are `-m <module>` after a Python
+    interpreter and the script named right after an interpreter. Examples:
+      "cd lib && python3 -m unittest -v" -> "cd lib && python3 -m unittest"
+      "pytest layers/{layer}/tests -q"   -> "pytest"
+      "python3 qa/golden_counts.py --help" -> "python3 qa/golden_counts.py"
+    """
+    out: List[str] = []
+    seg_start = True
+    prev: Optional[str] = None
+    for tok in cmd.split():
+        if tok in _OPERATORS:
+            out.append(tok)
+            seg_start, prev = True, None
+            continue
+        if seg_start:
+            out.append(tok)
+            seg_start, prev = False, tok
+            continue
+        if tok == "-m" and prev in ("python", "python3"):
+            out.append(tok)
+            prev = tok
+            continue
+        if prev == "-m" and not tok.startswith("-"):
+            out.append(tok)       # the module name after `python3 -m`
+            prev = tok
+            continue
+        if prev in _INTERPRETERS and tok.endswith(_SCRIPT_EXT) and not tok.startswith("-"):
+            out.append(tok)       # the script an interpreter runs
+            prev = tok
+            continue
+        if tok.startswith("-") or any(c in tok for c in _STOP_CHARS):
+            break
+        out.append(tok)
+        prev = tok
+    while out and out[-1] in _OPERATORS:
+        out.pop()
+    if not out:
+        return None
+    last_segment = " ".join(out).replace("||", "&&").replace(";", "&&").replace("|", "&&").split("&&")[-1].split()
+    if not last_segment or last_segment[0] == "cd":
+        return None               # `Bash(cd lib *)` would allow `cd lib && <anything>`
+    if len(out) == 1 and out[0] in TOO_BROAD:
+        return None
+    return " ".join(out)
+
+
+def segments(text: str) -> List[str]:
+    """Split a command line into its `&&`/`||`/`;`/`|` segments (stripped, non-empty)."""
+    return [s.strip() for s in re.split(r"&&|\|\||;|\|", text) if s.strip()]
+
+
+def irreversible_hit(text: str, patterns: List[Any]) -> Optional[str]:
+    """First `binding.irreversible_commands` pattern matching `text` or one of its segments.
+
+    Patterns are glob-like over the whole command string; `*` matches any characters including
+    spaces (MODULE-API §6 irreversible-command matching)."""
+    pats = [p for p in patterns or [] if isinstance(p, str) and p.strip()]
+    candidates = [text.strip()] + segments(text)
+    for cand in candidates:
+        for pat in pats:
+            if fnmatch.fnmatchcase(cand, pat):
+                return pat
+    return None
+
+
+def binding_commands(binding: Dict[str, Any]) -> List[str]:
+    """binding.verify[].cmd ∪ bootstrap ∪ smoke (the commands a phase may run directly)."""
+    cmds: List[str] = []
+    for v in binding.get("verify") or []:
+        if isinstance(v, dict) and isinstance(v.get("cmd"), str) and v["cmd"].strip():
+            cmds.append(v["cmd"].strip())
+    for key in ("bootstrap", "smoke"):
+        v = binding.get(key)
+        if isinstance(v, str) and v.strip():
+            cmds.append(v.strip())
+    return common.unique(cmds)
+
+
+def permission_rules(binding: Dict[str, Any]) -> List[str]:
+    """`Bash(<prefix> *)` per binding command (design §13.4); `Bash(<cmd>)` too when the prefix is the whole
+    command. A prefix that an irreversible pattern would match is never pre-approved (design §7 gate 10)."""
+    rules: List[str] = []
+    irreversible = binding.get("irreversible_commands") or []
+    for cmd in binding_commands(binding):
+        prefix = permission_prefix(cmd)
+        if not prefix or irreversible_hit(prefix + " x", irreversible) or irreversible_hit(prefix, irreversible):
+            continue
+        rules.append(f"Bash({prefix} *)")
+        if prefix == " ".join(cmd.split()):
+            rules.append(f"Bash({prefix})")
+    return common.unique(rules)
+
+
+def allowed_tools(binding: Dict[str, Any]) -> List[str]:
+    """The driver's explicit --allowedTools list (design §13.3 forge-run)."""
+    return common.unique(["Bash(.forge/bin/*)"] + permission_rules(binding) + GIT_TOOLS + PLAIN_TOOLS)
+
+
+# --------------------------------------------------------------------------- #
+# claude -p result parsing
+# --------------------------------------------------------------------------- #
+def parse_result(stdout: str) -> Optional[Dict[str, Any]]:
+    """The JSON result object of `claude -p --output-format json` (or the last result line of stream-json)."""
+    text = (stdout or "").strip()
+    if not text:
+        return None
+    try:
+        obj = json.loads(text)
+        if isinstance(obj, dict):
+            return obj
+    except json.JSONDecodeError:
+        pass
+    for line in reversed(text.splitlines()):
+        line = line.strip()
+        if not line.startswith("{"):
+            continue
+        try:
+            obj = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, dict) and (obj.get("type") == "result" or "total_cost_usd" in obj):
+            return obj
+    return None
+
+
+def cache_read_share(model_usage: Any) -> Optional[float]:
+    """cacheRead / (input + cacheRead + cacheCreation) over every model in `modelUsage` (None when absent)."""
+    if not isinstance(model_usage, dict):
+        return None
+    read = total = 0.0
+    for usage in model_usage.values():
+        if not isinstance(usage, dict):
+            continue
+        r = float(usage.get("cacheReadInputTokens") or 0)
+        read += r
+        total += r + float(usage.get("inputTokens") or 0) + float(usage.get("cacheCreationInputTokens") or 0)
+    return round(read / total, 3) if total > 0 else None
+
+
+def models_used(model_usage: Any) -> List[str]:
+    """Model ids named by `modelUsage` (empty when absent)."""
+    return sorted(model_usage.keys()) if isinstance(model_usage, dict) else []
+
+
+# --------------------------------------------------------------------------- #
+# Budget (design §4.3 rule 9)
+# --------------------------------------------------------------------------- #
+def task_budget(task: Dict[str, Any], binding: Dict[str, Any]) -> float:
+    """task.budget.cap_usd (forge-status already applied the class budget and risk multiplier); else the binding."""
+    cap = (task.get("budget") or {}).get("cap_usd")
+    if isinstance(cap, (int, float)) and cap > 0:
+        return float(cap)
+    budgets = binding.get("budgets") or {}
+    cls = task.get("class", "M")
+    base = float(budgets.get(cls, DEFAULT_BUDGETS.get(cls, 10)))
+    if task.get("risk") == "R":
+        base *= float(budgets.get("risk_multiplier", 1.5))
+    return base
+
+
+def measured_spend(paths: common.Paths, task_id: str) -> float:
+    """Σ cost_usd over measured ledger `phase` rows of this task."""
+    total = 0.0
+    for row in common.read_jsonl(paths.ledger):
+        if (row.get("event") == "phase" and row.get("task") == task_id and row.get("cost_source") == "measured"
+                and isinstance(row.get("cost_usd"), (int, float))):
+            total += float(row["cost_usd"])
+    return total
+
+
+def phase_cap(task: Dict[str, Any], total: float, spent: float) -> float:
+    """--max-budget-usd for the next phase: the remainder (min 1); execute of X/W/R gets at most 70% of it."""
+    remaining = total - spent
+    if task.get("phase") == "execute" and (task.get("class") in ("X", "W") or task.get("risk") == "R"):
+        remaining *= EXECUTE_SHARE
+    return round(max(MIN_CAP_USD, remaining), 2)
+
+
+# --------------------------------------------------------------------------- #
+# Phase helpers
+# --------------------------------------------------------------------------- #
+def current_step(task: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """The first step that is not done (the one the next phase acts on)."""
+    for step in task.get("steps") or []:
+        if step.get("status") != "done":
+            return step
+    return None
+
+
+def human_gate(paths: common.Paths, task: Dict[str, Any], binding: Dict[str, Any]) -> Optional[str]:
+    """design §3 risk overlay / §7 gate 10: for an R task, the irreversible command named by the current
+    step's brief or the plan's Rollback section (None when the phase may start)."""
+    if task.get("risk") != "R":
+        return None
+    patterns = binding.get("irreversible_commands") or []
+    texts: List[str] = []
+    step = current_step(task)
+    if step and step.get("brief"):
+        texts.append(common.read_text(os.path.join(paths.root, step["brief"])) or "")
+    if task.get("plan"):
+        plan_text = common.read_text(os.path.join(paths.root, task["plan"])) or ""
+        texts.append(common.section(plan_text, "Rollback"))
+    for text in texts:
+        candidates = re.findall(r"`([^`\n]+)`", text) + text.splitlines()
+        for cand in candidates:
+            cand = re.sub(r"^\s*(?:[-*]\s+|\$\s+|\d+\.\s+)", "", cand).strip()
+            if not cand:
+                continue
+            hit = irreversible_hit(cand, patterns)
+            if hit:
+                return cand
+    return None
+
+
+def state_key(task: Dict[str, Any]) -> Tuple[Any, ...]:
+    """(phase, step, step status, attempts) — the livelock guard's notion of 'no progress'."""
+    step = current_step(task) or {}
+    return (task.get("phase"), step.get("id"), step.get("status"), step.get("attempts"))
+
+
+def build_command(binding: Dict[str, Any], cap: float) -> List[str]:
+    """The exact `claude -p` argv for one phase (MODULE-API §7)."""
+    effort = str((binding.get("routing") or {}).get("architect_effort") or "medium")
+    max_turns = int((binding.get("driver") or {}).get("max_turns") or 120)
+    # The prompt goes right after -p: --allowedTools takes several values and must not swallow it.
+    return (["claude", "-p", PHASE_PROMPT, "--model", "fable", "--effort", effort,
+             "--permission-prompts", "none", "--permission-mode", "acceptEdits",
+             "--allowedTools"] + allowed_tools(binding)
+            + ["--output-format", "json", "--max-budget-usd", f"{cap:.2f}", "--max-turns", str(max_turns)])
+
+
+def hooks_alive_since(paths: common.Paths, start_ts: int) -> bool:
+    """True when SessionStart rewrote .runtime/hooks-alive at or after `start_ts`."""
+    try:
+        data = common.read_json(paths.rt("hooks-alive"), default=None)
+    except common.ForgeError:
+        return False
+    return isinstance(data, dict) and int(data.get("ts") or 0) >= start_ts
+
+
+# --------------------------------------------------------------------------- #
+# Preflight (design §13.3: forge-doctor --quick, then the --driver probe)
+# --------------------------------------------------------------------------- #
+def _doctor(paths: common.Paths, *flags: str) -> Tuple[int, str]:
+    doctor = os.path.join(paths.bin, "forge-doctor")
+    if not os.access(doctor, os.X_OK):
+        raise common.ForgeError("preflight: .forge/bin/forge-doctor is missing or not executable", common.EXIT_REFUSED)
+    r = subprocess.run([doctor] + list(flags), cwd=paths.root, capture_output=True, text=True)
+    return r.returncode, (r.stdout or "") + (r.stderr or "")
+
+
+def _fail_lines(output: str) -> str:
+    return "; ".join(line for line in output.splitlines() if line.startswith("FAIL")) or output.strip()[-300:]
+
+
+def claude_version() -> Optional[str]:
+    """`claude --version` output, or None when the CLI is absent."""
+    if not shutil.which("claude"):
+        return None
+    try:
+        r = subprocess.run(["claude", "--version"], capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return (r.stdout or "").strip() or None
+
+
+def preflight(paths: common.Paths, dry_run: bool) -> None:
+    """Static doctor checks, then a passing `forge-doctor --driver` probe for this CLI version (cached a day)."""
+    code, out = _doctor(paths, "--quick")
+    if code != 0:
+        raise common.ForgeError(f"preflight: forge-doctor --quick failed: {_fail_lines(out)}", common.EXIT_REFUSED)
+    print("forge-run: preflight forge-doctor --quick OK")
+    version = claude_version()
+    if dry_run:
+        print(f"forge-run: [dry-run] would require a passing forge-doctor --driver probe (claude: {version or 'absent'})")
+        return
+    if version is None:
+        raise common.ForgeError("preflight: the claude CLI is not on PATH", common.EXIT_REFUSED)
+    probe = common.read_json(paths.rt("driver-probe.json"), default=None)
+    fresh = (isinstance(probe, dict) and probe.get("ok") is True and probe.get("claude_version") == version
+             and common.now_ts() - int(probe.get("ts") or 0) < PROBE_MAX_AGE_S)
+    if fresh:
+        print("forge-run: preflight driver probe OK (cached .forge/.runtime/driver-probe.json)")
+        return
+    code, out = _doctor(paths, "--driver")
+    if code != 0:
+        raise common.ForgeError(f"preflight: forge-doctor --driver failed: {_fail_lines(out)}", common.EXIT_REFUSED)
+    print("forge-run: preflight forge-doctor --driver OK")
+
+
+# --------------------------------------------------------------------------- #
+# The loop
+# --------------------------------------------------------------------------- #
+def run_phase(paths: common.Paths, argv: List[str]) -> Tuple[int, Optional[Dict[str, Any]], str]:
+    """Run one `claude -p` phase from the repo root; returns (exit, parsed result or None, stderr tail)."""
+    r = subprocess.run(argv, cwd=paths.root, capture_output=True, text=True)
+    return r.returncode, parse_result(r.stdout), (r.stderr or "")[-500:]
+
+
+def drive(paths: common.Paths, max_phases: Optional[int], budget_usd: Optional[float], dry_run: bool) -> int:
+    """The driver loop (design §13.3). Returns the process exit code."""
+    from forgelib.status import Status   # lazily: forge-doctor/installer import this file for its rules only
+    status = Status(paths)
+    binding = common.load_binding(paths)
+    st = status.load()
+    if common.current_task(st) is None:
+        print("forge-run: no open task (idle); open one with /forge-task first")
+        return common.EXIT_OK
+    preflight(paths, dry_run)
+    limit = max_phases or int((binding.get("driver") or {}).get("max_phases") or 12)
+    seen: Dict[Tuple[Any, ...], int] = {}
+    if not dry_run:
+        common.touch(paths.rt("driver"))      # the Bash guard denies irreversible commands while this exists
+    try:
+        for i in range(1, limit + 1):
+            st = status.load()
+            task = common.current_task(st)
+            if task is None or task.get("phase") == "done":
+                print("forge-run: done (no open task)" if task is None else f"forge-run: {task['id']} done")
+                return common.EXIT_OK
+            tid, phase = task["id"], task.get("phase")
+            if phase in HOLD_PHASES:
+                print(f"forge-run: {tid} is {phase}: {task.get('blocked_on') or task.get('next_action') or ''}".rstrip())
+                return common.EXIT_REFUSED
+            gate = human_gate(paths, task, binding)
+            if gate:
+                if dry_run:
+                    print(f"forge-run: [dry-run] {tid} would be blocked at the human gate: {gate}")
+                    return common.EXIT_REFUSED
+                status.block(f"human gate: {gate}")
+                common.journal(paths, tid, f"forge-run: human gate for R task: {gate}")
+                print(f"forge-run: {tid} blocked: human gate: {gate}")
+                return common.EXIT_REFUSED
+            key = state_key(task)
+            seen[key] = seen.get(key, 0) + 1
+            if seen[key] >= LIVELOCK_REPEATS:
+                common.journal(paths, tid, f"forge-run: livelock at {key}")
+                print(f"forge-run: livelock: {tid} phase {phase} step {key[1]} attempts {key[3]} seen {seen[key]} times")
+                return EXIT_LIVELOCK
+            total = budget_usd if budget_usd is not None else task_budget(task, binding)
+            spent = measured_spend(paths, tid)
+            cap = phase_cap(task, total, spent)
+            argv = build_command(binding, cap)
+            step = current_step(task)
+            step_id = step.get("id") if step else None
+            if dry_run:
+                print(f"forge-run: [dry-run] phase {i}/{limit} {tid} {phase} step {step_id or '-'} "
+                      f"budget {total:.2f} spent {spent:.2f} cap {cap:.2f}")
+                print(shlex.join(argv))
+                return common.EXIT_OK
+            common.rm(paths.rt("hooks-alive"))
+            start_ts = common.now_ts()
+            started = time.time()
+            code, result, err = run_phase(paths, argv)
+            if result is None:
+                raise common.ForgeError(f"claude -p exited {code} without a JSON result: {err.strip()[-200:]}",
+                                        common.EXIT_DEFECTS)
+            cost = result.get("total_cost_usd")
+            usage = result.get("modelUsage")
+            row = {"event": "phase", "task": tid, "step": step_id, "class": task.get("class"), "phase": phase,
+                   "model": "fable", "effort": argv[argv.index("--effort") + 1],
+                   "cost_usd": cost if isinstance(cost, (int, float)) else None,
+                   "cost_source": "measured" if isinstance(cost, (int, float)) else "unknown",
+                   "cache_read_share": cache_read_share(usage), "session_id": result.get("session_id"),
+                   "models": models_used(usage), "is_error": bool(result.get("is_error")),
+                   "dur_s": round(time.time() - started, 1)}
+            common.ledger(paths, row)
+            common.append_jsonl(paths.rt("phase-costs.jsonl"), dict(row, ts=common.now_iso()))
+            common.journal(paths, tid, f"forge-run phase {phase}: cost {row['cost_usd']} ({row['cost_source']})")
+            print(f"forge-run: phase {i}/{limit} {tid} {phase} step {step_id or '-'} cap {cap:.2f} -> "
+                  f"cost {row['cost_usd']} cache {row['cache_read_share']} session {row['session_id']}")
+            if not hooks_alive_since(paths, start_ts):
+                common.journal(paths, tid, "forge-run: hooks-alive was not rewritten: hooks are not running")
+                print("forge-run: hooks-alive was not rewritten by SessionStart: hooks are not running "
+                      "(--bare, disableAllHooks, unexecutable scripts?); run .forge/bin/forge-doctor --probe-hooks",
+                      file=sys.stderr)
+                return common.EXIT_INVALID
+            denials = result.get("permission_denials")
+            if isinstance(denials, list) and denials:
+                common.ledger(paths, {"event": "denied_tools", "task": tid, "phase": phase, "step": step_id,
+                                      "denials": denials[:20], "session_id": result.get("session_id")})
+                common.journal(paths, tid, f"forge-run: {len(denials)} permission denial(s); aborting")
+                print(f"forge-run: {len(denials)} permission denial(s) in a headless phase; add the tools to "
+                      f"binding/settings or run the step interactively: {json.dumps(denials[:3])[:400]}", file=sys.stderr)
+                return common.EXIT_BLOCKED
+            if denials is None:
+                print("forge-run: WARN result has no permission_denials field; cannot assert none were denied",
+                      file=sys.stderr)
+        print(f"forge-run: max phases ({limit}) reached; STATUS names the next action")
+        return common.EXIT_OK
+    finally:
+        if not dry_run:
+            common.rm(paths.rt("driver"))
+
+
+def main(argv: List[str]) -> int:
+    p = argparse.ArgumentParser(prog="forge-run", description=__doc__.splitlines()[0])
+    p.add_argument("--max-phases", type=int, default=None, help="default: binding.driver.max_phases (12)")
+    p.add_argument("--budget-usd", type=float, default=None, help="task budget override (default: task.budget.cap_usd)")
+    p.add_argument("--dry-run", action="store_true", help="print the next phase's command and exit; spends nothing")
+    args = p.parse_args(argv)
+    if args.max_phases is not None and args.max_phases < 1:
+        p.error("--max-phases must be >= 1")
+    if args.budget_usd is not None and args.budget_usd <= 0:
+        p.error("--budget-usd must be > 0")
+    try:
+        return drive(common.Paths(), args.max_phases, args.budget_usd, args.dry_run)
+    except common.ForgeError as e:
+        common.eprint(f"forge-run: {e}")
+        return e.code
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

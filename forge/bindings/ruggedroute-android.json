@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "forge_pin": "1.0.0",
+  "project": "ruggedroute-android",
+  "stack": "kotlin-android",
+  "bootstrap": null,
+  "verify": [
+    { "name": "unit",    "cmd": "./gradlew :app:testDebugUnitTest", "when": "always" },
+    { "name": "compile", "cmd": "./gradlew :app:compileDebugKotlin", "when": "always" }
+  ],
+  "smoke": "./gradlew :app:assembleDebug",
+  "format": null,
+  "test_globs": ["app/src/test/**/*.kt"],
+  "test_pattern": "^\\s*@Test",
+  "protected_paths": ["app/google-services.json", "**/signing*", "app/src/main/res/values/tokens*.xml"],
+  "risk_paths": ["**/firebase/**", "**/billing/**", "**/auth/**"],
+  "important_paths": [],
+  "mechanic_denied_paths": ["app/src/main/java/**/ui/**"],
+  "risk_words": [
+    { "word": "Firebase" }, { "word": "billing" }, { "word": "signing" }, { "word": "secret" }, { "word": "delete" }
+  ],
+  "irreversible_commands": ["./gradlew publish*", "./gradlew bundleRelease", "fastlane *"],
+  "git": { "branch_per_task": false, "commit_prefix": "forge", "worktree_isolation": false },
+  "budgets": { "T": 1, "S": 3, "M": 10, "M_chain": 12, "W": 25, "L_unit": 2, "X": 30, "risk_multiplier": 1.5 },
+  "routing": {
+    "architect_effort": "medium",
+    "m_builder": "opus-medium",
+    "overrides": [
+      { "name": "ui-compose", "paths": ["app/src/main/java/**/ui/**/*.kt"], "builder": { "agent": "forge-builder", "model": "opus", "effort": "medium" }, "min_verifier": "opus" }
+    ],
+    "measured": {}
+  },
+  "clear_policy": "phase",
+  "auto_resume": true,
+  "driver": { "max_turns": 120, "max_phases": 12 },
+  "notes": [
+    "Kotlin, Jetpack Compose, Mapbox v11, Firebase, Hilt, MVVM; UI uses the AMP design tokens only.",
+    "UI criteria that need an emulator are planned as check: external with how: \"./gradlew connectedDebugAndroidTest on a local device\"; in a cloud container the verifier tags them env-cannot-run and the operator attests from a local run.",
+    "TODO: confirm risk_words and fill important_paths (release-critical screens) when the repo is installed."
+  ]
+}
