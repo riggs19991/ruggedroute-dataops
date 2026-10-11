@@ -278,6 +278,7 @@ def write_text_atomic(path: str, text: str) -> None:
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             f.write(text)
+        os.chmod(tmp, 0o644)  # mkstemp creates 0600; committed artifacts should be world-readable
         os.replace(tmp, path)
     except Exception:
         try:
