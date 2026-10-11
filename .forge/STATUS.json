@@ -2,14 +2,25 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-11T13:48:25Z",
-  "updated_ts": 1791726505,
+  "updated_at": "2026-10-11T13:50:00Z",
+  "updated_ts": 1791726600,
   "updated_by": {
-    "session_id": "installer",
-    "cmd": "idle_status"
+    "session_id": "cli",
+    "cmd": "forge-status close T-0001"
   },
-  "context_state": "fresh",
+  "context_state": "stale",
   "task": null,
   "queue": [],
-  "history": []
+  "history": [
+    {
+      "id": "T-0001",
+      "title": "docs: add the Forge build log and link it from the Forge README",
+      "class": "T",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": null,
+      "closed_at": "2026-10-11T13:50:00Z"
+    }
+  ]
 }

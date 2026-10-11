@@ -1,0 +1,18 @@
+{
+  "task": "T-0001",
+  "title": "docs: add the Forge build log and link it from the Forge README",
+  "computed_at": "2026-10-11T13:49:20Z",
+  "size_source": "declared",
+  "declared": [
+    "forge/README.md",
+    "forge/docs/BUILD-LOG.md"
+  ],
+  "files": 2,
+  "dirs": 2,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": false,
+  "risk_hits": [],
+  "important_hits": []
+}

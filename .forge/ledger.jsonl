@@ -1,0 +1,2 @@
+{"ts":"2026-10-11T13:49:20Z","event":"open","task":"T-0001","class":"T","risk":"none","expected_premium":false,"cost_source":"unknown","session_id":"cli"}
+{"ts":"2026-10-11T13:50:00Z","event":"close","task":"T-0001","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":false,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"cli"}
