@@ -3,3 +3,4 @@
 - 2026-10-12T23:06:57Z plan: test_baseline recorded at import: files=11 tests=119
 - 2026-10-12T23:06:57Z plan imported: .forge/tasks/T-0004/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute | test_baseline recorded at import: files=11 tests=119
 - 2026-10-12T23:19:55Z step-verdict main: FAIL tags=['env-cannot-run'] blocking=1 file=.forge/tasks/T-0004/drafts/forge-verifier-verdict.md (verdict 1)
+- 2026-10-12T23:21:15Z block: Human gate: dispatch quarterly-parcels.yml with no states input (full 26-unit matrix): gh workflow run quarterly-parcels.yml && gh run watch; confirm curl -s https://tiles.ruggedroutehq.com/parcels.json | jq -r .version is newer than parcels-20260811-1838.pmtiles; then .forge/bin/forge-status unblock, .forge/bin/forge-status attest T-0004 main DoD-4 --by <name> --evidence <run url> --exit 0, re-dispatch forge-verifier fable/medium, close --human-ack
