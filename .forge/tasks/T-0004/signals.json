@@ -1,0 +1,23 @@
+{
+  "task": "T-0004",
+  "title": "parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly",
+  "computed_at": "2026-10-12T23:04:19Z",
+  "size_source": "declared",
+  "declared": [
+    "layers/parcels/sources.json",
+    "layers/parcels/fetch_helpers.py",
+    "layers/parcels/tests/test_fetch_helpers.py"
+  ],
+  "files": 3,
+  "dirs": 1,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": true,
+  "risk_hits": [
+    "layers/parcels/sources.json (layers/parcels/**)",
+    "layers/parcels/fetch_helpers.py (layers/parcels/**)",
+    "layers/parcels/tests/test_fetch_helpers.py (layers/parcels/**)"
+  ],
+  "important_hits": []
+}

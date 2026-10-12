@@ -1,0 +1,53 @@
+{
+  "ts": 1791846671,
+  "agent_id": "unknown",
+  "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
+  "task": "T-0004",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "lib-unit",
+      "cmd": "cd lib && python3 -m unittest -v",
+      "exit": 0,
+      "dur_s": 2.5,
+      "tail": "test_missing_fields_and_garbage_never_crash (test_normalize_roadcore.Tolerance.test_missing_fields_and_garbage_never_crash) ... ok\ntest_skips_empty (test_route_common.ApplyPassthrough.test_skips_empty) ... ok\ntest_tolerates_garbage (test_route_common.IterFeatures.test_tolerates_garbage) ... ok\ntest_distinct_values_stay_distinct (test_route_common.ReviewQueueDedup.test_distinct_values_stay_distinct) ... ok\ntest_duplicate_examples_not_repeated (test_route_common.ReviewQueueDedup.test_duplicate_examples_not_repeated) ... ok\ntest_empty_queue_writes_empty_file (test_route_common.ReviewQueueDedup.test_empty_queue_writes_empty_file) ... ok\ntest_flood_dedupes_to_one_entry (test_route_common.ReviewQueueDedup.test_flood_dedupes_to_one_entry) ... ok\ntest_none_value_is_keyed (test_route_common.ReviewQueueDedup.test_none_value_is_keyed) ... ok\ntest_parse_seasons_reexported_semantics (test_route_common.SharedParsers.test_parse_seasons_reexported_semantics) ... ok\ntest_truthy (test_route_common.SharedParsers.test_truthy) ... ok\n\n----------------------------------------------------------------------\nRan 68 tests in 2.331s\n\nOK"
+    },
+    {
+      "name": "layer-tests",
+      "cmd": "pytest layers/parcels/tests -q",
+      "exit": 1,
+      "dur_s": 0.7,
+      "tail": "E        +    where HubJobError('hub download never completed within 60s for https://hub.example/api/download/v1/items/abc/filegdb?redirect=false&layers=0; last: HTTP 500 Internal Server Error: ') = <ExceptionInfo HubJobError('hub download never completed within 60s for https://hub.example/api/download/v1/items/abc/filegdb?redirect=false&layers=0; last: HTTP 500 Internal Server Error: ') tblen=3>.value\n\nlayers/parcels/tests/test_fetch_helpers.py:130: AssertionError\n_______ test_sources_hub_entries_all_use_the_job_api_with_redirect_false _______\n\n    def test_sources_hub_entries_all_use_the_job_api_with_redirect_false():\n>       hub_units = [u for u, c in SOURCES.items() if c.get(\"mode\") == \"hub\"]\n                                                      ^^^^^\nE       AttributeError: 'str' object has no attribute 'get'\n\nlayers/parcels/tests/test_fetch_helpers.py:198: AttributeError\n=========================== short test summary info ============================\nFAILED layers/parcels/tests/test_fetch_helpers.py::test_hub_poll_gives_up_after_the_deadline_naming_the_last_error\nFAILED layers/parcels/tests/test_fetch_helpers.py::test_sources_hub_entries_all_use_the_job_api_with_redirect_false\n2 failed, 22 passed, 1 skipped in 0.10s"
+    },
+    {
+      "name": "worker",
+      "cmd": "cd worker-tiles && npx wrangler deploy --dry-run",
+      "status": "skipped",
+      "why": "when: paths:worker-tiles/** did not match"
+    },
+    {
+      "name": "brief:DoD-1",
+      "cmd": "pytest layers/parcels/tests/test_fetch_helpers.py -q -k hub",
+      "exit": 1,
+      "dur_s": 0.4,
+      "tail": "E        +    where HubJobError('hub download never completed within 60s for https://hub.example/api/download/v1/items/abc/filegdb?redirect=false&layers=0; last: HTTP 500 Internal Server Error: ') = <ExceptionInfo HubJobError('hub download never completed within 60s for https://hub.example/api/download/v1/items/abc/filegdb?redirect=false&layers=0; last: HTTP 500 Internal Server Error: ') tblen=3>.value\n\nlayers/parcels/tests/test_fetch_helpers.py:130: AssertionError\n_______ test_sources_hub_entries_all_use_the_job_api_with_redirect_false _______\n\n    def test_sources_hub_entries_all_use_the_job_api_with_redirect_false():\n>       hub_units = [u for u, c in SOURCES.items() if c.get(\"mode\") == \"hub\"]\n                                                      ^^^^^\nE       AttributeError: 'str' object has no attribute 'get'\n\nlayers/parcels/tests/test_fetch_helpers.py:198: AttributeError\n=========================== short test summary info ============================\nFAILED layers/parcels/tests/test_fetch_helpers.py::test_hub_poll_gives_up_after_the_deadline_naming_the_last_error\nFAILED layers/parcels/tests/test_fetch_helpers.py::test_sources_hub_entries_all_use_the_job_api_with_redirect_false\n2 failed, 7 passed, 1 deselected in 0.08s"
+    },
+    {
+      "name": "brief:DoD-2",
+      "cmd": "pytest layers/parcels/tests/test_fetch_helpers.py -q -k sources",
+      "exit": 1,
+      "dur_s": 0.4,
+      "tail": "..F                                                                      [100%]\n=================================== FAILURES ===================================\n_______ test_sources_hub_entries_all_use_the_job_api_with_redirect_false _______\n\n    def test_sources_hub_entries_all_use_the_job_api_with_redirect_false():\n>       hub_units = [u for u, c in SOURCES.items() if c.get(\"mode\") == \"hub\"]\n                                                      ^^^^^\nE       AttributeError: 'str' object has no attribute 'get'\n\nlayers/parcels/tests/test_fetch_helpers.py:198: AttributeError\n=========================== short test summary info ============================\nFAILED layers/parcels/tests/test_fetch_helpers.py::test_sources_hub_entries_all_use_the_job_api_with_redirect_false\n1 failed, 2 passed, 7 deselected in 0.10s"
+    },
+    {
+      "name": "brief:DoD-3",
+      "cmd": "python3 layers/parcels/fetch_helpers.py probe \"https://gis.data.mn.gov/api/download/v1/items/69148d3959194a05a23964cc60f6517b/filegdb?redirect=false&layers=1\" && python3 layers/parcels/fetch_helpers.py probe \"https://gishubdata-ndgov.hub.arcgis.com/api/download/v1/items/ac6da1176038457db16e8debe3f1abaf/filegdb?redirect=false&layers=0\"",
+      "exit": 0,
+      "dur_s": 2.0,
+      "tail": "  hub job envelope: status='Completed' resultUrl=yes\n  hub job envelope: status='ExportingData' resultUrl=no"
+    }
+  ],
+  "ratchet": null,
+  "ok": false
+}

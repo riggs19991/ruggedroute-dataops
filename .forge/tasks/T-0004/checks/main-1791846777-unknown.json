@@ -1,0 +1,60 @@
+{
+  "ts": 1791846777,
+  "agent_id": "unknown",
+  "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
+  "task": "T-0004",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "lib-unit",
+      "cmd": "cd lib && python3 -m unittest -v",
+      "exit": 0,
+      "dur_s": 3.0,
+      "tail": "test_missing_fields_and_garbage_never_crash (test_normalize_roadcore.Tolerance.test_missing_fields_and_garbage_never_crash) ... ok\ntest_skips_empty (test_route_common.ApplyPassthrough.test_skips_empty) ... ok\ntest_tolerates_garbage (test_route_common.IterFeatures.test_tolerates_garbage) ... ok\ntest_distinct_values_stay_distinct (test_route_common.ReviewQueueDedup.test_distinct_values_stay_distinct) ... ok\ntest_duplicate_examples_not_repeated (test_route_common.ReviewQueueDedup.test_duplicate_examples_not_repeated) ... ok\ntest_empty_queue_writes_empty_file (test_route_common.ReviewQueueDedup.test_empty_queue_writes_empty_file) ... ok\ntest_flood_dedupes_to_one_entry (test_route_common.ReviewQueueDedup.test_flood_dedupes_to_one_entry) ... ok\ntest_none_value_is_keyed (test_route_common.ReviewQueueDedup.test_none_value_is_keyed) ... ok\ntest_parse_seasons_reexported_semantics (test_route_common.SharedParsers.test_parse_seasons_reexported_semantics) ... ok\ntest_truthy (test_route_common.SharedParsers.test_truthy) ... ok\n\n----------------------------------------------------------------------\nRan 68 tests in 2.894s\n\nOK"
+    },
+    {
+      "name": "layer-tests",
+      "cmd": "pytest layers/parcels/tests -q",
+      "exit": 0,
+      "dur_s": 0.4,
+      "tail": "........................s                                                [100%]\n24 passed, 1 skipped in 0.12s"
+    },
+    {
+      "name": "worker",
+      "cmd": "cd worker-tiles && npx wrangler deploy --dry-run",
+      "status": "skipped",
+      "why": "when: paths:worker-tiles/** did not match"
+    },
+    {
+      "name": "brief:DoD-1",
+      "cmd": "pytest layers/parcels/tests/test_fetch_helpers.py -q -k hub",
+      "exit": 0,
+      "dur_s": 0.5,
+      "tail": ".........                                                                [100%]\n9 passed, 1 deselected in 0.11s"
+    },
+    {
+      "name": "brief:DoD-2",
+      "cmd": "pytest layers/parcels/tests/test_fetch_helpers.py -q -k sources",
+      "exit": 0,
+      "dur_s": 0.4,
+      "tail": "...                                                                      [100%]\n3 passed, 7 deselected in 0.07s"
+    },
+    {
+      "name": "brief:DoD-3",
+      "cmd": "python3 layers/parcels/fetch_helpers.py probe \"https://gis.data.mn.gov/api/download/v1/items/69148d3959194a05a23964cc60f6517b/filegdb?redirect=false&layers=1\" && python3 layers/parcels/fetch_helpers.py probe \"https://gishubdata-ndgov.hub.arcgis.com/api/download/v1/items/ac6da1176038457db16e8debe3f1abaf/filegdb?redirect=false&layers=0\"",
+      "exit": 0,
+      "dur_s": 1.8,
+      "tail": "  hub job envelope: status='Completed' resultUrl=yes\n  hub job envelope: status='ExportingData' resultUrl=no"
+    }
+  ],
+  "ratchet": {
+    "baseline_tests": 119,
+    "baseline_files": 11,
+    "now_tests": 129,
+    "now_files": 12,
+    "deleted_test_files": [],
+    "status": "PASS"
+  },
+  "ok": true
+}

@@ -1,1 +1,4 @@
 - 2026-10-12T00:54:43Z queued: parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly (class hint S)
+- 2026-10-12T23:04:19Z open: parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly | class X risk R files=3 dirs=1 importers=0 tests_present=True risk_hits=['layers/parcels/sources.json (layers/parcels/**)', 'layers/parcels/fetch_helpers.py (layers/parcels/**)', 'layers/parcels/tests/test_fetch_helpers.py (layers/parcels/**)'] important=[]
+- 2026-10-12T23:06:57Z plan: test_baseline recorded at import: files=11 tests=119
+- 2026-10-12T23:06:57Z plan imported: .forge/tasks/T-0004/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute | test_baseline recorded at import: files=11 tests=119
