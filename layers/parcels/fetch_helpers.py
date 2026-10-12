@@ -73,18 +73,27 @@ def _snippet(body: bytes, n: int = 300) -> str:
 
 def _fetch_job(api_url: str, fetch=get, log=print) -> tuple[dict | None, str]:
     """One poll of the job endpoint: (envelope, description) or (None, error description)."""
+    raw = b""
     try:
-        job = json.loads(fetch(api_url))
+        raw = fetch(api_url)
+        job = json.loads(raw)
     except urllib.error.HTTPError as e:
         body = _snippet(e.read() if e.fp is not None else b"")
         last = f"HTTP {e.code} {e.reason}: {body}"
         log(f"  hub job endpoint answered {last}")
         return None, last
-    except (urllib.error.URLError, OSError, ValueError) as e:
-        # URLError: DNS/connection failures; OSError: socket timeouts;
-        # ValueError: JSON decode errors (an HTML error shell, a truncated body).
+    except (urllib.error.URLError, OSError) as e:
+        # URLError: DNS/connection failures; OSError: socket timeouts.
         last = f"{type(e).__name__}: {str(e)[:200]}"
         log(f"  hub job endpoint failed: {last}")
+        return None, last
+    except ValueError as e:
+        # JSON decode errors: an HTML maintenance page, a truncated body. Log the
+        # body itself, so the run log shows WHAT the endpoint said, not only that
+        # it was not JSON.
+        body = _snippet(raw if isinstance(raw, bytes) else str(raw).encode())
+        last = f"{type(e).__name__}: {str(e)[:120]}; body: {body!r}"
+        log(f"  hub job endpoint returned a non-JSON body: {last}")
         return None, last
     if not isinstance(job, dict):
         last = f"envelope is not an object: {str(job)[:120]!r}"

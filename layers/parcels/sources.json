@@ -411,7 +411,7 @@
       "acres": "acres_poly"
     },
     "count_expected": 2710201,
-    "notes": "59/87 opt-in counties incl 7-county metro, quarterly. 2026-10-12: gisdata.mn.gov moved to the gis.data.mn.gov ArcGIS Hub and the GDRS bulk zip (fgdb_plan_parcels_open.zip) 404s (Q4 run 37349704081), so this is the hub download/v1 FGDB export of layer 1 'Plan Parcels Open' of FeatureServer us_mn_state_mngeo/plan_parcels_open (item 69148d39...). layers=1 REQUIRED: layer 0 is the per-county metadata polygons. No layer hint: the export holds that one feature class and the hub does not publish its name. Field names unchanged (state_pin, co_name, acres_poly); owner_*, own_add_*, tax_* columns exist upstream and are dropped by the mapping + whitelist gate. Live count 2,710,201 on 2026-10-12."
+    "notes": "59/87 opt-in counties incl 7-county metro, quarterly. 2026-10-12: gisdata.mn.gov moved to the gis.data.mn.gov ArcGIS Hub and the GDRS bulk zip (fgdb_plan_parcels_open.zip) 404s (Q4 run 37349704081), so this is the hub download/v1 FGDB export of layer 1 'Plan Parcels Open' of FeatureServer us_mn_state_mngeo/plan_parcels_open (item 69148d39...). layers=1 REQUIRED: layer 0 is the per-county metadata polygons. No layer hint: the export holds that one feature class and the hub names it after the service's internal table (the layer-0 export's class is o5_plan_parcels_open_2, not the display name), so a hint would only break. Field names unchanged (state_pin, co_name, acres_poly); owner_*, own_add_*, tax_* columns exist upstream and are dropped by the mapping + whitelist gate. Live count 2,710,201 on 2026-10-12."
   },
   "ME": {
     "mode": "hub",

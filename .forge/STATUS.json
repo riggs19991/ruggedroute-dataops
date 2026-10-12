@@ -2,11 +2,11 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-12T23:06:57Z",
-  "updated_ts": 1791846417,
+  "updated_at": "2026-10-12T23:19:55Z",
+  "updated_ts": 1791847195,
   "updated_by": {
     "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
-    "cmd": "forge-status plan T-0004"
+    "cmd": "forge-status step-verdict T-0004 main"
   },
   "context_state": "stale",
   "task": {
@@ -60,8 +60,8 @@
       "step": null,
       "round": 0
     },
-    "next_action": "Invoke /forge-investigate T-0004",
-    "resume_hint": "Plan imported from .forge/tasks/T-0004/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
+    "next_action": "Fix the blocking findings in forge-verifier-verdict.md, re-run .forge/bin/forge-check T-0004 main, then re-dispatch forge-verifier (fable/medium)",
+    "resume_hint": "Verifier FAIL on file (tags ['env-cannot-run']); class X cannot close until a PASS verdict is recorded.",
     "evidence_count": 0,
     "evidence": [],
     "blocked_on": null,
@@ -70,7 +70,17 @@
       "cap_usd": 45.0
     },
     "opened_at": "2026-10-12T23:04:19Z",
-    "base": "2716eb9eb5dcc142ca1053d8ccaef27f374be2b3"
+    "base": "2716eb9eb5dcc142ca1053d8ccaef27f374be2b3",
+    "inline_verdict": {
+      "verdict": "FAIL",
+      "file": ".forge/tasks/T-0004/drafts/forge-verifier-verdict.md",
+      "verifier_model": "fable",
+      "at": "2026-10-12T23:19:55Z",
+      "attempt": 1,
+      "tags": [
+        "env-cannot-run"
+      ]
+    }
   },
   "queue": [
     {

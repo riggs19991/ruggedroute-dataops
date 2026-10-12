@@ -113,7 +113,8 @@ def test_hub_poll_survives_network_error_and_html_body():
     job = poll(fetch, clock, log)
     assert job["resultUrl"] == "https://hub.example/result.zip"
     assert len(fetch.calls) == 3
-    assert any("URLError" in m for m in log) and any("JSONDecodeError" in m for m in log), log
+    assert any("URLError" in m for m in log), log
+    assert any("JSONDecodeError" in m and "503 upstream" in m for m in log), log   # the body itself is logged
 
 
 def test_hub_poll_waits_out_exporting_status_and_a_result_less_completed():
