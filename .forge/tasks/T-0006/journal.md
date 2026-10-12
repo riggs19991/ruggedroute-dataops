@@ -1,0 +1,1 @@
+- 2026-10-12T00:54:44Z queued: ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows (class hint T)

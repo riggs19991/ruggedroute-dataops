@@ -1,0 +1,1 @@
+- 2026-10-12T00:54:43Z queued: docs: refresh the README layer status table from the live TileJSON versions and fix the broken master-plan pointer (class hint T)

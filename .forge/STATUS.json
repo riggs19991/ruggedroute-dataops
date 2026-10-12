@@ -2,15 +2,36 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-11T20:07:03Z",
-  "updated_ts": 1791749223,
+  "updated_at": "2026-10-12T00:54:44Z",
+  "updated_ts": 1791766484,
   "updated_by": {
-    "session_id": "23bf0fa0-7735-5f90-9b85-e7b294bb0dd2",
-    "cmd": "forge-status close T-0003"
+    "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
+    "cmd": "forge-status open --queue T-0007"
   },
   "context_state": "stale",
   "task": null,
-  "queue": [],
+  "queue": [
+    {
+      "id": "T-0004",
+      "title": "parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly",
+      "class_hint": "S"
+    },
+    {
+      "id": "T-0005",
+      "title": "docs: refresh the README layer status table from the live TileJSON versions and fix the broken master-plan pointer",
+      "class_hint": "T"
+    },
+    {
+      "id": "T-0006",
+      "title": "ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows",
+      "class_hint": "T"
+    },
+    {
+      "id": "T-0007",
+      "title": "worker: add a real test for worker-tiles so the binding's worker verify entry can stop being a todo",
+      "class_hint": "S"
+    }
+  ],
   "history": [
     {
       "id": "T-0001",

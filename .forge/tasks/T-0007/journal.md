@@ -1,0 +1,1 @@
+- 2026-10-12T00:54:44Z queued: worker: add a real test for worker-tiles so the binding's worker verify entry can stop being a todo (class hint S)

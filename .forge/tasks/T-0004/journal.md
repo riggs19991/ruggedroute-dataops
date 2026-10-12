@@ -1,0 +1,1 @@
+- 2026-10-12T00:54:43Z queued: parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly (class hint S)

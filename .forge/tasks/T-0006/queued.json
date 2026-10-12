@@ -1,0 +1,12 @@
+{
+  "id": "T-0006",
+  "title": "ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows",
+  "class_hint": "T",
+  "risk": "R",
+  "files": [
+    ".github/workflows/monthly-ownership.yml"
+  ],
+  "creates": [],
+  "why": "monthly-ownership.yml clones tippecanoe from HEAD unpinned (quarterly-parcels.yml:12-13 calls it a known to-do); workflows are protected paths",
+  "queued_at": "2026-10-12T00:54:44Z"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "T-0004",
+  "title": "parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly",
+  "class_hint": "S",
+  "risk": "R",
+  "files": [
+    "layers/parcels/sources.json",
+    "layers/parcels/fetch_helpers.py",
+    "layers/parcels/fetch_parcels.sh",
+    "layers/parcels/tests/test_normalize_parcels.py"
+  ],
+  "creates": [],
+  "why": "Q4 scheduled run 37349704081 (2026-10-05) failed on ND (hub API HTTP 400) and MN (zip HTTP 404); the live object is parcels-20260811-1838, one quarter stale; layers/parcels/** is a risk path",
+  "queued_at": "2026-10-12T00:54:43Z"
+}
