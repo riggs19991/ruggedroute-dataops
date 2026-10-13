@@ -11,3 +11,4 @@
 {"ts":"2026-10-13T06:58:48Z","event":"close","task":"T-0004","class":"X","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":true,"escalations":0,"status":"riggs19991 approved T-0004 (Go, 2026-10-13) diff 3f95565","verdict":null,"session_id":"f6b35796-990e-579d-baee-95c6920b3ec9"}
 {"ts":"2026-10-13T06:59:15Z","event":"open","task":"T-0005","class":"T","risk":"none","expected_premium":false,"cost_source":"unknown","session_id":"f6b35796-990e-579d-baee-95c6920b3ec9"}
 {"ts":"2026-10-13T06:59:50Z","event":"close","task":"T-0005","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"f6b35796-990e-579d-baee-95c6920b3ec9"}
+{"ts":"2026-10-13T07:00:27Z","event":"open","task":"T-0006","class":"X","risk":"R","expected_premium":true,"cost_source":"unknown","session_id":"f6b35796-990e-579d-baee-95c6920b3ec9"}

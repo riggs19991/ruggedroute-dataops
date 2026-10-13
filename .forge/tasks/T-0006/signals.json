@@ -1,0 +1,21 @@
+{
+  "task": "T-0006",
+  "title": "ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows",
+  "computed_at": "2026-10-13T07:00:27Z",
+  "size_source": "declared",
+  "declared": [
+    ".github/workflows/monthly-ownership.yml",
+    ".github/workflows/quarterly-parcels.yml"
+  ],
+  "files": 2,
+  "dirs": 1,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": false,
+  "risk_hits": [
+    ".github/workflows/monthly-ownership.yml (.github/workflows/*.yml)",
+    ".github/workflows/quarterly-parcels.yml (.github/workflows/*.yml)"
+  ],
+  "important_hits": []
+}

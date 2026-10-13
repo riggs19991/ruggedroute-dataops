@@ -76,7 +76,7 @@ jobs:
         if: steps.gate.outputs.skip != 'true'
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin libsqlite3-dev zlib1g-dev
-          git clone -q --depth 1 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          git clone -q --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
           make -C /tmp/tippecanoe -j4 >/dev/null && sudo make -C /tmp/tippecanoe install >/dev/null
           curl -sL https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz \
             | sudo tar xz -C /usr/local/bin pmtiles
@@ -112,7 +112,7 @@ jobs:
       - name: Install pmtiles + tile-join
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin libsqlite3-dev zlib1g-dev
-          git clone -q --depth 1 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+          git clone -q --depth 1 --branch 2.79.0 https://github.com/felt/tippecanoe.git /tmp/tippecanoe
           make -C /tmp/tippecanoe -j4 >/dev/null && sudo make -C /tmp/tippecanoe install >/dev/null
           curl -sL https://github.com/protomaps/go-pmtiles/releases/download/v1.31.0/go-pmtiles_1.31.0_Linux_x86_64.tar.gz \
             | sudo tar xz -C /usr/local/bin pmtiles

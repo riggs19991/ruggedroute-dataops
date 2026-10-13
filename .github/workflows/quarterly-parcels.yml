@@ -9,8 +9,8 @@
 # edge-caches versioned objects; never reuse one same-day).
 #
 # Differences from lands, deliberate:
-# - tippecanoe PINNED at 2.79.0 via cache (weekly-motorized idiom) — the
-#   unpinned clone in monthly-ownership is a known to-do, not a pattern.
+# - tippecanoe PINNED at 2.79.0 via cache (weekly-motorized idiom);
+#   monthly-ownership pins the same tag with a plain clone (no cache).
 # - Matrix units are STATES WITH SHARDS: TX_1..3 / FL_1..2 split rest-mode on
 #   the county field (a 6M-parcel shard is the runner disk/wall-clock ceiling).
 # - Raw dumps are deleted between normalize and tiles: raw + normalized
