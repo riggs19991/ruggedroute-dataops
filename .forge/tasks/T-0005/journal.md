@@ -1,1 +1,3 @@
 - 2026-10-12T00:54:43Z queued: docs: refresh the README layer status table from the live TileJSON versions and fix the broken master-plan pointer (class hint T)
+- 2026-10-13T06:59:15Z open: docs: refresh the README layer status table from the live TileJSON versions and fix the broken master-plan pointer | class T risk none files=1 dirs=1 importers=0 tests_present=True risk_hits=[] important=[]
+- 2026-10-13T06:59:50Z close: done | README: six layer rows now say LIVE with cadence (roads_context, nfs_trails, blm_routes, nps_roads, parcels, roads_tnm), the dead master-plan pointer is replaced by an honest note, and a live-version hint points at the worker TileJSON | .forge/tasks/T-0005/checks/main-1791874790-unknown.json

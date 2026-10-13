@@ -3,9 +3,11 @@
 The data platform for [RuggedRoute](https://ruggedroutehq.com)'s map: government open data →
 normalized GeoJSON → vector tiles (PMTiles) → Cloudflare R2 → the app.
 
-Master plan lives in the app repo: `docs/plans/2026-08-02-map-data-master-plan.md`.
-Research archive (every source, endpoint, license, price — verified 2026-08-02):
-`docs/research/2026-08-02-map-data-research.json`.
+Master plan: the 2026-08-02 map-data master plan and its research archive
+(`docs/plans/2026-08-02-map-data-master-plan.md`, `docs/research/2026-08-02-map-data-research.json`)
+are NOT in the app repo today — checked 2026-10-12, no `docs/plans/2026-08-02-*` on its master
+branch. Until they are recovered, the per-layer `layers/{layer}/layer.json` manifests and the app
+repo's `docs/OFFROAD_ROADMAP.md` are the references.
 
 ## Architecture
 
@@ -32,14 +34,18 @@ Design rules (from the master plan — do not violate):
 | Layer | Source | Workflow | Status |
 |---|---|---|---|
 | `mvum` (roads + trails, vehicle flags + season windows, NFS-attr enrichment) | USFS MVUM bulk GDBs | `weekly-motorized.yml` | **LIVE** (Stage 0 loop, Stage 1 enrichment) |
-| `roads_context` (full road inventory, grey context — never green) | USFS RoadCore bulk GDB | `weekly-motorized.yml` | Stage 1 — pipeline ready |
-| `nfs_trails` (trail system + managed-use seasons; feeds MVUM enrichment) | USFS Trans_Trail_NFS_Publish bulk GDB | `weekly-motorized.yml` | Stage 1 — tileset only, no client layer yet |
-| `blm_routes` (OHV designation open/limited/closed + limitation text) | BLM GTLF Public Display 0-3 (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
-| `nps_roads` (park road inventory, seasonal + surface) | NPS Public Roads FeatureServer (esridump) | `weekly-motorized.yml` | Stage 1 — pipeline ready |
+| `roads_context` (full road inventory, grey context — never green) | USFS RoadCore bulk GDB | `weekly-motorized.yml` | **LIVE** (weekly) |
+| `nfs_trails` (trail system + managed-use seasons; feeds MVUM enrichment) | USFS Trans_Trail_NFS_Publish bulk GDB | `weekly-motorized.yml` | **LIVE** tileset (weekly); no client layer yet |
+| `blm_routes` (OHV designation open/limited/closed + limitation text) | BLM GTLF Public Display 0-3 (esridump) | `weekly-motorized.yml` | **LIVE** (weekly) |
+| `nps_roads` (park road inventory, seasonal + surface) | NPS Public Roads FeatureServer (esridump) | `weekly-motorized.yml` | **LIVE** (weekly) |
 | `lands` (PAD-US ownership fill + wilderness/WSA overlay) | USGS PAD-US 4.1 state GDBs (ScienceBase) | `monthly-ownership.yml` | **LIVE** (Stage 2, national 195 MB) |
-| `parcels` (private-parcel boundaries, GEOMETRY ONLY — apn/county/acres/st; QA hard-gates any other attribute) | ~25 clean-license state programs (research 2026-08-09, app repo `docs/research/2026-08-09-free-parcel-boundaries.md`) | `quarterly-parcels.yml` | Stage 3 — Phase 1 pipeline built; pilot = UT MT WI |
-| `roads_tnm` (EVERY road class + terra trails on every acre, styled by class — grey context, never a legal designation; source layers roads_hwy/roads_local/roads_4wd/trails_tnm) | USGS TNM National Transportation Dataset per-state FGDBs (TIGER + USFS + NPS + AK DOT; public domain) | `quarterly-roads.yml` | D1b — pipeline built 2026-08-16; pilot = ID UT |
+| `parcels` (private-parcel boundaries, GEOMETRY ONLY — apn/county/acres/st; QA hard-gates any other attribute) | ~25 clean-license state programs (research 2026-08-09, app repo `docs/research/2026-08-09-free-parcel-boundaries.md`) | `quarterly-parcels.yml` | **LIVE** (quarterly; 22 states + DC in 26 units; MN moved to the gis.data.mn.gov hub 2026-10-12) |
+| `roads_tnm` (EVERY road class + terra trails on every acre, styled by class — grey context, never a legal designation; source layers roads_hwy/roads_local/roads_4wd/trails_tnm) | USGS TNM National Transportation Dataset per-state FGDBs (TIGER + USFS + NPS + AK DOT; public domain) | `quarterly-roads.yml` | **LIVE** (national since 2026-08-17; quarterly) |
 | rec_pois, … | — | — | per master plan §11 |
+
+Live versions come from the worker, not this table: `https://tiles.ruggedroutehq.com/{layer}.json` →
+`version` (2026-10-13: the five weekly layers 20261005, lands 20261003, roads_tnm 20260817,
+parcels 20261013).
 
 All five normalizers share `lib/route_common.py` (season parser, tolerant GeoJSONSeq
 streaming, deduped review queue). Per-layer manifests live in `layers/{layer}/layer.json`.

@@ -1,0 +1,17 @@
+{
+  "task": "T-0005",
+  "title": "docs: refresh the README layer status table from the live TileJSON versions and fix the broken master-plan pointer",
+  "computed_at": "2026-10-13T06:59:15Z",
+  "size_source": "declared",
+  "declared": [
+    "README.md"
+  ],
+  "files": 1,
+  "dirs": 1,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": true,
+  "risk_hits": [],
+  "important_hits": []
+}

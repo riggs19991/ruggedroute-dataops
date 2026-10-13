@@ -1,0 +1,31 @@
+{
+  "ts": 1791874790,
+  "agent_id": "unknown",
+  "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
+  "task": "T-0005",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "lib-unit",
+      "cmd": "cd lib && python3 -m unittest -v",
+      "exit": 0,
+      "dur_s": 2.4,
+      "tail": "test_missing_fields_and_garbage_never_crash (test_normalize_roadcore.Tolerance.test_missing_fields_and_garbage_never_crash) ... ok\ntest_skips_empty (test_route_common.ApplyPassthrough.test_skips_empty) ... ok\ntest_tolerates_garbage (test_route_common.IterFeatures.test_tolerates_garbage) ... ok\ntest_distinct_values_stay_distinct (test_route_common.ReviewQueueDedup.test_distinct_values_stay_distinct) ... ok\ntest_duplicate_examples_not_repeated (test_route_common.ReviewQueueDedup.test_duplicate_examples_not_repeated) ... ok\ntest_empty_queue_writes_empty_file (test_route_common.ReviewQueueDedup.test_empty_queue_writes_empty_file) ... ok\ntest_flood_dedupes_to_one_entry (test_route_common.ReviewQueueDedup.test_flood_dedupes_to_one_entry) ... ok\ntest_none_value_is_keyed (test_route_common.ReviewQueueDedup.test_none_value_is_keyed) ... ok\ntest_parse_seasons_reexported_semantics (test_route_common.SharedParsers.test_parse_seasons_reexported_semantics) ... ok\ntest_truthy (test_route_common.SharedParsers.test_truthy) ... ok\n\n----------------------------------------------------------------------\nRan 68 tests in 2.311s\n\nOK"
+    },
+    {
+      "name": "layer-tests",
+      "cmd": "pytest layers/{layer}/tests -q",
+      "status": "skipped",
+      "why": "when: paths:layers/{layer}/** did not match"
+    },
+    {
+      "name": "worker",
+      "cmd": "cd worker-tiles && npx wrangler deploy --dry-run",
+      "status": "skipped",
+      "why": "when: paths:worker-tiles/** did not match"
+    }
+  ],
+  "ratchet": null,
+  "ok": true
+}
