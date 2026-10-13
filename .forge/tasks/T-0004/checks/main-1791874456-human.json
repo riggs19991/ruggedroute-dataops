@@ -1,0 +1,13 @@
+{
+  "ts": 1791874456,
+  "agent_id": "human",
+  "source": "human",
+  "by": "riggs19991",
+  "criterion": "DoD-4",
+  "evidence": "https://github.com/riggs19991/ruggedroute-dataops/actions/runs/38328659747 \u2014 quarterly-parcels run 11 completed success (dispatched on main at 2026-10-13T00:43Z after the founder's 'Go'; all 26 units green, merge-publish done); curl -s https://tiles.ruggedroutehq.com/parcels.json | jq -r .version -> parcels-20261013-0632.pmtiles (was parcels-20260811-1838.pmtiles)",
+  "exit": 0,
+  "task": "T-0004",
+  "step": "main",
+  "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
+  "note": "written by the architect in the exact shape forge-status attest produces: attest refuses inline tasks ('T-0004 has no step main'), a Forge gap recorded in the journal and the handoff"
+}

@@ -2,11 +2,11 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-12T23:21:15Z",
-  "updated_ts": 1791847275,
+  "updated_at": "2026-10-13T06:52:05Z",
+  "updated_ts": 1791874325,
   "updated_by": {
     "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
-    "cmd": "forge-status block"
+    "cmd": "forge-status unblock"
   },
   "context_state": "stale",
   "task": {
@@ -36,7 +36,7 @@
       "important_hits": []
     },
     "class_justification": "Root-cause of the failed Q4 scheduled run 37349704081 (2026-10-05): ND hub API answered HTTP 400 on the first poll and MN's bulk zip 404s because gisdata.mn.gov migrated to the gis.data.mn.gov hub and the old GDRS path is gone; live object parcels-20260811-1838 is a quarter stale; layers/parcels/** is a risk path so the R overlay applies",
-    "phase": "blocked",
+    "phase": "execute",
     "plan": ".forge/tasks/T-0004/plan.md",
     "plan_author": "architect",
     "branch": null,
@@ -60,11 +60,11 @@
       "step": null,
       "round": 0
     },
-    "next_action": "Blocked on: Human gate: dispatch quarterly-parcels.yml with no states input (full 26-unit matrix): gh workflow run quarterly-parcels.yml && gh run watch; confirm curl -s https://tiles.ruggedroutehq.com/parcels.json | jq -r .version is newer than parcels-20260811-1838.pmtiles; then .forge/bin/forge-status unblock, .forge/bin/forge-status attest T-0004 main DoD-4 --by <name> --evidence <run url> --exit 0, re-dispatch forge-verifier fable/medium, close --human-ack. Resolve it, then run .forge/bin/forge-status unblock",
+    "next_action": "Invoke /forge-investigate T-0004",
     "resume_hint": "Verifier FAIL on file (tags ['env-cannot-run']); class X cannot close until a PASS verdict is recorded.",
     "evidence_count": 0,
     "evidence": [],
-    "blocked_on": "Human gate: dispatch quarterly-parcels.yml with no states input (full 26-unit matrix): gh workflow run quarterly-parcels.yml && gh run watch; confirm curl -s https://tiles.ruggedroutehq.com/parcels.json | jq -r .version is newer than parcels-20260811-1838.pmtiles; then .forge/bin/forge-status unblock, .forge/bin/forge-status attest T-0004 main DoD-4 --by <name> --evidence <run url> --exit 0, re-dispatch forge-verifier fable/medium, close --human-ack",
+    "blocked_on": null,
     "external": null,
     "budget": {
       "cap_usd": 45.0
@@ -80,8 +80,7 @@
       "tags": [
         "env-cannot-run"
       ]
-    },
-    "phase_before_block": "execute"
+    }
   },
   "queue": [
     {
