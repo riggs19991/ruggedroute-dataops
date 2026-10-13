@@ -2,72 +2,14 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-13T07:01:26Z",
-  "updated_ts": 1791874886,
+  "updated_at": "2026-10-13T07:05:00Z",
+  "updated_ts": 1791875100,
   "updated_by": {
     "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
-    "cmd": "forge-status plan T-0006"
+    "cmd": "forge-status close T-0006"
   },
   "context_state": "stale",
-  "task": {
-    "id": "T-0006",
-    "title": "ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows",
-    "class": "X",
-    "risk": "R",
-    "size_source": "declared",
-    "files": [
-      ".github/workflows/monthly-ownership.yml",
-      ".github/workflows/quarterly-parcels.yml"
-    ],
-    "creates": [],
-    "signals": {
-      "files": 2,
-      "dirs": 1,
-      "importers": 0,
-      "recent_cochanges": [],
-      "tests_present": false,
-      "risk_hits": [
-        ".github/workflows/monthly-ownership.yml (.github/workflows/*.yml)",
-        ".github/workflows/quarterly-parcels.yml (.github/workflows/*.yml)"
-      ],
-      "important_hits": []
-    },
-    "class_justification": "monthly-ownership.yml clones tippecanoe from HEAD unpinned in both of its jobs (lines 79 and 115) while weekly-motorized, quarterly-parcels and quarterly-roads pin tag 2.79.0, so a lands build can silently pick up a tippecanoe change; workflows are protected paths (risk R, so class X); quarterly-parcels.yml:12-13 calls the unpinned clone a known to-do and goes stale with the fix",
-    "phase": "execute",
-    "plan": ".forge/tasks/T-0006/plan.md",
-    "plan_author": "architect",
-    "branch": null,
-    "scope": [
-      ".github/workflows/monthly-ownership.yml",
-      ".github/workflows/quarterly-parcels.yml"
-    ],
-    "routing": {
-      "mode": "inline",
-      "builder": null,
-      "verifier": {
-        "agent": "forge-verifier",
-        "model": "fable",
-        "effort": "medium"
-      },
-      "justification": "Two-line pin in a protected workflow file plus a one-line comment fix in another: too small for a builder, but .github/workflows/*.yml is a protected path, so the R overlay applies (class X inline, Fable verifier mandatory, rollback command, human acknowledgement at close) | test_baseline recorded at import: files=12 tests=129"
-    },
-    "steps": [],
-    "escalation": {
-      "step": null,
-      "round": 0
-    },
-    "next_action": "Invoke /forge-investigate T-0006",
-    "resume_hint": "Plan imported from .forge/tasks/T-0006/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
-    "evidence_count": 0,
-    "evidence": [],
-    "blocked_on": null,
-    "external": null,
-    "budget": {
-      "cap_usd": 45.0
-    },
-    "opened_at": "2026-10-13T07:00:27Z",
-    "base": "207e05b70147b6d14aadba2b88bc1881c0c4ed28"
-  },
+  "task": null,
   "queue": [
     {
       "id": "T-0007",
@@ -76,16 +18,6 @@
     }
   ],
   "history": [
-    {
-      "id": "T-0001",
-      "title": "docs: add the Forge build log and link it from the Forge README",
-      "class": "T",
-      "outcome": "done",
-      "cost_usd": null,
-      "cost_source": "unknown",
-      "handoff": null,
-      "closed_at": "2026-10-11T13:50:00Z"
-    },
     {
       "id": "T-0002",
       "title": "release: merge the Forge to main, tag v1.0.0, install into RuggedRoute, RuggedRoutehq and plot-device",
@@ -125,6 +57,16 @@
       "cost_source": "unknown",
       "handoff": null,
       "closed_at": "2026-10-13T06:59:50Z"
+    },
+    {
+      "id": "T-0006",
+      "title": "ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows",
+      "class": "X",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": ".forge/tasks/T-0006/handoff.md",
+      "closed_at": "2026-10-13T07:05:00Z"
     }
   ]
 }

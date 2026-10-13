@@ -17,3 +17,7 @@ At most 60 lines; facts about this repo's checks, not instructions.
 - `gh run view <id> --repo riggs19991/ruggedroute-dataops --json status,conclusion,headSha,jobs` works through the proxy and ties a run to the exact commit; `curl -s https://tiles.ruggedroutehq.com/parcels.json | jq -r .version` works too.
 - Local `main` can lag `origin/main` in this checkout; `git merge-base --is-ancestor` settles whether it is behind or diverged.
 - Hub ND export flips between ExportingData and Completed across runs; a probe's status is not stable evidence of anything beyond "answers an envelope".
+- The architect may commit the work mid-verification: HEAD moved from base to a `forge(T-xxxx): wip` commit between my first and second commands; re-read `git rev-parse HEAD` before quoting a range.
+- PyYAML parses the workflow `on:` key as boolean True; `json.dumps(sort_keys=True)` on the loaded doc raises TypeError (bool vs str) — compare with `default=str` and no sort, or pop the True key.
+- `git ls-remote --tags https://github.com/felt/tippecanoe.git refs/tags/<tag>` works through the proxy and proves a pinned tag exists upstream.
+- A task's `check_pins.py`-style DoD script lives under `.forge/tasks/<task>/` and is itself inside the committed range; it is Forge bookkeeping, not product scope.
