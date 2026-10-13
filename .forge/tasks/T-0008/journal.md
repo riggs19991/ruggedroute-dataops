@@ -1,0 +1,1 @@
+- 2026-10-13T12:29:04Z queued: qa: add qa/live_tiles.py, a live worker probe that decodes real tiles per layer, diffs the alias against a previous version object and gates the parcels whitelist (class hint T)

@@ -1,0 +1,14 @@
+{
+  "id": "T-0008",
+  "title": "qa: add qa/live_tiles.py, a live worker probe that decodes real tiles per layer, diffs the alias against a previous version object and gates the parcels whitelist",
+  "class_hint": "T",
+  "risk": "none",
+  "files": [
+    "README.md"
+  ],
+  "creates": [
+    "qa/live_tiles.py"
+  ],
+  "why": "the 2026-10-13 probe (414 tile requests, 0 errors, 0 whitelist hits) ran from throwaway scratch scripts; the check should be repeatable after every publish, and the README version snapshot is already a week stale",
+  "queued_at": "2026-10-13T12:29:04Z"
+}

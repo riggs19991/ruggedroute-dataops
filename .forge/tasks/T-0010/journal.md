@@ -1,0 +1,1 @@
+- 2026-10-13T12:29:54Z queued: parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again (class hint X)

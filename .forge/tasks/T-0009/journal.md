@@ -1,0 +1,1 @@
+- 2026-10-13T12:29:04Z queued: parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH (class hint X)
