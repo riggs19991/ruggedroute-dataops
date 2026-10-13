@@ -6,3 +6,6 @@
 - 2026-10-12T23:21:15Z block: Human gate: dispatch quarterly-parcels.yml with no states input (full 26-unit matrix): gh workflow run quarterly-parcels.yml && gh run watch; confirm curl -s https://tiles.ruggedroutehq.com/parcels.json | jq -r .version is newer than parcels-20260811-1838.pmtiles; then .forge/bin/forge-status unblock, .forge/bin/forge-status attest T-0004 main DoD-4 --by <name> --evidence <run url> --exit 0, re-dispatch forge-verifier fable/medium, close --human-ack
 - 2026-10-13T06:52:05Z unblock -> execute
 - 2026-10-13T06:54:16Z attest (by hand): DoD-4 human record main-1791874456-human.json for run 38328659747 (parcels-20261013-0632 live); `.forge/bin/forge-status attest T-0004 main DoD-4` refused with 'T-0004 has no step main' because inline tasks carry no step entry — Forge gap, record written in the attest command's own shape by the architect on the founder's go
+- 2026-10-13T06:58:48Z step-verdict main: PASS tags=[] blocking=0 file=.forge/tasks/T-0004/drafts/forge-verifier-verdict.md (verdict 2)
+- 2026-10-13T06:58:48Z close: done | handoff .forge/tasks/T-0004/handoff.md | human_ack: riggs19991 approved T-0004 (Go, 2026-10-13) diff 3f95565
+- 2026-10-13T06:58:48Z close: removed .forge/tasks/T-0004/drafts/ (pre-validation drafts are never committed)
