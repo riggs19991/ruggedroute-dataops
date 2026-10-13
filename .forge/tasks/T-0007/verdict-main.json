@@ -1,0 +1,17 @@
+{
+  "schema": "forge/verdict/2",
+  "task": "T-0007",
+  "step": "main",
+  "range": "ad5a447..worktree",
+  "verdict": "PASS",
+  "criteria": [
+    { "id": "DoD-1", "result": "PASS", "cmd": "cd worker-tiles && npm test", "exit": 0 },
+    { "id": "DoD-2", "result": "PASS", "cmd": "cd worker-tiles && test \"$(node --test --test-reporter=tap 'test/**/*.test.js' 2>/dev/null | grep -c '^ok')\" -ge 9", "exit": 0 },
+    { "id": "DoD-3", "result": "PASS", "cmd": "test -f worker-tiles/test/index.test.js && git diff --quiet HEAD -- worker-tiles/src worker-tiles/wrangler.toml", "exit": 0 }
+  ],
+  "scope_check": "PASS",
+  "ratchet": "PASS",
+  "blocking_findings": [],
+  "deferred_findings": ["HEAD method untested", "binding.json worker verify entry swap to `cd worker-tiles && npm test` is a human edit"],
+  "tags": []
+}

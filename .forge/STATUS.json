@@ -2,32 +2,16 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-13T07:05:00Z",
-  "updated_ts": 1791875100,
+  "updated_at": "2026-10-13T11:59:24Z",
+  "updated_ts": 1791892764,
   "updated_by": {
     "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
-    "cmd": "forge-status close T-0006"
+    "cmd": "forge-status close T-0007"
   },
   "context_state": "stale",
   "task": null,
-  "queue": [
-    {
-      "id": "T-0007",
-      "title": "worker: add a real test for worker-tiles so the binding's worker verify entry can stop being a todo",
-      "class_hint": "S"
-    }
-  ],
+  "queue": [],
   "history": [
-    {
-      "id": "T-0002",
-      "title": "release: merge the Forge to main, tag v1.0.0, install into RuggedRoute, RuggedRoutehq and plot-device",
-      "class": "T",
-      "outcome": "done",
-      "cost_usd": null,
-      "cost_source": "unknown",
-      "handoff": null,
-      "closed_at": "2026-10-11T14:37:24Z"
-    },
     {
       "id": "T-0003",
       "title": "fix: Paths.rel must relativise on real paths so macOS /var -> /private/var symlinked roots are inside the repo",
@@ -67,6 +51,16 @@
       "cost_source": "unknown",
       "handoff": ".forge/tasks/T-0006/handoff.md",
       "closed_at": "2026-10-13T07:05:00Z"
+    },
+    {
+      "id": "T-0007",
+      "title": "worker: add a real test for worker-tiles so the binding's worker verify entry can stop being a todo",
+      "class": "S",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": ".forge/tasks/T-0007/handoff.md",
+      "closed_at": "2026-10-13T11:59:24Z"
     }
   ]
 }

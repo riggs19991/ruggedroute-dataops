@@ -1,0 +1,19 @@
+{
+  "task": "T-0007",
+  "title": "worker: add a real test for worker-tiles so the binding's worker verify entry can stop being a todo",
+  "computed_at": "2026-10-13T11:55:00Z",
+  "size_source": "declared",
+  "declared": [
+    "worker-tiles/package.json",
+    "worker-tiles/package-lock.json",
+    "worker-tiles/test/index.test.js"
+  ],
+  "files": 3,
+  "dirs": 2,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": true,
+  "risk_hits": [],
+  "important_hits": []
+}

@@ -1,0 +1,53 @@
+{
+  "ts": 1791892651,
+  "agent_id": "unknown",
+  "session_id": "f6b35796-990e-579d-baee-95c6920b3ec9",
+  "task": "T-0007",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "lib-unit",
+      "cmd": "cd lib && python3 -m unittest -v",
+      "exit": 0,
+      "dur_s": 2.3,
+      "tail": "test_missing_fields_and_garbage_never_crash (test_normalize_roadcore.Tolerance.test_missing_fields_and_garbage_never_crash) ... ok\ntest_skips_empty (test_route_common.ApplyPassthrough.test_skips_empty) ... ok\ntest_tolerates_garbage (test_route_common.IterFeatures.test_tolerates_garbage) ... ok\ntest_distinct_values_stay_distinct (test_route_common.ReviewQueueDedup.test_distinct_values_stay_distinct) ... ok\ntest_duplicate_examples_not_repeated (test_route_common.ReviewQueueDedup.test_duplicate_examples_not_repeated) ... ok\ntest_empty_queue_writes_empty_file (test_route_common.ReviewQueueDedup.test_empty_queue_writes_empty_file) ... ok\ntest_flood_dedupes_to_one_entry (test_route_common.ReviewQueueDedup.test_flood_dedupes_to_one_entry) ... ok\ntest_none_value_is_keyed (test_route_common.ReviewQueueDedup.test_none_value_is_keyed) ... ok\ntest_parse_seasons_reexported_semantics (test_route_common.SharedParsers.test_parse_seasons_reexported_semantics) ... ok\ntest_truthy (test_route_common.SharedParsers.test_truthy) ... ok\n\n----------------------------------------------------------------------\nRan 68 tests in 2.147s\n\nOK"
+    },
+    {
+      "name": "layer-tests",
+      "cmd": "pytest layers/{layer}/tests -q",
+      "status": "skipped",
+      "why": "when: paths:layers/{layer}/** did not match"
+    },
+    {
+      "name": "worker",
+      "cmd": "cd worker-tiles && npx wrangler deploy --dry-run",
+      "exit": 0,
+      "dur_s": 4.3,
+      "tail": "\n ⛅️ wrangler 4.118.0\n────────────────────\nTotal Upload: 31.54 KiB / gzip: 9.76 KiB\nYour Worker has access to the following bindings:\nBinding                                             Resource          \nenv.ALIASES (f2f28315ee8f43fb8413d1bcddd20684)      KV Namespace      \nenv.BUCKET (rr-tiles)                               R2 Bucket         \n\n--dry-run: exiting now.\n\nCloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md\n\u001b[33m▲ \u001b[43;33m[\u001b[43;30mWARNING\u001b[43;33m]\u001b[0m \u001b[1mProxy environment variables detected. We'll use your proxy for fetch requests.\u001b[0m"
+    },
+    {
+      "name": "brief:DoD-1",
+      "cmd": "cd worker-tiles && npm test",
+      "exit": 0,
+      "dur_s": 0.4,
+      "tail": "# Subtest: OPTIONS preflight answers with the CORS headers\nok 11 - OPTIONS preflight answers with the CORS headers\n  ---\n  duration_ms: 1.877627\n  type: 'test'\n  ...\n1..11\n# tests 11\n# suites 0\n# pass 11\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 201.527945"
+    },
+    {
+      "name": "brief:DoD-2",
+      "cmd": "cd worker-tiles && test \"$(node --test --test-reporter=tap 'test/**/*.test.js' 2>/dev/null | grep -c '^ok')\" -ge 9",
+      "exit": 0,
+      "dur_s": 0.3,
+      "tail": ""
+    },
+    {
+      "name": "brief:DoD-3",
+      "cmd": "test -f worker-tiles/test/index.test.js && git diff --quiet HEAD -- worker-tiles/src worker-tiles/wrangler.toml",
+      "exit": 0,
+      "dur_s": 0.0,
+      "tail": ""
+    }
+  ],
+  "ratchet": null,
+  "ok": true
+}

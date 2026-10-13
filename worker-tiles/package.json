@@ -2,6 +2,9 @@
   "name": "rr-tiles",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\""
+  },
   "dependencies": {
     "pmtiles": "^4.3.0"
   },
