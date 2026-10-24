@@ -2,11 +2,11 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-24T01:20:13Z",
-  "updated_ts": 1792804813,
+  "updated_at": "2026-10-24T01:28:42Z",
+  "updated_ts": 1792805322,
   "updated_by": {
-    "session_id": "cli",
-    "cmd": "forge-status plan T-0011"
+    "session_id": "3cf47b6b-2cc2-536e-a2b6-6443493e7dcf",
+    "cmd": "forge-status evidence T-0011"
   },
   "context_state": "stale",
   "task": {
@@ -140,8 +140,16 @@
     },
     "next_action": "Invoke /forge-investigate T-0011",
     "resume_hint": "Plan imported from .forge/tasks/T-0011/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
-    "evidence_count": 0,
-    "evidence": [],
+    "evidence_count": 1,
+    "evidence": [
+      {
+        "claim": "forge-check T-0011 main passed 7/7 (2 binding entries skipped by path filter); Fable verifier dispatched on step main",
+        "command": "cd lib && python3 -m unittest -v; python3 -m unittest discover -s forge/tests -p test_hooks.py -k AgentPaths; python3 -m unittest discover -s forge/tests -p test_common.py -k bash; python3 -m unittest discover -s forge/tests -p test_installer.py -k migration; python3 -m unittest discover -s forge/tests && python3 forge/tools/make_plugin.py --check; grep -qx 1.0.1 forge/VERSION && grep -qx 1.0.1 forge/payload/.forge/VERSION && grep -q 'FORGE_VERSION = \"1.0.1\"' forge/payload/.forge/bin/forgelib/common.py && grep -q '^## 1.0.1' forge/CHANGELOG.md; for f in forge/payload/.forge/HOOKS.md forge/payload/.forge/GATES.md forge/payload/.forge/SCHEMAS.md forge/README.md forge/docs/MODULE-API.md forge/payload/.forge/schemas/binding.json; do grep -q agent_paths \"$f\" || exit 1; done",
+        "exit": 0,
+        "when": "2026-10-24T01:28:42Z",
+        "from": ".forge/tasks/T-0011/checks/main-1792805131-main.json"
+      }
+    ],
     "blocked_on": null,
     "external": null,
     "budget": {

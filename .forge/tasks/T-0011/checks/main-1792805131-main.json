@@ -1,0 +1,73 @@
+{
+  "ts": 1792805131,
+  "agent_id": "main",
+  "session_id": "3cf47b6b-2cc2-536e-a2b6-6443493e7dcf",
+  "task": "T-0011",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "lib-unit",
+      "cmd": "cd lib && python3 -m unittest -v",
+      "exit": 0,
+      "dur_s": 2.0,
+      "tail": "test_missing_fields_and_garbage_never_crash (test_normalize_roadcore.Tolerance.test_missing_fields_and_garbage_never_crash) ... ok\ntest_skips_empty (test_route_common.ApplyPassthrough.test_skips_empty) ... ok\ntest_tolerates_garbage (test_route_common.IterFeatures.test_tolerates_garbage) ... ok\ntest_distinct_values_stay_distinct (test_route_common.ReviewQueueDedup.test_distinct_values_stay_distinct) ... ok\ntest_duplicate_examples_not_repeated (test_route_common.ReviewQueueDedup.test_duplicate_examples_not_repeated) ... ok\ntest_empty_queue_writes_empty_file (test_route_common.ReviewQueueDedup.test_empty_queue_writes_empty_file) ... ok\ntest_flood_dedupes_to_one_entry (test_route_common.ReviewQueueDedup.test_flood_dedupes_to_one_entry) ... ok\ntest_none_value_is_keyed (test_route_common.ReviewQueueDedup.test_none_value_is_keyed) ... ok\ntest_parse_seasons_reexported_semantics (test_route_common.SharedParsers.test_parse_seasons_reexported_semantics) ... ok\ntest_truthy (test_route_common.SharedParsers.test_truthy) ... ok\n\n----------------------------------------------------------------------\nRan 68 tests in 1.895s\n\nOK"
+    },
+    {
+      "name": "layer-tests",
+      "cmd": "pytest layers/{layer}/tests -q",
+      "status": "skipped",
+      "why": "when: paths:layers/{layer}/** did not match"
+    },
+    {
+      "name": "worker",
+      "cmd": "cd worker-tiles && npx wrangler deploy --dry-run",
+      "status": "skipped",
+      "why": "when: paths:worker-tiles/** did not match"
+    },
+    {
+      "name": "brief:DoD-1",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_hooks.py -k AgentPaths",
+      "exit": 0,
+      "dur_s": 7.8,
+      "tail": "..........\n----------------------------------------------------------------------\nRan 10 tests in 7.692s\n\nOK"
+    },
+    {
+      "name": "brief:DoD-3",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_common.py -k bash",
+      "exit": 0,
+      "dur_s": 0.1,
+      "tail": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.003s\n\nOK"
+    },
+    {
+      "name": "brief:DoD-4",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_installer.py -k migration",
+      "exit": 0,
+      "dur_s": 2.1,
+      "tail": "...\n----------------------------------------------------------------------\nRan 3 tests in 2.026s\n\nOK"
+    },
+    {
+      "name": "brief:DoD-5",
+      "cmd": "python3 -m unittest discover -s forge/tests && python3 forge/tools/make_plugin.py --check",
+      "exit": 0,
+      "dur_s": 204.2,
+      "tail": "make_plugin.py: plugin/ is up to date\n....................................................................forge: WARN ignoring FORGE_ROOT=/tmp/forge-common-m0pxsbef/a (this checkout is /tmp/forge-common-m0pxsbef/b)\n......................................................................................................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 410 tests in 204.002s\n\nOK"
+    },
+    {
+      "name": "brief:DoD-6",
+      "cmd": "grep -qx 1.0.1 forge/VERSION && grep -qx 1.0.1 forge/payload/.forge/VERSION && grep -q 'FORGE_VERSION = \"1.0.1\"' forge/payload/.forge/bin/forgelib/common.py && grep -q '^## 1.0.1' forge/CHANGELOG.md",
+      "exit": 0,
+      "dur_s": 0.0,
+      "tail": ""
+    },
+    {
+      "name": "brief:DoD-7",
+      "cmd": "for f in forge/payload/.forge/HOOKS.md forge/payload/.forge/GATES.md forge/payload/.forge/SCHEMAS.md forge/README.md forge/docs/MODULE-API.md forge/payload/.forge/schemas/binding.json; do grep -q agent_paths \"$f\" || exit 1; done",
+      "exit": 0,
+      "dur_s": 0.0,
+      "tail": ""
+    }
+  ],
+  "ratchet": null,
+  "ok": true
+}

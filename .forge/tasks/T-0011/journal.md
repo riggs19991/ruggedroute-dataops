@@ -8,3 +8,10 @@
 - 2026-10-24T01:18:19Z plan imported: .forge/tasks/T-0011/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute | plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)
 - 2026-10-24T01:20:13Z scope add forge/tools/make_plugin.py: make_plugin.py --check reports mode drift on Windows, where no exec bit exists; skip the mode comparison there (git and Linux CI keep checking it)
 - 2026-10-24T01:20:13Z plan imported: .forge/tasks/T-0011/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute | plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)
+- 2026-10-24T01:21:19Z [SessionStart] main: session start (startup) session 3cf47b6b-2cc2-536e-a2b6-6443493e7dcf
+- 2026-10-24T01:25:31Z [PostToolUse] main: stamped .forge/tasks/T-0011/checks/main-1792805131-main.json
+- 2026-10-24T01:25:36Z [PreToolUse] main: dispatch forge-verifier fable/medium
+- 2026-10-24T01:25:36Z [SubagentStart] a07df4909e1b60307: subagent start forge-verifier a07df4909e1b60307
+- 2026-10-24T01:28:31Z [Stop] main: stop gate block 1: record the state with .forge/bin/forge-status (evidence T-0011 --claim "..." --from-check <checks/ record>, or close T-0011) before ending the turn
+- 2026-10-24T01:28:42Z evidence: forge-check T-0011 main passed 7/7 (2 binding entries skipped by path filter); Fable verifier dispatched on step main <- .forge/tasks/T-0011/checks/main-1792805131-main.json (exit 0)
+- 2026-10-24T01:28:54Z [PreToolUse] main: irreversible command asks for confirmation ('git push *'): git add .forge/STATUS.json .forge/ledger.jsonl .forge/tasks/T-0011 && git commit -q -m "forge(T-0011): wip — forge-check

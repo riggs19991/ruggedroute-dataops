@@ -22,3 +22,4 @@
 {"ts":"2026-10-19T15:58:58Z","event":"scope_add","task":"T-0011","class":"X","status":"forge/tests/run_linux.sh","session_id":"cli"}
 {"ts":"2026-10-19T16:21:34Z","event":"scope_add","task":"T-0011","class":"X","status":"forge/tools/make_plugin.py","session_id":"cli"}
 {"ts":"2026-10-24T01:20:13Z","event":"scope_add","task":"T-0011","class":"X","status":"forge/tools/make_plugin.py","session_id":"cli"}
+{"ts":"2026-10-24T01:25:36Z","event":"dispatch","task":"T-0011","step":null,"class":"X","agent":"forge-verifier","model":"fable","effort":"medium","attempt":null,"escalated_from":null,"session_id":"3cf47b6b-2cc2-536e-a2b6-6443493e7dcf"}
