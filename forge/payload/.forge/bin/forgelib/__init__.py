@@ -14,4 +14,4 @@ Modules:
   hooks    the hook dispatcher (forge-hook)
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"

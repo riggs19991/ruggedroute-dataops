@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "forge_pin": "1.0.0",
+  "forge_pin": "1.0.1",
   "project": "ruggedroute-android",
   "stack": "kotlin-android",
   "bootstrap": null,
@@ -16,6 +16,7 @@
   "risk_paths": ["**/firebase/**", "**/billing/**", "**/auth/**"],
   "important_paths": [],
   "mechanic_denied_paths": ["app/src/main/java/**/ui/**"],
+  "agent_paths": ["qa/reports/**", "qa/scripts/**", "qa/.auth/**"],
   "risk_words": [
     { "word": "Firebase" }, { "word": "billing" }, { "word": "signing" }, { "word": "secret" }, { "word": "delete" }
   ],
@@ -36,6 +37,7 @@
   "notes": [
     "Kotlin, Jetpack Compose, Mapbox v11, Firebase, Hilt, MVVM; UI uses the AMP design tokens only.",
     "UI criteria that need an emulator are planned as check: external with how: \"./gradlew connectedDebugAndroidTest on a local device\"; in a cloud container the verifier tags them env-cannot-run and the operator attests from a local run.",
+    "The read-only QA agent rugged-tester writes its reports and helper scripts under agent_paths from a fresh session with no task open; nothing else is writable for it.",
     "TODO: confirm risk_words and fill important_paths (release-critical screens) when the repo is installed."
   ]
 }

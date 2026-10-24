@@ -1874,7 +1874,10 @@ class Status:
         changed = self._changed_paths(task)
         if cls in ("S", "X") and not partial:
             self._check_inline_verdict(task, changed)
-        allowed = list(task["scope"]) + [p for s in task["steps"] for p in s["allowed_paths"]] + list(CLOSE_ALWAYS_ALLOWED)
+        # 1.0.1: files a project agent wrote under binding.agent_paths are never the task's work, nor out of scope.
+        agent_paths = [g for g in (self.binding.get("agent_paths") or []) if isinstance(g, str)]
+        allowed = (list(task["scope"]) + [p for s in task["steps"] for p in s["allowed_paths"]] + list(CLOSE_ALWAYS_ALLOWED)
+                   + agent_paths)
         out = [p for p in changed if not common.any_glob(p, allowed)]
         if out and not accept_out_of_scope:
             raise ForgeError(f"out-of-scope changes: {', '.join(out[:8])}; revert them or pass --accept-out-of-scope \"<why>\"", EXIT_REFUSED)

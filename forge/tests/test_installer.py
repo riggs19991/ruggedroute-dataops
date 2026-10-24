@@ -470,6 +470,65 @@ class PayloadLayoutTests(InstallerTestCase):
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
 
 
+class MigrationTests(InstallerTestCase):
+    """1.0.1: migrations/0001-binding-agent-paths.py is additive, idempotent and keeps the file's other bytes."""
+    MIGRATION = "0001-binding-agent-paths.py"
+
+    def pre_1_0_1(self):
+        """Shape a 1.0.0 install: binding without agent_paths, migration not recorded, old VERSION."""
+        code, out, err = self.install()
+        self.assertEqual(code, 0, err + out)
+        text = self.read(".forge/binding.json")
+        self.assertIn('"agent_paths": []', text, "a fresh binding carries the key from the template")
+        self.write(".forge/binding.json", "\n".join(l for l in text.splitlines() if '"agent_paths"' not in l) + "\n")
+        self.assertNotIn("agent_paths", self.read_json(".forge/binding.json"))
+        manifest = self.read_json(".forge/install-manifest.json")
+        self.assertIn(self.MIGRATION, manifest["migrations"], "a fresh install records every migration as applied")
+        manifest["migrations"] = [m for m in manifest["migrations"] if m != self.MIGRATION]
+        self.write(".forge/install-manifest.json", json.dumps(manifest, indent=2))
+        self.write(".forge/VERSION", "1.0.0\n")
+
+    def test_upgrade_migration_adds_agent_paths_once_and_keeps_formatting(self):
+        self.pre_1_0_1()
+        before = self.read(".forge/binding.json")
+        code, out, err = self.install("--upgrade", "--dry-run")
+        self.assertEqual(code, 0, err + out)
+        self.assertIn(f"migrate  {self.MIGRATION}", out)
+        self.assertEqual(self.read(".forge/binding.json"), before, "a dry run writes nothing")
+        code, out, err = self.install("--upgrade")
+        self.assertEqual(code, 0, err + out)
+        after = self.read(".forge/binding.json")
+        binding = json.loads(after)
+        self.assertEqual(binding["agent_paths"], [])
+        self.assertEqual({k: v for k, v in binding.items() if k != "agent_paths"}, json.loads(before))
+        self.assertEqual(list(binding).index("agent_paths"), list(binding).index("mechanic_denied_paths") + 1)
+        self.assertEqual(after.replace('  "agent_paths": [],\n', ""), before, "every other byte is kept")
+        self.assertIn(self.MIGRATION, self.read_json(".forge/install-manifest.json")["migrations"])
+        snapshot = tree_hashes(self.target)
+        code, out, err = self.install("--upgrade")
+        self.assertEqual(code, 0, err + out)
+        self.assertNotIn("migrate", out, "an applied migration never runs twice")
+        self.assertEqual(tree_hashes(self.target), snapshot, "idempotent: a second upgrade changes nothing")
+
+    def test_migration_keeps_a_configured_key(self):
+        self.pre_1_0_1()
+        binding = self.read_json(".forge/binding.json")
+        binding["agent_paths"] = ["qa/reports/**"]
+        self.write(".forge/binding.json", json.dumps(binding, indent=2))
+        code, out, err = self.install("--upgrade")
+        self.assertEqual(code, 0, err + out)
+        self.assertEqual(self.read_json(".forge/binding.json")["agent_paths"], ["qa/reports/**"])
+
+    def test_migration_reserialises_a_one_line_binding(self):
+        self.pre_1_0_1()
+        self.write(".forge/binding.json", json.dumps(self.read_json(".forge/binding.json")))
+        code, out, err = self.install("--upgrade")
+        self.assertEqual(code, 0, err + out)
+        binding = self.read_json(".forge/binding.json")
+        self.assertEqual(binding["agent_paths"], [])
+        self.assertEqual(list(binding).index("agent_paths"), len(binding) - 1, "the fallback appends the key")
+
+
 class InstallShTests(InstallerTestCase):
     """review finding #43: the README one-liner and the doctor's remedy use flags install.sh accepts."""
 
@@ -563,6 +622,21 @@ class DoctorTests(InstallerTestCase):
                            cwd=self.target, env=env, capture_output=True, text=True, timeout=300)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertRegex(r.stdout, r"(?m)^OK forge-root: FORGE_ROOT unset")
+
+    def test_malformed_agent_paths_fails_and_a_wide_one_warns(self):
+        binding = self.read_json(".forge/binding.json")
+        binding["agent_paths"] = "qa/**"
+        self.write(".forge/binding.json", json.dumps(binding, indent=2))
+        code, out, err = self.doctor("--report", "--no-probes")
+        self.assertRegex(out, r"(?m)^FAIL binding: agent_paths is not a list")
+        binding["agent_paths"] = [".forge/lessons/**"]
+        self.write(".forge/binding.json", json.dumps(binding, indent=2))
+        code, out, err = self.doctor("--report", "--no-probes")
+        self.assertRegex(out, r"(?m)^WARN binding: agent_paths .* reaches Forge state")
+        binding["agent_paths"] = ["qa/reports/**"]
+        self.write(".forge/binding.json", json.dumps(binding, indent=2))
+        code, out, err = self.doctor("--report", "--no-probes")
+        self.assertNotRegex(out, r"(?m)^(WARN|FAIL) binding: agent_paths")
 
 
 class BenchTasksetTests(InstallerTestCase):

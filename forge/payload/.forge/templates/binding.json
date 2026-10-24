@@ -15,6 +15,7 @@
   "risk_paths": ["**/*secret*", "**/.env*"],
   "important_paths": [],
   "mechanic_denied_paths": [".github/workflows/*.yml"],
+  "agent_paths": [],
   "risk_words": [
     { "word": "secret" }, { "word": "license" }, { "word": "attribution" }, { "word": "delete" }
   ],
@@ -28,6 +29,7 @@
   "notes": [
     "TODO: replace this template's verify/test_globs with the project's real commands and test layout.",
     "TODO: list deploy configs and CI under protected_paths, shared or LIVE code under important_paths and mechanic_denied_paths, irreversible deploy commands under irreversible_commands.",
-    "TODO: one note per design rule a worker must not violate (copied from the README)."
+    "TODO: one note per design rule a worker must not violate (copied from the README).",
+    "TODO: under agent_paths, list the paths the project's own agents (a QA tester, a reviewer) may write without a Forge task, e.g. \"qa/reports/**\"."
   ]
 }

@@ -11,7 +11,7 @@ Every file the Forge puts into a consumer repository has exactly one owner. **Ow
 | **Forge-owned** | `.forge/FORGE.md`, `RUNBOOK.md`, `ROUTING.md`, `HOOKS.md`, `SCHEMAS.md`, `GATES.md`, `ROLE-architect.md`, `VERSION`; `.forge/bin/**`; `.forge/schemas/**`; `.forge/templates/**`; `.forge/install-manifest.json` (rewritten by the installer; its `options` carry your install choices forward, see below); `.claude/agents/forge-*.md`; `.claude/skills/forge-*/`; `.claude/rules/forge-stack-*.md`; `.claude/settings.forge.json` | overwritten; a file whose sha256 differs from `install-manifest.json` (edited locally) is named in a warning: `--upgrade` backs it up to `.forge/incidents/upgrade-<ts>/` and replaces it, a plain install refuses it unless `--force` |
 | **Merged** | `.claude/settings.json` | scalars from the fragment are written only when absent locally; a differing local scalar (`model`, `effortLevel`, `env.*`, …) is kept and printed as `settings: <key> local=… -> fragment=…`, and only `--force-settings` applies the fragment's value (`--force` never touches settings); `model` is left out while `--no-model` is in effect (recorded, see below) and `effortLevel` follows the recorded `--effort`; arrays are unioned; hook entries whose `command` starts with `"$CLAUDE_PROJECT_DIR"/.forge/bin/` are replaced, every other entry is kept; `permissions.allow` gains one `Bash(<prefix> *)` per `binding.verify[].cmd`, `bootstrap` and `smoke` (the fragment itself carries no project-specific command rule) |
 | **Merged** | `CLAUDE.md` | only the text between `<!-- forge:begin … -->` and `<!-- forge:end -->` is replaced |
-| **Project-owned** | `.forge/binding.json`, `STATUS.json`, `ledger.jsonl`, `history.jsonl`, `queue.jsonl`, `CHANGELOG.md`, `COST-REPORT.md`, `tasks/**`, `lessons/**`, `decisions/**`, `archive/**`; `.claude/agent-memory/**`; `.claude/rules/project-*.md` | never touched, except by a migration on a schema MAJOR |
+| **Project-owned** | `.forge/binding.json`, `STATUS.json`, `ledger.jsonl`, `history.jsonl`, `queue.jsonl`, `CHANGELOG.md`, `COST-REPORT.md`, `tasks/**`, `lessons/**`, `decisions/**`, `archive/**`; `.claude/agent-memory/**`; `.claude/rules/project-*.md` | never touched, except by a migration on a schema MAJOR, or one that inserts an additive optional key with its default (1.0.1: `agent_paths: []`) |
 | **Local, gitignored** | `.forge/.runtime/`, `.forge/incidents/` | left alone |
 
 The manifest doubles as the policy-lock list: no model may edit a Forge-owned file (GATES.md gate 14). Change Forge-owned files in
@@ -31,7 +31,8 @@ effort feeds the fragment's `effortLevel`; a different value you set in `setting
 - **MAJOR** — a change to the STATUS, handoff, brief or binding schema (anything under `.forge/schemas/` that existing files must be
   migrated for). Ships a migration.
 - **MINOR** — additive: a new agent, skill, hook registration, rule or template; a new routing default.
-- **PATCH** — prompt or documentation text.
+- **PATCH** — prompt or documentation text; it may also add an optional binding key with a default, shipped with an additive,
+  idempotent migration (1.0.1: `agent_paths`).
 
 Agent and skill names are permanent (they appear in STATUS, ledgers and settings). The single version source is `forge/VERSION`; the
 consumer copy is `.forge/VERSION`; a consumer may pin the version it expects in `binding.json` → `forge_pin`. Nothing auto-updates:

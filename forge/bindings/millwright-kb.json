@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "forge_pin": "1.0.0",
+  "forge_pin": "1.0.1",
   "project": "millwright-kb",
   "stack": "unknown",
   "bootstrap": null,
@@ -13,6 +13,7 @@
   "risk_paths": ["**/*secret*", "**/.env*"],
   "important_paths": [],
   "mechanic_denied_paths": [],
+  "agent_paths": [],
   "risk_words": [ { "word": "secret" }, { "word": "delete" } ],
   "irreversible_commands": ["git push *"],
   "git": { "branch_per_task": false, "commit_prefix": "forge", "worktree_isolation": false },

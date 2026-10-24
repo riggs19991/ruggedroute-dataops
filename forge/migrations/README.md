@@ -14,8 +14,11 @@ because a fresh install is already at the current schema.
   to change before changing it (for example `schema_version` in the file you migrate).
 - **Ownership**: only a migration that ships with a `schema_version` bump (a MAJOR release: STATUS, handoff,
   brief or binding schema) may touch project-owned files (`.forge/binding.json`, `.forge/STATUS.json`,
-  `.forge/*.jsonl`, `.forge/lessons/`, `.forge/decisions/`, `.forge/tasks/`). Forge-owned files are replaced by
-  the installer itself after the migrations ran; a migration never edits them.
+  `.forge/*.jsonl`, `.forge/lessons/`, `.forge/decisions/`, `.forge/tasks/`). One exception: a MINOR or PATCH
+  release that adds an **optional** binding key with a default may ship a migration that inserts exactly that key
+  with its default into `.forge/binding.json` when absent and touches nothing else (`0001-binding-agent-paths.py`,
+  1.0.1). Forge-owned files are replaced by the installer itself after the migrations ran; a migration never
+  edits them.
 - **Failure**: exit non-zero to stop the upgrade. Migrations that already succeeded stay recorded; nothing after
   the failing one runs; the installer exits 1 before copying any Forge-owned file.
 - **Bookkeeping**: applied migration file names are recorded in `.forge/install-manifest.json` under

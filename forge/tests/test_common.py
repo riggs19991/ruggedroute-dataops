@@ -437,6 +437,42 @@ class IoTests(unittest.TestCase):
         self.assertEqual(common.ForgeError("bad", common.EXIT_INVALID).code, 4)
 
 
+class BashResolutionTests(unittest.TestCase):
+    """1.0.1 (RuggedRoute ADR 0002 upstreamed): on win32 run() prefers $FORGE_BASH, then Git Bash, else bash."""
+
+    def test_bash_resolution_order_on_windows(self):
+        git_bash, usr_bash = common.GIT_BASH_CANDIDATES
+        with mock.patch.object(common.sys, "platform", "win32"):
+            with mock.patch.dict(os.environ, {"FORGE_BASH": "D:/tools/bash.exe"}):
+                with mock.patch.object(common.os.path, "isfile", lambda p: p in ("D:/tools/bash.exe", git_bash, usr_bash)):
+                    self.assertEqual(common._bash(), "D:/tools/bash.exe", "$FORGE_BASH wins when it exists")
+                with mock.patch.object(common.os.path, "isfile", lambda p: p in (git_bash, usr_bash)):
+                    self.assertEqual(common._bash(), git_bash, "a missing $FORGE_BASH falls through to Git Bash")
+            with mock.patch.dict(os.environ, {}, clear=False):
+                os.environ.pop("FORGE_BASH", None)
+                with mock.patch.object(common.os.path, "isfile", lambda p: p == usr_bash):
+                    self.assertEqual(common._bash(), usr_bash, "usr/bin/bash.exe is the second candidate")
+                with mock.patch.object(common.os.path, "isfile", lambda p: False):
+                    self.assertEqual(common._bash(), "bash", "no Git Bash: the bare name, as before")
+        with mock.patch.object(common.sys, "platform", "linux"):
+            with mock.patch.dict(os.environ, {"FORGE_BASH": "/opt/bash"}):
+                with mock.patch.object(common.os.path, "isfile", lambda p: True):
+                    self.assertEqual(common._bash(), "bash", "the lookup is Windows-only")
+
+    def test_run_spawns_the_resolved_bash(self):
+        seen = {}
+
+        def fake_run(argv, **kw):
+            seen["argv"] = list(argv)
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with mock.patch.object(common, "_bash", return_value="/x/bash.exe"):
+            with mock.patch.object(common.subprocess, "run", side_effect=fake_run):
+                code, out = common.run("true")
+        self.assertEqual((code, out), (0, "ok"))
+        self.assertEqual(seen["argv"], ["/x/bash.exe", "-c", "true"])
+
+
 class NextTaskIdTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.mkdtemp(prefix="forge-ids-")

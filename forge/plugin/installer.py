@@ -462,7 +462,8 @@ class Installer:
         # The doctor derives its root from CLAUDE_PROJECT_DIR/cwd; never hand it a FORGE_ROOT (review finding #3).
         env = dict(os.environ, CLAUDE_PROJECT_DIR=self.target, PYTHONDONTWRITEBYTECODE="1")
         env.pop("FORGE_ROOT", None)
-        subprocess.run([doctor, "--report", "--no-probes"], cwd=self.target, env=env)
+        # 1.0.1: through this interpreter, not the #! line, which Windows cannot exec.
+        subprocess.run([sys.executable, doctor, "--report", "--no-probes"], cwd=self.target, env=env)
 
     # ---- orchestration ----------------------------------------------------- #
     def run(self) -> int:

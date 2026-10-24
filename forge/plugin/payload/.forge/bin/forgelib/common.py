@@ -22,7 +22,7 @@ import tempfile
 import time
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-FORGE_VERSION = "1.0.0"
+FORGE_VERSION = "1.0.1"
 
 # --------------------------------------------------------------------------- #
 # Exit codes (same for every CLI)
@@ -724,11 +724,25 @@ def truncate(text: str, limit: int, marker: str = "\n[truncated]") -> str:
 # --------------------------------------------------------------------------- #
 # Subprocess and git
 # --------------------------------------------------------------------------- #
+GIT_BASH_CANDIDATES = ("C:/Program Files/Git/bin/bash.exe", "C:/Program Files/Git/usr/bin/bash.exe")
+
+
+def _bash() -> str:
+    """The shell `run()` spawns. On Windows a bare "bash" reaches the WSL stub in System32 (CreateProcess searches
+    System32 before PATH), so prefer $FORGE_BASH, then Git Bash; elsewhere, and when none of them exists, "bash"
+    (RuggedRoute ADR 0002, upstreamed in 1.0.1)."""
+    if sys.platform == "win32":
+        for cand in (os.environ.get("FORGE_BASH"),) + GIT_BASH_CANDIDATES:
+            if cand and os.path.isfile(cand):
+                return cand
+    return "bash"
+
+
 def run(cmd: str, cwd: Optional[str] = None, timeout: int = 1200,
         env: Optional[Dict[str, str]] = None) -> Tuple[int, str]:
-    """Run `cmd` through bash from `cwd`; return (exit code, combined output)."""
+    """Run `cmd` through bash (`_bash()`) from `cwd`; return (exit code, combined output)."""
     try:
-        r = subprocess.run(["bash", "-lc", cmd] if False else ["bash", "-c", cmd], cwd=cwd,
+        r = subprocess.run([_bash(), "-c", cmd], cwd=cwd,
                            capture_output=True, text=True, timeout=timeout, env=env)
     except subprocess.TimeoutExpired as e:
         out = (e.stdout or "") if isinstance(e.stdout, str) else ""

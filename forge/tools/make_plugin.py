@@ -65,6 +65,11 @@ def mode_of(path: str) -> int:
     return 0o755 if os.stat(path).st_mode & stat.S_IXUSR else 0o644
 
 
+# Windows keeps no exec bit (os.chmod cannot set one, os.stat never reports one for .py/.sh/extension-less files), so
+# a mode comparison there is noise; git records the modes (core.filemode=false), CI checks them on Linux (1.0.1).
+MODES_MATTER = os.name != "nt"
+
+
 def copy_tree(src_root: str, dest_prefix: str, files: Files) -> None:
     """Add every file under src_root (minus caches) at dest_prefix/<relative path>, keeping the exec bit."""
     for dirpath, dirnames, filenames in os.walk(src_root):
@@ -144,7 +149,7 @@ def diff(files: Files) -> List[str]:
             problems.append(f"missing  {rel}")
         elif read(path) != data:
             problems.append(f"differs  {rel}")
-        elif mode_of(path) != mode:
+        elif MODES_MATTER and mode_of(path) != mode:
             problems.append(f"mode     {rel}")
     for rel in existing_files():
         if rel not in files:

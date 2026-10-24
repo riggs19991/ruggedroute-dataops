@@ -941,6 +941,17 @@ class CloseRulesTests(StatusTestCase):
         code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md")
         self.assertEqual(code, 0, err)
 
+    def test_close_ignores_files_under_agent_paths(self):
+        """1.0.1: a project agent's files (binding.agent_paths) are neither the task's work nor out of scope."""
+        from helpers import BINDING
+        tid = self._done_m()
+        self.repo.write_json(".forge/binding.json", dict(BINDING, agent_paths=["qa/reports/**"]))
+        self.repo.write("qa/reports/2026-10-19-smoke.md", "# QA report\n")
+        code, out, err = self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md")
+        self.assertEqual(code, 0, err)
+        self.assertIsNone(self.repo.task())
+        self.assertIn("qa/reports/2026-10-19-smoke.md", self.repo.porcelain(), "the report stays untracked, untouched")
+
     def test_close_R_needs_human_ack(self):
         tid = self._done_m(risk="R")
         self.assert_refused(self.repo.forge_status("close", tid, "--handoff", f".forge/tasks/{tid}/handoff.md"), "R without ack")

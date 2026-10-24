@@ -3,6 +3,33 @@
 All notable changes to the Forge. Versioning is semantic (docs/UPGRADING.md): MAJOR = a STATUS, handoff, brief or binding schema
 change; MINOR = an additive agent, skill, hook or rule; PATCH = prompt or documentation text. Agent and skill names are permanent.
 
+## 1.0.1 — 2026-10-19
+
+Project-agent and Windows release. No `schema_version` change: the new binding key is optional with a default, so
+1.0.0 bindings keep working, and migration `0001` adds it on upgrade.
+
+- `binding.agent_paths` (project-owned, default `[]`): repo-relative globs a **project agent** — any subagent whose
+  `agent_type` is not a `forge-*` role, such as RuggedRoute's read-only QA tester — may write in any task state, no task
+  open included. `PreToolUse` Edit/Write allows a matching path; the Bash fence allows a write-shaped command whose
+  every target (redirects, the operands of `rm|rmdir|mv|cp|mkdir|touch|tee|chmod|chown|truncate|sed -i`, `cd` tracked,
+  heredoc bodies ignored) lies under the globs. The policy lock, `protected_paths` and the outside-repository check still
+  deny; `irreversible_commands` are denied for such agents (the main session still asks); git, `ln`, `patch`, `dd`,
+  `rsync` and an interpreter fed a heredoc or inline code fall back to the plain fence, which now names the globs.
+  Forge roles and the main session are unchanged. `forge-status close` never counts files under `agent_paths` as out
+  of scope. `/forge-doctor` FAILs a malformed key and WARNs when it reaches `.forge/`, `.claude/` or the whole tree.
+  Documented in HOOKS.md (Roles, Edit and Bash rows), GATES.md (gate 2d), SCHEMAS.md, MODULE-API.md and the README;
+  the template binding carries `"agent_paths": []`; worked bindings updated (RuggedRoute: `qa/reports/**`,
+  `qa/scripts/**`, `qa/.auth/**`).
+- Migration `0001-binding-agent-paths.py`: `install.sh --upgrade` inserts `"agent_paths": []` right after
+  `mechanic_denied_paths` in an existing `.forge/binding.json` when absent, keeping every other byte; idempotent.
+- Windows: `forgelib.common.run()` spawns `_bash()` — `$FORGE_BASH`, then `C:/Program Files/Git/bin/bash.exe`, then
+  `C:/Program Files/Git/usr/bin/bash.exe`, else `bash` — so checks no longer hit the WSL stub (RuggedRoute ADR 0002
+  upstreamed; the upgrade overwrites that local patch, which is no longer needed). `installer.py` runs `forge-doctor`
+  through its own interpreter instead of the `#!` line.
+- Tests: `forge/tests/run_linux.sh` runs the suite (or any command) against the checkout inside a `python:3.12`
+  container, for Windows checkouts that cannot exec the shebang scripts; new tests cover the fences, `_bash()`, the
+  migration, the close backstop and the doctor check.
+
 ## 1.0.0 — 2026-10-11
 
 First release, built from design v2 (`docs/design/design-v2.md`). Released 2026-10-11: merged to `main` and tagged `v1.0.0`;

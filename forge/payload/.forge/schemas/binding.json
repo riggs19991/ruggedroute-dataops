@@ -5,6 +5,8 @@
   "enums": { "stack": ["python", "kotlin-android", "web-ts", "unknown"], "clear_policy": ["phase", "task", "never"], "routing.m_builder": ["opus-medium", "fable-low"], "routing.architect_effort": ["low", "medium", "high"] },
   "verify_entry": { "required": ["name", "cmd", "when"], "optional": ["exists", "vars", "todo"], "when": "always | paths:<glob>" },
   "risk_word_entry": { "shape": "string | {word, not?: [string]}" },
+  "optional": { "forge_pin": "string", "bootstrap": "string | null", "smoke": "string | null", "format": "string | null", "notes": "[string]", "agent_paths": "[glob]" },
+  "agent_paths": { "shape": "[glob]", "default": [], "since": "1.0.1", "note": "repo-relative globs a project agent (any subagent whose agent_type is not a forge-* role) may write through Edit/Write and shell writes in any task state; the policy lock, protected_paths and the outside-repository check still deny; Forge roles and the main session ignore it; forge-status close never counts files under it as out of scope" },
   "git": { "branch_per_task": "bool (default false)", "commit_prefix": "string (default forge)", "worktree_isolation": "bool (default false; only after forge-doctor --worktree passed)" },
   "budgets": { "T": 1, "S": 3, "M": 10, "M_chain": 12, "W": 25, "L_unit": 2, "X": 30, "risk_multiplier": 1.5 },
   "routing": { "architect_effort": "medium", "m_builder": "opus-medium", "overrides": [{ "name": "string", "paths": ["glob"], "builder": { "agent": "", "model": "", "effort": "" }, "min_verifier": "alias" }], "measured": {} },
@@ -12,6 +14,7 @@
   "invariants": [
     "verify non-empty unless stack == unknown",
     "every verify[].cmd prefix appears in settings.permissions.allow (installer adds it)",
-    "mechanic_denied_paths is a superset of protected_paths in spirit: anything shared or LIVE"
+    "mechanic_denied_paths is a superset of protected_paths in spirit: anything shared or LIVE",
+    "agent_paths never names a policy-locked file (the lock wins); a glob under .forge/ or .claude/ or the whole tree draws a doctor WARN"
   ]
 }

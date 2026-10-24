@@ -1604,5 +1604,133 @@ class Review2HookTests(HookTestCase):
         self.assertFalse(os.path.exists(env_file) and self.repo.read(".env-file").strip())
 
 
+class AgentPathsTests(HookTestCase):
+    """1.0.1 gate 2d: binding.agent_paths — a project agent (any subagent outside the forge-* roles) writes there in any task state."""
+    GLOBS = ["qa/reports/**", "qa/scripts/**"]
+    AGENT = {"agent_id": "agent_q1", "agent_type": "rugged-tester"}
+
+    def setUp(self):
+        super().setUp()
+        self.set_globs(self.GLOBS)
+
+    def set_globs(self, globs):
+        self.repo.write_json(".forge/binding.json", dict(helpers.BINDING, agent_paths=globs))
+
+    def edit(self, path, **kw):
+        return self.hook(pre_tool("Edit", {"file_path": path}, **kw))
+
+    def bash(self, cmd, **kw):
+        return self.hook(pre_tool("Bash", {"command": cmd}, **kw))
+
+    def test_edit_allowed_under_agent_paths_with_no_task_open(self):
+        self.assert_allow(self.edit("qa/reports/2026-10-19-b82-map.md", **self.AGENT), "report")
+        self.assert_allow(self.hook(pre_tool("Write", {"file_path": "qa/scripts/tap.js"}, **self.AGENT)), "script")
+        self.assert_allow(self.edit(os.path.join(self.repo.root, "qa", "reports", "abs.md"), **self.AGENT), "absolute path")
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-main")), "a project agent's write is not the architect's")
+        self.assert_allow(self.edit("qa/reports/x.md", agent_id="agent_q2", agent_type="rr:cosmetics-critic"), "namespaced type")
+
+    def test_edit_denied_outside_the_globs_and_names_them(self):
+        out = self.edit("lib/mod.py", **self.AGENT)
+        self.assert_deny(out, "/forge-task", "no task, outside the globs")
+        self.assertIn("agent_paths", reason(out))
+        self.seed_M()
+        self.assert_deny(self.edit("lib/mod.py", **self.AGENT), "class M", "task open, outside the globs")
+        self.assert_allow(self.edit("qa/reports/x.md", **self.AGENT), "task open, inside the globs")
+
+    def test_policy_lock_protected_paths_and_the_repository_boundary_still_win(self):
+        self.set_globs(["**"])
+        for p in (".forge/binding.json", ".forge/STATUS.json", ".claude/settings.json", ".forge/bin/forge-status"):
+            self.assert_deny(self.edit(p, **self.AGENT), "policy", p)
+        self.assert_deny(self.edit(".github/workflows/ci.yml", **self.AGENT), "protected", "protected path")
+        self.assert_deny(self.edit("/etc/passwd", **self.AGENT), "outside the repository", "outside")
+        self.assert_allow(self.edit("lib/mod.py", **self.AGENT), "** covers source")
+
+    def test_forge_roles_and_the_main_session_ignore_agent_paths(self):
+        self.repo.agent_record("agent_s1", "forge-scout")
+        self.assert_deny(self.edit("qa/reports/x.md", agent_id="agent_s1", agent_type="forge-scout"), hint="scout")
+        self.repo.agent_record("agent_b1", "forge-builder")
+        self.assert_deny(self.edit("qa/reports/x.md", agent_id="agent_b1", agent_type="forge:forge-builder"), "brief", "unbound builder")
+        self.assert_deny(self.edit("qa/reports/x.md"), "/forge-task", "main session")
+
+    def test_absent_or_empty_key_keeps_the_old_rules(self):
+        self.repo.write_json(".forge/binding.json", helpers.BINDING)   # no key at all
+        out = self.edit("qa/reports/x.md", **self.AGENT)
+        self.assert_deny(out, "/forge-task", "absent key")
+        self.assertNotIn("agent_paths", reason(out))
+        self.set_globs([])
+        self.assert_deny(self.edit("qa/reports/x.md", **self.AGENT), "/forge-task", "empty key")
+        self.assert_deny(self.bash("echo x > qa/reports/x.md", **self.AGENT), "/forge-task", "empty key, shell")
+
+    def test_bash_writes_under_agent_paths_are_allowed(self):
+        for cmd in ("cat <<'EOF' > qa/reports/r.md\n> a quoted line\nrm -rf /\n| a | table |\nEOF",
+                    "cat <<-EOF >> qa/reports/r.md\n\tindented body\n\tEOF",
+                    "mkdir -p qa/reports/sub && echo hi >> qa/reports/sub/a.txt",
+                    "rm qa/reports/old.md qa/scripts/old.js",
+                    "rm -rf qa/reports/tmp",
+                    "cd qa/reports && printf 'x' > y.md",
+                    "tee qa/reports/log.txt < /dev/null",
+                    "python3 tools/qa/ui.py --dump 2> qa/reports/err.log",
+                    "node qa/scripts/probe.js > qa/reports/probe.json 2>&1",
+                    "cp lib/mod.py qa/scripts/mod_copy.py && touch qa/reports/.stamp",
+                    "mv qa/reports/a.md qa/reports/b.md",
+                    "sed -i 's/a/b/' qa/reports/r.md",
+                    "chmod +x qa/scripts/run.sh",
+                    "QA_WEB_URL=http://localhost:8787 node qa/scripts/web.js >qa/reports/web.log"):
+            with self.subTest(cmd=cmd):
+                self.assert_allow(self.bash(cmd, **self.AGENT), cmd)
+        self.assertFalse(self.repo.exists(self.repo.rt("dirty-main")))
+
+    def test_bash_writes_outside_or_unreadable_are_denied(self):
+        cases = (("echo x > lib/mod.py", "agent_paths"),
+                 ("cat <<'EOF' > qa/reports/a.md\nx\nEOF\nrm lib/mod.py", "agent_paths"),
+                 ("rm -rf qa/reports/x ../sibling", "outside the repository"),
+                 ("echo x > /etc/motd", "outside the repository"),
+                 ("python3 -c 'open(\"qa/reports/x\",\"w\")'", "/forge-task"),
+                 ("bash <<'EOF' > qa/reports/x\nrm -rf lib\nEOF", "/forge-task"),
+                 ("python3 - <<'EOF'\nopen('lib/mod.py', 'w')\nEOF", "/forge-task"),
+                 ("cat <<< 'x' > qa/reports/a.md\nrm -rf lib", "agent_paths"),
+                 ("git checkout -- qa/reports", "/forge-task"),
+                 ("ln -s lib/mod.py qa/reports/link", "/forge-task"),
+                 ("echo x > qa/reports/../../lib/mod.py", "agent_paths"),
+                 ("cd .. && echo x > qa/reports/x", "outside the repository"),
+                 ("cd - && echo x > qa/reports/x", "/forge-task"),
+                 ("rm -rf", "/forge-task"),
+                 ("cp lib/mod.py lib/util.py qa/reports/", "agent_paths"),
+                 ("mv qa/reports/a.md lib/", "agent_paths"),
+                 ("sed -i 's/a/b/' lib/mod.py qa/reports/r.md", "agent_paths"),
+                 ("echo 'x > qa/reports/ok.md; rm -rf lib", "/forge-task"),
+                 ("echo x >> .forge/binding.json", "policy"))
+        for cmd, mentions in cases:
+            with self.subTest(cmd=cmd):
+                self.set_globs(self.GLOBS + [".forge/**"] if "binding.json" in cmd else self.GLOBS)
+                self.assert_deny(self.bash(cmd, **self.AGENT), mentions, cmd)
+
+    def test_irreversible_commands_are_denied_not_asked(self):
+        self.assert_deny(self.bash("git push origin main", **self.AGENT), "irreversible", "push")
+        self.assert_deny(self.bash("ls && wrangler deploy", **self.AGENT), "irreversible", "deploy")
+        self.repo.touch(self.repo.rt("driver"))
+        self.assert_deny(self.bash("git push origin main", **self.AGENT), "irreversible", "push in driver mode")
+
+    def test_protected_target_under_agent_paths_is_denied(self):
+        self.set_globs(["**"])
+        self.assert_deny(self.bash("echo x > .github/workflows/ci.yml", **self.AGENT), "protected", "protected target")
+        self.assert_allow(self.bash("echo x > lib/mod.py", **self.AGENT), "** covers source")
+
+    def test_target_parser_units(self):
+        from forgelib import hooks as h
+        self.assertEqual(h._strip_heredoc_bodies("cat <<'EOF' > a\nbody\nEOF\nrm b"), "cat <<'EOF' > a\nrm b")
+        self.assertEqual(h._strip_heredoc_bodies("cat <<-X\n\tbody\n\tX\nls"), "cat <<-X\nls")
+        self.assertEqual(h._strip_heredoc_bodies("cat <<< 'x'\nrm b"), "cat <<< 'x'\nrm b")
+        self.assertEqual(h._strip_heredoc_bodies("echo \"a <<b\"\nrm c"), "echo \"a <<b\"\nrm c")
+        self.assertEqual(h._mutation_targets("echo x > a; mkdir -p b/c && cd d && touch e f"), ["a", "b/c", "d/e", "d/f"])
+        self.assertEqual(h._mutation_targets("cp -t qa/out a b && mv -t qa/out c && truncate -s 0 g && mkdir -m 755 h"),
+                         ["qa/out", "c", "qa/out", "g", "h"])
+        self.assertEqual(h._mutation_targets("sed -n p a > b && sed -i -e s/a/b/ c && chown me:me d && cat e 2>&1 >/dev/null"), ["b", "c", "d"])
+        self.assertEqual(h._mutation_targets("ls | tee -a x y"), ["x", "y"])
+        for cmd in ("git checkout -- a", "ln -s a b", "bash -c 'rm a'", "python3 - < x.py", "cd - && rm a", "rm -rf", "echo >",
+                    "dd if=a of=b", "patch -p1 < x", "rsync a b", "chmod -x a", "rm -- ", "node -e 'x' > a", "echo 'unbalanced > a"):
+            self.assertIsNone(h._mutation_targets(cmd), cmd)
+
+
 if __name__ == "__main__":
     unittest.main()

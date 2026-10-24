@@ -123,14 +123,20 @@ def _tokens(seg: str) -> List[str]:
     return toks
 
 
-def _command_word(toks: List[str]) -> str:
-    """Basename of the command word (after env assignments and a leading `sudo`/`command`/`exec`/`nice`)."""
+def _command_index(toks: List[str]) -> int:
+    """Index of the command word (after env assignments and a leading `sudo`/`command`/`exec`/`nice`); len(toks) when none."""
     i = 0
     while i < len(toks) and os.path.basename(toks[i]) in ("sudo", "command", "exec", "nice", "env", "nohup", "time", "timeout"):
         i += 1
         # `timeout <n>` and `nice -n <n>` carry a value; skip numeric / dashed arguments
         while i < len(toks) and (toks[i].startswith("-") or re.match(r"^[0-9]+[smhd]?$", toks[i])):
             i += 1
+    return i
+
+
+def _command_word(toks: List[str]) -> str:
+    """Basename of the command word (after env assignments and a leading `sudo`/`command`/`exec`/`nice`)."""
+    i = _command_index(toks)
     return os.path.basename(toks[i]) if i < len(toks) else ""
 
 
@@ -852,6 +858,263 @@ def _edit_path(ctx: Ctx) -> Optional[str]:
     return str(p) if p else None
 
 
+# --------------------------------------------------------------------------- #
+# Project agents: binding.agent_paths (1.0.1; GATES.md gate 2d)
+# --------------------------------------------------------------------------- #
+# A subagent whose agent_type is not a forge-* role (a consumer's own QA tester or reviewer) may write under the
+# project-owned globs binding.agent_paths in any task state, no task open included. Nothing else about it changes:
+# the policy lock, the outside-repository check and protected_paths still deny, irreversible commands are denied,
+# and a path outside the globs follows the main-session rules exactly as in 1.0.0 (an absent or empty key keeps
+# the old behaviour everywhere).
+# Shell writers whose targets can be read off the command line; every other write-shaped command fails closed.
+_AGENT_WRITERS = ("rm", "rmdir", "mv", "cp", "mkdir", "touch", "tee", "chmod", "chown", "truncate", "sed")
+# Commands that execute what a heredoc, `<` or an inline-code flag feeds them: their writes are unknowable.
+_AGENT_INTERPRETERS = ("bash", "sh", "zsh", "dash", "ksh", "fish", "python", "python2", "python3", "node", "perl",
+                       "ruby", "php", "eval", "source", ".", "xargs")
+# Flags that take a value, per writer (so the value is never mistaken for a path).
+_AGENT_VALUED = {"mkdir": ("-m", "--mode"), "truncate": ("-s", "--size", "-r", "--reference"),
+                 "cp": ("-t", "--target-directory", "-S", "--suffix"), "mv": ("-t", "--target-directory", "-S", "--suffix"),
+                 "sed": ("-e", "--expression", "-f", "--file", "-l", "--line-length"),
+                 "chown": ("--reference",), "chmod": ("--reference",), "touch": ("-d", "--date", "-r", "--reference", "-t")}
+_HEREDOC_OP_RE = re.compile(r"(?<!<)<<(?!<)-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1")
+_OUT_REDIRECT_RE = re.compile(r"^(?:[0-9]*|&)(>>|>)(.*)$")
+_IN_REDIRECT_RE = re.compile(r"^[0-9]*<(.*)$")
+_DRIVE_RE = re.compile(r"^[A-Za-z]:[\\/]")
+
+
+def _external_agent(ctx: Ctx) -> bool:
+    """A subagent that is not a Forge role: the project's own agent (QA tester, reviewer, ...)."""
+    return ctx.is_subagent and ctx.role not in common.ALL_ROLES
+
+
+def _agent_label(ctx: Ctx) -> str:
+    return f"{ctx.role or 'unknown agent'} {ctx.agent_id or ''}".strip()
+
+
+def _agent_globs(ctx: Ctx) -> List[str]:
+    return _str_list(ctx.binding.get("agent_paths"))
+
+
+def _agent_path_verdict(ctx: Ctx, rel: str) -> Optional[Tuple[bool, str]]:
+    """(allowed, why) for a project agent's Edit/Write of `rel` when it matches binding.agent_paths; None when the
+    agent is not a project agent or the path is outside the globs (the main-session rules apply then).
+    protected_paths still deny; the policy lock and the outside-repository check ran before this."""
+    if not _external_agent(ctx):
+        return None
+    g = common.any_glob(rel, _agent_globs(ctx))
+    if g is None:
+        return None
+    if common.any_glob(rel, _str_list(ctx.binding.get("protected_paths"))) is not None:
+        return False, f"{rel} is a protected path (binding.protected_paths); binding.agent_paths never unlocks it"
+    return True, f"matches {g}"
+
+
+def _agent_paths_hint(ctx: Ctx, out: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Name the agent_paths globs in a fence denial of a project agent, so it learns where it may write."""
+    if out and _external_agent(ctx) and _agent_globs(ctx):
+        hso = out.get("hookSpecificOutput")
+        if isinstance(hso, dict) and hso.get("permissionDecision") == "deny":
+            hso["permissionDecisionReason"] = (f"{hso.get('permissionDecisionReason', '')}; a project agent may write "
+                                               f"under binding.agent_paths {_agent_globs(ctx)} in any task state")
+    return out
+
+
+def _strip_heredoc_bodies(cmd: str) -> str:
+    """`cmd` without the body lines of its here-documents (they are data, not commands); operator lines stay.
+    A here-string (`<<<`) is not a heredoc and hides nothing."""
+    from . import gates
+    out: List[str] = []
+    pending: List[Tuple[str, bool]] = []   # (delimiter, `<<-` strips leading tabs), in order of appearance
+    for line in (cmd or "").splitlines():
+        if pending:
+            delim, dash = pending[0]
+            if (line.lstrip("\t") if dash else line) == delim:
+                pending.pop(0)
+            continue
+        out.append(line)
+        masked, _balanced = gates.mask_quotes(line)
+        for m in _HEREDOC_OP_RE.finditer(masked):
+            pending.append((line[m.start(2):m.end(2)], masked[m.start():m.start() + 3] == "<<-"))
+    return "\n".join(out)
+
+
+def _agent_tokens(seg: str) -> Optional[List[str]]:
+    """shlex tokens of one segment minus leading VAR=value assignments; None on unbalanced quoting (fail closed)."""
+    from . import gates
+    toks = gates._shlex(seg)
+    if toks is None:
+        return None
+    while toks and "=" in toks[0] and not toks[0].startswith("-") and not toks[0].startswith(("/", ".", "~")):
+        toks.pop(0)
+    return toks
+
+
+def _join_base(base: str, p: str) -> str:
+    """`p` relative to the directory a preceding `cd` selected (absolute, drive and `~`/`$VAR` paths pass through)."""
+    if not base or os.path.isabs(p) or _DRIVE_RE.match(p) or p.startswith(("~", "$")):
+        return p
+    return os.path.normpath(os.path.join(base, p)).replace(os.sep, "/")
+
+
+def _redirect_kind(tok: str) -> Tuple[str, Optional[str]]:
+    """("out"|"dup"|"in"|"heredoc"|"", target) for one shell token; a None target means the next token is it."""
+    m = _OUT_REDIRECT_RE.match(tok)
+    if m:
+        rest = m.group(2)
+        if rest.startswith("&"):
+            return "dup", None
+        return "out", (rest.lstrip("|") or None)
+    if tok.startswith("<<"):
+        return "heredoc", tok[2:].lstrip("-") or None
+    m = _IN_REDIRECT_RE.match(tok)
+    if m:
+        return "in", m.group(1) or None
+    return "", None
+
+
+def _writer_operands(word: str, operands: List[str]) -> Optional[List[str]]:
+    """The paths one rm/rmdir/mv/cp/mkdir/touch/tee/chmod/chown/truncate/sed command writes (flags and their
+    values removed); [] for a sed that is not in place; None when they cannot be told apart from the rest."""
+    valued = _AGENT_VALUED.get(word, ())
+    pos: List[str] = []
+    into: Optional[str] = None     # cp/mv -t DIR
+    scripts = 0                    # sed -e/-f occurrences
+    end = False
+    k = 0
+    while k < len(operands):
+        t = operands[k]
+        if end or t == "-" or not t.startswith("-"):
+            pos.append(t)
+        elif t == "--":
+            end = True
+        elif t in valued:
+            if k + 1 >= len(operands):
+                return None
+            if word in ("cp", "mv") and t in ("-t", "--target-directory"):
+                into = operands[k + 1]
+            if word == "sed" and t in ("-e", "--expression", "-f", "--file"):
+                scripts += 1
+            k += 1
+        elif any(t.startswith(v + "=") for v in valued if v.startswith("--")):
+            if word in ("cp", "mv") and t.startswith("--target-directory="):
+                into = t.split("=", 1)[1]
+            if word == "sed" and t.startswith(("--expression=", "--file=")):
+                scripts += 1
+        elif word == "sed" and len(t) > 2 and t[1] in "ef" and not t.startswith("--"):
+            scripts += 1           # -e<script> / -f<file> attached
+        k += 1                     # any other flag (-i.bak, -s0, -m755, -p, -rf ...) carries no path
+    if word == "sed":
+        if not any(o.startswith("-i") or o == "--in-place" or o.startswith("--in-place=") for o in operands):
+            return []
+        if scripts == 0:
+            if not pos:
+                return None
+            pos = pos[1:]          # the first positional is the script
+        return pos or None
+    if word in ("chmod", "chown"):
+        return pos[1:] or None     # mode / owner first
+    if word == "cp":
+        if into:
+            return [into]
+        return pos[-1:] if len(pos) >= 2 else None
+    if word == "mv":
+        return (pos + ([into] if into else [])) or None
+    return pos or None             # rm rmdir mkdir touch tee truncate
+
+
+def _segment_targets(toks: List[str], base: str) -> Optional[Tuple[List[str], str]]:
+    """(write targets, base after the segment) of one segment, or None when its writes cannot be read off the
+    command line: git, ln, patch, dd, rsync, pushd/popd, `cd -`, a dangling redirect, or an interpreter fed code by a
+    heredoc, `<`, or -c/-e/- as its first argument."""
+    i = _command_index(toks)
+    if i >= len(toks):
+        return [], base
+    word = os.path.basename(toks[i])
+    args = toks[i + 1:]
+    targets: List[str] = []
+    operands: List[str] = []
+    fed = False
+    k = 0
+    while k < len(args):
+        t = args[k]
+        kind, tgt = _redirect_kind(t)
+        if kind == "out":
+            if tgt is None:
+                if k + 1 >= len(args):
+                    return None
+                k += 1
+                tgt = args[k]
+            if tgt not in ("/dev/null", "/dev/stdout", "/dev/stderr"):
+                targets.append(tgt)
+        elif kind in ("heredoc", "in"):
+            fed = True
+            if tgt is None:
+                k += 1             # the delimiter / the input file
+        elif kind != "dup":
+            operands.append(t)
+        k += 1
+    joined = [_join_base(base, t) for t in targets]
+    if word in _AGENT_INTERPRETERS and (fed or (operands and operands[0] in ("-c", "-e", "-E", "--eval", "-"))):
+        return None
+    if word == "cd":
+        if len(operands) != 1 or operands[0] == "-":
+            return None
+        return joined, _join_base(base, operands[0])
+    if word in ("git", "ln", "patch", "dd", "rsync", "install", "pushd", "popd"):
+        return None
+    if word in _AGENT_WRITERS:
+        ops = _writer_operands(word, operands)
+        if ops is None:
+            return None
+        joined += [_join_base(base, t) for t in ops]
+    return joined, base
+
+
+def _mutation_targets(cmd: str) -> Optional[List[str]]:
+    """Every path a write-shaped command writes (redirect targets and the operands of the _AGENT_WRITERS, with
+    `cd` tracked across segments and heredoc bodies ignored), or None when a segment's writes cannot be read off
+    the command line, so the caller falls back to the plain fence."""
+    out: List[str] = []
+    base = ""
+    for seg in _segments(_strip_heredoc_bodies(cmd)):
+        toks = _agent_tokens(seg)
+        if toks is None:
+            return None
+        if not toks:
+            continue
+        r = _segment_targets(toks, base)
+        if r is None:
+            return None
+        targets, base = r
+        out.extend(targets)
+    return out
+
+
+def _agent_paths_bash(ctx: Ctx, cmd: str) -> Optional[Tuple[bool, str]]:
+    """(allowed, why) for a project agent's mutating command judged by binding.agent_paths: allowed when every write
+    target lies under the globs and none is policy-locked, protected or outside the repository; a reason when a
+    target is readable but out of bounds; None when no globs are declared or the targets cannot be determined (the
+    plain fence decides then)."""
+    globs = _agent_globs(ctx)
+    if not globs:
+        return None
+    targets = _mutation_targets(cmd)
+    if not targets:
+        return None
+    protected = _str_list(ctx.binding.get("protected_paths"))
+    for tok in targets:
+        rel, ok, why = ctx.paths.safe_rel(os.path.expanduser(os.path.expandvars(tok)))
+        if not ok:
+            return False, f"{tok}: {why}"
+        if _policy_locked(ctx, rel):
+            return False, f"{tok} is the Forge-owned or policy file {rel}: change it with install.sh or by hand"
+        if common.any_glob(rel, globs) is None:
+            return False, f"{tok} ({rel}) is outside binding.agent_paths {globs}: a project agent writes only there without a task"
+        if common.any_glob(rel, protected) is not None:
+            return False, f"{tok} ({rel}) is a protected path (binding.protected_paths); binding.agent_paths never unlocks it"
+    return True, f"{len(targets)} write target(s) under binding.agent_paths"
+
+
 def _pre_edit(ctx: Ctx) -> Optional[Dict[str, Any]]:
     path = _edit_path(ctx)
     if not path:
@@ -867,7 +1130,15 @@ def _pre_edit(ctx: Ctx) -> Optional[Dict[str, Any]]:
         return _fence_deny(ctx, "policy-lock", f"Forge-owned or policy file: change it with install.sh or by hand ({rel})")
     if ctx.is_subagent and ctx.role in common.ALL_ROLES:
         return _pre_edit_subagent(ctx, rel)
-    return _pre_edit_main(ctx, rel)   # unknown roles follow the main-session rules
+    verdict = _agent_path_verdict(ctx, rel)   # 1.0.1: binding.agent_paths for the project's own agents
+    if verdict is not None:
+        allowed, why = verdict
+        if not allowed:
+            _journal(ctx, f"agent_paths deny ({_agent_label(ctx)}): {why}")
+            return _deny(why)
+        _journal(ctx, f"edit {rel} by {_agent_label(ctx)} allowed by binding.agent_paths ({why})")
+        return None
+    return _agent_paths_hint(ctx, _pre_edit_main(ctx, rel))   # other roles follow the main-session rules
 
 
 def _draft_allowed(ctx: Ctx, rel: str) -> bool:
@@ -1294,6 +1565,9 @@ def _pre_bash(ctx: Ctx) -> Optional[Dict[str, Any]]:
     # design §7 gate 10: irreversible commands ask (interactive) or are denied (driver mode).
     pat = gates.irreversible_match(cmd, _str_list(ctx.binding.get("irreversible_commands")))
     if pat:
+        if _external_agent(ctx):   # 1.0.1: a project agent never runs one (the main session asks, workers are denied)
+            _journal(ctx, f"irreversible command denied for {_agent_label(ctx)} ({pat!r}): {redact(cmd[:120])}")
+            return _deny(f"irreversible command (binding pattern {pat!r}) is never run by a subagent; leave it to the operator")
         if _marker(ctx, "driver"):
             return _fence_deny(ctx, "irreversible", f"irreversible command (binding pattern {pat!r}) is denied in driver "
                                                     "mode: a human runs it; forge-run blocks the phase")
@@ -1302,8 +1576,16 @@ def _pre_bash(ctx: Ctx) -> Optional[Dict[str, Any]]:
     if mutating:
         rule = _main_fence_rule(ctx)
         if rule:
-            return _fence_deny(ctx, rule[0], "source changes go through the fence: use Edit/Write inside the declared "
-                                              f"scope, or dispatch per next_action ({rule[1]})")
+            verdict = _agent_paths_bash(ctx, cmd) if _external_agent(ctx) else None   # 1.0.1: binding.agent_paths
+            if verdict is not None:
+                allowed, why = verdict
+                if not allowed:
+                    _journal(ctx, f"agent_paths deny ({_agent_label(ctx)}): {why}")
+                    return _deny(why)
+                _journal(ctx, f"shell write by {_agent_label(ctx)} allowed by binding.agent_paths ({why}): {redact(cmd[:120])}")
+                return None
+            return _agent_paths_hint(ctx, _fence_deny(ctx, rule[0], "source changes go through the fence: use Edit/Write "
+                                                                  f"inside the declared scope, or dispatch per next_action ({rule[1]})"))
         _touch(ctx, "dirty-main")
         _rm(ctx, "chat-turn")
     return None

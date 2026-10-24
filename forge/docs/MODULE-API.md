@@ -51,7 +51,7 @@ See the module docstrings. Key items used by every other module:
 
 ```json
 {
-  "schema_version": 2, "forge_version": "1.0.0", "project": "<name>",
+  "schema_version": 2, "forge_version": "1.0.1", "project": "<name>",
   "updated_at": "...Z", "updated_ts": 0, "updated_by": {"session_id": "...", "cmd": "..."},
   "context_state": "fresh|stale",
   "task": null | {
@@ -85,7 +85,7 @@ Model fields hold **aliases** (`haiku|sonnet|opus|fable`), always normalised thr
 
 ### 2.2 `.forge/binding.json` (project-owned)
 
-Keys used by code: `project, stack, bootstrap, verify[] {name, cmd, when: "always"|"paths:<glob>", exists?, vars?, todo?}, smoke, format, test_globs[], test_pattern, protected_paths[], risk_paths[], important_paths[], mechanic_denied_paths[], risk_words[] ({word, not?}|str), irreversible_commands[] (glob-like patterns matched against the command string; `*` = any chars), git {branch_per_task, commit_prefix, worktree_isolation}, budgets {T,S,M,M_chain,W,L_unit,X,risk_multiplier}, routing {architect_effort, m_builder: "opus-medium"|"fable-low", overrides[] {name, paths[], builder{agent,model,effort}, min_verifier}, measured{}}, clear_policy: "phase"|"task"|"never", auto_resume: bool, driver {max_turns, max_phases}, notes[]`.
+Keys used by code: `project, stack, bootstrap, verify[] {name, cmd, when: "always"|"paths:<glob>", exists?, vars?, todo?}, smoke, format, test_globs[], test_pattern, protected_paths[], risk_paths[], important_paths[], mechanic_denied_paths[], agent_paths[] (globs a non-forge-* subagent may write in any task state; optional, default [] — 1.0.1), risk_words[] ({word, not?}|str), irreversible_commands[] (glob-like patterns matched against the command string; `*` = any chars), git {branch_per_task, commit_prefix, worktree_isolation}, budgets {T,S,M,M_chain,W,L_unit,X,risk_multiplier}, routing {architect_effort, m_builder: "opus-medium"|"fable-low", overrides[] {name, paths[], builder{agent,model,effort}, min_verifier}, measured{}}, clear_policy: "phase"|"task"|"never", auto_resume: bool, driver {max_turns, max_phases}, notes[]`.
 `{layer}` in a verify `cmd`/`exists` is substituted from the first path component after `layers/` of a matching changed path (`vars: {"layer": "from-path"}`).
 
 ### 2.3 Plan file `.forge/tasks/<id>/plan.md`
