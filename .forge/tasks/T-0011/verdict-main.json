@@ -1,0 +1,61 @@
+{
+  "schema": "forge/verdict/2",
+  "task": "T-0011",
+  "step": "main",
+  "range": "0e12c5e..ca30ded",
+  "verdict": "PASS",
+  "criteria": [
+    {
+      "id": "DoD-1",
+      "result": "PASS",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_hooks.py -k AgentPaths",
+      "exit": 0
+    },
+    {
+      "id": "DoD-2",
+      "result": "PASS",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_hooks.py -k AgentPaths",
+      "exit": 0
+    },
+    {
+      "id": "DoD-3",
+      "result": "PASS",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_common.py -k bash",
+      "exit": 0
+    },
+    {
+      "id": "DoD-4",
+      "result": "PASS",
+      "cmd": "python3 -m unittest discover -s forge/tests -p test_installer.py -k migration",
+      "exit": 0
+    },
+    {
+      "id": "DoD-5",
+      "result": "PASS",
+      "cmd": "python3 -m unittest discover -s forge/tests && python3 forge/tools/make_plugin.py --check",
+      "exit": 0
+    },
+    {
+      "id": "DoD-6",
+      "result": "PASS",
+      "cmd": "grep -qx 1.0.1 forge/VERSION && grep -qx 1.0.1 forge/payload/.forge/VERSION && grep -q 'FORGE_VERSION = \"1.0.1\"' forge/payload/.forge/bin/forgelib/common.py && grep -q '^## 1.0.1' forge/CHANGELOG.md",
+      "exit": 0
+    },
+    {
+      "id": "DoD-7",
+      "result": "PASS",
+      "cmd": "for f in forge/payload/.forge/HOOKS.md forge/payload/.forge/GATES.md forge/payload/.forge/SCHEMAS.md forge/README.md forge/docs/MODULE-API.md forge/payload/.forge/schemas/binding.json; do grep -q agent_paths \"$f\" || exit 1; done",
+      "exit": 0
+    }
+  ],
+  "scope_check": "PASS",
+  "ratchet": "PASS",
+  "blocking_findings": [],
+  "deferred_findings": [
+    "ratchet counter (129->129) does not cover forge/tests, which grew in this range",
+    "DoD-3 verified via mocked sys.platform/os.path.isfile; no real Windows run",
+    "project agent non-mutating commands passing unchanged is intended but not directly asserted",
+    "installer.py sys.executable doctor spawn has no dedicated test beyond the suite"
+  ],
+  "tags": []
+}

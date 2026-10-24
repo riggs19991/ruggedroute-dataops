@@ -21,3 +21,9 @@ At most 60 lines; facts about this repo's checks, not instructions.
 - PyYAML parses the workflow `on:` key as boolean True; `json.dumps(sort_keys=True)` on the loaded doc raises TypeError (bool vs str) — compare with `default=str` and no sort, or pop the True key.
 - `git ls-remote --tags https://github.com/felt/tippecanoe.git refs/tags/<tag>` works through the proxy and proves a pinned tag exists upstream.
 - A task's `check_pins.py`-style DoD script lives under `.forge/tasks/<task>/` and is itself inside the committed range; it is Forge bookkeeping, not product scope.
+- The read-only Bash hook rejects any command whose text contains `.forge/` (even `git diff -- forge/payload/.forge/...` or a `sha:path` argument); a glob pathspec like `'forge/payload/*/bin/forgelib/hooks.py'` reaches the same file.
+- The hook also rejects bare `python3 ...` for the verifier; the Forge suite can only be run through forge-check (DoD-5 there took ~223 s).
+- forge-check prints `-unknown.json` as the record path but the journal shows it stamped as `main-<ts>-<agent id>.json`; the SubagentStart line in the task journal gives the agent id.
+- forge-check de-duplicates DoD entries sharing one command (DoD-1/DoD-2 both cite the AgentPaths run): only one FORGE_CHECK line appears, and the gate still accepts both criteria citing it.
+- The ratchet's test count (129) covers the consumer repo's tests, not forge/tests; a Forge-suite-only change shows baseline == now.
+- Large `git diff` output (>30 KB) is persisted to a tool-results file; reading that file back is cheaper than re-running diffs per path.

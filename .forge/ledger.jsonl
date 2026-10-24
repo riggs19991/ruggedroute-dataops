@@ -23,3 +23,6 @@
 {"ts":"2026-10-19T16:21:34Z","event":"scope_add","task":"T-0011","class":"X","status":"forge/tools/make_plugin.py","session_id":"cli"}
 {"ts":"2026-10-24T01:20:13Z","event":"scope_add","task":"T-0011","class":"X","status":"forge/tools/make_plugin.py","session_id":"cli"}
 {"ts":"2026-10-24T01:25:36Z","event":"dispatch","task":"T-0011","step":null,"class":"X","agent":"forge-verifier","model":"fable","effort":"medium","attempt":null,"escalated_from":null,"session_id":"3cf47b6b-2cc2-536e-a2b6-6443493e7dcf"}
+{"ts":"2026-10-24T01:33:49Z","event":"gate_block","task":"T-0011","step":null,"class":"X","agent":"a07df4909e1b60307","status":"verdict","gate_blocks":1,"session_id":"3cf47b6b-2cc2-536e-a2b6-6443493e7dcf"}
+{"ts":"2026-10-24T01:34:36Z","event":"verdict","task":"T-0011","step":"main","class":"X","verdict":"PASS","verifier_model":"fable","tags":[],"gate_blocks":0,"attempt":1,"session_id":"3cf47b6b-2cc2-536e-a2b6-6443493e7dcf"}
+{"ts":"2026-10-24T01:34:46Z","event":"close","task":"T-0011","class":"X","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":true,"escalations":0,"status":null,"verdict":null,"session_id":"3cf47b6b-2cc2-536e-a2b6-6443493e7dcf"}

@@ -15,3 +15,9 @@
 - 2026-10-24T01:28:31Z [Stop] main: stop gate block 1: record the state with .forge/bin/forge-status (evidence T-0011 --claim "..." --from-check <checks/ record>, or close T-0011) before ending the turn
 - 2026-10-24T01:28:42Z evidence: forge-check T-0011 main passed 7/7 (2 binding entries skipped by path filter); Fable verifier dispatched on step main <- .forge/tasks/T-0011/checks/main-1792805131-main.json (exit 0)
 - 2026-10-24T01:28:54Z [PreToolUse] main: irreversible command asks for confirmation ('git push *'): git add .forge/STATUS.json .forge/ledger.jsonl .forge/tasks/T-0011 && git commit -q -m "forge(T-0011): wip — forge-check
+- 2026-10-24T01:30:06Z [PostToolUse] a07df4909e1b60307: stamped .forge/tasks/T-0011/checks/main-1792805406-a07df4909e1b60307.json
+- 2026-10-24T01:33:49Z gate-block verdict: agent a07df4909e1b60307 block #1
+- 2026-10-24T01:33:49Z [SubagentStop] a07df4909e1b60307: verdict gate block 1/2: missing heading '## Verdict'; missing heading '## Criteria'; missing heading '## Scope check'
+- 2026-10-24T01:34:36Z step-verdict main: PASS tags=[] blocking=0 file=.forge/tasks/T-0011/verdict-main.json (verdict 1)
+- 2026-10-24T01:34:46Z close: done | handoff .forge/tasks/T-0011/handoff.md
+- 2026-10-24T01:34:46Z close: removed .forge/tasks/T-0011/drafts/ (pre-validation drafts are never committed)

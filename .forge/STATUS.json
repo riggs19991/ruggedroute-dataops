@@ -2,162 +2,14 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-24T01:28:42Z",
-  "updated_ts": 1792805322,
+  "updated_at": "2026-10-24T01:34:46Z",
+  "updated_ts": 1792805686,
   "updated_by": {
     "session_id": "3cf47b6b-2cc2-536e-a2b6-6443493e7dcf",
-    "cmd": "forge-status evidence T-0011"
+    "cmd": "forge-status close T-0011"
   },
   "context_state": "stale",
-  "task": {
-    "id": "T-0011",
-    "title": "Forge 1.0.1: binding.agent_paths for non-Forge agents + Git Bash on Windows (ADR 0002 upstream)",
-    "class": "X",
-    "risk": "none",
-    "size_source": "declared",
-    "files": [
-      "forge/payload/.forge/bin/forgelib/hooks.py",
-      "forge/payload/.forge/bin/forgelib/common.py",
-      "forge/payload/.forge/bin/forgelib/status.py",
-      "forge/payload/.forge/bin/forgelib/gates.py",
-      "forge/payload/.forge/bin/forgelib/__init__.py",
-      "forge/payload/.forge/bin/forge-doctor",
-      "forge/payload/.forge/schemas/binding.json",
-      "forge/payload/.forge/templates/binding.json",
-      "forge/payload/.forge/templates/STATUS.json",
-      "forge/payload/.forge/HOOKS.md",
-      "forge/payload/.forge/GATES.md",
-      "forge/payload/.forge/SCHEMAS.md",
-      "forge/payload/.forge/RUNBOOK.md",
-      "forge/payload/.forge/VERSION",
-      "forge/VERSION",
-      "forge/CHANGELOG.md",
-      "forge/README.md",
-      "forge/docs/MODULE-API.md",
-      "forge/docs/UPGRADING.md",
-      "forge/docs/BUILD-LOG.md",
-      "forge/migrations/README.md",
-      "forge/bindings/ruggedroute-android.json",
-      "forge/bindings/ruggedroute-dataops.json",
-      "forge/bindings/millwright-kb.json",
-      "forge/tests/helpers.py",
-      "forge/tests/test_hooks.py",
-      "forge/tests/test_common.py",
-      "forge/tests/test_installer.py",
-      "forge/tests/test_status.py",
-      "forge/tests/test_gates.py",
-      "forge/plugin/**"
-    ],
-    "creates": [
-      "forge/migrations/0001-binding-agent-paths.py"
-    ],
-    "signals": {
-      "files": 32,
-      "dirs": 10,
-      "importers": 20,
-      "recent_cochanges": [
-        "forge/plugin/bin/forgelib/common.py",
-        "forge/plugin/payload/.forge/bin/forgelib/common.py",
-        "forge/plugin/bin/forge-doctor",
-        "forge/plugin/bin/forgelib/hooks.py",
-        "forge/plugin/bin/forgelib/status.py",
-        "forge/plugin/install.sh",
-        "forge/plugin/installer.py",
-        "forge/plugin/payload/.forge/HOOKS.md",
-        "forge/plugin/payload/.forge/RUNBOOK.md",
-        "forge/plugin/payload/.forge/bin/forge-doctor",
-        "forge/plugin/payload/.forge/bin/forgelib/hooks.py",
-        "forge/plugin/payload/.forge/bin/forgelib/status.py",
-        "forge/plugin/agents/forge-builder-s.md",
-        "forge/plugin/agents/forge-builder-wide.md",
-        "forge/plugin/agents/forge-builder.md",
-        "forge/plugin/agents/forge-librarian.md",
-        "forge/plugin/agents/forge-mechanic.md",
-        "forge/plugin/agents/forge-planner.md",
-        "forge/plugin/agents/forge-verifier.md",
-        "forge/plugin/bin/forge-bench"
-      ],
-      "tests_present": false,
-      "risk_hits": [],
-      "important_hits": []
-    },
-    "class_justification": "root-cause change to the hook fences and the check runner: a non-Forge subagent needs a project-declared write set (binding.agent_paths) and run() must reach Git Bash on Windows; spans payload scripts, schema, template, migration, docs, worked bindings, tests and the generated plugin (>10 files, >3 dirs, so not M); no protected or risk paths; class X verifier fable/medium",
-    "phase": "execute",
-    "plan": ".forge/tasks/T-0011/plan.md",
-    "plan_author": "architect",
-    "branch": null,
-    "scope": [
-      "forge/payload/.forge/bin/forgelib/hooks.py",
-      "forge/payload/.forge/bin/forgelib/common.py",
-      "forge/payload/.forge/bin/forgelib/status.py",
-      "forge/payload/.forge/bin/forgelib/gates.py",
-      "forge/payload/.forge/bin/forgelib/__init__.py",
-      "forge/payload/.forge/bin/forge-doctor",
-      "forge/payload/.forge/schemas/binding.json",
-      "forge/payload/.forge/templates/binding.json",
-      "forge/payload/.forge/templates/STATUS.json",
-      "forge/payload/.forge/HOOKS.md",
-      "forge/payload/.forge/GATES.md",
-      "forge/payload/.forge/SCHEMAS.md",
-      "forge/payload/.forge/RUNBOOK.md",
-      "forge/payload/.forge/VERSION",
-      "forge/VERSION",
-      "forge/CHANGELOG.md",
-      "forge/README.md",
-      "forge/docs/MODULE-API.md",
-      "forge/docs/UPGRADING.md",
-      "forge/docs/BUILD-LOG.md",
-      "forge/migrations/README.md",
-      "forge/bindings/ruggedroute-android.json",
-      "forge/bindings/ruggedroute-dataops.json",
-      "forge/bindings/millwright-kb.json",
-      "forge/tests/helpers.py",
-      "forge/tests/test_hooks.py",
-      "forge/tests/test_common.py",
-      "forge/tests/test_installer.py",
-      "forge/tests/test_status.py",
-      "forge/tests/test_gates.py",
-      "forge/plugin/**",
-      "forge/migrations/0001-binding-agent-paths.py",
-      "forge/tests/run_linux.sh",
-      "forge/tools/make_plugin.py",
-      "forge/installer.py"
-    ],
-    "routing": {
-      "mode": "inline",
-      "builder": null,
-      "verifier": {
-        "agent": "forge-verifier",
-        "model": "fable",
-        "effort": "medium"
-      },
-      "justification": "class X: a root-cause change to the hook fences and the check runner, implemented inline by the architect; the Fable verifier is mandatory and close needs its PASS on step main | plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)"
-    },
-    "steps": [],
-    "escalation": {
-      "step": null,
-      "round": 0
-    },
-    "next_action": "Invoke /forge-investigate T-0011",
-    "resume_hint": "Plan imported from .forge/tasks/T-0011/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "claim": "forge-check T-0011 main passed 7/7 (2 binding entries skipped by path filter); Fable verifier dispatched on step main",
-        "command": "cd lib && python3 -m unittest -v; python3 -m unittest discover -s forge/tests -p test_hooks.py -k AgentPaths; python3 -m unittest discover -s forge/tests -p test_common.py -k bash; python3 -m unittest discover -s forge/tests -p test_installer.py -k migration; python3 -m unittest discover -s forge/tests && python3 forge/tools/make_plugin.py --check; grep -qx 1.0.1 forge/VERSION && grep -qx 1.0.1 forge/payload/.forge/VERSION && grep -q 'FORGE_VERSION = \"1.0.1\"' forge/payload/.forge/bin/forgelib/common.py && grep -q '^## 1.0.1' forge/CHANGELOG.md; for f in forge/payload/.forge/HOOKS.md forge/payload/.forge/GATES.md forge/payload/.forge/SCHEMAS.md forge/README.md forge/docs/MODULE-API.md forge/payload/.forge/schemas/binding.json; do grep -q agent_paths \"$f\" || exit 1; done",
-        "exit": 0,
-        "when": "2026-10-24T01:28:42Z",
-        "from": ".forge/tasks/T-0011/checks/main-1792805131-main.json"
-      }
-    ],
-    "blocked_on": null,
-    "external": null,
-    "budget": {
-      "cap_usd": 30.0
-    },
-    "opened_at": "2026-10-19T15:52:27Z",
-    "base": "0e12c5ec478f9e04ab51e98588f1acd66021b815"
-  },
+  "task": null,
   "queue": [
     {
       "id": "T-0008",
@@ -176,16 +28,6 @@
     }
   ],
   "history": [
-    {
-      "id": "T-0003",
-      "title": "fix: Paths.rel must relativise on real paths so macOS /var -> /private/var symlinked roots are inside the repo",
-      "class": "T",
-      "outcome": "done",
-      "cost_usd": null,
-      "cost_source": "unknown",
-      "handoff": null,
-      "closed_at": "2026-10-11T20:07:03Z"
-    },
     {
       "id": "T-0004",
       "title": "parcels: restore the MN plan_parcels_open source URL and poll the ND hub export instead of failing on its first 400, then re-run the Q4 quarterly",
@@ -225,6 +67,16 @@
       "cost_source": "unknown",
       "handoff": ".forge/tasks/T-0007/handoff.md",
       "closed_at": "2026-10-13T11:59:24Z"
+    },
+    {
+      "id": "T-0011",
+      "title": "Forge 1.0.1: binding.agent_paths for non-Forge agents + Git Bash on Windows (ADR 0002 upstream)",
+      "class": "X",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": ".forge/tasks/T-0011/handoff.md",
+      "closed_at": "2026-10-24T01:34:46Z"
     }
   ]
 }
