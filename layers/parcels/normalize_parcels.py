@@ -491,8 +491,12 @@ def ogr_stream(ogr_src: str, layer_args: list[str], fields: list[str]) -> subpro
         "-nlt", "PROMOTE_TO_MULTI",
     ]
     if fields:
-        # ogr2ogr warns-and-continues on unknown -select names, which is the
-        # tolerance we want across shapefile/GDB header drift.
+        # -select tolerance is FORMAT-DEPENDENT (learned on run 40243912707):
+        # shapefiles warn-and-continue on unknown names, but FGDB sources HARD
+        # FAIL ("Field 'X' not found in source layer" terminates translation).
+        # That loudness is a feature — a renamed upstream column fails the unit
+        # instead of shipping a silent all-null attribute — but it means every
+        # -select name for a gdb unit is a live-verified contract, never a guess.
         cmd += ["-select", ",".join(fields)]
     return subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, bufsize=1)
 

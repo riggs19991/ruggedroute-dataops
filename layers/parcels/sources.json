@@ -269,10 +269,8 @@
       "county": null,
       "acres": null
     },
-    "use_field": "PROP_CLASS",
-    "use_adapter": "nj_modiv",
     "count_expected": 3478727,
-    "notes": "Geometry-only composite (owner data is the separate MOD-IV table we never fetch). Zip also holds Cad_pclblock (tax blocks) \u2014 the layer hint keeps it out. Behind Imperva CDN: browser UA required (fetch sends it). T-0012: use_field PROP_CLASS (MOD-IV property class code) -> use_adapter nj_modiv, grounded in the 2026-10-25 live value-harvest probe (5A/5B/6x railroad+utility classes omitted)."
+    "notes": "Geometry-only composite (owner data is the separate MOD-IV table we never fetch). Zip also holds Cad_pclblock (tax blocks) \u2014 the layer hint keeps it out. Behind Imperva CDN: browser UA required (fetch sends it). T-0012: NO use in v1 \u2014 PROP_CLASS lives on the 'Parcels and MOD-IV Composite of NJ' AGOL service, NOT in this parcels-only gdb (run 40243912707: ogr2ogr 'Field PROP_CLASS not found' hard-fail). Future route for NJ use: fetch the composite service (rest) or join MOD-IV; until then NJ ships geometry+apn+county+acres."
   },
   "MD": {
     "mode": "hub",

@@ -78,17 +78,20 @@ PINS = {
     ],
 }
 
-# unit -> (use_field, use_adapter) — brief-01 §2 wiring, exactly.
+# unit -> (use_field, use_adapter) — brief-01 §2 wiring, minus NJ (run
+# 40243912707: the statewide parcels gdb has no PROP_CLASS — that field lives
+# on the MOD-IV composite SERVICE; FGDB -select hard-fails on unknown names).
 WIRING = {
     "FL_1": ("DOR_UC", "fl_dor"), "FL_2": ("DOR_UC", "fl_dor"),
     "MA": ("USE_CODE", "ma_dor"), "IN": ("dlgf_prop_class_code", "in_dlgf"),
-    "NJ": ("PROP_CLASS", "nj_modiv"), "DC": ("CLASSTYPE", "dc_class"),
+    "DC": ("CLASSTYPE", "dc_class"),
     "WI": ("PROPCLASS", "wi_propclass"), "MT": ("PropType", "mt_proptype"),
 }
-V1_STATES = ("FL", "MA", "IN", "NJ", "DC", "WI", "MT")
-# Probe-excluded 2026-10-25 — must never be wired blind.
-EXCLUDED_UNITS = ("TX_1", "TX_2", "TX_3", "CT", "MD", "VT", "HI")
-EXCLUDED_STATES = ("TX", "CT", "MD", "VT", "HI")
+V1_STATES = ("FL", "MA", "IN", "DC", "WI", "MT")
+# Probe-excluded 2026-10-25 — must never be wired blind. NJ joined after the
+# live run proved its gdb lacks the field (future route: MOD-IV composite).
+EXCLUDED_UNITS = ("TX_1", "TX_2", "TX_3", "CT", "MD", "VT", "HI", "NJ")
+EXCLUDED_STATES = ("TX", "CT", "MD", "VT", "HI", "NJ")
 
 FL_MAPPING = {"apn": "PARCEL_ID", "county": "CO_NO", "acres": "LND_SQFOOT"}
 FL_RAW = {"PARCEL_ID": "X1", "CO_NO": "58.0", "LND_SQFOOT": "87120", "DOR_UC": "001"}
