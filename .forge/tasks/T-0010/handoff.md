@@ -10,9 +10,10 @@ Done and verified PASS. The parcels tile gate (Gate 3: decode + in-tile whitelis
 - `layers/parcels/tests/test_qa_bounds.py`: 4 tests incl. a precedence test with distinct
   antimeridian values (verifier deferred-3 applied post-verdict; forge-check re-run green,
   record main-1792964052-unknown.json: pass=3 fail=0).
-- CI proof: DC validation run 40234246805 — "Gate 3: tile decode" with no bounds-skip warning,
-  run success. Human attestation record main-1792963029-human.json, annotated with provenance
-  (hand-written; attest CLI cannot address inline step main — see lessons/attest-inline-step-gap.md).
+- CI proof (checks/main-1792963029-human.json): DC validation run 40234246805 ran
+  "Gate 3: tile decode" with no bounds-skip warning, run success; verified via
+  `gh run view 40234246805 --log` grep, exit 0. Record annotated with provenance (hand-written;
+  attest CLI cannot address inline step main — see lessons/attest-inline-step-gap.md).
 - Verifier verdict PASS (verdict-main.json; Opus forge-verifier, 24-case refutation probe + mutation
   test + ratchet 129→133).
 
@@ -28,9 +29,10 @@ Done and verified PASS. The parcels tile gate (Gate 3: decode + in-tile whitelis
 - forge-check runs with hooks dormant in operator sessions → check records stamp `unknown/cli`.
 
 ```json
-{"schema": "forge/handoff/2", "task": "T-0010", "step": "main", "status": "DONE",
+{"schema": "forge/handoff/2", "task": "T-0010", "step": "task", "status": "DONE",
  "summary": "Gate 3 tile-decode gate unskipped: 1.31 bounds parser ported, 4-test regression suite, CI-proven on DC run 40234246805, verifier PASS",
  "files_changed": ["layers/parcels/qa_parcels.py", "layers/parcels/tests/test_qa_bounds.py"],
- "checks_run": ["main-1792964052-unknown.json", "main-1792963029-human.json"],
+ "checks_run": [{"cmd": "python .forge/bin/forge-check T-0010 main", "exit": 0},
+                {"cmd": "pytest layers/parcels/tests -q", "exit": 0}],
  "verdict": "PASS"}
 ```

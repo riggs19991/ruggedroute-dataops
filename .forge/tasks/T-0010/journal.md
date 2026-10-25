@@ -10,3 +10,5 @@
 - 2026-10-25T21:33:46Z correction: earlier evidence claim said 'full parcels suite 32 tests green'; the cited record shows 28 passed 1 skipped (29 collected; GDAL env skip). Post-tweak suite below.
 - 2026-10-25T21:33:46Z verifier deferred-3 applied: antimeridian precedence test now uses distinct values; suite re-run after the edit
 - 2026-10-25T21:34:12Z step-verdict main: PASS tags=[] blocking=0 file=.forge/tasks/T-0010/verdict-main.json (verdict 1)
+- 2026-10-25T21:35:51Z close: done | handoff .forge/tasks/T-0010/handoff.md
+- 2026-10-25T21:35:51Z close: removed .forge/tasks/T-0010/drafts/ (pre-validation drafts are never committed)

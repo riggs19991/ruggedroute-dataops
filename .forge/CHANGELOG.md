@@ -10,3 +10,4 @@ One line per closed Forge task, appended by `.forge/bin/forge-status close`.
 - 2026-10-13 T-0006 [X/R] ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows — handoff .forge/tasks/T-0006/handoff.md (done)
 - 2026-10-13 T-0007 [S] worker: add a real test for worker-tiles so the binding's worker verify entry can stop being a todo — handoff .forge/tasks/T-0007/handoff.md (done)
 - 2026-10-24 T-0011 [X] Forge 1.0.1: binding.agent_paths for non-Forge agents + Git Bash on Windows (ADR 0002 upstream) — handoff .forge/tasks/T-0011/handoff.md (done)
+- 2026-10-25 T-0010 [X] parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again — handoff .forge/tasks/T-0010/handoff.md (done)
