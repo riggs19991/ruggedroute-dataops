@@ -1,0 +1,19 @@
+{
+  "ts": 1792963406,
+  "agent_id": "unknown",
+  "session_id": "cli",
+  "task": "T-0010",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "cmd",
+      "cmd": "pytest layers/parcels/tests -q",
+      "exit": 0,
+      "dur_s": 0.8,
+      "tail": "........................s....                                            [100%]\n28 passed, 1 skipped in 0.17s"
+    }
+  ],
+  "ratchet": null,
+  "ok": true
+}

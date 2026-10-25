@@ -34,7 +34,7 @@
       }
     }
   ],
-  "rollback": "git revert the single commit; the gate returns to its previous skipped-with-warning behavior, which was the status quo",
+  "rollback": "path-scoped (the task commit also carries the Forge 1.0.1 payload upgrade — never revert that): git checkout eb882bc~1 -- layers/parcels/qa_parcels.py && git rm layers/parcels/tests/test_qa_bounds.py; the gate returns to skipped-with-warning, the pre-task status quo",
   "needs_clarification": [],
   "allowed_paths": ["layers/parcels/qa_parcels.py", "layers/parcels/tests/test_qa_bounds.py"],
   "test_baseline": {
@@ -64,5 +64,7 @@ keeping the parcels type annotation.
   and the tile gate decodes probes (external evidence attached to that run id).
 
 ## Rollback
-git revert the single commit. The gate returns to skipped-with-warning — exactly the pre-task
-status quo; nothing downstream consumes gate_tiles() output beyond pass/fail.
+Path-scoped, NOT a commit revert (eb882bc also carries the Forge 1.0.0→1.0.1 installed-payload
+upgrade, which must survive): `git checkout eb882bc~1 -- layers/parcels/qa_parcels.py &&
+git rm layers/parcels/tests/test_qa_bounds.py`. The gate returns to skipped-with-warning —
+exactly the pre-task status quo; nothing downstream consumes gate_tiles() output beyond pass/fail.

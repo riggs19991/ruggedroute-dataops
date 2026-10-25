@@ -26,9 +26,12 @@ V131_PAREN = (
     "bounds: (long: -117.239175, lat: 41.988226) (long: -111.043699, lat: 49.000822)\n"
     "min zoom: 13\n"
 )
+# Distinct values on the antimeridian line so a regex-order swap fails the
+# precedence test (verifier deferred finding 3, T-0010).
+ANTIMERIDIAN_EXPECTED = (-117.0, 42.0, -111.5, 48.5)
 V131_ANTIMERIDIAN = (
     V131_PAREN
-    + "antimeridian_adjusted_bounds -117.239175,41.988226,-111.043699,49.000822\n"
+    + "antimeridian_adjusted_bounds -117.0,42.0,-111.5,48.5\n"
 )
 LEGACY = "bounds: -117.239175,41.988226,-111.043699,49.000822\n"
 
@@ -45,7 +48,7 @@ class PmtilesBoundsTest(unittest.TestCase):
         self.assertEqual(EXPECTED, _bounds_for(V131_PAREN))
 
     def test_131_antimeridian_line_wins(self):
-        self.assertEqual(EXPECTED, _bounds_for(V131_ANTIMERIDIAN))
+        self.assertEqual(ANTIMERIDIAN_EXPECTED, _bounds_for(V131_ANTIMERIDIAN))
 
     def test_legacy_comma_form_still_parses(self):
         self.assertEqual(EXPECTED, _bounds_for(LEGACY))

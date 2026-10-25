@@ -1,0 +1,41 @@
+{
+ "schema": "forge/verdict/2",
+ "task": "T-0010",
+ "step": "main",
+ "range": "f203936243a7e789e3271dbd2236397d05fb997f..eb882bc4805bba7acc1c3a5ece9ab25896ee03c3",
+ "verdict": "PASS",
+ "criteria": [
+  {
+   "id": "DoD-1",
+   "result": "PASS",
+   "cmd": "pytest layers/parcels/tests/test_qa_bounds.py -q",
+   "exit": 0
+  },
+  {
+   "id": "DoD-2",
+   "result": "PASS",
+   "cmd": "human attestation record",
+   "exit": 0
+  }
+ ],
+ "scope_check": "PASS",
+ "ratchet": "PASS",
+ "blocking_findings": [],
+ "deferred_findings": [
+  "eb882bc bundles the undisclosed Forge 1.0.0->1.0.1 installed-payload upgrade (13 framework files byte-identical to forge/payload@f203936, install-manifest, binding agent_paths); the plan's rollback 'git revert the single commit' would also downgrade the installed Forge. Journal it and make the rollback path-scoped to the two layers/parcels files.",
+  "The DoD-2 human record main-1792963029-human.json was hand-written (attest CLI gap) with synthetic session_id 'a21684db-operator'. Unlike T-0004 it has no note disclosure and no journal attest line, and it is uncommitted. The operator should confirm they read run 40234246805 and annotate the record before close.",
+  "test_131_antimeridian_line_wins uses identical values on both lines, so it cannot detect precedence loss (the regex-order-swapped mutant passed 4/4). Give the antimeridian line distinct values.",
+  "The evidence claim 'full parcels suite 32 tests green' misstates its cited record main-1792962595-unknown.json (28 passed, 1 skipped).",
+  "num (-?[\\d.]+) admits '.'/'1.2.3', which raise ValueError instead of returning None. Unreachable from go-pmtiles/tippecanoe %f output and fails loudly; optional tightening in both qa_parcels.py and qa_roads_tnm.py."
+ ],
+ "tags": [],
+ "blocking": [],
+ "deferred": [
+  "Undisclosed Forge 1.0.1 installed-payload upgrade in eb882bc; the plan's single-commit revert rollback would also downgrade Forge. Journal it and make the rollback path-scoped.",
+  "The DoD-2 human record was hand-written with a synthetic session_id, no note and no journal line, and is uncommitted. Operator to confirm run 40234246805 and annotate before close.",
+  "The precedence test cannot detect a regex-order swap (mutant passed 4/4). Use distinct antimeridian values.",
+  "'32 tests green' evidence claim vs cited record 28 passed, 1 skipped.",
+  "The [\\d.]+ number pattern admits tokens that crash float(). Unreachable from %f output; optional tightening in both copies."
+ ],
+ "confidence": "High on DoD-1 (red/green, 24-case probe and mutation, all run here). DoD-2 PASS rests solely on the hand-written human record per the brief; the run was not viewed. Scope PASS rests on the .forge/** always-allowed rule."
+}

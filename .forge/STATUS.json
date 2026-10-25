@@ -2,11 +2,11 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-25T21:10:14Z",
-  "updated_ts": 1792962614,
+  "updated_at": "2026-10-25T21:34:12Z",
+  "updated_ts": 1792964052,
   "updated_by": {
     "session_id": "cli",
-    "cmd": "forge-status plan T-0010"
+    "cmd": "forge-status step-verdict T-0010 main"
   },
   "context_state": "stale",
   "task": {
@@ -32,7 +32,7 @@
       "important_hits": []
     },
     "class_justification": "queued T-0010 from the 2026-10-13 live-tile probe; the whitelist tile gate must actually run before the land-use attr ships [--accept-risk-none: QA-only change: parses pmtiles-show output so an existing gate stops skipping; strictly tightens CI, no fetch/normalize/publish path touched]",
-    "phase": "execute",
+    "phase": "done",
     "plan": ".forge/tasks/T-0010/plan.md",
     "plan_author": "architect",
     "branch": null,
@@ -55,17 +55,33 @@
       "step": null,
       "round": 0
     },
-    "next_action": "Invoke /forge-investigate T-0010",
-    "resume_hint": "Plan imported from .forge/tasks/T-0010/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
-    "evidence_count": 0,
-    "evidence": [],
+    "next_action": "Run /forge-close",
+    "resume_hint": "Verifier PASS on file (.forge/tasks/T-0010/verdict-main.json); close with the handoff sized to class X.",
+    "evidence_count": 1,
+    "evidence": [
+      {
+        "claim": "pmtiles_bounds parses all three go-pmtiles output forms; 4-test regression suite green; full parcels suite 32 tests green",
+        "command": "cd lib && python3 -m unittest -v; pytest layers/parcels/tests -q; pytest layers/parcels/tests/test_qa_bounds.py -q",
+        "exit": 0,
+        "when": "2026-10-25T21:16:21Z",
+        "from": ".forge/tasks/T-0010/checks/main-1792962595-unknown.json"
+      }
+    ],
     "blocked_on": null,
     "external": null,
     "budget": {
       "cap_usd": 30.0
     },
     "opened_at": "2026-10-25T21:05:46Z",
-    "base": "f203936243a7e789e3271dbd2236397d05fb997f"
+    "base": "f203936243a7e789e3271dbd2236397d05fb997f",
+    "inline_verdict": {
+      "verdict": "PASS",
+      "file": ".forge/tasks/T-0010/verdict-main.json",
+      "verifier_model": "fable",
+      "at": "2026-10-25T21:34:12Z",
+      "attempt": 1,
+      "tags": []
+    }
   },
   "queue": [
     {

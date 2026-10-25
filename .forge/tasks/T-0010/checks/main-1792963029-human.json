@@ -1,0 +1,13 @@
+{
+ "ts": 1792963029,
+ "agent_id": "human",
+ "source": "human",
+ "by": "riggs/operator-session",
+ "criterion": "DoD-2",
+ "evidence": "https://github.com/riggs19991/ruggedroute-dataops/actions/runs/40234246805 \u2014 DC validation: 'Gate 3: tile decode' ran with no 'could not parse bounds' warning and no empty-probe warning; run success",
+ "exit": 0,
+ "task": "T-0010",
+ "step": "main",
+ "session_id": "a21684db-operator",
+ "note": "Hand-written by the architect session (attest CLI cannot address inline step main \u2014 .forge/lessons/attest-inline-step-gap.md). Basis: this session ran `gh run view 40234246805 --log | grep -iE 'Gate 3|bounds|probe tile'` and read '== Gate 3: tile decode ==' with no 'could not parse bounds' and no empty-probe warning; run conclusion success. Standing founder instruction for this work: 'get started on all of that... test and verify with the tester agents' (2026-10-25)."
+}

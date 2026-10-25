@@ -4,3 +4,9 @@
 - 2026-10-25T21:06:31Z plan imported: .forge/tasks/T-0010/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute
 - 2026-10-25T21:08:07Z scope add layers/parcels/tests/test_qa_bounds.py: durable regression test for the ported parser; DoD-1 check target
 - 2026-10-25T21:10:14Z plan imported: .forge/tasks/T-0010/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute | plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)
+- 2026-10-25T21:16:21Z evidence: pmtiles_bounds parses all three go-pmtiles output forms; 4-test regression suite green; full parcels suite 32 tests green <- .forge/tasks/T-0010/checks/main-1792962595-unknown.json (exit 0)
+- 2026-10-25T21:33:46Z attest (by hand) main DoD-2: CLI gap (no inline step main); record annotated with basis; see lessons/attest-inline-step-gap.md
+- 2026-10-25T21:33:46Z disclosure: commit eb882bc also carries the Forge 1.0.0->1.0.1 installed-payload upgrade (13 framework files byte-identical to forge/payload@f203936) applied to unbreak forge-check's WSL-bash spawn; rollback for THIS task is path-scoped: git checkout eb882bc~1 -- layers/parcels/qa_parcels.py && git rm layers/parcels/tests/test_qa_bounds.py
+- 2026-10-25T21:33:46Z correction: earlier evidence claim said 'full parcels suite 32 tests green'; the cited record shows 28 passed 1 skipped (29 collected; GDAL env skip). Post-tweak suite below.
+- 2026-10-25T21:33:46Z verifier deferred-3 applied: antimeridian precedence test now uses distinct values; suite re-run after the edit
+- 2026-10-25T21:34:12Z step-verdict main: PASS tags=[] blocking=0 file=.forge/tasks/T-0010/verdict-main.json (verdict 1)

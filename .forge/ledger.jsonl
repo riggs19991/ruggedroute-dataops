@@ -28,3 +28,4 @@
 {"ts":"2026-10-24T01:34:46Z","event":"close","task":"T-0011","class":"X","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":true,"escalations":0,"status":null,"verdict":null,"session_id":"3cf47b6b-2cc2-536e-a2b6-6443493e7dcf"}
 {"ts":"2026-10-25T21:05:46Z","event":"open","task":"T-0010","class":"X","risk":"none","expected_premium":true,"cost_source":"unknown","session_id":"cli"}
 {"ts":"2026-10-25T21:08:07Z","event":"scope_add","task":"T-0010","class":"X","status":"layers/parcels/tests/test_qa_bounds.py","session_id":"cli"}
+{"ts":"2026-10-25T21:34:12Z","event":"verdict","task":"T-0010","step":"main","class":"X","verdict":"PASS","verifier_model":"fable","tags":[],"gate_blocks":0,"attempt":1,"session_id":"cli"}
