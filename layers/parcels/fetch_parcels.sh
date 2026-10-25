@@ -48,7 +48,10 @@ case "$MODE" in
       i=$((i+1))
       tmp="$OUT_DIR/${UNIT}_${i}.dl"
       echo "fetching $url"
-      curl -fSL --retry 3 --retry-delay 5 -A "$UA" -o "$tmp" "$url"
+      # --retry-all-errors: FDOR's SharePoint resets connections mid-transfer
+      # now and then (run 40243912707, marion zip, curl 56) — plain --retry
+      # does not retry a recv reset. A real 404 still fails after the retries.
+      curl -fSL --retry 5 --retry-delay 10 --retry-all-errors -A "$UA" -o "$tmp" "$url"
       # Sniff the real type — hub API URLs don't end in an extension, and the
       # extension routes normalize_parcels.py (.zip -> /vsizip/, no extraction:
       # big FGDB zips must never be unzipped on a 14 GB runner).
