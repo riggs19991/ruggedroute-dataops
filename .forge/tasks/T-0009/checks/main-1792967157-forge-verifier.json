@@ -1,0 +1,19 @@
+{
+  "ts": 1792967157,
+  "agent_id": "forge-verifier",
+  "session_id": "cli",
+  "task": "T-0009",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "cmd",
+      "cmd": "python C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/t0009/mutate_t0009.py C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/t0009/head/layers/parcels C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/t0009/mut",
+      "exit": 0,
+      "dur_s": 14.2,
+      "tail": "    DoD-2 check exit=0 [38 passed, 1 skipped in 0.17s]\nM8 FL 65/66 swapped (St. Johns <-> St. Lucie)\n    DoD-1 check exit=0 [10 passed in 0.03s]\n    DoD-2 check exit=0 [38 passed, 1 skipped in 0.19s]\n\nSUMMARY (killed = a DoD check exits non-zero on the mutant)\n  M0 control (no edit): control GREEN\n  M1 build_props skips normalize_county: DoD-1 KILLED, DoD-2 KILLED\n  M2 VA zero-pad fallback removed: DoD-1 KILLED, DoD-2 KILLED\n  M3 tableless states ship bare codes: DoD-1 KILLED, DoD-2 KILLED\n  M4 float-strings not tolerated: DoD-1 KILLED, DoD-2 KILLED\n  M5 letters passthrough removed: DoD-1 KILLED, DoD-2 KILLED\n  M6 null-rate stats removed from normalize(): DoD-1 survived, DoD-2 survived\n  M7 sources.json remaps reverted (MT COUNTYCD, TX FIPS): DoD-1 survived, DoD-2 survived\n  M8 FL 65/66 swapped (St. Johns <-> St. Lucie): DoD-1 survived, DoD-2 survived"
+    }
+  ],
+  "ratchet": null,
+  "ok": true
+}

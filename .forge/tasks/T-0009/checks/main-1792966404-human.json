@@ -1,0 +1,13 @@
+{
+ "ts": 1792966404,
+ "agent_id": "human",
+ "source": "human",
+ "by": "riggs/operator-session",
+ "criterion": "DoD-3",
+ "evidence": "run 40236586600 (FL_1 FL_2 MT VA TX_3 all green). Operator decoded artifacts locally (pure-python pmtiles): FL_2 Orlando 13/2244/3417 = 14,272 feats, county 'Orange'\u00d714,137 + absent\u00d7135, ZERO bare codes; MT Helena 13/1546/2894 = 5,061 feats, county 'Lewis and Clark', zero bare codes. normalize attr_null_rates: FL_2 county 0.0077 (== apn rate: source nulls), MT county 0.0.",
+ "exit": 0,
+ "task": "T-0009",
+ "step": "main",
+ "session_id": "a21684db-operator",
+ "note": "Hand-written by the architect session (attest CLI cannot address inline step main \u2014 .forge/lessons/attest-inline-step-gap.md). Decodes executed in this session; commands and outputs in the session transcript. Standing founder instruction 2026-10-25: 'get started on all of that... test and verify with the tester agents'."
+}

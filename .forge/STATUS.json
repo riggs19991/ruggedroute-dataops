@@ -2,79 +2,14 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-25T21:38:11Z",
-  "updated_ts": 1792964291,
+  "updated_at": "2026-10-25T22:34:22Z",
+  "updated_ts": 1792967662,
   "updated_by": {
     "session_id": "cli",
-    "cmd": "forge-status plan T-0009"
+    "cmd": "forge-status close T-0009"
   },
   "context_state": "stale",
-  "task": {
-    "id": "T-0009",
-    "title": "parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH",
-    "class": "X",
-    "risk": "none",
-    "size_source": "declared",
-    "files": [
-      "layers/parcels/normalize_parcels.py",
-      "layers/parcels/sources.json",
-      "layers/parcels/layer.json"
-    ],
-    "creates": [
-      "layers/parcels/tests/test_county_uniformity.py"
-    ],
-    "signals": {
-      "files": 4,
-      "dirs": 1,
-      "importers": 1,
-      "recent_cochanges": [],
-      "tests_present": true,
-      "risk_hits": [
-        "layers/parcels/normalize_parcels.py (layers/parcels/**)",
-        "layers/parcels/sources.json (layers/parcels/**)",
-        "layers/parcels/layer.json (layers/parcels/**)",
-        "layers/parcels/tests/test_county_uniformity.py (layers/parcels/**)"
-      ],
-      "important_hits": []
-    },
-    "class_justification": "queued T-0009 from the 2026-10-13 live-tile probe; county must be a display name or absent, never a bare code — pairs with the land-use increment for one validation cycle [--accept-risk-none: normalize-time attribute cleanup only; whitelist unchanged; publish path untouched; next full run ships it with the land-use attr]",
-    "phase": "execute",
-    "plan": ".forge/tasks/T-0009/plan.md",
-    "plan_author": "architect",
-    "branch": null,
-    "scope": [
-      "layers/parcels/normalize_parcels.py",
-      "layers/parcels/sources.json",
-      "layers/parcels/layer.json",
-      "layers/parcels/tests/test_county_uniformity.py"
-    ],
-    "routing": {
-      "mode": "inline",
-      "builder": null,
-      "verifier": {
-        "agent": "forge-verifier",
-        "model": "fable",
-        "effort": "medium"
-      },
-      "justification": "class X data-quality defect; architect codes inline grounded in live field probes (MT CountyName + TX COUNTY exist at source; FL CO_NO and VA FIPS need static tables harvested from FDOR order anchors and Census codes2020); Fable verifier mandatory | test_baseline recorded at import: files=14 tests=133"
-    },
-    "steps": [],
-    "escalation": {
-      "step": null,
-      "round": 0
-    },
-    "next_action": "Invoke /forge-investigate T-0009",
-    "resume_hint": "Plan imported from .forge/tasks/T-0009/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
-    "evidence_count": 0,
-    "evidence": [],
-    "blocked_on": null,
-    "external": null,
-    "budget": {
-      "cap_usd": 30.0
-    },
-    "opened_at": "2026-10-25T21:37:41Z",
-    "base": "df69bfbf7aed1a53875e1fe7b8b73648f139218b"
-  },
+  "task": null,
   "queue": [
     {
       "id": "T-0008",
@@ -83,16 +18,6 @@
     }
   ],
   "history": [
-    {
-      "id": "T-0005",
-      "title": "docs: refresh the README layer status table from the live TileJSON versions and fix the broken master-plan pointer",
-      "class": "T",
-      "outcome": "done",
-      "cost_usd": null,
-      "cost_source": "unknown",
-      "handoff": null,
-      "closed_at": "2026-10-13T06:59:50Z"
-    },
     {
       "id": "T-0006",
       "title": "ci: pin tippecanoe 2.79.0 in monthly-ownership.yml like the other three workflows",
@@ -132,6 +57,16 @@
       "cost_source": "unknown",
       "handoff": ".forge/tasks/T-0010/handoff.md",
       "closed_at": "2026-10-25T21:35:51Z"
+    },
+    {
+      "id": "T-0009",
+      "title": "parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH",
+      "class": "X",
+      "outcome": "done",
+      "cost_usd": null,
+      "cost_source": "unknown",
+      "handoff": ".forge/tasks/T-0009/handoff.md",
+      "closed_at": "2026-10-25T22:34:22Z"
     }
   ]
 }

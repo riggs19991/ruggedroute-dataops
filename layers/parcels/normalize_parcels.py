@@ -118,26 +118,181 @@ VA_COUNTY_NAMES = {
     "51840": "Winchester city",
 }
 
-COUNTY_CODE_TABLES: dict[str, dict] = {"FL": FL_COUNTY_NAMES, "VA": VA_COUNTY_NAMES}
+# MD JURSCODE (MDP 4-letter jurisdiction codes). These are LETTER codes, so the
+# table must be consulted before the letters-means-name passthrough. Anchors
+# geo-verified on live tiles 2026-10-25: Rockville tile = MONT (Montgomery),
+# Annapolis tile = ANNE (Anne Arundel).
+MD_COUNTY_NAMES = {
+    "ALLE": "Allegany",
+    "ANNE": "Anne Arundel",
+    "BACI": "Baltimore City",
+    "BACO": "Baltimore",
+    "CALV": "Calvert",
+    "CARO": "Caroline",
+    "CARR": "Carroll",
+    "CECI": "Cecil",
+    "CHAR": "Charles",
+    "DORC": "Dorchester",
+    "FRED": "Frederick",
+    "GARR": "Garrett",
+    "HARF": "Harford",
+    "HOWA": "Howard",
+    "KENT": "Kent",
+    "MONT": "Montgomery",
+    "PRIN": "Prince George's",
+    "QUEE": "Queen Anne's",
+    "SOME": "Somerset",
+    "STMA": "St. Mary's",
+    "TALB": "Talbot",
+    "WASH": "Washington",
+    "WICO": "Wicomico",
+    "WORC": "Worcester",
+}
+
+# NH GRANIT CountyId 1-10, alphabetical. Anchors geo-verified on live tiles
+# 2026-10-25: Concord = 7 (Merrimack), Nashua = 6 (Hillsborough).
+NH_COUNTY_NAMES = {1: "Belknap", 2: "Carroll", 3: "Cheshire", 4: "Coos", 5: "Grafton", 6: "Hillsborough", 7: "Merrimack", 8: "Rockingham", 9: "Strafford", 10: "Sullivan"}
+
+# IN county FIPS -> name, harvested 2026-10-25 from Census codes2020 (suffix
+# "County" stripped — IN has no ambiguous city/county pairs, unlike VA).
+# Anchor geo-verified on live tiles: Indianapolis tile = 18097 (Marion).
+IN_COUNTY_NAMES = {
+    "18001": "Adams",
+    "18003": "Allen",
+    "18005": "Bartholomew",
+    "18007": "Benton",
+    "18009": "Blackford",
+    "18011": "Boone",
+    "18013": "Brown",
+    "18015": "Carroll",
+    "18017": "Cass",
+    "18019": "Clark",
+    "18021": "Clay",
+    "18023": "Clinton",
+    "18025": "Crawford",
+    "18027": "Daviess",
+    "18029": "Dearborn",
+    "18031": "Decatur",
+    "18033": "DeKalb",
+    "18035": "Delaware",
+    "18037": "Dubois",
+    "18039": "Elkhart",
+    "18041": "Fayette",
+    "18043": "Floyd",
+    "18045": "Fountain",
+    "18047": "Franklin",
+    "18049": "Fulton",
+    "18051": "Gibson",
+    "18053": "Grant",
+    "18055": "Greene",
+    "18057": "Hamilton",
+    "18059": "Hancock",
+    "18061": "Harrison",
+    "18063": "Hendricks",
+    "18065": "Henry",
+    "18067": "Howard",
+    "18069": "Huntington",
+    "18071": "Jackson",
+    "18073": "Jasper",
+    "18075": "Jay",
+    "18077": "Jefferson",
+    "18079": "Jennings",
+    "18081": "Johnson",
+    "18083": "Knox",
+    "18085": "Kosciusko",
+    "18087": "LaGrange",
+    "18089": "Lake",
+    "18091": "LaPorte",
+    "18093": "Lawrence",
+    "18095": "Madison",
+    "18097": "Marion",
+    "18099": "Marshall",
+    "18101": "Martin",
+    "18103": "Miami",
+    "18105": "Monroe",
+    "18107": "Montgomery",
+    "18109": "Morgan",
+    "18111": "Newton",
+    "18113": "Noble",
+    "18115": "Ohio",
+    "18117": "Orange",
+    "18119": "Owen",
+    "18121": "Parke",
+    "18123": "Perry",
+    "18125": "Pike",
+    "18127": "Porter",
+    "18129": "Posey",
+    "18131": "Pulaski",
+    "18133": "Putnam",
+    "18135": "Randolph",
+    "18137": "Ripley",
+    "18139": "Rush",
+    "18141": "St. Joseph",
+    "18143": "Scott",
+    "18145": "Shelby",
+    "18147": "Spencer",
+    "18149": "Starke",
+    "18151": "Steuben",
+    "18153": "Sullivan",
+    "18155": "Switzerland",
+    "18157": "Tippecanoe",
+    "18159": "Tipton",
+    "18161": "Union",
+    "18163": "Vanderburgh",
+    "18165": "Vermillion",
+    "18167": "Vigo",
+    "18169": "Wabash",
+    "18171": "Warren",
+    "18173": "Warrick",
+    "18175": "Washington",
+    "18177": "Wayne",
+    "18179": "Wells",
+    "18181": "White",
+    "18183": "Whitley",
+}
+
+COUNTY_CODE_TABLES: dict[str, dict] = {
+    "FL": FL_COUNTY_NAMES,
+    "VA": VA_COUNTY_NAMES,
+    "MD": MD_COUNTY_NAMES,
+    "NH": NH_COUNTY_NAMES,
+    "IN": IN_COUNTY_NAMES,
+}
 
 
 def normalize_county(state: str, value: str | None) -> str | None:
-    """Display name or None. Numeric codes (incl. float-strings like '58.0')
-    translate through the state's table; untranslatable numerics are DROPPED —
-    a bare code means nothing to a rider and must never ship. Values with
-    letters are already names and pass through."""
+    """Display name or None. Lookup order:
+    1. The state's code table, keyed by the raw upper-cased token (MD's
+       4-LETTER codes) or by integer / zero-padded-FIPS forms ('58.0', 51059).
+    2. Letters present and no table hit -> already a name, pass through.
+    3. Anything numeric left over is a bare code -> DROPPED, never shipped.
+    Non-integral numerics ('58.9') and overflow-sized strings also drop."""
     if value is None:
         return None
-    if any(ch.isalpha() for ch in value):
-        return value
-    try:
-        code = int(float(value))
-    except (TypeError, ValueError):
-        return None
     table = COUNTY_CODE_TABLES.get(state)
-    if table is None:
-        return None
-    return table.get(code) or table.get(f"{code:05d}")
+    token = value.strip()
+    if table is not None:
+        hit = table.get(token.upper())
+        if hit:
+            return hit
+        try:
+            f = float(token)
+            if f.is_integer():
+                code = int(f)
+                hit = table.get(code) or table.get(f"{code:05d}")
+                if hit:
+                    return hit
+        except (TypeError, ValueError, OverflowError):
+            pass
+    if any(ch.isalpha() for ch in token):
+        # A table-state letter token that missed the table is suspect (an
+        # unmapped MD-style code) only when it looks code-like; real names
+        # carry lowercase or spaces. 2-5 upper-alnum chars in a table state
+        # -> drop rather than ship a code as a name.
+        if table is not None and token.isupper() and token.isalnum() and len(token) <= 5:
+            return None
+        return token
+    return None
 
 
 def clean(value) -> str | None:

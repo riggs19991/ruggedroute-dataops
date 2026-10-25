@@ -1,0 +1,19 @@
+{
+  "ts": 1792967142,
+  "agent_id": "forge-verifier",
+  "session_id": "cli",
+  "task": "T-0009",
+  "step": "main",
+  "expect_fail": false,
+  "results": [
+    {
+      "name": "cmd",
+      "cmd": "python C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/t0009/probe_t0009.py . C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/t0009/probe_out",
+      "exit": 0,
+      "dur_s": 0.2,
+      "tail": "  ok    check_mapping refuses CountyName in the apn slot (REFUSING mapping apn='CountyName': matches forbidden substring 'name' ...)\n  ok    every sources.json unit passes check_mapping (refused=[])\n  ok    WHITELIST unchanged ('apn', 'county', 'acres', 'st')\n  ok    FORBIDDEN_FIELD_SUBSTRINGS unchanged\n== 5. DoD-2 normalize() null-rate stats via stubbed ogr2ogr ==\n  stdout: attr null rates (kept=3): apn=0.3333, county=0.3333, acres=0.6667\n  ok    kept=3 dropped_empty_geometry=1\n  ok    attr_null_rates={'apn': 0.3333, 'county': 0.3333, 'acres': 0.6667} (want {'apn': 0.3333, 'county': 0.3333, 'acres': 0.6667})\n  ok    printed null-rate line present with apn/county/acres\n  ok    written props=[{'st': 'FL', 'apn': 'A', 'county': 'Orange', 'acres': 1.0}, {'st': 'FL', 'apn': 'B'}, {'st': 'FL', 'county': 'Miami-Dade'}]\n  ok    kept=0 -> attr_null_rates all None, no ZeroDivisionError (attr null rates (kept=0): apn=None, county=None, acres=None)\n== 6. layer.json still valid; schema keys unchanged ==\n  ok    schema keys ['acres', 'apn', 'county', 'st']\n\nPROBE PASS: 0 hard failure(s)"
+    }
+  ],
+  "ratchet": null,
+  "ok": true
+}
