@@ -2,14 +2,71 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-24T01:34:46Z",
-  "updated_ts": 1792805686,
+  "updated_at": "2026-10-25T21:10:14Z",
+  "updated_ts": 1792962614,
   "updated_by": {
-    "session_id": "3cf47b6b-2cc2-536e-a2b6-6443493e7dcf",
-    "cmd": "forge-status close T-0011"
+    "session_id": "cli",
+    "cmd": "forge-status plan T-0010"
   },
   "context_state": "stale",
-  "task": null,
+  "task": {
+    "id": "T-0010",
+    "title": "parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again",
+    "class": "X",
+    "risk": "none",
+    "size_source": "declared",
+    "files": [
+      "layers/parcels/qa_parcels.py"
+    ],
+    "creates": [],
+    "signals": {
+      "files": 1,
+      "dirs": 1,
+      "importers": 1,
+      "recent_cochanges": [],
+      "tests_present": true,
+      "risk_hits": [
+        "layers/parcels/qa_parcels.py (layers/parcels/**)",
+        "layers/parcels/tests/test_qa_bounds.py (layers/parcels/**)"
+      ],
+      "important_hits": []
+    },
+    "class_justification": "queued T-0010 from the 2026-10-13 live-tile probe; the whitelist tile gate must actually run before the land-use attr ships [--accept-risk-none: QA-only change: parses pmtiles-show output so an existing gate stops skipping; strictly tightens CI, no fetch/normalize/publish path touched]",
+    "phase": "execute",
+    "plan": ".forge/tasks/T-0010/plan.md",
+    "plan_author": "architect",
+    "branch": null,
+    "scope": [
+      "layers/parcels/qa_parcels.py",
+      "layers/parcels/tests/test_qa_bounds.py"
+    ],
+    "routing": {
+      "mode": "inline",
+      "builder": null,
+      "verifier": {
+        "agent": "forge-verifier",
+        "model": "fable",
+        "effort": "medium"
+      },
+      "justification": "class X root-cause fix, one function body ported from the sibling layer that already diagnosed and fixed the same break; architect codes inline, Fable verifier mandatory | plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)"
+    },
+    "steps": [],
+    "escalation": {
+      "step": null,
+      "round": 0
+    },
+    "next_action": "Invoke /forge-investigate T-0010",
+    "resume_hint": "Plan imported from .forge/tasks/T-0010/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
+    "evidence_count": 0,
+    "evidence": [],
+    "blocked_on": null,
+    "external": null,
+    "budget": {
+      "cap_usd": 30.0
+    },
+    "opened_at": "2026-10-25T21:05:46Z",
+    "base": "f203936243a7e789e3271dbd2236397d05fb997f"
+  },
   "queue": [
     {
       "id": "T-0008",
@@ -19,11 +76,6 @@
     {
       "id": "T-0009",
       "title": "parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH",
-      "class_hint": "X"
-    },
-    {
-      "id": "T-0010",
-      "title": "parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again",
       "class_hint": "X"
     }
   ],

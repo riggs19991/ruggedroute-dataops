@@ -1,1 +1,6 @@
 - 2026-10-13T12:29:54Z queued: parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again (class hint X)
+- 2026-10-25T21:05:46Z open: parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again | class X risk none files=1 dirs=1 importers=1 tests_present=True risk_hits=['layers/parcels/qa_parcels.py (layers/parcels/**)'] important=[]
+- 2026-10-25T21:06:09Z plan: test_baseline recorded at import: files=13 tests=129
+- 2026-10-25T21:06:31Z plan imported: .forge/tasks/T-0010/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute
+- 2026-10-25T21:08:07Z scope add layers/parcels/tests/test_qa_bounds.py: durable regression test for the ported parser; DoD-1 check target
+- 2026-10-25T21:10:14Z plan imported: .forge/tasks/T-0010/plan.md mode=inline steps=[] builder=None verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute | plan re-imported in phase execute: previous steps replaced (nothing had been dispatched)

@@ -1,0 +1,21 @@
+{
+  "task": "T-0010",
+  "title": "parcels: Gate 3 (tile decode) has been skipping on every unit — port the go-pmtiles 1.31 bounds parser from roads_tnm into qa_parcels.py so the in-CI tile gate runs again",
+  "computed_at": "2026-10-25T21:05:46Z",
+  "size_source": "declared",
+  "declared": [
+    "layers/parcels/qa_parcels.py"
+  ],
+  "files": 1,
+  "dirs": 1,
+  "importers": 1,
+  "importer_files": [
+    "layers/parcels/tests/test_normalize_parcels.py"
+  ],
+  "recent_cochanges": [],
+  "tests_present": true,
+  "risk_hits": [
+    "layers/parcels/qa_parcels.py (layers/parcels/**)"
+  ],
+  "important_hits": []
+}

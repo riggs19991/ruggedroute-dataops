@@ -17,6 +17,7 @@
   "risk_paths": ["**/*upload*", "**/*alias*", "**/*kv*", "layers/parcels/**"],
   "important_paths": ["layers/mvum/**", "layers/lands/**"],
   "mechanic_denied_paths": ["lib/route_common.py", "lib/normalize_*.py", "layers/*/layer.json", "layers/mvum/**", "layers/lands/**"],
+  "agent_paths": [],
   "risk_words": [
     { "word": "ODbL" }, { "word": "owner", "not": ["ownership"] }, { "word": "alias" }, { "word": "R2" }, { "word": "KV" },
     { "word": "license" }, { "word": "attribution" }, { "word": "secret" }, { "word": "delete" }

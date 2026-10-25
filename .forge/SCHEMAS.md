@@ -29,7 +29,7 @@ by the Stop gate (sha mismatch); after a deliberate one run `.forge/bin/forge-st
 
 ```json
 {
-  "schema_version": 2, "forge_version": "1.0.0", "project": "ruggedroute-dataops",
+  "schema_version": 2, "forge_version": "1.0.1", "project": "ruggedroute-dataops",
   "updated_at": "2026-10-11T18:42:10Z", "updated_ts": 1760208130,
   "updated_by": { "session_id": "7f2c…", "cmd": "forge-status step-report T-0007 01" },
   "context_state": "fresh",
@@ -102,11 +102,12 @@ Run `.forge/bin/forge-status --help` for the flags.
 
 Project-owned and policy-locked (edited by hand or by the installer, never by a model). Required keys: `schema_version, project, stack,
 verify, test_globs, test_pattern, protected_paths, risk_paths, important_paths, mechanic_denied_paths, risk_words,
-irreversible_commands, git, budgets, routing, clear_policy, auto_resume, driver`; optional `forge_pin, bootstrap, smoke, format, notes`.
+irreversible_commands, git, budgets, routing, clear_policy, auto_resume, driver`; optional `forge_pin, bootstrap, smoke, format, notes,
+agent_paths` (1.0.1).
 
 ```json
 {
-  "schema_version": 2, "forge_pin": "1.0.0", "project": "ruggedroute-dataops", "stack": "python",
+  "schema_version": 2, "forge_pin": "1.0.1", "project": "ruggedroute-dataops", "stack": "python",
   "bootstrap": "python3 -m pip install -q pytest shapely",
   "verify": [
     { "name": "lib-unit",    "cmd": "cd lib && python3 -m unittest -v", "when": "always" },
@@ -119,6 +120,7 @@ irreversible_commands, git, budgets, routing, clear_policy, auto_resume, driver`
   "risk_paths": ["**/*upload*", "**/*alias*", "**/*kv*", "layers/parcels/**"],
   "important_paths": ["layers/mvum/**", "layers/lands/**"],
   "mechanic_denied_paths": ["lib/route_common.py", "lib/normalize_*.py", "layers/*/layer.json", "layers/mvum/**", "layers/lands/**"],
+  "agent_paths": [],
   "risk_words": [ { "word": "owner", "not": ["ownership"] }, { "word": "R2" }, "license" ],
   "irreversible_commands": ["wrangler *", "npx wrangler *", "gh workflow run *", "gh pr merge *", "git push *"],
   "git": { "branch_per_task": false, "commit_prefix": "forge", "worktree_isolation": false },
@@ -134,6 +136,11 @@ irreversible_commands, git, budgets, routing, clear_policy, auto_resume, driver`
   recorded `skipped`, not failed. `todo` entries print as WARN in `/forge-doctor`.
 - Globs: repo-relative; `**/` = any directories, `**` = anything, `*` = within one path segment, `?` = one character; a directory
   glob such as `layers/mvum/**` matches every file below it.
+- `agent_paths` (1.0.1; optional, default `[]`): repo-relative globs a **project agent** — any subagent whose `agent_type` is not a
+  `forge-*` role, such as a consumer's QA tester — may write through Edit/Write and shell writes in any task state, no task open
+  included. The policy lock, `protected_paths` and the outside-repository check still deny; Forge roles and the main session ignore
+  the key; `forge-status close` never counts files under it as out of scope. Migration `0001` adds `"agent_paths": []` to an
+  existing binding on upgrade; `/forge-doctor` FAILs a malformed value and WARNs when a glob reaches `.forge/`, `.claude/` or `**`.
 - `risk_words`: a string or `{word, not: [...]}`. Words of ≥ 4 characters match case-insensitively on word boundaries, shorter ones
   case-sensitively; a `not` phrase present in the title cancels the hit.
 - `irreversible_commands`: glob-like patterns matched against the whole command and each `&&`/`;`/`|` segment (`*` matches anything,

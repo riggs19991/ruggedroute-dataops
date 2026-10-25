@@ -230,6 +230,13 @@ def check_binding(paths: common.Paths, rep: Report) -> Optional[Dict[str, Any]]:
     for i, w in enumerate(binding.get("risk_words") or []):
         if not (isinstance(w, str) or (isinstance(w, dict) and isinstance(w.get("word"), str))):
             defects.append(f"risk_words[{i}] is neither a string nor {{word, not?}}")
+    agent_paths = binding.get("agent_paths", [])   # 1.0.1: optional, default []
+    if not isinstance(agent_paths, list) or not all(isinstance(g, str) and g.strip() for g in agent_paths):
+        defects.append("agent_paths is not a list of repo-relative globs")
+    elif any((g[2:] if g.startswith("./") else g).startswith((".forge/", ".claude/")) or g in (".forge", ".claude", "**", "*")
+             for g in agent_paths):
+        rep.warn("binding", f"agent_paths {agent_paths} reaches Forge state or the whole tree: a project agent could write "
+                            "anything the policy lock does not cover")
     for d in defects:
         rep.fail("binding", d)
     if not defects:
