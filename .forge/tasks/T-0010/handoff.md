@@ -28,9 +28,9 @@ Done and verified PASS. The parcels tile gate (Gate 3: decode + in-tile whitelis
 - forge-check runs with hooks dormant in operator sessions → check records stamp `unknown/cli`.
 
 ```json
-{"schema": "forge/handoff/2", "task": "T-0010", "step": "main", "status": "done",
+{"schema": "forge/handoff/2", "task": "T-0010", "step": "main", "status": "DONE",
  "summary": "Gate 3 tile-decode gate unskipped: 1.31 bounds parser ported, 4-test regression suite, CI-proven on DC run 40234246805, verifier PASS",
- "files": ["layers/parcels/qa_parcels.py", "layers/parcels/tests/test_qa_bounds.py"],
- "checks": ["main-1792964052-unknown.json", "main-1792963029-human.json"],
+ "files_changed": ["layers/parcels/qa_parcels.py", "layers/parcels/tests/test_qa_bounds.py"],
+ "checks_run": ["main-1792964052-unknown.json", "main-1792963029-human.json"],
  "verdict": "PASS"}
 ```
