@@ -1,0 +1,31 @@
+{
+  "task": "T-0012",
+  "title": "parcels: land-use classification — normalized 'use' bucket (RES/AG/VAC/COM/IND/FOREST/GOV) for FL MA IN NJ DC WI MT, whitelist + qa vocab gate + contract",
+  "computed_at": "2026-10-25T22:34:47Z",
+  "size_source": "declared",
+  "declared": [
+    "layers/parcels/sources.json",
+    "layers/parcels/fetch_parcels.sh",
+    "layers/parcels/normalize_parcels.py",
+    "layers/parcels/qa_parcels.py",
+    "layers/parcels/layer.json",
+    "layers/parcels/tests/test_use_adapters.py"
+  ],
+  "files": 6,
+  "dirs": 1,
+  "importers": 1,
+  "importer_files": [
+    "layers/parcels/tests/test_normalize_parcels.py"
+  ],
+  "recent_cochanges": [],
+  "tests_present": true,
+  "risk_hits": [
+    "layers/parcels/sources.json (layers/parcels/**)",
+    "layers/parcels/fetch_parcels.sh (layers/parcels/**)",
+    "layers/parcels/normalize_parcels.py (layers/parcels/**)",
+    "layers/parcels/qa_parcels.py (layers/parcels/**)",
+    "layers/parcels/layer.json (layers/parcels/**)",
+    "layers/parcels/tests/test_use_adapters.py (layers/parcels/**)"
+  ],
+  "important_hits": []
+}

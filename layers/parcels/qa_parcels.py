@@ -2,11 +2,13 @@
 """Stage 3 parcels QA gates (layer.json 'qa' block).
 
 Gate 1 — ATTRIBUTE WHITELIST (the hard gate): every feature in
-parcels.geojsonl must carry ONLY keys ⊆ {apn, county, acres, st}. One foreign
-key anywhere fails the build. This is the enforcement point for
+parcels.geojsonl must carry ONLY keys ⊆ {apn, county, acres, st, use}. One
+foreign key anywhere fails the build. This is the enforcement point for
 owner-names-never-in-tiles — the invariant that keeps the layer at $0
 licensing (research 2026-08-09 §5/§6 risk 4) and neutralizes the MT/ID
-mailing-list statutes.
+mailing-list statutes. The same scan runs the T-0012 USE VOCABULARY gate: a
+present `use` value outside USE_BUCKETS (RES AG VAC COM IND FOREST GOV) is a
+failure line — the attribute is optional, an out-of-vocabulary value is not.
 
 Gate 2 — count: kept features within tolerance (default ±25%) of the unit's
 sources.json count_expected. Vintages drift year to year; a 50% collapse means
@@ -14,8 +16,8 @@ a broken fetch, a 2x jump means a source restructure — both need eyes.
 
 Gate 3 — tiles: decode sample tiles from parcels.pmtiles (bounds from
 `pmtiles show`), assert the parcels layer exists somewhere and every decoded
-feature passes the same whitelist. Confirms nothing re-enters between
-normalize and tile encode.
+feature passes the same whitelist and use vocabulary. Confirms nothing
+re-enters between normalize and tile encode.
 
 Calibration (non-fatal): KB/parcel printed and written to qa_stats.json.
 Expected 0.4-0.7 through the pyramid; WARN outside 0.2-1.5. The pilot
@@ -38,13 +40,34 @@ import subprocess
 import sys
 from pathlib import Path
 
-WHITELIST = {"apn", "county", "acres", "st"}
+WHITELIST = {"apn", "county", "acres", "st", "use"}
+
+# T-0012: the closed land-use vocabulary — ONE constant shared by the Gate 1
+# full scan and the Gate 3 tile loop. Must equal normalize_parcels.USE_BUCKETS
+# and the app's USE_LABELS (change only in lockstep). Defined here, not
+# imported, so the backstop never inherits a normalize-side regression.
+USE_BUCKETS = frozenset({"RES", "AG", "VAC", "COM", "IND", "FOREST", "GOV"})
+
+
+def use_violation(props) -> str | None:
+    """repr() of a present-but-out-of-vocabulary use value, else None.
+
+    Absent use is fine (optional attribute); present-and-null, wrong case,
+    non-strings and unhashable junk are all violations, never crashes."""
+    if not isinstance(props, dict) or "use" not in props:
+        return None
+    value = props["use"]
+    if isinstance(value, str) and value in USE_BUCKETS:
+        return None
+    return repr(value)
 
 
 def gate_whitelist(geojsonl: Path) -> tuple[list[str], int]:
-    """Full scan of every feature's property keys. Returns (failures, count)."""
+    """Full scan of every feature's property keys + use vocabulary.
+    Returns (failures, count)."""
     failures: list[str] = []
     offenders: dict[str, int] = {}
+    use_offenders: dict[str, int] = {}
     count = 0
     with geojsonl.open(encoding="utf-8") as f:
         for line in f:
@@ -63,9 +86,15 @@ def gate_whitelist(geojsonl: Path) -> tuple[list[str], int]:
                     offenders[key] = offenders.get(key, 0) + 1
             if "st" not in props:
                 offenders["<missing st>"] = offenders.get("<missing st>", 0) + 1
+            bad_use = use_violation(props)
+            if bad_use is not None:
+                use_offenders[bad_use] = use_offenders.get(bad_use, 0) + 1
     for key, n in sorted(offenders.items()):
         failures.append(f"WHITELIST VIOLATION: key {key!r} on {n} features "
                         f"(allowed: {sorted(WHITELIST)})")
+    for value, n in sorted(use_offenders.items()):
+        failures.append(f"use vocabulary violation: {value} on {n} features "
+                        f"(allowed: {sorted(USE_BUCKETS)})")
     return failures, count
 
 
@@ -148,6 +177,12 @@ def gate_tiles(pmtiles: Path) -> list[str]:
                 bad = set(feature["properties"]) - WHITELIST
                 if bad:
                     failures.append(f"tile {z}/{x}/{y}: non-whitelisted keys {sorted(bad)}")
+                    break
+            # T-0012: own pass, so the whitelist break above can't mask it.
+            for feature in layer["features"]:
+                bad_use = use_violation(feature["properties"])
+                if bad_use is not None:
+                    failures.append(f"tile {z}/{x}/{y}: use vocabulary violation: {bad_use}")
                     break
     if not decoded_any:
         # Interior probe points can all land in water/desert gaps for odd-shaped

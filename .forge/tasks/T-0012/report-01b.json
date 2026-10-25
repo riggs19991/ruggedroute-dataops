@@ -1,0 +1,36 @@
+{
+ "schema": "forge/handoff/2",
+ "task": "T-0012",
+ "step": "01",
+ "status": "DONE",
+ "summary": "Confirmation re-run on the unchanged tree after the architect removed the self-recursive forge-check entry from brief-01 checks[]. Both brief checks are green (test_use_adapters 45 passed + 122 subtests; suite 91 passed + 1 skipped), and the unfiltered forge-check gives pass=5 fail=0 skipped=1 (checks/01-1792969801-forge-builder.json). Brief-01 sections 1-6 stand as implemented by the prior attempt: 7 use adapters verbatim, use in both WHITELISTs, build_props/normalize/main plumbing (use_field added to ogr2ogr -select, use null rate None when unconfigured), MA rest FIELDS appends use_field, qa vocab gate in Gate 1 + Gate 3, layer.json contract, sources.json wiring for FL_1 FL_2 MA IN NJ DC WI MT, 45 new tests. No source edits this attempt; nothing committed. DoD-1..3 met; DoD-4 is external.",
+ "files_changed": [
+  "layers/parcels/sources.json",
+  "layers/parcels/fetch_parcels.sh",
+  "layers/parcels/normalize_parcels.py",
+  "layers/parcels/qa_parcels.py",
+  "layers/parcels/layer.json",
+  "layers/parcels/tests/test_use_adapters.py"
+ ],
+ "checks_run": [
+  {
+   "cmd": "pytest layers/parcels/tests/test_use_adapters.py -q",
+   "exit": 0
+  },
+  {
+   "cmd": "pytest layers/parcels/tests -q",
+   "exit": 0
+  },
+  {
+   "cmd": "python .forge/bin/forge-check T-0012 01 --agent forge-builder",
+   "exit": 0
+  }
+ ],
+ "not_verified": [
+  "DoD-4 (external, operator): live dispatch of FL_1 FL_2 MA IN NJ DC WI MT, per-unit use null rates, one FL or WI tile decode",
+  "GDAL-only end-to-end parcels test (skipped: ogr2ogr absent on this host)"
+ ],
+ "failed_approaches": [],
+ "next_action": "Verifier: review T-0012/01 against DoD-1..3 using checks/01-1792969801-forge-builder.json. Operator: DoD-4 dispatch of FL_1 FL_2 MA IN NJ DC WI MT.",
+ "commit": null
+}

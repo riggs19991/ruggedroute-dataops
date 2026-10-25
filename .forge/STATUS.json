@@ -2,14 +2,122 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-25T22:34:22Z",
-  "updated_ts": 1792967662,
+  "updated_at": "2026-10-25T23:15:02Z",
+  "updated_ts": 1792970102,
   "updated_by": {
     "session_id": "cli",
-    "cmd": "forge-status close T-0009"
+    "cmd": "forge-status step-report T-0012 01"
   },
   "context_state": "stale",
-  "task": null,
+  "task": {
+    "id": "T-0012",
+    "title": "parcels: land-use classification — normalized 'use' bucket (RES/AG/VAC/COM/IND/FOREST/GOV) for FL MA IN NJ DC WI MT, whitelist + qa vocab gate + contract",
+    "class": "M",
+    "risk": "none",
+    "size_source": "declared",
+    "files": [
+      "layers/parcels/sources.json",
+      "layers/parcels/fetch_parcels.sh",
+      "layers/parcels/normalize_parcels.py",
+      "layers/parcels/qa_parcels.py",
+      "layers/parcels/layer.json"
+    ],
+    "creates": [
+      "layers/parcels/tests/test_use_adapters.py"
+    ],
+    "signals": {
+      "files": 6,
+      "dirs": 1,
+      "importers": 1,
+      "recent_cochanges": [],
+      "tests_present": true,
+      "risk_hits": [
+        "layers/parcels/sources.json (layers/parcels/**)",
+        "layers/parcels/fetch_parcels.sh (layers/parcels/**)",
+        "layers/parcels/normalize_parcels.py (layers/parcels/**)",
+        "layers/parcels/qa_parcels.py (layers/parcels/**)",
+        "layers/parcels/layer.json (layers/parcels/**)",
+        "layers/parcels/tests/test_use_adapters.py (layers/parcels/**)"
+      ],
+      "important_hits": []
+    },
+    "class_justification": "founder-approved parcels increment 2 (2026-08-11, re-confirmed 2026-10-25): adapters grounded in live value harvests this session; client side already shipped (app T-0011/T-0012) [--accept-risk-none: adds one whitelisted attribute behind the existing hard gates (Gate 1 full-scan + the now-running Gate 3 tile decode + a new bucket-vocabulary gate); publish path untouched; ships via the standard validation-then-full-dispatch sequence]",
+    "phase": "execute",
+    "plan": ".forge/tasks/T-0012/plan.md",
+    "plan_author": "forge-planner",
+    "branch": null,
+    "scope": [
+      "layers/parcels/sources.json",
+      "layers/parcels/fetch_parcels.sh",
+      "layers/parcels/normalize_parcels.py",
+      "layers/parcels/qa_parcels.py",
+      "layers/parcels/layer.json",
+      "layers/parcels/tests/test_use_adapters.py"
+    ],
+    "routing": {
+      "mode": "single",
+      "builder": {
+        "agent": "forge-builder",
+        "model": "opus",
+        "effort": "medium"
+      },
+      "verifier": {
+        "agent": "forge-verifier",
+        "model": "fable",
+        "effort": "medium"
+      },
+      "justification": "small M (6 files, 1 dir) planned by the architect: every adapter is fully specified from this session's live value harvests, so one Opus builder implements mechanically; Fable verifier because the change extends the licensing-critical whitelist"
+    },
+    "steps": [
+      {
+        "id": "01",
+        "title": "use adapters + whitelist + qa vocab gate + contract",
+        "agent": "forge-builder",
+        "model": "opus",
+        "effort": "medium",
+        "status": "reported",
+        "attempts": 2,
+        "from": "failed",
+        "verify_attempts": 0,
+        "started_at": "2026-10-25T23:08:36Z",
+        "started_ts": 1792969716,
+        "started_by": "cli",
+        "agent_id": null,
+        "base": "9025dd975cb8c629f800ba5fe33b7facbe3c211f",
+        "commit": null,
+        "brief": ".forge/tasks/T-0012/brief-01.md",
+        "report": ".forge/tasks/T-0012/report-01b.json",
+        "verdict": null,
+        "red_ok_until": null,
+        "allowed_paths": [
+          "layers/parcels/sources.json",
+          "layers/parcels/fetch_parcels.sh",
+          "layers/parcels/normalize_parcels.py",
+          "layers/parcels/qa_parcels.py",
+          "layers/parcels/layer.json",
+          "layers/parcels/tests/test_use_adapters.py"
+        ],
+        "mechanical": false,
+        "max_tool_calls": 120,
+        "gate_blocks": 0
+      }
+    ],
+    "escalation": {
+      "step": "01",
+      "round": 0
+    },
+    "next_action": "Dispatch forge-verifier (fable/medium) on step 01: brief-01.md, report-01b.json, range 9025dd9..none",
+    "resume_hint": "Step 01 is DONE and committed (none). Dispatch the verifier named in next_action; the verdict gate records the outcome.",
+    "evidence_count": 0,
+    "evidence": [],
+    "blocked_on": null,
+    "external": null,
+    "budget": {
+      "cap_usd": 10.0
+    },
+    "opened_at": "2026-10-25T22:34:47Z",
+    "base": "9025dd975cb8c629f800ba5fe33b7facbe3c211f"
+  },
   "queue": [
     {
       "id": "T-0008",

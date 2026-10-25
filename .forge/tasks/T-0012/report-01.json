@@ -1,0 +1,54 @@
+{
+ "schema": "forge/handoff/2",
+ "task": "T-0012",
+ "step": "01",
+ "status": "NEEDS_CONTEXT",
+ "summary": "Brief-01 sections 1-6 implemented: 7 use adapters verbatim, use in both WHITELISTs, build_props/normalize/main plumbing (use_field added to ogr2ogr -select, use null rate None when unconfigured), MA rest FIELDS appends use_field, qa vocab gate in Gate 1 + Gate 3, layer.json contract, sources.json wiring for FL_1 FL_2 MA IN NJ DC WI MT, 45 new tests; suite 91 passed + 1 skipped. Everything is recorded green except brief checks[] entry `python .forge/bin/forge-check T-0012 01`, which is self-recursive (238 nested processes before kill) and can never record exit 0. Question: may the architect drop that entry from brief-01 checks[] so the step can be re-gated DONE?",
+ "files_changed": [
+  "layers/parcels/sources.json",
+  "layers/parcels/fetch_parcels.sh",
+  "layers/parcels/normalize_parcels.py",
+  "layers/parcels/qa_parcels.py",
+  "layers/parcels/layer.json",
+  "layers/parcels/tests/test_use_adapters.py"
+ ],
+ "checks_run": [
+  {
+   "cmd": "pytest layers/parcels/tests/test_use_adapters.py -q",
+   "exit": 0
+  },
+  {
+   "cmd": "pytest layers/parcels/tests -q",
+   "exit": 0
+  },
+  {
+   "cmd": "python .forge/bin/forge-check T-0012 01 --agent forge-builder --only lib-unit",
+   "exit": 0
+  },
+  {
+   "cmd": "python .forge/bin/forge-check T-0012 01 --agent forge-builder --only layer-tests",
+   "exit": 0
+  },
+  {
+   "cmd": "python .forge/bin/forge-check T-0012 01 --agent forge-builder --only dod",
+   "exit": 0
+  },
+  {
+   "cmd": "python .forge/bin/forge-check T-0012 01 --agent forge-builder",
+   "exit": 1
+  },
+  {
+   "cmd": "bash -n layers/parcels/fetch_parcels.sh",
+   "exit": 0
+  },
+  {
+   "cmd": "PYTHONIOENCODING=utf-8 python layers/parcels/qa_parcels.py --unit ZZ --build C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/qa_smoke/bad",
+   "exit": 1,
+   "expected_fail": true
+  },
+  {
+   "cmd": "python layers/parcels/qa_parcels.py --unit ZZ --build C:/Users/riggs/AppData/Local/Temp/claude/C--Users-riggs-RuggedRoute/a21684db-bed4-4d69-a17d-492b82de6f51/scratchpad/qa_smoke/good",
+   "exit": 0
+  }
+ ]
+}

@@ -70,11 +70,16 @@ case "$MODE" in
   rest)
     URL="$(cfg urls | head -1)"
     # Request ONLY the mapped fields: full-attribute dumps of a 6M-parcel
-    # shard are 15-25 GB of runner disk — geometry + 3 fields fits.
+    # shard are 15-25 GB of runner disk — geometry + 3 fields fits. T-0012:
+    # the unit's use_field (MA USE_CODE) rides along when set (dedup, order kept).
     FIELDS="$(python3 - "$SOURCES" "$UNIT" <<'PY'
 import json, sys
 cfg = json.load(open(sys.argv[1], encoding="utf-8"))[sys.argv[2]]
-print(",".join(v for v in (cfg.get("fields") or {}).values() if v))
+fields = [v for v in (cfg.get("fields") or {}).values() if v]
+use_field = cfg.get("use_field")
+if use_field and use_field not in fields:
+    fields.append(use_field)
+print(",".join(fields))
 PY
 )"
     EXTRA="$(cfg esridump_args)"

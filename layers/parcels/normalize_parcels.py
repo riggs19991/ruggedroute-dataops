@@ -4,9 +4,12 @@
 THE INVARIANT (research 2026-08-09 §5/§6, master plan §7): owner names and
 addresses NEVER enter tiles. This normalizer enforces it BY CONSTRUCTION — the
 output properties dict is built fresh from an explicit three-field mapping
-(apn/county/acres) plus the state code; nothing else can pass through, whatever
-the source publishes. qa_parcels.py re-verifies the same whitelist on the
-output file and on decoded tiles, so a regression here still cannot ship.
+(apn/county/acres) plus the state code, plus (T-0012) an optional `use` bucket
+that a named adapter derives from the unit's use_field — always one of the
+closed 7-value USE_BUCKETS vocabulary, so no source text rides along. Nothing
+else can pass through, whatever the source publishes. qa_parcels.py re-verifies
+the same whitelist (and the use vocabulary) on the output file and on decoded
+tiles, so a regression here still cannot ship.
 
 Input handling
 --------------
@@ -25,7 +28,8 @@ Usage:
     normalize_parcels.py --unit UT --src src/UT_1.zip --out build/
     normalize_parcels.py --unit TX_1 --src src/TX_1_raw.geojsonl --out build/
 Field mapping comes from sources.json (next to this script) unless the
---apn-field/--county-field/--acres-field overrides are given.
+--apn-field/--county-field/--acres-field overrides are given. The optional
+use_field/use_adapter pair (T-0012) comes from sources.json only.
 """
 
 from __future__ import annotations
@@ -37,7 +41,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-WHITELIST = ("apn", "county", "acres", "st")
+WHITELIST = ("apn", "county", "acres", "st", "use")
 
 # Substrings that mark a field mapping as forbidden no matter what a future
 # sources.json says — a config typo must not be able to route an owner column
@@ -295,6 +299,91 @@ def normalize_county(state: str, value: str | None) -> str | None:
     return None
 
 
+# ── T-0012: land use is a closed 7-bucket vocabulary or absent ───────────────
+# One adapter per source classification scheme, each grounded in live value
+# harvests (2026-10-25: ArcGIS distinct-value queries, DBF reads, live-tile
+# decodes). sources.json wires a unit with use_field (the SOURCE column) +
+# use_adapter (a USE_ADAPTERS key). Unknown/unmapped values return None and the
+# attribute is OMITTED — there is no "OTHER" bucket, so the client never renders
+# a meaningless label. The set must match the app's USE_LABELS exactly (change
+# only in lockstep); qa_parcels.py gates the same vocabulary on output + tiles.
+USE_BUCKETS = frozenset({"RES", "AG", "VAC", "COM", "IND", "FOREST", "GOV"})
+
+
+def _use_fl_dor(v):
+    s = str(v).strip()
+    if not s[:3].isdigit():
+        return None
+    n = int(s[:3])
+    if n == 0: return "VAC"            # 000 vacant residential
+    if 1 <= n <= 9: return "RES"
+    if 10 <= n <= 39: return "COM"
+    if 40 <= n <= 49: return "IND"
+    if 54 <= n <= 58: return "FOREST"  # timberland band inside the ag range
+    if 50 <= n <= 69: return "AG"
+    if 70 <= n <= 89: return "GOV"     # institutional + governmental
+    return None                        # 90-99 centrally assessed / misc
+
+
+def _use_ma_dor(v):
+    d = str(v).strip().lstrip("0")
+    if len(d) < 3 or not d.isdigit():
+        return None                    # '010C' style letter suffixes -> omit
+    return {"1": "RES", "3": "COM", "4": "IND", "6": "FOREST",
+            "7": "AG", "9": "GOV"}.get(d[0])   # 2xx open, 5xx personal, 8xx rec -> omit
+
+
+def _use_in_dlgf(v):
+    d = str(v).strip()
+    if len(d) < 3 or not d.isdigit():
+        return None
+    return {"1": "AG", "3": "IND", "4": "COM", "5": "RES", "6": "GOV"}.get(d[0])
+
+
+def _use_nj_modiv(v):
+    c = str(v).strip().upper()
+    if c == "1": return "VAC"
+    if c in ("2", "4C"): return "RES"
+    if c in ("3A", "3B"): return "AG"
+    if c == "4A": return "COM"
+    if c == "4B": return "IND"
+    if c.startswith("15"): return "GOV"
+    return None                        # 5A/5B/6x rail+utility -> omit
+
+
+def _use_dc_class(v):
+    c = str(v).strip().upper()
+    if c in ("1", "1A", "1B"): return "RES"
+    if c == "2": return "COM"
+    if c in ("3", "4"): return "VAC"   # 4 = blighted vacant
+    return None
+
+
+def _use_wi_propclass(v):
+    first = str(v).split(",")[0].strip().upper()
+    return {"1": "RES", "2": "COM", "3": "IND", "4": "AG",
+            "5": "VAC", "5M": "FOREST", "6": "FOREST"}.get(first)  # 7 'other' -> omit
+
+
+def _use_mt_proptype(v):
+    t = str(v).lower()
+    if "vacant" in t: return "VAC"
+    if "industrial" in t or "mining" in t or "gravel" in t or "oilfield" in t: return "IND"
+    if "apartment" in t or "condominium" in t or "townhouse" in t or "mobile" in t: return "RES"
+    if "exempt" in t or "tribal" in t or "centrally assessed" in t or "utility" in t: return "GOV"
+    if "farm" in t or "agricultural" in t: return "AG"
+    if "forest" in t or "timber" in t: return "FOREST"
+    if "golf" in t: return "COM"
+    return None                        # 'Improved Property' etc. are ambiguous -> omit
+
+
+USE_ADAPTERS = {
+    "fl_dor": _use_fl_dor, "ma_dor": _use_ma_dor, "in_dlgf": _use_in_dlgf,
+    "nj_modiv": _use_nj_modiv, "dc_class": _use_dc_class,
+    "wi_propclass": _use_wi_propclass, "mt_proptype": _use_mt_proptype,
+}
+
+
 def clean(value) -> str | None:
     """None for null-ish attribute values (None, '', 'null', whitespace)."""
     if value is None:
@@ -342,7 +431,9 @@ def pick_layer(ogr_src: str, hint: str | None) -> list[str]:
 
 def build_props(raw: dict, mapping: dict[str, str | None], state: str,
                 lower_index: dict[str, str] | None = None,
-                acres_divisor: float = 1.0) -> dict:
+                acres_divisor: float = 1.0,
+                use_field: str | None = None,
+                use_adapter: str | None = None) -> dict:
     """Fresh whitelisted props dict — the enforcement point.
 
     lower_index maps lowercased source keys -> actual keys so a config written
@@ -351,6 +442,11 @@ def build_props(raw: dict, mapping: dict[str, str | None], state: str,
 
     acres_divisor converts non-acre source units (FL publishes LND_SQFOOT —
     square feet — so its sources.json entry carries acres_divisor 43560).
+
+    use_field/use_adapter (T-0012, from sources.json): the source column holding
+    the assessment class and the USE_ADAPTERS key that buckets it. Only a result
+    inside USE_BUCKETS is kept — None, junk from a misbehaving adapter or an
+    adapter error all omit the attribute; the raw value itself never ships.
     """
     if lower_index is None:
         lower_index = {k.lower(): k for k in raw}
@@ -373,6 +469,15 @@ def build_props(raw: dict, mapping: dict[str, str | None], state: str,
                 out["acres"] = acres
         except (TypeError, ValueError, ZeroDivisionError):
             pass
+    if use_field and use_adapter:
+        value = clean(raw.get(use_field, raw.get(lower_index.get(use_field.lower(), ""), None)))
+        if value is not None:
+            try:
+                bucket = USE_ADAPTERS[use_adapter](value)
+            except (TypeError, ValueError):  # tolerant: one odd code never kills a unit
+                bucket = None
+            if isinstance(bucket, str) and bucket in USE_BUCKETS:
+                out["use"] = bucket
     return out
 
 
@@ -394,14 +499,20 @@ def ogr_stream(ogr_src: str, layer_args: list[str], fields: list[str]) -> subpro
 
 def normalize(srcs: list[str], layer_hint: str | None, mapping: dict[str, str | None],
               state: str, out_path: Path, stats: dict,
-              acres_divisor: float = 1.0) -> None:
+              acres_divisor: float = 1.0,
+              use_field: str | None = None,
+              use_adapter: str | None = None) -> None:
     kept = dropped_geom = 0
-    attr_present = {"apn": 0, "county": 0, "acres": 0}
+    attr_present = {"apn": 0, "county": 0, "acres": 0, "use": 0}
     with out_path.open("w", encoding="utf-8") as out:
         for src in srcs:
             ogr_src = resolve_src(src)
             stats.setdefault("sources", []).append(ogr_src)
             fields = [f for f in mapping.values() if f]
+            if use_field and use_field not in fields:
+                # T-0012: -select must carry the use column too, or every
+                # http/hub unit would ship use silently all-null.
+                fields.append(use_field)
             proc = ogr_stream(ogr_src, pick_layer(ogr_src, layer_hint), fields)
             assert proc.stdout is not None
             lower_index: dict[str, str] | None = None
@@ -420,9 +531,10 @@ def normalize(srcs: list[str], layer_hint: str | None, mapping: dict[str, str | 
                 raw = feature.get("properties") or {}
                 if lower_index is None:
                     lower_index = {k.lower(): k for k in raw}
-                props = build_props(raw, mapping, state, lower_index, acres_divisor)
+                props = build_props(raw, mapping, state, lower_index, acres_divisor,
+                                    use_field=use_field, use_adapter=use_adapter)
                 feature["properties"] = props
-                for attr in ("apn", "county", "acres"):
+                for attr in ("apn", "county", "acres", "use"):
                     if attr in props:
                         attr_present[attr] += 1
                 out.write(json.dumps(feature, separators=(",", ":")) + "\n")
@@ -434,12 +546,17 @@ def normalize(srcs: list[str], layer_hint: str | None, mapping: dict[str, str | 
     stats["dropped_empty_geometry"] = dropped_geom
     # T-0009: null-rate visibility — a renamed upstream field (WI V12→V13 etc.)
     # must show up as a number in the CI log, never as a silent all-null attr.
+    # T-0012: use is None when the unit configures no use_field ("not
+    # configured"), never 1.0 — 1.0 means configured-but-empty (renamed column
+    # or dead adapter) and must read as a red flag.
     stats["attr_null_rates"] = {
-        attr: (round(1.0 - attr_present[attr] / kept, 4) if kept else None)
-        for attr in ("apn", "county", "acres")
+        attr: (round(1.0 - attr_present[attr] / kept, 4)
+               if kept and (attr != "use" or use_field) else None)
+        for attr in ("apn", "county", "acres", "use")
     }
     print(f"  attr null rates (kept={kept}): " +
-          ", ".join(f"{a}={stats['attr_null_rates'][a]}" for a in ("apn", "county", "acres")))
+          ", ".join(f"{a}={stats['attr_null_rates'][a]}"
+                    for a in ("apn", "county", "acres", "use")))
 
 
 def main() -> None:
@@ -465,7 +582,19 @@ def main() -> None:
         "county": args.county_field or cfg_fields.get("county"),
         "acres": args.acres_field or cfg_fields.get("acres"),
     }
-    check_mapping(mapping)
+    # T-0012: optional land-use wiring (sources.json only). use_field gets the
+    # same forbidden-substring screen under role "use" (so the non-apn 'name'
+    # exemption applies) but stays out of mapping — it never joins the
+    # apn/county extraction loop; build_props only ever emits its bucket.
+    use_field = cfg.get("use_field") or None
+    use_adapter = cfg.get("use_adapter") or None
+    check_mapping({**mapping, "use": use_field})
+    if bool(use_field) != bool(use_adapter):
+        sys.exit(f"REFUSING use config for {args.unit}: use_field and use_adapter must be set "
+                 f"together (use_field={use_field!r}, use_adapter={use_adapter!r})")
+    if use_adapter and use_adapter not in USE_ADAPTERS:
+        sys.exit(f"REFUSING use config for {args.unit}: unknown use_adapter {use_adapter!r} "
+                 f"(known: {', '.join(sorted(USE_ADAPTERS))})")
     layer_hint = args.layer or cfg.get("layer") or None
     acres_divisor = float(cfg.get("acres_divisor") or 1.0)
 
@@ -474,7 +603,7 @@ def main() -> None:
 
     stats: dict = {"unit": args.unit, "st": state, "mapping": mapping}
     normalize(args.src, layer_hint, mapping, state, out_dir / "parcels.geojsonl", stats,
-              acres_divisor)
+              acres_divisor, use_field=use_field, use_adapter=use_adapter)
 
     (out_dir / "normalize_stats.json").write_text(json.dumps(stats, indent=2, sort_keys=True))
     print(json.dumps(stats, indent=2, sort_keys=True))

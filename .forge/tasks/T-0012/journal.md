@@ -1,0 +1,7 @@
+- 2026-10-25T22:34:47Z open: parcels: land-use classification — normalized 'use' bucket (RES/AG/VAC/COM/IND/FOREST/GOV) for FL MA IN NJ DC WI MT, whitelist + qa vocab gate + contract | class M risk none files=6 dirs=1 importers=1 tests_present=True risk_hits=['layers/parcels/sources.json (layers/parcels/**)', 'layers/parcels/fetch_parcels.sh (layers/parcels/**)', 'layers/parcels/normalize_parcels.py (layers/parcels/**)', 'layers/parcels/qa_parcels.py (layers/parcels/**)', 'layers/parcels/layer.json (layers/parcels/**)', 'layers/parcels/tests/test_use_adapters.py (layers/parcels/**)'] important=[]
+- 2026-10-25T22:36:50Z plan: test_baseline recorded at import: files=15 tests=151
+- 2026-10-25T22:38:01Z plan imported: .forge/tasks/T-0012/plan.md mode=single steps=['01'] builder={'agent': 'forge-builder', 'model': 'opus', 'effort': 'medium'} verifier={'agent': 'forge-verifier', 'model': 'fable', 'effort': 'medium'} phase=execute
+- 2026-10-25T22:38:01Z step-start 01: attempt 1 from=None base=9025dd9 agent_id=None
+- 2026-10-25T23:08:28Z step-report 01: NEEDS_CONTEXT commit=none report=.forge/tasks/T-0012/report-01.json
+- 2026-10-25T23:08:36Z step-start 01: attempt 2 from=failed base=9025dd9 agent_id=None
+- 2026-10-25T23:15:02Z step-report 01: DONE commit=none report=.forge/tasks/T-0012/report-01b.json
