@@ -11,8 +11,8 @@
   "schema": {
     "parcels": {
       "apn": "assessor parcel number / parcel ID (string), optional",
-      "county": "county name or FIPS as published by the source (string), optional — some states publish FIPS only; client formats or omits",
-      "acres": "source-published acreage rounded to 2 decimals (number), optional — NEVER computed from geometry in v1",
+      "county": "county DISPLAY NAME (string), optional — T-0009 contract: numeric source codes are translated in normalize (FL CO_NO, VA FIPS static tables; MT/TX remapped to their sources' name columns) and untranslatable bare codes are DROPPED, never shipped",
+      "acres": "source-published acreage rounded to 2 decimals (number), optional — NEVER computed from geometry in v1. Source reality (2026-10 probe): absent at source in UT/VA/ME, ~96% null in OH; normalize prints per-attribute null rates so field-name drift is visible in CI",
       "st": "2-letter state code, always present"
     },
     "contract_note": "This schema is the CONTRACT with the Android client (parcel identify sheet). It is also the QA WHITELIST: qa_parcels.py hard-fails the build if any other attribute key reaches the normalized output or a decoded tile. Owner names/addresses in tiles would convert a $0 layer into a vendor licensing negotiation — the whitelist gate is the enforcement point (research §5, §6 risk 4). It also neutralizes MT MCA 2-6-1017 and ID §74-120 mailing-list statutes.",

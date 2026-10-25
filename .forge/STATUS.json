@@ -2,24 +2,84 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-25T21:35:51Z",
-  "updated_ts": 1792964151,
+  "updated_at": "2026-10-25T21:38:11Z",
+  "updated_ts": 1792964291,
   "updated_by": {
     "session_id": "cli",
-    "cmd": "forge-status close T-0010"
+    "cmd": "forge-status plan T-0009"
   },
   "context_state": "stale",
-  "task": null,
+  "task": {
+    "id": "T-0009",
+    "title": "parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH",
+    "class": "X",
+    "risk": "none",
+    "size_source": "declared",
+    "files": [
+      "layers/parcels/normalize_parcels.py",
+      "layers/parcels/sources.json",
+      "layers/parcels/layer.json"
+    ],
+    "creates": [
+      "layers/parcels/tests/test_county_uniformity.py"
+    ],
+    "signals": {
+      "files": 4,
+      "dirs": 1,
+      "importers": 1,
+      "recent_cochanges": [],
+      "tests_present": true,
+      "risk_hits": [
+        "layers/parcels/normalize_parcels.py (layers/parcels/**)",
+        "layers/parcels/sources.json (layers/parcels/**)",
+        "layers/parcels/layer.json (layers/parcels/**)",
+        "layers/parcels/tests/test_county_uniformity.py (layers/parcels/**)"
+      ],
+      "important_hits": []
+    },
+    "class_justification": "queued T-0009 from the 2026-10-13 live-tile probe; county must be a display name or absent, never a bare code — pairs with the land-use increment for one validation cycle [--accept-risk-none: normalize-time attribute cleanup only; whitelist unchanged; publish path untouched; next full run ships it with the land-use attr]",
+    "phase": "execute",
+    "plan": ".forge/tasks/T-0009/plan.md",
+    "plan_author": "architect",
+    "branch": null,
+    "scope": [
+      "layers/parcels/normalize_parcels.py",
+      "layers/parcels/sources.json",
+      "layers/parcels/layer.json",
+      "layers/parcels/tests/test_county_uniformity.py"
+    ],
+    "routing": {
+      "mode": "inline",
+      "builder": null,
+      "verifier": {
+        "agent": "forge-verifier",
+        "model": "fable",
+        "effort": "medium"
+      },
+      "justification": "class X data-quality defect; architect codes inline grounded in live field probes (MT CountyName + TX COUNTY exist at source; FL CO_NO and VA FIPS need static tables harvested from FDOR order anchors and Census codes2020); Fable verifier mandatory | test_baseline recorded at import: files=14 tests=133"
+    },
+    "steps": [],
+    "escalation": {
+      "step": null,
+      "round": 0
+    },
+    "next_action": "Invoke /forge-investigate T-0009",
+    "resume_hint": "Plan imported from .forge/tasks/T-0009/plan.md (0 step(s), mode inline). Dispatch exactly the agent/model/effort STATUS records; the spawn guard refuses anything else.",
+    "evidence_count": 0,
+    "evidence": [],
+    "blocked_on": null,
+    "external": null,
+    "budget": {
+      "cap_usd": 30.0
+    },
+    "opened_at": "2026-10-25T21:37:41Z",
+    "base": "df69bfbf7aed1a53875e1fe7b8b73648f139218b"
+  },
   "queue": [
     {
       "id": "T-0008",
       "title": "qa: add qa/live_tiles.py, a live worker probe that decodes real tiles per layer, diffs the alias against a previous version object and gates the parcels whitelist",
       "class_hint": "T"
-    },
-    {
-      "id": "T-0009",
-      "title": "parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH",
-      "class_hint": "X"
     }
   ],
   "history": [

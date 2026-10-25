@@ -1,0 +1,27 @@
+{
+  "task": "T-0009",
+  "title": "parcels: county and acres are not uniform across units — FL serves float-string county codes (58.0), MT/TX/VA serve bare codes, acres is absent in UT/WI/VA/ME and 96% null in OH",
+  "computed_at": "2026-10-25T21:37:41Z",
+  "size_source": "declared",
+  "declared": [
+    "layers/parcels/normalize_parcels.py",
+    "layers/parcels/sources.json",
+    "layers/parcels/layer.json",
+    "layers/parcels/tests/test_county_uniformity.py"
+  ],
+  "files": 4,
+  "dirs": 1,
+  "importers": 1,
+  "importer_files": [
+    "layers/parcels/tests/test_normalize_parcels.py"
+  ],
+  "recent_cochanges": [],
+  "tests_present": true,
+  "risk_hits": [
+    "layers/parcels/normalize_parcels.py (layers/parcels/**)",
+    "layers/parcels/sources.json (layers/parcels/**)",
+    "layers/parcels/layer.json (layers/parcels/**)",
+    "layers/parcels/tests/test_county_uniformity.py (layers/parcels/**)"
+  ],
+  "important_hits": []
+}

@@ -44,6 +44,101 @@ WHITELIST = ("apn", "county", "acres", "st")
 # into the apn/county slot. (APN fields legitimately named OWNER_* don't exist.)
 FORBIDDEN_FIELD_SUBSTRINGS = ("owner", "own_", "name", "addr", "mail", "care_of", "taxpayer")
 
+# ── T-0009: county is a DISPLAY NAME or absent — bare codes never reach tiles ──
+# Sources that publish only a numeric county code get a static translation
+# table; numerics with no table entry are DROPPED. Name-carrying sources pass
+# through untouched (MT CountyName, TX COUNTY, WI CONAME, ...).
+
+# FDOR county number 11-77, alphabetical (FDOR NAL standard). Anchors verified
+# against live tiles 2026-08-11: 58=Orange (Orlando), 23=Dade (shown as the
+# county's current display name Miami-Dade).
+FL_COUNTY_NAMES = {
+    11: "Alachua", 12: "Baker", 13: "Bay", 14: "Bradford", 15: "Brevard", 16: "Broward",
+    17: "Calhoun", 18: "Charlotte", 19: "Citrus", 20: "Clay", 21: "Collier", 22: "Columbia",
+    23: "Miami-Dade", 24: "DeSoto", 25: "Dixie", 26: "Duval", 27: "Escambia", 28: "Flagler",
+    29: "Franklin", 30: "Gadsden", 31: "Gilchrist", 32: "Glades", 33: "Gulf", 34: "Hamilton",
+    35: "Hardee", 36: "Hendry", 37: "Hernando", 38: "Highlands", 39: "Hillsborough",
+    40: "Holmes", 41: "Indian River", 42: "Jackson", 43: "Jefferson", 44: "Lafayette",
+    45: "Lake", 46: "Lee", 47: "Leon", 48: "Levy", 49: "Liberty", 50: "Madison",
+    51: "Manatee", 52: "Marion", 53: "Martin", 54: "Monroe", 55: "Nassau", 56: "Okaloosa",
+    57: "Okeechobee", 58: "Orange", 59: "Osceola", 60: "Palm Beach", 61: "Pasco",
+    62: "Pinellas", 63: "Polk", 64: "Putnam", 65: "St. Johns", 66: "St. Lucie",
+    67: "Santa Rosa", 68: "Sarasota", 69: "Seminole", 70: "Sumter", 71: "Suwannee",
+    72: "Taylor", 73: "Union", 74: "Volusia", 75: "Wakulla", 76: "Walton", 77: "Washington",
+}
+
+# VA locality FIPS → name, harvested 2026-10-25 from the Census codes2020
+# national_county file (www2.census.gov/geo/docs/reference/codes2020/). VA's
+# VGIN FGDB carries geometry+PARCELID+FIPS only, so this is the only name path.
+VA_COUNTY_NAMES = {
+    "51001": "Accomack County", "51003": "Albemarle County", "51005": "Alleghany County",
+    "51007": "Amelia County", "51009": "Amherst County", "51011": "Appomattox County",
+    "51013": "Arlington County", "51015": "Augusta County", "51017": "Bath County",
+    "51019": "Bedford County", "51021": "Bland County", "51023": "Botetourt County",
+    "51025": "Brunswick County", "51027": "Buchanan County", "51029": "Buckingham County",
+    "51031": "Campbell County", "51033": "Caroline County", "51035": "Carroll County",
+    "51036": "Charles City County", "51037": "Charlotte County", "51041": "Chesterfield County",
+    "51043": "Clarke County", "51045": "Craig County", "51047": "Culpeper County",
+    "51049": "Cumberland County", "51051": "Dickenson County", "51053": "Dinwiddie County",
+    "51057": "Essex County", "51059": "Fairfax County", "51061": "Fauquier County",
+    "51063": "Floyd County", "51065": "Fluvanna County", "51067": "Franklin County",
+    "51069": "Frederick County", "51071": "Giles County", "51073": "Gloucester County",
+    "51075": "Goochland County", "51077": "Grayson County", "51079": "Greene County",
+    "51081": "Greensville County", "51083": "Halifax County", "51085": "Hanover County",
+    "51087": "Henrico County", "51089": "Henry County", "51091": "Highland County",
+    "51093": "Isle of Wight County", "51095": "James City County", "51097": "King and Queen County",
+    "51099": "King George County", "51101": "King William County", "51103": "Lancaster County",
+    "51105": "Lee County", "51107": "Loudoun County", "51109": "Louisa County",
+    "51111": "Lunenburg County", "51113": "Madison County", "51115": "Mathews County",
+    "51117": "Mecklenburg County", "51119": "Middlesex County", "51121": "Montgomery County",
+    "51125": "Nelson County", "51127": "New Kent County", "51131": "Northampton County",
+    "51133": "Northumberland County", "51135": "Nottoway County", "51137": "Orange County",
+    "51139": "Page County", "51141": "Patrick County", "51143": "Pittsylvania County",
+    "51145": "Powhatan County", "51147": "Prince Edward County", "51149": "Prince George County",
+    "51153": "Prince William County", "51155": "Pulaski County", "51157": "Rappahannock County",
+    "51159": "Richmond County", "51161": "Roanoke County", "51163": "Rockbridge County",
+    "51165": "Rockingham County", "51167": "Russell County", "51169": "Scott County",
+    "51171": "Shenandoah County", "51173": "Smyth County", "51175": "Southampton County",
+    "51177": "Spotsylvania County", "51179": "Stafford County", "51181": "Surry County",
+    "51183": "Sussex County", "51185": "Tazewell County", "51187": "Warren County",
+    "51191": "Washington County", "51193": "Westmoreland County", "51195": "Wise County",
+    "51197": "Wythe County", "51199": "York County", "51510": "Alexandria city",
+    "51520": "Bristol city", "51530": "Buena Vista city", "51540": "Charlottesville city",
+    "51550": "Chesapeake city", "51570": "Colonial Heights city", "51580": "Covington city",
+    "51590": "Danville city", "51595": "Emporia city", "51600": "Fairfax city",
+    "51610": "Falls Church city", "51620": "Franklin city", "51630": "Fredericksburg city",
+    "51640": "Galax city", "51650": "Hampton city", "51660": "Harrisonburg city",
+    "51670": "Hopewell city", "51678": "Lexington city", "51680": "Lynchburg city",
+    "51683": "Manassas city", "51685": "Manassas Park city", "51690": "Martinsville city",
+    "51700": "Newport News city", "51710": "Norfolk city", "51720": "Norton city",
+    "51730": "Petersburg city", "51735": "Poquoson city", "51740": "Portsmouth city",
+    "51750": "Radford city", "51760": "Richmond city", "51770": "Roanoke city",
+    "51775": "Salem city", "51790": "Staunton city", "51800": "Suffolk city",
+    "51810": "Virginia Beach city", "51820": "Waynesboro city", "51830": "Williamsburg city",
+    "51840": "Winchester city",
+}
+
+COUNTY_CODE_TABLES: dict[str, dict] = {"FL": FL_COUNTY_NAMES, "VA": VA_COUNTY_NAMES}
+
+
+def normalize_county(state: str, value: str | None) -> str | None:
+    """Display name or None. Numeric codes (incl. float-strings like '58.0')
+    translate through the state's table; untranslatable numerics are DROPPED —
+    a bare code means nothing to a rider and must never ship. Values with
+    letters are already names and pass through."""
+    if value is None:
+        return None
+    if any(ch.isalpha() for ch in value):
+        return value
+    try:
+        code = int(float(value))
+    except (TypeError, ValueError):
+        return None
+    table = COUNTY_CODE_TABLES.get(state)
+    if table is None:
+        return None
+    return table.get(code) or table.get(f"{code:05d}")
+
 
 def clean(value) -> str | None:
     """None for null-ish attribute values (None, '', 'null', whitespace)."""
@@ -110,6 +205,8 @@ def build_props(raw: dict, mapping: dict[str, str | None], state: str,
         if not field:
             continue
         value = clean(raw.get(field, raw.get(lower_index.get(field.lower(), ""), None)))
+        if role == "county":
+            value = normalize_county(state, value)
         if value is not None:
             out[role] = value
     acres_field = mapping.get("acres")
@@ -144,6 +241,7 @@ def normalize(srcs: list[str], layer_hint: str | None, mapping: dict[str, str | 
               state: str, out_path: Path, stats: dict,
               acres_divisor: float = 1.0) -> None:
     kept = dropped_geom = 0
+    attr_present = {"apn": 0, "county": 0, "acres": 0}
     with out_path.open("w", encoding="utf-8") as out:
         for src in srcs:
             ogr_src = resolve_src(src)
@@ -167,8 +265,11 @@ def normalize(srcs: list[str], layer_hint: str | None, mapping: dict[str, str | 
                 raw = feature.get("properties") or {}
                 if lower_index is None:
                     lower_index = {k.lower(): k for k in raw}
-                feature["properties"] = build_props(raw, mapping, state, lower_index,
-                                                    acres_divisor)
+                props = build_props(raw, mapping, state, lower_index, acres_divisor)
+                feature["properties"] = props
+                for attr in ("apn", "county", "acres"):
+                    if attr in props:
+                        attr_present[attr] += 1
                 out.write(json.dumps(feature, separators=(",", ":")) + "\n")
                 kept += 1
             rc = proc.wait()
@@ -176,6 +277,14 @@ def normalize(srcs: list[str], layer_hint: str | None, mapping: dict[str, str | 
                 sys.exit(f"ogr2ogr failed on {ogr_src} (rc={rc})")
     stats["kept"] = kept
     stats["dropped_empty_geometry"] = dropped_geom
+    # T-0009: null-rate visibility — a renamed upstream field (WI V12→V13 etc.)
+    # must show up as a number in the CI log, never as a silent all-null attr.
+    stats["attr_null_rates"] = {
+        attr: (round(1.0 - attr_present[attr] / kept, 4) if kept else None)
+        for attr in ("apn", "county", "acres")
+    }
+    print(f"  attr null rates (kept={kept}): " +
+          ", ".join(f"{a}={stats['attr_null_rates'][a]}" for a in ("apn", "county", "acres")))
 
 
 def main() -> None:
