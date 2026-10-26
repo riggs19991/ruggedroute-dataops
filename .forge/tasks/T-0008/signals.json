@@ -1,0 +1,20 @@
+{
+  "task": "T-0008",
+  "title": "qa: add qa/live_tiles.py, a live worker probe that decodes real tiles per layer, diffs the alias against a previous version object and gates the parcels whitelist",
+  "computed_at": "2026-10-26T01:27:39Z",
+  "size_source": "declared",
+  "declared": [
+    "qa/live_tiles.py",
+    "qa/live_tiles.baseline.json"
+  ],
+  "files": 2,
+  "dirs": 1,
+  "importers": 0,
+  "importer_files": [],
+  "recent_cochanges": [],
+  "tests_present": false,
+  "risk_hits": [
+    "title: alias"
+  ],
+  "important_hits": []
+}

@@ -42,3 +42,5 @@
 {"ts":"2026-10-26T01:23:27Z","event":"verdict","task":"T-0012","step":"01","class":"M","verdict":"PASS","verifier_model":"fable","tags":[],"gate_blocks":0,"attempt":1,"session_id":"cli"}
 {"ts":"2026-10-26T01:23:37Z","event":"verdict","task":"T-0012","step":"01","class":"M","verdict":"PASS","verifier_model":"fable","tags":[],"gate_blocks":0,"attempt":1,"session_id":"cli"}
 {"ts":"2026-10-26T01:26:42Z","event":"close","task":"T-0012","class":"M","outcome":"parked","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"cli"}
+{"ts":"2026-10-26T01:27:39Z","event":"open","task":"T-0008","class":"T","risk":"none","expected_premium":false,"cost_source":"unknown","session_id":"cli"}
+{"ts":"2026-10-26T01:29:01Z","event":"close","task":"T-0008","class":"T","outcome":"done","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"cli"}
