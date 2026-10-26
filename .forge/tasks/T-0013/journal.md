@@ -1,0 +1,1 @@
+- 2026-10-26T01:29:21Z queued: forge: step-report must amend a null step.commit on a verifying step — operator-mode M/W tasks deadlock at _step_done (lesson step-commit-operator-gap; T-0012 parked --partial on this) (class hint X)

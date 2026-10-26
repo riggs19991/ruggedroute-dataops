@@ -2,15 +2,21 @@
   "schema_version": 2,
   "forge_version": "1.0.0",
   "project": "ruggedroute-dataops",
-  "updated_at": "2026-10-26T01:29:01Z",
-  "updated_ts": 1792978141,
+  "updated_at": "2026-10-26T01:29:21Z",
+  "updated_ts": 1792978161,
   "updated_by": {
     "session_id": "cli",
-    "cmd": "forge-status close T-0008"
+    "cmd": "forge-status open --queue T-0013"
   },
   "context_state": "stale",
   "task": null,
-  "queue": [],
+  "queue": [
+    {
+      "id": "T-0013",
+      "title": "forge: step-report must amend a null step.commit on a verifying step — operator-mode M/W tasks deadlock at _step_done (lesson step-commit-operator-gap; T-0012 parked --partial on this)",
+      "class_hint": "X"
+    }
+  ],
   "history": [
     {
       "id": "T-0011",
