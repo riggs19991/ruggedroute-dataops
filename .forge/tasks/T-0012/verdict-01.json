@@ -1,0 +1,47 @@
+{
+ "schema": "forge/verdict/2",
+ "task": "T-0012",
+ "step": "01",
+ "range": "9025dd975cb8c629f800ba5fe33b7facbe3c211f..45783cf92912276f098e6ad105833130254f39f1",
+ "verdict": "PASS",
+ "criteria": [
+  {
+   "id": "DoD-1",
+   "result": "PASS",
+   "cmd": "pytest layers/parcels/tests/test_use_adapters.py -q",
+   "exit": 0
+  },
+  {
+   "id": "DoD-2",
+   "result": "PASS",
+   "cmd": "pytest layers/parcels/tests -q && grep -q '\"use\"' layers/parcels/normalize_parcels.py && grep -q '\"use\"' layers/parcels/qa_parcels.py && grep -q 'use_field' layers/parcels/fetch_parcels.sh",
+   "exit": 0
+  },
+  {
+   "id": "DoD-3",
+   "result": "PASS",
+   "cmd": "pytest layers/parcels/tests/test_use_adapters.py -q && python -c \"import json; d=json.load(open('layers/parcels/layer.json')); s=json.dumps(d); assert 'FOREST' in s and 'use' in d['schema']['parcels']\"",
+   "exit": 0
+  }
+ ],
+ "external_criteria": [
+  {
+   "id": "DoD-4",
+   "result": "PASS",
+   "cmd": "external: human attest .forge/tasks/T-0012/checks/01-1792977179-human.json (runs 40243912707 + 40246926809, FL/WI tile decodes vocab-clean, per-unit use null rates)",
+   "exit": 0,
+   "note": "task-level external criterion; step gate scopes criteria[] to brief dod DoD-1..3"
+  }
+ ],
+ "scope_check": "PASS",
+ "ratchet": "PASS",
+ "blocking_findings": [],
+ "deferred_findings": [
+  "Stale parcels attribute lists (no 'use') outside allowed_paths: README.md:42, .forge/binding.json:37, forge/bindings/ruggedroute-dataops.json:37 \u2014 update at close",
+  "Commit the untracked DoD-4 attest record .forge/tasks/T-0012/checks/01-1792977179-human.json at close",
+  "Rename stale test name test_exactly_the_seven_v1_states_are_wired (asserts 7 units / 6 states, correctly) at next touch",
+  "plan.md DoD-3/DoD-4 prose still says 7 states incl NJ; shipped contract is 6 states + documented NJ drop (45783cf) \u2014 annotate at close",
+  "Pre-existing: qa_parcels.py failure print '\u2717' UnicodeEncodeErrors on cp1252 consoles (exit still 1); CI unaffected"
+ ],
+ "tags": []
+}

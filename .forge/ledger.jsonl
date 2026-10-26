@@ -38,3 +38,7 @@
 {"ts":"2026-10-25T23:08:28Z","event":"attempt","task":"T-0012","step":"01","class":"M","agent":"forge-builder","model":"opus","effort":"medium","attempt":1,"status":"NEEDS_CONTEXT","gate_blocks":0,"commit":null,"session_id":"cli"}
 {"ts":"2026-10-25T23:08:36Z","event":"dispatch","task":"T-0012","step":"01","class":"M","agent":"forge-builder","model":"opus","effort":"medium","attempt":2,"escalated_from":null,"session_id":"cli"}
 {"ts":"2026-10-25T23:15:02Z","event":"attempt","task":"T-0012","step":"01","class":"M","agent":"forge-builder","model":"opus","effort":"medium","attempt":2,"status":"DONE","gate_blocks":0,"commit":null,"session_id":"cli"}
+{"ts":"2026-10-26T01:13:19Z","event":"dispatch","task":"T-0012","step":"01","class":"M","agent":"forge-verifier","model":"fable","effort":"medium","attempt":1,"escalated_from":null,"session_id":"cli"}
+{"ts":"2026-10-26T01:23:27Z","event":"verdict","task":"T-0012","step":"01","class":"M","verdict":"PASS","verifier_model":"fable","tags":[],"gate_blocks":0,"attempt":1,"session_id":"cli"}
+{"ts":"2026-10-26T01:23:37Z","event":"verdict","task":"T-0012","step":"01","class":"M","verdict":"PASS","verifier_model":"fable","tags":[],"gate_blocks":0,"attempt":1,"session_id":"cli"}
+{"ts":"2026-10-26T01:26:42Z","event":"close","task":"T-0012","class":"M","outcome":"parked","cost_usd":null,"cost_source":"unknown","context_carried":true,"expected_premium":false,"escalations":0,"status":null,"verdict":null,"session_id":"cli"}

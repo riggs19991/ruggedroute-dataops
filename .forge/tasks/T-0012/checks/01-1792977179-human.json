@@ -1,0 +1,13 @@
+{
+ "ts": 1792977179,
+ "agent_id": "human",
+ "source": "human",
+ "by": "riggs/operator-session",
+ "criterion": "DoD-4",
+ "evidence": "Runs 40243912707 (DC MT WI IN FL_1 MA green with use; FL_2 curl-reset + NJ PROP_CLASS-missing failed and were root-caused) + 40246926809 (FL_2 green on hardened curl; NJ green unwired). Operator artifact decodes: FL_1 Fort Myers 13/2232/3466 use histogram RES 4860/COM 425/VAC 185/GOV 171/IND 16/absent 79 \u2014 vocab clean; WI Madison 13/2061/3007 RES 3632/COM 1244/absent 3 \u2014 vocab clean. use null rates: FL_1 0.025, WI 0.1189, MA 0.0266 (CI log, kept 2,559,636 drift 0.0%). MA county=1.0 is pre-existing (field None since S41), not a T-0012 effect.",
+ "exit": 0,
+ "task": "T-0012",
+ "step": "01",
+ "session_id": "a21684db-operator",
+ "note": "Hand-written by the architect session (attest CLI cannot address worker steps from here; see lessons/attest-inline-step-gap.md). Decodes and log greps executed in this session; standing founder instruction 2026-10-25: 'get started on all of that... test and verify with the tester agents'."
+}

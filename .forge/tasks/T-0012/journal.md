@@ -5,3 +5,9 @@
 - 2026-10-25T23:08:28Z step-report 01: NEEDS_CONTEXT commit=none report=.forge/tasks/T-0012/report-01.json
 - 2026-10-25T23:08:36Z step-start 01: attempt 2 from=failed base=9025dd9 agent_id=None
 - 2026-10-25T23:15:02Z step-report 01: DONE commit=none report=.forge/tasks/T-0012/report-01b.json
+- 2026-10-26T01:13:16Z attest (by hand) 01 DoD-4: 6 use states green across runs 40243912707+40246926809; FL/WI tiles decoded vocab-clean; NJ unwired after PROP_CLASS hard-fail; FL_2 curl hardened; record .forge/tasks/T-0012/checks/01-1792977179-human.json
+- 2026-10-26T01:13:19Z step-verifying 01: verifier dispatch 1 (fable/medium) agent_id=None
+- 2026-10-26T01:23:27Z step-verdict 01: PASS tags=[] blocking=0
+- 2026-10-26T01:23:37Z step-verdict 01: PASS tags=[] blocking=0
+- 2026-10-26T01:26:42Z close: parked | handoff .forge/tasks/T-0012/handoff.md
+- 2026-10-26T01:26:42Z close: removed .forge/tasks/T-0012/drafts/ (pre-validation drafts are never committed)

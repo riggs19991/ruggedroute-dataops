@@ -94,3 +94,6 @@ mandatory tier because the change extends the licensing-critical attribute white
 
 ## Rollback
 Path-scoped checkout (see json). The live tileset changes only at the next publish dispatch.
+
+## Post-verdict annotation (2026-10-26)
+Shipped contract = 6 use states (FL MA IN DC WI MT): NJ was unwired mid-task when run 40243912707 proved the statewide gdb lacks PROP_CLASS (FGDB -select hard-fails). DoD-3/DoD-4 prose above predates that; the verifier graded against the current contract and PASSed (verdict-01.json).
